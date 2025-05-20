@@ -380,7 +380,7 @@ Use the `settings` object to set the model's properties. The following table sho
 |       | `gamma`            | [0, 1] | 0.3     | The decay parameter for the seasonal component.  |
 |       | `type`             | `add`, `mult`   | `add`   | Defines how seasonality is modeled: additive or multiplicative. |
 |       | `period`           | Integer         | 1       | The number of buckets comprising the period. |
-|      | `pad`              | Boolean         | true    | Whether to add a small offset to `0` values for `mult` type models to avoid a divide-by-zero error. |
+|      | `pad`              | Boolean         | `true`    | Whether to add a small offset to `0` values for `mult` type models to avoid a divide-by-zero error. |
 
 
 For a discussion of these models and their parameters, see [Wikipedia](https://en.wikipedia.org/wiki/Moving_average). 
