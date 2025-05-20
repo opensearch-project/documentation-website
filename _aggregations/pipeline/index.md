@@ -33,7 +33,7 @@ A sibling aggregation must be a multi-bucket aggregation (have multiple grouped 
 
 ### Parent aggregations
 
-A _parent_ aggregation takes the output of an outer aggregation and produces new buckets or new aggregations at the same level as the existing buckets.
+A _parent_ aggregation takes the output of an outer aggregation and produces new buckets or new aggregations at the same level as the existing buckets. Unlike sibling pipeline aggregations, which operate across all buckets and produce a single output, parent pipeline aggregations process each bucket individually and write the result back into each bucket.
 
 The specified metric for a parent aggregation must be a numeric value.
 
