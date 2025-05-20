@@ -45,7 +45,7 @@ PUT /articles/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Searching using 
+## Searching using `match_phrase` query
 
 Use the following `match_phrase` query to search for "machine learning" in the `tags` field:
 
