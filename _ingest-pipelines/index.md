@@ -61,3 +61,4 @@ Learn how to:
 - [Retrieve information about a pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/get-ingest/).
 - [Delete a pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/delete-ingest/). 
 - [Use ingest processors in OpenSearch]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/index-processors/)
+- [Use conditional execution]({{site.url}}{{site.baseurl}}/ingest-pipelines/conditional-execution/)
