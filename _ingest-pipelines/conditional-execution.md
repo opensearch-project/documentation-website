@@ -10,7 +10,7 @@ In ingest pipelines, you can control whether a processor runs by using the optio
 
 ## Basic conditional execution
 
-Each processor can include an `if` clause. If the condition evaluates to `true`, the processor runs, otherwise, it's skipped.
+Each processor can include an `if` clause. If the condition evaluates to `true`, the processor runs; otherwise, it's skipped.
 
 ### Example: Drop debug-level logs
 
@@ -79,7 +79,7 @@ PUT _ingest/pipeline/drop_debug_env
 ```
 {% include copy-curl.html %}
 
-If the null-safe `?.` operator is not configured, indexing any document which doesn't contain `app.env` field will trigger the following null pointer exception:
+If the null-safe `?.` operator is not configured, indexing any document that doesn't contain `app.env` field will trigger the following null pointer exception:
 
 ```json
 {
@@ -90,7 +90,7 @@ If the null-safe `?.` operator is not configured, indexing any document which do
 
 ## Handling flattened fields
 
-If your document has a flattened field, for example: `"app.env": "debug"`, use the [`dot_expander`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/dot-expander/) processor to convert it into a nested structure:
+If your document has a flattened field, for example, `"app.env": "debug"`, use the [`dot_expander`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/dot-expander/) processor to convert it into a nested structure:
 
 ```json
 PUT _ingest/pipeline/drop_debug_env
@@ -128,7 +128,7 @@ Avoid calling methods on potential null values. Use constants or null checks ins
 The following ingest pipeline uses three processors:
 
 1. `set`: If no value is provided in the `user` field, sets the `user` field to `guest`.
-2. `set`: If the `status_code` is provided and is higher than `400`, sets the `error` field to `true` .
+2. `set`: If the `status_code` is provided and is higher than `400`, sets the `error` field to `true`.
 3. `drop`: If the `app.env` field is equal to `debug`, drops the entire document.
 
 ```json
