@@ -17,7 +17,7 @@ The `parent` aggregation identifies child documents that have matching parent do
 
 ## Parameters
 
-The `children` aggregation takes the following parameters:
+The `children` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               | :--             | :--         |
@@ -67,7 +67,7 @@ Next, populate the data with three departments and three employees. The parent-c
 | `Engineering` | `Carl Carter` |
 | `HR` | none |
 
-The `routing` parameter ensures that both parent and child documents are stored on the same shard, which is required for parent-child relationships to function correctly in OpenSearch:
+The `routing` parameter ensures that both parent and child documents are stored on the same shard, which is required in order for parent-child relationships to function correctly in OpenSearch:
 
 ```json
 POST _bulk?routing=1
