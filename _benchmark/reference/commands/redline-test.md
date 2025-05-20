@@ -65,7 +65,7 @@ opensearch-benchmark execute-test \
 
 ## Results
 
-At the end of a redline test, OpenSearch Benchmark logs the maximum number of clients that your cluster supported without request errors.
+During a redline test, OpenSearch Benchmark provides detailed logs with scaling decisions and request failures during the test. At the end of a redline test, OpenSearch Benchmark logs the maximum number of clients that your cluster supported without request errors.
 
 The following example log output indicates that the redline test detected a `15%` error rate for the keyword-terms operation and determined that the cluster's maximum stable client load before errors occurred was `410`:
 
@@ -78,6 +78,7 @@ Redline test finished. Maximum stable client number reached: 410
 
 Use the following options and behaviors to better understand and customize redline test execution:
 
-- To set a custom client limit, use `--redline-test=<int>`. For example, `--redline-test=1500` sets the maximum to `1500` clients.
-- When errors are detected, the `FeedbackActor` pauses execution and waits 30 seconds before retrying.
-- OpenSearch Benchmark provides detailed logs with scaling decisions and request failures during the test.
+- `--redline-scale-step`: Specifies the number of clients to unpause in each scaling iteration.
+- `--redline-scaledown-percentage`: Specifies the percentage of clients to pause when an error occurs.
+- `--redline-post-scaledown-sleep`: Specifies the number of seconds the feedback actor waits before initiating a scale-up after scaling down.
+- `--redline-max-clients`: Specifies the maximum number of clients allowed during redline testing. If unset, OpenSearch Benchmark defaults to the number of clients defined in the test procedure.
