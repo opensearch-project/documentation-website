@@ -61,7 +61,7 @@ GET /articles/_search
 ```
 {% include copy-curl.html %}
 
-The result demonstrates that the phrase match succeeds because the `position_increment_gap` is set to `0`, allowing tokens from separate values to be treated as adjacent.
+The result demonstrates that the phrase match succeeds because the `position_increment_gap` is set to `0`, allowing tokens from separate values to be treated as adjacent:
 
 ```json
 {
