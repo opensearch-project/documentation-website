@@ -20,7 +20,7 @@ Most errors in `rare_terms` computations are _false negatives_ or "missed" value
 
 ## Controlling sensitivity
 
-The sensitivity error in the `rare_terms` aggregation algorithm is measured as the fraction of rare values that are missed, or `false negatives/target values`. For example, if the aggregation misses 100 rare values in a dataset with 5,000 rare values, the sensitivity error is `100/5000 = 0.02`, or 2%. 
+Sensitivity error in the `rare_terms` aggregation algorithm is measured as the fraction of rare values that are missed, or `false negatives/target values`. For example, if the aggregation misses 100 rare values in a dataset with 5,000 rare values, sensitivity error is `100/5000 = 0.02`, or 2%. 
 
 You can adjust the `precision` parameter in `rare_terms` aggregations to control the trade-off between sensitivity and memory use.
 
@@ -37,11 +37,11 @@ Runtime memory use is described in absolute terms, typically in MB of RAM.
 
 Memory use increases linearly with the number of unique items. The linear scaling factor varies from roughly 1.0 to 2.5 MB per 1 million unique values, depending on the `precision` parameter. For the default `precision` of `0.001`, the memory cost is about 1.75 MB per 1 million unique values.
 
-### Managing the sensitivity error
+### Managing sensitivity error
 
-The sensitivity error increases linearly with the total number of unique values. For information about estimating the number of unique values, see [Cardinality aggregation]({{site.url}}{{site.baseurl}}/aggregations/metric/cardinality/).
+Sensitivity error increases linearly with the total number of unique values. For information about estimating the number of unique values, see [Cardinality aggregation]({{site.url}}{{site.baseurl}}/aggregations/metric/cardinality/).
 
-The sensitivity error rarely exceeds 2.5% at the default `precision`, even for datasets with 10--20 million unique values. For a `precision` of `0.00001`, the sensitivity error is rarely above 0.6%. However, a very low absolute number of rare values can cause large variances in the error rate (if there are only two rare values, missing one of them results in a 50% error rate).
+Sensitivity error rarely exceeds 2.5% at the default `precision`, even for datasets with 10--20 million unique values. For a `precision` of `0.00001`, sensitivity error is rarely above 0.6%. However, a very low absolute number of rare values can cause large variances in the error rate (if there are only two rare values, missing one of them results in a 50% error rate).
 
 
 ## Compatibility with other aggregations
@@ -57,7 +57,7 @@ The `rare_terms` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               | :--             | :--         |
-| `field`               | Required          | String          | The field to analyze for rare terms. Must be of type `text` with a `keyword` mapping, or `numeric`. |
+| `field`               | Required          | String          | The field to analyze for rare terms. Must be of a numeric type or a text type with a `keyword` mapping. |
 | `max_doc_count`       | Optional          | Integer         | The maximum document count required in order for a term to be considered rare. Default is `1`. Maximum is `100`. |
 | `precision`           | Optional          | Integer         | Controls the precision of the algorithm used to identify rare terms. Higher values provide more precise results but consume more memory. Default is `0.001`. Minimum (most precise allowable) is `0.00001`. |
 | `include`             | Optional          | Array/regex     | Terms to include in the result. Can be a regular expression or an array of values. |
