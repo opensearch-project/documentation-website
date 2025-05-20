@@ -26,7 +26,7 @@ Field | Data type | Description
 
 The following example demonstrates using a search pipeline with a `score-ranker-processor`.
 
-### Creating a search pipeline with a score ranker processor`
+### Creating a search pipeline with a score ranker processor
 
 The following request creates a search pipeline containing a `score-ranker-processor` that uses the `rrf` combination technique:
 
