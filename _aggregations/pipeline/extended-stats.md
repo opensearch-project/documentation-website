@@ -75,6 +75,8 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
+## Example response
+
 The response contains extended stats for the selected buckets. Note that the standard deviation bounds are for a three-sigma range; changing `sigma` (or letting it default to `2`) returns different results:
 
 <details open markdown="block">

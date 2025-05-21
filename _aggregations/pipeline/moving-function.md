@@ -157,6 +157,8 @@ POST /opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
+## Example response
+
 The response shows the standard deviation of the moving window starting with a zero value in the second bucket. The `stdDev` function returns `0` for windows that are empty or contain only invalid values (`null` or `NaN`):
 
 <details open markdown="block">

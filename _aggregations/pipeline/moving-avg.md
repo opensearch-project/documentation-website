@@ -77,6 +77,8 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
+## Example response
+
 The aggregation returns the `moving_avg` value starting from the second bucket. The first bucket does not have a moving average value because there aren't enough previous data points to calculate it:
 
 ```json
