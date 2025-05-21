@@ -6,6 +6,8 @@ nav_order: 120
 ---
 
 ## Moving average aggregations
+**Deprecated**
+{: .label .label-red }
 
 The `moving_avg` aggregation has been deprecated in favor of the `moving_fn` aggregation.
 {: .important}
@@ -36,8 +38,8 @@ The `moving_avg` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | String          | The path of the buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
-| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
+| `buckets_path`        | Required          | String          | The path of the buckets to be aggregated. See [Buckets path]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
+| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. See [Data gaps]({{site.url}}{{site.baseurl}}/aggregations/pipeline/#data-gaps). |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 | `window`              | Optional          | Numerical       | The number of data points contained in the window. Default is `5`. |
 | `model`               | Optional          | String          | The weighted moving average model to use. Options are `ewma`, `holt`, `holt_winters`, `linear`, and `simple`. Default is `simple`. See [Models](#models). |

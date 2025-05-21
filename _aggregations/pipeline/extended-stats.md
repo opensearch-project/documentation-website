@@ -7,7 +7,7 @@ nav_order: 80
 
 # Extended stats bucket aggregation
 
-The `extended_stats_bucket` aggregation is a more comprehensive version of the [`stats_bucket`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/stats-bucket/) aggregation. As well as the basic statistical measures provided by `stats_bucket`, `extended_stats_bucket` calculates the following metrics:
+The `extended_stats_bucket` aggregation is a more comprehensive version of the [`stats_bucket`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/stats-bucket/) sibling aggregation. As well as the basic statistical measures provided by `stats_bucket`, `extended_stats_bucket` calculates the following metrics:
 
 - Sum of squares
 - Variance
@@ -36,8 +36,8 @@ The `extended_stats_bucket` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
-| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
+| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Buckets path]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
+| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. See [Data gaps]({{site.url}}{{site.baseurl}}/aggregations/pipeline/#data-gaps).|
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `<stat>_as_string` property. |
 | `sigma`   | Optional          | Double (non-negative) | The number of standard deviations above and below the mean used to calculate the `std_deviation_bounds` interval. Default is `2`. See [Defining bounds]({{site.url}}{{site.baseurl}}/aggregations/metric/extended-stats#defining-bounds) in `extended_stats`. |
 
@@ -75,11 +75,12 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-## Example response
-
 The response contains extended stats for the selected buckets. Note that the standard deviation bounds are for a three-sigma range; changing `sigma` (or letting it default to `2`) returns different results:
 
 <details open markdown="block">
+  <summary>
+    Response
+  </summary>
 
 ```json
 {
