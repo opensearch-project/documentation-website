@@ -390,7 +390,7 @@ For a discussion of these models and their parameters, see [Wikipedia](https://e
 
 The `holt` model computes weights with exponential decay controlled by the `alpha` and `beta` parameters.
 
-The following calculates a moving average against weekly byte total data using a Holt model with a `window` size of `6`, an `alpha` value of `0.4`, and a `beta` value of `0.2`:
+The following request calculates a moving average of total weekly byte data using a Holt model with a `window` size of `6`, an `alpha` value of `0.4`, and a `beta` value of `0.2`:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
