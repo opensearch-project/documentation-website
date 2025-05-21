@@ -10,9 +10,9 @@ redirect_from:
 
 # Bucket sort aggregations
 
-The `bucket_sort` aggregation is a parent aggregation that sorts buckets of its parent multi-bucket aggregation.
+The `bucket_sort` aggregation is a parent aggregation that sorts or truncates the buckets produced by its parent multi-bucket aggregation.
 
-In `bucket_sort` aggregations, you can sort buckets by multiple fields, each with its own sort order. Buckets can be sorted by their key, document count, or values from subaggregations. You can also use the `from` and `size` parameters to limit the results, with or without sorting.
+In `bucket_sort` aggregations, you can sort buckets by multiple fields, each with its own sort order. Buckets can be sorted by their key, document count, or values from subaggregations. You can also use the `from` and `size` parameters to truncate the results, with or without sorting.
 
 For information about specifying sort order, see [Sort results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/).
 
