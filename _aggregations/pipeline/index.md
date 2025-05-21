@@ -3,6 +3,7 @@ layout: default
 title: Pipeline aggregations
 nav_order: 5
 has_children: true
+has_toc: false
 redirect_from:
   - /opensearch/pipeline-agg/
   - /query-dsl/aggregations/pipeline-agg/
