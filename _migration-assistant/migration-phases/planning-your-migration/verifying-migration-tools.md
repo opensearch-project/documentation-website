@@ -93,8 +93,10 @@ Use this guidance to troubleshoot any of the following snapshot verification iss
 
 If you encounter an error like `AccessDenied (Service: Amazon S3; Status Code: 403)`, verify the following:
 
-- The IAM role assigned to your Elasticsearch cluster has the necessary S3 permissions.
-- The bucket name and AWS Region provided in the snapshot configuration match the actual S3 bucket you created.
+- Make sure you're using the S3 bucket created by Migration Assistant.
+- If you're using a custom S3 bucket, verify that:
+  - The IAM role assigned to your Elasticsearch cluster has the necessary S3 permissions.
+  - The bucket name and AWS Region provided in the snapshot configuration match the actual S3 bucket you created.
 
 #### Older versions of Elasticsearch
 
@@ -166,6 +168,20 @@ Verify that the source cluster allows traffic ingress from the Capture Proxy Sec
 
 Look for failing tasks by navigating to **Traffic Capture Proxy ECS**. Change **Filter desired status** to **Any desired status** in order to see all tasks and navigate to the logs for stopped tasks.
 
+### Snapshot and S3 bucket issues
+
+When using the CDK deployment for Migration Assistant, you might encounter the following errors during snapshot creation and deletion.
+
+#### Bucket permissions
+
+To make sure that you can delete snapshots as well as create them during the CDK deployment process, confirm that the `OSMigrations-dev-<region>-CustomS3AutoDeleteObjects` stack has S3 object deletion rights. Then, verify that `OSMigrations-dev-<region>-default-SnapshotRole` has the following S3 permissions:  
+
+  - List bucket contents  
+  - Read/Write/Delete objects
+
+#### Snapshot conflicts
+
+To prevent snapshot conflicts, use the `console snapshot delete` command from the migration console. If you delete snapshots or snapshot repositories in a location other than the migration console, you might encounter "already exists" errors.
 
 ## Resetting before migration
 
@@ -205,4 +221,3 @@ This command will result in the loss of all data in the target cluster and shoul
 console clusters clear-indices --cluster target
 ```
 {% include copy.html %}
-

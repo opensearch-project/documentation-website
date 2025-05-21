@@ -7,6 +7,7 @@ parent: Install and configure
 redirect_from:
   - /benchmark/configuring-benchmark/
   - /benchmark/user-guide/configuring-benchmark/
+  - /benchmark/tutorials/sigv4/
 ---
 
 # Configuring OpenSearch Benchmark
@@ -158,6 +159,51 @@ This section defines how OpenSearch versions are distributed.
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
 | `release.cache` | Boolean | Determines whether newly released OpenSearch versions should be cached locally. |
+
+## Running OpenSearch Benchmark with AWS Signature Version 4
+
+OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run OpenSearch Benchmark with AWS Signature Version 4, you need to set up an [AWS Identity and Access Management (IAM) user or role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html) and provide it access to the OpenSearch cluster using AWS Signature Version 4 authentication. 
+
+Whether to use an IAM role or user depends on your test cluster's access management requirements. For more information about whether to use an IAM role or user, see [When to create an IAM user (instead of a role)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html#id_which-to-choose).
+
+Use the following steps to set up AWS Signature Version 4:
+
+1. Create an IAM role or user in the AWS Management Console. 
+
+2. Set up your environment variables. If you're testing using Amazon OpenSearch Serverless, set `OSB_SERVICE` to `aoss`.
+
+   - For an IAM user, configure the following environment variables:
+
+   ```bash
+   export OSB_AWS_ACCESS_KEY_ID=<IAM USER AWS ACCESS KEY ID>
+   export OSB_AWS_SECRET_ACCESS_KEY=<IAM USER AWS SECRET ACCESS KEY>
+   export OSB_REGION=<YOUR REGION>
+   export OSB_SERVICE=es
+   ```
+   {% include copy.html %}
+
+   - For an IAM role, configure the following environment variables:
+
+   ```bash
+   export OSB_AWS_ACCESS_KEY_ID=<IAM Role AWS ACCESS KEY ID>
+   export OSB_AWS_SECRET_ACCESS_KEY=<IAM Role AWS SECRET ACCESS KEY>
+   export OSB_AWS_SESSION_TOKEN=<IAM Role SESSION TOKEN>
+   export OSB_REGION=<YOUR REGION>
+   export OSB_SERVICE=es
+   ```
+   {% include copy.html %}
+
+
+3. Customize and run the following `execute-test` command with the `--client-options=amazon_aws_log_in:environment` flag. This flag provides the location of your exported credentials to OpenSearch Benchmark.
+
+   ```bash
+   opensearch-benchmark execute-test \
+   --target-hosts=<CLUSTER ENDPOINT> \
+   --pipeline=benchmark-only \
+   --workload=geonames \
+   --client-options=timeout:120,amazon_aws_log_in:environment \
+   ```
+
 
 ## Proxy configurations
 

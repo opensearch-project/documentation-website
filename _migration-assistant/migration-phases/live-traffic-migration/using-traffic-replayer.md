@@ -284,9 +284,16 @@ The `readable-tuples.log` should appear similar to the following:
 ```
 
 
-## Metrics
+## Amazon CloudWatch metrics and dashboard
+Migration Assistant creates an Amazon CloudWatch dashboard named `MigrationAssistant_ReindexFromSnapshot_Dashboard` to visualize the health and performance of the backfill process. This dashboard combines metrics for the backfill workers and migration to Amazon OpenSearch Service, providing insights into the performance and health of the Capture Proxy and Traffic Replayer components, including metrics such as:
 
-Traffic Replayer emits various OpenTelemetry metrics to Amazon CloudWatch, and traces are sent through AWS X-Ray. The following are some useful metrics that can help evaluate cluster performance.
+- The number of bytes read and written.
+- The number of active connections.
+- The replay speed multiplier. 
+
+You can find the Capture and Replay dashboard in the AWS Management Console for CloudWatch Dashboards in the AWS Region where you deployed Migration Assistant.
+
+Traffic Replayer emits various OpenTelemetry metrics to Amazon CloudWatch, and traces are sent through AWS X-Ray. The following are some useful metrics that can help evaluate migration performance.
 
 ### `sourceStatusCode`
 
@@ -309,4 +316,4 @@ The following metrics are also reported:
 
 ## CloudWatch considerations
 
-Metrics pushed to CloudWatch may experience a visibility lag of around 5 minutes. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more information, see [Amazon CloudWatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
+Metrics and dashboards pushed to CloudWatch may experience a visibility lag of around 5 minutes. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more information, see [Amazon CloudWatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
