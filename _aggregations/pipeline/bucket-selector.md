@@ -58,6 +58,8 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
+## Example response
+
 The aggregation returns the `sales_per_week` buckets that meet the scripted criterion:
 
 ```json
