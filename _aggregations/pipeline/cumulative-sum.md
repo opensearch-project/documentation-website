@@ -8,7 +8,7 @@ nav_order: 60
 
 # Cumulative sum aggregations
 
-The `cumulative_sum` aggregation is a parent aggregation that calculates the cumulative sum of each bucket of a previous aggregation.
+The `cumulative_sum` aggregation is a parent aggregation that calculates the cumulative sum across the buckets of a previous aggregation.
 
 A cumulative sum is a sequence of partial sums of a given sequence. For example, the cumulative sums of the sequence `{a,b,c,…}` are `a`, `a+b`, `a+b+c`, and so on. You can use the cumulative sum to visualize the rate of change of a field over time.
 
@@ -24,7 +24,7 @@ The `cumulative_sum` aggregation takes the following parameters.
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of all bytes for each month. Finally, the `cumulative_sum` aggregation calculates the cumulative number of bytes for each month bucket:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of all bytes for each month. Finally, the `cumulative_sum` aggregation calculates the cumulative number of bytes for each month's bucket:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
