@@ -4,9 +4,6 @@ title: Cumulative sum
 parent: Pipeline aggregations
 has_children: false
 nav_order: 60
-redirect_from:
-  - /query-dsl/aggregations/pipeline-agg#cumulative_sum/
-  - /query-dsl/aggregations/pipeline/cumulative-sum/
 ---
 
 # Cumulative sum aggregations
@@ -21,15 +18,13 @@ The `cumulative_sum` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#pipeline-aggregation-syntax). |
-| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
+| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Buckets path]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
-| from   |
-| size   |
+
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `cumulative_sum` aggregation calculates the cumulative number of bytes for each month bucket:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of all bytes for each month. Finally, the `cumulative_sum` aggregation calculates the cumulative number of bytes for each month bucket:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
