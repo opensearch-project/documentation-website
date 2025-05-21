@@ -38,7 +38,7 @@ The specified metric for a parent aggregation must be a numeric value.
 We strongly recommend setting `min_doc_count` to `0` (the default for `histogram` aggregations) for parent aggregations. If `min_doc_count` is greater than `0`, then the aggregation omits buckets, which might lead to incorrect results.
 {: .important}
 
-### Supported pipeline aggregations
+## Supported pipeline aggregations
 
 OpenSearch supports the following pipeline aggregations.
 
