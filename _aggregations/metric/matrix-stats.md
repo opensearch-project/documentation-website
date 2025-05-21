@@ -9,19 +9,19 @@ redirect_from:
 
 # Matrix stats aggregations
 
-The `matrix_stats` metric is a multi-value metric aggregation that generates covariance statistics for two or more fields in matrix form. 
+The `matrix_stats` aggregation is a multi-value metric aggregation that generates covariance statistics for two or more fields in matrix form. 
 
 The `matrix_stats` aggregation does not support scripting.
 {: .note}
 
 ## Parameters
 
-The `matrix_stats` aggregation takes the following parameters: 
+The `matrix_stats` aggregation takes the following parameters. 
 
 | Parameter | Required/Optional | Data type      | Description |
 | :--       | :--               | :--            | :--         |
 | `fields`  | Required          | String         | An array of fields for which the matrix stats are computed. |
-| `mode`    | Optional          | String         | Which value to use as a sample from a multi-valued or array field. Allowed values are `avg`, `min`, `max`, `sum`, and `median`.  |
+| `mode`    | Optional          | String         | The value to use as a sample from a multi-valued or array field. Allowed values are `avg`, `min`, `max`, `sum`, and `median`. Default is `avg`. |
 
 ## Example
 
@@ -42,9 +42,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-## Example response
-
-The response is as follows:
+The response containes the aggregated results:
 
 ```json
 {
@@ -106,7 +104,7 @@ The response is as follows:
 }
 ```
 
-The following table describes the response fields:
+The following table describes the response fields.
 
 | Statistic    | Description |
 | :---         | :---        |
@@ -116,4 +114,4 @@ The following table describes the response fields:
 | [`skewness`](https://en.wikipedia.org/wiki/Skewness)   | A measure of the distribution's assymetry about the mean. |
 | [ `kurtosis`](https://en.wikipedia.org/wiki/Kurtosis)   | A measure of the tail-heaviness of a distribution. As the tails become lighter, kurtosis decreases. Kurtosis and skewness are evaluated to determine whether a population is likely to be [normally distributed](https://en.wikipedia.org/wiki/Normal_distribution). |
 | `covariance`  | A measure of the joint variability between two fields. A positive value means their values move in the same direction. |
-| `correlation` | The normalized covariance, a measure of the strength of the relationship between two fields. Possible values are between -1 and 1, indicating perfect negative to perfect positive linear correlation. A value of 0 indicates no discernible relationship between the variables. |
+| `correlation` | The normalized covariance, a measure of the strength of the relationship between two fields. Possible values are from -1 to 1, inclusive, indicating perfect negative to perfect positive linear correlation. A value of 0 indicates no discernible relationship between the variables. |
