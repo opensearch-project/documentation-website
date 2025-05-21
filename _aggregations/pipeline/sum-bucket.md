@@ -9,7 +9,7 @@ nav_order: 190
 
 The `sum_bucket` aggregation is a sibling aggregation that calculates the sum of a metric in each bucket of a previous aggregation.
 
-The specified metric must be numeric and the sibling aggregation must be a multi-bucket aggregation.
+The specified metric must be numeric, and the sibling aggregation must be a multi-bucket aggregation.
 
 ## Parameters
 
@@ -18,12 +18,12 @@ The `sum_bucket` aggregation takes the following parameters.
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
 | `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Buckets path]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
-| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. For more information, see [Data gaps]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#data-gaps)|
+| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. For more information, see [Data gaps]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#data-gaps).|
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of bytes for each month. Finally, the `sum_bucket` aggregation calculates the total number of bytes per month by adding up these sums:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of bytes for each month. Finally, the `sum_bucket` aggregation calculates the total number of bytes per month by totaling these sums:
 
 ```json
 POST opensearch_dashboards_sample_data_logs/_search
