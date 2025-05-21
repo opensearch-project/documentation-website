@@ -3,8 +3,6 @@ layout: default
 title: Children
 parent: Bucket aggregations
 nav_order: 15
-redirect_from:
-  - /query-dsl/aggregations/bucket/children/
 ---
 
 # Children
