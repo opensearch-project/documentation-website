@@ -3,9 +3,6 @@ layout: default
 title: Bucket sort
 parent: Pipeline aggregations
 nav_order: 40
-redirect_from:
-  - /query-dsl/aggregations/pipeline-agg#bucket_sort/
-  - /query-dsl/aggregations/pipeline/bucket-sort/
 ---
 
 # Bucket sort aggregations
