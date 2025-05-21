@@ -1,12 +1,12 @@
 ---
 
 layout: default
-title: Wrapper query
+title: Wrapper
 parent: Specialized queries
 nav_order: 80
 ---
 
-# Wrapper query
+# Wrapper
 
 The `wrapper` query lets you submit a complete query in Base64-encoded JSON format. It is useful when the query must be embedded in contexts that only support string values.
 
@@ -14,7 +14,7 @@ Use this query only when you need to work around system constraints. For readabi
 
 ## Example use case
 
-Let’s say you want to run the following query:
+If you want to run the following query:
 
 ```json
 {
@@ -23,9 +23,8 @@ Let’s say you want to run the following query:
   }
 }
 ```
-{% include copy-curl.html %}
 
-Encode that JSON as a Base64 string. The Base64-encoded version of the above is:
+Encode this JSON as a Base64 string. The Base64-encoded version is:
 
 ```
 eyAibWF0Y2giOiB7InRpdGxlIjogImhlYWRwaG9uZXMifSB9
