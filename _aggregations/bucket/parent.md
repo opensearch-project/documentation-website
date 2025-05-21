@@ -3,7 +3,6 @@ layout: default
 title: Parent
 parent: Bucket aggregations
 nav_order: 145
-  - /query-dsl/aggregations/bucket/parent/
 ---
 
 # Parent aggregations
