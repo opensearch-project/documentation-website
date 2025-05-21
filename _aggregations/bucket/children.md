@@ -124,6 +124,8 @@ GET /company/_search
 ```
 {% include copy-curl.html %}
 
+## Example response
+
 The response returns the selected department bucket, finds the `employee` type children of the department, and computes the `avg` of their salaries:
 
 ```json
