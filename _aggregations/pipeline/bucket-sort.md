@@ -10,11 +10,11 @@ redirect_from:
 
 # Bucket sort aggregations
 
-The `bucket_sort` aggregation is a parent aggregation that sorts buckets of a previous aggregation.
+The `bucket_sort` aggregation is a parent aggregation that sorts buckets of its parent multi-bucket aggregation.
 
-You can specify several sort fields together with a sort order for each. You can sort each bucket based on its key, count, or its sub-aggregations. You can also truncate the buckets by setting `from` and `size` parameters, or use the `from` or `size` parameters without `sort` to truncate the buckets without sorting.
+In `bucket_sort` aggregations, you can sort buckets by multiple fields, each with its own sort order. Buckets can be sorted by their key, document count, or values from subaggregations. You can also use the `from` and `size` parameters to limit the results, with or without sorting.
 
-For details about how to specify sort order, see [Sort results](https://opensearch.org/docs/latest/search-plugins/searching-data/sort/).
+For information about specifying sort order, see [Sort results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/).
 
 ## Parameters
 
@@ -22,17 +22,17 @@ The `bucket_sort` aggregation takes the following parameters.
 
 | Parameter        | Required/Optional | Data type       | Description |
 | :--              | :--               |  :--            | :--         |
-| `gap_policy`     | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
-| `sort`           | Optional          | String          | A list of fields to sort. See [Sort results](https://opensearch.org/docs/latest/search-plugins/searching-data/sort/). |
-| `from`           | Optional          | String          | The index of the first result to return. Indexing starts at `0`. Must be a non-negative integer. |
-| `size`           | Optional          | String          | The maximum number of results to return. Must be a positive integer. |
+| `gap_policy`     | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. See [Data gaps]({{site.url}}{{site.baseurl}}/aggregations/pipeline/#data-gaps). |
+| `sort`           | Optional          | String          | A list of fields by which to sort. See [Sort results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/). |
+| `from`           | Optional          | String          | The index of the first result to return. Must be a non-negative integer. Default is `0`. See [The `from` and `size` parameters]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-from-and-size-parameters). |
+| `size`           | Optional          | String          | The maximum number of results to return. Must be a positive integer. See [The `from` and `size` parameters]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-from-and-size-parameters).|
 
 You must supply at least one of `sort`, `from`, and `size`.
 {: .note}
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the aggregation sorts the buckets in descending order of number of bytes:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of all bytes for each month. Finally, the aggregation sorts the buckets in descending order of number of bytes:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -70,7 +70,7 @@ The aggregation reorders the buckets descending order of total bytes:
 
 ```json
 {
-  "took": 4,
+  "took": 3,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -90,27 +90,27 @@ The aggregation reorders the buckets descending order of total bytes:
     "sales_per_month": {
       "buckets": [
         {
-          "key_as_string": "2025-04-01T00:00:00.000Z",
-          "key": 1743465600000,
-          "doc_count": 6849,
-          "total_bytes": {
-            "value": 39103067
-          }
-        },
-        {
           "key_as_string": "2025-05-01T00:00:00.000Z",
           "key": 1746057600000,
-          "doc_count": 6745,
+          "doc_count": 7072,
           "total_bytes": {
-            "value": 37818519
+            "value": 40124337
           }
         },
         {
-          "key_as_string": "2025-03-01T00:00:00.000Z",
-          "key": 1740787200000,
-          "doc_count": 480,
+          "key_as_string": "2025-06-01T00:00:00.000Z",
+          "key": 1748736000000,
+          "doc_count": 6056,
           "total_bytes": {
-            "value": 2804103
+            "value": 34123131
+          }
+        },
+        {
+          "key_as_string": "2025-04-01T00:00:00.000Z",
+          "key": 1743465600000,
+          "doc_count": 946,
+          "total_bytes": {
+            "value": 5478221
           }
         }
       ]
@@ -119,9 +119,9 @@ The aggregation reorders the buckets descending order of total bytes:
 }
 ```
 
-## Example: truncating the response
+## Example: Truncating the results 
 
-The following example performs the same sort, but returns only one bucket:
+To truncate the results, provide the `from` and/or `size` parameters. The following example performs the same sort, but returns two buckets, starting with the second bucket:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -144,7 +144,8 @@ GET opensearch_dashboards_sample_data_logs/_search
             "sort": [
               { "total_bytes": { "order": "desc" } }
             ],
-            "size": 1
+            "from": 1,
+            "size": 2
           }
         }
       }
@@ -154,13 +155,11 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-## Example response: truncating the response
-
-The aggregation returns the first of the sorted buckets:
+The aggregation returns the two sorted buckets:
 
 ```json
 {
-  "took": 5,
+  "took": 2,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -180,11 +179,19 @@ The aggregation returns the first of the sorted buckets:
     "sales_per_month": {
       "buckets": [
         {
+          "key_as_string": "2025-06-01T00:00:00.000Z",
+          "key": 1748736000000,
+          "doc_count": 6056,
+          "total_bytes": {
+            "value": 34123131
+          }
+        },
+        {
           "key_as_string": "2025-04-01T00:00:00.000Z",
           "key": 1743465600000,
-          "doc_count": 6849,
+          "doc_count": 946,
           "total_bytes": {
-            "value": 39103067
+            "value": 5478221
           }
         }
       ]
@@ -192,3 +199,34 @@ The aggregation returns the first of the sorted buckets:
   }
 }
 ```
+
+To truncate results without sorting, omit the `sort` parameter:
+
+```json
+GET opensearch_dashboards_sample_data_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "sales_per_month": {
+      "date_histogram": {
+        "field": "@timestamp",
+        "calendar_interval": "month"
+      },
+      "aggs": {
+        "total_bytes": {
+          "sum": {
+            "field": "bytes"
+          }
+        },
+        "bytes_bucket_sort": {
+          "bucket_sort": {
+            "from": 1,
+            "size": 2
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
