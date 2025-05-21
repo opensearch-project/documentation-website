@@ -26,7 +26,7 @@ The `matrix_stats` aggregation takes the following parameters.
 
 ## Example
 
-This example returns statistics for the `taxful_total_price` and `products.base_price` fields in the ecommerce sample data:
+The following example returns statistics for the `taxful_total_price` and `products.base_price` fields in the OpenSearch Dashboards e-commerce sample data:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
