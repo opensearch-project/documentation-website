@@ -14,7 +14,7 @@ A `moving_avg` aggregation is a parent pipeline aggregation that calculates a se
 
 To create a `moving_avg` aggregation, you first create a `histogram` or `date_histogram` aggregation. Optionally, you then embed a metric aggregation in the histogram aggregation. Finally, you embed the `moving_avg` aggregation in the histogram and set the `buckets_path` parameter to the embedded metric that you want to track. 
 
-A window's size is the number of sequential data values in the window. On each iteration, the algorithm calculates the average for all data points in the window and then slides forward one data value, excluding the first value of the previous window and including the first value of the next window.
+A window's size is the number of sequential data values in the window. During each iteration, the algorithm calculates the average for all data points in the window and then slides forward one data value, excluding the first value of the previous window and including the first value of the next window.
 
 For example, given the data `[1, 5, 8, 23, 34, 28, 7, 23, 20, 19]`, a moving average with a window size of 5 is as follows:
 
