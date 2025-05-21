@@ -12,7 +12,7 @@ The `moving_avg` aggregation has been deprecated in favor of the `moving_fn` agg
 
 A `moving_avg` aggregation is a parent pipeline aggregation that calculates a sequence of averages of a metric contained in windows (adjacent subsets) of an ordered dataset. 
 
-To create a `moving_avg` aggregation you first create a `histogram` or `date_histogram` aggregation. Optionally, you then embed a metric aggregation in the histogram aggregation. Finally, embed the `moving_avg` aggreation in the histogram and set the `buckets_path` parameter to the embedded metric that you want to track. 
+To create a `moving_avg` aggregation, you first create a `histogram` or `date_histogram` aggregation. Optionally, you then embed a metric aggregation in the histogram aggregation. Finally, you embed the `moving_avg` aggregation in the histogram and set the `buckets_path` parameter to the embedded metric that you want to track. 
 
 A window's size is the number of sequential data values in the window. On each iteration, the algorithm calculates the average for all data points in the window and then slides forward one data value, excluding the first value of the previous window and including the first value of the next window.
 
