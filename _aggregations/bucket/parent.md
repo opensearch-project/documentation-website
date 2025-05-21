@@ -108,6 +108,8 @@ GET /company/_search
 ```
 {% include copy-curl.html %}
 
+## Example response
+
 The `all_departments` parent aggregation returns all the departments with employee child documents. Note that the HR department is not represented:
 
 ```json

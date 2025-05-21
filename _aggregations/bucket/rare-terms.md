@@ -85,6 +85,8 @@ GET /opensearch_dashboards_sample_data_flights/_search
 ```
 {% include copy-curl.html %}
 
+## Example response
+
 The response shows that there are two airports that meet the criterion of appearing only once in the data:
 
 ```json

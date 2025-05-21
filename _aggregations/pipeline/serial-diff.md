@@ -153,6 +153,8 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
+## Example response
+
 The response contains a list of weekly buckets. Note that the `serial_diff` aggregation does not begin until the fifth bucket, when a bucket with a `lag` of `4` becomes available:
 
 <details open markdown="block">
