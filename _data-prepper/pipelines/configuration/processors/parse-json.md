@@ -67,7 +67,7 @@ This example parses a JSON message field and flattens the data into the event. F
 
 ### Delete a source
 
-If you want to remove the original field from the orginating JSON message, use the `delete_source` option, as shown in the following example pipeline:
+If you want to remove the original field from the originating JSON message, use the `delete_source` option, as shown in the following example pipeline:
 
 ```yaml
 parse-json-pipeline:
