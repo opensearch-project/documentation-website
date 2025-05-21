@@ -1,26 +1,26 @@
 ---
 layout: default
-title: Children
+title: Parent
 parent: Bucket aggregations
-nav_order: 15
+nav_order: 145
 ---
 
-# Children
+# Parent aggregations
 
-The `children` aggregation is a bucket aggregation that creates a single bucket containing child documents, based on parent-child relationships defined in your index.
+The `parent` aggregation is a bucket aggregation that creates a single bucket containing parent documents, based on parent-child relationships defined in your index. This aggregation enables you to perform analytics on parent documents that have the same matching child documents, allowing for powerful hierarchical data analysis.
 
-The `children` aggregation works with the [join field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) to aggregate child documents that are associated with parent documents.
+The `parent` aggregation works with the [`join` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), which establishes parent-child relationships within documents in the same index.
 
-The `children` aggregation identifies child documents that match specific child relation name, whereas the [`parent` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/parent/) identifies parent documents that have matching child documents. Both aggregations take the child relation name as input.
+The `parent` aggregation identifies parent documents that have matching child documents, whereas the [`children` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/children/) identifies child documents that match a certain child relation. Both aggregations take the child relation name as input.
+
 
 ## Parameters
 
-The `children` aggregation takes the following parameters.
+The `parent` aggregation takes the following parameters:
 
 | Parameter             | Required/Optional | Data type       | Description |
-| :--                   | :--               | :--             | :--         |
-| `type`                | Required          | String          | The name of the child type from the join field. This identifies the parent-child relationship to use. |
-
+| :--                   | :--               |  :--            | :--         |
+| `type`                | Required          | String          | The name of the child type from the `join` field. |
 
 ## Example
 
@@ -84,37 +84,21 @@ POST _bulk?routing=1
 ```
 {% include copy-curl.html %}
 
-The following request queries all the departments and then filters for the one named `Accounting`. It then uses the `children` aggregation to select the two documents that have a child relationship with the `Accounting` department. Finally, the `avg` subaggregation returns the average of the `Accounting` employees' salaries:
+Lastly, run an aggregation of all the departments that have a parent relationship with one or more employees:
 
 ```json
 GET /company/_search
 {
   "size": 0,
-  "query": {
-    "bool": {
-      "filter": [
-        {
-          "term": {
-            "join_field": "department"
-          }
-        },
-        {
-          "term": {
-            "department_name": "Accounting"
-          }
-        }
-      ]
-    }
-  },
   "aggs": {
-    "acc_employees": {
-      "children": {
+    "all_departments": {
+      "parent": {
         "type": "employee"
       },
       "aggs": {
-        "avg_salary": {
-          "avg": {
-            "field": "salary"
+        "departments": {
+          "terms": {
+            "field": "department_name"
           }
         }
       }
@@ -124,11 +108,11 @@ GET /company/_search
 ```
 {% include copy-curl.html %}
 
-The response returns the selected department bucket, finds the `employee` type children of the department, and computes the `avg` of their salaries:
+The `all_departments` parent aggregation returns all the departments with employee child documents. Note that the HR department is not represented:
 
 ```json
 {
-  "took": 379,
+  "took": 3,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -138,17 +122,28 @@ The response returns the selected department bucket, finds the `employee` type c
   },
   "hits": {
     "total": {
-      "value": 1,
+      "value": 6,
       "relation": "eq"
     },
     "max_score": null,
     "hits": []
   },
   "aggregations": {
-    "acc_employees": {
+    "all_departments": {
       "doc_count": 2,
-      "avg_salary": {
-        "value": 110000
+      "departments": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": "Accounting",
+            "doc_count": 1
+          },
+          {
+            "key": "Engineering",
+            "doc_count": 1
+          }
+        ]
       }
     }
   }
