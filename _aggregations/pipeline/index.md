@@ -48,6 +48,7 @@ OpenSearch supports the following pipeline aggregations.
 | [`avg_bucket`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/avg-bucket/) | Sibling | Calculates the average of a metric in each bucket of a previous aggregation. |
 | [`bucket_script`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/bucket-script/) | Parent | Executes a script to perform per-bucket numeric computations across a set of buckets. |
 | [`bucket_selector`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/bucket-selector/) | Parent | Evaluates a script to determine whether buckets returned by a `histogram` (or `date_histogram`) aggregation should be included in the final result. |
+| [`bucket_sort`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/bucket-selector/) | Parent | Sorts or truncates the buckets produced by its parent multi-bucket aggregation. |
 | [`cumulative_sum`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/cumulative-sum/) | Parent | Calculates the cumulative sum across the buckets of a previous aggregation. |
 | [`derivative`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/derivative/) | Parent | Calculates first-order and second-order derivatives of each bucket of an aggregation. |
 | [`extended_stats`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/extended-stats/) | Sibling | A more comprehensive version of the `stats_bucket` aggregation that provides additional metrics. |
