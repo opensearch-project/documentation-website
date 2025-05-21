@@ -24,10 +24,10 @@ The `moving_fn` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | String          | The path of the aggregation buckets containing the metric values to process. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
+| `buckets_path`        | Required          | String          | The path of the aggregation buckets containing the metric values to process. See [Buckets path]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
 | `script`              | Required          | String or Object | The script that calculates a value for each window of data. Can be an inline script, stored script, or script file. The script has access to the variable names defined in the `buckets_path` parameter. |
 | `window`              | Required          | Integer         | The number of buckets in the sliding window. Must be a positive integer. |
-| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
+| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. See [Data gaps]({{site.url}}{{site.baseurl}}/aggregations/pipeline/#data-gaps). |
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 | `shift`               | Optional          | Integer         | The number of buckets by which to shift the window. Can be positive (shift right toward future buckets) or negative (toward past buckets). Default is `0`, which places the window immediately to the left of the current bucket. See [Shifting the window](#shifting-the-window). |
 
@@ -156,6 +156,8 @@ POST /opensearch_dashboards_sample_data_logs/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Example response
 
 The response shows the standard deviation of the moving window starting with a zero value in the second bucket. The `stdDev` function returns `0` for windows that are empty or contain only invalid values (`null` or `NaN`):
 
