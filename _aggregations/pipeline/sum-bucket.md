@@ -1,32 +1,32 @@
 ---
 layout: default
-title: Stats bucket
+title: Sum bucket
 parent: Pipeline aggregations
 nav_order: 190
 ---
 
-# Stats bucket aggregation
+# Sum bucket aggregations
 
-The `stats_bucket` aggregation is a sibling aggregation that returns a variety of stats (`count`, `min`, `max`, `avg`, and `sum`) for the buckets of a previous aggregation.
+The `sum_bucket` aggregation is a sibling aggregation that calculates the sum of a metric in each bucket of a previous aggregation.
 
 The specified metric must be numeric, and the sibling aggregation must be a multi-bucket aggregation.
 
 ## Parameters
 
-The `stats_bucket` aggregation takes the following parameters.
+The `sum_bucket` aggregation takes the following parameters.
 
 | Parameter             | Required/Optional | Data type       | Description |
 | :--                   | :--               |  :--            | :--         |
-| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Pipeline aggregations]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
-| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip`, `insert_zeros`, and `keep_values`. Default is `skip`. |
-| `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `<stat>_as_string` property. |
+| `buckets_path`        | Required          | String          | The path of the aggregation buckets to be aggregated. See [Buckets path]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#buckets-path). |
+| `gap_policy`          | Optional          | String          | The policy to apply to missing data. Valid values are `skip` and `insert_zeros`. Default is `skip`. For more information, see [Data gaps]({{site.url}}{{site.baseurl}}/aggregations/pipeline/index#data-gaps).|
+| `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 
 ## Example
 
-The following example creates a date histogram with a one-month interval using the OpenSearch Dashboards e-commerce sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `stats_bucket` aggregation returns the `count`, `avg`, `sum`, `min`, and `max` stats from these sums:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of bytes for each month. Finally, the `sum_bucket` aggregation calculates the total number of bytes per month by totaling these sums:
 
 ```json
-GET opensearch_dashboards_sample_data_logs/_search
+POST opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
   "aggs": {
@@ -43,8 +43,8 @@ GET opensearch_dashboards_sample_data_logs/_search
         }
       }
     },
-    "stats_monthly_bytes": {
-      "stats_bucket": {
+    "sum_monthly_bytes": {
+      "sum_bucket": {
         "buckets_path": "visits_per_month>sum_of_bytes"
       }
     }
@@ -55,11 +55,11 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 ## Example response
 
-The aggregation returns all five basic statistics for the buckets:
+The aggregation returns the sum of bytes from all the monthly buckets:
 
 ```json
 {
-  "took": 4,
+  "took": 10,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -104,13 +104,11 @@ The aggregation returns all five basic statistics for the buckets:
         }
       ]
     },
-    "stats_monthly_bytes": {
-      "count": 3,
-      "min": 2804103,
-      "max": 39103067,
-      "avg": 26575229.666666668,
-      "sum": 79725689
+    "sum_monthly_bytes": {
+      "value": 79725689
     }
   }
 }
 ```
+
+

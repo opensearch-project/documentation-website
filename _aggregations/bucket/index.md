@@ -41,6 +41,7 @@ OpenSearch supports the following bucket aggregations:
 - [Nested]({{site.url}}{{site.baseurl}}/aggregations/bucket/nested/)
 - [Parent]({{site.url}}{{site.baseurl}}/aggregations/bucket/parent/)
 - [Range]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/)
+- [Rare terms]({{site.url}}{{site.baseurl}}/aggregations/bucket/rare-terms/)
 - [Reverse nested]({{site.url}}{{site.baseurl}}/aggregations/bucket/reverse-nested/)
 - [Sampler]({{site.url}}{{site.baseurl}}/aggregations/bucket/sampler/)
 - [Significant terms]({{site.url}}{{site.baseurl}}/aggregations/bucket/significant-terms/)
