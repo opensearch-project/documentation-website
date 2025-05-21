@@ -112,7 +112,7 @@ The following table describes the response fields.
 | `count`      | The number of documents sampled for the aggregation. |
 | `mean`       | The average value of the field computed from the sample. |
 | `variance`   | The square of deviation from the mean, a measure of data spread. |
-| `skewness`   | A measure of the distribution's assymetry about the mean. See [Skewness](https://en.wikipedia.org/wiki/Skewness). |
+| `skewness`   | A measure of the distribution's asymmetry relative to the mean. See [Skewness](https://en.wikipedia.org/wiki/Skewness). |
 | `kurtosis` | A measure of the tail-heaviness of a distribution. As the tails become lighter, kurtosis decreases. Kurtosis and skewness are evaluated to determine whether a population is likely to be [normally distributed](https://en.wikipedia.org/wiki/Normal_distribution). See [Kurtosis](https://en.wikipedia.org/wiki/Kurtosis).|
 | `covariance`  | A measure of the joint variability between two fields. A positive value means their values move in the same direction. |
 | `correlation` | The normalized covariance, a measure of the strength of the relationship between two fields. Possible values are from -1 to 1, inclusive, indicating perfect negative to perfect positive linear correlation. A value of 0 indicates no discernible relationship between the variables. |
