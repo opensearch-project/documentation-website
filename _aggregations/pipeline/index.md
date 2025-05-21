@@ -21,7 +21,7 @@ Pipeline aggregations cannot be sub-aggregated but can be chained to other pipel
 
 ## Pipeline aggregation types
 
-Pipeline aggregations are of two types, [sibling](#sibling-aggregations) and [parent](#parent-aggregations).
+Pipeline aggregations are of two types: [sibling](#sibling-aggregations) and [parent](#parent-aggregations).
 
 ### Sibling aggregations
 
@@ -44,25 +44,55 @@ We strongly recommend setting `min_doc_count` to `0` (the default for `histogram
 
 ## Buckets path
 
-A pipeline aggregation uses the `buckets_path` parameter to access the results of other aggregations.
+A pipeline aggregation uses the `buckets_path` parameter to reference the output of other aggregations.
 The `buckets_path` parameter has the following syntax:
 
-```
-buckets_path = <AGG_NAME>[<AGG_SEPARATOR>,<AGG_NAME>]*[<METRIC_SEPARATOR>, <METRIC>];
+```r
+buckets_path = <agg_name>[ > <agg_name> ... ][ .<metric_name> ]
 ```
 
-| Element | Literal character | Description |
-| :-- | :-- | :-- | 
-| `AGG_NAME` |  | The name of the aggregation. |
-| `AGG_SEPARATOR` | `>` |  The character used to separate aggregation names. |
-| `METRIC_SEPARATOR`| `.` |  The character used to separate the final aggregation from its metrics. |
-| `METRIC` |  | The name of the metric. Required for multi-value metric aggregations. |
+This syntax uses the following elements.
 
-For example, `my_sum.sum` selects the `sum` metric of an aggregation called `my_sum`. `popular_tags>my_sum.sum` nests `my_sum.sum` into the `popular_tags` aggregation.
+| Element | Description |
+| :-- | :-- |
+| `<agg_name>` | The name of the aggregation. |
+| `>` |  A child selector used to navigate from one aggregation (parent) to another nested aggregation (child).  |
+| `.<metric_name>` |  Specifies a metric to retrieve from a multi-value aggregation. Required only if the target aggregation produces multiple metrics. |
+
+To visualize the buckets path, suppose you have the following aggregation structure:
+
+```json
+"aggs": {
+  "parent_agg": {
+    "terms": {
+      "field": "category"
+    },
+    "aggs": {
+      "child_agg": {
+        "stats": {
+          "field": "price"
+        }
+      }
+    }
+  }
+}
+```
+
+To reference the average price from the `child_agg`, which is nested in the `parent_agg`, use `parent_agg>child_agg.avg`.
+
+Examples:
+
+- `my_sum.sum`: Refers to the sum metric from the `my_sum` aggregation.
+
+- `popular_tags>my_sum.sum`: Refers to the `sum` metric from the `my_sum` aggregation, which is nested under the `popular_tags` aggregation.
+
+For multi-value metric aggregations like `stats` or `percentiles`, you must include the metric name (for example, `.min`) in the path. For single-value metrics like `sum` or `avg`, the metric name is optional if unambiguous.
+{: .tip}
+
 
 ### Buckets path example
 
-The following example operates on the OpenSearch Dashboards logs sample data. It creates a histogram of values in the `bytes` field, sums the `phpmemory` fields in each histogram bucket, and finally sums the buckets using the `sum_bucket` pipeline aggregation:
+The following example operates on the OpenSearch Dashboards logs sample data. It creates a histogram of values in the `bytes` field, sums the `phpmemory` fields in each histogram bucket, and finally sums the buckets using the `sum_bucket` pipeline aggregation. The `buckets_path` follows the `number_of_bytes>sum_total_memory ` path from the `number_of_bytes` parent aggregation to the `sum_total_memory` subaggregation:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -93,8 +123,6 @@ GET opensearch_dashboards_sample_data_logs/_search
 {% include copy-curl.html %}
 
 Note that the `buckets_path` contains the names of the component aggregations. Paths are directed, meaning that they cascade one way, downward from parents to children. 
-
-### Buckets path example response
 
 The pipeline aggregation returns the total memory summed from all the buckets:
 
