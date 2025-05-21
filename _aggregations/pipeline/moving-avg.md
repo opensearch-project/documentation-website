@@ -26,7 +26,7 @@ and so on ...
 ```
 
 The `moving_avg` aggregation is typically applied to time-series data to smooth out noise or short-term fluctuations and to identify trends.
-Specify a small window size to smooth out small-scale fluctuations. Specify a larger window size to smooth out high-frequency fluctuations or random noise, making lower frequency trends more visible.
+Specify a small window size to smooth out small-scale fluctuations. Specify a larger window size to smooth out high-frequency fluctuations or random noise, making lower-frequency trends more visible.
 
 For more information about moving averages, see [Wikipedia](https://en.wikipedia.org/wiki/Moving_average).
 
@@ -41,13 +41,13 @@ The `moving_avg` aggregation takes the following parameters.
 | `format`              | Optional          | String          | A [DecimalFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/DecimalFormat.html) formatting string. Returns the formatted output in the aggregation's `value_as_string` property. |
 | `window`              | Optional          | Numerical       | The number of data points contained in the window. Default is `5`. |
 | `model`               | Optional          | String          | The weighted moving average model to use. Options are `ewma`, `holt`, `holt_winters`, `linear`, and `simple`. Default is `simple`. See [Models](#models). |
-| `settings`            | Optional          | Object          | Parameters for adjusting the window. See [Models](#models). |
+| `settings`            | Optional          | Object          |  The parameters for adjusting the window. See [Models](#models). |
 | `predict`             | Optional          | Numerical        | The number of predicted values to append to the end of the result. Default is `0`. |
 
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards logs sample data. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `moving_avg` aggregation calculates the moving average of bytes per month from these sums:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards logs sample data. The `sum` subaggregation calculates the sum of all bytes for each month. Finally, the `moving_avg` aggregation calculates the moving average of bytes per month from these sums:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -364,9 +364,9 @@ Use the `model` parameter to specify which model to use.
 | Linear | `linear` | Uses a linear decay of weights, giving more importance to recent values. |
 | Exponentially Weighted Moving Average | `ewma` | Uses exponentially decreasing weights, giving more importance to recent values. |
 | Holt | `holt` | Uses a second exponential term to smooth long-term trends. |
-| Holt-Winters | `holt_winters` | Uses a third exponential term to smooth perioic (seasonal) effects. |
+| Holt-Winters | `holt_winters` | Uses a third exponential term to smooth periodic (seasonal) effects. |
 
-Use the `settings` object to set the model's properties. The following table shows the settings available for each model.
+Use the `settings` object to set the model's properties. The following table shows the available settings for each model.
 
 | Model            | Parameter   | Allowed values  | Default | Description |
 | :--              | :--         | :--             | :--     | :--         |
