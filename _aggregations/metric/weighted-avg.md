@@ -105,7 +105,7 @@ The response contains the `weighted_rating`, calculated as `weighted_avg = (4.5 
 
 The `missing` parameter allows you to specify default values for documents missing the `value` field or the `weight` field instead of excluding them from the calculation.
 
-For example, to consider products without ratings "average", assign them a rating of 3.0 and set the `num_reviews` to 1 to give them a small non-zero weight:
+For example, you can assign products without ratings an "average" rating of 3.0 and set the `num_reviews` to 1 to give them a small non-zero weight:
 
 ```json
 GET /products/_search
