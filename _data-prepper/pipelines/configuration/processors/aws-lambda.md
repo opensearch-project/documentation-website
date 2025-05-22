@@ -31,7 +31,7 @@ Field  | Type    | Required | Description
 `sdk_timeout`        | Duration | Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
 
-The invocation_type field is not supported in Amazon OpenSearch Ingestion pipelines using the aws_lambda processor. Including this field will result in a validation error.
+The `invocation_type` field is not supported in Amazon OpenSearch Ingestion pipelines using the `aws_lambda` processor. Including this field will result in a validation error.
 {: .note}
 
 
