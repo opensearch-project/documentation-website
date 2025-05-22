@@ -67,7 +67,7 @@ This query returns only the document IDs and scores, making it the fastest optio
 
 ## Exclude vectors from search results
 
-If you need the document contents but want to optimize performance, you can exclude just the vector fields from being returned in the search results. This approach reduces network transfer while still maintaining access to other document fields. To exclude vectors from search results, provide the vector field name in `_source.excludes`:
+If you need the document contents but want to optimize performance, you can exclude only the vector fields from being returned in the search results. This approach reduces network transfer while still maintaining access to other document fields. To exclude vectors from search results, provide the vector field name in `_source.excludes`:
 
 ```json
 GET /my-index/_search
