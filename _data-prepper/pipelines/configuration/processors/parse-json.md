@@ -54,7 +54,7 @@ All examples use the following JSON message for the event output:
 
 ### Basic example
 
-This example parses a JSON message field and flattens the data into the event. The original `message` from the example event remains, and the parsed content is added at the root level, as shown in the following output: 
+The following example parses a JSON message field and flattens the data into the event. The original `message` from the example event remains, and the parsed content is added at the root level, as shown in the following output: 
 
 ```json
 {
