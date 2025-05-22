@@ -54,7 +54,7 @@ All examples use the following JSON message for the event output:
 
 ### Basic example
 
-This example parses a JSON message field and flattens the data into the event. From the example event, the original `message` field remains, and the parsed content is added at the root level, as shown in the following output: 
+The following example parses a JSON message field and flattens the data into the event. The original `message` from the example event remains, and the parsed content is added at the root level, as shown in the following output: 
 
 ```json
 {
@@ -80,7 +80,7 @@ parse-json-pipeline:
 ```
 {% include copy.html %}
 
-In the following event, the `message` field is parsed and removed from the event, leaving only the structured output:
+In the following event, the `message` field is parsed and removed, leaving only the structured output:
 
 ```json
 {
@@ -106,7 +106,7 @@ parse-json-pipeline:
 ```
 {% include copy.html %}
 
-Only the value at the pointer path `/outer_key/inner_key` is extracted and added to the event. If you set `destination`, the extracted value will be added under that field instead:
+Only the value at the pointer path `/outer_key/inner_key` is extracted and added to the event. If you set `destination`, the extracted value will be added to that field instead:
 
 ```json
 {
