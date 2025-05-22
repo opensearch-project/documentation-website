@@ -29,7 +29,7 @@ You must supply at least one of `sort`, `from`, and `size`.
 
 ## Example
 
-The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of all bytes for each month. Finally, the aggregation sorts the buckets in descending order of number of bytes:
+The following example creates a date histogram with a one-month interval from the OpenSearch Dashboards e-commerce sample data. The `sum` subaggregation calculates the sum of all bytes for each month. Finally, the aggregation sorts the buckets in descending order by number of bytes:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -63,7 +63,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 ## Example response
 
-The aggregation reorders the buckets descending order of total bytes:
+The aggregation reorders the buckets in descending order by total number of bytes:
 
 ```json
 {
@@ -118,7 +118,7 @@ The aggregation reorders the buckets descending order of total bytes:
 
 ## Example: Truncating the results 
 
-To truncate the results, provide the `from` and/or `size` parameters. The following example performs the same sort, but returns two buckets, starting with the second bucket:
+To truncate the results, provide the `from` and/or `size` parameters. The following example performs the same sort but returns two buckets, starting with the second bucket:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
