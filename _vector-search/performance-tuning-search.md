@@ -88,3 +88,5 @@ GET /my-index/_search
 }
 ```
 {% include copy-curl.html %}
+
+For more information, see [Retrieve specific fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/).
