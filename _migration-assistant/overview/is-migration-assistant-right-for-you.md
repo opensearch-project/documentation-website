@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Is Migration Assistant right for you?
-nav_order: 5
+nav_order: 25
 parent: Overview
 redirect_from:
   - /migration-assistant/is-migration-assistant-right-for-you/
@@ -110,7 +110,7 @@ Use this checklist to decide if migration assistant is right for you.
 
 - [ ] Is your environment self-managed or running on AWS OpenSearch?
 
-- [ ]Are you looking for tooling that can automate metadata migration and performance comparison?
+- [ ] Are you looking for tooling that can automate metadata migration and performance comparison?
 
 If you answered “yes” to most of these questions, Migration Assistant is likely the right solution for your migration.
 
@@ -122,26 +122,26 @@ USe the following checklist to determine which parts of Migration Assistant best
 
 Use metadata migration if:
 
-- You need to migrate index templates, mappings, settings, aliases, or component templates
-- You want consistent configuration between source and target clusters
-- You are bootstrapping a new OpenSearch cluster
+- You need to migrate index templates, mappings, settings, aliases, or component templates.
+- You want consistent configuration between source and target clusters.
+- You are bootstrapping a new OpenSearch cluster.
 
 ### Backfill migration
 
 Use backfill migration if:
 
-- You need to move historical data while continuing to serve live traffic
-- Your data volume makes real-time migration impractical
-- You want to verify historical data in the new cluster before switching over
+- You need to move historical data while continuing to serve live traffic.
+- Your data volume makes real-time migration impractical.
+- You want to verify historical data in the new cluster before switching over.
 
 ### Reindex-from-Snapshot (RFS)
 
 Use Reindex-from-Snapshot if:
 
-- You already use OpenSearch snapshots for backups
-- You need to migrate documents at scale in parallel, such as Amazon ECS
-- You require a data migration path as part of a zero-downtime migration
-- Your AWS Region supports RFS and your shard sizes are within supported limits
+- You already use OpenSearch snapshots for backups.
+- You need to migrate documents at scale in parallel, such as Amazon ECS.
+- You require a data migration path as part of a zero-downtime migration.
+- Your AWS Region supports RFS and your shard sizes are within supported limits.
 
 ### Combination of all three
 

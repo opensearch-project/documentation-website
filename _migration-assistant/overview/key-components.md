@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Migration Assistant for OpenSearch
+title: Key components
 nav_order: 10
 parent: Overview
 ---

@@ -10,6 +10,19 @@ redirect_from:
   - /migration-assistant/index/
   - /upgrade-to/index/
   - /upgrade-to/
+tutorial_cards:
+  - heading: "Overview"
+    description: "Get familiar with the key components of Migration Assistant and evaluate whether it fits your migration needs."
+    link: "/migration-assistant/overview/"
+  - heading: "Deploying Migration Assistant"
+    description: "Follow step-by-step instructions to deploy Migration Assistant and prepare data migration from source to target cluster."
+    link: "/deploying-migration-assistant/"
+  - heading: "Migration phases"
+    description: "Execute your migration in phases—metadata, backfill, and traffic replay—for a controlled and validated transition."
+    link: "/migration-phases/"
+  - heading: "Migration console"
+    description: "Use CLI commands provided by the migration console to orchestrate and monitor your migration process."
+    link: "/migration-console/"
 ---
 
 # Migration Assistant for OpenSearch
@@ -25,4 +38,6 @@ This user guide focuses on conducting a comprehensive migration involving both e
 
 It's crucial to note that migration strategies are not universally applicable. This guide provides a detailed methodology, based on certain assumptions detailed throughout, emphasizing the importance of robust engineering practices to ensure a successful migration.
 {: .tip }
+
+{% include cards.html cards=page.tutorial_cards %}
 

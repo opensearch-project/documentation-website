@@ -5,7 +5,7 @@ nav_order: 8
 parent: Overview
 ---
 
-# Architecture overview
+# Architecture
 
 The Migration Assistant architecture is based on the use of an AWS Cloud infrastructure, but most tools are designed to be cloud independent. A local containerized version of this solution is also available.
 
