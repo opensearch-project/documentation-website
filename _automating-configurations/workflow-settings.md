@@ -15,3 +15,6 @@ The following keys represent configurable workflow settings.
 |`plugins.flow_framework.max_workflow_steps`	|Integer	|`50`	|The maximum number of steps a workflow can have.	|
 |`plugins.flow_framework.request_timeout`	|Time units	|`10s`	|The default timeout for REST requests, which applies to internal search queries.	|
 |`plugins.flow_framework.task_request_retry_duration`	|Time units	|`5s`	| When steps correspond to an API that produces a `task_id`, OpenSearch will retry them at this interval until completion.	|
+|`plugins.flow_framework.workflow_thread_pool_size`	|Integer	|`4`	|The maximum size of the workflow thread pool used for polling retries. |
+|`plugins.flow_framework.provision_thread_pool_size`	|Integer	|`8`	|The maximum size of the provision workflow thread pool. |
+|`plugins.flow_framework.deprovision_thread_pool_size`	|Integer	|`4`	|The maximum size of the deprovision workflow thread pool. |
