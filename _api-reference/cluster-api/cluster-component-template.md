@@ -73,7 +73,7 @@ The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `name` | **Required** | String | The name of the component template to create. OpenSearch includes the following built-in component templates: `logs-mappings`, `logs-settings`, `metrics-mappings`, `metrics-settings`, `synthetics-mapping`, and `synthetics-settings`. OpenSearch uses these templates to configure backing indexes for its data streams. If you want to overwrite one of these templates, set the replacement template `version` to a higher value than the current version. If you want to disable all built-in component and index templates, set `stack.templates.enabled` to `false` using the [Cluster Update Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). |
+| `name` | **Required** | String | The name of the component template to create. OpenSearch includes the following built-in component templates: `logs-mappings`, `logs-settings`, `metrics-mappings`, `metrics-settings`, `synthetics-mapping`, and `synthetics-settings`. OpenSearch uses these templates to configure backing indexes for its data streams. If you want to overwrite one of these templates, set the replacement template `version` to a higher value than the current version. If you want to disable all built-in component and index templates, set `stack.templates.enabled` to `false` using the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). |
 
 <!-- spec_insert_end -->
 
@@ -91,7 +91,7 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- | :--- |
 | `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | N/A |
 | `create` | Boolean | When `true`, this request cannot replace or update existing component templates. | `false` |
-| `timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0" without a unit and "-1" to indicate an unspecified value. | N/A |
+| `timeout` | String | A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts `0` without a unit and `-1` to indicate an unspecified value. | N/A |
 
 <!-- spec_insert_end -->
 

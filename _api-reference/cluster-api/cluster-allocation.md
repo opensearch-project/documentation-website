@@ -39,7 +39,7 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `include_disk_info` | Boolean | When `true`, returns information about disk usage and shard sizes. | `false` |
-| `include_yes_decisions` | Boolean | When `true`, returns any `YES` decisions in the allocation explanation. `YES` decisions indicate when a particular shard allocation attempt was successful for the given node. | `false` |
+| `include_yes_decisions` | Boolean | When `true`, returns any `YES` decisions in the allocation explanation. `YES` decisions indicate successful shard allocation attempts for a given node. | `false` |
 
 <!-- spec_insert_end -->
 
@@ -50,7 +50,7 @@ All cluster allocation explain fields are optional.
 
 Field | Type | Description
 :--- | :--- | :---
-`current_node` | String | Specifies a node name to return an explanation only if the shard is on that node.
+`current_node` | String | Returns an explanation only if the shard is located on the `current_node`.
 `index` | String | The name of the shard's index.
 `primary` | Boolean | Whether to provide an explanation for the primary shard (`true`) or its first replica (`false`), both of which share the same shard ID.
 `shard` | Integer | The shard ID that you want an explanation for.
