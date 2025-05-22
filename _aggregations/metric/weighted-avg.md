@@ -10,7 +10,7 @@ has_math: true
 
 The `weighted_avg` aggregation calculates the weighted average of numeric values across documents. This is useful when you want to calculate an average but weight some data points more heavily than others.
 
-Weighted average is calculated using the formula $$ \frac{\sum_{i=1}^n \text{value}_i \cdot \text{weight}_i}{\sum_{i=1}^n \text{weight}_i} $$.
+The weighted average is calculated using the formula $$ \frac{\sum_{i=1}^n \text{value}_i \cdot \text{weight}_i}{\sum_{i=1}^n \text{weight}_i} $$.
 
 ## Parameters
 
@@ -71,7 +71,7 @@ GET /products/_search
 
 ## Example response
 
-The response contains the `weighted_rating`, calculated as `weighted_avg = (4.5 * 100 + 3.8 * 50) / (100 + 50) = 4.27`. Only documents 1 and 2 that contain a value for both `rating` and `num_reviews` are considered:
+The response contains the `weighted_rating`, calculated as `weighted_avg = (4.5 * 100 + 3.8 * 50) / (100 + 50) = 4.27`. Only documents 1 and 2, which contain values for both `rating` and `num_reviews`, are considered:
 
 ```json
 {
