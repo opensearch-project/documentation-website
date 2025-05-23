@@ -10,8 +10,11 @@ nav_order: 58
 Use the `script` query to filter documents based on a custom condition written in the Painless scripting language. This query returns documents for which the script evaluates to `true`, enabling advanced filtering logic that can't be expressed using standard queries.
 
 The `script` query is computationally expensive and should be used sparingly. Only use it when necessary and ensure `search.allow_expensive_queries` is enabled (default is `true`).
+{ : .important }
 
 ## Parameters
+
+The following table lists the top-level parameters that `script` query supports. 
 
 | Parameter       | Required/Optional | Description                                           |
 | --------------- | ----------------- | ----------------------------------------------------- |
@@ -162,9 +165,9 @@ The returned hits only include documents with `price` less than `100`:
 }
 ```
 
-## Combine multiple conditions
+## Combining multiple conditions
 
-Use the following query to get products with `rating` higher than `4.5` and `price` lower than `100`:
+Use the following query to search for products with `rating` higher than `4.5` and `price` lower than `100`:
 
 ```json
 POST /products/_search
@@ -180,7 +183,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-The documents that do not match the requirements are not returned:
+Only the documents that match the requirements are returned:
 
 ```json
 {
