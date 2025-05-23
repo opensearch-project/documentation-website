@@ -24,7 +24,7 @@ OpenSearch supports the following specialized queries:
 
 - `rank_feature`: Calculates scores based on the values of numeric features. This query can skip non-competitive hits.
 
-- `script`: Uses a script as a filter.
+- [`script`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script/): Uses a script as a filter.
 
 - [`script_score`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/): Calculates a custom score for matching documents using a script.
 
