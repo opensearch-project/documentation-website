@@ -9,12 +9,12 @@ nav_order: 58
 
 Use the `script` query to filter documents based on a custom condition written in the Painless scripting language. This query returns documents for which the script evaluates to `true`, enabling advanced filtering logic that can't be expressed using standard queries.
 
-The `script` query is part of the [expensive queries]({{site.url}}{{site.baseurl}}/query-dsl/#expensive-queries) and should be used sparingly. Only use it when necessary and ensure `search.allow_expensive_queries` is enabled (default is `true`).
+The `script` query is computationally expensive and should be used sparingly. Only use it when necessary and ensure `search.allow_expensive_queries` is enabled (default is `true`). For more information, see [Expensive queries]({{site.url}}{{site.baseurl}}/query-dsl/#expensive-queries).
 {: .important }
 
 ## Example
 
-Create index named `products` with following mappings:
+Create an index named `products` with the following mappings:
 
 ```json
 PUT /products
@@ -45,7 +45,7 @@ POST /products/_bulk
 
 ## Basic script query
 
-Return products with a rating above `4.6`:
+Return products with a rating higher than `4.6`:
 
 ```json
 POST /products/_search
@@ -61,7 +61,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-The returned hits only include documents with `rating` higher than `4.6`:
+The returned hits only include documents with a `rating` higher than `4.6`:
 
 ```json
 {
@@ -100,7 +100,7 @@ The returned hits only include documents with `rating` higher than `4.6`:
 
 ## Parameters
 
-The following table lists the top-level parameters that `script` query supports. 
+The `script` query takes the following top-level parameters.
 
 | Parameter       | Required/Optional | Description                                           |
 | --------------- | ----------------- | ----------------------------------------------------- |
@@ -128,7 +128,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-The returned hits only include documents with `price` less than `100`:
+The returned hits only include documents with a `price` of less than `100`:
 
 ```json
 {
@@ -167,7 +167,7 @@ The returned hits only include documents with `price` less than `100`:
 
 ## Combining multiple conditions
 
-Use the following query to search for products with `rating` higher than `4.5` and `price` lower than `100`:
+Use the following query to search for products with a `rating` higher than `4.5` and a `price` lower than `100`:
 
 ```json
 POST /products/_search
