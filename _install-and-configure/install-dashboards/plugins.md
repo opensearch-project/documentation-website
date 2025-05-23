@@ -40,6 +40,7 @@ The following table lists available OpenSearch Dashboards plugins.
 | Notebooks Dashboards | [dashboards-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 |
 | Notifications Dashboards | [dashboards-notifications](https://github.com/opensearch-project/dashboards-notifications) | 2.0.0 |
 | Observability Dashboards | [dashboards-observability](https://github.com/opensearch-project/dashboards-observability) | 2.0.0 |
+| Query Insights Dashboards | [query-insights-dashboards](https://github.com/opensearch-project/query-insights-dashboards) | 2.19.0 |
 | Query Workbench Dashboards | [query-workbench](https://github.com/opensearch-project/dashboards-query-workbench) | 1.0.0 |
 | Reports Dashboards | [dashboards-reporting](https://github.com/opensearch-project/dashboards-reporting) | 1.0.0 |
 | Security Analytics Dashboards | [security-analytics-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin)| 2.4.0 |
