@@ -14,7 +14,7 @@ The `script` query is part of the [expensive queries]({{site.url}}{{site.baseurl
 
 ## Example
 
-Create index named `products` with following mapping:
+Create index named `products` with following mappings:
 
 ```json
 PUT /products
