@@ -106,14 +106,13 @@ POST /logs-demo/_search_shards?routing=user1
 
 ## Response body fields
 
-| Field             | Type              | Description                                                                 |
-|------------------|-------------------|-----------------------------------------------------------------------------|
-| `nodes`          | object            | Map of node IDs to node metadata (name, transport address, etc.)           |
-| `indices`        | object            | Map of index names included in the request                                 |
-| `shards`         | array of arrays   | Nested arrays representing shard copies (primary/replica) for the request  |
-| `shards.index` | string            | Name of the index                                                           |
-| `shards.shard` | integer           | Shard number                                                               |
-| `shards.node`  | string            | Node ID handling this shard                                                |
-| `shards.primary` | boolean         | Whether this is a primary shard                                            |
-| `shards.state` | string            | Current state of the shard (e.g., STARTED)                                 |
-| `shards.allocation_id.id` | string | Unique ID for this shard allocation                                        |
+| Field | Type | Description |
+| `nodes` | object | Map of node IDs to node metadata (name, transport address) |
+| `indices` | object | Map of index names included in the request |
+| `shards` | array of arrays | Nested arrays representing shard copies (primary/replica) for the request |
+| `shards.index` | string | Name of the index |
+| `shards.shard` | integer | Shard number |
+| `shards.node`  | string | Node ID handling this shard |
+| `shards.primary` | boolean | Whether this is a primary shard |
+| `shards.state` | string | Current state of the shard |
+| `shards.allocation_id.id` | string | Unique ID for this shard allocation |
