@@ -9,19 +9,12 @@ nav_order: 58
 
 Use the `script` query to filter documents based on a custom condition written in the Painless scripting language. This query returns documents for which the script evaluates to `true`, enabling advanced filtering logic that can't be expressed using standard queries.
 
-The `script` query is computationally expensive and should be used sparingly. Only use it when necessary and ensure `search.allow_expensive_queries` is enabled (default is `true`).
-{ : .important }
+The `script` query is part of the [expensive queries]({{site.url}}{{site.baseurl}}/query-dsl/#expensive-queries) and should be used sparingly. Only use it when necessary and ensure `search.allow_expensive_queries` is enabled (default is `true`).
+{: .important }
 
-## Parameters
+## Example
 
-The following table lists the top-level parameters that `script` query supports. 
-
-| Parameter       | Required/Optional | Description                                           |
-| --------------- | ----------------- | ----------------------------------------------------- |
-| `script.source` | Required          | The script code that evaluates to `true` or `false`.  |
-| `script.params` | Optional          | User-defined parameters referenced inside the script. |
-
-## Create a sample index
+Create index named `products` with following mapping:
 
 ```json
 PUT /products
@@ -35,10 +28,9 @@ PUT /products
   }
 }
 ```
-
 {% include copy-curl.html %}
 
-## Index example documents
+Index example documents using the following request:
 
 ```json
 POST /products/_bulk
@@ -49,7 +41,6 @@ POST /products/_bulk
 { "index": { "_id": 3 } }
 { "title": "Noise Cancelling Headphones", "price": 199.99, "rating": 4.7 }
 ```
-
 {% include copy-curl.html %}
 
 ## Basic script query
@@ -107,9 +98,18 @@ The returned hits only include documents with `rating` higher than `4.6`:
 }
 ```
 
-## Use `params` in script
+## Parameters
 
-You can use `params` to safely inject external values:
+The following table lists the top-level parameters that `script` query supports. 
+
+| Parameter       | Required/Optional | Description                                           |
+| --------------- | ----------------- | ----------------------------------------------------- |
+| `script.source` | Required          | The script code that evaluates to `true` or `false`.  |
+| `script.params` | Optional          | User-defined parameters referenced inside the script. |
+
+## Using script parameters
+
+You can use `params` to safely inject values, taking advantage of script compilation caching:
 
 ```json
 POST /products/_search
