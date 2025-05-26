@@ -5,6 +5,8 @@ nav_order: 35
 parent: Managing OpenSearch Data Prepper
 ---
 
+<!---Add to "Techniques(working title) section within Managing Data Prepper--->
+
 # Source coordination
 
 _Source coordination_ is the concept of coordinating and distributing work between OpenSearch Data Prepper data sources in a multi-node environment. Some data sources, such as Amazon Kinesis or Amazon Simple Queue Service (Amazon SQS), handle coordination natively. Other data sources, such as OpenSearch, Amazon Simple Storage Service (Amazon S3), Amazon DynamoDB, and JDBC/ODBC, do not support source coordination.

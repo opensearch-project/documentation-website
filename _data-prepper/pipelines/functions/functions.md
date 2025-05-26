@@ -10,6 +10,8 @@ has_children: true
 
 OpenSearch Data Prepper offers a range of built-in functions that can be used within expressions to perform common data preprocessing tasks, such as calculating lengths, checking for tags, retrieving metadata, searching for substrings, checking IP address ranges, and joining list elements. These functions include the following:
 
+<!----Cards for functions here---->
+
 - [`cidrContains()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/cidrcontains/)
 - [`contains()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/contains/)
 - [`getMetadata()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/get-metadata/)
