@@ -17,7 +17,7 @@ OpenSearch provides a comprehensive suite of search-related APIs that allow you 
 These APIs form the foundation of OpenSearch's search capabilities:
 
 - **[Search]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/)**: Run search queries across one or more indexes.
-- **[Multi search]({{site.url}}{{site.baseurl}}/api-reference/search-apis/multi-search/)**: Run multiple search requests in a single API call.
+- **[Multi-search]({{site.url}}{{site.baseurl}}/api-reference/search-apis/multi-search/)**: Run multiple search requests in a single API call.
 - **[Point in time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time-api/)**: Create a consistent view of the index for search operations.
 - **[Scroll]({{site.url}}{{site.baseurl}}/api-reference/search-apis/scroll/)**: Retrieve large numbers of results from a search query.
 - **[Count]({{site.url}}{{site.baseurl}}/api-reference/search-apis/count/)**: Get the number of documents that match a query.
@@ -38,4 +38,4 @@ These APIs help you test, debug, and optimize your search operations:
 These APIs allow you to work with search templates:
 
 - **[Search template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/)**: Use search templates to run parameterized search queries.
-- **[Multi search template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/msearch-template/)**: Execute multiple search template requests in a single API call.
+- **[Multi-search template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/msearch-template/)**: Execute multiple search template requests in a single API call.
