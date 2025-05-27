@@ -103,7 +103,7 @@ explain | String | Whether to return details about how OpenSearch computed the d
 from | Integer | The starting index to search from. Default is 0.
 indices_boost | Array of objects | Values used to boost the score of specified indexes. Specify in the format of &lt;index&gt; : &lt;boost-multiplier&gt;
 min_score | Integer | Specify a score threshold to return only documents above the threshold.
-query | Object | The [DSL query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) to use in the request.
+query | Object | The [DSL query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) to use in the request.
 seq_no_primary_term | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.
 size | Integer | How many results to return. Default is 10.
 _source | | Whether to include the `_source` field in the response.
@@ -182,7 +182,7 @@ GET /movies/_search
 
 ## The `ext` object
 
-Starting with OpenSearch 2.10, plugin authors can add an `ext` object to the search response. The purpose of the `ext` object is to contain plugin-specific response fields. For example, in conversational search, the result of Retrieval Augmented Generation (RAG) is a single "hit" (answer). Plugin authors can include this answer in the search response as part of the `ext` object so that it is separate from the search hits. In the following example response, the RAG result is in the `ext.retrieval_augmented_generation.answer` field:
+Starting with OpenSearch 2.10, plugin authors can add an `ext` object to the search response. The purpose of the `ext` object is to contain plugin-specific response fields. For example, in conversational search, the result of retrieval-augmented generation (RAG) is a single "hit" (answer). Plugin authors can include this answer in the search response as part of the `ext` object so that it is separate from the search hits. In the following example response, the RAG result is in the `ext.retrieval_augmented_generation.answer` field:
 
 ```json
 {
