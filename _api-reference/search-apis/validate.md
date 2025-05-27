@@ -1,10 +1,13 @@
 ---
 layout: default
-title: Validate Query
+title: Validate query
 nav_order: 87
+parent: Search APIs
+redirect_from: 
+ - /api-reference/validate/
 ---
 
-# Validate Query
+# Validate query
 
 You can use the Validate Query API to validate a query without running it. The query can be sent as a path parameter or included in the request body.
 

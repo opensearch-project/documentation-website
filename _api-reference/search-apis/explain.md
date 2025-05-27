@@ -1,9 +1,11 @@
 ---
 layout: default
 title: Explain
-nav_order: 30
+parent: Search APIs
+nav_order: 40
 redirect_from: 
  - /opensearch/rest-api/explain/
+ - /api-reference/explain/
 ---
 
 # Explain

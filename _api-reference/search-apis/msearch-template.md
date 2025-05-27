@@ -1,10 +1,13 @@
 ---
 layout: default
-title: Multi-search Template 
-nav_order: 47
+title: Multi-search template 
+parent: Search APIs
+nav_order: 100
+redirect_from:
+  - /api-reference/msearch-template/
 ---
 
-# Multi-search Template 
+# Multi-search template 
 
 **Introduced 1.0**
 {: .label .label-purple }

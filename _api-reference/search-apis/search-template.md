@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Search templates
-nav_order: 80
+parent: Search APIs
+nav_order: 90
 redirect_from:
   - /opensearch/search-template/
   - /search-plugins/search-template/
+  - /api-reference/search-template/
 ---
 
 # Search templates
@@ -230,7 +232,7 @@ Use the section tag in Mustache to represent conditions:
 {% raw %}{{#var}}var{{/var}}{% endraw %}
 ```
 
-When `var` is a boolean value, this syntax acts as an `if` condition. The `{% raw %}{{#var}}{% endraw %}` and `{% raw %}{{/var}}{% endraw %}` tags insert the values placed between them only if `var` evaluates to `true`.
+When `var` is a Boolean value, this syntax acts as an `if` condition. The `{% raw %}{{#var}}{% endraw %}` and `{% raw %}{{/var}}{% endraw %}` tags insert the values placed between them only if `var` evaluates to `true`.
 
 Using section tags would make your JSON invalid, so you must write your query in a string format instead.
 
@@ -268,7 +270,7 @@ GET _search/template
 You can also use the section tag to implement a for each loop:
 
 ```
-{% raw %}{{#var}}{{.}}}{{/var}}{% endraw %}
+{% raw %}{{#var}}{{.}}{{/var}}{% endraw %}
 ```
 
 When `var` is an array, the search template iterates through it and creates a `terms` query.
@@ -423,5 +425,3 @@ To delete a search template, run the following command:
 ```json
 DELETE _scripts/<name_of_search_template>
 ```
-
----

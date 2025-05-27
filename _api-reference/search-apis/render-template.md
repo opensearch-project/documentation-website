@@ -1,14 +1,17 @@
 ---
 layout: default
-title: Render Template
+title: Render template
+parent: Search APIs
 nav_order: 82
+redirect_from:
+  - /api-reference/render-template/
 ---
 
-# Render Template 
+# Render template 
 
 The Render Template API renders a [search template]({{site.url}}{{site.baseurl}}/search-plugins/search-template/) as a search query.
 
-## Paths and HTTP methods
+## Endpoints
 
 ```json
 GET /_render/template

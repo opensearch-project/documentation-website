@@ -1,19 +1,18 @@
 ---
 layout: default
 title: Analyze API
-has_children: true
 nav_order: 7
 redirect_from:
   - /api-reference/analyze-apis/perform-text-analysis/
   - /opensearch/rest-api/analyze-apis/
-  - /api-reference/analyze-apis/
+  - /api-reference/analyze-apis/terminology/
 ---
 
 # Analyze API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Analyze API allows you to perform [text analysis]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/), which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search.
+The Analyze API allows you to perform [text analysis]({{site.url}}{{site.baseurl}}/analyzers/), which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search. For more information about common analysis components such as character filters, tokenizers, token filters, and normalizers, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/#analyzers).
 
 The Analyze API analyzes a text string and returns the resulting tokens.
 
