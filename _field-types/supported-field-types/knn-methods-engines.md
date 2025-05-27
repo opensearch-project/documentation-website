@@ -137,8 +137,8 @@ The `hnsw` method supports the following parameters.
 
 Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`ef_search` | No | 100 | No | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches.
-`ef_construction` | No | 100 | No | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed.
+`ef_search` | No | 100 | No | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Default is `256` for [binary indexes]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/).
+`ef_construction` | No | 100 | No | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed. Default is `256` for [binary indexes]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/).
 `m` | No | 16 | No | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between `2` and `100`.
 `encoder` | No | flat | No | An encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index at the expense of search accuracy.
 
