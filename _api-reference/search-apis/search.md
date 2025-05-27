@@ -1,9 +1,11 @@
 ---
 layout: default
 title: Search
-nav_order: 75
+parent: Search APIs
+nav_order: 10
 redirect_from:
   - /opensearch/rest-api/search/
+  - /api-reference/search/
 ---
 
 # Search
@@ -33,7 +35,7 @@ allow_partial_search_results | Boolean | Whether to return partial results if th
 analyzer | String | Analyzer to use in the query string.
 analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is `false`.
 batched_reduce_size | Integer | How many shard results to reduce on a node. Default is 512.
-cancel_after_time_interval | Time | The time after which the search request will be canceled. Request-level parameter takes precedence over cancel_after_time_interval [cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings). Default is -1.
+cancel_after_time_interval | Time | The time after which the search request will be canceled. Request-level parameter takes precedence over cancel_after_time_interval [cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/). Default is -1.
 ccs_minimize_roundtrips | Boolean | Whether to minimize roundtrips between a node and remote clusters. Default is `true`.
 default_operator | String | Indicates whether the default operator for a string query should be AND or OR. Default is OR.
 df | String | The default field in case a field prefix is not provided in the query string.
