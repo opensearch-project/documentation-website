@@ -127,8 +127,8 @@ The Faiss engine supports the following methods.
 
 Method name | Requires training | Supported spaces 
 :--- | :--- |:---
-[`hnsw`](#hnsw-parameters-1) | No | `l2`, `innerproduct` (not available when [PQ](#pq-parameters) is used), `hamming` 
-[`ivf`](#ivf-parameters) | Yes | `l2`, `innerproduct`, `hamming` (supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized#binary-vectors).
+[`hnsw`](#hnsw-parameters-1) | No | `l2`, `innerproduct` (not available when [PQ](#pq-parameters) is used), `hamming`, and `cosinesimil` (supported in OpenSearch 2.19 and later).
+[`ivf`](#ivf-parameters) | Yes | `l2`, `innerproduct`, `hamming` (supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized#binary-vectors), `cosinesimil` (supported in OpenSearch 2.19 and later).
 
 
 #### HNSW parameters
@@ -378,7 +378,7 @@ In general, select Faiss for large-scale use cases. Lucene is a good option for 
 |  Max dimensions |    16,000 |  16,000 |  16,000 |
 |  Filter |    Post-filter |  Post-filter |  Filter during search |
 |  Training required |    No (Yes for PQ) |  Yes |  No |
-|  Similarity metrics | `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
+|  Similarity metrics | `l2`, `innerproduct`, `cosinesimil` |  `l2`, `innerproduct`, `cosinesimil` |  `l2`, `cosinesimil` |
 |  Number of vectors   |    Tens of billions |  Tens of billions |  Less than 10 million |
 |  Indexing latency |   Low  |  Lowest  |  Low  |
 |  Query latency and quality  |    Low latency and high quality  |  Low latency and low quality  |  High latency and high quality  |
