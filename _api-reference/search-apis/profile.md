@@ -1,7 +1,10 @@
 ---
 layout: default
 title: Profile
+parent: Search APIs
 nav_order: 55
+redirect_from:
+  - /api-reference/profile/
 ---
 
 # Profile
