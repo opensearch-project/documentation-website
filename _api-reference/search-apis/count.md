@@ -2,7 +2,7 @@
 layout: default
 title: Count
 parent: Search APIs
-nav_order: 21
+nav_order: 35
 redirect_from:
  - /opensearch/rest-api/count/
  - /api-reference/count/
