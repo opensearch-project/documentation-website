@@ -1,7 +1,10 @@
 ---
 layout: default
 title: Ranking evaluation
+parent: Search APIs
 nav_order: 60
+redirect_from:
+  - /api-reference/rank-eval/
 ---
 
 # Ranking evaluation
@@ -32,7 +35,7 @@ search_type | String | Set search type to either `query_then_fetch` or `dfs_quer
 
 The request body must contain at least one parameter.
 
-Field Type | Description
+Field type | Description
 :--- | :---  
 id | Document or template ID.
 requests | Set multiple search requests within the request field section.
