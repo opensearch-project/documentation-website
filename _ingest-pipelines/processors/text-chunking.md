@@ -161,9 +161,6 @@ The response confirms that, in addition to the `passage_text` field, the process
 }
 ```
 
-If you set the `max_chunk_limit` parameter to be `2`, the `passage_chunk` would consists of two chunks `["This is an example document to be chunked. The document ", "The document contains a single paragraph, two sentences and 24 tokens by standard tokenizer in OpenSearch."]`
-{: .note}
-
 Once you have created an ingest pipeline, you need to create an index for document ingestion. To learn more, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
 
 ## Cascaded text chunking processors
