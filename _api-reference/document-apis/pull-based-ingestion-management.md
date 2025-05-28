@@ -53,6 +53,7 @@ POST /my-index/ingestion/_pause
 ## Resume ingestion
 
 Resumes ingestion for one or more indexes. When resumed, OpenSearch continues consuming data from the streaming source for all shards in the specified indexes.
+As part of the resume operation, the stream consumer can optionally be reset to start reading from a particular offset or timestamp. If reset settings are provided, all consumers for specified shards will first be reset before applying the resume operation on the index. 
 
 ### Endpoint
 
@@ -77,10 +78,48 @@ The following table lists the available query parameters. All query parameters a
 | `cluster_manager_timeout` | Time units | The amount of time to wait for a connection to the cluster manager node. Default is `30s`. |
 | `timeout` | Time units | The amount of time to wait for a response from the cluster. Default is `30s`. |
 
-### Example request
+### Request body
+
+A list of reset settings can be provided for all or a subset of shards that need to be reset. This is optional.
+
+| Field | Data type | Required/Optional | Description |
+| :--- | :--- | :--- | :--- |
+| `shard` | Number | Required | The shard to reset. |
+| `mode` | String | Required | Reset mode. Allowed values are `offset` and `timestamp`. |
+| `value` | String | Required | &ensp;&#x2022; `offset`: Kafka offset or Kinesis sequence number<br>&ensp;&#x2022; `timestamp`: Unix timestamp in milliseconds |
 
 ```json
+{
+  "reset_settings": [
+    {
+      "shard": "shard number",
+      "mode": "offset" or "timestamp",
+      "value": "offset/timestamp value"
+    }
+  ]
+}
+```
+
+### Example request
+
+Resume without reset settings:
+```json
 POST /my-index/ingestion/_resume
+```
+{% include copy-curl.html %}
+
+Resume with reset settings:
+```json
+POST /my-index/ingestion/_resume
+{
+  "reset_settings": [
+    {
+      "shard": 0,
+      "mode": "offset",
+      "value": "1"
+    }
+  ]
+}
 ```
 {% include copy-curl.html %}
 
