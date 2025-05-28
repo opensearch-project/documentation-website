@@ -30,7 +30,7 @@ These APIs help you test, debug, and optimize your search operations:
 - **Field capabilities**: Get the capabilities of fields across multiple indexes.
 - **[Profile]({{site.url}}{{site.baseurl}}/api-reference/search-apis/profile/)**: Profile the execution of search requests.
 - **[Ranking evaluation]({{site.url}}{{site.baseurl}}/api-reference/search-apis/rank-eval/)**: Evaluate the quality of search results.
-- **Search shards**: Get information about the shards on which a search request would be executed.
+- **[Search shards]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-shards/)**: Get information about the shards on which a search request would be executed.
 - **[Validate]({{site.url}}{{site.baseurl}}/api-reference/search-apis/validate/)**: Validate a potentially expensive query before executing it.
 
 ## Search template APIs
