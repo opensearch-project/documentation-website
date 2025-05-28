@@ -28,7 +28,16 @@ The following table lists the available path parameters. All path parameters are
 
 ## Query parameters
 
-All query parameters are optional. Full list is available in [Query parameters]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#query-parameters)
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| `allow_no_indices` | Boolean | If `true`, the request does not fail if a wildcard expression or index alias resolves to no concrete indices. Default is `true`. |
+| `expand_wildcards` | String | Controls how wildcard expressions are expanded. Options are: `open` (default), `closed`, `hidden`, `none`, `all`. |
+| `ignore_unavailable` | Boolean | If `true`, missing or closed indices are ignored. Default is `false`. |
+| `local` | Boolean | If `true`, the operation is performed only on the local node, without retrieving the state from the cluster manager node. Default is `false`. |
+| `preference` | String | Specifies a preference in selecting which shards or nodes to target. See the [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for more details. |
+| `routing` | String | A comma-separated list of specific routing values to use for shard selection. If specified, it affects which shards are considered for the search. |
+
 
 ## Request body fields
 
