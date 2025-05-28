@@ -36,7 +36,7 @@ The following table lists the available query parameters. All query parameters a
 | `ignore_unavailable` | Boolean | If `true`, missing or closed indexes are ignored. Default is `false`. |
 | `local` | Boolean | If `true`, the operation is performed only on the local node, without retrieving the state from the cluster manager node. Default is `false`. |
 | `preference` | String | Specifies a preference in selecting which shards or nodes to target. See [The `preference` query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for more information. |
-| `routing` | String | A comma-separated list of specific routing values used for shard selection. If specified, affects which shards are considered for the search. |
+| `routing` | String | A comma-separated list of specific routing values used for shard selection. |
 
 
 ## Request body fields
