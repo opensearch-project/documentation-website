@@ -1,10 +1,9 @@
 ---
 layout: default
 title: Migration console
-nav_order: 30
+nav_order: 50
 has_children: true
 permalink: /migration-console/
-has_toc: false
 redirect_from: 
   - /migration-console/index/
 ---
