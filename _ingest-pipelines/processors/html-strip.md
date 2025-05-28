@@ -18,7 +18,7 @@ The following is the syntax for the `html_strip` processor:
   }  
 }  
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

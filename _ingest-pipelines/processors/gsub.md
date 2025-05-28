@@ -18,7 +18,7 @@ The following is the syntax for the `gsub` processor:
   "replacement": "replacement_string"
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

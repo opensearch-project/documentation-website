@@ -29,7 +29,7 @@ The following is the syntax for the `text_image_embedding` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Parameters
 
