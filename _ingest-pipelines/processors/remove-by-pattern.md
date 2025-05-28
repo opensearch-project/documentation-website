@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Remove_by_pattern
+title: Remove by pattern
 parent: Ingest processors
 nav_order: 225
 redirect_from:
-   - /api-reference/ingest-apis/processors/remove_by_pattern/
+   - /ingest-pipelines/processors/remove_by_pattern/
 ---
 
-# Remove_by_pattern processor
+# Remove by pattern processor
 
 The `remove_by_pattern` processor removes the root-level fields from a document by using specified wildcard patterns. 
 
@@ -22,7 +22,7 @@ The following is the syntax for the `remove_by_pattern` processor:
     }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 
