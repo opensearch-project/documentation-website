@@ -1,9 +1,11 @@
 ---
 layout: default
 title: Remote cluster information
+parent: Cluster APIs
 nav_order: 67
 redirect_from: 
  - /opensearch/rest-api/remote-info/
+ - /api-reference/remote-info/
 ---
 
 # Remote cluster information
@@ -21,7 +23,7 @@ The response is more comprehensive and useful than a call to `_cluster/settings`
 GET _remote/info
 ```
 
-## Example Response
+## Example response
 
 ```json
 {

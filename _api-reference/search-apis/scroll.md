@@ -1,9 +1,11 @@
 ---
 layout: default
 title: Scroll
-nav_order: 71
+parent: Search APIs
+nav_order: 30
 redirect_from:
  - /opensearch/rest-api/scroll/
+ - /api-reference/scroll/
 ---
 
 # Scroll
