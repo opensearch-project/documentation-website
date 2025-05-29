@@ -320,7 +320,7 @@ A _core_ (or _native_) plugin in OpenSearch is a plugin that resides in the [Ope
 
 #### Downloading core plugins for offline installation
 
-Each core plugins in this [list](https://github.com/opensearch-project/OpenSearch/tree/main/plugins) can be downloaded and installed offline from a [zip file](#install-a-plugin-from-a-zip-file) using the official `plugins` repository URL template:
+Each core plugins in [this list](https://github.com/opensearch-project/OpenSearch/tree/main/plugins) can be downloaded and installed offline from a [zip file](#install-a-plugin-from-a-zip-file) using the official `plugins` repository URL template:
 
 ```html
 https://artifacts.opensearch.org/releases/plugins/<plugin-name>/<version>/<plugin-name>-<version>.zip
