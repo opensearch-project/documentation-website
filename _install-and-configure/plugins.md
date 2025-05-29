@@ -309,7 +309,7 @@ _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 #### Downloading bundled plugins for offline installation
 
-Each bundled plugins can be downloaded and installed offline from a [zip file](#install-a-plugin-from-a-zip-file).
+Each bundled plugin can be downloaded and installed offline from a [zip file](#install-a-plugin-from-a-zip-file).
 
 The URL for the corresponding plugin can be found in the `manifest.yml` file located in the root directory of the extracted bundle.
 
