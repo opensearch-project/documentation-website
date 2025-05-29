@@ -307,7 +307,7 @@ _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with 
 _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 
-#### Downloading bundled plugin for offline installation
+#### Downloading bundled plugins for offline installation
 
 Each bundled plugins can be downloaded and installed offline from a [zip file](#install-a-plugin-from-a-zip-file).
 
