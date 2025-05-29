@@ -315,7 +315,7 @@ The URL for the corresponding plugin can be found in the `manifest.yml` file loc
 
 ### Core plugins
 
-A core (or native) plugin in OpenSearch is a plugin that resides in the [OpenSearch core engine repository](https://github.com/opensearch-project/OpenSearch/tree/main/plugins). These plugins are tightly integrated with the OpenSearch engine, are versioned alongside core releases, and are not bundled by default in the standard OpenSearch distribution.
+A _core_ (or _native_) plugin in OpenSearch is a plugin that resides in the [OpenSearch core engine repository](https://github.com/opensearch-project/OpenSearch/tree/main/plugins). These plugins are tightly integrated with the OpenSearch engine, are versioned alongside core releases, and are not bundled by default in the standard OpenSearch distribution.
 
 
 #### Downloading core plugins for offline installation
