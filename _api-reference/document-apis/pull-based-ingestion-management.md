@@ -90,18 +90,6 @@ The following table lists the available request body fields.
 | `reset_settings.mode` | String | Required | The reset mode. Valid values are `offset` and `timestamp`. |
 | `reset_settings.value` | String | Required | &ensp;&#x2022; `offset`: The Kafka offset or Kinesis sequence number<br>&ensp;&#x2022; `timestamp`: A Unix timestamp in milliseconds |
 
-```json
-{
-  "reset_settings": [
-    {
-      "shard": "shard number",
-      "mode": "offset" or "timestamp",
-      "value": "offset/timestamp value"
-    }
-  ]
-}
-```
-
 ### Example request
 
 To resume ingestion without specifying reset settings, send the following request:
@@ -111,7 +99,8 @@ POST /my-index/ingestion/_resume
 ```
 {% include copy-curl.html %}
 
-Resume with reset settings:
+To provide reset settings when resuming ingestion, send the following request:
+
 ```json
 POST /my-index/ingestion/_resume
 {
