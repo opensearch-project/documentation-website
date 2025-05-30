@@ -79,7 +79,7 @@ The following table lists the available query parameters. All query parameters a
 | `cluster_manager_timeout` | Time units | The amount of time to wait for a connection to the cluster manager node. Default is `30s`. |
 | `timeout` | Time units | The amount of time to wait for a response from the cluster. Default is `30s`. |
 
-### Request body
+### Request body fields
 
 A list of reset settings can be provided for all or a subset of shards that need to be reset. This is optional.
 
