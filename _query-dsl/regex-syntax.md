@@ -70,7 +70,7 @@ Lucene supports a core set of regex operators:
 
 - `[ ]` – Matches one character from a set or range. **Example**: `[aeiou]` matches any vowel.
     - `-` – When provided within the brackets, indicates a range unless escaped or is the first character within the brackets. **Example**: `[a-z]` matches any lowercase letter; `[-az]` matches `-`, `a`, or `z`; `[a\\-z]` matches `a`, `-`, or `z`.
-    - `^` – When provided within the brackets, acts a logical `NOT`, negating a range of characters or any character in the set. **Example**: `[^az]` matches any character except `a` or `z`; `[^a-z]` matches any character except lowercase letters, `[^-az]` matches any character except `-`, `a`, and `z`; `[^a\\-z]` matches any character except `a`, `-`, and `z`.
+    - `^` – When provided within the brackets, acts a logical `NOT`, negating a range of characters or any character in the set. **Example**: `[^az]` matches any character except `a` or `z`; `[^a-z]` matches any character except lowercase letters; `[^-az]` matches any character except `-`, `a`, and `z`; `[^a\\-z]` matches any character except `a`, `-`, and `z`.
 
 
 ## Optional operators
@@ -95,10 +95,10 @@ The following are the available flags:
 
 ## Unsupported features
 
-Lucene’s engine does not support the following commonly used regex anchors:
+Lucene's engine does not support the following commonly used regex anchors:
 
-- `^` – start of line
-- `$` – end of line
+- `^` – Start of line
+- `$` – End of line
 
 Instead, your pattern must match the entire string to produce a match.
 
@@ -132,7 +132,7 @@ PUT /logs/_doc/3
 
 ### Example: Basic query containing regular expressions
 
-The following `regexp` query returns documents in which the entire value of the `message` field matches the pattern "error" followed by one or more digits. It does not match if the value only contains that pattern as a substring:
+The following `regexp` query returns documents in which the entire value of the `message` field matches the pattern "error" followed by one or more digits. A value does not match if it only contains the pattern as a substring:
 
 ```json
 GET /logs/_search
@@ -250,7 +250,7 @@ This query matches `error404` and `error500`:
 
 ### Example: Using ANYSTRING
 
-When the `ANYSTRING` flag is enabled, the `@` operator matches an entire string. This is useful when combined with intersection (`&`), because it allows you to construct queries that match full strings under specific conditions.
+When the `ANYSTRING` flag is enabled, the `@` operator matches an entire string. This is useful when combined with intersection (`&`) because it allows you to construct queries that match full strings under specific conditions.
 
 The following query matches messages that contain both the word "error" and a sequence of three digits. Use `ANYSTRING` to assert that the entire field must match the intersection of both patterns:
 
