@@ -81,7 +81,7 @@ The following table lists the available query parameters. All query parameters a
 
 ### Request body fields
 
-A list of reset settings can be provided for all or a subset of shards that need to be reset. This is optional.
+The following table lists the available request body fields.
 
 | Field | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
