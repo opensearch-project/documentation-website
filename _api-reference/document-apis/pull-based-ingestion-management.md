@@ -53,7 +53,8 @@ POST /my-index/ingestion/_pause
 ## Resume ingestion
 
 Resumes ingestion for one or more indexes. When resumed, OpenSearch continues consuming data from the streaming source for all shards in the specified indexes.
-As part of the resume operation, the stream consumer can optionally be reset to start reading from a particular offset or timestamp. If reset settings are provided, all consumers for specified shards will first be reset before applying the resume operation on the index. Note that consumer reset will internally trigger a flush to persist the changes. 
+
+As part of the resume operation, you can optionally reset the stream consumer to start reading from a specific offset or timestamp. If reset settings are specified, all consumers for the selected shards are reset before the resume operation is applied to the index. Resetting a consumer also triggers an internal flush to persist the changes.
 
 ### Endpoint
 
