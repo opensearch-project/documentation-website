@@ -85,7 +85,8 @@ A list of reset settings can be provided for all or a subset of shards that need
 
 | Field | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
-| `shard` | Number | Required | The shard to reset. |
+| `reset_settings` | Array | Optional | A list of reset settings for each shard. If not provided, OpenSearch resumes ingestion from the last committed position for each shard in the specified index. |
+| `reset_settings.shard` | Integer | Required | The shard to reset. |
 | `mode` | String | Required | Reset mode. Allowed values are `offset` and `timestamp`. |
 | `value` | String | Required | &ensp;&#x2022; `offset`: Kafka offset or Kinesis sequence number<br>&ensp;&#x2022; `timestamp`: Unix timestamp in milliseconds |
 
