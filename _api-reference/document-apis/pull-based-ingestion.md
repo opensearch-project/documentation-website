@@ -86,7 +86,7 @@ The following table provides the valid `pointer.init.reset` values and their cor
 | :--- | :--- | :--- | 
 | `earliest`           | The beginning of the stream | None | 
 | `latest`             | The current end of the stream | None | 
-| `reset_by_offset`    | Specific offset in the stream | A positive integer offset. Required. | 
+| `reset_by_offset`    | A specific offset in the stream | A positive integer offset. Required. | 
 | `reset_by_timestamp` | Specific point in time | A Unix timestamp in milliseconds. Required. <br> For Kafka streams, defaults to Kafka's `auto.offset.reset` policy if no messages are found for the given timestamp. |
 | `none`               | Last committed position for existing indexes | None | 
 
