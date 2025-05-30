@@ -5,6 +5,8 @@ parent: Managing OpenSearch Data Prepper
 nav_order: 20
 ---
 
+<!---Add to configuration specific section within Managing Data Prepper--->
+
 # Configuring Log4j
 
 You can configure logging using Log4j in OpenSearch Data Prepper. 

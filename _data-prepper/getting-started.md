@@ -6,6 +6,8 @@ redirect_from:
   - /clients/data-prepper/get-started/
 ---
 
+<!---Delete and redirect this page to getting started section--->
+
 # Getting started with OpenSearch Data Prepper
 
 OpenSearch Data Prepper is an independent component, not an OpenSearch plugin, that converts data for use with OpenSearch. It's not bundled with the all-in-one OpenSearch installation packages.
@@ -54,6 +56,7 @@ Configuration files are read from specific subdirectories in the application's h
 2. `config/data-prepper-config.yaml`: Used for the Data Prepper server configuration.
 
 You can supply your own pipeline configuration file path followed by the server configuration file path. However, this method will not be supported in a future release. See the following example:
+
 ```
 bin/data-prepper pipelines.yaml data-prepper-config.yaml
 ```
