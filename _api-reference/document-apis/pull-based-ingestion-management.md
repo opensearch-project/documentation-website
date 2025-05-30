@@ -104,7 +104,8 @@ The following table lists the available request body fields.
 
 ### Example request
 
-Resume without reset settings:
+To resume ingestion without specifying reset settings, send the following request:
+
 ```json
 POST /my-index/ingestion/_resume
 ```
