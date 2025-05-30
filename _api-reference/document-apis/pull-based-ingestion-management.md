@@ -88,7 +88,7 @@ The following table lists the available request body fields.
 | `reset_settings` | Array | Optional | A list of reset settings for each shard. If not provided, OpenSearch resumes ingestion from the last committed position for each shard in the specified index. |
 | `reset_settings.shard` | Integer | Required | The shard to reset. |
 | `reset_settings.mode` | String | Required | The reset mode. Valid values are `offset` and `timestamp`. |
-| `value` | String | Required | &ensp;&#x2022; `offset`: Kafka offset or Kinesis sequence number<br>&ensp;&#x2022; `timestamp`: Unix timestamp in milliseconds |
+| `reset_settings.value` | String | Required | &ensp;&#x2022; `offset`: The Kafka offset or Kinesis sequence number<br>&ensp;&#x2022; `timestamp`: A Unix timestamp in milliseconds |
 
 ```json
 {
