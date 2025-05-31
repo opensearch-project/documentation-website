@@ -62,7 +62,7 @@ The following table lists the available query parameters. All query parameters a
 
 <!-- spec_insert_end -->
 
-## Example
+## Request body example
 
 ```json
 POST /_mtermvectors
@@ -86,7 +86,7 @@ POST /_mtermvectors
 
 ## Example
 
-Create an index with term vectors enabled:
+Create an index with term vectors enabled.
 
 ```json
 PUT /my-index
@@ -103,7 +103,7 @@ PUT /my-index
 ```
 {% include copy-curl.html %}
 
-Index first document:
+Index first document.
 
 ```json
 POST /my-index/_doc/1
@@ -113,7 +113,7 @@ POST /my-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-Index second document:
+Index second document.
 
 ```json
 POST /my-index/_doc/2

@@ -74,7 +74,7 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example
 
-Create an index:
+Create an index.
 
 ```json
 PUT /my-index
@@ -91,7 +91,7 @@ PUT /my-index
 ```
 {% include copy-curl.html %}
 
-Index a document:
+Index a document.
 
 ```json
 POST /my-index/_doc/1
