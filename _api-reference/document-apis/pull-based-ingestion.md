@@ -152,7 +152,7 @@ The following table lists the available `polling_ingest_stats` metrics.
 | `consumer_stats.total_consumer_error_count` | The total number of fatal consumer read errors. |
 | `consumer_stats.total_poller_message_failure_count` | The total number of failed messages on the poller. |
 | `consumer_stats.total_poller_message_dropped_count` | The total number of failed messages on the poller that are dropped. |
-| `consumer_stats.total_duplicate_message_skipped_count` | The total number of skipped messages which were previously processed. |
+| `consumer_stats.total_duplicate_message_skipped_count` | The total number of skipped messages that were previously processed. |
 | `consumer_stats.lag_in_millis` | Lag in milliseconds, computed as the time elapsed since the last processed message timestamp. |
 
 To retrieve shard-level pull-based ingestion metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/):
