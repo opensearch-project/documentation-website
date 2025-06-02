@@ -272,7 +272,7 @@ PUT /products
 {
   "mappings": {
     "properties": {
-      "product_id": { "type": "keyword" }
+      "product_id": { "type": "integer" }
     }
   }
 }
@@ -285,7 +285,7 @@ Next, index three documents that correspond to products:
 PUT /products/_doc/1
 {
   "name": "Product 1",
-  "product_id" : "111"
+  "product_id" : 111
 }
 ```
 {% include copy-curl.html %}
@@ -294,7 +294,7 @@ PUT /products/_doc/1
 PUT /products/_doc/2
 {
   "name": "Product 2",
-  "product_id" : "222"
+  "product_id" : 222
 }
 ```
 {% include copy-curl.html %}
@@ -303,7 +303,7 @@ PUT /products/_doc/2
 PUT /products/_doc/3
 {
   "name": "Product 3",
-  "product_id" : "333"
+  "product_id" : 333
 }
 ```
 {% include copy-curl.html %}
@@ -382,7 +382,9 @@ POST /products/_search
 {
   "query": {
     "terms": {
-      "product_id": "OjAAAAEAAAAAAAIAEAAAAG8A3gBNAQ==",
+      "product_id": [
+        "OjAAAAEAAAAAAAIAEAAAAG8A3gBNAQ=="
+      ],
       "value_type": "bitmap"
     }
   }
