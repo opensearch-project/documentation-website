@@ -147,7 +147,7 @@ The following table lists the available `polling_ingest_stats` metrics.
 | `message_processor_stats.total_version_conflicts_count` | The number of version conflicts due to which older version message will be dropped. |
 | `message_processor_stats.total_failed_count` | The total number of failed messages, which error out during processing. |
 | `message_processor_stats.total_failures_dropped_count` | The total number of failed messages, which are dropped after exhausting retries. Note that messages are only dropped when DROP error policy is used. |
-| `message_processor_stats.total_processor_thread_interrupt_count` | Indicates number of thread interruptions on the processor thread. |
+| `message_processor_stats.total_processor_thread_interrupt_count` | Indicates the number of thread interruptions on the processor thread. |
 | `consumer_stats.total_polled_count` | The total number of messages polled from the stream consumer. |
 | `consumer_stats.total_consumer_error_count` | The total number of fatal consumer read errors. |
 | `consumer_stats.total_poller_message_failure_count` | The total number of failed messages on the poller. |
