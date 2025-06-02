@@ -131,7 +131,7 @@ Each data unit in the streaming source (Kafka message or Kinesis record) must in
 | :--- | :--- | :--- | :--- |
 | `_id` | String | No | A unique identifier for a document. If not provided, OpenSearch auto-generates an ID. Required for document updates or deletions. |
 | `_version` | Long | No | A document version number, which must be maintained externally. If provided, OpenSearch drops messages with versions earlier than the current document version. If not provided, no version checking occurs. |
-| `_op_type` | String | No | The operation to perform. Valid values are:<br>- `index`: Creates a new document or updates an existing one<br>- `create`: Create a new document in append-mode. Note that this will not update existing documents. <br>- `delete`: Soft deletes a document |
+| `_op_type` | String | No | The operation to perform. Valid values are:<br>- `index`: Creates a new document or updates an existing one.<br>- `create`: Create a new document in append-mode. Note that this will not update existing documents. <br>- `delete`: Soft deletes a document. |
 | `_source` | Object | Yes | The message payload containing the document data. |
 
 ## Pull-based ingestion metrics
