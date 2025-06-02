@@ -131,7 +131,7 @@ Each data unit in the streaming source (Kafka message or Kinesis record) must in
 | :--- | :--- | :--- | :--- |
 | `_id` | String | No | A unique identifier for a document. If not provided, OpenSearch auto-generates an ID. Required for document updates or deletions. |
 | `_version` | Long | No | A document version number, which must be maintained externally. If provided, OpenSearch drops messages with versions earlier than the current document version. If not provided, no version checking occurs. |
-| `_op_type` | String | No | The operation to perform. Valid values are:<br>- `index`: Creates a new document or updates an existing one.<br>- `create`: Create a new document in append-mode. Note that this will not update existing documents. <br>- `delete`: Soft deletes a document. |
+| `_op_type` | String | No | The operation to perform. Valid values are:<br>- `index`: Creates a new document or updates an existing one.<br>- `create`: Creates a new document in append mode. Note that this will not update existing documents. <br>- `delete`: Soft deletes a document. |
 | `_source` | Object | Yes | The message payload containing the document data. |
 
 ## Pull-based ingestion metrics
@@ -146,12 +146,12 @@ The following table lists the available `polling_ingest_stats` metrics.
 | `message_processor_stats.total_invalid_message_count` | The number of invalid messages encountered. |
 | `message_processor_stats.total_version_conflicts_count` | The number of version conflicts due to which older version messages will be dropped. |
 | `message_processor_stats.total_failed_count` | The total number of failed messages, which error out during processing. |
-| `message_processor_stats.total_failures_dropped_count` | The total number of failed messages, which are dropped after exhausting retries. Note that messages are only dropped when DROP error policy is used. |
+| `message_processor_stats.total_failures_dropped_count` | The total number of failed messages, which are dropped after exhausting retries. Note that messages are only dropped when the DROP error policy is used. |
 | `message_processor_stats.total_processor_thread_interrupt_count` | Indicates the number of thread interruptions on the processor thread. |
 | `consumer_stats.total_polled_count` | The total number of messages polled from the stream consumer. |
 | `consumer_stats.total_consumer_error_count` | The total number of fatal consumer read errors. |
 | `consumer_stats.total_poller_message_failure_count` | The total number of failed messages on the poller. |
-| `consumer_stats.total_poller_message_dropped_count` | The total number of failed messages on the poller that are dropped. |
+| `consumer_stats.total_poller_message_dropped_count` | The total number of failed messages on the poller that were dropped. |
 | `consumer_stats.total_duplicate_message_skipped_count` | The total number of skipped messages that were previously processed. |
 | `consumer_stats.lag_in_millis` | Lag in milliseconds, computed as the time elapsed since the last processed message timestamp. |
 
