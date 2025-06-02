@@ -68,7 +68,7 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 | Parameter | Description |
 | :--- | :--- |
 | `type` | The streaming source type. Required. Valid values are `kafka` or `kinesis`. |
-| `pointer.init.reset` | Determines where to start reading from the stream. Optional. Valid values are `earliest`, `latest`, `reset_by_offset`, `reset_by_timestamp`, or `none`. See [Stream position](#stream-position). |
+| `pointer.init.reset` | Determines the stream location from which to start reading. Optional. Valid values are `earliest`, `latest`, `reset_by_offset`, `reset_by_timestamp`, or `none`. See [Stream position](#stream-position). |
 | `pointer.init.reset.value` | Required only for `reset_by_offset` or `reset_by_timestamp`. Specifies the offset value or timestamp in milliseconds. See [Stream position](#stream-position). |
 | `error_strategy` | How to handle failed messages. Optional. Valid values are `DROP` (failed messages are skipped and ingestion continues) and `BLOCK` (when a message fails, ingestion stops). Default is `DROP`. We recommend using `DROP` for the current experimental release. |
 | `max_batch_size` | The maximum number of records to retrieve in each poll operation. Optional. |
