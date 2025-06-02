@@ -4,6 +4,8 @@ title: Monitoring
 parent: Managing OpenSearch Data Prepper
 nav_order: 25
 ---
+
+<!---Add to "Techniques(working title) section within Managing Data Prepper--->
  
 # Monitoring OpenSearch Data Prepper with metrics
 
