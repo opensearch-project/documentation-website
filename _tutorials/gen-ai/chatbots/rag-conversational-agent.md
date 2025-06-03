@@ -51,7 +51,7 @@ Register a text embedding model that will translate text into vector embeddings:
 POST /_plugins/_ml/models/_register
 {
   "name": "huggingface/sentence-transformers/all-MiniLM-L12-v2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "model_format": "TORCH_SCRIPT"
 }
 ```
