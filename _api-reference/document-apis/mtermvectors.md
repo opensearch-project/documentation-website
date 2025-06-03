@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Multi-get termvectors
+title: Multi term vectors
 parent: Document APIs
 nav_order: 33
 ---
 
-# Multi-get termvectors
+# Multi term vectors
 
-The `_mtermvectors` API retrieves term vector information for multiple documents in one request. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations.
+The `_mtermvectors` API retrieves term vector information for multiple documents in one request. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations. For more information, see [Term vector parameter]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/#term-vector-parameter).
 
 <!-- spec_insert_start
 api: mtermvectors
@@ -87,7 +87,7 @@ POST /_mtermvectors
 
 ## Example
 
-Create an index with term vectors enabled.
+Create an index with term vectors enabled:
 
 ```json
 PUT /my-index
@@ -104,7 +104,7 @@ PUT /my-index
 ```
 {% include copy-curl.html %}
 
-Index first document.
+Index the first document:
 
 ```json
 POST /my-index/_doc/1
@@ -114,7 +114,7 @@ POST /my-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-Index second document.
+Index the second document:
 
 ```json
 POST /my-index/_doc/2
@@ -126,7 +126,7 @@ POST /my-index/_doc/2
 
 ### Example request
 
-Get term vectors for multiple documents.
+Get term vectors for multiple documents:
 
 ```json
 POST /_mtermvectors
@@ -149,7 +149,7 @@ POST /_mtermvectors
 
 ## Example response
 
-The response displays term vector information for the two documents.
+The response contains term vector information for the two documents:
 
 ```json
 {
@@ -286,10 +286,21 @@ The response displays term vector information for the two documents.
 
 ## Response body fields
 
+The following table lists the available request body fields.
+
 | Field | Data type | Description |
 | -------- | --------- | ----------- |
-| `docs` | Array | List of document term vector responses. |
-| `term_vectors` | Object | Contains term vector data per field. |
-| `field_statistics` | Object | Statistics such as `doc_count`, `sum_doc_freq`, and `sum_ttf`. |
-| `terms` | Object | Map of terms and their frequencies. |
-| `tokens` | Array | Details for each token, such as `position`, `start_offset`, and `end_offset`. |
+| `docs` | Array | A list of requested documents containing term vectors. |
+
+Each element of the `docs` array contains the following fields.
+
+| Field | Data type | Description |
+| -------- | --------- | ----------- |
+| `term_vectors` | Object | Contains term vector data for each field. |
+| `term_vectors.<field>.field_statistics` | Object | Contains statistics about the field. |
+| `term_vectors.<field>.field_statistics.doc_count` | Integer | The number of documents that contain at least one term in the specified field. |
+| `term_vectors.<field>.field_statistics.sum_doc_freq` | Integer | The sum of document frequencies for all terms in the field.  |
+| `term_vectors.<field>.field_statistics.sum_ttf` | Integer | The sum of total term frequencies for all terms in the field.  |
+
+| `term_vectors.<field>.terms` | Object | A map of terms in the field, in which each term includes its frequency (`term_freq`) and associated token information. |
+| `term_vectors.<field>.terms.<term>.tokens` | Array | An array of token objects for each term, including the token’s `position` in the text and its character offsets (`start_offset` and `end_offset`). |
