@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Is Migration Assistant right for you?
-nav_order: 25
+nav_order: 10
 parent: Overview
 redirect_from:
   - /migration-assistant/is-migration-assistant-right-for-you/

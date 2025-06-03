@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Architecture
-nav_order: 8
+nav_order: 15
 parent: Overview
 ---
 
