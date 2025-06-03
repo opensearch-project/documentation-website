@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Security APIs
-nav_order: 50
+nav_order: 77
 has_children: true
 redirect_from:
   - /api-reference/security-api/

@@ -69,19 +69,19 @@ For this example, you'll manually input sample data for an e-commerce store. On 
     {
         "item_text": "red shoes",
         "item_price": 100
-    }
+    },
     {
         "item_text": "blue sneakers",
         "item_price": 50
-    }
+    },
     {
         "item_text": "purple high heels",
         "item_price": 150
-    }
+    },
     {
         "item_text": "pair of jordans",
         "item_price": 250
-    }
+    },
     {
         "item_text": "navy plaid shirt",
         "item_price": 35
