@@ -32,7 +32,8 @@ The following table lists the available path parameters. All path parameters are
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `index` | String | Name of the index that contains the documents. |
+| `id` | String | The unique identifier of the document. |
+| `index` | String | The name of the index that contains the documents. |
 
 <!-- spec_insert_end -->
 
@@ -48,17 +49,17 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `field_statistics` | Boolean | If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies. _(Default: `true`)_ |
-| `fields` | List or String | Comma-separated list or wildcard expressions of fields to include in the statistics. Used as the default list unless a specific field list is provided in the `completion_fields` or `fielddata_fields` parameters. |
-| `ids` | List | A comma-separated list of documents ids. You must define ids as parameter or set "ids" or "docs" in the request body |
+| `fields` | List or String | A comma-separated list or a wildcard expression specifying the fields to include in the statistics. Used as the default list unless a specific field list is provided in the `completion_fields` or `fielddata_fields` parameters. |
+| `ids` | List | A comma-separated list of documents IDs. You must provide either the `docs` field in the request body, or specify `ids` as a query parameter or in the request body. |
 | `offsets` | Boolean | If `true`, the response includes term offsets. _(Default: `true`)_ |
 | `payloads` | Boolean | If `true`, the response includes term payloads. _(Default: `true`)_ |
 | `positions` | Boolean | If `true`, the response includes term positions. _(Default: `true`)_ |
 | `preference` | String | Specifies the node or shard the operation should be performed on. Random by default. _(Default: `random`)_ |
 | `realtime` | Boolean | If `true`, the request is real-time as opposed to near-real-time. _(Default: `true`)_ |
-| `routing` | List or String | Custom value used to route operations to a specific shard. |
+| `routing` | List or String | A custom value used to route operations to a specific shard. |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. _(Default: `false`)_ |
 | `version` | Integer | If `true`, returns the document version as part of a hit. |
-| `version_type` | String | Specific version type. <br> Valid values are: <br> - `external`: The version number must be higher than the current version. <br> - `external_gte`: The version number must be higher than or equal to the current version. <br> - `force`: The version number is forced to be the given value. <br> - `internal`: The version number is managed internally by OpenSearch. |
+| `version_type` | String | The specific version type. <br> Valid values are: <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. <br> - `force`: The version number is forced to be the given value. <br> - `internal`: The version number is managed internally by OpenSearch. |
 
 <!-- spec_insert_end -->
 

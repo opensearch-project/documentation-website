@@ -7,7 +7,7 @@ nav_order: 32
 
 # Get termvectors
 
-The `_termvectors` API retrieves term vector information for a single document. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations.
+The `_termvectors` API retrieves term vector information for a single document. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations. For more information, see [Term vector parameter]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/#term-vector-parameter).
 
 <!-- spec_insert_start
 api: termvectors
@@ -32,8 +32,8 @@ The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `index` | **Required** | String | Name of the index that contains the document. |
-| `id` | _Optional_ | String | Unique identifier of the document. |
+| `index` | **Required** | String | The name of the index that contains the document. |
+| `id` | _Optional_ | String | The unique identifier for a resource. |
 
 <!-- spec_insert_end -->
 
@@ -56,10 +56,10 @@ The following table lists the available query parameters. All query parameters a
 | `positions` | Boolean | If `true`, the response includes term positions. _(Default: `true`)_ |
 | `preference` | String | Specifies the node or shard the operation should be performed on. Random by default. _(Default: `random`)_ |
 | `realtime` | Boolean | If `true`, the request is real-time as opposed to near-real-time. _(Default: `true`)_ |
-| `routing` | List or String | Custom value used to route operations to a specific shard. |
+| `routing` | List or String | A custom value used to route operations to a specific shard. |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. _(Default: `false`)_ |
 | `version` | Integer | If `true`, returns the document version as part of a hit. |
-| `version_type` | String | Specific version type. <br> Valid values are: <br> - `external`: The version number must be higher than the current version. <br> - `external_gte`: The version number must be higher than or equal to the current version. <br> - `force`: The version number is forced to be the given value. <br> - `internal`: The version number is managed internally by OpenSearch. |
+| `version_type` | String | Specific version type. <br> Valid values are: <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. <br> - `force`: The version number is forced to be the given value. <br> - `internal`: The version number is managed internally by OpenSearch. |
 
 <!-- spec_insert_end -->
 
