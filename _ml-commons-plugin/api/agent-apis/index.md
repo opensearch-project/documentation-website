@@ -4,7 +4,7 @@ title: Agent APIs
 parent: ML Commons APIs
 has_children: true
 has_toc: false
-nav_order: 27
+nav_order: 30
 redirect_from: /ml-commons-plugin/api/agent-apis/
 ---
 
