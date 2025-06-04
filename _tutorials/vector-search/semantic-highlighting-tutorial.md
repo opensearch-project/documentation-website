@@ -82,7 +82,7 @@ First, register and deploy a text embedding model:
 POST /_plugins/_ml/models/_register?deploy=true
 {
   "name": "huggingface/sentence-transformers/all-MiniLM-L6-v2",
-  "version": "1.0.1", 
+  "version": "1.0.2", 
   "model_format": "TORCH_SCRIPT"
 }
 ```
