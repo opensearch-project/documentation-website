@@ -340,7 +340,7 @@ You can exclude search queries from the top N query list based on the indexes th
 
 A query will be excluded if it searches any shard that belongs to an index listed in `excluded_indices`.
 
-By default, this setting is `null`. To exclude specific indices, update the `search.insights.top_queries.excluded_indices` setting with a comma-separated list of index names:
+By default, this setting is `null` (all indexes are included). To exclude specific indexes, provide a comma-separated list of index names in the `search.insights.top_queries.excluded_indices` setting:
 
 ```json
 PUT _cluster/settings
