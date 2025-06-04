@@ -335,7 +335,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-## Excluding indices from top N queries
+## Excluding indexes from top N queries
 You can exclude search queries from the Top N queries list based on the indices they target. This is useful when certain indices are known to have long-running queries and don't need to be monitored.
 
 A query will be excluded if it searches any shard that belongs to an index listed in `excluded_indices`.
