@@ -54,7 +54,7 @@ The following table lists the available query parameters. All query parameters a
 | `offsets` | Boolean | If `true`, the response includes term offsets. _(Default: `true`)_ |
 | `payloads` | Boolean | If `true`, the response includes term payloads. _(Default: `true`)_ |
 | `positions` | Boolean | If `true`, the response includes term positions. _(Default: `true`)_ |
-| `preference` | String | Specifies the node or shard the operation should be performed on. Random by default. _(Default: `random`)_ |
+| `preference` | String | Specifies the node or shard the operation should be performed on.  See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for list of available options.  By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
 | `realtime` | Boolean | If `true`, the request is real-time as opposed to near-real-time. _(Default: `true`)_ |
 | `routing` | List or String | A custom value used to route operations to a specific shard. |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. _(Default: `false`)_ |
@@ -63,27 +63,38 @@ The following table lists the available query parameters. All query parameters a
 
 <!-- spec_insert_end -->
 
-## Request body example
+## Request body fields
 
-```json
-POST /_mtermvectors
-{
-  "docs": [
-    {
-      "_index": "my-index",
-      "_id": "1",
-      "fields": ["text"]
-    },
-    {
-      "_index": "my-index",
-      "_id": "2",
-      "fields": ["text"]
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
+The following table lists the fields that can be specified in the request body.
 
+| Field | Data type | Description |
+| `docs` | Array  | An array of document specifications. Each object in the array can include the document `_index`, `_id`, and optional fields to override default behavior such as `fields`, `offsets`, `payloads`, etc. |
+| `ids` | Array of strings | A list of document IDs to retrieve. Use only when all documents share the same index specified in the request path or query. |
+| `fields` | Array of strings | A list of field names for which to return term vectors. |
+| `offsets` | Boolean | If `true`, the response includes character offsets for each term. *(Default: `true`)* |
+| `payloads` | Boolean | If `true`, the response includes payloads for each term. *(Default: `true`)* |
+| `positions` | Boolean | If `true`, the response includes token positions. *(Default: `true`)* |
+| `field_statistics` | Boolean | If `true`, the response includes statistics such as document count, sum of document frequencies, and sum of total term frequencies. *(Default: `true`)* |
+| `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. *(Default: `false`)*  |
+| `routing` | String | Custom routing value to identify the shard. Required if custom routing was used during indexing.  |
+| `version` | Integer | Specific version of the document to retrieve. |
+| `version_type` | String  | The type of versioning to use. Valid values: `internal`, `external`, `external_gte`. |
+| `filter` | Object | Allows filtering of tokens returned in the response (e.g., by frequency, position). See [Filtering terms]({{site.url}}{{site.baseurl}}/api-reference/document-apis/mtermvectors/#filtering-terms) for available options. |
+| `per_field_analyzer` | Object | Specifies a custom analyzer to use per field. Format: `{ "field_name": "analyzer_name" }`. |
+
+## Filtering terms
+
+The filter object in the request body allows you to filter which tokens are included in the term vector response. See following table for list of possible options:
+
+| Field             | Data type | Description                                                            |
+| ----------------- | --------- | ---------------------------------------------------------------------- |
+| `max_num_terms`   | Integer   | Maximum number of terms to return.                                     |
+| `min_term_freq`   | Integer   | Minimum term frequency in the document for a term to be included.      |
+| `max_term_freq`   | Integer   | Maximum term frequency in the document for a term to be included.      |
+| `min_doc_freq`    | Integer   | Minimum document frequency across the index for a term to be included. |
+| `max_doc_freq`    | Integer   | Maximum document frequency across the index for a term to be included. |
+| `min_word_length` | Integer   | Minimum length of the term to be included.                             |
+| `max_word_length` | Integer   | Maximum length of the term to be included.                             |
 
 ## Example
 
@@ -142,6 +153,25 @@ POST /_mtermvectors
       "_id": "2",
       "fields": ["text"]
     }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Similarly you can use the following syntax to get term vectors:
+
+```json
+GET /my-index/_mtermvectors?ids=1,2&fields=text
+```
+{% include copy-curl.html %}
+
+or 
+
+```
+GET /my-index/_mtermvectors?fields=text
+{ 
+  "ids": [
+     "1", "2"
   ]
 }
 ```
@@ -286,7 +316,7 @@ The response contains term vector information for the two documents:
 
 ## Response body fields
 
-The following table lists the available request body fields.
+The following table lists the available response body fields.
 
 | Field | Data type | Description |
 | -------- | --------- | ----------- |
