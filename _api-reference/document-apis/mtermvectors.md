@@ -54,7 +54,7 @@ The following table lists the available query parameters. All query parameters a
 | `offsets` | Boolean | If `true`, the response includes term offsets. _(Default: `true`)_ |
 | `payloads` | Boolean | If `true`, the response includes term payloads. _(Default: `true`)_ |
 | `positions` | Boolean | If `true`, the response includes term positions. _(Default: `true`)_ |
-| `preference` | String | Specifies the node or shard the operation should be performed on.  See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for list of available options.  By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
+| `preference` | String | Specifies the node or shard the operation should be performed on. See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for list of available options. By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
 | `realtime` | Boolean | If `true`, the request is real-time as opposed to near-real-time. _(Default: `true`)_ |
 | `routing` | List or String | A custom value used to route operations to a specific shard. |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. _(Default: `false`)_ |
@@ -68,7 +68,7 @@ The following table lists the available query parameters. All query parameters a
 The following table lists the fields that can be specified in the request body.
 
 | Field | Data type | Description |
-| `docs` | Array  | An array of document specifications. Each object in the array can include the document `_index`, `_id`, and optional fields to override default behavior such as `fields`, `offsets`, `payloads`, etc. |
+| `docs` | Array  | An array of document specifications. |
 | `ids` | Array of strings | A list of document IDs to retrieve. Use only when all documents share the same index specified in the request path or query. |
 | `fields` | Array of strings | A list of field names for which to return term vectors. |
 | `offsets` | Boolean | If `true`, the response includes character offsets for each term. *(Default: `true`)* |
