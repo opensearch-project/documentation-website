@@ -2,70 +2,44 @@
 layout: default
 title: Expression syntax
 parent: Pipelines
-nav_order: 12
+nav_order: 5
 ---
 
-# Expression syntax 
+# Expression syntax  
 
-The following sections provide information about expression syntax in Data Prepper.
+Expressions provide flexibility in manipulating, filtering, and routing data. The following sections provide information about expression syntax in OpenSearch Data Prepper.
 
-## Supported operators
+## Key terms
 
-Operators are listed in order of precedence (top to bottom, left to right).
+The following key terms are used in the context of expressions.
+
+Term | Definition
+-----|-----------
+**Expression** | A generic component that contains a primary or an operator. Expressions can be nested within other expressions. An expression's imminent children can contain 0–1 operators.
+**Expression string** | The highest priority in a Data Prepper expression and supports only one expression string resulting in a return value. An expression string is not the same as an expression.
+**Literal** | A fundamental value that has no children. A literal can be one of the following: float, integer, Boolean, JSON pointer, string, or null. See [Literals](#literals).
+**Operator** | A hardcoded token that identifies the operation used in an expression.
+**Primary** | Can be one of the following: set initializer, priority expression, or literal.
+**Statement** | The highest-priority component within an expression string.
+
+## Operators
+
+The following table lists the supported operators. Operators are listed in order of precedence (top to bottom, left to right).
 
 | Operator             | Description                                           | Associativity |
 |----------------------|-------------------------------------------------------|---------------|
-| `()`                 | Priority Expression                                   | left-to-right |
-| `not`<br> `+`<br>  `-`| Unary Logical NOT<br>Unary Positive<br>Unary negative | right-to-left |
-| `<`, `<=`, `>`, `>=` | Relational Operators                                  | left-to-right |
-| `==`, `!=`           | Equality Operators                                    | left-to-right |
-| `and`, `or`          | Conditional Expression                                | left-to-right |
+| `()`                 | Priority expression                                   | Left to right |
+| `not`<br> `+`<br>  `-`| Unary logical NOT<br>Unary positive<br>Unary negative | Right to left |
+| `*`, `/`             | Multiplication and division operators                 | Left to right |
+| `+`, `-`             | Addition and subtraction operators                    | Left to right |
+| `+`                  | String concatenation operator                         | Left to right |
+| `<`, `<=`, `>`, `>=` | Relational operators                                  | Left to right |
+| `==`, `!=`           | Equality operators                                    | Left to right |
+| `and`, `or`          | Conditional expression                                | Left to right |
 
-## Reserved for possible future functionality
+### Relational operators
 
-Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
-
-## Set initializer
-
-The set initializer defines a set or term and/or expressions.
-
-### Examples
-
-The following are examples of set initializer syntax.
-
-#### HTTP status codes
-
-```
-{200, 201, 202}
-```
-
-#### HTTP response payloads
-
-```
-{"Created", "Accepted"}
-```
-
-#### Handle multiple event types with different keys
-
-```
-{/request_payload, /request_message}
-```
-
-## Priority expression
-
-A priority expression identifies an expression that will be evaluated at the highest priority level. A priority expression must contain an expression or value; empty parentheses are not supported.
-
-### Example
-
-```
-/is_cool == (/name == "Steven")
-```
-
-## Relational operators
-
-Relational operators are used to test the relationship of two numeric values. The operands must be numbers or JSON Pointers that resolve to numbers.
-
-### Syntax
+Relational operators compare numeric values or JSON pointers that resolve to numeric values. The operators are used to test the relationship between two operands, determining if one is greater than, less than, or equal to the other. The syntax for using relational operators is as follows:
 
 ```
 <Number | JSON Pointer> < <Number | JSON Pointer>
@@ -73,75 +47,43 @@ Relational operators are used to test the relationship of two numeric values. Th
 <Number | JSON Pointer> > <Number | JSON Pointer>
 <Number | JSON Pointer> >= <Number | JSON Pointer>
 ```
+{% include copy-curl.html %}
 
-### Example
+For example, to check if the value of the `status_code` field in an event is within the range of successful HTTP responses (200--299), you can use the following expression:
 
 ```
 /status_code >= 200 and /status_code < 300
 ```
+{% include copy-curl.html %}
 
-## Equality operators
+### Equality operators
 
-Equality operators are used to test whether two values are equivalent.
+Equality operators are used to test whether two values are equivalent. These operators compare values of any type, including JSON pointers, literals, and expressions. The syntax for using equality operators is as follows: 
 
-### Syntax
 ```
 <Any> == <Any>
 <Any> != <Any>
 ```
+{% include copy-curl.html %}
 
-### Examples
-```
-/is_cool == true
-3.14 != /status_code
-{1, 2} == /event/set_property
-```
-## Using equality operators to check for a JSON Pointer 
+The following are some example equality operators:
 
-Equality operators can also be used to check whether a JSON Pointer exists by comparing the value with `null`.
+- `/is_cool == true`: Checks if the value referenced by the JSON pointer is equal to the Boolean value.
+- `3.14 != /status_code`: Checks if the numeric value is not equal to the value referenced by the JSON pointer.
+- `{1, 2} == /event/set_property`: Checks if the array is equal to the value referenced by the JSON pointer. 
 
-### Syntax
-```
-<JSON Pointer> == null
-<JSON Pointer> != null
-null == <JSON Pointer>
-null != <JSON Pointer>
-```
+### Conditional expressions
 
-### Example
-```
-/response == null
-null != /response
-```
+Conditional expressions allow you to combine multiple expressions or values using logical operators to create more complex evaluation criteria. The available conditional operators are `and`, `or`, and `not`. The syntax for using these conditional operators is as follows:
 
-## Type check operator
-
-The type check operator tests whether a JSON Pointer is of a certain data type.
-
-### Syntax
-```
-<JSON Pointer> typeof <DataType>
-```
-Supported data types are `integer`, `long`, `boolean`, `double`, `string`, `map`, and `array`.
-
-#### Example
-```
-/response typeof integer
-/message typeof string
-```
-
-### Conditional expression
-
-A conditional expression is used to chain together multiple expressions and/or values.
-
-#### Syntax
 ```
 <Any> and <Any>
 <Any> or <Any>
 not <Any>
 ```
 
-### Example
+The following are some example conditional expressions: 
+
 ```
 /status_code == 200 and /message == "Hello world"
 /status_code == 200 or /status_code == 202
@@ -149,80 +91,135 @@ not /status_code in {200, 202}
 /response == null
 /response != null
 ```
+{% include copy-curl.html %}
 
-## Definitions
+### Arithmetic expressions
 
-This section provides expression definitions. 
+Arithmetic expressions enable basic mathematical operations like addition, subtraction, multiplication, and division. These expressions can be combined with conditional expressions to create more complex conditional statements. The available arithmetic operators are +, -, *, and /. The syntax for using the arithmetic operators is as follows:
 
-### Literal
-A literal is a fundamental value that has no children:
-- Float: Supports values from 3.40282347 &times; 10<sup>38</sup> to 1.40239846 &times; 10<sup>&minus;45</sup>.
-- Integer: Supports values from &minus;2,147,483,648 to 2,147,483,647.
-- Boolean: Supports true or false.
-- JSON Pointer: See the [JSON Pointer](#json-pointer) section for details.
-- String: Supports valid Java strings.
-- Null: Supports null check to see whether a JSON Pointer exists.
-
-### Expression string
-An expression string takes the highest priority in a Data Prepper expression and only supports one expression string resulting in a return value. An _expression string_ is not the same as an _expression_.
-
-### Statement
-A statement is the highest-priority component of an expression string.
-
-### Expression
-An expression is a generic component that contains a _Primary_ or an _Operator_. Expressions may contain expressions. An expression's imminent children can contain 0–1 _Operators_.
-
-### Primary
-
-- _Set_
-- _Priority Expression_
-- _Literal_
-
-### Operator
-An operator is a hardcoded token that identifies the operation used in an _expression_.
-
-### JSON Pointer
-A JSON Pointer is a literal used to reference a value within an event and provided as context for an _expression string_. JSON Pointers are identified by a leading `/` containing alphanumeric characters or underscores, delimited by `/`. JSON Pointers can use an extended character set if wrapped in double quotes (`"`) using the escape character `\`. Note that JSON Pointers require `~` and `/` characters, which should be used as part of the path and not as a delimiter that needs to be escaped.
-
-The following are examples of JSON Pointers:
-
-- `~0` representing `~`
-- `~1` representing `/`
-
-#### Shorthand syntax (Regex, `\w` = `[A-Za-z_]`)
 ```
-/\w+(/\w+)*
+<Any> + <Any>
+<Any> - <Any>
+<Any> * <Any>
+<Any> / <Any>
 ```
 
-#### Example of shorthand
+The following are example arithmetic expressions: 
 
-The following is an example of shorthand:
+```
+/value + length(/message)
+/bytes / 1024
+/value1 - /value2
+/TimeInSeconds * 1000
+```
+{% include copy-curl.html %}
+
+The following are some example arithmetic expressions used in conditional expressions : 
+
+```
+/value + length(/message) > 200
+/bytes / 1024 < 10
+/value1 - /value2 != /value3 + /value4
+```
+{% include copy-curl.html %}
+
+### String concatenation expressions
+
+String concatenation expressions enable you to combine strings to create new strings. These concatenated strings can also be used within conditional expressions. The syntax for using string concatenation is as follows:
+
+```
+<String Variable or String Literal> + <String Variable or String Literal>
+```
+
+The following are example string concatenation expressions:
+
+```
+/name + "suffix"
+"prefix" + /name
+"time of " + /timeInMs + " ms"
+```
+{% include copy-curl.html %}
+
+The following are example string concatenation expressions that can be used in conditional expressions:
+
+```
+/service + ".com" == /url
+"www." + /service != /url
+```
+{% include copy-curl.html %}
+
+### Reserved symbols
+
+Certain symbols, such as ^, %, xor, =, +=, -=, *=, /=, %=, ++, --, and ${<text>}, are reserved for future functionality or extensions. Reserved symbols include `^`, `%`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, and `${<text>}`.
+
+## Syntax components
+
+Syntax components are the building blocks of expressions in Data Prepper. They allow you to define sets, specify evaluation order, reference values within events, use literal values, and follow specific white space rules. Understanding these components is crucial for creating and working with expressions effectively in Data Prepper pipelines.
+
+### Priority expressions
+
+Priority expressions specify the evaluation order of expressions. They are enclosed in parentheses `()`. Priority expressions must contain an expression or value (empty parentheses are not supported). The following is an example priority expression:
+
+```
+/is_cool == (/name == "Steven")
+```
+{% include copy-curl.html %}
+
+### JSON pointers
+
+JSON pointers are used to reference values within an event. They start with a leading forward slash `/` followed by alphanumeric characters or underscores that are separated by additional forward slashes `/`. 
+
+JSON pointers can use an extended character set by wrapping the entire pointer in double quotation marks `""` and escaping characters using a backslash `\`. Note that the `~` and `/` characters are considered to be part of the pointer path and do not need to be escaped. The following are some examples of valid JSON pointers: `~0` to represent the literal character `~` or `~1` to represent the literal character `/`.
+
+#### Shorthand syntax
+
+The shorthand syntax for a JSON pointer can be expressed using the following regular expression pattern, where `\w` represents any word character (A--Z, a-z, 0--9, or underscore):
+
+```
+/\w+(/\w+)*`
+```
+{% include copy-curl.html %}
+ 
+
+The following is an example of this shorthand syntax:
 
 ```
 /Hello/World/0
 ```
+{% include copy-curl.html %}
 
-#### Example of escaped syntax
+#### Escaped syntax
 
-The following is an example of escaped syntax:
+The escaped syntax for a JSON pointer can be expressed as follows:
+
 ```
 "/<Valid String Characters | Escaped Character>(/<Valid String Characters | Escaped Character>)*"
 ```
+{% include copy-curl.html %}
 
-#### Example of an escaped JSON Pointer
+The following is an example of an escaped JSON pointer:
 
-The following is an example of an escaped JSON Pointer:
 ```
 # Path
 # { "Hello - 'world/" : [{ "\"JsonPointer\"": true }] }
 "/Hello - 'world\//0/\"JsonPointer\""
 ```
+{% include copy-curl.html %}
 
-## White space
+### Literals
 
-White space is **optional** surrounding relational operators, regex equality operators, equality operators, and commas.
-White space is **required** surrounding set initializers, priority expressions, set operators, and conditional expressions.
+Literals are fundamental values that have no children. Data Prepper supports the following literal types: 
 
+- **Float:** Supports values from 3.40282347 x 10^38 to 1.40239846 x 10^-45.
+- **Integer:** Supports values from -2,147,483,648 to 2,147,483,647.
+- **Boolean:** Supports `true` or `false`.
+- **JSON pointer:** See [JSON pointers](#json-pointers) for more information.
+- **String:** Supports valid Java strings.
+- **Null:** Supports `null` to check if a JSON pointer exists.
+
+### White space rules
+
+White space is optional around relational operators, regex equality operators, equality operators, and commas. White space is required around set initializers, priority expressions, set operators, and conditional expressions.
 
 | Operator             | Description              | White space required | ✅ Valid examples                                               | ❌ Invalid examples                    |
 |----------------------|--------------------------|----------------------|----------------------------------------------------------------|---------------------------------------|
@@ -230,53 +227,15 @@ White space is **required** surrounding set initializers, priority expressions, 
 | `()`                 | Priority expression      | Yes                  | `/a==(/b==200)`<br>`/a in ({200})`                             | `/status in({200})`                   |
 | `in`, `not in`       | Set operators            | Yes                  | `/a in {200}`<br>`/a not in {400}`                             | `/a in{200, 202}`<br>`/a not in{400}` |
 | `<`, `<=`, `>`, `>=` | Relational operators     | No                   | `/status < 300`<br>`/status>=300`                              |                                       |
-| `=~`, `!~`           | Regex equality pperators | No                   | `/msg =~ "^\w*$"`<br>`/msg=~"^\w*$"`                           |                                       |
+| `+`                  | String concatenation operator   | No                   | `/status_code + /message + "suffix"`
+| `+`, `-`             | Arithmetic addition and subtraction operators | No      | `/status_code + length(/message) - 2`
+| `*`, `/`             | Multiplication and division operators | No              | `/status_code * length(/message) / 3`
+| `=~`, `!~`           | Regex equality operators | No                   | `/msg =~ "^\w*$"`<br>`/msg=~"^\w*$"`                           |                                       |
 | `==`, `!=`           | Equality operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
 | `and`, `or`, `not`   | Conditional operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
 | `,`                  | Set value delimiter      | No                   | `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
 | `typeof`             | Type check operator      | Yes                   | `/a typeof integer`<br>`/a typeof long`<br>`/a typeof string`<br> `/a typeof double`<br> `/a typeof boolean`<br>`/a typeof map`<br>`/a typeof array` |`/a typeof /b`<br>`/a typeof 2`                      |
 
+## Related articles
 
-## Functions
-
-Data Prepper supports the following built-in functions that can be used in an expression.
-
-### `length()`
-
-The `length()` function takes one argument of the JSON pointer type and returns the length of the value passed. For example, `length(/message)` returns a length of `10` when a key message exists in the event and has a value of `1234567890`.
-
-### `hasTags()`
-
-The `hasTags()` function takes one or more string type arguments and returns `true` if all of the arguments passed are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the expression `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the expression `hasTags("tag2")` but the event only contains `tag1`, Data Prepper returns `false`.
-
-### `getMetadata()`
-
-The `getMetadata()` function takes one literal string argument to look up specific keys in a an event's metadata. If the key contains a `/`, then the function looks up the metadata recursively. When passed, the expression returns the value corresponding to the key. The value returned can be of any type. For example, if the metadata contains `{"key1": "value2", "key2": 10}`, then the function, `getMetadata("key1")`, returns `value2`. The function, `getMetadata("key2")`, returns 10.
-
-### `contains()`
-
-The `contains()` function takes two string arguments and determines whether either a literal string or a JSON pointer is contained within an event. When the second argument contains a substring of the first argument, such as `contains("abcde", "abcd")`, the function returns `true`. If the second argument does not contain any substrings, such as `contains("abcde", "xyz")`, it returns `false`.
-
-### `cidrContains()`
-
-The `cidrContains()` function takes two or more arguments. The first argument is a JSON pointer, which represents the key to the IP address that is checked. It supports both IPv4 and IPv6 addresses. Every argument that comes after the key is a string type that represents CIDR blocks that are checked against.
-
-If the IP address in the first argument is in the range of any of the given CIDR blocks, the function returns `true`. If the IP address is not in the range of the CIDR blocks, the function returns `false`. For example, `cidrContains(/sourceIp,"192.0.2.0/24","10.0.1.0/16")` will return `true` if the `sourceIp` field indicated in the JSON pointer has a value of `192.0.2.5`.
-
-### `join()`
-
-The `join()` function joins elements of a list to form a string. The function takes a JSON pointer, which represents the key to a list or a map where values are of the list type, and joins the lists as strings using commas (`,`), the default delimiter between strings.
-
-If `{"source": [1, 2, 3]}` is the input data, as shown in the following example:
-
-
-```json
-{"source": {"key1": [1, 2, 3], "key2": ["a", "b", "c"]}}
-```
-
-Then `join(/source)` will return `"1,2,3"` in the following format:
-
-```json
-{"key1": "1,2,3", "key2": "a,b,c"}
-```
-You can also specify a delimiter other than the default inside the expression. For example, `join("-", /source)` joins each `source` field using a hyphen (`-`) as the delimiter.
+- [Functions]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/functions/)

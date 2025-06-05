@@ -8,30 +8,63 @@ nav_exclude: true
 permalink: /ml-commons-plugin/
 redirect_from: 
   - /ml-commons-plugin/index/
+models:
+  - heading: "Deploy local models to your cluster"
+    link: "/ml-commons-plugin/using-ml-models/"
+    list:
+      - "<b>Pretrained models</b>: Use OpenSearch-provided models for immediate implementation"
+      - "<b>Custom models</b>: Upload and serve your own models"
+  - heading: "Connect to externally hosted models"
+    link: "/ml-commons-plugin/remote-models/"
+    description: "Connect to models hosted on Amazon Bedrock, Amazon SageMaker, OpenAI, Cohere, DeepSeek, and other platforms"
+more_cards:
+  - heading: "Get started with AI search"
+    description: "Build your first semantic search application using this hands-on tutorial"
+    link: "/vector-search/tutorials/neural-search-tutorial/"
+  - heading: "AI search"
+    description: "Discover AI search, from <b>semantic</b>, <b>hybrid</b>, and <b>multimodal</b> search to <b>RAG</b>"
+    link: "/vector-search/ai-search/"
+  - heading: "Tutorials"
+    description: "Follow step-by-step tutorials to integrate AI capabilities into your applications"
+    link: "/vector-search/tutorials/"
+  - heading: "ML API reference"
+    description: "Explore comprehensive documentation for machine learning API operations"
+    link: "/ml-commons-plugin/api/"
+oa-toolkit:
+  - heading: "OpenSearch Assistant Toolkit"
+    link: "/ml-commons-plugin/opensearch-assistant/"
+    list:
+      - Agents for task orchestration
+      - Tools for specific operations
+      - Configuration automation
+algorithms:
+  - heading: "Supported algorithms"
+    link: "/ml-commons-plugin/algorithms/"
+    description: "Learn about the natively supported clustering, pattern detection, and statistical analysis algorithms"
 ---
 
 # Machine learning
 
-The [ML Commons plugin](https://github.com/opensearch-project/ml-commons/) provides machine learning (ML) features in OpenSearch. 
+OpenSearch offers two distinct approaches to machine learning (ML): using ML models for tasks like semantic search and text generation, and running statistical algorithms for data analysis. Choose the approach that best fits your use case.
 
-## Integrating ML models
+## ML models for search and AI/ML-powered applications
 
-For ML-model-powered search, you can use a pretrained model provided by OpenSearch, upload your own model to the OpenSearch cluster, or connect to a foundation model hosted on an external platform. In OpenSearch version 2.9 and later, you can integrate local and external models simultaneously within a single cluster.
+OpenSearch supports ML models that you can use to enhance search relevance through semantic understanding. You can either deploy models directly within your OpenSearch cluster or connect to models hosted on external platforms. These models can transform text into vector embeddings, enabling semantic search capabilities, or provide advanced features like text generation and question answering. For more information, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 
-For more information, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
+{% include cards.html cards=page.models %}
 
-## Managing ML models in OpenSearch Dashboards
+## OpenSearch Assistant and automation
 
-Administrators of ML clusters can use OpenSearch Dashboards to review and manage the status of ML models running inside a cluster. For more information, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/).
+OpenSearch Assistant Toolkit helps you create AI-powered assistants for OpenSearch Dashboards.
 
-## Support for algorithms
+{% include cards.html cards=page.oa-toolkit %}
 
-ML Commons supports various algorithms to help train ML models and make predictions or test data-driven predictions without a model. For more information, see [Supported algorithms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/).
+## Built-in algorithms for data analysis
 
-## ML Commons API
+OpenSearch includes built-in algorithms that analyze your data directly within your cluster, enabling tasks like anomaly detection, data clustering, and predictive analytics without requiring external ML models.
 
-ML Commons provides its own set of REST APIs. For more information, see [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/index/). 
+{% include cards.html cards=page.algorithms %}
 
-## Tutorials
+## Build your solution 
 
-Using the OpenSearch ML framework, you can build various applications, from implementing conversational search to building your own chatbot. For more information, see [Tutorials]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/index/).
+{% include cards.html cards=page.more_cards %}

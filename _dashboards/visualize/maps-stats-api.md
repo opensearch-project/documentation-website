@@ -3,7 +3,7 @@ layout: default
 title: Maps Stats API
 nav_order: 20
 grand_parent: Building data visualizations
-parent: Using coordinate and region maps 
+parent: Coordinate and region maps 
 has_children: false
 ---
 
@@ -93,7 +93,7 @@ The following is the response for the preceding request:
 }
 ```
 
-## Response fields
+## Response body fields
 
 The response contains statistics for the following layer types:
 

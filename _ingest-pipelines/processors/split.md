@@ -20,25 +20,24 @@ The following is the syntax for the `split` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 
 The following table lists the required and optional parameters for the `split` processor.
 
-Parameter | Required/Optional | Description |
-|-----------|-----------|-----------|
-`field` | Required | The field containing the string to be split.
-`separator` | Required | The delimiter used to split the string. This can be a regular expression pattern.
-`preserve_field` | Optional | If set to `true`, preserves empty trailing fields (for example, `''`) in the resulting array. If set to `false`, empty trailing fields are removed from the resulting array. Default is `false`.
-`target_field` | Optional | The field where the array of substrings is stored. If not specified, then the field is updated in-place.
-`ignore_missing` | Optional	| Specifies whether the processor should ignore documents that do not contain the specified 
-field. If set to `true`, then the processor ignores missing values in the field and leaves the `target_field` unchanged. Default is `false`. 
-`description` | Optional | A brief description of the processor.
-`if` | Optional | A condition for running the processor.
-`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, then failures are ignored. Default is `false`.
-`on_failure` | Optional | A list of processors to run if the processor fails.
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
+Parameter  | Required/Optional  | Description 
+:--- | :--- | :--- 
+`field` | Required | The field containing the string to be split. 
+`separator` | Required | The delimiter used to split the string. This can be a regular expression pattern. 
+`preserve_trailing` | Optional | If set to `true`, preserves empty trailing fields (for example, `''`) in the resulting array. If set to `false`, then empty trailing fields are removed from the resulting array. Default is `false`. 
+`target_field` | Optional | The field where the array of substrings is stored. If not specified, then the field is updated in-place. 
+`ignore_missing` | Optional	| Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, then the processor ignores missing values in the field and leaves the `target_field` unchanged. Default is `false`.  
+`description` | Optional | A brief description of the processor. 
+`if` | Optional | A condition for running the processor. 
+`ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, then failures are ignored. Default is `false`. 
+`on_failure` | Optional | A list of processors to run if the processor fails. 
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. 
 
 ## Using the processor
 

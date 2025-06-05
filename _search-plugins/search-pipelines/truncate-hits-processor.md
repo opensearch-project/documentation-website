@@ -1,13 +1,15 @@
 ---
 layout: default
 title: Truncate hits
-nav_order: 35
+nav_order: 150
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
 # Truncate hits processor
+Introduced 2.12
+{: .label .label-purple }
 
 The `truncate_hits` response processor discards returned search hits after a given hit count is reached. The `truncate_hits` processor is designed to work with the [`oversample` request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/oversample-processor/) but may be used on its own.
 
@@ -20,7 +22,7 @@ The following is a common usage pattern:
 1. In the response pipeline, apply a reranking processor (which may promote results from beyond the originally requested top N) or the `collapse` processor (which may discard results after deduplication).
 1. Apply the `truncate` processor to return (at most) the originally requested number of hits.
 
-## Request fields
+## Request body fields
 
 The following table lists all request fields.
 

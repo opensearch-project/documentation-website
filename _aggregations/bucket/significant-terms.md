@@ -2,7 +2,6 @@
 layout: default
 title: Significant terms
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 180
 redirect_from:
   - /query-dsl/aggregations/bucket/significant-terms/

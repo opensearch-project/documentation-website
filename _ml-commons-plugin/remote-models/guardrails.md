@@ -637,3 +637,4 @@ OpenSearch responds with an error.
 ## Next steps
 
 - For more information about configuring guardrails, see [The `guardrails` parameter]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-guardrails-parameter).
+- For a tutorial demonstrating how to use Amazon Bedrock guardrails, see [Using Amazon Bedrock guardrails]({{site.url}}{{site.baseurl}}/vector-search/tutorials/model-controls/bedrock-guardrails/).

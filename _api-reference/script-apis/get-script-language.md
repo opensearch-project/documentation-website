@@ -11,14 +11,14 @@ nav_order: 6
 
 The get script language API operation retrieves all supported script languages and the contexts in which they may be used.
 
-#### Example request
+## Example request
 
 ```json
 GET _script_language
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The `GET _script_language` request returns the available contexts for each language:
 
@@ -89,7 +89,7 @@ The `GET _script_language` request returns the available contexts for each langu
 }
 ```
 
-## Response fields
+## Response body fields
 
 The request contains the following response fields.
 

@@ -1,13 +1,13 @@
 ---
 layout: default
 title: Configuring Log4j
-parent: Managing Data Prepper
+parent: Managing OpenSearch Data Prepper
 nav_order: 20
 ---
 
 # Configuring Log4j
 
-You can configure logging using Log4j in Data Prepper. 
+You can configure logging using Log4j in OpenSearch Data Prepper. 
 
 ## Logging 
 

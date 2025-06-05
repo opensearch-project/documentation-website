@@ -40,7 +40,7 @@ You can configure the following settings:
 
 Name | Description
 :--- | :---
-`enabled` | Enables or disables proxy support. Default is false.
+`enabled` | Enables or disables proxy support. Default is `false`.
 `internalProxies` | A regular expression containing the IP addresses of all trusted proxies. The pattern `.*` trusts all internal proxies.
 `remoteIpHeader` | Name of the HTTP header field that has the hostname chain. Default is `x-forwarded-for`.
 

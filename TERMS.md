@@ -46,7 +46,7 @@ Use to describe a list of items that are allowed (not blocked). Do not use as a 
 
 **Amazon OpenSearch Service**
 
-Amazon OpenSearch Service is a managed service that makes it easy to deploy, operate, and scale OpenSearch clusters in the AWS Cloud. Amazon OpenSearch Service is the successor to Amazon Elasticsearch Service (Amazon ES) and supports OpenSearch and legacy Elasticsearch OSS (up to 7.10, the final open-source version of the software).
+Use "Amazon OpenSearch Service" on first appearance; "OpenSearch Service" is acceptable for subsequent appearances. Amazon OpenSearch Service is a managed service that makes it easy to deploy, operate, and scale OpenSearch clusters in the AWS Cloud. Amazon OpenSearch Service is the successor to Amazon Elasticsearch Service (Amazon ES) and supports OpenSearch and legacy Elasticsearch OSS (up to 7.10, the final open-source version of the software).
 
 **Anomaly Detection**
 
@@ -196,6 +196,10 @@ Use data is, not data are. Don't use datas. Use pieces of data or equivalent to 
 
 **data center**
 
+**OpenSearch Data Prepper**
+
+Use "OpenSearch Data Prepper" on first appearance; "Data Prepper" is acceptable for subsequent appearances. OpenSearch Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization. Data Prepper also lets users build custom pipelines to improve the operational view of applications.
+
 **dataset**
 
 **data source**
@@ -298,6 +302,8 @@ Exception: *Execution* is unavoidable for third-party terms for which no alterna
 **fail over (v.), failover (n.)**
 
 **Faiss**
+
+Facebook AI Similarity Search. Do not define on first appearance. Faiss is a library that allows developers to quickly search for embeddings of multimedia documents that are similar to each other.
 
 **file name**
 
@@ -501,6 +507,10 @@ Do not use. Use *management account* instead.
 
 Avoid. Use _can_ or _might_ instead.
 
+**MS MARCO**
+
+Microsoft Machine Reading Comprehension. Do not define on first appearance. MS MARCO is a collection of datasets focused on deep learning in search.
+
 **multilayer, multilayered**
 
 **must, shall, should**
@@ -520,6 +530,10 @@ Not navigate _in_.
 Use _near real time_ as a noun; use near real-time as an adjective. Don't add a hyphen between _near_ and _real time_ or _real-time_.
 
 Spell out _near real time_ on first mention; _NRT_ can be used on subsequent mentions.
+
+**NMSLIB**
+
+Non-Metric Space Library. Do not define on first appearance. NMSLIB is an efficient similarity search library and a toolkit for evaluation of k-NN methods for generic non-metric spaces. 
 
 **node**
 
@@ -588,6 +602,8 @@ Use % in headlines, quotations, and tables or in technical copy.
 
 An agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics, independent of the Java Virtual Machine (JVM).
 
+**performant**
+
 **plaintext, plain text**
 
 Use *plaintext* only to refer to nonencrypted or decrypted text in content about encryption. Use *plain text* to refer to ASCII files.
@@ -601,6 +617,10 @@ Avoid using except in quoted text.
 Tools inside of OpenSearch that can be customized to enhance OpenSearch's functionality. For a list of core plugins, see the [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) page. Capitalize if it appears as part of the product name in the UI.
 
 **pop-up**
+
+**preaggregate**
+
+**precompute**
 
 **premise, premises**
 
@@ -644,6 +664,8 @@ Copy of a primary shard. Helps improve performance when using indexes across mul
 
 Use as a synonym for repository, on second and subsequent use.
 
+**retrieval-augmented generation (RAG)**
+
 **RPM Package Manager (RPM)**
 
 Formerly known as RedHat Package Manager. An open-source package management system for use with Linux distributions.
@@ -682,17 +704,13 @@ A piece of an index that consumes CPU and memory. Operates as a full Lucene inde
 
 Don't use. Both *simple* and *simply* are not neutral in tone and might sound condescending to some users. If you mean *only*, use *only* instead.
 
-**since**
-
-Use only to describe time events. Don't use in place of *because*.
-
 **slave**
 
 Do not use. Use *replica*, *secondary*, or *standby* instead.
 
 **Snapshot Management (SM)**
 
-**solid state drive (SSD)**
+**solid-state drive (SSD)**
 
 **standalone**
 

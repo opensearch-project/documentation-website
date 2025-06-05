@@ -2,7 +2,6 @@
 layout: default
 title: Diversified sampler
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 40
 redirect_from:
   - /query-dsl/aggregations/bucket/diversified-sampler/

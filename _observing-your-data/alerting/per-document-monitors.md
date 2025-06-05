@@ -17,6 +17,9 @@ Per document monitors are a type of alert monitor that can be used to identify a
 - Enforce data quality policies, such as ensuring all documents contain a certain field or that values in a field are within a certain range. 
 - Track changes to a specific document over time, which can be helpful for auditing and compliance purposes
 
+Per document monitors do not support cross-cluster searching.
+{: .note} 
+
 ## Defining queries
 
 Per document monitors allow you to define up to 10 queries that compare a selected field with a desired value. You can define supported field data types using the following operators:

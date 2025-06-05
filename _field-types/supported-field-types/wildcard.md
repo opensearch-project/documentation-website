@@ -8,6 +8,8 @@ grand_parent: Supported field types
 ---
 
 # Wildcard field type
+**Introduced 2.15**
+{: .label .label-purple }
 
 A `wildcard` field is a variant of a `keyword` field designed for arbitrary substring and regular expression matching.
 

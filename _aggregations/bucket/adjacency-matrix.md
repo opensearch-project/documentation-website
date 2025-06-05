@@ -2,7 +2,6 @@
 layout: default
 title: Adjacency matrix
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 10
 redirect_from:
   - /query-dsl/aggregations/bucket/adjacency-matrix/

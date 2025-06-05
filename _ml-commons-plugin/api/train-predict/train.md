@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Train 
-parent: Train and Predict APIs
+parent: Model APIs
 grand_parent: ML Commons APIs
-nav_order: 10
+nav_order: 50
 ---
 
 # Train 

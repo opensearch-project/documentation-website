@@ -39,12 +39,6 @@ Data tables, or tables, show your raw data in tabular form.
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-table-1.png" width="600" height="600" alt="Example data table in OpenSearch Dashboards">
 
-### Gantt charts
-
-Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plugin, instead of built-in, visualization type in Dashboards. See [Gantt charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/gantt-chart.png" width="600" height="600" alt="Example Gantt chart in OpenSearch Dashboards">
-
 ### Gauge charts
 
 Gauge charts look similar to an analog speedometer that reads left to right from zero. They display how much there is of the thing you are measuring, and this measurement can exist alone or in relation to another measurement, such as tracking performance against benchmarks or goals. 
@@ -81,7 +75,7 @@ Region maps show patterns and trends across geographic locations. A region map i
 
 ### Markdown
 
-Markdown is a the markup language used in Dashboards to provide context to your data visualizations. Using Markdown, you can display information and instructions along with the visualization. 
+Markdown is the markup language used in Dashboards to provide context to your data visualizations. Using Markdown, you can display information and instructions along with the visualization. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/markdown.png" width="600" height="600" alt="Example coordinate map in OpenSearch Dashboards">
 

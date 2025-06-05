@@ -2,20 +2,19 @@
 layout: default
 title: Fuzzy
 parent: Term-level queries
-grand_parent: Query DSL
 nav_order: 20
 ---
 
 # Fuzzy query
 
-A fuzzy query searches for documents containing terms that are similar to the search term within the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). The Levenshtein distance measures the number of one-character changes needed to change one term to another term. These changes include:
+A fuzzy query searches for documents containing terms that are similar to the search term within the maximum allowed [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance). The Damerau–Levenshtein distance measures the number of one-character changes needed to change one term to another term. These changes include:
 
 - Replacements: **c**at to **b**at
 - Insertions: cat to cat**s**
 - Deletions: **c**at to at
 - Transpositions: **ca**t to **ac**t
 
-A fuzzy query creates a list of all possible expansions of the search term that fall within the Levenshtein distance. You can specify the maximum number of such expansions in the `max_expansions` field. Then it searches for documents that match any of the expansions.
+A fuzzy query creates a list of all possible expansions of the search term that fall within the Damerau-Levenshtein distance. You can specify the maximum number of such expansions in the `max_expansions` field. The query then searches for documents that match any of the expansions. If you set the `transpositions` parameter to `false`, then your search will use the classic [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). 
 
 The following example query searches for the speaker `HALET` (misspelled `HAMLET`). The maximum edit distance is not specified, so the default `AUTO` edit distance is used:
 
@@ -90,5 +89,5 @@ Parameter | Data type | Description
 Specifying a large value in `max_expansions` can lead to poor performance, especially if `prefix_length` is set to `0`, because of the large number of variations of the word that OpenSearch tries to match.
 {: .warning}
 
-If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, fuzzy queries are not run.
+If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, then fuzzy queries are not executed.
 {: .important}

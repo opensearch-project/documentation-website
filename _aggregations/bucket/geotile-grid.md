@@ -2,7 +2,6 @@
 layout: default
 title: Geotile grid
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 87
 redirect_from:
   - /query-dsl/aggregations/bucket/geotile-grid/

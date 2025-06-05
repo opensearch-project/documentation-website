@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Aggregations
-has_children: true
+has_children: false
 nav_order: 5
 nav_exclude: true
 permalink: /aggregations/

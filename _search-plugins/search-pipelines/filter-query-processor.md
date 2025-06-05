@@ -1,17 +1,19 @@
 ---
 layout: default
 title: Filter query
-nav_order: 10
+nav_order: 20
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
 # Filter query processor
+Introduced 2.8
+{: .label .label-purple }
 
 The `filter_query` search request processor intercepts a search request and applies an additional query to the request, filtering the results. This is useful when you don't want to rewrite existing queries in your application but need additional filtering of the results.
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 

@@ -2,14 +2,14 @@
 layout: default
 title: Stats 
 parent: ML Commons APIs
-nav_order: 50
+nav_order: 110
 ---
 
 # Stats
 
 Gets statistics related to the number of tasks. 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/stats

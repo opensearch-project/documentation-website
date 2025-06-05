@@ -30,6 +30,6 @@ Query type | Description
 [`range`]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) | Searches for documents with field values in a specific range.
 [`prefix`]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/) | Searches for documents containing terms that begin with a specific prefix.
 [`exists`]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/) | Searches for documents with any indexed value in a specific field.
-[`fuzzy`]({{site.url}}{{site.baseurl}}/query-dsl/term/fuzzy/) | Searches for documents containing terms that are similar to the search term within the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). The Levenshtein distance measures the number of one-character changes needed to change one term to another term.
+[`fuzzy`]({{site.url}}{{site.baseurl}}/query-dsl/term/fuzzy/) | Searches for documents containing terms that are similar to the search term within the maximum allowed [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance). The Damerau–Levenshtein distance measures the number of one-character changes needed to change one term to another term.
 [`wildcard`]({{site.url}}{{site.baseurl}}/query-dsl/term/wildcard/) | Searches for documents containing terms that match a wildcard pattern. 
 [`regexp`]({{site.url}}{{site.baseurl}}/query-dsl/term/regexp/) | Searches for documents containing terms that match a regular expression.

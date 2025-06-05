@@ -39,7 +39,7 @@ You can specify the following options in the HTTP request body:
 Option | Data Type | Description | Required
 :--- | :--- | :--- | :---
 enabled | Boolean | If true, the transform job is enabled at creation. | No
-continuous | Boolean | Specifies whether the transform job should be continuous. Continuous jobs execute every time they are scheduled according to the `schedule` field and run based off of newly transformed buckets as well as any new data added to source indexes. Non-continuous jobs execute only once. Default is false. | No
+continuous | Boolean | Specifies whether the transform job should be continuous. Continuous jobs execute every time they are scheduled according to the `schedule` field and run based off of newly transformed buckets as well as any new data added to source indexes. Non-continuous jobs execute only once. Default is `false`. | No
 schedule | Object | The schedule for the transform job. | Yes
 start_time | Integer | The Unix epoch time of the transform job's start time. | Yes
 description | String | Describes the transform job. | No
@@ -177,8 +177,8 @@ The update operation supports the following query parameters:
 
 Parameter | Description | Required
 :---| :--- | :---
-`seq_no` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence number. | Yes
-`primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | Yes
+`if_seq_no` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence number. | Yes
+`if_primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | Yes
 
 ### Request body fields
 
@@ -447,7 +447,7 @@ from | The starting transform to return. Default is 0. | No
 size | Specifies the number of transforms to return. Default is 10. | No
 search |The search term to use to filter results. | No
 sortField | The field to sort results with. | No
-sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DESC`. Default is ASC. | No
+sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DESC`. Default is `ASC`. | No
 
 #### Sample Request
 

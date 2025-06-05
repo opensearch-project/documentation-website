@@ -11,6 +11,12 @@ nav_order: 3
 
 Retrieves a stored script.
 
+## Endpoints
+
+```json
+GET _scripts/my-first-script
+```
+
 ## Path parameters
 
 | Parameter | Data type | Description | 
@@ -23,7 +29,7 @@ Retrieves a stored script.
 :--- | :--- | :---
 | cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
 
-#### Example request
+## Example request
 
 The following retrieves the `my-first-script` stored script.
 
@@ -32,7 +38,7 @@ GET _scripts/my-first-script
 ````
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The `GET _scripts/my-first-script` request returns the following fields:
 
@@ -53,7 +59,7 @@ The `GET _scripts/my-first-script` request returns the following fields:
 }
 ````
 
-## Response fields
+## Response body fields
 
 The `GET _scripts/my-first-script` request returns the following response fields:
 

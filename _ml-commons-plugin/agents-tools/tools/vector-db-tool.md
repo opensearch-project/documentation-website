@@ -26,7 +26,7 @@ In this example, you'll use the `huggingface/sentence-transformers/all-MiniLM-L1
 POST /_plugins/_ml/models/_register?deploy=true
 {
   "name": "huggingface/sentence-transformers/all-MiniLM-L12-v2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "model_format": "TORCH_SCRIPT"
 }
 ```
@@ -225,6 +225,7 @@ Parameter	| Type | Required/Optional | Description
 `input` | String | Required for flow agent | Runtime input sourced from flow agent parameters. If using a large language model (LLM), this field is populated with the LLM response.
 `doc_size` | Integer | Optional | The number of documents to fetch. Default is `2`.
 `k` | Integer | Optional | The number of nearest neighbors to search for when performing neural search. Default is `10`.
+`nested_path` | String | Optional | The path to the nested object for the nested query. Only used for nested fields. Default is `null`.
 
 ## Execute parameters
 

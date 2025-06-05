@@ -14,7 +14,7 @@ The Index Stats API provides index statistics. For data streams, the API provide
 When a shard moves to a different node, the shard-level statistics for the shard are cleared. Although the shard is no longer part of the node, the node preserves any node-level statistics to which the shard contributed.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_stats
@@ -71,49 +71,65 @@ Parameter | Data type | Description
 `include_segment_file_sizes` | Boolean | Specifies whether to report the aggregated disk usage of each Lucene index file. Only applies to `segments` statistics. Default is `false`.
 `include_unloaded_segments` | Boolean | Specifies whether to include information from segments that are not loaded into memory. Default is `false`.
 
-#### Example request: One index
+## Example requests
+
+The following example requests show how to use the Index Stats API.
+
+### One index
+
+The following example returns index stats for a single index:
 
 ```json
 GET /testindex/_stats
 ```
 {% include copy-curl.html %}
 
-#### Example request: Comma-separated list of indexes
+### Comma-separated list of indexes
+
+The following example returns stats for multiple indexes:
 
 ```json
 GET /testindex1,testindex2/_stats
 ```
 {% include copy-curl.html %}
 
-#### Example request: Wildcard expression
+### Wildcard expression
+
+The following example returns starts about any index that starts with `testindex`:
 
 ```json
 GET /testindex*/_stats
 ```
 {% include copy-curl.html %}
 
-#### Example request: Specific stats
+### Specific stats
+
+The following example returns index stats related to the index and flush operations:
 
 ```json
 GET /testindex/_stats/refresh,flush
 ```
 {% include copy-curl.html %}
 
-#### Example request: Expand wildcards
+### Expand wildcards
+
+The following example expands all wildcards related to index stats:
 
 ```json
 GET /testindex*/_stats?expand_wildcards=open,hidden
 ```
 {% include copy-curl.html %}
 
-#### Example request: Shard-level statistics
+### Shard-level statistics
+
+The following example returns shard level stats about a test index:
 
 ```json
 GET /testindex/_stats?level=shards
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 By default, the returned statistics are aggregated in the `primaries` and `total` aggregations. The `primaries` aggregation contains statistics for the primary shards. The `total` aggregation contains statistics for both primary and replica shards. The following is an example Index Stats API response: 
 
@@ -809,6 +825,6 @@ By default, the returned statistics are aggregated in the `primaries` and `total
 ```
 </details>
 
-## Response fields
+## Response body fields
 
 For information about response fields, see [Nodes Stats API response fields]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#indices).

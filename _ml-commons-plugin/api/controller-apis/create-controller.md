@@ -19,7 +19,7 @@ The POST method creates a new controller. The PUT method updates an existing con
 
 To learn how to set rate limits at the model level for all users, see [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/). The rate limit is set to either the model-level limit or the user-level limit, whichever is more restrictive. For example, if the model-level limit is 2 requests per minute and the user-level limit is 4 requests per minute, the overall limit will be set to 2 requests per minute.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/controllers/<model_id>
@@ -35,7 +35,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `model_id` | String | The model ID of the model for which you want to set rate limits. Required.
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields.
 

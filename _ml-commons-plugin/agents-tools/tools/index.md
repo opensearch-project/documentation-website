@@ -7,6 +7,7 @@ has_toc: false
 nav_order: 20
 redirect_from: 
   - /ml-commons-plugin/extensibility/index/
+  - /ml-commons-plugin/agents-tools/tools/
 ---
 
 # Tools
@@ -32,9 +33,10 @@ Each tool takes a list of parameters specific to that tool. In the preceding exa
 |Tool	| Description	|
 |:---	|:---	|
 |[`AgentTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/agent-tool/)	|Runs any agent. |
-|[`CatIndexTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/cat-index-tool/)	|Retrieves index information for the OpenSearch cluster. |
 |[`ConnectorTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/connector-tool/)	| Uses a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) to call any REST API function. |
+|[`CreateAnomalyDetectorTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/create-anomaly-detector/)	| Enables an LLM to suggest required parameters for creating an anomaly detector. |
 |[`IndexMappingTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index-mapping-tool/)	|Retrieves index mapping and setting information for an index. |
+|[`ListIndexTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/list-index-tool/)	|Retrieves index information for the OpenSearch cluster. Introduced in OpenSearch version 3.0 as a replacement for the `CatIndexTool`. |
 |[`MLModelTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/ml-model-tool/)	|Runs machine learning models.	|
 |[`NeuralSparseSearchTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/neural-sparse-tool/)	| Performs sparse vector retrieval. |
 |[`PPLTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/ppl-tool/)	|Translates natural language into a Piped Processing Language (PPL) query.	|
@@ -46,7 +48,8 @@ Each tool takes a list of parameters specific to that tool. In the preceding exa
 |[`SearchMonitorsTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/search-monitors-tool/)	| Searches for alerting monitors.	|
 |[`VectorDBTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/vector-db-tool/)	|Performs dense vector retrieval.	|
 |[`VisualizationTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/visualization-tool/)	|Finds visualizations in OpenSearch Dashboards.	|
+|[`WebSearchTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/web-search-tool/)	|Answers a user's question using a web search.	|
 
 ## Developer information
 
-The agents and tools framework is flexible and extensible. You can find the list of tools provided by OpenSearch in the [Tools library](https://github.com/opensearch-project/skills/tree/main/src/main/java/org/opensearch/agent/tools). For a different use case, you can build your own tool by implementing the [_Tool_ interface](https://github.com/opensearch-project/ml-commons/blob/2.x/spi/src/main/java/org/opensearch/ml/common/spi/tools/Tool.java).
+The agents and tools framework offers flexibility and extensibility. See the [tools library](https://github.com/opensearch-project/skills/tree/main/src/main/java/org/opensearch/agent/tools) for OpenSearch-provided tools. Implement the [**Tool** interface](https://github.com/opensearch-project/ml-commons/blob/2.x/spi/src/main/java/org/opensearch/ml/common/spi/tools/Tool.java) to build custom tools for different use cases.

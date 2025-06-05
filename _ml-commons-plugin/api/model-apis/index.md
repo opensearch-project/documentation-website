@@ -9,16 +9,40 @@ has_toc: false
 
 # Model APIs
 
-ML Commons supports the following model-level APIs:
+ML Commons supports the following model-level CRUD APIs:
 
-- [Register model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/)
-- [Deploy model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/)
-- [Get model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/get-model/)
-- [Search model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/search-model/)
-- [Update model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/)
-- [Undeploy model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)
-- [Delete model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/delete-model/)
-- [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) (invokes a model)
+- [Register Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/)
+- [Deploy Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/)
+- [Get Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/get-model/)
+- [Search Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/search-model/)
+- [Update Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/)
+- [Undeploy Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)
+- [Delete Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/delete-model/)
+
+# Predict APIs
+
+Predict APIs are used to invoke machine learning (ML) models. ML Commons supports the following Predict APIs:
+
+- [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) 
+- [Batch Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/batch-predict/)
+
+# Train API
+
+The ML Commons Train API lets you train ML algorithms synchronously and asynchronously:
+
+- [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/)
+
+To train tasks through the API, three inputs are required: 
+
+- Algorithm name: Must be a [FunctionName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML model runs. To add a new function, see [How To Add a New Function](https://github.com/opensearch-project/ml-commons/blob/main/docs/how-to-add-new-function.md).
+- Model hyperparameters: Adjust these parameters to improve model accuracy.  
+- Input data: The data that trains the ML model or applies it to predictions. You can input data in two ways: query against your index or use a data frame.
+
+# Train and Predict API
+
+The Train and Predict API lets you train and invoke the model using the same dataset:
+
+- [Train and Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict/)
 
 ## Model access control considerations
 

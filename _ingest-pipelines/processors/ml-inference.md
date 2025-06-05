@@ -43,7 +43,7 @@ The following is the syntax for the `ml-inference` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 
@@ -53,7 +53,7 @@ The following table lists the required and optional parameters for the `ml-infer
 |:--- | :--- | :--- | :--- |
 | `model_id` | String | Required | The ID of the ML model used by the processor. |
 | `function_name` | String    | Optional for externally hosted models<br/><br/>Required for local models | The function name of the ML model configured in the processor. For local models, valid values are `sparse_encoding`, `sparse_tokenize`, `text_embedding`, and `text_similarity`. For externally hosted models, valid value is `remote`. Default is `remote`. |
-| `model_config` | Object    | Optional   | Custom configuration options for the ML model. For more information, see [The `model_config` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-model_config-object). |
+| `model_config` | Object    | Optional   | Custom configuration options for the ML model. For externally hosted models, if set, this configuration overrides the default connector parameters. For local models, you can add `model_config` to `model_input` to override the model configuration set during registration. For more information, see [The `model_config` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-model_config-object). |
 | `model_input`  | String    | Optional for externally hosted models<br/><br/>Required for local models | A template that defines the input field format expected by the model. Each local model type might use a different set of inputs. For externally hosted models, default is `"{ \"parameters\": ${ml_inference.parameters} }`.|
 | `input_map` | Array | Optional for externally hosted models<br/><br/>Required for local models | An array specifying how to map ingested document fields to the model input fields. Each element of the array is a map in the `"<model_input_field>": "<document_field>"` format and corresponds to one model invocation for a document field. If no input mapping is specified for an externally hosted model, then all fields from the document are passed to the model directly as input. The `input_map` size indicates the number of times the model is invoked (the number of Predict API requests). |
 | `<model_input_field>` | String    | Optional for externally hosted models<br/><br/>Required for local models  | The model input field name. |

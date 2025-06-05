@@ -2,7 +2,6 @@
 layout: default
 title: Geodistance
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 70
 redirect_from:
   - /query-dsl/aggregations/bucket/geo-distance/

@@ -8,25 +8,11 @@ nav_order: 10
 
 # Tiered cache
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/10024).    
-{: .warning}
-
 A tiered cache is a multi-level cache in which each tier has its own characteristics and performance levels. By combining different tiers, you can achieve a balance between cache performance and size.
 
 ## Types of tiered caches
 
 OpenSearch provides an implementation of a `_tiered` spillover `cache_`. This implementation spills any items removed from the upper tiers to the lower tiers of cache. The upper tier, such as the on-heap tier, is smaller in size but offers better latency. The lower tier, such as the disk cache, is larger in size but slower in terms of latency. OpenSearch offers both on-heap and disk tiers. 
-
-## Enabling a tiered cache
-
-To enable a tiered cache, configure the following setting in `opensearch.yml`:
-
-```yaml
-opensearch.experimental.feature.pluggable.caching.enabled: true
-```
-{% include copy.html %}
-
-For more information about ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
 ## Installing required plugins
 
@@ -44,7 +30,7 @@ In OpenSearch 2.14, a request cache can be used in a tiered cache. To begin, con
 To use the OpenSearch-provided tiered spillover cache implementation, set the cache store name to `tiered_spillover`, as shown in the following example:
 
 ```yaml
-indices.request.cache.store.name: tiered_spillover
+indices.requests.cache.store.name: tiered_spillover
 ```
 {% include copy.html %}
 
@@ -53,8 +39,8 @@ indices.request.cache.store.name: tiered_spillover
 Set the on-heap and disk store tiers to `opensearch_onheap` and `ehcache_disk`, as shown in the following example:
 
 ```yaml
-indices.request.cache.tiered_spillover.onheap.store.name: opensearch_onheap
-indices.request.cache.tiered_spillover.disk.store.name: ehcache_disk
+indices.requests.cache.tiered_spillover.onheap.store.name: opensearch_onheap
+indices.requests.cache.tiered_spillover.disk.store.name: ehcache_disk
 ```
 The `opensearch_onheap` setting uses the built-in on-heap cache available in OpenSearch. 
 
@@ -68,19 +54,19 @@ The following table lists the cache store settings for the `opensearch_onheap` s
 
 Setting | Data type | Default | Description
 :--- | :--- | :--- | :---
-`indices.request.cache.opensearch_onheap.size` | Percentage | 1% of the heap size | The size of the on-heap cache. Optional.
-`indices.request.cache.opensearch_onheap.expire` | Time unit | `MAX_VALUE` (disabled) | Specifies a time-to-live (TTL) for the cached results. Optional.
+`indices.requests.cache.opensearch_onheap.size` | Percentage | 1% of the heap size | The size of the on-heap cache. Optional.
+`indices.requests.cache.opensearch_onheap.expire` | Time unit | `MAX_VALUE` (disabled) | Specifies a time-to-live (TTL) for the cached results. Optional.
 
 The following table lists the disk cache store settings for the `ehcache_disk` store.
 
 Setting | Data type | Default | Description
 :--- | :--- | :--- | :---
-`indices.request.cache.ehcache_disk.max_size_in_bytes` | Long | `1073741824` (1 GB)  | Defines the size of the disk cache. Optional.
-`indices.request.cache.ehcache_disk.storage.path` | String | `""` | Defines the storage path for the disk cache. Required.
-`indices.request.cache.ehcache_disk.expire_after_access` | Time unit | `MAX_VALUE` (disabled) | Specifies a TTL for the cached results. Optional.
-`indices.request.cache.ehcache_disk.alias` | String | `ehcacheDiskCache#INDICES_REQUEST_CACHE` | Specifies an alias for the disk cache. Optional.
-`indices.request.cache.ehcache_disk.segments` | Integer | `16` | Defines the number of segments into which the disk cache is separated. Used for concurrency. Optional.
-`indices.request.cache.ehcache_disk.concurrency` | Integer | `1` | Defines the number of distinct write queues created for the disk store, where a group of segments shares a write queue. Optional.
+`indices.requests.cache.ehcache_disk.max_size_in_bytes` | Long | `1073741824` (1 GB)  | Defines the size of the disk cache. Optional.
+`indices.requests.cache.ehcache_disk.storage.path` | String | `{data.paths}/nodes/{node.id}/request_cache` | Defines the storage path for the disk cache. Optional.
+`indices.requests.cache.ehcache_disk.expire_after_access` | Time unit | `MAX_VALUE` (disabled) | Specifies a TTL for the cached results. Optional.
+`indices.requests.cache.ehcache_disk.alias` | String | `ehcacheDiskCache#INDICES_REQUEST_CACHE` | Specifies an alias for the disk cache. Optional.
+`indices.requests.cache.ehcache_disk.segments` | Integer | `16` | Defines the number of segments into which the disk cache is separated. Used for concurrency. Optional.
+`indices.requests.cache.ehcache_disk.concurrency` | Integer | `1` | Defines the number of distinct write queues created for the disk store, where a group of segments shares a write queue. Optional.
 
 ### Additional settings for the `tiered_spillover` store
 
@@ -88,8 +74,12 @@ The following table lists additional settings for the `tiered_spillover` store s
 
 Setting | Data type | Default | Description
 :--- | :--- | :--- | :---
-`indices.request.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms` | A policy used to determine whether to cache a query into a disk cache based on its took time. This is a dynamic setting. Optional.
-`indices.request.cache.tiered_spillover.disk.store.enabled` | Boolean | `True` | Enables or disables the disk cache dynamically within a tiered spillover cache. Note: After disabling a disk cache, entries are not removed automatically and requires the cache to be manually cleared. Optional.
+`indices.requests.cache.tiered_spillover.policies.took_time.threshold` | Time unit | `0ms` | A policy used to determine whether to cache a query into the cache based on its query phase execution time. This is a dynamic setting. Optional.
+`indices.requests.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms` | A policy used to determine whether to cache a query into the disk tier of the cache based on its query phase execution time. This is a dynamic setting. Optional.
+`indices.requests.cache.tiered_spillover.disk.store.enabled` | Boolean | `True` | Enables or disables the disk cache dynamically within a tiered spillover cache. Note: After disabling a disk cache, entries are not removed automatically and requires the cache to be manually cleared. Optional.
+`indices.requests.cache.tiered_spillover.onheap.store.size` | Percentage | 1% of the heap size | Defines the size of the on-heap cache within tiered cache. Optional.
+`indices.requests.cache.tiered_spillover.disk.store.size` | Long | `1073741824` (1 GB) | Defines the size of the disk cache within tiered cache. Optional.
+`indices.requests.cache.tiered_spillover.segments` | Integer | `2 ^ (ceil(log2(CPU_CORES * 1.5)))` | This determines the number of segments in the tiered cache, with each segment secured by a re-entrant read/write lock. These locks enable multiple concurrent readers without contention, while the segmentation allows multiple writers to operate simultaneously, resulting in higher write throughput. Optional.
 
 ### Delete stale entries settings
 

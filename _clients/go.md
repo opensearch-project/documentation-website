@@ -6,7 +6,7 @@ nav_order: 50
 
 # Go client
 
-The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster. This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client's complete API documentation and additional examples, see the [Go client API documentation](https://pkg.go.dev/github.com/opensearch-project/opensearch-go/v2).
+The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster. This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client's complete API documentation and additional examples, see the [Go client API documentation](https://pkg.go.dev/github.com/opensearch-project/opensearch-go/v4).
 
 For the client source code, see the [opensearch-go repo](https://github.com/opensearch-project/opensearch-go).
 
@@ -29,7 +29,7 @@ go get github.com/opensearch-project/opensearch-go
 
 ## Connecting to OpenSearch
 
-To connect to the default OpenSearch host, create a client object with the address `https://localhost:9200` if you are using the Security plugin:  
+To connect to the default OpenSearch host, create a client object with the address `https://localhost:9200` if you are using the Security plugin:
 
 ```go
 client, err := opensearch.NewClient(opensearch.Config{
@@ -68,9 +68,9 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
-	opensearch "github.com/opensearch-project/opensearch-go/v2"
-	opensearchapi "github.com/opensearch-project/opensearch-go/v2/opensearchapi"
-	requestsigner "github.com/opensearch-project/opensearch-go/v2/signer/awsv2"
+	opensearch "github.com/opensearch-project/opensearch-go/v4"
+	opensearchapi "github.com/opensearch-project/opensearch-go/v4/opensearchapi"
+	requestsigner "github.com/opensearch-project/opensearch-go/v4/signer/awsv2"
 )
 
 const endpoint = "" // e.g. https://opensearch-domain.region.com or Amazon OpenSearch Serverless endpoint
@@ -102,6 +102,9 @@ func main() {
 	if err != nil {
 		log.Fatal("client creation err", err)
 	}
+
+	_ = client
+	// your code here
 }
 
 func getCredentialProvider(accessKey, secretAccessKey, token string) aws.CredentialsProviderFunc {
@@ -130,9 +133,8 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
-	opensearch "github.com/opensearch-project/opensearch-go/v2"
-	opensearchapi "github.com/opensearch-project/opensearch-go/v2/opensearchapi"
-	requestsigner "github.com/opensearch-project/opensearch-go/v2/signer/awsv2"
+	opensearch "github.com/opensearch-project/opensearch-go/v4"
+	requestsigner "github.com/opensearch-project/opensearch-go/v4/signer/awsv2"
 )
 
 const endpoint = "" // e.g. https://opensearch-domain.region.com or Amazon OpenSearch Serverless endpoint
@@ -164,6 +166,9 @@ func main() {
 	if err != nil {
 		log.Fatal("client creation err", err)
 	}
+
+	_ = client
+	// your code here
 }
 
 func getCredentialProvider(accessKey, secretAccessKey, token string) aws.CredentialsProviderFunc {
@@ -173,7 +178,6 @@ func getCredentialProvider(accessKey, secretAccessKey, token string) aws.Credent
 			SecretAccessKey: secretAccessKey,
 			SessionToken:    token,
 		}
-		return *c, nil
 	}
 }
 ```
@@ -197,7 +201,7 @@ client, err := opensearch.NewClient(opensearch.Config{
 ```
 {% include copy.html %}
 
-The Go client retries requests for a maximum of three times by default. To customize the number of retries, set the `MaxRetries` parameter. Additionally, you can change the list of response codes for which a request is retried by setting the `RetryOnStatus` parameter. The following code snippet creates a new Go client with custom `MaxRetries` and `RetryOnStatus` values: 
+The Go client retries requests for a maximum of three times by default. To customize the number of retries, set the `MaxRetries` parameter. Additionally, you can change the list of response codes for which a request is retried by setting the `RetryOnStatus` parameter. The following code snippet creates a new Go client with custom `MaxRetries` and `RetryOnStatus` values:
 
 ```go
 client, err := opensearch.NewClient(opensearch.Config{
@@ -226,7 +230,7 @@ settings := strings.NewReader(`{
     }`)
 
 res := opensearchapi.IndicesCreateRequest{
-    Index: "go-test-index1", 
+    Index: "go-test-index1",
     Body:  settings,
 }
 ```
@@ -369,7 +373,7 @@ func main() {
 
     // Create an index with non-default settings.
     res := opensearchapi.IndicesCreateRequest{
-        Index: IndexName, 
+        Index: IndexName,
         Body:  settings,
     }
     fmt.Println("Creating index")
@@ -396,7 +400,7 @@ func main() {
     fmt.Println("Inserting a document")
     fmt.Println(insertResponse)
     defer insertResponse.Body.Close()
-   
+
     // Perform bulk operations.
     blk, err := client.Bulk(
 		strings.NewReader(`

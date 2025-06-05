@@ -31,16 +31,20 @@ The following is the syntax for the `text_chunking` processor:
 
 The following table lists the required and optional parameters for the `text_chunking` processor.
 
-| Parameter  | Data type | Required/Optional  | Description  |
-|:---|:---|:---|:---|
-| `field_map` | Object | Required	 | Contains key-value pairs that specify the mapping of a text field to the output field.	  |
-| `field_map.<input_field>`	  | String	| Required	 | The name of the field from which to obtain text for generating chunked passages.	                                   |
-| `field_map.<output_field>`	 | String	    | Required	 | The name of the field in which to store the chunked results.	|
-| `algorithm`	| Object	    | Required	 | Contains at most one key-value pair that specifies the chunking algorithm and parameters. |
-| `algorithm.<name>` | String	    | Optional	 | The name of the chunking algorithm. Valid values are [`fixed_token_length`](#fixed-token-length-algorithm) or [`delimiter`](#delimiter-algorithm). Default is `fixed_token_length`.	|
-| `algorithm.<parameters>`	   | Object	    | Optional	 | The parameters for the chunking algorithm. By default, contains the default parameters of the `fixed_token_length` algorithm.	 |
-| `description`	              | String	    | Optional	 | A brief description of the processor. |
-| `tag`	| String	    | Optional	 | An identifier tag for the processor. Useful when debugging in order to distinguish between processors of the same type.	|
+| Parameter                   | Data type | Required/Optional  | Description                                                                                                                                                                          |
+|:----------------------------|:----------|:---|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `field_map`                 | Object    | Required	 | Contains key-value pairs that specify the mapping of a text field to the output field.	                                                                                              |
+| `field_map.<input_field>`	  | String	   | Required	 | The name of the field from which to obtain text for generating chunked passages.	                                                                                                    |
+| `field_map.<output_field>`	 | String	   | Required	 | The name of the field in which to store the chunked results.	                                                                                                                        |
+| `algorithm`	                | Object	   | Required	 | Contains at most one key-value pair that specifies the chunking algorithm and parameters.                                                                                            |
+| `algorithm.<name>`          | String	   | Optional	 | The name of the chunking algorithm. Valid values are [`fixed_token_length`](#fixed-token-length-algorithm) or [`delimiter`](#delimiter-algorithm). Default is `fixed_token_length`.	 |
+| `algorithm.<parameters>`	   | Object	   | Optional	 | The parameters for the chunking algorithm. By default, contains the default parameters of the `fixed_token_length` algorithm.	                                                       |
+| `ignore_missing`	           | Boolean	  | Optional	 | If `true`, empty fields are excluded from the output. If `false`, the output will contain an empty list for every empty field. Default is `false`.	                                                        |
+| `description`	              | String	   | Optional	 | A brief description of the processor.                                                                                                                                                |
+| `tag`	                      | String	   | Optional	 | An identifier tag for the processor. Useful when debugging in order to distinguish between processors of the same type.	                                                             |
+
+To perform chunking on nested fields, specify `input_field` and `output_field` values as JSON objects. Dot paths of nested fields are not supported. For example, use `"field_map": { "foo": { "bar": "bar_chunk"} }` instead of `"field_map": { "foo.bar": "foo.bar_chunk"}`.
+{: .note}
 
 ### Fixed token length algorithm
 
@@ -59,7 +63,7 @@ The default value of `token_limit` is `384` so that output passages don't exceed
 You can set the `overlap_rate` to a decimal percentage value in the 0--0.5 range, inclusive. Per [Amazon Bedrock](https://aws.amazon.com/blogs/aws/knowledge-bases-now-delivers-fully-managed-rag-experience-in-amazon-bedrock/), we recommend setting this parameter to a value of 0–0.2 to improve accuracy.
 {: .note}
 
-The `max_chunk_limit` parameter limits the number of chunked passages. If the number of passages generated by the processor exceeds the limit, the algorithm will return an exception, prompting you to either increase or disable the limit.
+The `max_chunk_limit` parameter limits the number of chunked passages. If the number of passages generated by the processor exceeds the limit, the excess text is added to the last chunk.
 {: .note}
 
 ### Delimiter algorithm
@@ -71,7 +75,7 @@ The following table lists the optional parameters for the `delimiter` algorithm.
 | `delimiter`	| String	    | Optional	 | A string delimiter used to split text. You can set the `delimiter` to any string, for example, `\n` (split text into paragraphs on a new line) or `.` (split text into sentences). Default is `\n\n` (split text into paragraphs on two new line characters). |
 | `max_chunk_limit`	 | Integer	   | Optional	 | The chunk limit for chunking algorithms. Default is `100`. To disable this parameter, set it to `-1`.	 |
 
-The `max_chunk_limit` parameter limits the number of chunked passages. If the number of passages generated by the processor exceeds the limit, the algorithm will return an exception, prompting you to either increase or disable the limit.
+The `max_chunk_limit` parameter limits the number of chunked passages. If the number of passages generated by the processor exceeds the limit, the excess text is added to the last chunk.
 {: .note}
 
 ## Using the processor

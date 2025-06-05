@@ -15,7 +15,7 @@ Retrieves message information for [conversational search]({{site.url}}{{site.bas
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory and its messages.
 {: .important}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/memory/<memory_id>/_search
@@ -89,6 +89,6 @@ GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/_search
 }
 ```
 
-## Response fields
+## Response body fields
 
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-fields).
+For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).

@@ -7,7 +7,7 @@ nav_order: 60
 
 # Trace analytics
 
-Trace analytics allows you to collect trace data and customize a pipeline that ingests and transforms the data for use in OpenSearch. The following provides an overview of the trace analytics workflow in Data Prepper, how to configure it, and how to visualize trace data.
+Trace analytics allows you to collect trace data and customize a pipeline that ingests and transforms the data for use in OpenSearch. The following provides an overview of the trace analytics workflow in OpenSearch Data Prepper, how to configure it, and how to visualize trace data.
 
 ## Introduction
 
@@ -32,7 +32,7 @@ To monitor trace analytics in Data Prepper, we provide three pipelines: `entry-p
 
 ### OpenTelemetry trace source
  
-The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-trace-raw/) accepts trace data from the OpenTelemetry Collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol) and officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
+The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-traces/) accepts trace data from the OpenTelemetry Collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol) and officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
 
 ### Processor
 
@@ -49,8 +49,8 @@ OpenSearch provides a generic sink that writes data to OpenSearch as the destina
 
 The sink provides specific configurations for the trace analytics feature. These configurations allow the sink to use indexes and index templates specific to trace analytics. The following OpenSearch indexes are specific to trace analytics:
 
-* otel-v1-apm-span –- The *otel-v1-apm-span* index stores the output from the [otel_traces_raw]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-trace-raw/) processor.
-* otel-v1-apm-service-map –- The *otel-v1-apm-service-map* index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map-stateful/) processor.
+* otel-v1-apm-span –- The *otel-v1-apm-span* index stores the output from the [otel_traces_raw]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-traces/) processor.
+* otel-v1-apm-service-map –- The *otel-v1-apm-service-map* index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map/) processor.
 
 ## Trace tuning
 

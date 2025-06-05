@@ -48,7 +48,7 @@ The **Trace Analytics** application includes two options: **Services** and **Tra
 The plugin requires you to use [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) to process and visualize OTel data and relies on the following Data Prepper pipelines for OTel correlations and service map calculations:
 
 - [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/)
-- [Service map pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map-stateful/)
+- [Service map pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map/)
 
 ### Standardized telemetry data
 
@@ -76,7 +76,7 @@ Certain fields, such as `serviceName`, must be present to perform correlation an
 
 ### Correlation indexes
 
-Navigating from the service dialog to its corresponding traces or logs requires the existence of correlating fields and that the target indexes (for example, logs) follow the specified naming conventions, as described at [Simple Schema for Observability](https://opensearch.org/docs/latest/observing-your-data/ss4o/).  
+Navigating from the service dialog to its corresponding traces or logs requires the existence of correlating fields and that the target indexes (for example, logs) follow the specified naming conventions, as described at [Simple Schema for Observability]({{site.url}}{{site.baseurl}}/observing-your-data/ss4o/).  
 
 ---
 

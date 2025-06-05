@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/convert/
 ---
 
-This documentation describes using the `convert` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `convert_entry_type` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/convert_entry_type/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `convert` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `convert_entry_type` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/convert-entry-type/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # Convert processor
@@ -26,7 +26,7 @@ The following is the syntax for the `convert` processor:
     }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

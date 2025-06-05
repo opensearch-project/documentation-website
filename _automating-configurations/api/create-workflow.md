@@ -16,16 +16,16 @@ Creating a workflow adds the content of a workflow template to the flow framewor
 
 To obtain the validation template for workflow steps, call the [Get Workflow Steps API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-steps/).
 
-You can include placeholder expressions in the value of workflow step fields. For example, you can specify a credential field in a template as `openAI_key: '${{ openai_key }}'`. The expression will be substituted with the user-provided value during provisioning, using the format {% raw %}`${{ <value> }}`{% endraw %}. You can pass the actual key as a parameter by using the [Provision Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/) or by using this API with the `provision` parameter set to `true`.
+You can include placeholder expressions in the value of workflow step fields. For example, you can specify a credential field in a template as {% raw %}`openAI_key: '${{ openai_key }}'`{% endraw %}. The expression will be substituted with the user-provided value during provisioning, using the format {% raw %}`${{ <value> }}`{% endraw %}. You can pass the actual key as a parameter by using the [Provision Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/) or by using this API with the `provision` parameter set to `true`.
 
 Once a workflow is created, provide its `workflow_id` to other APIs.
 
-The `POST` method creates a new workflow. The `PUT` method updates an existing workflow. 
+The `POST` method creates a new workflow. The `PUT` method updates an existing workflow. You can specify the `update_fields` parameter to update specific fields.
 
-You can only update a workflow if it has not yet been provisioned.
+You can only update a complete workflow if it has not yet been provisioned.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_flow_framework/workflow
@@ -58,15 +58,73 @@ POST /_plugins/_flow_framework/workflow?validation=none
 ```
 {% include copy-curl.html %}
 
+In a workflow that has not been provisioned, you can update fields other than the `workflows` field. For example, you can update the `name` and `description` fields as follows:
+
+```json
+PUT /_plugins/_flow_framework/workflow/<workflow_id>?update_fields=true
+{
+  "name": "new-template-name",
+  "description": "A new description for the existing template"
+}
+```
+{% include copy-curl.html %}
+
+You cannot specify both the `provision` and `update_fields` parameters at the same time.
+{: .note}
+
+If a workflow has been provisioned, you can update and reprovision the full template:
+
+```json
+PUT /_plugins/_flow_framework/workflow/<workflow_id>?reprovision=true
+{
+  <updated complete template>
+}
+```
+
+You can add new steps to the workflow but cannot delete them. Only index setting, search pipeline, and ingest pipeline steps can currently be updated.
+{: .note}
+
+To control how long the request waits for the provisioning and reprovisioning process to complete, use the `wait_for_completion_timeout` parameter:
+
+```json
+POST /_plugins/_flow_framework/workflow/?provision=true&wait_for_completion_timeout=2s
+```
+{% include copy-curl.html %}
+
+```json
+PUT /_plugins/_flow_framework/workflow/<workflow_id>/?reprovision=true&wait_for_completion_timeout=2s
+```
+{% include copy-curl.html %}
+
+If the operation does not complete within the specified amount of time, the response returns the current workflow status while execution continues asynchronously.
+
+The `wait_for_completion_timeout` parameter can only be used when either `provision` or `reprovision` is set to `true`
+{: .note}
+
+For example, the following request provisions a workflow and waits for up to 2 seconds for completion:
+You can create and provision a workflow using a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) as follows:
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=<use_case>&provision=true
+{
+    "create_connector.credential.key" : "<YOUR API KEY>"
+}
+```
+{% include copy-curl.html %}
+
 The following table lists the available query parameters. All query parameters are optional. User-provided parameters are only allowed if the `provision` parameter is set to `true`.
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `provision` | Boolean | Whether to provision the workflow as part of the request. Default is `false`. |
-| `validation` | String | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`. |
-| User-provided substitution expressions | String | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters). |
+| Parameter                              | Data type | Description                                                                                                                                                                                                                                                                                                                               |
+|:---------------------------------------|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `provision`                            | Boolean   | Whether to provision the workflow as part of the request. Default is `false`.                                                                                                                                                                                                                                                             |
+| `update_fields`                        | Boolean   | Whether to update only the fields included in the request body. Default is `false`.                                                                                                                                                                                                                                                       |
+| `reprovision`                          | Boolean   | Whether to reprovision the entire template if it has already been provisioned. A complete template must be provided in the request body. Default is `false`.                                                                                                                                                                              |
+| `validation`                           | String    | Whether to validate the workflow. Valid values are `all` (validate the template) and `none` (do not validate the template). Default is `all`.                                                                                                                                                                                             |
+| `use_case`                             | String    | The name of the [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#supported-workflow-templates) to use when creating the workflow.                                                                                                                                                           |
+| `wait_for_completion_timeout`          | Time value | Specifies the maximum wait time for synchronous provisioning or reprovisioning. If the timeout is exceeded, the request returns the current workflow status while execution continues asynchronously.|
+| User-provided substitution expressions | String    | Parameters matching substitution expressions in the template. Only allowed if `provision` is set to `true`. Optional. If `provision` is set to `false`, you can pass these parameters in the [Provision Workflow API query parameters]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/#query-parameters).  |
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields.
 
@@ -74,7 +132,7 @@ The following table lists the available request fields.
 |:---	|:---	|:---	|:---	|
 |`name`	|String	|Required	|The name of the workflow.	|
 |`description`	|String	|Optional	|A description of the workflow.	|
-|`use_case`	|String	|Optional	| A use case, which can be used with the Search Workflow API to find related workflows. In the future, OpenSearch may provide some standard use cases to ease categorization, but currently you can use this field to specify custom values.	|
+|`use_case`	|String	|Optional	| A user-provided use case, which can be used with the [Search Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/search-workflow/) to find related workflows. You can use this field to specify custom values. This is distinct from the `use_case` query parameter. |
 |`version`	|Object	|Optional	| A key-value map with two fields: `template`, which identifies the template version, and `compatibility`, which identifies a list of minimum required OpenSearch versions.	|
 |`workflows`	|Object	|Optional	|A map of workflows. Presently, only the `provision` key is supported. The value for the workflow key is a key-value map that includes fields for `user_params` and lists of `nodes` and `edges`.	|
 
@@ -253,3 +311,32 @@ OpenSearch responds with the `workflow_id`:
 ```
 
 Once you have created a workflow, you can use other workflow APIs with the `workflow_id`.
+
+#### Example response with wait_for_completion_timeout enabled
+
+```json
+{
+    "workflow_id": "K13IR5QBEpCfUu_-AQdU",
+    "state": "COMPLETED",
+    "resources_created": [
+        {
+            "workflow_step_name": "create_connector",
+            "workflow_step_id": "create_connector_1",
+            "resource_id": "LF3IR5QBEpCfUu_-Awd_",
+            "resource_type": "connector_id"
+        },
+        {
+            "workflow_step_id": "register_model_2",
+            "workflow_step_name": "register_remote_model",
+            "resource_id": "L13IR5QBEpCfUu_-BQdI",
+            "resource_type": "model_id"
+        },
+        {
+            "workflow_step_name": "deploy_model",
+            "workflow_step_id": "deploy_model_3",
+            "resource_id": "L13IR5QBEpCfUu_-BQdI",
+            "resource_type": "model_id"
+        }
+    ]
+}
+```

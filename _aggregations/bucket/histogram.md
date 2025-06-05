@@ -2,7 +2,6 @@
 layout: default
 title: Histogram
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 100
 redirect_from:
   - /query-dsl/aggregations/bucket/histogram/

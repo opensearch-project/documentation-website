@@ -14,9 +14,10 @@ grand_parent: Integrating ML models
 
 If you are ingesting multiple documents and generating embeddings by invoking an externally hosted model, you can use batch ingestion to improve performance.
 
-The [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) accepts a `batch_size` parameter that specifies to process documents in batches of a specified size. Processors that support batch ingestion will send each batch of documents to an externally hosted model in a single request.
+When using the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) to ingest documents, processors that support batch ingestion will split documents into batches and send each batch of documents to an externally hosted model in a single request.
 
 The [`text_embedding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/) and [`sparse_encoding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/sparse-encoding/) processors currently support batch ingestion.
+
 
 ## Step 1: Register a model group
 
@@ -212,7 +213,8 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
         "model_id": "cleMb4kBJ1eYAeTMFFg4",
         "field_map": {
           "passage_text": "passage_embedding"
-        }
+        },
+        "batch_size": 5
       }
     }
   ]
@@ -222,7 +224,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 
 ## Step 6: Perform bulk indexing
 
-To ingest documents in bulk, call the Bulk API and provide the `batch_size` and `pipeline` parameters. If you don't provide a `pipeline` parameter, the default ingest pipeline for the index will be used for ingestion:
+To ingest documents in bulk, call the Bulk API and provide the `pipeline` parameter. If you don't provide a `pipeline` parameter, then the default ingest pipeline for the index will be used for ingestion:
 
 ```json
 POST _bulk?batch_size=5&pipeline=nlp-ingest-pipeline

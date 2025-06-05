@@ -11,19 +11,19 @@ Introduced 2.9
 
 OpenSearch provides an automated means of detecting harmful outliers and protecting your data when you enable anomaly detection. When applied to metrics, OpenSearch uses algorithms to continuously analyze systems and applications, determine normal baselines, and surface anomalies. 
 
-You can connect data visualizations to OpenSearch datasets and then create, run, and view anomaly alarms and results from visualizations in the **Dashboard** interface. With only a couple of steps, you can bring together traces, metrics, and logs to make your applications and infrastructure fully observable.
+You can connect data visualizations to OpenSearch datasets and then create, run, and view real-time anomaly results from visualizations in the **Dashboard** interface. With only a couple of steps, you can bring together traces, metrics, and logs to make your applications and infrastructure fully observable.
 
 ## Getting started 
 
 Before getting started, you must have:
 
 - Installed OpenSearch and OpenSearch Dashboards version 2.9 or later. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
-- Installed the Anomaly Detection plugin version 2.9 or later. See [Installing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins).
+- Installed the Anomaly Detection plugin version 2.9 or later. See [Installing OpenSearch plugins]/({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 - Installed the Anomaly Detection Dashboards plugin version 2.9 or later. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) to get started.
 
 ## General requirements for anomaly detection visualizations
 
-Anomaly detection visualizations are displayed as time-series charts that give you a snapshot of when anomalies have occurred from different anomaly detectors you have configured for the visualization. You can display up to 10 metrics on your chart, and each series can be shown as a line on the chart.
+Anomaly detection visualizations are displayed as time-series charts that give you a snapshot of when anomalies have occurred from different anomaly detectors you have configured for the visualization. You can display up to 10 metrics on your chart, and each series can be shown as a line on the chart. Note that only real-time anomalies will be visible on the chart. For more information about real-time and historical anomaly detection, see [Anomaly detection, Step 3: Set up detector jobs]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/#step-3-setting-up-detector-jobs).
 
 Keep in mind the following requirements when setting up or creating anomaly detection visualizations. The visualization:
 

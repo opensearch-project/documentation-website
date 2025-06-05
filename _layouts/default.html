@@ -52,7 +52,7 @@ layout: table_wrappers
     <div id="main-header"></div>
     <div class="side-bar">
       <div class="site-header">
-        <a href="/docs/latest/" id="menu-button" class="site-button">
+        <a href="{{site.latesturl}}/" id="menu-button" class="site-button">
           Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
         </a>
       </div>
@@ -64,7 +64,7 @@ layout: table_wrappers
             <a href="{{site.url}}{{site.baseurl}}/{{ page.section}}/" class="site-category">{{ page.section-name }}</a>
           {% endif %}
           
-          <a href="{{site.url}}/docs/latest/" class="back-link">&#x2190; Back to docs home</a>
+          <a href="{{site.url}}{{site.latesturl}}/" class="back-link">&#x2190; Back to docs home</a>
           
           {% if page.section == "opensearch" %}
             <version-selector selected="{{ site.data.versions.current }}"></version-selector>
@@ -87,6 +87,8 @@ layout: table_wrappers
           {% assign section = site.clients_collection.collections %}
         {% elsif page.section == "benchmark" %}
           {% assign section = site.benchmark_collection.collections %}
+        {% elsif page.section == "migration-assistant" %}
+          {% assign section = site.migration_assistant_collection.collections %}
         {% endif %}
 
         {% if section %}

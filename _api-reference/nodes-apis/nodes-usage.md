@@ -11,9 +11,9 @@ nav_order: 40
 
 The nodes usage endpoint returns low-level information about REST action usage on nodes.
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET _nodes/usage
 GET _nodes/<nodeId>/usage
 GET _nodes/usage/<metric>
@@ -38,7 +38,7 @@ Parameter | Type | Description
 timeout | Time | Sets the time limit for a response from the node. Default is `30s`.
 cluster_manager_timeout | Time | Sets the time limit for a response from the cluster manager. Default is `30s`.
 
-#### Example request
+## Example request
 
 The following request returns usage details for all nodes:
 
@@ -47,7 +47,7 @@ GET _nodes/usage
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The following is an example response:
 

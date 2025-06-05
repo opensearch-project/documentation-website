@@ -90,3 +90,50 @@ The following request specifies filters to limit the fields returned in the resp
 
 GET _search?filter_path=<field_name>.*,-<field_name>
 ```
+
+## Units
+
+OpenSearch APIs support the following units.
+
+### Time units
+
+The following table lists all supported time units.
+
+Units | Specify as
+:--- | :---
+Days | `d`
+Hours | `h`
+Minutes | `m`
+Seconds | `s`
+Milliseconds | `ms`
+Microseconds | `micros`
+Nanoseconds | `nanos`
+ 
+### Distance units
+
+The following table lists all supported distance units.
+
+Units | Specify as
+:--- | :---
+Miles | `mi` or `miles`
+Yards | `yd` or `yards`
+Feet | `ft` or `feet`
+Inches | `in` or `inch`
+Kilometers | `km` or `kilometers`
+Meters | `m` or `meters`
+Centimeters | `cm` or `centimeters`
+Millimeters | `mm` or `millimeters`
+Nautical miles | `NM`, `nmi`, or `nauticalmiles` 
+
+## `X-Opaque-Id` header
+
+You can specify an opaque identifier for any request using the `X-Opaque-Id` header. This identifier is used to track tasks and deduplicate deprecation warnings in server-side logs. This identifier is used to differentiate between callers sending requests to your OpenSearch cluster. Do not specify a unique value per request.
+
+#### Example request
+
+The following request adds an opaque ID to the request:
+
+```json
+curl -H "X-Opaque-Id: my-curl-client-1" -XGET localhost:9200/_tasks
+```
+{% include copy.html %}

@@ -13,22 +13,9 @@ redirect_from:
 
 # Installing OpenSearch
 
-This section details how to install OpenSearch on your host, including which operating systems are [compatible with OpenSearch](#operating-system-compatibility), which [ports to open](#network-requirements), and which [important settings](#important-settings) to configure on your host.
+This section provides information about how to install OpenSearch on your host, including which [ports to open](#network-requirements) and which [important settings](#important-settings) to configure on your host.
 
-## Operating system compatibility
-
-OpenSearch and OpenSearch Dashboards are compatible with Red Hat Enterprise Linux (RHEL) and Debian-based Linux distributions that use [`systemd`](https://en.wikipedia.org/wiki/Systemd), such as Amazon Linux, and Ubuntu Long-Term Support (LTS). While OpenSearch and OpenSearch Dashboards should work on most Linux distributions, we only test a subset. 
-
-The following table lists the operating system versions that we are currently testing on: 
-
-OS | Version
-:---------- | :-------- 
-CentOS | 7
-Rocky Linux | 8
-Alma Linux | 8
-Amazon Linux | 2/2023
-Ubuntu | 20.04
-Windows Server | 2019
+For operating system compatibility, see [Compatible operating systems]({{site.url}}{{site.baseurl}}/install-and-configure/os-comp/).
 
 
 ## File system recommendations
@@ -42,9 +29,9 @@ The OpenSearch distribution for Linux ships with a compatible [Adoptium JDK](htt
 OpenSearch Version | Compatible Java Versions | Bundled Java Version
 :---------- | :-------- | :-----------
 1.0--1.2.x    | 11, 15     | 15.0.1+9
-1.3.x          | 8, 11, 14  | 11.0.23+9
+1.3.x          | 8, 11, 14  | 11.0.25+9
 2.0.0--2.11.x    | 11, 17     | 17.0.2+8
-2.12.0         | 11, 17, 21 | 21.0.3+9
+2.12.0+        | 11, 17, 21 | 21.0.5+11
 
 To use a different Java installation, set the `OPENSEARCH_JAVA_HOME` or `JAVA_HOME` environment variable to the Java install location. For example:
 ```bash
@@ -121,5 +108,5 @@ Property | Description
 `opensearch.xcontent.string.length.max=<value>` | By default, OpenSearch does not impose any limits on the maximum length of the JSON/YAML/CBOR/Smile string fields. To protect your cluster against potential distributed denial-of-service (DDoS) or memory issues, you can set the `opensearch.xcontent.string.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.string.length.max=5000000`.  | 
 `opensearch.xcontent.fast_double_writer=[true|false]` | By default, OpenSearch serializes floating-point numbers using the default implementation provided by the Java Runtime Environment. Set this value to `true` to use the Schubfach algorithm, which is faster but may lead to small differences in precision. Default is `false`. |
 `opensearch.xcontent.name.length.max=<value>` | By default, OpenSearch does not impose any limits on the maximum length of the JSON/YAML/CBOR/Smile field names. To protect your cluster against potential DDoS or memory issues, you can set the `opensearch.xcontent.name.length.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.name.length.max=50000`. |
-`opensearch.xcontent.depth.max=<value>` | By default, OpenSearch does not impose any limits on the maximum nesting depth for JSON/YAML/CBOR/Smile documents. To protect your cluster against potential DDoS or memory issues, you can set the `opensearch.xcontent.depth.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.name.length.max=1000`. |
+`opensearch.xcontent.depth.max=<value>` | By default, OpenSearch does not impose any limits on the maximum nesting depth for JSON/YAML/CBOR/Smile documents. To protect your cluster against potential DDoS or memory issues, you can set the `opensearch.xcontent.depth.max` system property to a reasonable limit (the maximum is 2,147,483,647), for example, `-Dopensearch.xcontent.depth.max=1000`. |
 `opensearch.xcontent.codepoint.max=<value>` | By default, OpenSearch imposes a limit of `52428800` on the maximum size of the YAML documents (in code points). To protect your cluster against potential DDoS or memory issues, you can change the `opensearch.xcontent.codepoint.max` system property to a reasonable limit (the maximum is 2,147,483,647). For example, `-Dopensearch.xcontent.codepoint.max=5000000`. |

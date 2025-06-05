@@ -1,20 +1,22 @@
 ---
 layout: default
 title: Retrieval-augmented generation
-nav_order: 18
+nav_order: 115
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
 # Retrieval-augmented generation processor
+Introduced 2.12
+{: .label .label-purple }
 
 The `retrieval_augmented_generation` processor is a search results processor that you can use in [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/) for retrieval-augmented generation (RAG). The processor intercepts query results, retrieves previous messages from the conversation from the conversational memory, and sends a prompt to a large language model (LLM). After the processor receives a response from the LLM, it saves the response in conversational memory and returns both the original OpenSearch query results and the LLM response.
 
 As of OpenSearch 2.12, the `retrieval_augmented_generation` processor supports only OpenAI and Amazon Bedrock models.
 {: .note}
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 
@@ -97,4 +99,4 @@ GET /my_rag_test_data/_search?search_pipeline=rag_pipeline
 ```
 {% include copy-curl.html %}
 
-For more information about setting up conversational search, see [Using conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/#using-conversational-search).
+For more information about setting up conversational search, see [Conversational search with RAG]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/).

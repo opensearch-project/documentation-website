@@ -2,7 +2,6 @@
 layout: default
 title: Multi-terms
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 130
 redirect_from:
   - /query-dsl/aggregations/bucket/multi-terms/

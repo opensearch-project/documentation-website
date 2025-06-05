@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Keyword field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A keyword field type contains a string that is not analyzed. It allows only exact, case-sensitive matches.
 
@@ -55,7 +57,120 @@ Parameter | Description
 [`normalizer`]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) | Specifies how to preprocess this field before indexing (for example, make it lowercase). Default is `null` (no preprocessing).
 `norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. Default is `false`.
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
-`similarity` | The ranking algorithm for calculating relevance scores. Default is `BM25`. 
+`similarity` | The ranking algorithm for calculating relevance scores. Default is the index's `similarity` setting (by default, `BM25`).
+`use_similarity` | Determines whether to calculate relevance scores. Default is `false`, which uses `constant_score` for faster queries. Setting this parameter to `true` enables scoring but may increase search latency. See [The use_similarity parameter ](#the-use_similarity-parameter).
 `split_queries_on_whitespace` | A Boolean value that specifies whether full-text queries should be split on white space. Default is `false`.
 `store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. 
 
+## The use_similarity parameter 
+
+The `use_similarity` parameter controls whether OpenSearch calculates relevance scores when querying a `keyword` field. By default, it is set to `false`, which improves performance by using `constant_score`. Setting it to `true` enables scoring based on the configured similarity algorithm (typically, BM25) but may increase query latency.
+
+Run a term query on the index for which `use_similarity` is disabled (default):
+
+```json
+GET /big5/_search
+{
+  "size": 3,
+  "explain": false,
+  "query": {
+    "term": {
+      "process.name": "kernel"
+    }
+  },
+  "_source": false
+}
+```
+{% include copy-curl.html %}
+
+The query returns results quickly (10 ms), and all documents receive a constant relevance score of 1.0:
+
+```json
+{
+  "took": 10,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 10000,
+      "relation": "gte"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "big5",
+        "_id": "xDoCtJQBE3c7bAfikzbk",
+        "_score": 1
+      },
+      {
+        "_index": "big5",
+        "_id": "xzoCtJQBE3c7bAfikzbk",
+        "_score": 1
+      },
+      {
+        "_index": "big5",
+        "_id": "yDoCtJQBE3c7bAfikzbk",
+        "_score": 1
+      }
+    ]
+  }
+}
+```
+
+To enable scoring using the default BM25 algorithm for the `process.name` field, provide the `use_similarity` parameter in the index mappings:
+
+```json
+PUT /big5/_mapping
+{
+  "properties": {
+    "process.name": {
+      "type": "keyword",
+      "use_similarity": true
+    }
+  }
+}
+```
+
+When you run the same term query on the configured index, the query takes longer to run (200 ms), and the returned documents have varying relevance scores based on term frequency and other BM25 factors:
+
+```json
+{
+  "took" : 200,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 10000,
+      "relation" : "gte"
+    },
+    "max_score" : 0.8844931,
+    "hits" : [
+      {
+        "_index" : "big5",
+        "_id" : "xDoCtJQBE3c7bAfikzbk",
+        "_score" : 0.8844931
+      },
+      {
+        "_index" : "big5",
+        "_id" : "xzoCtJQBE3c7bAfikzbk",
+        "_score" : 0.8844931
+      },
+      {
+        "_index" : "big5",
+        "_id" : "yDoCtJQBE3c7bAfikzbk",
+        "_score" : 0.8844931
+      }
+    ]
+  }
+}
+```

@@ -78,11 +78,13 @@ Follow these steps to set up your local copy of the repository:
 
 1. Navigate to your cloned repository.
 
+##### Building by using locally installed packages 
+
 1. Install [Ruby](https://www.ruby-lang.org/en/) if you don't already have it. We recommend [RVM](https://rvm.io/), but you can use any method you prefer:
 
    ```
    curl -sSL https://get.rvm.io | bash -s stable
-   rvm install 3.2.4
+   rvm install 3.3.2
    ruby -v
    ```
 
@@ -98,12 +100,20 @@ Follow these steps to set up your local copy of the repository:
    bundle install
    ```
 
+##### Building by using containerization
+
+Assuming you have Docker installed, run the following command:
+
+   ```
+   docker compose -f docker-compose.dev.yml up
+   ```
+
 #### Troubleshooting
 
-If you encounter an error while trying to build the documentation website, find the error in the following troubleshooting list: 
+Try the following troubleshooting steps if you encounter an error when trying to build the documentation website:  
 
-- When running `rvm install 3.2` if you receive a `Error running '__rvm_make -j10'`, resolve this by running `rvm install 3.2.0 -C --with-openssl-dir=/opt/homebrew/opt/openssl@3.2` instead of `rvm install 3.2`.
-- If receive a `bundle install`: `An error occurred while installing posix-spawn (0.3.15), and Bundler cannot continue.` error when trying to run `bundle install`, resolve this by running `gem install posix-spawn -v 0.3.15 -- --with-cflags=\"-Wno-incompatible-function-pointer-types\"`. Then, run `bundle install`.
+- If you see the `Error running '__rvm_make -j10'` error when running `rvm install 3.2`, you can resolve it by running `rvm install 3.2.0 -C --with-openssl-dir=/opt/homebrew/opt/openssl@3.2` instead of `rvm install 3.2`.
+- If you see the `bundle install`: `An error occurred while installing posix-spawn (0.3.15), and Bundler cannot continue.` error when trying to run `bundle install`, you can resolve it by running `gem install posix-spawn -v 0.3.15 -- --with-cflags=\"-Wno-incompatible-function-pointer-types\"` and then `bundle install`.
  
 
 
@@ -148,6 +158,23 @@ To ensure that our documentation adheres to the [OpenSearch Project Style Guidel
 
 Optionally, you can install the [Vale VSCode](https://github.com/chrischinchilla/vale-vscode) extension, which integrates Vale with Visual Studio Code. By default, only _errors_ and _warnings_ are underlined. To change the minimum alert level to include _suggestions_, go to **Vale VSCode** > **Extension Settings** and select **suggestion** in the **Vale > Vale CLI: Min Alert Level** dropdown list. 
 
+## Troubleshooting
+
+This section provides information about potential solutions for known issues.
+
+### Installing Ruby on an Apple silicon machine
+
+If you're having trouble installing Ruby with `rvm` on an Apple silicon machine, it could be because of an OpenSSL version misalignment. To fix this issue, use the following command, replacing `<openssl-version>` with your [desired version](https://github.com/ruby/openssl/blob/master/README.md):
+
+```
+# Assumes Brew is installed
+curl -sSL https://get.rvm.io | bash -s stable
+rvm install 3.2.4 --with-openssl-dir=$(brew --prefix openssl@<openssl-version>)
+ruby -v
+```
+
 ## Getting help
 
 For help with the contribution process, reach out to one of the [points of contact](README.md#points-of-contact).
+
+
