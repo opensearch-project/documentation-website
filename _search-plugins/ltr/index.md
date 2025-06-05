@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /search-plugins/ltr/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/ltr/index/
 ---
 
 # Learning to Rank

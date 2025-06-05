@@ -5,6 +5,7 @@ nav_order: 35
 has_children: true
 redirect_from: 
   - /im-plugin/index-rollups/
+canonical_url: https://opensearch.org/docs/latest/im-plugin/index-rollups/index/
 ---
 
 # Index rollups

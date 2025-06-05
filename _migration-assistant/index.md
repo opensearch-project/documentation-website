@@ -10,6 +10,7 @@ redirect_from:
   - /migration-assistant/index/
   - /upgrade-to/index/
   - /upgrade-to/
+canonical_url: https://opensearch.org/docs/latest/migration-assistant/
 ---
 
 # Migration Assistant for OpenSearch

@@ -4,6 +4,7 @@ title: Explain
 nav_order: 30
 redirect_from: 
  - /opensearch/rest-api/explain/
+canonical_url: https://opensearch.org/docs/latest/api-reference/explain/
 ---
 
 # Explain

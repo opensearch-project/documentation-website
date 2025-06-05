@@ -3,6 +3,7 @@ layout: default
 title: HTML strip
 parent: Character filters
 nav_order: 100
+canonical_url: https://opensearch.org/docs/latest/analyzers/character-filters/html-character-filter/
 ---
 
 # HTML strip character filter

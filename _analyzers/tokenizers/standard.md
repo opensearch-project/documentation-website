@@ -3,6 +3,7 @@ layout: default
 title: Standard
 parent: Tokenizers
 nav_order: 130
+canonical_url: https://opensearch.org/docs/latest/analyzers/tokenizers/standard/
 ---
 
 # Standard tokenizer

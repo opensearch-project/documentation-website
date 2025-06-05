@@ -5,6 +5,7 @@ parent: Search options
 nav_order: 10
 redirect_from:
   - /opensearch/search/paginate/
+canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/
 ---
 
 # Paginate results

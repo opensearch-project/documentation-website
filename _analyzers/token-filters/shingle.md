@@ -3,6 +3,7 @@ layout: default
 title: Shingle
 parent: Token filters
 nav_order: 370
+canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/shingle/
 ---
 
 # Shingle token filter

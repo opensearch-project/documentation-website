@@ -3,6 +3,7 @@ layout: default
 title: Working with findings
 parent: Using Security Analytics
 nav_order: 35
+canonical_url: https://opensearch.org/docs/latest/security-analytics/usage/findings/
 ---
 
 # Working with findings
