@@ -34,7 +34,7 @@ OpenSearch supports the following dynamic cluster-level index settings:
 
 - `action.auto_create_index` (Boolean): Automatically creates an index if the index doesn't already exist. Also applies any index templates that are configured. Default is `true`. 
 
-- `action.destructive_requires_name` (Boolean): When set to `true`, you must specify the index name to delete an index. You cannot delete all indexes or use wildcards. Default is `true`. 
+- `action.destructive_requires_name` (Boolean): When `true`, you must specify the index name to delete an index. You cannot delete all indexes or use wildcards. Default is `false`. 
 
 - `cluster.default.index.refresh_interval` (Time unit): Sets the refresh interval when the `index.refresh_interval` setting is not provided. This setting can be useful when you want to set a default refresh interval across all indexes in a cluster and support the `searchIdle` setting. You cannot set the interval lower than the `cluster.minimum.index.refresh_interval` setting. 
 
