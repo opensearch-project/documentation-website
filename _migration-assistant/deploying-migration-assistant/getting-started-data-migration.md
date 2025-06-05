@@ -17,7 +17,7 @@ This quickstart outlines how to deploy Migration Assistant for OpenSearch and ex
 
 Before using this quickstart, make sure you fulfill the following prerequisites:
 
-* Verify that your migration path [is supported]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/#migration-paths). Note that we test with the exact versions specified, but you should be able to migrate data on alternative minor versions as long as the major version is supported.
+* Verify that your migration path [is supported]({{site.url}}{{site.baseurl}}/migration-assistant/overview/is-migration-assistant-right-for-you/#supported-migration-paths). Note that we test with the exact versions specified, but you should be able to migrate data on alternative minor versions as long as the major version is supported.
 * The source cluster must be deployed Amazon Simple Storage Service (Amazon S3) plugin.
 * The target cluster must be deployed.
 * Verify that the `CDKToolkit` stack exists and is set to `CREATE_COMPLETE`. For more information about how to bootstrap your AWS account in the required AWS Region, see [the CDKToolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
