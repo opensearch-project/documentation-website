@@ -164,7 +164,7 @@ Migration Assistant should return the following response:
 
 ```shell
 Backfill stopped successfully.
-Service migration-aws-integ-Reindex-from-Snapshot set to 0 desired count. Currently 0 running and 5 pending.
+Service migration-aws-integ-reindex-from-snapshot set to 0 desired count. Currently 0 running and 5 pending.
 Archiving the working state of the backfill operation...
 RFS Workers are still running, waiting for them to complete...
 Backfill working state archived to: /shared-logs-output/migration-console-default/backfill_working_state/working_state_backup_20241115174822.json
