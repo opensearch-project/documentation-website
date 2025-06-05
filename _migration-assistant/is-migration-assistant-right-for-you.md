@@ -78,7 +78,7 @@ Migration Assistant supports the following AWS Regions:
 - AWS GovCloud (US-East)[^1]
 - AWS GovCloud (US-West)[^1]
 
-[^1]: GovCloud does not support `Reindex-from-Snapshot` (RFS) shard sizes above 80 GiB. Ensure your shard sizes are within this limit when planning migrations with RFS in the listed GovCloud regions.
+[^1]: GovCloud does not support `Reindex-from-Snapshot` (RFS) shard sizes above 80 GiB. Ensure your shard sizes are within this limit when planning migrations with RFS in the listed GovCloud Regions.
 
 ### Future migration paths
 
@@ -90,15 +90,16 @@ Before starting a migration, consider the scope of the components involved. The 
 
 | Component | Supported | Recommendations   |
 | :--- |:--- | :--- |
-| **Documents**  | Yes  | Migrate existing data with `Reindex-from-Snapshot` (RFS) and live traffic with Capture and Replay. |
+| **Documents**  | Yes  | Migrate existing data with RFS and live traffic with Capture and Replay. |
 | **Index settings**  | Yes   | Migrate with the `Metadata-Migration-Tool`. |
 | **Index mappings**  | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
 | **Index templates**   | Yes   | Migrate with the `Metadata-Migration-Tool`. |
 | **Component templates**  | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
 | **Aliases**   | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
 | **Index State Management (ISM) policies**  | Expected in 2025    | Manually migrate using an API. For more information about ISM support, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944). |
-| **Elasticsearch (Kibana)[^2] dashboards** | Expected in 2025 | This tool is only needed when used to migrate Elasticsearch Kibana Dashboards to OpenSearch Dashboards. To start, export JSON files from Kibana and import them into OpenSearch Dashboards. For Elasticsearch versions Elasticsearch 7.10.2 to 7.17, use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool before importing X-Pack visualizations like Canvas and Lens in Kibana Dashboards, as they may require recreation for compatibility with OpenSearch.|
+| **Elasticsearch (Kibana)[^2] dashboards** | Expected in 2025 | This tool is only needed when used to migrate Elasticsearch Kibana Dashboards to OpenSearch Dashboards. To start, export JSON files from Kibana and import them into OpenSearch Dashboards. For Elasticsearch versions 7.10.2 to 7.17, use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool before importing X-Pack visualizations like Canvas and Lens in Kibana Dashboards, as they may require recreation for compatibility with OpenSearch.|
 | **Security constructs**   | No   | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, leverage AWS Identity and Access Management (IAM) for enhanced security management. |
 | **Plugins**  | No  | Check plugin compatibility; some Elasticsearch plugins may not have direct OpenSearch equivalents. |
 
-[^2]: Kibana 5.0--7.10.2 will be supported with Elasticsearch Kibana to OpenSearch Dashboards Support on all supported source paths. Kibana 8+ is unsupported. For more information, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944).
+[^2]: Support for Kibana 5.0 through 7.10.2 migration paths to OpenSearch Dashboards will be added in a future release. Kibana 8 and later are not supported. For more information, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944).
+
