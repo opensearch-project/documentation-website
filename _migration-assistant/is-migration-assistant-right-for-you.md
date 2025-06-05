@@ -78,6 +78,7 @@ Migration Assistant supports the following AWS Regions:
 - AWS GovCloud (US-East)[^1]
 - AWS GovCloud (US-West)[^1]
 
+
 [^1]: GovCloud does not support `Reindex-from-Snapshot` (RFS) shard sizes above 80 GiB. Ensure your shard sizes are within this limit when planning migrations with RFS in the listed GovCloud Regions.
 
 ### Future migration paths
@@ -102,4 +103,5 @@ Before starting a migration, consider the scope of the components involved. The 
 | **Plugins**  | No  | Check plugin compatibility; some Elasticsearch plugins may not have direct OpenSearch equivalents. |
 
 [^2]: Support for Kibana 5.0 through 7.10.2 migration paths to OpenSearch Dashboards will be added in a future release. Kibana 8 and later are not supported. For more information, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944).
+
 
