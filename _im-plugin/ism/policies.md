@@ -109,7 +109,6 @@ ISM supports the following operations:
 - [rollover](#rollover)
 - [notification](#notification)
 - [snapshot](#snapshot)
-- [convert-index-to-remote](#convert_index_to_remote)
 - [index_priority](#index_priority)
 - [allocation](#allocation)
 - [rollup](#rollup)
@@ -407,33 +406,6 @@ Parameter | Description | Type | Required | Default
   }
 }
 ```
-
-### convert_index_to_remote
-
-Converts an index from a local snapshot repository to a remote repository.
-
-The `convert_index_to_remote` operation has the following parameters.
-
-Parameter | Description | Type | Required | Default
-:--- | :--- |:--- |:--- |
-`repository` | The repository name registered through the native snapshot API operations.  | `string` | Yes | N/A
-`snapshot` | The snapshot name created through the snapshot action.  | `string` | Yes | N/A
-
-Make sure that the repository name used in the `convert_index_to_remote` operation matches the repository name specified during the snapshot action. Additionally, you can reference the snapshot using `{{ctx.index}}`, as shown in the following example policy:
-
-```json
-{
-   "snapshot": {
-      "repository": "my_backup",
-      "snapshot": "{{ctx.index}}"
-   }, 
-   "convert_index_to_remote": {
-      "repository": "my_backup",
-      "snapshot": "{{ctx.index}}"
-   }
-}
-```
-{% include copy.html %}
 
 ### index_priority
 
