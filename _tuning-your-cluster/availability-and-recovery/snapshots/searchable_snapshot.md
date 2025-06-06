@@ -40,12 +40,12 @@ If you're running Docker, you can create a node with the `warm` node role by add
 version: '3'
 services:
   opensearch-node1:
-    image: opensearchproject/opensearch:2.7.0
+    image: opensearchproject/opensearch:3.0.0
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node1
-      - node.roles=search
+      - node.roles=warm
       - node.search.cache.size=50gb
 ```
 
