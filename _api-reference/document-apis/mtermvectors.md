@@ -32,8 +32,7 @@ The following table lists the available path parameters. All path parameters are
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `id` | String | The unique identifier of the document. |
-| `index` | String | The name of the index that contains the documents. |
+| `index` | String | The name of the index that contains the document. |
 
 <!-- spec_insert_end -->
 
@@ -50,11 +49,11 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `field_statistics` | Boolean | If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies. _(Default: `true`)_ |
 | `fields` | List or String | A comma-separated list or a wildcard expression specifying the fields to include in the statistics. Used as the default list unless a specific field list is provided in the `completion_fields` or `fielddata_fields` parameters. |
-| `ids` | List | A comma-separated list of documents IDs. You must provide either the `docs` field in the request body, or specify `ids` as a query parameter or in the request body. |
+| `ids` | List | A comma-separated list of documents IDs. You must provide either the `docs` field in the request body or specify `ids` as a query parameter or in the request body. |
 | `offsets` | Boolean | If `true`, the response includes term offsets. _(Default: `true`)_ |
 | `payloads` | Boolean | If `true`, the response includes term payloads. _(Default: `true`)_ |
 | `positions` | Boolean | If `true`, the response includes term positions. _(Default: `true`)_ |
-| `preference` | String | Specifies the node or shard the operation should be performed on. See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for list of available options. By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
+| `preference` | String | Specifies the node or shard on which the operation should be performed.  See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for a list of available options.  By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
 | `realtime` | Boolean | If `true`, the request is real-time as opposed to near-real-time. _(Default: `true`)_ |
 | `routing` | List or String | A custom value used to route operations to a specific shard. |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. _(Default: `false`)_ |
