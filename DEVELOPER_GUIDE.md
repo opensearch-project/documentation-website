@@ -125,10 +125,10 @@ component: query_parameters
 <!-- spec_insert_end -->
 ```
 
-This will insert the query parameters of the `cat.indices` API into the `.md` file with three default columns: `Parameter`, `Type`, and `Description`. You can customize the query parameters table by adding the `columns` argument which accepts a comma-separated list of column names. The available column names are:
+This will insert the query parameters of the `cat.indices` API into the `.md` file with three default columns: `Parameter`, `Data type`, and `Description`. You can customize the query parameters table by adding the `columns` argument which accepts a comma-separated list of column names. The available column names are:
 
 - `Parameter`
-- `Type`
+- `Data type`
 - `Description`
 - `Required`
 - `Default`
