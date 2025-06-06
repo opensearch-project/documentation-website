@@ -14,6 +14,9 @@ This tutorial shows you how to implement semantic search in [Amazon OpenSearch S
 
 If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the OpenAI model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/openai_connector_embedding_blueprint.md).
 
+If using Python, you can create OpenAI connector and test the model using the [opensearch-py-ml](https://github.com/opensearch-project/opensearch-py-ml) client CLI. The CLI automates many configuration steps, making setup faster and reducing the chance of errors. For more information about using the CLI, see the [CLI documentation](https://opensearch-project.github.io/opensearch-py-ml/cli/index.html#).
+{: .tip}
+
 Alternatively, you can set up an embedding model using [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
 {: .tip}
 
