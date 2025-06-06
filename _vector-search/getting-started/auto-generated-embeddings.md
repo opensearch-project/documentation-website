@@ -60,7 +60,7 @@ To register and deploy the model, send the following request:
 POST /_plugins/_ml/models/_register?deploy=true
 {
   "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
-  "version": "1.0.3",
+  "version": "1.0.1",
   "model_format": "TORCH_SCRIPT"
 }
 ```

@@ -104,7 +104,7 @@ Register and deploy an ML model provided by OpenSearch:
 POST /_plugins/_ml/models/_register?deploy=true
 {
 	"name": "huggingface/sentence-transformers/all-distilroberta-v1",
-	"version": "1.0.2",
+	"version": "1.0.1",
 	"model_format": "TORCH_SCRIPT"
 }
 ```
