@@ -91,4 +91,4 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-This overrides the default percentiles, so only the percentiles you specify are returned. 
+The specified value overrides the default percentiles, so only the percentiles you specify are returned. 
