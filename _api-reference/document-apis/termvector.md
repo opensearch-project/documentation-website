@@ -49,15 +49,15 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `field_statistics` | Boolean | If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies. _(Default: `true`)_ |
+| `field_statistics` | Boolean | If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies. (Default: `true`) |
 | `fields` | List or String | A comma-separated list or a wildcard expression specifying the fields to include in the statistics. Used as the default list unless a specific field list is provided in the `completion_fields` or `fielddata_fields` parameters. |
-| `offsets` | Boolean | If `true`, the response includes term offsets. _(Default: `true`)_ |
-| `payloads` | Boolean | If `true`, the response includes term payloads. _(Default: `true`)_ |
-| `positions` | Boolean | If `true`, the response includes term positions. _(Default: `true`)_ |
+| `offsets` | Boolean | If `true`, the response includes term offsets. (Default: `true`) |
+| `payloads` | Boolean | If `true`, the response includes term payloads. (Default: `true`) |
+| `positions` | Boolean | If `true`, the response includes term positions. (Default: `true`) |
 | `preference` | String | Specifies the node or shard on which the operation should be performed.  See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for a list of available options.  By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
-| `realtime` | Boolean | If `true`, the request is real-time as opposed to near-real-time. _(Default: `true`)_ |
+| `realtime` | Boolean | If `true`, the request is real-time as opposed to near-real-time. (Default: `true`) |
 | `routing` | List or String | A custom value used to route operations to a specific shard. |
-| `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. _(Default: `false`)_ |
+| `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. (Default: `false`) |
 | `version` | Integer | If `true`, returns the document version as part of a hit. |
 | `version_type` | String | The specific version type. <br> Valid values are: <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. <br> - `force`: The version number is forced to be the given value. <br> - `internal`: The version number is managed internally by OpenSearch. |
 
@@ -233,38 +233,21 @@ The response displays term vector information:
 
 ## Response body fields
 
-The following table lists the top-level fields in the response.
-
-| Field          | Data type | Description                                                    |
-| `_index`       | String    | The name of the index the document belongs to.                 |
-| `_id`          | String    | The unique identifier of the document.                         |
-| `_version`     | Integer   | The version of the document.                                   |
-| `found`        | Boolean   | Indicates whether the document was found.                      |
-| `took`         | Integer   | The time in milliseconds it took to generate the term vectors. |
-| `term_vectors` | Object    | Contains term vector data for each specified field.            |
-
-Each `term_vectors.<field>` object includes the following fields:
+The following table lists the fields in the response.
 
 | Field | Data type | Description |
-| `field_statistics` | Object | Contains statistics for the entire field. Present only if `field_statistics` is `true`. |
-| `field_statistics.doc_count` | Integer | Number of documents that contain at least one term in the specified field. |
-| `field_statistics.sum_doc_freq` | Integer | Sum of document frequencies for all terms in the field. |
-| `field_statistics.sum_ttf` | Integer | Sum of total term frequencies (including repetitions) for all terms in the field. |
-| `terms` | Object | A map where each key is a term and each value contains details about that term. |
-
-Each `terms.<term>` object contains the following fields:
-
-| Field | Data type | Description |
-| `term_freq` | Integer | Number of times the term appears in the document. |
-| `doc_freq` | Integer | Number of documents containing the term. Present only if `term_statistics` is `true`. |
-| `ttf` | Integer | Total term frequency across all documents. Present only if `term_statistics` is `true`. |
-| `tokens` | Array | A list of token objects providing information about individual term instances. |
-
-Each tokens object includes:
-
-| Field | Data type | Description |
-| `position` | Integer | The position of the token within the text. Present only if `positions` is `true`. |
-| `start_offset` | Integer | The start character offset of the token. Present only if `offsets` is `true`. |
-| `end_offset` | Integer  | The end character offset of the token. Present only if `offsets` is `true`. |
-| `payload` | String (Base64) | Optional payload data associated with the token. Present only if `payloads` is `true` and available. |
-
+| `term_vectors` | Object | Contains term vector data for each specified field. |
+| `term_vectors.text` | Object | Contains term vector details for the `text` field. |
+| `term_vectors.text.field_statistics` | Object | Contains statistics for the entire field. Present only if `field_statistics` is `true`. |
+| `term_vectors.text.field_statistics.doc_count` | Integer | Number of documents that contain at least one term in the specified field. |
+| `term_vectors.text.field_statistics.sum_doc_freq` | Integer | Sum of document frequencies for all terms in the field. |
+| `term_vectors.text.field_statistics.sum_ttf` | Integer  | Sum of total term frequencies (including repetitions) for all terms in the field. |
+| `term_vectors.text.terms` | Object | A map where each key is a term and each value contains details about that term. |
+| `term_vectors.text.terms.<term>.term_freq` | Integer | Number of times the term appears in the document. |
+| `term_vectors.text.terms.<term>.doc_freq` | Integer | Number of documents containing the term. Present only if `term_statistics` is `true`. |
+| `term_vectors.text.terms.<term>.ttf` | Integer | Total term frequency across all documents. Present only if `term_statistics` is `true`. |
+| `term_vectors.text.terms.<term>.tokens` | Array | A list of token objects providing information about individual term instances. |
+| `term_vectors.text.terms.<term>.tokens[].position` | Integer | The position of the token within the text. Present only if `positions` is `true`. |
+| `term_vectors.text.terms.<term>.tokens[].start_offset` | Integer | The start character offset of the token. Present only if `offsets` is `true`. |
+| `term_vectors.text.terms.<term>.tokens[].end_offset` | Integer | The end character offset of the token. Present only if `offsets` is `true`. |
+| `term_vectors.text.terms.<term>.tokens[].payload` | String (Base64) | Optional payload data associated with the token. Present only if `payloads` is `true` and available. |
