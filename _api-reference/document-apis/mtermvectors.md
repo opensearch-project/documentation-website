@@ -67,17 +67,17 @@ The following table lists the available query parameters. All query parameters a
 The following table lists the fields that can be specified in the request body.
 
 | Field | Data type | Description |
-| `docs` | Array  | An array of document specifications. |
+| `docs` | Array | An array of document specifications. |
 | `ids` | Array of strings | A list of document IDs to retrieve. Use only when all documents share the same index specified in the request path or query. |
 | `fields` | Array of strings | A list of field names for which to return term vectors. |
 | `offsets` | Boolean | If `true`, the response includes character offsets for each term. *(Default: `true`)* |
 | `payloads` | Boolean | If `true`, the response includes payloads for each term. *(Default: `true`)* |
 | `positions` | Boolean | If `true`, the response includes token positions. *(Default: `true`)* |
 | `field_statistics` | Boolean | If `true`, the response includes statistics such as document count, sum of document frequencies, and sum of total term frequencies. *(Default: `true`)* |
-| `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. *(Default: `false`)*  |
-| `routing` | String | Custom routing value to identify the shard. Required if custom routing was used during indexing.  |
+| `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. *(Default: `false`)* |
+| `routing` | String | Custom routing value to identify the shard. Required if custom routing was used during indexing. |
 | `version` | Integer | Specific version of the document to retrieve. |
-| `version_type` | String  | The type of versioning to use. Valid values: `internal`, `external`, `external_gte`. |
+| `version_type` | String | The type of versioning to use. Valid values: `internal`, `external`, `external_gte`. |
 | `filter` | Object | Allows filtering of tokens returned in the response (e.g., by frequency, position). See [Filtering terms]({{site.url}}{{site.baseurl}}/api-reference/document-apis/mtermvectors/#filtering-terms) for available options. |
 | `per_field_analyzer` | Object | Specifies a custom analyzer to use per field. Format: `{ "field_name": "analyzer_name" }`. |
 
@@ -85,15 +85,14 @@ The following table lists the fields that can be specified in the request body.
 
 The filter object in the request body allows you to filter which tokens are included in the term vector response. See following table for list of possible options:
 
-| Field             | Data type | Description                                                            |
-| ----------------- | --------- | ---------------------------------------------------------------------- |
-| `max_num_terms`   | Integer   | Maximum number of terms to return.                                     |
-| `min_term_freq`   | Integer   | Minimum term frequency in the document for a term to be included.      |
-| `max_term_freq`   | Integer   | Maximum term frequency in the document for a term to be included.      |
-| `min_doc_freq`    | Integer   | Minimum document frequency across the index for a term to be included. |
-| `max_doc_freq`    | Integer   | Maximum document frequency across the index for a term to be included. |
-| `min_word_length` | Integer   | Minimum length of the term to be included.                             |
-| `max_word_length` | Integer   | Maximum length of the term to be included.                             |
+| Field | Data type | Description |
+| `max_num_terms` | Integer | Maximum number of terms to return. |
+| `min_term_freq` | Integer | Minimum term frequency in the document for a term to be included. |
+| `max_term_freq` | Integer | Maximum term frequency in the document for a term to be included. |
+| `min_doc_freq` | Integer | Minimum document frequency across the index for a term to be included. |
+| `max_doc_freq` | Integer | Maximum document frequency across the index for a term to be included. |
+| `min_word_length` | Integer | Minimum length of the term to be included. |
+| `max_word_length` | Integer | Maximum length of the term to be included. |
 
 ## Example
 
@@ -328,8 +327,8 @@ Each element of the `docs` array contains the following fields.
 | `term_vectors` | Object | Contains term vector data for each field. |
 | `term_vectors.<field>.field_statistics` | Object | Contains statistics about the field. |
 | `term_vectors.<field>.field_statistics.doc_count` | Integer | The number of documents that contain at least one term in the specified field. |
-| `term_vectors.<field>.field_statistics.sum_doc_freq` | Integer | The sum of document frequencies for all terms in the field.  |
-| `term_vectors.<field>.field_statistics.sum_ttf` | Integer | The sum of total term frequencies for all terms in the field.  |
+| `term_vectors.<field>.field_statistics.sum_doc_freq` | Integer | The sum of document frequencies for all terms in the field. |
+| `term_vectors.<field>.field_statistics.sum_ttf` | Integer | The sum of total term frequencies for all terms in the field. |
 
 | `term_vectors.<field>.terms` | Object | A map of terms in the field, in which each term includes its frequency (`term_freq`) and associated token information. |
 | `term_vectors.<field>.terms.<term>.tokens` | Array | An array of token objects for each term, including the token’s `position` in the text and its character offsets (`start_offset` and `end_offset`). |

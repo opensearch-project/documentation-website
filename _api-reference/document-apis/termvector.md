@@ -54,7 +54,7 @@ The following table lists the available query parameters. All query parameters a
 | `offsets` | Boolean | If `true`, the response includes term offsets. (Default: `true`) |
 | `payloads` | Boolean | If `true`, the response includes term payloads. (Default: `true`) |
 | `positions` | Boolean | If `true`, the response includes term positions. (Default: `true`) |
-| `preference` | String | Specifies the node or shard on which the operation should be performed.  See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for a list of available options.  By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
+| `preference` | String | Specifies the node or shard on which the operation should be performed. See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for a list of available options. By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
 | `realtime` | Boolean | If `true`, the request is real-time as opposed to near-real-time. (Default: `true`) |
 | `routing` | List or String | A custom value used to route operations to a specific shard. |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. (Default: `false`) |
@@ -69,8 +69,8 @@ The following table lists the fields that can be specified in the request body.
 
 | Field | Data type | Description |
 | `doc` | Object | A document to analyze. If provided, the API does not retrieve an existing document from the index but uses the provided content. |
-| `fields` | Array of strings | A list of field names for which to return term vectors.  |
-| `offsets` | Boolean | If `true`, the response includes character offsets for each term. *(Default: `true`)*  |
+| `fields` | Array of strings | A list of field names for which to return term vectors. |
+| `offsets` | Boolean | If `true`, the response includes character offsets for each term. *(Default: `true`)* |
 | `payloads` | Boolean | If `true`, the response includes payloads for each term. *(Default: `true`)* |
 | `positions` | Boolean | If `true`, the response includes token positions. *(Default: `true`)* |
 | `field_statistics` | Boolean | If `true`, the response includes statistics such as document count, sum of document frequencies, and sum of total term frequencies. *(Default: `true`)* |
@@ -86,16 +86,14 @@ The following table lists the fields that can be specified in the request body.
 
 The filter object in the request body allows you to filter which tokens are included in the term vector response. See following table for list of possible options:
 
-| Field             | Data type | Description                                                            |
-| ----------------- | --------- | ---------------------------------------------------------------------- |
-| `max_num_terms`   | Integer   | Maximum number of terms to return.                                     |
-| `min_term_freq`   | Integer   | Minimum term frequency in the document for a term to be included.      |
-| `max_term_freq`   | Integer   | Maximum term frequency in the document for a term to be included.      |
-| `min_doc_freq`    | Integer   | Minimum document frequency across the index for a term to be included. |
-| `max_doc_freq`    | Integer   | Maximum document frequency across the index for a term to be included. |
-| `min_word_length` | Integer   | Minimum length of the term to be included.                             |
-| `max_word_length` | Integer   | Maximum length of the term to be included.                             |
-        
+| Field | Data type | Description |
+| `max_num_terms` | Integer | Maximum number of terms to return. |
+| `min_term_freq` | Integer | Minimum term frequency in the document for a term to be included. |
+| `max_term_freq` | Integer | Maximum term frequency in the document for a term to be included. |
+| `min_doc_freq` | Integer | Minimum document frequency across the index for a term to be included. |
+| `max_doc_freq` | Integer | Maximum document frequency across the index for a term to be included. |
+| `min_word_length` | Integer | Minimum length of the term to be included. |
+| `max_word_length` | Integer | Maximum length of the term to be included. |
 
 ## Example
 
@@ -241,7 +239,7 @@ The following table lists the fields in the response.
 | `term_vectors.text.field_statistics` | Object | Contains statistics for the entire field. Present only if `field_statistics` is `true`. |
 | `term_vectors.text.field_statistics.doc_count` | Integer | Number of documents that contain at least one term in the specified field. |
 | `term_vectors.text.field_statistics.sum_doc_freq` | Integer | Sum of document frequencies for all terms in the field. |
-| `term_vectors.text.field_statistics.sum_ttf` | Integer  | Sum of total term frequencies (including repetitions) for all terms in the field. |
+| `term_vectors.text.field_statistics.sum_ttf` | Integer | Sum of total term frequencies (including repetitions) for all terms in the field. |
 | `term_vectors.text.terms` | Object | A map where each key is a term and each value contains details about that term. |
 | `term_vectors.text.terms.<term>.term_freq` | Integer | Number of times the term appears in the document. |
 | `term_vectors.text.terms.<term>.doc_freq` | Integer | Number of documents containing the term. Present only if `term_statistics` is `true`. |
