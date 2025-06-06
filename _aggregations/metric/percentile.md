@@ -73,7 +73,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-The default percentiles returned are `1, 5, 25, 50, 75, 95, 99`. You can specify other percentiles with the optional `percents` field. For example, to get the 99.9th and 99.99th percentiles, run the following: 
+The default percentiles returned are `1, 5, 25, 50, 75, 95, 99`. You can specify other percentiles in the optional `percents` field. For example, to get the 99.9th and 99.99th percentiles, run the following request: 
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
