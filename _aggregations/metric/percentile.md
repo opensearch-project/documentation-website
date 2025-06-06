@@ -72,3 +72,23 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
   }
 }
 ```
+
+The default percentiles returned are `1, 5, 25, 50, 75, 95, 99`. You can specify other percentiles in the optional `percents` field. For example, to get the 99.9th and 99.99th percentiles, run the following request: 
+
+```json
+GET opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "percentile_taxful_total_price": {
+      "percentiles": {
+        "field": "taxful_total_price",
+        "percents": [99.9, 99.99]
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The specified value overrides the default percentiles, so only the percentiles you specify are returned. 
