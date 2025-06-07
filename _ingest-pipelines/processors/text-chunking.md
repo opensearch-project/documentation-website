@@ -9,8 +9,8 @@ nav_order: 250
 
 The `text_chunking` processor splits a long document into shorter passages. The processor supports the following algorithms for text splitting:
 
-- [`fixed_token_length`](#fixed-token-length-algorithm): Splits text into passages of the specified size of tokens.
-- [`fixed_char_length`](#fixed-char-length-algorithm): Splits text into passages of the specified size of characters.
+- [`fixed_token_length`](#fixed-token-length-algorithm): Splits text into passages of the length specified by the number of tokens.
+- [`fixed_char_length`](#fixed-character-length-algorithm): Splits text into passages of the length specified by the number of characters.
 - [`delimiter`](#delimiter-algorithm): Splits text into passages on a delimiter. 
 
 The following is the syntax for the `text_chunking` processor:
@@ -38,7 +38,7 @@ The following table lists the required and optional parameters for the `text_chu
 | `field_map.<input_field>`	  | String	   | Required	 | The name of the field from which to obtain text for generating chunked passages.	                                                                                                    |
 | `field_map.<output_field>`	 | String	   | Required	 | The name of the field in which to store the chunked results.	                                                                                                                        |
 | `algorithm`	                | Object	   | Required	 | Contains at most one key-value pair that specifies the chunking algorithm and parameters.                                                                                            |
-| `algorithm.<name>`          | String	   | Optional	 | The name of the chunking algorithm. Valid values are [`fixed_token_length`](#fixed-token-length-algorithm), [`fixed_char_length`](#fixed-char-length-algorithm) or [`delimiter`](#delimiter-algorithm). Default is `fixed_token_length`.	 |
+| `algorithm.<name>`          | String	   | Optional	 | The name of the chunking algorithm. Valid values are [`fixed_token_length`](#fixed-token-length-algorithm), [`fixed_char_length`](#fixed-character-length-algorithm), or [`delimiter`](#delimiter-algorithm). Default is `fixed_token_length`.	 |
 | `algorithm.<parameters>`	   | Object	   | Optional	 | The parameters for the chunking algorithm. By default, contains the default parameters of the `fixed_token_length` algorithm.	                                                       |
 | `ignore_missing`	           | Boolean	  | Optional	 | If `true`, empty fields are excluded from the output. If `false`, the output will contain an empty list for every empty field. Default is `false`.	                                                        |
 | `description`	              | String	   | Optional	 | A brief description of the processor.                                                                                                                                                |
@@ -56,9 +56,9 @@ The following table lists the optional parameters for the `fixed_token_length` a
 | `token_limit`	     | Integer	  | Optional	 | The token limit for chunking algorithms. Valid values are integers of at least `1`. Default is `384`.	                                                  |
 | `tokenizer`	       | String	   | Optional	 | The [word tokenizer]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/index/#word-tokenizers) name. Default is `standard`.	 |
 | `overlap_rate`	    | Float     | Optional	 | The degree of overlap in the token algorithm. Valid values are floats between `0` and `0.5`, inclusive. Default is `0`.	                                              |
-| `max_chunk_limit`	 | Integer   | Optional	 | The chunk limit for chunking algorithms. Default is 100. To disable this parameter, set it to `-1`.	|
+| `max_chunk_limit`	 | Integer   | Optional	 | The chunk limit for chunking algorithms. Default is `100`. To disable this parameter, set it to `-1`.	|
 
-The default value of `token_limit` is `384` so that output passages don't exceed the token limit constraint of the downstream text embedding models. For [OpenSearch-supported pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#supported-pretrained-models), like `msmarco-distilbert-base-tas-b` and `opensearch-neural-sparse-encoding-v1`, the input token limit is `512`. The `standard` tokenizer tokenizes text into words. According to [OpenAI](https://platform.openai.com/docs/introduction), 1 token equals approximately 0.75 words of English text. The default token limit is calculated as 512 * 0.75 = 384.
+The default value of `token_limit` is calculated as `512 (tokens) * 0.75 = 384` so that output passages don't exceed the token limit constraint of the downstream text embedding models. For [OpenSearch-supported pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#supported-pretrained-models), like `msmarco-distilbert-base-tas-b` and `opensearch-neural-sparse-encoding-v1`, the input token limit is `512`. The `standard` tokenizer tokenizes text into words. According to [OpenAI](https://platform.openai.com/docs/introduction), 1 token equals approximately 0.75 words of English text.
 {: .note}
 
 You can set the `overlap_rate` to a decimal percentage value in the 0--0.5 range, inclusive. Per [Amazon Bedrock](https://aws.amazon.com/blogs/aws/knowledge-bases-now-delivers-fully-managed-rag-experience-in-amazon-bedrock/), we recommend setting this parameter to a value of 0–0.2 to improve accuracy.
@@ -67,7 +67,7 @@ You can set the `overlap_rate` to a decimal percentage value in the 0--0.5 range
 The `max_chunk_limit` parameter limits the number of chunked passages. If the number of passages generated by the processor exceeds the limit, the excess text is added to the last chunk.
 {: .note}
 
-### Fixed char length algorithm
+### Fixed character length algorithm
 
 The following table lists the optional parameters for the `fixed_char_length` algorithm.
 
@@ -75,9 +75,9 @@ The following table lists the optional parameters for the `fixed_char_length` al
 |:---|:----------|:---|:---|
 | `char_limit`	     | Integer	  | Optional	 | The char limit for chunking algorithms. Valid values are integers of at least `1`. Default is `2048`.	                                                  |
 | `overlap_rate`	    | Float     | Optional	 | The degree of overlap in the token algorithm. Valid values are floats between `0` and `0.5`, inclusive. Default is `0`.	                                              |
-| `max_chunk_limit`	 | Integer   | Optional	 | The chunk limit for chunking algorithms. Default is 100. To disable this parameter, set it to `-1`.	|
+| `max_chunk_limit`	 | Integer   | Optional	 | The chunk limit for chunking algorithms. Default is `100`. To disable this parameter, set it to `-1`.	|
 
-The default `char_limit` is calculated as 512 (tokens) * 4 (chars) = 2048 as 512 token is a common limit for text embedding models. According to [OpenAI](https://platform.openai.com/docs/concepts#tokens), heuristically, one token generally corresponds to ~4 characters of text for common English text.
+The default `char_limit` is calculated as `512 (tokens) * 4 (chars) = 2048` because 512 tokens is a common limit for text embedding models. According to [OpenAI](https://platform.openai.com/docs/concepts#tokens), 1 token equals approximately 4 characters of English text.
 {: .note}
 
 You can set the `overlap_rate` to a decimal percentage value in the 0--0.5 range, inclusive. Per [Amazon Bedrock](https://aws.amazon.com/blogs/aws/knowledge-bases-now-delivers-fully-managed-rag-experience-in-amazon-bedrock/), we recommend setting this parameter to a value of 0–0.2 to improve accuracy.
