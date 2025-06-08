@@ -7,11 +7,14 @@ has_children: false
 has_toc: false
 ---
 
+
+
 # Using search relevance workbench 
 
-The Search Relevance Workbench consists of a frontend and a backend component. 
-[The frontend component](https://github.com/opensearch-project/dashboards-search-relevance) is implemented as a plugin for OpenSearch Dashboards. 
-[The backend component](https://github.com/o19s/search-relevance/) is an OpenSearch plugin.
+In search applications, tuning relevance is a constant, iterative exercise to bring the right search results to your end users. The tooling in Search Relevance Workbench aims to help the search relevance engineer and business user create the best search experience possible for application users without hiding internals from engineers who want to go deep into the details.
+
+The Search Relevance Workbench consists of a [frontend component](https://github.com/opensearch-project/dashboards-search-relevance) that simplifies the process of evaluating search quality.
+Behind the scenes, the frontend uses the [Search Relevance OpenSearch plugin](https://opensearch.org/docs/latest/automating-configurations/index/) for resource management for each tool provided. For example, most use cases involve configuring and creating search configurations, query sets, and judgements. All of these resources are created, updated, deleted, and maintained by the Search Relevance plugin. When users are satisfied with the improvements to relevancy then they take the output and manually deploy the changes into their environment.
 
 A feature of the Search Relevance Workbench is that you can perform experiments to quantify the quality of the search given the configuration. To configure the workbench, you can choose or create a query set and a list of 2 search configurations to compare side-by-side. What happens is that all of the queries in the query set are run under the search configurations, and after the search metrics are ready, you can look into the particular queries and compare the metrics.
 
@@ -76,5 +79,4 @@ POST _plugins/search_relevance/experiments
 }
 ```
 
-Now, the experiment is created, and the experiment may be run when you hit the evaluation button. 
-
+Now, the experiment is created, and the experiment may be run when you hit the evaluation button.
