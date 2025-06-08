@@ -5,8 +5,6 @@ nav_order: 55
 parent: Search relevance
 has_children: false
 has_toc: false
-redirect_from:
-  - /search-plugins/search-relevance/
 ---
 
 # Comparing search results
