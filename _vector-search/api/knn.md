@@ -61,11 +61,6 @@ Some statistics contain *graph* in the name. In these cases, *graph* is synonymo
 Introduced 3.0 
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/k-NN/issues/2391).    
-{: .warning}
-
-If [remote index build]({{site.url}}{{site.baseurl}}/vector-search/remote-index-build/) is enabled, the following statistics are included.
-
 | Field | Description |
 |:---|:---|
 | `repository_stats.read_success_count` | The number of successful read operations from the repository. |
