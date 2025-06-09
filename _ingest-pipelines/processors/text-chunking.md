@@ -223,6 +223,59 @@ PUT _ingest/pipeline/text-chunking-cascade-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
+### Recursive Text Chunking with cascaded processors
+
+For more advanced control, you can chain more than two processors to create a recursive chunking effect. This strategy involves breaking down text into progressively smaller, more semantically meaningful units.
+
+For example, a document can first be split into paragraphs (`\n\n`), then each paragraph can be split into sentences (`.`), and finally, each sentence can be chunked by `fixed_char_length` algorithm to ensure the final passages do not exceed a specific length. This hierarchical approach helps maintain as much semantic context as possible within the final size constraints.
+
+The following example configures a three-stage recursive chunking pipeline:
+```json
+PUT _ingest/pipeline/recursively-text-chunking-cascade-ingest-pipeline
+{
+  "description": "A pipeline that recursively chunks text by paragraph, then sentence, then character length.",
+  "processors": [
+    {
+      "text_chunking": {
+        "algorithm": {
+          "delimiter": {
+            "delimiter": "\n\n"
+          }
+        },
+        "field_map": {
+          "original_text": "paragraph_chunks"
+        }
+      }
+    },
+    {
+      "text_chunking": {
+        "algorithm": {
+          "delimiter": {
+            "delimiter": ". "
+          }
+        },
+        "field_map": {
+          "paragraph_chunks": "sentence_chunks"
+        }
+      }
+    },
+    {
+      "text_chunking": {
+        "algorithm": {
+          "fixed_char_length": {
+            "char_limit": 300,
+            "overlap_rate": 0.1
+          }
+        },
+        "field_map": {
+          "sentence_chunks": "final_recursive_chunks"
+        }
+      }
+    }
+  ]
+}
+```
+
 ## Next steps
 
 - For a complete example, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
