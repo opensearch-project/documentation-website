@@ -125,4 +125,4 @@ In **Outputs**, you can configure the values passed _from_ the model. There are 
 
 - For models and model interfaces recommended for use with AI Search Flows, see [Models](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md).
 
-- For a tutorial demonstrating how to use AI Search Flows to build different AI/ML use cases, see [Tutorial]({{site.url}}{{site.baseurl}}/tutorials/ai-search-flows/building-flows/).
+- For a collection of configurations for different AI/ML use cases, see [Tutorial]({{site.url}}{{site.baseurl}}/tutorials/ai-search-flows/building-flows/).
