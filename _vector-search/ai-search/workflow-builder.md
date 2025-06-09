@@ -47,6 +47,8 @@ You can build and test your ingest and search flows in the workflow editor, whic
   - **Resources**: Lists OpenSearch resources linked to the workflow, including up to one ingest pipeline, one index, and one search pipeline. To view resource details, select **Inspect**.
   - **Preview**: A read-only visualization of how data moves through your ingest and search flows. As you make changes to your flow, this view updates automatically. You can also switch to the **JSON** tab to see the underlying template configuration.
 
+  ![Workflow editor]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/details-page.png)
+
 ## Example: Semantic search with RAG
 
 The following example uses a deployed [Titan Text Embedding](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) model and an [Anthropic Claude model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/) to build an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/), [index]({{site.url}}{{site.baseurl}}/getting-started/intro/#index), and [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) for performing vector search and RAG.
