@@ -83,14 +83,14 @@ We strongly recommend using models with full model interfaces. For a list of exa
    ![Ingest data]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/ingest-data.png)
 8. Select **Update ingest flow** at the bottom of **Flow overview** to build the configured ingest pipeline and index, and ingest the provided sample data. Afterward, go to **Test flow** under **Inspect** to search the newly created index and verify that the transformed documents are as expected. In this example, verify that the vector embeddings were generated for each ingested document, as shown in the following image.
    ![Test ingest flow]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/ingest-test-flow.png)
-9. To Configure your search flow, under **Flow overview** > **Transform query**, select **ML Inference Processor**, as shown in the following image. This processor parses the inputs in the search query for which you want to generate vector embeddings. In this example, it passes the value from `query.match.review.query` to the embedding model.<br>
+9. To configure your search flow, under **Flow overview** > **Transform query**, select **ML Inference Processor**, as shown in the following image. This processor parses the inputs in the search query for which you want to generate vector embeddings. In this example, it passes the value from `query.match.review.query` to the embedding model.<br>
    ![Transform query]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-query.png)
 
    The processor also performs a query rewrite to generate a `knn` query using the vector embeddings produced by the model. Select **Rewrite query** to view its details, as shown in the following image. This approach abstracts complex query details, providing a simple query interface that uses search pipelines to perform advanced query generation.
 
    ![Rewrite query]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/rewrite-query.png)
 
-10. Under **Flow overview** > **Transform response**, select **ML Inference Processor**, as shown in the following image. The Claude LLM is used to process the returned results and generate a human-readable response.
+10. To configure your search results transformations, under **Flow overview** > **Transform response**, select **ML Inference Processor**, as shown in the following image. The Claude LLM is used to process the returned results and generate a human-readable response.
     ![Transform response]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-response.png)<br>
     Under **Inputs**, select the pencil icon next to the `prompt` entry. A pop-up will appear with a preconfigured prompt template designed to summarize the returned documents, as shown in the following image. You can adjust this template as needed, and several presets are available as starting points. You can also add, update, or remove the **Input variables**, which include data from the returned documents that you want to dynamically inject as contextual information to the LLM. The default option collects all `review` data and summarizes the results. Select **Save** to apply your changes.
     ![Configure prompt]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/configure-prompt.png)
