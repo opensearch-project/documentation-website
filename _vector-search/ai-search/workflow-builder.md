@@ -9,7 +9,7 @@ redirect_from:
 
 # Building AI search workflows in OpenSearch Dashboards
 
-In OpenSearch Dashboards, you can iteratively build and test workflows containing ingest and search pipelines using OpenSearch Flow. Using a UI editor to build workflows simplifies the creation of artificial intelligence and machine learning (AI/ML) use cases that include ML inference processors, such as vector search and retrieval-augmented generation (RAG). Once your workflow is finalized, you can export it as a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) to recreate identical resources across multiple clusters.
+In OpenSearch Dashboards, you can iteratively build and test workflows containing ingest and search pipelines using AI Search Flows. Using a UI editor to build workflows simplifies the creation of artificial intelligence and machine learning (AI/ML) use cases that include ML inference processors, such as vector search and retrieval-augmented generation (RAG). Once your workflow is finalized, you can export it as a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) to recreate identical resources across multiple clusters.
 
 ## Prerequisite knowledge
 
@@ -23,13 +23,13 @@ These pipelines modify data at three key stages:
 
 In OpenSearch, you can [integrate models hosted on third-party platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/) and use their inference capabilities directly in OpenSearch. Both ingest and search pipelines offer [ML inference processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/), allowing you to use externally hosted models for inference in your pipelines during both ingestion and search.
 
-## Accessing OpenSearch Flow
+## Accessing AI Search Flows
 
-To access OpenSearch Flow, go to **OpenSearch Dashboards** and select **OpenSearch Plugins** > **OpenSearch Flow** from the top menu.
+To access AI Search Flows, go to **OpenSearch Dashboards** and select **OpenSearch Plugins** > **AI Search Flows** from the top menu.
 
 ## Preset templates
 
-On the OpenSearch Flow main page, select the **New workflow** tab, or select the **Create workflow** button on the right. This opens a selection of preset templates designed for different use cases, each with a unique set of preconfigured ingest and search processors. These templates serve two main purposes:
+On the home page, select the **New workflow** tab, or select the **Create workflow** button on the right. This opens a selection of preset templates designed for different use cases, each with a unique set of preconfigured ingest and search processors. These templates serve two main purposes:
 
 - **Quickly testing AI/ML solutions**: If your deployed models have defined interfaces, you can set up a basic solution in your cluster in a few clicks. For more information, see [Example: Semantic search with RAG](#example-semantic-search-with-rag).
 - **A starting point for your custom/advanced solution**: Each template provides a structured starting point for building a custom solution. You can modify and expand upon these templates to suit your specific needs.
@@ -81,7 +81,7 @@ We strongly recommend using models with full model interfaces. For a list of exa
    ![Ingest data]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/ingest-data.png)
 8. Select **Update ingest flow** at the bottom of **Flow overview** to build the configured ingest pipeline and index, and ingest the provided sample data. Afterward, go to **Test flow** under **Inspect** to search the newly created index and verify that the transformed documents are as expected. In this example, verify that the vector embeddings were generated for each ingested document, as shown in the following image.
    ![Test ingest flow]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/ingest-test-flow.png)
-9. To Configure your search flow, under **Flow overview** > **Transform query**, select **ML Inference Processor**, as shown in the following image. This processor parses the inputs in the search query for which you want to generate vector embeddings. In this example, it passes the value from `query.term.item_text.value` to the embedding model.<br>
+9. To Configure your search flow, under **Flow overview** > **Transform query**, select **ML Inference Processor**, as shown in the following image. This processor parses the inputs in the search query for which you want to generate vector embeddings. In this example, it passes the value from `query.match.review.query` to the embedding model.<br>
    ![Transform query]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-query.png)
 
    The processor also performs a query rewrite to generate a `knn` query using the vector embeddings produced by the model. Select **Rewrite query** to view its details, as shown in the following image. This approach abstracts complex query details, providing a simple query interface that uses search pipelines to perform advanced query generation.
@@ -90,18 +90,16 @@ We strongly recommend using models with full model interfaces. For a list of exa
 
 10. Under **Flow overview** > **Transform response**, select **ML Inference Processor**, as shown in the following image. The Claude LLM is used to process the returned results and generate a human-readable response.
     ![Transform response]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-response.png)<br>
-    Under **Inputs**, select the pencil icon next to the `prompt` entry. A pop-up will appear with a preconfigured prompt template designed to summarize the returned documents, as shown in the following image. You can adjust this template as needed, and several presets are available as starting points. You can also add, update, or remove the **Input variables**, which include data from the returned documents that you want to dynamically inject as contextual information to the LLM. The default option collects all `item_text` data and summarizes the results. Select **Save** to apply your changes.
+    Under **Inputs**, select the pencil icon next to the `prompt` entry. A pop-up will appear with a preconfigured prompt template designed to summarize the returned documents, as shown in the following image. You can adjust this template as needed, and several presets are available as starting points. You can also add, update, or remove the **Input variables**, which include data from the returned documents that you want to dynamically inject as contextual information to the LLM. The default option collects all `review` data and summarizes the results. Select **Save** to apply your changes.
     ![Configure prompt]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/configure-prompt.png)
 11. Select **Create search flow** to build the search pipeline. The **Inspect** section will automatically navigate to the **Test flow** section, where you can test different queries and run searches, as shown in the following image. You can use variables wrapped in {% raw %}`{{ }}`{% endraw %} to quickly test different query values without modifying the base query.
     ![Test search flow]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/search-test-flow.png)
 12. To view the search results, select **Run test**. You can view the results as either a formatted list of hits or as the raw JSON search response.
 13. Adjust your configurations to better suit your use case. You can do this in several ways:
-
 - Experiment with different query parameters.
 - Try different queries.
 - Modify existing processors under **Transform query** or **Transform results**.
 - Add or remove processors under **Transform query** or **Transform results**.
-
 14. Export your workflow by selecting **Export** in the header to open the pop-up window. The displayed data represents the [Workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/), which contains the full configuration for the OpenSearch resources you've just created, including the ingest pipeline, index, and search pipeline. You can download the template in JSON or YAML format by selecting the button on the right. To build identical resources in other OpenSearch clusters, use the [Provision Workflow API]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/).
 
 ## Advanced data transformations
@@ -123,6 +121,6 @@ In **Outputs**, you can configure the values passed _from_ the model. There are 
 
 ## Next steps
 
-- For models and model interfaces recommended for use with OpenSearch Flow, see [Models](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md).
+- For models and model interfaces recommended for use with AI Search Flows, see [Models](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md).
 
-- For a tutorial demonstrating how to use OpenSearch Flow to build different AI/ML use cases, see [Tutorial]({{site.url}}{{site.baseurl}}/tutorials/ai-search-flows/building-flows/).
+- For a tutorial demonstrating how to use AI Search Flows to build different AI/ML use cases, see [Tutorial]({{site.url}}{{site.baseurl}}/tutorials/ai-search-flows/building-flows/).
