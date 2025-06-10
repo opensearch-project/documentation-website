@@ -381,3 +381,6 @@ The [built-in tools](({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tool
       ]
 }
 ```
+{% include copy-curl.html %}
+
+</details>
