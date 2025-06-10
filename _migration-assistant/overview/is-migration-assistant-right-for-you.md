@@ -96,50 +96,34 @@ Migration Assistant supports migrating the following components:
 | **Security constructs**   | No   | Set up manually based on your provider’s best practices (e.g., AWS IAM). |
 | **Plugins**  | No  | Check plugin compatibility—some Elasticsearch plugins may not have OpenSearch equivalents. |
 
-## Checklist
-
-Use this checklist to decide if migration assistant is right for you.
-
-- [ ] Are you migrating across one or more major versions?
-
-- [ ] Do you need to maintain service availability with zero downtime?
-
-- [ ] Are you migrating live traffic in addition to static data?
-
-- [ ] Do you need to validate a new OpenSearch cluster before switching over?
-
-- [ ] Is your environment self-managed or running on AWS OpenSearch?
-
-- [ ] Are you looking for tooling that can automate metadata migration and performance comparison?
-
-If you answered “yes” to most of these questions, Migration Assistant is likely the right solution for your migration.
-
 ## Choosing your migration approach
 
 Use the following checklist to determine which parts of Migration Assistant best fit your situation:
 
 ### Metadata migration
 
-Use metadata migration if:
+Use [metadata migration]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/) if:
 
-- You need to migrate index templates, mappings, settings, aliases, or component templates.
-- You want consistent configuration between source and target clusters.
-- You are bootstrapping a new OpenSearch cluster.
+- You need to migrate while mitigating breaking changes between source and target clusters, such as differences in mappings, settings, aliases, or component templates.
+- You want an as consistent as possible configuration between source and target clusters.
 
 ### Backfill migration
 
-Use backfill migration if:
+Use [backfill migration]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/) if:
 
-- You need to move historical data while continuing to serve live traffic.
-- Your data volume makes real-time migration impractical.
-- You want to verify historical data in the new cluster before switching over.
+- You need to move historical data without disrupting live traffic.
+- You want to backfill indexes from a specific point in time without impacting the source cluster.
+- You want to verify historical data in the target cluster before switching over.
+- You want to backfill using an existing or incremental snapshot.
+- You need the fastest backfill option that includes reindexing.
+- You want the ability to pause and resume migration.
 
 ### Reindex-from-Snapshot (RFS)
 
-Use Reindex-from-Snapshot if:
+Use [Reindex-from-Snapshot]({{site.url}}{{site.baseurl}}/migration-assistant/deploying-migration-assistant/getting-started-data-migration/) if:
 
 - You already use OpenSearch snapshots for backups.
-- You need to migrate documents at scale in parallel, such as Amazon ECS.
+- You need to migrate documents at scale in parallel (such as with Amazon ECS).
 - You require a data migration path as part of a zero-downtime migration.
 - Your AWS Region supports RFS and your shard sizes are within supported limits.
 
@@ -150,4 +134,21 @@ Use a combination of all three migration types if:
 - You're performing a complex, multi-version migration.
 - You require zero downtime and full validation of the target environment.
 - You want end-to-end tooling for metadata, data movement, and cluster behavior comparison.
+- You're cloning an existing cluster and changing the source's configuration.
+- You're setting up disaster recovery.
 
+## Checklist
+
+Use this checklist to decide if migration assistant is right for you.
+
+- [ ] Are you migrating across one or more major versions?
+
+- [ ] Do you need to maintain service availability with zero downtime?
+
+- [ ] Do you need to validate a new OpenSearch cluster before switching over?
+
+- [ ] Is your environment self-managed or running on AWS OpenSearch?
+
+- [ ] Are you looking for tooling that can automate metadata migration and performance comparison?
+
+If you answered “yes” to most of these questions, Migration Assistant is likely the right solution for your migration.
