@@ -61,6 +61,8 @@ Some statistics contain *graph* in the name. In these cases, *graph* is synonymo
 Introduced 3.0 
 {: .label .label-purple }
 
+If you configured [remote index build]({{site.url}}{{site.baseurl}}/vector-search/remote-index-build/), the response contains additional fields. The following table lists the available remote index build stats response body fields.
+
 | Field | Description |
 |:---|:---|
 | `repository_stats.read_success_count` | The number of successful read operations from the repository. |

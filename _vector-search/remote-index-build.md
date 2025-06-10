@@ -11,12 +11,13 @@ Introduced 3.0
 
 OpenSearch supports building vector indexes using a GPU-accelerated remote index build service. Using GPUs dramatically reduces index build times and decreases costs. For benchmarking results, see [this blog post](https://opensearch.org/blog/GPU-Accelerated-Vector-Search-OpenSearch-New-Frontier/).
 
+## Supported configurations
+
+The remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) indexes with the `hnsw` method and the default 32-bit floating-point (`FP32`) vectors.
+
 ## Prerequisites
 
 Before configuring the remote index build settings, ensure you fulfill the following prerequisites. For more information about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
-
-### Supported Configurations
-Currently, the remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) indexes with the `hnsw` method and the default 32-bit floating-point (`FP32`) vectors.
 
 ### Step 1: Enable the remote index build service
 
@@ -47,8 +48,8 @@ The remote index build service supports several additional, optional settings. F
 ## Using the remote index build service
 
 Once the remote index build service is configured, any segment flush and merge operations that meet the following requirements will transparently use the GPU build path:
-- Index is using one of the support configurations
-- Segment size is greater than `index.knn.remote_index_build.size.min`
-- Segment size is less than `knn.remote_index_build.size.max`
 
-Remote index build tasks can be monitored via the [Remote Index Build Stats]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#remote-index-build-stats) using the k-NN stats API 
+- The index is using one of the [supported configurations](#supported-configurations).
+- The segment size is greater than `index.knn.remote_index_build.size.min` and less than `knn.remote_index_build.size.max`.
+
+You can monitor remote index build tasks using the [Remote Index Build Stats]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#remote-index-build-stats) using the k-NN stats API 

@@ -62,7 +62,7 @@ The following remote index build settings apply at the cluster level.
 
 #### Advanced cluster settings
 
-The follow cluster settings are advanced settings whose default values are set as a results of extensive benchmarking. 
+The following are advanced cluster settings. The default values for these settings are configured using extensive benchmarking. 
 
 | Setting                                 | Static/Dynamic | Default | Description                                                                                                                                                                                                                                                                                                                        |
 |:----------------------------------------|:---------------|:--------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -96,4 +96,4 @@ The remote build service username and password are secure settings that must be 
 ```
 {% include copy.html %}
 
-You can reload the secure settings without restarting the node by using the [Nodes Reload Secure]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/) API.
+You can reload the secure settings without restarting the node by using the [Nodes Reload Secure Setings API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/).
