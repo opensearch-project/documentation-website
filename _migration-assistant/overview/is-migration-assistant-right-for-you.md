@@ -116,7 +116,7 @@ If you answered “yes” to most of these questions, Migration Assistant is lik
 
 ## Choosing your migration approach
 
-USe the following checklist to determine which parts of Migration Assistant best fit your situation:
+Use the following checklist to determine which parts of Migration Assistant best fit your situation:
 
 ### Metadata migration
 
