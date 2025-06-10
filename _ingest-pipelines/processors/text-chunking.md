@@ -225,7 +225,7 @@ PUT _ingest/pipeline/text-chunking-cascade-ingest-pipeline
 
 ### Recursive text chunking using cascaded processors
 
-For more advanced control, you can chain more than two processors in order to create a recursive chunking effect. This strategy involves deconsturcing text into progressively smaller, more semantically meaningful units.
+For more advanced control, you can chain more than two processors in order to create a recursive chunking effect. This strategy involves deconstructing text into progressively smaller, more semantically meaningful units.
 
 For example, you can first split a document into paragraphs (`\n\n`) and then split each paragraph into sentences (`. `). Finally, you can chunk each sentence using the `fixed_char_length` algorithm to ensure that the final passages do not exceed a specific length. This hierarchical approach helps maintain as much semantic context as possible within the final size constraints.
 
