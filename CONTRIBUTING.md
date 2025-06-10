@@ -147,7 +147,7 @@ We greatly appreciate all contributions to the documentation and will review the
 2. When you submit a PR, it's assigned to one of the doc reviewers. Once you have verified technical accuracy and all technical reviews are completed, tag the assignee of the PR for a doc review.
 3. A doc reviewer (technical writer) performs a doc review. The doc reviewer may push edits to the PR directly or leave comments and suggestions for you to address (let us know in a comment if you have a preference). The doc reviewer will arrange for an editorial review.
 4. The editor performs an editorial review. The editor may push edits to the PR directly or leave comments and editorial suggestions for you to address (let us know in a comment if you have a preference).
-5. When you address all comments, the PR is merged. It is important that you specify the versions that the PR is applicable to when you create the PR so it can be backported to the correct branches. We support updates only for the latest documentation version; the previous versions are not updated. Once the PR is merged, the documentation is published on the documentation site.
+5. When you have addressed all comments, the PR is merged. It is important that you specify to which versions the PR is applicable when you create the PR so it can be backported to the correct branches. We support updates only for the latest documentation version; the previous versions are not updated. Once the PR is merged, the documentation is published on the documentation site.
 
 During the PR process, expect that there will be some back-and-forth. If you want your contribution to be merged quickly, try to respond to comments in a timely fashion, and let us know if you don't want to continue with the PR. 
 
