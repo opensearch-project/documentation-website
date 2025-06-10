@@ -30,16 +30,14 @@ Doc-only mode is recommended because it's optimal for most workloads. See [Choos
 This tutorial focuses on the recommended **Doc-only with analyzer** approach. Core workflow is outlined below:
 
 1. [**Configure a sparse encoding model**](#step-1-configure-a-sparse-encoding-model)
-
-   1. [Choose the ingestion model](#step-1a-choose-the-ingestion-model)
-   2. [Register the model](#step-1b-register-the-model)
-   3. [Deploy the model](#step-1c-deploy-the-model)
-2. [**Ingest data**](#step-2-ingest-data)
-
-   1. [Create an ingest pipeline](#step-2a-create-an-ingest-pipeline)
-   2. [Create an index for ingestion](#step-2b-create-an-index-for-ingestion)
-   3. [Ingest documents](#step-2c-ingest-documents-into-the-index)
-3. [**Search the data**](#step-3-search-the-data)
+    1. [Choose the ingestion model](#step-1a-choose-the-ingestion-model)
+    1. [Register the model](#step-1b-register-the-model)
+    1. [Deploy the model](#step-1c-deploy-the-model)
+1. [**Ingest data**](#step-2-ingest-data)
+    1. [Create an ingest pipeline](#step-2a-create-an-ingest-pipeline)
+    1. [Create an index for ingestion](#step-2b-create-an-index-for-ingestion)
+    1. [Ingest documents](#step-2c-ingest-documents-into-the-index)
+1. [**Search the data**](#step-3-search-the-data)
 
 ### Prerequisites
 
