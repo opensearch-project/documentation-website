@@ -17,7 +17,7 @@ For this tutorial, you'll use neural sparse search with OpenSearch's built-in ma
 
 At ingestion time, neural sparse search uses a sparse encoding model to generate sparse vector embeddings from text fields. 
 
-At query time, neural sparse search operates in one of two modes:
+At query time, neural sparse search operates in one of two search modes: 
 
 - **Doc-only mode (recommended)**: A sparse encoding model generates sparse vector embeddings from documents. In this mode, neural sparse search tokenizes query text using an [DL model analyzer]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/dl-model-analyzers/) and obtains the token weights from a lookup table. This approach provides faster retrieval at the cost of a slight decrease in search relevance. Besides using analyzer, users can also deploy and invoke tokenizer models using the [Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/) for a uniform neural sparse search experience.
 
@@ -38,14 +38,20 @@ This tutorial focuses on the recommended **Doc-only with analyzer** approach. Co
 
    1. [Create an ingest pipeline](#step-2a-create-an-ingest-pipeline)
    2. [Create an index for ingestion](#step-2b-create-an-index-for-ingestion)
-   3. [Ingest documents](#step-2c-ingest-documents)
+   3. [Ingest documents](#step-2c-ingest-documents-into-the-index)
 3. [**Search the data**](#step-3-search-the-data)
+
+### Prerequisites
+
+Before you start, complete the [prerequisites]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/#prerequisites). 
 
 ## Step 1: Configure a sparse encoding model
 
 Choose the best Doc-only sparse encoding model for your workload. The following table lists all available Doc-only models with their corresponding analyzer, average relevance on BEIR (English) or MIRACL (multilingual), and model size:
 
 **Doc-only models:**
+
+### Step 1(a): Choose the ingestion model
 
 | Model                                                                    | Analyzer        | BEIR relevance | MIRACL relevance | Model parameters |
 | ------------------------------------------------------------------------ | --------------- | -------------- | ---------------- | ---------------- |
@@ -55,9 +61,7 @@ Choose the best Doc-only sparse encoding model for your workload. The following 
 | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill`  | `bert-uncased`  | 0.517          | N/A              | 67M              |
 | `amazon/neural-sparse/opensearch-neural-sparse-encoding-multilingual-v1` | `mbert-uncased` | 0.500          | 0.629            | 168M             |
 
-### Step 1(a): Choose the ingestion model
-
-Select one of the Doc-only models above and note its `model_id`. No additional models or tokenizers are needed; you'll use the analyzer at query time.
+The following tables provide a search relevance comparison for all available combinations of the doc-only models and the query analyzer. You can choose the best combination for your use case.
 
 ### Step 1(b): Register the model
 
@@ -246,7 +250,7 @@ PUT /my-nlp-index
 Once the `<token, weight>` pairs are excluded from the source, they cannot be recovered. Before applying this optimization, make sure you don't need the  `<token, weight>` pairs for your application.
 {: .important}
 
-### Step 2(c): Ingest documents
+### Step 2(c): Ingest documents into the index
 
 To ingest documents into the index created in the previous step, send the following requests:
 
