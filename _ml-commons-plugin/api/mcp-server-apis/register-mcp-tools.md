@@ -124,7 +124,8 @@ OpenSearch responds with the node ID and the status of the creation of all tools
 }
 ```
 
-The build-in [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/) can be classified as zero-config tools and parameterized tools, for the parameterized tools, user has to provide correct initialization parameters so that the tool can function correctly. But for zero-config tools, the initiliaztion is standard so below are the request body to create these tools.
+The [built-in tools](({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/)) are categorized as either zero-configuration tools (no parameters required) or parameterized tools (require parameters). For parameterized tools, you must provide the correct initialization parameters to ensure the tool functions as expected. In contrast, zero-configuration tools use a standard initialization process. For all zero-configuration tools, the request body is the same because no parameters are needed:
+
 ```
 {
     "tools": [
