@@ -39,11 +39,11 @@ Field | Data type | Required/Optional | Description
 `parameters` | Object | Optional | The parameters for the tool. The parameters are dependent on the tool type. For information about specific tool types, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 `attributes` | Object | Optional | The configuration properties (attributes) for the tool. The most important attribute in this field is the tool's `input_schema`, which defines the expected parameter format for the tool. This schema is sent to the large language model (LLM) so it can properly format parameters when executing the tool.
 
-## Tool types
+## Example requests
 
-The [built-in tools](({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/)) are categorized as either zero-configuration tools (no parameters required) or parameterized tools (require parameters). Zero-configuration tools use a standard initialization process, for all zero-configuration tools, the request body is the same because no parameters are needed. In contrast, for parameterized tools, you must provide the correct initialization parameters to ensure the tool functions as expected. Below are examples for these two type tools:
+The [built-in tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/) are categorized as either zero-configuration tools (no parameters required) or parameterized tools (require parameters). Zero-configuration tools use a standard initialization process and thus have the same request body because no parameters are required. In contrast, for parameterized tools, you must provide the correct initialization parameters to ensure the tool functions as expected. 
 
-## Example request: Zero-configuration tools
+### Example request: Zero-configuration tools
 
 <details markdown="block">
   <summary>
@@ -304,9 +304,11 @@ The [built-in tools](({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tool
 
 </details>
 
-## Example requests: Parametrized tools
+### Example requests: Parametrized tools
 
-### WebSearchTool
+The following sections provide example requests to register parametrized tools. For information about tool-specific parameters, see the corresponding [tool documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+
+#### WebSearchTool
 
 ```json
 POST /_plugins/_ml/mcp/tools/_register
@@ -345,7 +347,7 @@ POST /_plugins/_ml/mcp/tools/_register
 ```
 {% include copy-curl.html %}
 
-### PPLTool
+#### PPLTool
 
 ```json
 POST /_plugins/_ml/mcp/tools/_register
