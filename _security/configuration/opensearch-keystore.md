@@ -42,7 +42,7 @@ The `opensearch-keystore` script supports the following the commands:
 You can append each command with the following options:
 
 - `-h, --help`: Displays help information about the script and its options.
-- `-p, --password`: Provide a password to encrypt the keystore.
+- `-p, --password`: Specify the password used to encrypt the keystore.
 - `-s, --silent`: Provides minimal output when the script responds to a command.
 - `-v, --verbose`: Provides a verbose output for debugging purposes.
 
