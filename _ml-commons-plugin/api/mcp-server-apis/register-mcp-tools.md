@@ -390,7 +390,3 @@ OpenSearch responds with the node ID and the status of the creation of all tools
     }
 }
 ```
-
-
-
-
