@@ -52,4 +52,4 @@ Once the remote index build service is configured, any segment flush and merge o
 - The index is using one of the [supported configurations](#supported-configurations).
 - The segment size is greater than `index.knn.remote_index_build.size.min` and less than `knn.remote_index_build.size.max`.
 
-You can monitor remote index build tasks using the [Remote Index Build Stats]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#remote-index-build-stats) using the k-NN stats API 
+You can monitor remote index build tasks using the [remote index build stats]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#remote-index-build-stats) with the k-NN Stats API.
