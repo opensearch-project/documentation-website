@@ -32,8 +32,8 @@ This tutorial focuses on the recommended **Doc-only with analyzer** approach. Co
 1. [**Configure a sparse encoding model**](#step-1-configure-a-sparse-encoding-model)
 
    1. [Choose the ingestion model](#step-1a-choose-the-ingestion-model)
-   2. [Register the ingestion model](#step-1b-register-the-ingestion-model)
-   3. [Deploy the ingestion model](#step-1c-deploy-the-ingestion-model)
+   2. [Register the model](#step-1b-register-the-model)
+   3. [Deploy the model](#step-1c-deploy-the-model)
 2. [**Ingest data**](#step-2-ingest-data)
 
    1. [Create an ingest pipeline](#step-2a-create-an-ingest-pipeline)
@@ -59,7 +59,9 @@ Choose the best Doc-only sparse encoding model for your workload. The following 
 
 Select one of the Doc-only models above and note its `model_id`. No additional models or tokenizers are needed; you'll use the analyzer at query time.
 
-### Step 1(b): Register the ingestion model
+### Step 1(b): Register the model
+
+When you register a model/tokenizer, OpenSearch creates a model group for the model/tokenizer. You can also explicitly create a model group before registering models. For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
 Before ingestion, register the sparse encoding model you chose. For example, to register the `opensearch-neural-sparse-encoding-doc-v3-distill` model:
 
@@ -71,45 +73,103 @@ POST /_plugins/_ml/models/_register?deploy=true
   "model_format": "TORCH_SCRIPT"
 }
 ```
+{% include copy-curl.html %}
 
-After submitting, note the returned `task_id` and poll its status with:
-
-```json
-GET /_plugins/_ml/tasks/<task_id>
-```
-
-When the task state is `COMPLETED`, note the `model_id` from the response; you'll use it for pipeline configuration.
-
-### Step 1(c): Deploy the ingestion model
-
-Once you have the `model_id` of your registered ingestion model, deploy it to create an instance in OpenSearch:
+Registering a model is an asynchronous task. OpenSearch returns a task ID for every model you register:
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_deploy
+{
+  "task_id": "aFeif4oB5Vm0Tdw8yoN7",
+  "status": "CREATED"
+}
 ```
 
-Note the returned `task_id`, then poll with:
+You can check the status of the task by calling the Tasks API:
 
 ```json
-GET /_plugins/_ml/tasks/<task_id>
+GET /_plugins/_ml/tasks/aFeif4oB5Vm0Tdw8yoN7
+```
+{% include copy-curl.html %}
+
+Once the task is complete, the task state will change to `COMPLETED` and the Tasks API response will contain the model ID of the registered model:
+
+```json
+{
+  "model_id": "<bi-encoder model ID>",
+  "task_type": "REGISTER_MODEL",
+  "function_name": "SPARSE_ENCODING",
+  "state": "COMPLETED",
+  "worker_node": [
+    "4p6FVOmJRtu3wehDD74hzQ"
+  ],
+  "create_time": 1694358489722,
+  "last_update_time": 1694358499139,
+  "is_async": true
+}
 ```
 
-When the task state is `COMPLETED`, your model is ready for ingestion pipelines.
+Note the `model_id` of the model you've created; you'll need it for the following steps.
+
+### Step 1(c): Deploy the model
+
+To deploy the model, provide its model ID to the `_deploy` endpoint:
+
+```json
+POST /_plugins/_ml/models/<bi-encoder model ID>/_deploy
+```
+{% include copy-curl.html %}
+
+As with the register operation, the deploy operation is asynchronous, so you'll get a task ID in the response:
+
+```json
+{
+  "task_id": "ale6f4oB5Vm0Tdw8NINO",
+  "status": "CREATED"
+}
+```
+
+You can check the status of the task by using the Tasks API:
+
+```json
+GET /_plugins/_ml/tasks/ale6f4oB5Vm0Tdw8NINO
+```
+{% include copy-curl.html %}
+
+Once the task is complete, the task state will change to `COMPLETED`:
+
+```json
+{
+  "model_id": "<bi-encoder model ID>",
+  "task_type": "DEPLOY_MODEL",
+  "function_name": "SPARSE_ENCODING",
+  "state": "COMPLETED",
+  "worker_node": [
+    "4p6FVOmJRtu3wehDD74hzQ"
+  ],
+  "create_time": 1694360024141,
+  "last_update_time": 1694360027940,
+  "is_async": true
+}
+```
 
 ## Step 2: Ingest data
 
-In all modes, define an ingest pipeline that applies a sparse encoding model on document text.
+In all modes, you'll use a sparse encoding model at ingestion time to generate sparse vector embeddings.
 
 ### Step 2(a): Create an ingest pipeline
+
+To generate sparse vector embeddings, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains a [`sparse_encoding` processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/sparse-encoding/), which will convert the text in a document field to vector embeddings. The processor's `field_map` determines the input fields from which to generate vector embeddings and the output fields in which to store the embeddings.
+
+The following example request creates an ingest pipeline where the text from `passage_text` will be converted into sparse vector embeddings, which will be stored in `passage_embedding`. Provide the model ID of the registered model in the request:
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
 {
-  "description": "A sparse encoding ingest pipeline",
+  "description": "An sparse encoding ingest pipeline",
   "processors": [
     {
       "sparse_encoding": {
-        "model_id": "<sparse encoding model ID>",
+        "model_id": "<bi-encoder or doc-only model ID>",
         "prune_type": "max_ratio",
         "prune_ratio": 0.1,
         "field_map": {
@@ -120,10 +180,15 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
   ]
 }
 ```
+{% include copy-curl.html %}
 
-To split long text into passages, use the `text_chunking` ingest processor before the `sparse_encoding` processor. For more information, see Text chunking.
+To split long text into passages, use the `text_chunking` ingest processor before the `sparse_encoding` processor. For more information, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
 
 ### Step 2(b): Create an index for ingestion
+
+In order to use the sparse encoding processor defined in your pipeline, create a rank features index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as [`rank_features`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/#rank-features). Similarly, the `passage_text` field must be mapped as `text`.
+
+The following example request creates a rank features index configured with a default ingest pipeline:
 
 ```json
 PUT /my-nlp-index
@@ -133,103 +198,84 @@ PUT /my-nlp-index
   },
   "mappings": {
     "properties": {
-      "id": { "type": "text" },
-      "passage_text": { "type": "text" },
-      "passage_embedding": { "type": "rank_features" }
+      "id": {
+        "type": "text"
+      },
+      "passage_embedding": {
+        "type": "rank_features"
+      },
+      "passage_text": {
+        "type": "text"
+      }
     }
   }
 }
 ```
+{% include copy-curl.html %}
 
-To save space, exclude embeddings from `_source`:
+To save disk space, you can exclude the embedding vector from the source as follows:
 
 ```json
 PUT /my-nlp-index
 {
-  "settings": { "default_pipeline": "nlp-ingest-pipeline-sparse" },
+  "settings": {
+    "default_pipeline": "nlp-ingest-pipeline-sparse"
+  },
   "mappings": {
-    "_source": { "excludes": ["passage_embedding"] },
+    "_source": {
+      "excludes": [
+        "passage_embedding"
+      ]
+    },
     "properties": {
-      "id": { "type": "text" },
-      "passage_text": { "type": "text" },
-      "passage_embedding": { "type": "rank_features" }
+      "id": {
+        "type": "text"
+      },
+      "passage_embedding": {
+        "type": "rank_features"
+      },
+      "passage_text": {
+        "type": "text"
+      }
     }
   }
 }
 ```
+{% include copy-curl.html %}
+
+Once the `<token, weight>` pairs are excluded from the source, they cannot be recovered. Before applying this optimization, make sure you don't need the  `<token, weight>` pairs for your application.
+{: .important}
 
 ### Step 2(c): Ingest documents
+
+To ingest documents into the index created in the previous step, send the following requests:
 
 ```json
 PUT /my-nlp-index/_doc/1
 {
-  "id": "s1",
-  "passage_text": "Hello world"
+  "passage_text": "Hello world",
+  "id": "s1"
 }
 ```
+{% include copy-curl.html %}
 
 ```json
 PUT /my-nlp-index/_doc/2
 {
-  "id": "s2",
-  "passage_text": "Hi planet"
+  "passage_text": "Hi planet",
+  "id": "s2"
 }
 ```
+{% include copy-curl.html %}
+
+Before the document is ingested into the index, the ingest pipeline runs the `sparse_encoding` processor on the document, generating vector embeddings for the `passage_text` field. The indexed document includes the `passage_text` field, which contains the original text, and the `passage_embedding` field, which contains the vector embeddings. 
+
 
 ## Step 3: Search the data
 
-Use the `neural_sparse` clause with either `analyzer` or `model_id`:
+To perform a neural sparse search on your index, use the `neural_sparse` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. 
 
-* **Analyzer (default)**:
-
-  ```json
-  GET my-nlp-index/_search
-  {
-    "query": {
-      "neural_sparse": {
-        "passage_embedding": {
-          "query_text": "Hi world",
-          "analyzer": "bert-uncased"
-        }
-      }
-    }
-  }
-  ```
-
-* **Model-based**:
-
-  ```json
-  GET my-nlp-index/_search
-  {
-    "query": {
-      "neural_sparse": {
-        "passage_embedding": {
-          "query_text": "Hi world",
-          "model_id": "<bi-encoder or tokenizer ID>"
-        }
-      }
-    }
-  }
-  ```
-
-Exclude embeddings from response with `_source.excludes` as needed.
-
-## Advanced query modes
-
-### Query with tokenizer model
-
-If you need even higher relevance via model-based tokenization at query time, register and deploy a tokenizer model:
-
-```json
-POST /_plugins/_ml/models/_register?deploy=true
-{
-  "name": "amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1",
-  "version": "1.0.1",
-  "model_format": "TORCH_SCRIPT"
-}
-```
-
-After registration and deployment, use `model_id` in your query body instead of `analyzer`:
+The following example request uses a `neural_sparse` query to search for relevant documents using a raw text query. Provide the model ID for bi-encoder mode or the analyzer/tokenizer ID for doc-only mode:
 
 ```json
 GET my-nlp-index/_search
@@ -238,12 +284,117 @@ GET my-nlp-index/_search
     "neural_sparse": {
       "passage_embedding": {
         "query_text": "Hi world",
-        "model_id": "<tokenizer model_id>"
+        "analyzer": "bert-uncased"
       }
     }
   }
 }
 ```
+{% include copy-curl.html %}
+
+The response contains the matching documents:
+
+```json
+{
+  "took" : 688,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 30.0029,
+    "hits" : [
+      {
+        "_index" : "my-nlp-index",
+        "_id" : "1",
+        "_score" : 30.0029,
+        "_source" : {
+          "passage_text" : "Hello world",
+          "passage_embedding" : {
+            "!" : 0.8708904,
+            "door" : 0.8587369,
+            "hi" : 2.3929274,
+            "worlds" : 2.7839446,
+            "yes" : 0.75845814,
+            "##world" : 2.5432441,
+            "born" : 0.2682308,
+            "nothing" : 0.8625516,
+            "goodbye" : 0.17146169,
+            "greeting" : 0.96817183,
+            "birth" : 1.2788506,
+            "come" : 0.1623208,
+            "global" : 0.4371151,
+            "it" : 0.42951578,
+            "life" : 1.5750692,
+            "thanks" : 0.26481047,
+            "world" : 4.7300377,
+            "tiny" : 0.5462298,
+            "earth" : 2.6555297,
+            "universe" : 2.0308156,
+            "worldwide" : 1.3903781,
+            "hello" : 6.696973,
+            "so" : 0.20279501,
+            "?" : 0.67785245
+          },
+          "id" : "s1"
+        }
+      },
+      {
+        "_index" : "my-nlp-index",
+        "_id" : "2",
+        "_score" : 16.480486,
+        "_source" : {
+          "passage_text" : "Hi planet",
+          "passage_embedding" : {
+            "hi" : 4.338913,
+            "planets" : 2.7755864,
+            "planet" : 5.0969057,
+            "mars" : 1.7405145,
+            "earth" : 2.6087382,
+            "hello" : 3.3210192
+          },
+          "id" : "s2"
+        }
+      }
+    ]
+  }
+}
+```
+
+To minimize disk and network I/O latency related to sparse embedding sources, you can exclude the embedding vector source from the query as follows:
+
+```json
+GET my-nlp-index/_search
+{
+  "_source": {
+    "excludes": [
+      "passage_embedding"
+    ]
+  },
+  "query": {
+    "neural_sparse": {
+      "passage_embedding": {
+        "query_text": "Hi world",
+        "analyzer": "bert-uncased"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Accelerating neural sparse search
+
+To learn more about improving retrieval time for neural sparse search, see [Accelerating neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#accelerating-neural-sparse-search).
+
+## Other query modes
 
 ### Bi-encoder mode
 
@@ -257,6 +408,7 @@ POST /_plugins/_ml/models/_register?deploy=true
   "model_format": "TORCH_SCRIPT"
 }
 ```
+{% include copy-curl.html %}
 
 After deployment, query using the same `model_id`:
 
@@ -273,11 +425,90 @@ GET my-nlp-index/_search
   }
 }
 ```
+{% include copy-curl.html %}
+
+### Query with tokenizer model
+
+The neural sparse search doc-only mode also accept tokenizer model_id for query request. To register a tokenizer model:
+
+```json
+POST /_plugins/_ml/models/_register?deploy=true
+{
+  "name": "amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1",
+  "version": "1.0.1",
+  "model_format": "TORCH_SCRIPT"
+}
+```
+{% include copy-curl.html %}
+
+After registration and deployment, use `model_id` in your query body instead of `analyzer`:
+
+```json
+GET my-nlp-index/_search
+{
+  "query": {
+    "neural_sparse": {
+      "passage_embedding": {
+        "query_text": "Hi world",
+        "model_id": "<tokenizer model_id>"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Creating a search pipeline for default model_id
+
+You can create a search pipeline that augments neural sparse search functionality by setting the default model ID on an index for easier use. 
+
+To configure the pipeline, add a [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) processor. The following request creates a pipeline with the processor:
+
+```json
+PUT /_search/pipeline/neural_search_pipeline
+{
+  "request_processors": [
+    {
+      "neural_query_enricher" : {
+        "default_model_id": "<bi-encoder model/tokenizer ID>"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Then set the default pipeline for your index to the newly created search pipeline:
+
+```json
+PUT /my-nlp-index/_settings 
+{
+  "index.search.default_pipeline" : "neural_search_pipeline"
+}
+```
+{% include copy-curl.html %}
+
+For more information about setting a default model on an index, or to learn how to set a default model on a specific field, see [Setting a default model on an index or field]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/#setting-a-default-model-on-an-index-or-field).
 
 ## Troubleshooting
 
-For connector throttling or rate-limit errors, adjust `client_config.max_connection` and retry settings. See [remote connector docs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
+This section contains information about resolving common issues encountered while running neural sparse search.
+
+### Remote connector throttling exceptions
+
+When using connectors to call a remote service such as Amazon SageMaker, ingestion and search calls sometimes fail because of remote connector throttling exceptions. 
+
+For OpenSearch versions earlier than 2.15, a throttling exception will be returned as an error from the remote service:
+
+```json
+{
+  "type": "status_exception",
+  "reason": "Error from remote service: {\"message\":null}"
+}
+```
+
+To mitigate throttling exceptions, decrease the maximum number of connections specified in the `max_connection` setting in the connector's [`client_config`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters) object. Doing so will prevent the maximum number of concurrent connections from exceeding the threshold of the remote service. You can also modify the retry settings to avoid a request spike during ingestion.
 
 ## Next steps
 
-* Explore [vector-search tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) for advanced pipelines and performance tuning.
+- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 
