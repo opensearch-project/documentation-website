@@ -4,7 +4,6 @@ title: Getting started with data migration
 parent: Deploying Migration Assistant
 nav_order: 10
 redirect_from:
-  - /upgrade-to/upgrade-to/
   - /upgrade-to/snapshot-migrate/
   - /migration-assistant/getting-started-with-data-migration/
 ---

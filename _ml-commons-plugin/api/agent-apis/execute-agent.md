@@ -10,13 +10,21 @@ nav_order: 20
 **Introduced 2.13**
 {: .label .label-purple }
 
-When an agent is executed, it runs the tools with which it is configured.
+When an agent is executed, it runs the tools with which it is configured. Starting with OpenSearch version 3.0, you can execute an agent asynchronously by setting the `async` query parameter to `true`.
 
 ### Endpoints
 
 ```json
 POST /_plugins/_ml/agents/<agent_id>/_execute
 ```
+
+## Query parameters
+
+The following table lists the available query parameters.
+
+Parameter | Data type | Required/Optional | Description
+:---  | :--- | :--- 
+`async` | Boolean | Optional | If `true`, executes the agent asynchronously and returns a `task_id` to track execution. To check the status of the task, use the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Default is `false`.
 
 ## Request body fields
 

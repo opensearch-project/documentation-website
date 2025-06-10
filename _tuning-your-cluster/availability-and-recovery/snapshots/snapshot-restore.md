@@ -190,17 +190,34 @@ You will most likely not need to specify any parameters except for `location`. F
 
    ```json
    {
-	   "Version": "2012-10-17",
-	   "Statement": [{
-		   "Action": [
-			   "s3:*"
-		   ],
-		   "Effect": "Allow",
-		   "Resource": [
-			   "arn:aws:s3:::your-bucket",
-			   "arn:aws:s3:::your-bucket/*"
-		   ]
-	   }]
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Action": [
+           "s3:GetBucketLocation",
+           "s3:ListBucket",
+           "s3:ListBucketMultipartUploads",
+           "s3:ListBucketVersions"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+           "arn:aws:s3:::your-bucket"
+         ]
+       },
+       {
+         "Action": [
+           "s3:AbortMultipartUpload",
+           "s3:DeleteObject",
+           "s3:GetObject",
+           "s3:ListMultipartUploadParts",
+           "s3:PutObject"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+           "arn:aws:s3:::your-bucket/*"
+         ]
+       }
+     ]
    }
    ```
 

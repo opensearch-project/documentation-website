@@ -31,7 +31,7 @@ The following is the basic syntax for the `grok` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

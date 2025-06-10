@@ -26,7 +26,7 @@ In this example, you'll use the `huggingface/sentence-transformers/all-MiniLM-L1
 POST /_plugins/_ml/models/_register?deploy=true
 {
   "name": "huggingface/sentence-transformers/all-MiniLM-L12-v2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "model_format": "TORCH_SCRIPT"
 }
 ```

@@ -21,7 +21,7 @@ The following is the syntax for the `user_agent` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

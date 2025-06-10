@@ -166,7 +166,7 @@ Both the source and target cluster can use no authentication, authentication lim
 ```
 {% include copy.html %}
 
-The `serviceSigningName` can be `es` for an Elasticsearch or OpenSearch domain, or `aoss` for an OpenSearch Serverless collection.
+The `serviceSigningName` can be `es` for an Elasticsearch or OpenSearch domain.
 
 All of these authentication options apply to both source and target clusters.
 
@@ -189,6 +189,7 @@ You can use an existing Amazon Simple Storage Service (Amazon S3) snapshot to pe
 ```json
     "snapshot": {
         "snapshotName": "my-snapshot-name",
+        "snapshotRepoName": "my-snapshot-repo",
         "s3Uri": "s3://my-s3-bucket-name/my-bucket-path-to-snapshot-repo",
         "s3Region": "us-east-2"
     }

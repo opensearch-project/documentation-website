@@ -2,7 +2,7 @@
 layout: default
 title: Rename
 parent: Ingest processors
-nav_order: 230
+nav_order: 227
 redirect_from:
    - /api-reference/ingest-apis/processors/rename/
 ---
@@ -23,14 +23,14 @@ The following is the syntax for the `rename` processor:
     }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 
 The following table lists the required and optional parameters for the `rename` processor.
 
-| Parameter  | Required/Optional  | Description  |
-|---|---|---|
+Parameter  | Required/Optional  | Description  |
+---|---|---|
 `field`  | Required  | The field name containing the data to be removed. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `target_field`  | Required  | The new name of the field. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified `field`. If set to `true`, the processor does not modify the document if the `field` does not exist. Default is `false`. |

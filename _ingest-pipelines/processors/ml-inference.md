@@ -43,7 +43,7 @@ The following is the syntax for the `ml-inference` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 
