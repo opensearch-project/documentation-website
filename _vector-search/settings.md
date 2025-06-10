@@ -80,7 +80,7 @@ The following remote index build settings apply at the index level.
 
 #### Advanced index settings
 
-The follow index settings are advanced settings whose default values are set as a results of extensive benchmarking.
+The following index settings are advanced settings whose default values are set as a result of extensive benchmarking.
 
 | Setting                                 | Static/Dynamic | Default | Description                                               |
 |:----------------------------------------|:---------------|:--------|:----------------------------------------------------------|
