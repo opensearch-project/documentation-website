@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Using Search Relevance Workbench
-nav_order: 80
+nav_order: 10
 parent: Search relevance
-has_children: false
+has_children: true
 has_toc: false
 ---
 
@@ -11,10 +11,22 @@ has_toc: false
 
 # Using search relevance workbench 
 
-In search applications, tuning relevance is a constant, iterative exercise to bring the right search results to your end users. The tooling in Search Relevance Workbench aims to help the search relevance engineer and business user create the best search experience possible for application users without hiding internals from engineers who want to go deep into the details.
+In search applications, tuning relevance is a constant, iterative exercise to bring the right search results to your end users. The tooling in Search Relevance Workbench aims to help the search relevance engineer and business user create the best search experience possible for application users without hiding internals from engineers who want to go deep into the details by enabling experimentation.
 
 The Search Relevance Workbench consists of a [frontend component](https://github.com/opensearch-project/dashboards-search-relevance) that simplifies the process of evaluating search quality.
-Behind the scenes, the frontend uses the [Search Relevance OpenSearch plugin](https://opensearch.org/docs/latest/automating-configurations/index/) for resource management for each tool provided. For example, most use cases involve configuring and creating search configurations, query sets, and judgments. All of these resources are created, updated, deleted, and maintained by the Search Relevance plugin. When users are satisfied with the improvements to relevancy then they take the output and manually deploy the changes into their environment.
+Behind the scenes, the frontend uses the [Search Relevance OpenSearch plugin](https://opensearch.org/docs/latest/automating-configurations/index/) for resource management for each tool provided. For example, most use cases involve configuring and creating search configurations, query sets, and judgments. All of these resources are created, updated, deleted, and maintained by the Search Relevance plugin. When users are satisfied with the improvements to relevancy then they take the output of the experimentation and manually deploy the changes into their environment.
+
+## Key Concepts for Relevancy
+
+_Intro judgements, query sets, search configuration_.  Link to indivudal pages.
+
+## Experiments that Ship?
+These are tools that support experimentation.
+
+BELOW TO BE REWORKED.
+
+
+
 
 A feature of the Search Relevance Workbench is that you can perform experiments to quantify the quality of the search given the configuration. To configure the workbench, you can choose or create a query set and a list of 2 search configurations to compare side-by-side. What happens is that all of the queries in the query set are run under the search configurations, and after the search metrics are ready, you can look into the particular queries and compare the metrics.
 
