@@ -304,9 +304,9 @@ The [built-in tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools
 
 </details>
 
-### Example requests: Parametrized tools
+### Example requests: Parameterized tools
 
-The following sections provide example requests to register parametrized tools. For information about tool-specific parameters, see the corresponding [tool documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+The following sections provide example requests for registering parameterized tools. For information about tool-specific parameters, see the corresponding [tool documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
 #### WebSearchTool
 
