@@ -4,7 +4,6 @@ title: Getting started with data migration
 parent: Deploying Migration Assistant
 nav_order: 10
 redirect_from:
-  - /upgrade-to/upgrade-to/
   - /upgrade-to/snapshot-migrate/
   - /migration-assistant/getting-started-with-data-migration/
 ---
@@ -145,10 +144,9 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
             }
         },
         "reindexFromSnapshotExtraArgs": "<RFS PARAMETERS (see below)>",
+        "reindexFromSnapshotMaxShardSizeGiB": 80,
         "otelCollectorEnabled": true,
-        "migrationConsoleServiceEnabled": true,
-        "reindexFromSnapshotServiceEnabled": true,
-        "migrationAssistanceEnabled": true
+        "migrationConsoleServiceEnabled": true
     }
     }
     ```
@@ -359,4 +357,3 @@ fields @message
 {% include copy.html %}
 
 If any failed documents are identified, you can index the failed documents directly as opposed to using RFS.
-

@@ -79,22 +79,195 @@ GET /_insights/top_queries
 ```
 {% include copy-curl.html %}
 
-Specify the `type` parameter to retrieve the top N results for other metric types. The results will be sorted in descending order based on the specified metric type.
+### Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+Parameter | Data type     | Description
+:--- |:---------| :---
+`type`    | String   | The metric type for which to retrieve top N query data. Results will be sorted in descending order based on this metric. Valid values are `latency`, `cpu`, and `memory`. Default is `latency`.
+`from`    | String | The start of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
+`to`      | String | The end of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
+`id`      | String   | The ID of a specific top query record to retrieve.
+`verbose` | Boolean  | Indicates whether to return verbose output. Default is `true`.
+
+### Example response
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
-GET /_insights/top_queries?type=latency
+{
+  "top_queries" : [
+    {
+      "timestamp" : 1745021834451,
+      "id" : "36506bd2-7bca-4a0a-a6b8-f3e7db2b0745",
+      "group_by" : "NONE",
+      "indices" : [
+        "my-index-0"
+      ],
+      "source" : {
+        "size" : 20,
+        "query" : {
+          "bool" : {
+            "must" : [
+              {
+                "match_phrase" : {
+                  "message" : {
+                    "query" : "document",
+                    "slop" : 0,
+                    "zero_terms_query" : "NONE",
+                    "boost" : 1.0
+                  }
+                }
+              },
+              {
+                "match" : {
+                  "user.id" : {
+                    "query" : "userId",
+                    "operator" : "OR",
+                    "prefix_length" : 0,
+                    "max_expansions" : 50,
+                    "fuzzy_transpositions" : true,
+                    "lenient" : false,
+                    "zero_terms_query" : "NONE",
+                    "auto_generate_synonyms_phrase_query" : true,
+                    "boost" : 1.0
+                  }
+                }
+              }
+            ],
+            "adjust_pure_negative" : true,
+            "boost" : 1.0
+          }
+        }
+      },
+      "task_resource_usages" : [
+        {
+          "action" : "indices:data/read/search[phase/query]",
+          "taskId" : 28,
+          "parentTaskId" : 27,
+          "nodeId" : "BBgWzu8QR0qDkR0G45aw8w",
+          "taskResourceUsage" : {
+            "cpu_time_in_nanos" : 22664000,
+            "memory_in_bytes" : 6604536
+          }
+        },
+        {
+          "action" : "indices:data/read/search",
+          "taskId" : 27,
+          "parentTaskId" : -1,
+          "nodeId" : "BBgWzu8QR0qDkR0G45aw8w",
+          "taskResourceUsage" : {
+            "cpu_time_in_nanos" : 119000,
+            "memory_in_bytes" : 3920
+          }
+        }
+      ],
+      "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
+      "phase_latency_map" : {
+        "expand" : 0,
+        "query" : 23,
+        "fetch" : 0
+      },
+      "labels" : {
+        "X-Opaque-Id" : "query-label-1"
+      },
+      "search_type" : "query_then_fetch",
+      "total_shards" : 1,
+      "measurements" : {
+        "memory" : {
+          "number" : 6608456,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        },
+        "latency" : {
+          "number" : 24,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        },
+        "cpu" : {
+          "number" : 22783000,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        }
+      }
+    },
+    {
+      "timestamp" : 1745021826937,
+      "id" : "86e161d0-e982-48c2-b8da-e3a3763f2e36",
+      "group_by" : "NONE",
+      "indices" : [
+        "my-index-*"
+      ],
+      "source" : {
+        "size" : 20,
+        "query" : {
+          "term" : {
+            "user.id" : {
+              "value" : "userId",
+              "boost" : 1.0
+            }
+          }
+        }
+      },
+      "task_resource_usages" : [
+        {
+          "action" : "indices:data/read/search[phase/query]",
+          "taskId" : 26,
+          "parentTaskId" : 25,
+          "nodeId" : "BBgWzu8QR0qDkR0G45aw8w",
+          "taskResourceUsage" : {
+            "cpu_time_in_nanos" : 11020000,
+            "memory_in_bytes" : 4292272
+          }
+        },
+        {
+          "action" : "indices:data/read/search",
+          "taskId" : 25,
+          "parentTaskId" : -1,
+          "nodeId" : "BBgWzu8QR0qDkR0G45aw8w",
+          "taskResourceUsage" : {
+            "cpu_time_in_nanos" : 1032000,
+            "memory_in_bytes" : 115816
+          }
+        }
+      ],
+      "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
+      "phase_latency_map" : {
+        "expand" : 0,
+        "query" : 15,
+        "fetch" : 1
+      },
+      "labels" : { },
+      "search_type" : "query_then_fetch",
+      "total_shards" : 1,
+      "measurements" : {
+        "memory" : {
+          "number" : 4408088,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        },
+        "latency" : {
+          "number" : 23,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        },
+        "cpu" : {
+          "number" : 12052000,
+          "count" : 1,
+          "aggregationType" : "NONE"
+        }
+      }
+    }
+  ]
+}
 ```
-{% include copy-curl.html %}
 
-```json
-GET /_insights/top_queries?type=cpu
-```
-{% include copy-curl.html %}
-
-```json
-GET /_insights/top_queries?type=memory
-```
-{% include copy-curl.html %}
+</details>
 
 If your query returns no results, ensure that top N query monitoring is enabled for the target metric type and that search requests were made within the current [time window](#configuring-the-window-size).
 {: .important}
@@ -148,7 +321,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Use the `delete_after_days` setting (integer) to specify the number of days after which local indexes are automatically deleted. Query Insights runs a scheduled job once per day to delete top N local indexes older than the specified number of days. The default value for `delete_after_days` is 7, with valid values ranging from `1` to `180`.
+Use the `delete_after_days` setting (integer) to specify the number of days after which local indexes are automatically deleted. Query Insights runs a job once per day at 00:05 UTC to delete top N local indexes older than the specified number of days. The default value for `delete_after_days` is 7, with valid values ranging from `1` to `180`.
 
 For example, to delete local indexes older than 10 days, send the following request:
 
@@ -157,6 +330,24 @@ PUT _cluster/settings
 {
   "persistent" : {
     "search.insights.top_queries.exporter.delete_after_days" : "10"
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Excluding indexes from top N queries
+
+You can exclude search queries from the top N query list based on the indexes they target. This is useful when certain indexes are known to have long-running queries and don't need to be monitored.
+
+A query is excluded if it searches any shard that belongs to an index listed in `excluded_indices`.
+
+By default, this setting is `null` (all indexes are included). To exclude specific indexes, provide a comma-separated list of index names in the `search.insights.top_queries.excluded_indices` setting:
+
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "search.insights.top_queries.excluded_indices" : "index-1,index-2,index-3"
   }
 }
 ```

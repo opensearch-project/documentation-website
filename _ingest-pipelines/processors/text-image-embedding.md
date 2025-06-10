@@ -29,7 +29,7 @@ The following is the syntax for the `text_image_embedding` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Parameters
 
@@ -44,6 +44,7 @@ The following table lists the required and optional parameters for the `text_ima
 `field_map.image`  | String | Optional | The name of the field from which to obtain the image for generating vector embeddings. You must specify at least one `text` or `image`.
 `description`  | String | Optional  | A brief description of the processor.  |
 `tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`skip_existing` | Boolean | Optional | When `true`, the processor does not make inference calls for fields that already contain embeddings, leaving existing embeddings unchanged. Default is `false`.|
 
 ## Using the processor
 
@@ -138,4 +139,4 @@ Once you have created an ingest pipeline, you need to create an index for ingest
 - To learn how to use the `neural` query for a multimodal search, see [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/).
 - To learn more about multimodal search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/).
 - To learn more about using models in OpenSearch, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
-- For a comprehensive example, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
+- For a comprehensive example, see [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).

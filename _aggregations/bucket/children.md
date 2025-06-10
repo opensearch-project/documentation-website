@@ -2,47 +2,54 @@
 layout: default
 title: Children
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 15
 ---
 
 # Children
 
-The `children` aggregation connects parent documents with their related child documents. This allows you to analyze relationships between different types of data in a single query, rather than needing to run multiple queries and combine the results manually.
+The `children` aggregation is a bucket aggregation that creates a single bucket containing child documents, based on parent-child relationships defined in your index.
 
----
+The `children` aggregation works with the [join field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) to aggregate child documents that are associated with parent documents.
 
-## Example index, sample data, and children aggregation query
+The `children` aggregation identifies child documents that match specific child relation name, whereas the [`parent` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/parent/) identifies parent documents that have matching child documents. Both aggregations take the child relation name as input.
 
-For example, if you have a parent-child relationship between authors, posts, and comments, you can analyze the relationships between the different data types (`authors`, `posts`, and `comments`) in a single query. 
+## Parameters
 
-The `authors` aggregation groups the documents by the `author.keyword` field. This allows you to see the number of documents associates with each author. 
+The `children` aggregation takes the following parameters.
 
-In each author group, the `children` aggregation retrieves the associated posts. This gives you a breakdown of the posts written by each author. 
+| Parameter             | Required/Optional | Data type       | Description |
+| :--                   | :--               | :--             | :--         |
+| `type`                | Required          | String          | The name of the child type from the join field. This identifies the parent-child relationship to use. |
 
-In the `posts` aggregation, another `children` aggregation fetches the comments associated with each post. This provides you a way to see the comments for each individual post. 
 
-In the `comments` aggregation, the `value_count` aggregation counts the number of comments on each post. This allows you to gauge the engagement level for each post by seeing the number of comments it has received. 
+## Example
 
-#### Example index 
+The following example builds a small company database with three employees. The employee records each have a child `join` relationship with a parent department record.
+
+First, create a `company` index with a `join` field that maps departments (parents) to employees (children):
 
 ```json
-PUT /blog-sample
+PUT /company
 {
   "mappings": {
     "properties": {
-      "type": { "type": "keyword" },
-      "name": { "type": "keyword" },
-      "title": { "type": "text" },
-      "content": { "type": "text" },
-      "author": { "type": "keyword" },
-      "post_id": { "type": "keyword" },
       "join_field": {
         "type": "join",
         "relations": {
-          "author": "post",
-          "post": "comment"
+          "department": "employee"
         }
+      },
+      "department_name": {
+        "type": "keyword"
+      },
+      "employee_name": {
+        "type": "keyword"
+      },
+      "salary": {
+        "type": "double"
+      },
+      "hire_date": {
+        "type": "date"
       }
     }
   }
@@ -50,86 +57,64 @@ PUT /blog-sample
 ```
 {% include copy-curl.html %}
 
-#### Sample documents
+Next, populate the data with three departments and three employees. The parent-child assignments are presented in the following table.
+
+| Department (parent) | Employees (children) |
+| :-- | :-- |
+| `Accounting` | `Abel Anderson`, `Betty Billings` |
+| `Engineering` | `Carl Carter` |
+| `HR` | none |
+
+The `routing` parameter ensures that both parent and child documents are stored on the same shard, which is required in order for parent-child relationships to function correctly in OpenSearch:
 
 ```json
-POST /blog-sample/_doc/1?routing=1
-{
-  "type": "author",
-  "name": "John Doe",
-  "join_field": "author"
-}
-
-POST /blog-sample/_doc/2?routing=1
-{
-  "type": "post",
-  "title": "Introduction to OpenSearch",
-  "content": "OpenSearch is a powerful search and analytics engine...",
-  "author": "John Doe",
-  "join_field": {
-    "name": "post",
-    "parent": "1"
-  }
-}
-
-POST /blog-sample/_doc/3?routing=1
-{
-  "type": "comment",
-  "content": "Great article! Very informative.",
-  "join_field": {
-    "name": "comment",
-    "parent": "2"
-  }
-}
-
-POST /blog-sample/_doc/4?routing=1
-{
-  "type": "comment",
-  "content": "Thanks for the clear explanation.",
-  "join_field": {
-    "name": "comment",
-    "parent": "2"
-  }
-}
+POST _bulk?routing=1
+{ "create": { "_index": "company", "_id": "1" } }
+{ "type": "department", "department_name": "Accounting", "join_field": "department" }
+{ "create": { "_index": "company", "_id": "2" } }
+{ "type": "department", "department_name": "Engineering", "join_field": "department" }
+{ "create": { "_index": "company", "_id": "3" } }
+{ "type": "department", "department_name": "HR", "join_field": "department" }
+{ "create": { "_index": "company", "_id": "4" } }
+{ "type": "employee", "employee_name": "Abel Anderson", "salary": 120000, "hire_date": "2024-04-04", "join_field": { "name": "employee",  "parent": "1" } }
+{ "create": { "_index": "company", "_id": "5" } }
+{ "type": "employee", "employee_name": "Betty Billings", "salary": 140000, "hire_date": "2023-05-05", "join_field": { "name": "employee",  "parent": "1" } }
+{ "create": { "_index": "company", "_id": "6" } }
+{ "type": "employee", "employee_name": "Carl Carter", "salary": 140000, "hire_date": "2020-06-06",  "join_field": { "name": "employee",  "parent": "2" } }
 ```
 {% include copy-curl.html %}
 
-#### Example children aggregation query
+The following request queries all the departments and then filters for the one named `Accounting`. It then uses the `children` aggregation to select the two documents that have a child relationship with the `Accounting` department. Finally, the `avg` subaggregation returns the average of the `Accounting` employees' salaries:
 
 ```json
-GET /blog-sample/_search
+GET /company/_search
 {
   "size": 0,
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "join_field": "department"
+          }
+        },
+        {
+          "term": {
+            "department_name": "Accounting"
+          }
+        }
+      ]
+    }
+  },
   "aggs": {
-    "authors": {
-      "terms": {
-        "field": "name.keyword"
+    "acc_employees": {
+      "children": {
+        "type": "employee"
       },
       "aggs": {
-        "posts": {
-          "children": {
-            "type": "post"
-          },
-          "aggs": {
-            "post_titles": {
-              "terms": {
-                "field": "title.keyword"
-              },
-              "aggs": {
-                "comments": {
-                  "children": {
-                    "type": "comment"
-                  },
-                  "aggs": {
-                    "comment_count": {
-                      "value_count": {
-                        "field": "_id"
-                      }
-                    }
-                  }
-                }
-              }
-            }
+        "avg_salary": {
+          "avg": {
+            "field": "salary"
           }
         }
       }
@@ -139,13 +124,13 @@ GET /blog-sample/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
-The response should appear similar to the following example:
+The response returns the selected department bucket, finds the `employee` type children of the department, and computes the `avg` of their salaries:
 
 ```json
 {
-  "took": 30,
+  "took": 379,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -155,17 +140,18 @@ The response should appear similar to the following example:
   },
   "hits": {
     "total": {
-      "value": 4,
+      "value": 1,
       "relation": "eq"
     },
     "max_score": null,
     "hits": []
   },
   "aggregations": {
-    "authors": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": []
+    "acc_employees": {
+      "doc_count": 2,
+      "avg_salary": {
+        "value": 110000
+      }
     }
   }
 }

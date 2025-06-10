@@ -19,9 +19,50 @@ Use multimodal search to search text and image data using multimodal embedding m
 Before using text search, you must set up a multimodal embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
-## Using multimodal search
+## Configuring multimodal search
 
-To use multimodal search with text and image embeddings, follow these steps:
+There are two ways to configure multimodal search:
+
+- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
+- [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+
+## Automated workflow
+
+OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#multimodal-search) that automatically creates both an ingest pipeline and an index. You must provide the model ID for the configured model when creating a workflow. Review the multimodal search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/multi-modal-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. To create the default multimodal search workflow, send the following request:
+
+```json
+POST /_plugins/_flow_framework/workflow?use_case=multimodal_search&provision=true
+{
+"create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB"
+}
+```
+{% include copy-curl.html %}
+
+OpenSearch responds with a workflow ID for the created workflow:
+
+```json
+{
+  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
+}
+```
+
+To check the workflow status, send the following request:
+
+```json
+GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
+```
+{% include copy-curl.html %}
+
+Once the workflow completes, the `state` changes to `COMPLETED`. The workflow creates the following components:
+
+- An ingest pipeline named `nlp-ingest-pipeline`
+- An index named `my-nlp-index` 
+
+You can now continue with [steps 3 and 4](#step-3-ingest-documents-into-the-index) to ingest documents into the index and search the index.
+
+## Manual setup
+
+To manually configure multimodal search with text and image embeddings, follow these steps:
 
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
@@ -110,7 +151,7 @@ Before the document is ingested into the index, the ingest pipeline runs the `te
 
 ## Step 4: Search the index
 
-To perform vector search on your index, use the `neural` query clause either in the [Search for a Model API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-for-a-model) or [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. You can refine the results by using a [vector search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/). You can search by text, image, or both text and image.
+To perform a vector search on your index, use the `neural` query clause either in the [Search for a Model API]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#search-for-a-model) or [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. You can refine the results by using a [vector search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/). You can search by text, image, or both text and image.
 
 The following example request uses a neural query to search for text and image:
 

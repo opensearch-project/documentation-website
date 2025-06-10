@@ -3,5 +3,10 @@
 {{{key}}}: {{{value}}}
 {{/arguments}}
 -->
-{{{content}}}
+{{#content}}
+{{{.}}}
+{{/content}}
+{{^content}}
+<!-- API {{{api}}} does NOT have a {{{component}}} component -->
+{{/content}}
 <!-- spec_insert_end -->

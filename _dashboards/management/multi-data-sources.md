@@ -17,7 +17,7 @@ You can ingest, process, and analyze data from multiple data sources in OpenSear
 
 The following tutorial guides you through configuring and using multiple data sources in OpenSearch Dashboards.
 
-The following features are not supported when using multiple data sources: timeline visualization types and the `gantt-chart` plugin.
+The following features are not supported when using multiple data sources: timeline visualization types.
 {: .note}
 
 ### Step 1: Modify the YAML file settings

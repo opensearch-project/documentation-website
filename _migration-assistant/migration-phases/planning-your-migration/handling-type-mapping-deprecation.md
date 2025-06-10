@@ -279,13 +279,15 @@ When using the transformer, remember the following limitations.
 
 For the Traffic Replayer, **only a subset** of requests that include types is supported. These requests are listed in the following table.
 
-| **Operation**                | **HTTP method(s)** | **Endpoint**           | **Description**                                                                                                                                                                                                                   |
-|------------------------------|--------------------|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Index (by ID)**            | PUT/POST         | `/{index}/{type}/{id}` | Create or update a single document with an explicit ID.                                                                                                                                                                           |
-| **Index (auto ID)**          | PUT/POST         | `/{index}/{type}/`     | Create a single document for which the ID is automatically generated.                                                                                                                                                                          |
-| **Get Document**             | GET                | `/{index}/{type}/{id}` | Retrieve a document by ID.                                                                                                                                                                                                        |
-| **Bulk Index/Update/Delete** | PUT/POST         | `/_bulk`               | Perform multiple create/update/delete operations in a single request.                                                                                                                                                             |
-| **Create/Update Index**      | PUT/POST         | `/{index}`             | Create or update an index. <br/><br/> **Split** behavior is not supported in the Traffic Replayer. See [this GitHub issue](https://github.com/opensearch-project/opensearch-migrations/issues/1305) to provide feedback or to vote on this feature. |
+| **Operation** | **HTTP method(s)** | **Endpoint**   | **Description**  |
+| :--- | :--- | :--- | :--- |
+| **Index (by ID)**  | PUT/POST           | `/{index}/{type}/{id}`  | Create or update a single document with an explicit ID.   |
+| **Index (auto ID)**          | PUT/POST           | `/{index}/{type}/`      | Create a single document for which the ID is automatically generated.  |
+| **Get Document**             | GET                | `/{index}/{type}/{id}`  | Retrieve a document by ID.  |
+| **Bulk Index/Update/Delete** | PUT/POST           | `/_bulk`                | Perform multiple create/update/delete operations in a single request. |
+| **Bulk Index/Update/Delete** | PUT/POST           | `/{index}/_bulk`        | Perform multiple create/update/delete operations in a single request with default index assignment.                                                                                                                                                 |
+| **Bulk Index/Update/Delete** | PUT/POST           | `/{index}/{type}/_bulk` | Perform multiple create/update/delete operations in a single request with default index and type assignment.                                                                                                                                        |
+| **Create/Update Index**      | PUT/POST           | `/{index}`              | Create or update an index. <br/><br/> **Split** behavior is not supported in the Traffic Replayer. See [this GitHub issue](https://github.com/opensearch-project/opensearch-migrations/issues/1305) to provide feedback or to vote on this feature. |
 
 ### Reindex-From_Shapshot
 For `Reindex-From-Snapshot,` indexes created in Elasticsearch 6.x or later will use `_doc` as the type for all documents, even if a different type was specified in Elasticsearch 6.

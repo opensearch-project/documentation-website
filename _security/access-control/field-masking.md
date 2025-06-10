@@ -30,15 +30,15 @@ Field masking works alongside field-level security on the same per-role, per-ind
 
 ## Set the salt setting
 
-You can set the salt (a random string used to hash your data) in `opensearch.yml` using the optional `plugins.security.compliance.salt` setting. The salt value must fullfil the following requirements:
+You can set the salt (a random string used to hash your data) in `opensearch.yml` using the optional `plugins.security.compliance.salt` setting. The salt value must fulfill the following requirements:
 
-- Must be at least 32 characters.
+- Must be at least 16 characters.
 - Use only ASCII characters.
 
 The following example shows a salt value:
 
 ```yml
-plugins.security.compliance.salt: abcdefghijklmnopqrstuvqxyz1234567890
+plugins.security.compliance.salt: abcdefghijklmnop
 ```
 
 Although setting the salt is optional, it is highly recommended.
@@ -79,12 +79,16 @@ See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#crea
 
 By default, the Security plugin uses the BLAKE2b algorithm, but you can use any hashing algorithm that your JVM provides. This list typically includes MD5, SHA-1, SHA-384, and SHA-512.
 
-You can override the default algorithm in `opensearch.yml` using the option default masking algorithm setting `plugins.security.masked_fields.algorithm.default`, as shown in the following example:
+You can override the default algorithm in `opensearch.yml` using the optional default masking algorithm setting `plugins.security.masked_fields.algorithm.default`, as shown in the following example:
 
 ```yml
 plugins.security.masked_fields.algorithm.default: SHA-256
 ```
-.
+OpenSearch 3.x contains a bug fix to apply the default BLAKE2b algorithm correctly. You can override the default algorithm in OpenSearch 3.x to continue to produce the same masked values as OpenSearch 1.x and 2.x  in `opensearch.yml` using the optional default masking algorithm setting `plugins.security.masked_fields.algorithm.default`, as shown in the following example:
+
+```yml
+plugins.security.masked_fields.algorithm.default: BLAKE2B_LEGACY_DEFAULT
+```
 
 To specify a different algorithm, add it after the masked field in `roles.yml`, as shown in the following:
 
