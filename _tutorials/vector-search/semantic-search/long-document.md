@@ -25,9 +25,12 @@ Replace the placeholders beginning with the prefix `your_` with your own values.
 
 In this tutorial, you'll use the [Amazon Bedrock Titan Text Embeddings model](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html). 
 
-If you are using self-managed OpenSearch, create a model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md). 
+If using Python, you can create an Amazon Bedrock Titan embedding connector and test the model using the [opensearch-py-ml](https://github.com/opensearch-project/opensearch-py-ml) client CLI. The CLI automates many configuration steps, making setup faster and reducing the chance of errors. For more information about using the CLI, see the [CLI documentation](https://opensearch-project.github.io/opensearch-py-ml/cli/index.html#).
+{: .tip}
 
-If you are using Amazon OpenSearch Service, use [this Python notebook](https://github.com/opensearch-project/ml-commons/blob/main/docs/tutorials/aws/AIConnectorHelper.ipynb) to create the model. Alternatively, you can manually create a connector by following [this tutorial]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/semantic-search-bedrock-titan/).
+If using self-managed OpenSearch, create a model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md). 
+
+If using Amazon OpenSearch Service, use [this Python notebook](https://github.com/opensearch-project/ml-commons/blob/main/docs/tutorials/aws/AIConnectorHelper.ipynb) to create the model. Alternatively, you can manually create a connector by following [this tutorial]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/semantic-search-bedrock-titan/).
 
 ### Step 1.1: Create a connector
 
