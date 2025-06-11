@@ -13,7 +13,7 @@ The following are the key components of Migration Assistant.
 
 In this solution, your source cluster operates on either Elasticsearch or OpenSearch and is hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances or in a similar computing environment. A proxy is set up to interact with this source cluster, either positioned in front of or directly on the coordinating nodes of the cluster.
 
-## Migration management console
+## Migration console
 
 The migration console provides a migration-specific CLI and offers a variety of tools for streamlining the migration process. Everything necessary for completing a migration, other than cleaning up the migration resources, can be performed through this console.
 
