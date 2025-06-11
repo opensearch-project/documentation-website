@@ -172,7 +172,8 @@ In addition to creating judgment lists, there are API calls to retrieve availabl
 
 ### Retrieve judgment lists
 
-Endpoint
+#### Endpoint
+
 ```json
 GET _plugins/_search_relevance/judgments
 ```
@@ -286,7 +287,7 @@ The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `judgment_list_id` | String | The judgment list ID of the model to retrieve. |
+| `judgment_list_id` | String | The ID of the judgment list to retrieve. |
 
 #### Example request:
 
