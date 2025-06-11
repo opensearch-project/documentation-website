@@ -57,7 +57,7 @@ We strongly recommend using models with full model interfaces. For a list of exa
 {: .note}
 
 1. On the **Workflows** page, select the **New workflow** tab, as shown in the following image.
-   ![Workflows list page]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/workflows-list-page.png)
+   ![New workflow page]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/new-workflow-page.png)
 2. In the **RAG with Vector Retrieval** template, select **Create**.
 3. Provide some basic details, as shown in the following image:
 
