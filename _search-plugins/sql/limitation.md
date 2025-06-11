@@ -48,6 +48,8 @@ records.
 To avoid runaway resource usage, `JOIN` queries will time out after 60 seconds. This limit is
 currently not configurable.
 
+This restriction doesn't apply when [querying external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source/).
+
 ## Pagination only supports basic queries
 
 The pagination query enables you to get back paginated responses.
