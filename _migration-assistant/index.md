@@ -13,10 +13,10 @@ redirect_from:
   - /upgrade-to/upgrade-to/
 tutorial_cards:
   - heading: "Overview"
-    description: "Get familiar with the key components of Migration Assistant and evaluate whether it fits your migration needs."
+    description: "Get familiar with the key components of Migration Assistant and evaluate your use case."
     link: "/migration-assistant/overview/"
   - heading: "Deploying Migration Assistant"
-    description: "Follow step-by-step instructions to deploy Migration Assistant and prepare data migration from source to target cluster."
+    description: "Follow step-by-step instructions to deploy Migration Assistant and prepare data for migration."
     link: "/deploying-migration-assistant/"
   - heading: "Migration phases"
     description: "Execute your migration in phases—metadata, backfill, and traffic replay—for a controlled and validated transition."
