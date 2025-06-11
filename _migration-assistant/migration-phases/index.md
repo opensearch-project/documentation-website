@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Migration phases
-nav_order: 50
+nav_order: 30
 has_children: true
 has_toc: false
 permalink: /migration-phases/
