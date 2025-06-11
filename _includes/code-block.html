@@ -25,16 +25,21 @@
             {%- when 'rest' -%}{% highlight json %}{{ lang_content | strip }}{% endhighlight -%}
             {%- when 'python' -%}{% highlight python %}{{ lang_content | strip }}{% endhighlight -%}
             {%- when 'java' -%}{% highlight java %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'javascript' -%}{% highlight javascript %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'go' -%}{% highlight go %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'ruby' -%}{% highlight ruby %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'php' -%}{% highlight php %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'dotnet' -%}{% highlight cs %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'rust' -%}{% highlight rust %}{{ lang_content | strip }}{% endhighlight -%}
             {%- else -%}{% highlight text %}{{ lang_content | strip }}{% endhighlight -%}
             {%- endcase -%}
           <div class="button-container">
-            {% for button in lang.buttons %}
-              {% if button == 'copy' %}
-                <button class="copy-button copy-code-button">Copy</button>
-              {% elsif button == 'curl' %}
-                <button class="copy-button copy-curl-button">Copy as cURL</button>
-              {% endif %}         
-            {% endfor %}
+            {% if lang.id == "rest" %}
+              <button class="copy-button copy-code-button">Copy</button>
+              <button class="copy-button copy-curl-button">Copy as cURL</button>
+            {% else %}
+              <button class="copy-button copy-code-button">Copy</button>
+            {% endif %}
           </div>
         </div>
       </div>

@@ -1,47 +1,19 @@
 languages:
   - id: rest
     name: REST
-    highlight: json
-    buttons:
-      - copy
-      - curl
   - id: python
     name: Python
-    highlight: python
-    buttons:
-      - copy
   - id: java
     name: Java
-    highlight: java
-    buttons:
-      - copy
   - id: javascript
     name: JavaScript
-    highlight: javascript
-    buttons:
-      - copy
   - id: go
     name: Go
-    highlight: go
-    buttons:
-      - copy
   - id: ruby
     name: Ruby
-    highlight: ruby
-    buttons:
-      - copy
   - id: php
     name: PHP
-    highlight: php
-    buttons:
-      - copy
   - id: dotnet
     name: .NET
-    highlight: cs
-    buttons:
-      - copy
   - id: rust
     name: Rust
-    highlight: rust
-    buttons:
-      - copy

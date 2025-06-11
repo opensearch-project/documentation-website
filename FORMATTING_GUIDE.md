@@ -10,6 +10,7 @@ This guide provides an overview of the formatted elements commonly used in the O
 * [Buttons](#buttons)
 * [Callouts](#callouts)
 * [Cards](#cards)
+* [Code blocks](#code-blocks)
 * [Collapsible blocks](#collapsible-blocks)
 * [Dashes](#dashes)
 * [Horizontal rule](#horizontal-rule)
@@ -56,7 +57,7 @@ Each collection must have an `index.md` file that corresponds to the collection'
 
 ## Buttons
 
-You can use either `copy` or `copy-curl` includes for code snippets. The `copy` include places a **Copy** button on the code snippet, while the `copy-curl` include places both **Copy** and **Copy as cURL** buttons. Use the `copy-curl` include for API requests. If an API request is already in the cURL format, use the `copy` include.
+You can use either `copy` or `copy-curl` includes for code snippets formatted using triple backticks. The `copy` include places a **Copy** button on the code snippet, while the `copy-curl` include places both **Copy** and **Copy as cURL** buttons. Use the `copy-curl` include for API requests. If an API request is already in the cURL format, use the `copy` include.
 
 **Example of a `copy` include**
 
@@ -131,6 +132,79 @@ Insert an include in the page body where you want the cards to appear:
 ```
 {% include cards.html cards=page.tutorial_cards %}  
 ```
+
+## Code blocks
+
+There are two ways to format code blocks:
+
+1. **Single code block**: Use triple backticks and provide the highlighting language for the code block. For example, format a REST request in the following way:
+    ````json
+    ```json
+    PUT /hotels-index
+    {
+      "settings": {
+        "index.knn": true
+      },
+      "mappings": {
+        "properties": {
+          "location": {
+            "type": "knn_vector",
+            "dimension": 2,
+            "space_type": "l2"
+          }
+        }
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+    ````
+    For information about the copy and copy as cURL button include, see [Buttons](#buttons).
+1. **Tabbed panel**: Use a tabbed panel to provide the same example in multiple programming languages. If using this method, the [buttons](#buttons) are inserted programmatically. Use the following syntax to provide the example in multiple languages. This example creates a tabbed panel with a **REST** and **Python** tabs:
+    ```` 
+    {% capture step1_rest %}
+    PUT /hotels-index
+    {
+      "settings": {
+        "index.knn": true
+      },
+      "mappings": {
+        "properties": {
+          "location": {
+            "type": "knn_vector",
+            "dimension": 2,
+            "space_type": "l2"
+          }
+        }
+      }
+    }
+    {% endcapture %}
+
+    {% capture step1_python %}
+    from opensearchpy import OpenSearch
+
+    client.indices.create(
+        index="hotels-index",
+        body={
+            "settings": {"index.knn": True},
+            "mappings": {
+                "properties": {
+                    "location": {
+                        "type": "knn_vector",
+                        "dimension": 2,
+                        "space_type": "l2"
+                    }
+                }
+            }
+        }
+    )
+    {% endcapture %}
+
+    {% include code-block.html 
+        rest=step1_rest
+        python=step1_python %}
+    ``` 
+    ````
+    The supported languages are listed in [this yaml file](/_data/code_languages.yml).
 
 ## Collapsible blocks
 

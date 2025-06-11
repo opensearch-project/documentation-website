@@ -108,6 +108,106 @@ PUT /hotels-index
 }
 {% endcapture %}
 
+{% capture step1_java %}
+String index = "sample-index";
+CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder().index(index).build();
+client.indices().create(createIndexRequest);
+
+IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-all").build();
+PutIndicesSettingsRequest putIndicesSettingsRequest = new PutIndicesSettingsRequest.Builder().index(index).value(indexSettings).build();
+client.indices().putSettings(putIndicesSettingsRequest);
+{% endcapture %}
+
+{% capture step1_javascript %}
+var index_name = "books";
+
+var settings = {
+  settings: {
+    index: {
+      number_of_shards: 4,
+      number_of_replicas: 3,
+    },
+  },
+};
+
+var response = await client.indices.create({
+  index: index_name,
+  body: settings,
+});
+{% endcapture %}
+
+{% capture step1_go %}
+settings := strings.NewReader(`{
+    'settings': {
+        'index': {
+            'number_of_shards': 1,
+            'number_of_replicas': 0
+            }
+        }
+    }`)
+
+res := opensearchapi.IndicesCreateRequest{
+    Index: "go-test-index1",
+    Body:  settings,
+}
+{% endcapture %}
+
+{% capture step1_ruby %}
+index_body = {
+    'settings': {
+        'index': {
+        'number_of_shards': 1,
+        'number_of_replicas': 2 
+        }
+    }
+} 
+
+client.indices.create(
+    index: 'students',
+    body: index_body
+)
+{% endcapture %}
+
+{% capture step1_php %}
+$indexName = 'test-index-name';
+
+// Create an index with non-default settings.
+$client->indices()->create([
+    'index' => $indexName,
+    'body' => [
+        'settings' => [
+            'index' => [
+                'number_of_shards' => 4
+            ]
+        ]
+    ]
+]);
+{% endcapture %}
+
+{% capture step1_rust %}
+let response = client
+    .indices()
+    .create(IndicesCreateParts::Index("movies"))
+    .body(json!({
+        "mappings" : {
+            "properties" : {
+                "title" : { "type" : "text" }
+            }
+        }
+    }))
+    .send()
+    .await?;
+{% endcapture %}
+
+{% capture step1_dotnet %}
+var createResponse = await osClient.Indices.CreateAsync(index,
+                c => c.Map(m => m.AutoMap<Student>()
+                .Properties<Student>(p => p
+                .Keyword(k => k.Name(f => f.FirstName))
+                .Keyword(k => k.Name(f => f.LastName)))));
+
+{% endcapture %}
+
 {% capture step1_python %}
 from opensearchpy import OpenSearch
 
@@ -130,7 +230,15 @@ client.indices.create(
 
 {% include code-block.html 
     rest=step1_rest
-    python=step1_python %}
+    python=step1_python
+    java=step1_java
+    kotlin=step1_javascript
+    go=step1_go
+    ruby=step1_ruby
+    php=step1_php
+    dotnet=step1_dotnet
+    rust=step1_rust
+%}
 
 ## Step 2: Add data to your index
 
