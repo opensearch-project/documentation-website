@@ -116,9 +116,9 @@ Field | Data type | Required/Optional | Description
 `name`| String | Required | The model name. |
 `version` | String | Required | The model version. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
-`function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
+`function_name` | String | Required | Set this parameter to `TEXT_EMBEDDING` or `SPARSE_ENCODING` or `SPARSE_TOKENIZE` or `TEXT_SIMILARITY` or `QUESTION_ANSWERING`.
 `model_content_hash_value` | String | Required | The model content hash generated using the SHA-256 hashing algorithm.
-[`model_config`](#the-model_config-object)  | Object | Required | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string that contains all model configurations. |
+[`model_config`](#the-model_config-object)  | Object | Required | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string that contains all model configurations. `additional_config` contains the recommended `space_type` for pretrained models or user-specified `space_type` for custom models. |
 `url` | String | Required | The URL that contains the model. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
@@ -134,6 +134,7 @@ Field | Data type | Required/Optional | Description
 | `embedding_dimension` | Integer | The dimension of the model-generated dense vector. For a Hugging Face model, the dimension is specified in the model card. For example, in the [`all-MiniLM-L6-v2` Hugging Face model card](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), the statement `384 dimensional dense vector space` specifies 384 as the embedding dimension. Required. |
 | `framework_type` | String  | The framework the model is using. Currently, OpenSearch supports `sentence_transformers` and `huggingface_transformers` frameworks. The `sentence_transformers` model outputs text embeddings directly, so ML Commons does not perform any post processing. For `huggingface_transformers`, ML Commons performs post processing by applying mean pooling to get text embeddings. See the example [`all-MiniLM-L6-v2` Hugging Face model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) for more details. Required. |
 | `all_config` | String | This field is used for reference purposes. You can specify all model configurations in this field. For example, if you are using a Hugging Face model, you can minify the `config.json` file to one line and save its contents in the `all_config` field. Once the model is uploaded, you can use the get model API operation to get all model configurations stored in this field. Optional. |
+| `additional_config` | Object | Additional model configurations. Contains `space_type` which specifies the distance metric for k-NN search. For OpenSearch-provided pretrained models, this value is automatically set to the recommended metric (e.g., `l2` for `huggingface/sentence-transformers/all-distilroberta-v1`). For custom models, users can specify their preferred space type. Optional. |
 
 You can further customize a pretrained sentence transformer model's post-processing logic with the following optional fields in the `model_config` object.
 
@@ -153,6 +154,7 @@ POST /_plugins/_ml/models/_register
     "version": "1.0.0",
     "description": "test model",
     "model_format": "TORCH_SCRIPT",
+    "function_name": "TEXT_EMBEDDING",
     "model_group_id": "FTNlQ4gBYW0Qyy5ZoxfR",
     "model_content_hash_value": "c15f0d2e62d872be5b5bc6c84d2e0f4921541e29fefbef51d59cc10a8ae30e0f",
     "model_config": {
