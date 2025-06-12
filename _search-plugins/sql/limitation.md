@@ -46,7 +46,7 @@ Depending on the dataset, there may be scalability issues when running `JOIN` qu
 To avoid runaway resource usage, `JOIN` queries will time out after 60 seconds.
 This limit is currently not configurable.
 
-This restriction doesn't apply when [querying external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source).
+This restriction doesn't apply when [querying external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source/).
 
 ## Pagination only supports basic queries
 
