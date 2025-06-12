@@ -10,7 +10,7 @@ has_toc: false
 
 # Evaluating search quality
 
-An application of running the search relevance workbench experiments is to evaluate the quality of search configurations given judgments, and queries. 
+An application of running the search relevance workbench experiments is to evaluate the quality of search configurations given judgments and queries. 
 
 To create the query set refer [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
