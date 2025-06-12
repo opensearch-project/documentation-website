@@ -28,7 +28,7 @@ Field  | Type    | Required | Description
 `lambda_when`        | String  | Optional | A conditional expression that determines when to invoke the Lambda processor.     
 `response_codec`     | Object  | Optional |  A codec configuration for parsing Lambda responses. Default is `json`.
 `tags_on_match_failure` | List | Optional |  A list of tags to add to events when Lambda matching fails or encounters an unexpected error.
-`sdk_timeout`        | Duration | Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
+`connection_timeout`        | Duration | Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
 
 The `invocation_type` field is not supported in Amazon OpenSearch Ingestion pipelines using the `aws_lambda` processor. Including this field will result in a validation error.
@@ -42,9 +42,11 @@ This example configures the `aws_lambda` processor to invoke a Lambda function w
 ```
 processors:
   - aws_lambda:
-     arn: "arn:aws:lambda:us-west-2:123456789012:function:my-processing-function"
-     timeout: 2000
-     batch_size: 10
+     function_name: "arn:aws:lambda:us-west-2:123456789012:function:my-processing-function"
+     batch:
+       threshold:
+         event_collect_timeout: 30s
+         event_count: 10
      aws:
         region: "us-east-1"
         sts_role_arn: "arn:aws:iam::123456789012:role/my-lambda-role"
