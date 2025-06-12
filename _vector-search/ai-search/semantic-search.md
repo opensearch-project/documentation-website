@@ -23,6 +23,7 @@ There are two ways to configure semantic search:
 
 - [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
 - [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+- [**Manual setup with semantic field**](#manual-setup-with-semantic-field) (Recommended for quick setup with optional customization): Manually configure the index using semantic fields to simplify the setup process while still allowing for some level of configuration.
 
 ## Automated workflow
 
@@ -335,6 +336,191 @@ The response contains both documents:
         "_source" : {
           "passage_text" : "Hello world",
           "id" : "s1"
+        }
+      }
+    ]
+  }
+}
+```
+## Manual setup with semantic field
+
+### Step 1: Create an index with a semantic field
+
+In the example below, we use a dense model for the `semantic` field. You only need to specify the `model_id` in the semantic field configuration. OpenSearch will automatically create the corresponding embedding field based on the model’s configuration. An ingest pipeline is not required—OpenSearch will automatically generate the embeddings using the specified model during indexing.
+
+```json
+PUT /my-nlp-index
+{
+  "settings": {
+    "index.knn": true
+  },
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "text"
+      },
+      "passage_text": {
+        "type": "semantic",
+        "model_id": "9kPWYJcBmp4cG9LrbAvW"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+After creating the index, you can retrieve its mapping to verify that the embedding field was automatically created.
+
+An object field named `passage_text_semantic_info` is automatically created. It includes a `knn_vector` subfield to store the embedding, as well as additional text fields to capture model metadata.
+
+The `dimension` and `space_type` of the `knn_vector` field are determined by the ML model configuration. For pretrained dense models, this information is included in the model config by default. However, for remote dense models, you must ensure that the dimension and space_type are explicitly defined in the model config before using it with a semantic field.
+
+You may notice that the auto-created `knn_vector` field supports additional configurations that are not currently exposed through the semantic field.
+{: .note}
+
+```json
+GET /my-nlp-index/_mapping
+{
+  "my-nlp-index": {
+    "mappings": {
+      "properties": {
+        "id": {
+          "type": "text"
+        },
+        "passage_text": {
+          "type": "semantic",
+          "model_id": "9kPWYJcBmp4cG9LrbAvW",
+          "raw_field_type": "text"
+        },
+        "passage_text_semantic_info": {
+          "properties": {
+            "embedding": {
+              "type": "knn_vector",
+              "dimension": 384,
+              "method": {
+                "engine": "faiss",
+                "space_type": "l2",
+                "name": "hnsw",
+                "parameters": {}
+              }
+            },
+            "model": {
+              "properties": {
+                "id": {
+                  "type": "text",
+                  "index": false
+                },
+                "name": {
+                  "type": "text",
+                  "index": false
+                },
+                "type": {
+                  "type": "text",
+                  "index": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Step 2: Ingest documents into the index
+
+To ingest documents into the index created in the previous step, send the following requests:
+
+```json
+PUT /my-nlp-index/_doc/1
+{
+  "passage_text": "Hello world",
+  "id": "s1"
+}
+```
+{% include copy-curl.html %}
+
+Before the document is ingested into the index, OpenSearch runs a system ingest pipeline that uses a built-in processor to generate embeddings for the passage_text.  To verify the embedding is generated properly you can retrieve the doc:
+
+```json
+GET /my-nlp-index/_doc/1
+{
+  "_index": "my-nlp-index",
+  "_id": "1",
+  "_version": 1,
+  "_seq_no": 0,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "passage_text": "Hello world",
+    "passage_text_semantic_info": {
+      "model": {
+        "name": "huggingface/sentence-transformers/all-MiniLM-L6-v2",
+        "id": "9kPWYJcBmp4cG9LrbAvW",
+        "type": "TEXT_EMBEDDING"
+      },
+      "embedding": [
+        -0.034477286,
+        ...
+      ]
+    },
+    "id": "s1"
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Step 3: Search the index
+
+To query the embedding of the semantic field, simply provide the semantic field's name and the query text. There's no need to specify the `model_id`—OpenSearch automatically retrieves it from the field’s configuration in the index mapping and rewrites the query to target the underlying embedding field.
+
+```json
+GET /my-nlp-index/_search
+{
+  "_source": {
+    "excludes": [
+      "passage_text_semantic_info"
+    ]
+  },
+  "query": {
+    "neural": {
+      "passage_text": {
+        "query_text": "Hi world"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching document:
+
+```json
+{
+  "took": 48,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.7564365,
+    "hits": [
+      {
+        "_index": "my-nlp-index",
+        "_id": "1",
+        "_score": 0.7564365,
+        "_source": {
+          "passage_text": "Hello world",
+          "id": "s1"
         }
       }
     ]
