@@ -20,7 +20,7 @@ There are a few important considerations to keep in mind when using collapse wit
 * Performance impact may be higher when using large result sets.
 * Aggregations run on pre-collapsed results.
 * Collapse affects the paginated results.
-* The collapse parameter via query return different results than the collapse response processor.
+* The collapse parameter via query returns different results than the collapse response processor.
 
 The following example is taken from the documentation for [collapse in search query](https://docs.opensearch.org/docs/latest/search-plugins/collapse-search/) and modified for hybrid query:
 
