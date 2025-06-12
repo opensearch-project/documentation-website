@@ -114,95 +114,60 @@ GET /bakery-items/_search?search_pipeline=norm-pipeline
 Response:
 ```json
 {
-  "took": 19,
-  "errors": false,
-  "items": [
-    {
-      "index": {
+  "took": 5,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
         "_index": "bakery-items",
         "_id": "wBRPZZcB49c_2-1rYmO7",
-        "_version": 1,
-        "result": "created",
-        "_shards": {
-          "total": 2,
-          "successful": 1,
-          "failed": 0
+        "_score": 1.0,
+        "_source": {
+          "item": "Chocolate Cake",
+          "category": "cakes",
+          "price": 15,
+          "baked_date": "2023-07-01T00:00:00Z"
         },
-        "_seq_no": 0,
-        "_primary_term": 1,
-        "status": 201
-      }
-    },
-    {
-      "index": {
-        "_index": "bakery-items",
-        "_id": "wRRPZZcB49c_2-1rYmO7",
-        "_version": 1,
-        "result": "created",
-        "_shards": {
-          "total": 2,
-          "successful": 1,
-          "failed": 0
-        },
-        "_seq_no": 1,
-        "_primary_term": 1,
-        "status": 201
-      }
-    },
-    {
-      "index": {
+        "fields": {
+          "item": [
+            "Chocolate Cake"
+          ]
+        }
+      },
+      {
         "_index": "bakery-items",
         "_id": "whRPZZcB49c_2-1rYmO7",
-        "_version": 1,
-        "result": "created",
-        "_shards": {
-          "total": 2,
-          "successful": 1,
-          "failed": 0
+        "_score": 0.5005,
+        "_source": {
+          "item": "Vanilla Cake",
+          "category": "cakes",
+          "price": 12,
+          "baked_date": "2023-07-02T00:00:00Z"
         },
-        "_seq_no": 2,
-        "_primary_term": 1,
-        "status": 201
+        "fields": {
+          "item": [
+            "Vanilla Cake"
+          ]
+        }
       }
-    },
-    {
-      "index": {
-        "_index": "bakery-items",
-        "_id": "wxRPZZcB49c_2-1rYmO7",
-        "_version": 1,
-        "result": "created",
-        "_shards": {
-          "total": 2,
-          "successful": 1,
-          "failed": 0
-        },
-        "_seq_no": 3,
-        "_primary_term": 1,
-        "status": 201
-      }
-    },
-    {
-      "index": {
-        "_index": "bakery-items",
-        "_id": "xBRPZZcB49c_2-1rYmO7",
-        "_version": 1,
-        "result": "created",
-        "_shards": {
-          "total": 2,
-          "successful": 1,
-          "failed": 0
-        },
-        "_seq_no": 4,
-        "_primary_term": 1,
-        "status": 201
-      }
-    }
-  ]
+    ]
+  }
 }
 ```
 
 Collapse is compatible with other features in hybrid query using syntax that is standard for those features, such as sort, pagination, and explain.
-For example, this is is how you can combine collapse and sort:
+For example, this is how you can combine collapse and sort:
 
 ```json
 {
