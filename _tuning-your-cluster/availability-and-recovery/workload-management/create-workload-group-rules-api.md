@@ -82,7 +82,7 @@ GET /_rules/workload_group?index_pattern=a,b
 {% include copy-curl.html %}
 
 If the response contains more results than can fit in a single page, OpenSearch paginates the results and includes a `search_after` value in the response.
-To retrieve the next page, send another request to the same endpoint using the same filters, and include the `search_after value` from the previous response as a query parameter.
+To retrieve the next page, send another request to the same endpoint using the same filters, and include the `search_after` value from the previous response as a query parameter.
 
 The following request continues the next page of rules from the same workload group:
 
