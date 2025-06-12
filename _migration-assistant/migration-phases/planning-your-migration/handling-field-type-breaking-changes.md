@@ -43,7 +43,7 @@ You can customize how field types are transformed during metadata and data migra
 2. Create a JavaScript file to define your transformation logic:
 
    ```bash
-   vi /shared-logs-output/field-type-converter.js
+   vim /shared-logs-output/field-type-converter.js
    ```
    {% include copy.html %}
 
@@ -51,7 +51,7 @@ You can customize how field types are transformed during metadata and data migra
 4. Create a transformation descriptor file:
 
    ```bash
-   vi /shared-logs-output/transformation.json
+   vim /shared-logs-output/transformation.json
    ```
    {% include copy.html %}
 
@@ -120,6 +120,7 @@ function main(context) {
 }
 (() => main)();
 ```
+{% include copy.html %}
 
 #### How this implementation works
 
@@ -154,6 +155,7 @@ This JSON file references your transformation script and is used to initialize t
   }
 ]
 ```
+{% include copy.html %}
 
 ## Summary
 
