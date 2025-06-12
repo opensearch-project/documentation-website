@@ -31,24 +31,22 @@ But, if the outer query has `GROUP BY` or `ORDER BY`, then it's not supported.
 
 ## JOIN queries
 
-As OpenSearch doesn't natively support relational operations, `JOIN` queries are supported on a
-best-effort basis.
+Because OpenSearch doesn't natively support relational operations, `JOIN` queries are supported on a best-effort basis.
 
 ### JOIN does not support aggregations on the joined result
 
 The `JOIN` query does not support aggregations on the joined result.
-For example, `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id == depo.id GROUP BY depo.name` is not supported.
+For example, `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id = depo.id GROUP BY depo.name` is not supported.
 
 ### Performance
 
-`JOIN` queries are prone to do expensive index scanning operations. Depending on the dataset, there
-may be scalability issues when running `JOIN` queries between data sets with more than a few million
-records.
+`JOIN` queries are prone to expensive index scanning operations.
+Depending on the dataset, there may be scalability issues when running `JOIN` queries between data sets with more than a few million records.
 
-To avoid runaway resource usage, `JOIN` queries will time out after 60 seconds. This limit is
-currently not configurable.
+To avoid runaway resource usage, `JOIN` queries will time out after 60 seconds.
+This limit is currently not configurable.
 
-This restriction doesn't apply when [querying external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source/).
+This restriction doesn't apply when [querying external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source).
 
 ## Pagination only supports basic queries
 
