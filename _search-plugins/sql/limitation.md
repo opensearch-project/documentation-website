@@ -29,10 +29,28 @@ FROM (
 
 But, if the outer query has `GROUP BY` or `ORDER BY`, then it's not supported.
 
-## JOIN does not support aggregations on the joined result
+## JOIN queries
 
-The `join` query does not support aggregations on the joined result.
-For example, e.g. `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id == depo.id GROUP BY depo.name` is not supported.
+Because OpenSearch doesn't natively support relational operations, `JOIN` queries are supported on a best-effort basis.
+
+### JOIN does not support aggregations on the joined result
+
+The `JOIN` query does not support aggregations on the joined result.
+For example, `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id = depo.id GROUP BY depo.name` is not supported.
+
+### Performance
+
+`JOIN` queries are prone to expensive index scanning operations.
+Depending on the dataset, there may be scalability issues when running `JOIN` queries between result sets matching more than around 5 million records.
+
+To avoid runaway resource usage, `JOIN` queries will time out after 60 seconds by default.
+This limit can be changed with a hint, specifying a new timeout in seconds:
+
+```
+SELECT /*! JOIN_TIME_OUT(300) */ left.a, right.b FROM left JOIN right ON left.id = right.id;
+```
+
+This restriction doesn't apply when [querying external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source/).
 
 ## Pagination only supports basic queries
 
