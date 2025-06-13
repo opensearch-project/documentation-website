@@ -1,12 +1,15 @@
 ---
 layout: default
 title: RAG chatbot with a conversational flow agent
-parent: Chatbots and agents
+parent: Chatbots
 grand_parent: Generative AI
 nav_order: 160
+has_children: false
+has_toc: false
 redirect_from:
   - /ml-commons-plugin/tutorials/rag-conversational-agent/
   - /vector-search/tutorials/chatbots/rag-conversational-agent/
+  - /tutorials/gen-ai/chatbots/rag-conversational-agent/
 ---
 
 # RAG chatbot with a conversational flow agent
@@ -48,7 +51,7 @@ Register a text embedding model that will translate text into vector embeddings:
 POST /_plugins/_ml/models/_register
 {
   "name": "huggingface/sentence-transformers/all-MiniLM-L12-v2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "model_format": "TORCH_SCRIPT"
 }
 ```
@@ -248,7 +251,7 @@ POST /_plugins/_ml/models/your_LLM_model_id/_predict
 
 ## Step 3: Register an agent
 
-OpenSearch provides the following agent types: `flow`, `conversational_flow`, and `conversational`. For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents).
+OpenSearch provides the following agent types: `flow`, `conversational_flow`, and `conversational`. For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
 You will use a `conversational_flow` agent in this tutorial. The agent consists of the following:
 

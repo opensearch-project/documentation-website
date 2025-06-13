@@ -3,6 +3,7 @@ layout: default
 title: Pipeline aggregations
 nav_order: 5
 has_children: true
+has_toc: false
 redirect_from:
   - /opensearch/pipeline-agg/
   - /query-dsl/aggregations/pipeline-agg/
@@ -21,7 +22,7 @@ Pipeline aggregations cannot be sub-aggregated but can be chained to other pipel
 
 ## Pipeline aggregation types
 
-Pipeline aggregations are of two types, [sibling](#sibling-aggregations) and [parent](#parent-aggregations).
+Pipeline aggregations are of two types: [sibling](#sibling-aggregations) and [parent](#parent-aggregations).
 
 ### Sibling aggregations
 
@@ -29,40 +30,89 @@ A _sibling_ pipeline aggregation takes the output of a nested aggregation and pr
 
 A sibling aggregation must be a multi-bucket aggregation (have multiple grouped values for a certain field), and the metric must be a numeric value.
 
-`min_bucket`, `max_bucket`, `sum_bucket`, and `avg_bucket` are common sibling aggregations.
-
 ### Parent aggregations
 
-A _parent_ aggregation takes the output of an outer aggregation and produces new buckets or new aggregations at the same level as the existing buckets.
+A _parent_ aggregation takes the output of an outer aggregation and produces new buckets or new aggregations at the same level as the existing buckets. Unlike sibling pipeline aggregations, which operate across all buckets and produce a single output, parent pipeline aggregations process each bucket individually and write the result back into each bucket.
 
 The specified metric for a parent aggregation must be a numeric value.
 
 We strongly recommend setting `min_doc_count` to `0` (the default for `histogram` aggregations) for parent aggregations. If `min_doc_count` is greater than `0`, then the aggregation omits buckets, which might lead to incorrect results.
 {: .important}
 
-`derivatives` and `cumulative_sum` are common parent aggregations.
+## Supported pipeline aggregations
+
+OpenSearch supports the following pipeline aggregations.
+
+| Name | Type | Description |
+|------|------|-------------|
+| [`avg_bucket`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/avg-bucket/) | Sibling | Calculates the average of a metric in each bucket of a previous aggregation. |
+| [`bucket_script`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/bucket-script/) | Parent | Executes a script to perform per-bucket numeric computations across a set of buckets. |
+| [`bucket_selector`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/bucket-selector/) | Parent | Evaluates a script to determine whether buckets returned by a `histogram` (or `date_histogram`) aggregation should be included in the final result. |
+| [`bucket_sort`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/bucket-selector/) | Parent | Sorts or truncates the buckets produced by its parent multi-bucket aggregation. |
+| [`cumulative_sum`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/cumulative-sum/) | Parent | Calculates the cumulative sum across the buckets of a previous aggregation. |
+| [`derivative`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/derivative/) | Parent | Calculates first-order and second-order derivatives of each bucket of an aggregation. |
+| [`extended_stats`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/extended-stats/) | Sibling | A more comprehensive version of the `stats_bucket` aggregation that provides additional metrics. |
+| [`max_bucket`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/max-bucket/) | Sibling | Calculates the maximum of a metric in each bucket of a previous aggregation. |
+| [`min_bucket`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/min-bucket/) | Sibling | Calculates the minimum of a metric in each bucket of a previous aggregation. |
+| [`moving_avg`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/moving-avg/) *(Deprecated)* | Parent | Calculates a sequence of averages of a metric contained in windows (adjacent subsets) of an ordered dataset. |
+| [`moving_fn`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/moving-function/) | Parent | Executes a script over a sliding window. |
+| [`percentiles_bucket`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/percentiles-bucket/) | Sibling | Calculates the percentile placement of bucketed metrics. |
+| [`serial_diff`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/serial-diff/) | Parent | Calculates the difference between metric values in the current bucket and a previous bucket. It stores the result in the current bucket. |
+| [`stats_bucket`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/stats-bucket/) | Sibling | Returns a variety of stats (`count`, `min`, `max`, `avg`, and `sum`) for the buckets of a previous aggregation. |
+| [`sum_bucket`]({{site.url}}{{site.baseurl}}/aggregations/pipeline/sum-bucket/) | Sibling | Calculates the sum of a metric in each bucket of a previous aggregation. |
+
 
 ## Buckets path
 
-A pipeline aggregation uses the `buckets_path` parameter to access the results of other aggregations.
+A pipeline aggregation uses the `buckets_path` parameter to reference the output of other aggregations.
 The `buckets_path` parameter has the following syntax:
 
-```
-buckets_path = <AGG_NAME>[<AGG_SEPARATOR>,<AGG_NAME>]*[<METRIC_SEPARATOR>, <METRIC>];
+```r
+buckets_path = <agg_name>[ > <agg_name> ... ][ .<metric_name> ]
 ```
 
-| Element | Literal character | Description |
-| :-- | :-- | :-- | 
-| `AGG_NAME` |  | The name of the aggregation. |
-| `AGG_SEPARATOR` | `>` |  The character used to separate aggregation names. |
-| `METRIC_SEPARATOR`| `.` |  The character used to separate the final aggregation from its metrics. |
-| `METRIC` |  | The name of the metric. Required for multi-value metric aggregations. |
+This syntax uses the following elements.
 
-For example, `my_sum.sum` selects the `sum` metric of an aggregation called `my_sum`. `popular_tags>my_sum.sum` nests `my_sum.sum` into the `popular_tags` aggregation.
+| Element | Description |
+| :-- | :-- |
+| `<agg_name>` | The name of the aggregation. |
+| `>` |  A child selector used to navigate from one aggregation (parent) to another nested aggregation (child).  |
+| `.<metric_name>` |  Specifies a metric to retrieve from a multi-value aggregation. Required only if the target aggregation produces multiple metrics. |
+
+To visualize the buckets path, suppose you have the following aggregation structure:
+
+```json
+"aggs": {
+  "parent_agg": {
+    "terms": {
+      "field": "category"
+    },
+    "aggs": {
+      "child_agg": {
+        "stats": {
+          "field": "price"
+        }
+      }
+    }
+  }
+}
+```
+
+To reference the average price from the `child_agg`, which is nested in the `parent_agg`, use `parent_agg>child_agg.avg`.
+
+Examples:
+
+- `my_sum.sum`: Refers to the sum metric from the `my_sum` aggregation.
+
+- `popular_tags>my_sum.sum`: Refers to the `sum` metric from the `my_sum` aggregation, which is nested under the `popular_tags` aggregation.
+
+For multi-value metric aggregations like `stats` or `percentiles`, you must include the metric name (for example, `.min`) in the path. For single-value metrics like `sum` or `avg`, the metric name is optional if unambiguous.
+{: .tip}
+
 
 ### Buckets path example
 
-The following example operates on the OpenSearch Dashboards logs sample data. It creates a histogram of values in the `bytes` field, sums the `phpmemory` fields in each histogram bucket, and finally sums the buckets using the `sum_bucket` pipeline aggregation:
+The following example operates on the OpenSearch Dashboards logs sample data. It creates a histogram of values in the `bytes` field, sums the `phpmemory` fields in each histogram bucket, and finally sums the buckets using the `sum_bucket` pipeline aggregation. The `buckets_path` follows the `number_of_bytes>sum_total_memory ` path from the `number_of_bytes` parent aggregation to the `sum_total_memory` subaggregation:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -93,8 +143,6 @@ GET opensearch_dashboards_sample_data_logs/_search
 {% include copy-curl.html %}
 
 Note that the `buckets_path` contains the names of the component aggregations. Paths are directed, meaning that they cascade one way, downward from parents to children. 
-
-### Buckets path example response
 
 The pipeline aggregation returns the total memory summed from all the buckets:
 
@@ -183,7 +231,7 @@ The results show stats about the *document counts* of the buckets:
 }
 ```
 
-# Data gaps
+## Data gaps
 
 Real-world data can be missing from nested aggregations for a number of reasons, including:
 

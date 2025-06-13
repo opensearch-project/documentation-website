@@ -64,7 +64,7 @@ Field | Data type | Required/Optional | Description
 POST /_plugins/_ml/models/_register
 {
   "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
   "model_format": "TORCH_SCRIPT"
 }
@@ -95,7 +95,7 @@ Field | Data type | Required/Optional | Description
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill",
+    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill",
     "version": "1.0.0",
     "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
     "model_format": "TORCH_SCRIPT"
