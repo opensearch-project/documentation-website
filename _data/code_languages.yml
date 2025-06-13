@@ -1,0 +1,19 @@
+languages:
+  - id: rest
+    name: REST
+  - id: python
+    name: Python
+  - id: java
+    name: Java
+  - id: javascript
+    name: JavaScript
+  - id: go
+    name: Go
+  - id: ruby
+    name: Ruby
+  - id: php
+    name: PHP
+  - id: dotnet
+    name: .NET
+  - id: rust
+    name: Rust
