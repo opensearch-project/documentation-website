@@ -6,7 +6,7 @@ parent: Workload management
 grand_parent: Availability and recovery
 ---
 
-# Rule-based auto-tagging in OpenSearch
+# Rule-based auto-tagging
 
 Rule-based auto-tagging automatically assigns feature-specific values to incoming requests and evaluates those requests against a set of predefined rules by matching request attributes.
 For example, the workload management feature uses index patterns as an attribute and assigns workload group IDs.
