@@ -67,8 +67,6 @@ The script responds with a confirmation that the keystore was created:
 Created opensearch keystore in $OPENSEARCH_HOME/config/opensearch.keystore
 ```
 
-### Creating a new password-protected keystore
-
 ### Create a new password-protected keystore
 
 To create a new password-protected keystore, run the following command:
