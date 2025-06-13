@@ -44,10 +44,7 @@ You can append each command with the following options:
 - `-h, --help`: Displays help information about the script and its options.
 - `-s, --silent`: Provides minimal output when the script responds to a command.
 - `-v, --verbose`: Provides a verbose output for debugging purposes.
-
-**Only used with the `create` command**
-
-- `-p, --password`: Specifies the password to use for encrypting the keystore. (If flag isn't used, the keystore will be created without a password)
+- `-p, --password` (`create` command only): Specifies the password to use for encrypting the keystore. If this flag isn't used, the keystore will be created without a password.
 
 ## Examples
 
@@ -72,7 +69,9 @@ Created opensearch keystore in $OPENSEARCH_HOME/config/opensearch.keystore
 
 ### Creating a new password-protected keystore
 
-The following command creates a new password-protected keystore:
+### Create a new password-protected keystore
+
+To create a new password-protected keystore, run the following command:
 
 ```bash
 ./bin/opensearch-keystore create -p
