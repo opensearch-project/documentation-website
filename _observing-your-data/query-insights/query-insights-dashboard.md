@@ -21,6 +21,7 @@ The **Query insights** dashboard contains the following pages:
 - [Top N queries](#top-n-queries): Displays the query metrics and details for the top queries.
 - [Query details](#query-details): Displays details for individual queries and query groups.
 - [Configuration](#configuration): Customizes all monitoring and data retention settings for the query insights feature.
+- [Live queries](#live-queries): Monitors currently executing queries in real time.
 
 
 ## Top N queries
@@ -181,6 +182,78 @@ When configuring the query insights feature, remember the following best practic
 - Choose your **Window size** carefully. A longer window size can save compute resources because the insights found are less granular. Inversely, a shorter window size can output more comprehensive query insights but uses more resources.
 - When setting data retention periods, consider shorter retention periods that save storage but reduce the number of long-term insights.
 - Enable metrics based on your monitoring needs. Monitoring fewer metrics prevents system overload.
+
+## Live queries
+
+The **Live queries** page provides real-time visibility into search queries currently executing in your OpenSearch cluster. It enables active monitoring, fast debugging, and insight into how query load is distributed across nodes and indices.
+
+The following image shows the Live Queries interface:
+
+![Live Queries Dashboard](../../images/Query-Insights/Live_Queries.png)
+
+### Metrics overview
+
+The top panel displays key real-time metrics:
+
+| Panel                    | Description                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| **Active queries**       | Total number of currently executing queries.                                |
+| **Avg. elapsed time**    | Average execution time of live queries.                                     |
+| **Longest running query**| Duration and ID of the longest currently executing query.                   |
+| **Total CPU time**       | Cumulative CPU time used by all active queries.                             |
+| **Total memory usage**   | Total memory consumed by live queries.                                      |
+
+### Breakdown charts
+
+Two visual charts provide breakdowns of query load:
+
+- **By node** – Shows how many queries are running on each node.
+- **By index** – Displays how many queries are targeting each index.
+
+![Live Queries visual charts](../../images/Query-Insights/Live_queries_visuailization.png)
+
+You can toggle between **Donut** and **Bar** chart formats using the chart type switch.
+
+Only the top 9 items are displayed individually in the chart; additional values are grouped under **Others**.
+
+
+
+### Live query table
+
+Below the charts, a table lists detailed information for each live query:
+
+![Live Queries Table](../../images/Query-Insights/Live_Queries_Table.png)
+
+| Column               | Description                                                       |
+|----------------------|-------------------------------------------------------------------|
+| **Timestamp**        | Time when the query started executing.                            |
+| **Task ID**          | Unique identifier for the search task.                            |
+| **Index**            | Index or indices the query is targeting.                          |
+| **Node**             | Node currently executing the query.                               |
+| **Time elapsed**     | Execution time so far (formatted).                                |
+| **CPU usage**        | Cumulative CPU time used by the query.                            |
+| **Memory usage**     | Memory consumed by the query so far.                              |
+| **Search type**      | Search execution method (e.g., `query_then_fetch`).               |
+| **Coordinator node** | Node that coordinated the query.                                  |
+| **Status**           | Status of the query task. Can be either `running` or `cancelled`. |
+| **Actions**          | Available controls, such as canceling the query.                  |
+
+You can filter bar above the table to search for queries by text or specific field values (e.g., node ID, index name, or task ID) and paginate this table to better analyze specific queries.
+
+**Query Cancellation**
+
+This dashboard allows you to cancel individual or multiple running queries directly, providing real-time control over active query execution.
+
+- **Cancel query** – Cancel an individual query using the trash icon in the action columns for the query you want to cancel.
+- **Bulk cancel** – Select multiple queries and cancel them at once as show in the image.
+
+### Live queries Controls
+
+- **Auto-refresh toggle** – Enable or disable periodic data refresh.
+- **Refresh interval** – Choose refresh frequency (e.g., every 5s, 10s, 30s, 1 min) available only when Auto-refresh is enable.
+- **Manual refresh** – Click the **Refresh** button to update immediately.
+
+
 
 
 
