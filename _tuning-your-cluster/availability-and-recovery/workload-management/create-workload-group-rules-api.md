@@ -10,11 +10,10 @@ grand_parent: Availability and recovery
 
 The Create Workload Group Rules API for the `workload_group` feature type allows you to define, update, retrieve, and delete rules that automatically assign workload group IDs to incoming queries. When a query matches the attributes specified in a rule, OpenSearch tags the query with the corresponding workload group ID. This eliminates the need for clients to manually include the workload group ID in each request.
 
-For more information about how to use the Rule Lifecycle API, see [this page]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/rule-based-autotagging/rule-lifecycle-api/).
 
 ## Supported attributes
 
-The following table lists the attributes supported by the `workload_group` feature type:
+The following table lists the attributes supported by the `workload_group` feature type.
 
 | Attribute  | Data type | Description  |
 | :--- | :--- | :--- |
@@ -23,7 +22,7 @@ The following table lists the attributes supported by the `workload_group` featu
 
 ## Example requests
 
-The following example demonstrates how to use the Rule Lifecycle API to create a rule for the `workload_group` feature type.
+The following example demonstrates how to use the Create Workload Group Rules API to create a rule for the `workload_group` feature type.
 
 ### Create a rule
 
@@ -74,17 +73,17 @@ GET /_rules/workload_group
 ```
 {% include copy-curl.html %}
 
-The following request retrieves all rules for the workload_group feature type where the `index_pattern` attribute matches `a` or `b`:
+The following request retrieves all rules for the `workload_group` feature type where the `index_pattern` attribute matches `a` or `b`:
 
 ```json
 GET /_rules/workload_group?index_pattern=a,b
 ```
 {% include copy-curl.html %}
 
-If the response contains more results than can fit in a single page, OpenSearch paginates the results and includes a `search_after` value in the response.
-To retrieve the next page, send another request to the same endpoint using the same filters, and include the `search_after` value from the previous response as a query parameter.
+If the response contains more results than can fit on a single page, OpenSearch paginates the results and includes a `search_after` value in the response.
+To retrieve the next page, send another request to the same endpoint using the same filters and include the `search_after` value from the previous response as a query parameter.
 
-The following request continues the next page of rules from the same workload group:
+The following request provides the next page of rules from the same workload group:
 
 ```json
 "GET /_rules/workload_group?index_pattern=a,b&search_after=z1MJApUB0zgMcDmz-UQq"
