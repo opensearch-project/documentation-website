@@ -14,8 +14,7 @@ To compare the results of different search configurations, you can run a pairwis
 
 To create the query set refer [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
-To create the search configuration refer here. 
-[comment]: <> (TODO: add the link to search configurations here. )
+To create the search configuration refer [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/). 
 
 ## Creating a pairwise experiment
 

@@ -14,8 +14,7 @@ An application of running the search relevance workbench experiments is to evalu
 
 To create the query set refer [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
-To create the search configuration refer here. 
-[comment]: <> (TODO: add the link to search configurations here. )
+To create the search configuration refer [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/). 
 
 To create the judgments, refer [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/). 
 
@@ -28,9 +27,9 @@ In creating a pointwise experiment, your evaluation of a search configuration wi
 ```json
 PUT _plugins/_search_relevance/experiments
 {
-   	"querySetId": "7889ffe9-835e-4f48-a9cd-53905bb967d3",
-   	"searchConfigurationList": ["6a58fc84-6bdc-4e06-ad8a-c91e60d335e8"],
-    "judgmentList": ["18f652c5-9813-4163-b227-63aa2678873e"],
+   	"querySetId": "a02cedc2-249d-41de-be3e-662f6f221689",
+   	"searchConfigurationList": ["4f90e474-0806-4dd2-a8dd-0fb8a5f836eb"],
+    "judgmentList": ["d3d93bb3-2cf4-4da0-8d31-c298427c2756"],
    	"size": 8,
    	"type": "POINTWISE_EVALUATION"
 }
@@ -65,7 +64,7 @@ For retrieving the results of the experiment, the process will be the same as ru
 
 ```json
 {
-    "took": 11,
+    "took": 140,
     "timed_out": false,
     "_shards": {
         "total": 1,
@@ -82,29 +81,33 @@ For retrieving the results of the experiment, the process will be the same as ru
         "hits": [
             {
                 "_index": ".plugins-search-relevance-experiment",
-                "_id": "d707fa0f-3901-4c8b-8645-9a17e690722b",
+                "_id": "bb609dc9-e357-42ec-a956-92b43be0a3ab",
                 "_score": 1.0,
                 "_source": {
-                    "id": "d707fa0f-3901-4c8b-8645-9a17e690722b",
-                    "timestamp": "2025-06-12T04:18:45.979Z",
+                    "id": "bb609dc9-e357-42ec-a956-92b43be0a3ab",
+                    "timestamp": "2025-06-13T08:06:46.046Z",
                     "type": "POINTWISE_EVALUATION",
                     "status": "COMPLETED",
-                    "querySetId": "7889ffe9-835e-4f48-a9cd-53905bb967d3",
+                    "querySetId": "a02cedc2-249d-41de-be3e-662f6f221689",
                     "searchConfigurationList": [
-                        "6a58fc84-6bdc-4e06-ad8a-c91e60d335e8"
+                        "4f90e474-0806-4dd2-a8dd-0fb8a5f836eb"
                     ],
                     "judgmentList": [
-                        "18f652c5-9813-4163-b227-63aa2678873e"
+                        "d3d93bb3-2cf4-4da0-8d31-c298427c2756"
                     ],
                     "size": 8,
-                    "results": {
-                        "tv": {
-                            "6a58fc84-6bdc-4e06-ad8a-c91e60d335e8": "e96d52c2-f495-40ff-85c4-1d75bf70c85d"
+                    "results": [
+                        {
+                            "evaluationId": "10c60fee-11ca-49b0-9e8a-82cb7b2c044b",
+                            "searchConfigurationId": "4f90e474-0806-4dd2-a8dd-0fb8a5f836eb",
+                            "queryText": "tv"
                         },
-                        "led tv": {
-                            "6a58fc84-6bdc-4e06-ad8a-c91e60d335e8": "57e981dd-333f-4079-b659-9c46235dd94f"
+                        {
+                            "evaluationId": "c03a5feb-8dc2-4f7f-9d31-d99bfb392116",
+                            "searchConfigurationId": "4f90e474-0806-4dd2-a8dd-0fb8a5f836eb",
+                            "queryText": "led tv"
                         }
-                    }
+                    ]
                 }
             }
         ]
@@ -112,6 +115,80 @@ For retrieving the results of the experiment, the process will be the same as ru
 }
 ```
 
-This time in the results, for every search configuration, there is the id of the evaluation result
+This time in the results, for every search configuration, there is the id of the evaluation result. When you query for the id, you would have to query the `search-relevance-evaluation-result` index.
 
-TODO: Show how to retrieve the evaluation result and what the meaning is. 
+### Example evaluation metrics
+
+```json
+{
+    "took": 59,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 1,
+            "relation": "eq"
+        },
+        "max_score": 1.0,
+        "hits": [
+            {
+                "_index": "search-relevance-evaluation-result",
+                "_id": "10c60fee-11ca-49b0-9e8a-82cb7b2c044b",
+                "_score": 1.0,
+                "_source": {
+                    "id": "10c60fee-11ca-49b0-9e8a-82cb7b2c044b",
+                    "timestamp": "2025-06-13T08:06:40.869Z",
+                    "searchConfigurationId": "4f90e474-0806-4dd2-a8dd-0fb8a5f836eb",
+                    "searchText": "tv",
+                    "judgmentIds": [
+                        "d3d93bb3-2cf4-4da0-8d31-c298427c2756"
+                    ],
+                    "documentIds": [
+                        "B07Q7VGW4Q",
+                        "B00GXD4NWE",
+                        "B07VML1CY1",
+                        "B07THVCJK3",
+                        "B07RKSV7SW",
+                        "B010EAW8UK",
+                        "B07FPP6TB5",
+                        "B073G9ZD33"
+                    ],
+                    "metrics": [
+                        {
+                            "metric": "Coverage@8",
+                            "value": 0.0
+                        },
+                        {
+                            "metric": "Precision@8",
+                            "value": 0.0
+                        },
+                        {
+                            "metric": "MAP@8",
+                            "value": 0.0
+                        },
+                        {
+                            "metric": "NDCG@8",
+                            "value": 0.0
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
+```
+
+The usual parameters that were added to the put requests are returned, but there is also the metric values. 
+
+Coverage@k: The proportion of documents with scores from the judgment which is the amount of documents with scores divided by the total amount of documents. 
+
+Precision@k: This would be the proportion of documents with nonzero judgment scores out of k or the number of documents returned, whichever is lower. 
+
+MAP@k: The Mean Average Precision is the average of the precisions out of the number of documents. For more details, check [here](https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision)
+
+NDCG@k: The Normalized discounted cumulative gain compares the discounted cumulative gain of the results returned with the discounted cumulative gain of the perfect ranking of the results that can be returned. The top results receive higher weight than the lower ones. 
