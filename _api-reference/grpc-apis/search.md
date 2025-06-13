@@ -80,7 +80,7 @@ The [`SearchRequest`](https://github.com/opensearch-project/opensearch-protobufs
 | `suggest_mode` | [`SuggestMode`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L145) | The suggestion mode (for example, `always`, `missing`, `popular`). |
 | `suggest_size` | `int32` | The number of suggestions to return. |
 | `suggest_text` | `string` | The input text for generating suggestions. |
-| `terminate_after` | `int32` | The maximum number of documents to process before early termination. Default is `0`. |
+| `terminate_after` | `int32` | The maximum number of matching documents (hits) to process before early termination. Default is `0`. |
 | `timeout` | `string` | The maximum amount of time to wait for query execution. Default is `1m`. |
 | `track_scores` | `bool` | Whether to return document scores. Default is `false`. |
 | `track_total_hits` | [`TrackHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L309) | Whether to include total hits metadata. |
@@ -118,7 +118,7 @@ The `SearchRequestBody` message accepts the following fields. All fields are opt
 | `source` | [`SourceConfig`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L176) | Controls whether to return the full `_source`, no `_source`, or only specific fields from `_source` in the response. |
 | `fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/common.proto#L962) | Additional fields to return, with formatting options. |
 | `suggest` | [`Suggester`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.3.0/protos/schemas/search.proto#L654) | Suggestion queries for autocomplete or corrections. |
-| `terminate_after` | `int32` | The maximum number of documents to process before early termination. Default is `0`. |
+| `terminate_after` | `int32` | The maximum number of matching documents (hits) to process before early termination. Default is `0`. |
 | `timeout` | `string` | The maximum amount of time to wait for query execution. |
 | `track_scores` | `bool` | Whether to return document scores in the results. |
 | `include_named_queries_score` | `bool` | Whether to include scores for named queries. |
