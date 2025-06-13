@@ -404,13 +404,6 @@ div.highlighter-rouge {
   background-color: $sidebar-color;
 }
 
-// Copy code button
-// .copy-button {
-//   @extend .btn-general;
-//   background-color: $sidebar-color;
-//   display: inline;
-// }
-
 // Copy as curl button
 .copy-curl-button {
   @extend .copy-button;
