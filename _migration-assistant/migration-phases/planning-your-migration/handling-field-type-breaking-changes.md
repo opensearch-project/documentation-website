@@ -33,7 +33,7 @@ GET /library-books/_mappings
 
 For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/).
 
-## Using the Migration Assistant with a transformation configuration
+## Configure item transformations
 
 You can customize how field types are transformed during metadata and data migrations by supplying a transformation configuration file.
 
@@ -47,7 +47,7 @@ You can customize how field types are transformed during metadata and data migra
    ```
    {% include copy.html %}
 
-3. Write JavaScript rules that perform the desired field type conversions. See the example below.
+3. Write JavaScript rules that perform the desired field type conversions. See the following example.
 4. Create a transformation descriptor file:
 
    ```bash
@@ -126,8 +126,8 @@ function main(context) {
 
 1. The `rules` array defines transformation logic:
 
-   * `when`: key/value conditions to match on a node
-   * `set`: key/value pairs to apply when the `when` clause matches
+   * `when`: key-value conditions to match on a node
+   * `set`: key-value pairs to apply when the `when` clause matches
    * `remove` (optional): keys to delete from the node when matched
 
 2. The `applyRules` function recursively traverses the input:
