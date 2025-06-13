@@ -31,6 +31,7 @@ k-NN vector | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-
 Percolator | [`percolator`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/): Specifies to treat this field as a query. 
 Derived | [`derived`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/derived/): Creates new fields dynamically by executing scripts on existing fields.
 Star-tree | [`star_tree`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/): Precomputes aggregations and stores them in a [star-tree index](https://docs.pinot.apache.org/basics/indexing/star-tree-index), accelerating the performance of aggregation queries.
+Semantic | [`semantic`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/semantic/): Wraps a Binary or String field and simplify the semantic search set up.
 
 ## Arrays
 
