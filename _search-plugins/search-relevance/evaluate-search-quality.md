@@ -12,17 +12,17 @@ has_toc: false
 
 An application of running the search relevance workbench experiments is to evaluate the quality of search configurations given judgments and queries, also called a pointwise experiment.
 
-For more information on how to create a query set, see [Query Sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
+For more information about how to create a query set, see [Query Sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
-For more information on how to create search configurations, see [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/).
+For more information about how to create search configurations, see [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/).
 
-For more information on how to create the judgments, see [Judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/).
+For more information about how to create the judgments, see [Judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/).
 
 ## Creating a pointwise experiment
 
 In creating a pointwise experiment, your evaluation of a search configuration will be tested against the provided judgments.
 
-### Example Request:
+### Example request:
 
 ```json
 PUT _plugins/_search_relevance/experiments
@@ -47,7 +47,7 @@ Field | Data type |  Description
 `size` | Integer | How many documents to return in the results
 `type` | String | Defines the type of experiment to run. One of `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. However, the body fields will change depending on the type of chosen.
 
-### Example Response:
+### Example response:
 
 ```json
 {

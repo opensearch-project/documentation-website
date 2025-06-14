@@ -321,8 +321,7 @@ GET _plugins/_search_relevance/experiments/dbae9786-6ea0-413d-a500-a14ef69ef7e1
 }
 ```
 
-However, the Search Relevance Workbench is not only a backend tool. You can create all the above mentioned
-in the frontend and eventually visualize the experiment results.
+However, the Search Relevance Workbench is not only a backend tool. You can create all the previously mentioned in the frontend and eventually visualize the experiment results.
 Let's create the same experiment in the frontend and review the results.
 
 In the left navigation go to "Search Relevance" in the OpenSearch Plugins section. Now click on Query Set Comparison:

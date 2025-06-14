@@ -203,7 +203,7 @@ GET _plugins/_search_relevance/experiments
 }
 ```
 
-The completion of the experiment is actually an asynchronous process, therefore, the status could still be processing just like above. However, after waiting for the processes to complete, the results should be available.
+The completion of the experiment is actually an asynchronous process, therefore, the status could still be processing like in the preceeding response. However, after waiting for the processes to complete, the results should be available.
 
 #### Example completed response:
 
@@ -315,10 +315,10 @@ The completion of the experiment is actually an asynchronous process, therefore,
 
 ### Meaning of the results
 
-As shown above, in the results, for both search configurations, the top N documents are returned with 10 specified as the size during the search request. However, there are also metrics on the pairwise comparison.
+As shown in the preceeding response, in the results, for both search configurations, the top N documents are returned with 10 specified as the size during the search request. However, there are also metrics on the pairwise comparison.
 
 Jaccard metric: This will show the simularity score by dividing the intersection cardinality by the union cardinality of the returned documents.
 
-RBO: The RBO metric is the Rank-Biased Overlap metric. This compares the returned sets at every depth. For example, it would compare the top documents of each configuration, the top 2 documents, etc... and would place higher importance on the earlier comparisons.
+RBO: The RBO metric is the Rank-Biased Overlap metric. This compares the returned sets at every depth. For example, it would compare the top documents of each configuration, the top 2 documents,... and would place higher importance on the earlier comparisons.
 
 Frequency Weighted: This is similar to the Jaccard metric in that it calculates the weights of the intersection divided by the weights of the union. However, the weights are skewed towards the documents with higher frequencies.

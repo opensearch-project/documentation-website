@@ -32,4 +32,4 @@ Typically, viewing the changes of a search result for two configuration is merel
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing-search-results-query-sets.png" alt="Compare search results"/>{: .img-fluid }
 
-For more information on how to use the search result comparison tool for a query set, see [Comparing search results - query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/).
+For more information about how to use the search result comparison tool for a query set, see [Comparing search results - query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/).
