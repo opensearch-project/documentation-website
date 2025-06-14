@@ -42,8 +42,8 @@ The following lists the input parameters.
 Field | Data type |  Description
 :---  | :--- | :---
 `querySetId` | String |	The id of the query set.
-`searchConfigurationList` | List[String] | A list of search configuration ids to use for comparing.
-`judgmentList` | List[String] | A list of judgment ids to use for evaluating the accuracy of the search.
+`searchConfigurationList` | Array[String] | A list of search configuration ids to use for comparing.
+`judgmentList` | Array[String] | A list of judgment ids to use for evaluating the accuracy of the search.
 `size` | Integer | How many documents to return in the results
 `type` | String | Defines the type of experiment to run. One of `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. However, the body fields will change depending on the type of chosen.
 
