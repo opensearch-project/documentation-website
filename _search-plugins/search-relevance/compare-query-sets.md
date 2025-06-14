@@ -10,15 +10,15 @@ has_toc: false
 
 # Comparing query sets
 
-To compare the results of different search configurations, you can run a pairwise experiment. The building blocks for comparing search configurations is to first have your search configurations available, then have a query set to use for the search configuration.
+To compare the results of two different search configurations, you can run a pairwise experiment. The building blocks for comparing search configurations is to first have your two search configurations available, then have a query set to use for the search configuration.
 
-To create the query set refer [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
+For more information on how to create a query set, see [Query Sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
-To create the search configuration refer [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/). 
+For more information on how to create search configurations, see [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/).
 
 ## Creating a pairwise experiment
 
-An experiment is used to compare the metrics between two different search configurations. You will be shown the top N results for every query based on the specified search configurations. In the dashboard, you will be able to "eyeball" the returned documents from any of the queries in the query set, and determine which search configuration returns the more accurate document id set. In addition, there will be some metrics to measure the similarity between the two returned document id sets. 
+An experiment is used to compare the metrics between two different search configurations. You will be shown the top N results for every query based on the specified search configurations. In the dashboard, you will be able to "eyeball" the returned documents from any of the queries in the query set, and determine which search configuration returns the more accurate document id set. In addition, there will be some metrics to measure the similarity between the two returned search result lists.
 
 ### Example Request:
 
@@ -41,9 +41,9 @@ Field | Data type |  Description
 `querySetId` | String |	The id of the query set.
 `searchConfigurationList` | List[String] | A list of search configuration ids to use for comparing.
 `size` | Integer | How many documents to return in the results
-`type` | String | Defines the type of experiment to run. One of `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. However, the body fields will change depending on the type of experiment. 
+`type` | String | Defines the type of experiment to run. One of `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. However, the body fields will change depending on the type of experiment.
 
-### Example Response: 
+### Example Response:
 
 ```json
 {
@@ -51,7 +51,7 @@ Field | Data type |  Description
     "experiment_result": "CREATED"
 }
 ```
-## Interpretting the experiment results
+## Interpreting the experiment results
 
 ### Retrieving the experiment results
 
@@ -120,7 +120,7 @@ GET _plugins/_search_relevance/experiments/cbd2c209-96d1-4012-aa73-e524b7a1b11a
 }
 ```
 
-To retrieve the result of all experiments, you can make another get request without specifying the `experiment_id` in the path. 
+To retrieve the result of all experiments, you can make another get request without specifying the `experiment_id` in the path.
 
 #### Endpoint:
 
@@ -203,7 +203,7 @@ GET _plugins/_search_relevance/experiments
 }
 ```
 
-The completion of the experiment is actually an asynchronous process, therefore, the status could still be processing just like above. However, after waiting for the processes to complete, the results should be available. 
+The completion of the experiment is actually an asynchronous process, therefore, the status could still be processing just like above. However, after waiting for the processes to complete, the results should be available.
 
 #### Example completed response:
 
@@ -315,10 +315,10 @@ The completion of the experiment is actually an asynchronous process, therefore,
 
 ### Meaning of the results
 
-As shown above, in the results, for both search configurations, the top N documents are returned with 10 specified as the size during the search request. However, there are also metrics on the pairwise comparison. 
+As shown above, in the results, for both search configurations, the top N documents are returned with 10 specified as the size during the search request. However, there are also metrics on the pairwise comparison.
 
 Jaccard metric: This will show the simularity score by dividing the intersection cardinality by the union cardinality of the returned documents.
 
-RBO: The RBO metric is the rank-biased overlap metric. This compares the returned sets at every depth. FOr example, it would compare the top documents of each configuration, the top 2 documents, etc... and would place higher importance on the earlier comparisons. 
+RBO: The RBO metric is the Rank-Biased Overlap metric. This compares the returned sets at every depth. For example, it would compare the top documents of each configuration, the top 2 documents, etc... and would place higher importance on the earlier comparisons.
 
-Frequence weighted: This is similar to the Jaccard metric in that it calculates the weights of the intersection divided by the weights of the union. However, the weights are skewed towards the documents with higher frequencies. 
+Frequency Weighted: This is similar to the Jaccard metric in that it calculates the weights of the intersection divided by the weights of the union. However, the weights are skewed towards the documents with higher frequencies.

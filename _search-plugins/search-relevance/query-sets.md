@@ -10,7 +10,7 @@ has_toc: false
 
 # Query Sets
 
-A query set is a collection of queries. These queries are used in experiments for search relevance evaluation. The Search Relevance Workbench offers different techniques to sample query sets from real user queries for users that collect search behavior data adhering to the User Behavior Insights (UBI) standard.
+A query set is a collection of queries. These queries are used in experiments for search relevance evaluation. The Search Relevance Workbench offers different sampling techniques to create query sets from real user data that adheres to the User Behavior Insights (UBI) standard.
 Additionally, the Search Relevance Workbench allows importing a query set.
 
 ## Creating query sets
@@ -19,7 +19,7 @@ OpenSearch users that track user behavior with the User Behavior Insights (UBI) 
 
 The Search Relevance Workbench supports three sampling methods:
 * Random: takes a random sample of all queries.
-* Probability-Proportional-to-Size Sampling: takes a frequency-weighted sample of all queries to have a representative sample.
+* [Probability-Proportional-to-Size Sampling](https://opensourceconnections.com/blog/2022/10/13/how-to-succeed-with-explicit-relevance-evaluation-using-probability-proportional-to-size-sampling/): takes a frequency-weighted sample of all queries to have a representative sample.
 * Top N: takes the most frequent N queries.
 
 ### Endpoint
@@ -37,7 +37,7 @@ Field | Data type |  Description
 `name` | String |	The name of the query set.
 `description` | String | A short description of the query set.
 `sampling` | String | Defines which sampler to use. One of `pptss` (Probability-Proportional-to-Size-Sampling), `random`, `topn` (most frequent queries), or `manual`.
-`querySetSize` | Integer | The target amount of queries the query set should have. Depending on the number of unique queries in `ubi_queries the resulting query set can have fewer queries.
+`querySetSize` | Integer | The target amount of queries the query set should have. Depending on the number of unique queries in `ubi_queries` the resulting query set can have fewer queries.
 
 ### Example request: sampling 20 queries with the Top N sampler
 

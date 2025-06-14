@@ -16,7 +16,7 @@ The Search Relevance Workbench offers a way to systematically identify the ideal
 
 ## Requirements
 
-Under the hood, optimizing hybrid search is running multiple searc quality evaluation experiments. Similar to those you need a query set, judgments and a search configuration.
+Under the hood, optimizing hybrid search is done by running multiple search quality evaluation experiments. Similar to those experiments you need a query set, judgments and a search configuration.
 Currently, hybrid search optimization with the Search Relevance Workbench is restricted to two query clauses. Technically, it is possible to run this optimization process with a hybrid search query consisting of two lexical query clauses. For such an experiment, the only requirement for the search configuration is to contain a hybrid search query with two lexical query clauses, for example:
 
 ```json
@@ -28,19 +28,18 @@ PUT _plugins/_search_relevance/search_configurations
 }'
 ```
 
-However, we assume hybrid search optimization to add most value when combining of lexical and vector-based search results. The requirement for your search configuration is to contain a hybrid search query with two query clauses: one textual query clause and one neural query clause. The search pipeline that deals with the combination of results is handled by the hybrid search optimization process itself. Here is an example how a suitable search configuration for a hybrid search optimization experiment looks like:
+However, we assume hybrid search optimization to add most value when combining lexical and vector-based search results. The requirement for your search configuration is to contain a hybrid search query with two query clauses: one textual query clause and one neural query clause. The search pipeline that deals with the combination of results is handled by the hybrid search optimization process itself. Here is an example of how a suitable search configuration for a hybrid search optimization experiment might look like:
 
-```bash
-curl -s -X PUT "http://localhost:9200/_plugins/_search_relevance/search_configurations" \
--H "Content-type: application/json" \
--d"{
-      \"name\": \"hybrid_query33\",
-      \"query\": \"{\\\"query\\\":{\\\"hybrid\\\":{\\\"queries\\\":[{\\\"multi_match\\\":{\\\"query\\\":\\\"%SearchText%\\\",\\\"fields\\\":[\\\"id\\\",\\\"title\\\",\\\"category\\\",\\\"bullets\\\",\\\"description\\\",\\\"attrs.Brand\\\",\\\"attrs.Color\\\"]}},{\\\"neural\\\":{\\\"title_embedding\\\":{\\\"query_text\\\":\\\"%SearchText%\\\",\\\"k\\\":100,\\\"model_id\\\":\\\"6-LzaJcB85oVKiByPr0F\\\"}}}]}},\\\"size\\\":10}\",
-      \"index\": \"ecommerce\"
-}"
+```json
+PUT _plugins/_search_relevance/search_configurations
+{
+  "name": "hybrid_query_text",
+  "query": "{\"query\":{\"hybrid\":{\"queries\":[{\"multi_match\":{\"query\":\"%SearchText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\\\",\"attrs.Color\"]}},{\"neural\":{\"title_embedding\":{\"query_text\":\"%SearchText%\",\"k\":100,\"model_id\":\"lRFFb5cBHkapxdNcFFkP\"}}}]}},\"size\":10}",
+  "index": "ecommerce"
+}
 ```
 
-The specified model ID in the `query` has to be valid and point to a model available in OpenSearch. The corresponding field containing the embeddings for the neural search part (`title_embedding` in this example) has to be populated with embeddings prior to running this experiment. The [`search-relevance` repository](https://github.com/opensearch-project/user-behavior-insights) contains an end-to-end example guiding you in case you need more information on how to get started and meet the requirements for this experiment type.
+The specified model ID in the `query` has to be valid and point to a model available in OpenSearch. The corresponding field containing the embeddings for the neural search part (`title_embedding` in this example) has to exist in the target index prior to running this experiment. The [`search-relevance` repository](https://github.com/opensearch-project/search-relevance) contains an end-to-end example guiding you in case you need more information on how to get started and meet the requirements for this experiment type.
 
 ## Running a hybrid search optimzation experiment
 
@@ -76,7 +75,7 @@ PUT _plugins/_search_relevance/experiments
 
 ## Experimentation process
 
-The hybrid search optimization experiment runs different evaluations based on the search configuration. The following parametrs and parameter values are taken into account:
+The hybrid search optimization experiment runs different evaluations based on the search configuration. The following parameters and parameter values are taken into account:
 
 * Two normalization techniques: `l2` and `min_max`.
 * Three combination techniques: `arithmetic_mean`, `harmonic_mean`, `geometric_mean`.

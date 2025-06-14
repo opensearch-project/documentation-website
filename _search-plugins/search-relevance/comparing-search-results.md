@@ -10,7 +10,7 @@ has_toc: false
 
 # Comparing search results
 
-Comparing search results in OpenSearch Dashboards allows you to compare results of multiple search configurations executed on queries. Using this tool helps assess how results change when applying different search configurations.
+Comparing search results, also called a pairwise experiment, in OpenSearch Dashboards allows you to compare results of multiple search configurations executed on queries. Using this tool helps assess how results change when applying different search configurations.
 
 For example, you can see how results change when you apply one of the following query changes:
 
@@ -28,7 +28,7 @@ For more information on how to use the search result comparison tool for a singl
 
 ## Comparing search results of a query set
 
-Typically, viewing the changes of a search result for two configuration is merely a first step towards testing. Scaling from one query to many is easy in the Search Relevance Workbench. By grouping queries to a query set and creating so-called search configurations, users can create a search result comparison experiment that shows change on a larger scale by looking at aggregate metrics across all queries. The user interface allows inspecting individual queries in the same way the single query result comparison allows:
+Typically, viewing the changes of a search result for two configuration is merely a first step towards testing. Scaling from one query to many is easy in the Search Relevance Workbench. By grouping queries to a query set and creating [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/), users can create a search result comparison experiment that shows change on a larger scale by looking at aggregate metrics across all queries. The user interface allows inspecting individual queries in the same way the single query result comparison allows:
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing-search-results-query-sets.png" alt="Compare search results"/>{: .img-fluid }
 

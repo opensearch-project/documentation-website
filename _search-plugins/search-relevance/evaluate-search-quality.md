@@ -10,17 +10,17 @@ has_toc: false
 
 # Evaluating search quality
 
-An application of running the search relevance workbench experiments is to evaluate the quality of search configurations given judgments and queries. 
+An application of running the search relevance workbench experiments is to evaluate the quality of search configurations given judgments and queries, also called a pointwise experiment.
 
-To create the query set refer [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
+For more information on how to create a query set, see [Query Sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
-To create the search configuration refer [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/). 
+For more information on how to create search configurations, see [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/).
 
-To create the judgments, refer [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/). 
+For more information on how to create the judgments, see [Judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/).
 
 ## Creating a pointwise experiment
 
-In creating a pointwise experiment, your evaluation of a search configuration will be tested against the provided judgments. 
+In creating a pointwise experiment, your evaluation of a search configuration will be tested against the provided judgments.
 
 ### Example Request:
 
@@ -45,9 +45,9 @@ Field | Data type |  Description
 `searchConfigurationList` | List[String] | A list of search configuration ids to use for comparing.
 `judgmentList` | List[String] | A list of judgment ids to use for evaluating the accuracy of the search.
 `size` | Integer | How many documents to return in the results
-`type` | String | Defines the type of experiment to run. One of `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. However, the body fields will change depending on the type of chosen. 
+`type` | String | Defines the type of experiment to run. One of `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. However, the body fields will change depending on the type of chosen.
 
-### Example Response: 
+### Example Response:
 
 ```json
 {
@@ -183,12 +183,12 @@ This time in the results, for every search configuration, there is the id of the
 }
 ```
 
-The usual parameters that were added to the put requests are returned, but there is also the metric values. 
+The usual parameters that were added to the put requests are returned, but there is also the metric values.
 
-Coverage@k: The proportion of documents with scores from the judgment which is the amount of documents with scores divided by the total amount of documents. 
+Coverage@k: The proportion of documents with scores from the judgment which is the amount of documents with scores divided by the total amount of documents.
 
-Precision@k: This would be the proportion of documents with nonzero judgment scores out of k or the number of documents returned, whichever is lower. 
+Precision@k: This would be the proportion of documents with nonzero judgment scores out of k or the number of documents returned, whichever is lower.
 
 MAP@k: The Mean Average Precision is the average of the precisions out of the number of documents. For more details, check [here](https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision)
 
-NDCG@k: The Normalized discounted cumulative gain compares the discounted cumulative gain of the results returned with the discounted cumulative gain of the perfect ranking of the results that can be returned. The top results receive higher weight than the lower ones. 
+NDCG@k: The Normalized discounted cumulative gain compares the discounted cumulative gain of the results returned with the discounted cumulative gain of the perfect ranking of the results that can be returned. The top results receive higher weight than the lower ones.
