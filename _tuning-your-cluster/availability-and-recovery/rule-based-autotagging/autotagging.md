@@ -185,13 +185,18 @@ Ongoing operations and monitoring help maintain rule quality over time. Use the 
 
 Here are some common issues and how to resolve them:
 
-* **No value assigned**: Verify attribute values and matching rules.
-* **Unexpected value**: Check for more specific matching rules.
-* **Rule not working**: Confirm attribute matching behavior is supported.
+* **No value assigned**: If this happens then we need to double-check the request attributes against existing rules.
+for example: Assume we have **index_pattern** as a valid allowed attribute. Now lets say request is targeted to search
+`logs_q1_2025` but we have not created any rule for this attribute value.
+
+* **Unexpected value**: This can happen when user has defined specific rules. Assuming username and index_pattern are 
+valid allowed attributes in `Rule`. Now if user has defined 2 rules 
+1. { "username": ["dev*"], "index_pattern": ["logs*"] }
+2. {"index_pattern": ["logs*", "events*""]}
+and user with username **dev_john** sends a search request against `logs_q1_25` then it will match first rule not the
+second one
 
 To validate your configuration:
 
 * Test rules with sample requests.
 * Use the [List Rules API](#list-rules) to confirm rule definitions.
-* Monitor rule evaluation in system logs
-
