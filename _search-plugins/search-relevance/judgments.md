@@ -10,7 +10,7 @@ has_toc: false
 
 # Judgments
 
-A judgment is a rating that describes the relevance of one particular document for a given query. Multiple judgments are grouped together to judgment lists.
+A judgment is a rating that describes the relevance of one particular document for a given query. Multiple judgments are grouped together into judgment lists.
 Typically, judgments are categorized into two types: implicit and explicit.
 
 * Implicit judgments are ratings that were derived from user behavior (for example what was seen and what was clicked after searching?)
@@ -162,7 +162,7 @@ Initializing the creation of implicit judgments supports the following parameter
 
 Parameter | Data type | Description
 `name` | String | The name of the judgment list.
-`clickModel` | String | The model used to calculate implicit judgments. `coec` (Clicks Over Expected Clicks) is currently supported.
+`clickModel` | String | The model used to calculate implicit judgments. `coec` (Clicks Over Expected Clicks) is only currently supported.
 `type` | String | The type of judgment. When creating implicit judgments the type is `UBI_JUDGMENT`.
 `maxRank` | Integer | The maximum rank at which to consider events for judgment calculation.
 
