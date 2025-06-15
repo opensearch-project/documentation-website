@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Judgments
-nav_order: 80
+nav_order: 40
 parent: Using Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Search Configurations
-nav_order: 80
+nav_order: 30
 parent: Using Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false

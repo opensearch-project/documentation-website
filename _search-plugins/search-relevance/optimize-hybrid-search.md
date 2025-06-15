@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Hybrid Search Optimizer
-nav_order: 65
+nav_order: 60
 parent: Using Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
