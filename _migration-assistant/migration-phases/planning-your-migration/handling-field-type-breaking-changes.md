@@ -10,8 +10,6 @@ grand_parent: Migration phases
 
 This guide explains how to use the Migration Assistant to transform field types that are deprecated or incompatible during a migration to OpenSearch.
 
-## What is a field type?
-
 Field types define how data is stored and queried in an index. Each field in a document is mapped to a data type, which determines how it is indexed and what operations can be performed on it.
 
 For example, the following index mapping for a library's book collection defines three fields, each with a different type:
@@ -35,20 +33,18 @@ For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}
 
 ## Configure item transformations
 
-You can customize how field types are transformed during metadata and data migrations by supplying a transformation configuration file.
-
-### Steps
+You can customize how field types are transformed during metadata and data migrations by supplying a transformation configuration file, using the following steps:
 
 1. Open the Migration Assistant console.
-2. Create a JavaScript file to define your transformation logic:
+2. Create a JavaScript file to define your transformation logic using the following command:
 
    ```bash
    vim /shared-logs-output/field-type-converter.js
    ```
    {% include copy.html %}
 
-3. Write JavaScript rules that perform the desired field type conversions. See the following example.
-4. Create a transformation descriptor file:
+3. Write any JavaScript rules that perform the desired field type conversions. For an example of how the rules can be implemented, see the [example `field-type-converter.js` implementation](#example-field-type-converter-js-implementation)
+4. Create a transformation descriptor file using the following command:
 
    ```bash
    vim /shared-logs-output/transformation.json
@@ -56,7 +52,7 @@ You can customize how field types are transformed during metadata and data migra
    {% include copy.html %}
 
 5. Add a reference to your JavaScript file in `transformation.json`.
-6. Run the metadata migration and supply the transformation configuration:
+6. Run the metadata migration and supply the transformation configuration using a command similar to the following:
 
    ```bash
    console metadata migrate \
@@ -66,10 +62,10 @@ You can customize how field types are transformed during metadata and data migra
 
 ### Example `field-type-converter.js` implementation
 
-This script demonstrates how to perform common field type conversions, including:
+The following script demonstrates how to perform common field type conversions, including:
 
-* Replacing the deprecated `string` type with `text`
-* Converting `flattened` to `flat_object` and removing the `index` property if present
+* Replacing the deprecated `string` type with `text`.
+* Converting `flattened` to `flat_object` and removing the `index` property if present.
 
 ```javascript
 function main(context) {
@@ -122,13 +118,13 @@ function main(context) {
 ```
 {% include copy.html %}
 
-#### How this implementation works
+The script contains the following elements:
 
 1. The `rules` array defines transformation logic:
 
-   * `when`: key-value conditions to match on a node
-   * `set`: key-value pairs to apply when the `when` clause matches
-   * `remove` (optional): keys to delete from the node when matched
+   * `when`: Key-value conditions to match on a node
+   * `set`: Key-value pairs to apply when the `when` clause matches
+   * `remove` (optional): Keys to delete from the node when matched
 
 2. The `applyRules` function recursively traverses the input:
 
@@ -143,7 +139,7 @@ function main(context) {
 
 ### Example `transformation.json`
 
-This JSON file references your transformation script and is used to initialize the JavaScript engine with your custom rules:
+The following JSON file references your transformation script and initializes the JavaScript engine with your custom rules:
 
 ```json
 [
