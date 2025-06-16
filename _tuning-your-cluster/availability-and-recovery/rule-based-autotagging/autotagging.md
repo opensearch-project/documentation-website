@@ -173,7 +173,7 @@ Attribute selection and configuration significantly influence rule effectiveness
 
 ### Operations
 
-Ongoing operations and monitoring help maintain rule quality over time. Use the following practices to keep your setup reliable and effective:
+Ongoing operations and monitoring help maintain rule quality over time. Use the following practices to keep your feature rules reliable and effective:
 
 * Test new rules in a development environment.
 * Monitor rule matches in system logs.
@@ -183,20 +183,19 @@ Ongoing operations and monitoring help maintain rule quality over time. Use the 
 
 ## Troubleshooting
 
-Here are some common issues and how to resolve them:
+When creating rules, the following issues can occur:
 
-* **No value assigned**: If this happens then we need to double-check the request attributes against existing rules.
-for example: Assume we have **index_pattern** as a valid allowed attribute. Now lets say request is targeted to search
-`logs_q1_2025` but we have not created any rule for this attribute value.
+* **No value assigned**: This issue typically occurs when the request attributes do not match any existing rules.  
+  For example, suppose `index_pattern` is a valid allowed attribute. If a request is made to search `logs_q1_2025` but no rule exists for that value, the request will not match any rule and will result in a missing assignment.
 
-* **Unexpected value**: This can happen when user has defined specific rules. Assuming username and index_pattern are 
-valid allowed attributes in `Rule`. Now if user has defined 2 rules 
-1. { "username": ["dev*"], "index_pattern": ["logs*"] }
-2. {"index_pattern": ["logs*", "events*""]}
-and user with username **dev_john** sends a search request against `logs_q1_25` then it will match first rule not the
-second one
+* **Unexpected value**: This can happen when multiple rules are defined with overlapping or conflicting conditions.  
+  For example, consider the following rules:
+  1. `{ "username": ["dev*"], "index_pattern": ["logs*"] }`
+  2. `{ "index_pattern": ["logs*", "events*"] }`
 
-To validate your configuration:
+  If a user with the username `dev_john` sends a search request to `logs_q1_25`, it will match the first rule based on the `username` and `index_pattern` attributes. The request will not match the second rule, even though the `index_pattern` also qualifies.
 
-* Test rules with sample requests.
-* Use the [List Rules API](#list-rules) to confirm rule definitions.
+Both of these issues can be resolved by validating your configuration using one of the following techniques:
+
+* Test rules using representative sample requests.
+* Use the [List rules API](#list-rules) to confirm the active rule definitions.
