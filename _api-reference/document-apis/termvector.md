@@ -84,16 +84,16 @@ The following table lists the fields that can be specified in the request body.
 
 ## Filtering terms
 
-The filter object in the request body allows you to filter which tokens are included in the term vector response. See following table for list of possible options:
+The `filter` object in the request body allows you to filter the tokens to include in the term vector response. The `filter` object supports the following fields.
 
 | Field | Data type | Description |
-| `max_num_terms` | Integer | Maximum number of terms to return. |
-| `min_term_freq` | Integer | Minimum term frequency in the document for a term to be included. |
-| `max_term_freq` | Integer | Maximum term frequency in the document for a term to be included. |
-| `min_doc_freq` | Integer | Minimum document frequency across the index for a term to be included. |
-| `max_doc_freq` | Integer | Maximum document frequency across the index for a term to be included. |
-| `min_word_length` | Integer | Minimum length of the term to be included. |
-| `max_word_length` | Integer | Maximum length of the term to be included. |
+| `max_num_terms` | Integer | The maximum number of terms to return. |
+| `min_term_freq` | Integer | The minimum term frequency in the document for a term to be included. |
+| `max_term_freq` | Integer | The maximum term frequency in the document for a term to be included. |
+| `min_doc_freq` | Integer | The minimum document frequency across the index for a term to be included. |
+| `max_doc_freq` | Integer | The maximum document frequency across the index for a term to be included. |
+| `min_word_length` | Integer | The minimum length of the term to be included. |
+| `max_word_length` | Integer | The maximum length of the term to be included. |
 
 ## Example
 
@@ -137,7 +137,7 @@ GET /my-index/_termvectors/1
 ```
 {% include copy-curl.html %}
 
-Alternatively you can use:
+Alternatively, you can provide `fields` and `term_statistics` as query parameters:
 
 ```json
 GET /my-index/_termvectors/1?fields=text&term_statistics=true
@@ -231,19 +231,19 @@ The response displays term vector information:
 
 ## Response body fields
 
-The following table lists the fields in the response.
+The following table lists all response body fields.
 
 | Field | Data type | Description |
 | `term_vectors` | Object | Contains term vector data for each specified field. |
 | `term_vectors.text` | Object | Contains term vector details for the `text` field. |
 | `term_vectors.text.field_statistics` | Object | Contains statistics for the entire field. Present only if `field_statistics` is `true`. |
-| `term_vectors.text.field_statistics.doc_count` | Integer | Number of documents that contain at least one term in the specified field. |
-| `term_vectors.text.field_statistics.sum_doc_freq` | Integer | Sum of document frequencies for all terms in the field. |
-| `term_vectors.text.field_statistics.sum_ttf` | Integer | Sum of total term frequencies (including repetitions) for all terms in the field. |
-| `term_vectors.text.terms` | Object | A map where each key is a term and each value contains details about that term. |
-| `term_vectors.text.terms.<term>.term_freq` | Integer | Number of times the term appears in the document. |
-| `term_vectors.text.terms.<term>.doc_freq` | Integer | Number of documents containing the term. Present only if `term_statistics` is `true`. |
-| `term_vectors.text.terms.<term>.ttf` | Integer | Total term frequency across all documents. Present only if `term_statistics` is `true`. |
+| `term_vectors.text.field_statistics.doc_count` | Integer | The number of documents that contain at least one term in the specified field. |
+| `term_vectors.text.field_statistics.sum_doc_freq` | Integer | The sum of document frequencies for all terms in the field. |
+| `term_vectors.text.field_statistics.sum_ttf` | Integer | The sum of total term frequencies (including repetitions) for all terms in the field. |
+| `term_vectors.text.terms` | Object | A map, in which each key is a term and each value contains details about that term. |
+| `term_vectors.text.terms.<term>.term_freq` | Integer | The number of times the term appears in the document. |
+| `term_vectors.text.terms.<term>.doc_freq` | Integer | The number of documents containing the term. Present only if `term_statistics` is `true`. |
+| `term_vectors.text.terms.<term>.ttf` | Integer | The total term frequency across all documents. Present only if `term_statistics` is `true`. |
 | `term_vectors.text.terms.<term>.tokens` | Array | A list of token objects providing information about individual term instances. |
 | `term_vectors.text.terms.<term>.tokens[].position` | Integer | The position of the token within the text. Present only if `positions` is `true`. |
 | `term_vectors.text.terms.<term>.tokens[].start_offset` | Integer | The start character offset of the token. Present only if `offsets` is `true`. |

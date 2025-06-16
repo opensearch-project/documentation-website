@@ -76,23 +76,23 @@ The following table lists the fields that can be specified in the request body.
 | `field_statistics` | Boolean | If `true`, the response includes statistics such as document count, sum of document frequencies, and sum of total term frequencies. *(Default: `true`)* |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. *(Default: `false`)* |
 | `routing` | String | Custom routing value to identify the shard. Required if custom routing was used during indexing. |
-| `version` | Integer | Specific version of the document to retrieve. |
+| `version` | Integer | The specific version of the document to retrieve. |
 | `version_type` | String | The type of versioning to use. Valid values: `internal`, `external`, `external_gte`. |
-| `filter` | Object | Allows filtering of tokens returned in the response (e.g., by frequency, position). See [Filtering terms]({{site.url}}{{site.baseurl}}/api-reference/document-apis/mtermvectors/#filtering-terms) for available options. |
+| `filter` | Object | Filters tokens returned in the response (for example, by frequency or position). For supported fields, see [Filtering terms]({{site.url}}{{site.baseurl}}/api-reference/document-apis/mtermvectors/#filtering-terms). |
 | `per_field_analyzer` | Object | Specifies a custom analyzer to use per field. Format: `{ "field_name": "analyzer_name" }`. |
 
 ## Filtering terms
 
-The filter object in the request body allows you to filter which tokens are included in the term vector response. See following table for list of possible options:
+The `filter` object in the request body allows you to filter the tokens to include in the term vector response. The `filter` object supports the following fields.
 
 | Field | Data type | Description |
-| `max_num_terms` | Integer | Maximum number of terms to return. |
-| `min_term_freq` | Integer | Minimum term frequency in the document for a term to be included. |
-| `max_term_freq` | Integer | Maximum term frequency in the document for a term to be included. |
-| `min_doc_freq` | Integer | Minimum document frequency across the index for a term to be included. |
-| `max_doc_freq` | Integer | Maximum document frequency across the index for a term to be included. |
-| `min_word_length` | Integer | Minimum length of the term to be included. |
-| `max_word_length` | Integer | Maximum length of the term to be included. |
+| `max_num_terms` | Integer | The maximum number of terms to return. |
+| `min_term_freq` | Integer | The minimum term frequency in the document for a term to be included. |
+| `max_term_freq` | Integer | The maximum term frequency in the document for a term to be included. |
+| `min_doc_freq` | Integer | The minimum document frequency across the index for a term to be included. |
+| `max_doc_freq` | Integer | The maximum document frequency across the index for a term to be included. |
+| `min_word_length` | Integer | The minimum length of the term to be included. |
+| `max_word_length` | Integer | The maximum length of the term to be included. |
 
 ## Example
 
@@ -156,16 +156,16 @@ POST /_mtermvectors
 ```
 {% include copy-curl.html %}
 
-Similarly you can use the following syntax to get term vectors:
+Alternatively, you can specify both `ids` and `fields` as query parameters:
 
 ```json
 GET /my-index/_mtermvectors?ids=1,2&fields=text
 ```
 {% include copy-curl.html %}
 
-or 
+You can also provide document IDs in the `ids` array instead of specifying `docs`:
 
-```
+```json
 GET /my-index/_mtermvectors?fields=text
 { 
   "ids": [
@@ -314,7 +314,7 @@ The response contains term vector information for the two documents:
 
 ## Response body fields
 
-The following table lists the available response body fields.
+The following table lists all response body fields.
 
 | Field | Data type | Description |
 | -------- | --------- | ----------- |
@@ -329,6 +329,5 @@ Each element of the `docs` array contains the following fields.
 | `term_vectors.<field>.field_statistics.doc_count` | Integer | The number of documents that contain at least one term in the specified field. |
 | `term_vectors.<field>.field_statistics.sum_doc_freq` | Integer | The sum of document frequencies for all terms in the field. |
 | `term_vectors.<field>.field_statistics.sum_ttf` | Integer | The sum of total term frequencies for all terms in the field. |
-
 | `term_vectors.<field>.terms` | Object | A map of terms in the field, in which each term includes its frequency (`term_freq`) and associated token information. |
 | `term_vectors.<field>.terms.<term>.tokens` | Array | An array of token objects for each term, including the token’s `position` in the text and its character offsets (`start_offset` and `end_offset`). |
