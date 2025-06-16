@@ -19,8 +19,8 @@ There are a few important considerations to keep in mind when using collapse wit
 * Inner hits compatibility within the collapse description is not currently supported for hybrid query.
 * Performance impact may be higher when using large result sets.
 * Aggregations run on pre-collapsed results.
-* Collapse affects the paginated results.
-* The collapse parameter via query returns different results than the collapse response processor.
+* Collapse affects the pagination by reducing the number of results and altering the result distribution across pages.  Consider setting a higher pagination depth to retrieve more results.
+* The collapse parameter via query returns different results than the [collapse response processor](https://docs.opensearch.org/docs/latest/search-plugins/search-pipelines/collapse-processor/).
 
 The following example is taken from the documentation for [collapse in search query](https://docs.opensearch.org/docs/latest/search-plugins/collapse-search/) and modified for hybrid query:
 
@@ -170,6 +170,7 @@ Collapse is compatible with other features in hybrid query using syntax that is 
 For example, this is how you can combine collapse and sort:
 
 ```json
+GET /bakery-items/_search?search_pipeline=norm-pipeline
 {
   "query": {
     "hybrid": {
@@ -256,5 +257,197 @@ Response:
       }
     ]
   }
+}
+```
+
+This is how you can combine collapse and pagination:
+```json
+GET /bakery-items/_search?search_pipeline=norm-pipeline
+{
+  "query": {
+    "hybrid": {
+      "pagination_depth": 4,
+      "queries": [
+        {
+          "match": {
+                "item": "Chocolate Cake"
+          }
+        },
+        {
+          "bool": {
+                "must": {
+                    "match": {
+                        "category": "cakes"
+                    }
+                }
+          }
+        }
+      ]
+    }
+  },
+  "collapse": {
+    "field": "item"
+  },
+  "from": 1,
+  "size": 1
+}
+```
+
+Response:
+```json
+{
+    "took": 4,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 5,
+            "relation": "eq"
+        },
+        "max_score": 1.0,
+        "hits": [
+            {
+                "_index": "bakery-items",
+                "_id": "35ILepcBheX09_dPt8TD",
+                "_score": 0.5005,
+                "_source": {
+                    "item": "Vanilla Cake",
+                    "category": "cakes",
+                    "price": 12,
+                    "baked_date": "2023-07-02T00:00:00Z"
+                },
+                "fields": {
+                    "item": [
+                        "Vanilla Cake"
+                    ]
+                }
+            }
+        ]
+    }
+}
+```
+
+This is how you can combine collapse and explain:
+```json
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+                "item": "Chocolate Cake"
+          }
+        },
+        {
+          "bool": {
+                "must": {
+                    "match": {
+                        "category": "cakes"
+                    }
+                }
+          }
+        }
+      ]
+    }
+  },
+  "collapse": {
+    "field": "item"
+  }
+}
+```
+
+Response:
+```json
+{
+    "took": 9,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 5,
+            "relation": "eq"
+        },
+        "max_score": 1.0,
+        "hits": [
+            {
+                "_shard": "[bakery-items][0]",
+                "_node": "Jlu8P9EaQCy3C1BxaFMa_g",
+                "_index": "bakery-items",
+                "_id": "3ZILepcBheX09_dPt8TD",
+                "_score": 1.0,
+                "_source": {
+                    "item": "Chocolate Cake",
+                    "category": "cakes",
+                    "price": 15,
+                    "baked_date": "2023-07-01T00:00:00Z"
+                },
+                "fields": {
+                    "item": [
+                        "Chocolate Cake"
+                    ]
+                },
+                "_explanation": {
+                    "value": 1.0,
+                    "description": "combined score of:",
+                    "details": [
+                        {
+                            "value": 1.0,
+                            "description": "ConstantScore(item:Chocolate Cake)",
+                            "details": []
+                        },
+                        {
+                            "value": 1.0,
+                            "description": "ConstantScore(category:cakes)",
+                            "details": []
+                        }
+                    ]
+                }
+            },
+            {
+                "_shard": "[bakery-items][0]",
+                "_node": "Jlu8P9EaQCy3C1BxaFMa_g",
+                "_index": "bakery-items",
+                "_id": "35ILepcBheX09_dPt8TD",
+                "_score": 0.5005,
+                "_source": {
+                    "item": "Vanilla Cake",
+                    "category": "cakes",
+                    "price": 12,
+                    "baked_date": "2023-07-02T00:00:00Z"
+                },
+                "fields": {
+                    "item": [
+                        "Vanilla Cake"
+                    ]
+                },
+                "_explanation": {
+                    "value": 1.0,
+                    "description": "combined score of:",
+                    "details": [
+                        {
+                            "value": 0.0,
+                            "description": "ConstantScore(item:Chocolate Cake) doesn't match id 2",
+                            "details": []
+                        },
+                        {
+                            "value": 1.0,
+                            "description": "ConstantScore(category:cakes)",
+                            "details": []
+                        }
+                    ]
+                }
+            }
+        ]
+    }
 }
 ```
