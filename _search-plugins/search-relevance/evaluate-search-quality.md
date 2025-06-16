@@ -58,7 +58,7 @@ Field | Data type |  Description
 
 ## Managing the results
 
-For retrieving the results of the experiment, the process will be the same as running the pairwise experiment when [comparing query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/conpare-query-sets/).
+For retrieving the results of the experiment, the process will be the same as running the pairwise experiment when [comparing query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/).
 
 ### Example completed response:
 
