@@ -195,13 +195,13 @@ The following image shows the live queries view:
 
 The top panel in live queries view displays the following key real-time metrics:
 
-| Panel                    | Description                                                                 |
-|--------------------------|-----------------------------------------------------------------------------|
-| **Active queries**       | Total number of currently executing queries.                                |
-| **Avg. elapsed time**    | Average execution time of live queries.                                     |
-| **Longest running query**| Duration and ID of the longest currently executing query.                   |
-| **Total CPU time**       | Cumulative CPU time used by all active queries.                             |
-| **Total memory usage**   | Total memory consumed by live queries.                                      |
+| Panel  | Description  |
+| :--- | :--- |
+| **Active queries**       | The total number of currently executing queries.                                |
+| **Avg. elapsed time**    | The average execution time of live queries.                                     |
+| **Longest running query**| The duration and ID of the longest currently executing query.                   |
+| **Total CPU time**       | The cumulative CPU time used by all active queries.                             |
+| **Total memory usage**   | The total memory consumed by live queries.                                      |
 
 ### Breakdown charts
 
@@ -222,19 +222,19 @@ The live query table lists the following information for each live query:
 
 ![Live Queries Table]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries_Table.png)
 
-| Column               | Description                                                       |
-|----------------------|-------------------------------------------------------------------|
-| **Timestamp**        | Time when the query started executing.                            |
-| **Task ID**          | Unique identifier for the search task.                            |
-| **Index**            | The Index or indexes the query is targeting.                          |
-| **Node**             | Node currently executing the query.                               |
-| **Time elapsed**     | Execution time so far (formatted).                                |
-| **CPU usage**        | Cumulative CPU time used by the query.                            |
-| **Memory usage**     | Memory consumed by the query so far.                              |
-| **Search type**      | Search execution method (e.g., `query_then_fetch`).               |
-| **Coordinator node** | Node that coordinated the query.                                  |
-| **Status**           | Status of the query task. Can be either `running` or `cancelled`. |
-| **Actions**          | Available controls, such as canceling the query.                  |
+| Column  | Description |
+| :--- | :--- |
+| **Timestamp**        | The time when the query started running.                            |
+| **Task ID**          | The unique identifier for the search task.                            |
+| **Index**            | The index or indexes the query is targeting.                          |
+| **Node**             | The dode currently running the query.                               |
+| **Time elapsed**     | The execution time for the query so far (formatted).                                |
+| **CPU usage**        | The cumulative CPU time used by the query.                            |
+| **Memory usage**     | The amount of memory consumed by the query so far.                              |
+| **Search type**      | The search execution method, such as `query_then_fetch`.               |
+| **Coordinator node** | The dode that coordinated the query.                                  |
+| **Status**           | The status of the query task. Can be either `running` or `cancelled`. |
+| **Actions**          | The available controls, such as canceling the query.                  |
 
 You can use filter bar to search for queries by text or specific field values--such as node ID, index name, or task ID--and paginate the table to better analyze specific queries. The following image shows the live queries table view:
 
