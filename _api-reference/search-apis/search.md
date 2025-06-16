@@ -68,7 +68,7 @@ suggest_field | String | Fields OpenSearch can use to look for similar terms.
 suggest_mode | String | The mode to use when searching. Available options are `always` (use suggestions based on the provided terms), `popular` (use suggestions that have more occurrences), and `missing` (use suggestions for terms not in the index).
 suggest_size | Integer | How many suggestions to return.
 suggest_text | String | The source that suggestions should be based off of.
-terminate_after | Integer | The maximum number of documents OpenSearch should process before terminating the request. Default is 0.
+terminate_after | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request. Default is 0.
 timeout | Time | How long the operation should wait for a response from active shards. Default is `1m`.
 track_scores | Boolean | Whether to return document scores. Default is `false`.
 track_total_hits | Boolean or Integer | Whether to return how many documents matched the query.
@@ -108,7 +108,7 @@ seq_no_primary_term | Boolean | Whether to return sequence number and primary te
 size | Integer | How many results to return. Default is 10.
 _source | | Whether to include the `_source` field in the response.
 stats | String | Value to associate with the request for additional logging.
-terminate_after | Integer | The maximum number of documents OpenSearch should process before terminating the request. Default is 0.
+terminate_after | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request. Default is 0.
 timeout | Time | How long to wait for a response. Default is no timeout.
 version | Boolean | Whether to include the document version in the response.
 
