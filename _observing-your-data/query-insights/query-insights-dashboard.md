@@ -227,12 +227,12 @@ The live query table lists the following information for each live query:
 | **Timestamp**        | The time when the query started running.                            |
 | **Task ID**          | The unique identifier for the search task.                            |
 | **Index**            | The index or indexes the query is targeting.                          |
-| **Node**             | The dode currently running the query.                               |
+| **Node**             | The node currently running the query.                               |
 | **Time elapsed**     | The execution time for the query so far (formatted).                                |
 | **CPU usage**        | The cumulative CPU time used by the query.                            |
 | **Memory usage**     | The amount of memory consumed by the query so far.                              |
 | **Search type**      | The search execution method, such as `query_then_fetch`.               |
-| **Coordinator node** | The dode that coordinated the query.                                  |
+| **Coordinator node** | The node that coordinated the query.                                  |
 | **Status**           | The status of the query task. Can be either `running` or `cancelled`. |
 | **Actions**          | The available controls, such as canceling the query.                  |
 
