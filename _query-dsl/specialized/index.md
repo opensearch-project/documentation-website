@@ -22,7 +22,7 @@ OpenSearch supports the following specialized queries:
 
 - `percolate`: Finds queries (stored as documents) that match the provided document.
 
-- `rank_feature`: Calculates scores based on the values of numeric features. This query can skip non-competitive hits.
+- [`rank_feature`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/rank-feature/): Calculates scores based on the values of numeric features. This query can skip non-competitive hits.
 
 - [`script`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script/): Uses a script as a filter.
 
