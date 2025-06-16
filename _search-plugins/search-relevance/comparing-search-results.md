@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Comparing search results
-nav_order: 55
+nav_order: 10
 parent: Using Search Relevance Workbench
 grand_parent: Search relevance
 has_children: true

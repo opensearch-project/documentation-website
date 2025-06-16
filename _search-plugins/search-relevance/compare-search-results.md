@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Comparing search results - single query
-nav_order: 56
+nav_order: 11
 parent: Using Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
@@ -96,6 +96,26 @@ Setting `size` to a high value (for example, larger than 250 documents) may degr
 
 You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing.
 {: .note}
+
+## Comparing OpenSearch search results with the Search Relevance Workbench
+
+Using the opt-in feature Search Relevance Workbench gives you richer visualization options to see the change between two different queries.
+The previously outlined steps 1-4 do not change. However, the displayed results change and the options to view differences:
+
+<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing_search_results.png" alt="Compare search results"/>{: .img-fluid }
+
+The top section gives a summary of the results: how many of the retrieved results are unique to the left hand query, how many are unique to the right hand query and how many are part of both queries?
+
+What follows is a visual representation of the retrieed results. By default the unique identifier field (`_id`) is shown. Users can change this by selecting a different field in the "Display Field" dropdown box.
+In the side-by-side view users see for the positional changes for all common documents among the two result lists.
+Clicking on one item shows all stored fields in the index for easier document identification.
+
+Lastly, the Search Relevance Workbench allows choosing among different visualization styles with a dropdown box:
+
+* Default Style: different colors for the two result list documents (unique results on the left in yellow, on the right in purple), common results are of equal color (green).
+* Ranking Change Color Coding: all unique documents are purple, common results are green to focus on ranking changes.
+* Ranking Change Color Coding 2: all unique documents are grey, common results are green to focus on ranking changes.
+* Venn Diagram Color Coding: all unique documents are purple, common results are blue as in the Venn diagram at the top of the two result lists.
 
 ## Comparing OpenSearch search results with reranked results
 
