@@ -21,7 +21,7 @@ The **Query insights** dashboard contains the following pages:
 - [Top N queries](#top-n-queries): Displays the query metrics and details for the top queries.
 - [Query details](#query-details): Displays details for individual queries and query groups.
 - [Configuration](#configuration): Customizes all monitoring and data retention settings for the query insights feature.
-- [Live queries](#live-queries): Monitors currently executing queries in real time.
+- [Live queries](#live-queries): Monitors currently running queries in real time.
 
 
 ## Top N queries
@@ -189,7 +189,7 @@ The **Live queries** page provides real-time visibility into search queries curr
 
 The following image shows the live queries view:
 
-![Live Queries Dashboard](../../images/Query-Insights/Live_Queries.png)
+![Live Queries Dashboard]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries.png)
 
 ### Metrics overview
 
@@ -210,7 +210,7 @@ Two visual charts provide breakdowns of query load:
 - **By node** – Shows how many queries are running on each node.
 - **By index** – Displays how many queries are targeting each index.
 
-![Live Queries visual charts](../../images/Query-Insights/Live_queries_visuailization.png)
+![Live Queries visual charts]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_queries_visuailization.png)
 
 You can toggle between **Donut** and **Bar** chart formats using the chart type switch.
 
@@ -220,7 +220,7 @@ Only the top-9 items are displayed individually in the chart; additional values 
 
 The live query table lists the following information for each live query:
 
-![Live Queries Table](../../images/Query-Insights/Live_Queries_Table.png)
+![Live Queries Table]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries_Table.png)
 
 | Column               | Description                                                       |
 |----------------------|-------------------------------------------------------------------|
@@ -238,7 +238,7 @@ The live query table lists the following information for each live query:
 
 You can use filter bar to search for queries by text or specific field values--such as node ID, index name, or task ID--and paginate the table to better analyze specific queries. The following image shows the live queries table view:
 
-![Live Queries Table](../../images/Query-Insights/Live_Queries_Table.png)
+![Live Queries Table]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries_Table.png)
 
 The live queries table also allows you to cancel individual or multiple running queries directly, providing real-time control. It supports the following actions:
 
