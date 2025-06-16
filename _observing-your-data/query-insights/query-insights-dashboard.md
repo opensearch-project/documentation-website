@@ -185,15 +185,15 @@ When configuring the query insights feature, remember the following best practic
 
 ## Live queries
 
-The **Live queries** page provides real-time visibility into search queries currently executing in your OpenSearch cluster. It enables active monitoring, fast debugging, and insight into how query load is distributed across nodes and indices.
+The **Live queries** page provides real-time visibility into search queries currently running in your OpenSearch cluster. It enables active monitoring, fast debugging, and insight into how a query;s load is distributed across nodes and indexes.
 
-The following image shows the Live Queries interface:
+The following image shows the live queries view:
 
 ![Live Queries Dashboard](../../images/Query-Insights/Live_Queries.png)
 
 ### Metrics overview
 
-The top panel displays key real-time metrics:
+The top panel in live queiries view displays the following key real-time metrics:
 
 | Panel                    | Description                                                                 |
 |--------------------------|-----------------------------------------------------------------------------|
@@ -214,13 +214,11 @@ Two visual charts provide breakdowns of query load:
 
 You can toggle between **Donut** and **Bar** chart formats using the chart type switch.
 
-Only the top 9 items are displayed individually in the chart; additional values are grouped under **Others**.
-
-
+Only the top-9 items are displayed individually in the chart; additional values are grouped under the **Others** category.
 
 ### Live query table
 
-Below the charts, a table lists detailed information for each live query:
+The live query table lists the following information for each live query:
 
 ![Live Queries Table](../../images/Query-Insights/Live_Queries_Table.png)
 
@@ -238,20 +236,17 @@ Below the charts, a table lists detailed information for each live query:
 | **Status**           | Status of the query task. Can be either `running` or `cancelled`. |
 | **Actions**          | Available controls, such as canceling the query.                  |
 
-You can filter bar above the table to search for queries by text or specific field values (e.g., node ID, index name, or task ID) and paginate this table to better analyze specific queries.
+You can use filter bar to search for queries by text or specific field values--such as node ID, index name, or task ID--and paginate the table to better analyze specific queries. The following image shows the live queries table view:
 
-**Query Cancellation**
+![Live Queries Table](../../images/Query-Insights/Live_Queries_Table.png)
 
-This dashboard allows you to cancel individual or multiple running queries directly, providing real-time control over active query execution.
-
-- **Cancel query** – Cancel an individual query using the trash icon in the action columns for the query you want to cancel.
-- **Bulk cancel** – Select multiple queries and cancel them at once as show in the image.
-
-### Live queries Controls
+The live queries table also allows you to cancel individual or multiple running queries directly, providing real-time control. It supports the following actions:
 
 - **Auto-refresh toggle** – Enable or disable periodic data refresh.
-- **Refresh interval** – Choose refresh frequency (e.g., every 5s, 10s, 30s, 1 min) available only when Auto-refresh is enable.
-- **Manual refresh** – Click the **Refresh** button to update immediately.
+- **Refresh interval** – Choose the refresh frequency. This option is available only when **Auto-refresh** is enabled.
+- **Manual refresh** – Select the **Refresh** button to update immediately.
+- **Cancel query** – Cancel an individual query using the trash icon in the action columns for the query you want to cancel.
+- **Bulk cancel** – Select multiple queries and cancel them all together.
 
 
 
