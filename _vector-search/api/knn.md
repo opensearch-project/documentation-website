@@ -61,10 +61,7 @@ Some statistics contain *graph* in the name. In these cases, *graph* is synonymo
 Introduced 3.0 
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/k-NN/issues/2391).    
-{: .warning}
-
-If [remote index build]({{site.url}}{{site.baseurl}}/vector-search/remote-index-build/) is enabled, the following statistics are included.
+If you configured [remote index build]({{site.url}}{{site.baseurl}}/vector-search/remote-index-build/), the response contains additional fields. The following table lists the available remote index build stats response body fields.
 
 | Field | Description |
 |:---|:---|
