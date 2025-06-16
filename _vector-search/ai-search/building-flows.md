@@ -1,20 +1,27 @@
 ---
 layout: default
-title: Creating and customizing AI search workflows
-parent: AI search workflows
-grand_parent: Generative AI
+title: Configuring AI search types
+parent: Building AI search workflows in OpenSearch Dashboards
+grand_parent: AI search
 nav_order: 10
-redirect_from:
-  - /tutorials/ai-search-flows/building-flows/
 ---
 
-# Creating and customizing AI search workflows in OpenSearch Dashboards
+# Configuring AI search types
 
-A collection of example configurations for a variety of different use cases. For more information, including an end-to-end detailed example of RAG with vector search, see [Building AI search workflows in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflow-builder/).
+This page provides example configurations for different AI search workflow types. Each example shows how to tailor the setup to a specific use case, such as semantic search or hybrid retrieval. To build a workflow from start to finish, follow the steps in [Building AI search workflows in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflow-builder/), substituting your use case from this page into the appropriate parts of the setup. 
 
 ## Prerequisite: Provision ML resources
 
 Before you start, select and provision the necessary machine learning (ML) resources depending on your use case. For example, to implement semantic search, you must configure a text embedding model in your OpenSearch cluster. For more information about deploying ML models locally or connecting to externally hosted models, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
+
+<details markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
 
 <p id="implementation-examples"></p>
 
