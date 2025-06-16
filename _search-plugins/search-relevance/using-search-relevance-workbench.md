@@ -340,6 +340,4 @@ Select the top experiment (the latest one) and you are accessing the results. Th
 1. The experiment parameters
 2. The aggregate metrics resulting from the experiment:
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/aggregate_metrics_comparison_experiment.png" alt="Aggregate Metrics for Comparison Experiment"/>{: .img-fluid }
-3. The individual metrics per query. Clicking on a query event lets you assess the change between two result sets visually:
-
-TODO: Create good image for this
+3. The individual metrics per query. Clicking on a query event lets you assess the change between two result sets visually.
