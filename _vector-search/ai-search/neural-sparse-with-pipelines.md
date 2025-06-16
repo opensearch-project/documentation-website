@@ -13,43 +13,37 @@ redirect_from:
 
 Generating sparse vector embeddings automatically enables neural sparse search to function like lexical search. To take advantage of this encapsulation, set up an ingest pipeline to create and store sparse vector embeddings from document text during ingestion. At query time, input plain text, which will be automatically converted into vector embeddings for search.
 
-For this tutorial, you'll use neural sparse search with OpenSearch's built-in machine learning (ML) model hosting and ingest pipelines. Because the transformation of text to embeddings is performed within OpenSearch, you'll use text when ingesting and searching documents. 
+Neural sparse search works as follows:
 
-At ingestion time, neural sparse search uses a sparse encoding model to generate sparse vector embeddings from text fields. 
+- At ingestion time, neural sparse search uses a sparse encoding model to generate sparse vector embeddings from text fields. 
 
-At query time, neural sparse search operates in one of two search modes: 
+- At query time, neural sparse search operates in one of two search modes: 
 
-- **Doc-only mode (recommended)**: A sparse encoding model generates sparse vector embeddings from documents. In this mode, neural sparse search tokenizes query text using an [DL model analyzer]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/dl-model-analyzers/) and obtains the token weights from a lookup table. This approach provides faster retrieval at the cost of a slight decrease in search relevance. Besides using analyzer, users can also deploy and invoke tokenizer models using the [Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/) for a uniform neural sparse search experience.
+    - **Doc-only mode (default)**: A sparse encoding model generates sparse vector embeddings from documents at ingestion time. At query time, neural sparse search tokenizes query text and obtains the token weights from a lookup table. This approach provides faster retrieval at the cost of a slight decrease in search relevance. The query-time tokenization can be performed by the following components:
+      - **A DL model analyzer (default)**: A [DL model analyzer]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/dl-model-analyzers/) uses a built-in ML model. This approach provides faster retrieval at the cost of a slight decrease in search 
+      - **A custom tokenizer**: You can deploy a custom tokenizer using the [Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/) to tokenize query text. This approach provides more flexibility while maintaining consistent tokenization across your neural sparse search implementation. 
 
-- **Bi-encoder mode**: A sparse encoding model generates sparse vector embeddings from both documents and query text. This approach provides better search relevance at the cost of an increase in latency. 
+    - **Bi-encoder mode**: A sparse encoding model generates sparse vector embeddings from both documents and query text. This approach provides better search relevance at the cost of an increase in latency. 
 
-Doc-only mode is recommended because it's optimal for most workloads. See [Choose the ingestion model](#step-1a-choose-the-ingestion-model) to select a model for ingestion.
+We recommend using the default doc-only mode with a DL analyzer because it provides the best balance of performance and relevance for most use cases. 
+{: tip} 
 
-## Tutorial
+The default doc-only mode with an analyzer works in the following way:
 
-This tutorial focuses on the recommended **Doc-only with analyzer** approach. Core workflow is outlined below:
+1. At ingestion time:
+   - Your registered sparse encoding model generates sparse vector embeddings.
+   - These embeddings are stored as token-weight pairs in your index.
 
-1. [**Configure a sparse encoding model**](#step-1-configure-a-sparse-encoding-model)
-    1. [Choose the ingestion model](#step-1a-choose-the-ingestion-model)
-    1. [Register the model](#step-1b-register-the-model)
-    1. [Deploy the model](#step-1c-deploy-the-model)
-1. [**Ingest data**](#step-2-ingest-data)
-    1. [Create an ingest pipeline](#step-2a-create-an-ingest-pipeline)
-    1. [Create an index for ingestion](#step-2b-create-an-index-for-ingestion)
-    1. [Ingest documents](#step-2c-ingest-documents-into-the-index)
-1. [**Search the data**](#step-3-search-the-data)
+2. At search time:
+   - The query text is analyzed using a built-in DL model analyzer (which uses a corresponding built-in ML model tokenizer).
+   - The token weights are obtained from a precomputed lookup table that's built into OpenSearch.
+   - The tokenization matches what the sparse encoding model expects because they both use the same tokenization scheme.
 
-### Prerequisites
+Thus, you must choose and apply an ML model at ingestion time, but you only need to specify an analyzer (not a model) at search time.
 
-Before you start, complete the [prerequisites]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/#prerequisites). 
+## Sparse encoding model/analyzer compatibility
 
-## Step 1: Configure a sparse encoding model
-
-Choose the best Doc-only sparse encoding model for your workload. The following table lists all available Doc-only models with their corresponding analyzer, average relevance on BEIR (English) or MIRACL (multilingual), and model size:
-
-**Doc-only models:**
-
-### Step 1(a): Choose the ingestion model
+The following table lists all available models for use in doc-only mode. Each model is paired with its compatible analyzer that should be used at search time. Choose based on your language needs (English or multilingual) and performance requirements.
 
 | Model                                                                    | Analyzer        | BEIR relevance | MIRACL relevance | Model parameters |
 | ------------------------------------------------------------------------ | --------------- | -------------- | ---------------- | ---------------- |
@@ -59,13 +53,17 @@ Choose the best Doc-only sparse encoding model for your workload. The following 
 | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill`  | `bert-uncased`  | 0.517          | N/A              | 67M              |
 | `amazon/neural-sparse/opensearch-neural-sparse-encoding-multilingual-v1` | `mbert-uncased` | 0.500          | 0.629            | 168M             |
 
-The following tables provide a search relevance comparison for all available combinations of the doc-only models and the query analyzer. You can choose the best combination for your use case.
+## Example: Using the default doc-only mode with an analyzer
 
-### Step 1(b): Register the model
+This example uses the recommended **doc-only** mode, which applies a sparse encoding model at ingestion time and a compatible DL model analyzer at search time. For this example, you'll use neural sparse search with OpenSearch's built-in machine learning (ML) model hosting and ingest pipelines. Because the transformation of text to embeddings is performed within OpenSearch, you'll use text when ingesting and searching documents. 
 
-When you register a model/tokenizer, OpenSearch creates a model group for the model/tokenizer. You can also explicitly create a model group before registering models. For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+### Prerequisites
 
-Before ingestion, register the sparse encoding model you chose. For example, to register the `opensearch-neural-sparse-encoding-doc-v3-distill` model:
+Before you start, complete the [prerequisites]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/#prerequisites). 
+
+### Step 1: Configure a sparse encoding model for ingestion
+
+To use the doc-only mode, first [choose a sparse encoding model](#sparse-encoding-modelanalyzer-compatibility) to be used at ingestion time. Then, register an deploy the model. For example, to register and deploy the `opensearch-neural-sparse-encoding-doc-v3-distill` model, use the following request:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -97,7 +95,7 @@ Once the task is complete, the task state will change to `COMPLETED` and the Tas
 
 ```json
 {
-  "model_id": "<bi-encoder model ID>",
+  "model_id": "<model ID>",
   "task_type": "REGISTER_MODEL",
   "function_name": "SPARSE_ENCODING",
   "state": "COMPLETED",
@@ -112,53 +110,7 @@ Once the task is complete, the task state will change to `COMPLETED` and the Tas
 
 Note the `model_id` of the model you've created; you'll need it for the following steps.
 
-### Step 1(c): Deploy the model
-
-To deploy the model, provide its model ID to the `_deploy` endpoint:
-
-```json
-POST /_plugins/_ml/models/<bi-encoder model ID>/_deploy
-```
-{% include copy-curl.html %}
-
-As with the register operation, the deploy operation is asynchronous, so you'll get a task ID in the response:
-
-```json
-{
-  "task_id": "ale6f4oB5Vm0Tdw8NINO",
-  "status": "CREATED"
-}
-```
-
-You can check the status of the task by using the Tasks API:
-
-```json
-GET /_plugins/_ml/tasks/ale6f4oB5Vm0Tdw8NINO
-```
-{% include copy-curl.html %}
-
-Once the task is complete, the task state will change to `COMPLETED`:
-
-```json
-{
-  "model_id": "<bi-encoder model ID>",
-  "task_type": "DEPLOY_MODEL",
-  "function_name": "SPARSE_ENCODING",
-  "state": "COMPLETED",
-  "worker_node": [
-    "4p6FVOmJRtu3wehDD74hzQ"
-  ],
-  "create_time": 1694360024141,
-  "last_update_time": 1694360027940,
-  "is_async": true
-}
-```
-
-## Step 2: Ingest data
-
-In all modes, you'll use a sparse encoding model at ingestion time to generate sparse vector embeddings.
-
-### Step 2(a): Create an ingest pipeline
+### Step 2: Create an ingest pipeline
 
 To generate sparse vector embeddings, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains a [`sparse_encoding` processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/sparse-encoding/), which will convert the text in a document field to vector embeddings. The processor's `field_map` determines the input fields from which to generate vector embeddings and the output fields in which to store the embeddings.
 
@@ -186,7 +138,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
 
 To split long text into passages, use the `text_chunking` ingest processor before the `sparse_encoding` processor. For more information, see [Text chunking]({{site.url}}{{site.baseurl}}/search-plugins/text-chunking/).
 
-### Step 2(b): Create an index for ingestion
+### Step 3: Create an index for ingestion
 
 In order to use the sparse encoding processor defined in your pipeline, create a rank features index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as [`rank_features`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/#rank-features). Similarly, the `passage_text` field must be mapped as `text`.
 
@@ -248,7 +200,7 @@ PUT /my-nlp-index
 Once the `<token, weight>` pairs are excluded from the source, they cannot be recovered. Before applying this optimization, make sure you don't need the  `<token, weight>` pairs for your application.
 {: .important}
 
-### Step 2(c): Ingest documents into the index
+### Step 4: Ingest documents into the index
 
 To ingest documents into the index created in the previous step, send the following requests:
 
@@ -273,11 +225,11 @@ PUT /my-nlp-index/_doc/2
 Before the document is ingested into the index, the ingest pipeline runs the `sparse_encoding` processor on the document, generating vector embeddings for the `passage_text` field. The indexed document includes the `passage_text` field, which contains the original text, and the `passage_embedding` field, which contains the vector embeddings. 
 
 
-## Step 3: Search the data
+### Step 5: Search the data
 
 To perform a neural sparse search on your index, use the `neural_sparse` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. 
 
-The following example request uses a `neural_sparse` query to search for relevant documents using a raw text query. Provide the model ID for bi-encoder mode or the analyzer/tokenizer ID for doc-only mode:
+The following example request uses a `neural_sparse` query to search for relevant documents using a raw text query. Specify the `analyzer` compatible with the model you chose (see [Sparse encoding model/analyzer compatibility](#sparse-encoding-modelanalyzer-compatibility)):
 
 ```json
 GET my-nlp-index/_search
@@ -287,6 +239,22 @@ GET my-nlp-index/_search
       "passage_embedding": {
         "query_text": "Hi world",
         "analyzer": "bert-uncased"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+If you don't specify an analyzer, the default `bert-uncased` analyzer is used. Thus, this query is equivalent to the preceding one:
+
+```json
+GET my-nlp-index/_search
+{
+  "query": {
+    "neural_sparse": {
+      "passage_embedding": {
+        "query_text": "Hi world"
       }
     }
   }
@@ -392,15 +360,9 @@ GET my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-## Accelerating neural sparse search
+## Bi-encoder mode
 
-To learn more about improving retrieval time for neural sparse search, see [Accelerating neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#accelerating-neural-sparse-search).
-
-## Other query modes
-
-### Bi-encoder mode
-
-For ultimate relevance, register and deploy a bi-encoder model that serves for both ingestion and query:
+In bi-encoder mode, register and deploy a bi-encoder model to user at both ingestion and query time:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -412,7 +374,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-After deployment, query using the same `model_id`:
+After deployment, use the same `model_id` for search:
 
 ```json
 GET my-nlp-index/_search
@@ -429,9 +391,11 @@ GET my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-### Query with tokenizer model
+For a complete example, see [Using custom models for search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-custom/).
 
-The neural sparse search doc-only mode also accept tokenizer model_id for query request. To register a tokenizer model:
+## Doc-only mode with a custom tokenizer
+
+You can use the doc-only mode with a custom tokenizer. To deploy a tokenizer, send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -443,7 +407,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-After registration and deployment, use `model_id` in your query body instead of `analyzer`:
+After deployment, use the `model_id` of the tokenizer in your query:
 
 ```json
 GET my-nlp-index/_search
@@ -459,6 +423,8 @@ GET my-nlp-index/_search
 }
 ```
 {% include copy-curl.html %}
+
+For a complete example, see [Using custom models for search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-custom/).
 
 ### Creating a search pipeline for default model_id
 
@@ -513,4 +479,6 @@ To mitigate throttling exceptions, decrease the maximum number of connections sp
 
 ## Next steps
 
-- Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 
+- To learn how to use custom models in neural sparse search at query time, see [Using custom models for search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-custom/). 
+- To learn more about improving retrieval time for neural sparse search, see [Accelerating neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#accelerating-neural-sparse-search).
+- To learn how to build AI search applications, explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/). 
