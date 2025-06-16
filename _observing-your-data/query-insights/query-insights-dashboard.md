@@ -185,7 +185,7 @@ When configuring the query insights feature, remember the following best practic
 
 ## Live queries
 
-The **Live queries** page provides real-time visibility into search queries currently running in your OpenSearch cluster. It enables active monitoring, fast debugging, and insight into how a query;s load is distributed across nodes and indexes.
+The **Live queries** page provides real-time visibility into search queries currently running in your OpenSearch cluster. It enables active monitoring, fast debugging, and insight into how a query's load is distributed across nodes and indexes.
 
 The following image shows the live queries view:
 
@@ -193,7 +193,7 @@ The following image shows the live queries view:
 
 ### Metrics overview
 
-The top panel in live queiries view displays the following key real-time metrics:
+The top panel in live queries view displays the following key real-time metrics:
 
 | Panel                    | Description                                                                 |
 |--------------------------|-----------------------------------------------------------------------------|
@@ -226,7 +226,7 @@ The live query table lists the following information for each live query:
 |----------------------|-------------------------------------------------------------------|
 | **Timestamp**        | Time when the query started executing.                            |
 | **Task ID**          | Unique identifier for the search task.                            |
-| **Index**            | Index or indices the query is targeting.                          |
+| **Index**            | The Index or indexes the query is targeting.                          |
 | **Node**             | Node currently executing the query.                               |
 | **Time elapsed**     | Execution time so far (formatted).                                |
 | **CPU usage**        | Cumulative CPU time used by the query.                            |
