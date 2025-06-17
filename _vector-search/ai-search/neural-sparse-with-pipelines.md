@@ -698,7 +698,7 @@ GET my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-To simplify the query further, you can define the `semantic_field_search_analyzer` in the `semantic` field configuration. This allows you to omit the analyzer from the query itself, because OpenSearch automatically applies the configured analyzer during search.
+To simplify the query further, you can define the `semantic_field_search_analyzer` in the `semantic` field configuration. This allows you to omit the analyzer from the query itself because OpenSearch automatically applies the configured analyzer during search.
 
 ## Accelerating neural sparse search
 
