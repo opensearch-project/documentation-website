@@ -464,7 +464,7 @@ GET my-nlp-index/_search
 
 Using a `semantic` field simplifies neural sparse search configuration. To use a `semantic` field, follow these steps. For more information, see [Semantic field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/semantic/).
 
-### Step 1: Register and deploya sparse encoding model
+### Step 1: Register and deploy a sparse encoding model
 
 First, register and deploy a sparse encoding model as described in [Step 1](#step-1-configure-a-sparse-encoding-modeltokenizer).
 
