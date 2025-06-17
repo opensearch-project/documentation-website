@@ -195,9 +195,8 @@ When creating rules, the following issues can occur:
 
   If a user with the username `dev_john` sends a search request to `logs_q1_25`, it will match the first rule based on the `username` and `index_pattern` attributes. The request will not match the second rule, even though the `index_pattern` also qualifies.
 
-Both of these issues can be resolved by validating your configuration using one of the following techniques:
+You can resolve both issues by validating your configuration using one of the following techniques:
 
-* **Test rules with sample requests**: First create a rule using REST API and then send the request with `Rule`'s 
-  matching attributes. For example a rule with {"index_pattern": ["logs*", "events*""]}, you can send a request to logs
-   or events index then verify the workload management stats by querying `_wlm/stats` API.
-* Use the [List Rules API](#list-rules) to confirm rule definitions.
+- **Test rules with sample requests**: First, create a rule using the REST API, and then send a request that matches the rule's attributes. For example, for a rule with `"index_pattern": ["logs*", "events*"]`, you can send a request to a `logs` or `events` index. Then verify the workload management statistics by querying the [Workload Management Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#workload-management-stats-api).
+
+- **Use the [List rules API](#list-rules)** to confirm rule definitions.
