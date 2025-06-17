@@ -158,7 +158,7 @@ GET /my-nlp-index/_mapping
 
 ## Parameters
 
-The `semantic` field type supports the following parameters:
+The `semantic` field type supports the following parameters.
 
 | Parameter | Data type | Required/Optional | Description |
 |-----------|-----------|----------------------|-------------|
