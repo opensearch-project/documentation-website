@@ -43,7 +43,7 @@ You can customize how field types are transformed during metadata and data migra
    ```
    {% include copy.html %}
 
-3. Write any JavaScript rules that perform the desired field type conversions. For an example of how the rules can be implemented, see the [example `field-type-converter.js` implementation](#example-field-type-converter-js-implementation)
+3. Write any JavaScript rules that perform the desired field type conversions. For an example of how the rules can be implemented, see the [example `field-type-converter.js` implementation](#example-field-type-converterjs-implementation).
 4. Create a transformation descriptor file using the following command:
 
    ```bash
