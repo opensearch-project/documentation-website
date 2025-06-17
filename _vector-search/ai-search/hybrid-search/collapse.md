@@ -1,30 +1,34 @@
 ---
 layout: default
-title: Using collapse with a hybrid query
+title: Collapsing hybrid query results
 parent: Hybrid search
 grand_parent: AI search
 has_children: false
 nav_order: 10
 ---
 
-# Using collapse with hybrid query
+# Collapsing hybrid query results
 **Introduced 3.1**
 {: .label .label-purple }
 
-You can collapse on a field by specifying the `collapse` parameter in the search query.
-This will return the highest scoring document for each unique value of that field, up to the specified size in the query.
-The collapse parameter requires the field being collapsed to be of either a `keyword` or a `numeric` type.
+The `collapse` parameter lets you group results by a field, returning only the highest scoring document for each unique field value. This is useful when you want to avoid duplicates in your search results. The field you collapse on must be of type `keyword` or a numeric type. The number of results returned is still limited by the `size` parameter in your query.
 
-There are a few important considerations to keep in mind when using collapse with hybrid query.
-* Inner hits compatibility within the collapse description is not currently supported for hybrid query.
-* Performance impact may be higher when using large result sets.
-* Aggregations run on pre-collapsed results.
-* Collapse affects the pagination by reducing the number of results and altering the result distribution across pages. Consider setting a higher pagination depth to retrieve more results.
-* The collapse parameter via query returns different results than the [collapse response processor](https://docs.opensearch.org/docs/latest/search-plugins/search-pipelines/collapse-processor/).
+The `collapse` parameter is compatible with other hybrid query search options, such as sort, explain, and pagination, using their standard syntax.
 
-The following example is taken from the documentation for [collapse in search query](https://docs.opensearch.org/docs/latest/search-plugins/collapse-search/) and modified for hybrid query:
+When using `collapse` in a hybrid query, note the following considerations:
+
+- Inner hits are not supported.
+- Performance may be impacted when working with large result sets.
+- Aggregations run on pre-collapsed results, not the final output.
+- Pagination behavior changes: Because `collapse` reduces the total number of results, it can affect how results are distributed across pages. To retrieve more results, consider increasing the pagination depth.
+- Results may differ from those returned by the [`collapse` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/collapse-processor/), which applies collapse logic after the query is executed.
+
+## Example
+
+The following example demonstrates collapsing hybrid query results.
 
 Create an index:
+
 ```json
 PUT /bakery-items
 {
@@ -46,8 +50,10 @@ PUT /bakery-items
   }
 }
 ```
+{% include copy-curl.html %}
 
-Index documents:
+Ingest documents into the index:
+
 ```json
 { "index": {} }
 { "item": "Chocolate Cake", "category": "cakes", "price": 15, "baked_date": "2023-07-01T00:00:00Z" }
@@ -60,8 +66,10 @@ Index documents:
 { "index": {} }
 { "item": "Vanilla Cake", "category": "cakes", "price": 17, "baked_date": "2023-07-09T00:00:00Z" }
 ```
+{% include copy-curl.html %}
 
-Create a search pipeline.  This example uses min_max normalization technique.
+Create a search pipeline. This example uses the `min_max` normalization technique:
+
 ```json
 PUT /_search/pipeline/norm-pipeline
 {
@@ -80,8 +88,10 @@ PUT /_search/pipeline/norm-pipeline
   ]
 }
 ```
+{% include copy-curl.html %}
 
-Search the index, collapsing on the `item` field:
+Search the index, grouping the search results by the `item` field:
+
 ```json
 GET /bakery-items/_search?search_pipeline=norm-pipeline
 {
@@ -110,8 +120,10 @@ GET /bakery-items/_search?search_pipeline=norm-pipeline
   }
 }
 ```
+{% include copy-curl.html %}
 
-Response:
+The response returns the collapsed search results:
+
 ```json
 "hits": {
     "total": {
@@ -156,9 +168,9 @@ Response:
   }
 ```
 
-Collapse is compatible with other features in hybrid query using syntax that is standard for those features, such as sort, explain, and pagination.
+## Collapse and sort results
 
-## Collapse and sort
+To collapse and sort hybrid query results, provide the `collapse` and `sort` parameters in the query:
 
 ```json
 GET /bakery-items/_search?search_pipeline=norm-pipeline
@@ -189,8 +201,12 @@ GET /bakery-items/_search?search_pipeline=norm-pipeline
   "sort": "price"
 }
 ```
+{% include copy-curl.html %}
 
-Response:
+For more information about sorting in hybrid query, see [Using sorting with a hybrid query]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/sorting/).
+
+In the response, documents are sorted by the lowest price:
+
 ```json
 "hits": {
     "total": {
@@ -240,10 +256,11 @@ Response:
     ]
   }
 ```
-In this example, the documents are sorted by the lowest price.
-For more information about sorting in hybrid query, see [here](https://docs.opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/sorting/).
 
 ## Collapse and explain
+
+You can provide the `explain` query parameter when collapsing search results:
+
 ```json
 GET /bakery-items/_search?search_pipeline=norm-pipeline&explain=true
 {
@@ -272,8 +289,10 @@ GET /bakery-items/_search?search_pipeline=norm-pipeline&explain=true
   }
 }
 ```
+{% include copy-curl.html %}
 
-Response:
+The response contains detailed information about the scoring process for each search result:
+
 ```json
 "hits": {
         "total": {
@@ -353,12 +372,15 @@ Response:
         ]
     }
 ```
-Explain gives you more information about the query and score calculations.
-For more information on explain in hybrid query, see [here](https://docs.opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/explain/).
+
+For more information about using `explain` in a hybrid query, see [Hybrid search explain]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/explain/).
 
 ## Collapse and pagination
 
-This example uses the following index with additional groups and documents to more accurately portray pagination:
+You can paginate collapsed results by providing the `from` and `size` parameters. For more information about pagination in a hybrid query, see [Paginating hybrid query results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pagination/). For more information about `from` and `size`, see 
+
+For this example, create the following index:
+
 ```json
 PUT /bakery-items-pagination
 {
@@ -383,6 +405,9 @@ PUT /bakery-items-pagination
   }
 }
 ```
+{% include copy-curl.html %}
+
+Ingest the following documents into the index:
 
 ```json
 POST /bakery-items-pagination/_bulk
@@ -420,6 +445,9 @@ POST /bakery-items-pagination/_bulk
 { "item": "Cocunut Cake", "category": "cakes", "price": 32, "baked_date": "2023-07-12T00:00:00Z" }
 // Additional documents omitted for brevity
 ```
+{% include copy-curl.html %}
+
+Run a `hybrid` query, specifying the `from` and `size` parameters to paginate results. In the following example, the query requests two results starting from the sixth position (`from: 5, size: 2`). The pagination depth is set to limit each shard to return a maximum of 10 documents. After the results are retrieved, the `collapse` parameter is applied to group them by the `item` field:
 
 ```json
 GET /bakery-items-pagination/_search?search_pipeline=norm-pipeline
@@ -452,8 +480,10 @@ GET /bakery-items-pagination/_search?search_pipeline=norm-pipeline
   }
 }
 ```
+{% include copy-curl.html %}
 
-Response:
+
+
 ```json
 "hits": {
         "total": {
@@ -497,5 +527,3 @@ Response:
         ]
     }
 ```
-The pagination depth in this example limits the number of documents retrieved from each shard to ten, then the results are collapsed.  The from and size settings in this example show two results starting with the sixth result.
-For more information on pagination in hybrid query, see [here](https://docs.opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/pagination/).
