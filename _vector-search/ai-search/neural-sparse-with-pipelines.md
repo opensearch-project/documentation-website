@@ -613,7 +613,7 @@ GET /my-nlp-index/_doc/1
 
 To search the embeddings of the semantic field, use the `neural` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries.
 
-The following example uses a `neural` query to search for relevant documents using text input. You only need to specify the `semantic` field name---OpenSearch automatically rewrites the query and applies it to the underlying embedding field, appropriately handling any nested objects. There's no need to provide the `model_id` in the query, because OpenSearch retrieves it from the semantic field's configuration in the index mapping:
+The following example uses a `neural` query to search for relevant documents using text input. You only need to specify the `semantic` field name---OpenSearch automatically rewrites the query and applies it to the underlying embedding field, appropriately handling any nested objects. There's no need to provide the `model_id` in the query because OpenSearch retrieves it from the `semantic` field's configuration in the index mapping:
 
 ```json
 GET my-nlp-index/_search
