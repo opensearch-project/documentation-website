@@ -165,7 +165,7 @@ GET /_nodes/stats/indices?level=shards&pretty
 
 ## Limitations
 
-The following limitations currently apply when using pull-based ingestion.
+The following limitations apply when using pull-based ingestion:
 
 * [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) are not compatible with pull-based ingestion.
 * [Dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/) is not supported.
