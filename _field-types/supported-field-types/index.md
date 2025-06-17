@@ -11,26 +11,66 @@ redirect_from:
 
 # Supported field types
 
-You can specify data types for your fields when creating a mapping. The following table lists all data field types that OpenSearch supports.
+You can specify data types for your fields when creating a mapping. The following sections group supported field types by purpose or data structure.
 
-Category | Field types and descriptions
-:--- | :---
-Alias | [`alias`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/): An additional name for an existing field.
-Binary | [`binary`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/binary/):  A binary value in Base64 encoding. 
-[Numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) | A numeric value (`byte`, `double`, `float`, `half_float`, `integer`, `long`, [`unsigned_long`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/unsigned-long/), `scaled_float`, `short`). 
-Boolean | [`boolean`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/boolean/): A Boolean value. 
-[Date]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/)|  [`date`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/): A date stored in milliseconds. <br> [`date_nanos`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date-nanos/): A date stored in nanoseconds.
-IP | [`ip`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/ip/): An IP address in IPv4 or IPv6 format. 
-[Range]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/range/) | A range of values (`integer_range`, `long_range`, `double_range`, `float_range`, `date_range`, `ip_range`).
-[Object]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/object-fields/)| [`object`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/object/): A JSON object. <br>[`nested`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/): Used when objects in an array need to be indexed independently as separate documents.<br>[`flat_object`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/flat-object/): A JSON object treated as a string.<br>[`join`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/): Establishes a parent/child relationship between documents in the same index. 
-[String]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/string/)|[`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/): Contains a string that is not analyzed.<br> [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/): Contains a string that is analyzed.<br> [`match_only_text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/match-only-text/): A space-optimized version of a `text` field.<br>[`token_count`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/token-count/): Stores the number of analyzed tokens in a string. <br>[`wildcard`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/): A variation of `keyword` with efficient substring and regular expression matching.
-[Autocomplete]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/autocomplete/) |[`completion`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/completion/): Provides autocomplete functionality through a completion suggester.<br> [`search_as_you_type`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/search-as-you-type/): Provides search-as-you-type functionality using both prefix and infix completion. 
-[Geographic]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geographic/)| [`geo_point`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/): A geographic point.<br>[`geo_shape`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-shape/): A geographic shape.
-[Rank]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/) | Boosts or decreases the relevance score of documents (`rank_feature`, `rank_features`).  
-k-NN vector | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/): Allows indexing a k-NN vector into OpenSearch and performing different kinds of k-NN search.
-Percolator | [`percolator`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/): Specifies to treat this field as a query. 
-Derived | [`derived`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/derived/): Creates new fields dynamically by executing scripts on existing fields.
-Star-tree | [`star_tree`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/): Precomputes aggregations and stores them in a [star-tree index](https://docs.pinot.apache.org/basics/indexing/star-tree-index), accelerating the performance of aggregation queries.
+## General field types
+
+| Field type  | Description |
+| [`alias`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/)           | An alternate name for an existing field.                                 |
+| [`boolean`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/boolean/)       | A true/false value.                                                      |
+| [`binary`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/binary/)         | A binary value in Base64 encoding.                                       |
+| [`percolator`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/) | A field that acts as a stored query.                                     |
+| [`derived`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/derived/)       | A dynamically generated field computed from other fields using a script. |
+
+## String-based field types
+
+| Field type  | Description |
+| [`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/)                 | A non-analyzed string, useful for exact matches.           |
+| [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/)                       | Analyzed full-text string.                                 |
+| [`match_only_text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/match-only-text/) | A lightweight version of `text` for search-only use cases. |
+| [`token_count`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/token-count/)         | Stores the number of tokens after analysis.                |
+| [`wildcard`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/)               | Enables efficient substring and regex matching.            |
+
+## Numeric field types
+
+| Field type  | Description |
+| [`byte`, `double`, `float`, `half_float`, `integer`, `long`, `short`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) | Stores integer or floating-point numbers in various precisions. |
+| [`unsigned_long`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/unsigned-long/)                                               | A 64-bit unsigned integer.                                      |
+| [`scaled_float`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/)                                                      | A floating-point number scaled by a fixed factor for storage.   |
+
+## Date and time field types
+
+| Field type  | Description |
+| [`date`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/)             | A date or timestamp stored in milliseconds. |
+| [`date_nanos`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date-nanos/) | A date or timestamp stored in nanoseconds.  |
+
+## IP field types
+
+| Field type  | Description |
+| [`ip`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/ip/)               | Stores IPv4 or IPv6 addresses.  |
+
+## Range field types
+
+| Field type  | Description |
+| [`integer_range`, `long_range`, `double_range`, `float_range`, `ip_range`, `date_range`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/range/) | Define ranges of numeric, date, or IP values. |
+
+## Object field types
+
+| Field type  | Description |
+| [`object`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/object/)           | A JSON object.                                           |
+| [`nested`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/)           | An array of JSON objects, indexed as separate documents. |
+| [`flat_object`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/flat-object/) | A JSON object treated as a flat map of strings.          |
+| [`join`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/)               | Defines parent/child relationships between documents.    |
+
+## Specialized search field types
+
+| Field type  | Description |
+| [`completion`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/completion/)                 | Supports autocomplete functionality using a suggester.                                                                                    |
+| [`search_as_you_type`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/search-as-you-type/) | Enables prefix and infix search-as-you-type queries.                                                                                      |
+| [`rank_feature`, `rank_features`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/)    | Boosts or lowers document relevance scores.                                                                                                 |
+| [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)                 | Indexes a vector for k-NN search.                                                                                                         |
+| [`semantic`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/semantic/)                     | Wraps a text or binary field to simplify semantic search setup.                                                                           |
+| [`star_tree`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/)                   | Precomputes aggregations for faster performance using a [star-tree index](https://docs.pinot.apache.org/basics/indexing/star-tree-index). |
 
 ## Arrays
 
