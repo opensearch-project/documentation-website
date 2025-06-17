@@ -118,7 +118,7 @@ POST /_plugins/_ml/mcp/tools/_update
 
 ## Example response
 
-OpenSearch responds with the node ID and the status of the update operation for all tools for each node:
+For each node, OpenSearch responds with the node ID and the status of the update operation for all tools:
 
 ```json
 {
