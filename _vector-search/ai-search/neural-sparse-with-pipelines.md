@@ -472,7 +472,7 @@ First, register and deploy a sparse encoding model as described in [Step 1](#ste
 
 The sparse encoding model configured in the previous step is used at ingestion time to generate sparse vector embeddings. When using a `semantic` field, set the `model_id` to the ID of the model used for ingestion. For doc-only mode, you can additionally specify the model to be used at query time by providing its ID in the `search_model_id` field.
 
-The following example shows how to create an index with a `semantic` field configured in the doc-only mode using a sparse encoding model. To enable automatic splitting of long text into smaller passages, set `chunking` to `true` in the semantic field configuration:
+The following example shows how to create an index with a `semantic` field configured in doc-only mode using a sparse encoding model. To enable automatic splitting of long text into smaller passages, set `chunking` to `true` in the semantic field configuration:
 
 ```json
 PUT /my-nlp-index
