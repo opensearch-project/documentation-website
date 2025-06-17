@@ -21,6 +21,8 @@ This is an experimental feature and is not recommended for use in a production e
 ML Commons supports the following MCP APIs:
 
 - [Register MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/)
+- [Update MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/update-mcp-tools/)
+- [List MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/list-mcp-tools/)
 - [Remove MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/remove-mcp-tools/)
 - [MCP SSE session]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/sse-session/)
 - [MCP SSE message]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/sse-message/)
