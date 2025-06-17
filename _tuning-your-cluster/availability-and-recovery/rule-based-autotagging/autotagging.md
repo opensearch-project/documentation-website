@@ -197,5 +197,7 @@ When creating rules, the following issues can occur:
 
 Both of these issues can be resolved by validating your configuration using one of the following techniques:
 
-* Test rules using representative sample requests.
-* Use the [List rules API](#list-rules) to confirm the active rule definitions.
+* **Test rules with sample requests**: First create a rule using REST API and then send the request with `Rule`'s 
+  matching attributes. For example a rule with {"index_pattern": ["logs*", "events*""]}, you can send a request to logs
+   or events index then verify the workload management stats by querying `_wlm/stats` API.
+* Use the [List Rules API](#list-rules) to confirm rule definitions.
