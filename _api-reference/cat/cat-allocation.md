@@ -27,6 +27,29 @@ GET /_cat/allocation/{node_id}
 ```
 <!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: cat.allocation
+component: example_code
+query_params: v
+-->
+{% capture step1_rest %}
+GET /_cat/allocation?v
+{% endcapture %}
+
+{% capture step1_python %}
+response = client.cat.allocation(v: true)
+{% endcapture %}
+
+{% capture step1_javascript %}
+// TODO: add JS client call for cat.allocation
+{% endcapture %}
+
+{% include code-block.html
+  rest=step1_rest
+  python=step1_python
+  javascript=step1_javascript
+%}
+<!-- spec_insert_end -->
 
 <!-- spec_insert_start
 api: cat.allocation
