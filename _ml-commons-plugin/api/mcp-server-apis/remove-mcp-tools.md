@@ -3,7 +3,7 @@ layout: default
 title: Remove MCP tools 
 parent: MCP server APIs
 grand_parent: ML Commons APIs
-nav_order: 20
+nav_order: 40
 ---
 
 # Remove MCP tools
