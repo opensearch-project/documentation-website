@@ -175,7 +175,7 @@ The `semantic` field type supports the following parameters.
 
 By default, text chunking is disabled for `semantic` fields. This is because enabling chunking requires storing each chunk's embedding in a nested object, which can increase search latency. Searching nested objects requires joining child documents to their parent, along with additional scoring and aggregation logic. The more matching child documents there are, the higher the potential latency.
 
-If you're working with long-form text and want to improve search relevance, you can enable chunking by setting the `chunking` parameter for field when creating an index:
+If you're working with long-form text and want to improve search relevance, you can enable chunking by setting the `chunking` parameter for the `semantic` field to `true` when creating an index:
 
 ```json
 PUT /my-nlp-index
@@ -203,7 +203,7 @@ Note the following limitations of the `semantic` field:
 
 - Text chunking uses a [fixed token length algorithm]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/#the-fixed-token-length-algorithm) with default settings. You cannot modify the chunking algorithm.
 
-- For sparse models, OpenSearch applies a default prune ratio of `0.1` when generating sparse embeddings. This value is not configurable. Querying a semantic field with a sparse model does not support the [`neural_sparse_two_phase_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/), which is used to optimize search latency.
+- For sparse models, OpenSearch applies a default prune ratio of `0.1` when generating sparse embeddings. This value is not configurable. Querying a semantic field with a sparse model is not supported by the [`neural_sparse_two_phase_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/), which is used to optimize search latency.
 
 - Querying a `semantic` field from a remote cluster is not supported.
 
