@@ -3,7 +3,7 @@ layout: default
 title: List MCP tools 
 parent: MCP server APIs
 grand_parent: ML Commons APIs
-nav_order: 20
+nav_order: 30
 ---
 
 # List MCP tools
@@ -30,7 +30,7 @@ GET /_plugins/_ml/mcp/tools/_list
 
 ## Example response
 
-OpenSearch responds with the MCP tools list:
+OpenSearch responds with the MCP tool list:
 
 ```json
 {

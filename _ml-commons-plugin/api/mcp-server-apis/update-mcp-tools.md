@@ -3,7 +3,7 @@ layout: default
 title: Update MCP tools 
 parent: MCP server APIs
 grand_parent: ML Commons APIs
-nav_order: 10
+nav_order: 20
 ---
 
 # Update MCP tools
@@ -13,7 +13,7 @@ nav_order: 10
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Use this API to register one or more Model Context Protocol (MCP)-based tools. For more information about supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+Use this API to update one or more Model Context Protocol (MCP)-based tools. For more information about supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
 ## Endpoints
 
@@ -34,7 +34,7 @@ The `tools` array contains a list of tools. Each tool contains the following fie
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :---
-`name`| String | Required | The tool name which is mandatory to perform update on it. |
+`name`| String | Required | The tool name of the tool to update. |
 `type` | String | Optional | The tool type. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). 
 `description` | String | Optional | The description of the tool.
 `parameters` | Object | Optional | The parameters for the tool. The parameters are dependent on the tool type. For information about specific tool types, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
