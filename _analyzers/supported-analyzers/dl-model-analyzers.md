@@ -2,12 +2,12 @@
 layout: default
 title: DL model analyzers
 parent: Analyzers
-nav_order: 150
+nav_order: 130
 ---
 
 # DL model analyzers
 
-Deep learning (DL) model analyzers are designed to work with [neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/). They act as an interface (or wrapper) that allows machine learning (ML) models to be used as OpenSearch analyzers. While traditional OpenSearch analyzers employ rule-based tokenization, DL model analyzers allow the ML model's tokenization logic to be used within OpenSearch. By matching the tokenization scheme used during model training, DL model analyzers ensure that both indexed documents and search queries are processed consistently, which is essential for neural sparse search to work correctly. 
+Deep learning (DL) model analyzers are designed to work with [neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/). They implement the same tokenization rules used by machine learning (ML) models, ensuring compatibility with neural sparse search. While traditional OpenSearch analyzers use standard rule-based tokenization (like whitespace or word boundaries), DL model analyzers use tokenization rules that match specific ML models (like BERT's WordPiece tokenization scheme). This consistent tokenization between indexed documents and search queries is essential for neural sparse search to work correctly.
 
 OpenSearch supports the following DL model analyzers:
 

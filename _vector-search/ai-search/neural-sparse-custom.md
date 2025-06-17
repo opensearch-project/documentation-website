@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Using custom models for search
+title: Using custom configurations for neural sparse search
 parent: Neural sparse search
 grand_parent: AI search
 nav_order: 20
@@ -9,7 +9,7 @@ redirect_from:
   - /search-plugins/neural-sparse-with-pipelines/
 ---
 
-# Using custom models for search
+# Using custom configurations for neural sparse search
 
 Neural sparse search using automatically-generated vector embeddings operates in two modes: doc-only and bi-encoder. For more information, see [Generating sparse vector embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-with-pipelines/).
 

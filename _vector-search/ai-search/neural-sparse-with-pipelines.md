@@ -55,7 +55,9 @@ The following table lists all available models for use in doc-only mode. Each mo
 
 ## Example: Using the default doc-only mode with an analyzer
 
-This example uses the recommended **doc-only** mode, which applies a sparse encoding model at ingestion time and a compatible DL model analyzer at search time. For this example, you'll use neural sparse search with OpenSearch's built-in machine learning (ML) model hosting and ingest pipelines. Because the transformation of text to embeddings is performed within OpenSearch, you'll use text when ingesting and searching documents. 
+This example uses the recommended **doc-only** mode with a **DL model analyzer**. In this mode, OpenSearch applies a sparse encoding model at ingestion time and a compatible DL model analyzer at search time. For examples of other modes, see [Using custom configurations for neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-custom/). 
+
+For this example, you'll use neural sparse search with OpenSearch's built-in machine learning (ML) model hosting and ingest pipelines. Because the transformation of text to embeddings is performed within OpenSearch, you'll use text when ingesting and searching documents. 
 
 ### Prerequisites
 
@@ -479,6 +481,6 @@ To mitigate throttling exceptions, decrease the maximum number of connections sp
 
 ## Next steps
 
-- To learn how to use custom models in neural sparse search at query time, see [Using custom models for search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-custom/). 
+- To learn how to use custom neural sparse search configurations, see [Using custom configurations for neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-custom/). 
 - To learn more about improving retrieval time for neural sparse search, see [Accelerating neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#accelerating-neural-sparse-search).
 - To learn how to build AI search applications, explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/). 
