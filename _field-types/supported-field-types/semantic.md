@@ -39,7 +39,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-After creating the index, you can retrieve its mapping to verify that a `passage_semantic_info` field was automatically created. The `passage_semantic_info` field contains a `knn_vector` subfield to store the dense embedding and additional metadata fields to capture information such as the model ID, model name, and model type:
+After creating the index, you can retrieve its mapping to verify that a `passage_semantic_info` field was automatically created. The `passage_semantic_info` field contains a `knn_vector` subfield for storing the dense embedding and additional metadata fields for capturing information such as the model ID, model name, and model type:
 
 ```json
 GET /my-nlp-index/_mapping
