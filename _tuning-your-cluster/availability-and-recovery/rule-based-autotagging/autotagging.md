@@ -28,10 +28,10 @@ Rule-based auto-tagging provides a flexible framework for implementing feature-s
 
 Before reviewing the rule configuration and behavior, it's important to understand the following key components of rule-based auto-tagging:
 
-* **Rule**: Defines matching criteria (attributes) and the value to assign
-* **Attributes**: Key-value pairs used to match rules (such as index patterns, user roles, or request types)
-* **Feature-specific value**: The value assigned when a rule matches
-* **Pattern matching**: The matching behavior (exact or pattern-based) for attribute values
+* **Rule**: Defines matching criteria (attributes) and the value to assign.
+* **Attributes**: Key-value pairs used to match rules (such as index patterns, user roles, or request types).
+* **Feature-specific value**: The value assigned when a rule matches.
+* **Pattern matching**: The matching behavior (exact or pattern based) for attribute values.
 
 ## Rule structure and management
 
@@ -53,7 +53,7 @@ The following rule schema includes matching attributes and a feature-specific va
 
 ### Managing rules
 
-Use the following API operations to manage rules for workload management:
+Use the following API operations to manage rules for workload management.
 
 #### Create or update a rule
 
@@ -82,38 +82,38 @@ DELETE /_rules/workload_group/{rule_id}
 
 The attribute matching system determines which rules apply to a given request. Each attribute type can support different matching behaviors, based on the following attribute types:
 
-1. **Exact matching**: Attribute values must match exactly
-2. **Pattern matching**: Supports wildcards (such as index patterns)
-3. **List matching**: Matches any item in a list
-4. **Range matching**: Matches values within a defined range
+1. **Exact matching**: Attribute values must match exactly.
+2. **Pattern matching**: Supports wildcards (such as index patterns).
+3. **List matching**: Matches any item in a list.
+4. **Range matching**: Matches values within a defined range.
 
 For example, in workload management, index patterns support:
 
 * Exact match: `logs-2025-04`
 * Prefix pattern: `logs-2025-*`
 
-Note: Matching behavior is determined by the feature and attribute type.
+Note that matching behavior is determined by the feature and attribute type.
 
 ### Rule precedence
 
 When multiple rules match a request, OpenSearch uses the following precedence rules:
 
-1. Rules with more specific attribute matches take priority
-2. Feature-specific tie-breaking logic is applied
+1. Rules with more specific attribute matches are prioritized.
+2. Feature-specific tie-breaking logic is applied.
 
 For example, with index patterns:
 
-* `logs-prod-2025-*` takes precedence over `logs-prod-*`
-* `logs-prod-*` takes precedence over `logs-*`
+* `logs-prod-2025-*` takes precedence over `logs-prod-*`.
+* `logs-prod-*` takes precedence over `logs-*`.
 
 ### Evaluation process
 
 OpenSearch evaluates incoming requests using the following process:
 
-1. OpenSearch receives a request
-2. The system evaluates request attributes against defined rules
-3. The most specific matching rule’s value is assigned
-4. If no rules match, no value is assigned
+1. OpenSearch receives a request.
+2. The system evaluates request attributes against defined rules.
+3. The most specific matching rule's value is assigned.
+4. If no rules match, no value is assigned.
 
 ## Examples
 
@@ -150,7 +150,7 @@ These examples demonstrate how rule-based auto-tagging works in workload managem
 
 ## Best practices
 
-Follow these best practices for designing and operating rule-based auto-tagging:
+Follow these best practices for designing and operating rule-based auto-tagging.
 
 ### Designing rules
 
@@ -166,14 +166,14 @@ When creating rules, focus on building logical, specific configurations that sup
 
 Attribute selection and configuration significantly influence rule effectiveness. To manage attributes successfully, perform the following actions:
 
-* Understand each attribute’s matching behavior.
+* Understand each attribute's matching behavior.
 * Start with the most specific criteria needed.
 * Avoid overlapping rules unless intentional.
 * Plan for future attribute value patterns.
 
 ### Operations
 
-Ongoing operations and monitoring help maintain rule quality over time. Use the following practices to keep your feature rules reliable and effective:
+Ongoing operations and monitoring help maintain rule quality over time. Use the following best practices to ensure that your feature rules are reliable and effective:
 
 * Test new rules in a development environment.
 * Monitor rule matches in system logs.
