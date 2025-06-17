@@ -59,6 +59,7 @@ The `persian` analyzer is built using the following components:
   - decimal_digit
   - normalization (Arabic)
   - normalization (Persian)
+  - stop (Persian)
   - keyword
 
 ## Custom Persian analyzer
