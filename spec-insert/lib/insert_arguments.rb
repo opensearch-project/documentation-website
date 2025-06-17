@@ -17,7 +17,7 @@ class InsertArguments
   def self.from_marker(lines)
     end_index = lines.each_with_index.find { |line, _index| line.match?(/^\s*-->/) }&.last&.- 1
     args = lines[1..end_index].filter { |line| line.include?(':') }.to_h do |line|
-      key, value = line.split(':')
+      key, value = line.split(':',2)
       [key.strip, value.strip]
     end
     new(args)
