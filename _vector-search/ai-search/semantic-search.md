@@ -23,7 +23,7 @@ There are two ways to configure semantic search:
 
 - [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
 - [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
-- [**Using a semantic field**](#using-a-semantic-field) (Recommended for quick setup with optional customization): Manually configure the index using semantic fields to simplify the setup process while still allowing for some level of configuration.
+- [**Using a semantic field**](#using-a-semantic-field) (Recommended for quick setup with optional customization): Manually configure the index using `semantic` fields to simplify the setup process while still allowing for some level of configuration.
 
 ## Automated workflow
 
