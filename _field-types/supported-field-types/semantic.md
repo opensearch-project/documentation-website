@@ -168,7 +168,7 @@ The `semantic` field type supports the following parameters:
 | `search_model_id` | String | Optional | The ID of the ML model used specifically for query-time embedding generation. If not specified, the `model_id` is used. Cannot be specified together with `semantic_field_search_analyzer`. |
 | `semantic_info_field_name` | String | Optional | A custom name for the internal metadata field that stores the embedding and model information. By default, this field name is derived by appending `_semantic_info` to the semantic field name. |
 | `chunking` | Boolean | Optional | Enables fixed-length token chunking during ingestion. When enabled, the input is split into chunks using a default configuration. See [Text chunking](#text-chunking).|
-| `semantic_field_search_analyzer` | String | Optional | Specifies an analyzer to tokenize the query input when using a sparse model. Valid values are `standard`, `bert-uncased`, and `mbert-uncased`. Cannot be used together with `search_model_id`. For more information, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/). |
+| `semantic_field_search_analyzer` | String | Optional | Specifies an analyzer for tokenizing the query input when using a sparse model. Valid values are `standard`, `bert-uncased`, and `mbert-uncased`. Cannot be used together with `search_model_id`. For more information, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/). |
 
 
 ## Text chunking
