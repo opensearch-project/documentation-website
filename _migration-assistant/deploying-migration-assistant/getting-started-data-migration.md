@@ -123,7 +123,7 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
 
     ```json
     {
-    "migration-assistant": {
+    "default": {
         "stage": "dev",
         "vpcId": "<TARGET CLUSTER VPC ID>",
         "targetCluster": {
@@ -157,14 +157,14 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
 3. After the `cdk.context.json` file is fully configured, bootstrap the account and deploy the required stacks using the following command:
 
     ```bash
-    cdk bootstrap --c contextId=migration-assistant --require-approval never 
+    cdk bootstrap --c contextId=default --require-approval never 
     ```
     {% include copy.html %}
 
 4. Deploy Migration Assistant using the following command:
 
     ```bash
-    cdk deploy "*" --c contextId=migration-assistant --require-approval never --concurrency 5
+    cdk deploy "*" --c contextId=default --require-approval never --concurrency 5
     ```
     {% include copy.html %}
     
