@@ -55,8 +55,8 @@ The following table lists the available query parameters. All query parameters a
 | `include_metadata` | Boolean | When `true`, includes additional metadata fields for each statistic (see [Available metadata](#available-metadata)). Default is `false`. |
 | `flat_stat_paths` | Boolean | When `true`, flattens the JSON response structure for easier parsing. Default is `false`. | 
 | `include_individual_nodes` | Boolean | When `true` includes statistics for individual nodes in the `nodes` category. When `false`, excludes the `nodes` category from the response. Default is `true`. |
-| `include_all_nodes` | Boolean | When `true` includes aggregated statistics across all nodes in the `all_nodes` category. When `false`, excludes the `all_nodes` category from the response. Default is `true`. |
-| `include_info` | Boolean | When `true` includes cluster-wide information in the `info` category. When `false`, excludes the `info` category from the response. Default is `true`. |
+| `include_all_nodes` | Boolean | When `true`, includes aggregated statistics across all nodes in the `all_nodes` category. When `false`, excludes the `all_nodes` category from the response. Default is `true`. |
+| `include_info` | Boolean | When `true`, includes cluster-wide information in the `info` category. When `false`, excludes the `info` category from the response. Default is `true`. |
 
 #### Parameter interactions
 
@@ -69,6 +69,12 @@ GET /_plugins/_neural/node1,node2/stats/stat1,stat2?include_metadata=true,flat_s
 {% include copy-curl.html %}
 
 #### Example response
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 GET /_plugins/_neural/stats/
@@ -222,7 +228,9 @@ GET /_plugins/_neural/stats/
 }
 ```
 
-If `include_metadata` is `true`, each stat will have additional metadata like the following
+</details>
+
+If `include_metadata` is `true`, each stats object contains additional metadata:
 
 ```json
 {
@@ -237,7 +245,7 @@ If `include_metadata` is `true`, each stat will have additional metadata like th
 }
 ```
 
-See Metadata section for more details
+For more information, see [Available metadata](#available-metadata).
 
 ### Response body fields
 
@@ -261,38 +269,38 @@ The following table lists the available statistics. For statistics with paths pr
 | :--- | :--- | :--- | :--- |
 | `cluster_version` | `info` | `cluster_version` | The version of the cluster. |
 
-**Info Statistics - Processors**
+**Info statistics - processors**
 
 | Statistic name | Category | Statistic path within category | Description |
 | :--- | :--- | :--- | :--- |
-| `text_embedding_processors_in_pipelines` | `info` | `processors.ingest.text_embedding_processors_in_pipelines` | Count of text embedding processors in ingest pipelines. |
-| `sparse_encoding_processors` | `info` | `processors.ingest.sparse_encoding_processors` | Count of sparse encoding processors in ingest pipelines. |
-| `skip_existing_processors` | `info` | `processors.ingest.skip_existing_processors` | Count of skip existing processors in ingest pipelines. |
-| `text_image_embedding_processors` | `info` | `processors.ingest.text_image_embedding_processors` | Count of text image embedding processors in ingest pipelines. |
-| `text_chunking_delimiter_processors` | `info` | `processors.ingest.text_chunking_delimiter_processors` | Count of text chunking delimiter processors in ingest pipelines. |
-| `text_chunking_fixed_token_length_processors` | `info` | `processors.ingest.text_chunking_fixed_token_length_processors` | Count of text chunking using fixed token length processors in ingest pipelines. |
-| `text_chunking_fixed_char_length_processors` | `info` | `processors.ingest.text_chunking_fixed_char_length_processors` | Count of text chunking using fixed character length processors in ingest pipelines. |
-| `text_chunking_processors` | `info` | `processors.ingest.text_chunking_processors` | Count of text chunking processors in ingest pipelines. |
-| `rerank_ml_processors` | `info` | `processors.search.rerank_ml_processors` | Count of ML reranking processors. |
-| `rerank_by_field_processors` | `info` | `processors.search.rerank_by_field_processors` | Count of rerank by field processors. |
-| `neural_sparse_two_phase_processors` | `info` | `processors.search.neural_sparse_two_phase_processors` | Count of neural sparse two-phase processors. |
-| `neural_query_enricher_processors` | `info` | `processors.search.neural_query_enricher_processors` | Count of neural query enricher processors. |
+| `text_embedding_processors_in_pipelines` | `info` | `processors.ingest.text_embedding_processors_in_pipelines` | The number of `text_embedding` processors in ingest pipelines. |
+| `sparse_encoding_processors` | `info` | `processors.ingest.sparse_encoding_processors` | The number of `sparse_encoding` processors in ingest pipelines. |
+| `skip_existing_processors` | `info` | `processors.ingest.skip_existing_processors` | The number of processors with `skip_existing` set to `true` in ingest pipelines. |
+| `text_image_embedding_processors` | `info` | `processors.ingest.text_image_embedding_processors` | The number of `text_image_embedding` processors in ingest pipelines. |
+| `text_chunking_delimiter_processors` | `info` | `processors.ingest.text_chunking_delimiter_processors` | The number of `text_chunking` processors using the `delimiter` algorithm in ingest pipelines. |
+| `text_chunking_fixed_token_length_processors` | `info` | `processors.ingest.text_chunking_fixed_token_length_processors` | The number of `text_chunking` processors using the `fixed_token_length` algorithm in ingest pipelines. |
+| `text_chunking_fixed_char_length_processors` | `info` | `processors.ingest.text_chunking_fixed_char_length_processors` | The number of `text_chunking` processors using the `fixed_character_length` algorithm in ingest pipelines. |
+| `text_chunking_processors` | `info` | `processors.ingest.text_chunking_processors` | The number of `text_chunking` processors in ingest pipelines. |
+| `rerank_ml_processors` | `info` | `processors.search.rerank_ml_processors` | The number of `rerank` processors of the `ml_opensearch` type in search pipelines. |
+| `rerank_by_field_processors` | `info` | `processors.search.rerank_by_field_processors` | The number of `rerank` processors of the `by_field` type. |
+| `neural_sparse_two_phase_processors` | `info` | `processors.search.neural_sparse_two_phase_processors` | The number of `neural_sparse_two_phase_processor` processors in search pipelines. |
+| `neural_query_enricher_processors` | `info` | `processors.search.neural_query_enricher_processors` | The number of `neural_query_enricher` processors in search pipelines. |
 
-**Info Statistics - Hybrid Processors**
+**Info statistics - hybrid processors**
 
 | Statistic name | Category | Statistic path within category | Description |
 | :--- | :--- | :--- | :--- |
-| `comb_geometric_processors` | `info` | `processors.search.hybrid.comb_geometric_processors` | Count of geometric combination processors. |
-| `comb_rrf_processors` | `info` | `processors.search.hybrid.comb_rrf_processors` | Count of reciprocal rank fusion (RRF) combination processors. |
-| `norm_l2_processors` | `info` | `processors.search.hybrid.norm_l2_processors` | Count of L2 normalization processors. |
-| `norm_minmax_processors` | `info` | `processors.search.hybrid.norm_minmax_processors` | Count of min-max normalization processors. |
-| `comb_harmonic_processors` | `info` | `processors.search.hybrid.comb_harmonic_processors` | Count of harmonic combination processors. |
-| `comb_arithmetic_processors` | `info` | `processors.search.hybrid.comb_arithmetic_processors` | Count of arithmetic combination processors. |
-| `norm_zscore_processors` | `info` | `processors.search.hybrid.norm_zscore_processors` | Count of z-score normalization processors. |
-| `rank_based_normalization_processors` | `info` | `processors.search.hybrid.rank_based_normalization_processors` | Count of rank-based normalization processors. |
-| `normalization_processors` | `info` | `processors.search.hybrid.normalization_processors` | Count of normalization processors. |
+| `normalization_processors` | `info` | `processors.search.hybrid.normalization_processors` | The number of `normalization-processor` processors. |
+| `norm_minmax_processors` | `info` | `processors.search.hybrid.norm_minmax_processors` | The number of `normalization-processor` processors with `normalization.technique` set to `min_max`. |
+| `norm_l2_processors` | `info` | `processors.search.hybrid.norm_l2_processors` | The number of `normalization-processor` processors with `normalization.technique` set to `l2`. |
+| `norm_zscore_processors` | `info` | `processors.search.hybrid.norm_zscore_processors` | The number of `normalization-processor` processors with `normalization.technique` set to `z_score`. |
+| `comb_arithmetic_processors` | `info` | `processors.search.hybrid.comb_arithmetic_processors` | The number of `normalization-processor` processors with `combination.technique` set to `arithmetic_mean`. |
+| `comb_geometric_processors` | `info` | `processors.search.hybrid.comb_geometric_processors` | The number of `normalization-processor` processors with `combination.technique` set to `geometric_mean`. |
+| `comb_harmonic_processors` | `info` | `processors.search.hybrid.comb_harmonic_processors` | The number of `normalization-processor` processors with `combination.technique` set to `harmonic_mean`. |
+| `rank_based_normalization_processors` | `info` | `processors.search.hybrid.rank_based_normalization_processors` | The number of `score-ranker-processor` processors. |
+| `comb_rrf_processors` | `info` | `processors.search.hybrid.comb_rrf_processors` | The number of `score-ranker-processor` processors with `combination.technique` set to `rrf`. |
 
-**Node-level Statistics - Processors**
+**Node-level statistics - processors**
 
 | Statistic name | Category | Statistic path within category | Description |
 | :--- | :--- | :--- | :--- |
