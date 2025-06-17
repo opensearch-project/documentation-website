@@ -187,13 +187,13 @@ When configuring the query insights feature, remember the following best practic
 
 The **Live queries** page provides real-time visibility into search queries currently running in your OpenSearch cluster. It enables active monitoring, fast debugging, and insight into how a query's load is distributed across nodes and indexes.
 
-The following image shows the live queries view:
+The following image shows the live queries view.
 
 ![Live Queries Dashboard]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries.png)
 
 ### Metrics overview
 
-The top panel in live queries view displays the following key real-time metrics:
+The top panel in the live queries view displays the following key real-time metrics.
 
 | Panel  | Description  |
 | :--- | :--- |
@@ -214,11 +214,11 @@ Two visual charts provide breakdowns of query load:
 
 You can toggle between **Donut** and **Bar** chart formats using the chart type switch.
 
-Only the top-9 items are displayed individually in the chart; additional values are grouped under the **Others** category.
+Only the top 9 items are displayed individually in the chart; additional values are grouped under the **Others** category.
 
 ### Live query table
 
-The live query table lists the following information for each live query:
+The live query table lists the following information for each live query.
 
 ![Live Queries Table]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries_Table.png)
 
@@ -236,7 +236,7 @@ The live query table lists the following information for each live query:
 | **Status**           | The status of the query task. Can be either `running` or `cancelled`. |
 | **Actions**          | The available controls, such as canceling the query.                  |
 
-You can use filter bar to search for queries by text or specific field values--such as node ID, index name, or task ID--and paginate the table to better analyze specific queries. The following image shows the live queries table view:
+You can use the filter bar to search for queries by text or specific field values---such as node ID, index name, or task ID---and paginate the table to better analyze specific queries. The following image shows the live queries table view.
 
 ![Live Queries Table]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries_Table.png)
 
