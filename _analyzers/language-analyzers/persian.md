@@ -60,7 +60,6 @@ The `persian` analyzer is built using the following components:
   - normalization (Arabic)
   - normalization (Persian)
   - keyword
-  - stemmer (Norwegian)
 
 ## Custom Persian analyzer
 
@@ -97,7 +96,8 @@ PUT /persian-index
             "decimal_digit",
             "arabic_normalization",
             "persian_normalization",
-            "persian_stop"
+            "persian_stop",
+            "persian_keywords"
           ]
         }
       }
