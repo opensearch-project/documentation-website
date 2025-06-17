@@ -34,7 +34,7 @@ The `tools` array contains a list of tools. Each tool contains the following fie
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :---
-`name`| String | Required | The tool name of the tool to update. |
+`name`| String | Required | The name of the tool to update. |
 `type` | String | Optional | The tool type. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). 
 `description` | String | Optional | The description of the tool.
 `parameters` | Object | Optional | The parameters for the tool. The parameters are dependent on the tool type. For information about specific tool types, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
@@ -118,7 +118,7 @@ POST /_plugins/_ml/mcp/tools/_update
 
 ## Example response
 
-OpenSearch responds with the node ID and the status of the update result of all tools for each node:
+OpenSearch responds with the node ID and the status of the update operation for all tools for each node:
 
 ```json
 {
