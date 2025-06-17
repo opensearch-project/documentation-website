@@ -23,10 +23,13 @@ Before configuring the remote index build settings, ensure you fulfill the follo
 
 Enable the remote index build service for both the cluster and the chosen index by configuring the following settings. 
 
-Setting | Static/Dynamic | Default | Description
-:--- | :--- | :--- | :---
-`knn.remote_index_build.enabled` | Dynamic | `false` | Enables remote vector index building for the cluster. 
-`index.knn.remote_index_build.enabled` | Dynamic | `false` | Enables remote index building for the index. 
+| Setting                                | Static/Dynamic | Default | Description                                           |
+|:---------------------------------------|:---------------|:--------|:------------------------------------------------------|
+| `knn.remote_index_build.enabled`       | Dynamic        | `false` | Enables remote vector index building for the cluster. |
+| `index.knn.remote_index_build.enabled` | Dynamic        | `true`  | Enables remote index building for the index. Takes effect only if `knn.remote_index_build.enabled` is set to `true`.         |
+
+The remote vector index builder for an index is enabled only when both the cluster-level `knn.remote_index_build.enabled` setting and the `index.knn.remote_index_build.enabled` index-level setting are set to `true`.
+{: .note}
 
 ### Step 2: Create and register the remote vector repository
 
