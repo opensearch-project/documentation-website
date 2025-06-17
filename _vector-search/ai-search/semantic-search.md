@@ -23,7 +23,7 @@ There are two ways to configure semantic search:
 
 - [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
 - [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
-- [**Manual setup with semantic field**](#manual-setup-with-semantic-field) (Recommended for quick setup with optional customization): Manually configure the index using semantic fields to simplify the setup process while still allowing for some level of configuration.
+- [**Using a semantic field**](#using-a-semantic-field) (Recommended for quick setup with optional customization): Manually configure the index using semantic fields to simplify the setup process while still allowing for some level of configuration.
 
 ## Automated workflow
 
@@ -342,11 +342,14 @@ The response contains both documents:
   }
 }
 ```
-## Manual setup with semantic field
+
+## Using a semantic field
+
+To manually configure semantic search using a `semantic` field, follow these steps. For more information and limitations when using `semantic` fields, see [Semantic field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/semantic/). 
 
 ### Step 1: Create an index with a semantic field
 
-In the example below, we use a dense model for the `semantic` field. You only need to specify the `model_id` in the semantic field configuration. OpenSearch will automatically create the corresponding embedding field based on the model’s configuration. An ingest pipeline is not required—OpenSearch will automatically generate the embeddings using the specified model during indexing.
+Create an index and specify the `model_id` in the `semantic` field. In this example, the `semantic` field is `passage_text`. OpenSearch  automatically creates the corresponding embedding field based on the model configuration. An ingest pipeline is not required---OpenSearch automatically generates the embeddings using the specified model during indexing:
 
 ```json
 PUT /my-nlp-index
@@ -369,14 +372,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-After creating the index, you can retrieve its mapping to verify that the embedding field was automatically created.
-
-An object field named `passage_text_semantic_info` is automatically created. It includes a `knn_vector` subfield to store the embedding, as well as additional text fields to capture model metadata.
-
-The `dimension` and `space_type` of the `knn_vector` field are determined by the ML model configuration. For pretrained dense models, this information is included in the model config by default. However, for remote dense models, you must ensure that the dimension and space_type are explicitly defined in the model config before using it with a semantic field.
-
-You may notice that the auto-created `knn_vector` field supports additional configurations that are not currently exposed through the semantic field.
-{: .note}
+After creating the index, you can retrieve its mapping to verify that the embedding field was automatically created:
 
 ```json
 GET /my-nlp-index/_mapping
@@ -442,7 +438,7 @@ PUT /my-nlp-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-Before the document is ingested into the index, OpenSearch runs a system ingest pipeline that uses a built-in processor to generate embeddings for the passage_text.  To verify the embedding is generated properly you can retrieve the doc:
+Before the document is ingested into the index, OpenSearch runs a built-in ingest pipeline that generates embeddings and stores them in the `passage_text_semantic_info.embedding` field. To verify that the embedding is generated properly, you can run a search request to retrieve the document:
 
 ```json
 GET /my-nlp-index/_doc/1
@@ -474,7 +470,7 @@ GET /my-nlp-index/_doc/1
 
 ### Step 3: Search the index
 
-To query the embedding of the semantic field, simply provide the semantic field's name and the query text. There's no need to specify the `model_id`—OpenSearch automatically retrieves it from the field’s configuration in the index mapping and rewrites the query to target the underlying embedding field.
+To query the embedding of the `semantic` field, provide the `semantic` field's name (in this example, `passage_text`) and the query text. There's no need to specify the `model_id`---OpenSearch automatically retrieves it from the field's configuration in the index mapping and rewrites the query to target the underlying embedding field:
 
 ```json
 GET /my-nlp-index/_search

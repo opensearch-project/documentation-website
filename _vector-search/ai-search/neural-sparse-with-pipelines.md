@@ -39,12 +39,6 @@ This tutorial consists of the following steps:
     1. [Ingest documents into the index](#step-2c-ingest-documents-into-the-index)
 1. [**Search the data**](#step-3-search-the-data)
 
-By using the semantic field you can simplify the step 2 and 3:
-2. [**Ingest data with a semantic field**](#step-2-ingest-data-with-a-semantic-field)
-   1. [Create an index with a semantic field for ingestion](#step-2a-create-an-index-with-a-semantic-field-for-ingestion)
-   1. [Ingest documents into the index with a semantic field](#step-2b-ingest-documents-into-the-index-with-a-semantic-field)
-3. [**Search the data through a semantic field**](#step-3-search-the-data-through-a-semantic-field)
-
 ### Prerequisites
 
 Before you start, complete the [prerequisites]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/#prerequisites). 
@@ -466,19 +460,19 @@ GET my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-## Using Semantic Field
-Even when using a semantic field, you still need to deploy the model as described in Step 1 [**Configure a sparse encoding model/tokenizer**](#step-1-configure-a-sparse-encoding-modeltokenizer).
+## Using a semantic field
 
+Using a `semantic` field simplifies neural sparse search configuration. To use a `semantic` field, follow these steps. For more information, see [Semantic field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/semantic/).
 
-## Step 2: Ingest data with a semantic field
+### Step 1: Register and deploya sparse encoding model
 
-### Step 2(a): Create an index with a semantic field for ingestion
+First, register and deploy a sparse encoding model as described in [Step 1](#step-1-configure-a-sparse-encoding-modeltokenizer).
 
-In both bi-encoder and doc-only modes, a sparse encoding model is used at ingestion time to generate sparse vector embeddings. When using a semantic field, you simply need to set the `model_id` to the ID of the model used for ingestion. For doc-only mode, you can additionally specify the model to be used at query time by setting the `search_model_id` in the semantic field configuration.
+## Step 2: Create an index with a semantic field for ingestion
 
-The following example shows how to create an index with a semantic field configured for doc-only mode using a sparse model.
+The sparse encoding model configured in the previous step is used at ingestion time to generate sparse vector embeddings. When using a `semantic` field, set the `model_id` to the ID of the model used for ingestion. For doc-only mode, you can additionally specify the model to be used at query time by providing its ID in the `search_model_id` field.
 
-To enable automatic splitting of long text into smaller passages, set chunking to true in the semantic field configuration.
+The following example shows how to create an index with a `semantic` field configured in the doc-only mode using a sparse encoding model. To enable automatic splitting of long text into smaller passages, set `chunking` to `true` in the semantic field configuration:
 
 ```json
 PUT /my-nlp-index
@@ -500,9 +494,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-After creating the index, you can retrieve its mapping to verify that the embedding field was automatically created.
-
-An object field named `passage_text_semantic_info` is automatically created. It includes a `ran_features` subfield to store the embedding, as well as additional text fields to capture model metadata.
+After creating the index, you can retrieve its mapping to verify that the embedding field was automatically created:
 
 ```json
 GET /my-nlp-index/_mapping
@@ -558,7 +550,9 @@ GET /my-nlp-index/_mapping
 ```
 {% include copy-curl.html %}
 
-### Step 2(b): Ingest documents into the index with a semantic field
+An object field named `passage_text_semantic_info` is automatically created. It includes a `ran_features` subfield to store the embedding, along with additional text fields to capture model metadata.
+
+### Step 3: Ingest documents into the index
 
 To ingest documents into the index created in the previous step, send the following requests:
 
@@ -580,7 +574,7 @@ PUT /my-nlp-index/_doc/2
 ```
 {% include copy-curl.html %}
 
-Before the document is ingested into the index, OpenSearch will automatically chunk the text and generate the sparse vector embedding for each chunk.
+Before a document is ingested into the index, OpenSearch automatically chunks the text and generates sparse vector embeddings for each chunk. To verify that the embedding is generated properly, you can run a search request to retrieve the document:
 
 ```json
 GET /my-nlp-index/_doc/1
@@ -615,11 +609,11 @@ GET /my-nlp-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Step 3: Search the data through a semantic field
+## Step 3: Search the data
 
-To search against the embedding of the semantic field on your index, use the `neural` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries.
+To search the embeddings of the semantic field, use the `neural` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries.
 
-The following example uses a `neural` query to search for relevant documents using a raw text input. You only need to specify the name of the semantic field—OpenSearch will automatically rewrite the query to target the underlying embedding field and handle any nested objects appropriately. There's no need to provide the `model_id` in the query, as OpenSearch retrieves it from the semantic field’s configuration in the index mapping.
+The following example uses a `neural` query to search for relevant documents using text input. You only need to specify the `semantic` field name---OpenSearch automatically rewrites the query and applies it to the underlying embedding field, appropriately handling any nested objects. There's no need to provide the `model_id` in the query, because OpenSearch retrieves it from the semantic field's configuration in the index mapping:
 
 ```json
 GET my-nlp-index/_search
@@ -682,7 +676,7 @@ The response contains the matching documents:
 }
 ```
 
-You also can use a built-in analyzer to tokenize the query text as below:
+Alternatively, you can use a built-in analyzer to tokenize the query text:
 
 ```json
 GET my-nlp-index/_search
@@ -704,13 +698,13 @@ GET my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-To simplify the query further, you can define the `semantic_field_search_analyzer` in the semantic field configuration. This allows you to omit the analyzer from the query itself, as OpenSearch will automatically apply the configured analyzer during search.
+To simplify the query further, you can define the `semantic_field_search_analyzer` in the `semantic` field configuration. This allows you to omit the analyzer from the query itself, because OpenSearch automatically applies the configured analyzer during search.
 
 ## Accelerating neural sparse search
 
 To learn more about improving retrieval time for neural sparse search, see [Accelerating neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/#accelerating-neural-sparse-search).
 
-If you're using semantic fields with a `neural` query, query acceleration is currently **not supported**. However, you can achieve acceleration by using a `neural_sparse` query directly against the underlying `rank_features` field.
+If you're using `semantic` fields with a `neural` query, query acceleration is currently **not supported**. You can achieve acceleration by running a `neural_sparse` query directly against the underlying `rank_features` field.
 {: .note}
 
 ## Creating a search pipeline for neural sparse search
