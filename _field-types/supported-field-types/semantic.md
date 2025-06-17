@@ -205,7 +205,7 @@ Note the following limitations of the `semantic` field:
 
 - For sparse models, OpenSearch applies a default prune ratio of `0.1` when generating sparse embeddings. This value is not configurable. Querying a semantic field with a sparse model does not support the [`neural_sparse_two_phase_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/), which is used to optimize search latency.
 
-- Querying a semantic field from a remote cluster is not supported.
+- Querying a `semantic` field from a remote cluster is not supported.
 
 ## Next steps
 
