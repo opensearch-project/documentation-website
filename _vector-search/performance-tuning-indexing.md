@@ -40,8 +40,6 @@ Monitor CPU utilization and choose the correct number of threads. Because native
 
 Starting with OpenSearch 3.0, you can use the derived vector source feature to significantly reduce storage requirements for vector fields. It is an [index setting]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings) enabled by default. This feature prevents vectors from being stored in the `_source` field while still maintaining all functionality, including the ability to use the `update`, `update_by_query`, and `reindex` APIs.
 
-For more information about derived vector source and its benefits, see the [blog post](https://opensearch.org/blog/do-more-with-less-save-up-to-3x-on-storage-with-derived-vector-source/).
-
 ## (Expert level) Build vector data structures on demand
 
 This approach is recommended only for workloads that involve a single initial bulk upload and will be used exclusively for search after force merging to a single segment.
