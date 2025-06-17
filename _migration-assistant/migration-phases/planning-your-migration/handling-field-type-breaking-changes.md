@@ -8,7 +8,7 @@ grand_parent: Migration phases
 
 # Handling breaking changes in field types
 
-This guide explains how to use the Migration Assistant to transform field types that are deprecated or incompatible during a migration to OpenSearch.
+This guide explains how to use Migration Assistant to transform field types that are deprecated or incompatible during a migration to OpenSearch.
 
 Field types define how data is stored and queried in an index. Each field in a document is mapped to a data type, which determines how it is indexed and what operations can be performed on it.
 
@@ -33,7 +33,7 @@ For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}
 
 ## Configure item transformations
 
-You can customize how field types are transformed during metadata and data migrations by supplying a transformation configuration file, using the following steps:
+You can customize how field types are transformed during metadata and data migrations by supplying a transformation configuration file using the following steps:
 
 1. Open the Migration Assistant console.
 2. Create a JavaScript file to define your transformation logic using the following command:
@@ -128,14 +128,14 @@ The script contains the following elements:
 
 2. The `applyRules` function recursively traverses the input:
 
-   * Arrays are recursively processed element by element
-   * `Map` objects are matched and mutated using the defined rules
-   * Plain objects are checked for matches and transformed accordingly
+   * Arrays are recursively processed element by element.
+   * `Map` objects are matched and mutated using the defined rules.
+   * Plain objects are checked for matches and transformed accordingly.
 
 3. The `main` function returns a transformation function that:
 
-   * Applies the rules to each document
-   * Returns the modified document for migration or replay
+   * Applies the rules to each document.
+   * Returns the modified document for migration or replay.
 
 ### Example `transformation.json`
 
@@ -155,4 +155,4 @@ The following JSON file references your transformation script and initializes th
 
 ## Summary
 
-By using a transformation configuration, you can rewrite deprecated or incompatible field types on the fly during metadata migration or data replay. This ensures your target OpenSearch cluster only receives compatible mappings—even if the source cluster includes outdated types like `string` or features like `flattened` that need conversion.
+By using a transformation configuration, you can rewrite deprecated or incompatible field types during metadata migration or data replay. This ensures that your target OpenSearch cluster only receives compatible mappings—even if the source cluster includes outdated types like `string` or features like `flattened` that need conversion.

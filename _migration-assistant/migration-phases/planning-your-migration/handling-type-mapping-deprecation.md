@@ -37,7 +37,7 @@ GET /library/_mappings
 }
 ```
 
-For more information, see [Elasticsearch's official documentation on the removal of mapping types](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/removal-of-types.html). 
+For more information, see the [official Elasticsearch documentation on the removal of mapping types](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/removal-of-types.html). 
 
 ## Using the type mapping transformer
 
