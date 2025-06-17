@@ -349,7 +349,7 @@ To manually configure semantic search using a `semantic` field, follow these ste
 
 ### Step 1: Create an index with a semantic field
 
-Create an index and specify the `model_id` in the `semantic` field. In this example, the `semantic` field is `passage_text`. OpenSearch  automatically creates the corresponding embedding field based on the model configuration. An ingest pipeline is not required---OpenSearch automatically generates the embeddings using the specified model during indexing:
+Create an index and specify the `model_id` in the `semantic` field. In this example, the `semantic` field is `passage_text`. OpenSearch automatically creates the corresponding embedding field based on the model configuration. An ingest pipeline is not required---OpenSearch automatically generates the embeddings using the specified model during indexing:
 
 ```json
 PUT /my-nlp-index
