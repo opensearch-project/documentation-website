@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Judgments
-nav_order: 40
+nav_order: 8
 parent: Using Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
@@ -10,29 +10,29 @@ has_toc: false
 
 # Judgments
 
-A judgment is a rating that describes the relevance of one particular document for a given query. Multiple judgments are grouped together into judgment lists.
-Typically, judgments are categorized into two types: implicit and explicit.
+A judgment is a relevance rating assigned to a specific document in the context of a particular query. Multiple judgments are grouped together into judgment lists.
+Typically, judgments are categorized into two types: implicit and explicit:
 
-* Implicit judgments are ratings that were derived from user behavior (for example what was seen and what was clicked after searching?)
-* Explicit judgments were traditionally done by humans, nowadays LLMs increasingly take over this role.
+* Implicit judgments are ratings that were derived from user behavior (for example, what did the user see and click after searching?)
+* Explicit judgments were traditionally made by humans, but large language models (LLMs) are increasingly being used to perform this task.
 
 The Search Relevance Workbench supports all types of judgments:
 
 * The Search Relevance Workbench allows the generating implicit judgments based on data that adheres to the UBI schema specification.
-* Additionally, the Search Relevance Workbench offers users to leverage LLMs to generate judgments by connecting OpenSearch to an API or an internally or externally hosted model.
-* Lastly, for OpenSearch users that already have processes to generate judgments the Search Relevance Workbench can import these.
+* Using LLMs to generate judgments by connecting OpenSearch to an API or an internally or externally hosted model.
+* Importing externally created judgments.
 
 ## Explicit judgments
 
 The Search Relevance Workbench offers two ways to integrate explicit judgments:
 * Importing judgments that were collected in a process outside of OpenSearch.
-* AI-assisted judgments that leverage LLMs.
+* AI-assisted judgments that use LLMs.
 
 ### Importing judgments
 
-Search teams may already have external processes set up that result in judgments. These can be imported with a PUT command to the correspnding endpoint. It does not matter what the process looks like that generated the judgments. This means that the judgments can be implicit or explicit and the judgment list can be generated with humans or AI-assisted: all kinds of judgments are supported in the import process.
+You may already have external processes for generating judgments. Regardless of the judgment type or the way it was generated, you can import it into the Search Relevance Workbench.
 
-#### Example request:
+#### Example request
 
 ```json
 PUT _plugins/_search_relevance/judgments
@@ -96,28 +96,35 @@ PUT _plugins/_search_relevance/judgments
 ```
 {% include copy-curl.html %}
 
+#### Request body fields
+
 The judgment import supports the following parameters.
 
 Parameter | Data type | Description
 `name` | String | The name of the judgment list.
 `description` | String | An optional description of the judgment list.
-`type` | String | The type of judgment. When importing judgments the type is `IMPORT_JUDGMENT`.
-`judgmentRatings` | Array | A list of JSON objects with the actual judgments. Judgments are grouped by query that have a nested map with document IDs (`docId`) as keys and the ratings as numerical float values.
+`type` | String | Set to `IMPORT_JUDGMENT`.
+`judgmentRatings` | Array | A list of JSON objects containing the judgments. Judgments are grouped by query, each containing a nested map in which document IDs (`docId`) serve as keys and their floating-point ratings serve as values.
 
 ### Creating AI-assisted judgments
 
-Search teams that want to use judgments in their experimentation process and do not have a team of humans or do not have the user behavior data to calculate judgments based on interactions are covered by the Search Relevance Workbench's feature of leveraging LLMs to assist them.
-There are three prerequisites to use the AI-assisted process:
+If you want to use judgments in your experimentation process but do not have a team of humans or the user behavior data to calculate judgments based on interactions, you can use an LLM in the Search Relevance Workbench to generate judgments.
+#### Prerequisites
 
-* A connector to a LLM to use for generating the judgments: you have several options to [create connectors that let you access models to generate AI-assisted judgments]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
-* A query set: The query set sets the scope of the judgments to generate together with the `size` parameter. For each query the top k documents are retrieved from the defined index where k is the number defined with the `size` parameter.
-* A search configuration: defines how the documents should be retrieved that are used for query/document pairs.
+To use AI-assisted judgment generation, ensure that you have configured the following components:
 
-The AI-assisted judgment process: For each query the top k documents are retrieved from with the defined search configuration that also has the index information. The query and each document from the result list create a query/doc pair. For each query/doc pair a judgment is generated by calling the LLM with the prompt that is defined as a static variable in the backend. The LLM generates one judgment per query/doc pair. All generated judgments are stored in the judgments index for repeated and/or future usage.
+* A connector to an LLM to use for generating the judgments. For more information, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+* A query set: Together with the `size` parameter, the query set defines the scope for generating judgments. For each query, the top k documents are retrieved from the specified index, where k is defined in the `size` parameter.
+* A search configuration: A search configuration defines how documents are retrieved for use in query/document pairs.
 
-With the model ID, an available query set and a created search confoguiration you can initiate a job to create a judgment list:
+The AI-assisted judgment process works as follows: 
+- For each query, the top k documents are retrieved using the defined search configuration, which includes the index information. The query and each document from the result list create a query/doc pair. 
+- Each query and document pair forms a query/doc pair. 
+- The LLM is then called with a predefined prompt (stored as a static variable in the backend) to generate a judgment for each query/doc pair. 
+- All generated judgments are stored in the judgments index for reuse in future experiments.
 
-#### Example request:
+To create a judgment list, provide the model ID of the LLM, an available query set, and a created search configuration :
+
 
 ```json
 PUT _plugins/_search_relevance/judgments
@@ -135,17 +142,17 @@ PUT _plugins/_search_relevance/judgments
 
 ## Implicit judgments
 
-Implicit judgments are derived from user interactions. Several models exist that allow leveraging signals from user behavior to calculate implicit judgments. Clicks Over Expected Clicks (COEC) is one of these models, specifically a click model, that is implemented in the following way in the Search Relevance Workbench.
-The data used to derive relevance labels is based on past user behavior following the [User Behavior Insights schema specification]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/). The two types of interactions relevant for the implicit judgments process are impressions and clicks that happen after a user query. Technically, this means that all events in the index `ubi_events` that either have `impression` or `click` as values indexed in the field `action_name` are used to model implicit judgments.
-Clicks Over Expected Clicks calculates for each rank an expected click-through rate (CTR) based on all past impressions and clicks that happened at the rank. It is implemented as the sum of all clicks over the sum of all impressions for all events in `ubi_events` that were observed at a given rank.
+Implicit judgments are derived from user interactions. Several models use signals from user behavior to calculate these judgments. One such model is Clicks Over Expected Clicks (COEC), a click model implemented in the Search Relevance Workbench.
+The data used to derive relevance labels is based on past user behavior. The data follows the [User Behavior Insights schema specification]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/). The two key interaction types for implicit judgments are impressions and clicks that occur after a user query. In practice, this means all events in the `ubi_events` index with an `impression` or `click` recorded in the `action_name` field are used to model implicit judgments.
+COEC calculates an expected click-through rate (CTR) for each rank. It does this by dividing the total number of clicks by the total number of impressions observed at that rank, based on all events in `ubi_events`. This ratio represents the expected CTR for that position.
 
-For each document that is displayed in a hit list after a query the average click-through rate at this rank is the expected value for the query/doc pair. COEC now calculates the actual CTR of the query/doc pair and divivdes the observed CTR by the expected rank-aggregated CTR value. This means that those query-document pairs that have a better (higher) click-through rate than the average CTR at the rank of this query-document pair were observed and the judgment will be greater than 1. If it’s less than the average then the judgment value will drop below 1.
+For each document displayed in a hit list after a query, the average click-through rate (CTR) at that rank serves as the expected value for the query/doc pair. COEC calculates the actual CTR for the query/doc pair and divides it by this expected rank-based CTR. This means that query/document pairs with a higher CTR than the average for that rank will have a judgment value greater than 1. Conversely, if the CTR is lower than average, the judgment value will be less than 1.
 
-Be aware that depending on the implementation details of the tracking multiple clicks for one query can be stored in the `ubi_events` index. This means that an average click-through rate greater than 1 (=100%) is possible.
-For query-document observations that occur on different positions we assume all observations (impressions and clicks) happened at the lowest (=best) position. This means that we bias the final judgment towards lower values as we typically see higher click-through rates for better ranks in practice.
+Note that depending on the tracking implementation, multiple clicks for a single query can be recorded in the `ubi_events` index. As a result, the average click-through rate (CTR) can sometimes exceed 1 (or 100%).
+For query-document observations that occur at different positions, all impressions and clicks are assumed to have happened at the lowest (best) position. This approach biases the final judgment toward lower values, reflecting the common trend that higher-ranked results typically receive higher click-through rates.
 {: .note}
 
-#### Example request:
+#### Example request
 
 ```json
 PUT _plugins/_search_relevance/judgments
@@ -158,21 +165,25 @@ PUT _plugins/_search_relevance/judgments
 ```
 {% include copy-curl.html %}
 
-Initializing the creation of implicit judgments supports the following parameters.
+#### Request body fields
+
+The process of creating implicit judgments supports the following parameters.
 
 Parameter | Data type | Description
 `name` | String | The name of the judgment list.
-`clickModel` | String | The model used to calculate implicit judgments. `coec` (Clicks Over Expected Clicks) is only currently supported.
-`type` | String | The type of judgment. When creating implicit judgments the type is `UBI_JUDGMENT`.
-`maxRank` | Integer | The maximum rank at which to consider events for judgment calculation.
+`clickModel` | String | The model used to calculate implicit judgments. Only `coec` (Clicks Over Expected Clicks) is supported.
+`type` | String | Set to `UBI_JUDGMENT`.
+`maxRank` | Integer | The maximum rank to consider when including events in the judgment calculation.
 
 ## Managing judgment lists
 
-In addition to creating judgment lists, there are API calls to retrieve available judgment lists, view individual judgment lists and delete judgment lists.
+You can retrieve available or delete judgment lists using the following APIs.
 
 ### Retrieve judgment lists
 
-#### Endpoint
+This API retrieves judgment lists.
+
+#### Example request
 
 ```json
 GET _plugins/_search_relevance/judgments
@@ -394,7 +405,7 @@ You can delete a judgment list using the judgment list ID.
 DELETE _plugins/_search_relevance/judgments/<judgment_list_id>
 ```
 
-#### Example request:
+#### Example request
 
 ```json
 DELETE _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
