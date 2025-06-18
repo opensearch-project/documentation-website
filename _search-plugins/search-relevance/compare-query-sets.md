@@ -44,7 +44,7 @@ Field | Data type |  Description
 `querySetId` | String |	The query set ID.
 `searchConfigurationList` | List | A list of search configuration IDs to use for comparison.
 `size` | Integer | The number of documents to return in the results.
-`type` | String | Defines the type of experiment to run. One of `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. However, the body fields will change depending on the type of experiment.
+`type` | String | Defines the type of experiment to run. Valid values are `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. Depending on the experiment type, you must provide different body fields in the request.
 
 The response contains the experiment ID of the created experiment:
 

@@ -34,15 +34,17 @@ The Search Relevance Workbench ships with three types of experiments:
 
 ## Enabling the Search Relevance Workbench
 
-The Search Relevance Workbench is an opt-in feature. This means you need to activate the plugin in the frontend and the backend.
+To enable the Search Relevance Workbench, you must enable the frontend and backend plugins.
 
 ### Enabling the Search Relevance Workbench frontend plugin
 
-To activate the frontend plugin navigate to Management > Dashboards Management > Advanced Settings and switch the toggle to on:
+To activate the frontend plugin, in OpenSearch Dashboards, go to **Management** > **Dashboards Management** > **Advanced Settings** and turn on the toggle, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/activate_frontend_plugin.png" alt="Activate frontend plugin in OpenSearch Dashboards settings"/>{: .img-fluid }
 
 ### Enabling the Search Relevance Workbench backend plugin
+
+To enable the Search Relevance Workbench backend plugin, send the following request:
 
 To enable the Search Relevance Workbench backend plugin, send the following request:
 
@@ -55,6 +57,7 @@ PUT _cluster/settings
 }
 ```
 {% include copy-curl.html %}
+{% include copy-curl.html %}
 
 ## Running your first experiment
 
@@ -62,7 +65,7 @@ To start experimenting with the Search Relevance Workbench, create a query set a
 
 ## Creating a query set
 
-The first step to get started with comparing search configurations is to create a set of queries to run the search. If you have access to search behavior data, adhering to the UBI standard, one way of doing this is by making a POST request to the endpoint `_plugins/search_relevance/query_sets/create`.
+To compare search configurations, create a set of queries to run the search. If you have access to search behavior data adhering to the User Behavior Insights (UBI) standard, you can send a request to the `_plugins/search_relevance/query_sets/create` endpoint.
 
 In this example, upload a manually defined query set to the Search Relevance Workbench:
 
@@ -151,7 +154,6 @@ POST _plugins/_search_relevance/experiments
  "type": "PAIRWISE_COMPARISON"
 }
 ```
-### Response
 
 ```json
 {

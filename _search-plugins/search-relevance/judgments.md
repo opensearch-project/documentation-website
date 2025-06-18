@@ -18,7 +18,7 @@ Typically, judgments are categorized into two types: implicit and explicit:
 
 The Search Relevance Workbench supports all types of judgments:
 
-* The Search Relevance Workbench allows the generating implicit judgments based on data that adheres to the UBI schema specification.
+* Generating implicit judgments based on data that adheres to the UBI schema specification.
 * Using LLMs to generate judgments by connecting OpenSearch to an API or an internally or externally hosted model.
 * Importing externally created judgments.
 
@@ -180,6 +180,8 @@ Parameter | Data type | Description
 You can retrieve available or delete judgment lists using the following APIs.
 
 ### Retrieve judgment lists
+
+This API retrieves judgment lists.
 
 This API retrieves judgment lists.
 
