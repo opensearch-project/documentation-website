@@ -29,7 +29,7 @@ These pipelines modify data at three key stages:
 
 In OpenSearch, you can [integrate models hosted on third-party platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/) and use their inference capabilities directly in OpenSearch. Both ingest and search pipelines offer [ML inference processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/), allowing you to use externally hosted models for inference in your pipelines during both ingestion and search.
 
-## Accessing AI search flows
+## Accessing AI Search Flows
 
 To access AI Search Flows, go to **OpenSearch Dashboards** and select **OpenSearch Plugins** > **AI Search Flows** from the top menu.
 
@@ -78,19 +78,19 @@ We strongly recommend using models with full model interfaces. For a list of exa
    For additional options, such as the text field and vector field names that will be persisted in the index, select **Optional configuration**. You can update these settings at any time.
 
 4. Select **Create** to prepopulate the configuration and automatically navigate to the **Workflow Details** page, where you can configure your ingest flow.
-5. To provide sample data, select **Sample data** from **Flow overview**. Then select **Import data**. You enter data manually, upload a local `.jsonl` file, or retrieve sample documents from an existing index, as shown in the following image.
+5. To provide sample data, select **Sample data** from **Flow overview**. Then select **Import data**. You can enter data manually, upload a local `.jsonl` file, or retrieve sample documents from an existing index, as shown in the following image.
    ![Import data modal]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/import-data-modal.png)
 
    The form expects data in [JSON Lines format](https://jsonlines.org/), with each line representing a standalone [document]({{site.url}}{{site.baseurl}}/getting-started/intro/#document). This process is similar to the [bulk ingest operation]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/#bulk-indexing). When you're finished, select **Confirm**.
 
-6. In the **Flow overview** panel, select the topmost **ML Inference Processor**. The processor is prepopulated with the configuration used to map data _to_ the expected model input and _from_ the expected model output. The **Inputs** section maps the target document field to the model input field, generating vector embeddings for that field. The **Outputs** section maps the model output field to a new field, that is stored in the index, as shown in the following image.
+6. In the **Flow overview** panel, select the topmost **ML Inference Processor**. The processor is prepopulated with the configuration used to map data _to_ the expected model input and _from_ the expected model output. The **Inputs** section maps the target document field to the model input field, generating vector embeddings for that field. The **Outputs** section maps the model output field to a new field that is stored in the index, as shown in the following image.
    ![Transform data]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-data.png)
 
    For more information about transformation types that accommodate complex data schemas and model interfaces, see [Advanced data transformations](#advanced-data-transformations).
 
 7. In the **Flow overview** panel, select **Index**. The index is prepopulated with the index configuration required for the selected use case. For example, for vector search, the `my_embedding` field is mapped as a `knn_vector` and the index is specified as a vector index (`index.knn: true`), as shown in the following image. You can modify this configuration as needed.
    ![Ingest data]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/ingest-data.png)
-8. Select **Update ingest flow** at the bottom of **Flow overview** to build the configured ingest pipeline and index, and ingest the provided sample data. Then go to **Test flow** under **Inspect** to search the newly created index and verify that the transformed documents are as expected. In this example, verify that the vector embeddings are generated for each ingested document, as shown in the following image.
+8. Select **Update ingest flow** at the bottom of **Flow overview** to build the configured ingest pipeline and index, and ingest the provided sample data. Then go to **Test flow** under **Inspect** to search the newly created index and verify that the transformed documents appear as expected. In this example, verify that the vector embeddings are generated for each ingested document, as shown in the following image.
    ![Test ingest flow]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/ingest-test-flow.png)
 9. To configure your search flow, under **Flow overview** > **Transform query**, select **ML Inference Processor**, as shown in the following image. This processor parses the search query inputs for which you want to generate vector embeddings. In this example, it passes the value from `query.match.review.query` to the embedding model.<br>
    ![Transform query]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-query.png)
@@ -99,9 +99,9 @@ We strongly recommend using models with full model interfaces. For a list of exa
 
    ![Rewrite query]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/rewrite-query.png)
 
-10. To configure your search results transformations, under **Flow overview** > **Transform response**, select **ML Inference Processor**, as shown in the following image. The Claude LLM is used to process the returned results and generate a human-readable response.
+10. To configure your search result transformations, under **Flow overview** > **Transform response**, select **ML Inference Processor**, as shown in the following image. The Claude LLM is used to process the returned results and generate a human-readable response.
     ![Transform response]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/transform-response.png)<br>
-    Under **Inputs**, select the pencil icon next to the `prompt` entry. This opens a popup window containing a preconfigured prompt template designed to summarize the returned documents, as shown in the following image. You can modify this template as needed; several presets are available as starting points. You can also add, update, or remove the **Input variables**, which include data from the returned documents that you want to dynamically inject as contextual information to the LLM. The default option collects all `review` data and summarizes the results. Select **Save** to apply your changes.
+    Under **Inputs**, select the pencil icon next to the `prompt` entry. This opens a popup window containing a preconfigured prompt template designed to summarize the returned documents, as shown in the following image. You can modify this template as needed; several presets are available as starting points. You can also add, update, or remove the **Input variables**, which include data from the returned documents that you want to dynamically inject as contextual information into the LLM. The default option collects all `review` data and summarizes the results. Select **Save** to apply your changes.
     ![Configure prompt]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/configure-prompt.png)
 11. To build the search pipeline, select **Create search flow**. The **Inspect** section automatically navigates to the **Test flow** component, where you can test different queries and run searches, as shown in the following image. You can use variables wrapped in {% raw %}`{{ }}`{% endraw %} to quickly test different query values without modifying the base query.
     ![Test search flow]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/search-test-flow.png)

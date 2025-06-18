@@ -8,11 +8,11 @@ nav_order: 10
 
 # Configuring AI search types
 
-This page provides example configurations for different AI search workflow types. Each example shows how to tailor the setup to a specific use case, such as semantic search or hybrid retrieval. To build a workflow from start to finish, follow the steps in [Building AI search workflows in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflow-builder/), substituting your use case from this page into the appropriate parts of the setup. 
+This page provides example configurations for different AI search workflow types. Each example shows how to tailor the setup to a specific use case, such as semantic search or hybrid retrieval. To build a workflow from start to finish, follow the steps in [Building AI search workflows in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflow-builder/), applying your use case configuration to the appropriate parts of the setup. 
 
 ## Prerequisite: Provision ML resources
 
-Before you start, select and provision the necessary machine learning (ML) resources depending on your use case. For example, to implement semantic search, you must configure a text embedding model in your OpenSearch cluster. For more information about deploying ML models locally or connecting to externally hosted models, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
+Before you start, select and provision the necessary machine learning (ML) resources, depending on your use case. For example, to implement semantic search, you must configure a text embedding model in your OpenSearch cluster. For more information about deploying ML models locally or connecting to externally hosted models, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 
 <details markdown="block">
   <summary>
@@ -31,7 +31,7 @@ This example demonstrates how to configure semantic search.
 
 ### ML resources
 
-Create and deploy an [Amazon Titan Text Embeddings model on Amazon Bedrock](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md#amazon-bedrock-titan-text-embedding).
+Create and deploy an [Amazon Titan Text Embedding model on Amazon Bedrock](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md#amazon-bedrock-titan-text-embedding).
 
 ### Index
 
@@ -93,7 +93,7 @@ Hybrid search combines keyword and vector search. This example demonstrates how 
 
 ### ML resources
 
-Create and deploy an [Amazon Titan Text Embeddings model on Amazon Bedrock](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md#amazon-bedrock-titan-text-embedding).
+Create and deploy an [Amazon Titan Text Embedding model on Amazon Bedrock](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md#amazon-bedrock-titan-text-embedding).
 
 ### Index
 
@@ -170,7 +170,7 @@ Configure an ML inference search request processor and a normalization processor
 
 This example demonstrates how to configure basic retrieval-augmented generation (RAG).
 
-The following example shows a simplified connector blueprint for the [Claude v1 messages API](https://docs.anthropic.com/en/api/getting-started#examples). While connector blueprints and model interfaces may evolve over time, this example demonstrates how to abstract complex API interactions into a single `prompt` field input.
+The following example shows a simplified connector blueprint for the [Claude v1 messages API](https://docs.anthropic.com/en/api/messages). While connector blueprints and model interfaces may evolve over time, this example demonstrates how to abstract complex API interactions into a single `prompt` field input.
 
 A sample input might appear as follows, with placeholders representing dynamically fetched results:
 
@@ -204,7 +204,7 @@ Multimodal search searches by text and image. This example demonstrates how to c
 
 ### ML resources
 
-Create and deploy an [Amazon Titan Multimodal Embeddings model on Amazon Bedrock](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md#amazon-bedrock-titan-multimodal-embedding).
+Create and deploy an [Amazon Titan Multimodal Embedding model on Amazon Bedrock](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md#amazon-bedrock-titan-multimodal-embedding).
 
 ### Index
 
@@ -277,7 +277,7 @@ Create and deploy an [Amazon Comprehend Entity Detection model](https://github.c
 
 ### Ingest pipeline
 
-Configure a single ML inference processor. Map your input text field to the `text` model input fields. To persist any identified entities with each document, transform the output (an array of entities) and store them in the `entities_found` field. Use the following `output_map` configuration as a reference:
+Configure a single ML inference processor. Map your input text field to the `text` model input field. To persist any identified entities with each document, transform the output (an array of entities) and store them in the `entities_found` field. Use the following `output_map` configuration as a reference:
 
 ```json
 "output_map": [
@@ -303,7 +303,7 @@ Create and deploy an [Amazon Comprehend Language Detection model](https://github
 
 ### Ingest pipeline
 
-Configure a single ML inference processor. Map your input text field to the `text` model input fields. To store the most relevant or most likely language detected for each document, transform the output (an array of languages) and persist it in the `detected_dominant_language` field. Use the following `output_map` configuration as a reference:
+Configure a single ML inference processor. Map your input text field to the `text` model input field. To store the most relevant or most likely language detected for each document, transform the output (an array of languages) and persist it in the `detected_dominant_language` field. Use the following `output_map` configuration as a reference:
 
 ```json
 "output_map": [
@@ -414,7 +414,7 @@ Ensure that the index settings include `index.knn: true` and that your index con
 
 ### Ingest pipeline
 
-Configure a single ML inference processor. Map your image field to the `image_url` model input field or your text field to the `text` model input field, depending on what type of data you are ingesting and persisting in your index. For example, if building an application that returns relevant images based on text or image input, you want to persist images and should map the image field to the `image_url` field.
+Configure a single ML inference processor. Map your image field to the `image_url` model input field or your text field to the `text` model input field, depending on what type of data you are ingesting and persisting in your index. For example, if building an application that returns relevant images based on text or image input, you will need to persist images and should map the image field to the `image_url` field.
 
 ### Search pipeline
 
