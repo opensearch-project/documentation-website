@@ -117,8 +117,8 @@ The following is an example completed response:
 
 The results include an evaluation result ID for each search configuration. To view detailed results, query the `search-relevance-evaluation-result` index using this ID.
 
-### Example evaluation metrics
-
+An example of the detailed results is below.
+<details>
 ```json
 {
     "took": 59,
@@ -182,7 +182,7 @@ The results include an evaluation result ID for each search configuration. To vi
     }
 }
 ```
-
+</details>
 The results include the original request parameters along with the following metric values:
 
 - `Coverage@k`: The proportion of scored documents from the judgment set, calculated as the number of documents with scores divided by the total number of documents.
