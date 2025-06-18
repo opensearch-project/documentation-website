@@ -46,8 +46,6 @@ To activate the frontend plugin, in OpenSearch Dashboards, go to **Management** 
 
 To enable the Search Relevance Workbench backend plugin, send the following request:
 
-To enable the Search Relevance Workbench backend plugin, send the following request:
-
 ```json
 PUT _cluster/settings
 {
