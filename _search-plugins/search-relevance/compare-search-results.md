@@ -8,7 +8,7 @@ has_children: false
 has_toc: false
 ---
 
-# Comparing search results - single query
+# Comparing single queries
 
 With Compare Search Results in OpenSearch Dashboards, you can compare results from two queries side by side to determine whether one query produces better results than the other. Using this tool, you can evaluate search quality by experimenting with queries.
 
