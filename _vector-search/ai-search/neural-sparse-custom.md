@@ -54,7 +54,7 @@ The following tables provide a search relevance comparison for all available com
 
 ### Step 1(b): Register the model/tokenizer
 
-For both modes, register the sparse encoding model. For doc-only with a custom tokenizer mode, register a custom tokenizer in addition to the sparse encoding model.
+For both modes, register the sparse encoding model. For the doc-only mode with a custom tokenizer, register a custom tokenizer in addition to the sparse encoding model.
 
 #### Bi-encoder mode
 
