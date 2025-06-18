@@ -4,7 +4,7 @@ title: Collapse search results
 parent: Search options
 nav_order: 40
 redirect_from:
-  - /searching-data/collapse-search/
+  - /search-plugins/collapse-search/
 ---
 
 # Collapse search results
