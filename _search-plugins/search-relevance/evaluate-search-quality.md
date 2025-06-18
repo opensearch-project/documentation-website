@@ -183,7 +183,7 @@ This time in the results, for every search configuration, there is the id of the
 }
 ```
 
-The usual parameters that were added to the put requests are returned, but there is also the metric values.
+The results include the original request parameters along with the following metric values:
 
 - `Coverage@k`: The proportion of scored documents from the judgment set, calculated as the number of documents with scores divided by the total number of documents.
 
