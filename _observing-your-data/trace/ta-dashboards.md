@@ -39,7 +39,12 @@ The **Trace Analytics** application includes two options: **Services** and **Tra
 
 **Step 4: Perform correlation analysis**
 
-- Select **Services correlation** to display connections between various telemetry signals. This allows you to navigate from the logical service level to the associated metrics and logs for that specific service.
+- Select **Services correlation** to display connections between various telemetry signals. This feature allows you to navigate from the logical service level to the associated metrics and logs for a specific service.
+- The plugin also supports correlating spans, traces, and services with their associated logs. This enables you to quickly move from a trace or span to the relevant log entries, or from a service to its correlated logs, directly within the Trace Analytics interface. Correlation streamlines troubleshooting by providing a unified view of telemetry data, making it easier to identify root causes and understand the context of application events.
+  - **Trace-to-log correlation**: On the trace details page for a selected trace, select **View associated logs**.
+  - **Span-to-log correlation**: In the span details flyout (opened by selecting a span ID in the Gantt chart or span table), select **View associated logs**.
+  - **Service-to-log correlation**: On the services page, select the **Discover** icon for the desired service.
+  - **Service-to-service correlation**: On the services page, use the **Focus on** option in the service map to view a service and its dependencies
 
 ---
 
@@ -154,7 +159,7 @@ Introduced 3.1
 
 Trace Analytics in OpenSearch 3.1 introduces enhanced support for custom index names and cross-cluster indexes, providing greater flexibility and scalability for distributed environments. The following features are now available:
 
-- You can configure custom index names for Observability span indexes, service indexes, and log indexes. This feature allows you to align index naming with your organization's conventions and manage data more effectively across multiple environments. You can also configure correlated log indexes and map their corresponding fields for `timestamp`, `serviceName`, `spanId`, and `traceId`. This capability is especially useful for organizations whose logs do not adhere to the OTel format and require alternative field mappings.
+- You can configure custom index names for Observability span indexes, service indexes, and log indexes. This feature allows you to align index naming with your organization's conventions and manage data more effectively across multiple environments. You can also configure correlated log indexes and map their corresponding fields for `timestamp`, `serviceName`, `spanId`, and `traceId`. This capability is especially useful for organizations whose logs do not adhere to the OTel format and require alternative field mappings. The custom span indexes should adhere to data prepper span index mappings.
 
   The following image shows the custom index name configuration UI.
 
@@ -184,6 +189,6 @@ Trace Analytics in OpenSearch 3.1 introduces enhanced support for custom index n
 
   ![Redesigned service map with large node groups]({{site.url}}{{site.baseurl}}/images/ta-service-map-dependencies.png)
 
-- The service view table now includes more quick-select icons, allowing you to view correlated traces and logs in their corresponding views with right context passed and to view service details in context without leaving the page.
+- The service view table now includes more quick-select icons, allowing you to view correlated traces and logs in their corresponding views with the correct context passed, and to view service details in context without leaving the page.
 
   ![Service table quick select icons]({{site.url}}{{site.baseurl}}/images/ta-service-table-icons.png)
