@@ -377,7 +377,7 @@ For more information about using `explain` in a hybrid query, see [Hybrid search
 
 ## Collapse and pagination
 
-You can paginate collapsed results by providing the `from` and `size` parameters. For more information about pagination in a hybrid query, see [Paginating hybrid query results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pagination/). For more information about `from` and `size`, see 
+You can paginate collapsed results by providing the `from` and `size` parameters. For more information about pagination in a hybrid query, see [Paginating hybrid query results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pagination/). For more information about `from` and `size`, see [The `from` and `size` parameters]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-from-and-size-parameters).
 
 For this example, create the following index:
 
