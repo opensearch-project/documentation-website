@@ -118,7 +118,7 @@ Field | Data type | Required/Optional | Description
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
 `function_name` | String | Required | Set this parameter to `TEXT_EMBEDDING`, `SPARSE_ENCODING`, `SPARSE_TOKENIZE`, `TEXT_SIMILARITY`, or `QUESTION_ANSWERING`.
 `model_content_hash_value` | String | Required | The model content hash generated using the SHA-256 hashing algorithm.
-[`model_config`](#the-model_config-object)  | Object | Required | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. The optional `all_config` JSON string contains all model configurations. The `additional_config` object contains the corresponding `space_type` for pretrained models or  the specified `space_type` for custom models. See [Space types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/#distance-calculation). |
+[`model_config`](#the-model_config-object)  | Object | Required | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. The optional `all_config` JSON string contains all model configurations. The `additional_config` object contains the corresponding `space_type` for pretrained models or the specified `space_type` for custom models. See [Space types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/#distance-calculation). |
 `url` | String | Required | The URL that contains the model. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
