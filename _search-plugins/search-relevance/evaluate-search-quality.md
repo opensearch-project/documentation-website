@@ -189,6 +189,6 @@ Coverage@k: The proportion of documents with scores from the judgment which is t
 
 Precision@k: This would be the proportion of documents with nonzero judgment scores out of k or the number of documents returned, whichever is lower.
 
-MAP@k: The Mean Average Precision is the average of the precisions out of the number of documents. For more details, check [here](https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision)
+- `MAP@k`: The Mean Average Precision, which calculates the average precision across all documents. For more information, see [evaluation measures](https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision).
 
 - `NDCG@k`: The Normalized Discounted Cumulative Gain, which compares the actual ranking of results against a perfect ranking, with higher weights given to top results. This measures the quality of result ordering.
