@@ -135,7 +135,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Like in bi-encoder mode, use the Tasks API to check the status of the registration task. After the Tasks API returns, the task state as `COMPLETED`. Note the `model_id` of the model and the tokenizer you've created; you'll need them for the following steps.
+Like in bi-encoder mode, use the Tasks API to check the status of the registration task. After the Tasks API returns, the task state changes to `COMPLETED`. Note the `model_id` of the model and the tokenizer you've created; you'll need them for the following steps.
 
 ## Step 2: Ingest data 
 
