@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Hybrid Search Optimizer
+title: Optimizing hybrid search
 nav_order: 60
 parent: Using Search Relevance Workbench
 grand_parent: Search relevance
@@ -10,14 +10,14 @@ has_toc: false
 
 # Optimizing hybrid search
 
-The primary question for a user of hybrid search in OpenSearch is how to best combine the results from lexical and vector-based search. OpenSearch offers different techniques which gives users different parameters to experiment with to find the best setup for their application. However, what is best depends strongly on the corpus, on user behavior, and on the application domain—there is no one-size-fits-all solution.
+When you use hybrid search in OpenSearch, a key question is how to combine results from lexical and vector-based search effectively. OpenSearch provides different techniques with various parameters you can experiment with to find the best setup for your application. What works best, however, depends heavily on your data, user behavior, and application domain—there is no one-size-fits-all solution.
 
-The Search Relevance Workbench offers a way to systematically identify the ideal set of parameters.
+The Search Relevance Workbench helps you systematically find the ideal set of parameters for your needs.
 
 ## Requirements
 
-Under the hood, optimizing hybrid search is done by running multiple search quality evaluation experiments. Similar to those experiments you need a query set, judgments and a search configuration.
-Currently, hybrid search optimization with the Search Relevance Workbench is restricted to two query clauses. Technically, it is possible to run this optimization process with a hybrid search query consisting of two lexical query clauses. For such an experiment, the only requirement for the search configuration is to contain a hybrid search query with two lexical query clauses, for example:
+Internally, optimizing hybrid search involves running multiple search quality evaluation experiments. For these experiments, you need a query set, judgments, and a search configuration.
+Currently, the Search Relevance Workbench supports hybrid search optimization with up to two query clauses. While hybrid search typically combines vector and lexical queries, you can run hybrid search optimization with two lexical query clauses:
 
 ```json
 PUT _plugins/_search_relevance/search_configurations
@@ -28,7 +28,7 @@ PUT _plugins/_search_relevance/search_configurations
 }'
 ```
 
-However, we assume hybrid search optimization to add most value when combining lexical and vector-based search results. The requirement for your search configuration is to contain a hybrid search query with two query clauses: one textual query clause and one neural query clause. The search pipeline that deals with the combination of results is handled by the hybrid search optimization process itself. Here is an example of how a suitable search configuration for a hybrid search optimization experiment might look like:
+Hybrid search optimization is most valuable when combining lexical and vector-based search results. For optimal results, configure your hybrid search query with two clauses: one textual query clause and one neural query clause. You don't need to configure the search pipeline for combining results because the hybrid search optimization process handles this automatically. The following is an example of a search configuration suitable for hybrid search optimization:
 
 ```json
 PUT _plugins/_search_relevance/search_configurations
@@ -39,11 +39,13 @@ PUT _plugins/_search_relevance/search_configurations
 }
 ```
 
-The specified model ID in the `query` has to be valid and point to a model available in OpenSearch. The corresponding field containing the embeddings for the neural search part (`title_embedding` in this example) has to exist in the target index prior to running this experiment. The [`search-relevance` repository](https://github.com/opensearch-project/search-relevance) contains an end-to-end example guiding you in case you need more information on how to get started and meet the requirements for this experiment type.
+The model ID specified in the `query` must be a valid model ID for a model deployed in OpenSearch. The target index must contain the field for neural search embeddings (in this example, `title_embedding`). 
+
+For an end-to-end example, see the [`search-relevance` repository](https://github.com/opensearch-project/search-relevance).
 
 ## Running a hybrid search optimzation experiment
 
-A hybrid search optimization experiment can be created with the experiments endpoint of the Search Relevance Workbench.
+You can create a hybrid search optimization experiment by calling the `experiments` endpoint of the Search Relevance Workbench.
 
 ### Endpoint
 
@@ -81,11 +83,11 @@ The hybrid search optimization experiment runs different evaluations based on th
 * Three combination techniques: `arithmetic_mean`, `harmonic_mean`, `geometric_mean`.
 * The lexical and neural search weights, which are values ranging from `0.0` to `1.0` in 0.1 increments.
 
-Every query in the query set will be executed for all different parameter combinations and the results evaluated by using the judgment list.
+Every query in the query set is executed for all different parameter combinations, and the results evaluated by using the judgment list.
 
 ## Evaluating the results
 
-The results for each evaluation are stored and can be viewed in the frontend by selecting the corresponding experiment in the overview of past experiments:
+The results for each evaluation are stored, You can view the results in OpenSearch Dashboards by selecting the corresponding experiment in the overview of past experiments, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_overview_hybrid_search_optimization.png" alt="Compare search results"/>{: .img-fluid }
 

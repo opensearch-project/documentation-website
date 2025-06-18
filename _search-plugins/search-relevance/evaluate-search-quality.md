@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Evaluate search quality
+title: Evaluating search quality
 nav_order: 50
 parent: Using Search Relevance Workbench
 grand_parent: Search relevance
@@ -10,19 +10,19 @@ has_toc: false
 
 # Evaluating search quality
 
-An application of running the search relevance workbench experiments is to evaluate the quality of search configurations given judgments and queries, also called a pointwise experiment.
+The Search Relevance Workbench can run pointwise experiments to evaluate search configuration quality using provided queries and relevance judgments.
 
-For more information about how to create a query set, see [Query Sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
+For more information about creating a query set, see [Query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
-For more information about how to create search configurations, see [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/).
+For more information about creating search configurations, see [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/).
 
-For more information about how to create the judgments, see [Judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/).
+For more information about creating judgments, see [Judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/).
 
 ## Creating a pointwise experiment
 
-In creating a pointwise experiment, your evaluation of a search configuration will be tested against the provided judgments.
+A pointwise experiment compares your search configuration results against provided relevance judgments to evaluate search quality.
 
-### Example request:
+### Example request
 
 ```json
 PUT _plugins/_search_relevance/experiments
@@ -37,17 +37,17 @@ PUT _plugins/_search_relevance/experiments
 
 ### Request body fields
 
-The following lists the input parameters.
+The following lists table the input parameters.
 
 Field | Data type |  Description
 :---  | :--- | :---
 `querySetId` | String |	The id of the query set.
-`searchConfigurationList` | Array[String] | A list of search configuration ids to use for comparing.
-`judgmentList` | Array[String] | A list of judgment ids to use for evaluating the accuracy of the search.
-`size` | Integer | How many documents to return in the results
-`type` | String | Defines the type of experiment to run. One of `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. However, the body fields will change depending on the type of chosen.
+`searchConfigurationList` | List | A list of search configuration IDs to use for comparison.
+`judgmentList` | Array[String] | A list of judgment IDs to use for evaluating the search accuracy.
+`size` | Integer | The number of documents to return in the results.
+`type` | String | The type of experiment to run. Valid values are `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. Depending on the experiment type, you must provide different body fields in the request.
 
-### Example response:
+### Example response
 
 ```json
 {
@@ -58,9 +58,9 @@ Field | Data type |  Description
 
 ## Managing the results
 
-For retrieving the results of the experiment, the process will be the same as running the pairwise experiment when [comparing query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/).
+To retrieve experiment results, follow the same process used for [comparing query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/) in pairwise experiments. 
 
-### Example completed response:
+The following is an example completed response:
 
 ```json
 {
@@ -115,7 +115,7 @@ For retrieving the results of the experiment, the process will be the same as ru
 }
 ```
 
-This time in the results, for every search configuration, there is the id of the evaluation result. When you query for the id, you would have to query the `search-relevance-evaluation-result` index.
+The results include an evaluation result ID for each search configuration. To view detailed results, query the `search-relevance-evaluation-result` index using this ID.
 
 ### Example evaluation metrics
 

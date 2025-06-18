@@ -10,7 +10,7 @@ has_toc: false
 
 # Comparing search results
 
-Comparing search results, also called a pairwise experiment, in OpenSearch Dashboards allows you to compare results of multiple search configurations executed on queries. Using this tool helps assess how results change when applying different search configurations.
+Comparing search results, also called a _pairwise experiment_, in OpenSearch Dashboards allows you to compare results of multiple search configurations. Using this tool helps assess how results change when applying different search configurations to queries.
 
 For example, you can see how results change when you apply one of the following query changes:
 
@@ -20,16 +20,16 @@ For example, you can see how results change when you apply one of the following 
 
 ## Comparing search results of a single query
 
-The user interface for comparing the search results of a single query lets you define two different search configurations for an individual query to see and compare the results side by side and view the changes visually. Specifically, user can explore how many shared and unique documents are in the result lists and how the positions changed:
+The user interface for comparing the search results of a single query lets you define two different search configurations for an individual query in order to view and compare the results side by side. Specifically, you can explore how many shared and unique documents are in the result lists and how their positions changed, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing_search_results.png" alt="Compare search results"/>{: .img-fluid }
 
-For more information on how to use the search result comparison tool for a single query, see [Comparing search results - single query]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/).
+For more information about using the search result comparison tool for a single query, see [Comparing single queries]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/).
 
 ## Comparing search results of a query set
 
-Typically, viewing the changes of a search result for two configuration is merely a first step towards testing. Scaling from one query to many is easy in the Search Relevance Workbench. By grouping queries to a query set and creating [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/), users can create a search result comparison experiment that shows change on a larger scale by looking at aggregate metrics across all queries. The user interface allows inspecting individual queries in the same way the single query result comparison allows:
+Typically, viewing the changes of a search result for two configurations is a first step towards testing. You can then scale from one query to many in the Search Relevance Workbench. You can group queries into a query set, create [search configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/), and compare search results on a larger scale by looking at aggregate metrics across all queries, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing-search-results-query-sets.png" alt="Compare search results"/>{: .img-fluid }
 
-For more information about how to use the search result comparison tool for a query set, see [Comparing search results - query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/).
+For more information about using the search result comparison tool for a query set, see [Comparing single queries]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/).
