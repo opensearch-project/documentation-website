@@ -63,7 +63,7 @@ Name | Description
 `jwt_header` | The HTTP header that stores the token. Typically the `Authorization` header with the `Bearer` schema: `Authorization: Bearer <token>`. Optional. Default is `Authorization`.
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header, but as an URL parameter, define the name of the parameter here. Optional.
 `subject_key` | The key in the JSON payload that stores the user's name. If not defined, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used. Most IdP providers use the `preferred_username` claim. Optional.
-`roles_key` | The key in the JSON payload that stores the user's roles. The value of this key must be a comma-separated list of roles. Required only if you want to use roles in the JWT.
+`roles_key` | The key in the JSON payload that stores the user's roles. The value must be a comma-separated list of roles. This key is required only if you want to use roles in the JWT. You can configure `roles_key` as a list to extract roles from nested JWT claims.
 
 
 ## OpenID Connect URL
