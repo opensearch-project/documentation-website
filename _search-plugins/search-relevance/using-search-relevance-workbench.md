@@ -57,11 +57,6 @@ PUT _cluster/settings
 }
 ```
 {% include copy-curl.html %}
-{% include copy-curl.html %}
-
-## Running your first experiment
-
-To start experimenting with the Search Relevance Workbench, create a query set and a list of two search configurations. You can compare them side-by-side to assess their effect on your search results.
 
 ## Creating a query set
 
@@ -115,6 +110,9 @@ PUT _plugins/_search_relevance/search_configurations
   "index": "ecommerce"
 }
 ```
+{% include copy-curl.html %}
+
+The response consists of the id of the search configuration and whether it was created successfully. 
 
 ```json
 {
@@ -132,6 +130,8 @@ Next, create another search configuration and apply a weight of `10` to the `tit
   "index": "ecommerce"
 }
 ```
+
+The response consists of the id of the boosted search configuration and whether it was created successfully. 
 
 ```json
 {
@@ -154,6 +154,9 @@ POST _plugins/_search_relevance/experiments
  "type": "PAIRWISE_COMPARISON"
 }
 ```
+{% include copy-curl.html %}
+
+The response consists of the id of the experiment and whether it was created successfully. 
 
 ```json
 {
@@ -168,6 +171,9 @@ To retrieve the experiment results, use the returned `experiment_id`. Below is h
 ```json
 GET _plugins/_search_relevance/experiments/dbae9786-6ea0-413d-a500-a14ef69ef7e1
 ```
+{% include copy-curl.html %}
+
+
 <details open markdown="block">
   <summary>
     Response
