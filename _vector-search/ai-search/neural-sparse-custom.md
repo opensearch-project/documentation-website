@@ -11,7 +11,7 @@ redirect_from:
 
 # Using custom configurations for neural sparse search
 
-Neural sparse search using automatically-generated vector embeddings operates in two modes: doc-only and bi-encoder. For more information, see [Generating sparse vector embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-with-pipelines/).
+Neural sparse search using automatically generated vector embeddings operates in two modes: doc-only and bi-encoder. For more information, see [Generating sparse vector embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-with-pipelines/).
 
 At query time, you can use custom models in the following ways: 
 
@@ -23,7 +23,7 @@ The following is a complete example of using a custom model for neural sparse se
 
 ## Step 1: Configure a sparse encoding model/tokenizer
 
-Both the bi-encoder and doc-only with a custom tokenizer search modes require you to configure a sparse encoding model for ingestion. Bi-encoder mode uses the same model for search; doc-only mode uses a separate tokenizer for search.
+You must configure a sparse encoding model for ingestion when using both the bi-encoder mode and the doc-only mode with a custom tokenizer. Bi-encoder mode uses the same model for search; doc-only mode uses a separate tokenizer for search.
 
 ### Step 1(a): Choose the search mode
 
@@ -35,9 +35,9 @@ Choose the search mode and the appropriate model/tokenizer combination:
 
 The following tables provide a search relevance comparison for all available combinations of the two search modes so that you can choose the best combination for your use case.
 
-#### English-language models
+#### English language models
 
-| Mode      | Ingestion model                                               | Search model                                                  | Avg search relevance on BEIR | Model parameters |
+| Mode      | Ingestion model                                               | Search model                                                  | Avg. search relevance on BEIR | Model parameters |
 |-----------|---------------------------------------------------------------|---------------------------------------------------------------|------------------------------|------------------|
 | Doc-only  | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1`    | 0.49                         | 133M             |
 | Doc-only  | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill` | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1`    | 0.504                         | 67M             |
@@ -48,7 +48,7 @@ The following tables provide a search relevance comparison for all available com
 
 #### Multilingual models
 
-| Mode      | Ingestion model                                               | Search model                                                  | Avg search relevance on MIRACL | Model parameters |
+| Mode      | Ingestion model                                               | Search model                                                  | Avg. search relevance on MIRACL | Model parameters |
 |-----------|---------------------------------------------------------------|---------------------------------------------------------------|------------------------------|------------------|
 | Doc-only  | `amazon/neural-sparse/opensearch-neural-sparse-encoding-multilingual-v1` | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-multilingual-v1`    | 0.629                         | 168M             |
 
@@ -135,7 +135,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Like in the bi-encoder mode, use the Tasks API to check the status of the registration task. After the Tasks API returns the task state as `COMPLETED`. Note the `model_id` of the model and the tokenizer you've created; you'll need them for the following steps.
+Like in bi-encoder mode, use the Tasks API to check the status of the registration task. After the Tasks API returns, the task state as `COMPLETED`. Note the `model_id` of the model and the tokenizer you've created; you'll need them for the following steps.
 
 ## Step 2: Ingest data 
 
@@ -228,7 +228,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-Once the `<token, weight>` pairs are excluded from the source, they cannot be recovered. Before applying this optimization, make sure you don't need the  `<token, weight>` pairs for your application.
+Once the `<token, weight>` pairs are excluded from the source, they cannot be recovered. Before applying this optimization, make sure you don't need the `<token, weight>` pairs for your application.
 {: .important}
 
 ### Step 2(c): Ingest documents into the index

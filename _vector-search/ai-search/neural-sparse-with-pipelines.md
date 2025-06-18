@@ -20,7 +20,7 @@ Neural sparse search works as follows:
 - At query time, neural sparse search operates in one of two search modes: 
 
     - **Doc-only mode (default)**: A sparse encoding model generates sparse vector embeddings from documents at ingestion time. At query time, neural sparse search tokenizes query text and obtains the token weights from a lookup table. This approach provides faster retrieval at the cost of a slight decrease in search relevance. The query-time tokenization can be performed by the following components:
-      - **A DL model analyzer (default)**: A [DL model analyzer]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/dl-model-analyzers/) uses a built-in ML model. This approach provides faster retrieval at the cost of a slight decrease in search 
+      - **A DL model analyzer (default)**: A [DL model analyzer]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/dl-model-analyzers/) uses a built-in ML model. This approach provides faster retrieval at the cost of a slight decrease in search relevance.
       - **A custom tokenizer**: You can deploy a custom tokenizer using the [Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/) to tokenize query text. This approach provides more flexibility while maintaining consistent tokenization across your neural sparse search implementation. 
 
     - **Bi-encoder mode**: A sparse encoding model generates sparse vector embeddings from both documents and query text. This approach provides better search relevance at the cost of an increase in latency. 
@@ -28,7 +28,7 @@ Neural sparse search works as follows:
 We recommend using the default doc-only mode with a DL analyzer because it provides the best balance of performance and relevance for most use cases. 
 {: tip} 
 
-The default doc-only mode with an analyzer works in the following way:
+The default doc-only mode with an analyzer works as follows:
 
 1. At ingestion time:
    - Your registered sparse encoding model generates sparse vector embeddings.
@@ -65,7 +65,7 @@ Before you start, complete the [prerequisites]({{site.url}}{{site.baseurl}}/sear
 
 ### Step 1: Configure a sparse encoding model for ingestion
 
-To use the doc-only mode, first [choose a sparse encoding model](#sparse-encoding-modelanalyzer-compatibility) to be used at ingestion time. Then, register an deploy the model. For example, to register and deploy the `opensearch-neural-sparse-encoding-doc-v3-distill` model, use the following request:
+To use doc-only mode, first [choose a sparse encoding model](#sparse-encoding-modelanalyzer-compatibility) to be used at ingestion time. Then, register and deploy the model. For example, to register and deploy the `opensearch-neural-sparse-encoding-doc-v3-distill` model, use the following request:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -364,7 +364,7 @@ GET my-nlp-index/_search
 
 ## Bi-encoder mode
 
-In bi-encoder mode, register and deploy a bi-encoder model to user at both ingestion and query time:
+In bi-encoder mode, register and deploy a bi-encoder model to use at both ingestion and query time:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -397,7 +397,7 @@ For a complete example, see [Using custom models for search]({{site.url}}{{site.
 
 ## Doc-only mode with a custom tokenizer
 
-You can use the doc-only mode with a custom tokenizer. To deploy a tokenizer, send the following request:
+You can use doc-only mode with a custom tokenizer. To deploy a tokenizer, send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
@@ -428,7 +428,7 @@ GET my-nlp-index/_search
 
 For a complete example, see [Using custom models for search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-custom/).
 
-### Creating a search pipeline for default model_id
+### Creating a search pipeline for the default model_id
 
 You can create a search pipeline that augments neural sparse search functionality by setting the default model ID on an index for easier use. 
 

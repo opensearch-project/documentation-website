@@ -7,7 +7,7 @@ nav_order: 130
 
 # DL model analyzers
 
-Deep learning (DL) model analyzers are designed to work with [neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/). They implement the same tokenization rules used by machine learning (ML) models, ensuring compatibility with neural sparse search. While traditional OpenSearch analyzers use standard rule-based tokenization (like whitespace or word boundaries), DL model analyzers use tokenization rules that match specific ML models (like BERT's WordPiece tokenization scheme). This consistent tokenization between indexed documents and search queries is essential for neural sparse search to work correctly.
+Deep learning (DL) model analyzers are designed to work with [neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/). They implement the same tokenization rules used by machine learning (ML) models, ensuring compatibility with neural sparse search. While traditional OpenSearch analyzers use standard rule-based tokenization (like white space or word boundaries), DL model analyzers use tokenization rules that match specific ML models (like BERT's WordPiece tokenization scheme). This consistent tokenization between indexed documents and search queries is essential for neural sparse search to work correctly.
 
 OpenSearch supports the following DL model analyzers:
 
@@ -23,7 +23,7 @@ When using the DL model analyzers, keep the following considerations in mind:
 
 ## The bert-uncased analyzer
 
-The `bert-uncased` analyzer is based on the [google-bert/bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) model and tokenizes text according to BERT's WordPiece tokenization scheme. This analyzer is particularly useful for English language texts.
+The `bert-uncased` analyzer is based on the [google-bert/bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) model and tokenizes text according to BERT's WordPiece tokenization scheme. This analyzer is particularly useful for English language text.
 
 To analyze text with the `bert-uncased` analyzer, specify it in the `analyzer` field:
 
