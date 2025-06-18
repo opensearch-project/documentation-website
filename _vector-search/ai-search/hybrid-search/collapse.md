@@ -25,7 +25,7 @@ When using `collapse` in a hybrid query, note the following considerations:
 
 ## Example
 
-The following example demonstrates collapsing hybrid query results.
+The following example demonstrates how to collapse hybrid query results.
 
 Create an index:
 
@@ -203,7 +203,7 @@ GET /bakery-items/_search?search_pipeline=norm-pipeline
 ```
 {% include copy-curl.html %}
 
-For more information about sorting in hybrid query, see [Using sorting with a hybrid query]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/sorting/).
+For more information about sorting in a hybrid query, see [Using sorting with a hybrid query]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/sorting/).
 
 In the response, documents are sorted by the lowest price:
 
@@ -447,7 +447,7 @@ POST /bakery-items-pagination/_bulk
 ```
 {% include copy-curl.html %}
 
-Run a `hybrid` query, specifying the `from` and `size` parameters to paginate results. In the following example, the query requests two results starting from the sixth position (`from: 5, size: 2`). The pagination depth is set to limit each shard to return a maximum of 10 documents. After the results are retrieved, the `collapse` parameter is applied to group them by the `item` field:
+Run a `hybrid` query, specifying the `from` and `size` parameters to paginate results. In the following example, the query requests two results starting from the sixth position (`from: 5, size: 2`). The pagination depth is set to limit each shard to return a maximum of 10 documents. After the results are retrieved, the `collapse` parameter is applied in order to group them by the `item` field:
 
 ```json
 GET /bakery-items-pagination/_search?search_pipeline=norm-pipeline
