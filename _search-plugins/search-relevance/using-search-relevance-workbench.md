@@ -162,13 +162,16 @@ POST _plugins/_search_relevance/experiments
 }
 ```
 
-To retrieve the experiment results, use the returned `experiment_id`:
+To retrieve the experiment results, use the returned `experiment_id`. Below is how you can return a specific experiment. 
 
 
 ```json
 GET _plugins/_search_relevance/experiments/dbae9786-6ea0-413d-a500-a14ef69ef7e1
 ```
-
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
 
 ```json
 {
@@ -317,6 +320,7 @@ GET _plugins/_search_relevance/experiments/dbae9786-6ea0-413d-a500-a14ef69ef7e1
   }
 }
 ```
+</details>
 
 ## Using the Search Relevance Workbench in OpenSearch Dashboards
 
