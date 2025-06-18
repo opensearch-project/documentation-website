@@ -326,9 +326,6 @@ As shown in the preceding response, both search configurations return the top N 
 
 Field | Description
 :--- | :---
-
 `Jaccard metric` | Shows the similarity score by dividing the intersection cardinality by the union cardinality of the returned documents.
-
 `RBO` | The Rank-Biased Overlap (RBO) metric compares the returned result sets at each ranking depth—for example, the top 1 document, top 2 documents, and so on. It places greater importance on higher-ranked results, giving more weight to earlier positions in the list.
-
 `Frequency Weighted` | Similar to the Jaccard metric, the frequency weighted metric calculates the ratio of the weighted intersection to the weighted union of two sets. However, unlike standard Jaccard, it gives more weight to documents with higher frequencies, skewing the result toward more frequently occurring items.
