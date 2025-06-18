@@ -20,7 +20,7 @@ The frontend uses the [Search Relevance OpenSearch plugin](https://github.com/op
 
 The Search Relevance Workbench relies on different components for the different kinds of experiments that it offers:
 
-* [Query Sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/): A query set is a collection of queries. These queries are used in experiments for search relevance evaluation.
+* [Query set]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/): A _query set_ is a collection of queries. These queries are used in experiments for search relevance evaluation.
 * [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/): A search configuration describes the pattern to use to run queries for experiments.
 * [Judgment Lists]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/): A judgment is a rating that describes the relevance of one particular document for a given query. Multiple judgments are grouped together to judgment lists.
 
