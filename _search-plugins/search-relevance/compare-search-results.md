@@ -97,7 +97,7 @@ Setting `size` to a high value (for example, larger than 250 documents) may degr
 You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing.
 {: .note}
 
-## Comparing OpenSearch search results with the Search Relevance Workbench
+## Comparing OpenSearch search results using Search Relevance Workbench
 
 Using the opt-in feature Search Relevance Workbench gives you richer visualization options to see the change between two different queries.
 The previously outlined steps 1-4 do not change. However, the displayed results change and the options to view differences:
