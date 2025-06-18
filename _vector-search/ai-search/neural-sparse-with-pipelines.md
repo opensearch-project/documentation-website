@@ -434,7 +434,7 @@ Using a `semantic` field simplifies neural sparse search configuration. To use a
 
 ### Step 1: Register and deploy a sparse encoding model
 
-First, register and deploy a sparse encoding model as described in [Step 1](#step-1-configure-a-sparse-encoding-modeltokenizer).
+First, register and deploy a sparse encoding model as described in [Step 1](#step-1-register-and-deploy-a-sparse-encoding-model).
 
 ## Step 2: Create an index with a semantic field for ingestion
 
