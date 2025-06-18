@@ -147,14 +147,14 @@ Trace analytics with OTel protocol analytics provide comprehensive insights into
 
   ![Trace details window]({{site.url}}{{site.baseurl}}/images/ta-trace.png)
 
-## Trace analytics support for custom index names and cross-cluster indices
+## Trace analytics support for custom index names and cross-cluster indexes
 
 Introduced 3.1
 {: .label .label-purple }
 
-Trace Analytics in OpenSearch 3.1 introduces enhanced support for custom index names and cross-cluster indices, providing greater flexibility and scalability for distributed environments. The following features are now available:
+Trace Analytics in OpenSearch 3.1 introduces enhanced support for custom index names and cross-cluster indexes, providing greater flexibility and scalability for distributed environments. The following features are now available:
 
-- You can configure custom index names for Observability span indices, service indices, and log indices. This feature allows you to align index naming with your organization's conventions and manage data more effectively across multiple environments. You can also configure correlated log indexes and map their corresponding fields for `timestamp`, `serviceName`, `spanId`, and `traceId`. This capability is especially useful for organizations whose logs do not adhere to the OTel format and require alternative field mappings.
+- You can configure custom index names for Observability span indexes, service indexes, and log indexes. This feature allows you to align index naming with your organization's conventions and manage data more effectively across multiple environments. You can also configure correlated log indexes and map their corresponding fields for `timestamp`, `serviceName`, `spanId`, and `traceId`. This capability is especially useful for organizations whose logs do not adhere to the OTel format and require alternative field mappings.
 
   The following image shows the custom index name configuration UI.
 
