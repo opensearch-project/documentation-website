@@ -315,6 +315,11 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 
 #### Example response
 
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+
 ```json
 {
   "took": 36,
@@ -401,6 +406,7 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
   }
 }
 ```
+</details>
 
 ### Delete a judgment list
 
