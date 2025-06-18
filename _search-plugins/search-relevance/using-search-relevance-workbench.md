@@ -11,7 +11,7 @@ has_toc: false
 
 # Using search relevance workbench
 
-In search applications, tuning relevance is a constant, iterative exercise to bring the right search results to your end users. The tooling in Search Relevance Workbench aims to help the search relevance engineer and business user create the best search experience possible for application users without hiding internals from engineers who want to go deep into the details by enabling experimentation.
+In search applications, tuning relevance is a constant, iterative exercise to bring the right search results to your end users. The tooling in Search Relevance Workbench helps search relevance engineers and business users create the best search experience possible for application users. It does this without hiding internal details, enabling engineers to experiment and go into details when needed.
 
 The Search Relevance Workbench consists of a [frontend component](https://github.com/opensearch-project/dashboards-search-relevance) that simplifies the process of evaluating search quality.
 Behind the scenes, the frontend uses the [Search Relevance OpenSearch plugin](https://github.com/opensearch-project/search-relevance) to manage the resources for each tool provided. For example, most use cases involve creating and using search configurations, query sets, and judgment lists. All of these resources are created, updated, deleted, and maintained by the Search Relevance plugin. When users are satisfied with the improvements to relevancy then they take the output of the experimentation and manually deploy the changes into their search application.
