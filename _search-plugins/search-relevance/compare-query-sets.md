@@ -44,7 +44,7 @@ Field | Data type |  Description
 `querySetId` | String |	The query set ID.
 `searchConfigurationList` | List | A list of search configuration IDs to use for comparison.
 `size` | Integer | The number of documents to return in the results.
-`type` | String | Defines the type of experiment to run. Valid values are `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. Depending on the experiment type, you must provide different body fields in the request.
+`type` | String | Defines the type of experiment to run. Valid values are `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. Depending on the experiment type, you must provide different body fields in the request. `PAIRWISE_COMPARISON` is for comparing two search configurations against a query set and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/). `HYBRID_OPTIMIZER` is for combining results and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/). `POINTWISE_EVALUATION` is to evaluate a search configuration against judgments and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/). 
 
 The response contains the experiment ID of the created experiment:
 

@@ -335,7 +335,7 @@ You are automatically directed to the experiment overview table, shown in the fo
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_table_overview.png" alt="Experiment Overview Table"/>{: .img-fluid }
 
-Select the top experiment (the latest one) and you are accessing the results. The experiment view page shows three elements:
+To review the results, select the topmost (latest) experiment. The experiment view page shows three elements:
 1. The experiment parameters.
 2. The aggregate metrics resulting from the experiment, shown in the following image.
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/aggregate_metrics_comparison_experiment.png" alt="Aggregate Metrics for Comparison Experiment"/>{: .img-fluid }

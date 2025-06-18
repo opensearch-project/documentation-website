@@ -45,7 +45,7 @@ Field | Data type |  Description
 `searchConfigurationList` | List | A list of search configuration IDs to use for comparison.
 `judgmentList` | Array[String] | A list of judgment IDs to use for evaluating the search accuracy.
 `size` | Integer | The number of documents to return in the results.
-`type` | String | The type of experiment to run. Valid values are `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. Depending on the experiment type, you must provide different body fields in the request.
+`type` | String | The type of experiment to run. Valid values are `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. Depending on the experiment type, you must provide different body fields in the request. `PAIRWISE_COMPARISON` is for comparing two search configurations against a query set and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/). `HYBRID_OPTIMIZER` is for combining results and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/). `POINTWISE_EVALUATION` is to evaluate a search configuration against judgments and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/). 
 
 ### Example response
 
