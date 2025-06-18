@@ -107,3 +107,4 @@ POST _plugins/_sql
   "query": "SELECT ev.parameters.normalization, ev.parameters.combination, ev.parameters.weights, ev.results.evaluationResultId, ev.experimentId, er.id, er.metrics, er.searchText FROM search-relevance-experiment-variant ev JOIN search-relevance-evaluation-result er ON ev.results.evaluationResultId = er.id WHERE ev.experimentId = '814e2378-901c-4273-9873-9b758a33089d'"
 }
 ```
+{% include copy-curl.html %}
