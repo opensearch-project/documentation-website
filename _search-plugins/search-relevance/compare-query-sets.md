@@ -12,7 +12,7 @@ has_toc: false
 
 To compare the results of two different search configurations, you can run a pairwise experiment. The building blocks for comparing search configurations is to first have your two search configurations available, then have a query set to use for the search configuration.
 
-For more information on how to create a query set, see [Query Sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
+For more information about creating a query set, see [Query Sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
 For more information on how to create search configurations, see [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/).
 
