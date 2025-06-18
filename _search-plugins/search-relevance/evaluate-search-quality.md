@@ -187,7 +187,7 @@ The usual parameters that were added to the put requests are returned, but there
 
 Coverage@k: The proportion of documents with scores from the judgment which is the amount of documents with scores divided by the total amount of documents.
 
-Precision@k: This would be the proportion of documents with nonzero judgment scores out of k or the number of documents returned, whichever is lower.
+- `Precision@k`: The proportion of documents with nonzero judgment scores out of k (or out of the total number of returned documents, if lower).
 
 - `MAP@k`: The Mean Average Precision, which calculates the average precision across all documents. For more information, see [evaluation measures](https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision).
 
