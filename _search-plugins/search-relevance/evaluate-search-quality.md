@@ -62,6 +62,11 @@ To retrieve experiment results, follow the same process used for [comparing quer
 
 The following is an example completed response:
 
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+
 ```json
 {
     "took": 140,
@@ -114,15 +119,16 @@ The following is an example completed response:
     }
 }
 ```
+</details>
 
 The results include an evaluation result ID for each search configuration. To view detailed results, query the `search-relevance-evaluation-result` index using this ID.
 
 An example of the detailed results is below.
+
 <details open markdown="block">
   <summary>
     Response
   </summary>
-  {: .text-delta}
 
 ```json
 {
