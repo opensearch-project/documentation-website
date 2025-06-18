@@ -193,6 +193,10 @@ GET _plugins/_search_relevance/judgments
 {% include copy-curl.html %}
 
 #### Example response
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
 
 ```json
 {
@@ -283,6 +287,7 @@ GET _plugins/_search_relevance/judgments
   }
 }
 ```
+</details>
 
 ### View a judgment list
 
@@ -302,13 +307,13 @@ The following table lists the available path parameters.
 | :--- | :--- | :--- |
 | `judgment_list_id` | String | The ID of the judgment list to retrieve. |
 
-#### Example request:
+#### Example request
 
 ```json
 GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 ```
 
-#### Example response:
+#### Example response
 
 ```json
 {

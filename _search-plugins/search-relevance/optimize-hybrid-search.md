@@ -27,6 +27,7 @@ PUT _plugins/_search_relevance/search_configurations
   "index": "ecommerce"
 }'
 ```
+{% include copy-curl.html %}
 
 Hybrid search optimization is most valuable when combining lexical and vector-based search results. For optimal results, configure your hybrid search query with two clauses: one textual query clause and one neural query clause. You don't need to configure the search pipeline for combining results because the hybrid search optimization process handles this automatically. The following is an example of a search configuration suitable for hybrid search optimization:
 
@@ -38,6 +39,7 @@ PUT _plugins/_search_relevance/search_configurations
   "index": "ecommerce"
 }
 ```
+{% include copy-curl.html %}
 
 The model ID specified in the `query` must be a valid model ID for a model deployed in OpenSearch. The target index must contain the field for neural search embeddings (in this example, `title_embedding`). 
 
@@ -65,6 +67,7 @@ PUT _plugins/_search_relevance/experiments
   "type": "HYBRID_OPTIMIZER"
 }
 ```
+{% include copy-curl.html %}
 
 ### Example response
 
