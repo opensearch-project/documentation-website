@@ -191,4 +191,4 @@ Precision@k: This would be the proportion of documents with nonzero judgment sco
 
 MAP@k: The Mean Average Precision is the average of the precisions out of the number of documents. For more details, check [here](https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision)
 
-NDCG@k: The Normalized discounted cumulative gain compares the discounted cumulative gain of the results returned with the discounted cumulative gain of the perfect ranking of the results that can be returned. The top results receive higher weight than the lower ones.
+- `NDCG@k`: The Normalized Discounted Cumulative Gain, which compares the actual ranking of results against a perfect ranking, with higher weights given to top results. This measures the quality of result ordering.
