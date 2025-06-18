@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Search Configurations
-nav_order: 30
+title: Search configurations
+nav_order: 5
 parent: Using Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
 has_toc: false
 ---
 
-# Search Configurations
+# Search configurations
 
-A search configuration describes the pattern to use to run queries for experiments.
+A search configuration defines the query pattern used to run experiments, specifying how queries should be constructed and executed.
 
 ## Creating search configurations
 
-Users define a search configuration to describe how every user query of a query set is run. Every search configuration has a name and consists of a query body (a query in OpenSearch Query DSL) and the target index. Users can optionally define a search pipeline.
+You can define a search configuration to describe how every query of a query set is run. Every search configuration has a name and consists of a query body (a query in OpenSearch query DSL) and the target index. You can optionally define a search pipeline for the search configuration.
 
 ### Endpoint
 
@@ -30,10 +30,10 @@ Field | Data type |  Description
 :---  | :--- | :---
 `name` | String |	The name of the search configuration.
 `query` | Object | Define the query in OpenSearch Query DSL. Use `%SearchText%` as placeholder for the user query. Needs to be escaped.
-`index` | String | The target index this search configuration queries.
-`searchPipeline` | String | Optional definition of a search pipeline. Any configured search pipeline has to exist before creating the pipeline.
+`index` | String | The target index that this search configuration queries.
+`searchPipeline` | String | Specifies an existing search pipeline. Optional.
 
-### Example request: creating a search configuration
+### Example request: Creating a search configuration
 
 ```json
 PUT _plugins/_search_relevance/search_configurations
@@ -46,10 +46,12 @@ PUT _plugins/_search_relevance/search_configurations
 
 ## Managing search configurations
 
-In addition to creating query sets, there are API calls to retrieve available query sets, view individual query sets and delete query sets.
+You can retrieve or delete configurations using the following APIs.
 
 ### Retrieve search configurations
-
+  
+ This API retrieves search configurations.
+  
 #### Endpoint
 
 ```json
@@ -168,7 +170,7 @@ You can delete a search configuration using the search configuration ID.
 DELETE _plugins/_search_relevance/search_configurations/92810080-9c5a-470f-a0ff-0eb85e7b818c
 ```
 
-#### Example request:
+#### Example request
 
 ```json
 DELETE _plugins/_search_relevance/search_configurations/bb45c4c4-48ce-461b-acbc-f154c0a17ec9

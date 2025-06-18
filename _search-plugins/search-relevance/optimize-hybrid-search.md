@@ -91,15 +91,15 @@ The results for each evaluation are stored, You can view the results in OpenSear
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_overview_hybrid_search_optimization.png" alt="Compare search results"/>{: .img-fluid }
 
-This leads to the detailed view for all executed queries with their calculated search metrics:
+All executed queries with their calculated search metrics are displayed, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimization_query_overview.png" alt="Compare search results"/>{: .img-fluid }
 
-Selecting one of the queries leads you to the variants:
+To view query variants, select one of the queries, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimization_variant_parameters.png" alt="Compare search results"/>{: .img-fluid }
 
-Programatically, you can achieve a similar view by using the following SQL search statement and using your experimentId:
+You can also retrieve this information by using the following SQL search statement and providing your `experimentId`:
 
 ```json
 POST _plugins/_sql
