@@ -119,6 +119,11 @@ The results include an evaluation result ID for each search configuration. To vi
 
 An example of the detailed results is below.
 <details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
 ```json
 {
     "took": 59,
