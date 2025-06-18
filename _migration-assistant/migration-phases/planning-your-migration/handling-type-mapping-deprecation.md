@@ -10,9 +10,34 @@ grand_parent: Migration phases
 
 This guide provides solutions for managing the deprecation of the type mapping functionality when migrating from Elasticsearch 6.x or earlier to OpenSearch.
 
-## Understanding type mapping deprecation
+In versions of Elasticsearch prior to 6.x, an index could contain multiple types, each with its own mapping. These types allowed you to store and query different kinds of documents—such as books and movies—in a single index. For example, both `book` and `movie` types could have a shared field like `title`, while each had additional fields specific to that type.
 
-Elasticsearch indexes created prior to version 6.x may contain multiple types per index. This feature has been deprecated and removed in newer versions of Elasticsearch and OpenSearch. During migration, you may need to specify how to handle items that used type mappings. For more information, see [Elasticsearch's official documentation on the removal of mapping types](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/removal-of-types.html).
+Newer versions of Elasticsearch and OpenSearch no longer support multiple mapping types. Each index now supports only a single mapping type. During migration, you must define how to transform or restructure data that used multiple types. The following example shows multiple mapping types:
+
+
+```JSON
+GET /library/_mappings
+{
+  "library": {
+    "mappings": {
+      "book": {
+        "properties": {
+          "title":      { "type": "text" },
+          "pageCount":  { "type": "integer" }
+        }
+      },
+      "movie": {
+        "properties": {
+          "title":      { "type": "text" },
+          "runTime":    { "type": "integer" }
+        }
+      }
+    }
+  }
+}
+```
+
+For more information, see the [official Elasticsearch documentation on the removal of mapping types](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/removal-of-types.html). 
 
 ## Using the type mapping transformer
 

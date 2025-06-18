@@ -16,7 +16,7 @@ This quickstart outlines how to deploy Migration Assistant for OpenSearch and ex
 
 Before using this quickstart, make sure you fulfill the following prerequisites:
 
-* Verify that your migration path [is supported]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/#migration-paths). Note that we test with the exact versions specified, but you should be able to migrate data on alternative minor versions as long as the major version is supported.
+* Verify that your migration path [is supported]({{site.url}}{{site.baseurl}}/migration-assistant/overview/is-migration-assistant-right-for-you/#supported-migration-paths). Note that we test with the exact versions specified, but you should be able to migrate data on alternative minor versions as long as the major version is supported.
 * The source cluster must be deployed Amazon Simple Storage Service (Amazon S3) plugin.
 * The target cluster must be deployed.
 * Verify that the `CDKToolkit` stack exists and is set to `CREATE_COMPLETE`. For more information about how to bootstrap your AWS account in the required AWS Region, see [the CDKToolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
@@ -123,7 +123,7 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
 
     ```json
     {
-    "migration-assistant": {
+    "default": {
         "stage": "dev",
         "vpcId": "<TARGET CLUSTER VPC ID>",
         "targetCluster": {
@@ -157,14 +157,14 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
 3. After the `cdk.context.json` file is fully configured, bootstrap the account and deploy the required stacks using the following command:
 
     ```bash
-    cdk bootstrap --c contextId=migration-assistant --require-approval never 
+    cdk bootstrap --c contextId=default --require-approval never 
     ```
     {% include copy.html %}
 
 4. Deploy Migration Assistant using the following command:
 
     ```bash
-    cdk deploy "*" --c contextId=migration-assistant --require-approval never --concurrency 5
+    cdk deploy "*" --c contextId=default --require-approval never --concurrency 5
     ```
     {% include copy.html %}
     

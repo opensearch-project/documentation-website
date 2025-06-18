@@ -58,7 +58,7 @@ _source | String | Specifies whether to include the `_source` field in the respo
 _source_excludes | String | A comma-separated list of source fields to exclude from the response.
 _source_includes | String | A comma-separated list of source fields to include in the response.
 stats | String | Value to associate with the request for additional logging.
-terminate_after | Integer | The maximum number of documents OpenSearch should process before terminating the request.
+terminate_after | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request.
 timeout | Time | How long the operation should wait from a response from active shards. Default is `1m`.
 version | Boolean | Whether to include the document version as a match.
 wait_for_active_shards | String | The number of shards that must be active before OpenSearch executes the operation. Valid values are `all` or any integer up to the total number of shards in the index. Default is 1, which is the primary shard.

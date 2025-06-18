@@ -352,6 +352,40 @@ The response contains the matching documents:
 }
 ```
 
+## Configuring a default model for search
+
+When using custom models, you can configure a default model ID at the index level to simplify your queries. This eliminates the need to specify the `model_id` in every query.
+
+First, create a search pipeline with a [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) processor:
+
+```json
+PUT /_search/pipeline/neural_search_pipeline
+{
+  "request_processors": [
+    {
+      "neural_query_enricher" : {
+        "default_model_id": "<bi-encoder model/tokenizer ID>"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Then set this pipeline as the default for your index:
+
+```json
+PUT /my-nlp-index/_settings 
+{
+  "index.search.default_pipeline" : "neural_search_pipeline"
+}
+```
+{% include copy-curl.html %}
+
+After configuring the default model, you can omit the `model_id` when running queries.
+
+For more information about setting a default model on an index, or to learn how to set a default model on a specific field, see [Setting a default model on an index or field]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/#setting-a-default-model-on-an-index-or-field).
+
 ## Next steps
 
 - Explore our [tutorials]({{site.url}}{{site.baseurl}}/vector-search/tutorials/) to learn how to build AI search applications. 
