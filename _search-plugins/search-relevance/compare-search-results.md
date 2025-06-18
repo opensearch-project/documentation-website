@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Comparing search results - single query
+title: Comparing single queries
 nav_order: 11
 parent: Using Search Relevance Workbench
 grand_parent: Search relevance
