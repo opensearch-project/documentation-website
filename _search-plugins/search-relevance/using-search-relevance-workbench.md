@@ -16,7 +16,7 @@ In search applications, tuning relevance is a constant, iterative exercise to br
 The Search Relevance Workbench consists of a [frontend component](https://github.com/opensearch-project/dashboards-search-relevance) that simplifies the process of evaluating search quality.
 The frontend uses the [Search Relevance OpenSearch plugin](https://github.com/opensearch-project/search-relevance) as a backend to manage the resources for each tool provided. For example, most use cases involve creating and using search configurations, query sets, and judgment lists. All of these resources are created, updated, deleted, and maintained by the Search Relevance plugin. When you are satisfied with the improvements to relevance, you can take the output of the experimentation and manually deploy the changes into your search application.
 
-## Key relevance concepts 
+## Key relevance concepts
 
 The Search Relevance Workbench relies on different components for the different kinds of experiments that it offers:
 
@@ -110,7 +110,7 @@ PUT _plugins/_search_relevance/search_configurations
 ```
 {% include copy-curl.html %}
 
-The response consists of the id of the search configuration and whether it was created successfully. 
+The response consists of the id of the search configuration and whether it was created successfully.
 
 ```json
 {
@@ -122,14 +122,16 @@ The response consists of the id of the search configuration and whether it was c
 Next, create another search configuration and apply a weight of `10` to the `title` field:
 
 ```json
+PUT _plugins/_search_relevance/search_configurations
 {
   "name": "title_boost",
   "query": "{\"query\":{\"multi_match\":{\"query\":\"%SearchText%\",\"fields\":[\"id\",\"title^10\",\"category\",\"bullets\",\"description\",\"attrs.Brand\",\"attrs.Color\"]}}}",
   "index": "ecommerce"
 }
 ```
+{% include copy-curl.html %}
 
-The response consists of the id of the boosted search configuration and whether it was created successfully. 
+The response consists of the id of the boosted search configuration and whether it was created successfully.
 
 ```json
 {
@@ -154,7 +156,7 @@ POST _plugins/_search_relevance/experiments
 ```
 {% include copy-curl.html %}
 
-The response consists of the id of the experiment and whether it was created successfully. 
+The response consists of the id of the experiment and whether it was created successfully.
 
 ```json
 {
@@ -163,14 +165,12 @@ The response consists of the id of the experiment and whether it was created suc
 }
 ```
 
-To retrieve the experiment results, use the returned `experiment_id`. Below is how you can return a specific experiment. 
-
+To retrieve the experiment results, use the returned `experiment_id`. The following command shows how to return a specific experiment.
 
 ```json
 GET _plugins/_search_relevance/experiments/dbae9786-6ea0-413d-a500-a14ef69ef7e1
 ```
 {% include copy-curl.html %}
-
 
 <details open markdown="block">
   <summary>
@@ -347,6 +347,6 @@ To review the results, select the topmost (latest) experiment. The experiment vi
 1. The experiment parameters.
 2. The aggregate metrics resulting from the experiment, shown in the following image.
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/aggregate_metrics_comparison_experiment.png" alt="Aggregate Metrics for Comparison Experiment"/>{: .img-fluid }
-3. The individual metrics per query. 
+3. The individual metrics per query.
 
 To assess the change between two result sets visually, select a query event.

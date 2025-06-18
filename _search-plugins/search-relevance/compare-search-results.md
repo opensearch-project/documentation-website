@@ -100,13 +100,13 @@ You cannot save a given comparison for future use, so Compare Search Results is 
 ## Comparing OpenSearch search results using Search Relevance Workbench
 
 Using the opt-in feature Search Relevance Workbench gives you richer visualization options to see the change between two different queries.
-The previously outlined steps 1-4 do not change. However, the displayed results change and the options to view differences:
+The previously outlined steps 1--4 do not change. However, the displayed results change and the options to view differences:
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing_search_results.png" alt="Compare search results"/>{: .img-fluid }
 
 The top section gives a summary of the results: how many of the retrieved results are unique to the left hand query, how many are unique to the right hand query and how many are part of both queries?
 
-What follows is a visual representation of the retrieed results. By default the unique identifier field (`_id`) is shown. Users can change this by selecting a different field in the "Display Field" dropdown box.
+What follows is a visual representation of the retrieved results. By default the unique identifier field (`_id`) is shown. Users can change this by selecting a different field in the "Display Field" dropdown box.
 In the side-by-side view users see for the positional changes for all common documents among the two result lists.
 Clicking on one item shows all stored fields in the index for easier document identification.
 

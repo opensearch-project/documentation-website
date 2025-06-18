@@ -54,6 +54,7 @@ gibibyte
 [Ii]nstrumentations?
 [Ii]ntracluster
 [Jj]avadoc
+[Jj]accard
 k-NN
 [Kk]eystore
 kibibyte

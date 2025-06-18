@@ -10,7 +10,7 @@ has_toc: false
 
 # Query sets
 
-A query set is a collection of queries. These queries are used in experiments for search relevance evaluation. The Search Relevance Workbench offers different sampling techniques to create query sets from real user data that adheres to the User Behavior Insights (UBI) standard.
+A query set is a collection of queries. These queries are used in experiments for search relevance evaluation. The Search Relevance Workbench offers different sampling techniques to create query sets from real user data that adheres to the [User Behavior Insights (UBI)]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) standard.
 Additionally, the Search Relevance Workbench allows importing a query set.
 
 ## Creating query sets
@@ -82,6 +82,7 @@ This API retrieves available query sets.
 
 ```json
 GET _plugins/_search_relevance/query_sets
+GET _plugins/_search_relevance/query_sets/<query_set_id>
 ```
 {% include copy-curl.html %}
 
@@ -132,73 +133,13 @@ GET _plugins/_search_relevance/query_sets
 }
 ```
 
-### View a query set
-
-You can retrieve a query set using the query set ID.
-
-#### Endpoint
-
-```json
-GET _plugins/_search_relevance/query_sets/<query_set_id>
-```
-
 ### Path parameters
 
 The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `query_set_id` | String | The ID of the query set to retrieve. |
-
-#### Example request:
-
-```json
-GET _plugins/_search_relevance/query_sets/bb45c4c4-48ce-461b-acbc-f154c0a17ec9
-```
-
-#### Example response:
-
-```json
-{
-  "took": 29,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 1,
-    "hits": [
-      {
-        "_index": "search-relevance-queryset",
-        "_id": "bb45c4c4-48ce-461b-acbc-f154c0a17ec9",
-        "_score": 1,
-        "_source": {
-          "id": "bb45c4c4-48ce-461b-acbc-f154c0a17ec9",
-          "name": "TVs",
-          "description": "Some TVs that people might want",
-          "sampling": "manual",
-          "timestamp": "2025-06-11T13:43:26.676Z",
-          "querySetQueries": [
-            {
-              "queryText": "tv"
-            },
-            {
-              "queryText": "led tv"
-            }
-          ]
-        }
-      }
-    ]
-  }
-}
-```
+| `query_set_id` | String | The ID of the query set to retrieve. Retrieves all query sets when empty. |
 
 ### Delete a query set
 

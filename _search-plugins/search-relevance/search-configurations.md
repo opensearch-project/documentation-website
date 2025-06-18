@@ -49,13 +49,14 @@ PUT _plugins/_search_relevance/search_configurations
 You can retrieve or delete configurations using the following APIs.
 
 ### Retrieve search configurations
-  
+
  This API retrieves search configurations.
-  
+
 #### Endpoint
 
 ```json
 GET _plugins/_search_relevance/search_configurations
+GET _plugins/_search_relevance/search_configurations/<search_configuration_id>
 ```
 {% include copy-curl.html %}
 
@@ -99,66 +100,13 @@ GET _plugins/_search_relevance/search_configurations
 }
 ```
 
-### View a query set
-
-You can retrieve a query set using the search configuration ID.
-
-#### Endpoint
-
-```json
-GET _plugins/_search_relevance/search_configurations/<search_configuration_id>
-```
-
 ### Path parameters
 
 The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `search_configuration_id` | String | The ID of the search configuration to retrieve. |
-
-#### Example request:
-
-```json
-GET _plugins/_search_relevance/search_configurations/92810080-9c5a-470f-a0ff-0eb85e7b818c
-```
-
-#### Example response:
-
-```json
-{
-  "took": 4,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 1,
-    "hits": [
-      {
-        "_index": "search-relevance-search-config",
-        "_id": "92810080-9c5a-470f-a0ff-0eb85e7b818c",
-        "_score": 1,
-        "_source": {
-          "id": "92810080-9c5a-470f-a0ff-0eb85e7b818c",
-          "name": "baseline",
-          "timestamp": "2025-06-12T08:23:03.305Z",
-          "index": "ecommerce",
-          "query": """{"query":{"multi_match":{"query":"%SearchText%","fields":["id","title","category","bullets","description","attrs.Brand","attrs.Color"]}}}""",
-          "searchPipeline": ""
-        }
-      }
-    ]
-  }
-}
-```
+| `search_configuration_id` | String | The ID of the search configuration to retrieve. Retrieves all search configurations when empty. |
 
 ### Delete a search configuration
 

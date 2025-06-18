@@ -25,7 +25,7 @@ PUT _plugins/_search_relevance/search_configurations
   "name": "hybrid_query_lexical",
   "query": "{\"query\":{\"hybrid\":{\"queries\":[{\"match\":{\"title\":\"%SearchText%\"}},{\"match\":{\"category\":\"%SearchText%\"}}]}}}",
   "index": "ecommerce"
-}'
+}
 ```
 {% include copy-curl.html %}
 
@@ -41,11 +41,11 @@ PUT _plugins/_search_relevance/search_configurations
 ```
 {% include copy-curl.html %}
 
-The model ID specified in the `query` must be a valid model ID for a model deployed in OpenSearch. The target index must contain the field for neural search embeddings (in this example, `title_embedding`). 
+The model ID specified in the `query` must be a valid model ID for a model deployed in OpenSearch. The target index must contain the field for neural search embeddings (in this example, `title_embedding`).
 
 For an end-to-end example, see the [`search-relevance` repository](https://github.com/opensearch-project/search-relevance).
 
-## Running a hybrid search optimzation experiment
+## Running a hybrid search optimization experiment
 
 You can create a hybrid search optimization experiment by calling the `experiments` endpoint of the Search Relevance Workbench.
 
