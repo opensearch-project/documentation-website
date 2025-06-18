@@ -185,7 +185,8 @@ This time in the results, for every search configuration, there is the id of the
 
 The usual parameters that were added to the put requests are returned, but there is also the metric values.
 
-Coverage@k: The proportion of documents with scores from the judgment which is the amount of documents with scores divided by the total amount of documents.
+- `Coverage@k`: The proportion of scored documents from the judgment set, calculated as the number of documents with scores divided by the total number of documents.
+
 
 - `Precision@k`: The proportion of documents with nonzero judgment scores out of k (or out of the total number of returned documents, if lower).
 
