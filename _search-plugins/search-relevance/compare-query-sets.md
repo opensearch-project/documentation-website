@@ -10,17 +10,20 @@ has_toc: false
 
 # Comparing query sets
 
-To compare the results of two different search configurations, you can run a pairwise experiment. The building blocks for comparing search configurations is to first have your two search configurations available, then have a query set to use for the search configuration.
+To compare the results of two different search configurations, you can run a pairwise experiment. To achieve this, you need two search configurations and a query set to use for the search configuration.
 
 For more information about creating a query set, see [Query Sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
-For more information on how to create search configurations, see [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/).
+For more information about creating search configurations, see [Search Configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/).
 
 ## Creating a pairwise experiment
 
-An experiment is used to compare the metrics between two different search configurations. You will be shown the top N results for every query based on the specified search configurations. In the dashboard, you will be able to "eyeball" the returned documents from any of the queries in the query set, and determine which search configuration returns the more accurate document id set. In addition, there will be some metrics to measure the similarity between the two returned search result lists.
+An experiment is used to compare the metrics between two different search configurations. An experiment shows you the top N results for every query based on the specified search configurations. In the dashboard, you can view the returned documents from any of the queries in the query set and determine which search configuration returns more relevant results. Additionally, you can measure the similarity between the two returned search result lists using the provided similarity metrics.
 
-### Example Request:
+### Example
+
+To create a pairwise comparison experiment for the specified query set an search configurations, send the following request:
+
 
 ```json
 PUT _plugins/_search_relevance/experiments
@@ -38,12 +41,12 @@ The following lists the input parameters.
 
 Field | Data type |  Description
 :---  | :--- | :---
-`querySetId` | String |	The id of the query set.
-`searchConfigurationList` | Array[String] | A list of search configuration ids to use for comparing.
-`size` | Integer | How many documents to return in the results
+`querySetId` | String |	The query set ID.
+`searchConfigurationList` | List | A list of search configuration IDs to use for comparison.
+`size` | Integer | The number of documents to return in the results.
 `type` | String | Defines the type of experiment to run. One of `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. However, the body fields will change depending on the type of experiment.
 
-### Example Response:
+The response contains the experiment ID of the created experiment:
 
 ```json
 {
@@ -51,13 +54,16 @@ Field | Data type |  Description
     "experiment_result": "CREATED"
 }
 ```
+
 ## Interpreting the experiment results
+
+To interpret the experiment results, use the following operations.
 
 ### Retrieving the experiment results
 
-To get the result of a specific experiment, you can make a get request.
+Use the following API to retrieve the result of a specific experiment.
 
-#### Endpoint:
+#### Endpoint
 
 ```json
 GET _plugins/_search_relevance/experiments/<experiment_id>
@@ -71,13 +77,13 @@ The following table lists the available path parameters.
 | :--- | :--- | :--- |
 | `experiment_id` | String | The ID of the experiment to retrieve. |
 
-#### Example request:
+#### Example request
 
 ```json
 GET _plugins/_search_relevance/experiments/cbd2c209-96d1-4012-aa73-e524b7a1b11a
 ```
 
-#### Example response:
+#### Example response
 
 ```json
 {
@@ -135,6 +141,8 @@ GET _plugins/_search_relevance/experiments
 ```
 
 #### Example response:
+
+Experiments run asynchronously. While the experiments are running, the status is `PROCESSING`:
 
 ```json
 {
@@ -203,9 +211,8 @@ GET _plugins/_search_relevance/experiments
 }
 ```
 
-The completion of the experiment is actually an asynchronous process, therefore, the status could still be processing like in the preceeding response. However, after waiting for the processes to complete, the results should be available.
+Once the experiment finishes running, the results are available:
 
-#### Example completed response:
 
 ```json
 {
@@ -313,12 +320,12 @@ The completion of the experiment is actually an asynchronous process, therefore,
 }
 ```
 
-### Meaning of the results
+### Interpreting the results
 
-As shown in the preceeding response, in the results, for both search configurations, the top N documents are returned with 10 specified as the size during the search request. However, there are also metrics on the pairwise comparison.
+As shown in the preceding response, both search configurations return the top N documents, with `size` set to 10 in the search request. In addition to the results, the response also includes metrics from the pairwise comparison.
 
-Jaccard metric: This will show the simularity score by dividing the intersection cardinality by the union cardinality of the returned documents.
+Jaccard metric: Shows the similarity score by dividing the intersection cardinality by the union cardinality of the returned documents.
 
-RBO: The RBO metric is the Rank-Biased Overlap metric. This compares the returned sets at every depth. For example, it would compare the top documents of each configuration, the top 2 documents,... and would place higher importance on the earlier comparisons.
+RBO: The Rank-Biased Overlap (RBO) metric compares the returned result sets at each ranking depth—for example, the top 1 document, top 2 documents, and so on. It places greater importance on higher-ranked results, giving more weight to earlier positions in the list.
 
-Frequency Weighted: This is similar to the Jaccard metric in that it calculates the weights of the intersection divided by the weights of the union. However, the weights are skewed towards the documents with higher frequencies.
+Frequency Weighted: Similar to the Jaccard metric, the frequency weighted metric calculates the ratio of the weighted intersection to the weighted union of two sets. However, unlike standard Jaccard, it gives more weight to documents with higher frequencies, skewing the result toward more frequently occurring items.
