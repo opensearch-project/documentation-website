@@ -6,6 +6,13 @@ grand_parent: OpenSearch Data Prepper
 parent: Getting started with OpenSearch Data Prepper
 ---
 
+# Install and configure OpenSearch Data Prepper
+
+This page guides you through the process of installing and configuring OpenSearch Data Prepper. You can install Data Prepper using a pre-built Docker image or by building the project from source, depending on your environment and requirements.
+
+After installation, you must configure a set of required files that define how Data Prepper runs and processes data. This includes specifying pipeline definitions, server settings, and optional logging configurations. Configuration details vary slightly depending on the version you are using.
+
+Use this guide to prepare your environment and set up Data Prepper for trace analytics, log ingestion, or other supported use cases.
 
 ## 1. Installing Data Prepper
 

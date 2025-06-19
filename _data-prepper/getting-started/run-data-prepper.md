@@ -6,6 +6,10 @@ grand_parent: OpenSearch Data Prepper
 parent: Getting started with OpenSearch Data Prepper
 ---
 
+This section explains how to run OpenSearch Data Prepper using a defined pipeline configuration. Before starting the service, you must create a valid pipeline YAML file that defines the data flow—from source to sink—with optional processors and buffers.
+
+You can run Data Prepper using a Docker container or a local build, depending on your setup. This page provides examples for running the Docker image, along with configuration options for different versions of Data Prepper. Once launched, Data Prepper begins processing data according to the specified pipeline and continues until it is manually shut down.
+
 ## Defining a pipeline
 
 Create a Data Prepper pipeline file named `pipelines.yaml`, similar to the following sample configuration:
