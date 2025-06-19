@@ -106,12 +106,12 @@ The default rescoring behavior is determined by the `mode` and `compression_leve
 - For `on_disk` mode, default rescoring is based on the configured `compression_level`. Each `compression_level` provides a default `oversample_factor`, specified in the following table.
 
 | Compression level | Default rescore `oversample_factor` |
-|:------------------|:----------------------------------|
-| `32x` (default)   | 3.0                               |
-| `16x`             | 2.0                               |
-| `8x`              | 2.0                               |
-| `4x`              | No default rescoring             |
-| `2x`              | No default rescoring             |
+|:------------------|:------------------------------------|
+| `32x` (default)   | 3.0                                 |
+| `16x`             | 2.0                                 |
+| `8x`              | 2.0                                 |
+| `4x`              | 1.0                                 |
+| `2x`              | No default rescoring                |
 
 To explicitly apply rescoring, provide the `rescore` parameter in a query on a quantized index and specify the `oversample_factor`:
 
@@ -155,7 +155,8 @@ GET /my-vector-index/_search
 
 The `oversample_factor` is a floating-point number between 1.0 and 100.0, inclusive. The number of results in the first pass is calculated as `oversample_factor * k` and is guaranteed to be between 100 and 10,000, inclusive. If the calculated number of results is smaller than 100, then the number of results is set to 100. If the calculated number of results is greater than 10,000, then the number of results is set to 10,000.
 
-Rescoring is only supported for the `faiss` engine.
+Rescoring is available only for the Faiss and Lucene engines.
+{: .note}
 
 Rescoring is not needed if quantization is not used because the scores returned are already fully precise.
 {: .note}
