@@ -41,7 +41,7 @@ Parameter | Type | Description
 `min_score` | Float |	Include only documents with a minimum `_score` value in the result.
 `routing` | String | Value used to route the operation to a specific shard.
 `preference` | String | Specifies which shard or node OpenSearch should perform the count operation on.
-`terminate_after` | Integer | The maximum number of documents OpenSearch should process before terminating the request.
+`terminate_after` | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request.
 
 ## Example requests
 

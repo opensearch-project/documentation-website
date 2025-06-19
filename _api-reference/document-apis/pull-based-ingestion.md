@@ -161,4 +161,13 @@ To retrieve shard-level pull-based ingestion metrics, use the [Nodes Stats API](
 GET /_nodes/stats/indices?level=shards&pretty
 ```
 {% include copy-curl.html %}
-```
+
+
+## Limitations
+
+The following limitations apply when using pull-based ingestion:
+
+* [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) are not compatible with pull-based ingestion.
+* [Dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/) is not supported.
+* [Index rollover]({{site.url}}{{site.baseurl}}/api-reference/index-apis/rollover/) is not supported.
+* Operation listeners are not supported.
