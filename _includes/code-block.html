@@ -34,11 +34,9 @@
             {%- else -%}{% highlight text %}{{ lang_content | strip }}{% endhighlight -%}
             {%- endcase -%}
           <div class="button-container">
-            {% if lang.id == "rest" %}
-              <button class="copy-button copy-code-button" data-action="copy_code">Copy</button>
+            <button class="copy-button copy-code-button" data-action="copy_code">Copy</button>
+            {% if lang.id == "rest" %}              
               <button class="copy-button copy-curl-button" data-action="copy_as_curl">Copy as cURL</button>
-            {% else %}
-              <button class="copy-button copy-code-button" data-action="copy_code">Copy</button>
             {% endif %}
           </div>
         </div>
