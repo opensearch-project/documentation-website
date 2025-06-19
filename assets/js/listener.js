@@ -125,7 +125,7 @@ function switchTab(event, tabId) {
     
     // Add active class to selected tab and button
     const selectedTab = container.querySelector(`#${tabId}`);
-    selectedTab.classList.add('active');
+    selectedTab?.classList.add('active');
     event.target.classList.add('active');
 }
 
