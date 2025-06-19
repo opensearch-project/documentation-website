@@ -4,6 +4,8 @@ title: Functions
 parent: Pipelines
 nav_order: 10
 has_children: true
+redirect_from: 
+   - /data-prepper/pipelines/functions/
 ---
 
 # Functions

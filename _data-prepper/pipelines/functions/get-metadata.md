@@ -4,6 +4,8 @@ title: getMetadata()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 15
+redirect_from: 
+   - /data-prepper/pipelines/get-metadata/
 ---
 
 # getMetadata()

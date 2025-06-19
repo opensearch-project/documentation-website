@@ -1,3 +1,12 @@
+---
+layout: default
+title: Install and configure OpenSearch Data Prepper
+nav_order: 10
+grand_parent: OpenSearch Data Prepper 
+parent: Getting started with OpenSearch Data Prepper
+---
+
+
 ## 1. Installing Data Prepper
 
 There are two ways to install Data Prepper: you can run the Docker image or build from source.

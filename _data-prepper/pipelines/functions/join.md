@@ -4,6 +4,8 @@ title: join()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 25
+redirect_from: 
+   - /data-prepper/pipelines/join/
 ---
 
 # join()

@@ -6,7 +6,7 @@ grand_parent: OpenSearch Data Prepper
 parent: Getting started with OpenSearch Data Prepper
 ---
 
-## Key concepts and fundamentals
+# Key concepts and fundamentals
 
 Data Prepper ingests data through customizable [pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/). These pipelines consist of pluggable components that you can customize to fit your needs, even allowing you to plug in your own implementations. A Data Prepper pipeline consists of the following components: 
 

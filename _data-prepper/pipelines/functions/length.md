@@ -4,6 +4,8 @@ title: length()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 30
+redirect_from: 
+   - /data-prepper/pipelines/length/
 ---
 
 # length()
