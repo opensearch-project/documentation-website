@@ -86,7 +86,7 @@ First, you'll need to choose a language model in order to generate vector embedd
 For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) model from Hugging Face. It is one of the pretrained sentence transformer models available in OpenSearch that has shown some of the best results in benchmarking tests (for more information, see [this blog post](https://opensearch.org/blog/semantic-science-benchmarks/)). You'll need the name, version, and dimension of the model to register it. You can find this information in the [pretrained model table]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) by selecting the `config_url` link corresponding to the model's TorchScript artifact:
 
 - The model name is `huggingface/sentence-transformers/msmarco-distilbert-base-tas-b`.
-- The model version is `1.0.1`.
+- The model version is `1.0.3`.
 - The number of dimensions for this model is `768`.
 
 Take note of the dimensionality of the model because you'll need it when you set up a vector index.
@@ -112,7 +112,7 @@ To register the model, provide the model group ID in the register request:
 POST /_plugins/_ml/models/_register
 {
   "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "model_format": "TORCH_SCRIPT"
 }
 ```

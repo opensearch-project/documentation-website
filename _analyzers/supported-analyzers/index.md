@@ -5,7 +5,7 @@ nav_order: 40
 has_children: true
 has_toc: false
 redirect_from:
-    - /analyzers/supported-analyzers/index/
+    - /analyzers/supported-analyzers/
 ---
 
 # Analyzers
@@ -26,10 +26,11 @@ Analyzer | Analysis performed | Analyzer output
 [**Pattern**]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/pattern/)| - Parses strings into tokens using regular expressions <br> - Supports converting strings to lowercase <br> - Supports removing stop words | [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `2`, `to`, `opensearch`]
 [**Language**]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/index/) | Performs analysis specific to a certain language (for example, `english`). | [`fun`, `contribut`, `brand`, `new`, `pr`, `2`, `opensearch`]
 [**Fingerprint**]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/fingerprint/) | - Parses strings on any non-letter character <br> - Normalizes characters by converting them to ASCII <br> - Converts tokens to lowercase <br> - Sorts, deduplicates, and concatenates tokens into a single token <br> - Supports removing stop words | [`2 a brand contribute fun it's new opensearch or pr to`] <br> Note that the apostrophe was converted to its ASCII counterpart.
+[**DL model**]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/dl-model-analyzers/) | Use ML model tokenization rules for [neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/). | Model-based tokens
 
 ## Language analyzers
 
-OpenSearch supports multiple language analyzers. For more information, see [Language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/index).
+OpenSearch supports multiple language analyzers. For more information, see [Language analyzers]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/index/).
 
 ## Additional analyzers
 
@@ -39,3 +40,4 @@ The following table lists the additional analyzers that OpenSearch supports.
 |:---------------|:---------------------------------------------------------------------------------------------------------|
 | [`phone`]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/phone-analyzers/#the-phone-analyzer)       | An [index analyzer]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) for parsing phone numbers.  |
 | [`phone-search`]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/phone-analyzers/#the-phone-search-analyzer) | A [search analyzer]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/) for parsing phone numbers. |
+

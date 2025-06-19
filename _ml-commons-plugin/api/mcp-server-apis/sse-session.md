@@ -3,7 +3,7 @@ layout: default
 title: MCP SSE session
 parent: MCP server APIs
 grand_parent: ML Commons APIs
-nav_order: 30
+nav_order: 50
 ---
 
 # MCP SSE session

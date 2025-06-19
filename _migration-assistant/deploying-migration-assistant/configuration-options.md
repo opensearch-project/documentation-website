@@ -166,7 +166,7 @@ Both the source and target cluster can use no authentication, authentication lim
 ```
 {% include copy.html %}
 
-The `serviceSigningName` can be `es` for an Elasticsearch or OpenSearch domain, or `aoss` for an OpenSearch Serverless collection.
+The `serviceSigningName` can be `es` for an Elasticsearch or OpenSearch domain.
 
 All of these authentication options apply to both source and target clusters.
 

@@ -68,8 +68,8 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 | Parameter | Description |
 | :--- | :--- |
 | `type` | The streaming source type. Required. Valid values are `kafka` or `kinesis`. |
-| `pointer.init.reset` | Determines where to start reading from the stream. Optional. Valid values are `earliest`, `latest`, `rewind_by_offset`, `rewind_by_timestamp`, or `none`. See [Stream position](#stream-position). |
-| `pointer.init.reset.value` | Required only for `rewind_by_offset` or `rewind_by_timestamp`. Specifies the offset value or timestamp in milliseconds. See [Stream position](#stream-position). |
+| `pointer.init.reset` | Determines the stream location from which to start reading. Optional. Valid values are `earliest`, `latest`, `reset_by_offset`, `reset_by_timestamp`, or `none`. See [Stream position](#stream-position). |
+| `pointer.init.reset.value` | Required only for `reset_by_offset` or `reset_by_timestamp`. Specifies the offset value or timestamp in milliseconds. See [Stream position](#stream-position). |
 | `error_strategy` | How to handle failed messages. Optional. Valid values are `DROP` (failed messages are skipped and ingestion continues) and `BLOCK` (when a message fails, ingestion stops). Default is `DROP`. We recommend using `DROP` for the current experimental release. |
 | `max_batch_size` | The maximum number of records to retrieve in each poll operation. Optional. |
 | `poll.timeout` | The maximum time to wait for data in each poll operation. Optional. |
@@ -84,11 +84,11 @@ The following table provides the valid `pointer.init.reset` values and their cor
 
 | `pointer.init.reset` | Starting ingestion point | `pointer.init.reset.value` | 
 | :--- | :--- | :--- | 
-| `earliest` | Beginning of stream | None | 
-| `latest` | Current end of stream | None | 
-| `rewind_by_offset` | Specific offset in the stream | A positive integer offset. Required. | 
-| `rewind_by_timestamp` | Specific point in time | A Unix timestamp in milliseconds. Required. <br> For Kafka streams, defaults to Kafka's `auto.offset.reset` policy if no messages are found for the given timestamp. |
-| `none` | Last committed position for existing indexes | None | 
+| `earliest`           | The beginning of the stream | None | 
+| `latest`             | The current end of the stream | None | 
+| `reset_by_offset`    | A specific offset in the stream | A positive integer offset. Required. | 
+| `reset_by_timestamp` | A specific point in time | A Unix timestamp in milliseconds. Required. <br> For Kafka streams, defaults to Kafka's `auto.offset.reset` policy if no messages are found for the given timestamp. |
+| `none`               | The last committed position for existing indexes | None | 
 
 ### Stream partitioning
 
@@ -131,7 +131,7 @@ Each data unit in the streaming source (Kafka message or Kinesis record) must in
 | :--- | :--- | :--- | :--- |
 | `_id` | String | No | A unique identifier for a document. If not provided, OpenSearch auto-generates an ID. Required for document updates or deletions. |
 | `_version` | Long | No | A document version number, which must be maintained externally. If provided, OpenSearch drops messages with versions earlier than the current document version. If not provided, no version checking occurs. |
-| `_op_type` | String | No | The operation to perform. Valid values are:<br>- `index`: Creates a new document or updates an existing one<br>- `delete`: Soft deletes a document |
+| `_op_type` | String | No | The operation to perform. Valid values are:<br>- `index`: Creates a new document or updates an existing one.<br>- `create`: Creates a new document in append mode. Note that this will not update existing documents. <br>- `delete`: Soft deletes a document. |
 | `_source` | Object | Yes | The message payload containing the document data. |
 
 ## Pull-based ingestion metrics
@@ -143,7 +143,17 @@ The following table lists the available `polling_ingest_stats` metrics.
 | Metric | Description |
 | :--- | :--- |
 | `message_processor_stats.total_processed_count` | The total number of messages processed by the message processor. |
+| `message_processor_stats.total_invalid_message_count` | The number of invalid messages encountered. |
+| `message_processor_stats.total_version_conflicts_count` | The number of version conflicts due to which older version messages will be dropped. |
+| `message_processor_stats.total_failed_count` | The total number of failed messages, which error out during processing. |
+| `message_processor_stats.total_failures_dropped_count` | The total number of failed messages, which are dropped after exhausting retries. Note that messages are only dropped when the DROP error policy is used. |
+| `message_processor_stats.total_processor_thread_interrupt_count` | Indicates the number of thread interruptions on the processor thread. |
 | `consumer_stats.total_polled_count` | The total number of messages polled from the stream consumer. |
+| `consumer_stats.total_consumer_error_count` | The total number of fatal consumer read errors. |
+| `consumer_stats.total_poller_message_failure_count` | The total number of failed messages on the poller. |
+| `consumer_stats.total_poller_message_dropped_count` | The total number of failed messages on the poller that were dropped. |
+| `consumer_stats.total_duplicate_message_skipped_count` | The total number of skipped messages that were previously processed. |
+| `consumer_stats.lag_in_millis` | Lag in milliseconds, computed as the time elapsed since the last processed message timestamp. |
 
 To retrieve shard-level pull-based ingestion metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/):
 
@@ -151,4 +161,13 @@ To retrieve shard-level pull-based ingestion metrics, use the [Nodes Stats API](
 GET /_nodes/stats/indices?level=shards&pretty
 ```
 {% include copy-curl.html %}
-```
+
+
+## Limitations
+
+The following limitations apply when using pull-based ingestion:
+
+* [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) are not compatible with pull-based ingestion.
+* [Dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/) is not supported.
+* [Index rollover]({{site.url}}{{site.baseurl}}/api-reference/index-apis/rollover/) is not supported.
+* Operation listeners are not supported.

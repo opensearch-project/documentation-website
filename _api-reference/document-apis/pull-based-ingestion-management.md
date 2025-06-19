@@ -54,6 +54,8 @@ POST /my-index/ingestion/_pause
 
 Resumes ingestion for one or more indexes. When resumed, OpenSearch continues consuming data from the streaming source for all shards in the specified indexes.
 
+As part of the resume operation, you can optionally reset the stream consumer to start reading from a specific offset or timestamp. If reset settings are specified, all consumers for the selected shards are reset before the resume operation is applied to the index. Resetting a consumer also triggers an internal flush to persist the changes.
+
 ### Endpoint
 
 ```json
@@ -77,10 +79,39 @@ The following table lists the available query parameters. All query parameters a
 | `cluster_manager_timeout` | Time units | The amount of time to wait for a connection to the cluster manager node. Default is `30s`. |
 | `timeout` | Time units | The amount of time to wait for a response from the cluster. Default is `30s`. |
 
+### Request body fields
+
+The following table lists the available request body fields.
+
+| Field | Data type | Required/Optional | Description |
+| :--- | :--- | :--- | :--- |
+| `reset_settings` | Array | Optional | A list of reset settings for each shard. If not provided, OpenSearch resumes ingestion from the current position for each shard in the specified index. |
+| `reset_settings.shard` | Integer | Required | The shard to reset. |
+| `reset_settings.mode` | String | Required | The reset mode. Valid values are `offset` (a positive integer offset) and `timestamp` (a Unix timestamp in milliseconds). |
+| `reset_settings.value` | String | Required | &ensp;&#x2022; `offset`: The Apache Kafka offset or Amazon Kinesis sequence number<br>&ensp;&#x2022; `timestamp`: A Unix timestamp in milliseconds. |
+
 ### Example request
+
+To resume ingestion without specifying reset settings, send the following request:
 
 ```json
 POST /my-index/ingestion/_resume
+```
+{% include copy-curl.html %}
+
+To provide reset settings when resuming ingestion, send the following request:
+
+```json
+POST /my-index/ingestion/_resume
+{
+  "reset_settings": [
+    {
+      "shard": 0,
+      "mode": "offset",
+      "value": "1"
+    }
+  ]
+}
 ```
 {% include copy-curl.html %}
 
