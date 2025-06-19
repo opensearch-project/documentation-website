@@ -155,7 +155,8 @@ GET /my-vector-index/_search
 
 The `oversample_factor` is a floating-point number between 1.0 and 100.0, inclusive. The number of results in the first pass is calculated as `oversample_factor * k` and is guaranteed to be between 100 and 10,000, inclusive. If the calculated number of results is smaller than 100, then the number of results is set to 100. If the calculated number of results is greater than 10,000, then the number of results is set to 10,000.
 
-Rescoring functionality is exclusively available for the faiss and lucene engines.
+Rescoring is available only for the Faiss and Lucene engines.
+{: .note}
 
 Rescoring is not needed if quantization is not used because the scores returned are already fully precise.
 {: .note}
