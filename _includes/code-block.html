@@ -4,7 +4,7 @@
     {% for lang in languages %}
       {% assign lang_content = include[lang.id] %}
       {% if lang_content != nil %}
-        <button class="tab-button{% if forloop.first %} active{% endif %}" 
+        <button class="tab-button{% if forloop.first %} active{% endif %}" data-action="switch_tab"
                 data-tab="{{ lang.id }}">{{ lang.name }}</button>
       {% endif %}
     {% endfor %}
@@ -35,10 +35,10 @@
             {%- endcase -%}
           <div class="button-container">
             {% if lang.id == "rest" %}
-              <button class="copy-button copy-code-button">Copy</button>
-              <button class="copy-button copy-curl-button">Copy as cURL</button>
+              <button class="copy-button copy-code-button" data-action="copy_code">Copy</button>
+              <button class="copy-button copy-curl-button" data-action="copy_as_curl">Copy as cURL</button>
             {% else %}
-              <button class="copy-button copy-code-button">Copy</button>
+              <button class="copy-button copy-code-button" data-action="copy_code">Copy</button>
             {% endif %}
           </div>
         </div>

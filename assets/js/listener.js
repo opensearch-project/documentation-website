@@ -7,6 +7,18 @@ const thankYouText = document.getElementById('thank-you');
 const nav = document.getElementById('site-nav');
 const versionPanel = document.getElementById('version-panel');
 
+const actionHandlers = {
+    submit_issue_click: () => gtag('event', 'submit_issue_click'),
+    edit_page_click: () => gtag('event', 'edit_page_click'),
+    forum_link_click: () => gtag('event', 'forum_link_click'),
+    enable_send_button: () => sendButton.disabled = false,
+    send_feedback: () => sendFeedback(),
+    switch_tab: (el) => switchTab({ target: el }, el.getAttribute('data-tab')),
+    copy_code: (el) => copyCode(el),
+    copy_as_curl: (el) => copyAsCurl(el)
+};
+
+
 // Single click event listener for the entire document
 document.addEventListener('click', function(event) {
     const { target } = event;
@@ -18,22 +30,9 @@ document.addEventListener('click', function(event) {
     }
 
     // Handle new-style buttons and other clicks
-    const clickHandlers = {
-        '.feedback-issue': () => gtag('event', 'submit_issue_click'),
-        '.feedback-edit': () => gtag('event', 'edit_page_click'),
-        '.feedback-forum': () => gtag('event', 'forum_link_click'),
-        '.feedback-button': () => sendButton.disabled = false,
-        '.send-button': () => sendFeedback(),
-        '.tab-button': () => switchTab(event, target.getAttribute('data-tab')),
-        '.copy-code-button': () => copyCode(target),
-        '.copy-curl-button': () => copyAsCurl(target)
-    };
-
-    for (const [selector, handler] of Object.entries(clickHandlers)) {
-        if (target.matches(selector)) {
-            handler();
-            break;
-        }
+    const action = target.dataset.action;
+    if (action && actionHandlers[action]) {
+        actionHandlers[action](target);
     }
 });
 
@@ -42,13 +41,23 @@ document.addEventListener('DOMContentLoaded', updateTextArea);
 
 commentTextArea.addEventListener('input', updateTextArea);
 
-nav.addEventListener('scroll', (e) => {
+function debounce(fn, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+function handleNavScroll() {
     if (nav.scrollTop > 0) {
         versionPanel.classList.add('nav-shadow');
     } else {
         versionPanel.classList.remove('nav-shadow');
     }
-});
+}
+
+nav.addEventListener('scroll', debounce(handleNavScroll, 100));
 
 function updateTextArea() {
     const text = commentTextArea.value.trim();
@@ -109,16 +118,9 @@ function sendFeedback() {
 
 function switchTab(event, tabId) {
     const container = event.target.closest('.code-tabs');
-    const tabContent = container.getElementsByClassName('tab');
-    const tabButtons = container.getElementsByClassName('tab-button');
-    
-    // Remove active class from all tabs and buttons
-    Array.from(tabContent).forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    Array.from(tabButtons).forEach(button => {
-        button.classList.remove('active');
+
+    container.querySelectorAll('.tab.active, .tab-button.active').forEach(el => {
+        el.classList.remove('active');
     });
     
     // Add active class to selected tab and button
