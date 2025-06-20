@@ -181,7 +181,7 @@ Trace Analytics in OpenSearch 3.1 includes expanded support for custom index nam
 
   ![Service map displayed below traces table]({{site.url}}{{site.baseurl}}/images/ta-traces-page.png)
 
-- The **Trace details** page features a new tree view that displays a hierarchical breakdown of spans. The layout has been updated to position the pie chart next to the overview panel for a more intuitive summary of trace metrics, as shown in the following image:
+- The **Trace details** page features a new tree view that displays a hierarchical breakdown of spans. The layout has been updated to position the pie chart next to the overview panel for a more intuitive summary of trace metrics, as shown in the following image.
 
   ![Gantt chart with tree view and pie chart layout]({{site.url}}{{site.baseurl}}/images/ta-hierarchial-view.png)
 
