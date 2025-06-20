@@ -62,7 +62,7 @@ To interpret the experiment results, use the following operations.
 
 Use the following API to retrieve the result of a specific experiment.
 
-#### Endpoint
+#### Endpoints
 
 ```json
 GET _plugins/_search_relevance/experiments
