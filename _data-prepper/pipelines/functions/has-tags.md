@@ -4,6 +4,8 @@ title: hasTags()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 20
+redirect_from: 
+   - /data-prepper/pipelines/has-tags/
 ---
 
 # hasTags()

@@ -4,6 +4,8 @@ title: contains()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 10
+redirect_from: 
+   - /data-prepper/pipelines/contains/
 ---
 
 # contains()

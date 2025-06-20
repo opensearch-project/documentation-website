@@ -4,6 +4,8 @@ title: cidrContains()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 5
+redirect_from: 
+   - /data-prepper/pipelines/cidrcontains/
 ---
 
 # cidrContains()
