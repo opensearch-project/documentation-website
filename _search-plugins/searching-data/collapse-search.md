@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Collapse search results
-parent: Searching data
+parent: Search options
 nav_order: 40
+redirect_from:
+  - /search-plugins/collapse-search/
 ---
 
 # Collapse search results
@@ -223,10 +225,8 @@ GET /bakery-items/_search
   },
   "sort": ["price"]
 }
-
-
 ```
+
 This query searches for documents in the `cakes` category and groups the search results by the `item_name` field. For each `item_name`, it retrieves the top three lowest-priced items and the top three most recent items, sorted by `baked_date` in descending order.
 
 You can expand the groups by sending an additional query for each inner hit request corresponding to each collapsed hit in the response. This can significantly slow down the process if there are too many groups or inner hit requests. The `max_concurrent_group_searches` request parameter can be used to control the maximum number of concurrent searches allowed in this phase. The default is based on the number of data nodes and the default search thread pool size.
-
