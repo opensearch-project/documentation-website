@@ -189,7 +189,7 @@ Trace Analytics in OpenSearch 3.1 includes expanded support for custom index nam
 
   ![Gantt chart with selectable mini-map]({{site.url}}{{site.baseurl}}/images/ta-gantt-mini-map.png)
 
-- The service map has been redesigned to better support large node groups, making it easier to visualize complex service topologies. You can now focus on a specific service to view its dependencies and reset the map as needed, as shown in the following image:
+- The service map has been redesigned to better support large node groups, making it easier to visualize complex service topologies. You can now focus on a specific service to view its dependencies and reset the map as needed, as shown in the following image.
 
   ![Redesigned service map with large node groups]({{site.url}}{{site.baseurl}}/images/ta-service-map-dependencies.png)
 
