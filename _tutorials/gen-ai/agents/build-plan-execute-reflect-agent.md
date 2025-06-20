@@ -297,6 +297,12 @@ The agent execution response includes several key fields:
 - `executor_agent_parent_interaction_id`: The `message_id` of the parent message in the executor agent's conversation.
 - `response`: The final result produced by the agent after all steps are executed.
 
+When you execute a plan-execute-reflect agent asynchronously, the API returns the `memory_id` of the planner agent as soon as the agent is started. In the final response, the API also returns the `executor_agent_memory_id` and `executor_agent_parent_interaction_id`, which correspond to the internal executor agent responsible for carrying out each step of the plan.
+
+**Starting from version 3.1**, the `executor_agent_memory_id` and `executor_agent_parent_interaction_id` will be updated in the task as soon as they are available, even before the agent has completed execution. This enables real-time tracking of the execution process as it progresses.
+
+For more details about memory, see the [memory documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/).
+
 To inspect the message history of the agent, use the Get Memory API:
 
 ```json

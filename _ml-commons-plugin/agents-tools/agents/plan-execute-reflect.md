@@ -35,7 +35,7 @@ When you execute a plan-execute-reflect agent asynchronously using the [Agent Ex
 
 In the final response, the API also returns the `executor_agent_memory_id` and `executor_agent_parent_interaction_id`, which correspond to the internal executor agent responsible for carrying out each step of the plan. These IDs allow you to inspect the detailed execution history and results for each step.
 
-**Starting from version 3.1**, the `executor_agent_memory_id` and `executor_agent_parent_interaction_id` will be returned as soon as they are available, even before the agent has completed execution. This enables real-time tracking of the execution process as it progresses.
+**Starting from version 3.1**, the `executor_agent_memory_id` and `executor_agent_parent_interaction_id` will be updated in the task as soon as they are available, even before the agent has completed execution. This enables real-time tracking of the execution process as it progresses.
 
 For a concrete example of how these IDs are returned and used, see the [Building a plan-execute-reflect agent tutorial]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#test-the-agent).
 
