@@ -30,7 +30,7 @@ The [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/o
 - Configure the OTel collectors to send telemetry data (traces, metrics, logs) to your OpenSearch cluster, using the [preexisting setup](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector).
 - Confirm that [Data Prepper](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/dataprepper) is set up to process the incoming data, handle trace analytics and service map pipelines, submit data to required indexes, and perform preaggregated calculations.
 
-### Step 3: Explore Trace Analytics in OpenSearch Dashboards
+### Step 3: Explore trace analytics in OpenSearch Dashboards
 
 The **Trace Analytics** application includes two options: **Services** and **Traces**:
 
@@ -169,7 +169,7 @@ Trace Analytics in OpenSearch 3.1 includes expanded support for custom index nam
 
   ![Custom index name configuration UI]({{site.url}}{{site.baseurl}}/images/ta-index-settings.png)
 
-- The **Trace details** page now includes an associated logs panel, which helps you analyze logs correlated with specific traces to improve troubleshooting and root cause analysis. The followimg image shows the logs panel:
+- The **Trace details** page now includes an associated logs panel, which helps you analyze logs correlated with specific traces to improve troubleshooting and root cause analysis. The following image shows the logs panel:
 
   ![Trace detail page with associated logs panel]({{site.url}}{{site.baseurl}}/images/ta-trace-logs-correlation.png)
 
