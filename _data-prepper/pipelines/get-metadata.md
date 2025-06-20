@@ -39,4 +39,4 @@ The value returned can be of any type. For example, if the metadata contains `{"
   ]
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
