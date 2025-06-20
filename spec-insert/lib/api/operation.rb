@@ -6,29 +6,31 @@
 
 # frozen_string_literal: true
 
-# An API Operation
-class Operation
-  # @return [Openapi3Parser::Node::Operation] Operation Spec
-  attr_reader :spec
-  # @return [String] URL
-  attr_reader :url
-  # @return [String] HTTP Verb
-  attr_reader :http_verb
-  # @return [String] Operation Group
-  attr_reader :group
-  # @return [String] API Action
-  attr_reader :action
-  # @return [String] API Namespace
-  attr_reader :namespace
+module Api
+  # An API Operation
+  class Operation
+    # @return [SpecHash] Operation Spec
+    attr_reader :spec
+    # @return [String] URL
+    attr_reader :url
+    # @return [String] HTTP Verb
+    attr_reader :http_verb
+    # @return [String] Operation Group
+    attr_reader :group
+    # @return [String] API Action
+    attr_reader :action
+    # @return [String] API Namespace
+    attr_reader :namespace
 
-  # @param [Openapi3Parser::Node::Operation] spec Operation Spec
-  # @param [String] url
-  # @param [String] http_verb
-  def initialize(spec, url, http_verb)
-    @spec = spec
-    @url = url
-    @http_verb = http_verb.upcase
-    @group = spec['x-operation-group']
-    @action, @namespace = @group.split('.').reverse
+    # @param [SpecHash] spec Operation Spec
+    # @param [String] url
+    # @param [String] http_verb
+    def initialize(spec, url, http_verb)
+      @spec = spec
+      @url = url
+      @http_verb = http_verb.upcase
+      @group = spec['x-operation-group']
+      @action, @namespace = @group.split('.').reverse
+    end
   end
 end

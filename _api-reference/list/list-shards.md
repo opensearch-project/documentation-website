@@ -74,5 +74,29 @@ next_token MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==
 **JSON format**
 
 ```json
-{"next_token":"MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==","shards":[{"index":"plugins","shard":"0","prirep":"p","state":"STARTED","docs":"0","store":"208B","ip":"172.18.0.4","node":"odfe-node1"},{"index":"plugins","shard":"0","prirep":"r","state":"STARTED","docs":"0","store":"208B","ip":"172.18.0.3","node":"odfe-node2"}]}
+{
+  "next_token": "MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==",
+  "shards": [
+    {
+      "index": "plugins",
+      "shard": "0",
+      "prirep": "p",
+      "state": "STARTED",
+      "docs": "0",
+      "store": "208B",
+      "ip": "172.18.0.4",
+      "node": "odfe-node1"
+    },
+    {
+      "index": "plugins",
+      "shard": "0",
+      "prirep": "r",
+      "state": "STARTED",
+      "docs": "0",
+      "store": "208B",
+      "ip": "172.18.0.3",
+      "node": "odfe-node2"
+    }
+  ]
+}
 ```

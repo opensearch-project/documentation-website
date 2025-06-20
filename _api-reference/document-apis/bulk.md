@@ -43,12 +43,7 @@ refresh | Enum | Whether to refresh the affected shards after performing the ind
 require_alias | Boolean | Set to `true` to require that all actions target an index alias rather than an index. Default is `false`.
 routing | String | Routes the request to the specified shard.
 timeout | Time | How long to wait for the request to return. Default is `1m`.
-type | String | (Deprecated) The default document type for documents that don't specify a type. Default is `_doc`. We highly recommend ignoring this parameter and using the `_doc` type for all indexes.
 wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the bulk request. Default is `1` (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have 2 replicas distributed across 2 additional nodes in order for the request to succeed.
-batch_size | Integer | **(Deprecated)** Specifies the number of documents to be batched and sent to an ingest pipeline to be processed together. Default is `2147483647` (documents are ingested by an ingest pipeline all at once). If the bulk request doesn't explicitly specify an ingest pipeline or the index doesn't have a default ingest pipeline, then this parameter is ignored. Only documents with `create`, `index`, or `update` actions can be grouped into batches.
-{% comment %}_source | List | asdf
-_source_excludes | List | asdf
-_source_includes | List | asdf{% endcomment %}
 
 
 ## Request body

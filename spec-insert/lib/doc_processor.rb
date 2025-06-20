@@ -3,6 +3,7 @@
 require 'pathname'
 require_relative 'renderers/spec_insert'
 require_relative 'spec_insert_error'
+require_relative 'insert_arguments'
 
 # Processes a file, replacing spec-insert blocks with rendered content
 class DocProcessor
@@ -32,6 +33,11 @@ class DocProcessor
     rendered_content
   end
 
+  # @return [Array<SpecInsert>] the spec inserts targeted by this processor
+  def spec_inserts
+    find_insertions(File.readlines(@file_path)).map(&:last)
+  end
+
   private
 
   # @return Array<[Integer, Integer, SpecInsert]>
@@ -46,7 +52,8 @@ class DocProcessor
     validate_markers!(start_indices, end_indices)
 
     start_indices.zip(end_indices).map do |start, finish|
-      [start, finish, SpecInsert.new(lines[start..finish])]
+      args = InsertArguments.from_marker(lines[start..finish])
+      [start, finish, SpecInsert.new(args)]
     end
   end
 

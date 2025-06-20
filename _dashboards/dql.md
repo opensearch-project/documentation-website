@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Dashboards Query Language (DQL)
-nav_order: 130
+nav_order: 125
 redirect_from:
   - /dashboards/dql/
   - /dashboards/discover/dql/
@@ -18,6 +18,10 @@ By default, OpenSearch Dashboards uses DQL syntax. To switch to query string que
 ![Search term using DQL toolbar in Dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dql-interface.png)
 
 The syntax changes to **Lucene**. To switch back to DQL, select the **Lucene** button and toggle the **Off** switch.
+
+## Queries on analyzed text
+
+When running queries, understanding whether your fields are analyzed ([`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) type) or non-analyzed ([`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/) type) is crucial because it significantly impacts search behavior. In analyzed fields, text undergoes tokenization and filtering, while non-analyzed fields store exact values. For simple field queries like `wind`, searches against analyzed fields match documents containing `wind` regardless of case, while the same query on keyword fields requires exact matching of the full string. For more information about analyzed fields, see [Text analysis]({{site.url}}{{site.baseurl}}/analyzers/).
 
 ## Setup
 
@@ -142,7 +146,7 @@ The following table provides a quick reference for both query language commands.
 | Boolean `NOT` | `NOT media_type: article` <br><br> `not media_type: article` | `NOT media_type:article` <br><br> `-media_type:article`  |
 | Boolean `OR` | `title: wind OR description: film` <br><br> `title: wind or description: film` | `title: wind OR description: film` |
 | Required/Prohibited operators | Not supported | Supports both `+` (required operator) and `-` (prohibited operator) <br><br> `+title:wind -media_type:article` (returns documents in which `title` contains `wind` but `media_type` does not contain `article`)  |
-| Wildcards | `title: wind*`<br><br> `titl*: wind` <br><br> Only supports `*` (multiple characters)  | `title:wind*` or `title:w?nd` <br><br> Does not support wildcards in field names <br><br> Supports `*` (multiple characters) and `?` (single character) |
+| Wildcards | `title: wind*`<br><br> `titl*: wind` <br><br> Does not support wildcards in phrase searches (within quotation marks) <br><br> Only supports `*` (multiple characters)  | `title:wind*` or `title:w?nd` <br><br> Does not support wildcards in field names <br><br> Does not support wildcards in phrase searches (within quotation marks) <br><br> Supports `*` (multiple characters) and `?` (single character) |
 | Regular expressions | Not supported | `title:/w[a-z]nd/` |
 | Fuzzy search | Not supported | `title:wind~2` |
 | Proximity search | Not supported | `"wind rises"~2` |

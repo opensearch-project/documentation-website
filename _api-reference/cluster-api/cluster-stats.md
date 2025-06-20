@@ -61,8 +61,8 @@ Metric | Description
 To filter the information returned for the `indices` metric, you can use specific `index_metric` values. These values are only supported when using the following query types:
 
 ```json
-GET _cluster/stats/_all/<index_metric>/_nodes/<node-filters>
-GET _cluster/stats/indices/<index_metric>/_nodes/<node-filters>
+GET _cluster/stats/_all/<index_metric>/nodes/<node-filters>
+GET _cluster/stats/indices/<index_metric>/nodes/<node-filters>
 ```
 
 The following index metrics are supported:
@@ -80,7 +80,7 @@ The following index metrics are supported:
 For example, the following query requests statistics for `docs` and `search`:
 
 ```json
-GET _cluster/stats/indices/docs,segments/_nodes/_all
+GET _cluster/stats/indices/docs,segments/nodes/_all
 ```
 {% include copy-curl.html %}
 

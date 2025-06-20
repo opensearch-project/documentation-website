@@ -168,7 +168,7 @@ The following request creates a search pipeline that rewrites the preceding term
 PUT /_search/pipeline/ml_inference_pipeline
 {
   "description": "Generate passage_embedding for searched documents",
-  "processors": [
+  "request_processors": [
     {
       "ml_inference": {
         "model_id": "<your model id>",
@@ -413,7 +413,7 @@ The following is the final configuration of the `ml_inference` processor with th
 PUT /_search/pipeline/ml_inference_pipeline_local
 {
   "description": "searchs reviews and generates embeddings",
-  "processors": [
+  "request_processors": [
     {
       "ml_inference": {
         "function_name": "text_embedding",

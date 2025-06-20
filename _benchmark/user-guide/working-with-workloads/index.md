@@ -3,6 +3,7 @@ layout: default
 title: Working with workloads
 nav_order: 15
 parent: User guide
+has_toc: false
 has_children: true
 ---
 

@@ -7,15 +7,7 @@ nav_order: 60
 
 # Query insights dashboards
 
-You can interact with the query insights feature using the Query Insights Dashboards plugin. This plugin gives you real-time and historical insights into query performance, providing analytics and monitoring to improve how queries are run in your cluster.
-
-## Prerequisites
-
-The Query Insights Dashboards plugin requires [OpenSearch 2.19 or later]({{site.url}}{{site.baseurl}}/install-and-configure/).
-
-## Installing the plugin
-
-To install the Query Insights Dashboards plugin, see [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/).
+You can interact with the query insights feature in OpenSearch Dashboards. This gives you real-time and historical insights into query performance, providing analytics and monitoring to improve how queries are run in your cluster.
 
 ## Navigation
 
@@ -29,6 +21,7 @@ The **Query insights** dashboard contains the following pages:
 - [Top N queries](#top-n-queries): Displays the query metrics and details for the top queries.
 - [Query details](#query-details): Displays details for individual queries and query groups.
 - [Configuration](#configuration): Customizes all monitoring and data retention settings for the query insights feature.
+- [Live queries](#live-queries): Monitors currently running queries in real time.
 
 
 ## Top N queries
@@ -78,22 +71,40 @@ The **Refresh** button reloads the query data based on the selected filters and 
 
 ### F. Metrics table
 
-The metrics table displays the following metrics for each query.
+The metrics table dynamically adapts based on your **Type** filter selection (**Query**, **Group**, or both). Dynamic columns improve clarity by showing only the relevant data for each query type.
 
-| Metric                  | Description                                                                 |
-|-------------------------|-----------------------------------------------------------------------------|
-| **ID**                  | The unique identifier for the query.                                         |
-| **Type**                | The type of query, such as `query`or `group`.                               |
-| **Query Count**         | The number of times that the query has been executed.                            |
-| **Timestamp**           | When the query was run.                                                     |
-| **Latency**             | The time taken for the query to execute.                                    |
-| **CPU Time**            | The CPU resources consumed by the query.                                    |
-| **Memory Usage**        | The memory usage of the query.                                              |
-| **Indexes**             | The index or indexes on which the query was executed.                       |
-| **Search Type**         | The type of search used, for example, `query then fetch`.                   |
-| **Coordinator Node ID** | The node that coordinated the query.                                        |
-| **Total Shards**        | The total number of shards involved in running the query.                    |
+When you select **queries only**, the table displays individual metrics, including **Latency**, **CPU Time**, and **Memory Usage**. The **Query Count** column isn't displayed because each row represents a single query, as shown in the following image.
 
+![Column Display for Query Selected]({{site.url}}{{site.baseurl}}/images/Query-Insights/OnlyQueryColDisplay.png)
+
+When you select **groups only**, the table displays aggregated metrics, including **Average Latency**, **Average CPU Time**, and **Average Memory Usage**. The **Query Count** column shows how many queries are in each group, as shown in the following image.
+
+![Column Display for Group Selected]({{site.url}}{{site.baseurl}}/images/Query-Insights/OnlyGroupColDisplay.png)
+
+When you select both **groups** and **queries**, the table displays combined metrics, including both averaged and raw values, as shown in the following image.
+
+![Column Display for Both Selected]({{site.url}}{{site.baseurl}}/images/Query-Insights/BothColDisplay.png)
+
+The following table provides descriptions for each metric and the metric's related query and group when selected.
+
+| Column name | Description  | Query selected | Group selected | Query + group selected |
+| :--- | :--- | :--- | :--- | :--- |
+| **ID**                  | The unique identifier for the query or group. | `ID`   | `ID`   | `ID`  |
+| **Type**                | Indicates whether the entry is a query or a group. | `Type`  | `Type` | `Type`  |
+| **Query Count**         | The number of queries aggregated in the group.  | Not shown  | `Query Count`        | `Query Count`   |
+| **Timestamp**           | The time at which the query or group was recorded (may be empty for groups). | `Timestamp`     | Not shown            | `Timestamp`    |
+| **Latency**             | The amount of time taken for individual queries to execute.  | `Latency`          | `Average Latency`    | `Avg Latency/Latency`          |
+| **CPU Time**            | The number of CPU resources consumed. | `CPU Time`         | `Average CPU Time`   | `Avg CPU Time/CPU Time`        |
+| **Memory Usage**        | The amount of memory used during execution.  | `Memory Usage`     | `Average Memory Usage` | `Avg Memory Usage/Memory Usage` |
+| **Indexes**             | A list of indexes involved in the query or group. | `Indexes`  | Not shown            | `Indexes`    |
+| **Search Type**         | The search execution method used (such as `query` or `fetch`).  | `Search Type`      | Not shown            | `Search Type`  |
+| **Coordinator Node ID** | The node that coordinated the query.  | `Coordinator Node ID` | Not shown         | `Coordinator Node ID` |
+| **Total Shards**        | The number of shards involved in query processing.   | `Total Shards`     | Not shown            | `Total Shards`  |
+
+When you select **Query + Group**:
+
+- If all displayed rows are queries, then the table follows the **Query Selected** behavior.
+- If all displayed rows are groups, then the table follows the **Group Selected** behavior.
 
 ## Query details
 
@@ -171,6 +182,73 @@ When configuring the query insights feature, remember the following best practic
 - Choose your **Window size** carefully. A longer window size can save compute resources because the insights found are less granular. Inversely, a shorter window size can output more comprehensive query insights but uses more resources.
 - When setting data retention periods, consider shorter retention periods that save storage but reduce the number of long-term insights.
 - Enable metrics based on your monitoring needs. Monitoring fewer metrics prevents system overload.
+
+## Live queries
+
+The **Live queries** page provides real-time visibility into search queries currently running in your OpenSearch cluster. It enables active monitoring, fast debugging, and insight into how a query's load is distributed across nodes and indexes.
+
+The following image shows the live queries view.
+
+![Live Queries Dashboard]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries.png)
+
+### Metrics overview
+
+The top panel in the live queries view displays the following key real-time metrics.
+
+| Panel  | Description  |
+| :--- | :--- |
+| **Active queries**       | The total number of currently executing queries.                                |
+| **Avg. elapsed time**    | The average execution time of live queries.                                     |
+| **Longest running query**| The duration and ID of the longest currently executing query.                   |
+| **Total CPU time**       | The cumulative CPU time used by all active queries.                             |
+| **Total memory usage**   | The total memory consumed by live queries.                                      |
+
+### Breakdown charts
+
+Two visual charts provide breakdowns of query load:
+
+- **By node** – Shows how many queries are running on each node.
+- **By index** – Displays how many queries are targeting each index.
+
+![Live Queries visual charts]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_queries_visuailization.png)
+
+You can toggle between **Donut** and **Bar** chart formats using the chart type switch.
+
+Only the top 9 items are displayed individually in the chart; additional values are grouped under the **Others** category.
+
+### Live query table
+
+The live query table lists the following information for each live query.
+
+![Live Queries Table]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries_Table.png)
+
+| Column  | Description |
+| :--- | :--- |
+| **Timestamp**        | The time when the query started running.                            |
+| **Task ID**          | The unique identifier for the search task.                            |
+| **Index**            | The index or indexes the query is targeting.                          |
+| **Node**             | The node currently running the query.                               |
+| **Time elapsed**     | The execution time for the query so far (formatted).                                |
+| **CPU usage**        | The cumulative CPU time used by the query.                            |
+| **Memory usage**     | The amount of memory consumed by the query so far.                              |
+| **Search type**      | The search execution method, such as `query_then_fetch`.               |
+| **Coordinator node** | The node that coordinated the query.                                  |
+| **Status**           | The status of the query task. Can be either `running` or `cancelled`. |
+| **Actions**          | The available controls, such as canceling the query.                  |
+
+You can use the filter bar to search for queries by text or specific field values---such as node ID, index name, or task ID---and paginate the table to better analyze specific queries. The following image shows the live queries table view.
+
+![Live Queries Table]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries_Table.png)
+
+The live queries table also allows you to cancel individual or multiple running queries directly, providing real-time control. It supports the following actions:
+
+- **Auto-refresh toggle** – Enable or disable periodic data refresh.
+- **Refresh interval** – Choose the refresh frequency. This option is available only when **Auto-refresh** is enabled.
+- **Manual refresh** – Select the **Refresh** button to update immediately.
+- **Cancel query** – Cancel an individual query using the trash icon in the action columns for the query you want to cancel.
+- **Bulk cancel** – Select multiple queries and cancel them all together.
+
+
 
 
 

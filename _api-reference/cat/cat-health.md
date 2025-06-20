@@ -42,7 +42,7 @@ The following table lists the available query parameters. All query parameters a
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
-| `time` | String | The unit used to display time values. <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `time` | String | The unit used to display time values. <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
 | `ts` | Boolean | When `true`, returns `HH:MM:SS` and Unix epoch timestamps. | `true` |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 

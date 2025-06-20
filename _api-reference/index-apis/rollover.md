@@ -91,7 +91,7 @@ The object body supports the following parameters.
 
 Parameter | Data type | Description 
 :--- | :--- | :--- 
-| `max_age` | Time units | Triggers a rollover after the maximum elapsed time since index creation is reached. The elapsed time is always calculated since the index creation time, even if the index origination date is configured to a custom date, such as when using the `index.lifecycle.parse_origination_date` or `index.lifecycle.origination_date` settings. Optional. |
+`max_age` | Time units | Triggers a rollover after the maximum elapsed time since index creation is reached. The elapsed time is always calculated since the index creation time, even if the index origination date is configured to a custom date, such as when using the `index.lifecycle.parse_origination_date` or `index.lifecycle.origination_date` settings. Optional. |
 `max_docs` | Integer | Triggers a rollover after the specified maximum number of documents, excluding documents added since the last refresh and documents in replica shards. Optional. 
 `max_size` | Byte units  | Triggers a rollover when the index reaches a specified size, calculated as the total size of all primary shards. Replicas are not counted. Use the `_cat indices` API and check the `pri.store.size` value to see the current index size. Optional.
 
@@ -105,7 +105,7 @@ The following examples illustrate using the Rollover Index API. A rollover occur
 
 - The index was created 5 or more days ago.
 - The index contains 500 or more documents.
-- The index's largest primary shard is 100 GB or larger.
+- The index is 100 GB or larger.
 
 ### Rolling over a data stream
 
@@ -117,7 +117,7 @@ POST my-data-stream/_rollover
   "conditions": {
     "max_age": "5d",
     "max_docs": 500,
-    "max_primary_shard_size": "100gb"
+    "max_size": "100gb"
   }
 }
 ```
@@ -148,7 +148,7 @@ POST my-alias/_rollover
   "conditions": {
     "max_age": "5d",
     "max_docs": 500,
-    "max_primary_shard_size": "100gb"
+    "max_size": "100gb"
   }
 }
 ```
@@ -171,7 +171,7 @@ POST my-alias/_rollover
 
 ## Example response
 
-OpenSearch returns the following response confirming that all conditions except `max_primary_shard_size` were met:
+OpenSearch returns the following response confirming that all conditions except `max_size` were met:
 
 ```json
 {
@@ -184,7 +184,7 @@ OpenSearch returns the following response confirming that all conditions except 
   "conditions": {
     "[max_age: 5d]": true,
     "[max_docs: 500]": true,
-    "[max_primary_shard_size: 100gb]": false
+    "[max_size: 100gb]": false
   }
 }
 ```

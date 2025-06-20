@@ -27,7 +27,7 @@ The following is the syntax for the `sparse_encoding` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 
@@ -44,6 +44,7 @@ The following table lists the required and optional parameters for the `sparse_e
 `description`  | String | Optional  | A brief description of the processor.  |
 `tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
 `batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. |
+`skip_existing` | Boolean | Optional | When `true`, the processor does not make inference calls for fields that already contain embeddings, leaving existing embeddings unchanged. Default is `false`.|
 
 ### Pruning sparse vectors
 
@@ -153,7 +154,7 @@ The response confirms that in addition to the `passage_text` field, the processo
 }
 ```
 
-Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. To learn more, see [Create an index for ingestion]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/#step-2b-create-an-index-for-ingestion) and [Step 3: Ingest documents into the index]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/#step-2c-ingest-documents-into-the-index) of [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index. For a complete example, see [Generating sparse vector embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-with-pipelines/).
 
 ---
 

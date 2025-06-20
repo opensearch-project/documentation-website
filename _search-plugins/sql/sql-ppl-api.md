@@ -159,12 +159,22 @@ total | Integer | The total number of rows (documents) in the index.
 size | Integer | The number of results to return in one response.
 status | String | The HTTP response status OpenSearch returns after running the query.
 
-## Explain API
+## `Explain` API
 
-The SQL plugin has an `explain` feature that shows how a query is executed against OpenSearch, which is useful for debugging and development. A POST request to the `_plugins/_sql/_explain` or `_plugins/_ppl/_explain` endpoint returns [OpenSearch domain-specific language]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/) (DSL) in JSON format, explaining the query.
-You can execute the explain API operation either in command line using `curl` or in the Dashboards console, like in the example below. 
+The SQL plugin's `explain` feature shows how a query is executed against OpenSearch, which is useful for debugging and development. A POST request to the `_plugins/_sql/_explain` or `_plugins/_ppl/_explain` endpoint returns [OpenSearch domain-specific language]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/) (DSL) in JSON format.
 
-#### Sample explain request for an SQL query
+Starting with OpenSearch 3.0.0, when you set `plugins.calcite.enabled` to `true`, the `explain` response provides enhanced information about query execution plans. The API supports four output formats:
+
+- `standard`: Displays logical and physical plans (default if not specified)
+- `simple`: Displays logical plan without attributes
+- `cost`: Displays logical and physical plans with their costs
+- `extended`: Displays logical and physical plans with generated code
+
+### Examples
+
+#### Basic SQL query
+
+The following request shows a basic SQL `explain` query:
 
 ```json
 POST _plugins/_sql/_explain
@@ -172,8 +182,9 @@ POST _plugins/_sql/_explain
   "query": "SELECT firstname, lastname FROM accounts WHERE age > 20"
 }
 ```
+{% include copy.html %}
 
-#### Sample SQL query explain response
+The response shows the query execution plan:
 
 ```json
 {
@@ -194,39 +205,64 @@ POST _plugins/_sql/_explain
   }
 }
 ```
+{% include copy.html %}
 
-#### Sample explain request for a PPL query
+#### Advanced query with the Calcite engine
+
+The following request demonstrates a more complex query using the Calcite engine:
 
 ```json
 POST _plugins/_ppl/_explain
 {
-  "query" : "source=accounts | fields firstname, lastname"
+  "query" : "source=state_country | where country = 'USA' OR country = 'England' | stats count() by country"
 }
 ```
+{% include copy.html %}
 
-#### Sample PPL query explain response
+The response shows both logical and physical plans in the standard format:
 
 ```json
 {
-  "root": {
-    "name": "ProjectOperator",
-    "description": {
-      "fields": "[firstname, lastname]"
-    },
-    "children": [
-      {
-        "name": "OpenSearchIndexScan",
-        "description": {
-          "request": """OpenSearchQueryRequest(indexName=accounts, sourceBuilder={"from":0,"size":200,"timeout":"1m","_source":{"includes":["firstname","lastname"],"excludes":[]}}, searchDone=false)"""
-        },
-        "children": []
-      }
-    ]
+  "calcite": {
+    "logical": """LogicalProject(count()=[$1], country=[$0])
+  LogicalAggregate(group=[{1}], count()=[COUNT()])
+    LogicalFilter(condition=[SEARCH($1, Sarg['England', 'USA':CHAR(7)]:CHAR(7))])
+      CalciteLogicalIndexScan(table=[[OpenSearch, state_country]])
+""",
+    "physical": """EnumerableCalc(expr#0..1=[{inputs}], count()=[$t1], country=[$t0])
+  CalciteEnumerableIndexScan(table=[[OpenSearch, state_country]], PushDownContext=[[FILTER->SEARCH($1, Sarg['England', 'USA':CHAR(7)]:CHAR(7)), AGGREGATION->rel#53:LogicalAggregate.NONE.[](input=RelSubset#43,group={1},count()=COUNT())], OpenSearchRequestBuilder(sourceBuilder={"from":0,"size":0,"timeout":"1m","query":{"terms":{"country":["England","USA"],"boost":1.0}},"sort":[{"_doc":{"order":"asc"}}],"aggregations":{"composite_buckets":{"composite":{"size":1000,"sources":[{"country":{"terms":{"field":"country","missing_bucket":true,"missing_order":"first","order":"asc"}}}]},"aggregations":{"count()":{"value_count":{"field":"_index"}}}}}}, requestedTotalSize=10000, pageSize=null, startFrom=0)])
+"""
   }
 }
 ```
+{% include copy.html %}
 
-For queries that require post-processing, the `explain` response includes a query plan in addition to the OpenSearch DSL. For those queries that don't require post processing, you can see a complete DSL.
+For a simplified view of the query plan, you can use the `simple` format:
+
+```json
+POST _plugins/_ppl/_explain?format=simple
+{
+  "query" : "source=state_country | where country = 'USA' OR country = 'England' | stats count() by country"
+}
+```
+{% include copy.html %}
+
+The response shows a condensed logical plan:
+
+```json
+{
+  "calcite": {
+    "logical": """LogicalProject
+  LogicalAggregate
+    LogicalFilter
+      CalciteLogicalIndexScan
+"""
+  }
+}
+```
+{% include copy.html %}
+
+For queries that require post-processing, the `explain` response includes a query plan in addition to the OpenSearch DSL. For queries that don't require post-processing, you'll see only the complete DSL.
 
 ## Paginating results
 

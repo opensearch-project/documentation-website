@@ -155,6 +155,6 @@ OpenSearch also supports sparse vectors. For more information, see [Neural spars
 
 ## Next steps
 
-- [Ingesting data into a vector index]({{site.url}}{{site.baseurl}}/vector-search/searching-data/)
+- [Ingesting data into a vector index]({{site.url}}{{site.baseurl}}/vector-search/ingesting-data/)
 - [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)
 - [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/)

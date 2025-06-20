@@ -298,10 +298,41 @@ The following plugins are bundled with all OpenSearch distributions except for t
 | Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 |
 | Security Analytics | [opensearch-security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
 | SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 |
+| Learning to Rank Base | [opensearch-learning-to-rank-base](https://github.com/opensearch-project/opensearch-learning-to-rank-base) | 2.19.0 |
+| Remote Metadata SDK | [opensearch-remote-metadata-sdk](https://github.com/opensearch-project/opensearch-remote-metadata-sdk) | 2.19.0 |
+| Query Insights | [query-insights](https://github.com/opensearch-project/query-insights) | 2.16.0 |
+| System Templates | [opensearch-system-templates](https://github.com/opensearch-project/opensearch-system-templates) | 2.17.0 |
 
 _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._<br>
 _<sup>2</sup>Performance Analyzer is not available on Windows._
 
+
+#### Downloading bundled plugins for offline installation
+
+Each bundled plugin can be downloaded and installed offline from a [zip file](#install-a-plugin-from-a-zip-file).
+
+The URL for the corresponding plugin can be found in the `manifest.yml` file located in the root directory of the extracted bundle.
+
+### Core plugins
+
+A _core_ (or _native_) plugin in OpenSearch is a plugin that resides in the [OpenSearch core engine repository](https://github.com/opensearch-project/OpenSearch/tree/main/plugins). These plugins are tightly integrated with the OpenSearch engine, are versioned alongside core releases, and are not bundled by default in the standard OpenSearch distribution.
+
+
+#### Downloading core plugins for offline installation
+
+Each core plugins in [this list](https://github.com/opensearch-project/OpenSearch/tree/main/plugins) can be downloaded and installed offline from a [zip file](#install-a-plugin-from-a-zip-file) using the official `plugins` repository URL template:
+
+```html
+https://artifacts.opensearch.org/releases/plugins/<plugin-name>/<version>/<plugin-name>-<version>.zip
+```
+
+The `<plugin-name>` corresponds to the name of the bundled plugin (for example, `analysis-icu`). The `<version>` must match the version of the OpenSearch distribution (for example, `2.19.1`). 
+
+For example, use the following URL to download the `analysis-icu` bundled plugin distribution for OpenSearch version `2.19.1`:
+
+```
+https://artifacts.opensearch.org/releases/plugins/analysis-icu/2.19.1/analysis-icu-2.19.1.zip
+```
 
 ### Additional plugins
 

@@ -19,7 +19,7 @@ The following is the syntax for the `date_index_name` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

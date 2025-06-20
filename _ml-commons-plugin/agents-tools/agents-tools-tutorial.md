@@ -42,7 +42,7 @@ In this tutorial, you'll use the `huggingface/sentence-transformers/all-MiniLM-L
 POST /_plugins/_ml/models/_register?deploy=true
 {
   "name": "huggingface/sentence-transformers/all-MiniLM-L12-v2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "model_format": "TORCH_SCRIPT"
 }
 ```
@@ -102,9 +102,9 @@ PUT /_ingest/pipeline/test-pipeline-local-model
 }
 ```
 
-## Step 3: Create a k-NN index and ingest data
+## Step 3: Create a vector index and ingest data
 
-Now you'll ingest supplementary data into an OpenSearch index. In OpenSearch, vectors are stored in a k-NN index. You can create a [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/) by sending the following request:
+Now you'll ingest supplementary data into an OpenSearch index. In OpenSearch, vectors are stored in a vector index. You can create a [vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/) by sending the following request:
 
 ```json
 PUT my_test_data
@@ -351,51 +351,4 @@ Therefore, the population increase of Seattle from 2021 to 2023 is 58,000."""
     }
   ]
 }
-```
-
-## Hidden agents
-**Introduced 2.13**
-{: .label .label-purple }
-
-To hide agent details from end users, including the cluster admin, you can register a _hidden_ agent. If an agent is hidden, non-superadmin users don't have permission to call any [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/index/) except for the [Execute API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/), on the agent.
-
-Only superadmin users can register a hidden agent. To register a hidden agent, you first need to authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates):
-
-```bash
-curl -k --cert ./kirk.pem --key ./kirk-key.pem -XGET 'https://localhost:9200/.opendistro_security/_search'
-```
-
-All agents created by a superadmin user are automatically registered as hidden. Only the superadmin user can view hidden agent details and delete hidden agents.
-To register a hidden agent, send a request to the `_register` endpoint:
-
-```bash
-curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_plugins/_ml/agents/_register' -H 'Content-Type: application/json' -d '
-{
-  "name": "Test_Agent_For_RAG",
-  "type": "flow",
-  "description": "this is a test agent",
-  "tools": [
-    {
-      "name": "vector_tool",
-      "type": "VectorDBTool",
-      "parameters": {
-        "model_id": "zBRyYIsBls05QaITo5ex",
-        "index": "my_test_data",
-        "embedding_field": "embedding",
-        "source_field": [
-          "text"
-        ],
-        "input": "${parameters.question}"
-      }
-    },
-    {
-      "type": "MLModelTool",
-      "description": "A general tool to answer any question",
-      "parameters": {
-        "model_id": "NWR9YIsBUysqmzBdifVJ",
-        "prompt": "\n\nHuman:You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. \n\n Context:\n${parameters.vector_tool.output}\n\nHuman:${parameters.question}\n\nAssistant:"
-      }
-    }
-  ]
-}'
 ```

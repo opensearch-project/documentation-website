@@ -112,6 +112,7 @@ ISM supports the following operations:
 - [index_priority](#index_priority)
 - [allocation](#allocation)
 - [rollup](#rollup)
+- [stop_replication](#stop_replication)
 
 ### force_merge
 
@@ -484,6 +485,21 @@ Parameter | Description | Type | Required
 
 Rollup jobs can be continuous or non-continuous. A rollup job created using an ISM policy can only be non-continuous.
 {: .note }
+
+### stop_replication
+
+Stops replication and converts the follower index to a regular index.
+
+```json
+{
+  "stop_replication": {}
+}
+```
+
+When cross-cluster replication is enabled, the follower index becomes read-only, preventing all write operations. To manage replicated indexes on a follower cluster, you can perform the `stop_replication` action before performing other write operations. For example, you can define a policy that first runs `stop_replication` and then deletes the index by running a `delete` action.
+
+If security is enabled, in addition to [stop replication permissions]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions), you must have the `indices:internal/plugins/replication/index/stop` permission in order to use the `stop_replication` action.
+{: .note}
 
 #### Endpoints
 

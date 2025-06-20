@@ -29,12 +29,8 @@ function createButton(textToCopy, buttonText, buttonAriaLabel, curl) {
     copyButton.innerText = buttonText;
     copyButton.ariaLabel = buttonAriaLabel;
 
-    if (curl) {
-        copyButton.setAttribute('data-text', addCurl(textToCopy));
-    }
-    else {
-        copyButton.setAttribute('data-text', textToCopy);
-    }
+    copyButton.setAttribute('data-action', curl ? 'copy_as_curl' : 'copy_code');
+    copyButton.setAttribute('data-text', curl ? addCurl(textToCopy) : textToCopy);
 
     return copyButton;
 }

@@ -53,7 +53,7 @@ For more information, see [Configuring TLS certificates]({{site.url}}{{site.base
 
 The `config.yml` file allows you to configure the authentication and authorization mechanisms for OpenSearch. Update the authentication backend settings in `<OPENSEARCH_HOME>/config/opensearch-security/config.yml` according to your requirements. 
 
-For example, to use LDAP as your authentication backend, add the following settings:
+For example, to use the internal authentication backend, add the following settings:
 
   ```
     authc:

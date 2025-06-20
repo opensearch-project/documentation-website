@@ -2,7 +2,7 @@
 layout: default
 title: Delete index
 parent: Index APIs
-nav_order: 35
+nav_order: 22
 redirect_from:
   - /opensearch/rest-api/index-apis/delete-index/
 ---

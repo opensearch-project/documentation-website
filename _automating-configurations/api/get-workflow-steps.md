@@ -31,7 +31,7 @@ This API returns a list of workflow steps, including their required inputs, outp
 
 ```json
 GET /_plugins/_flow_framework/workflow/_steps
-GET /_plugins/_flow_framework/workflow/_step?workflow_step=<step_name>
+GET /_plugins/_flow_framework/workflow/_steps?workflow_step=<step_name>
 ``` 
 
 ## Query parameters
@@ -54,7 +54,7 @@ GET /_plugins/_flow_framework/workflow/_steps
 To fetch specific workflow steps, pass the step names to the request as a query parameter:
 
 ```json
-GET /_plugins/_flow_framework/workflow/_step?workflow_step=create_connector,delete_model,deploy_model
+GET /_plugins/_flow_framework/workflow/_step?workflow_steps=create_connector,delete_model,deploy_model
 ```
 {% include copy-curl.html %}
 

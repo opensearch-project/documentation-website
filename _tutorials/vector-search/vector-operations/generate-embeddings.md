@@ -67,7 +67,7 @@ PUT my_books
 {
   "settings" : {
       "index.knn" : "true",
-      "default_pipeline": "bedrock_embedding_foreach_pipeline"
+      "default_pipeline": "bedrock_embedding_pipeline"
   },
   "mappings": {
     "properties": {
@@ -98,9 +98,7 @@ Then create an inner ingest pipeline to generate an embedding for one array elem
 
 This pipeline contains three processors:
 
-- `set` processor: The `text_embedding` processor is unable to identify the `_ingest._value.title` field. You must copy `_ingest._value.title` to a non-existing temporary field so that the `text_embedding` processor can process it.
 - `text_embedding` processor: Converts the value of the temporary field to an embedding.
-- `remove` processor: Removes the temporary field.
 
 To create such a pipeline, send the following request:
 
@@ -109,45 +107,11 @@ PUT _ingest/pipeline/bedrock_embedding_pipeline
 {
   "processors": [
     {
-      "set": {
-        "field": "title_tmp",
-        "value": {% raw %}"{{_ingest._value.title}}"{% endraw %}
-      }
-    },
-    {
       "text_embedding": {
-        "model_id": your_embedding_model_id,
+        "model_id": "your_embedding_model_id",
         "field_map": {
-          "title_tmp": "_ingest._value.title_embedding"
+          "books.title": "title_embedding"
         }
-      }
-    },
-    {
-      "remove": {
-        "field": "title_tmp"
-      }
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
-
-Create an ingest pipeline with a `foreach` processor that will apply the `bedrock_embedding_pipeline` to each element of the `books` array:
-
-```json
-PUT _ingest/pipeline/bedrock_embedding_foreach_pipeline
-{
-  "description": "Test nested embeddings",
-  "processors": [
-    {
-      "foreach": {
-        "field": "books",
-        "processor": {
-          "pipeline": {
-            "name": "bedrock_embedding_pipeline"
-          }
-        },
-        "ignore_failure": true
       }
     }
   ]
@@ -160,7 +124,7 @@ PUT _ingest/pipeline/bedrock_embedding_foreach_pipeline
 First, you'll test the pipeline on an array that contains two book objects, both with a `title` field:
 
 ```json
-POST _ingest/pipeline/bedrock_embedding_foreach_pipeline/_simulate
+POST _ingest/pipeline/bedrock_embedding_pipeline/_simulate
 {
   "docs": [
     {

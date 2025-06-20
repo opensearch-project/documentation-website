@@ -23,6 +23,9 @@ other:
   - heading: "Semantic search"
     description: "Implement semantic search using various machine learning models"
     link: "/tutorials/vector-search/semantic-search/"
+  - heading: "Using semantic highlighting"
+    description: "Learn how to highlight the most semantically relevant sentences in the results"
+    link: "/tutorials/vector-search/semantic-highlighting-tutorial/"
 ---
 
 # Vector search tutorials

@@ -100,9 +100,15 @@ OpenSearch supports the following cluster-level routing and shard allocation set
     - `REPLICA_FIRST` – Replica shards are relocated first, before primary shards. This prioritization may help prevent a cluster's health status from going red when carrying out shard relocation in a mixed-version, segment-replication-enabled OpenSearch cluster. In this situation, primary shards relocated to OpenSearch nodes of a newer version could try to copy segment files to replica shards on an older version of OpenSearch, which would result in shard failure. Relocating replica shards first may help to avoid this in multi-version clusters. 
     - `NO_PREFERENCE` – The default behavior in which the order of shard relocation has no importance. 
 
+- `cluster.routing.search_replica.strict` (Dynamic, Boolean): Controls how search requests are routed when search replica shards exist for an index, such as when `index.number_of_search_replicas` is greater than `0`. This setting applies only when search replicas are configured for an index. When set to `true`, all search requests for such indexes are routed only to search replica shards. If search replicas are unassigned, the requests fail. When set to `false`, if search replicas are unassigned, requests fall back to any available shard. Default is `true`.
+
 - `cluster.allocator.gateway.batch_size` (Dynamic, integer): Limits the number of shards sent to data nodes in a single batch to fetch any unassigned shard metadata. Default is `2000`.
 
 - `cluster.allocator.existing_shards_allocator.batch_enabled` (Static, Boolean): Enables batch allocation of unassigned shards that already exist on the disk, as opposed to allocating one shard at a time. This reduces memory and transport overhead by fetching any unassigned shard metadata in a batch call. Default is `false`.
+
+- `cluster.routing.allocation.total_shards_per_node` (Dynamic, integer): The maximum combined total number of primary and replica shards that can be allocated to a single node. Default is `-1` (unlimited). Helps distribute shards evenly across nodes by limiting the total number of shards per node. Use with caution because shards may remain unallocated if nodes reach their configured limits.
+
+- `cluster.routing.allocation.total_primary_shards_per_node` (Dynamic, integer): The maximum number of primary shards that can be allocated to a single node. This setting is applicable only for remote-backed clusters. Default is `-1`(unlimited). Helps distribute primary shards evenly across nodes by limiting the number of primary shards per node. Use with caution because primary shards may remain unallocated if nodes reach their configured limits.
 
 ## Cluster-level shard, block, and task settings
 

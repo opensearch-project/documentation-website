@@ -23,6 +23,7 @@ There are two ways to configure semantic search:
 
 - [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline and index with minimal configuration.
 - [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
+- [**Using a semantic field**](#using-a-semantic-field) (Recommended for quick setup with optional customization): Manually configure the index using `semantic` fields to simplify the setup process while still allowing for some level of configuration.
 
 ## Automated workflow
 
@@ -158,7 +159,7 @@ Before the document is ingested into the index, the ingest pipeline runs the `te
 
 ### Step 4: Search the index
 
-To perform vector search on your index, use the `neural` query clause either in the [Search for a Model API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-for-a-model) or [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. You can refine the results by using a [vector search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
+To perform a vector search on your index, use the `neural` query clause either in the [Search for a Model API]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#search-for-a-model) or [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. You can refine the results by using a [vector search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
 
 The following example request uses a Boolean query to combine a filter clause and two query clauses---a neural query and a `match` query. The `script_score` query assigns custom weights to the query clauses:
 
@@ -335,6 +336,187 @@ The response contains both documents:
         "_source" : {
           "passage_text" : "Hello world",
           "id" : "s1"
+        }
+      }
+    ]
+  }
+}
+```
+
+## Using a semantic field
+
+To manually configure semantic search using a `semantic` field, follow these steps. For more information, including about limitations when using `semantic` fields, see [Semantic field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/semantic/). 
+
+### Step 1: Create an index with a semantic field
+
+Create an index and specify the `model_id` in the `semantic` field. In this example, the `semantic` field is `passage_text`. OpenSearch automatically creates the corresponding embedding field based on the model configuration. An ingest pipeline is not required---OpenSearch automatically generates the embeddings using the specified model during indexing:
+
+```json
+PUT /my-nlp-index
+{
+  "settings": {
+    "index.knn": true
+  },
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "text"
+      },
+      "passage_text": {
+        "type": "semantic",
+        "model_id": "9kPWYJcBmp4cG9LrbAvW"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+After creating the index, you can retrieve its mapping to verify that the embedding field was automatically created:
+
+```json
+GET /my-nlp-index/_mapping
+{
+  "my-nlp-index": {
+    "mappings": {
+      "properties": {
+        "id": {
+          "type": "text"
+        },
+        "passage_text": {
+          "type": "semantic",
+          "model_id": "9kPWYJcBmp4cG9LrbAvW",
+          "raw_field_type": "text"
+        },
+        "passage_text_semantic_info": {
+          "properties": {
+            "embedding": {
+              "type": "knn_vector",
+              "dimension": 384,
+              "method": {
+                "engine": "faiss",
+                "space_type": "l2",
+                "name": "hnsw",
+                "parameters": {}
+              }
+            },
+            "model": {
+              "properties": {
+                "id": {
+                  "type": "text",
+                  "index": false
+                },
+                "name": {
+                  "type": "text",
+                  "index": false
+                },
+                "type": {
+                  "type": "text",
+                  "index": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Step 2: Ingest documents into the index
+
+To ingest documents into the index created in the previous step, send the following requests:
+
+```json
+PUT /my-nlp-index/_doc/1
+{
+  "passage_text": "Hello world",
+  "id": "s1"
+}
+```
+{% include copy-curl.html %}
+
+Before the document is ingested into the index, OpenSearch runs a built-in ingest pipeline that generates embeddings and stores them in the `passage_text_semantic_info.embedding` field. To verify that the embedding is generated properly, you can run a search request to retrieve the document:
+
+```json
+GET /my-nlp-index/_doc/1
+{
+  "_index": "my-nlp-index",
+  "_id": "1",
+  "_version": 1,
+  "_seq_no": 0,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "passage_text": "Hello world",
+    "passage_text_semantic_info": {
+      "model": {
+        "name": "huggingface/sentence-transformers/all-MiniLM-L6-v2",
+        "id": "9kPWYJcBmp4cG9LrbAvW",
+        "type": "TEXT_EMBEDDING"
+      },
+      "embedding": [
+        -0.034477286,
+        ...
+      ]
+    },
+    "id": "s1"
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Step 3: Search the index
+
+To query the embedding of the `semantic` field, provide the `semantic` field's name (in this example, `passage_text`) and the query text. There's no need to specify the `model_id`---OpenSearch automatically retrieves it from the field's configuration in the index mapping and rewrites the query to target the underlying embedding field:
+
+```json
+GET /my-nlp-index/_search
+{
+  "_source": {
+    "excludes": [
+      "passage_text_semantic_info"
+    ]
+  },
+  "query": {
+    "neural": {
+      "passage_text": {
+        "query_text": "Hi world"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching document:
+
+```json
+{
+  "took": 48,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.7564365,
+    "hits": [
+      {
+        "_index": "my-nlp-index",
+        "_id": "1",
+        "_score": 0.7564365,
+        "_source": {
+          "passage_text": "Hello world",
+          "id": "s1"
         }
       }
     ]

@@ -28,6 +28,10 @@ A document is returned if it matches any of the terms in the array.
 
 By default, the maximum number of terms allowed in a `terms` query is 65,536. To change the maximum number of terms, update the `index.max_terms_count` setting.
 
+For better query performance, pass long arrays containing terms in sorted order (ordered by UTF-8 byte values, ascending).
+{: .tip}
+
+
 The ability to [highlight results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/) for terms queries may not be guaranteed, depending on the highlighter type and the number of terms in the query.
 {: .note}
 
@@ -39,6 +43,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `<field>` | String | The field in which to search. A document is returned in the results only if its field value exactly matches at least one term, with the correct spacing and capitalization.
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
+`_name` | String | The name of the query for query tagging. Optional.
 `value_type` | String | Specifies the types of values used for filtering. Valid values are `default` and `bitmap`. If omitted, the value defaults to `default`.
 
 ## Terms lookup
@@ -250,7 +255,7 @@ Parameter | Data type | Description
 `id` | String | The document ID of the document from which to fetch field values. Required.
 `path` | String | The name of the field from which to fetch field values. Specify nested fields using dot path notation. Required.
 `routing` | String | Custom routing value of the document from which to fetch field values. Optional. Required if a custom routing value was provided when the document was indexed.
-`boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
+`store` | Boolean | Whether to perform the lookup on the stored field instead of `_source`. Optional.
 
 ## Bitmap filtering
 **Introduced 2.17**
@@ -267,7 +272,7 @@ PUT /products
 {
   "mappings": {
     "properties": {
-      "product_id": { "type": "keyword" }
+      "product_id": { "type": "integer" }
     }
   }
 }
@@ -280,7 +285,7 @@ Next, index three documents that correspond to products:
 PUT /products/_doc/1
 {
   "name": "Product 1",
-  "product_id" : "111"
+  "product_id" : 111
 }
 ```
 {% include copy-curl.html %}
@@ -289,7 +294,7 @@ PUT /products/_doc/1
 PUT /products/_doc/2
 {
   "name": "Product 2",
-  "product_id" : "222"
+  "product_id" : 222
 }
 ```
 {% include copy-curl.html %}
@@ -298,7 +303,7 @@ PUT /products/_doc/2
 PUT /products/_doc/3
 {
   "name": "Product 3",
-  "product_id" : "333"
+  "product_id" : 333
 }
 ```
 {% include copy-curl.html %}
@@ -377,7 +382,9 @@ POST /products/_search
 {
   "query": {
     "terms": {
-      "product_id": "OjAAAAEAAAAAAAIAEAAAAG8A3gBNAQ==",
+      "product_id": [
+        "OjAAAAEAAAAAAAIAEAAAAG8A3gBNAQ=="
+      ],
       "value_type": "bitmap"
     }
   }

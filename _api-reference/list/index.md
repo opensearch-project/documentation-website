@@ -170,6 +170,34 @@ GET _list/indices?format=json
 The response contains data in JSON format:
 
 ```json
-{"next_token":null,"indices":[{"health":"green","status":"-","index":".kibana_1","uuid":"-","pri":"-","rep":"-","docs.count":"-","docs.deleted":"-","store.size":"-","pri.store.size":"-"},{"health":"yellow","status":"-","index":"sample-index-1","uuid":"-","pri":"-","rep":"-","docs.count":"-","docs.deleted":"-","store.size":"-","pri.store.size":"-"}]}
+{
+  "next_token": null,
+  "indices": [
+    {
+      "health": "green",
+      "status": "-",
+      "index": ".kibana_1",
+      "uuid": "-",
+      "pri": "-",
+      "rep": "-",
+      "docs.count": "-",
+      "docs.deleted": "-",
+      "store.size": "-",
+      "pri.store.size": "-"
+    },
+    {
+      "health": "yellow",
+      "status": "-",
+      "index": "sample-index-1",
+      "uuid": "-",
+      "pri": "-",
+      "rep": "-",
+      "docs.count": "-",
+      "docs.deleted": "-",
+      "store.size": "-",
+      "pri.store.size": "-"
+    }
+  ]
+}
 ```
 

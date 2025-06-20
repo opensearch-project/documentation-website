@@ -2,6 +2,8 @@
 
 require_relative 'config'
 require_relative 'dot_hash'
+require_relative 'api/action'
+require_relative 'api/parameter'
 
 # Spec class for parsing OpenAPI spec
 # It's basically a wrapper around a Hash that allows for accessing hash values as object attributes
@@ -10,8 +12,8 @@ class SpecHash < DotHash
   def self.load_file(file_path)
     @root = YAML.load_file(file_path)
     parsed = SpecHash.new(@root)
-    Action.actions = parsed
-    Parameter.global = parsed
+    Api::Action.actions = parsed
+    Api::Parameter.global = parsed
   end
 
   # @return [Hash] Root of the raw OpenAPI Spec used to resolve $refs
@@ -28,12 +30,12 @@ class SpecHash < DotHash
 
   def parse(value)
     return value.map { |v| parse(v) } if value.is_a?(Array)
-    return value if value.is_a?(self.class)
+    return value if value.is_a?(SpecHash.class)
     return value unless value.is_a?(Hash)
     ref = value.delete('$ref')
     value.transform_values! { |v| parse(v) }
-    return SpecHash.new(value, fully_parsed: true) unless ref
-    SpecHash.new(parse(resolve(ref)).merge(value), fully_parsed: true)
+    value.merge!(resolve(ref)) if ref
+    SpecHash.new(value)
   end
 
   def resolve(ref)
