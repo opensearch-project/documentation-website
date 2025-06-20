@@ -29,6 +29,18 @@ The agent automatically selects the most appropriate tool for each step based on
 
 The agent currently supports re-evaluation only after each step. This allows the agent to dynamically adapt the plan based on intermediate results before proceeding to the next step.
 
+## Tracking agent execution and memory
+
+When you execute a plan-execute-reflect agent asynchronously using the [Agent Execute API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/), the API returns the `memory_id` of the planner agent as soon as the agent is started. This allows you to immediately begin tracking the conversation and planning process.
+
+In the final response, the API also returns the `executor_agent_memory_id` and `executor_agent_parent_interaction_id`, which correspond to the internal executor agent responsible for carrying out each step of the plan. These IDs allow you to inspect the detailed execution history and results for each step.
+
+**Starting from version 3.1**, the `executor_agent_memory_id` and `executor_agent_parent_interaction_id` will be returned as soon as they are available, even before the agent has completed execution. This enables real-time tracking of the execution process as it progresses.
+
+For a concrete example of how these IDs are returned and used, see the [Building a plan-execute-reflect agent tutorial]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#test-the-agent).
+
+For more details about memory, see the [memory documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/).
+
 ## Creating a plan-execute-reflect agent
 
 The following example request creates a plan-execute-reflect agent with three tools:
