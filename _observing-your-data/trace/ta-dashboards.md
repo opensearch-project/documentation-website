@@ -185,7 +185,7 @@ Trace Analytics in OpenSearch 3.1 includes expanded support for custom index nam
 
   ![Gantt chart with tree view and pie chart layout]({{site.url}}{{site.baseurl}}/images/ta-hierarchial-view.png)
 
-- The Gantt chart now includes a selectable mini-map above it, allowing you to quickly navigate to and focus on specific sections of the trace timeline, as shown in the following image:
+- The Gantt chart now includes a selectable mini-map above it, allowing you to quickly navigate to and focus on specific sections of the trace timeline, as shown in the following image.
 
   ![Gantt chart with selectable mini-map]({{site.url}}{{site.baseurl}}/images/ta-gantt-mini-map.png)
 
