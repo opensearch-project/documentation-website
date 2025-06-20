@@ -7,6 +7,9 @@ nav_order: 110
 
 # Stats
 
+The Stats API provides basic statistics about ML Commons, such as the number of running tasks. For more detailed, time-series metrics to monitor machine learning workflows, see the [ML Commons metrics integration]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/metrics/getting-started/#ml-commons-metrics-integration).
+{: .note }
+
 Gets statistics related to the number of tasks. 
 
 ## Endpoints
