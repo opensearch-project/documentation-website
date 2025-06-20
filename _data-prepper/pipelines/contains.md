@@ -33,4 +33,4 @@ contains('This is a test message', 'test')
 
 In this case, the function will return `true` because the substring `test` is present within the string `This is a test message`.
 
-Note that the `contains()` function performs a case-sensitive search by default. If you need to perform a case-insensitive search, you can use the `containsIgnoreCase()` function instead.
+Note that the `contains()` function performs a case-sensitive search.
