@@ -1,0 +1,46 @@
+{% assign languages = site.data.code_languages.languages %}
+<div class="code-tabs">
+  <div class="tab-nav">
+    {% for lang in languages %}
+      {% assign lang_content = include[lang.id] %}
+      {% if lang_content != nil %}
+        <button class="tab-button{% if forloop.first %} active{% endif %}" data-action="switch_tab"
+                data-tab="{{ lang.id }}">{{ lang.name }}</button>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {% if include.description %}
+  <div class="code-description">
+    {{ include.description }}
+  </div>
+  {% endif %}
+
+  {% for lang in languages %}
+    {% assign lang_content = include[lang.id] %}
+    {% if lang_content != nil %}
+      <div id="{{ lang.id }}" class="tab{% if forloop.first %} active{% endif %}">
+        <div class="code-container">
+            {%- case lang.id -%}
+            {%- when 'rest' -%}{% highlight json %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'python' -%}{% highlight python %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'java' -%}{% highlight java %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'javascript' -%}{% highlight javascript %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'go' -%}{% highlight go %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'ruby' -%}{% highlight ruby %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'php' -%}{% highlight php %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'dotnet' -%}{% highlight cs %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- when 'rust' -%}{% highlight rust %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- else -%}{% highlight text %}{{ lang_content | strip }}{% endhighlight -%}
+            {%- endcase -%}
+          <div class="button-container">
+            <button class="copy-button copy-code-button" data-action="copy_code">Copy</button>
+            {% if lang.id == "rest" %}              
+              <button class="copy-button copy-curl-button" data-action="copy_as_curl">Copy as cURL</button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
