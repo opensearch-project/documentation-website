@@ -20,31 +20,35 @@ See [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl
 
 The [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/opentelemetry-demo) simulates a distributed application generating real-time telemetry data, providing you with a practical environment in which to explore features available with the Trace Analytics plugin before implementing it in your environment.
 
-**Step 1: Set up the OpenTelemetry Demo**
+### Step 1: Set up the OpenTelemetry Demo
 
 - Clone the [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/opentelemetry-demo) repository: `git clone https://github.com/opensearch-project/opentelemetry-demo`.
 - Follow the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/blob/main/tutorial/GettingStarted.md) instructions to deploy the demo application using Docker, which runs multiple microservices generating telemetry data.
 
-**Step 2: Ingest telemetry data**
+### Step 2: Ingest telemetry data.
 
 - Configure the OTel collectors to send telemetry data (traces, metrics, logs) to your OpenSearch cluster, using the [preexisting setup](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector).
 - Confirm that [Data Prepper](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/dataprepper) is set up to process the incoming data, handle trace analytics and service map pipelines, submit data to required indexes, and perform preaggregated calculations.
 
-**Step 3: Explore Trace Analytics in OpenSearch Dashboards**
+### Step 3: Explore Trace Analytics in OpenSearch Dashboards
 
 The **Trace Analytics** application includes two options: **Services** and **Traces**:
 
 - **Services** lists all services in the application, plus an interactive map that shows how the various services connect to each other. In contrast to the dashboard (which helps identify problems by operation), the **Service map** helps you identify problems by service based on error rates and latency. To access this option, go to **Trace Analytics** > **Services**.
 - **Traces** groups traces together by HTTP method and path so that you can see the average latency, error rate, and trends associated with a particular operation. For a more focused view, try filtering by trace group name. To access this option, go to **Trace Analytics** > **Traces**. From the **Trace Groups** panel, you can review the traces that comprise a trace group. From the **Traces** panel you can analyze individual traces for a detailed summary.
 
-**Step 4: Perform correlation analysis**
+### Step 4: Perform correlation analysis
 
-- Select **Services correlation** to display connections between various telemetry signals. This feature allows you to navigate from the logical service level to the associated metrics and logs for a specific service.
-- The plugin also supports correlating spans, traces, and services with their associated logs. This enables you to quickly move from a trace or span to the relevant log entries, or from a service to its correlated logs, directly within the Trace Analytics interface. Correlation streamlines troubleshooting by providing a unified view of telemetry data, making it easier to identify root causes and understand the context of application events.
-  - **Trace-to-log correlation**: On the trace details page for a selected trace, select **View associated logs**.
-  - **Span-to-log correlation**: In the span details flyout (opened by selecting a span ID in the Gantt chart or span table), select **View associated logs**.
-  - **Service-to-log correlation**: On the services page, select the **Discover** icon for the desired service.
-  - **Service-to-service correlation**: On the services page, use the **Focus on** option in the service map to view a service and its dependencies
+Select **Services correlation** to display relationships between telemetry signals. This feature helps you navigate from the logical service level to associated metrics and logs for a specific service.
+
+The Trace Analytics plugin supports correlating spans, traces, and services with their corresponding logs. This lets you move directly from a trace or span to relevant log entries, or from a service to its correlated logs, within the Trace Analytics interface. Correlation streamlines troubleshooting by offering a unified view of telemetry data, making it easier to identify root causes and understand application context.
+
+Use the following options to perform correlation:
+
+- **Trace-to-log correlation**: On the trace details page, select **View associated logs**.
+- **Span-to-log correlation**: In the span details flyout (opened by selecting a span ID in the Gantt chart or span table), select **View associated logs**.
+- **Service-to-log correlation**: On the services page, select the **Discover** icon next to the desired service.
+- **Service-to-service correlation**: On the services page, use the **Focus on** option in the service map to view a service and its dependencies.
 
 ---
 
@@ -152,43 +156,43 @@ Trace analytics with OTel protocol analytics provide comprehensive insights into
 
   ![Trace details window]({{site.url}}{{site.baseurl}}/images/ta-trace.png)
 
-## Trace analytics support for custom index names and cross-cluster indexes
+## Support for custom index names and cross-cluster indexes
 
-Introduced 3.1
+Introduced 3.1  
 {: .label .label-purple }
 
-Trace Analytics in OpenSearch 3.1 introduces enhanced support for custom index names and cross-cluster indexes, providing greater flexibility and scalability for distributed environments. The following features are now available:
+Trace Analytics in OpenSearch 3.1 includes expanded support for custom index names and cross-cluster indexes, offering greater flexibility and scalability for distributed environments. The following enhancements are now available:
 
-- You can configure custom index names for Observability span indexes, service indexes, and log indexes. This feature allows you to align index naming with your organization's conventions and manage data more effectively across multiple environments. You can also configure correlated log indexes and map their corresponding fields for `timestamp`, `serviceName`, `spanId`, and `traceId`. This capability is especially useful for organizations whose logs do not adhere to the OTel format and require alternative field mappings. The custom span indexes should adhere to data prepper span index mappings.
+- You can configure custom index names for Observability span, service, and log indexes. This allows you to align index naming with your organization’s conventions and manage data across multiple environments more effectively. You can also configure correlated log indexes and map their corresponding fields for `timestamp`, `serviceName`, `spanId`, and `traceId`. This feature is particularly useful if your logs do not follow the OpenTelemetry (OTel) format and require custom field mappings. Custom span indexes must follow Data Prepper span index mappings.
 
-  The following image shows the custom index name configuration UI.
+  The following image shows the custom index name configuration interface in the Observability settings panel:
 
   ![Custom index name configuration UI]({{site.url}}{{site.baseurl}}/images/ta-index-settings.png)
 
-- The Trace details page now includes an associated logs panel, enabling you to analyze logs correlated with specific traces for improved troubleshooting and root cause analysis.
+- The **Trace details** page now includes an associated logs panel, which helps you analyze logs correlated with specific traces to improve troubleshooting and root cause analysis. The followimg image shows the logs panel:
 
   ![Trace detail page with associated logs panel]({{site.url}}{{site.baseurl}}/images/ta-trace-logs-correlation.png)
 
-- A new drop-down menu lets you view all spans, root spans, service entry spans, or traces. The custom data grid provides enhanced sorting and viewing options, including a full-screen mode for improved data exploration.
+- A new drop-down menu lets you view all spans, root spans, service entry spans, or traces. The custom data grid provides advanced sorting and display options, including a full-screen mode for easier data exploration, as shown in the following image:
 
   ![Drop-down menu and custom data grid in Trace Analytics]({{site.url}}{{site.baseurl}}/images/ta-span-kind.png)
 
-- The service map is now displayed below the traces table on the trace page, providing immediate visual context for service relationships and dependencies as you analyze trace data.
+- The service map now appears below the traces table on the **Trace Analytics** page, providing immediate visual context for service relationships and dependencies as you analyze trace data.
 
   ![Service map displayed below traces table]({{site.url}}{{site.baseurl}}/images/ta-traces-page.png)
 
-- The Trace details page has been updated with a tree view for a hierarchical breakdown of spans. The layout has also been rearranged to display the pie chart next to the overview for a more intuitive summary of trace metrics.
+- The **Trace details** page features a new tree view that displays a hierarchical breakdown of spans. The layout has been updated to position the pie chart next to the overview panel for a more intuitive summary of trace metrics, as shown in the following image:
 
   ![Gantt chart with tree view and pie chart layout]({{site.url}}{{site.baseurl}}/images/ta-hierarchial-view.png)
 
-- The Gantt chart now features a selectable mini-map above it, allowing you to quickly navigate and focus on specific sections of the trace timeline.
+- The Gantt chart now includes a selectable mini-map above it, allowing you to quickly navigate to and focus on specific sections of the trace timeline, as shown in the following image:
 
   ![Gantt chart with selectable mini-map]({{site.url}}{{site.baseurl}}/images/ta-gantt-mini-map.png)
 
-- The service map has been redesigned to efficiently handle larger node groups, supporting more complex service topologies. You can now focus on a service to see its dependencies and reset the map as needed.
+- The service map has been redesigned to better support large node groups, making it easier to visualize complex service topologies. You can now focus on a specific service to view its dependencies and reset the map as needed, as shown in the following image:
 
   ![Redesigned service map with large node groups]({{site.url}}{{site.baseurl}}/images/ta-service-map-dependencies.png)
 
-- The service view table now includes more quick-select icons, allowing you to view correlated traces and logs in their corresponding views with the correct context passed, and to view service details in context without leaving the page.
+- The service view table now includes more quick-select icons, allowing you to view correlated traces and logs in their corresponding views with the correct context passed, and to view service details in context without leaving the page, as shown in the following image:
 
   ![Service table quick select icons]({{site.url}}{{site.baseurl}}/images/ta-service-table-icons.png)
