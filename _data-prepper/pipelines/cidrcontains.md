@@ -19,6 +19,6 @@ For example, if your data contains an IP address field named `client.ip` and you
 ```
 cidrContains('/client.ip', '192.168.0.0/16', '10.0.0.0/8')
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 This function returns `true` if the IP address matches any of the specified CIDR blocks or `false` if it does not.

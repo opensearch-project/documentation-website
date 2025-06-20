@@ -42,4 +42,4 @@ For example, if you use the expression `hasTags("tag1")` and the event contains 
   ]
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
