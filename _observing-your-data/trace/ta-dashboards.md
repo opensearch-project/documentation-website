@@ -23,7 +23,7 @@ The [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/o
 ### Step 1: Set up the OpenTelemetry Demo
 
 - Clone the [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/opentelemetry-demo) repository: `git clone https://github.com/opensearch-project/opentelemetry-demo`.
-- Follow the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/blob/main/tutorial/GettingStarted.md) instructions to deploy the demo application using Docker, which runs multiple microservices generating telemetry data.
+- Follow the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/tree/main?tab=readme-ov-file#running-this-demo) instructions to deploy the demo application using Docker, which runs multiple microservices generating telemetry data.
 
 ### Step 2: Ingest telemetry data
 
