@@ -163,7 +163,7 @@ Introduced 3.1
 
 Trace Analytics in OpenSearch 3.1 includes expanded support for custom index names and cross-cluster indexes, offering greater flexibility and scalability for distributed environments. The following enhancements are now available:
 
-- You can configure custom index names for Observability span, service, and log indexes. This allows you to align index naming with your organization’s conventions and manage data across multiple environments more effectively. You can also configure correlated log indexes and map their corresponding fields for `timestamp`, `serviceName`, `spanId`, and `traceId`. This feature is particularly useful if your logs do not follow the OpenTelemetry (OTel) format and require custom field mappings. Custom span indexes must follow Data Prepper span index mappings.
+- You can configure custom index names for Observability span, service, and log indexes. This allows you to align index naming with your organization's conventions and manage data across multiple environments more effectively. You can also configure correlated log indexes and map their corresponding fields for `timestamp`, `serviceName`, `spanId`, and `traceId`. This feature is particularly useful if your logs do not follow the OpenTelemetry (OTel) format and require custom field mappings. Custom span indexes must follow Data Prepper span index mappings.
 
   The following image shows the custom index name configuration interface in the Observability settings panel:
 
