@@ -115,7 +115,7 @@ You can delete a search configuration using the search configuration ID.
 #### Endpoint
 
 ```json
-DELETE _plugins/_search_relevance/search_configurations/92810080-9c5a-470f-a0ff-0eb85e7b818c
+DELETE _plugins/_search_relevance/search_configurations/<search_configuration_id>
 ```
 
 #### Example request
@@ -123,6 +123,7 @@ DELETE _plugins/_search_relevance/search_configurations/92810080-9c5a-470f-a0ff-
 ```json
 DELETE _plugins/_search_relevance/search_configurations/bb45c4c4-48ce-461b-acbc-f154c0a17ec9
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
