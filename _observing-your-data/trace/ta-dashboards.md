@@ -173,7 +173,7 @@ Trace Analytics in OpenSearch 3.1 includes expanded support for custom index nam
 
   ![Trace detail page with associated logs panel]({{site.url}}{{site.baseurl}}/images/ta-trace-logs-correlation.png)
 
-- A new drop-down menu lets you view all spans, root spans, service entry spans, or traces. The custom data grid provides advanced sorting and display options, including a full-screen mode for easier data exploration, as shown in the following image:
+- A new dropdown menu lets you view all spans, root spans, service entry spans, or traces. The custom data grid provides advanced sorting and display options, including a full-screen mode for easier data exploration, as shown in the following image.
 
   ![Drop-down menu and custom data grid in Trace Analytics]({{site.url}}{{site.baseurl}}/images/ta-span-kind.png)
 
