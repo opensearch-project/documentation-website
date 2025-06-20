@@ -193,6 +193,6 @@ Trace Analytics in OpenSearch 3.1 includes expanded support for custom index nam
 
   ![Redesigned service map with large node groups]({{site.url}}{{site.baseurl}}/images/ta-service-map-dependencies.png)
 
-- The service view table now includes more quick-select icons, allowing you to view correlated traces and logs in their corresponding views with the correct context passed, and to view service details in context without leaving the page, as shown in the following image:
+- The service view table now includes more quick-select icons, allowing you to view correlated traces and logs in their corresponding views with the correct context passed and to view service details in context without leaving the page, as shown in the following image.
 
   ![Service table quick select icons]({{site.url}}{{site.baseurl}}/images/ta-service-table-icons.png)
