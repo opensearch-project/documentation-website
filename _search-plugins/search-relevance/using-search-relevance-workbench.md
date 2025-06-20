@@ -110,7 +110,7 @@ PUT _plugins/_search_relevance/search_configurations
 ```
 {% include copy-curl.html %}
 
-The response consists of the id of the search configuration and whether it was created successfully.
+The response contains the search configuration ID:
 
 ```json
 {
@@ -156,7 +156,7 @@ POST _plugins/_search_relevance/experiments
 ```
 {% include copy-curl.html %}
 
-The response consists of the id of the experiment and whether it was created successfully.
+The response contains of the experiment ID:
 
 ```json
 {
@@ -165,7 +165,7 @@ The response consists of the id of the experiment and whether it was created suc
 }
 ```
 
-To retrieve the experiment results, use the returned `experiment_id`. The following command shows how to return a specific experiment.
+To retrieve the experiment results, use the returned `experiment_id`:
 
 ```json
 GET _plugins/_search_relevance/experiments/dbae9786-6ea0-413d-a500-a14ef69ef7e1
