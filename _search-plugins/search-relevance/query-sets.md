@@ -78,7 +78,7 @@ You can retrieve or delete query sets using the following APIs.
 
 This API retrieves available query sets.
 
-#### Endpoint
+#### Endpoints
 
 ```json
 GET _plugins/_search_relevance/query_sets
