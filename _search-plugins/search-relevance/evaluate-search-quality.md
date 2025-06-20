@@ -119,6 +119,7 @@ The following is an example completed response:
     }
 }
 ```
+
 </details>
 
 The results include an evaluation result ID for each search configuration. To view detailed results, query the `search-relevance-evaluation-result` index using this ID.
@@ -193,7 +194,9 @@ An example of the detailed results is following.
     }
 }
 ```
+
 </details>
+
 The results include the original request parameters along with the following metric values:
 
 - `Coverage@k`: The proportion of scored documents from the judgment set, calculated as the number of documents with scores divided by the total number of documents.

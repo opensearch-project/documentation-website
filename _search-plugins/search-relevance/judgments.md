@@ -177,117 +177,7 @@ Parameter | Data type | Description
 
 ## Managing judgment lists
 
-You can retrieve available or delete judgment lists using the following APIs.
-
-### Retrieve judgment lists
-
-This API retrieves judgment lists.
-
-This API retrieves judgment lists.
-
-#### Example request
-
-```json
-GET _plugins/_search_relevance/judgments
-```
-{% include copy-curl.html %}
-
-#### Example response
-<details open markdown="block">
-  <summary>
-    Response
-  </summary>
-
-```json
-{
-  "took": 9,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 4,
-      "relation": "eq"
-    },
-    "max_score": null,
-    "hits": [
-      {
-        "_index": "search-relevance-judgment",
-        "_id": "b54f791a-3b02-49cb-a06c-46ab650b2ade",
-        "_score": null,
-        "_source": {
-          "id": "b54f791a-3b02-49cb-a06c-46ab650b2ade",
-          "timestamp": "2025-06-11T06:07:23.766Z",
-          "name": "Imported Judgments",
-          "status": "COMPLETED",
-          "type": "IMPORT_JUDGMENT",
-          "metadata": {},
-          "judgmentRatings": [
-            {
-              "query": "red dress",
-              "ratings": [
-                {
-                  "docId": "B077ZJXCTS",
-                  "rating": "3.000"
-                },
-                {
-                  "docId": "B071S6LTJJ",
-                  "rating": "2.000"
-                },
-                {
-                  "docId": "B01IDSPDJI",
-                  "rating": "2.000"
-                },
-                {
-                  "docId": "B07QRCGL3G",
-                  "rating": "0.000"
-                },
-                {
-                  "docId": "B074V6Q1DR",
-                  "rating": "1.000"
-                }
-              ]
-            },
-            {
-              "query": "blue jeans",
-              "ratings": [
-                {
-                  "docId": "B07L9V4Y98",
-                  "rating": "0.000"
-                },
-                {
-                  "docId": "B01N0DSRJC",
-                  "rating": "1.000"
-                },
-                {
-                  "docId": "B001CRAWCQ",
-                  "rating": "1.000"
-                },
-                {
-                  "docId": "B075DGJZRM",
-                  "rating": "2.000"
-                },
-                {
-                  "docId": "B009ZD297U",
-                  "rating": "2.000"
-                }
-              ]
-            }
-          ]
-        },
-        "sort": [
-          1749622043766
-        ]
-      }
-    }
-  }
-}
-```
-</details>
+You can retrieve available or delete judgment lists using the following APIa.
 
 ### View a judgment list
 
@@ -312,6 +202,7 @@ The following table lists the available path parameters.
 ```json
 GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -406,6 +297,7 @@ GET _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
   }
 }
 ```
+
 </details>
 
 ### Delete a judgment list
@@ -423,6 +315,7 @@ DELETE _plugins/_search_relevance/judgments/<judgment_list_id>
 ```json
 DELETE _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 ```
+{% include copy-curl.html %}
 
 #### Example response
 

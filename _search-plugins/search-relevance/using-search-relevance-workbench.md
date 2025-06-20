@@ -172,6 +172,8 @@ GET _plugins/_search_relevance/experiments/dbae9786-6ea0-413d-a500-a14ef69ef7e1
 ```
 {% include copy-curl.html %}
 
+An example of the detailed experiment results is the following.
+
 <details open markdown="block">
   <summary>
     Response
@@ -324,6 +326,7 @@ GET _plugins/_search_relevance/experiments/dbae9786-6ea0-413d-a500-a14ef69ef7e1
   }
 }
 ```
+
 </details>
 
 ## Using the Search Relevance Workbench in OpenSearch Dashboards
