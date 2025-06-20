@@ -169,7 +169,7 @@ Trace Analytics in OpenSearch 3.1 includes expanded support for custom index nam
 
   ![Custom index name configuration UI]({{site.url}}{{site.baseurl}}/images/ta-index-settings.png)
 
-- The **Trace details** page now includes an associated logs panel, which helps you analyze logs correlated with specific traces to improve troubleshooting and root cause analysis. The following image shows the logs panel:
+- The **Trace details** page now includes an associated logs panel, which helps you analyze logs correlated with specific traces to improve troubleshooting and root cause analysis. The following image shows the logs panel.
 
   ![Trace detail page with associated logs panel]({{site.url}}{{site.baseurl}}/images/ta-trace-logs-correlation.png)
 
