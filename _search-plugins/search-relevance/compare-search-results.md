@@ -100,7 +100,7 @@ You cannot save a given comparison for future use, so Compare Search Results is 
 ## Comparing OpenSearch search results using Search Relevance Workbench
 
 Search Relevance Workbench provides richer visualization options to examine the difference between two queries.
-The previously outlined steps 1--4 do not change. However, the displayed results change and the options to view differences:
+To use Search Relevance Workbench, follow steps 1--4. The displayed results and the options to view the differences are shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing_search_results.png" alt="Compare search results"/>{: .img-fluid }
 
