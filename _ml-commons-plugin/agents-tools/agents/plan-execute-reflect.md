@@ -33,7 +33,7 @@ The agent currently supports re-evaluation only after each step. This allows the
 
 When you execute a plan-execute-reflect agent asynchronously using the [Agent Execute API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/), the API returns the `memory_id` of the planner agent as soon as the agent is executed.
 
-**Starting from version 3.1, the API also returns the `parent_interaction_id` of the planner along with the `memory_id` once the agent is started.** This allows you to immediately begin tracking the conversation and planning process.
+**Starting from version 3.1**, the API also returns the `parent_interaction_id` of the planner along with the `memory_id` once the agent is started. This allows you to immediately begin tracking the conversation and planning process.
 
 In the final response, the API also returns the `executor_agent_memory_id` and `executor_agent_parent_interaction_id`, which correspond to the internal executor agent responsible for carrying out each step of the plan. These IDs allow you to inspect the detailed execution history and results for each step.
 
