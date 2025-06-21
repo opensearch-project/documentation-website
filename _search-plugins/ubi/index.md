@@ -11,39 +11,66 @@ redirect_from:
 **Introduced 2.15**
 {: .label .label-purple }
 
-**References UBI Specification 1.0.0**
+**References UBI Specification 1.2.0**
 {: .label .label-purple }
 
-User Behavior Insights (UBI) is a plugin that captures client-side events and queries for the purposes of improving search relevance and the user experience.
-It is a causal system, linking a user's query to all of their subsequent interactions with your application until they perform another search.
+User Behavior Insights (UBI) is a standard for capturing client-side events and queries for the purposes of improving search relevance and the user experience.
+It is a *causal* system, linking a user's query to all of their subsequent interactions with your application until they perform another search.
+This differs from many systems that infer the linking of search to events through *chronological* sequence.
+
+
+> “how our users are using our product, whether search results were useful for them and whether they clicked on top-n results we gave and all related stuff” - Data Scientist
 
 UBI includes the following elements:
+* [ubi.js](https://github.com/opensearch-project/user-behavior-insights/tree/main/ubi-javascript-collector/ubi.js): a client-side JavaScript library that captures searches and events.
 * A machine-readable [schema](https://github.com/o19s/ubi) that faciliates interoperablity of the UBI specification.
-* An OpenSearch [plugin](https://github.com/opensearch-project/user-behavior-insights) that facilitates the storage of client-side events and queries.
-* A client-side JavaScript [example reference implementation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data-structures/) that shows how to capture events and send them to the OpenSearch UBI plugin.
+* An (optional!) OpenSearch [plugin](https://github.com/opensearch-project/user-behavior-insights) that streamlines the recording of query data.
+
+Advanced features in OpenSearch, such as the Search Quality Evaluation Framework, and the Hybrid Search Optimizer all build on the UBI specification.
 
 <!-- vale off -->
 
-The UBI documentation is organized into two categories: *Explanation and reference* and *Tutorials and how-to guides*:   
-
-*Explanation and reference*
-
-| Link | Description |
-| :--------- | :------- |
-| [UBI Request/Response Specification](https://github.com/o19s/ubi/) | The industry-standard schema for UBI requests and responses. The current version references UBI Specification 1.0.0.  |
-| [UBI index schema]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) | Documentation on the individual OpenSearch query and event stores. |
-
-
-*Tutorials and how-to guides*
-
-| Link | Description |
-| :--------- | :------- |
-| [UBI plugin](https://github.com/opensearch-project/user-behavior-insights) | How to install and use the UBI plugin. |
-| [UBI client data structures]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data-structures/)  | Sample JavaScript structures for populating the event store. |
-| [Example UBI query DSL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/dsl-queries/)  | How to write queries for UBI data in OpenSearch query DSL. |
-| [Example UBI SQL queries]({{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/)  | How to write analytic queries for UBI data in SQL. |
-| [UBI dashboard tutorial]({{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/) | How to build a dashboard containing UBI data. |
-| [Chorus Opensearch Edition](https://github.com/o19s/chorus-opensearch-edition/?tab=readme-ov-file#structured-learning-using-chorus-opensearch-edition) katas | A series of structured tutorials that teach you how to use UBI with OpenSearch through a demo e-commerce store. |
+<table>
+    <tr style="vertical-align: top;">
+        <td>
+            <h2>Tutorials</h2>
+            <ul>
+                <li><a href="#">Learn to use <code>ubi.js</code></a></li>
+                <li><a href="#">Using OpenSearch Ingestion from AWS with UBI</a></li>
+                <li><a href="#">Link 3</a></li>
+            </ul>
+        </td>
+        <td>
+            <h2>How To Guides</h2>
+            <ul>
+                <li><a href="https://github.com/opensearch-project/user-behavior-insights">How to install and use the UBI plugin</a><b>do we keep this</b></li>
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/">How to build a custom dashboard with UBI data.</a></li>
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/dsl-queries/">How to write queries for UBI data in OpenSearch query DSL.</a></li>
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/">How to write analytic queries for UBI data in SQL.</a></li>
+                <li><a href="https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/006_protecting_sensitive_information.md">How to protect sensistive information when using UBI.</a> <small>Part of Chorus series.</small></li>
+            </ul>
+        </td>
+    </tr>
+    <tr style="vertical-align: top;">
+        <td>
+            <h2>Explanation</h2>
+            <ul>
+                <li><a href="https://UBISearch.dev">Why UBI?</a></li>
+                <li><a href="">How should I integrate UBI tracking?</a></li>
+                <li><a href="https://UBISearch.dev">UBISearch.dev</a> is the community website.</li>
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-javascript-collector/">UBI.js</a> JavaScript collector</li>
+            </ul>
+        </td>
+        <td>
+            <h2>Reference</h2>
+            <ul>
+                <li><a href="https://o19s.github.io/ubi/docs/html/1.2.0/query.request.schema.html">Query Tracking Specification</a></li>
+                <li><a href="https://o19s.github.io/ubi/docs/html/1.2.0/event.schema.html">Event Tracking Specification</a></li>                
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/">UBI Plugin Schema</a><b>DO WE KEEP THIS</b></li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
 <!-- vale on -->
 The documentation categories were adapted using concepts based on [Diátaxis](https://diataxis.fr/).
