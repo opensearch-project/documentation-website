@@ -36,51 +36,9 @@ If your hardware has multiple cores, you can allow multiple threads in native li
 Monitor CPU utilization and choose the correct number of threads. Because native library index construction is costly, choosing more threads than you need can cause additional CPU load.
 
 
-## (Expert level) Disable vector field storage in the source field
+## Use the derived vector source feature to reduce storage requirements
 
-The `_source` field contains the original JSON document body that was passed at index time. This field is not indexed and is not searchable but is stored so that it can be returned when executing fetch requests such as `get` and `search`. When using vector fields within the source, you can remove the vector field to save disk space, as shown in the following example where the `location` vector is excluded:
-
-```json
-PUT /<index_name>/_mappings
-{
-    "_source": {
-    "excludes": ["location"]
-    },
-    "properties": {
-        "location": {
-            "type": "knn_vector",
-            "dimension": 2,
-        "space_type": "l2"
-        }
-    }
-}
-```
-{% include copy-curl.html %}
-
-Disabling the `_source` field can cause certain features to become unavailable, such as the `update`, `update_by_query`, and `reindex` APIs and the ability to debug queries or aggregations by using the original document at index time.
-
-In OpenSearch 2.15 or later, you can further improve indexing speed and reduce disk space by removing the vector field from the `_recovery_source`, as shown in the following example:
-
-```json
-PUT /<index_name>/_mappings
-{
-    "_source": {
-    "excludes": ["location"],
-    "recovery_source_excludes": ["location"]
-    },
-    "properties": {
-        "location": {
-            "type": "knn_vector",
-            "dimension": 2,
-        "space_type": "l2"
-        }
-    }
-}
-```
-{% include copy-curl.html %}
-
-This is an expert-level setting. Disabling the `_recovery_source` may lead to failures during peer-to-peer recovery. Before disabling the `_recovery_source`, check with your OpenSearch cluster admin to determine whether your cluster performs regular flushes before starting the peer-to-peer recovery of shards prior to disabling the `_recovery_source`.  
-{: .warning}
+Starting with OpenSearch 3.0, you can use the derived vector source feature to significantly reduce storage requirements for vector fields. It is an [index setting]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings) that is enabled by default. This feature prevents vectors from being stored in the `_source` field while still maintaining all functionality, including the ability to use the `update`, `update_by_query`, and `reindex` APIs.
 
 ## (Expert level) Build vector data structures on demand
 
