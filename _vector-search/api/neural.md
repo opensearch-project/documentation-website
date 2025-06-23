@@ -54,7 +54,7 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `include_metadata` | Boolean | When `true`, includes additional metadata fields for each statistic (see [Available metadata](#available-metadata)). Default is `false`. |
 | `flat_stat_paths` | Boolean | When `true`, flattens the JSON response structure for easier parsing. Default is `false`. | 
-| `include_individual_nodes` | Boolean | When `true` includes statistics for individual nodes in the `nodes` category. When `false`, excludes the `nodes` category from the response. Default is `true`. |
+| `include_individual_nodes` | Boolean | When `true`, includes statistics for individual nodes in the `nodes` category. When `false`, excludes the `nodes` category from the response. Default is `true`. |
 | `include_all_nodes` | Boolean | When `true`, includes aggregated statistics across all nodes in the `all_nodes` category. When `false`, excludes the `all_nodes` category from the response. Default is `true`. |
 | `include_info` | Boolean | When `true`, includes cluster-wide information in the `info` category. When `false`, excludes the `info` category from the response. Default is `true`. |
 
@@ -306,13 +306,13 @@ The following table lists the available statistics. For statistics with paths pr
 | :--- | :--- | :--- | :--- |
 | `text_embedding_executions` | `nodes`, `all_nodes` | `processors.ingest.text_embedding_executions` | The number of `text_embedding` processor executions. |
 | `skip_existing_executions` | `nodes`, `all_nodes` | `processors.ingest.skip_existing_executions` | The number of processor executions that have `skip_existing` set to `true`. |
-| `text_chunking_fixed_token_length_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_fixed_token_length_executions` | The number of `text_chunking` processor executions with `fixed_token_length` algorithm. |
+| `text_chunking_fixed_token_length_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_fixed_token_length_executions` | The number of `text_chunking` processor executions with the `fixed_token_length` algorithm. |
 | `sparse_encoding_executions` | `nodes`, `all_nodes` | `processors.ingest.sparse_encoding_executions` | The number of `sparse_encoding` processor executions. |
-| `text_chunking_fixed_char_length_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_fixed_char_length_executions` | The number of `text_chunking` processor executions with `fixed_character_length` algorithm. |
+| `text_chunking_fixed_char_length_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_fixed_char_length_executions` | The number of `text_chunking` processor executions with the `fixed_character_length` algorithm. |
 | `text_chunking_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_executions` | The number of `text_chunking` processor executions. |
 | `semantic_field_executions` | `nodes`, `all_nodes` | `processors.ingest.semantic_field_executions` | The number of `semantic` field system processor executions. |
 | `semantic_field_chunking_executions` | `nodes`, `all_nodes` | `processors.ingest.semantic_field_chunking_executions` | The number of `semantic` field system chunking processor executions. |
-| `text_chunking_delimiter_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_delimiter_executions` | The number of `text_chunking` processor executions with `delimiter` algorithm. |
+| `text_chunking_delimiter_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_delimiter_executions` | The number of `text_chunking` processor executions with the `delimiter` algorithm. |
 | `text_image_embedding_executions` | `nodes`, `all_nodes` | `processors.ingest.text_image_embedding_executions` | The number of `text_image_embedding` processor executions. |
 | `neural_sparse_two_phase_executions` | `nodes`, `all_nodes` | `processors.search.neural_sparse_two_phase_executions` | The number of `neural_sparse_two_phase_processor` processor executions. |
 | `rerank_by_field_executions` | `nodes`, `all_nodes` | `processors.search.rerank_by_field_executions` | The number of `rerank` processor executions of the `by_field` type. |
