@@ -16,28 +16,34 @@ redirect_from:
 The cluster stats API operation returns statistics about your cluster.
 
 
+<!-- spec_insert_start
+api: cluster.stats
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cluster/stats
-GET _cluster/stats/nodes/<node-filters>
-GET _cluster/stats/<metric>/nodes/<node-filters>
-GET _cluster/stats/<metric>/<index_metric>/nodes/<node-filters>
+GET /_cluster/stats
+GET /_cluster/stats/nodes/{node_id}
+GET /_cluster/stats/{metric}/nodes/{node_id}
+GET /_cluster/stats/{metric}/{index_metric}/nodes/{node_id}
 ```
+<!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: cluster.stats
+component: path_parameters
+-->
 ## Path parameters
 
-All parameters are optional.
+The following table lists the available path parameters. All path parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-&lt;node-filters&gt; | List | A comma-separated list of [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters) that OpenSearch uses to filter results.
-metric | String | A comma-separated list of [metric groups](#metric-groups), for example, `jvm,fs`. Default is all metric groups.
-index_metric | String | A comma-separated list of [index metric groups](#index-metric-groups), for example, `docs,store`. Default is all index metrics.
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `index_metric` | List | A comma-separated list of [index metric groups]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/#index-metric-groups), for example, `docs,store`. |
+| `metric` | List | Limit the information returned to the [specified metrics](#metric-groups). |
+| `node_id` | List or String | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). |
 
-
-Although the term `master` was deprecated in favor of `cluster_manager` subsequent to OpenSearch 2.0, the `master` field was retained for backward compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. For an example node count increase, see the [example response](#example-response).
-{: .note }
+<!-- spec_insert_end -->
 
 ### Metric groups
 
