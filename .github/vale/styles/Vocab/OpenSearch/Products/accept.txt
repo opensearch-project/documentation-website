@@ -96,6 +96,7 @@ RankLib
 RCF Summarize
 RPM Package Manager
 Ruby
+Search Relevance Workbench
 Simple Schema for Observability
 Tableau
 Textract

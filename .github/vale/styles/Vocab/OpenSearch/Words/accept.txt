@@ -54,6 +54,7 @@ gibibyte
 [Ii]nstrumentations?
 [Ii]ntracluster
 [Jj]avadoc
+[Jj]accard
 k-NN
 [Kk]eystore
 kibibyte
@@ -85,6 +86,7 @@ p\d{2}
 [Pp]erformant
 [Pp]laintext
 [Pp]luggable
+[Pp]ointwise
 [Pp]reaggregate(s|d)?
 [Pp]recompute(s|d)?
 [Pp]reconfigure
