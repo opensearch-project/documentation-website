@@ -44,7 +44,7 @@ For example, `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id 
 `JOIN` queries are prone to expensive index scanning operations.
 
 Depending on the dataset, there may be scalability issues when running `JOIN` queries between result sets matching more than around 5 million records.
-The most surefire way to make `JOIN`s perform faster is to limit the amount of data it needs to scan, such as by choosing an interval of join keys:
+To improve `JOIN` performance, reduce the number of records being joined by filtering your data first. For example, limit the join to a specific range of key values:
 
 ```sql
 SELECT l.key, l.spanId, r.spanId
