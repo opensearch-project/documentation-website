@@ -2,7 +2,7 @@
 layout: default 
 title: Shard stores 
 parent: Cluster APIs 
-nav_order: 99
+nav_order: 70
 ---
 
 # Shard stores
