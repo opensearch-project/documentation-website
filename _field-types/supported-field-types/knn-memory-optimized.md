@@ -63,7 +63,7 @@ For example, if a `compression_level` of `32x` is passed for a `float32` index o
 If you set the `compression_level` parameter, then you cannot specify an `encoder` in the `method` mapping. Compression levels greater than `1x` are only supported for `float` vector types.
 {: .note}
 
-Starting with OpenSearch 3.1, enabling `on_disk` mode with a `1x` compression level activates memory-optimized search. In this mode, the engine loads data on demand during search instead of loading all data into memory at once.
+Starting with OpenSearch 3.1, enabling `on_disk` mode with a `1x` compression level activates [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/). In this mode, the engine loads data on demand during search instead of loading all data into memory at once.
 {: .important}
 
 The following table lists the default `compression_level` values for the available workload modes.
