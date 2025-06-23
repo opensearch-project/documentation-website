@@ -15,7 +15,7 @@ Additionally, Search Relevance Workbench allows you to import a query set.
 
 ## Creating query sets
 
-If you're tracking user behavior with the User Behavior Insights (UBI) standard, you can choose from different sampling methods that can create query sets based on real user queries stored in the `ubi_queries` index.
+If you're tracking user behavior with the UBI specification, you can choose from different sampling methods that can create query sets based on real user queries stored in the `ubi_queries` index.
 
 Search Relevance Workbench supports three sampling methods:
 * Random: Takes a random sample of all queries.
