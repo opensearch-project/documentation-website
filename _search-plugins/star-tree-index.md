@@ -110,7 +110,6 @@ Star-tree indexes have the following limitations:
 
 To use a star-tree index, modify the following settings:
 
-- Set the `indices.composite_index.star_tree.enabled` setting to `true`. For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
 - Set the `index.composite_index` index setting to `true` during index creation.
 - Set the `index.append_only.enabled` index setting to `true` during index creation.
 - Ensure that the [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) parameter is enabled for the dimension and metric fields used in your star-tree mapping.
