@@ -16,7 +16,7 @@ Memory-optimized search affects only search operations. Indexing behavior remain
 
 ## Limitations
 
-Memory-optimized search in OpenSearch:
+The following limitations apply to memory-optimized search in OpenSearch:
 - Supported only for the [Faiss engine]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) with the [HNSW method]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#hnsw-parameters-1) 
 - Does not support [IVF]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#ivf-parameters) or [product quantization (PQ)]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-product-quantization)
 - Requires an index restart to enable or disable
@@ -82,9 +82,9 @@ Memory-optimized search differs from [disk-based search]({{site.url}}{{site.base
 ## Performance optimization
 
 When memory-optimized search is enabled, the [warm-up API]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-search/#warm-up-the-index) loads only the essential information needed for search operations, such as opening streams to the underlying Faiss index file. This minimal warm-up results in:
-- Faster initial searches
-- Reduced memory overhead
-- More efficient resource utilization
+- Faster initial searches.
+- Reduced memory overhead.
+- More efficient resource utilization.
 
 For fields where memory-optimized search is disabled, the warm-up process loads vectors into off-heap memory.
 
