@@ -14,9 +14,25 @@ export let breakingChanges = [];
 
 // Export utility functions for compatibility with existing code
 export function getVersionIndex(version) {
-  const index = VERSION_ORDER.indexOf(version);
-  if (index === -1) throw new Error(`Unknown version: ${version}`);
-  return index;
+  let index = VERSION_ORDER.indexOf(version);
+  if (index !== -1) return index;
+
+  // Match all minor versions to their major versions
+  const major = version.match(/^(\D+\s\d+)/)?.[1];
+  if (major) {
+    const fuzzyVersion = `${major}.x`;
+    index = VERSION_ORDER.indexOf(fuzzyVersion);
+    if (index !== -1) return index;
+  }
+
+  const minorMatch = version.match(/^(\D+\s\d+)\.(\d+)/);
+  if (minorMatch) {
+    const minorFuzzy = `${minorMatch[1]}.x`;
+    index = VERSION_ORDER.indexOf(minorFuzzy);
+    if (index !== -1) return index;
+  }
+
+  throw new Error(`Unknown version: ${version}`);
 }
 
 export function isVersionBetween(target, min, max) {

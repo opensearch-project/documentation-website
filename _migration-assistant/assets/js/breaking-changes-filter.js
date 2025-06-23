@@ -8,7 +8,8 @@
  * - Displays results in a formatted list
  * - Supports bidirectional filtering of source and target versions
  */
-import { getVersionIndex, breakingChanges } from './breaking-changes-data.js';
+import { getVersionIndex } from './breaking-changes-module.js';
+import { breakingChanges } from './breaking-changes-data.js';
 import BreakingChangesUI from './breaking-changes-ui.js';
 document.addEventListener('DOMContentLoaded', () => {
   // Wait for migration data to be initialized
@@ -149,10 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Filter breaking changes based on selection
     const relevantChanges = breakingChanges.filter(change => {
+      let introducedInIdx;
+      try {
+        introducedInIdx = getVersionIndex(change.introducedIn);
+      } catch (e) {
+        console.warn(`Skipping "${change.title}" — introducedIn version not recognized: ${change.introducedIn}`);
+        return false; // Skip this change if version is unknown
+      }
       // Check if the breaking change applies to this migration path
       const sourceVersionIdx = getVersionIndex(selectedSrc);
       const targetVersionIdx = getVersionIndex(selectedTgt);
-      const introducedInIdx = getVersionIndex(change.introducedIn);
       
       // A breaking change applies if:
       // 1. The breaking change was introduced in a version that is between source and target (inclusive of target)
@@ -160,8 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // 3. The target version is at or before the maximum target version affected
       
       // Handle optional affects field by using defaults if not present
-      const minSource = change.affects && change.affects.minSource ? change.affects.minSource : VERSIONS[0]; // Default to oldest version
-      const maxTarget = change.affects && change.affects.maxTarget ? change.affects.maxTarget : VERSIONS[VERSIONS.length - 1]; // Default to newest version
+      const minSource = change.affects?.minSource || VERSIONS[0];
+      const maxTarget = change.affects?.maxTarget || VERSIONS[VERSIONS.length - 1];
       
       const versionMatch = 
         introducedInIdx <= targetVersionIdx && // Breaking change was introduced at or before target

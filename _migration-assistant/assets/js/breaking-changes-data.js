@@ -14,6 +14,7 @@
  *   - comp: Array of components affected
  *   - transformation (optional): Optional object with transformation information
  */
+import { getVersionIndex } from './breaking-changes-module.js';
 
 // Variables to store version ordering
 let VERSION_ORDER = [];
