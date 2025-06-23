@@ -36,9 +36,9 @@ If your hardware has multiple cores, you can allow multiple threads in native li
 Monitor CPU utilization and choose the correct number of threads. Because native library index construction is costly, choosing more threads than you need can cause additional CPU load.
 
 
-## Use derived vector source to reduce storage requirements
+## Use the derived vector source feature to reduce storage requirements
 
-Starting with OpenSearch 3.0, you can use the derived vector source feature to significantly reduce storage requirements for vector fields. It is an [index setting]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings) enabled by default. This feature prevents vectors from being stored in the `_source` field while still maintaining all functionality, including the ability to use the `update`, `update_by_query`, and `reindex` APIs.
+Starting with OpenSearch 3.0, you can use the derived vector source feature to significantly reduce storage requirements for vector fields. It is an [index setting]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings) that is enabled by default. This feature prevents vectors from being stored in the `_source` field while still maintaining all functionality, including the ability to use the `update`, `update_by_query`, and `reindex` APIs.
 
 ## (Expert level) Build vector data structures on demand
 
