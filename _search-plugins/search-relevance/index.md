@@ -14,7 +14,7 @@ Search relevance evaluates the accuracy of the search results returned by a quer
 
 OpenSearch provides the following search relevance features:
 
-- [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/): A suite of tools to support improving search quality through experimentation.
+- [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/): A suite of tools that support search quality improvements through experimentation.
 
 - [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) using a cross-encoder reranker.
 

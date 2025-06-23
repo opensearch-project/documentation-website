@@ -10,14 +10,14 @@ has_toc: false
 
 # Optimizing hybrid search
 
-When you use hybrid search in OpenSearch, a key question is how to combine results from lexical and vector-based search effectively. OpenSearch provides different techniques with various parameters you can experiment with to find the best setup for your application. What works best, however, depends heavily on your data, user behavior, and application domain—there is no one-size-fits-all solution.
+A key challenge of using hybrid search in OpenSearch is combining results from lexical and vector-based search effectively. OpenSearch provides different techniques and various parameters you can experiment with to find the best setup for your application. What works best, however, depends heavily on your data, user behavior, and application domain—there is no one-size-fits-all solution.
 
-The Search Relevance Workbench helps you systematically find the ideal set of parameters for your needs.
+Search Relevance Workbench helps you systematically find the ideal set of parameters for your needs.
 
 ## Requirements
 
 Internally, optimizing hybrid search involves running multiple search quality evaluation experiments. For these experiments, you need a query set, judgments, and a search configuration.
-Currently, the Search Relevance Workbench supports hybrid search optimization with exactly two query clauses. While hybrid search typically combines vector and lexical queries, you can run hybrid search optimization with two lexical query clauses:
+Search Relevance Workbench currently supports hybrid search optimization with exactly two query clauses. While hybrid search typically combines vector and lexical queries, you can run hybrid search optimization with two lexical query clauses:
 
 ```json
 PUT _plugins/_search_relevance/search_configurations
@@ -29,7 +29,7 @@ PUT _plugins/_search_relevance/search_configurations
 ```
 {% include copy-curl.html %}
 
-Hybrid search optimization is most valuable when combining lexical and vector-based search results. For optimal results, configure your hybrid search query with two clauses: one textual query clause and one neural query clause. You don't need to configure the search pipeline for combining results because the hybrid search optimization process handles this automatically. The following is an example of a search configuration suitable for hybrid search optimization:
+Hybrid search optimization is most valuable when combining lexical and vector-based search results. For optimal results, configure your hybrid search query with two clauses: one textual query clause and one neural query clause. You don't need to configure the search pipeline to combine results because the hybrid search optimization process handles this automatically. The following is an example of a search configuration suitable for hybrid search optimization:
 
 ```json
 PUT _plugins/_search_relevance/search_configurations
@@ -41,13 +41,13 @@ PUT _plugins/_search_relevance/search_configurations
 ```
 {% include copy-curl.html %}
 
-The model ID specified in the `query` must be a valid model ID for a model deployed in OpenSearch. The target index must contain the field for neural search embeddings (in this example, `title_embedding`).
+The model ID specified in the `query` must be a valid model ID for a model deployed in OpenSearch. The target index must contain the field used for neural search embeddings (in this example, `title_embedding`).
 
 For an end-to-end example, see the [`search-relevance` repository](https://github.com/opensearch-project/search-relevance).
 
 ## Running a hybrid search optimization experiment
 
-You can create a hybrid search optimization experiment by calling the `experiments` endpoint of the Search Relevance Workbench.
+You can create a hybrid search optimization experiment by calling the Search Relevance Workbench `experiments` endpoint.
 
 ### Endpoint
 
@@ -86,15 +86,15 @@ The hybrid search optimization experiment runs different evaluations based on th
 * Three combination techniques: `arithmetic_mean`, `harmonic_mean`, `geometric_mean`.
 * The lexical and neural search weights, which are values ranging from `0.0` to `1.0` in 0.1 increments.
 
-Every query in the query set is executed for all different parameter combinations, and the results evaluated by using the judgment list.
+Every query in the query set is executed for all different parameter combinations, and the results are evaluated by using the judgment list.
 
 ## Evaluating the results
 
-The results for each evaluation are stored, You can view the results in OpenSearch Dashboards by selecting the corresponding experiment in the overview of past experiments, as shown in the following image.
+The results for each evaluation are stored. You can view the results in OpenSearch Dashboards by selecting the corresponding experiment in the overview of past experiments, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_overview_hybrid_search_optimization.png" alt="Compare search results"/>{: .img-fluid }
 
-All executed queries with their calculated search metrics are displayed, as shown in the following image.
+All executed queries and their calculated search metrics are displayed, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimization_query_overview.png" alt="Compare search results"/>{: .img-fluid }
 

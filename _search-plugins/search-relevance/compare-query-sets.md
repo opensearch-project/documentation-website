@@ -23,7 +23,7 @@ An experiment is used to compare the metrics between two different search config
 
 ### Example
 
-To create a pairwise comparison experiment for the specified query set an search configurations, send the following request:
+To create a pairwise comparison experiment for the specified query set and search configurations, send the following request:
 
 ```json
 PUT _plugins/_search_relevance/experiments
@@ -38,14 +38,14 @@ PUT _plugins/_search_relevance/experiments
 
 ### Request body fields
 
-The following lists the input parameters.
+The following table lists the available input parameters.
 
 Field | Data type |  Description
 :---  | :--- | :---
 `querySetId` | String |	The query set ID.
 `searchConfigurationList` | List | A list of search configuration IDs to use for comparison.
 `size` | Integer | The number of documents to return in the results.
-`type` | String | Defines the type of experiment to run. Valid values are `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. Depending on the experiment type, you must provide different body fields in the request. `PAIRWISE_COMPARISON` is for comparing two search configurations against a query set and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/). `HYBRID_OPTIMIZER` is for combining results and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/). `POINTWISE_EVALUATION` is to evaluate a search configuration against judgments and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/). 
+`type` | String | Defines the type of experiment to run. Valid values are `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, or `POINTWISE_EVALUATION`. Depending on the experiment type, you must provide different body fields in the request. `PAIRWISE_COMPARISON` is for comparing two search configurations against a query set and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/). `HYBRID_OPTIMIZER` is for combining results and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/). `POINTWISE_EVALUATION` is for evaluating a search configuration against judgments and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/). 
 
 The response contains the experiment ID of the created experiment:
 
@@ -251,4 +251,4 @@ Field | Description
 :--- | :---
 `jaccard` | Shows the similarity score by dividing the intersection cardinality by the union cardinality of the returned documents.
 `rbo` | The Rank-Biased Overlap (RBO) metric compares the returned result sets at each ranking depth—for example, the top 1 document, top 2 documents, and so on. It places greater importance on higher-ranked results, giving more weight to earlier positions in the list.
-`frequencyWeighted` | Similar to the Jaccard metric, the frequency weighted metric calculates the ratio of the weighted intersection to the weighted union of two sets. However, unlike standard Jaccard, it gives more weight to documents with higher frequencies, skewing the result toward more frequently occurring items.
+`frequencyWeighted` | Similar to the Jaccard metric, the frequency-weighted metric calculates the ratio of the weighted intersection to the weighted union of two sets. However, unlike standard Jaccard, it gives more weight to documents with higher frequencies, skewing the result toward more frequently occurring items.

@@ -11,14 +11,14 @@ has_toc: false
 
 # Using Search Relevance Workbench
 
-In search applications, tuning relevance is a constant, iterative exercise to bring the right search results to your end users. The tooling in Search Relevance Workbench helps search relevance engineers and business users create the best search experience possible for application users. It does this without hiding internal details, enabling engineers to experiment and go into details when needed.
+In search applications, tuning relevance is a constant, iterative exercise intended to provide the right search results to your end users. The tooling in Search Relevance Workbench helps search relevance engineers and business users create the best search experience possible for application users. It does this without hiding internal information, enabling engineers to experiment and investigate details as necessary.
 
-The Search Relevance Workbench consists of a [frontend component](https://github.com/opensearch-project/dashboards-search-relevance) that simplifies the process of evaluating search quality.
-The frontend uses the [Search Relevance OpenSearch plugin](https://github.com/opensearch-project/search-relevance) as a backend to manage the resources for each tool provided. For example, most use cases involve creating and using search configurations, query sets, and judgment lists. All of these resources are created, updated, deleted, and maintained by the Search Relevance plugin. When you are satisfied with the improvements to relevance, you can take the output of the experimentation and manually deploy the changes into your search application.
+Search Relevance Workbench consists of a [frontend component](https://github.com/opensearch-project/dashboards-search-relevance) that simplifies the process of evaluating search quality.
+The frontend uses the [OpenSearch Search Relevance plugin](https://github.com/opensearch-project/search-relevance) as a backend to manage the resources for each tool provided. For example, most use cases involve creating and using search configurations, query sets, and judgment lists. All of these resources are created, updated, deleted, and maintained by the Search Relevance plugin. When you are satisfied with the relevance improvements, you can take the output of the experimentation and manually deploy the changes into your search application.
 
 ## Key relevance concepts
 
-The Search Relevance Workbench relies on different components for the different kinds of experiments that it offers:
+Search Relevance Workbench relies on different components for the different kinds of experiments that it offers:
 
 * [Query set]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/): A _query set_ is a collection of queries. These queries are used in experiments for search relevance evaluation.
 * [Search configuration]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/): A _search configuration_ describes the pattern to use to run queries for experiments.
@@ -26,15 +26,15 @@ The Search Relevance Workbench relies on different components for the different 
 
 ## Available search result quality experiments
 
-The Search Relevance Workbench ships with three types of experiments:
+Search Relevance Workbench offers three types of experiments:
 
-* [Search result comparison]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/comparing-search-results/): Compare results of two search configurations to assess how results change when applying them.
+* [Search result comparison]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/comparing-search-results/): Compare results of two search configurations.
 * [Search quality evaluation]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/): Evaluate the retrieval quality for one particular search configuration by calculating search quality metrics based on retrieved results and a judgment list.
 * [Hybrid search optimization]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/): Identify the best parameter set for your hybrid search query.
 
-## Enabling the Search Relevance Workbench
+## Enabling Search Relevance Workbench
 
-To enable the Search Relevance Workbench, you must enable the frontend and backend plugins.
+To enable Search Relevance Workbench, you must first enable the frontend and backend plugins.
 
 ### Enabling the Search Relevance Workbench frontend plugin
 
@@ -58,9 +58,9 @@ PUT _cluster/settings
 
 ## Creating a query set
 
-To compare search configurations, create a set of queries to run the search. If you have access to search behavior data adhering to the User Behavior Insights (UBI) standard, you can send a request to the `_plugins/search_relevance/query_sets/create` endpoint.
+To compare search configurations, create a set of queries to run the search. If you have access to search behavior data adhering to the User Behavior Insights (UBI) specification, you can send a request to the `_plugins/search_relevance/query_sets/create` endpoint.
 
-In this example, upload a manually defined query set to the Search Relevance Workbench:
+The following example request uploads a manually defined query set to Search Relevance Workbench:
 
 
 ```json
@@ -82,7 +82,7 @@ PUT _plugins/_search_relevance/query_sets
 {% include copy-curl.html %}
 
 
-The response contains a `query_set_id` of the query set with which you'll experiment:
+The response contains the `query_set_id` of the query set with which you'll experiment:
 
 ```json
 {
@@ -131,7 +131,7 @@ PUT _plugins/_search_relevance/search_configurations
 ```
 {% include copy-curl.html %}
 
-The response consists of the id of the boosted search configuration and whether it was created successfully.
+The response contains the ID of the boosted search configuration and indicates whether it was created successfully:
 
 ```json
 {
@@ -142,7 +142,7 @@ The response consists of the id of the boosted search configuration and whether 
 
 ## Running the search result list comparison experiment
 
-To run your first experiment, you need a query set and two search configurations (and a corresponding index). By comparing search results, you can gauge how modifying the search configurations impacts their search results. To create an experiment, send a request to the  `_plugins/search_relevance/experiments` endpoint:
+To run your first experiment, you need a query set and two search configurations (and a corresponding index). By comparing search results, you can gauge how modifying the search configurations affects the search results. To create an experiment, send a request to the  `_plugins/search_relevance/experiments` endpoint:
 
 
 ```json
@@ -156,7 +156,7 @@ POST _plugins/_search_relevance/experiments
 ```
 {% include copy-curl.html %}
 
-The response contains of the experiment ID:
+The response contains the experiment ID:
 
 ```json
 {
@@ -172,7 +172,7 @@ GET _plugins/_search_relevance/experiments/dbae9786-6ea0-413d-a500-a14ef69ef7e1
 ```
 {% include copy-curl.html %}
 
-An example of the detailed experiment results is the following.
+The response provides the detailed experiment results:
 
 <details open markdown="block">
   <summary>
@@ -329,16 +329,16 @@ An example of the detailed experiment results is the following.
 
 </details>
 
-## Using the Search Relevance Workbench in OpenSearch Dashboards
+## Using Search Relevance Workbench in OpenSearch Dashboards
 
 You can create all Search Relevance Workbench components and visualize the experiment results in OpenSearch Dashboards.
-In this example,  you'll create the same experiment and review its results.
+In this example, you'll create the same experiment and review its results.
 
-In the left navigation, select **OpenSearch Plugins** > **Search Relevance** and select **Query Set Comparison**, as shown in the following image.
+In the left navigation pane, select **OpenSearch Plugins** > **Search Relevance** and then select **Query Set Comparison**, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/select_query_set_comparison.png" alt="Select Query Set Comparison Experiment"/>{: .img-fluid }
 
-Select the query set you created (`TVs`) and the search configurations (`my_production_config`, `title_boost`), then select **Start Evaluation**, as shown in the following image.
+Select the query set you created (`TVs`) and the search configurations (`my_production_config`, `title_boost`), and then select **Start Evaluation**, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/query_set_comparison_experiment_definition.png" alt="Define Query Set Comparison Experiment"/>{: .img-fluid }
 
@@ -346,10 +346,10 @@ You are automatically directed to the experiment overview table, shown in the fo
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_table_overview.png" alt="Experiment Overview Table"/>{: .img-fluid }
 
-To review the results, select the topmost (latest) experiment. The experiment view page shows three elements:
+To review the results, select the topmost (most recent) experiment. The experiment view page shows three elements:
 1. The experiment parameters.
 2. The aggregate metrics resulting from the experiment, shown in the following image.
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/aggregate_metrics_comparison_experiment.png" alt="Aggregate Metrics for Comparison Experiment"/>{: .img-fluid }
 3. The individual metrics per query.
 
-To assess the change between two result sets visually, select a query event.
+To visually assess the differences between two result sets, select a query event.

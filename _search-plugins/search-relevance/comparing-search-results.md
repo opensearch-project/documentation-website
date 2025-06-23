@@ -20,7 +20,7 @@ For example, you can see how results change when you apply one of the following 
 
 ## Comparing search results of a single query
 
-The user interface for comparing the search results of a single query lets you define two different search configurations for an individual query in order to view and compare the results side by side. Specifically, you can explore how many shared and unique documents are in the result lists and how their positions changed, as shown in the following image.
+The UI for comparing the search results of a single query lets you define two different search configurations for an individual query in order to view and compare the results side by side. Specifically, you can determine how many shared and unique documents are contained in the result lists and how their positions changed, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing_search_results.png" alt="Compare search results"/>{: .img-fluid }
 
@@ -28,7 +28,7 @@ For more information about using the search result comparison tool for a single 
 
 ## Comparing search results of a query set
 
-Typically, viewing the changes of a search result for two configurations is a first step towards testing. You can then scale from one query to many in the Search Relevance Workbench. You can group queries into a query set, create [search configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/), and compare search results on a larger scale by looking at aggregate metrics across all queries, as shown in the following image.
+Typically, viewing search result changes for two configurations is the first step in the testing process. You can then scale from one query to many in Search Relevance Workbench. You can group queries into a query set, create [search configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/), and compare search results on a larger scale by looking at aggregate metrics across all queries, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing-search-results-query-sets.png" alt="Compare search results"/>{: .img-fluid }
 

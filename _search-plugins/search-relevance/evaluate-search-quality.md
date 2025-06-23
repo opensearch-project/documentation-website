@@ -10,7 +10,7 @@ has_toc: false
 
 # Evaluating search quality
 
-The Search Relevance Workbench can run pointwise experiments to evaluate search configuration quality using provided queries and relevance judgments.
+Search Relevance Workbench can run pointwise experiments to evaluate search configuration quality using provided queries and relevance judgments.
 
 For more information about creating a query set, see [Query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
 
@@ -37,15 +37,15 @@ PUT _plugins/_search_relevance/experiments
 
 ### Request body fields
 
-The following lists table the input parameters.
+The following table lists the available input parameters.
 
 Field | Data type |  Description
 :---  | :--- | :---
-`querySetId` | String |	The id of the query set.
+`querySetId` | String |	The ID of the query set.
 `searchConfigurationList` | List | A list of search configuration IDs to use for comparison.
-`judgmentList` | Array[String] | A list of judgment IDs to use for evaluating the search accuracy.
+`judgmentList` | Array[String] | A list of judgment IDs to use for evaluating search accuracy.
 `size` | Integer | The number of documents to return in the results.
-`type` | String | The type of experiment to run. Valid values are `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, `POINTWISE_EVALUATION`. Depending on the experiment type, you must provide different body fields in the request. `PAIRWISE_COMPARISON` is for comparing two search configurations against a query set and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/). `HYBRID_OPTIMIZER` is for combining results and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/). `POINTWISE_EVALUATION` is to evaluate a search configuration against judgments and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/).
+`type` | String | The type of experiment to run. Valid values are `PAIRWISE_COMPARISON`, `HYBRID_OPTIMIZER`, or `POINTWISE_EVALUATION`. Depending on the experiment type, you must provide different body fields in the request. `PAIRWISE_COMPARISON` is for comparing two search configurations against a query set and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-query-sets/). `HYBRID_OPTIMIZER` is for combining results and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/). `POINTWISE_EVALUATION` is for evaluating a search configuration against judgments and is used [here]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/).
 
 ### Example response
 
@@ -124,7 +124,7 @@ The following is an example completed response:
 
 The results include an evaluation result ID for each search configuration. To view detailed results, query the `search-relevance-evaluation-result` index using this ID.
 
-An example of the detailed results is following.
+The following is an example of the detailed results:
 
 <details open markdown="block">
   <summary>
@@ -204,6 +204,6 @@ The results include the original request parameters along with the following met
 
 - `Precision@k`: The proportion of documents with nonzero judgment scores out of k (or out of the total number of returned documents, if lower).
 
-- `MAP@k`: The Mean Average Precision, which calculates the average precision across all documents. For more information, see [evaluation measures](https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision).
+- `MAP@k`: The Mean Average Precision, which calculates the average precision across all documents. For more information, see [Average precision](https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision).
 
 - `NDCG@k`: The Normalized Discounted Cumulative Gain, which compares the actual ranking of results against a perfect ranking, with higher weights given to top results. This measures the quality of result ordering.

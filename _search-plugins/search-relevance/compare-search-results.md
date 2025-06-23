@@ -73,7 +73,7 @@ The following example screen shows a search for the word "cup" in the `descripti
 
 <img src="{{site.url}}{{site.baseurl}}/images/search_relevance.png" alt="Compare search results"/>{: .img-fluid }
 
-If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators below the result number signify how many places the result moved up or down compared to the same result in Result 2. In this example, the document with the ID 2 is `Up 1` place in Result 2 compared to Result 1 and `Down 1` place in Result 1 compared to Result 2.
+If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators below the result number signify how many positions the result moved up or down compared to the same result in Result 2. In this example, the document with the ID 2 is `Up 1` position in Result 2 compared to Result 1 and `Down 1` position in Result 1 compared to Result 2.
 
 ## Changing the number of results
 
@@ -99,24 +99,24 @@ You cannot save a given comparison for future use, so Compare Search Results is 
 
 ## Comparing OpenSearch search results using Search Relevance Workbench
 
-[Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/) provides richer visualization options to examine the difference between two queries.
+[Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/) provides richer visualization options for examining the difference between two queries.
 
-To use Search Relevance Workbench, follow steps 1--4. The displayed results and the options to view the differences are shown in the following image.
+To use Search Relevance Workbench, follow steps 1--4. The displayed results and the options for viewing the differences are shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/comparing_search_results.png" alt="Compare search results"/>{: .img-fluid }
 
-The top section gives a summary of the results: how many of the retrieved results are unique to the left hand query, how many are unique to the right hand query and how many are part of both queries?
+The top section provides a summary of the results: how many of the retrieved results are unique to the query on the left, how many are unique to the query on the right, and how many are part of both queries?
 
-What follows is a visual representation of the retrieved results. By default the unique identifier field (`_id`) is shown. You can change this by selecting a different field in the "Display Field" dropdown box.
-In the side-by-side view you see for the positional changes for all common documents among the two result lists.
-Clicking on one item shows all stored fields in the index for easier document identification.
+What follows is a visual representation of the retrieved results. By default the unique identifier field (`_id`) is shown. You can change this by selecting a different field in the **Display Field** dropdown list.
+In the side-by-side view, you can see the positional changes for all common documents among the two result lists.
+Selecting one item shows all stored fields in the index to facilitate easier document identification.
 
-Lastly, the Search Relevance Workbench allows choosing among different visualization styles with a dropdown box:
+Lastly, Search Relevance Workbench allows you to choose among different visualization styles from a dropdown list:
 
-* **Default style**: different colors for the two result list documents (unique results on the left in yellow, on the right in purple), common results are of equal color (green).
-* **Ranking change color coding**: all unique documents are purple, common results are green to focus on ranking changes.
-* **Ranking change color coding 2**: all unique documents are grey, common results are green to focus on ranking changes.
-* **Venn diagram color coding**: all unique documents are purple, common results are blue as in the Venn diagram at the top of the two result lists.
+* **Default style**: Different colors are used for the two result list documents (unique results are on the left in yellow and on the right in purple, and common results are displayed in green).
+* **Ranking change color coding**: All unique documents are purple, and common results are green to focus on ranking changes.
+* **Ranking change color coding 2**: All unique documents are gray, and common results are green to focus on ranking changes.
+* **Venn diagram color coding**: All unique documents are purple, and common results are blue as in the Venn diagram at the top of the two result lists.
 
 ## Comparing OpenSearch search results with reranked results
 

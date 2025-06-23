@@ -10,14 +10,14 @@ has_toc: false
 
 # Query sets
 
-A query set is a collection of queries. These queries are used in experiments for search relevance evaluation. The Search Relevance Workbench offers different sampling techniques to create query sets from real user data that adheres to the [User Behavior Insights (UBI)]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) standard.
-Additionally, the Search Relevance Workbench allows importing a query set.
+A query set is a collection of queries. These queries are used in experiments for search relevance evaluation. Search Relevance Workbench offers different sampling techniques for creating query sets from real user data that adheres to the [User Behavior Insights (UBI)]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) specification.
+Additionally, Search Relevance Workbench allows you to import a query set.
 
 ## Creating query sets
 
 If you're tracking user behavior with the User Behavior Insights (UBI) standard, you can choose from different sampling methods that can create query sets based on real user queries stored in the `ubi_queries` index.
 
-The Search Relevance Workbench supports three sampling methods:
+Search Relevance Workbench supports three sampling methods:
 * Random: Takes a random sample of all queries.
 * [Probability-Proportional-to-Size Sampling](https://opensourceconnections.com/blog/2022/10/13/how-to-succeed-with-explicit-relevance-evaluation-using-probability-proportional-to-size-sampling/): Takes a frequency-weighted sample of all queries to obtain a representative sample.
 * Top N: Takes the most frequent N queries.
@@ -30,14 +30,14 @@ POST _plugins/_search_relevance/query_sets
 
 ### Request body fields
 
-The following lists the input parameters.
+The following table lists the available input parameters.
 
 Field | Data type |  Description
 :---  | :--- | :---
 `name` | String |	The name of the query set.
 `description` | String | A short description of the query set.
 `sampling` | String | Defines which sampler to use. Valid values are `pptss` (Probability-Proportional-to-Size-Sampling), `random`, `topn` (most frequent queries), and `manual`.
-`querySetSize` | Integer | The target number of queries in the query set. Depending on the number of unique queries in `ubi_queries`, the resulting query set can have fewer queries.
+`querySetSize` | Integer | The target number of queries in the query set. Depending on the number of unique queries in `ubi_queries`, the resulting query set may contain fewer queries.
 
 ### Example request: Sampling 20 queries with the Top N sampler
 

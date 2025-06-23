@@ -14,7 +14,7 @@ A search configuration defines the query pattern used to run experiments, specif
 
 ## Creating search configurations
 
-You can define a search configuration to describe how every query of a query set is run. Every search configuration has a name and consists of a query body (a query in OpenSearch query DSL) and the target index. You can optionally define a search pipeline for the search configuration.
+You can define a search configuration to describe how every query of a query set is run. Every search configuration has a name and consists of a query body (a query in OpenSearch query domain-specific language [DSL]) and the target index. You can optionally define a search pipeline for the search configuration.
 
 ### Endpoint
 
@@ -24,13 +24,13 @@ PUT _plugins/_search_relevance/search_configurations
 
 ### Request body fields
 
-The following lists the input parameters.
+The following table lists the available input parameters.
 
 Field | Data type |  Description
 :---  | :--- | :---
 `name` | String |	The name of the search configuration.
-`query` | Object | Defines the query in OpenSearch query DSL. Use `%SearchText%` as placeholder for the user query. Needs to be escaped.
-`index` | String | The target index that this search configuration queries.
+`query` | Object | Defines the query in OpenSearch query DSL. Use `%SearchText%` as a placeholder for the user query. Needs to be escaped.
+`index` | String | The target index queried by this search configuration.
 `searchPipeline` | String | Specifies an existing search pipeline. Optional.
 
 ### Example request: Creating a search configuration
