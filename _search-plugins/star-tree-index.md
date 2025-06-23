@@ -108,18 +108,29 @@ Star-tree indexes have the following limitations:
 
 ## Enabling a star-tree index
 
-To use a star-tree index, modify the following settings:
+The cluster-level star-tree index setting is enabled by default. To disable it, set `indices.composite_index.star_tree.enabled` to `false`. For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
 
-- Set the `index.composite_index` index setting to `true` during index creation.
-- Set the `index.append_only.enabled` index setting to `true` during index creation.
-- Ensure that the [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) parameter is enabled for the dimension and metric fields used in your star-tree mapping.
+Configure the following settings when creating your index:
+
+```json
+PUT /logs
+{
+  "settings": {
+    "index.composite_index": true,
+    "index.append_only.enabled": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+Ensure that the `doc_values` parameter is enabled for the dimension and metric fields used in your star-tree mapping. This is enabled by default for most field types. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/).
 
 ## Example mapping
 
 The following example shows how to create a star-tree index that precomputes aggregations in the `logs` index. The `sum` and `average` aggregations are calculated on the `size` and `latency` fields , respectively, for all combinations of values in the dimension fields. The dimensions are ordered by `status`, then `port`, and finally `method`, which determines how the data is organized in the tree structure:
 
 ```json
-PUT logs
+PUT /logs
 {
   "settings": {
     "index.number_of_shards": 1,
