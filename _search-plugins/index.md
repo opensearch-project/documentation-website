@@ -74,7 +74,7 @@ OpenSearch offers several ways to improve search performance:
 
 OpenSearch provides the following search relevance features:
 
-- [Compare Search Results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/): A search comparison tool in OpenSearch Dashboards that you can use to compare results from two queries side by side. 
+- [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/): A suite of tools that support search quality improvements through experimentation. 
 
 - [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/): Offers query rewriting capability.
 
