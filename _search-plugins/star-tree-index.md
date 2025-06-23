@@ -425,7 +425,7 @@ POST /sales/_search
 ```
 {% include copy-curl.html %}
 
-#### Nested Aggregations
+#### Nested aggregations
 
 Bucket aggregations supported with star-tree index search can be nested and resolved using star-tree. [See more]({{site.url}}{{site.baseurl}}/aggregations/#nested-aggregations).
 
