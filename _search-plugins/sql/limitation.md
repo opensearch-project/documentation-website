@@ -43,7 +43,7 @@ For example, `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id 
 
 `JOIN` queries are prone to expensive index scanning operations.
 
-Depending on the dataset, there may be scalability issues when running `JOIN` queries between result sets matching more than around 5 million records.
+`JOIN` queries may experience performance issues when working with result sets larger than 5 million matching records.
 To improve `JOIN` performance, reduce the number of records being joined by filtering your data first. For example, limit the join to a specific range of key values:
 
 ```sql
