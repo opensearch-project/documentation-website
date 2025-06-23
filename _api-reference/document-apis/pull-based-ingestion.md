@@ -74,7 +74,7 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 | `poll.max_batch_size` | The maximum number of records to retrieve in each poll operation. Optional. |
 | `poll.timeout` | The maximum time to wait for data in each poll operation. Optional. |
 | `num_processor_threads` | The number of threads for processing ingested data. Optional. Default is 1. |
-| `internal_queue_size` | Defines the size of the internal blocking queue for advanced tuning. Accepts values from 1 to 100,000. Default is 100. |
+| `internal_queue_size` | The size of the internal blocking queue for advanced tuning. Valid values are from 1 to 100,000, inclusive. Optional. Default is 100. |
 | `param` | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; The `ingest-kafka` plugin requires:<br>&ensp;&ensp;- `topic`: The Kafka topic to consume from<br>&ensp;&ensp;- `bootstrap_servers`: The Kafka server addresses<br>&ensp;&ensp;Optionally, you can provide additional standard Kafka consumer parameters (such as `fetch.min.bytes`). These parameters are passed directly to the Kafka consumer. <br>&ensp;&#x2022; The `ingest-kinesis` plugin requires:<br>&ensp;&ensp;- `stream`: The Kinesis stream name<br>&ensp;&ensp;- `region`: The AWS Region<br>&ensp;&ensp;- `access_key`: The AWS access key<br>&ensp;&ensp;- `secret_key`: The AWS secret key<br>&ensp;&ensp;Optionally, you can provide an `endpoint_override`. | 
 
 ### Stream position
