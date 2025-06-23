@@ -29,20 +29,6 @@ The agent automatically selects the most appropriate tool for each step based on
 
 The agent currently supports re-evaluation only after each step. This allows the agent to dynamically adapt the plan based on intermediate results before proceeding to the next step.
 
-## Tracking agent execution and memory
-
-When you execute a plan-execute-reflect agent asynchronously using the [Agent Execute API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/), the API returns the `memory_id` of the planner agent as soon as the agent is executed.
-
-**Starting from version 3.1**, the API also returns the `parent_interaction_id` of the planner along with the `memory_id` once the agent is started. This allows you to immediately begin tracking the conversation and planning process.
-
-In the final response, the API also returns the `executor_agent_memory_id` and `executor_agent_parent_interaction_id`, which correspond to the internal executor agent responsible for carrying out each step of the plan. These IDs allow you to inspect the detailed execution history and results for each step.
-
-**Starting from version 3.1**, the `executor_agent_memory_id` and `executor_agent_parent_interaction_id` will be updated in the task as soon as they are available, even before the agent has completed execution. This enables real-time tracking of the execution process as it progresses.
-
-For a concrete example of how these IDs are returned and used, see the [Building a plan-execute-reflect agent tutorial]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#test-the-agent).
-
-For more details about memory, see the [memory documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/).
-
 ## Creating a plan-execute-reflect agent
 
 The following example request creates a plan-execute-reflect agent with three tools:
@@ -251,6 +237,14 @@ Because the Deepseek-R1 model hosted on Amazon Bedrock lacks default function-ca
 "You are a helpful assistant. You can ask Human to use tools to look up information that may be helpful in answering the users original question. The tools the human can use are:\n[${parameters._tools.toString()}]\n\nIf need to use tool, return which tool should be used and the input to user is enough. User will run the tool to get information. To make it easier for user to parse the response to know whether they should invoke a tool or not, please also return \"stop_reason\", it only return one of two enum values: [end_turn, tool_use], add a random tool call id to differenciate in case same tool invoked multiple times. Tool call id follow this pattern \"tool_use_<random string>\". The random string should be some UUID.\n\nFor example, you should return a json like this if need to use tool:\n{\"stop_reason\": \"tool_use\", \"tool_calls\": [{\"id\":\"tool_use_IIHBxMgOTjGb6ascCiOILg\",tool_name\":\"search_opensearch_index\",\"input\": {\"index\":\"population_data\",\"query\":{\"query\":{\"match\":{\"city\":\"New York City\"}}}}}]}\n\nIf don't need to use tool, return a json like this:\n{\"stop_reason\": \"end_turn\", \"message\": {\"role\":\"user\",\"content\":[{\"text\":\"What is the most popular song on WZPZ?\"}]}}\n\nNOTE: Don't wrap response in markdown ```json<response>```. For example don't return ```json\\n{\"stop_reason\": \"end_turn\", \"message\": {\"role\":\"user\",\"content\":[{\"text\":\"What is the most popular song on WZPZ?\"}]}}```\n"
 ```
 {% include copy.html %}
+
+## Tracking agent execution and memory
+
+When you execute a plan-execute-reflect agent asynchronously using the [Agent Execute API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/), the API returns the `memory_id` and the `parent_interaction_id` of the planner agent once the agent is started.
+
+In the final response, the API also returns the `executor_agent_memory_id` and `executor_agent_parent_interaction_id`, which correspond to the internal executor agent responsible for carrying out each step of the plan. The `executor_agent_memory_id` and `executor_agent_parent_interaction_id` are updated in the task as soon as they are available, even before the agent has completed execution. This enables real-time tracking of the execution process.
+
+For a complete example, see [Building a plan-execute-reflect agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#test-the-agent).
 
 ## Default prompts
 
