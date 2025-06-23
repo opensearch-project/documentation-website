@@ -15,11 +15,6 @@ migration_paths:
       - "OpenSearch 1.x"
       - "OpenSearch 2.x"
       - "OpenSearch 3.x"
-  - source: "Elasticsearch 7.x"
-    targets:
-      - "OpenSearch 1.x"
-      - "OpenSearch 2.x"
-      - "OpenSearch 3.x"
   - source: "Elasticsearch 8.x"
     targets:
       - "OpenSearch 2.x"
