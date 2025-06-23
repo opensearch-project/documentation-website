@@ -36,6 +36,7 @@ Because OpenSearch doesn't natively support relational operations, `JOIN` querie
 ### JOIN does not support aggregations on the joined result
 
 The `JOIN` query does not support aggregations on the joined result.
+
 For example, `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id = depo.id GROUP BY depo.name` is not supported.
 
 ### Performance
