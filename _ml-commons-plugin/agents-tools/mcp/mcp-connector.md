@@ -81,7 +81,7 @@ The following table describes the connector parameters. For more information abo
 | `url` | String | Yes | The complete base URL of the MCP server, including protocol, hostname, and port, if not using the default port (for example, `https://my-mcp-server.com:8443`). |
 | `credential` | Object | Yes | Contains sensitive authentication information such as API keys or tokens. Values stored in this object can be securely referenced in the `headers` section using the `${credential.*}` syntax. |
 | `parameters` | Object | No | Contains configuration parameters for the MCP connector. |
-| `parameters.sse_endpoint` | String | No | The Server-Sent Events (SSE) endpoint path for the MCP server. Defaults to `/sse` if not specified. |
+| `parameters.sse_endpoint` | String | No | The SSE endpoint path for the MCP server. Default is `/sse`. |
 | `headers` | Object | No | The HTTP headers to include with requests to the MCP server. For authentication headers, use the `${credential.*}` syntax to reference values from the `credential` object (for example, `"Authorization": "Bearer ${credential.mcp_server_key}"`).  |
 
 The response contains the connector ID:
