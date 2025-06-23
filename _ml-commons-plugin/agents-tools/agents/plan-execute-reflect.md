@@ -238,6 +238,14 @@ Because the Deepseek-R1 model hosted on Amazon Bedrock lacks default function-ca
 ```
 {% include copy.html %}
 
+## Tracking agent execution and memory
+
+When you execute a plan-execute-reflect agent asynchronously using the [Agent Execute API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/), the API returns the `memory_id` and the `parent_interaction_id` of the planner agent once the agent is started.
+
+In the final response, the API also returns the `executor_agent_memory_id` and `executor_agent_parent_interaction_id`, which correspond to the internal executor agent responsible for carrying out each step of the plan. The `executor_agent_memory_id` and `executor_agent_parent_interaction_id` are updated in the task as soon as they are available, even before the agent has completed execution. This enables real-time tracking of the execution process.
+
+For a complete example, see [Building a plan-execute-reflect agent]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/agents/build-plan-execute-reflect-agent/#test-the-agent).
+
 ## Default prompts
 
 The plan-execute-reflect agent uses the following predefined prompts. You can customize the prompts by providing new ones in the following ways:
