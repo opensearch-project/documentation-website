@@ -304,54 +304,54 @@ The following table lists the available statistics. For statistics with paths pr
 
 | Statistic name | Category | Statistic path within category | Description |
 | :--- | :--- | :--- | :--- |
-| `text_embedding_executions` | `nodes`, `all_nodes` | `processors.ingest.text_embedding_executions` | Text embedding processor execution count. |
-| `skip_existing_executions` | `nodes`, `all_nodes` | `processors.ingest.skip_existing_executions` | Skip existing processor execution count. |
-| `text_chunking_fixed_token_length_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_fixed_token_length_executions` | Text chunking fixed token length processor execution count. |
-| `sparse_encoding_executions` | `nodes`, `all_nodes` | `processors.ingest.sparse_encoding_executions` | Sparse encoding processor execution count. |
-| `text_chunking_fixed_char_length_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_fixed_char_length_executions` | Text chunking fixed character length processor execution count. |
-| `text_chunking_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_executions` | Text chunking processor execution count. |
-| `semantic_field_executions` | `nodes`, `all_nodes` | `processors.ingest.semantic_field_executions` | Semantic field processor execution count. |
-| `semantic_field_chunking_executions` | `nodes`, `all_nodes` | `processors.ingest.semantic_field_chunking_executions` | Semantic field chunking processor execution count. |
-| `text_chunking_delimiter_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_delimiter_executions` | Text chunking delimiter processor execution count. |
-| `text_image_embedding_executions` | `nodes`, `all_nodes` | `processors.ingest.text_image_embedding_executions` | Text image embedding processor execution count. |
-| `neural_sparse_two_phase_executions` | `nodes`, `all_nodes` | `processors.search.neural_sparse_two_phase_executions` | Neural sparse two-phase processor execution count. |
-| `rerank_by_field_executions` | `nodes`, `all_nodes` | `processors.search.rerank_by_field_executions` | Rerank by field processor execution count. |
-| `neural_query_enricher_executions` | `nodes`, `all_nodes` | `processors.search.neural_query_enricher_executions` | Neural query enricher processor execution count. |
-| `rerank_ml_executions` | `nodes`, `all_nodes` | `processors.search.rerank_ml_executions` | ML reranking processor execution count. |
+| `text_embedding_executions` | `nodes`, `all_nodes` | `processors.ingest.text_embedding_executions` | The number of `text_embedding` processor executions. |
+| `skip_existing_executions` | `nodes`, `all_nodes` | `processors.ingest.skip_existing_executions` | The number of processor executions that have `skip_existing` set to `true`. |
+| `text_chunking_fixed_token_length_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_fixed_token_length_executions` | The number of `text_chunking` processor executions with `fixed_token_length` algorithm. |
+| `sparse_encoding_executions` | `nodes`, `all_nodes` | `processors.ingest.sparse_encoding_executions` | The number of `sparse_encoding` processor executions. |
+| `text_chunking_fixed_char_length_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_fixed_char_length_executions` | The number of `text_chunking` processor executions with `fixed_character_length` algorithm. |
+| `text_chunking_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_executions` | The number of `text_chunking` processor executions. |
+| `semantic_field_executions` | `nodes`, `all_nodes` | `processors.ingest.semantic_field_executions` | The number of semantic field system processor executions. |
+| `semantic_field_chunking_executions` | `nodes`, `all_nodes` | `processors.ingest.semantic_field_chunking_executions` | The number of semantic field system chunking processor executions. |
+| `text_chunking_delimiter_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_delimiter_executions` | The number of `text_chunking` processor executions with `delimiter` algorithm. |
+| `text_image_embedding_executions` | `nodes`, `all_nodes` | `processors.ingest.text_image_embedding_executions` | The number of `text_image_embedding` processor executions. |
+| `neural_sparse_two_phase_executions` | `nodes`, `all_nodes` | `processors.search.neural_sparse_two_phase_executions` | The number of `neural_sparse_two_phase_processor` processor executions. |
+| `rerank_by_field_executions` | `nodes`, `all_nodes` | `processors.search.rerank_by_field_executions` | The number of `rerank` processor executions of the `by_field` type. |
+| `neural_query_enricher_executions` | `nodes`, `all_nodes` | `processors.search.neural_query_enricher_executions` | The number of `neural_query_enricher` processor executions. |
+| `rerank_ml_executions` | `nodes`, `all_nodes` | `processors.search.rerank_ml_executions` | The number of `rerank` processor executions of the `ml_opensearch` type. |
 
 **Node-level Statistics - Hybrid Processors**
 
 | Statistic name | Category | Statistic path within category | Description |
 | :--- | :--- | :--- | :--- |
-| `normalization_processor_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.normalization_processor_executions` | Normalization processor execution count. |
-| `rank_based_normalization_processor_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.rank_based_normalization_processor_executions` | Rank-based normalization processor execution count. |
-| `comb_harmonic_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.comb_harmonic_executions` | Harmonic combination processor execution count. |
-| `norm_zscore_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.norm_zscore_executions` | Z-score normalization processor execution count. |
-| `comb_rrf_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.comb_rrf_executions` | Reciprocal rank fusion (RRF) combination processor execution count. |
-| `norm_l2_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.norm_l2_executions` | L2 normalization processor execution count. |
-| `comb_arithmetic_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.comb_arithmetic_executions` | Arithmetic combination processor execution count. |
-| `comb_geometric_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.comb_geometric_executions` | Geometric combination processor execution count. |
-| `norm_minmax_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.norm_minmax_executions` | Min-max normalization processor execution count. |
+| `normalization_processor_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.normalization_processor_executions` | The number of `normalization-processor` processor executions. |
+| `rank_based_normalization_processor_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.rank_based_normalization_processor_executions` | The number of `score-ranker-processor` processor executions. |
+| `comb_harmonic_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.comb_harmonic_executions` | The number of `normalization-processor` processor executions with `combination.technique` set to `harmonic_mean`. |
+| `norm_zscore_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.norm_zscore_executions` | The number of `normalization-processor` processor executions with `normalization.technique` set to `z_score`. |
+| `comb_rrf_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.comb_rrf_executions` | The number of `score-ranker-processor` processor executions with `combination.technique` set to `rrf`. |
+| `norm_l2_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.norm_l2_executions` | The number of `normalization-processor` processor executions with `normalization.technique` set to `l2`. |
+| `comb_arithmetic_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.comb_arithmetic_executions` | The number of `normalization-processor` processor executions with `combination.technique` set to `arithmetic_mean`. |
+| `comb_geometric_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.comb_geometric_executions` | The number of `normalization-processor` processor executions with `combination.technique` set to `geometric_mean`. |
+| `norm_minmax_executions` | `nodes`, `all_nodes` | `processors.search.hybrid.norm_minmax_executions` | The number of `normalization-processor` processor executions with `normalization.technique` set to `min_max`. |
 
 **Node-level Statistics - Query**
 
 | Statistic name | Category | Statistic path within category | Description |
 | :--- | :--- | :--- | :--- |
-| `hybrid_query_with_pagination_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_pagination_requests` | Hybrid query requests with pagination count. |
-| `hybrid_query_with_filter_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_filter_requests` | Hybrid query requests with filters count. |
-| `hybrid_query_with_inner_hits_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_inner_hits_requests` | Hybrid query requests with inner hits count. |
-| `hybrid_query_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_requests` | Total hybrid query requests count. |
-| `neural_query_against_semantic_sparse_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_semantic_sparse_requests` | Neural query requests against semantic sparse fields count. |
-| `neural_query_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_requests` | Total neural query requests count. |
-| `neural_query_against_semantic_dense_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_semantic_dense_requests` | Neural query requests against semantic dense fields count. |
-| `neural_query_against_knn_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_knn_requests` | Neural query requests against k-NN fields count. |
-| `neural_sparse_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.neural_sparse_query_requests` | Neural sparse query requests count. |
+| `hybrid_query_with_pagination_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_pagination_requests` | The number of hybrid query requests with pagination. |
+| `hybrid_query_with_filter_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_filter_requests` | The number of hybrid query requests with filters. |
+| `hybrid_query_with_inner_hits_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_inner_hits_requests` | The number of hybrid query requests with inner hits. |
+| `hybrid_query_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_requests` | The total number of hybrid query requests. |
+| `neural_query_against_semantic_sparse_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_semantic_sparse_requests` | The number of neural query requests against semantic sparse fields. |
+| `neural_query_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_requests` | The total number of neural query requests. |
+| `neural_query_against_semantic_dense_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_semantic_dense_requests` | The number of neural query requests against semantic dense fields. |
+| `neural_query_against_knn_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_knn_requests` | The number of neural query requests against k-NN fields. |
+| `neural_sparse_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.neural_sparse_query_requests` | The number of neural sparse query requests. |
 
 **Node-level Statistics - Semantic Highlighting**
 
 | Statistic name | Category | Statistic path within category | Description |
 | :--- | :--- | :--- | :--- |
-| `semantic_highlighting_request_count` | `nodes`, `all_nodes` | `semantic_highlighting.semantic_highlighting_request_count` | Semantic highlighting requests count. |
+| `semantic_highlighting_request_count` | `nodes`, `all_nodes` | `semantic_highlighting.semantic_highlighting_request_count` | The number of semantic highlighting requests. |
 
 #### Available metadata
 
