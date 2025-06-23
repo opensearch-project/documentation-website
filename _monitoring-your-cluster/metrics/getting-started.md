@@ -35,11 +35,11 @@ The `enable` flag is toggled using a Java Virtual Machine (JVM) parameter that i
   cd \path\to\opensearch
   ```
 
-2. Open your `opensearch.yaml` file.
-3. Add the following setting to `opensearch.yaml`:
+2. Open your `opensearch.yml` file.
+3. Add the following setting to `opensearch.yml`:
 
-  ```bash
-  opensearch.experimental.feature.telemetry.enabled=true
+  ```yaml
+  opensearch.experimental.feature.telemetry.enabled: true
   ```
   {% include copy.html %}
 
@@ -106,13 +106,16 @@ The metrics framework feature supports the following metric types:
 3. **Histograms:** Histograms are valuable tools for visualizing the distribution of continuous data. Histograms offer insight into the central tendency, spread, skewness, and potential outliers that might exist in your metrics. Patterns such as normal distribution, skewed distribution, or bimodal distribution can be readily identified, making histograms ideal for analyzing latency metrics and assessing percentiles.
 4. **Asynchronous Gauges:** Asynchronous gauges capture the current value at the moment a metric is read. These metrics are non-additive and are commonly used to measure CPU utilization on a per-minute basis, memory utilization, and other real-time values.
 
-## ML Commons metrics integration
+## Monitoring machine learning workflows
+Introduced 3.1
+{: .label .label-purple }
 
-Starting with version 3.1, ML Commons integrates with the OpenSearch Metrics Framework to provide enhanced observability for machine learning workflows. Metrics related to ML operations are pushed directly to the core metrics registry, giving you improved visibility into model usage and performance. In addition, ML Commons runs a periodic job every five minutes to collect and export state data, helping you monitor the health and activity of your machine learning workloads over time. For more details, see the [RFC on GitHub](https://github.com/opensearch-project/ml-commons/issues/3635).
+OpenSearch provides enhanced observability for [machine learning (ML)]({{site.url}}{{site.baseurl}}/ml-commons/) workflows. Metrics related to ML operations are pushed directly to the core metrics registry, giving you improved visibility into model usage and performance. Additionally, every five minutes, a periodic job collects and exports state data, helping you monitor the health and activity of your ML workloads over time. 
 
-To enable this feature, you must enable the following settings in `opensearch.yml` by setting them to `true`, in addition to the metrics framework flags:
+To enable ML observability, specify the following settings in `opensearch.yml`:
 
-- `plugins.ml_commons.metrics_collection_enabled: true`
-- `plugins.ml_commons.metrics_static_collection_enabled: true`
-
-This integration lays the foundation for richer insights and operational monitoring of AI/ML features in OpenSearch. The set of available metrics will continue to expand in future releases as we iteratively add more coverage for machine learning activities.
+```yaml
+plugins.ml_commons.metrics_collection_enabled: true
+plugins.ml_commons.metrics_static_collection_enabled: true
+```
+{% include copy.html %}
