@@ -57,6 +57,7 @@ SELECT l.key, l.spanId, r.spanId
     AND r.key < 17491637500000
   LIMIT 10
 ```
+{% include copy.html %}
 
 If this isn't possible: to avoid runaway resource usage, `JOIN` queries will time out after 60 seconds by default.
 This limit can be changed with a hint, specifying a new timeout in seconds:
