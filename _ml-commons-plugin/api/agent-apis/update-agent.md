@@ -37,7 +37,7 @@ Field | Data type | Agent type | Description
 `tools` | Array | All | A list of tools for the agent to execute. 
 `app_type` | String | All | Specifies an optional agent category.
 `memory.type` | String | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. Currently, the only supported type is `conversation_index` (store the memory in a conversational system index).
-`llm.model_id` | String | `conversational` | The model ID of the LLM to send questions to.
+`llm.model_id` | String | `conversational` | The model ID of the large language model (LLM) to send questions to.
 `llm.parameters.response_filter` | String | `conversational` | The pattern for parsing the LLM response.
 `llm.parameters.max_iteration` | Integer | `conversational` | The maximum number of messages to send to the LLM.
 
