@@ -59,7 +59,7 @@ SELECT l.key, l.spanId, r.spanId
 ```
 {% include copy.html %}
 
-If this isn't possible: to avoid runaway resource usage, `JOIN` queries will time out after 60 seconds by default.
+By default, JOIN queries will automatically terminate after 60 seconds to prevent excessive resource consumption. You can adjust this timeout period using a hint in your query. For example, to set a 5-minute (300-second) timeout, use the following code:
 This limit can be changed with a hint, specifying a new timeout in seconds:
 
 ```sql
