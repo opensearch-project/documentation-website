@@ -110,7 +110,7 @@ The metrics framework feature supports the following metric types:
 Introduced 3.1
 {: .label .label-purple }
 
-OpenSearch provides enhanced observability for [machine learning (ML)]({{site.url}}{{site.baseurl}}/ml-commons/) workflows. Metrics related to ML operations are pushed directly to the core metrics registry, giving you improved visibility into model usage and performance. Additionally, every five minutes, a periodic job collects and exports state data, helping you monitor the health and activity of your ML workloads over time. 
+OpenSearch provides enhanced observability for [machine learning (ML)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/) workflows. Metrics related to ML operations are pushed directly to the core metrics registry, giving you improved visibility into model usage and performance. Additionally, every five minutes, a periodic job collects and exports state data, helping you monitor the health and activity of your ML workloads over time. 
 
 To enable ML observability, specify the following settings in `opensearch.yml`:
 
