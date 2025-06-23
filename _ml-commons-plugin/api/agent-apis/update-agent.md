@@ -3,21 +3,20 @@ layout: default
 title: Update agent
 parent: Agent APIs
 grand_parent: ML Commons APIs
-nav_order: 20
+nav_order: 15
 ---
 
 # Update an agent
 **Introduced 3.1**
 {: .label .label-purple }
 
-Update an existing agent's configuration.
+Use this API to update an existing agent's configuration.
 
 ## Endpoints
 
 ```json
 PUT /_plugins/_ml/agents/<agent_id>
 ```
-{% include copy-curl.html %}
 
 ## Path parameters
 
@@ -29,18 +28,18 @@ The following table lists the available path parameters.
 
 ## Request body fields
 
-You can update any of the following fields:
+The following table lists the available request fields. All request body fields are optional.
 
-Field | Data type | Required/Optional | Agent type | Description
-:---  | :--- | :--- | :--- | :---
-`name`| String | Optional | All | The agent name. |
-`description` | String | Optional| All | A description of the agent. |
-`tools` | Array | Optional | All | A list of tools for the agent to execute. 
-`app_type` | String | Optional | All | Specifies an optional agent category.
-`memory.type` | String | Optional | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. Currently, the only supported type is `conversation_index` (store the memory in a conversational system index).
-`llm.model_id` | String | Optional | `conversational` | The model ID of the LLM to send questions to.
-`llm.parameters.response_filter` | String | Optional | `conversational` | The pattern for parsing the LLM response.
-`llm.parameters.max_iteration` | Integer | Optional | `conversational` | The maximum number of messages to send to the LLM.
+Field | Data type | Agent type | Description
+:---  | :--- | :--- | :--- 
+`name`| String | All | The agent name. 
+`description` | String | All | A description of the agent. 
+`tools` | Array | All | A list of tools for the agent to execute. 
+`app_type` | String | All | Specifies an optional agent category.
+`memory.type` | String | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. Currently, the only supported type is `conversation_index` (store the memory in a conversational system index).
+`llm.model_id` | String | `conversational` | The model ID of the LLM to send questions to.
+`llm.parameters.response_filter` | String | `conversational` | The pattern for parsing the LLM response.
+`llm.parameters.max_iteration` | Integer | `conversational` | The maximum number of messages to send to the LLM.
 
 #### Example request: Update tool prompt
 
@@ -61,6 +60,7 @@ PUT /_plugins/_ml/agents/N8AE1osB0jLkkocYjz7D
   ]
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
