@@ -62,7 +62,7 @@ SELECT l.key, l.spanId, r.spanId
 If this isn't possible: to avoid runaway resource usage, `JOIN` queries will time out after 60 seconds by default.
 This limit can be changed with a hint, specifying a new timeout in seconds:
 
-```
+```sql
 SELECT /*! JOIN_TIME_OUT(300) */ left.a, right.b FROM left JOIN right ON left.id = right.id;
 ```
 
