@@ -62,7 +62,6 @@ Support for the `Terms` query will be added in a future version. For more inform
 
 To use a star-tree index, modify the following settings:
 
-- Set the feature flag `opensearch.experimental.feature.composite_index.star_tree.enabled` to `true`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 - Set the `indices.composite_index.star_tree.enabled` setting to `true`. For instructions on how to configure OpenSearch, see [Configuring settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings).
 - Set the `index.composite_index` index setting to `true` during index creation.
 - Set the `index.append_only.enabled` index setting to `true` during index creation.
