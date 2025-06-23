@@ -8,8 +8,7 @@
  * - Displays results in a formatted list
  * - Supports bidirectional filtering of source and target versions
  */
-import { getVersionIndex } from './breaking-changes-module.js';
-import { breakingChanges } from './breaking-changes-data.js';
+import { getVersionIndex, breakingChanges } from './breaking-changes-data.js';
 import BreakingChangesUI from './breaking-changes-ui.js';
 document.addEventListener('DOMContentLoaded', () => {
   // Wait for migration data to be initialized
@@ -149,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Filter breaking changes based on selection
-    const relevantChanges = breakingChanges.filter(change => {  
+    const relevantChanges = breakingChanges.filter(change => {
       // Check if the breaking change applies to this migration path
       const sourceVersionIdx = getVersionIndex(selectedSrc);
       const targetVersionIdx = getVersionIndex(selectedTgt);
