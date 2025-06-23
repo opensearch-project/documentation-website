@@ -65,6 +65,7 @@ This limit can be changed with a hint, specifying a new timeout in seconds:
 ```sql
 SELECT /*! JOIN_TIME_OUT(300) */ left.a, right.b FROM left JOIN right ON left.id = right.id;
 ```
+{% include copy.html %}
 
 These performance restrictions don't apply when [querying external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source/).
 
