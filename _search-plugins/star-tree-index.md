@@ -99,9 +99,9 @@ These examples show how OpenSearch selects the shortest path in the star-tree an
 
 Star-tree indexes have the following limitations:
 
-- Enable a star-tree index only for indexes whose data is not updated or deleted: star-tree indexes do not support updates or deletions. To enforce this policy, set `index.append_only.enabled` to `true` for the index you want to enable star-tree index on.
+- Enable a star-tree index only for indexes whose data is not updated or deleted. See [Enabling a star-tree index](#enabling-a-star-tree-index).
 - Use a star-tree index for aggregation queries only if the queried fields are a subset of the star-tree's dimensions and the aggregated fields are a subset of the star-tree's metrics.
-- Once enabled, a star-tree index cannot be disabled. In order to disable a star-tree index, the data in the index must be reindexed without the star-tree mapping. Changing a star-tree configuration also requires reindexing data.
+- Any changes to a star-tree configuration require reindexing.
 - [Array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported.
 - Only [specific queries and aggregations](#supported-queries-and-aggregations) are supported. 
 - Avoid using high-cardinality fields like `_id` as dimensions, as they can significantly increase storage usage and query latency.
@@ -110,7 +110,10 @@ Star-tree indexes have the following limitations:
 
 The cluster-level star-tree index setting is enabled by default. To disable it, set `indices.composite_index.star_tree.enabled` to `false`. For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
 
-Configure the following settings when creating your index:
+Setting `indices.composite_index.star_tree.enabled` to `false` prevents OpenSearch from using star-tree optimization during searches, but the star-tree index structures are still created. To completely remove star-tree structures, you must reindex your data without the star-tree mapping.
+{: .note}
+
+Configure the following settings when creating your index. Star-tree indexes do not support updates or deletions. To enforce this policy, set `index.append_only.enabled` to `true`:
 
 ```json
 PUT /logs
