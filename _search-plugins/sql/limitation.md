@@ -51,7 +51,7 @@ SELECT l.key, l.spanId, r.spanId
   FROM logs_left AS l
   JOIN logs_right AS r
   ON l.key = r.key
-  WHERE l.key >= 17491637400000 -- We clamp the key field between two values to reduce the search space
+  WHERE l.key >= 17491637400000
     AND l.key < 17491637500000
     AND r.key >= 17491637400000
     AND r.key < 17491637500000
