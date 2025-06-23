@@ -29,10 +29,44 @@ FROM (
 
 But, if the outer query has `GROUP BY` or `ORDER BY`, then it's not supported.
 
-## JOIN does not support aggregations on the joined result
+## JOIN queries
 
-The `join` query does not support aggregations on the joined result.
-For example, e.g. `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id == depo.id GROUP BY depo.name` is not supported.
+Because OpenSearch doesn't natively support relational operations, `JOIN` queries are supported on a best-effort basis.
+
+### JOIN does not support aggregations on the joined result
+
+The `JOIN` query does not support aggregations on the joined result.
+
+For example, `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id = depo.id GROUP BY depo.name` is not supported.
+
+### Performance
+
+`JOIN` queries are prone to expensive index scanning operations.
+
+`JOIN` queries may experience performance issues when working with result sets larger than 5 million matching records.
+To improve `JOIN` performance, reduce the number of records being joined by filtering your data first. For example, limit the join to a specific range of key values:
+
+```sql
+SELECT l.key, l.spanId, r.spanId
+  FROM logs_left AS l
+  JOIN logs_right AS r
+  ON l.key = r.key
+  WHERE l.key >= 17491637400000
+    AND l.key < 17491637500000
+    AND r.key >= 17491637400000
+    AND r.key < 17491637500000
+  LIMIT 10
+```
+{% include copy.html %}
+
+By default, JOIN queries will automatically terminate after 60 seconds to prevent excessive resource consumption. You can adjust this timeout period using a hint in your query. For example, to set a 5-minute (300-second) timeout, use the following code:
+
+```sql
+SELECT /*! JOIN_TIME_OUT(300) */ left.a, right.b FROM left JOIN right ON left.id = right.id;
+```
+{% include copy.html %}
+
+These performance restrictions don't apply when [querying external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source/).
 
 ## Pagination only supports basic queries
 
