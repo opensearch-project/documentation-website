@@ -7,9 +7,6 @@ nav_order: 54
 
 # Star-tree index
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
-
 A star-tree index is a multi-field index that improves the performance of aggregations.
 
 OpenSearch will automatically use a star-tree index to optimize aggregations if the queried fields are part of dimension fields and the aggregations are on star-tree metric fields. No changes are required in the query syntax or the request parameters.
@@ -427,6 +424,10 @@ POST /sales/_search
 }
 ```
 {% include copy-curl.html %}
+
+#### Nested Aggregations
+
+Bucket aggregations supported with star-tree index search can be nested and resolved using star-tree. [See more]({{site.url}}{{site.baseurl}}/aggregations/#nested-aggregations).
 
 ## Using queries without a star-tree index
 
