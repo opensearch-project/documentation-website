@@ -3,14 +3,14 @@ layout: default
 title: Reranking search results
 parent: Search relevance
 has_children: true
-nav_order: 60
+nav_order: 65
 ---
 
 # Reranking search results
 Introduced 2.12
 {: .label .label-purple }
 
-You can rerank search results using a [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) in order to improve search relevance. To implement reranking, you need to configure a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results and applies the `rerank` processor to them. The `rerank` processor evaluates the search results and sorts them based on the new scores. 
+You can rerank search results using a [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) in order to improve search relevance. To implement reranking, you need to configure a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results and applies the `rerank` processor to them. The `rerank` processor evaluates the search results and sorts them based on the new scores.
 
 You can rerank results in the following ways:
 
@@ -22,7 +22,7 @@ You can rerank results in the following ways:
 When you use a rerank processor in conjunction with a [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) and a hybrid query, the rerank processor alters the final document scores. This is because the rerank processor operates after the normalization processor in the search pipeline.
 {: .note}
 
-The processing order is as follows: 
+The processing order is as follows:
 
 - Normalization processor: This processor normalizes the document scores based on the configured normalization method. For more information, see [Normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/).
 - Rerank processor: Following normalization, the rerank processor further adjusts the document scores. This adjustment can significantly impact the final ordering of search results.

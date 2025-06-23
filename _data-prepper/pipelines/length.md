@@ -21,4 +21,4 @@ The `length()` function takes one argument of the JSON pointer type and returns 
   "expected_output": 10
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
