@@ -5,6 +5,7 @@ The OpenSearch 3.1.0 documentation includes the following additions and updates.
 ## New documentation for 3.1.0
 
 - MCP connector is GA in 3.1 [#10135](https://github.com/opensearch-project/documentation-website/pull/10135)
+- [Star-tree] Support for nested aggs & Removing experimental flag. [#10132](https://github.com/opensearch-project/documentation-website/pull/10132)
 - [MLCommons] Add details about memory in plan_execute_reflect agent [#10121](https://github.com/opensearch-project/documentation-website/pull/10121)
 - [MLCommons] Add details about metrics integration [#10120](https://github.com/opensearch-project/documentation-website/pull/10120)
 - Introduce memory optimized vector search (LuceneOnFaiss) in 3.1. [#10119](https://github.com/opensearch-project/documentation-website/pull/10119)
@@ -35,4 +36,3 @@ The OpenSearch 3.1.0 documentation includes the following additions and updates.
 ## In progress documentation for 3.1.0
 
 - Add forecasting section [#10133](https://github.com/opensearch-project/documentation-website/pull/10133)
-- [Star-tree] Support for nested aggs & Removing experimental flag. [#10132](https://github.com/opensearch-project/documentation-website/pull/10132)
