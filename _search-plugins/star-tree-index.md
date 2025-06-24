@@ -7,7 +7,7 @@ nav_order: 54
 
 # Star-tree index
 
-A _star-tree index_ is a multi-field index that improves the performance of aggregations by precomputing metric values for combinations of dimension fields.
+A _star-tree index_ is a specialized index structure designed to improve aggregation performance by precomputing and storing aggregated values at different levels of granularity. This indexing technique enables faster query execution, especially for multi-field aggregations.
 
 Once you enable star-tree indexes, OpenSearch automatically builds and uses star-tree indexes to optimize aggregations if the filter fields match the defined dimensions and the aggregation fields match the defined metrics in the star-tree configuration. No changes to your query syntax or request parameters are required.
 
@@ -15,7 +15,7 @@ Use a star-tree index when you want to speed up aggregations:
 
 - Star-tree indexes natively support multi-field aggregations.
 - Star-tree indexes are created in real time as part of the indexing process, so the data in a star-tree is always current.
-- A star-tree index consolidates data to improve paging efficiency and reduce disk I/O during search queries.
+- A star-tree index aggregates data to improve paging efficiency and reduce disk I/O during search queries.
 
 ## Star-tree index structure
 
@@ -63,13 +63,11 @@ The `max_leaf_docs` setting controls how many documents each leaf node can refer
 
 ### Star nodes
 
-A _star node_ (marked as `*` in the following diagram) aggregates all values for a particular dimension. It allows OpenSearch to process partial-dimension queries more efficiently by skipping over non-filtered dimensions.
-
-For example, if a query filters on `port` but not `status`, OpenSearch can use a star node that aggregates data for all status values.
+A _star node_ (marked as `*` in the following diagram) aggregates all values for a particular dimension. If a query doesn't specify a filter for that dimension, OpenSearch retrieves the precomputed aggregation from the star node instead of iterating over multiple leaf nodes. For example, if a query filters on `port` but not `status`, OpenSearch can use a star node that aggregates data for all status values.
 
 ### How queries use the star-tree
 
-The following diagram shows a star-tree index created for this example and three example query paths.
+The following diagram shows a star-tree index created for this example and three example query paths. In the diagram, notice that each branch corresponds to a dimension (`status` and `port`). Some nodes contain precomputed aggregation values (for example, Sum(size)), allowing OpenSearch to skip unnecessary calculations at query time.
 
 <img src="{{site.url}}{{site.baseurl}}/images/star-tree-index.png" alt="A star-tree index containing two dimensions and two metrics">
 
@@ -97,14 +95,14 @@ These examples show how OpenSearch selects the shortest path in the star-tree an
 
 ## Limitations
 
-Star-tree indexes have the following limitations:
+Note the following limiations of star-tree indexes:
 
-- Enable a star-tree index only for indexes whose data is not updated or deleted. See [Enabling a star-tree index](#enabling-a-star-tree-index).
-- Use a star-tree index for aggregation queries only if the queried fields are a subset of the star-tree's dimensions and the aggregated fields are a subset of the star-tree's metrics.
+- Star-tree indexes do not support updates or deletions. To use a star-tree index, data should be append-only. See [Enabling a star-tree index](#enabling-a-star-tree-index).
+- A star-tree index only works for aggregation queries that filter on dimension fields and aggregate metric fields defined in the index's star-tree configuration.
 - Any changes to a star-tree configuration require reindexing.
 - [Array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported.
 - Only [specific queries and aggregations](#supported-queries-and-aggregations) are supported. 
-- Avoid using high-cardinality fields like `_id` as dimensions, as they can significantly increase storage usage and query latency.
+- Avoid using high-cardinality fields like `_id` as dimensions, because they can significantly increase storage use and query latency.
 
 ## Enabling a star-tree index
 
