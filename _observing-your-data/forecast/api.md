@@ -7,7 +7,7 @@ nav_order: 100
 
 # Forecasting API
 
-Use these operations to programmatically create and manage *forecasters* that generate forecasts over your time‑series data.
+Use these operations to programmatically create and manage forecasters that generate forecasts over your time‑series data.
 
 ---
 
