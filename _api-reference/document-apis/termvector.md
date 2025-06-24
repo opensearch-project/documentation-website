@@ -37,12 +37,6 @@ The following table lists the available path parameters.
 
 <!-- spec_insert_end -->
 
-
-<!-- spec_insert_start
-api: termvectors
-component: query_parameters
-columns: Parameter, Data type, Description
--->
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -60,8 +54,6 @@ The following table lists the available query parameters. All query parameters a
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. *(Default: `false`)* |
 | `version` | Integer | If `true`, returns the document version as part of a hit. |
 | `version_type` | String | The specific version type. <br> Valid values are: <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. <br> - `force`: The version number is forced to be the given value. <br> - `internal`: The version number is managed internally by OpenSearch. |
-
-<!-- spec_insert_end -->
 
 ## Request body fields
 
