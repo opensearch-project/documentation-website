@@ -6,7 +6,7 @@ nav_order: 70
 
 # Concepts  
 
-This page defines key terms and related to OpenSearch.
+This page defines key terms and concepts related to OpenSearch.
 
 ## Basic concepts
 
@@ -43,7 +43,7 @@ This page defines key terms and related to OpenSearch.
 - [***Text analysis***]({{site.url}}{{site.baseurl}}/analyzers/): A process of splitting the unstructured free text content of a document into a sequence of terms, which are then stored in an inverted index. 
 - [***Analyzer***]({{site.url}}{{site.baseurl}}/analyzers/#analyzers): A component that processes text to prepare it for search. Analyzers convert text into terms that are stored in the inverted index.
 - [***Tokenizer***]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/index/): The component of an analyzer that splits text into individual tokens (usually words) and records metadata about their positions.
-- [***Token filter***]({{site.url}}{{site.baseurl}}/analyzers/token-filters/index/): The final component of an analyzer that modifies, adds, or removes tokens after tokenization. Examples include lowercase conversion, stopword removal, and synonym addition.
+- [***Token filter***]({{site.url}}{{site.baseurl}}/analyzers/token-filters/index/): The final component of an analyzer, which modifies, adds, or removes tokens after tokenization. Examples include lowercase conversion, stopword removal, and synonym addition.
 - [***Token***]({{site.url}}{{site.baseurl}}/analyzers/): A unit of text created by a tokenizer during text analysis. Tokens can be modified by token filters and contain metadata used in the text analysis process.
 - [***Term***]({{site.url}}{{site.baseurl}}/analyzers/): A data value that is directly stored in the inverted index and used for matching during search operations. Terms have minimal associated metadata.
 - [***Character filter***]({{site.url}}{{site.baseurl}}/analyzers/character-filters/index/): The first component of an analyzer that processes raw text by adding, removing, or modifying characters before tokenization.
@@ -52,17 +52,17 @@ This page defines key terms and related to OpenSearch.
 
 ## Search and query concepts
 
-- ***Query***: A request to OpenSearch that describes what you're looking for in your data.
+- ***Query***: A request to OpenSearch that describes what you're searching for in your data.
 - ***Query clause***: A single condition within a query that specifies criteria for matching documents.
 - [***Filter***]({{site.url}}{{site.baseurl}}/query-dsl/query-filter-context/#filter-context): A query component that finds exact matches without scoring.
-- [***Filter context***]({{site.url}}{{site.baseurl}}/query-dsl/query-filter-context/): A query clause in a filter context asks the question _“Does the document match the query clause?”_
-- [***Query context***]({{site.url}}{{site.baseurl}}/query-dsl/query-filter-context/): A query clause in a query context asks the question _“How well does the document match the query clause?”_
+- [***Filter context***]({{site.url}}{{site.baseurl}}/query-dsl/query-filter-context/): A query clause in a filter context asks the question _"Does the document match the query clause?"_
+- [***Query context***]({{site.url}}{{site.baseurl}}/query-dsl/query-filter-context/): A query clause in a query context asks the question _"How well does the document match the query clause?"_
 - [***Full-text search***]({{site.url}}{{site.baseurl}}/query-dsl/term-vs-full-text/): Search that analyzes and matches text fields, considering variations in word forms.
-- [***Keyword search***]({{site.url}}{{site.baseurl}}/query-dsl/term-vs-full-text/): Search that requires exact matches of text.
-- [***Query DSL***]({{site.url}}{{site.baseurl}}/query-dsl/): OpenSearch's primary query language for creating complex, customizable searches.
+- [***Keyword search***]({{site.url}}{{site.baseurl}}/query-dsl/term-vs-full-text/): Search that requires exact text matches.
+- [***Query domain-specific language (DSL)***]({{site.url}}{{site.baseurl}}/query-dsl/): OpenSearch's primary query language for creating complex, customizable searches.
 - [***Query string query language***]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/): A simplified query syntax that can be used in URL parameters.
 - [***Dashboards Query Language (DQL)***]({{site.url}}{{site.baseurl}}/dashboards/dql/): A simple text-based query language used specifically for filtering data in OpenSearch Dashboards.
-- [***Piped Processing Language (PPL)***]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/): A query language that uses pipe syntax (`|`) to chain commands for data processing and analysis, primarily used for observability use cases in OpenSearch.
+- [***Piped Processing Language (PPL)***]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/): A query language that uses pipe syntax (`|`) to chain commands for data processing and analysis. Primarily used for observability use cases in OpenSearch.
 - [***Relevance score***]({{site.url}}{{site.baseurl}}/getting-started/intro/#relevance): A number indicating how well a document matches a query.
 - [***Aggregation***]({{site.url}}{{site.baseurl}}/aggregations/): A way to analyze and summarize data based on a search query.
 
