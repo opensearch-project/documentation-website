@@ -53,7 +53,7 @@ This configuration defines the following:
 * Two dimension fields: `status` and `port`. The `ordered_dimension` field specifies how data is sorted (first, by `status`, then by `port`).
 * Two metric fields: `size` and `latency` with their corresponding aggregations (`sum` and `avg`). For each unique dimension combination, metric values (`sum(size)` and `avg(latency)`) are pre-aggregated and stored in the star-tree structure.
 
-Based on this configuration, OpenSearch creates a star-tree index structure. Each node in the tree corresponds to a value (or wildcard `*`) for a dimension. At query time, OpenSearch traverses the tree based on which dimension values are provided in the query.
+OpenSearch creates a star-tree index structure based on this configuration. Each node in the tree corresponds to a value (or wildcard `*`) for a dimension. At query time, OpenSearch traverses the tree based on the dimension values provided in the query.
 
 ### Leaf nodes
 
@@ -108,10 +108,16 @@ Star-tree indexes have the following limitations:
 
 ## Enabling a star-tree index
 
-The cluster-level star-tree index setting is enabled by default. To disable it, set `indices.composite_index.star_tree.enabled` to `false`. For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+Star-tree index is controlled by cluster-level and index-level settings.
+
+### Cluster-level setting
+
+The cluster-level `indices.composite_index.star_tree.enabled` setting is enabled by default. To disable star-tree indexes, set it to `false`. For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
 
 Setting `indices.composite_index.star_tree.enabled` to `false` prevents OpenSearch from using star-tree optimization during searches, but the star-tree index structures are still created. To completely remove star-tree structures, you must reindex your data without the star-tree mapping.
 {: .note}
+
+### Index-level settings
 
 Configure the following settings when creating your index. Star-tree indexes do not support updates or deletions. To enforce this policy, set `index.append_only.enabled` to `true`:
 
