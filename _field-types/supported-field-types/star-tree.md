@@ -229,3 +229,6 @@ The `metrics` parameter supports the following properties.
 
 For more information about supported queries and aggregations, see [Supported queries and aggregations for a star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#supported-queries-and-aggregations).
 
+## Next steps
+
+- [Star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/)
