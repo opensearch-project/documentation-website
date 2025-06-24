@@ -32,7 +32,7 @@ The following table lists the available path parameters. All path parameters are
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `index` | String | The name of the index that contains the document. |
+| `index` | String | The name of the index containing the document. |
 
 <!-- spec_insert_end -->
 
@@ -54,7 +54,7 @@ The following table lists the available query parameters. All query parameters a
 | `payloads` | Boolean | If `true`, the response includes term payloads. _(Default: `true`)_ |
 | `positions` | Boolean | If `true`, the response includes term positions. _(Default: `true`)_ |
 | `preference` | String | Specifies the node or shard on which the operation should be performed. See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for a list of available options. By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
-| `realtime` | Boolean | If `true`, the request is real-time as opposed to near-real-time. _(Default: `true`)_ |
+| `realtime` | Boolean | If `true`, the request is real time as opposed to near real time. _(Default: `true`)_ |
 | `routing` | List or String | A custom value used to route operations to a specific shard. |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. _(Default: `false`)_ |
 | `version` | Integer | If `true`, returns the document version as part of a hit. |
@@ -75,7 +75,7 @@ The following table lists the fields that can be specified in the request body.
 | `positions` | Boolean | If `true`, the response includes token positions. *(Default: `true`)* |
 | `field_statistics` | Boolean | If `true`, the response includes statistics such as document count, sum of document frequencies, and sum of total term frequencies. *(Default: `true`)* |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. *(Default: `false`)* |
-| `routing` | String | Custom routing value to identify the shard. Required if custom routing was used during indexing. |
+| `routing` | String | A custom routing value used to identify the shard. Required if custom routing was used during indexing. |
 | `version` | Integer | The specific version of the document to retrieve. |
 | `version_type` | String | The type of versioning to use. Valid values: `internal`, `external`, `external_gte`. |
 | `filter` | Object | Filters tokens returned in the response (for example, by frequency or position). For supported fields, see [Filtering terms]({{site.url}}{{site.baseurl}}/api-reference/document-apis/mtermvectors/#filtering-terms). |
@@ -87,10 +87,10 @@ The `filter` object in the request body allows you to filter the tokens to inclu
 
 | Field | Data type | Description |
 | `max_num_terms` | Integer | The maximum number of terms to return. |
-| `min_term_freq` | Integer | The minimum term frequency in the document for a term to be included. |
-| `max_term_freq` | Integer | The maximum term frequency in the document for a term to be included. |
-| `min_doc_freq` | Integer | The minimum document frequency across the index for a term to be included. |
-| `max_doc_freq` | Integer | The maximum document frequency across the index for a term to be included. |
+| `min_term_freq` | Integer | The minimum term frequency in the document required for a term to be included. |
+| `max_term_freq` | Integer | The maximum term frequency in the document required for a term to be included. |
+| `min_doc_freq` | Integer | The minimum document frequency across the index required for a term to be included. |
+| `max_doc_freq` | Integer | The maximum document frequency across the index required for a term to be included. |
 | `min_word_length` | Integer | The minimum length of the term to be included. |
 | `max_word_length` | Integer | The maximum length of the term to be included. |
 
@@ -330,4 +330,4 @@ Each element of the `docs` array contains the following fields.
 | `term_vectors.<field>.field_statistics.sum_doc_freq` | Integer | The sum of document frequencies for all terms in the field. |
 | `term_vectors.<field>.field_statistics.sum_ttf` | Integer | The sum of total term frequencies for all terms in the field. |
 | `term_vectors.<field>.terms` | Object | A map of terms in the field, in which each term includes its frequency (`term_freq`) and associated token information. |
-| `term_vectors.<field>.terms.<term>.tokens` | Array | An array of token objects for each term, including the token’s `position` in the text and its character offsets (`start_offset` and `end_offset`). |
+| `term_vectors.<field>.terms.<term>.tokens` | Array | An array of token objects for each term, including the token's `position` in the text and its character offsets (`start_offset` and `end_offset`). |

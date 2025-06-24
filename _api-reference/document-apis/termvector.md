@@ -32,7 +32,7 @@ The following table lists the available path parameters.
 
 | Parameter | Required | Data type | Description |
 | :--- | :--- | :--- | :--- |
-| `index` | **Required** | String | The name of the index that contains the document. |
+| `index` | **Required** | String | The name of the index containing the document. |
 | `id` | _Optional_ | String | The unique identifier of the document. |
 
 <!-- spec_insert_end -->
@@ -49,15 +49,15 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `field_statistics` | Boolean | If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies. (Default: `true`) |
+| `field_statistics` | Boolean | If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies. *(Default: `true`)* |
 | `fields` | List or String | A comma-separated list or a wildcard expression specifying the fields to include in the statistics. Used as the default list unless a specific field list is provided in the `completion_fields` or `fielddata_fields` parameters. |
-| `offsets` | Boolean | If `true`, the response includes term offsets. (Default: `true`) |
-| `payloads` | Boolean | If `true`, the response includes term payloads. (Default: `true`) |
-| `positions` | Boolean | If `true`, the response includes term positions. (Default: `true`) |
+| `offsets` | Boolean | If `true`, the response includes term offsets. *(Default: `true`)* |
+| `payloads` | Boolean | If `true`, the response includes term payloads. *(Default: `true`)* |
+| `positions` | Boolean | If `true`, the response includes term positions. *(Default: `true`)* |
 | `preference` | String | Specifies the node or shard on which the operation should be performed. See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for a list of available options. By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
-| `realtime` | Boolean | If `true`, the request is real-time as opposed to near-real-time. (Default: `true`) |
+| `realtime` | Boolean | If `true`, the request is real time as opposed to near real time. *(Default: `true`)* |
 | `routing` | List or String | A custom value used to route operations to a specific shard. |
-| `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. (Default: `false`) |
+| `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. *(Default: `false`)* |
 | `version` | Integer | If `true`, returns the document version as part of a hit. |
 | `version_type` | String | The specific version type. <br> Valid values are: <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. <br> - `force`: The version number is forced to be the given value. <br> - `internal`: The version number is managed internally by OpenSearch. |
 
@@ -75,10 +75,10 @@ The following table lists the fields that can be specified in the request body.
 | `positions` | Boolean | If `true`, the response includes token positions. *(Default: `true`)* |
 | `field_statistics` | Boolean | If `true`, the response includes statistics such as document count, sum of document frequencies, and sum of total term frequencies. *(Default: `true`)* |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. *(Default: `false`)* |
-| `routing` | String | Custom routing value to identify the shard. Required if a custom routing was used during indexing. |
-| `version` | Integer | Specific version of the document to retrieve. |
+| `routing` | String | A custom routing value used to identify the shard. Required if custom routing was used during indexing. |
+| `version` | Integer | The specific version of the document to retrieve. |
 | `version_type` | String | The type of versioning to use. Valid values: `internal`, `external`, `external_gte`, `force`. |
-| `filter`| Object | Allows filtering of tokens returned in the response (e.g., by frequency, position). See [Filtering terms]({{site.url}}{{site.baseurl}}/api-reference/document-apis/termvector/#filtering-terms) for available options. |
+| `filter`| Object | Allows filtering of tokens returned in the response (for example, by frequency or position). See [Filtering terms]({{site.url}}{{site.baseurl}}/api-reference/document-apis/termvector/#filtering-terms) for available options. |
 | `per_field_analyzer` | Object | Specifies a custom analyzer to use per field. Format: `{ "field_name": "analyzer_name" }`. | 
 | `preference` | String | Specifies shard or node routing preferences. See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter).|
 
@@ -88,10 +88,10 @@ The `filter` object in the request body allows you to filter the tokens to inclu
 
 | Field | Data type | Description |
 | `max_num_terms` | Integer | The maximum number of terms to return. |
-| `min_term_freq` | Integer | The minimum term frequency in the document for a term to be included. |
-| `max_term_freq` | Integer | The maximum term frequency in the document for a term to be included. |
-| `min_doc_freq` | Integer | The minimum document frequency across the index for a term to be included. |
-| `max_doc_freq` | Integer | The maximum document frequency across the index for a term to be included. |
+| `min_term_freq` | Integer | The minimum term frequency in the document required for a term to be included. |
+| `max_term_freq` | Integer | The maximum term frequency in the document required for a term to be included. |
+| `min_doc_freq` | Integer | The minimum document frequency across the index required for a term to be included. |
+| `max_doc_freq` | Integer | The maximum document frequency across the index required for a term to be included. |
 | `min_word_length` | Integer | The minimum length of the term to be included. |
 | `max_word_length` | Integer | The maximum length of the term to be included. |
 
