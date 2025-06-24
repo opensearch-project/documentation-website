@@ -72,7 +72,9 @@ OpenSearch offers several ways to improve search performance:
 
 ## Search relevance
 
-OpenSearch provides the following search relevance features:
+*Search relevance* is a measure of how well a document matches a search query. When you run a search query, OpenSearch compares the words in your query to the words in each document and assigns a relevance score based on factors such as how frequently the words appear and how closely they match. For more information, see [Relevance]({{site.url}}{{site.baseurl}}/getting-started/intro/#relevance).
+
+To help you fine-tune and improve search relevance, OpenSearch provides several specialized features:
 
 - [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/): A suite of tools that support search quality improvements through experimentation. 
 

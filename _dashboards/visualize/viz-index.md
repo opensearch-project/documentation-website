@@ -3,6 +3,7 @@ layout: default
 title: Building data visualizations
 nav_order: 40
 has_children: true
+has_toc: false
 ---
 
 # Building data visualizations
@@ -120,3 +121,13 @@ VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives yo
 [Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations. Vega visualizations give you the flexibility to visualize multidimensional data using a layered approach in order to build and manipulate visualizations in a structured manner. Vega can be used to create customized visualizations using any Dashboards visualization type.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vega-1.png" width="600" height="600" alt="Example Vega visualization with JSON specification in OpenSearch Dashboards">
+
+## Next steps
+
+To try building various visualizations, see the following articles:
+
+- [Area charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/area/)
+- [Coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/)
+- [Time-series visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/)
+- [Vega visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/)
+- [Drag-and-drop visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/)
