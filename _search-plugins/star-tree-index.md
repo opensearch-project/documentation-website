@@ -7,7 +7,7 @@ nav_order: 54
 
 # Star-tree index
 
-A _star-tree index_ is a specialized index structure designed to improve aggregation performance by precomputing and storing aggregated values at different levels of granularity. This indexing technique enables faster query execution, especially for multi-field aggregations.
+A _star-tree index_ is a specialized index structure designed to improve aggregation performance by precomputing and storing aggregated values at different levels of granularity. This indexing technique enables faster aggregation execution, especially for multi-field aggregations.
 
 Once you enable star-tree indexes, OpenSearch automatically builds and uses star-tree indexes to optimize aggregations if the filter fields match the defined dimensions and the aggregation fields match the defined metrics in the star-tree configuration. No changes to your query syntax or request parameters are required.
 
