@@ -113,7 +113,7 @@ Star-tree indexing behavior is controlled by the following cluster-level and ind
 | `indices.composite_index.star_tree.enabled` | Cluster | `true`  | Enables or disables star-tree search optimization across the cluster.  |
 | `index.composite_index`                     | Index   | None       | Enables star-tree indexing for a specific index. Must be set when creating the index.                                                |
 | `index.append_only.enabled`                 | Index   | None      | Required for star-tree indexes. Prevents updates and deletions. Must be `true`.                                                      |
-| `index.search.star_tree_index.enabled`      | Index   | `true`  | Enables or disables use of the star-tree index for search queries on this index.                                                 |
+| `index.search.star_tree_index.enabled`      | Index   | `true`  | Enables or disables use of the star-tree index for search queries on the index.                                                 |
 
 Setting `indices.composite_index.star_tree.enabled` to `false` prevents OpenSearch from using star-tree optimization during searches, but the star-tree index structures are still created. To completely remove star-tree structures, you must reindex your data without the star-tree mapping.
 {: .note}
