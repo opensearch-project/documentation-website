@@ -316,7 +316,7 @@ anchor_links: true
 # This setting governs including warning on every page
 # 'unsupported' produces red warning, 'supported' produces yellow warning
 # everything else produces no warning
-doc_version: latest
+doc_version: unsupported
 
 footer_content:
 
