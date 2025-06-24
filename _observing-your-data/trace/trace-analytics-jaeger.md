@@ -5,6 +5,7 @@ parent: Trace Analytics
 nav_order: 55
 redirect_from:
   - /observability-plugin/trace/trace-analytics-jaeger/
+canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/trace/trace-analytics-jaeger/
 ---
 
 # Analyzing Jaeger trace data

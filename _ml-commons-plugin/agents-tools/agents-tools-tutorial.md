@@ -4,6 +4,7 @@ title: Agents and tools tutorial
 parent: Agents and tools
 grand_parent: ML Commons APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/agents-tools/agents-tools-tutorial/
 ---
 
 # Agents and tools tutorial

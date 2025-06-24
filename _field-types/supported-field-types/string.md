@@ -8,6 +8,7 @@ parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/string/
   - /field-types/string/
+canonical_url: https://docs.opensearch.org/docs/latest/field-types/supported-field-types/string/
 ---
 
 # String field types

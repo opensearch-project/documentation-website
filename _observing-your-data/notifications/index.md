@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /notifications-plugin/
   - /notifications-plugin/index/
+canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/notifications/index/
 ---
 
 # Notifications

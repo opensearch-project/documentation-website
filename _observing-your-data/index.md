@@ -8,6 +8,7 @@ permalink: /observing-your-data/
 redirect_from:
   - /observability-plugin/index/
   - /observing-your-data/index/
+canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/
 ---
 
 # Observability

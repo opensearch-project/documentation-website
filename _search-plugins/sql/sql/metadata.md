@@ -6,6 +6,7 @@ grand_parent: SQL and PPL
 nav_order: 9
 redirect_from:
   - /search-plugins/sql/metadata/
+canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/sql/sql/metadata/
 ---
 
 # Metadata queries

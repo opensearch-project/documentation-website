@@ -5,6 +5,7 @@ parent: Ingest processors
 nav_order: 240
 redirect_from:
    - /api-reference/ingest-apis/processors/sparse-encoding/
+canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/processors/sparse-encoding/
 ---
 
 # Sparse encoding processor

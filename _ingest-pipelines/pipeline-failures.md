@@ -4,6 +4,7 @@ title: Handling pipeline failures
 nav_order: 30
 redirect_from:
   - /api-reference/ingest-apis/pipeline-failures/
+canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/pipeline-failures/
 ---
 
 # Handling pipeline failures

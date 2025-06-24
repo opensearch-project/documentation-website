@@ -5,6 +5,7 @@ parent: Logstash
 nav_order: 220
 redirect_from:
  - /clients/logstash/ship-to-opensearch/
+canonical_url: https://docs.opensearch.org/docs/latest/tools/logstash/ship-to-opensearch/
 ---
 
 # Ship events to OpenSearch

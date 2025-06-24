@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /security-analytics/api-tools/
+canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/api-tools/index/
 ---
 
 # API tools

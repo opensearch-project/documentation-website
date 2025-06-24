@@ -4,6 +4,7 @@ title: Get connector
 parent: Connector APIs
 grand_parent: ML Commons APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/connector-apis/get-connector/
 ---
 
 # Get a connector

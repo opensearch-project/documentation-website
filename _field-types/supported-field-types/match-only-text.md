@@ -5,6 +5,7 @@ nav_order: 61
 has_children: false
 parent: String field types
 grand_parent: Supported field types
+canonical_url: https://docs.opensearch.org/docs/latest/field-types/supported-field-types/match-only-text/
 ---
 
 # Match-only text field type

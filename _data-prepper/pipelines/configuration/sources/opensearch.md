@@ -4,6 +4,7 @@ title: opensearch
 parent: Sources
 grand_parent: Pipelines
 nav_order: 50
+canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/opensearch/
 ---
 
 # opensearch

@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /security-plugin/access-control/index/
+canonical_url: https://docs.opensearch.org/docs/latest/security/access-control/index/
 ---
 
 # Access control

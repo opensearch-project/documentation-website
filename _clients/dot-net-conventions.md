@@ -4,6 +4,7 @@ title: .NET client considerations
 nav_order: 20
 has_children: false
 parent: .NET clients
+canonical_url: https://docs.opensearch.org/docs/latest/clients/dot-net-conventions/
 ---
 
 # .NET client considerations and best practices

@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /install-and-configure/configuring-opensearch/
   - /opensearch/configuration/
+canonical_url: https://docs.opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index/
 ---
 
 # Configuring OpenSearch

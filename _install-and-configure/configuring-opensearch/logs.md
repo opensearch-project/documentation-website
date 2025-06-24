@@ -6,6 +6,7 @@ nav_order: 120
 redirect_from:
   - /opensearch/logs/
   - /monitoring-your-cluster/logs/
+canonical_url: https://docs.opensearch.org/docs/latest/install-and-configure/configuring-opensearch/logs/
 ---
 
 # Logs

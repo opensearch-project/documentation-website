@@ -2,6 +2,7 @@
 layout: default
 title: Workflow steps
 nav_order: 10
+canonical_url: https://docs.opensearch.org/docs/latest/automating-configurations/workflow-steps/
 ---
 
 # Workflow steps

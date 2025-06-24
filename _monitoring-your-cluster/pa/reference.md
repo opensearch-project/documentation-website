@@ -5,6 +5,7 @@ parent: Performance Analyzer
 nav_order: 3
 redirect_from:
   - /monitoring-plugins/pa/reference/
+canonical_url: https://docs.opensearch.org/docs/latest/monitoring-your-cluster/pa/reference/
 ---
 
 # Metrics reference

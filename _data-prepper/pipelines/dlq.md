@@ -3,6 +3,7 @@ layout: default
 title: Dead-letter queues 
 parent: Pipelines
 nav_order: 15
+canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/pipelines/dlq/
 ---
 
 # Dead-letter queues

@@ -3,6 +3,7 @@ layout: default
 title: Range
 parent: Term-level queries
 nav_order: 50
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/term/range/
 ---
 
 # Range query

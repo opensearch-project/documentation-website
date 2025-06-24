@@ -3,6 +3,7 @@ layout: default
 title: Dangling indexes
 parent: Index APIs
 nav_order: 32
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/index-apis/dangling-index/
 ---
 
 # Dangling indexes API

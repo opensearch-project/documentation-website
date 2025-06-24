@@ -5,6 +5,7 @@ nav_order: 70
 has_children: true
 redirect_from:
   - /search-plugins/knn/performance-tuning/
+canonical_url: https://docs.opensearch.org/docs/latest/vector-search/performance-tuning/
 ---
 
 # Performance tuning

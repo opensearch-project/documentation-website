@@ -4,6 +4,7 @@ title: Extensions
 parent: Managing OpenSearch Data Prepper
 has_children: true
 nav_order: 18
+canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/managing-data-prepper/extensions/extensions/
 ---
 
 # Extensions

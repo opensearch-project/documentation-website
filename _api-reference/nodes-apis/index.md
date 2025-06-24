@@ -3,6 +3,7 @@ layout: default
 title: Nodes APIs
 has_children: true
 nav_order: 50
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/nodes-apis/index/
 ---
 
 # Nodes API

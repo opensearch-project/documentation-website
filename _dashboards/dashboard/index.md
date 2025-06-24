@@ -3,6 +3,7 @@ layout: default
 title: Creating dashboards
 nav_order: 30
 has_children: false
+canonical_url: https://docs.opensearch.org/docs/latest/dashboards/dashboard/index/
 ---
 
 # Creating dashboards

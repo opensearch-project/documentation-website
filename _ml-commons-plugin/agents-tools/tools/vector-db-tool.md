@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 110
 parent: Tools
 grand_parent: Agents and tools
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/agents-tools/tools/vector-db-tool/
 ---
 
 <!-- vale off -->

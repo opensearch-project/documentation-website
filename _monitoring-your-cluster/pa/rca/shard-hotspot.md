@@ -4,6 +4,7 @@ title: Hot shard identification
 parent: Root Cause Analysis
 grand_parent: Performance Analyzer
 nav_order: 30
+canonical_url: https://docs.opensearch.org/docs/latest/monitoring-your-cluster/pa/rca/shard-hotspot/
 ---
 
 # Hot shard identification

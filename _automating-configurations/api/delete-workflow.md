@@ -3,6 +3,7 @@ layout: default
 title: Delete a workflow
 parent: Workflow APIs
 nav_order: 80
+canonical_url: https://docs.opensearch.org/docs/latest/automating-configurations/api/delete-workflow/
 ---
 
 # Delete a workflow

@@ -3,6 +3,7 @@ layout: default
 title: WAF
 parent: Supported log types
 nav_order: 95
+canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/log-types-reference/waf/
 ---
 
 The `waf` log type monitors web application firewall (WAF) logs. The role of a WAF is to monitor and filter HTTP traffic flowing between a web application and the internet. A WAF prevents common security attacks, such as cross-site scripting (XSS) and SQL injection (SQLi).

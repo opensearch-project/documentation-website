@@ -7,6 +7,7 @@ has_children: false
 grand_parent: Availability and recovery
 redirect_from: 
   - /opensearch/snapshots/sm-api/
+canonical_url: https://docs.opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/snapshots/sm-api/
 ---
 
 # Snapshot Management API

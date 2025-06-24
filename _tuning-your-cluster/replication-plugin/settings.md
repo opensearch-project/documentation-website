@@ -5,6 +5,7 @@ nav_order: 40
 parent: Cross-cluster replication
 redirect_from:
   - /replication-plugin/settings/
+canonical_url: https://docs.opensearch.org/docs/latest/tuning-your-cluster/replication-plugin/settings/
 ---
 
 # Replication settings

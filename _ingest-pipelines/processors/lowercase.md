@@ -5,6 +5,7 @@ parent: Ingest processors
 nav_order: 210
 redirect_from:
    - /api-reference/ingest-apis/processors/lowercase/
+canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/processors/lowercase/
 ---
 
 This documentation describes using the `lowercase` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `lowercase_string` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/lowercase-string/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.

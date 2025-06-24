@@ -5,6 +5,7 @@ parent: Bucket aggregations
 nav_order: 70
 redirect_from:
   - /query-dsl/aggregations/bucket/geo-distance/
+canonical_url: https://docs.opensearch.org/docs/latest/aggregations/bucket/geo-distance/
 ---
 
 # Geodistance aggregations

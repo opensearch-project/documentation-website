@@ -3,6 +3,7 @@ layout: default
 title: Script score
 parent: Specialized queries
 nav_order: 60
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/specialized/script-score/
 ---
 
 # Script score query

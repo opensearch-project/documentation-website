@@ -3,6 +3,7 @@ layout: default
 title: Notification settings
 parent: Index Management
 nav_order: 60
+canonical_url: https://docs.opensearch.org/docs/latest/dashboards/im-dashboards/notifications/
 ---
 
 # Notification settings

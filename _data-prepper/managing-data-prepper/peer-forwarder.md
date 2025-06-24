@@ -3,6 +3,7 @@ layout: default
 title: Peer forwarder
 nav_order: 12
 parent: Managing OpenSearch Data Prepper
+canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/managing-data-prepper/peer-forwarder/
 ---
 
 # Peer forwarder
