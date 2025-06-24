@@ -106,18 +106,20 @@ Note the following limiations of star-tree indexes:
 
 ## Enabling a star-tree index
 
-A star-tree index is controlled by cluster-level and index-level settings.
+Star-tree indexing behavior is controlled by the following cluster-level and index-level settings. Index-level settings take precedence over cluster settings.
 
-### Cluster-level setting
-
-The cluster-level `indices.composite_index.star_tree.enabled` setting is enabled by default. To disable star-tree indexes, set it to `false`. For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+| Setting                                     | Scope   | Default | Purpose                                                                                                                              |
+| ------------------------------------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `indices.composite_index.star_tree.enabled` | Cluster | `true`  | Enables or disables star-tree search optimization across the cluster.  |
+| `index.composite_index`                     | Index   | None       | Enables star-tree indexing for a specific index. Must be set when creating the index.                                                |
+| `index.append_only.enabled`                 | Index   | None      | Required for star-tree indexes. Prevents updates and deletions. Must be `true`.                                                      |
+| `index.search.star_tree_index.enabled`      | Index   | `true`  | Enables or disables use of the star-tree index for search queries on this index.                                                 |
 
 Setting `indices.composite_index.star_tree.enabled` to `false` prevents OpenSearch from using star-tree optimization during searches, but the star-tree index structures are still created. To completely remove star-tree structures, you must reindex your data without the star-tree mapping.
 {: .note}
 
-### Index-level settings
 
-Configure the following settings when creating your index. Star-tree indexes do not support updates or deletions. To enforce this policy, set `index.append_only.enabled` to `true`:
+To create an index that uses a star-tree index, send the following request:
 
 ```json
 PUT /logs
@@ -131,6 +133,10 @@ PUT /logs
 {% include copy-curl.html %}
 
 Ensure that the `doc_values` parameter is enabled for the dimension and metric fields used in your star-tree mapping. This is enabled by default for most field types. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/).
+
+### Disabling star-tree usage
+
+By default, both the `indices.composite_index.star_tree.enabled` cluster setting and the `index.search.star_tree_index.enabled` index setting are set to `true`. To disable search using star-tree indexes, set both of these settings to `false`. Note that index settings take precedence over cluster settings. 
 
 ## Example mapping
 
@@ -489,10 +495,6 @@ POST /sales/_search
 #### Nested aggregations
 
 You can combine multiple supported bucket aggregations (such as `terms` and `range`) in a nested structure, and the star-tree index will optimize these nested aggregations. For more information about nested aggregations, see [Nested aggregations]({{site.url}}{{site.baseurl}}/aggregations/#nested-aggregations).
-
-## Disable search using a star-tree index
-
-By default, both the cluster setting `indices.composite_index.star_tree.enabled` and index setting `index.search.star_tree_index.enabled` are set to `true`. In case a user wants to disable search using star-tree, they can set these cluster or index settings as `false`. Please note that the index settings will take a precedence over cluster settings. 
 
 ## Next steps
 
