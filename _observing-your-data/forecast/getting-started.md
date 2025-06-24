@@ -133,7 +133,7 @@ By default, forecast results are stored in the `opensearch-forecast-results` ind
 To manage storage, the plugin applies a rollover policy:
 
 * **Rollover trigger** – When a primary shard reaches approximately 65 GB, a new backing index is created and the alias is updated.
-* **Retention** – Rolled-over indices are retained for at least 30 days before deletion.
+* **Retention** – Rolled-over indexes are retained for at least 30 days before deletion.
 
 You can customize this behavior with the following settings:
 
