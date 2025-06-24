@@ -250,14 +250,15 @@ To return to the most recent forecast window, click **Show latest**
 
 By default the chart displays forecasts that start from a single origin point. Toggle Overlay mode to lay a forecast curve directly on top of the actual series and inspect accuracy across the entire timeline.
 
-Because the model emits one forecast per horizon step—e.g., 24 forecasts when the horizon is 24—a single timestamp can have many forecasts that were generated from different origins. Overlay mode lets you decide which lead time (k) to plot:
+Because the model emits one forecast per horizon step, for example, 24 forecasts when the horizon is 24, a single timestamp can have many forecasts that were generated from different origins. Overlay mode lets you decide which lead time (k) to plot:
 
 * Horizon index 0 = immediate next step
 * Horizon index 1 = one step ahead
-…
 * Horizon index 23 = 23 steps ahead
 
-The control defaults to index 3, but you can pick any value to focus on a different lead time.
+The horizon control defaults to **index 3**, but you can pick any value to focus on a different lead time. 
+
+The following image shows Overlay mode enabled with a horizon index of 3. The visualization plots the forecast curve (in purple) directly on top of the actual data points (shown with white-filled markers). This lets you evaluate the accuracy of the model’s three-steps-ahead prediction across the full timeline. The forecast range is displayed as a shaded band around the predicted values, helping highlight uncertainty:
 
 <img src="{{site.url}}{{site.baseurl}}/images/forecast/overlay_3.png" alt="overlay config" width="800" height="800">
 

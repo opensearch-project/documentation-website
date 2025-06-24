@@ -28,17 +28,17 @@ A forecaster (that is, the underlying forecasting job) can be in any of the foll
 
 | State | Description | Typical trigger |
 |-------|-------------|------------------|
-| **Inactive** | The forecaster has been created but never started. | — |
-| **Inactive: stopped** | The forecaster was manually stopped after running. | User clicks **Stop forecasting**. |
+| **Inactive** | The forecaster has been created but never started. | None. |
+| **Inactive: stopped** | The forecaster was manually stopped after running. | User selects **Stop forecasting**. |
 | **Awaiting data to initialize forecast** | The job is trying to start but lacks enough historical data. | Automatic. |
 | **Awaiting data to restart forecast** | The job is resuming after a data gap and is waiting for new data. | Automatic after a data outage. |
 | **Initializing test** | The model is being built for a one-time back-test. | Automatic on **Create and test** or **Start test**. |
 | **Test complete** | The back-test has finished and the job is no longer running. | Automatic. |
-| **Initializing forecast** | The model is being trained for continuous real-time forecasting. | Automatic on **Start forecasting**. |
+| **Initializing forecast** | The model is being trained for continuous real-time forecasting. | Automatic after selecting **Start forecasting**. |
 | **Running** | The job is streaming live data and generating forecasts. | Automatic when initialization completes successfully. |
 | **Initializing test failed** | The test failed, often due to insufficient data. | Automatic. |
 | **Initializing forecast failed** | Real-time mode failed to initialize. | Automatic. |
-| **Forecast failed** | The job started but encountered a runtime error, such as shard failures. | Automatic; requires user attention. |
+| **Forecast failed** | The job started but encountered a runtime error, such as shard failures. | Automatic; but requires the user's attention. |
 
 The following diagram illustrates the relationships and transitions between states:
 
