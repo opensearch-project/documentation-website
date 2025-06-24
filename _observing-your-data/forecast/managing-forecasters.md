@@ -40,7 +40,7 @@ A forecaster (that is, the underlying forecasting job) can be in any of the foll
 | **Initializing forecast failed** | Real-time mode failed to initialize. | Automatic. |
 | **Forecast failed** | The job started but encountered a runtime error, such as shard failures. | Automatic; requires user attention. |
 
-The diagram below illustrates the relationships and transitions between states:
+The following diagram illustrates the relationships and transitions between states:
 
 <img src="{{site.url}}{{site.baseurl}}/images/forecast/state.png" alt="Forecast state diagram" width="1600" height="1600">
 
@@ -50,7 +50,7 @@ If you have many forecasters, use the pagination controls at the bottom of the t
 
 ## Alert on forecasted values
 
-Because forecast result indices are not system indices, you can create an [Alerting monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) for them just like you would for any other user index.
+Because forecast result indexes are not system indexes, you can create an [Alerting monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) for the result indexes like you would for any other user index.
 
 ### Example alert monitor
 
@@ -221,6 +221,6 @@ Entity
 
 ## Next steps
 
-After setting up and managing your forecasters, you may want to control who can access and modify them. To learn how to manage permissions, secure result indices, and apply fine-grained access controls, see ({{site.url}}{{site.baseurl}}/observing-your-data/forecast/security/).
+After setting up and managing your forecasters, you may want to control who can access and modify them. To learn how to manage permissions, secure result indexes, and apply fine-grained access controls, see ({{site.url}}{{site.baseurl}}/observing-your-data/forecast/security/).
 
 

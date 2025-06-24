@@ -8,14 +8,14 @@ has_children: false
 
 # Forecasting security
 
-Forecasting uses the same security framework as Anomaly Detection. This page explains how to configure permissions for users to create, run, and view forecasters; how to restrict access to system indices; and how to isolate forecast results across teams.
+Forecasting uses the same security framework as Anomaly Detection. This page explains how to configure permissions for users to create, run, and view forecasters; how to restrict access to system indexes; and how to isolate forecast results across teams.
 
 In all examples, replace credentials, index names, and role names with values appropriate for your environment.
 {: .note}
 
-## Indices created by forecasting
+## Indexes created by forecasting
 
-The following table describes the indices used by the Forecasting plugin and their visibility to regular users:
+The following table describes the indexes used by the Forecasting plugin and their visibility to regular users:
 
 | Index pattern | Purpose | Visible to regular users? |
 |---------------|---------|---------------------------|
@@ -69,7 +69,7 @@ These responsibilities correspond to three distinct security layers, as shown in
 | **Result read** | Grants users and Alerting monitors access to documents in `opensearch-forecast-result*`. | Custom role, such as `forecast_result_read` |
 
 
-The built-in roles `forecast_full_access` and `forecast_read_access` apply only to Forecasting APIs. They do **not** include permissions for source or result indices—those must be granted separately.
+The built-in roles `forecast_full_access` and `forecast_read_access` apply only to Forecasting APIs. They do **not** include permissions for source or result indexes—those must be granted separately.
 {: .note}
 
 
@@ -128,7 +128,7 @@ forecast_full_access:
         - 'indices_monitor'
 ```
 
-These roles do not include default `index_permissions` for specific source or result indices. This is intentional, allowing you to add your own patterns based on your data access requirements.
+These roles do not include default `index_permissions` for specific source or result indexes. This is intentional, allowing you to add your own patterns based on your data access requirements.
 
 ### Data-source read role
 
@@ -152,7 +152,7 @@ You can modify the `index_patterns` to match your actual data source.
 
 The result-read role allows users to view forecast results and configure Alerting monitors that query those results.
 
-The following example defines a role that grants read access to all indices matching the `opensearch-forecast-result*` pattern:
+The following example defines a role that grants read access to all indexes matching the `opensearch-forecast-result*` pattern:
 
 ```json
 PUT _plugins/_security/api/roles/forecast_result_read
@@ -414,7 +414,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
 
 ### Register the remote cluster with the local cluster
 
-Register the remote cluster on the local cluster using a seed node, under the under `cluster.remote.<alias>.seeds` setting,  In OpenSearch, this is called adding a `follower` cluster.
+Register the remote cluster on the local cluster using a seed node, under the `cluster.remote.<alias>.seeds` setting,  In OpenSearch, this is called adding a `follower` cluster.
 
 Assuming that the remote cluster is listening on transport port `9350`, run the following command on the local cluster:
 
@@ -436,7 +436,7 @@ curl -X PUT "https://localhost:9200/_cluster/settings" \
 
 
 - Replace `127.0.0.1` with the remote node’s transport-layer IP if it's on a different host.
-- The alias `follower` can be any name you choose and will be used when referencing remote indices or configuring cross-cluster replication.
+- The alias `follower` can be any name you choose and will be used when referencing remote indexes or configuring cross-cluster replication.
 {: .note}
 
 ---
@@ -458,4 +458,4 @@ When a user creates a forecaster—either in OpenSearch Dashboards or by calling
 
 ## Next step
 
-For additional guidance on Transport Layer Security (TLS), authentication backends, tenant isolation, and audit logging, refer to the [Security plugin documentation]({{site.url}}{{site.baseurl}}/security).
+For additional guidance on Transport Layer Security (TLS), authentication backends, tenant isolation, and audit logging, refer to the [Security plugin documentation]({{site.url}}{{site.baseurl}}/security/).
