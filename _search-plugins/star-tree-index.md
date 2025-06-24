@@ -19,7 +19,7 @@ Use a star-tree index when you want to speed up aggregations:
 
 ## Star-tree index structure
 
-A star-tree index organizes and aggregates data across combinations of dimension fields and precomputes metric values for all the dimension combinations every time a segment is flushed/refreshed during ingestion. This structure enables OpenSearch to process aggregation queries quickly without scanning every document.
+A star-tree index organizes and aggregates data across combinations of dimension fields and precomputes metric values for all the dimension combinations every time a segment is flushed or refreshed during ingestion. This structure enables OpenSearch to process aggregation queries quickly without scanning every document.
 
 The following is an example star-tree configuration:
 
