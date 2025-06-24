@@ -12,9 +12,6 @@ redirect_from:
 **Introduced 3.0**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
-
 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) is an open protocol standard that provides a standardized way for AI models to connect to external data sources and tools. OpenSearch integrates with MCP, enabling agents to use external tools and data sources through MCP servers.
 
 Connecting to external MCP servers expands agent capabilities to include the following functionality:
