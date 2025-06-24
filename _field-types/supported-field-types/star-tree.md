@@ -7,9 +7,6 @@ parent: Supported field types
 
 # Star-tree field type
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
-
 A star-tree index precomputes aggregations, accelerating the performance of aggregation queries. 
 If a star-tree index is configured as part of an index mapping, the star-tree index is created and maintained as data is ingested in real time.
 
@@ -232,3 +229,6 @@ The `metrics` parameter supports the following properties.
 
 For more information about supported queries and aggregations, see [Supported queries and aggregations for a star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/#supported-queries-and-aggregations).
 
+## Next steps
+
+- [Star-tree index]({{site.url}}{{site.baseurl}}/search-plugins/star-tree-index/)
