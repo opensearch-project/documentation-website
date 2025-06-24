@@ -21,7 +21,7 @@ A **forecaster** represents a single forecasting task. You can create multiple f
    * **Description** – Summarize the forecaster's purpose, for example: `Forecast total request count every 10 minutes`.  
    * **Indexes** – Select one or more indexes, index patterns, or aliases. Remote indexes are supported through cross-cluster search (`cluster-name:index-pattern`). For details, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/). If the Security plugin is enabled, refer to [Selecting remote indexes with fine-grained access control]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/security/#selecting-remote-indexes-with-fine-grained-access-control) in the forecasting security documentation.
 
-3. (Optional) Choose **Add data filter** to set a **Field**, **Operator**, and **Value**, or choose **Use query DSL** to define a [boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/). The following example uses a DSL filter to match three URL paths:
+3. (Optional) Choose **Add data filter** to set a **Field**, **Operator**, and **Value**, or choose **Use query DSL** to define a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/). The following example uses a DSL filter to match three URL paths:
 
      ```json
      {
