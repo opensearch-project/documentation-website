@@ -127,6 +127,7 @@ forecast_full_access:
         - 'indices:data/write*'
         - 'indices_monitor'
 ```
+{% include copy.html %}
 
 These roles do not include default `index_permissions` for specific source or result indexes. This is intentional, allowing you to add your own patterns based on your data access requirements.
 
@@ -285,7 +286,7 @@ You can reuse this role across teams, or create separate versions if you need pe
 
 ### Map a user to three roles
 
-he following example maps the user `alice` to all three required roles—forecaster control, result access, and source index read—using the `analyst` backend role:
+The following example maps the user `alice` to all three required roles—forecaster control, result access, and source index read—using the `analyst` backend role:
 
 ```json
 PUT _plugins/_security/api/internalusers/alice
@@ -327,7 +328,7 @@ To succeed, the user must:
 
 Create a user in the local cluster who can create the forecaster using the following command:
 
-```
+```bash
 curl -XPUT -k -u 'admin:<custom-admin-password>' \
   'https://localhost:9200/_plugins/_security/api/internalusers/forecastuser' \
   -H 'Content-Type: application/json' \
@@ -347,7 +348,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
 
 On the remote cluster, create the same user and map `forecast_full_access` to that role, as shown in the following command:
 
-```
+```bash
 # Create the user
 curl -XPUT -k -u 'admin:<custom-admin-password>' \
   'https://localhost:9250/_plugins/_security/api/internalusers/forecastuser' \
@@ -369,7 +370,7 @@ To create a forecaster, the user also needs index-level permissions to the `sear
 
 In the local cluster, define a read role that grants access to the source index and map it to the forecasting user, as shown in the following:
 
-```
+```bash
 # Create a role that can search the data
 curl -XPUT -k -u 'admin:<custom-admin-password>' \
   'https://localhost:9200/_plugins/_security/api/roles/data_source_read' \
@@ -414,7 +415,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
 
 ### Register the remote cluster with the local cluster
 
-Register the remote cluster on the local cluster using a seed node, under the `cluster.remote.<alias>.seeds` setting,  In OpenSearch, this is called adding a `follower` cluster.
+Register the remote cluster on the local cluster using a seed node, under the `cluster.remote.<alias>.seeds` setting. In OpenSearch, this is called adding a `follower` cluster.
 
 Assuming that the remote cluster is listening on transport port `9350`, run the following command on the local cluster:
 

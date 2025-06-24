@@ -39,29 +39,29 @@ This API supports the following request body fields:
 
 | Field                         | Data type           | Required | Description                                                                                                                                  |
 | :---------------------------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`                        | string              | Required | The forecaster name.                                                                                                                         |
-| `description`                 | string              | Optional | A free-form description of the forecaster.                                                                                                   |
-| `time_field`                  | string              | Required | The timestamp field for the source documents.                                                                                                |
-| `indices`                     | string or string\[] | Required | One or more source indexes or index aliases.                                                                                                 |
-| `feature_attributes`          | array of objects    | Required | The feature to forecast. Only one feature is supported. Each object must include `feature_name` and an `aggregation_query`.                  |
-| `forecast_interval`           | object              | Required | The interval over which forecasts are generated.                                                                                             |
-| `horizon`                     | integer             | Optional | The number of future intervals to forecast.                                                                                                  |
-| `window_delay`                | object              | Optional | A delay added to account for ingestion latency.                                                                                              |
-| `category_field`              | string\[]           | Optional | One or two fields used to group forecasts by entity.                                                                                         |
-| `result_index`                | string              | Optional | A custom index alias for storing forecast results. Must begin with `opensearch-forecast-result-`. Defaults to `opensearch-forecast-results`. |
-| `suggested_seasonality`       | integer             | Optional | The seasonal pattern length in intervals. Expected range: 8–256.                                                                             |
-| `recency_emphasis`            | integer             | Optional | Controls how much recent data affects the forecast. Defaults to `2560`.                                                                      |
-| `history`                     | integer             | Optional | The number of past intervals used for model training.                                                                                        |
-| `result_index_min_size`       | integer             | Optional | Minimum primary shard size (in MB) to trigger index rollover.                                                                                |
-| `result_index_min_age`        | integer             | Optional | Minimum index age (in days) to trigger rollover.                                                                                             |
-| `result_index_ttl`            | integer             | Optional | Minimum age (in days) before rolled-over indexes are deleted.                                                                                |
-| `flatten_custom_result_index` | boolean             | Optional | If `true`, flattens nested fields in the custom result index for easier aggregation.                                                         |
-| `shingle_size`                | integer             | Optional | The number of past intervals used to influence the forecast. Defaults to `8`. Recommended range: 4–128.                                      |
+| `name`                        | String              | Required | The forecaster name.                                                                                                                         |
+| `description`                 | String              | Optional | A free-form description of the forecaster.                                                                                                   |
+| `time_field`                  | String              | Required | The timestamp field for the source documents.                                                                                                |
+| `indices`                     | String or string\[] | Required | One or more source indexes or index aliases.                                                                                                 |
+| `feature_attributes`          | Array of objects    | Required | The feature to forecast. Only one feature is supported. Each object must include `feature_name` and an `aggregation_query`.                  |
+| `forecast_interval`           | Object              | Required | The interval over which forecasts are generated.                                                                                             |
+| `horizon`                     | Integer             | Optional | The number of future intervals to forecast.                                                                                                  |
+| `window_delay`                | Object              | Optional | A delay added to account for ingestion latency.                                                                                              |
+| `category_field`              | String          | Optional | One or two fields used to group forecasts by entity.                                                                                         |
+| `result_index`                | String              | Optional | A custom index alias for storing forecast results. Must begin with `opensearch-forecast-result-`. Defaults to `opensearch-forecast-results`. |
+| `suggested_seasonality`       | Integer             | Optional | The seasonal pattern length in intervals. Expected range: 8–256.                                                                             |
+| `recency_emphasis`            | Integer             | Optional | Controls how much recent data affects the forecast. Defaults to `2560`.                                                                      |
+| `history`                     | Integer             | Optional | The number of past intervals used for model training.                                                                                        |
+| `result_index_min_size`       | Integer             | Optional | Minimum primary shard size (in MB) to trigger index rollover.                                                                                |
+| `result_index_min_age`        | Integer             | Optional | Minimum index age (in days) to trigger rollover.                                                                                             |
+| `result_index_ttl`            | Integer             | Optional | Minimum age (in days) before rolled-over indexes are deleted.                                                                                |
+| `flatten_custom_result_index` | Boolean             | Optional | If `true`, flattens nested fields in the custom result index for easier aggregation.                                                         |
+| `shingle_size`                | Integer             | Optional | The number of past intervals used to influence the forecast. Defaults to `8`. Recommended range: 4–128.                                      |
 
 
-### Example request: single-stream forecaster
+### Example request: Single-stream forecaster
 
-The following example creates a single-stream forecaster for the `network-requests` index. The forecaster predicts the maximum value of the `deny` field every three minutes, using three previous intervals for training. The `window_delay` setting accounts for ingest latency by delaying the forecast window by three minutes:
+The following example creates a single-stream forecaster for the `network-requests` index. The forecaster predicts the maximum value of the `deny` field every three minutes, using the previous three hundred intervals for training. The `window_delay` setting accounts for ingest latency by delaying the forecast window by three minutes:
 
 
 ```json
@@ -102,7 +102,7 @@ POST _plugins/_forecast/forecasters
     },
     "schema_version": 2,
     "horizon": 3,
-    "history": 3
+    "history": 300
 }
 ```
 {% include copy-curl.html %}
@@ -161,7 +161,7 @@ POST _plugins/_forecast/forecasters
     },
     "schema_version": 2,
     "horizon": 3,
-    "history": 3,
+    "history": 300,
     "category_field": ["host_nest.host2"],
 }
 ```
@@ -265,15 +265,10 @@ POST _plugins/_forecast/forecasters/_validate
 **Introduced 3.1**
 {: .label .label-purple }
 
-Validates a prospective forecaster configuration. This API checks that the configuration is syntactically correct, references existing fields, and is likely to succeed during training. You can use this API before creating a forecaster to ensure it meets minimum requirements.
+Returns appropriate values for one or more forecaster parameters (`forecast_interval`, `horizon`, `history`, `window_delay`) based on the cadence and density of your data.
+
 
 ### Endpoints
-
-There are two variants of this operation:
-
-#### Configuration-only validation
-
-Use the following endpoint to validate the structure and field references of a forecaster configuration without running any training checks. It ensures that all required fields are present and correctly formatted:
 
 ```
 POST _plugins/_forecast/forecasters/_suggest/<comma‑separated-types>
@@ -281,48 +276,19 @@ POST _plugins/_forecast/forecasters/_suggest/<comma‑separated-types>
 
 `types` must be one or more of `forecast_interval`, `horizon`, `history`, `window_delay`.
 
-#### Training-feasibility validation
 
-Use the following endpoint to validate whether a forecaster can be successfully trained on your data. In addition to checking the configuration, it evaluates data availability and structure to simulate the training process:
-
-```
-POST /_plugins/_forecast/forecasters/_validate/model
-```
-
-`types` must be one or more of `forecast_interval`, `horizon`, `history`, `window_delay`.
-
-### Request body
-
-The request body is identical to the [Create forecaster](#create-forecaster) request body. It must include at least the required fields:
-
-- `name`
-- `time_field`
-- `indices`
-- `feature_attributes`
-- `forecast_interval`
-
-If the configuration is valid, the response is an empty object (`{}`). If the configuration is invalid, the response includes detailed error messages identifying the issue.
-
-### Example request: Missing `forecast_interval`
+### Example request: Suggest interval
 
 The following request omits the forecast_interval field, which results in a validation error:
 
-```json
-POST /_plugins/_forecast/forecasters/_validate
+
+```
+POST _plugins/_forecast/forecasters/_suggest/forecast_interval
 {
-  "name": "invalid-forecaster",
+  "name": "interval‑suggest",
   "time_field": "@timestamp",
   "indices": ["network-requests"],
-  "feature_attributes": [
-    {
-      "feature_name": "deny max",
-      "aggregation_query": {
-        "deny_max": {
-          "max": { "field": "deny" }
-        }
-      }
-    }
-  ]
+  ...
 }
 ```
 
@@ -330,10 +296,8 @@ POST /_plugins/_forecast/forecasters/_validate
 
 ```json
 {
-  "forecaster": {
-    "forecast_interval": {
-      "message": "Forecast interval should be set"
-    }
+  "interval": {
+    "period": { "interval": 1, "unit": "Minutes" }
   }
 }
 ```
@@ -926,24 +890,92 @@ POST _plugins/_forecast/forecasters/AG_3t4kBkYqqimCe86bP/results/_topForecasts
 }
 ```
 
-### Example request: Built-in query with threshold
+### Example request: Built-in query with narrowest confidence interval
 
 The following request returns entities whose forecast values fall under a user-defined threshold:
 
 ```json
-POST _plugins/_forecast/AG_3t4kBkYqqimCe86bP/results/_topForecasts
+POST _plugins/_forecast/forecasters/AG_3t4kBkYqqimCe86bP/results/_topForecasts
 {
   "split_by": "service",
   "filter_by": "BUILD_IN_QUERY",
-  "build_in_query": "DISTANCE_TO_THRESHOLD_VALUE",
-  "forecast_from": 1691008679297,
-  "threshold": -82561.8,
-  "relation_to_threshold": "LESS_THAN"
+  "build_in_query": "MIN_CONFIDENCE_INTERVAL_WIDTH",
+  "forecast_from": 1691008679297
 }
 ```
 {% include copy-curl.html %}
 
 #### Example response
+
+```json
+{
+    "buckets": [
+        {
+            "key": {
+                "service": "service_6"
+            },
+            "doc_count": 1,
+            "bucket_index": 0,
+            "MIN_CONFIDENCE_INTERVAL_WIDTH": 27.655361
+        },
+        {
+            "key": {
+                "service": "service_4"
+            },
+            "doc_count": 1,
+            "bucket_index": 1,
+            "MIN_CONFIDENCE_INTERVAL_WIDTH": 1324.7734
+        },
+        {
+            "key": {
+                "service": "service_0"
+            },
+            "doc_count": 1,
+            "bucket_index": 2,
+            "MIN_CONFIDENCE_INTERVAL_WIDTH": 2211.0781
+        },
+        {
+            "key": {
+                "service": "service_2"
+            },
+            "doc_count": 1,
+            "bucket_index": 3,
+            "MIN_CONFIDENCE_INTERVAL_WIDTH": 3372.0469
+        },
+        {
+            "key": {
+                "service": "service_3"
+            },
+            "doc_count": 1,
+            "bucket_index": 4,
+            "MIN_CONFIDENCE_INTERVAL_WIDTH": 3980.2812
+        }
+    ]
+}
+```
+
+### Example request: Built-in query with distance under a threshold
+
+The following request returns the top entities whose forecast values fall farthest under a specified threshold, based on the `DISTANCE_TO_THRESHOLD_VALUE` metric:
+
+```http
+POST _plugins/_forecast/AG_3t4kBkYqqimCe86bP/results/_topForecasts
+{
+  "split_by": "service",                      // group forecasts by the "service" entity field
+  "filter_by": "BUILD_IN_QUERY",              // use a built-in ranking metric
+  "build_in_query": "DISTANCE_TO_THRESHOLD_VALUE",
+  "forecast_from": 1691008679297,             // data_end_time of the first forecast in scope
+  "threshold": -82561.8,                      // user-supplied threshold
+  "relation_to_threshold": "LESS_THAN"        // keep only forecasts below the threshold
+}
+```
+
+#### Example response
+
+The `DISTANCE_TO_THRESHOLD_VALUE` metric calculates `forecast_value – threshold`. Because `relation_to_threshold` is `LESS_THAN`, the API returns negative distances only and sorts them in ascending order (most negative first). Each bucket includes the following values:
+
+- `doc_count`: The number of forecast points that matched.
+- `DISTANCE_TO_THRESHOLD_VALUE`: The worst (most negative) distance within the forecast horizon.
 
 ```json
 {
@@ -955,6 +987,12 @@ POST _plugins/_forecast/AG_3t4kBkYqqimCe86bP/results/_topForecasts
       "DISTANCE_TO_THRESHOLD_VALUE": -330387.12
     },
     ...
+    {
+      "key": { "service": "service_0" },
+      "doc_count": 1,
+      "bucket_index": 4,
+      "DISTANCE_TO_THRESHOLD_VALUE": -83561.8
+    }
   ]
 }
 ```
