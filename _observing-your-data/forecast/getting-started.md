@@ -39,6 +39,7 @@ A **forecaster** represents a single forecasting task. You can create multiple f
 4. Under **Timestamp field**, select the field that stores event time.
 
 5. In the **Indicator (metric)** section, add a metric for the forecaster. Each forecaster supports one metric for optimal accuracy. Choose one of the following options:
+
    - Select a predefined aggregation: `average()`, `count()`, `sum()`, `min()`, or `max()`.  
    - To use a custom aggregation, choose **Custom expression** under **Forecast based on** and define your own [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) expression. For example, the following query forecasts the number of unique accounts with a specific account type:
 
@@ -72,7 +73,7 @@ A **forecaster** represents a single forecasting task. You can create multiple f
    }
    ```
 
-1. (Optional) In the **Categorical fields** section, enable **Split time series using categorical fields** to generate forecasts at the entity level (for example, by IP address, product ID, or country code).
+6. (Optional) In the **Categorical fields** section, enable **Split time series using categorical fields** to generate forecasts at the entity level (for example, by IP address, product ID, or country code).
 
    The number of unique entities that can be cached in memory is limited. Use the following formula to estimate capacity:
 

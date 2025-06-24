@@ -279,8 +279,7 @@ POST _plugins/_forecast/forecasters/_suggest/<comma‑separated-types>
 
 ### Example request: Suggest interval
 
-The following request omits the forecast_interval field, which results in a validation error:
-
+The following request analyzes the source data and suggests an appropriate `forecast_interval` value for the forecaster based on the average event frequency:
 
 ```
 POST _plugins/_forecast/forecasters/_suggest/forecast_interval
@@ -291,6 +290,7 @@ POST _plugins/_forecast/forecasters/_suggest/forecast_interval
   ...
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -892,7 +892,7 @@ POST _plugins/_forecast/forecasters/AG_3t4kBkYqqimCe86bP/results/_topForecasts
 
 ### Example request: Built-in query with narrowest confidence interval
 
-The following request returns entities whose forecast values fall under a user-defined threshold:
+The following request returns a sorted list of entities whose forecast values have the narrowest confidence intervals. The results are ranked in ascending order based on the `MIN_CONFIDENCE_INTERVAL_WIDTH` metric:
 
 ```json
 POST _plugins/_forecast/forecasters/AG_3t4kBkYqqimCe86bP/results/_topForecasts
