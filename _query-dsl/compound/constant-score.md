@@ -5,6 +5,7 @@ parent: Compound queries
 nav_order: 40
 redirect_from:
   - /query-dsl/query-dsl/compound/constant-score/
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/compound/constant-score/
 ---
 
 # Constant score query

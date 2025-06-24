@@ -4,6 +4,7 @@ title: Get memory
 parent: Memory APIs
 grand_parent: ML Commons APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/memory-apis/get-memory/
 ---
 
 # Get a memory

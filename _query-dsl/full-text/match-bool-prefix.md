@@ -3,6 +3,7 @@ layout: default
 title: Match Boolean prefix
 parent: Full-text queries
 nav_order: 20
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/full-text/match-bool-prefix/
 ---
 
 # Match Boolean prefix query

@@ -6,6 +6,7 @@ parent: Command reference
 redirect_from: 
   - /benchmark/commands/command-flags/
 grand_parent: OpenSearch Benchmark Reference
+canonical_url: https://docs.opensearch.org/docs/latest/benchmark/reference/commands/command-flags/
 ---
 
 # Command flags

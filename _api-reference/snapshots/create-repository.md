@@ -3,6 +3,7 @@ layout: default
 title: Register Snapshot Repository
 parent: Snapshot APIs
 nav_order: 1
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/snapshots/create-repository/
 ---
 
 # Registering or updating a snapshot repository

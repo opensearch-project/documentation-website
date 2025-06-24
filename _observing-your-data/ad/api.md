@@ -5,6 +5,7 @@ parent: Anomaly detection
 nav_order: 1
 redirect_from: 
   - /monitoring-plugins/ad/api/
+canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/ad/api/
 ---
 
 # Anomaly detection API

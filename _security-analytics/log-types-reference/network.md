@@ -3,6 +3,7 @@ layout: default
 title: Network
 parent: Supported log types
 nav_order: 70
+canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/log-types-reference/network/
 ---
 
 # Network

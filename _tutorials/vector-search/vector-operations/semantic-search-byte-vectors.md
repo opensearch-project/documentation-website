@@ -7,6 +7,7 @@ nav_order: 10
 redirect_from:
   - /ml-commons-plugin/tutorials/semantic-search-byte-vectors/
   - /vector-search/tutorials/vector-operations/semantic-search-byte-vectors/
+canonical_url: https://docs.opensearch.org/docs/latest/tutorials/vector-search/vector-operations/semantic-search-byte-vectors/
 ---
 
 # Semantic search using byte-quantized vectors

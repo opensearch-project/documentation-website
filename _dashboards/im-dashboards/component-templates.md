@@ -3,6 +3,7 @@ layout: default
 title: Component templates
 parent: Index Management
 nav_order: 50
+canonical_url: https://docs.opensearch.org/docs/latest/dashboards/im-dashboards/component-templates/
 ---
 
 # Component templates

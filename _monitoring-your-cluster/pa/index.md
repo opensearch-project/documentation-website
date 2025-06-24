@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /monitoring-plugins/pa/
   - /monitoring-plugins/pa/index/
+canonical_url: https://docs.opensearch.org/docs/latest/monitoring-your-cluster/pa/index/
 ---
 
 # Performance Analyzer

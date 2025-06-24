@@ -6,6 +6,7 @@ nav_order: 30
 redirect_from:
   - /opensearch/rest-api/index-apis/index/
   - /opensearch/rest-api/index-apis/
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/index-apis/index/
 ---
 
 # Index APIs

@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
    - /api-reference/ingest-apis/ingest-processors/
+canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/processors/index-processors/
 ---
 
 # Ingest processors

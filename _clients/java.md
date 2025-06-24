@@ -2,6 +2,7 @@
 layout: default
 title: Java client
 nav_order: 30
+canonical_url: https://docs.opensearch.org/docs/latest/clients/java/
 ---
 
 # Java client

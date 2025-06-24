@@ -5,6 +5,7 @@ parent: Performance Analyzer
 nav_order: 2
 redirect_from:
   - /monitoring-plugins/pa/dashboards/
+canonical_url: https://docs.opensearch.org/docs/latest/monitoring-your-cluster/pa/dashboards/
 ---
 
 # PerfTop dashboards

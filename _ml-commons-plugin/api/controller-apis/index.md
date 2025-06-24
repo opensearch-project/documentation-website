@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 nav_order: 60
 redirect_from: /ml-commons-plugin/api/controller-apis/
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/controller-apis/index/
 ---
 
 # Controller APIs

@@ -3,6 +3,7 @@ layout: default
 title: Get Snapshot Status
 parent: Snapshot APIs
 nav_order: 8
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/snapshots/get-snapshot-status/
 ---
 
 # Get snapshot status

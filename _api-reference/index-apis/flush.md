@@ -3,6 +3,7 @@ layout: default
 title: Flush
 parent: Index APIs
 nav_order: 36
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/index-apis/flush/
 ---
 
 # Flush

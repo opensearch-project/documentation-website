@@ -5,6 +5,7 @@ parent: Ingest processors
 nav_order: 310
 redirect_from:
    - /api-reference/ingest-apis/processors/uppercase/
+canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/processors/uppercase/
 ---
 
 This documentation describes using the `uppercase` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `uppercase_string` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/uppercase-string/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.

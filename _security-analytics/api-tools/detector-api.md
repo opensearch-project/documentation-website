@@ -3,6 +3,7 @@ layout: default
 title: Detector APIs
 parent: API tools
 nav_order: 35
+canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/api-tools/detector-api/
 ---
 
 # Detector APIs

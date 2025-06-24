@@ -5,6 +5,7 @@ has_children: true
 nav_order: 70
 redirect_from:
   - /opensearch/rest-api/script-apis/
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/script-apis/index/
 ---
 
 # Script APIs

@@ -7,6 +7,7 @@ nav_order: 70
 redirect_from:
   - /ml-commons-plugin/conversational-search/
   - /search-plugins/conversational-search/
+canonical_url: https://docs.opensearch.org/docs/latest/vector-search/ai-search/conversational-search/
 ---
 
 # Conversational search with RAG

@@ -4,6 +4,7 @@ title: select_entries
 parent: Processors
 grand_parent: Pipelines
 nav_order: 59
+canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/select-entries/
 ---
 
 # select_entries

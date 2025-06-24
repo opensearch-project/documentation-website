@@ -2,6 +2,7 @@
 layout: default
 title: Troubleshoot TLS
 nav_order: 15
+canonical_url: https://docs.opensearch.org/docs/latest/troubleshoot/tls/
 ---
 
 # TLS troubleshooting

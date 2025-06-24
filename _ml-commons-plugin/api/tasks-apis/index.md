@@ -5,6 +5,7 @@ parent: ML Commons APIs
 has_children: true
 has_toc: false
 nav_order: 70
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/tasks-apis/index/
 ---
 
 # Tasks APIs

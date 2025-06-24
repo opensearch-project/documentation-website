@@ -3,6 +3,7 @@ layout: default
 title: Integrating plugins into a dashboard
 parent: Observability
 nav_order: 5
+canonical_url: https://docs.opensearch.org/docs/latest/dashboards/dashboard/plugins-dashboards/
 ---
 
 # Integrating plugins into a dashboard

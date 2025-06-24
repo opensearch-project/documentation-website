@@ -6,6 +6,7 @@ grand_parent: SQL and PPL
 nav_order: 5
 redirect_from:
   - /search-plugins/sql/basic/
+canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/sql/sql/basic/
 ---
 
 

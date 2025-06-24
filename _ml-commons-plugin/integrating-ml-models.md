@@ -18,6 +18,7 @@ external_model:
   - heading: "Externally hosted models"
     link: "/ml-commons-plugin/remote-models/"
     description: "Learn how to create connectors for models hosted on third-party platforms"
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/integrating-ml-models/
 ---
 
 # Integrating ML models

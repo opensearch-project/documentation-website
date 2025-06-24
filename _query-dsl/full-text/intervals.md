@@ -3,6 +3,7 @@ layout: default
 title: Intervals
 nav_order: 80
 parent: Full-text queries
+canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/full-text/intervals/
 ---
 
 # Intervals query

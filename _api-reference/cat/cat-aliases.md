@@ -7,6 +7,7 @@ redirect_from:
 
 nav_order: 1
 has_children: false
+canonical_url: https://docs.opensearch.org/docs/latest/api-reference/cat/cat-aliases/
 ---
 
 # CAT aliases

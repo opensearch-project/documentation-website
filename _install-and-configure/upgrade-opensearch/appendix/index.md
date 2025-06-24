@@ -6,6 +6,7 @@ has_children: true
 nav_order: 30
 redirect_from:
   - /upgrade-opensearch/appendix/
+canonical_url: https://docs.opensearch.org/docs/latest/install-and-configure/upgrade-opensearch/appendix/index/
 ---
 
 # Upgrades appendix

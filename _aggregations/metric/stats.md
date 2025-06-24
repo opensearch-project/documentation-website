@@ -5,6 +5,7 @@ parent: Metric aggregations
 nav_order: 110
 redirect_from:
   - /query-dsl/aggregations/metric/stats/
+canonical_url: https://docs.opensearch.org/docs/latest/aggregations/metric/stats/
 ---
 
 # Stats aggregations

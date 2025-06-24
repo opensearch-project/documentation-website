@@ -3,6 +3,7 @@ layout: default
 title: User agent
 parent: Ingest processors
 nav_order: 330
+canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/processors/user-agent/
 ---
 
 # User agent processor

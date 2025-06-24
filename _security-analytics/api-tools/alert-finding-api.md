@@ -3,6 +3,7 @@ layout: default
 title: Alerts and findings APIs
 parent: API tools
 nav_order: 50
+canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/api-tools/alert-finding-api/
 ---
 
 

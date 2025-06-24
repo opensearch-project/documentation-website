@@ -3,6 +3,7 @@ layout: default
 title: ML Commons cluster settings
 has_children: false
 nav_order: 140
+canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/cluster-settings/
 ---
 
 # ML cluster settings

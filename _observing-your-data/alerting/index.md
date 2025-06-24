@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /monitoring-plugins/alerting/
   - /monitoring-plugins/alerting/index/
+canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/alerting/index/
 ---
 
 # Alerting
