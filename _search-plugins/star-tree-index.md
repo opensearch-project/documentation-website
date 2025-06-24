@@ -9,7 +9,7 @@ nav_order: 54
 
 A _star-tree index_ is a specialized index structure designed to improve aggregation performance by precomputing and storing aggregated values at different levels of granularity. This indexing technique enables faster aggregation execution, especially for multi-field aggregations.
 
-Once you enable star-tree indexes, OpenSearch automatically builds and uses star-tree indexes to optimize aggregations if the filter fields match the defined dimensions and the aggregation fields match the defined metrics in the star-tree configuration. No changes to your query syntax or request parameters are required.
+Once you enable star-tree indexes, OpenSearch automatically builds and uses star-tree indexes to optimize supported aggregations if the filter fields match the defined dimensions and the aggregation fields match the defined metrics in the star-tree mapping configuration. No changes to your query syntax or request parameters are required.
 
 Use a star-tree index when you want to speed up aggregations:
 
@@ -19,7 +19,7 @@ Use a star-tree index when you want to speed up aggregations:
 
 ## Star-tree index structure
 
-A star-tree index organizes and aggregates data across combinations of dimension fields and precomputes metric values for those combinations during ingestion. This structure enables OpenSearch to process aggregation queries quickly without scanning every document.
+A star-tree index organizes and aggregates data across combinations of dimension fields and precomputes metric values for all the dimension combinations every time a segment is flushed/refreshed during ingestion. This structure enables OpenSearch to process aggregation queries quickly without scanning every document.
 
 The following is an example star-tree configuration:
 
@@ -223,9 +223,6 @@ Queries without aggregations cannot use star-tree optimization. The query's fiel
 - [Match all docs query]({{site.url}}{{site.baseurl}}/query-dsl/match-all/)
 - [Range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)
 - [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/)
-
-Queries on `date` fields are not supported.
-{: .note}
 
 #### Boolean query restrictions
 
@@ -492,6 +489,10 @@ POST /sales/_search
 #### Nested aggregations
 
 You can combine multiple supported bucket aggregations (such as `terms` and `range`) in a nested structure, and the star-tree index will optimize these nested aggregations. For more information about nested aggregations, see [Nested aggregations]({{site.url}}{{site.baseurl}}/aggregations/#nested-aggregations).
+
+## Disable search using a star-tree index
+
+By default, both the cluster setting `indices.composite_index.star_tree.enabled` and index setting `index.search.star_tree_index.enabled` are set to `true`. In case a user wants to disable search using star-tree, they can set these cluster or index settings as `false`. Please note that the index settings will take a precedence over cluster settings. 
 
 ## Next steps
 
