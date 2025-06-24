@@ -928,7 +928,7 @@ POST _plugins/_forecast/forecasters/AG_3t4kBkYqqimCe86bP/results/_topForecasts
 
 ### Example request: Built-in query with threshold
 
-The following request returns entities whose forecast values fall farthest below a user-defined threshold:
+The following request returns entities whose forecast values fall under a user-defined threshold:
 
 ```json
 POST _plugins/_forecast/AG_3t4kBkYqqimCe86bP/results/_topForecasts
