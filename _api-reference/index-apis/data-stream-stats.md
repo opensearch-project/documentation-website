@@ -7,7 +7,7 @@ nav_order: 74
 
 # Data stream stats
 
-The Data Stream Stats API provides statistics about one or more data streams. This includes information such as the number of backing indices, store size, and maximum timestamp. This API is useful for monitoring storage and indexing activity across data streams.
+The Data Stream Stats API provides statistics about one or more data streams. This includes information such as the number of backing indexes, store size, and maximum timestamp. This API is useful for monitoring storage and indexing activity across data streams.
 
 <!-- spec_insert_start
 api: indices.data_streams_stats
@@ -78,7 +78,7 @@ PUT /_data_stream/logs-app
 ```
 {% include copy-curl.html %}
 
-Index a document to generate backing indices:
+Index a document to generate backing indexes:
 
 ```json
 POST /logs-app/_doc
@@ -131,12 +131,12 @@ The response contains storage and shard statistics for each data stream in the c
 | `_shards.successful`| Integer | The number of successful shard fetches. |
 | `_shards.failed`| Integer | The number of failed shard fetches. |
 | `data_stream_count` | Integer | The total number of data streams returned in the response.|
-| `backing_indices` | Integer | The total number of backing indices across all data streams.|
+| `backing_indices` | Integer | The total number of backing indexes across all data streams.|
 | `total_store_size`| String| A human-readable total size of all data stream storage. Present only if `human=true`. |
 | `total_store_size_bytes`| Integer | The total storage used by all data streams, in bytes. |
 | `data_streams`| Array | A list of objects, one for each data stream.|
 | `data_streams[n].data_stream` | String| The name of the data stream.|
-| `data_streams[n].backing_indices` | Integer | The number of backing indices for the data stream.|
+| `data_streams[n].backing_indices` | Integer | The number of backing indexes for the data stream.|
 | `data_streams[n].store_size`| String| Human-readable storage used by the data stream. Present only if `human=true`. |
 | `data_streams[n].store_size_bytes`| Integer | The total storage used by the data stream, in bytes.|
-| `data_streams[n].maximum_timestamp` | Long| The maximum timestamp across all documents in the data stream (epoch millis). |
+| `data_streams[n].maximum_timestamp` | Long| The maximum timestamp across all documents in the data stream. |
