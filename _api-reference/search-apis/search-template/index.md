@@ -2,6 +2,7 @@
 layout: default
 title: Search templates
 parent: Search APIs
+has_children: true
 nav_order: 90
 redirect_from:
   - /opensearch/search-template/
@@ -43,13 +44,14 @@ GET _search/template
   }
 }
 ```
+{% include copy-curl.html %}
 
-This template runs the search on your entire cluster.
-To run this search on a specific index, add the index name to the request:
+This template runs the search on your entire cluster. To run this search on a specific index, add the index name to the request:
 
 ```json
 GET shakespeare/_search/template
 ```
+{% include copy-curl.html %}
 
 Specify the `from` and `size` parameters:
 
@@ -72,14 +74,16 @@ GET _search/template
   }
 }
 ```
+{% include copy-curl.html %}
 
 To improve the search experience, you can define defaults so the user doesn’t have to specify every possible parameter. If the parameter is not defined in the `params` section, OpenSearch uses the default value.
 
 The syntax for defining the default value for a variable `var` is as follows:
 
-```json
+```
 {% raw %}{{var}}{{^var}}default value{{/var}}{% endraw %}
 ```
+{% include copy.html %}
 
 This command sets the defaults for `from` as 10 and `size` as 10:
 
@@ -100,6 +104,7 @@ GET _search/template
   }
 }
 ```
+{% include copy-curl.html %}
 
 
 ## Save and execute search templates
@@ -118,7 +123,7 @@ POST _scripts/play_search_template
       "size": "{% raw %}{{size}}{{^size}}10{{/size}}{% endraw %}",
       "query": {
         "match": {
-          "play_name": "{{play_name}}"
+          "play_name": "{% raw %}{{play_name}}{% endraw %}"
         }
       }
     },
@@ -129,8 +134,7 @@ POST _scripts/play_search_template
 }
 ```
 
-Now you can reuse the template by referring to its `id` parameter.
-You can reuse this source template for different input values.
+Now you can reuse the template by referring to its `id` parameter. You can reuse this source template for different input values:
 
 ```json
 GET _search/template
@@ -143,7 +147,9 @@ GET _search/template
   }
 }
 ```
-#### Sample output
+{% include copy-curl.html %}
+
+## Example response
 
 ```json
 {
@@ -193,31 +199,9 @@ POST _render/template
   }
 }
 ```
+{% include copy-curl.html %}
 
-#### Sample output
-
-```json
-{
-  "template_output": {
-    "from": "0",
-    "size": "10",
-    "query": {
-      "match": {
-        "play_name": "Henry IV"
-      }
-    }
-  }
-}
-```
-
-The following render operations are supported:
-
-```json
-GET /_render/template
-POST /_render/template
-GET /_render/template/<id>
-POST /_render/template/<id>
-```
+For more information, see [Render Template API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/render-template/)
 
 ## Advanced parameter conversion with search templates
 
@@ -231,6 +215,7 @@ Use the section tag in Mustache to represent conditions:
 ```json
 {% raw %}{{#var}}var{{/var}}{% endraw %}
 ```
+{% include copy.html %}
 
 When `var` is a Boolean value, this syntax acts as an `if` condition. The `{% raw %}{{#var}}{% endraw %}` and `{% raw %}{{/var}}{% endraw %}` tags insert the values placed between them only if `var` evaluates to `true`.
 
@@ -250,9 +235,9 @@ GET _search/template
   }
 }
 ```
+{% include copy-curl.html %}
 
-You can also design an `if-else` condition.
-This command sets `size` to `2` if `limit` is `true`. Otherwise, it sets `size` to `10`.
+You can also design an `if-else` condition. This command sets `size` to `2` if `limit` is `true`. Otherwise, it sets `size` to `10`:
 
 ```json
 GET _search/template
@@ -264,14 +249,16 @@ GET _search/template
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Loops
 
-You can also use the section tag to implement a for each loop:
+You can also use the section tag to implement a for-each loop:
 
 ```
 {% raw %}{{#var}}{{.}}{{/var}}{% endraw %}
 ```
+{% include copy.html %}
 
 When `var` is an array, the search template iterates through it and creates a `terms` query.
 
@@ -287,6 +274,7 @@ GET _search/template
   }
 }
 ```
+{% include copy-curl.html %}
 
 This template is rendered as:
 
@@ -328,6 +316,7 @@ GET _search/template
   }
 }
 ```
+{% include copy-curl.html %}
 
 Renders as:
 
@@ -360,6 +349,7 @@ GET _search/template
   }
 }
 ```
+{% include copy-curl.html %}
 
 Renders as:
 
@@ -406,6 +396,8 @@ GET _msearch/template
 {"id":"play_search_template","params":{"play_name":"Henry IV"}}
 ```
 
+For more information, see [Multi-search Template API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/msearch-template/).
+
 ## Manage search templates
 
 To list all scripts, run the following command:
@@ -413,15 +405,18 @@ To list all scripts, run the following command:
 ```json
 GET _cluster/state/metadata?pretty&filter_path=**.stored_scripts
 ```
+{% include copy-curl.html %}
 
 To retrieve a specific search template, run the following command:
 
 ```json
 GET _scripts/<name_of_search_template>
 ```
+{% include copy-curl.html %}
 
 To delete a search template, run the following command:
 
 ```json
 DELETE _scripts/<name_of_search_template>
 ```
+{% include copy-curl.html %}

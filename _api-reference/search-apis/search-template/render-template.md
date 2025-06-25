@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Render template
-parent: Search APIs
-nav_order: 82
+parent: Search templates
+grand_parent: Search APIs
+nav_order: 10
 redirect_from:
   - /api-reference/render-template/
+  - /api-reference/search-apis/render-template/
 ---
 
 # Render template 
@@ -22,17 +24,17 @@ POST /_render/template/<id>
 
 ## Path parameters
 
-The Render Template API supports the following optional path parameter. 
+The following table lists the available path parameters. All path parameters are optional.
 
-| Parameter | Type | Description |
+| Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `id` | String | The ID of the search template to render. |
 
 ## Request body fields
 
-The following options are supported in the request body of the Render Template API.
+The following table lists the available request body fields.
 
-| Parameter | Required | Type | Description | 
+| Parameter | Required | Data type | Description | 
 | :--- | :--- | :--- | :--- |
 | `id` | Conditional | String | The ID of the search template to render. Is not required if the ID is provided in the path or if an inline template is specified by the `source`. | 
 | `params` | No | Object | A list of key-value pairs that replace Mustache variables found in the search template. The key-value pairs must exist in the documents being searched. |
@@ -56,6 +58,7 @@ Both of the following request examples use the search template with the template
   }
 }
 ```
+{% include copy.html %}
 
 ### Render template using template ID
 
@@ -70,13 +73,13 @@ POST _render/template
   }
 }
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 ### Render template using `_source`
 
 If you don't want to use a saved template, or want to test a template before saving, you can test a template with the `_source` parameter using [Mustache](https://mustache.github.io/mustache.5.html) variables, as shown in the following example:
 
-```
+```json
 {
   "source": {
      "from": "{% raw %}{{from}}{{^from}}0{{/from}}{% endraw %}",
@@ -111,7 +114,3 @@ OpenSearch responds with information about the template's output:
   }
 }
 ```
-
-
-
-
