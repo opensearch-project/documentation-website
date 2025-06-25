@@ -201,7 +201,7 @@ POST _render/template
 ```
 {% include copy-curl.html %}
 
-For more information, see [Render Template API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/render-template/)
+For more information, see [Render Template API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/render-template/).
 
 ## Advanced parameter conversion with search templates
 
