@@ -6,10 +6,10 @@ latesturl: "/docs/latest" # The subpath of the latest version. Used for non-vers
 url: "https://docs.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '3.0.0'
-opensearch_dashboards_version: '3.0.0'
-opensearch_major_minor_version: '3.0'
-lucene_version: '10_1_0'
+opensearch_version: '3.1.0'
+opensearch_dashboards_version: '3.1.0'
+opensearch_major_minor_version: '3.1'
+lucene_version: '10_2_1'
 
 # Build settings
 markdown: kramdown
