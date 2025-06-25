@@ -10,9 +10,6 @@ nav_order: 10
 **Introduced 3.0**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
-{: .warning}
-
 OpenSearch supports agentic workflows using [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). While OpenSearch provides built-in tools for running complex queries, [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) enables integration with external tools and data sources. MCP is an open protocol standard that provides a standardized way for AI models to connect to external data sources and tools, acting as a "universal adapter" for remote MCP server tools.
 
 Currently, OpenSearch only supports MCP servers that use the Server-Sent Events (SSE) protocol. Standard Input/Output (`stdio`) protocol is not supported.
@@ -63,6 +60,9 @@ POST /_plugins/_ml/connectors/_create
   "credential": {
     "mcp_server_key": "THE_MCP_SERVER_API_KEY"
   },
+  "parameters":{
+    "sse_endpoint": "/sse" 
+  },
   "headers": {
     "Authorization": "Bearer ${credential.mcp_server_key}"
   }
@@ -77,6 +77,8 @@ The following table describes the connector parameters. For more information abo
 | `protocol` | String | Yes | Specify `mcp_sse` to use the SSE protocol (the only supported protocol type for MCP).  |
 | `url` | String | Yes | The complete base URL of the MCP server, including protocol, hostname, and port, if not using the default port (for example, `https://my-mcp-server.com:8443`). |
 | `credential` | Object | Yes | Contains sensitive authentication information such as API keys or tokens. Values stored in this object can be securely referenced in the `headers` section using the `${credential.*}` syntax. |
+| `parameters` | Object | No | Contains configuration parameters for the MCP connector. |
+| `parameters.sse_endpoint` | String | No | The SSE endpoint path for the MCP server. Default is `/sse`. |
 | `headers` | Object | No | The HTTP headers to include with requests to the MCP server. For authentication headers, use the `${credential.*}` syntax to reference values from the `credential` object (for example, `"Authorization": "Bearer ${credential.mcp_server_key}"`).  |
 
 The response contains the connector ID:
