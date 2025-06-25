@@ -22,7 +22,7 @@ Use these operations to programmatically create and manage forecasters that gene
 **Introduced 3.1**
 {: .label .label-purple }
 
-Creates a forecaster for generating time-series forecasts. A forecaster can be either single-stream (without a category field) or high-cardinality (HC) (with one or more category fields).
+Creates a forecaster for generating time-series forecasts. A forecaster can be either single-stream (without a category field) or high-cardinality (with one or more category fields).
 
 When creating a forecaster, you define the source indexes, the forecast interval and horizon, the feature to forecast, and optional parameters such as category fields and a custom result index.
 
@@ -35,7 +35,7 @@ POST _plugins/_forecast/forecasters
 
 ### Request body fields
 
-This API supports the following request body fields:
+This API supports the following request body fields.
 
 | Field                         | Data type           | Required | Description                                                                                                                                  |
 | :---------------------------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -43,7 +43,7 @@ This API supports the following request body fields:
 | `description`                 | String              | Optional | A free-form description of the forecaster.                                                                                                   |
 | `time_field`                  | String              | Required | The timestamp field for the source documents.                                                                                                |
 | `indices`                     | String or string\[] | Required | One or more source indexes or index aliases.                                                                                                 |
-| `feature_attributes`          | Array of objects    | Required | The feature to forecast. Only one feature is supported. Each object must include `feature_name` and an `aggregation_query`.                  |
+| `feature_attributes`          | Array of objects    | Required | The feature to forecast. Only one feature is supported. Each object must include the `feature_name` and an `aggregation_query`.                  |
 | `forecast_interval`           | Object              | Required | The interval over which forecasts are generated.                                                                                             |
 | `horizon`                     | Integer             | Optional | The number of future intervals to forecast.                                                                                                  |
 | `window_delay`                | Object              | Optional | A delay added to account for ingestion latency.                                                                                              |
@@ -52,16 +52,16 @@ This API supports the following request body fields:
 | `suggested_seasonality`       | Integer             | Optional | The seasonal pattern length in intervals. Expected range: 8–256.                                                                             |
 | `recency_emphasis`            | Integer             | Optional | Controls how much recent data affects the forecast. Defaults to `2560`.                                                                      |
 | `history`                     | Integer             | Optional | The number of past intervals used for model training.                                                                                        |
-| `result_index_min_size`       | Integer             | Optional | Minimum primary shard size (in MB) to trigger index rollover.                                                                                |
-| `result_index_min_age`        | Integer             | Optional | Minimum index age (in days) to trigger rollover.                                                                                             |
-| `result_index_ttl`            | Integer             | Optional | Minimum age (in days) before rolled-over indexes are deleted.                                                                                |
+| `result_index_min_size`       | Integer             | Optional | The minimum primary shard size (in MB) required to trigger index rollover.                                                                                |
+| `result_index_min_age`        | Integer             | Optional | The minimum index age (in days) required to trigger index rollover.                                                                                             |
+| `result_index_ttl`            | Integer             | Optional | The minimum amount of time (in days) before rolled-over indexes are deleted.                                                                                |
 | `flatten_custom_result_index` | Boolean             | Optional | If `true`, flattens nested fields in the custom result index for easier aggregation.                                                         |
 | `shingle_size`                | Integer             | Optional | The number of past intervals used to influence the forecast. Defaults to `8`. Recommended range: 4–128.                                      |
 
 
 ### Example request: Single-stream forecaster
 
-The following example creates a single-stream forecaster for the `network-requests` index. The forecaster predicts the maximum value of the `deny` field every three minutes, using the previous three hundred intervals for training. The `window_delay` setting accounts for ingest latency by delaying the forecast window by three minutes:
+The following example creates a single-stream forecaster for the `network-requests` index. The forecaster predicts the maximum value of the `deny` field every 3 minutes, using the previous 300 intervals for training. The `window_delay` setting accounts for ingest latency by delaying the forecast window by 3 minutes:
 
 
 ```json
@@ -121,7 +121,7 @@ POST _plugins/_forecast/forecasters
 
 ### Example request: High-cardinality forecaster
 
-This example creates a high-cardinality forecaster that groups forecasts by the `host_nest.host2` field. Like the single-stream example, it forecasts the maximum value of the `deny` field at three-minute intervals using historical data. This setup enables entity-specific forecasting across different hosts.
+The following example creates a high-cardinality forecaster that groups forecasts by the `host_nest.host2` field. Like the single-stream example, it forecasts the maximum value of the `deny` field at 3-minute intervals using historical data. This setup enables entity-specific forecasting across different hosts:
 
 ```json
 POST _plugins/_forecast/forecasters
@@ -191,12 +191,12 @@ POST _plugins/_forecast/forecasters
 Use this API to verify that a forecaster configuration is valid. You can perform two types of validation:
 
 - **Configuration-only validation**: Checks that the configuration is syntactically correct and references existing fields.
-- **Training-feasibility validation**: Performs a deeper validation to ensure the forecaster can be trained with the specified configuration.
+- **Training-feasibility validation**: Performs a comprehensive validation to ensure that the forecaster can be trained with the specified configuration.
 
 
 ### Endpoints
 
-The following endpoints are available for validating forecasters:
+The following endpoints are available for validating forecasters.
 
 **Configuration-only validation**:
 
@@ -214,7 +214,7 @@ POST _plugins/_forecast/forecasters/_validate/model
 
 The request body is identical to the Create forecaster request body. It must include at least the required fields: `name`, `time_field`, `indices`, `feature_attributes`, and `forecast_interval`.
 
-If the configuration is valid, the response is an empty object (`{}`). If the configuration is invalid, the response includes detailed error messages.
+If the configuration is valid, the response returns an empty object (`{}`). If the configuration is invalid, the response includes detailed error messages.
 
 
 ### Example request: Missing `forecast_interval`
@@ -274,10 +274,10 @@ Returns appropriate values for one or more forecaster parameters (`forecast_inte
 POST _plugins/_forecast/forecasters/_suggest/<comma‑separated-types>
 ```
 
-`types` must be one or more of `forecast_interval`, `horizon`, `history`, `window_delay`.
+`types` must be one or more of `forecast_interval`, `horizon`, `history`, or `window_delay`.
 
 
-### Example request: Suggest interval
+### Example request: Suggest an interval
 
 The following request analyzes the source data and suggests an appropriate `forecast_interval` value for the forecaster based on the average event frequency:
 
@@ -309,7 +309,7 @@ POST _plugins/_forecast/forecasters/_suggest/forecast_interval
 **Introduced 3.1**
 {: .label .label-purple }
 
-Retrieves a forecaster and (optionally) its latest tasks.
+Retrieves a forecaster and (optionally) its most recent tasks.
 
 ### Endpoints
 
@@ -319,7 +319,7 @@ GET _plugins/_forecast/forecasters/<forecaster_id>[?task=(true|false)]
 
 ### Example request: Include tasks
 
-The following request returns metadata about the forecaster, and if specified, details about its associated tasks:
+The following request returns metadata about the forecaster and, if specified, details about its associated tasks:
 
 ```json
 GET _plugins/_forecast/forecasters/d7-r1YkB_Z-sgDOKo3Z5?task=true
@@ -337,7 +337,7 @@ The response includes the `forecaster`, `realtime_task`, and `run_once_task` sec
 
 Updates the configuration of an existing forecaster. You must stop any active forecasting jobs before making updates. 
 
-Any change that affects the model, such as modifying the `category_field`, `result_index`, or `feature_attributes`, invalidates previous results shown in the Dashboards UI.
+Any change that affects the model, such as modifying the `category_field`, `result_index`, or `feature_attributes`, invalidates previous results shown in the OpenSearch Dashboards UI.
 
 ### Endpoints
 
@@ -346,7 +346,7 @@ PUT _plugins/_forecast/forecasters/<forecaster_id>
 ```
 
 
-### Example request: Update name, result index, and category fields
+### Example request: Update the name, result index, and category fields
 
 The following displays the definition of forecaster `forecaster-i1nwqooBLXq6T-gGbXI-`:
 
@@ -497,7 +497,7 @@ Begins real-time forecasting for a forecaster.
 POST _plugins/_forecast/forecasters/<forecaster_id>/_start
 ```
 
-### Example request: Start job for a forecaster
+### Example request: Start a forecaster job
 
 The following request initiates real-time forecasting for the specified forecaster:
 
@@ -526,7 +526,7 @@ Stops real-time forecasting for a forecaster.
 POST _plugins/_forecast/forecasters/<forecaster_id>/_stop
 ```
 
-### Example request: Stop job for a forecaster
+### Example request: Stop a forecaster job
 
 The following request stops the real-time forecasting job for the specified forecaster:
 
@@ -543,14 +543,14 @@ POST _plugins/_forecast/forecasters/4WnXAYoBU2pVBal92lXD/_stop
 **Introduced 3.1**
 {: .label .label-purple }
 
-Runs back-testing (historical) forecasting. You cannot run it while a real-time job is active.
+Runs backtesting (historical) forecasting. It cannot run while a real-time job is active.
 
 ### Endpoint
 ```http
 POST _plugins/_forecast/forecasters/<forecaster_id>/_run_once
 ```
 
-### Example request: Run back-testing forecast
+### Example request: Run a backtesting forecast
 
 The following request starts a run-once forecast analysis for the specified forecaster:
 
@@ -598,7 +598,7 @@ GET opensearch-forecast-results*/_search?pretty
 ```
 {% include copy-curl.html %}
 
-This query returns the most recent ten forecast results matching the specified task ID.
+This query returns the 10 most recent forecast results matching the specified task ID.
 
 
 ---
@@ -608,7 +608,7 @@ This query returns the most recent ten forecast results matching the specified t
 **Introduced 3.1**  
 {: .label .label-purple }
 
-Provides standard `_search` functionality on the `.opensearch-forecasters` system index, which stores forecaster configurations. You must use this API to query `.opensearch-forecasters` directly, as the index is a system index and cannot be accessed through regular OpenSearch queries.
+Provides standard `_search` functionality on the `.opensearch-forecasters` system index, which stores forecaster configurations. You must use this API to query `.opensearch-forecasters` directly because the index is a system index and cannot be accessed through regular OpenSearch queries.
 
 ### Endpoint
 
@@ -724,7 +724,7 @@ GET _plugins/_forecast/forecasters/tasks/_search
 
 ### Example request: Search previous run-once tasks
 
-The following request retrieves previous run-once tasks (excluding the latest) for a specific forecaster and sorts them by `execution_start_time` in descending order:
+The following request retrieves previous run-once tasks (excluding the most recent) for a specific forecaster and sorts them by `execution_start_time` in descending order:
 
 ```json
 GET _plugins/_forecast/forecasters/tasks/_search
@@ -846,18 +846,18 @@ POST _plugins/_forecast/forecasters/<forecaster_id>/results/_topForecasts
 
 ### Query parameters
 
-The following query parameters are supported:
+The following query parameters are supported.
 
 | Name                    | Type        | Required | Description |
 | :--- | :--- | :--- | :--- |
 | `split_by` | String | Required | The field to group by (such as `service`). |
 | `forecast_from` | Epoch‑ms | Required | The `data_end_time` of the first forecast in the evaluation window. |
-| `size` | Integer | Optional | The number of buckets to return. Defaults to 5. |
+| `size` | Integer | Optional | The number of buckets to return. Defaults is `5`. |
 | `filter_by` | Enum | Required | Specifies whether to use a built-in or custom query. Must be either `BUILD_IN_QUERY` or `CUSTOM_QUERY`. |
-| `build_in_query` | Enum | Optional | One of the following built-in ranking criteria:<br> `MIN_CONFIDENCE_INTERVAL_WIDTH`- Sorts by the narrowest forecast confidence intervals (most precise).<br> `MAX_CONFIDENCE_INTERVAL_WIDTH` - Sorts by the widest forecast confidence intervals (least precise).<br> `MIN_VALUE_WITHIN_THE_HORIZON` - Sorts by the lowest forecast value observed within the prediction window.<br> `MAX_VALUE_WITHIN_THE_HORIZON`- Sorts by the highest forecast value observed within the prediction window.<br> `DISTANCE_TO_THRESHOLD_VALUE` -Sorts by the difference between the forecast value and a user-defined threshold. |
+| `build_in_query` | Enum | Optional | One of the following built-in ranking criteria is required:<br> `MIN_CONFIDENCE_INTERVAL_WIDTH` -- Sorts by the narrowest forecast confidence intervals (most precise).<br> `MAX_CONFIDENCE_INTERVAL_WIDTH` -- Sorts by the widest forecast confidence intervals (least precise).<br> `MIN_VALUE_WITHIN_THE_HORIZON` -- Sorts by the lowest forecast value observed within the prediction window.<br> `MAX_VALUE_WITHIN_THE_HORIZON` -- Sorts by the highest forecast value observed within the prediction window.<br> `DISTANCE_TO_THRESHOLD_VALUE` -- Sorts by the difference between the forecast value and a user-defined threshold. |
 | `threshold`, `relation_to_threshold` | Mixed | Conditional | Required only if `build_in_query` is `DISTANCE_TO_THRESHOLD_VALUE`. |
 | `filter_query` | Query DSL | Optional | A custom query used when `filter_by=CUSTOM_QUERY`. |
-| `subaggregations` | Array | Optional | A list of nested aggregations and sort options to compute additional metrics within each bucket. |
+| `subaggregations` | Array | Optional | A list of nested aggregations and sort options used to compute additional metrics within each bucket. |
 
 ### Example request: Built-in query for narrow confidence intervals
 
@@ -890,7 +890,7 @@ POST _plugins/_forecast/forecasters/AG_3t4kBkYqqimCe86bP/results/_topForecasts
 }
 ```
 
-### Example request: Built-in query with narrowest confidence interval
+### Example request: Built-in query with the narrowest confidence interval
 
 The following request returns a sorted list of entities whose forecast values have the narrowest confidence intervals. The results are ranked in ascending order based on the `MIN_CONFIDENCE_INTERVAL_WIDTH` metric:
 
@@ -956,7 +956,7 @@ POST _plugins/_forecast/forecasters/AG_3t4kBkYqqimCe86bP/results/_topForecasts
 
 ### Example request: Built-in query with distance under a threshold
 
-The following request returns the top entities whose forecast values fall farthest under a specified threshold, based on the `DISTANCE_TO_THRESHOLD_VALUE` metric:
+The following request returns the top entities whose forecast values fall farthest from a specified threshold, based on the `DISTANCE_TO_THRESHOLD_VALUE` metric:
 
 ```http
 POST _plugins/_forecast/AG_3t4kBkYqqimCe86bP/results/_topForecasts
@@ -975,7 +975,7 @@ POST _plugins/_forecast/AG_3t4kBkYqqimCe86bP/results/_topForecasts
 The `DISTANCE_TO_THRESHOLD_VALUE` metric calculates `forecast_value – threshold`. Because `relation_to_threshold` is `LESS_THAN`, the API returns negative distances only and sorts them in ascending order (most negative first). Each bucket includes the following values:
 
 - `doc_count`: The number of forecast points that matched.
-- `DISTANCE_TO_THRESHOLD_VALUE`: The worst (most negative) distance within the forecast horizon.
+- `DISTANCE_TO_THRESHOLD_VALUE`: The largest distance within the forecast horizon from the threshold value.
 
 ```json
 {
@@ -1056,7 +1056,7 @@ POST _plugins/_forecast/AG_3t4kBkYqqimCe86bP/results/_topForecasts
 **Introduced 3.1**  
 {: .label .label-purple }
 
-Returns execution-time state such as initialization progress, per-entity model metadata, and errors. This API is useful for inspecting forecaster internals during runtime.
+Returns execution-time state such as initialization progress, per-entity model metadata, and errors. This API is useful for inspecting forecaster intervals during runtime.
 
 ### Endpoints
 
@@ -1080,7 +1080,7 @@ The following profile types are supported:
 
 If you include an `entity` array in the request body, the profile is scoped to that entity only.
 
-### Example request: Default profile with entity filter
+### Example request: Default profile with an entity filter
 
 The following request returns the default profile types (`state` and `error`) for the specified entity:
 
@@ -1144,7 +1144,7 @@ GET _plugins/_forecast/<node_id>/stats
 GET _plugins/_forecast/stats/<stat_name>
 ```
 
-### Example request: Retrieve all stats
+### Example request: Retrieve all statistics
 
 The following request retrieves cluster-level statistics for all forecasters, including counts, model information, and index status:
 
@@ -1198,7 +1198,7 @@ GET _plugins/_forecast/8B2S4ClnRFK3GTjO45bwrw/stats
 ```
 {% include copy-curl.html %}
 
-### Example request: Retrieve the total count of high-cardinality requests
+### Example request: Retrieve the total number of high-cardinality requests
 
 The following request retrieves the total number of high-cardinality forecaster requests across all nodes:
 
@@ -1207,7 +1207,7 @@ GET _plugins/_forecast/stats/forecast_hc_execute_request_count
 ```
 {% include copy-curl.html %}
 
-### Example request: Retrieve high-cardinality request count for a specific node
+### Example request: Retrieve the high-cardinality request count for a specific node
 
 The following request retrieves the number of high-cardinality forecaster requests executed by a specific node:
 

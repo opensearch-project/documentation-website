@@ -28,7 +28,7 @@ To get started, go to **OpenSearch Dashboards** > **OpenSearch Plugins** > **Ano
 A _detector_ is an individual anomaly detection task. You can define multiple detectors, and all detectors can run simultaneously, with each analyzing data from different sources. You can define a detector by following these steps:
 
 1. On the **Anomaly detection** page, select the **Create detector** button.
-2. On the **Define detector** page, add the detector details. Enter a name and a brief description. The name must be unique and descriptive enough to help you identify the detector’s purpose.
+2. On the **Define detector** page, add the detector details. Enter a name and a brief description. The name must be unique and descriptive enough to help you identify the detector's purpose.
 
 3. In the **Select data** pane, specify the data source by choosing one or more sources from the **Index** dropdown menu. You can select indexes, index patterns, or aliases.
 
@@ -36,7 +36,7 @@ A _detector_ is an individual anomaly detection task. You can define multiple de
 
    - To create a cross-cluster detector in OpenSearch Dashboards, you must have the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/): `indices:data/read/field_caps`, `indices:admin/resolve/index`, and `cluster:monitor/remote/info`.
 
-4. (Optional) Filter the data source by selecting **Add data filter**, then specifying the conditions for **Field**, **Operator**, and **Value**. Alternatively, select **Use query DSL** and enter your filter as a JSON-formatted [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/). Only Boolean queries are supported for query domain-specific language (DSL).
+4. (Optional) Filter the data source by selecting **Add data filter** and then specifying the conditions for **Field**, **Operator**, and **Value**. Alternatively, select **Use query DSL** and enter your filter as a JSON-formatted [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/). Only Boolean queries are supported for query domain-specific language (DSL).
 
 
 
