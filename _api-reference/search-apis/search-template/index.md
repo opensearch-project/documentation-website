@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/search-template/
   - /search-plugins/search-template/
   - /api-reference/search-template/
+  - /api-reference/search-apis/search-template/
 ---
 
 # Search templates
