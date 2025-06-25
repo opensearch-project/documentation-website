@@ -20,7 +20,7 @@ You can configure the processor using the following configuration options.
 Field  | Type    | Required | Description                                                                 
 :--- | :------- | :--- | :---
 `function_name`      | String  | Required | The name of the AWS Lambda function to invoke.                               
-`invocation_type`    | String  | Required | Specifies the invocation type, either `request-response` or `event`. Default is `request-response`.           
+`invocation_type`    | String  | Required | Specifies the [invocation type](#invocation-type), either `request-response` or `event`. Default is `request-response`.           
 `aws.region`         | String  | Required | The AWS Region in which the Lambda function is located.                         
 `aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function.               
 `max_retries`        | Integer | Optional | The maximum number of retries for failed invocations. Default is `3`.             
@@ -32,7 +32,7 @@ Field  | Type    | Required | Description
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
 
 The `invocation_type` field is not supported in Amazon OpenSearch Ingestion pipelines using the `aws_lambda` processor. Including this field will result in a validation error.
-{: .note}
+{: .warning}
 
 
 ## Usage
@@ -46,17 +46,11 @@ processors:
      batch:
        threshold:
          event_collect_timeout: 30s
-         event_count: 10
+         maximum_size: "5mb"
      aws:
         region: "us-east-1"
         sts_role_arn: "arn:aws:iam::123456789012:role/my-lambda-role"
       max_retries: 3
-      batch:
-        key_name: "events"
-        threshold:
-          event_count: 100
-          maximum_size: "5mb"
-          event_collect_timeout: PT10S
       lambda_when: "event['status'] == 'process'"
 ```
 {% include copy-curl.html %}
@@ -67,9 +61,6 @@ The processor supports the following invocation types:
 
 - `request-response`: The processor waits for Lambda function completion before proceeding.
 - `event`: The function is triggered asynchronously without waiting for a response.
-- `batch`: When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Batch thresholds control the event count, size limit, and timeout.
-- `codec`: JSON is used for both request and response codecs. Lambda must return JSON array outputs.
-- `tags_on_match_failure`: Custom tags can be applied to events when Lambda processing fails or encounters unexpected issues.
 
 ## Behavior
 
