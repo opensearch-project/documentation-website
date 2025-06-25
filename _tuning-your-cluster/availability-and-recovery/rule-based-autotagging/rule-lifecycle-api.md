@@ -29,8 +29,8 @@ POST /_rules/{feature_type}
 Use the following endpoint to modify an existing rule by specifying both the feature type and rule ID in the path parameters:
 
 ```json
-PUT /_rules/{feature_type}/{_id}
-POST /_rules/{feature_type}/{_id}
+PUT /_rules/{feature_type}/{id}
+POST /_rules/{feature_type}/{id}
 ```
 
 ### Get a rule
@@ -38,7 +38,7 @@ POST /_rules/{feature_type}/{_id}
 Use the following endpoint to retrieve either a specific rule by ID or list all rules for a feature type:
 
 ```json
-GET /_rules/{feature_type}/{_id}
+GET /_rules/{feature_type}/{id}
 GET /_rules/{feature_type}
 ```
 
@@ -47,17 +47,17 @@ GET /_rules/{feature_type}
 Use the following endpoint to remove a rule by specifying both the feature type and rule ID:
 
 ```json
-DELETE /_rules/{feature_type}/{_id}
+DELETE /_rules/{feature_type}/{id}
 ```
 
 ## Path parameters
 
 The following table lists the available path parameters.
 
-| Parameter | Data type | Description  |
-| :--- | :--- | :--- |
+| Parameter      | Data type | Description  |
+|:---------------| :--- | :--- |
 | `feature_type` | String    | The category of the rule that defines the type of feature, such as `workload_group`. |
-| `_id`          | String    | The unique identifier for the rule. Required for `UPDATE`, `GET`, and `DELETE` operations. |
+| `id`           | String    | The unique identifier for the rule. Required for `UPDATE`, `GET`, and `DELETE` operations. |
 
 ## Query parameters
 
@@ -119,7 +119,7 @@ You can't change the `feature_type`. Fields that are not updated can be omitted.
 The following request retrieves a rule by ID:
 
 ```json
-GET /_rules/{feature_type}/{_id}
+GET /_rules/{feature_type}/{id}
 ```
 {% include copy-curl.html %}
 
@@ -157,7 +157,7 @@ The following example continues the search for all rules of the `workload_group`
 
 ```json
 {
-  "_id": "wi6VApYBoX5wstmtU_8l",
+  "id": "wi6VApYBoX5wstmtU_8l",
   "description": "description for rule",
   "index_pattern": ["log*", "event*"],
   "workload_group": "EITBzjFkQ6CA-semNWGtRQ",
@@ -178,7 +178,7 @@ The following example continues the search for all rules of the `workload_group`
 {
   "rules": [
     {
-      "_id": "z1MJApUB0zgMcDmz-UQq",
+      "id": "z1MJApUB0zgMcDmz-UQq",
       "description": "Rule for tagging workload_group_id to index123",
       "index_pattern": ["index123"],
       "workload_group": "workload_group_id",
@@ -198,11 +198,11 @@ To retrieve the next page, include the `search_after` value in the next `GET` re
 
 ## Response body fields
 
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `_id` | String | The unique identifier for the rule. |
-| `description` | String | The explanation or purpose of the rule. |
-| `updated_at` | String | The timestamp of the most recent update to the rule in UTC format. |
+| Field             | Data type | Description |
+|:------------------| :--- | :--- |
+| `id`              | String | The unique identifier for the rule. |
+| `description`     | String | The explanation or purpose of the rule. |
+| `updated_at`      | String | The timestamp of the most recent update to the rule in UTC format. |
 | `<attribute_key>` | Array | The attribute values used to match incoming queries. |
-| `<feature_type>` | String | The value assigned to the feature type if the rule matches. |
-| `search_after` | Array | The token for paginating additional results. Present only if more results exist. |
+| `<feature_type>`  | String | The value assigned to the feature type if the rule matches. |
+| `search_after`    | Array | The token for paginating additional results. Present only if more results exist. |
