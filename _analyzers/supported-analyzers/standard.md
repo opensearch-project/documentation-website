@@ -43,7 +43,7 @@ PUT /my_standard_index
 
 The `standard` analyzer supports the following optional parameters:
 
-| Parameter | Data Type | Default | Description |
+| Parameter | Data type | Default | Description |
 |:----------|:-----|:--------|:------------|
 | `max_token_length` | Integer | `255` | Sets the maximum length of a token before it is split. |
 | `stopwords` | String or list of strings | None | A list of stopwords or a predefined stopword set like `_english_` to remove during analysis. |
