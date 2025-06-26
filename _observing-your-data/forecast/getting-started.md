@@ -321,7 +321,7 @@ To focus on a specific subset of entities, switch **Filter by** to **Custom quer
 }
 ```
 
-Next, select a sort method, such as **maximum forecast value in descending** order, and select **Update visualization**. The chart updates to show only the forecast series for `host:server_1`, ranked according to your selected criteria.
+Next, select a sort method, such as **Maximum value within the horizon**, and select **Update visualization**. The chart updates to show only the forecast series for `host:server_1`, ranked according to your selected criteria.
 
 ### Edit a forecaster
 
