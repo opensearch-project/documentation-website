@@ -10,7 +10,6 @@ nav_order: 10
 
 The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows developers to use serverless computing capabilities within their OpenSearch Data Prepper pipelines for flexible event processing and data routing.
 
-## AWS Lambda processor configuration
 
 The `aws_lambda` processor enables invocation of an AWS Lambda function within your Data Prepper pipeline in order to process events. It supports both synchronous and asynchronous invocations based on your use case.
 
@@ -18,10 +17,10 @@ The `aws_lambda` processor enables invocation of an AWS Lambda function within y
 
 You can configure the processor using the following configuration options.
 
-Field                | Type    | Required | Description                                                                 
--------------------- | ------- | -------- | ---------------------------------------------------------------------------- 
+Field  | Type    | Required | Description                                                                 
+:--- | :------- | :--- | :---
 `function_name`      | String  | Required | The name of the AWS Lambda function to invoke.                               
-`invocation_type`    | String  | Required | Specifies the invocation type, either `request-response` or `event`. Default is `request-response`.           
+`invocation_type`    | String  | Required | Specifies the [invocation type](#invocation-type), either `request-response` or `event`. Default is `request-response`.           
 `aws.region`         | String  | Required | The AWS Region in which the Lambda function is located.                         
 `aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function.               
 `max_retries`        | Integer | Optional | The maximum number of retries for failed invocations. Default is `3`.             
@@ -29,41 +28,39 @@ Field                | Type    | Required | Description
 `lambda_when`        | String  | Optional | A conditional expression that determines when to invoke the Lambda processor.     
 `response_codec`     | Object  | Optional |  A codec configuration for parsing Lambda responses. Default is `json`.
 `tags_on_match_failure` | List | Optional |  A list of tags to add to events when Lambda matching fails or encounters an unexpected error.
-`sdk_timeout`        | Duration| Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
+`connection_timeout`        | Duration | Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
 
-#### Example configuration
+The `invocation_type` field is not supported in Amazon OpenSearch Ingestion pipelines using the `aws_lambda` processor. Including this field will result in a validation error.
+{: .warning}
+
+
+## Usage
+
+This example configures the `aws_lambda` processor to invoke a Lambda function with advanced batching, conditional invocation, retry logic, and cross-region AWS credentials:
 
 ```
 processors:
   - aws_lambda:
-      function_name: "my-lambda-function"
-      invocation_type: "request-response"
-      response_events_match: false
-      aws:
+     function_name: "arn:aws:lambda:us-west-2:123456789012:function:my-processing-function"
+     batch:
+       threshold:
+         event_collect_timeout: 30s
+         maximum_size: "5mb"
+     aws:
         region: "us-east-1"
         sts_role_arn: "arn:aws:iam::123456789012:role/my-lambda-role"
       max_retries: 3
-      batch:
-        key_name: "events"
-        threshold:
-          event_count: 100
-          maximum_size: "5mb"
-          event_collect_timeout: PT10S
       lambda_when: "event['status'] == 'process'"
-
 ```
 {% include copy-curl.html %}
 
-## Usage
+## Invocation types
 
 The processor supports the following invocation types:
 
 - `request-response`: The processor waits for Lambda function completion before proceeding.
 - `event`: The function is triggered asynchronously without waiting for a response.
-- `batch`: When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Batch thresholds control the event count, size limit, and timeout.
-- `codec`: JSON is used for both request and response codecs. Lambda must return JSON array outputs.
-- `tags_on_match_failure`: Custom tags can be applied to events when Lambda processing fails or encounters unexpected issues.
 
 ## Behavior
 
