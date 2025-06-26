@@ -212,7 +212,7 @@ POST _plugins/_forecast/forecasters/_validate/model
 
 ### Request body
 
-The request body is identical to the Create forecaster request body. It must include at least the required fields: `name`, `time_field`, `indices`, `feature_attributes`, and `forecast_interval`.
+The request body is identical to the request body used to create a forecaster. It must include at least the following required fields: `name`, `time_field`, `indices`, `feature_attributes`, and `forecast_interval`.
 
 If the configuration is valid, the response returns an empty object (`{}`). If the configuration is invalid, the response includes detailed error messages.
 
@@ -976,6 +976,8 @@ The `DISTANCE_TO_THRESHOLD_VALUE` metric calculates `forecast_value – threshol
 
 - `doc_count`: The number of forecast points that matched.
 - `DISTANCE_TO_THRESHOLD_VALUE`: The largest distance within the forecast horizon from the threshold value.
+
+The following response returns the `DISTANCE_TO_THRESHOLD_VALUE`:
 
 ```json
 {

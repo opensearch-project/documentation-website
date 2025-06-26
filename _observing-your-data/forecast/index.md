@@ -7,14 +7,14 @@ has_children: true
 
 # Forecasting
 
-Forecasting in OpenSearch transforms any time-series field into a self-updating signal using the Random Cut Forest (RCF) model. RCF is an online learning model that updates incrementally with each new data point. Because RCF refreshes in real time, it adapts instantly to changes in technical conditions without requiring costly batch retraining. Each model uses only a small amount of storage—-typically a few hundred kilobytes—-so both compute and storage overhead remain low.
+Forecasting in OpenSearch transforms any time-series field into a self-updating signal using the Random Cut Forest (RCF) model. RCF is an online learning model that updates incrementally with each new data point. Because RCF refreshes in real time, it adapts instantly to changes in technical conditions without requiring costly batch retraining. Each model uses only a small amount of storage—typically a few hundred kilobytes—so both compute and storage overhead remain low.
 
 Pair forecasting with the [Alerting plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) to receive a notification the moment a forecasted value is predicted to breach your threshold.
 {: .note}
 
-## Typical use-case
+## Typical use case
 
-Forecasting can be used in the following use cases, separated by their technical domains:
+Forecasting can be used for the following use cases.
 
 | Domain | What you forecast | Operational benefit |
 |--------|-------------------|---------------|

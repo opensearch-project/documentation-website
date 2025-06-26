@@ -12,41 +12,41 @@ After you [create a forecaster]({{site.url}}{{site.baseurl}}/observing-your-data
 
 ## Forecasters table
 
-The **Forecasters** table provides an overview of every forecaster you have configured:
+The **Forecasters** table provides an overview of every forecaster you have configured.
 
 | Column | Description |
 |--------|-------------|
 | **Name** | The name you assigned when creating the forecaster. |
-| **Status** | The current lifecycle state—for example, `Running`, `Initializing`, or `Test complete`. Click the <i class="euiIcon euiIcon--xs euiIcon--expand"></i> icon for more details, including the timestamp of the last status change and any failure messages. |
-| **Index** | The source index or alias the forecaster reads from. |
+| **Status** | The current lifecycle state—for example, `Running`, `Initializing`, or `Test complete`. Click the <i class="euiIcon euiIcon--xs euiIcon--expand"></i> icon for more information, including the timestamp of the most recent status change and any failure messages. |
+| **Index** | The source index or alias from which the forecaster reads. |
 | **Last updated** | The timestamp of the most recent configuration change. |
-| **Quick actions** | Context-aware buttons such as **Start**, **Stop**, or **Delete**, depending on the forecaster’s current state. |
+| **Quick actions** | Context-aware buttons such as **Start**, **Stop**, or **Delete**, depending on the forecaster's current state. |
 
 ## Execution states
 
-A forecaster (that is, the underlying forecasting job) can be in any of the following states. Transitions marked *automatic* happen without user action; others require you to manually click **Start** or **Stop**.
+A forecaster (that is, the underlying forecasting job) can be in any of the following states. Transitions marked *automatic* happen without user action; others require you to manually select **Start** or **Stop**.
 
 | State | Description | Typical trigger |
 |-------|-------------|------------------|
-| **Inactive** | The forecaster has been created but never started. | None. |
+| **Inactive** | The forecaster was created but never started. | None. |
 | **Inactive: stopped** | The forecaster was manually stopped after running. | User selects **Stop forecasting**. |
 | **Awaiting data to initialize forecast** | The job is trying to start but lacks enough historical data. | Automatic. |
 | **Awaiting data to restart forecast** | The job is resuming after a data gap and is waiting for new data. | Automatic after a data outage. |
-| **Initializing test** | The model is being built for a one-time back-test. | Automatic on **Create and test** or **Start test**. |
-| **Test complete** | The back-test has finished and the job is no longer running. | Automatic. |
+| **Initializing test** | The model is being built for a one-time backtest. | Automatic on **Create and test** or **Start test**. |
+| **Test complete** | The backtest has finished and the job is no longer running. | Automatic. |
 | **Initializing forecast** | The model is being trained for continuous real-time forecasting. | Automatic after selecting **Start forecasting**. |
 | **Running** | The job is streaming live data and generating forecasts. | Automatic when initialization completes successfully. |
 | **Initializing test failed** | The test failed, often due to insufficient data. | Automatic. |
 | **Initializing forecast failed** | Real-time mode failed to initialize. | Automatic. |
-| **Forecast failed** | The job started but encountered a runtime error, such as shard failures. | Automatic; but requires the user's attention. |
+| **Forecast failed** | The job started but encountered a runtime error, such as a shard failure. | Automatic but requires the user's attention. |
 
-The following diagram illustrates the relationships and transitions between states:
+The following diagram illustrates the relationships and transitions between states.
 
 <img src="{{site.url}}{{site.baseurl}}/images/forecast/state.png" alt="Forecast state diagram" width="1600" height="1600">
 
 ## Find and filter forecasters
 
-If you have many forecasters, use the pagination controls at the bottom of the table to navigate between pages. You can also use the search bar to filter by **name**, **status**, or **index**—helpful when managing large sets of forecasters.
+If you have many forecasters, use the pagination controls at the bottom of the table to navigate between pages. You can also use the search bar to filter by **name**, **status**, or **index**, which can be helpful when managing large sets of forecasters.
 
 ## Alert on forecasted values
 
@@ -54,7 +54,7 @@ Because forecast result indexes are not system indexes, you can create an [Alert
 
 ### Example alert monitor
 
-For example, here’s a monitor for a high-cardinality forecaster. You can modify the schedule, query, and aggregation to match your use case:
+For example, the following is a monitor for a high-cardinality forecaster. You can modify the schedule, query, and aggregation to match your use case:
 
 {% raw %}
 ```json
@@ -190,7 +190,7 @@ For example, here’s a monitor for a high-cardinality forecaster. You can modif
 
 ### Monitor design
 
-The following explains each design choice used in the example alert monitor and why it matters:
+The following table explains each design choice used in the example alert monitor and why it matters.
 
 | Design choice | Rationale |
 |---------------|-----------|
@@ -201,12 +201,12 @@ The following explains each design choice used in the example alert monitor and 
 | Optional term filter on `forecaster_id` | Use this filter to target a specific forecaster and avoid matching unrelated forecasts. |
 | Monitor every 1 min, query window 15 min | Evaluates forecasts every minute to detect anomalies quickly. The 15-minute lookback increases resilience to timing delays. Combined with a 15-minute alert throttle, this avoids duplicate notifications for the same event. |
 | Mustache block prints all entity dimensions | Displays both single-dimension (`host=server_3`) and multi-dimension (`host=server_3`, `service=auth`) entity values. You can also include a link to a pre-filtered dashboard for faster triage. |
-| Threshold | Use the Dashboards visual editor to analyze recent forecast values and determine an appropriate threshold that reliably indicates anomalies. |
+| Threshold | Use the OpenSearch Dashboards visual editor to analyze recent forecast values and determine an appropriate threshold that reliably indicates anomalies. |
 
 
 ### Example alert
 
-The following example shows a sample alert email generated by a monitor that detects when a forecasted value breaches a defined threshold. In this case, the monitor is tracking a high-cardinality forecaster and has triggered for a specific entity (`host = server_3`):
+The following example shows a sample alert email generated by a monitor that detects when a forecasted value breaches a defined threshold. In this case, the monitor is tracking a high-cardinality forecaster and has triggered an alert for a specific entity (`host = server_3`):
 
 ```
 Monitor **test** entered **ALERT** state — please investigate.
@@ -221,6 +221,6 @@ Entity
 
 ## Next steps
 
-After setting up and managing your forecasters, you may want to control who can access and modify them. To learn how to manage permissions, secure result indexes, and apply fine-grained access controls, see ({{site.url}}{{site.baseurl}}/observing-your-data/forecast/security/).
+After setting up and managing your forecasters, you may want to control who can access and modify them. To learn how to manage permissions, secure result indexes, and apply fine-grained access controls, see [the security page]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/security/).
 
 

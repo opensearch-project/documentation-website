@@ -98,7 +98,7 @@ For more information, see the blog post [Improving Anomaly Detection: One Millio
 
 ## Step 2: Add model parameters
 
-The **Suggest parameters** button in OpenSearch Dashboards profiles recent history to recommend sensible defaults. You can override these defaults by adjusting the following parameters:
+The **Suggest parameters** button in OpenSearch Dashboards initiates a review of recent history to recommend sensible defaults. You can override these defaults by adjusting the following parameters:
 
 * **Forecasting interval** – Specifies the aggregation bucket (for example, 10 minutes). Longer intervals smooth out noise and reduce compute costs, but they delay detection. Shorter intervals detect changes sooner but increase resource usage and can introduce noise. Choose the shortest interval that still produces a stable signal.
 * **Window delay** – Tells the forecaster how much of a delay to expect between event occurrence and ingestion. This delay adjusts the forecasting interval backward to ensure complete data coverage. For example, if the forecasting interval is 10 minutes and ingestion is delayed by 1 minute, setting the window delay to 1 minute ensures that the forecaster evaluates data from 1:49 to 1:59 rather than 1:50 to 2:00.
