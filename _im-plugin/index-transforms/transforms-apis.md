@@ -28,7 +28,7 @@ PUT _plugins/_transform/<transform_id>
 
 ### Path parameters
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 transform_id | String | Transform ID |
 
@@ -36,7 +36,7 @@ transform_id | String | Transform ID |
 
 You can specify the following options in the HTTP request body:
 
-Option | Data Type | Description | Required
+Option | Data type | Description | Required
 :--- | :--- | :--- | :---
 enabled | Boolean | If true, the transform job is enabled at creation. | No
 continuous | Boolean | Specifies whether the transform job should be continuous. Continuous jobs execute every time they are scheduled according to the `schedule` field and run based off of newly transformed buckets as well as any new data added to source indexes. Non-continuous jobs execute only once. Default is `false`. | No
@@ -184,7 +184,7 @@ Parameter | Description | Required
 
 You can update the following fields.
 
-Option | Data Type | Description
+Option | Data type | Description
 :--- | :--- | :---
 schedule | Object | The schedule for the transform job. Contains the fields `interval.start_time`, `interval.period`, and `interval.unit`.
 start_time | Integer | The Unix epoch start time of the transform job.

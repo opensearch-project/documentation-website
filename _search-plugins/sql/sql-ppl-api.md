@@ -15,14 +15,14 @@ Sends an SQL/PPL query to the SQL plugin. You can pass the format for the respon
 
 ### Query parameters
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 [format]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) | String | The format for the response. The `_sql` endpoint supports `jdbc`, `csv`, `raw`, and `json` formats. The `_ppl` endpoint supports `jdbc`, `csv`, and `raw` formats. Default is `jdbc`.
 sanitize | Boolean | Specifies whether to escape special characters in the results. See [Response formats]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) for more information. Default is `true`.
 
 ### Request body fields
 
-Field | Data Type | Description  
+Field | Data type | Description  
 :--- | :--- | :---
 query | String | The query to be executed. Required.
 [filter](#filtering-results) | JSON object | The filter for the results. Optional.
@@ -151,7 +151,7 @@ The response contains the schema and the results:
 
 ### Response body fields
 
-Field | Data Type | Description  
+Field | Data type | Description  
 :--- | :--- | :---
 schema | Array | Specifies the field names and types for all fields. 
 data_rows | 2D array | An array of results. Each result represents one matching row (document).
