@@ -38,4 +38,5 @@ These APIs help you test, debug, and optimize your search operations:
 These APIs allow you to work with search templates:
 
 - **[Search template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/)**: Use search templates to run parameterized search queries.
-- **[Multi-search template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/msearch-template/)**: Execute multiple search template requests in a single API call.
+- **[Multi-search template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/msearch-template/)**: Execute multiple search template requests in a single API call.
+- **[Render template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/render-template/)**: Previews the final query generated from a search template by substituting parameters without executing the search.
