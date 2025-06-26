@@ -286,7 +286,7 @@ You can reuse this role across teams or create separate versions if you need per
 
 ### Map a user to three roles
 
-The following example maps the user `alice` to all three required roles—forecaster control, result access, and source index read—using the `analyst` backend role:
+The following example maps the user `alice` to all three required roles—`full_access`, `result_access`, and `data_source_read`—using the `analyst` backend role:
 
 ```json
 PUT _plugins/_security/api/internalusers/alice
@@ -436,7 +436,7 @@ curl -X PUT "https://localhost:9200/_cluster/settings" \
 {% include copy-curl.html %}
 
 
-- Replace `127.0.0.1` with the remote node's transport layer IP if it's on a different host.
+- Replace `127.0.0.1` with the remote node's transport layer IP if it's located on a different host.
 - The alias `follower` can be any name you choose and will be used when referencing remote indexes or configuring cross-cluster replication.
 {: .note}
 
