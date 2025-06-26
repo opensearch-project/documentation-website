@@ -8,21 +8,21 @@ has_children: false
 
 # Forecasting security
 
-Forecasting uses the same security framework as Anomaly Detection. This page explains how to configure permissions for users to create, run, and view forecasters; how to restrict access to system indexes; and how to isolate forecast results across teams.
+Forecasting uses the same security framework as anomaly detection. This page explains how to configure permissions for users to create, run, and view forecasters; how to restrict access to system indexes; and how to isolate forecast results across teams.
 
 In all examples, replace credentials, index names, and role names with values appropriate for your environment.
 {: .note}
 
 ## Indexes created by forecasting
 
-The following table describes the indexes used by the Forecasting plugin and their visibility to regular users:
+The following table describes the indexes used by the Forecasting API and their visibility to regular users.
 
 | Index pattern | Purpose | Visible to regular users? |
 |---------------|---------|---------------------------|
 | `.opensearch-forecasters` | Stores forecaster configuration. | **No** – system index |
 | `.opensearch-forecast-checkpoints` | Stores model snapshots (checkpoints). | **No** – system index |
 | `.opensearch-forecast-state` | Stores task metadata for real-time and run-once forecasting. | **No** – system index |
-| `opensearch-forecast-result*` | Stores forecast results from both back-tests and real-time forecasting. | **Yes** |
+| `opensearch-forecast-result*` | Stores forecast results from both backtests and real-time forecasting. | **Yes** |
 
 Users do not need direct access to `.opensearch-forecast-checkpoints`; it is used internally by the plugin.  
 
@@ -33,7 +33,7 @@ To view `.opensearch-forecast-state`, use the [Get forecaster]({{site.url}}{{sit
 
 ## Cluster permissions
 
-Each Forecasting API route maps to a specific cluster-level permission. You must grant these permissions to roles that manage or interact with forecasters.
+Each Forecasting API route maps to a specific cluster-level permission, as shown in the following table. You must grant these permissions to roles that manage or interact with forecasters.
 
 | Route | Required permission |
 |:------------|:---------------------|
@@ -56,15 +56,15 @@ Each Forecasting API route maps to a specific cluster-level permission. You must
 
 A forecasting user needs three types of privileges, based on the following responsibilities:
 
-- *Managing the forecasting job*
-- *Reading the source data*
-- *Accessing the forecast results*
+- Managing the forecasting job
+- Reading the source data
+- Accessing the forecast results
 
-These responsibilities correspond to three distinct security layers, as shown in the following table:
+These responsibilities correspond to three distinct security layers, as shown in the following table.
 
 | Layer | What it controls | Typical role |
 |-------|------------------|--------------|
-| **Forecaster control** | Permissions to create, edit, start, stop, delete, or view a forecaster’s configuration. | `forecast_full_access` <br>*(manage lifecycle)*<br>or<br>`forecast_read_access` <br>*(view only)* |
+| **Forecaster control** | Permissions to create, edit, start, stop, delete, or view a forecaster's configuration. | `forecast_full_access` <br>(manage lifecycle)<br>or<br>`forecast_read_access` <br>(view only) |
 | **Data-source read** | Grants the forecaster permission to query the raw metrics index it uses for training and prediction. | Custom role, such as `data_source_read` |
 | **Result read** | Grants users and Alerting monitors access to documents in `opensearch-forecast-result*`. | Custom role, such as `forecast_result_read` |
 
@@ -73,9 +73,9 @@ The built-in roles `forecast_full_access` and `forecast_read_access` apply only 
 {: .note}
 
 
-### Forecaster‑control roles
+### Forecaster control roles
 
-The Forecasting plugin includes two built-in roles that you can use as-is or use as templates for creating custom roles:
+The Forecasting API includes two built-in roles that you can use as is or use as templates for creating custom roles:
 
 - `forecast_read_access` – For analysts who need read-only access to forecasters. This role allows users to view forecaster details and results but not create, modify, start, stop, or delete forecasters.
 
@@ -133,9 +133,9 @@ These roles do not include default `index_permissions` for specific source or re
 
 ### Data-source read role
 
-Each forecaster uses the creating user’s credentials to query the source index. To enable this, you must grant that user read permissions on your own data index.
+Each forecaster uses the creating user's credentials to query the source index. To enable this, you must grant that user read permissions for your own data index.
 
-The following example creates a minimal role that allows read access to the `network-metrics` index:
+The following example request creates a minimal role that allows read access to the `network-metrics` index:
 
 ```json
 PUT _plugins/_security/api/roles/data_source_read
@@ -149,11 +149,11 @@ PUT _plugins/_security/api/roles/data_source_read
 
 You can modify the `index_patterns` to match your actual data source.
 
-### Result‑read role
+### `Result‑read` role
 
-The result-read role allows users to view forecast results and configure Alerting monitors that query those results.
+The `forecast_result_read` role allows users to view forecast results and configure Alerting monitors that query those results.
 
-The following example defines a role that grants read access to all indexes matching the `opensearch-forecast-result*` pattern:
+The following example request defines a role that grants read access to all indexes matching the `opensearch-forecast-result*` pattern:
 
 ```json
 PUT _plugins/_security/api/roles/forecast_result_read
@@ -165,11 +165,11 @@ PUT _plugins/_security/api/roles/forecast_result_read
 }
 ```
 
-If you need to isolate result data between teams, you can enhance this role using document-level security (DLS) with a backend role filter, as shown in the next section
+If you need to isolate result data between teams, you can enhance this role using document-level security (DLS) with a backend role filter, as shown in the following section.
 
 ### Example security role configuration
 
-The following example creates a `devOpsEngineer` user and assigns all three required roles for forecasting:
+The following example request creates a `devOpsEngineer` user and assigns all three required roles for forecasting:
 
 ```json
 PUT _plugins/_security/api/internalusers/devOpsEngineer
@@ -195,19 +195,19 @@ To grant read-only access to forecaster configurations, replace `forecast_full_a
 
 ## (Advanced) Limit access by backend role
 
-You can use backend roles to enforce **team-specific isolation** in Forecasting. This pattern allows different teams to operate forecasters independently while keeping configurations and results separated.
+You can use backend roles to enforce **team-specific isolation**. This pattern allows different teams to operate forecasters independently while separating configurations and results.
 
 The model includes three layers:
 
 1. **Configuration isolation** – Forecasting APIs are restricted to users with a matching backend role.
-2. **Result isolation** – Document-level security (DLS) limits access to forecast results in `opensearch-forecast-result*`.
+2. **Result isolation** – DLS limits access to forecast results in `opensearch-forecast-result*`.
 3. **Source data access** – A minimal read-only role enables each forecaster to scan its own index.
 
 The following sections explain how to configure each layer.
 
 ### Assign backend roles to users
 
-In most environments, backend roles are assigned through LDAP or SAML. However, if you are using the internal user database, you can set them manually as shown in the following example:
+In most environments, backend roles are assigned through LDAP or SAML. However, if you are using the internal user database, you can set them manually, as shown in the following example:
 
 ```json
 # Analyst
@@ -241,11 +241,11 @@ PUT _cluster/settings
 }
 ```
 
-When this setting is enabled, OpenSearch records the creator’s backend roles in each forecaster document. Only users with a matching backend role can view, edit, or delete that forecaster.
+When this setting is enabled, OpenSearch records the creator's backend roles in each forecaster document. Only users with a matching backend role can view, edit, or delete that forecaster.
 
-### Create a result‑access role per team
+### Create a `result‑access` role per team
 
-Forecast results are stored in shared indexes, so use document-level security (DLS) to restrict access by backend role.
+Forecast results are stored in shared indexes, so use DLS to restrict access by backend role.
 
 The following example creates a role that allows users with the `analyst` backend role to read and write only their team’s forecast results:
 
@@ -278,11 +278,11 @@ PUT _plugins/_security/api/roles/forecast_analyst_result_access
 
 To isolate results for another team, such as `human-resources`, create a separate role (for example, `forecast_human_resources_result_access`) and update the term value to match the appropriate backend role.
 
-### Define data-source read access
+### Define `data-source` read access
 
-The `data_source_read` role is defined the same way as in earlier examples. It grants minimal read access to the metrics index that each forecaster uses for training and prediction.
+The `data_source_read` role is defined in the same way as in earlier examples. It grants minimal read access to the metrics index that each forecaster uses for training and prediction.
 
-You can reuse this role across teams, or create separate versions if you need per-index restrictions.
+You can reuse this role across teams or create separate versions if you need per-index restrictions.
 
 ### Map a user to three roles
 
@@ -303,15 +303,15 @@ PUT _plugins/_security/api/internalusers/alice
 
 With this configuration, Alice can:
 
-- Create, start, stop, and delete only forecasters tagged with the analyst backend role.
-- View only forecast results tagged for analyst.
-- Read the network-metrics index as the source for her forecasters.
+- Create, start, stop, and delete only forecasters tagged with the `analyst` backend role.
+- View only forecast results tagged with the `analyst` backend role.
+- Read the `network-metrics` index as the source for her forecasters.
 
-To configure a second user such as `bob` from the HR team, use a parallel setup with the human-resources backend role and forecast_human_resources_result_access.
+To configure a second user, such as `bob` from the HR team, use a parallel setup with the `human-resources` backend role and `forecast_human_resources_result_access`.
 
-### What if users lack backend roles?
+### Users without backend roles
 
-If a user has the `forecast_read_access` role but no backend roles, they cannot view any forecasters. Backend-role filtering enforces strict matching and prevents access to configurations that do not align with the user’s roles.
+If a user has the `forecast_read_access` role but no backend roles, they cannot view any forecasters. Backend-role filtering enforces strict matching and prevents access to configurations that do not align with the user's roles.
 
 ---
 
@@ -324,9 +324,9 @@ To succeed, the user must:
 - Use a security role that exists in both the local and remote clusters.
 - Have that role mapped to the same username in both clusters.
 
-### Example: Create a new user on the local cluster
+### Example: Create a new user in the local cluster
 
-Create a user in the local cluster who can create the forecaster using the following command:
+Using the following command, create a new user in the local cluster who can create the forecaster:
 
 ```bash
 curl -XPUT -k -u 'admin:<custom-admin-password>' \
@@ -336,7 +336,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
 ```
 {% include copy-curl.html %}
 
-Map the new user to the `forecast_full_access` role, using the following command:
+Using the following command, map the new user to the `forecast_full_access` role:
 
 ```
 curl -XPUT -k -u 'admin:<custom-admin-password>' \
@@ -346,7 +346,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
 ```
 {% include copy-curl.html %}
 
-On the remote cluster, create the same user and map `forecast_full_access` to that role, as shown in the following command:
+In the remote cluster, create the same user and map `forecast_full_access` to that role, as shown in the following command:
 
 ```bash
 # Create the user
@@ -365,7 +365,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
 
 ### Grant source index read access in both clusters
 
-To create a forecaster, the user also needs index-level permissions to the `search` or `read` [action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/) on every source index, alias, or pattern the forecaster reads. The permission check occurs in both clusters when reading a remote index. Define and map the same role in both places.
+To create a forecaster, the user also needs index-level permissions for the `search` or `read` [action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/) on every source index, alias, or pattern that the forecaster reads. The permission check occurs in both clusters when reading a remote index. Define and map the same role in both locations.
 
 
 In the local cluster, define a read role that grants access to the source index and map it to the forecasting user, as shown in the following:
@@ -390,7 +390,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
 ```
 {% include copy-curl.html %}
 
-In the remote cluster, define the same role and map it to the same user to ensure permissions are mirrored across clusters, as shown in the following:
+In the remote cluster, define the same role and map it to the same user to ensure that permissions are mirrored across clusters, as shown in the following command:
 
 ```
 # Create the identical role
@@ -415,9 +415,9 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
 
 ### Register the remote cluster with the local cluster
 
-Register the remote cluster on the local cluster using a seed node, under the `cluster.remote.<alias>.seeds` setting. In OpenSearch, this is called adding a `follower` cluster.
+Register the remote cluster with the local cluster using a seed node under the `cluster.remote.<alias>.seeds` setting. In OpenSearch, this is called adding a `follower` cluster.
 
-Assuming that the remote cluster is listening on transport port `9350`, run the following command on the local cluster:
+Assuming that the remote cluster is listening on transport port `9350`, run the following command in the local cluster:
 
 ```
 curl -X PUT "https://localhost:9200/_cluster/settings" \
@@ -436,7 +436,7 @@ curl -X PUT "https://localhost:9200/_cluster/settings" \
 {% include copy-curl.html %}
 
 
-- Replace `127.0.0.1` with the remote node’s transport-layer IP if it's on a different host.
+- Replace `127.0.0.1` with the remote node's transport layer IP if it's on a different host.
 - The alias `follower` can be any name you choose and will be used when referencing remote indexes or configuring cross-cluster replication.
 {: .note}
 
@@ -446,17 +446,17 @@ curl -X PUT "https://localhost:9200/_cluster/settings" \
 
 You can specify a custom index for forecast results instead of using the default result index. If the custom index does not already exist, it will be created automatically when you create a forecaster and start a real-time analysis or test run.
 
-If the custom index already exists, the Forecasting plugin checks that the index mapping matches the expected forecast result structure. To ensure compatibility, the index must conform to the schema defined in the [`forecast-results.json`](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/forecast-results.json) file.
+If the custom index already exists, the Forecasting API checks that the index mapping matches the expected forecast result structure. To ensure compatibility, the index must conform to the schema defined in the [`forecast-results.json`](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/forecast-results.json) file.
 
-When a user creates a forecaster—either in OpenSearch Dashboards or by calling the Forecasting API—the system verifies that the user has the following index-level permissions on the custom index:
+When a user creates a forecaster—either in OpenSearch Dashboards or by calling the Forecasting API—the system verifies that the user has the following index-level permissions for the custom index:
 
 - `indices:admin/create` – Required to create and roll over the custom result index.
 - `indices:admin/aliases` – Required to create and manage the index alias.
-- `indices:data/write/index` – Required to write forecast results into the index (single-stream forecasters).
+- `indices:data/write/index` – Required to write forecast results to the index (single-stream forecasters).
 - `indices:data/read/search` – Required to search the custom index when displaying forecast results.
 - `indices:data/write/delete` – Required to delete older forecast results and manage disk usage.
 - `indices:data/write/bulk*` – Required because the plugin writes results using the Bulk API.
 
 ## Next step
 
-For additional guidance on Transport Layer Security (TLS), authentication backends, tenant isolation, and audit logging, refer to the [Security plugin documentation]({{site.url}}{{site.baseurl}}/security/).
+For more information about TLS, authentication backends, tenant isolation, and audit logging, see the [Security plugin documentation]({{site.url}}{{site.baseurl}}/security/).
