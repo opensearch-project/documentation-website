@@ -251,7 +251,7 @@ When this setting is enabled, OpenSearch records the creator's backend roles in 
 
 Forecast results are stored in shared indexes, so use DLS to restrict access by backend role.
 
-The following example creates a role that allows users with the `analyst` backend role to read and write only their team’s forecast results:
+The following example request creates a role that allows users with the `analyst` backend role to read and to write only their team's forecast results:
 
 
 ```json
@@ -374,7 +374,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
 To create a forecaster, the user also needs index-level permissions for the `search` or `read` [action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/) on every source index, alias, or pattern that the forecaster reads. The permission check occurs in both clusters when reading a remote index. Define and map the same role in both locations.
 
 
-In the local cluster, define a read role that grants access to the source index and map it to the forecasting user, as shown in the following:
+In the local cluster, define a `read` role that grants access to the source index and map it to the forecasting user, as shown in the following command:
 
 ```bash
 # Create a role that can search the data
