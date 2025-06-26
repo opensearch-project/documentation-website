@@ -19,10 +19,10 @@ The following table describes the indexes used by the Forecasting API and their 
 
 | Index pattern | Purpose | Visible to regular users? |
 |---------------|---------|---------------------------|
-| `.opensearch-forecasters` | Stores forecaster configuration. | **No** – system index |
-| `.opensearch-forecast-checkpoints` | Stores model snapshots (checkpoints). | **No** – system index |
-| `.opensearch-forecast-state` | Stores task metadata for real-time and run-once forecasting. | **No** – system index |
-| `opensearch-forecast-result*` | Stores forecast results from both backtests and real-time forecasting. | **Yes** |
+| `.opensearch-forecasters` | Stores forecaster configuration. | No |
+| `.opensearch-forecast-checkpoints` | Stores model snapshots (checkpoints). | No |
+| `.opensearch-forecast-state` | Stores task metadata for real-time and run-once forecasting. | No |
+| `opensearch-forecast-result*` | Stores forecast results from both backtests and real-time forecasting. | Yes |
 
 Users do not need direct access to `.opensearch-forecast-checkpoints`; it is used internally by the plugin.  
 
@@ -146,6 +146,7 @@ PUT _plugins/_security/api/roles/data_source_read
   }]
 }
 ```
+{% include copy-curl.html %}
 
 You can modify the `index_patterns` to match your actual data source.
 
@@ -164,6 +165,7 @@ PUT _plugins/_security/api/roles/forecast_result_read
   }]
 }
 ```
+{% include copy-curl.html %}
 
 If you need to isolate result data between teams, you can enhance this role using document-level security (DLS) with a backend role filter, as shown in the following section.
 
@@ -182,6 +184,7 @@ PUT _plugins/_security/api/internalusers/devOpsEngineer
   ]
 }
 ```
+{% include copy-curl.html %}
 
 This configuration enables the following:
 
@@ -240,6 +243,7 @@ PUT _cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 When this setting is enabled, OpenSearch records the creator's backend roles in each forecaster document. Only users with a matching backend role can view, edit, or delete that forecaster.
 
@@ -275,6 +279,7 @@ PUT _plugins/_security/api/roles/forecast_analyst_result_access
   }]
 }
 ```
+{% include copy-curl.html %}
 
 To isolate results for another team, such as `human-resources`, create a separate role (for example, `forecast_human_resources_result_access`) and update the term value to match the appropriate backend role.
 
@@ -300,6 +305,7 @@ PUT _plugins/_security/api/internalusers/alice
   ]
 }
 ```
+{% include copy-curl.html %}
 
 With this configuration, Alice can:
 
