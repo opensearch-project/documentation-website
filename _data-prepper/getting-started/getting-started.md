@@ -2,7 +2,6 @@
 layout: default
 title: Getting started with OpenSearch Data Prepper
 nav_order: 5
-parent: OpenSearch Data Prepper 
 has_children: true
 has_toc: false
 redirect_from:
