@@ -29,6 +29,7 @@ You can configure the `otel_logs_source` source with the following options.
 | unframed_requests | Boolean | Enables requests that are not framed using the gRPC wire protocol. Default value is `false`. |
 | thread_count  | int | The number of threads to keep in the `ScheduledThreadPool`. Default value is `500`. |
 | max_connection_count | int | The maximum number of open connections allowed. Default value is `500`. |
+| output_format | String | Indicates the output format of the events to be generated. Allowed values are `otel` or `opensearch`. Default value is `opensearch`. |
 
 ### SSL
 
@@ -50,6 +51,14 @@ To get started, create a `pipeline.yaml` file and add `otel_logs_source` as the 
 ```
 source:
     - otel_logs_source:
+```
+
+Use the `otel` output format option as below if open telemetry standard format is desired.
+
+```
+source:
+    - otel_logs_source:
+        output_format: otel
 ```
 
 ## Metrics

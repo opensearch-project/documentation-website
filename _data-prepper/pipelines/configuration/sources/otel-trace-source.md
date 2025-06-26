@@ -24,6 +24,7 @@ proto_reflection_service | No | Boolean | Enables a reflection service for Proto
 unframed_requests | No | Boolean | Enable requests not framed using the gRPC wire protocol.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default value is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default value is `500`.
+output_format | String | Indicates the output format of the events to be generated. Allowed values are `otel` or `opensearch`. Default value is `opensearch`. |
 max_request_length | No | ByteCount | The maximum number of bytes allowed in the payload of a single gRPC or HTTP request. Default value is `10mb`.
 ssl | No | Boolean | Enables connections to the OTel source port over TLS/SSL. Defaults to `true`.
 sslKeyCertChainFile | Conditionally | String | File system path or Amazon Simple Storage Service (Amazon S3) path to the security certificate (for example, `"config/demo-data-prepper.crt"` or `"s3://my-secrets-bucket/demo-data-prepper.crt"`). Required if `ssl` is set to `true`.
@@ -33,6 +34,21 @@ acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN.
 awsRegion | Conditionally | String | Represents the AWS region used by ACM or Amazon S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are Amazon S3 paths.
 authentication | No | Object | An authentication configuration. By default, an unauthenticated server is created for the pipeline. This parameter uses pluggable authentication for HTTPS. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/1.2.0/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
 
+## Usage
+
+To get started, create a `pipeline.yaml` file and add `otel_trace_source` as the source:
+
+```
+source:
+    - otel_trace_source:
+```
+
+Use the `otel` output format option as below if open telemetry standard format is desired.
+
+```
+source:
+    - otel_trace_source:
+        output_format: otel
 
 ## Metrics
 
