@@ -131,7 +131,7 @@ forecast_full_access:
 
 These roles do not include default `index_permissions` for specific source or result indexes. This is intentional, allowing you to add your own patterns based on your data access requirements.
 
-### Data-source read role
+### Data source `read` role
 
 Each forecaster uses the creating user's credentials to query the source index. To enable this, you must grant that user read permissions for your own data index.
 
