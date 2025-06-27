@@ -98,7 +98,7 @@ The following sample CDK performs a live capture migration with C&R:
         }
     },
 
-    "// settingsForCaptureAndReplay": "Enable the below services for live traffic capture and replay",
+    "// settingsForCaptureAndReplay": "Enable the following services for live traffic capture and replay",
     "trafficReplayerServiceEnabled": true,
 
     "// help trafficReplayerExtraArgs": "Increase speedup factor in order replay requests at a faster rate to catchup",
