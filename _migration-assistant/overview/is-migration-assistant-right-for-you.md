@@ -9,30 +9,41 @@ redirect_from:
 
 # Is Migration Assistant right for you?
 
-Deciding whether to use Migration Assistant depends on your specific upgrade path, infrastructure complexity, and operational goals. This page will help you evaluate whether Migration Assistant is right for your case.
+Whether Migration Assistant is right for you depends on your upgrade path, infrastructure complexity, and operational goals. This page will help you evaluate whether Migration Assistant fits your use case.
 
-Migration Assistant was built to address limitations in common migration strategies. For example, if you're upgrading across multiple major versions—such as from Elasticsearch 6.8 to OpenSearch 2.19—Migration Assistant lets you do this in a single step. Other methods, like rolling upgrades or snapshot restores, require you to upgrade through each major version, often reindexing your data at every step.
+Migration Assistant addresses key limitations in traditional migration approaches. For example, if you're upgrading across multiple major versions—such as from Elasticsearch 6.8 to OpenSearch 2.19—Migration Assistant enables you to complete the process in a single step. Other methods, like rolling upgrades or snapshot restores, require upgrading through each major version, often with reindexing at every stage.
 
-Migration Assistant also supports live traffic replication, allowing for zero-downtime migrations. This makes it a strong choice for environments where minimizing service disruption is critical. 
+Migration Assistant also supports live traffic replication, enabling zero-downtime migrations. This makes it a strong fit for environments where minimizing service disruption is critical.
 
-## Migration Assistant Assumptions and Limitations
+## Migration Assistant assumptions and limitations
 
-Before using Migration Assistant, review the following assumptions and limitations. If a limitation only, applies to a specific component (i.e., Capture-and-Replay or Reindex-from-Snapshot) it is specified.
+Before using Migration Assistant, review the following assumptions and limitations. They are grouped by scope to clarify which apply generally and which are specific to components.
 
-* If deploying to AWS, the Idendity used to deploy Migration Assistant must have permissions to install all resources used by Migration Assistant. For a full list of resource refer to the AWS documentation, [AWS Services in this Solution](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/architecture-details.html#aws-services-in-this-solution).
-* *Reindex-from-Snapshot only.* The source cluster must be deployed Amazon Simple Storage Service (Amazon S3) plugin for Reindex-from-Snapshot.
-* The target cluster must be deployed and reachable by Migration Assistant by Reindex-from-Snapshot resources for backfill and the Traffic Replayer for live capture.
-* *Capture-and-Replay.* The Traffic Capture Proxy must be deployed to intercept client traffic relevant for migration. The proxy must.
-* *Reindex-from-Snapshot.* The snapshot includes the global cluster state (`include_global_state` is `true`).
-* By default shards up to 80GB are supported but larger shards are permitted if configured. There is, however, a hard limitation of 80GB shards if the source is in an AWS GovCloud region.
-* *Capture-and-Replay.* Live capture should be liitated to 4TB/day of network traffic.
-* *Capture-and-Replay.* Currently, for index requests, automatically generated document IDs will not be preserved during the migration. Clients must specify document IDs when writing or updating indecing if using Capture-and-Replay.
-* The `_source` flag is enabled on all indexes to be migrated. Refer to [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/) for details.
-* If deploying to AWS, verify `CDKToolkit` stack exists and is set to `CREATE_COMPLETE`. For more information about how to bootstrap your AWS account in the required AWS Region, see [the CDKToolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
+### General
+
+- If deploying on AWS, the identity used to deploy Migration Assistant must have permission to install all required resources. For a full list of services, see [AWS Services in this Solution](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/architecture-details.html#aws-services-in-this-solution).
+- The target cluster must be deployed and reachable by Migration Assistant components, including the Migration Console, Reindex-from-Snapshot, and Traffic Replayer, depending on which features are used.
+- The `_source` field must be enabled on all indexes to be migrated. See [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/) for more information.
+- If deploying to AWS, ensure the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
+
+### Reindex-from-Snapshot
+
+- The source cluster must have the Amazon S3 plugin installed.
+- Snapshots must include global cluster state (`include_global_state` is `true`).
+- Shards up to 80 GiB are supported by default. Larger shards can be configured, except in AWS GovCloud, where 80 GiB is the maximum supported size.
+
+### Capture-and-Replay
+
+- The Traffic Capture Proxy must be deployed to intercept relevant client traffic.
+- Live capture is recommended only for environments with less than 4 TB/day of incoming traffic to the source cluster.
+- Automatically generated document IDs are not preserved for index requests. Clients must explicitly provide document IDs when indexing or updating documents.
+
+---
 
 ## Supported migration paths
 
-The following matrix shows which source versions can be directly migrated to which OpenSearch target versions:
+The matrix below shows which source versions can be directly migrated to which OpenSearch target versions:
+
 
 <!-- Migration matrix rendering logic retained -->
 {% comment %}First, collect all unique target versions{% endcomment %}
@@ -72,16 +83,15 @@ The following matrix shows which source versions can be directly migrated to whi
 **Source and target platforms**
 
 - Self-managed (on premises or hosted by a cloud provider)
-- Amazon OpenSearch Service. Amazon OpenSearch Serverless Collections are not supported. 
-
+- Amazon OpenSearch Service (OpenSearch Serverless Collections are not supported)
 
 **Supported AWS Regions**
 
-Refer to [AWS Supported Regions](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/plan-your-deployment.html#supported-aws-regions) for the official list of supported regions.
+Refer to [AWS Supported Regions](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/plan-your-deployment.html#supported-aws-regions) for the for the full list of supported regions.
 
 ## Supported features
 
-Before starting a migration, consider the scope of the components involved. The following table outlines components that should potentially be migrated, indicates whether they are supported by Migration Assistant, and provides recommendations.
+Before starting an upgrade or migration, consider the cluster feature to be included. The table below lists what can be migrated using Migration Assistant, whether it is currently supported, and recommendations for how to handle each component.
 
 | Feature | Supported | Recommendations   |
 | :--- |:--- | :--- |
