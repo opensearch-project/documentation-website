@@ -108,59 +108,19 @@ Before starting an upgrade or migration, consider the cluster feature to be incl
 
 [^2]: Support for Kibana 5.0 through 7.10.2 migration paths to OpenSearch Dashboards will be added in a future version. Kibana 8 and later are not supported. For more information, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944).
 
-## Choosing your migration approach
-
-Use the following checklist to determine which Migration Assistant components best fit your use case.
-
-### Metadata migration
-
-Use [metadata migration]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/) if:
-
-- You need to migrate while mitigating breaking changes between the source and target clusters, such as differences in mappings, settings, aliases, or component templates.
-- You want a relatively consistent configuration between the source and target clusters.
-
-### Backfill migration
-
-Use [backfill migration]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/) if:
-
-- You need to move historical data without disrupting live traffic.
-- You want to backfill indexes from a specific point in time without impacting the source cluster.
-- You want to verify historical data in the target cluster before switching over.
-- You want to backfill using an existing or incremental snapshot.
-- You need the fastest backfill option that includes reindexing.
-- You want the ability to pause and resume migration.
-
-### RFS
-
-Use [RFS]({{site.url}}{{site.baseurl}}/migration-assistant/deploying-migration-assistant/getting-started-data-migration/) if:
-
-- You already use OpenSearch snapshots for backups.
-- You need to migrate documents at scale in parallel, such as with Amazon Elastic Container Service (Amazon ECS).
-- You require a data migration path as part of a zero-downtime migration.
-- Your AWS Region supports RFS and your shard sizes are within supported limits.
-
-### Combination of all three
-
-Use a combination of all three migration types if:
-
-- You're performing a complex, multi-version migration.
-- You require zero downtime and full validation of the target environment.
-- You want end-to-end tooling for metadata, data movement, and cluster behavior comparison.
-- You're cloning an existing cluster and changing the source's configuration.
-- You're setting up disaster recovery.
 
 ## Checklist
 
-Use this checklist to decide whether Migration Assistant is right for you:
+Use this checklist to determine whether Migration Assistant is the right fit for your migration:
 
-- Are you migrating across one or more major versions?
-
-- Do you need to maintain service availability with zero downtime?
-
-- Do you need to validate a new OpenSearch cluster before switching over?
-
+- Are you migrating across one or more major versions—for example, from Elasticsearch 5 to OpenSearch 3—in a single step?
+- Are you upgrading but want the ability to safely back out, reducing the risk of data loss or service disruption?
+- Do you need to maintain high service availability with minimal or zero downtime?
+- Do you need to validate a new OpenSearch cluster before switching over, with rollback capabilities?
 - Is your environment self-managed or running on Amazon OpenSearch Service?
-
-- Are you looking for tooling that can automate metadata migration and performance comparison?
+- Are you looking for tooling to migrate index settings and other metadata?
+- Do you need to reconfigure your target cluster—for example, by changing the sharding strategy and reindexing?
+- Are you migrating across regions, from on-premises, or from another cloud provider?
+- Do you need a high-performance backfill solution that can reliably reindex documents—with support for pause, resume, or checkpoint recovery?
 
 If you answered "yes" to most of these questions, Migration Assistant is likely the right solution for your migration.
