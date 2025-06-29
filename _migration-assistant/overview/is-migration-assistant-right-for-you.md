@@ -9,13 +9,26 @@ redirect_from:
 
 # Is Migration Assistant right for you?
 
-Deciding whether to use Migration Assistant depends on your specific upgrade path, infrastructure complexity, and operational goals. This page will help you evaluate whether Migration Assistant is right for your use case—or whether another tool might be a better fit.
+Deciding whether to use Migration Assistant depends on your specific upgrade path, infrastructure complexity, and operational goals. This page will help you evaluate whether Migration Assistant is right for your case.
 
-Migration Assistant was built to fill important gaps in common migration strategies. For example, if you're upgrading across multiple major versions—such as from Elasticsearch 6.8 to OpenSearch 2.19—Migration Assistant lets you do this in a single step. Other methods, like rolling upgrades or snapshot restores, require you to upgrade through each major version, often reindexing your data at every step.
+Migration Assistant was built to address limitations in common migration strategies. For example, if you're upgrading across multiple major versions—such as from Elasticsearch 6.8 to OpenSearch 2.19—Migration Assistant lets you do this in a single step. Other methods, like rolling upgrades or snapshot restores, require you to upgrade through each major version, often reindexing your data at every step.
 
-Migration Assistant also supports live traffic replication, allowing for zero-downtime migrations. This makes it a strong choice for production environments, where minimizing service disruption is critical.
+Migration Assistant also supports live traffic replication, allowing for zero-downtime migrations. This makes it a strong choice for environments where minimizing service disruption is critical. 
 
-If your migration is limited to a static cluster configuration (like index templates and aliases), or if you're not concerned about downtime, simpler tools may be sufficient. But for complex migrations involving real-time traffic or major version jumps, Migration Assistant offers robust, flexible capabilities.
+## Migration Assistant Assumptions and Limitations
+
+Before using Migration Assistant, review the following assumptions and limitations. If a limitation only, applies to a specific component (i.e., Capture-and-Replay or Reindex-from-Snapshot) it is specified.
+
+* If deploying to AWS, the Idendity used to deploy Migration Assistant must have permissions to install all resources used by Migration Assistant. For a full list of resource refer to the AWS documentation, [AWS Services in this Solution](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/architecture-details.html#aws-services-in-this-solution).
+* *Reindex-from-Snapshot only.* The source cluster must be deployed Amazon Simple Storage Service (Amazon S3) plugin for Reindex-from-Snapshot.
+* The target cluster must be deployed and reachable by Migration Assistant by Reindex-from-Snapshot resources for backfill and the Traffic Replayer for live capture.
+* *Capture-and-Replay.* The Traffic Capture Proxy must be deployed to intercept client traffic relevant for migration. The proxy must.
+* *Reindex-from-Snapshot.* The snapshot includes the global cluster state (`include_global_state` is `true`).
+* By default shards up to 80GB are supported but larger shards are permitted if configured. There is, however, a hard limitation of 80GB shards if the source is in an AWS GovCloud region.
+* *Capture-and-Replay.* Live capture should be liitated to 4TB/day of network traffic.
+* *Capture-and-Replay.* Currently, for index requests, automatically generated document IDs will not be preserved during the migration. Clients must specify document IDs when writing or updating indecing if using Capture-and-Replay.
+* The `_source` flag is enabled on all indexes to be migrated. Refer to [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/) for details.
+* If deploying to AWS, verify `CDKToolkit` stack exists and is set to `CREATE_COMPLETE`. For more information about how to bootstrap your AWS account in the required AWS Region, see [the CDKToolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
 ## Supported migration paths
 
@@ -34,7 +47,7 @@ The following matrix shows which source versions can be directly migrated to whi
 <table class="migration-matrix">
   <thead>
     <tr>
-      <th></th>
+      <th>Source Version</th>
       {% for target in unique_targets %}
         <th>{{ target }}</th>
       {% endfor %}
@@ -59,28 +72,18 @@ The following matrix shows which source versions can be directly migrated to whi
 **Source and target platforms**
 
 - Self-managed (on premises or hosted by a cloud provider)
-- Amazon OpenSearch Service
+- Amazon OpenSearch Service. Amazon OpenSearch Serverless Collections are not supported. 
 
 
-**AWS Regions**
+**Supported AWS Regions**
 
-Migration Assistant is supported in the following AWS Regions:
+Refer to [AWS Supported Regions](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/plan-your-deployment.html#supported-aws-regions) for the official list of supported regions.
 
-- US East (N. Virginia, Ohio)
-- US West (Oregon, N. California)
-- Europe (Frankfurt, Ireland, London)
-- Asia Pacific (Tokyo, Singapore, Sydney)
-- AWS GovCloud (US-East, US-West)[^1]
-
-[^1]: In AWS GovCloud (US), `reindex-from-snapshot` (RFS) is limited to shard sizes of 80 GiB or smaller.
-
-
-
-## Supported components
+## Supported features
 
 Before starting a migration, consider the scope of the components involved. The following table outlines components that should potentially be migrated, indicates whether they are supported by Migration Assistant, and provides recommendations.
 
-| Component | Supported | Recommendations   |
+| Feature | Supported | Recommendations   |
 | :--- |:--- | :--- |
 | **Documents**  | Yes  | Migrate existing data with RFS and live traffic with capture and replay. |
 | **Index settings**  | Yes   | Migrate with the `Metadata-Migration-Tool`. |
