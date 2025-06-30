@@ -27,6 +27,3 @@ migration_paths:
     targets:
       - "OpenSearch 2.x"
       - "OpenSearch 3.x"
-  - source: "OpenSearch 3.x"
-    targets:
-      - "OpenSearch 3.x"
