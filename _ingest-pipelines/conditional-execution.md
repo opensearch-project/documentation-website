@@ -2,6 +2,7 @@
 layout: default
 title: Conditional execution
 nav_order: 40
+has_children: true
 ---
 
 # Conditional execution

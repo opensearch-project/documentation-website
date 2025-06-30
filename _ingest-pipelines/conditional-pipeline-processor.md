@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Conditionals with the pipeline processor
+parent: Conditional execution
 nav_order: 60
 ---
 
