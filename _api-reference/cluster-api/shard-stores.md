@@ -7,7 +7,7 @@ nav_order: 70
 
 # Shard stores
 
-The `_shard_stores` API provides information about the shard copies for one or more indices. This API helps to diagnose issues with unallocated shards by providing reasons why shards are unassigned and their current states.
+The `_shard_stores` API provides information about the shard copies for one or more indexes. This API helps to diagnose issues with unallocated shards by indicating why shards are unassigned and providing their current states.
 
 <!-- spec_insert_start
 api: indices.shard_stores
@@ -138,7 +138,7 @@ The following table lists all response body fields.
 | `indices` | Object| Contains shard store information for each index. |
 | `indices.<index>.shards`| Object| Contains store data for each shard in the index. |
 | `shards.<shard_id>.stores`| Array |  A list of store entries for the shard.|
-| `stores[n].<node_id>` | Object| Node metadata including name, transport address, and attributes. |
+| `stores[n].<node_id>` | Object| Node metadata, including name, transport address, and attributes. |
 | `stores[n].allocation`| String| The shard role on this node (`primary` or `replica`). |
 | `stores[n].allocation_id` | String| The unique allocation ID for this shard copy.|
 | `stores[n].store_exception` | Object (optional) | Stores exceptions encountered when reading the shard store. |
