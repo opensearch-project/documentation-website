@@ -59,7 +59,7 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example
 
-Create an index on a single node cluster with multiple primary shards:
+Create an index with multiple primary shards on a single-node cluster:
 
 ```json
 PUT /logs-shardstore
@@ -89,7 +89,7 @@ POST /logs-shardstore/_doc
 ```
 {% include copy-curl.html %}
 
-Get shard store status for index `logs-shardstore`:
+Get shard store status for the `logs-shardstore` index:
 
 ```json
 GET /logs-shardstore/_shard_stores?status=all
@@ -98,7 +98,7 @@ GET /logs-shardstore/_shard_stores?status=all
 
 ## Example response
 
-The response lists the stores that were assigned to each shard. Empty stores indicates `unassigned` shard:
+The response lists the stores that were assigned to each shard. If a shard has no assigned stores, it is marked `unassigned`:
 
 ```json
 {
@@ -137,10 +137,10 @@ The following table lists all response body fields.
 | Field | Data type | Description|
 | `indices` | Object| Contains shard store information for each index. |
 | `indices.<index>.shards`| Object| Contains store data for each shard in the index. |
-| `shards.<shard_id>.stores`| Array | List of store entries for that shard.|
+| `shards.<shard_id>.stores`| Array |  A list of store entries for the shard.|
 | `stores[n].<node_id>` | Object| Node metadata including name, transport address, and attributes. |
-| `stores[n].allocation`| String| Shard role on this node: `primary` or `replica`. |
-| `stores[n].allocation_id` | String| Unique allocation ID for this shard copy.|
-| `stores[n].store_exception` | Object (optional) | Details of any exception encountered when reading the shard store. |
+| `stores[n].allocation`| String| The shard role on this node (`primary` or `replica`). |
+| `stores[n].allocation_id` | String| The unique allocation ID for this shard copy.|
+| `stores[n].store_exception` | Object (optional) | Stores exceptions encountered when reading the shard store. |
 | `stores[n].store_exception.type`| String| The type of exception.|
 | `stores[n].store_exception.reason`| String| The reason message for the exception.|
