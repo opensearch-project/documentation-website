@@ -49,7 +49,7 @@ The `standard` analyzer supports the following optional parameters:
 | `stopwords` | String or list of strings | None | A list of stopwords or a predefined stopword set like `_english_` to remove during analysis. |
 | `stopwords_path` | String | None | Path to a file containing stopwords to be used during analysis. |
 
-Use only one of the parameters `stopwords` or `stopwords_path`. If both are used, no error is returned but only `stopwords` parameter is applied.
+Only use one of the parameters `stopwords` or `stopwords_path`. If both are used, no error is returned but only `stopwords` parameter is applied.
 {: .note}
 
 ## Example: Analyzer with parameters
