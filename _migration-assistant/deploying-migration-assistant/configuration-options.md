@@ -101,10 +101,10 @@ The following sample CDK performs a live capture migration with C&R:
     "// settingsForCaptureAndReplay": "Enable the following services for live traffic capture and replay",
     "trafficReplayerServiceEnabled": true,
 
-    "// help trafficReplayerExtraArgs": "Increase speedup factor in order replay requests at a faster rate to catchup",
+    "// help trafficReplayerExtraArgs": "Increase speedup factor in order replay requests at a faster rate to catch up",
     "trafficReplayerExtraArgs": "--speedup-factor 1.5",
 
-    "// help capture/target proxy pt. 1 of 2": "captureProxyService and targetClusterProxyService require networking access configured to successfully deploy,",
+    "// help capture/target proxy pt. 1 of 2": "captureProxyService and targetClusterProxyService require networking access to be configured in order to successfully deploy",
     "// help capture/target proxy pt. 2 of 2": "consider deploying without first and enabling after ensuring cluster networking access on the migration console",
     "captureProxyServiceEnabled": true,
     "captureProxyDesiredCount": 3,
@@ -123,7 +123,7 @@ Performing a live capture migration requires that a Capture Proxy be configured 
 | :--- | :--- | :--- |
 | `captureProxyServiceEnabled`    | `true`  | Enables the Capture Proxy service deployment using an AWS CloudFormation stack.  |
 | `captureProxyExtraArgs`  | `"--suppressCaptureForHeaderMatch user-agent .*elastic-java/7.17.0.*"`  | Extra arguments for the Capture Proxy command, including options specified by the [Capture Proxy](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java).  |
-| `captureProxyDesiredCount`  | `3`  |  Sets the number of capture proxy Amazon ECS tasks. In most cases, keep this setting at `0` until you verify connectivity between the source and target clusters in the migration console. After deployment, you can modify the networking setup to allow ingress from the migration security groups into the existing cluster security groups.  |
+| `captureProxyDesiredCount`  | `3`  |  Sets the number of capture proxy Amazon Elastic Container Service (Amazon ECS) tasks. In most cases, keep this setting at `0` until you verify connectivity between the source and target clusters in the migration console. After deployment, you can modify the networking setup to allow ingress from the migration security groups into the existing cluster security groups.  |
 | `trafficReplayerServiceEnabled` | `true`  | Enables the Traffic Replayer service deployment using a CloudFormation stack.  |
 | `trafficReplayerExtraArgs`      | `"--sigv4-auth-header-service-region es,us-east-1 --speedup-factor 5"`                 | Extra arguments for the Traffic Replayer command, including options for auth headers and other parameters specified by the [Traffic Replayer](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). |
 | `targetClusterProxyServiceEnabled` | `true` | Enables the target cluster proxy service deployment using a CloudFormation stack. |
