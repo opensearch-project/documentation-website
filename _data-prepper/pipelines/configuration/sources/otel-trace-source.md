@@ -36,17 +36,19 @@ authentication | No | Object | An authentication configuration. By default, an u
 
 ## Usage
 
-To get started, create a `pipeline.yaml` file and add `otel_trace_source` as the source:
+## Usage
 
-```
+To use the `otel-metrics` source, create the following `pipeline.yaml` file with `otel_metrics_source` as the source:
+
+```yaml
 source:
     - otel_trace_source:
 ```
 {% include copy.html %}
 
-Use the `otel` output format option as below if open telemetry standard format is desired.
+If you want to use the open telemetry format for your output, set the `output_format` to `otel`, as shown in the following example:
 
-```
+```yaml
 source:
     - otel_trace_source:
         output_format: otel
