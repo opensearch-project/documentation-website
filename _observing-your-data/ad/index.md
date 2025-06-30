@@ -28,30 +28,22 @@ To get started, go to **OpenSearch Dashboards** > **OpenSearch Plugins** > **Ano
 A _detector_ is an individual anomaly detection task. You can define multiple detectors, and all detectors can run simultaneously, with each analyzing data from different sources. You can define a detector by following these steps:
 
 1. On the **Anomaly detection** page, select the **Create detector** button.
-2. On the **Define detector** page, enter the required information in the **Detector details** pane.
-3. In the **Select data** pane, specify the data source by choosing a source from the **Index** dropdown menu. You can choose an index, index patterns, or an alias.
-4. (Optional) Filter the data source by selecting **Add data filter** and then entering the conditions for **Field**, **Operator**, and **Value**. Alternatively, you can choose **Use query DSL** and add your JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query domain-specific language (DSL).
+2. On the **Define detector** page, add the detector details. Enter a name and a brief description. The name must be unique and descriptive enough to help you identify the detector's purpose.
+
+3. In the **Select data** pane, specify the data source by choosing one or more sources from the **Index** dropdown menu. You can select indexes, index patterns, or aliases.
+
+   - Detectors can use remote indexes, which you can access using the `cluster-name:index-name` pattern. For more information, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/). Starting in OpenSearch Dashboards 2.17, you can also select clusters and indexes directly. If the Security plugin is enabled, see [Selecting remote indexes with fine-grained access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/#selecting-remote-indexes-with-fine-grained-access-control) in the [Anomaly detection security]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/) documentation.
+
+   - To create a cross-cluster detector in OpenSearch Dashboards, you must have the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/): `indices:data/read/field_caps`, `indices:admin/resolve/index`, and `cluster:monitor/remote/info`.
+
+4. (Optional) Filter the data source by selecting **Add data filter** and then specifying the conditions for **Field**, **Operator**, and **Value**. Alternatively, select **Use query DSL** and enter your filter as a JSON-formatted [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/). Only Boolean queries are supported for query domain-specific language (DSL).
+
+
+
 
 ### Example: Filtering data using query DSL
 
-The following example query retrieves documents in which the `urlPath.keyword` field matches any of the specified values. To set up the detector, use the following steps.
-
-#### Setting the initial detector settings
-
-1. Choose **Create detector**.
-1. Add the detector details. Enter a name and brief description. Make sure the name is unique and descriptive enough to help you identify the purpose of the detector.
-1. Specify the data source.   
-   - For **Data source**, choose one or more indexes to use as the data source. Alternatively, you can use an alias or index pattern to choose multiple indexes, similarly to the following:
-      - /domain/{id}/short
-      - /sub_dir/{id}/short
-      - /abcd/123/{id}/xyz
-   - Detectors can use remote indexes. You can access them using the `cluster-name:index-name` pattern. See [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/) for more information. Alternatively, you can select clusters and indexes in OpenSearch Dashboards 2.17 or later. To learn about configuring remote indexes with the Security plugin enabled, see [Selecting remote indexes with fine-grained access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/#selecting-remote-indexes-with-fine-grained-access-control) in the [Anomaly detection security](observing-your-data/ad/security/) documentation.
-   - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query. Only [Boolean queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) are supported for query DSL. The following example `bool` query shows you how to use query DSL:
-
-To create a cross-cluster detector in OpenSearch Dashboards, the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) are required: `indices:data/read/field_caps`, `indices:admin/resolve/index`, and `cluster:monitor/remote/info`.
-{: .note}
-
-   
+The following example query retrieves documents in which the `urlPath.keyword` field matches any of the specified values:
 
 ```json
  {
