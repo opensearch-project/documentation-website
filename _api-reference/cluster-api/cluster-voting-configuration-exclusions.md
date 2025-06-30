@@ -56,7 +56,7 @@ POST /_cluster/voting_config_exclusions?node_names=opensearch-node1
 Alternatively, you can specify the node IDs as a comma-separated list:
 
 ```json
-POST /_cluster/voting_config_exclusions?node_ids=UfVnWzDoT4mYtjb6CZsGvw
+POST /_cluster/voting_config_exclusions?node_ids=6ITS4DmNR7OJT1G5lyW8Lw,PEEW2S7-Su2XCA4zUE9_2Q
 ```
 {% include copy-curl.html %}
 
