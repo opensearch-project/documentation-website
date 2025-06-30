@@ -31,20 +31,104 @@ Parameter | Data type | Description
 
 ### Example request: Re-throttle a running delete by query task
 
-```bash
-curl -X POST "localhost:9200/_delete_by_query/<YOUR_TASK_ID>/_rethrottle?requests_per_second=10" -H 'Content-Type: application/json'
+```json
+POST /_delete_by_query/<YOUR_TASK_ID>/_rethrottle?requests_per_second=10
 ```
+{% include copy-curl.html %}
+
 
 ### Example request: Re-throttle a running reindex task
 
-```bash
-curl -X POST "localhost:9200/_reindex/<YOUR_TASK_ID>/_rethrottle?requests_per_second=20" -H 'Content-Type: application/json'
+```json
+POST /_reindex/<YOUR_TASK_ID>/_rethrottle?requests_per_second=20
 ```
+{% include copy-curl.html %}
 
 ### Example request: Re-throttle a running update by query task
 
-```bash
-curl -X POST "localhost:9200/_update_by_query/<YOUR_TASK_ID>/_rethrottle?requests_per_second=5" -H 'Content-Type: application/json'
+```json
+POST /_update_by_query/<YOUR_TASK_ID>/_rethrottle?requests_per_second=5
+```
+{% include copy-curl.html %}
+
+## Example response
+
+The following response provides details regarding the active `update_by_query` task:
+
+```
+{
+  "nodes": {
+    "bvv8SKpiRhOhF9_Bu8gZ7w": {
+      "name": "opensearch-node1",
+      "transport_address": "172.18.0.4:9300",
+      "host": "172.18.0.4",
+      "ip": "172.18.0.4:9300",
+      "roles": [
+        "cluster_manager",
+        "data",
+        "ingest",
+        "remote_cluster_client"
+      ],
+      "attributes": {
+        "shard_indexing_pressure_enabled": "true"
+      },
+      "tasks": {
+        "bvv8SKpiRhOhF9_Bu8gZ7w:640": {
+          "node": "bvv8SKpiRhOhF9_Bu8gZ7w",
+          "id": 640,
+          "type": "transport",
+          "action": "indices:data/write/update/byquery",
+          "status": {
+            "total": 4785,
+            "updated": 1000,
+            "created": 0,
+            "deleted": 0,
+            "batches": 1,
+            "version_conflicts": 0,
+            "noops": 0,
+            "retries": {
+              "bulk": 0,
+              "search": 0
+            },
+            "throttled_millis": 0,
+            "requests_per_second": 50,
+            "throttled_until_millis": 2146
+          },
+          "description": "update-by-query [test-rethrottle] updated with Script{type=inline, lang='painless', idOrCode='ctx._source.new_field = 'updated'', options={}, params={}}",
+          "start_time_in_millis": 1751310547697,
+          "running_time_in_nanos": 9567425129,
+          "cancellable": true,
+          "cancelled": false,
+          "headers": {
+            "X-Opaque-Id": "1b911516-44cd-4920-8c1e-79368ea7cdfd"
+          },
+          "resource_stats": {
+            "average": {
+              "cpu_time_in_nanos": 0,
+              "memory_in_bytes": 0
+            },
+            "total": {
+              "cpu_time_in_nanos": 0,
+              "memory_in_bytes": 0
+            },
+            "min": {
+              "cpu_time_in_nanos": 0,
+              "memory_in_bytes": 0
+            },
+            "max": {
+              "cpu_time_in_nanos": 0,
+              "memory_in_bytes": 0
+            },
+            "thread_info": {
+              "thread_executions": 0,
+              "active_threads": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
 ## Response body fields
