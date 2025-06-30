@@ -42,6 +42,7 @@ To get started, create a `pipeline.yaml` file and add `otel_trace_source` as the
 source:
     - otel_trace_source:
 ```
+{% include copy.html %}
 
 Use the `otel` output format option as below if open telemetry standard format is desired.
 
@@ -49,6 +50,8 @@ Use the `otel` output format option as below if open telemetry standard format i
 source:
     - otel_trace_source:
         output_format: otel
+```
+{% include copy.html %}
 
 ## Metrics
 
