@@ -54,13 +54,14 @@ source:
     - otel_logs_source:
 ```
 
-To generate data in OpenTelemetry format, set the `output_format` setting to `otel`, as shown in the following example:
+To generate data in the OpenTelemetry format, set the `output_format` setting to `otel`, as shown in the following example:
 
-```
+```yaml
 source:
     - otel_logs_source:
         output_format: otel
 ```
+{% include copy.html %}
 
 ## Metrics
 
