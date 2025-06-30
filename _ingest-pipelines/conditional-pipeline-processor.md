@@ -6,13 +6,13 @@ nav_order: 60
 
 # Conditionals with the pipeline processor
 
-The pipeline processor in ingest pipelines allows conditional execution of different sub-pipelines based on document contents. This provides powerful flexibility when different types of documents require separate processing logic. You can use the `if` parameter in the `pipeline` processor to direct documents into different pipelines based on field values, data types, or content structure. Each pipeline can then apply its own set of processors independently. This approach keeps your pipelines modular and maintainable by applying logic only where it’s relevant.
+The pipeline processor in ingest pipelines allows conditional execution of different sub-pipelines based on document contents. This provides powerful flexibility when different types of documents require separate processing logic. You can use the `if` parameter in the `pipeline` processor to direct documents to different pipelines based on field values, data types, or content structure. Each pipeline can then apply its own set of processors independently. This approach keeps your pipelines modular and maintainable by applying logic only where it's relevant.
 
 ## Example: Route logs by service
 
 The following example shows how to route logs to different sub-pipelines depending on the `service.name` field in the document.
 
-Create the first pipeline name `webapp_logs`:
+Create the first pipeline named `webapp_logs`:
 
 ```json
 PUT _ingest/pipeline/webapp_logs
@@ -24,7 +24,7 @@ PUT _ingest/pipeline/webapp_logs
 ```
 {% include copy-curl.html %}
 
-Create the second pipeline name `api_logs`:
+Create the second pipeline named `api_logs`:
 
 ```json
 PUT _ingest/pipeline/api_logs
@@ -36,7 +36,7 @@ PUT _ingest/pipeline/api_logs
 ```
 {% include copy-curl.html %}
 
-Create the main routing pipeline name `service_router` that routes the documents to the corresponding pipelines based on `service.name`:
+Create the main routing pipeline named `service_router` that routes the documents to the corresponding pipelines based on `service.name`:
 
 ```json
 PUT _ingest/pipeline/service_router
@@ -73,10 +73,7 @@ POST _ingest/pipeline/service_router/_simulate
 ```
 {% include copy-curl.html %}
 
-The returned documents demonstrate the following:
-- First document was processed by `webapp_logs` pipeline.
-- Second document was processed by `api_logs` pipeline.
-- Third document remains unchanged, as no conditions were matched.
+The response confirms that the first document was processed by the `webapp_logs` pipeline and the second document was processed by the `api_logs` pipeline. The third document remains unchanged because it doesn't match any conditions:
 
 ```json
 {
@@ -136,7 +133,7 @@ The returned documents demonstrate the following:
 
 You can also use the pipeline processor to apply type-specific pipelines. The following pipeline directs logs to a `numeric_handler` if the `code` field is a number, and to a `string_handler` if it is of type `String`.
 
-Create the first pipeline name `numeric_handler`:
+Create the first pipeline named `numeric_handler`:
 
 ```json
 PUT _ingest/pipeline/numeric_handler
@@ -148,7 +145,7 @@ PUT _ingest/pipeline/numeric_handler
 ```
 {% include copy-curl.html %}
 
-Create the second pipeline name `string_handler`:
+Create the second pipeline named `string_handler`:
 
 ```json
 PUT _ingest/pipeline/string_handler
@@ -160,7 +157,7 @@ PUT _ingest/pipeline/string_handler
 ```
 {% include copy-curl.html %}
 
-Create the main routing pipeline name `type_router` that routes the documents to the corresponding pipelines based on `code` field:
+Create the main routing pipeline named `type_router` that routes the documents to the corresponding pipelines based on the `code` field:
 
 ```json
 PUT _ingest/pipeline/type_router
