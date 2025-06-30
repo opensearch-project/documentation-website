@@ -10,7 +10,7 @@ Ingest pipelines support conditional logic using regular expressions with the Pa
 
 ## Example: Email domain filtering
 
-The following pipeline uses regex to identify users from `@example.com` email domain and tag those documents accordingly.
+The following pipeline uses regex to identify users from the `@example.com` email domain and tag those documents accordingly:
 
 ```json
 PUT _ingest/pipeline/tag_example_com_users
@@ -98,7 +98,7 @@ POST _ingest/pipeline/ipv6_flagger/_simulate
 ```
 {% include copy-curl.html %}
 
-The first document has added field `ip_type` set to `IPv6`:
+The first document contains an added `ip_type` field set to `IPv6`:
 
 ```json
 {
@@ -124,7 +124,7 @@ The first document has added field `ip_type` set to `IPv6`:
 
 ## Example: Validate UUID strings
 
-The following pipeline uses a regular expression to verify if a `session_id` field is a valid UUID:
+The following pipeline uses a regular expression to verify whether a `session_id` field contains a valid UUID:
 
 ```json
 PUT _ingest/pipeline/uuid_checker
@@ -155,7 +155,7 @@ POST _ingest/pipeline/uuid_checker/_simulate
 ```
 {% include copy-curl.html %}
 
-The first document is tagged with new field `valid_uuid`:
+The first document is tagged with a new `valid_uuid` field:
 
 ```json
 {
