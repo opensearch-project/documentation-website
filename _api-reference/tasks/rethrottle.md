@@ -54,7 +54,7 @@ The response provides detailed task and node-level information about the rethrot
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `nodes` | Object | A map of node IDs to details about the task on each node. |
-| `nodes.<node_id>.name` | String | The name of the node where the task is running. |
+| `nodes.<node_id>.name` | String | The name of the node on which the task is running. |
 | `nodes.<node_id>.transport_address` | String | The transport address of the node. |
 | `nodes.<node_id>.host` | String | The host IP address. |
 | `nodes.<node_id>.ip` | String | The IP address and port. |
@@ -62,23 +62,23 @@ The response provides detailed task and node-level information about the rethrot
 | `nodes.<node_id>.attributes` | Object | Node-level attributes. |
 | `nodes.<node_id>.tasks` | Object | A map of task IDs to detailed information about each task. |
 | `nodes.<node_id>.tasks.<task_id>.type` | String | The task type, such as `transport`. |
-| `nodes.<node_id>.tasks.<task_id>.action` | String | The specific action being performed (e.g., `reindex`). |
-| `nodes.<node_id>.tasks.<task_id>.status` | Object | Current status of the task. |
-| `nodes.<node_id>.tasks.<task_id>.status.total` | Integer | Total number of documents to process. |
-| `nodes.<node_id>.tasks.<task_id>.status.created` | Integer | Number of documents created. |
-| `nodes.<node_id>.tasks.<task_id>.status.updated` | Integer | Number of documents updated. |
-| `nodes.<node_id>.tasks.<task_id>.status.deleted` | Integer | Number of documents deleted. |
-| `nodes.<node_id>.tasks.<task_id>.status.batches` | Integer | Number of batches processed. |
-| `nodes.<node_id>.tasks.<task_id>.status.version_conflicts` | Integer | Number of version conflicts. |
-| `nodes.<node_id>.tasks.<task_id>.status.noops` | Integer | Number of no-op updates. |
+| `nodes.<node_id>.tasks.<task_id>.action` | String | The specific action being performed (for example, `reindex`). |
+| `nodes.<node_id>.tasks.<task_id>.status` | Object | The current status of the task. |
+| `nodes.<node_id>.tasks.<task_id>.status.total` | Integer | The total number of documents to process. |
+| `nodes.<node_id>.tasks.<task_id>.status.created` | Integer | The number of documents created. |
+| `nodes.<node_id>.tasks.<task_id>.status.updated` | Integer | The number of documents updated. |
+| `nodes.<node_id>.tasks.<task_id>.status.deleted` | Integer | The number of documents deleted. |
+| `nodes.<node_id>.tasks.<task_id>.status.batches` | Integer | The number of batches processed. |
+| `nodes.<node_id>.tasks.<task_id>.status.version_conflicts` | Integer | The number of version conflicts. |
+| `nodes.<node_id>.tasks.<task_id>.status.noops` | Integer | The number of no-op updates. |
 | `nodes.<node_id>.tasks.<task_id>.status.retries` | Object | Retry stats for bulk and search operations. |
 | `nodes.<node_id>.tasks.<task_id>.status.requests_per_second` | Float | Current throttle rate in requests per second. |
-| `nodes.<node_id>.tasks.<task_id>.status.throttled_millis` | Integer | Time in milliseconds the task was throttled. |
-| `nodes.<node_id>.tasks.<task_id>.status.throttled_until_millis` | Integer | Time in milliseconds the task is expected to remain throttled. |
+| `nodes.<node_id>.tasks.<task_id>.status.throttled_millis` | Integer | The time, in milliseconds, the task was throttled. |
+| `nodes.<node_id>.tasks.<task_id>.status.throttled_until_millis` | Integer | The time, in milliseconds, the task is expected to remain throttled. |
 | `nodes.<node_id>.tasks.<task_id>.description` | String | A human-readable description of the task. |
-| `nodes.<node_id>.tasks.<task_id>.start_time_in_millis` | Integer | Task start time in epoch milliseconds. |
-| `nodes.<node_id>.tasks.<task_id>.running_time_in_nanos` | Integer | Task runtime in nanoseconds. |
-| `nodes.<node_id>.tasks.<task_id>.cancellable` | Boolean | Whether the task can be cancelled. |
-| `nodes.<node_id>.tasks.<task_id>.cancelled` | Boolean | Whether the task has been cancelled. |
+| `nodes.<node_id>.tasks.<task_id>.start_time_in_millis` | Integer | The task start time in epoch milliseconds. |
+| `nodes.<node_id>.tasks.<task_id>.running_time_in_nanos` | Integer | The task runtime in nanoseconds. |
+| `nodes.<node_id>.tasks.<task_id>.cancellable` | Boolean | Whether the task can be canceled. |
+| `nodes.<node_id>.tasks.<task_id>.cancelled` | Boolean | Whether the task has been canceled. |
 | `nodes.<node_id>.tasks.<task_id>.headers` | Object | Optional HTTP headers associated with the task. |
 | `nodes.<node_id>.tasks.<task_id>.resource_stats` | Object | Statistics about resource usage. |
