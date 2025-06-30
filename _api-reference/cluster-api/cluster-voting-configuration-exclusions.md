@@ -5,9 +5,14 @@ parent: Cluster APIs
 nav_order: 75
 ---
 
-# Adding voting configuration exclusions
+# Voting configuration exclusions
 
-The `_cluster/voting_config_exclusions` API allows you to exclude one or more nodes from the voting configuration. This is useful when you want to safely remove cluster manager eligible nodes from the cluster or to change the current cluster manager.
+The `_cluster/voting_config_exclusions` API allows you to exclude one or more nodes from the voting configuration. This is useful when you want to safely remove cluster-manager-eligible nodes from the cluster or to change the current cluster manager.
+
+## Adding voting configuration exclusions
+
+Use the POST method to add voting configuration exclusions.
+
 
 <!-- spec_insert_start
 api: cluster.post_voting_config_exclusions
@@ -48,22 +53,23 @@ POST /_cluster/voting_config_exclusions?node_names=opensearch-node1
 ```
 {% include copy-curl.html %}
 
-You can also specify node IDs instead:
+Alternatively, you can specify the node IDs as a comma-separated list:
 
 ```json
 POST /_cluster/voting_config_exclusions?node_ids=UfVnWzDoT4mYtjb6CZsGvw
 ```
 {% include copy-curl.html %}
 
-# Removing voting configuration exclusions
+## Removing voting configuration exclusions
 
-Use the `_cluster/voting_config_exclusions` DELETE API to clear the list of nodes that were previously excluded from the voting configuration. This is typically used after excluded nodes have been safely removed or replaced. You can optionally wait for the nodes to be removed from the cluster before clearing the exclusions.
+Use the DELETE method to clear the list of nodes that were previously excluded from the voting configuration. This is typically used after excluded nodes have been safely removed or replaced. You can optionally wait for the nodes to be removed from the cluster before clearing the exclusions.
 
 <!-- spec_insert_start
 api: cluster.delete_voting_config_exclusions
 component: endpoints
 -->
 ## Endpoints
+
 ```json
 DELETE /_cluster/voting_config_exclusions
 ```
@@ -89,7 +95,7 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example
 
-Use the following command to remove all voting configuration exclusions without waiting for nodes to be removed:
+Use the following request to remove all voting configuration exclusions without waiting for nodes to be removed:
 
 ```json
 DELETE /_cluster/voting_config_exclusions?wait_for_removal=false
