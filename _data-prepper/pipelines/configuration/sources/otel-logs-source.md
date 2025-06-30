@@ -54,7 +54,7 @@ source:
     - otel_logs_source:
 ```
 
-To generate data in OpenTelemetry format, use the `otel` value for the `output_format` as shown in the following example:
+To generate data in OpenTelemetry format, set the `output_format` setting to `otel`, as shown in the following example:
 
 ```
 source:
