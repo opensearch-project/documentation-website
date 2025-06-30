@@ -7,7 +7,7 @@ nav_order: 75
 
 # Adding voting configuration exclusions
 
-The `_cluster/voting_config_exclusions` API allows you to exclude one or more nodes from the voting configuration. This is useful for safely removing master eligible nodes from the cluster or forcing a new re-election of cluster manager.
+The `_cluster/voting_config_exclusions` API allows you to exclude one or more nodes from the voting configuration. This is useful when you want to safely remove cluster manager eligible nodes from the cluster or to change the current cluster manager.
 
 <!-- spec_insert_start
 api: cluster.post_voting_config_exclusions
