@@ -195,6 +195,23 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```
 1. The upgrade is now complete, and you can begin enjoying the latest features and fixes!
 
+# Rolling Restart
+
+A rolling restart follows the same step-by-step procedure as a rolling upgrade, with the exception of upgrade of actual nodes. Instead, nodes are restarted one at a time—typically to apply configuration changes, refresh certificates, or perform system-level maintenance—without disrupting cluster availability.
+
+To perform a rolling restart, follow the steps outlined in the [Rolling Upgrade](#rolling-upgrade), excluding only the steps that involve upgrading the OpenSearch binary or container image. For each node the steps include:
+
+1. Check cluster health.
+2. Disable shard allocation.
+3. Flush the transaction log.
+4. Stop one node at a time (without deleting volumes).
+5. Restart the node with the existing version.
+6. Wait for it to rejoin the cluster.
+7. Reenable shard allocation.
+8. Confirm cluster health.
+
+By preserving quorum and restarting nodes sequentially, rolling restarts ensure zero downtime and full data continuity.
+
 ### Related articles
 
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
