@@ -36,8 +36,6 @@ authentication | No | Object | An authentication configuration. By default, an u
 
 ## Usage
 
-## Usage
-
 To use the `otel-metrics` source, create the following `pipeline.yaml` file with `otel_metrics_source` as the source:
 
 ```yaml
