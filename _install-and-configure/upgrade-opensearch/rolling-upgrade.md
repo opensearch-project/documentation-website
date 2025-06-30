@@ -201,14 +201,53 @@ A rolling restart follows the same step-by-step procedure as a rolling upgrade, 
 
 To perform a rolling restart, follow the steps outlined in [Rolling upgrade](#rolling-upgrade), excluding the steps that involve upgrading the OpenSearch binary or container image:
 
-1. Check cluster health.
-2. Disable shard allocation.
-3. Flush the transaction log.
-4. Stop one node at a time (without deleting volumes).
-5. Restart the node with the existing version.
-6. Wait for it to rejoin the cluster.
-7. Reenable shard allocation.
-8. Confirm cluster health.
+1. **Check cluster health**  
+   Ensure the cluster status is green and all shards are assigned.  
+   _(Rolling upgrade step 1)_
+
+2. **Disable shard allocation**  
+   Prevent OpenSearch from trying to reallocate shards while nodes are offline.  
+   _(Rolling upgrade step 2)_
+
+3. **Flush transaction logs**  
+   Commit recent operations to Lucene to reduce recovery time.  
+   _(Rolling upgrade step 3)_
+
+4. **Review and identify the next node to restart**  
+   Ensure you don’t restart the current cluster manager node until last.  
+   _(Rolling upgrade step 4)_
+
+5. **Check which node is the current cluster manager**  
+   Use the `_cat/nodes` API to determine the active cluster manager.  
+   _(Rolling upgrade step 5)_
+
+6. **Stop the node**  
+   Shut down the node gracefully. Do not delete the associated data volume.  
+   _(Rolling upgrade step 6)_
+
+7. **Confirm the node has left the cluster**  
+   Use `_cat/nodes` to verify it’s no longer listed.  
+   _(Rolling upgrade step 7)_
+
+8. **Restart the node**  
+   Start the same node (same binary/version/config), and let it rejoin the cluster.  
+   _(Rolling upgrade step 8 — without upgrading the binary)_
+
+9. **Verify that the restarted node has rejoined**  
+   Check `_cat/nodes` to confirm the node is present and healthy.  
+   _(Rolling upgrade step 9)_
+
+10. **Reenable shard allocation**  
+    Restore full shard movement capability.  
+    _(Rolling upgrade step 10)_
+
+11. **Confirm cluster health is green**  
+    Validate stability before restarting the next node.  
+    _(Rolling upgrade step 11)_
+
+12. **Repeat the process for all other nodes**  
+    Restart each node one at a time. If a node is eligible for cluster manager role, restart it last.  
+    _(Rolling upgrade step 12 — again, no upgrade step)_
 
 By preserving quorum and restarting nodes sequentially, rolling restarts ensure zero downtime and full data continuity.
 
