@@ -382,10 +382,7 @@ POST _ingest/pipeline/advanced_log_pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-Expected output:
-- First document has fields `env: production` and `severity: major` added.
-- Second document is dropped.
-- Third document has field `env: production` added.
+In the response, note that the first document has an `env: production` and `severity: major` fields added. The second document is dropped. The third document has an `env: production` field added:
 
 ```json
 {
