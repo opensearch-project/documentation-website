@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Complex conditionals
+parent: Conditional execution
 nav_order: 50
 ---
 
@@ -236,7 +237,7 @@ The first document has an `alert` field added:
 
 ## Combining fields and null checks
 
-Ensure all fields are present and meet specific conditions before proceeding. The following pipeline adds a `priority` field set to `high` if `level` is `critical` and `timestamp` is provided:
+The following pipeline adds a `priority` field set to `high` if `level` is `critical` and `timestamp` is provided. The script also ensures that all fields are present and meet specific conditions before proceeding
 
 ```json
 PUT _ingest/pipeline/critical_log_handler

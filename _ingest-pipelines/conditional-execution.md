@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Conditional execution
+has_children: true
 nav_order: 40
 ---
 
