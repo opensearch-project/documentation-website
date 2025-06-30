@@ -110,10 +110,10 @@ PUT /testindex/_doc/1
 }
 ```
 
-Triple quotation marks are only supported in the Dev Tools console, but not in `curl` or other HTTP clients. To import a query with triple quotation marks in cURL format, use **Copy as cURL**.
+Triple quotation marks are only supported in the Dev Tools console---not in `curl` or other HTTP clients. To import a query with triple quotation marks in cURL format, use **Copy as cURL**.
 {: .tip}
 
-If a response contains `\n`, `\t`, `\`, and `"` special characters, the console formats the response using triple quotation marks. To turn off this behavior, select **Settings** from the top menu and toggle **JSON syntax**.
+If a response contains the `\n`, `\t`, `\`, or `"` special characters, the console formats the response using triple quotation marks. To turn off this behavior, select **Settings** from the top menu and toggle **JSON syntax**.
 {: .tip}
 
 ## Viewing documentation
