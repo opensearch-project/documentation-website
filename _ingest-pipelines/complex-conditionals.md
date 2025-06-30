@@ -6,11 +6,11 @@ nav_order: 50
 
 # Complex conditionals
 
-In ingest pipelines, the `if` parameter in processors can evaluate complex conditions using Painless scripts. These conditionals help to fine-tune document processing, allowing advanced logic such as type checking, regular expressions, and combining multiple criteria.
+In ingest pipelines, the `if` parameter in processors can evaluate complex conditions using Painless scripts. These conditionals help fine-tune document processing, allowing advanced logic such as type checking, regular expressions, and combining multiple criteria.
 
 ## Multiple condition checks
 
-You can combine logical operators like `&&` (and), `||` (or), and `!` (not) to construct more complex conditions. The following pipeline tags documents with a `spam` and drops them if they also contain an `error_code` higher than `1000`:
+You can combine logical operators like `&&` (and), `||` (or), and `!` (not) to construct more complex conditions. The following pipeline tags documents as `spam` and drops them if they contain an `error_code` higher than `1000`:
 
 ```json
 PUT _ingest/pipeline/spammy_error_handler
@@ -47,7 +47,7 @@ POST _ingest/pipeline/spammy_error_handler/_simulate
 ```
 {% include copy-curl.html %}
 
-The first document is dropped, as it contains "OutOfMemoryError" string and the `error_code` higher than `1000`:
+The first document is dropped because it contains an `OutOfMemoryError` string and the `error_code` higher than `1000`:
 
 ```json
 {
@@ -88,7 +88,7 @@ The first document is dropped, as it contains "OutOfMemoryError" string and the 
 
 ## Type-safe evaluations
 
-Use `instanceof` to ensure you’re working with the right data types before performing operations. The following pipeline is configured to add a field `processed` set to `true` only if `message` is of type `String` and longer than `10` characters:
+Use `instanceof` to ensure you're working with the right data types before performing operations. The following pipeline is configured to add a `processed` field set to `true` only if `message` is of type `String` and longer than `10` characters:
 
 ```json
 PUT _ingest/pipeline/string_message_check
@@ -120,7 +120,7 @@ POST _ingest/pipeline/string_message_check/_simulate
 ```
 {% include copy-curl.html %}
 
-Only the second document has new field added:
+Only the second document has a new field added:
 
 ```json
 {
@@ -169,7 +169,7 @@ Only the second document has new field added:
 
 ## Using regular expressions
 
-Painless supports the `=~` operator to evaluate regular expressions. The following pipeline flags suspicious IP patterns beginning with `192.168.`:
+Painless scripting supports the `=~` operator to evaluate regular expressions. The following pipeline flags suspicious IP patterns beginning with `192.168.`:
 
 ```json
 PUT _ingest/pipeline/flag_suspicious_ips
@@ -200,7 +200,7 @@ POST _ingest/pipeline/flag_suspicious_ips/_simulate
 ```
 {% include copy-curl.html %}
 
-The first document has `alert` field added:
+The first document has an `alert` field added:
 
 ```json
 {
@@ -268,7 +268,7 @@ POST _ingest/pipeline/critical_log_handler/_simulate
 ```
 {% include copy-curl.html %}
 
-Only the first document has `priority` field added:
+Only the first document has a `priority` field added:
 
 ```json
 {
@@ -320,9 +320,9 @@ Only the first document has `priority` field added:
 
 The following pipeline:
 
-- adds a field `env` set to `production` if field `env` doesn't already exist.
-- adds a field `severity` set to `major` if `status` field is higher or equal to `500`.
-- drops the document if `env` field is set to `test` and `message` field contains `debug`.
+- Adds an `env` field set to `production` if it doesn't already exist.
+- Adds a `severity` field set to `major` if the value in the `status` field is greater than or equal to `500`.
+- Drops the document if the `env` field is set to `test` and the `message` field contains `debug`.
 
 ```json
 PUT _ingest/pipeline/advanced_log_pipeline
@@ -425,7 +425,7 @@ Expected output:
 
 ## Null-safe notation
 
-Null-safe navigation notation (`?.`) should be used to check if the field is `null`, however, this notation can return `null` silently, therefore it is recommended to first check if the returned value is `null` and then use operations like `.contains` or `==`.
+Use null-safe navigation notation (`?.`) to check if the field is `null`. Note that this notation can return `null` silently, therefore we recommend to first check if the returned value is `null` and then use operations like `.contains` or `==`.
 
 Not safe syntax:
 
@@ -433,7 +433,7 @@ Not safe syntax:
 "if": "ctx.message?.contains('debug')"
 ```
 
-If the field `message` does not exist in the document, this will return `null_pointer_exception` with error `Cannot invoke "Object.getClass()" because "value" is null`
+If the `message` field does not exist in the document, this request returns a `null_pointer_exception` with a message `Cannot invoke "Object.getClass()" because "value" is null`.
 
 Safe syntax:
 
