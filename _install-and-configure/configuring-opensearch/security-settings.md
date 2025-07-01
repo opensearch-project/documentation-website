@@ -307,16 +307,6 @@ The Security plugin supports the following REST layer TLS key store and trust st
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls-1).
 
-## OpenSSL settings
-
-The Security plugin supports the following OpenSSL settings:
-
-- `plugins.security.ssl.transport.enable_openssl_if_available` (Static): Enables OpenSSL on the transport layer if available. Optional. Default is `true`.
-
-- `plugins.security.ssl.http.enable_openssl_if_available` (Static): Enables OpenSSL on the REST layer if available. Optional. Default is `true`.
-
-For more information, see [OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-openssl).
-
 ## X.509 PEM certificates and PKCS #8 keys---transport layer TLS settings
 
 The Security plugin supports the following transport layer TLS settings related to X.509 PEM certificates and PKCS #8 keys:
@@ -392,7 +382,7 @@ The Security plugin supports the following transport layer security settings:
 plugins.security.nodes_dn:
   - "CN=*.example.com, OU=SSL, O=Test, L=Test, C=DE"
   - "CN=node.other.com, OU=SSL, O=Test, L=Test, C=DE"
-  - "CN=node.example.com, OU=SSL\, Inc., L=Test, C=DE" # escape additional comma with `\`
+  - "CN=node.example.com, OU=SSL\\, Inc., L=Test, C=DE" # escape additional comma with `\\`
 plugins.security.authcz.admin_dn:
   - CN=kirk,OU=client,O=client,L=test, C=de
 plugins.security.roles_mapping_resolution: MAPPING_ONLY

@@ -38,7 +38,7 @@ Download or clone the [Data Prepper repository](https://github.com/opensearch-pr
 - A single-node OpenSearch cluster (`opensearch`)
 - OpenSearch Dashboards (`opensearch-dashboards`).
 
-Close the file and run `docker-compose up --build`. After the containers start, navigate to `http://localhost:8080` in a web browser.
+Close the file and run `docker compose up --build`. After the containers start, navigate to `http://localhost:8080` in a web browser.
 
 ![HotROD web interface]({{site.url}}{{site.baseurl}}/images/hot-rod.png)
 

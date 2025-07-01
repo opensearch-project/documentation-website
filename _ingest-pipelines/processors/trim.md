@@ -19,18 +19,17 @@ The following is the syntax for the `trim` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 
 The following table lists the required and optional parameters for the `trim` processor.
 
-Parameter | Required/Optional | Description |
-|-----------|-----------|-----------|
+Parameter | Required/Optional | Description 
+:---|:---|:---
 `field` | Required | The field containing the text to be trimmed.
 `target_field` | Required | The field in which the trimmed text is stored. If not specified, then the field is updated in-place.
-`ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified 
-field. If set to `true`, then the processor ignores missing values in the field and leaves the `target_field` unchanged. Default is `false`.
+`ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, then the processor ignores missing values in the field and leaves the `target_field` unchanged. Default is `false`.
 `description` | Optional | A brief description of the processor.
 `if` | Optional | A condition for running the processor.
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, then failures are ignored. Default is `false`.

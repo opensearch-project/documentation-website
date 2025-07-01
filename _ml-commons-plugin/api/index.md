@@ -9,9 +9,9 @@ redirect_from:
   - /ml-commons-plugin/api/
 ---
 
-# ML Commons APIs 
+# ML APIs 
 
-ML Commons supports the following APIs:
+OpenSearch supports the following machine learning (ML) APIs:
 
 - [Model APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/)
 - [Model group APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/index/)
@@ -23,3 +23,4 @@ ML Commons supports the following APIs:
 - [Tasks APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/index/)
 - [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/)
 - [Stats API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/stats/)
+- [MCP Server APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/)

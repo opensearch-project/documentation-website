@@ -4,7 +4,7 @@ title: Agent APIs
 parent: ML Commons APIs
 has_children: true
 has_toc: false
-nav_order: 27
+nav_order: 30
 redirect_from: /ml-commons-plugin/api/agent-apis/
 ---
 
@@ -17,6 +17,7 @@ You can automate machine learning (ML) tasks using agents and tools. An _agent_ 
 ML Commons supports the following agent-level APIs:
 
 - [Register agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/)
+- [Update agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/update-agent/)
 - [Execute agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/)
 - [Get agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/get-agent/)
 - [Search agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/search-agent/)

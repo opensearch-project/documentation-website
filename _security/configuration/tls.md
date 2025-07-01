@@ -140,29 +140,6 @@ For security reasons, you cannot use wildcards or regular expressions as values 
 For more information about admin and super admin user roles, see [Admin and super admin roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#admin-and-super-admin-roles). 
 
 
-## (Advanced) OpenSSL
-
-The Security plugin supports OpenSSL, but we only recommend it if you use Java 8. If you use Java 11, we recommend the default configuration.
-
-To use OpenSSL, you must install OpenSSL, the Apache Portable Runtime, and a Netty version with OpenSSL support matching your platform on all nodes.
-
-If OpenSSL is enabled, but for one reason or another the installation does not work, the Security plugin falls back to the Java JCE as the security engine.
-
-Name | Description
-:--- | :---
-`plugins.security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is `true`.
-`plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is `true`.
-
-{% comment %}
-1. Install [OpenSSL 1.1.0](https://www.openssl.org/community/binaries.html) on every node.
-1. Install [Apache Portable Runtime](https://apr.apache.org) on every node:
-
-  ```
-  sudo yum install apr
-  ```
-{% endcomment %}
-
-
 ## (Advanced) Hostname verification and DNS lookup
 
 In addition to verifying the TLS certificates against the root CA and/or intermediate CA(s), the Security plugin can apply additional checks on the transport layer.

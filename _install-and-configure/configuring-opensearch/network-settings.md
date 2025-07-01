@@ -39,6 +39,8 @@ OpenSearch supports the following advanced network settings for HTTP communicati
 
 - `http.compression` (Static, Boolean): Enables support for compression using `Accept-Encoding` when applicable. When `HTTPS` is enabled, the default is `false`, otherwise, the default is `true`. Disabling compression for HTTPS helps mitigate potential security risks, such as `BREACH` attacks. To enable compression for HTTPS traffic, explicitly set `http.compression` to `true`.
 
+- `http.max_header_size`: (Static, string) The maximum combined size of all HTTP headers allowed in a request. Default is `16KB`.
+
 ## Advanced transport settings
 
 OpenSearch supports the following advanced network settings for transport communication:
@@ -55,5 +57,4 @@ The default OpenSearch transport is provided by the `transport-netty4` module an
 
 Plugin | Description
 :---------- | :--------
-`transport-nio`    | The OpenSearch transport based on Java NIO. <br> Installation: `./bin/opensearch-plugin install transport-nio` <br> Configuration (using `opensearch.yml`): <br> `transport.type: nio-transport` <br> `http.type: nio-http-transport`
 `transport-reactor-netty4`    | The OpenSearch HTTP transport based on [Project Reactor](https://github.com/reactor/reactor-netty) and Netty 4 (**experimental**) <br> Installation: `./bin/opensearch-plugin install transport-reactor-netty4` <br> Configuration (using `opensearch.yml`): <br> `http.type: reactor-netty4` <br> `http.type: reactor-netty4-secure`

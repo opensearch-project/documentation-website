@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   doc_builder:
     image: ruby:3.2.4

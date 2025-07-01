@@ -14,11 +14,15 @@ describe DocProcessor do
     expect(actual_output).to eq(expected_output)
   end
 
-  it 'inserts the param tables correctly' do
-    test_file('param_tables')
+  it 'inserts the endpoints correctly' do
+    test_file('endpoints')
   end
 
-  it 'inserts the Endpoints correctly' do
-    test_file('endpoints')
+  it 'inserts the url param tables correctly' do
+    test_file('url_params_tables')
+  end
+
+  it 'inserts the body param tables correctly' do
+    test_file('body_params_tables')
   end
 end

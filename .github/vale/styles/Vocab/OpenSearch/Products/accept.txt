@@ -5,12 +5,16 @@ Amazon
 Amazon OpenSearch Serverless
 Amazon OpenSearch Service
 Amazon Bedrock
+Amazon Kinesis
 Amazon SageMaker
+AWS Secrets Manager
 Ansible
 Anthropic Claude
+Apache Kafka
 Auditbeat
 AWS Cloud
 Cohere Command
+Cohere Embed
 Cohere Embed English
 Cohere Embed Multilingual
 Cognito
@@ -48,8 +52,10 @@ JSON Web Token
 Keycloak
 Kerberos
 Kibana
+Kinesis
 Kubernetes
 Lambda
+Langflow
 Linux
 Log4j
 Logstash
@@ -90,9 +96,11 @@ RankLib
 RCF Summarize
 RPM Package Manager
 Ruby
+Search Relevance Workbench
 Simple Schema for Observability
 Tableau
 Textract
+Titan
 Titan Multimodal Embeddings
 Titan Text Embeddings
 TorchScript

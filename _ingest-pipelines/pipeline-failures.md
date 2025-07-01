@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Handling pipeline failures
-nav_order: 15
+nav_order: 30
 redirect_from:
   - /api-reference/ingest-apis/pipeline-failures/
 ---

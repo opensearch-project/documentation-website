@@ -1,16 +1,26 @@
 # frozen_string_literal: true
 
+require_relative 'utils'
+require_relative 'spec_insert_error'
+
 # Doc Insert Arguments
 class InsertArguments
   attr_reader :raw
 
-  # @param [Array<String>] lines the lines between <!-- doc_insert_start and -->
-  def initialize(lines)
+  # @param [Hash] args raw arguments read from the doc insert marker
+  def initialize(args)
+    @raw = args.to_h.with_indifferent_access
+  end
+
+  # @param [Array<String>] lines the lines between "<!-- doc_insert_start" and "<!-- spec_insert_end -->"
+  # @return [InsertArguments]
+  def self.from_marker(lines)
     end_index = lines.each_with_index.find { |line, _index| line.match?(/^\s*-->/) }&.last&.- 1
-    @raw = lines[1..end_index].filter { |line| line.include?(':') }.to_h do |line|
+    args = lines[1..end_index].filter { |line| line.include?(':') }.to_h do |line|
       key, value = line.split(':')
       [key.strip, value.strip]
     end
+    new(args)
   end
 
   # @return [String]
@@ -20,7 +30,10 @@ class InsertArguments
 
   # @return [String]
   def component
-    @raw['component']
+    @raw['component'].tap do |component|
+      raise SpecInsertError, 'Component not specified.' if component.nil?
+      raise SpecInsertError, "Invalid component: #{component}" unless component.in?(Utils::COMPONENTS)
+    end
   end
 
   # @return [Array<String>]

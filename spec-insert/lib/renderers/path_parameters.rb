@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'base_mustache_renderer'
-require_relative 'parameter_table_renderer'
+require_relative 'components/base_mustache_renderer'
+require_relative 'components/parameter_table_renderer'
 
 # Renders path parameters
 class PathParameters < BaseMustacheRenderer
@@ -18,6 +18,6 @@ class PathParameters < BaseMustacheRenderer
   private
 
   def params
-    @params ||= @action.arguments.select { |arg| arg.location == ArgLocation::PATH }
+    @params ||= @action.path_parameters
   end
 end

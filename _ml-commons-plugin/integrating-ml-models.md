@@ -3,6 +3,21 @@ layout: default
 title: Integrating ML models
 nav_order: 15
 has_children: true
+more_cards:
+  - heading: "Get started with AI search"
+    description: "Learn how to implement semantic and hybrid search in OpenSearch"
+    link: "/vector-search/tutorials/neural-search-tutorial/"
+local_model:
+  - heading: "Pretrained models provided by OpenSearch"
+    link: "/ml-commons-plugin/pretrained-models/"
+    description: "Requires minimal setup and avoids the time and effort required to train a custom model"
+  - heading: "Custom models"
+    link: "/ml-commons-plugin/custom-local-models/"
+    description: "Offers customization for your specific use case"
+external_model:
+  - heading: "Externally hosted models"
+    link: "/ml-commons-plugin/remote-models/"
+    description: "Learn how to create connectors for models hosted on third-party platforms"
 ---
 
 # Integrating ML models
@@ -14,32 +29,26 @@ Before you get started, you'll need to [set up]({{site.url}}{{site.baseurl}}/qui
 
 ## Choosing a model
 
-To integrate an ML model into your search workflow, choose one of the following options:
+To integrate an ML model into your search workflow, choose one of the following options.
 
-1. **Local model**: Upload a model to the OpenSearch cluster and use it locally. This option allows you to serve the model in your OpenSearch cluster but may require significant system resources.
+### Local model
 
-    1. **Pretrained model provided by OpenSearch**: This option requires minimal setup and avoids the time and effort required to train a custom model.
+Upload a model to the OpenSearch cluster and use it locally. This option allows you to serve the model in your OpenSearch cluster but may require significant system resources.
 
-        For a list of supported models and information about using a pretrained model provided by OpenSearch, see [Pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/). 
+{% include cards.html cards=page.local_model %}
 
-    1. **Custom model**: This option offers customization for your specific use case.
+### Externally hosted model
 
-        For information about uploading your model, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
-
-1. **Externally hosted model**: This option allows you to connect to a model hosted on a third-party platform. It requires more setup but allows the use of models that are already hosted on a service other than OpenSearch.     
+Connect to a model hosted on a third-party platform. This requires more setup but allows the use of models that are already hosted on a service other than OpenSearch.     
     
-    To connect to an externally hosted model, you need to set up a connector:  
-
-    - For a walkthrough with detailed steps, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
-    - For more information about supported connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
-    - For information about creating your own connector, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+{% include cards.html cards=page.external_model %}    
 
 In OpenSearch version 2.9 and later, you can integrate local and external models simultaneously within a single cluster.
 {: .note}
 
 ## Tutorial
 
-For a step-by-step tutorial, see [Neural search tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/).
+{% include cards.html cards=page.more_cards %}
 
 ## Using a model
 
@@ -56,7 +65,7 @@ You can invoke your model by calling the [Predict API]({{site.url}}{{site.baseur
 
 ### Using a model for search
 
-OpenSearch supports multiple search methods that integrate with ML models. For more information, see [Search methods]({{site.url}}{{site.baseurl}}/search-plugins/index/#search-methods).
+OpenSearch supports multiple search methods that integrate with ML models. For more information, see [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/).
 
 ## Disabling a model
 

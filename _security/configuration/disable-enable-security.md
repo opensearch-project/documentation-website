@@ -96,7 +96,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
 
 1. In `docker-compose.yml`, change `opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}` to `opensearch-dashboards-no-security`.
 1. Change `OPENSEARCH_HOSTS` or `opensearch.hosts` to `http://` rather than `https://`.
-1. Enter `docker-compose up`.
+1. Enter `docker compose up`.
 
 #### Tarball 
 

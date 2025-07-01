@@ -25,7 +25,6 @@ text | text | VARCHAR
 date | timestamp | TIMESTAMP
 date_nanos | timestamp | TIMESTAMP
 ip | ip | VARCHAR
-date | timestamp | TIMESTAMP
 binary | binary | VARBINARY
 object | struct | STRUCT
 nested | array | STRUCT

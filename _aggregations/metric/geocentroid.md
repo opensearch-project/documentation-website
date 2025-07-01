@@ -7,62 +7,29 @@ nav_order: 45
 
 # Geocentroid
 
-The OpenSearch `geo_centroid` aggregation is a powerful tool that allows you to calculate the weighted geographic center or focal point of a set of spatial data points. This metric aggregation operates on `geo_point` fields and returns the centroid location as a latitude-longitude pair.
+The `geo_centroid` aggregation calculates the geographic center or focal point of a set of `geo_point` values. It returns the centroid location as a latitude-longitude pair.
 
-## Using the aggregation
+## Parameters
 
-Follow these steps to use the `geo_centroid` aggregation:
+The `geo_centroid` aggregation takes the following parameter.
 
-**1. Create an index with a `geopoint` field**
+| Parameter        | Required/Optional | Data type      | Description |
+| :--              | :--               | :--            | :--         |
+| `field`          | Required          | String         | The name of the field containing the geopoints for which the geocentroid is computed. |
 
-First, you need to create an index with a `geo_point` field type. This field stores the geographic coordinates you want to analyze. For example, to create an index called `restaurants` with a `location` field of type `geo_point`, use the following request:
+## Example
 
-```json
-PUT /restaurants
-{
-  "mappings": {
-    "properties": {
-      "name": {
-        "type": "text"
-      },
-      "location": {
-        "type": "geo_point"
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
+The following example returns the `geo_centroid` for the `geoip.location` of every order in the e-commerce sample data. Each `geoip.location` is a geopoint:
 
-**2. Index documents with spatial data**
-
-Next, index your documents containing the spatial data points you want to analyze. Make sure to include the `geo_point` field with the appropriate latitude-longitude coordinates. For example, index your documents using the following request:
 
 ```json
-POST /restaurants/_bulk?refresh
-{"index": {"_id": 1}}
-{"name": "Cafe Delish", "location": "40.7128, -74.0059"}
-{"index": {"_id": 2}}
-{"name": "Tasty Bites", "location": "51.5074, -0.1278"}
-{"index": {"_id": 3}}
-{"name": "Sushi Palace", "location": "48.8566, 2.3522"}
-{"index": {"_id": 4}}
-{"name": "Burger Joint", "location": "34.0522, -118.2437"}
-```
-{% include copy-curl.html %}
-
-**3. Run the `geo_centroid` aggregation**
-
-To caluculate the centroid location across all documents, run a search with the `geo_centroid` aggregation on the `geo_point` field. For example, use the following request:
-
-```json
-GET /restaurants/_search
+GET /opensearch_dashboards_sample_data_ecommerce/_search
 {
   "size": 0,
   "aggs": {
     "centroid": {
       "geo_centroid": {
-        "field": "location"
+        "field": "geoip.location"
       }
     }
   }
@@ -70,119 +37,13 @@ GET /restaurants/_search
 ```
 {% include copy-curl.html %}
 
-The response includes a `centroid` object with `lat` and `lon` properties representing the weighted centroid location of all indexed data point, as shown in the following example:
+## Example response
 
- ```json
- "aggregations": {
-    "centroid": {
-      "location": {
-        "lat": 43.78224998130463,
-        "lon": -47.506300045643
-      },
-      "count": 4
-```
-{% include copy-curl.html %}
-
-**4. Nest under other aggregations (optional)**
-
-You can also nest the `geo_centroid` aggregation under other bucket aggregations, such as `terms`, to calculate the centroid for subsets of your data. For example, to find the centroid location for each city, use the following request:
-
-```json
-GET /restaurants/_search
-{
-  "size": 0,
-  "aggs": {
-    "cities": {
-      "terms": {
-        "field": "city.keyword"
-      },
-      "aggs": {
-        "centroid": {
-          "geo_centroid": {
-            "field": "location"
-          }
-        }
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-This returns a centroid location for each city bucket, allowing you to analyze the geographic center of data points in different cities.
-
-## Using `geo_centroid` with the `geohash_grid` aggregation
-
-The `geohash_grid` aggregation partitions geospatial data into buckets based on geohash prefixes. 
-
-When a document contains multiple geopoint values in a field, the `geohash_grid` aggregation assigns the document to multiple buckets, even if one or more of its geopoints are outside the bucket boundaries. This behavior is different from how individual geopoints are treated, where only those within the bucket boundaries are considered.
-
-When you nest the `geo_centroid` aggregation under the `geohash_grid` aggregation, each centroid is calculated using all geopoints in a bucket, including those that may be outside the bucket boundaries. This can result in centroid locations that fall outside the geographic area represented by the bucket.
-
-#### Example 
-
-In this example, the `geohash_grid` aggregation with a `precision` of `3` creates buckets based on geohash prefixes of length `3`. Because each document has multiple geopoints, they may be assigned to multiple buckets, even if some of the geopoints fall outside the bucket boundaries.
-
-The `geo_centroid` subaggregation calculates the centroid for each bucket using all geopoints assigned to that bucket, including those outside the bucket boundaries. This means that the resulting centroid locations may not necessarily lie within the geographic area represented by the corresponding geohash bucket.
-
-First, create an index and index documents containing multiple geopoints: 
-
-```json
-PUT /locations
-{
-  "mappings": {
-    "properties": {
-      "name": {
-        "type": "text"
-      },
-      "coordinates": {
-        "type": "geo_point"
-      }
-    }
-  }
-}
-
-POST /locations/_bulk?refresh
-{"index": {"_id": 1}}
-{"name": "Point A", "coordinates": ["40.7128, -74.0059", "51.5074, -0.1278"]}
-{"index": {"_id": 2}}
-{"name": "Point B", "coordinates": ["48.8566, 2.3522", "34.0522, -118.2437"]}
-```
-
-Then, run `geohash_grid` with the `geo_centroid` subaggregation:
-
-```json
-GET /locations/_search
-{
-  "size": 0,
-  "aggs": {
-    "grid": {
-      "geohash_grid": {
-        "field": "coordinates",
-        "precision": 3
-      },
-      "aggs": {
-        "centroid": {
-          "geo_centroid": {
-            "field": "coordinates"
-          }
-        }
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-<details markdown="block">
-  <summary>
-    Response
-  </summary>
-  {: .text-delta}
+The response includes a `centroid` object with `lat` and `lon` properties representing the centroid location of all indexed data points:
 
 ```json
 {
-  "took": 26,
+  "took": 35,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -192,57 +53,142 @@ GET /locations/_search
   },
   "hits": {
     "total": {
-      "value": 2,
+      "value": 4675,
       "relation": "eq"
     },
     "max_score": null,
     "hits": []
   },
   "aggregations": {
-    "grid": {
+    "centroid": {
+      "location": {
+        "lat": 35.54990372113027,
+        "lon": -9.079764742533712
+      },
+      "count": 4675
+    }
+  }
+}
+```
+
+The centroid location is in the Atlantic Ocean north of Morocco. This is not very meaningful, given the wide geographical dispersion of orders in the database.
+
+## Nesting under other aggregations
+
+You can nest the `geo_centroid` aggregation inside bucket aggregations to calculate the centroid for subsets of your data.
+
+### Example: Nesting under a terms aggregation
+
+You can nest `geo_centroid` aggregations under `terms` buckets of a string field.
+
+To find the centroid location of `geoip` for the orders on each continent, sub-aggregate the centroid within the `geoip.continent_name` field:
+
+```json
+GET /opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "continents": {
+      "terms": {
+        "field": "geoip.continent_name"
+      },
+      "aggs": {
+        "centroid": {
+          "geo_centroid": {
+            "field": "geoip.location"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+This returns a centroid location for each continent's bucket:
+
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 34,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 4675,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "continents": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
       "buckets": [
         {
-          "key": "u09",
-          "doc_count": 1,
+          "key": "Asia",
+          "doc_count": 1220,
           "centroid": {
             "location": {
-              "lat": 41.45439997315407,
-              "lon": -57.945750039070845
+              "lat": 28.023606536509163,
+              "lon": 47.83377046025068
             },
-            "count": 2
+            "count": 1220
           }
         },
         {
-          "key": "gcp",
-          "doc_count": 1,
+          "key": "North America",
+          "doc_count": 1206,
           "centroid": {
             "location": {
-              "lat": 46.11009998945519,
-              "lon": -37.06685005221516
+              "lat": 39.06542286878007,
+              "lon": -85.36152573149485
             },
-            "count": 2
+            "count": 1206
           }
         },
         {
-          "key": "dr5",
-          "doc_count": 1,
+          "key": "Europe",
+          "doc_count": 1172,
           "centroid": {
             "location": {
-              "lat": 46.11009998945519,
-              "lon": -37.06685005221516
+              "lat": 48.125767892293325,
+              "lon": 2.7529009746915243
             },
-            "count": 2
+            "count": 1172
           }
         },
         {
-          "key": "9q5",
-          "doc_count": 1,
+          "key": "Africa",
+          "doc_count": 899,
           "centroid": {
             "location": {
-              "lat": 41.45439997315407,
-              "lon": -57.945750039070845
+              "lat": 30.780756367941297,
+              "lon": 13.464182392125318
             },
-            "count": 2
+            "count": 899
+          }
+        },
+        {
+          "key": "South America",
+          "doc_count": 178,
+          "centroid": {
+            "location": {
+              "lat": 4.599999985657632,
+              "lon": -74.10000007599592
+            },
+            "count": 178
           }
         }
       ]
@@ -250,6 +196,4 @@ GET /locations/_search
   }
 }
 ```
-{% include copy-curl.html %}
-
 </details>
