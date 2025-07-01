@@ -10,6 +10,9 @@ has_toc: false
 
 # Query sets
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).    
+{: .warning}
+
 A query set is a collection of queries. These queries are used in experiments for search relevance evaluation. Search Relevance Workbench offers different sampling techniques for creating query sets from real user data that adheres to the [User Behavior Insights (UBI)]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) specification.
 Additionally, Search Relevance Workbench allows you to import a query set.
 

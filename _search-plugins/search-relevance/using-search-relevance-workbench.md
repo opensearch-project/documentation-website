@@ -1,15 +1,18 @@
 ---
 layout: default
-title: Using Search Relevance Workbench
+title: Search Relevance Workbench
 nav_order: 10
 parent: Search relevance
 has_children: true
 has_toc: false
 ---
 
+# Search Relevance Workbench
+Introduced 3.1
+{: .label .label-purple }
 
-
-# Using Search Relevance Workbench
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).    
+{: .warning}
 
 In search applications, tuning relevance is a constant, iterative exercise intended to provide the right search results to your end users. The tooling in Search Relevance Workbench helps search relevance engineers and business users create the best search experience possible for application users. It does this without hiding internal information, enabling engineers to experiment and investigate details as necessary.
 
