@@ -214,7 +214,7 @@ To perform a rolling restart, follow the steps outlined in [Rolling upgrade](#ro
    _(Rolling upgrade step 3)_
 
 4. **Review and identify the next node to restart**  
-   Ensure you don't restart the current cluster manager node until last.  
+   Ensure you restart the current cluster manager node last.  
    _(Rolling upgrade step 4)_
 
 5. **Check which node is the current cluster manager**  
