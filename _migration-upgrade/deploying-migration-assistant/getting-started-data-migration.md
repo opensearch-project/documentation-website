@@ -3,7 +3,7 @@ layout: default
 title: Getting started with data migration
 parent: Deploying Migration Assistant
 nav_order: 10
-permalink: /migration-assistant/deploying-migration-assistant/getting-started-with-data-migration/
+permalink: /migration-assistant/deploying-migration-assistant/getting-started-data-migration/
 redirect_from:
   - /upgrade-to/snapshot-migrate/
   - /migration-assistant/getting-started-with-data-migration/

@@ -11,7 +11,7 @@ redirect_from:
 
 # Migration phases
 
-This page details how to conduct a migration with Migration Assistant. It shows you how to [plan for your migration]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/planning-your-migration/index/) and encompasses a variety of migration scenarios, including:
+This page details how to conduct a migration with Migration Assistant. It shows you how to [plan for your migration]({{site.url}}{{site.baseurl}}/planning-your-migration/) and encompasses a variety of migration scenarios, including:
 
 - [**Metadata migration**]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/): Migrating cluster metadata, such as index settings, aliases, and templates.
 - [**Backfill migration**]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/): Migrating existing or historical data from a source to a target cluster.
