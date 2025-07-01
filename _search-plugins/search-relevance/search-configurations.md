@@ -10,6 +10,9 @@ has_toc: false
 
 # Search configurations
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).    
+{: .warning}
+
 A search configuration defines the query pattern used to run experiments, specifying how queries should be constructed and executed.
 
 ## Creating search configurations
