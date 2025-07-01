@@ -80,7 +80,10 @@ PUT /hotels-index
       "location": {
         "type": "knn_vector",
         "dimension": 2,
-        "space_type": "l2"
+        "method": {
+          "name": "hnsw",
+          "space_type": "l2"
+        }
       }
     }
   }
