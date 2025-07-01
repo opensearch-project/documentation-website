@@ -197,7 +197,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
 
 # Rolling restart
 
-A rolling restart follows the same step-by-step procedure as a rolling upgrade, with the exception of upgrade of actual nodes. During rolling restart, nodes are restarted one at a time—typically to apply configuration changes, refresh certificates, or perform system-level maintenance—without disrupting cluster availability.
+A rolling restart follows the same step-by-step procedure as a rolling upgrade, with the exception of upgrading of actual nodes. During rolling restart, nodes are restarted one at a time—typically to apply configuration changes, refresh certificates, or perform system-level maintenance—without disrupting cluster availability.
 
 To perform a rolling restart, follow the steps outlined in [Rolling upgrade](#rolling-upgrade), excluding the steps that involve upgrading the OpenSearch binary or container image:
 
@@ -214,11 +214,11 @@ To perform a rolling restart, follow the steps outlined in [Rolling upgrade](#ro
    _(Rolling upgrade step 3)_
 
 4. **Review and identify the next node to restart**  
-   Ensure you don’t restart the current cluster manager node until last.  
+   Ensure you don't restart the current cluster manager node until last.  
    _(Rolling upgrade step 4)_
 
 5. **Check which node is the current cluster manager**  
-   Use the `_cat/nodes` API to determine the active cluster manager.  
+   Use the `_cat/nodes` API to determine which node is the current active cluster manager.  
    _(Rolling upgrade step 5)_
 
 6. **Stop the node**  
@@ -226,15 +226,15 @@ To perform a rolling restart, follow the steps outlined in [Rolling upgrade](#ro
    _(Rolling upgrade step 6)_
 
 7. **Confirm the node has left the cluster**  
-   Use `_cat/nodes` to verify it’s no longer listed.  
+   Use `_cat/nodes` to verify that it's no longer listed.  
    _(Rolling upgrade step 7)_
 
 8. **Restart the node**  
-   Start the same node (same binary/version/config), and let it rejoin the cluster.  
+   Start the same node (same binary/version/config) and let it rejoin the cluster.  
    _(Rolling upgrade step 8 — without upgrading the binary)_
 
 9. **Verify that the restarted node has rejoined**  
-   Check `_cat/nodes` to confirm the node is present and healthy.  
+   Check `_cat/nodes` to confirm that the node is present and healthy.  
    _(Rolling upgrade step 9)_
 
 10. **Reenable shard allocation**  
@@ -246,7 +246,7 @@ To perform a rolling restart, follow the steps outlined in [Rolling upgrade](#ro
     _(Rolling upgrade step 11)_
 
 12. **Repeat the process for all other nodes**  
-    Restart each node one at a time. If a node is eligible for cluster manager role, restart it last.  
+    Restart each node one at a time. If a node is eligible for the cluster manager role, restart it last.  
     _(Rolling upgrade step 12 — again, no upgrade step)_
 
 By preserving quorum and restarting nodes sequentially, rolling restarts ensure zero downtime and full data continuity.
