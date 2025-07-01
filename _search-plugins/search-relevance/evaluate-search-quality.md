@@ -10,6 +10,9 @@ has_toc: false
 
 # Evaluating search quality
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).    
+{: .warning}
+
 Search Relevance Workbench can run pointwise experiments to evaluate search configuration quality using provided queries and relevance judgments.
 
 For more information about creating a query set, see [Query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
