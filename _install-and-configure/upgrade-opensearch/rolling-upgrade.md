@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Rolling Upgrade
+title: Rolling upgrade
 parent: Upgrading OpenSearch
 nav_order: 10
 ---
 
-# Rolling Upgrade
+# Rolling upgrade
 
 Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
 
@@ -194,6 +194,62 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-03  1.3.7    dimr       -
    ```
 1. The upgrade is now complete, and you can begin enjoying the latest features and fixes!
+
+# Rolling restart
+
+A rolling restart follows the same step-by-step procedure as a rolling upgrade, with the exception of upgrading of actual nodes. During rolling restart, nodes are restarted one at a time—typically to apply configuration changes, refresh certificates, or perform system-level maintenance—without disrupting cluster availability.
+
+To perform a rolling restart, follow the steps outlined in [Rolling upgrade](#rolling-upgrade), excluding the steps that involve upgrading the OpenSearch binary or container image:
+
+1. **Check cluster health**  
+   Ensure the cluster status is green and all shards are assigned.  
+   _(Rolling upgrade step 1)_
+
+2. **Disable shard allocation**  
+   Prevent OpenSearch from trying to reallocate shards while nodes are offline.  
+   _(Rolling upgrade step 2)_
+
+3. **Flush transaction logs**  
+   Commit recent operations to Lucene to reduce recovery time.  
+   _(Rolling upgrade step 3)_
+
+4. **Review and identify the next node to restart**  
+   Ensure you restart the current cluster manager node last.  
+   _(Rolling upgrade step 4)_
+
+5. **Check which node is the current cluster manager**  
+   Use the `_cat/nodes` API to determine which node is the current active cluster manager.  
+   _(Rolling upgrade step 5)_
+
+6. **Stop the node**  
+   Shut down the node gracefully. Do not delete the associated data volume.  
+   _(Rolling upgrade step 6)_
+
+7. **Confirm the node has left the cluster**  
+   Use `_cat/nodes` to verify that it's no longer listed.  
+   _(Rolling upgrade step 7)_
+
+8. **Restart the node**  
+   Start the same node (same binary/version/config) and let it rejoin the cluster.  
+   _(Rolling upgrade step 8 — without upgrading the binary)_
+
+9. **Verify that the restarted node has rejoined**  
+   Check `_cat/nodes` to confirm that the node is present and healthy.  
+   _(Rolling upgrade step 9)_
+
+10. **Reenable shard allocation**  
+    Restore full shard movement capability.  
+    _(Rolling upgrade step 10)_
+
+11. **Confirm cluster health is green**  
+    Validate stability before restarting the next node.  
+    _(Rolling upgrade step 11)_
+
+12. **Repeat the process for all other nodes**  
+    Restart each node one at a time. If a node is eligible for the cluster manager role, restart it last.  
+    _(Rolling upgrade step 12 — again, no upgrade step)_
+
+By preserving quorum and restarting nodes sequentially, rolling restarts ensure zero downtime and full data continuity.
 
 ### Related articles
 
