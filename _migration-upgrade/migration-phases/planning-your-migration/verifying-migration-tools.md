@@ -4,6 +4,7 @@ title: Verifying migration tools
 nav_order: 70
 parent: Planning your migration
 grand_parent: Migration phases
+permalink: /migration-assistant/migration-phases/planning-your-migration/verifying-migration-tools/
 redirect_from:
   - /migration-assistant/migration-phases/verifying-migration-tools/
 ---

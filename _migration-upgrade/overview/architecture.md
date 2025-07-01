@@ -3,6 +3,7 @@ layout: default
 title: Architecture
 nav_order: 15
 parent: Overview
+permalink: /migration-assistant/overview/architecture/
 ---
 
 # Architecture

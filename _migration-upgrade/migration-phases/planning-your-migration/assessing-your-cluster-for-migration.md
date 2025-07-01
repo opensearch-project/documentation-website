@@ -4,6 +4,7 @@ title: Assessing your cluster for migration
 nav_order: 60
 parent: Planning your migration
 grand_parent: Migration phases
+permalink: /migration-assistant/migration-phases/planning-your-migration/assessing-your-cluster-for-migration/
 redirect_from:
   - /migration-assistant/migration-phases/assessing-your-cluster-for-migration/
 ---

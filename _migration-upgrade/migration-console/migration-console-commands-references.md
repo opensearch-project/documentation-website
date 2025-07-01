@@ -3,6 +3,7 @@ layout: default
 title: Command reference
 nav_order: 40
 parent: Migration console
+permalink: /migration-assistant/migration-console/migration-console-commands-reference/
 ---
 
 # Migration console command reference

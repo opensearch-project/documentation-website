@@ -3,6 +3,7 @@ layout: default
 title: IAM and security groups for existing clusters
 nav_order: 20
 parent: Deploying Migration Assistant
+permalink: /migration-assistant/deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
 ---
 
 # IAM and security groups for existing clusters

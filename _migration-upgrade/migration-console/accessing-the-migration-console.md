@@ -3,6 +3,7 @@ layout: default
 title: Accessing the migration console
 nav_order: 35
 parent: Migration console
+permalink: /migration-assistant/migration-console/accessing-the-migration-console/
 ---
 
 # Accessing the migration console

@@ -3,6 +3,7 @@ layout: default
 title: Migrating metadata
 nav_order: 85
 parent: Migration phases
+permalink: /migration-assistant/migration-phases/migrating-metadata/
 ---
 
 # Migrating metadata

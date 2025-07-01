@@ -89,7 +89,7 @@ collections:
   data-prepper: 
     permalink: /:collection/:path/
     output: true
-  migration-assistant:
+  migration-upgrade:
     permalink: /:collection/:path/
     output: true
   tools:
@@ -215,10 +215,10 @@ clients_collection:
         name: Clients
         nav_fold: true
 
-migration_assistant_collection:
+migration_upgrade_collection:
   collections:
-    migration-assistant:
-        name: Migration Assistant
+    migration-upgrade:
+        name: Migration and upgrade
         nav_fold: true
 
 benchmark_collection:

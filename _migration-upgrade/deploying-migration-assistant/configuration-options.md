@@ -3,6 +3,7 @@ layout: default
 title: Configuration options
 nav_order: 15
 parent: Deploying Migration Assistant
+permalink: /migration-assistant/deploying-migration-assistant/configuration-options/
 ---
 
 # Configuration options

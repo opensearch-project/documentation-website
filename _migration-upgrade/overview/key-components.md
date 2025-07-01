@@ -3,6 +3,7 @@ layout: default
 title: Key components
 nav_order: 10
 parent: Overview
+permalink: /migration-assistant/overview/key-components/
 ---
 
 # Key components 

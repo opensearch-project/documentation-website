@@ -4,6 +4,7 @@ title: Managing type mapping deprecation
 nav_order: 60
 parent: Planning your migration
 grand_parent: Migration phases
+permalink: /migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/
 ---
 
 # Managing type mapping deprecation

@@ -4,6 +4,7 @@ title: Using Traffic Replayer
 nav_order: 100
 grand_parent: Migration phases
 parent: Live traffic migration
+permalink: /migration-assistant/migration-phases/live-traffic-migration/switching-traffic-from-the-source-cluster/
 redirect_from:
   - /migration-assistant/migration-phases/using-traffic-replayer/
 ---
