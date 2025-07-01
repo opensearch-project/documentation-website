@@ -29,7 +29,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `requests_per_second` | Float | The new throttle value to apply to the task. Use `-1` to disable throttling. Optional.
 
-### Example request: Re-throttle a running delete by query task
+### Example request: Rethrottle a running delete by query task
 
 ```json
 POST /_delete_by_query/<YOUR_TASK_ID>/_rethrottle?requests_per_second=10
@@ -37,14 +37,14 @@ POST /_delete_by_query/<YOUR_TASK_ID>/_rethrottle?requests_per_second=10
 {% include copy-curl.html %}
 
 
-### Example request: Re-throttle a running reindex task
+### Example request: Rethrottle a running reindex task
 
 ```json
 POST /_reindex/<YOUR_TASK_ID>/_rethrottle?requests_per_second=20
 ```
 {% include copy-curl.html %}
 
-### Example request: Re-throttle a running update by query task
+### Example request: Rethrottle a running update by query task
 
 ```json
 POST /_update_by_query/<YOUR_TASK_ID>/_rethrottle?requests_per_second=5
@@ -133,7 +133,7 @@ The following response provides details regarding the active `update_by_query` t
 
 ## Response body fields
 
-The response provides detailed task and node-level information about the rethrottled operation.
+The response provides detailed task- and node-level information about the rethrottled operation.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
@@ -157,8 +157,8 @@ The response provides detailed task and node-level information about the rethrot
 | `nodes.<node_id>.tasks.<task_id>.status.noops` | Integer | The number of no-op updates. |
 | `nodes.<node_id>.tasks.<task_id>.status.retries` | Object | Retry stats for bulk and search operations. |
 | `nodes.<node_id>.tasks.<task_id>.status.requests_per_second` | Float | Current throttle rate in requests per second. |
-| `nodes.<node_id>.tasks.<task_id>.status.throttled_millis` | Integer | The time, in milliseconds, the task was throttled. |
-| `nodes.<node_id>.tasks.<task_id>.status.throttled_until_millis` | Integer | The time, in milliseconds, the task is expected to remain throttled. |
+| `nodes.<node_id>.tasks.<task_id>.status.throttled_millis` | Integer | The time, in milliseconds, that the task was throttled. |
+| `nodes.<node_id>.tasks.<task_id>.status.throttled_until_millis` | Integer | The time, in milliseconds, that the task is expected to remain throttled. |
 | `nodes.<node_id>.tasks.<task_id>.description` | String | A human-readable description of the task. |
 | `nodes.<node_id>.tasks.<task_id>.start_time_in_millis` | Integer | The task start time in epoch milliseconds. |
 | `nodes.<node_id>.tasks.<task_id>.running_time_in_nanos` | Integer | The task runtime in nanoseconds. |
