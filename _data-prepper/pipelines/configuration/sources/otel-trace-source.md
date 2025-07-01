@@ -44,7 +44,7 @@ source:
 ```
 {% include copy.html %}
 
-If you want to use the open telemetry format for your output, set the `output_format` to `otel`, as shown in the following example:
+If you want to use the OpenTelemetry format for your output, set the `output_format` to `otel`, as shown in the following example:
 
 ```yaml
 source:
