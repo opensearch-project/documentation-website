@@ -48,7 +48,7 @@ POST _ingest/pipeline/spammy_error_handler/_simulate
 ```
 {% include copy-curl.html %}
 
-The first document is dropped because it contains an `OutOfMemoryError` string and the `error_code` higher than `1000`:
+The first document is dropped because it contains an `OutOfMemoryError` string and an `error_code` higher than `1000`:
 
 ```json
 {
@@ -237,7 +237,7 @@ The first document has an `alert` field added:
 
 ## Combining fields and null checks
 
-The following pipeline adds a `priority` field set to `high` if `level` is `critical` and `timestamp` is provided. The script also ensures that all fields are present and meet specific conditions before proceeding
+The following pipeline adds a `priority` field set to `high` if `level` is `critical` and `timestamp` is provided. The script also ensures that all fields are present and meet specific conditions before proceeding:
 
 ```json
 PUT _ingest/pipeline/critical_log_handler
@@ -382,7 +382,7 @@ POST _ingest/pipeline/advanced_log_pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-In the response, note that the first document has an `env: production` and `severity: major` fields added. The second document is dropped. The third document has an `env: production` field added:
+In the response, note that the first document has the `env: production` and `severity: major` fields added. The second document is dropped. The third document has an `env: production` field added:
 
 ```json
 {
@@ -423,15 +423,15 @@ In the response, note that the first document has an `env: production` and `seve
 
 ## Null-safe notation
 
-Use null-safe navigation notation (`?.`) to check if the field is `null`. Note that this notation can return `null` silently, therefore we recommend to first check if the returned value is `null` and then use operations like `.contains` or `==`.
+Use null-safe navigation notation (`?.`) to check whether the field is `null`. Note that this notation can return `null` silently; therefore, we recommend first checking whether the returned value is `null` and then using operations like `.contains` or `==`.
 
-Not safe syntax:
+Unsafe syntax:
 
 ```
 "if": "ctx.message?.contains('debug')"
 ```
 
-If the `message` field does not exist in the document, this request returns a `null_pointer_exception` with a message `Cannot invoke "Object.getClass()" because "value" is null`.
+If the `message` field does not exist in the document, this request returns a `null_pointer_exception` with the message `Cannot invoke "Object.getClass()" because "value" is null`.
 
 Safe syntax:
 

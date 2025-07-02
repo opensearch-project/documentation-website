@@ -7,7 +7,7 @@ nav_order: 70
 
 # Regex conditionals
 
-Ingest pipelines support conditional logic using regular expressions with the Painless scripting language. This allows fine-grained control over which documents get processed based on the structure and contents of text fields. Regular expressions can be used within the `if` parameter to evaluate string patterns. This is especially useful for matching IP formats, validating email addresses, identifying UUIDs, or processing logs with specific keywords.
+Ingest pipelines support conditional logic using regular expressions (regex) with the Painless scripting language. This allows fine-grained control over which documents get processed based on the structure and contents of text fields. Regex can be used within the `if` parameter to evaluate string patterns. This is especially useful for matching IP formats, validating email addresses, identifying UUIDs, or processing logs with specific keywords.
 
 ## Example: Email domain filtering
 
@@ -29,7 +29,7 @@ PUT _ingest/pipeline/tag_example_com_users
 ```
 {% include copy-curl.html %}
 
-You can simulate the pipeline using the following request:
+Use the following request to simulate the pipeline:
 
 ```json
 POST _ingest/pipeline/tag_example_com_users/_simulate
@@ -86,7 +86,7 @@ PUT _ingest/pipeline/ipv6_flagger
 ```
 {% include copy-curl.html %}
 
-Simulate the pipeline using the following request:
+Use the following request to simulate the pipeline:
 
 ```json
 POST _ingest/pipeline/ipv6_flagger/_simulate
@@ -125,7 +125,7 @@ The first document contains an added `ip_type` field set to `IPv6`:
 
 ## Example: Validate UUID strings
 
-The following pipeline uses a regular expression to verify whether a `session_id` field contains a valid UUID:
+The following pipeline uses regex to verify whether a `session_id` field contains a valid UUID:
 
 ```json
 PUT _ingest/pipeline/uuid_checker
