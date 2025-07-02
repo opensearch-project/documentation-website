@@ -302,7 +302,7 @@ The following plugins are bundled with all OpenSearch distributions except for t
 | Remote Metadata SDK | [opensearch-remote-metadata-sdk](https://github.com/opensearch-project/opensearch-remote-metadata-sdk) | 2.19.0 |
 | Query Insights | [query-insights](https://github.com/opensearch-project/query-insights) | 2.16.0 |
 | System Templates | [opensearch-system-templates](https://github.com/opensearch-project/opensearch-system-templates) | 2.17.0 |
-| User Behavior Insights | [ubi](https://github.com/opensearch-project/user-behavior-insights) | 2.19.0 |
+| User Behavior Insights | [ubi](https://github.com/opensearch-project/user-behavior-insights) | 3.0.0 |
 | Search Relevance | [search-relevance](https://github.com/opensearch-project/search-relevance) | 3.1.0 |
 
 _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._<br>
