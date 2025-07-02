@@ -21,10 +21,25 @@ Before using Migration Assistant, review the following assumptions and limitatio
 
 ### General
 
+
 - If deploying on AWS, the identity used to deploy Migration Assistant must have permission to install all required resources. For a full list of services, see [AWS Services in this Solution](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/architecture-details.html#aws-services-in-this-solution).
 - The target cluster must be deployed and reachable by Migration Assistant components, including the Migration Console, Reindex-from-Snapshot, and Traffic Replayer, depending on which features are used.
 - The `_source` field must be enabled on all indexes to be migrated. See [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/) for more information.
 - If deploying to AWS, ensure the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
+- If deploying Migration Assistant into an existing AWS VPC, you must configure VPC interface endpoints and IAM permissions for the following AWS services:
+  - **Amazon CloudWatch Logs** – for log ingestion from ECS tasks.
+  - **Amazon CloudWatch** – for metrics published during migration
+  - **Amazon Elastic Container Registry (ECR)** – for pulling container images.
+  - **Amazon Elastic Container Service (ECS)** – for task orchestration and migration.
+  - **Elastic Load Balancing (ELB)** – for routing traffic to Capture Proxy.
+  - **AWS Secrets Manager** – for storing credentials.
+  - **AWS Systems Manager Parameter Store** – for storing and accessing parameter values.
+  - **AWS Systems Manager Session Manager** – for secure shell access to EC2 (i.e., bootstrap instance).
+  - **Amazon EC2** – for launching the bootstrap instance responsible for build and deployment.
+  - **Amazon Elastic Block Store (EBS)** – for disk storage during migration.
+  - **Amazon Virtual Private Cloud (VPC)** – for private networking and VPC endpoints.
+  - **AWS X-Ray** – for distributed tracing across components.
+  - **Amazon Elastic File System (EFS)** – for persistent logging. 
 
 ### Reindex-from-Snapshot
 
