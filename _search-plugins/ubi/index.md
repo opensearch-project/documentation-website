@@ -23,7 +23,7 @@ This differs from many systems that infer the linking of search to events throug
 
 UBI includes the following elements:
 * [ubi.js](https://github.com/opensearch-project/user-behavior-insights/tree/main/ubi-javascript-collector/ubi.js): a client-side JavaScript library that captures searches and events.
-* A machine-readable [schema](https://github.com/o19s/ubi) that faciliates interoperablity of the UBI specification.
+* A machine-readable [schema](https://github.com/o19s/ubi) that faciliates interoperability of the UBI specification.
 * An (optional!) OpenSearch [plugin](https://github.com/opensearch-project/user-behavior-insights) that streamlines the recording of query data.
 
 Advanced features in OpenSearch, such as the Search Quality Evaluation Framework, and the Hybrid Search Optimizer all build on the UBI specification.
@@ -36,6 +36,7 @@ Advanced features in OpenSearch, such as the Search Quality Evaluation Framework
             <h2>Tutorials</h2>
             <ul>
                 <li><a href="#">Learn to use <code>ubi.js</code></a></li>
+                <li><a href="https://github.com/opensearch-project/user-behavior-insights">How to install and use the UBI plugin</a><b>do we keep this</b></li>
                 <li><a href="#">Using OpenSearch Ingestion from AWS with UBI</a></li>
                 <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/">Learn to create custom dashboards with UBI data.</a></li>                
             </ul>
@@ -45,7 +46,9 @@ Advanced features in OpenSearch, such as the Search Quality Evaluation Framework
             <ul>                
                 <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/dsl-queries/">How to write queries for UBI data in OpenSearch query DSL.</a></li>
                 <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/sql-queries/">How to write analytic queries for UBI data in SQL.</a></li>
-                <li><a href="https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/006_protecting_sensitive_information.md">How to protect sensistive information when using UBI.</a> <small>Part of Chorus series.</small></li>
+                <li><a href="https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/006_protecting_sensitive_information.md">How to protect sensistive information when using UBI.</a></li>
+                <li><a href="https://github.com/o19s/chorus-opensearch-edition/blob/main/katas/007_configure_AB_with_TDI.md">Configuring an AB test with Team Draft Interleaving</a></li>           
+           <li><a href="https://github.com/opensearch-project/user-behavior-insights">How to install and use the UBI plugin</a><b>do we keep this</b></li>     
             </ul>
         </td>
     </tr>
