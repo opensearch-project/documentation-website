@@ -24,6 +24,7 @@ proto_reflection_service | No | Boolean | Enables a reflection service for Proto
 unframed_requests | No | Boolean | Enable requests not framed using the gRPC wire protocol.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default value is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default value is `500`.
+| `output_format` | String | Specifies the output format of the generated events. Valid values are `otel` or `opensearch`. Default is `opensearch`. |
 max_request_length | No | ByteCount | The maximum number of bytes allowed in the payload of a single gRPC or HTTP request. Default value is `10mb`.
 ssl | No | Boolean | Enables connections to the OTel source port over TLS/SSL. Defaults to `true`.
 sslKeyCertChainFile | Conditionally | String | File system path or Amazon Simple Storage Service (Amazon S3) path to the security certificate (for example, `"config/demo-data-prepper.crt"` or `"s3://my-secrets-bucket/demo-data-prepper.crt"`). Required if `ssl` is set to `true`.
@@ -33,6 +34,24 @@ acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN.
 awsRegion | Conditionally | String | Represents the AWS region used by ACM or Amazon S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are Amazon S3 paths.
 authentication | No | Object | An authentication configuration. By default, an unauthenticated server is created for the pipeline. This parameter uses pluggable authentication for HTTPS. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/1.2.0/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
 
+## Usage
+
+To use the `otel-metrics` source, create the following `pipeline.yaml` file with `otel_metrics_source` as the source:
+
+```yaml
+source:
+    - otel_trace_source:
+```
+{% include copy.html %}
+
+If you want to use the OpenTelemetry format for your output, set the `output_format` to `otel`, as shown in the following example:
+
+```yaml
+source:
+    - otel_trace_source:
+        output_format: otel
+```
+{% include copy.html %}
 
 ## Metrics
 
