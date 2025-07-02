@@ -70,7 +70,7 @@ It's crucial to note that migration strategies are not universally applicable. T
 
 ## Rolling upgrades
 
-Rolling upgrades allow you to upgrade one node at a time, keeping the cluster operational throughout the process.
+Rolling upgrades allow you to upgrade one node at a time, keeping the cluster operational throughout the process. Note that this is only an upgrade option.
 
 **Pros:**
 - Minimal downtime; the cluster remains available during the upgrade.
@@ -99,6 +99,10 @@ This method involves taking a snapshot of your existing OpenSearch or Elasticsea
 ## Remote reindexing
 
 This method reindexes data from your current cluster into a new OpenSearch cluster, typically running in parallel.
+
+## Other migration options
+
+Additional migration strategies not covered in detail in this documentation include rebuilding your target cluster from source systems and using traffic replication to mirror production traffic during migration.
 
 **Pros:**
 - No downtime; clusters operate concurrently.
