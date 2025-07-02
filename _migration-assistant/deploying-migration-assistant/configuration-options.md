@@ -105,7 +105,7 @@ The following sample CDK performs a live capture migration with C&R:
     "trafficReplayerExtraArgs": "--speedup-factor 1.5",
 
     "// help capture/target proxy pt. 1 of 2": "captureProxyService and targetClusterProxyService require networking access to be configured in order to successfully deploy",
-    "// help capture/target proxy pt. 2 of 2": "consider deploying without first and enabling after ensuring cluster networking access on the migration console",
+    "// help capture/target proxy pt. 2 of 2": "Consider deploying without the proxy first. After verifying cluster network access in the migration console, you can enable the proxy.",
     "captureProxyServiceEnabled": true,
     "captureProxyDesiredCount": 3,
     "targetClusterProxyServiceEnabled": true,
