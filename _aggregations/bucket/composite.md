@@ -75,23 +75,15 @@ The `composite` aggregation takes the following parameters.
 | `order`   | Optional          | String     | For each source, whether to order the values ascending or descending. Valid values are `asc` and `desc`. The default is `asc`. |
 | `missing_bucket` | Optional    | Boolean   | For each source, whether to include documents with a missing value. The default value is `false`. If set to `true`, OpenSearch includes the documents, supplying `null` as the field's key. Null values rank first in ascending order. |
 
-Source-specific parameters types are described in the following sections.
+For aggregation-specific parameters, see the corresponding aggregation documentation.
 {: .note}
 
 ## Terms
 
-Use a `terms` soruce for `String` or `Boolean` data.
+Use a `terms` aggregation for aggregating string or Boolean data. For more information, see [Terms aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/terms/).
 
 You can use `terms` sources to create composite buckets for any type of data. However, since `terms` sources create buckets for every unique value, you'll normally use `histogram` sources instead for numerical data.
 {: .note}
-
-### Parameters: Terms
-
-| Parameter | Required/Optional | Data type  | Description |
-| :--       | :--               | :--        | :--         |
-| `terms` | Required            | Object     | An object specifying a document field. |
-
-### Example: Terms
 
 The following example request returns the first `4` composite buckets for day-of-week and customer gender in the OpenSearch Dashboards sample e-commerce data:
 
@@ -113,8 +105,6 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 {% include copy-curl.html %}
-
-### Example response: Terms
 
 Since the dataset for this example contains valid data for every bucket, the aggregation generates a bucket for every combination of gender and day-of-week, 14 in total.
 
@@ -179,22 +169,13 @@ Because the request specifies a `size` of `4`, the response contains the first f
 }
 ```
 
-You can use the `after_key` returned in the response to view more results. An example is shown in [Example response: Histogram](#example-response-histogram).
+You can use the `after_key` returned in the response to view more results. See the example is in the next section.
 
 ## Histogram
 
-Use `histogram` sources to create composite aggregations of numerical data.
+Use `histogram` sources to create composite aggregations of numerical data. For more information, see [Histogram aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/histogram/).
 
-For `histogram` sourcees, the name used in each `composite` bucket key is the lowest value in the key's histogram interval. Each source histogram interval contains the values in the right-open interval [lower_bound, lower_bound + `interval`). The name of the first interval is the lowest value in the source field (for ascending-value sources). 
-
-### Parameters: Histogram
-
-| Parameter  | Required/Optional | Data type             | Description |
-| :--        | :--               | :--                   | :--         |
-| `histogram` | Required         | Object                | An object specifying a numeric document field and interval. |
-| `interval`  | Required         | Numeric               | The field value width used to construct each bucket. |
-
-### Example: Histogram
+For `histogram` sources, the name used in each `composite` bucket key is the lowest value in the key's histogram interval. Each source histogram interval contains the values in the `[lower_bound, lower_bound + interval)` range. The name of the first interval is the lowest value in the source field (for ascending-value sources). 
 
 The following example request returns the first `6` composite buckets for quantity and base unit price in the OpenSearch Dashboards sample e-commerce data based on bucket widths of `1` and `50` respectively:
 
@@ -217,9 +198,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-### Example response: Histogram
-
-As shown in the following example response, the aggregation returns the first `6` bucket keys and document counts for the two `histogram` sources. As in the `terms` example, the buckets are ordered across and within the source fields. In this case, however, the order is numerical and is based on the inclusive lower bound of each histogram width:
+The aggregation returns the first `6` bucket keys and document counts for the two `histogram` sources. As in the `terms` example, the buckets are ordered across and within the source fields. In this case, however, the order is numerical and is based on the inclusive lower bound of each histogram width:
 
 ```json
 {
@@ -321,7 +300,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-As shown in the following example response, there are only two buckets left:
+There are only two buckets left:
 
 ```json
 {
@@ -370,22 +349,11 @@ As shown in the following example response, there are only two buckets left:
 
 ## Date histogram
 
-Use the `date_histogram` to create composite aggregations of date ranges.
+To create composite aggregations of date ranges, use the `date_histogram` aggregation. For more information, see [Date histogram aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/).
 
-OpenSearch represents dates, including `date_interval` bucket keys, as `long` integers representing [milliseconds since epoch](https://en.wikipedia.org/wiki/Unix_time). You can output a date format instead using the `format` parameter. This does not change the key order.
+OpenSearch represents dates, including `date_interval` bucket keys, as `long` integers representing [milliseconds since epoch](https://en.wikipedia.org/wiki/Unix_time). You can format the date output using the `format` parameter. This does not change the key order.
 
-OpenSearch stores date-times in UTC. You can display output results in a different timezone using the `time_zone` parameter.
-
-### Parameters: Date histogram
-
-| Parameter           | Required/Optional  | Data type             | Description |
-| :--                 | :--                | :--                   | :--         |
-| `date_histogram`    | Required           | Object                | An object specifying a date-time document field, interval, and optional format and time zone. |
-| `calendar_interval` | Required           | Time interval         | The field date span used to construct each bucket. |
-| `format`            | Optional           | String                | A date format string. If omitted, the date is output as a 64-bit [ms-since-epoch](https://en.wikipedia.org/wiki/Unix_time) integer. |
-| `time_zone`         | Optional           | String                | A string representing the time offset from UTC, either as an [ISO 8601 UTC offset](https://en.wikipedia.org/wiki/UTC_offset) ("-07:00") or as a TZ timezone database [identifier](https://en.wikipedia.org/wiki/Tz_database) ("America/Los_Angeles").|
-
-### Example: Date interval
+OpenSearch stores date-times in UTC. You can display output results in a different time zone using the `time_zone` parameter.
 
 The following example request returns the first `4` composite buckets for the year each sold product was created and the date it was sold in the OpenSearch Dashboards sample e-commerce data, based on bucket widths of one year and one day respectively:
 
@@ -408,9 +376,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-### Example response: Date interval
-
-As shown in the following example response, the aggregation returns the formatted date-based bucket keys and counts. For `date_interval` composite aggregation, field ordering is by date:
+The aggregation returns the formatted date-based bucket keys and counts. For `date_interval` composite aggregation, field ordering is by date:
 
 ```json
 {
@@ -473,19 +439,9 @@ As shown in the following example response, the aggregation returns the formatte
 
 ## Geotile grid
 
-Use `geotile_grid` sources to aggregate `geo_point` values into buckets representing map tiles. As with the other composite aggregation `sources`, by default results include only buckets that contain data.
+Use `geotile_grid` sources to aggregate `geo_point` values into buckets representing map tiles. As with the other composite aggregation `sources`, by default results include only buckets that contain data. For more information, see [Geotile grid aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/geotile-grid/).
 
 Each cell corresponds to a [map tile](https://en.wikipedia.org/wiki/Tiled_web_map). Cell labels use a "{zoom}/{x}/{y}" format.
-
-### Parameters: Geotile grid
-
-| Parameter      | Required/Optional  | Data type             | Description |
-| :--            | :--                | :--                   | :--         |
-| `geotile_grid` | Required           | Object                | An object specifying a `geo_point` document field and optional precision value and bounds object. |
-| `precision`    | Optional           | Integer               | A geo-cell resolution index. Valid values are `1` to `29`. Higher values indicate greater precision. |
-| `bounds`       | Optional          |  [Geo-bounding box]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geo-bounding-box/)  | A geo-bounding box that constrains the source values. Any point outside the box is omitted from the `composite`. |
-
-### Example: Geotile grid
 
 The following example request returns the first `6` tiles containing locations from the `geoip.location` field at a precision of `8`:
 
@@ -507,9 +463,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-### Example response: Geotile grid
-
-As shown in the following example response, the aggregation returns the specified `geo_tilees` and point counts:
+The aggregation returns the specified `geo_tilees` and point counts:
 
 ```json
 {
@@ -569,8 +523,6 @@ As shown in the following example response, the aggregation returns the specifie
 
 You can combine two or more sources of any different type.
 
-### Example: Combining sources
-
 The following example request returns buckets composed of three different types of sources:
 
 ```json
@@ -592,9 +544,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-### Example results: Combining sources
-
-As shown in the following example response, the aggregation returns the mixed-type `composite` buckets and document counts:
+The aggregation returns the mixed-type `composite` buckets and document counts:
 
 ```json
 {
@@ -692,11 +642,9 @@ As shown in the following example response, the aggregation returns the mixed-ty
 }
 ```
 
-## Requesting sub-aggregations
+## Subaggregations
 
-Composite aggregations are most useful when combined with sub-aggregations that reveal information about the documents in the `composite` buckets.
-
-### Example: Sub-aggregations
+Composite aggregations are most useful when combined with subaggregations that reveal information about the documents in the `composite` buckets.
 
 The following example request compares average spending based on gender for each day of the week in the OpenSearch Dashboards sample e-commerce data:
 
@@ -723,9 +671,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-### Example results: Sub-aggregations
-
-As shown in the following example response, the aggregation returns the average `taxful_total_price` of the first `6` buckets:
+The aggregation returns the average `taxful_total_price` of the first `6` buckets:
 
 ```json
 {
@@ -820,7 +766,60 @@ As shown in the following example response, the aggregation returns the average 
 
 ## Paginating composite results
 
-If a request results in more than `size` buckets, then `size` buckets are returned. In this case, the result contains an `after_key` object containing the key of the next bucket in the list. To retrieve the next `size` buckets of the request, make the request again, supplying the `after_key` in the `after` parameter. For an example, see the request continuation in [Example response: Histogram](#example-histogram).
+If a request results in more than `size` buckets, then `size` buckets are returned. In this case, the result contains an `after_key` object containing the key of the next bucket in the list. To retrieve the next `size` buckets of the request, make the request again, supplying the `after_key` in the `after` parameter. For an example, see the request in [Histogram](#histogram).
 
 Always use the `after_key` rather than copying the last bucket to continue a paginated response. The two are sometimes not the same.
 {: .important}
+
+## Improving performance with index sorting
+
+To speed up composite aggregations on large datasets, you can sort your index using the same fields and order as your aggregation sources. When the `index.sort.field` and `index.sort.order` match the source fields and their order in the composite aggregation, OpenSearch can return results more efficiently and with less memory usage. While index sorting adds minor overhead during indexing, the query performance gains for composite aggregations are significant.
+
+The following example request sets sort fields and a sort order for each of the fields on the `my-sorted-index` index:
+
+```json
+PUT /my-sorted-index
+{
+  "settings": {
+    "index": {
+      "sort.field": ["customer_id", "timestamp"],
+      "sort.order": ["asc", "desc"]
+    }
+  },
+  "mappings": {
+    "properties": {
+      "customer_id": {
+        "type": "keyword"
+      },
+      "timestamp": {
+        "type": "date"
+      },
+      "price": {
+        "type": "double"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The following request creates a composite aggregation on the `my-sorted-index` index. Because the index is sorted on `customer_id` ascending and `timestamp` descending, and the aggregation sources match that sort order, this query runs faster and with reduced memory pressure:
+
+```json
+GET /my-sorted-index/_search
+{
+  "size": 0,
+  "aggs": {
+    "my_buckets": {
+      "composite": {
+        "size": 1000,
+        "sources": [
+          { "customer": { "terms": { "field": "customer_id", "order": "asc" } } },
+          { "time": { "date_histogram": { "field": "timestamp", "calendar_interval": "1d", "order": "desc" } } }
+        ]
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
