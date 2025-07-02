@@ -162,8 +162,6 @@ GET _search
 
 The `<field>` accepts the following parameters. All parameters except `terms` are optional.
 
-The required number of matching terms must be specified using either the `minimum_should_match_field` or `minimum_should_match_script` parameter. Exactly one of these parameters must be provided—not both.
-
 Parameter | Data type | Description
 :--- | :--- | :---
 `terms` | Array of strings | The array of terms to search for in the field specified in `<field>`. A document is returned in the results only if the required number of terms matches the document's field values exactly, with the correct spacing and capitalization.
