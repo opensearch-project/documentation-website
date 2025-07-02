@@ -131,6 +131,7 @@ If you change any of the following password hashing properties, you must rehash 
   
   - `BCrypt` (Default)
   - `PBKDF2` 
+  - `Argon2`
 
 - `plugins.security.password.hashing.bcrypt.rounds` (Static): Specifies the number of rounds to use for password hashing with `BCrypt`. Valid values are between `4` and `31`, inclusive. Default is `12`.
 
@@ -155,6 +156,29 @@ If you change any of the following password hashing properties, you must rehash 
 - `plugins.security.password.hashing.pbkdf2.iterations` (Static): Specifies the number of times that the pseudo-random function is applied to the password. Default is `600,000`.
 
 - `plugins.security.password.hashing.pbkdf2.length` (Static): Specifies the desired length of the final derived key. Default is `256`.
+
+- `plugins.security.password.hashing.argon2.iterations` (Static): Specifies the number of passes over memory that the algorithm performs. Increasing this value raises CPU computation time, enhancing resistance to brute-force attacks. Default is `3`.
+
+- `plugins.security.password.hashing.argon2.memory` (Static): Specifies the amount of memory (in kibibytes) used during hashing. Default is `65536` (equivalent to 64 MiB).
+
+- `plugins.security.password.hashing.argon2.parallelism` (Static): Specifies the number of parallel threads used for computation. Default is `1`.
+
+- `plugins.security.password.hashing.argon2.length` (Static): Specifies the length (in bytes) of the resulting hash output. Default is `32`.
+
+- `plugins.security.password.hashing.argon2.type` (Static): Specifies which variant of Argon2 to use.
+
+  Valid values are:
+
+  - `Argon2i`
+  - `Argon2d`
+  - `Argon2id` (Default)
+
+- `plugins.security.password.hashing.argon2.version` (Static): Specifies which version of Argon2 to use.
+
+  Valid values are:
+
+  - `16`
+  - `19` (Default)
 
 
 ## Audit log settings
