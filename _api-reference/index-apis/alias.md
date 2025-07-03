@@ -25,7 +25,7 @@ POST _aliases
 
 All parameters are optional.
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 cluster_manager_timeout | Time | The amount of time to wait for a response from the cluster manager node. Default is `30s`.
 timeout | Time | The amount of time to wait for a response from the cluster. Default is `30s`.
@@ -34,7 +34,7 @@ timeout | Time | The amount of time to wait for a response from the cluster. Def
 
 In your request body, you need to specify what action to take, the alias name, and the index you want to associate with the alias. Other fields are optional.
 
-Field | Data Type | Description | Required
+Field | Data type | Description | Required
 :--- | :--- | :--- | :---
 actions | Array | Set of actions you want to perform on the index. Valid options are: `add`, `remove`, and `remove_index`. You must have at least one action in the array. | Yes
 add | N/A | Adds an alias to the specified index. | No
