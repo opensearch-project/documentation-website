@@ -14,6 +14,13 @@ Use the `percolate` query to find stored queries that match a given document. Th
 - You can combine percolation with filtering and scoring to build complex matching systems.
 - Percolate queries are considered expensive and will only run if the cluster setting `search.allow_expensive_queries` is set to `true` (default). If this setting is `false`, percolate queries will be rejected.
 
+Percolate queries are useful in a variety of real-time matching scenarios. Some common use cases include:
+
+- **E-commerce notifications**: Customers can register interest in products, for example: “Notify me when new Apple laptops are in stock”. When new product documents are indexed, the system finds all users with matching saved queries and sends alerts.
+- **Job alerts**: Job seekers save queries based on preferred job titles or locations, and new job postings are matched against these to trigger alerts.
+- **Security and alerting systems**: Percolate incoming log or event data against saved rules or anomaly patterns.
+- **News filtering**: Match incoming articles against saved topic profiles to categorize or deliver relevant content.
+
 ## How percolation works
 
 1. Saved queries are stored in a special [`percolator` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/).
@@ -124,6 +131,80 @@ This will match the saved query looking for "apple":
 }
 ```
 
+## Percolate with multiple documents
+
+You can test multiple documents in the same query:
+
+```json
+POST /my_percolator_index/_search
+{
+  "query": {
+    "percolate": {
+      "field": "query",
+      "documents": [
+        { "title": "Banana flavoured ice-cream" },
+        { "title": "Apple pie recipe" },
+        { "title": "Banana bread instructions" },
+        { "title": "Cherry tart" }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `_percolator_document_slot` field helps you identify which document (by index) matched which saved query.
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 0.54726034,
+    "hits": [
+      {
+        "_index": "my_percolator_index",
+        "_id": "1",
+        "_score": 0.54726034,
+        "_source": {
+          "query": {
+            "match": {
+              "title": "apple"
+            }
+          }
+        },
+        "fields": {
+          "_percolator_document_slot": [
+            1
+          ]
+        }
+      },
+      {
+        "_index": "my_percolator_index",
+        "_id": "2",
+        "_score": 0.31506687,
+        "_source": {
+          "query": {
+            "match": {
+              "title": "banana"
+            }
+          }
+        },
+        "fields": {
+          "_percolator_document_slot": [
+            0,
+            2
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
 ## Percolate an existing indexed document
 
 Create a separate index for your documents:
@@ -167,6 +248,9 @@ POST /my_percolator_index/_search
 }
 ```
 {% include copy-curl.html %}
+
+You must provide both `index` and `id` when using an already stored document.
+{: .note}
 
 The corresponding query is returned:
 
