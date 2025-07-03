@@ -145,7 +145,7 @@ GET /articles-optimized/_search
 ```
 {% include copy-curl.html %}
 
-The terms that get selected by `more_like_this` are: `dark` and `night`, which match one document:
+The terms that get selected by `more_like_this` are: `dark` and `night` and this returns the following hit:
 
 ```json
 {
