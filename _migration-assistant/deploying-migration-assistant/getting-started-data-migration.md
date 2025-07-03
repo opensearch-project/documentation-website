@@ -118,7 +118,7 @@ These commands deploy the following stacks:
 
 Use the following steps to configure and deploy RFS, deploy Migration Assistant, and verify installation of the required stacks:
 
-1. Add the basic auth details (username/password) for the source and target cluster as separate **Secrets** in [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html). Each secret should contain two Key/value pairs, one for username and one for password. This will result in the secret Plaintext looking like the example below.
+1. Add the basic auth details (username/password) for the source and target cluster as separate secrets in [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html). Each secret should contain two key/value pairs, one for username and one for password. This will result in the secret plaintext looking like the example below.
    ```json
    {"username":"admin","password":"myStrongPassword123!"}
    ```
