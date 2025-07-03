@@ -17,7 +17,7 @@ The `stop` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`stopwords` | Optional | String | Specifies either a custom array of stopwords or the [Predefined stopword sets by language](#predefined-stopword-sets-by-language). Default is `_english_`.
+`stopwords` | Optional | String | Specifies either a custom array of stopwords or a [predefined stopword set for a language](#predefined-stopword-sets-by-language). Default is `_english_`.
 `stopwords_path` | Optional | String | Specifies the file path (absolute or relative to the config directory) of the file containing custom stopwords.
 `ignore_case` | Optional | Boolean | If `true`, stopwords will be matched regardless of their case. Default is `false`.
 `remove_trailing` | Optional | Boolean | If `true`, trailing stopwords will be removed during analysis. Default is `true`.
