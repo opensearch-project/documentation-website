@@ -16,45 +16,6 @@ Migration Assistant addresses key limitations in traditional migration approache
 
 Migration Assistant also supports live traffic replication, enabling zero-downtime migrations. This makes it a strong fit for environments where minimizing service disruption is critical.
 
-## Migration Assistant assumptions and limitations
-
-Before using Migration Assistant, review the following assumptions and limitations. They are grouped by scope to clarify which apply generally and which are specific to components.
-
-### General
-
-
-- If deploying on AWS, the identity used to deploy Migration Assistant must have permission to install all required resources. For a full list of services, see [AWS Services in this Solution](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/architecture-details.html#aws-services-in-this-solution).
-- The target cluster must be deployed and reachable by Migration Assistant components, including the Migration Console, Reindex-from-Snapshot, and Traffic Replayer, depending on which features are used.
-- The `_source` field must be enabled on all indexes to be migrated. See [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/) for more information.
-- If deploying to AWS, ensure the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
-- If deploying Migration Assistant into an existing AWS VPC, you must configure VPC interface endpoints and IAM permissions for the following AWS services:
-  - **Amazon CloudWatch Logs** – for log ingestion from ECS tasks.
-  - **Amazon CloudWatch** – for metrics published during migration
-  - **Amazon Elastic Container Registry (ECR)** – for pulling container images.
-  - **Amazon Elastic Container Service (ECS)** – for task orchestration and migration.
-  - **Elastic Load Balancing (ELB)** – for routing traffic to Capture Proxy.
-  - **AWS Secrets Manager** – for storing credentials.
-  - **AWS Systems Manager Parameter Store** – for storing and accessing parameter values.
-  - **AWS Systems Manager Session Manager** – for secure shell access to EC2 (i.e., bootstrap instance).
-  - **Amazon EC2** – for launching the bootstrap instance responsible for build and deployment.
-  - **Amazon Elastic Block Store (EBS)** – for disk storage during migration.
-  - **Amazon Virtual Private Cloud (VPC)** – for private networking and VPC endpoints.
-  - **AWS X-Ray** – for distributed tracing across components.
-  - **Amazon Elastic File System (EFS)** – for persistent logging. 
-
-### Reindex-from-Snapshot
-
-- The source cluster must have the Amazon S3 plugin installed.
-- Snapshots must include global cluster state (`include_global_state` is `true`).
-- Shards up to 80 GiB are supported by default. Larger shards can be configured, except in AWS GovCloud, where 80 GiB is the maximum supported size.
-
-### Capture-and-Replay
-
-- The Traffic Capture Proxy must be deployed to intercept relevant client traffic.
-- Live capture is recommended only for environments with less than 4 TB/day of incoming traffic to the source cluster.
-- Automatically generated document IDs are not preserved for index requests. Clients must explicitly provide document IDs when indexing or updating documents.
-
----
 
 ## Supported migration paths
 
@@ -122,9 +83,6 @@ Before starting an upgrade or migration, consider the cluster feature to be incl
 | **Security constructs**   | No   | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, leverage AWS Identity and Access Management (IAM) for enhanced security management. |
 | **Plugins**  | No  | Check plugin compatibility; some Elasticsearch plugins may not have direct OpenSearch equivalents. |
 
-[^2]: Support for Kibana 5.0 through 7.10.2 migration paths to OpenSearch Dashboards will be added in a future version. Kibana 8 and later are not supported. For more information, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944).
-
-
 ## Checklist
 
 Use this checklist to determine whether Migration Assistant is the right fit for your migration:
@@ -140,3 +98,43 @@ Use this checklist to determine whether Migration Assistant is the right fit for
 - Do you need a high-performance backfill solution that can reliably reindex documents—with support for pause, resume, or checkpoint recovery?
 
 If you answered "yes" to most of these questions, Migration Assistant is likely the right solution for your migration.
+
+## Migration Assistant assumptions and limitations
+
+Before using Migration Assistant, review the following assumptions and limitations. They are grouped by scope to clarify which apply generally and which are specific to components.
+
+### General
+
+
+- If deploying on AWS, the identity used to deploy Migration Assistant must have permission to install all required resources. For a full list of services, see [AWS Services in this Solution](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/architecture-details.html#aws-services-in-this-solution).
+- The target cluster must be deployed and reachable by Migration Assistant components, including the Migration Console, Reindex-from-Snapshot, and Traffic Replayer, depending on which features are used.
+- The `_source` field must be enabled on all indexes to be migrated. See [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/) for more information.
+- If deploying to AWS, ensure the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
+- If deploying Migration Assistant into an existing AWS VPC, you must configure VPC interface endpoints and IAM permissions for the following AWS services:
+  - **Amazon CloudWatch Logs** – for log ingestion from ECS tasks.
+  - **Amazon CloudWatch** – for metrics published during migration
+  - **Amazon Elastic Container Registry (ECR)** – for pulling container images.
+  - **Amazon Elastic Container Service (ECS)** – for task orchestration and migration.
+  - **Elastic Load Balancing (ELB)** – for routing traffic to Capture Proxy.
+  - **AWS Secrets Manager** – for storing credentials.
+  - **AWS Systems Manager Parameter Store** – for storing and accessing parameter values.
+  - **AWS Systems Manager Session Manager** – for secure shell access to EC2 (i.e., bootstrap instance).
+  - **Amazon EC2** – for launching the bootstrap instance responsible for build and deployment.
+  - **Amazon Elastic Block Store (EBS)** – for disk storage during migration.
+  - **Amazon Virtual Private Cloud (VPC)** – for private networking and VPC endpoints.
+  - **AWS X-Ray** – for distributed tracing across components.
+  - **Amazon Elastic File System (EFS)** – for persistent logging. 
+
+### Reindex-from-Snapshot
+
+- The source cluster must have the Amazon S3 plugin installed.
+- Snapshots must include global cluster state (`include_global_state` is `true`).
+- Shards up to 80 GiB are supported by default. Larger shards can be configured, except in AWS GovCloud, where 80 GiB is the maximum supported size.
+
+### Capture-and-Replay
+
+- The Traffic Capture Proxy must be deployed to intercept relevant client traffic.
+- Live capture is recommended only for environments with less than 4 TB/day of incoming traffic to the source cluster.
+- Automatically generated document IDs are not preserved for index requests. Clients must explicitly provide document IDs when indexing or updating documents.
+
+---

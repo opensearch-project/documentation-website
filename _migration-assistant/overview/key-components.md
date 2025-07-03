@@ -12,13 +12,13 @@ The following are the key components of Migration Assistant.
 
 ## Elasticsearch/OpenSearch source
 
-In this solution, your source cluster operates on either Elasticsearch or OpenSearch and is hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances or in a similar computing environment. A proxy is set up to interact with this source cluster, either positioned in front of or directly on the coordinating nodes of the cluster.
+In this solution, your source cluster operates on either Elasticsearch or OpenSearch and is hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances or in a similar computing environment. Traffic is rerouted from the source cluster to a traffic capture proxy and replayed to a target typically on a later version of OpenSearch.
 
-## Migration console
+## Migration Console
 
 The migration console provides a migration-specific CLI and offers a variety of tools for streamlining the migration process. Everything necessary for completing a migration, other than cleaning up the migration resources, can be performed through this console.
 
-## Traffic capture proxy
+## Traffic Capture Proxy
 
 This component is designed for HTTP RESTful traffic. It forwards traffic to the source cluster and also splits and channels this traffic to a stream processing service for later playback.
 
@@ -26,7 +26,7 @@ This component is designed for HTTP RESTful traffic. It forwards traffic to the 
 
 Acting as a traffic simulation tool, [Traffic Replayer](https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/live-traffic-migration/using-traffic-replayer/) replays recorded request traffic to a target cluster, mirroring source traffic patterns. It links original requests and their responses to those directed at the target cluster, facilitating comparative analysis.
 
-## Metadata migration tool
+## Metadata-Migration-Tool
 
 The metadata migration tool integrated into the Migration CLI can be used independently to migrate cluster metadata, including index mappings, index configuration settings, templates, component templates, and aliases.
 
@@ -36,4 +36,4 @@ The metadata migration tool integrated into the Migration CLI can be used indepe
 
 ## Target cluster
 
-The target cluster is the destination cluster for migration or comparison in an A/B test.
+The target cluster is the destination cluster for migration or comparison cluster in an A/B test.

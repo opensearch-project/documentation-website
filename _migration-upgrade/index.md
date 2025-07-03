@@ -50,7 +50,7 @@ Migration Assistant offers the most automated and resilient path for OpenSearch 
 
 ### Getting started with Migration Assistant
 
-- Review the [Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/)
+- Upgrade or migrate with [Migration Assistant for OpenSearch]({{site.url}}{{site.baseurl}}/migration-assistant/)
 
 ## Rolling upgrades
 
@@ -68,8 +68,7 @@ Rolling upgrades allow you to upgrade one node at a time, keeping the cluster op
 
 ### Getting started with rolling upgrades
 
-- Perform a [rolling upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/)
-
+- Perform a [rolling upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/).
 
 
 ## Snapshot and restore
@@ -77,13 +76,17 @@ Rolling upgrades allow you to upgrade one node at a time, keeping the cluster op
 This method involves taking a snapshot of your existing OpenSearch or Elasticsearch OSS cluster and restoring it to a new cluster running the target version.
 
 **Pros:**
-- Original cluster remains untouched, allowing rollback if needed (note: may result in data loss without a change data capture (CDC) solution).
+- Original cluster remains untouched, allowing rollback if needed (note: may result in data loss without a change data capture (CDC) solution. In some cases, one may choose to use `Capture-and-Replay` from Migration Assistant in combination with Snapshot and Restore).
 - Scales well for large data volumes, including cold storage and datasets up to 1 PB.
 
 **Cons:**
 - Requires downtime or an external CDC solution.
 - Requires provisioning a new cluster.
 - Manual reindexing may be necessary for full feature support.
+
+### Get started with Snapshot and Restore
+
+Upgrade or Migration with [Snapshot and Restore](https://docs.aws.amazon.com/solutions/latest/ tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/)
 
 ## Remote reindexing
 
