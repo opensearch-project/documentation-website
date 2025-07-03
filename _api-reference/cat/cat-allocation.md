@@ -27,6 +27,40 @@ GET /_cat/allocation/{node_id}
 ```
 <!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: snapshot.restore
+component: example_code
+rest: GET _nodes/stats/indices
+-->
+{% capture step1_rest %}
+POST _snapshot/<repository>/<snapshot>/_restore
+{% endcapture %}
+
+{% capture step1_python %}
+response = client.snapshot.restore(
+  repository = "<repository>",
+  snapshot = "<snapshot>",
+  body =   {
+    "indices": "opendistro-reports-definitions",
+    "ignore_unavailable": true,
+    "include_global_state": false,
+    "rename_pattern": "(.+)",
+    "rename_replacement": "$1_restored",
+    "include_aliases": false
+  }
+)
+
+{% endcapture %}
+
+{% capture step1_javascript %}
+JavaScript example code not yet implemented
+{% endcapture %}
+
+{% include code-block.html
+rest=step1_rest
+python=step1_python
+%}
+<!-- spec_insert_end -->
 
 <!-- spec_insert_start
 api: cat.allocation
