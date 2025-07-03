@@ -256,7 +256,7 @@ The only required parameter for a `more_like_this` query is `like`. The rest of 
 
 The following table specifies document input parameters.
 
-| Parameter | Required/Optional | Data Type | Description |
+| Parameter | Required/Optional | Data type | Description |
 | :--- |  :--- |  :--- |  :--- | 
 | `like`| Required| Array of strings or objects | Defines the text or documents to find similar documents for. You can input free text, real documents from the index, or artificial documents. The analyzer associated with the field processes the text unless overridden. |
 | `unlike`| Optional| Array of strings or objects | Provides text or documents whose terms should be *excluded* from influencing the query. Useful for specifying negative examples.|
@@ -264,7 +264,7 @@ The following table specifies document input parameters.
 
 ## Term selection parameters
 
-| Parameter | Required/Optional | Data Type| Description|
+| Parameter | Required/Optional | Data type| Description|
 | :--- |  :--- |  :--- |  :--- | 
 | `max_query_terms` | Optional| Integer| Sets the maximum number of terms to select from the input. A higher value increases precision but slows down execution. Default is `25`. |
 | `min_term_freq` | Optional| Integer| Terms appearing fewer times than this in the input will be ignored. Default is `2`.|
@@ -277,13 +277,10 @@ The following table specifies document input parameters.
 
 ## Query formation parameters
 
-| Parameter | Required/Optional | Data Type| Description|
-| :--- |  :--- |  :--- |  :--- | 
-| `max_query_terms` | Optional| Integer| Sets the maximum number of terms to select from the input. A higher value increases precision but slows down execution. Default is `25`. |
-| `min_term_freq` | Optional| Integer| Terms appearing fewer times than this in the input will be ignored. Default is `2`.|
-| `min_doc_freq`| Optional| Integer| Terms that appear in fewer documents than this value will be ignored. Default is `5`.|
-| `max_doc_freq`| Optional| Integer| Terms appearing in more documents than this limit are ignored. Useful for avoiding very common words. Default is unlimited (`2147483647`). |
-| `min_word_length` | Optional| Integer| Ignore words shorter than this value. Default is `0`.|
-| `max_word_length` | Optional| Integer| Ignore words longer than this value. Default is unlimited. |
-| `stop_words`| Optional| Array of strings | Defines a list of words that are ignored completely when selecting terms.|
-| `analyzer`| Optional| String | The custom analyzer to use for processing input text. Defaults to the analyzer of the first field listed in `fields`.|
+| Parameter | Required/Optional | Data type | Description |
+| :--- |  :--- |  :--- |  :--- |
+| `minimum_should_match`| Optional | String | Specifies the minimum number of terms that must match in the final query. The value can be a percentage or a fixed number. Helps fine-tune the balance between recall and precision. Default is `30%` |
+| `fail_on_unsupported_field` | Optional | Boolean | Determines whether to throw an error if one of the target fields is not of a compatible type (`text` or `keyword`). Set to `false` to silently skip unsupported fields. Default is `true`. |
+| `boost_terms` | Optional | Float | Applies a boost to selected terms based on their TF-IDF weight. Any value greater than `0` activates term boosting with the specified factor. Default is `0`. |
+| `include` | Optional | Boolean | If `true`, the source documents provided in `like` are included in the result hits. Default is `false`. |
+| `boost` | Optional | Float | Multiplies the relevance score of the entire `more_like_this` query. Default is `1.0`. |
