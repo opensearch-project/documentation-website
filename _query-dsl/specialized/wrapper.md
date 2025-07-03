@@ -14,7 +14,7 @@ Use this query only when you need to work around system constraints. For readabi
 
 ## Example
 
-Create index named `products` with the following mappings:
+Create an index named `products` with the following mappings:
 
 ```json
 PUT /products
@@ -41,13 +41,14 @@ POST /products/_bulk
 ```
 {% include copy-curl.html %}
 
-Base64 encode the following query:
+Encode the following query in Base64 format:
 
 ```bash
 echo -n '{ "match": { "title": "headphones" } }' | base64
 ```
+{% include copy.html %}
 
-Execute the query inside `wrapper` using the encoded string:
+Execute the encoded query:
 
 ```json
 POST /products/_search
@@ -61,7 +62,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-The hits return two documents:
+The response contains the two matching documents:
 
 ```json
 {
