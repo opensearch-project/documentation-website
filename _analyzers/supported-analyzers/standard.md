@@ -11,12 +11,11 @@ The `standard` analyzer is the built-in default analyzer used for general-purpos
 
 The `standard` analyzer performs the following operations:
 
-- **Tokenization**: It uses the [`standard`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/standard/) tokenizer, which splits text into words based on Unicode text segmentation rules, handling spaces, punctuation, and common delimiters.
-- **Lowercasing**: It applies the [`lowercase`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/lowercase/) token filter to convert all tokens to lowercase, ensuring consistent matching regardless of input case.
+- **Tokenization**: Uses the [`standard`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/standard/) tokenizer, which splits text into words based on Unicode text segmentation rules, handling spaces, punctuation, and common delimiters.
+- **Lowercasing**: Applies the [`lowercase`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/lowercase/) token filter to convert all tokens to lowercase, ensuring consistent matching regardless of input case.
 
 This combination makes the `standard` analyzer ideal for indexing a wide range of natural language content without needing language-specific customizations.
 
----
 
 ## Example: Creating an index with the standard analyzer
 
@@ -37,24 +36,23 @@ PUT /my_standard_index
 ```
 {% include copy-curl.html %}
 
----
 
 ## Parameters
 
-The `standard` analyzer supports the following optional parameters:
+The `standard` analyzer supports the following optional parameters.
 
 | Parameter | Data type | Default | Description |
 |:----------|:-----|:--------|:------------|
-| `max_token_length` | Integer | `255` | Sets the maximum length of a token before it is split. |
+| `max_token_length` | Integer | `255` | The maximum length of a token before it is split. |
 | `stopwords` | String or list of strings | None | A list of stopwords or a predefined stopword set like `_english_` to remove during analysis. |
-| `stopwords_path` | String | None | Path to a file containing stopwords to be used during analysis. |
+| `stopwords_path` | String | None | The path to a file containing stopwords to be used during analysis. |
 
 Only use one of the parameters `stopwords` or `stopwords_path`. If both are used, no error is returned but only `stopwords` parameter is applied.
 {: .note}
 
 ## Example: Analyzer with parameters
 
-The following example creates index `products` and configures `max_token_length` and `stopwords`:
+The following example creates a `products` index and configures the `max_token_length` and `stopwords` parameters:
 
 ```json
 PUT /animals
@@ -76,7 +74,7 @@ PUT /animals
 ```
 {% include copy-curl.html %}
 
-Use the following `_analyze` API to see how the `my_manual_stopwords_analyzer` processes text:
+Use the following `_analyze` API request to see how the `my_manual_stopwords_analyzer` processes text:
 
 ```json
 POST /animals/_analyze
@@ -89,9 +87,9 @@ POST /animals/_analyze
 
 The returned tokens are:
 
-- separated based on spacing
-- lowercased
-- stopwords removed
+- Split on spaces
+- Lowercased
+- Stopwords removed
 
 ```json
 {
