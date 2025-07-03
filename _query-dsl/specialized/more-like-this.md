@@ -8,22 +8,22 @@ has_math: false
 
 # More like this
 
-`more_like_this` query is used to find documents that are similar to one or more given documents. This is useful for recommendation engines, content discovery, and identifying related items in a dataset.
+Use a `more_like_this` query to find documents that are similar to one or more given documents. This is useful for recommendation engines, content discovery, and identifying related items in a dataset.
 
 The `more_like_this` query analyzes the input documents or texts and selects terms that best characterize them. It then searches for other documents that contain those significant terms.
 
 ## Prerequisites
 
-Before you use a `more_like_this` query, make sure the fields you target are indexed, and their data type is either [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) or [`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/). 
+Before you use a `more_like_this` query, ensure that the fields you target are indexed and their data type is either [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) or [`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/). 
 
-If you reference documents in the `like` section, OpenSearch needs access to their content. By default, this is done through the `_source` field. If `_source` is disabled, you must either store the fields individually or configure them to save [`term_vector`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/term-vector/) data. 
+If you reference documents in the `like` section, OpenSearch needs access to their content. This is typically done through the `_source` field, which is enabled by default. If `_source` is disabled, you must either store the fields individually or configure them to save [`term_vector`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/term-vector/) data. 
 
 Saving [`term_vector`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/term-vector/) information when indexing documents can greatly accelerate `more_like_this` queries, because the engine can directly retrieve the important terms without re-analyzing the field text at query time.
 {: .note}
 
-## Example without term vector optimization
+## Example: No term vector optimization
 
-Create index named `articles-basic` using the basic mapping:
+Create an index named `articles-basic` using the following mapping:
 
 ```json
 PUT /articles-basic
@@ -68,7 +68,7 @@ GET /articles-basic/_search
 ```
 {% include copy-curl.html %}
 
-The terms that get queried by `more_like_this` are `jungle` and `wildlife`, which match only one document using `content` field:
+The `more_like_this` query searches for the terms `jungle` and `wildlife` in the `content` field, which matches only one document:
 
 ```json
 {
@@ -94,7 +94,9 @@ The terms that get queried by `more_like_this` are `jungle` and `wildlife`, whic
 }
 ```
 
-## Example with term vector optimization
+## Example: Term vector optimization
+
+Create an index named `articles-optimized` using the following mapping:
 
 ```json
 PUT /articles-optimized
@@ -128,7 +130,7 @@ POST /articles-optimized/_bulk
 ```
 {% include copy-curl.html %}
 
-Find similar document using following request:
+Find documents similar to `dark night` using the following request:
 
 ```json
 GET /articles-optimized/_search
@@ -145,7 +147,7 @@ GET /articles-optimized/_search
 ```
 {% include copy-curl.html %}
 
-The terms that get selected by `more_like_this` are: `dark` and `night` and this returns the following hit:
+The `more_like_this` query searches for the terms `dark` and `night` and returns the following hit:
 
 ```json
 {
@@ -172,11 +174,11 @@ The terms that get selected by `more_like_this` are: `dark` and `night` and this
 }
 ```
 
-## Example using multiple documents and text input in `like`
+## Example: Using multiple documents and text input
 
 The `more_like_this` query allows you to provide multiple sources in the `like` parameter. You can combine free text with documents from the index. This is useful if you want the search to combine relevance signals from several examples.
 
-In the following example a custom document is provided directly and an existing document with ID `5` from the `heroes` index is included:
+In the following example, a custom document is provided directly. Additionally, an existing document with the ID `5` from the `heroes` index is included:
 
 ```json
 GET /articles-optimized/_search
@@ -206,7 +208,7 @@ GET /articles-optimized/_search
 ```
 {% include copy-curl.html %}
 
-The returned hits list articles most similar to `name` and `alias` fields provided in the query:
+The returned results contain articles most similar to the `name` and `alias` fields provided in the query:
 
 ```json
 {
@@ -248,18 +250,22 @@ Use this pattern when you want to boost results based on a new concept that is n
 
 # Parameters
 
-The only required parameter for a `more_like_this` query is `like`. The rest of the parameters have default values but allow fine-tuning. Parameters fall into three main categories:
+The only required parameter for a `more_like_this` query is `like`. The rest of the parameters have default values but allow fine-tuning. Parameters fall into the following main categories.
 
-## Document Input Parameters
+## Document input parameters
+
+The following table specifies document input parameters.
 
 | Parameter | Required/Optional | Data Type | Description |
-| `like`| Required| Array of strings or objects | Defines the text or documents to find similar documents for. You can input free text, real documents from the index, or even artificial documents. The analyzer associated with the field will process the text unless you override it. |
+| :--- |  :--- |  :--- |  :--- | 
+| `like`| Required| Array of strings or objects | Defines the text or documents to find similar documents for. You can input free text, real documents from the index, or artificial documents. The analyzer associated with the field processes the text unless overridden. |
 | `unlike`| Optional| Array of strings or objects | Provides text or documents whose terms should be *excluded* from influencing the query. Useful for specifying negative examples.|
 | `fields`| Optional| Array of strings| Lists fields to use when analyzing text. If not specified, all fields are used. |
 
-## Term Selection Parameters
+## Term selection parameters
 
 | Parameter | Required/Optional | Data Type| Description|
+| :--- |  :--- |  :--- |  :--- | 
 | `max_query_terms` | Optional| Integer| Sets the maximum number of terms to select from the input. A higher value increases precision but slows down execution. Default is `25`. |
 | `min_term_freq` | Optional| Integer| Terms appearing fewer times than this in the input will be ignored. Default is `2`.|
 | `min_doc_freq`| Optional| Integer| Terms that appear in fewer documents than this value will be ignored. Default is `5`.|
@@ -269,9 +275,10 @@ The only required parameter for a `more_like_this` query is `like`. The rest of 
 | `stop_words`| Optional| Array of strings | Defines a list of words that are ignored completely when selecting terms.|
 | `analyzer`| Optional| String | The custom analyzer to use for processing input text. Defaults to the analyzer of the first field listed in `fields`.|
 
-## Query Formation Parameters
+## Query formation parameters
 
 | Parameter | Required/Optional | Data Type| Description|
+| :--- |  :--- |  :--- |  :--- | 
 | `max_query_terms` | Optional| Integer| Sets the maximum number of terms to select from the input. A higher value increases precision but slows down execution. Default is `25`. |
 | `min_term_freq` | Optional| Integer| Terms appearing fewer times than this in the input will be ignored. Default is `2`.|
 | `min_doc_freq`| Optional| Integer| Terms that appear in fewer documents than this value will be ignored. Default is `5`.|
