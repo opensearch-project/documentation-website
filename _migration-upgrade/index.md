@@ -5,9 +5,8 @@ nav_order: 1
 has_children: false
 nav_exclude: true
 has_toc: false
-permalink: /migration-assistant/
+permalink: /migrations-and-upgrades/
 redirect_from:
-  - /migration-assistant/index/
   - /upgrade-to/index/
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
@@ -15,15 +14,9 @@ tutorial_cards:
   - heading: "Overview"
     description: "Get familiar with the key components of Migration Assistant and evaluate your use case."
     link: "/migration-assistant/overview/"
-  - heading: "Deploying Migration Assistant"
-    description: "Follow step-by-step instructions to deploy Migration Assistant and prepare data for migration."
-    link: "/deploying-migration-assistant/"
   - heading: "Migration phases"
     description: "Execute your migration in phases—metadata, backfill, and traffic replay—for a controlled and validated transition."
-    link: "/migration-phases/"
-  - heading: "Migration console"
-    description: "Use CLI commands provided by the migration console to orchestrate and monitor your migration process."
-    link: "/migration-console/"
+    link: "/migration-assistant/migration-phases/"
 ---
 
 # Migration and upgrade options
@@ -54,19 +47,10 @@ Migration Assistant offers the most automated and resilient path for OpenSearch 
 - **Reversion support:** Provides a fallback option in case of errors or issues.
 - **Integrated automation:** Designed to fit into OpenSearch workflows for a guided upgrade experience.
 
+
 ### Getting started with Migration Assistant
 
-To get started with Migration Assistant, determine which of the following scenarios best suits your needs:
-
-- **Metadata migration**: Migrating cluster metadata, such as index settings, aliases, and templates.
-- **Backfill migration**: Migrating existing or historical data from a source to a target cluster.
-- **Live traffic migration**: Replicating live ongoing traffic from a source to a target cluster.
-- **Comparative tooling**: Comparing the performance and behaviors of an existing cluster with a prospective new one.
-
-It's crucial to note that migration strategies are not universally applicable. This guide provides a detailed methodology, based on certain assumptions detailed throughout, emphasizing the importance of robust engineering practices to ensure a successful migration.
-{: .tip }
-
-{% include cards.html cards=page.tutorial_cards %}
+- Review the [Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/)
 
 ## Rolling upgrades
 
@@ -81,6 +65,11 @@ Rolling upgrades allow you to upgrade one node at a time, keeping the cluster op
 - Incompatibilities may still arise, requiring a snapshot restore that can be complex and risky.
 - Multiple upgrade cycles are needed for large version jumps.
 - Manual reindexing may be required to enable newer features.
+
+### Getting started with rolling upgrades
+
+- Perform a [rolling upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/)
+
 
 
 ## Snapshot and restore
@@ -126,11 +115,4 @@ Migration Assistant offers the most automated and resilient path for OpenSearch 
 
 Before choosing a method, make sure that your OpenSearch clients and plugins are compatible with the target version. For example, tools like Logstash OSS and Filebeat OSS may enforce version checks that impact upgrade paths.
 
-
-## Next steps
-
-After you've determined which upgrade or migration path works best for you, take one of the following next steps:
-
-- Review the [Migration Assistant Overview]({{site.url}}{{site.baseurl}}/migration-assistant/overview/)
-- Perform a [rolling upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/)
 

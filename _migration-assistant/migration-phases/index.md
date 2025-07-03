@@ -1,12 +1,12 @@
 ---
 layout: default
 title: Migration phases
+parent: Migration Assistant for OpenSearch
 nav_order: 30
-has_children: true
-has_toc: false
-permalink: /migration-phases/
-redirect_from: 
-  - /migration-phases/index/
+has_children: false
+has_toc: true
+permalink: /migration-assistant/overview/
+redirect-from: /migration-assistant/overview/index/
 ---
 
 # Migration phases

@@ -92,6 +92,9 @@ collections:
   migration-upgrade:
     permalink: /:collection/:path/
     output: true
+  migration-assistant:
+    permalink: /:collection/:path/
+    output: true
   tools:
     permalink: /:collection/:path/
     output: true
@@ -221,6 +224,12 @@ migration_upgrade_collection:
         name: Migration and upgrade
         nav_fold: true
 
+migration_assistant_collection:
+  collections:
+    migration-assistant:
+        name: Migration Assistant
+        nav_fold: true
+
 benchmark_collection:
   collections:
     benchmark:
@@ -262,10 +271,10 @@ defaults:
       section-name: "Benchmark"
   -
     scope:
-      path: "_migration-assistant"
+      path: "_migrations-and-upgrades"
     values:
-      section: "migration-assistant"
-      section-name: "Migration Assistant"
+      section: "migrations-and-upgrades"
+      section-name: "Migrations and Upgrades"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.
@@ -326,6 +335,7 @@ plugins:
   - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-spec-insert
+  - jekyll-include-cache
 
 # This format has to conform to RFC822
 last-modified-at:
