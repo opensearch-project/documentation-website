@@ -51,8 +51,7 @@ The following CDK performs a backfill migrations using RFS:
         "endpoint": <TARGET_CLUSTER_ENDPOINT>,
         "auth": {
             "type": "basic",
-            "username": <TARGET_CLUSTER_USERNAME>,
-            "passwordFromSecretArn": <TARGET_CLUSTER_PASSWORD_SECRET>
+            "userSecretArn": <SECRET_WITH_USERNAME_AND_PASSWORD_KEYS>
         }
     },
     "reindexFromSnapshotServiceEnabled": true,
@@ -93,8 +92,7 @@ The following sample CDK performs a live capture migration with C&R:
         "endpoint": <TARGET_CLUSTER_ENDPOINT>,
         "auth": {
             "type": "basic",
-            "username": <TARGET_CLUSTER_USERNAME>,
-            "passwordFromSecretArn": <TARGET_CLUSTER_PASSWORD_SECRET>
+            "userSecretArn": <SECRET_WITH_USERNAME_AND_PASSWORD_KEYS>
         }
     },
     "captureProxyServiceEnabled": true,
@@ -144,8 +142,7 @@ Both the source and target cluster can use no authentication, authentication lim
         "version": "ES 7.10",
         "auth": {
             "type": "basic",
-            "username": <TARGET_CLUSTER_USERNAME>,
-            "passwordFromSecretArn": <TARGET_CLUSTER_PASSWORD_SECRET>
+            "userSecretArn": <SECRET_WITH_USERNAME_AND_PASSWORD_KEYS>
         }
     }
 ```
