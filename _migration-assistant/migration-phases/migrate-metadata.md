@@ -1,12 +1,13 @@
 ---
 layout: default
-title: Migrating metadata
-nav_order: 85
+title: Migrate Metadata
+nav_order: 5
 parent: Migration phases
-permalink: /migration-assistant/migration-phases/migrating-metadata/
+redirect_from:
+  - /migration-assistant/migration-phases/migrating-metadata
 ---
 
-# Migrating metadata
+# Migrate metadata
 
 Metadata migration involves creating a snapshot of your cluster and then migrating the metadata from the snapshot using the migration console.
 

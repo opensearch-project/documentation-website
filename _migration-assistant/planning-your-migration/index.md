@@ -3,7 +3,6 @@ layout: default
 title: Planning your migration
 nav_order: 59
 parent: Migration phases
-permalink: /planning-your-migration/
 has_toc: false
 has_children: true 
 ---

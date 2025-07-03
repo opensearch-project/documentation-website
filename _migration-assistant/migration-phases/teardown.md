@@ -1,9 +1,10 @@
 ---
 layout: default
-title: Removing migration infrastructure
-nav_order: 120
+title: Remove Migration Infrastructure
+nav_order: 8
 parent: Migration phases
-permalink: /migration-assistant/migration-phases/removing-migration-infrastructure/
+redirect_from:
+  - /migration-assistant/migration-phases/removing-migration-infrastructure
 ---
 
 # Removing migration infrastructure

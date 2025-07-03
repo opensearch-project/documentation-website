@@ -1,10 +1,8 @@
 ---
 layout: default
-title: Assessing your cluster for migration
-nav_order: 60
-parent: Planning your migration
-grand_parent: Migration phases
-permalink: /migration-assistant/migration-phases/planning-your-migration/assessing-your-cluster-for-migration/
+title: Assess
+nav_order: 1
+parent: Migration phases
 redirect_from:
   - /migration-assistant/migration-phases/assessing-your-cluster-for-migration/
 ---
@@ -12,6 +10,7 @@ redirect_from:
 # Assessing your cluster for migration
 
 The goal of the Migration Assistant is to streamline the process of migrating from one location or version of Elasticsearch/OpenSearch to another. However, completing a migration sometimes requires resolving client compatibility issues before they can communicate directly with the target cluster.
+
 
 ## Understanding breaking changes
 
