@@ -4,8 +4,8 @@ title: Deploy
 parent: Migration phases
 nav_order: 2
 redirect_from:
-  - /upgrade-to/snapshot-migrate/
   - /migration-assistant/getting-started-with-data-migration/
+  - /deploying-migration-assistant/
 ---
 
 # Deploying Migration Assistant

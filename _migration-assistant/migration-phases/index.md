@@ -3,7 +3,7 @@ layout: default
 title: Migration phases
 parent: Migration Assistant
 nav_order: 30
-has_children: false
+has_children: true
 has_toc: false
 permalink: /migration-assistant/migration-phases/
 redirect-from: /migration-assistant/migration-phases/index/

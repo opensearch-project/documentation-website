@@ -12,6 +12,7 @@ redirect_from:
   - /upgrade-to/index/
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
+  - /upgrade-to/snapshot-migrate/
 items:
   - heading: "Is Migration Assistant right for you?"
     description: "Evaluate whether Migration Assistant is right for your use case."
