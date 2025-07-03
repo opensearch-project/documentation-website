@@ -269,7 +269,7 @@ The following table specifies document input parameters.
 | `max_query_terms` | Optional| Integer| Sets the maximum number of terms to select from the input. A higher value increases precision but slows down execution. Default is `25`. |
 | `min_term_freq` | Optional| Integer| Terms appearing fewer times than this in the input will be ignored. Default is `2`.|
 | `min_doc_freq`| Optional| Integer| Terms that appear in fewer documents than this value will be ignored. Default is `5`.|
-| `max_doc_freq`| Optional| Integer| Terms appearing in more documents than this limit are ignored. Useful for avoiding very common words. Default is unlimited (`2147483647`). |
+| `max_doc_freq`| Optional| Integer| Terms appearing in more documents than this limit are ignored. Useful for avoiding very common words. Default is unlimited (2<sup>31</sup> - 1). |
 | `min_word_length` | Optional| Integer| Ignore words shorter than this value. Default is `0`.|
 | `max_word_length` | Optional| Integer| Ignore words longer than this value. Default is unlimited. |
 | `stop_words`| Optional| Array of strings | Defines a list of words that are ignored completely when selecting terms.|
