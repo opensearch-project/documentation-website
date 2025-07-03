@@ -218,10 +218,10 @@ clients_collection:
         name: Clients
         nav_fold: true
 
-migration_upgrade_collection:
+migrations_and_upgrades_collection:
   collections:
-    migration-upgrade:
-        name: Migration and upgrade
+    migrations-and-upgrades:
+        name: Migrations and upgrades
         nav_fold: true
 
 migration_assistant_collection:
@@ -274,7 +274,13 @@ defaults:
       path: "_migrations-and-upgrades"
     values:
       section: "migrations-and-upgrades"
-      section-name: "Migrations and Upgrades"
+      section-name: "Migrations and upgrades"
+  -
+    scope:
+      path: "_migration-assistant"
+    values:
+      section: "migrations-assistant"
+      section-name: "Migration Assistant"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.
