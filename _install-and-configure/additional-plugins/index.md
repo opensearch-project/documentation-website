@@ -23,8 +23,8 @@ There are many more plugins available in addition to those provided by the stand
 | `discovery-ec2`                                                                                                          | 1.0.0                      |
 | `discovery-gce`                                                                                                          | 1.0.0                      |
 | [`ingest-attachment`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/ingest-attachment-plugin/) | 1.0.0                      |
-| `ingest-kafka` | 3.0.0                      |
-| `ingest-kinesis` | 3.0.0                      |
+| `ingestion-kafka`                                                                                                         | 3.0.0                      |
+| `ingestion-kinesis`                                                                                                       | 3.0.0                      |
 | `mapper-annotated-text`                                                                                                  | 1.0.0                      |
 | `mapper-murmur3`                                                                                                         | 1.0.0                      |
 | [`mapper-size`]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/mapper-size-plugin/)             | 1.0.0                      |
