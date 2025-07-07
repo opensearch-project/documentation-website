@@ -15,77 +15,6 @@ Migration Assistant addresses key limitations in traditional migration approache
 
 Migration Assistant also supports live traffic replication, enabling zero-downtime migrations. This makes it a strong fit for environments where minimizing service disruption is critical.
 
-## Migration Assistant assumptions and limitations
-
-Before using Migration Assistant, review the following assumptions and limitations.
-
-### Networking and Environment
-
-Migration Assistant requires network connectivity to AWS services and outbound internet access to build and deploy. Requirements differ based on whether you're deploying into a new or existing VPC.
-
-#### Source and Target Connectivity
-
-- You must establish connectivity between:
-  - The source cluster and/or Amazon S3 (for snapshots) and Migration Assistant
-  - The target cluster and Migration Assistant
-- If the source or target resides in a private VPC without internet access, use one of the following to connect:
-  - VPC endpoints
-  - VPC peering
-  - AWS Transit Gateway
-
-#### Deploying into a New VPC
-
-- Migration Assistant provisions a new VPC with required components (e.g., NAT gateway, subnets).
-- You must establish network access from this VPC to both the source (or S3) and target clusters.
-
-#### Deploying into an Existing VPC
-
-- If installing Migration Assistant into an existing VPC (e.g., same VPC as the source or target), you may need to configure connectivity to any cluster external to the target VPC.
-  - For example, if installed in the source VPC, you may need VPC endpoints or peering to reach the target.
-  
-- Ensure all required AWS services are reachable by Migration Assistant components.
-
-  - If the VPC has outbound access via:
-    - Private subnets with a NAT gateway, or
-    - Public subnets with an Internet Gateway
-
-    then VPC interface endpoints are not required.
-
-  - If using isolated subnets with no outbound access, you must configure VPC interface endpoints or routing to the following services:
-
-    - **Amazon CloudWatch** – Publishes migration metrics.
-    - **Amazon CloudWatch Logs** – Ingests ECS task logs.
-    - **Amazon EC2** – Launches the bootstrap instance.
-    - **Amazon Elastic Block Store (Amazon EBS)** – Provides temporary disk storage.
-    - **Amazon Elastic Container Registry (Amazon ECR)** – Pulls container images.
-    - **Amazon Elastic Container Service (Amazon ECS)** – Orchestrates container workloads.
-    - **Amazon Elastic File System (Amazon EFS)** – Stores persistent logs.
-    - **Amazon Managed Streaming for Apache Kafka** – Used by `Capture-and-Replay` for HTTP event streaming.
-    - **Amazon S3** – Stores and retrieves snapshots and artifacts.
-    - **AWS Elastic Load Balancing (ELB)** – Routes traffic to the Capture Proxy.
-    - **AWS Secrets Manager** – Stores credentials securely.
-    - **AWS Systems Manager Parameter Store** – Holds configuration parameters.
-    - **AWS Systems Manager Session Manager** – Enables secure EC2 shell access.
-    - **AWS X-Ray** – Supports distributed tracing.
-    - **Amazon VPC** – Ensure proper routing, DNS resolution, and endpoint configuration.
-
-#### Bootstrap Instance (Build Host)
-
-- When deploying via CloudFormation, the bootstrap EC2 instance requires outbound internet access (via NAT gateway or IGW) to download the latest release from GitHub.
-
-### Reindex-from-Snapshot
-
-- The `_source` field must be enabled on all indices to be migrated. See [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/).
-- The source cluster must have the Amazon S3 plugin installed.
-- Snapshots must include global cluster state (`include_global_state: true`).
-- Shards up to **80 GiB** are supported by default. Larger shard sizes can be configured, except in **AWS GovCloud**, where 80 GiB is the maximum.
-
-### Capture-and-Replay
-
-- The Traffic Capture Proxy must be deployed to intercept client traffic.
-- Live capture is recommended only for workloads with **< 4 TB/day** of incoming traffic to the source cluster.
-- Automatically generated document IDs are **not preserved** during replay. Clients must explicitly provide document IDs for `index` and `update` operations.
-
 ## Supported migration paths
 
 The matrix below shows which source versions can be directly migrated to which OpenSearch target versions:
@@ -170,3 +99,74 @@ Use this checklist to determine whether Migration Assistant is the right fit for
 - Do you need a high-performance backfill solution that can reliably reindex documents—with support for pause, resume, or checkpoint recovery?
 
 If you answered "yes" to most of these questions, Migration Assistant is likely the right solution for your migration.
+
+## Migration Assistant assumptions and limitations
+
+Before using Migration Assistant, review the following assumptions and limitations.
+
+### Networking and Environment
+
+Migration Assistant requires network connectivity to AWS services and outbound internet access to build and deploy. Requirements differ based on whether you're deploying into a new or existing VPC.
+
+#### Source and Target Connectivity
+
+- You must establish connectivity between:
+  - The source cluster and/or Amazon S3 (for snapshots) and Migration Assistant
+  - The target cluster and Migration Assistant
+- If the source or target resides in a private VPC without internet access, use one of the following to connect:
+  - VPC endpoints
+  - VPC peering
+  - AWS Transit Gateway
+
+#### Deploying into a New VPC
+
+- Migration Assistant provisions a new VPC with required components (e.g., NAT gateway, subnets).
+- You must establish network access from this VPC to both the source (or S3) and target clusters.
+
+#### Deploying into an Existing VPC
+
+- If installing Migration Assistant into an existing VPC (e.g., same VPC as the source or target), you may need to configure connectivity to any cluster external to the target VPC.
+  - For example, if installed in the source VPC, you may need VPC endpoints or peering to reach the target.
+  
+- Ensure all required AWS services are reachable by Migration Assistant components.
+
+  - If the VPC has outbound access via:
+    - Private subnets with a NAT gateway, or
+    - Public subnets with an Internet Gateway
+
+    then VPC interface endpoints are not required.
+
+  - If using isolated subnets with no outbound access, you must configure VPC interface endpoints or routing to the following services:
+
+    - **Amazon CloudWatch** – Publishes migration metrics.
+    - **Amazon CloudWatch Logs** – Ingests ECS task logs.
+    - **Amazon EC2** – Launches the bootstrap instance.
+    - **Amazon Elastic Block Store (Amazon EBS)** – Provides temporary disk storage.
+    - **Amazon Elastic Container Registry (Amazon ECR)** – Pulls container images.
+    - **Amazon Elastic Container Service (Amazon ECS)** – Orchestrates container workloads.
+    - **Amazon Elastic File System (Amazon EFS)** – Stores persistent logs.
+    - **Amazon Managed Streaming for Apache Kafka** – Used by `Capture-and-Replay` for HTTP event streaming.
+    - **Amazon S3** – Stores and retrieves snapshots and artifacts.
+    - **AWS Elastic Load Balancing (ELB)** – Routes traffic to the Capture Proxy.
+    - **AWS Secrets Manager** – Stores credentials securely.
+    - **AWS Systems Manager Parameter Store** – Holds configuration parameters.
+    - **AWS Systems Manager Session Manager** – Enables secure EC2 shell access.
+    - **AWS X-Ray** – Supports distributed tracing.
+    - **Amazon VPC** – Ensure proper routing, DNS resolution, and endpoint configuration.
+
+#### Bootstrap Instance (Build Host)
+
+- When deploying via CloudFormation, the bootstrap EC2 instance requires outbound internet access (via NAT gateway or IGW) to download the latest release from GitHub.
+
+### Reindex-from-Snapshot
+
+- The `_source` field must be enabled on all indices to be migrated. See [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/).
+- The source cluster must have the Amazon S3 plugin installed.
+- Snapshots must include global cluster state (`include_global_state: true`).
+- Shards up to **80 GiB** are supported by default. Larger shard sizes can be configured, except in **AWS GovCloud**, where 80 GiB is the maximum.
+
+### Capture-and-Replay
+
+- The Traffic Capture Proxy must be deployed to intercept client traffic.
+- Live capture is recommended only for workloads with **< 4 TB/day** of incoming traffic to the source cluster.
+- Automatically generated document IDs are **not preserved** during replay. Clients must explicitly provide document IDs for `index` and `update` operations.
