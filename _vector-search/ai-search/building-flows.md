@@ -464,7 +464,7 @@ Ensure that the index mappings include a `rank_features` field:
 
 ### Ingest pipeline
 
-Single ML inference processor. Map your input text to the `text_doc` model input field. Optionally map the output `response` to a new document field. Transform the response if needed using JSONPath expression. 
+Configure a single ML inference processor. Map your input text to the `text_doc` model input field. Optionally, map the output `response` to a new document field. Transform the response if needed using a JSONPath expression. 
 
 
 ### Search pipeline
