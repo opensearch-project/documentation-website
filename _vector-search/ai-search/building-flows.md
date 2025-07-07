@@ -460,7 +460,6 @@ Ensure that the index mappings include a `rank_features` field:
     "type": "rank_features"
 }
 ```
-
 {% include copy.html %}
 
 ### Ingest pipeline
