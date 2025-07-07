@@ -447,6 +447,8 @@ Override the query so that it contains a `knn` query, including the embedding ou
 
 ## Neural sparse search
 
+This example demonstrates how to configure neural sparse search.
+
 ### ML resources
 
 Create and deploy a [neural sparse encoding model](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md#neural-sparse-encoding).
