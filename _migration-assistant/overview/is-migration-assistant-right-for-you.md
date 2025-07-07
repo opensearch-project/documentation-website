@@ -143,9 +143,9 @@ Migration Assistant requires network connectivity to AWS services and outbound i
     - **Amazon Elastic Container Registry (Amazon ECR)** – Pulls container images.
     - **Amazon Elastic Container Service (Amazon ECS)** – Orchestrates container workloads.
     - **Amazon Elastic File System (Amazon EFS)** – Stores persistent logs.
-    - **Amazon Managed Streaming for Apache Kafka** – Used by `Capture-and-Replay` for HTTP event streaming.
+    - **Amazon Managed Streaming for Apache Kafka** – (`Capture-and-Replay` only) - Used as a durable storage to capture and replay HTTP live traffic.
     - **Amazon S3** – Stores and retrieves snapshots and artifacts.
-    - **AWS Elastic Load Balancing (ELB)** – Routes traffic to the Capture Proxy.
+    - **AWS Elastic Load Balancing (ELB)** – (`Capture-and-Replay` only) - Routes traffic to the Capture Proxy.
     - **AWS Secrets Manager** – Stores credentials securely.
     - **AWS Systems Manager Parameter Store** – Holds configuration parameters.
     - **AWS Systems Manager Session Manager** – Enables secure EC2 shell access.
