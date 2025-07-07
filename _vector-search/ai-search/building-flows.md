@@ -487,5 +487,4 @@ Configure a single ML inference search request processor. Map the query field co
     }
 }
 ```
-
 {% include copy.html %}
