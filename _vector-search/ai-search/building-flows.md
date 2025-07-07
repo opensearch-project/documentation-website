@@ -469,7 +469,7 @@ Configure a single ML inference processor. Map your input text to the `text_doc`
 
 ### Search pipeline
 
-Single ML inference **search request** processor. Map the query field containing the input text to the `text_doc` model input field. Optionally map the output `response` to a new field. Transform the response if needed using JSONPath expression. Override the query to a neural sparse query. For example:
+Configure a single ML inference search request processor. Map the query field containing the input text to the `text_doc` model input field. Optionally, map the output `response` to a new field. Transform the response if needed using a JSONPath expression. Include a neural sparse query:
 
 ```
 {
