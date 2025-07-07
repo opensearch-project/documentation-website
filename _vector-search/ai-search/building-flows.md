@@ -453,7 +453,7 @@ Create and deploy a [Neural Sparse Encoding model](https://github.com/opensearch
 
 ### Index
 
-Ensure the index mappings include `rank_features` field, as follows:
+Ensure that the index mappings include a `rank_features` field:
 
 ```
 "<embedding_field_name>": {
