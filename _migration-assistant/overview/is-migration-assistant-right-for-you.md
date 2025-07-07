@@ -77,11 +77,9 @@ Before starting an upgrade or migration, consider the cluster feature to be incl
 | **Component templates**  | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
 | **Aliases**   | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
 | **Index State Management (ISM) policies**  | Expected in 2025    | Manually migrate using an API. For more information about ISM support, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944). |
-| **Elasticsearch Kibana[^2] dashboards** | Expected in 2025 | This tool is only needed when migrating from Elasticsearch Kibana dashboards to OpenSearch Dashboards. Start by exporting JSON files from Kibana and importing them into OpenSearch Dashboards. For Elasticsearch versions 7.10.2 to 7.17, use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool before importing X-Pack visualizations like Canvas and Lens in Kibana dashboards, as they may require recreation for compatibility with OpenSearch.|
+| **Elasticsearch Kibana dashboards** | Expected in 2025 | This tool is only needed when migrating from Elasticsearch Kibana dashboards to OpenSearch Dashboards. Start by exporting JSON files from Kibana and importing them into OpenSearch Dashboards. For Elasticsearch versions 7.10.2 to 7.17, use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool before importing X-Pack visualizations like Canvas and Lens in Kibana dashboards, as they may require recreation for compatibility with OpenSearch.|
 | **Security constructs**   | No   | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, leverage AWS Identity and Access Management (IAM) for enhanced security management. |
 | **Plugins**  | No  | Check plugin compatibility; some Elasticsearch plugins may not have direct OpenSearch equivalents. |
-
-[^2]: Support for Kibana 5.0 through 7.10.2 migration paths to OpenSearch Dashboards will be added in a future version. Kibana 8 and later are not supported. For more information, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944).
 
 
 ## Checklist
