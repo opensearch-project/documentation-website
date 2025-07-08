@@ -109,7 +109,7 @@ Migration Assistant requires network connectivity to AWS services and outbound i
 #### Source and Target Connectivity
 
 - You must establish connectivity between:
-  - The source cluster and/or Amazon S3 (for snapshots) and Migration Assistant
+  - The source cluster and/or Amazon S3 (for snapshots, which may only require updating the bucket policy) and Migration Assistant
   - The target cluster and Migration Assistant
 - If the source or target resides in a private VPC without internet access, use one of the following to connect:
   - VPC endpoints
@@ -119,7 +119,7 @@ Migration Assistant requires network connectivity to AWS services and outbound i
 #### Deploying into a New VPC
 
 - Migration Assistant provisions a new VPC with required components (e.g., NAT gateway, subnets).
-- You must establish network access from this VPC to both the source (or S3) and target clusters.
+- You must establish network access from this VPC to both the source and target clusters.
 
 #### Deploying into an Existing VPC
 
@@ -146,7 +146,7 @@ Migration Assistant requires network connectivity to AWS services and outbound i
     - **Amazon Elastic File System (Amazon EFS)** – Stores persistent logs.
     - **Amazon Managed Streaming for Apache Kafka** – *(`Capture-and-Replay` only)* - Used as a durable storage to capture and replay HTTP live traffic.
     - **Amazon S3** – Stores and retrieves snapshots and artifacts.
-    - **AWS Elastic Load Balancing (ELB)** – *(Capture-and-Replay only)* – Used by the Migration Console to connect to the Application Load Balancer (ALB).
+    - **AWS Elastic Load Balancing (ELB)** – *(Capture-and-Replay only)* – Used by the Migration console to connect to the Application Load Balancer.
     - **AWS Secrets Manager** – Stores credentials securely.
     - **AWS Systems Manager Parameter Store** – Holds configuration parameters.
     - **AWS Systems Manager Session Manager** – Enables secure EC2 shell access.
