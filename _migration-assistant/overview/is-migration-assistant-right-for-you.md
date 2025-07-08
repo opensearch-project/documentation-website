@@ -17,7 +17,7 @@ Migration Assistant also supports live traffic replication, enabling zero-downti
 
 ## Supported migration paths
 
-The matrix below shows which source versions can be directly migrated to which OpenSearch target versions:
+The following matrix shows which source versions can be directly migrated to which OpenSearch target versions:
 
 
 <!-- Migration matrix rendering logic retained -->
@@ -66,7 +66,7 @@ Refer to [AWS Supported Regions](https://docs.aws.amazon.com/solutions/latest/mi
 
 ## Supported features
 
-Before starting an upgrade or migration, consider the cluster feature to be included. The table below lists what can be migrated using Migration Assistant, whether it is currently supported, and recommendations for how to handle each component.
+Before starting an upgrade or migration, consider the cluster feature to be included. The following table lists what can be migrated using Migration Assistant, whether it is currently supported, and recommendations for how to handle each component.
 
 | Feature | Supported | Recommendations   |
 | :--- |:--- | :--- |
@@ -128,7 +128,7 @@ Migration Assistant requires network connectivity to AWS services and outbound i
   
 - Ensure all required AWS services are reachable by Migration Assistant components.
 
-  - If the VPC has outbound access via:
+  - If the VPC has outbound access using:
     - Private subnets with a NAT gateway, or
     - Public subnets with an Internet Gateway
 
@@ -139,7 +139,7 @@ Migration Assistant requires network connectivity to AWS services and outbound i
     - **Amazon Application Load Balancer (ALB)** – *(`Capture-and-Replay` only)* - Used to optionally reroute client traffic from the source to the target during migration.
     - **Amazon CloudWatch** – Publishes migration metrics.
     - **Amazon CloudWatch Logs** – Ingests ECS task logs.
-    - **Amazon EC2** – Launches the bootstrap instance.
+    - **Amazon EC2** – Used to bootstrap Migration Assistant. When deploying using CloudFormation, the bootstrap EC2 instance requires outbound internet access (using NAT gateway or IGW) to download the latest release from GitHub.
     - **Amazon Elastic Block Store (Amazon EBS)** – Provides temporary disk storage.
     - **Amazon Elastic Container Registry (Amazon ECR)** – Pulls container images.
     - **Amazon Elastic Container Service (Amazon ECS)** – Orchestrates container workloads.
@@ -153,13 +153,9 @@ Migration Assistant requires network connectivity to AWS services and outbound i
     - **AWS X-Ray** – Supports distributed tracing.
     - **Amazon VPC** – Ensure proper routing, DNS resolution, and endpoint configuration.
 
-#### Bootstrap Instance (Build Host)
-
-- When deploying via CloudFormation, the bootstrap EC2 instance requires outbound internet access (via NAT gateway or IGW) to download the latest release from GitHub.
-
 ### Reindex-from-Snapshot
 
-- The `_source` field must be enabled on all indices to be migrated. See [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/).
+- The `_source` field must be enabled on all indexes to be migrated. See [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/).
 - The source cluster must have the Amazon S3 plugin installed.
 - Snapshots must include global cluster state (`include_global_state: true`).
 - Shards up to **80 GiB** are supported by default. Larger shard sizes can be configured, except in **AWS GovCloud**, where 80 GiB is the maximum.
