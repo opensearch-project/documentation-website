@@ -18,7 +18,7 @@ Before you use a `more_like_this` query, ensure that the fields you target are i
 
 If you reference documents in the `like` section, OpenSearch needs access to their content. This is typically done through the `_source` field, which is enabled by default. If `_source` is disabled, you must either store the fields individually or configure them to save [`term_vector`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/term-vector/) data. 
 
-Saving [`term_vector`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/term-vector/) information when indexing documents can greatly accelerate `more_like_this` queries, because the engine can directly retrieve the important terms without re-analyzing the field text at query time.
+Saving [`term_vector`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/term-vector/) information when indexing documents can greatly accelerate `more_like_this` queries because the engine can directly retrieve the important terms without reanalyzing the field text at query time.
 {: .note}
 
 ## Example: No term vector optimization
@@ -245,12 +245,12 @@ The returned results contain articles most similar to the `name` and `alias` fie
 }
 ```
 
-Use this pattern when you want to boost results based on a new concept that is not yet fully indexed, but also want to combine it with knowledge from existing indexed documents.
+Use this pattern when you want to boost results based on a new concept that is not yet fully indexed but also want to combine it with knowledge from existing indexed documents.
 {: .note}
 
 # Parameters
 
-The only required parameter for a `more_like_this` query is `like`. The rest of the parameters have default values but allow fine-tuning. Parameters fall into the following main categories.
+The only required parameter for a `more_like_this` query is `like`. The rest of the parameters have default values but allow fine-tuning. The following are the main parameter categories.
 
 ## Document input parameters
 
@@ -258,7 +258,7 @@ The following table specifies document input parameters.
 
 | Parameter | Required/Optional | Data type | Description |
 | :--- |  :--- |  :--- |  :--- | 
-| `like`| Required| Array of strings or objects | Defines the text or documents to find similar documents for. You can input free text, real documents from the index, or artificial documents. The analyzer associated with the field processes the text unless overridden. |
+| `like`| Required| Array of strings or objects | Defines the text or documents for which to find similar documents. You can input free text, real documents from the index, or artificial documents. The analyzer associated with the field processes the text unless overridden. |
 | `unlike`| Optional| Array of strings or objects | Provides text or documents whose terms should be *excluded* from influencing the query. Useful for specifying negative examples.|
 | `fields`| Optional| Array of strings| Lists fields to use when analyzing text. If not specified, all fields are used. |
 
@@ -268,7 +268,7 @@ The following table specifies document input parameters.
 | :--- |  :--- |  :--- |  :--- | 
 | `max_query_terms` | Optional| Integer| Sets the maximum number of terms to select from the input. A higher value increases precision but slows down execution. Default is `25`. |
 | `min_term_freq` | Optional| Integer| Terms appearing fewer times than this in the input will be ignored. Default is `2`.|
-| `min_doc_freq`| Optional| Integer| Terms that appear in fewer documents than this value will be ignored. Default is `5`.|
+| `min_doc_freq`| Optional| Integer| Terms appearing in fewer documents than this value will be ignored. Default is `5`.|
 | `max_doc_freq`| Optional| Integer| Terms appearing in more documents than this limit are ignored. Useful for avoiding very common words. Default is unlimited (2<sup>31</sup> - 1). |
 | `min_word_length` | Optional| Integer| Ignore words shorter than this value. Default is `0`.|
 | `max_word_length` | Optional| Integer| Ignore words longer than this value. Default is unlimited. |
@@ -281,6 +281,6 @@ The following table specifies document input parameters.
 | :--- |  :--- |  :--- |  :--- |
 | `minimum_should_match`| Optional | String | Specifies the minimum number of terms that must match in the final query. The value can be a percentage or a fixed number. Helps fine-tune the balance between recall and precision. Default is `30%` |
 | `fail_on_unsupported_field` | Optional | Boolean | Determines whether to throw an error if one of the target fields is not of a compatible type (`text` or `keyword`). Set to `false` to silently skip unsupported fields. Default is `true`. |
-| `boost_terms` | Optional | Float | Applies a boost to selected terms based on their TF-IDF weight. Any value greater than `0` activates term boosting with the specified factor. Default is `0`. |
+| `boost_terms` | Optional | Float | Applies a boost to selected terms based on their term frequency–inverse document frequency (TF–IDF) weight. Any value greater than `0` activates term boosting with the specified factor. Default is `0`. |
 | `include` | Optional | Boolean | If `true`, the source documents provided in `like` are included in the result hits. Default is `false`. |
 | `boost` | Optional | Float | Multiplies the relevance score of the entire `more_like_this` query. Default is `1.0`. |
