@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Multi-search template 
-parent: Search APIs
-nav_order: 100
+parent: Search templates
+grand_parent: Search APIs
+nav_order: 20
 redirect_from:
   - /api-reference/msearch-template/
+  - /api-reference/search-apis/msearch-template/
 ---
 
 # Multi-search template 
