@@ -112,7 +112,7 @@ The response contains the generated tokens:
 
 ## Predefined stopword sets by language
 
-The following is a list of all predefined stopword sets available by language:
+The following is a list of all available predefined stopword sets by language:
 
 - [`_arabic_`](https://github.com/apache/lucene/blob/main/lucene/analysis/common/src/resources/org/apache/lucene/analysis/ar/stopwords.txt)
 - [`_armenian_`](https://github.com/apache/lucene/blob/main/lucene/analysis/common/src/resources/org/apache/lucene/analysis/hy/stopwords.txt)

@@ -44,10 +44,10 @@ The `standard` analyzer supports the following optional parameters.
 | Parameter | Data type | Default | Description |
 |:----------|:-----|:--------|:------------|
 | `max_token_length` | Integer | `255` | The maximum length of a token before it is split. |
-| `stopwords` | String or list of strings | None | A list of stopwords or a [Predefined stopword sets by language]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stop/#predefined-stopword-sets-by-language) to remove during analysis. For example `_english_`. |
+| `stopwords` | String or list of strings | None | A list of stopwords or a [predefined stopword set for a language]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stop/#predefined-stopword-sets-by-language) to remove during analysis. For example, `_english_`. |
 | `stopwords_path` | String | None | The path to a file containing stopwords to be used during analysis. |
 
-Only use one of the parameters `stopwords` or `stopwords_path`. If both are used, no error is returned but only `stopwords` parameter is applied.
+Only use one of the parameters `stopwords` or `stopwords_path`. If both are used, no error is returned but only the `stopwords` parameter is applied.
 {: .note}
 
 ## Example: Analyzer with parameters
@@ -85,11 +85,11 @@ POST /animals/_analyze
 ```
 {% include copy-curl.html %}
 
-The returned tokens are:
+The returned tokens:
 
-- Split on spaces
-- Lowercased
-- Stopwords removed
+- Have been split on spaces.
+- Have been lowercased.
+- Have had stopwords removed.
 
 ```json
 {
