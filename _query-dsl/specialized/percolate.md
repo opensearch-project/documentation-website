@@ -7,7 +7,7 @@ nav_order: 55
 
 # Percolate
 
-Use the `percolate` query to find stored queries that match a given document. This is the opposite of a regular search. Instead of finding documents that match a query, you find queries that match a document. Percolate queries are often used for alerting, notifications, and reverse search use cases.
+Use the `percolate` query to find stored queries that match a given document. This operation is the opposite of a regular search: instead of finding documents that match a query, you find queries that match a document. Percolate queries are often used for alerting, notifications, and reverse search use cases.
 
 - You can percolate a document provided inline or fetch an existing document from an index.
 - The document and the stored queries must use the same field names and types.
@@ -16,7 +16,7 @@ Use the `percolate` query to find stored queries that match a given document. Th
 
 Percolate queries are useful in a variety of real-time matching scenarios. Some common use cases include:
 
-- **E-commerce notifications**: Customers can register interest in products, for example: “Notify me when new Apple laptops are in stock”. When new product documents are indexed, the system finds all users with matching saved queries and sends alerts.
+- **E-commerce notifications**: Users can register interest in products, for example: “Notify me when new Apple laptops are in stock”. When new product documents are indexed, the system finds all users with matching saved queries and sends alerts.
 - **Job alerts**: Job seekers save queries based on preferred job titles or locations, and new job postings are matched against these to trigger alerts.
 - **Security and alerting systems**: Percolate incoming log or event data against saved rules or anomaly patterns.
 - **News filtering**: Match incoming articles against saved topic profiles to categorize or deliver relevant content.
@@ -25,13 +25,13 @@ Percolate queries are useful in a variety of real-time matching scenarios. Some 
 
 1. Saved queries are stored in a special [`percolator` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/).
 2. Documents are compared against all saved queries.
-3. Matching queries are returned with their `_id`.
+3. Each matching query is returned with its `_id`.
 4. If highlighting is enabled, matched text snippets are also returned.
-5. If multiple documents are sent, `_percolator_document_slot` displays which document matched.
+5. If multiple documents are sent, `_percolator_document_slot` displays the matching document.
 
 ## Create an index to store saved queries
 
-First, create an index with `mappings` configured with [`percolator` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/) to store the saved queries:
+First, create an index and configure its `mappings` with a [`percolator` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/) to store the saved queries:
 
 ```json
 PUT /my_percolator_index
@@ -50,7 +50,7 @@ PUT /my_percolator_index
 ```
 {% include copy-curl.html %}
 
-Add a query matching "apple" in `title` field:
+Add a query matching "apple" in the `title` field:
 
 ```json
 POST /my_percolator_index/_doc/1
@@ -64,7 +64,7 @@ POST /my_percolator_index/_doc/1
 ```
 {% include copy-curl.html %}
 
-Add a query matching "banana" in `title` field:
+Add a query matching "banana" in the `title` field:
 
 ```json
 POST /my_percolator_index/_doc/2
@@ -80,7 +80,7 @@ POST /my_percolator_index/_doc/2
 
 ## Percolate an inline document
 
-You can test an inline document against saved queries:
+Test an inline document against the saved queries:
 
 ```json
 POST /my_percolator_index/_search
@@ -133,7 +133,7 @@ This will match the saved query looking for "apple":
 
 ## Percolate with multiple documents
 
-You can test multiple documents in the same query:
+To test multiple documents in the same query, use the following request:
 
 ```json
 POST /my_percolator_index/_search
@@ -153,7 +153,7 @@ POST /my_percolator_index/_search
 ```
 {% include copy-curl.html %}
 
-The `_percolator_document_slot` field helps you identify which document (by index) matched which saved query.
+The `_percolator_document_slot` field helps you identify each document (by index) matching each saved query:
 
 ```json
 {
@@ -307,7 +307,7 @@ POST /my_percolator_index/_search
 ```
 {% include copy-curl.html %}
 
-Each match indicates which document slot matched using `_percolator_document_slot`:
+Each match indicates the matching document in the `_percolator_document_slot` field:
 
 ```json
 {
@@ -358,7 +358,7 @@ Each match indicates which document slot matched using `_percolator_document_slo
 }
 ```
 
-## Multi-query percolation using named query
+## Multi-query percolation using a named query
 
 You can percolate different documents inside a named query:
 
@@ -393,7 +393,7 @@ GET /my_percolator_index/_search
 ```
 {% include copy-curl.html %}
 
-The `name` parameter is appended to `_percolator_document_slot` to distinguish which query was matched:
+The `name` parameter is appended to `_percolator_document_slot` to provide the matching query:
 
 ```json
 {
@@ -444,7 +444,7 @@ The `name` parameter is appended to `_percolator_document_slot` to distinguish w
 }
 ```
 
-This approach enables you to configure more custom query logic for individual documents. In the following example you can see how a field `title` is queried in the first document and `description` in the second, with added `boost` parameter:
+This approach enables you to configure more custom query logic for individual documents. In the following example, the `title` field is queried in the first document and the `description` field is queried in the second document. The `boost` parameter is also provided:
 
 ```json
 GET /my_percolator_index/_search
@@ -488,19 +488,19 @@ GET /my_percolator_index/_search
 {% include copy-curl.html %}
 
 
-## Batch compared to named percolation
+## Batch percolation compared to named percolation
 
-Both `documents` and `bool` with `name` approaches can be used to percolate multiple documents, but they differ in how results are labeled, interpreted, and controlled. They provide functionally similar results but with important structural differences. See following comparison:
+Both batch percolation (using `documents`) and named percolation (using `bool` with `name`) can be used to percolate multiple documents, but they differ in how results are labeled, interpreted, and controlled. They provide functionally similar results but with important structural differences, described in the following table.
 
-| Feature                        | `documents` (Batch)                            | Named (`bool` + `percolate` + `name`)            |
+| Feature                        | Batch (`documents`)                            | Named (`bool` + `percolate` + `name`)            |
 |-------------------------------|------------------------------------------------|--------------------------------------------------|
 | Input format                  | One percolate clause, array of documents       | Multiple percolate clauses, one per document     |
 | Traceability per document     | By slot index (0, 1, ...)                      | By name (`apple_doc`, `banana_doc`)        |
 | Response field for match slot | `_percolator_document_slot: [0]`              | `_percolator_document_slot_<name>: [0]`          |
 | Highlight prefix              | `0_title`, `1_title`                           | `apple_doc_title`, `banana_doc_title`            |
-| Custom control per doc        | Not possible                                | Can customize each clause                     |
+| Custom control per doc        | Not supported                                | Can customize each clause                     |
 | Supports boosts and filters     | No                                           | Yes (per clause)                              |
-| Performance                   | Best for large batches                      | Slightly slower with many clauses              |
+| Performance                   | Best for large batches                      | Slightly slower when there are many clauses              |
 | Use case                      | Bulk matching jobs, large event streams        | Per-document tracing, testing, custom control    |
 
 
@@ -509,13 +509,13 @@ Both `documents` and `bool` with `name` approaches can be used to percolate mult
 Percolate queries handle highlighting differently from regular queries:
 
 - In a regular query, the document is stored in the index, and the search query is used to highlight the matching terms.
-- In a percolate query, the roles are reversed, the saved queries (in the percolator index) are used to highlight the document.
+- In a percolate query, the roles are reversed: the saved queries (in the percolator index) are used to highlight the document.
 
-This means the document provided via `document` or `documents` is the target for highlighting and the percolator queries determine which section is highlighted.
+This means the document provided in `document` or `documents` is the target for highlighting and the percolator queries determine the sections that are highlighted.
 
 ### Single document highlighting
 
-Using previously defined searches in `my_percolator_index`, use the following command to highlight matches in the `title` field:
+This example uses the previously defined searches in `my_percolator_index`. Use the following request to highlight matches in the `title` field:
 
 ```json
 POST /my_percolator_index/_search
@@ -598,7 +598,7 @@ The matches are highlighted depending on the query that was matched:
 }
 ```
 
-### Multiple documents highlighting
+### Multiple document highlighting
 
 When percolating multiple documents using the `documents` array, a slot index is assigned to each document. The highlight keys then take the following form, where `<slot>` is the index of the document in your `documents` array:
 
@@ -629,7 +629,7 @@ POST /my_percolator_index/_search
 ```
 {% include copy-curl.html %}
 
-The response will contain highlighting fields prefixed with document slots, such as `0_title` and `1_title`:
+The response contains highlighting fields prefixed with document slots, such as `0_title` and `1_title`:
 
 ```json
 {
@@ -692,13 +692,15 @@ The response will contain highlighting fields prefixed with document slots, such
 
 ## Parameters
 
+The `percolate` query supports the following parameters.
+
 | Parameter | Required/Optional | Description |
 |-----------|-------------------|-------------|
-| `field` | Required | Field containing the stored percolator queries. |
-| `document` | Optional | Single inline document to match against saved queries. |
-| `documents` | Optional | Array of multiple inline documents to match. |
-| `index` | Optional | Index containing the document you want to match. |
-| `id` | Optional | ID of the document to fetch from the index. |
-| `routing` | Optional | Routing value to use when fetching the document. |
-| `preference` | Optional | Preference for the shard routing when fetching the document. |
-| `name` | Optional | Name assigned to a percolate clause, helpful when using multiple percolates in a `bool` query. |
+| `field` | Required | The field containing the stored percolator queries. |
+| `document` | Optional | A single inline document to match against saved queries. |
+| `documents` | Optional | An array of multiple inline documents to match against saved queries. |
+| `index` | Optional | An index containing the document you want to match. |
+| `id` | Optional | The ID of the document to fetch from the index. |
+| `routing` | Optional | The routing value to use when fetching the document. |
+| `preference` | Optional | The preference for the shard routing when fetching the document. |
+| `name` | Optional | The name assigned to a `percolate` clause. Helpful when using multiple `percolate` clauses in a `bool` query. |
