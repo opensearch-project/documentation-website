@@ -130,7 +130,7 @@ POST /articles-optimized/_bulk
 ```
 {% include copy-curl.html %}
 
-Find documents similar to `dark night` using the following request:
+Find documents similar to `dark` and `night` using the following request:
 
 ```json
 GET /articles-optimized/_search
@@ -281,6 +281,6 @@ The following table specifies document input parameters.
 | :--- |  :--- |  :--- |  :--- |
 | `minimum_should_match`| Optional | String | Specifies the minimum number of terms that must match in the final query. The value can be a percentage or a fixed number. Helps fine-tune the balance between recall and precision. Default is `30%` |
 | `fail_on_unsupported_field` | Optional | Boolean | Determines whether to throw an error if one of the target fields is not of a compatible type (`text` or `keyword`). Set to `false` to silently skip unsupported fields. Default is `true`. |
-| `boost_terms` | Optional | Float | Applies a boost to selected terms based on their term frequency–inverse document frequency (TF–IDF) weight. Any value greater than `0` activates term boosting with the specified factor. Default is `0`. |
+| `boost_terms` | Optional | Float | Applies a boost to selected terms based on their term frequency–inverse document frequency (TF–IDF) weight. Any value greater than `0` activates term boosting using the specified factor. Default is `0`. |
 | `include` | Optional | Boolean | If `true`, the source documents provided in `like` are included in the result hits. Default is `false`. |
 | `boost` | Optional | Float | Multiplies the relevance score of the entire `more_like_this` query. Default is `1.0`. |
