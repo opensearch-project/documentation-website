@@ -11,7 +11,7 @@ Use the `rank_feature` query to boost document scores based on numeric values in
 
 The `rank_feature` query expects the target field to be mapped as a [`rank_feature` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/). This enables internally optimized scoring for fast and efficient boosting.
 
-The score impact depends on the field value and the optional `saturation`, `log` or `sigmoid` function used.
+The score impact depends on the field value and the optional `saturation`, `log` or `sigmoid` function used. These functions are applied dynamically at query time to compute the final document score, they do not alter or store any values in the document itself.
 
 ## Parameters
 
@@ -192,9 +192,9 @@ This ranks all documents matching "headphones" and boosts those with higher popu
 
 ## Boost parameter
 
-The `boost` parameter allows you to scale the score contribution of the rank_feature clause. It's especially useful in compound queries such as bool, where you want to control the influence of a feature relative to other conditions.
+The `boost` parameter allows you to scale the score contribution of the rank_feature clause. It’s especially useful in compound queries such as `bool`, where you want to control how much influence a numeric field (such as popularity, freshness, or relevance score) has on the final document ranking.
 
-In the following example, the `bool` query matches documents with the term "headphones" in the `title`, and boosts more popular results with a `rank_feature` clause using a `boost` of `2.0`:
+In the following example, the bool query matches documents with the term "headphones" in the `title`, and boosts more popular results using a `rank_feature` clause with a `boost` of `2.0`:
 
 ```json
 POST /products/_search
@@ -226,7 +226,7 @@ By default, the `rank_feature` query uses a `saturation` function with a `pivot`
 
 ### Saturation function
 
-The `saturation` function is the default scoring method used in `rank_feature` queries. It assigns higher scores to documents with larger feature values, but the increase in score becomes more gradual as the value exceeds a specified pivot. This is useful when you want to give diminishing returns to very large values, for example, boosting `popularity` while avoiding over-rewarding extremely high numbers. The formulae for calculating score is: `value of the rank_feature field / (value of the rank_feature field + pivot)`. The produced score is always between `0` and `1`.
+The `saturation` function is the default scoring method used in `rank_feature` queries. It assigns higher scores to documents with larger feature values, but the increase in score becomes more gradual as the value exceeds a specified pivot. This is useful when you want to give diminishing returns to very large values, for example, boosting `popularity` while avoiding over-rewarding extremely high numbers. The formulae for calculating score is: `value of the rank_feature field / (value of the rank_feature field + pivot)`. The produced score is always between `0` and `1`. If the pivot is not provided, approximate geometric mean of all `rank_feature` values in the index is used. See following example using `saturation` with `pivot` configured to `50`:
 
 ```json
 POST /products/_search
@@ -322,8 +322,6 @@ The `pivot` defines the point at which scoring growth slows down. Values higher 
   }
 }
 ```
-
-If the pivot is not provided, approximate geometric mean of all rank_feature values in the index is used.
 
 ### Log function
 
@@ -426,7 +424,7 @@ In the example dataset, the `popularity` field ranges from `1` to `500`. The `lo
 
 ### Sigmoid function
 
-The `sigmoid` function provides a smooth, S-shaped scoring curve which is especially useful when you want to control the steepness and midpoint of the scoring impact. The score is derived using formulae: `rank feature field value^exp / (rank feature field value^exp + pivot^exp)`, see following example:
+The `sigmoid` function provides a smooth, S-shaped scoring curve which is especially useful when you want to control the steepness and midpoint of the scoring impact. The score is derived using formulae: `rank feature field value^exp / (rank feature field value^exp + pivot^exp)`, see following example of a query using `sigmoid` function with configured `pivot` and `exponent`:
 
 ```json
 POST /products/_search
@@ -529,7 +527,7 @@ The sigmoid function smoothly boosts scores around the `pivot` (`50` in this cas
 
 ### Invert score impact
 
-By default, higher values lead to higher scores. If you want lower values to yield higher scores (e.g., lower prices are more relevant), set `positive_score_impact` to `false` during index creation:
+By default, higher values lead to higher scores. If you want lower values to yield higher scores (for example, lower prices are more relevant), set `positive_score_impact` to `false` during index creation:
 
 ```json
 PUT /products_new
