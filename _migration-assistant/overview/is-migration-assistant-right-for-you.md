@@ -136,6 +136,7 @@ Migration Assistant requires network connectivity to AWS services and outbound i
 
   - If using isolated subnets with no outbound access, you must configure VPC interface endpoints or routing to the following services:
 
+    - **Amazon Application Load Balancer (ALB)** – *(`Capture-and-Replay` only)* - Used to optionally reroute client traffic from the source to the target during migration.
     - **Amazon CloudWatch** – Publishes migration metrics.
     - **Amazon CloudWatch Logs** – Ingests ECS task logs.
     - **Amazon EC2** – Launches the bootstrap instance.
@@ -143,9 +144,9 @@ Migration Assistant requires network connectivity to AWS services and outbound i
     - **Amazon Elastic Container Registry (Amazon ECR)** – Pulls container images.
     - **Amazon Elastic Container Service (Amazon ECS)** – Orchestrates container workloads.
     - **Amazon Elastic File System (Amazon EFS)** – Stores persistent logs.
-    - **Amazon Managed Streaming for Apache Kafka** – (`Capture-and-Replay` only) - Used as a durable storage to capture and replay HTTP live traffic.
+    - **Amazon Managed Streaming for Apache Kafka** – *(`Capture-and-Replay` only)* - Used as a durable storage to capture and replay HTTP live traffic.
     - **Amazon S3** – Stores and retrieves snapshots and artifacts.
-    - **AWS Elastic Load Balancing (ELB)** – (`Capture-and-Replay` only) - Routes traffic to the Capture Proxy.
+    - **AWS Elastic Load Balancing (ELB)** – *(Capture-and-Replay only)* – Used by the Migration Console to connect to the Application Load Balancer (ALB).
     - **AWS Secrets Manager** – Stores credentials securely.
     - **AWS Systems Manager Parameter Store** – Holds configuration parameters.
     - **AWS Systems Manager Session Manager** – Enables secure EC2 shell access.
