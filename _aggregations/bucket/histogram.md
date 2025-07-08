@@ -53,7 +53,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 ### Parameters
 
-Histogram aggregations support the following parameters.
+`histogram` aggregations support the following parameters.
 
 | Parameter  | Required/Optional | Data type             | Description |
 | :--        | :--               | :--                   | :--         |

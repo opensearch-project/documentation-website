@@ -60,11 +60,11 @@ The response has three months worth of logs. If you graph these values, you can 
 
 ### Parameters
 
-Date histogram aggregations support the following parameters.
+`date_histogram` aggregations support the following parameters.
 
 | Parameter           | Required/Optional  | Data type             | Description |
 | :--                 | :--                | :--                   | :--         |
 | `date_histogram`    | Required           | Object                | An object specifying a date-time document field, interval, and optional format and time zone. |
 | `calendar_interval` | Required           | Time interval         | The field date span used to construct each bucket. |
 | `format`            | Optional           | String                | A date format string. If omitted, the date is output as a 64-bit [ms-since-epoch](https://en.wikipedia.org/wiki/Unix_time) integer. |
-| `time_zone`         | Optional           | String                | A string representing the time offset from UTC, either as an [ISO 8601 UTC offset](https://en.wikipedia.org/wiki/UTC_offset) ("-07:00") or as a TZ time zone database [identifier](https://en.wikipedia.org/wiki/Tz_database) ("America/Los_Angeles").|
+| `time_zone`         | Optional           | String                | A string representing the time offset from UTC, either as an ISO 8601 [UTC offset](https://en.wikipedia.org/wiki/UTC_offset) ("-07:00") or as a [tz database](https://en.wikipedia.org/wiki/Tz_database) identifier ("America/Los_Angeles").|

@@ -9,11 +9,11 @@ redirect_from:
 
 # Composite aggregations
 
-The `composite` aggregation creates buckets based on one or more document fields, or sources. The `composite` aggregation creates a bucket for every combination of individual source values. By default, combinations with a missing value in one or more individual fields are omitted from the result.
+The `composite` aggregation creates buckets based on one or more document fields or sources. The `composite` aggregation creates a bucket for every combination of individual source values. By default, combinations with a missing value in one or more individual fields are omitted from the results.
 
 Each source has one of four types of aggregation:
 
-- The `terms` type groups by unique (usually `String`) value.
+- The `terms` type groups by a unique (usually `String`) value.
 - The `histogram` type groups numerically in buckets of a specified width.
 - The `date_histogram` type groups by date or time ranges of a specified width.
 - The `geotile_grid` type groups geopoints into a grid with a specified resolution.
@@ -21,7 +21,7 @@ Each source has one of four types of aggregation:
 The `composite` aggregation works by combining its source keys into buckets. The resulting buckets are ordered, both across and within the sources:
 
 - **Across**: Buckets are nested in the order that the sources are ordered in the aggregation request.
-- **Within**: The order of values in each source determines the bucket order for that source. Ordering is alphabetical, numeric, date-time, or geo-tile as appropriate to the source type.
+- **Within**: The order of values in each source determines the bucket order for that source. Ordering is alphabetical, numeric, date-time, or geo-tile, as appropriate to the source type.
 
 Consider these fields from an index of marathon participants:
 
@@ -70,9 +70,9 @@ The `composite` aggregation takes the following parameters.
 | Parameter | Required/Optional | Data type  | Description |
 | :--       | :--               | :--        | :--         |
 | `sources` | Required          | Array      | An array of source objects. Valid types are [`terms`](#terms), [`histogram`](#histogram), [`date_histogram`](#date-histogram), and [`geotile_grid`](#geotile-grid). |
-| `size`    | Optional          | Numeric    | The number of `composite` buckets to return in the result. The default value is `10`. See [Paginating composite results](#paginating-composite-results). |
+| `size`    | Optional          | Numeric    | The number of `composite` buckets to return in the results. The default value is `10`. See [Paginating composite results](#paginating-composite-results). |
 | `after` | Optional | String | A key that specifies where to resume displaying paginated `composite` buckets. See [Paginating composite results](#paginating-composite-results). |
-| `order`   | Optional          | String     | For each source, whether to order the values ascending or descending. Valid values are `asc` and `desc`. The default is `asc`. |
+| `order`   | Optional          | String     | For each source, whether to order the values in ascending or descending order. Valid values are `asc` and `desc`. Default is `asc`. |
 | `missing_bucket` | Optional    | Boolean   | For each source, whether to include documents with a missing value. The default value is `false`. If set to `true`, OpenSearch includes the documents, supplying `null` as the field's key. Null values rank first in ascending order. |
 
 For aggregation-specific parameters, see the corresponding aggregation documentation.
@@ -82,10 +82,10 @@ For aggregation-specific parameters, see the corresponding aggregation documenta
 
 Use a `terms` aggregation for aggregating string or Boolean data. For more information, see [Terms aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/terms/).
 
-You can use `terms` sources to create composite buckets for any type of data. However, since `terms` sources create buckets for every unique value, you'll normally use `histogram` sources instead for numerical data.
+You can use `terms` sources to create composite buckets for any type of data. However, since `terms` sources create buckets for every unique value, you'll normally use `histogram` sources for numerical data instead.
 {: .note}
 
-The following example request returns the first `4` composite buckets for day-of-week and customer gender in the OpenSearch Dashboards sample e-commerce data:
+The following example request returns the first `4` composite buckets for day of the week and customer gender in the OpenSearch Dashboards sample e-commerce data:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -106,7 +106,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-Since the dataset for this example contains valid data for every bucket, the aggregation generates a bucket for every combination of gender and day-of-week, 14 in total.
+Since the dataset for this example contains valid data for every bucket, the aggregation generates a bucket for every combination of gender and day of the week, resulting in 14 total buckets.
 
 Because the request specifies a `size` of `4`, the response contains the first four composite buckets. Since the sources are `terms`, the buckets are ordered in ascending alphabetical order, both across and within the sources:
 
@@ -169,7 +169,7 @@ Because the request specifies a `size` of `4`, the response contains the first f
 }
 ```
 
-You can use the `after_key` returned in the response to view more results. See the example is in the next section.
+You can use the `after_key` returned in the response to view more results. See the example in the next section.
 
 ## Histogram
 
@@ -177,7 +177,7 @@ Use `histogram` sources to create composite aggregations of numerical data. For 
 
 For `histogram` sources, the name used in each `composite` bucket key is the lowest value in the key's histogram interval. Each source histogram interval contains the values in the `[lower_bound, lower_bound + interval)` range. The name of the first interval is the lowest value in the source field (for ascending-value sources). 
 
-The following example request returns the first `6` composite buckets for quantity and base unit price in the OpenSearch Dashboards sample e-commerce data based on bucket widths of `1` and `50` respectively:
+The following example request returns the first `6` composite buckets for quantity and base unit price in the OpenSearch Dashboards sample e-commerce data based on bucket widths of `1` and `50`, respectively:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -300,7 +300,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-There are only two buckets left:
+There are only two buckets remaining:
 
 ```json
 {
@@ -351,11 +351,11 @@ There are only two buckets left:
 
 To create composite aggregations of date ranges, use the `date_histogram` aggregation. For more information, see [Date histogram aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/).
 
-OpenSearch represents dates, including `date_interval` bucket keys, as `long` integers representing [milliseconds since epoch](https://en.wikipedia.org/wiki/Unix_time). You can format the date output using the `format` parameter. This does not change the key order.
+OpenSearch represents dates, including `date_interval` bucket keys, as `long` integers representing milliseconds since the epoch in [Unix time](https://en.wikipedia.org/wiki/Unix_time). You can format the date output using the `format` parameter. This does not change the key order.
 
 OpenSearch stores date-times in UTC. You can display output results in a different time zone using the `time_zone` parameter.
 
-The following example request returns the first `4` composite buckets for the year each sold product was created and the date it was sold in the OpenSearch Dashboards sample e-commerce data, based on bucket widths of one year and one day respectively:
+The following example request returns the first `4` composite buckets for the year in which each sold product was created and the date on which it was sold in the OpenSearch Dashboards sample e-commerce data, based on bucket widths of 1 year and 1 day, respectively:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -376,7 +376,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-The aggregation returns the formatted date-based bucket keys and counts. For `date_interval` composite aggregation, field ordering is by date:
+The aggregation returns the formatted date-based bucket keys and counts. For the `date_interval` composite aggregation, field ordering is by date:
 
 ```json
 {
@@ -439,9 +439,9 @@ The aggregation returns the formatted date-based bucket keys and counts. For `da
 
 ## Geotile grid
 
-Use `geotile_grid` sources to aggregate `geo_point` values into buckets representing map tiles. As with the other composite aggregation `sources`, by default results include only buckets that contain data. For more information, see [Geotile grid aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/geotile-grid/).
+Use `geotile_grid` sources to aggregate `geo_point` values into buckets representing map tiles. As with the other composite aggregation sources, by default, results include only buckets containing data. For more information, see [Geotile grid aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/geotile-grid/).
 
-Each cell corresponds to a [map tile](https://en.wikipedia.org/wiki/Tiled_web_map). Cell labels use a "{zoom}/{x}/{y}" format.
+Each cell corresponds to a [map tile](https://en.wikipedia.org/wiki/Tiled_web_map). Cell labels use the `{zoom}/{x}/{y}` format.
 
 The following example request returns the first `6` tiles containing locations from the `geoip.location` field at a precision of `8`:
 
@@ -463,7 +463,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-The aggregation returns the specified `geo_tilees` and point counts:
+The aggregation returns the specified `geo_tiles` and point counts:
 
 ```json
 {
@@ -523,7 +523,7 @@ The aggregation returns the specified `geo_tilees` and point counts:
 
 You can combine two or more sources of any different type.
 
-The following example request returns buckets composed of three different types of sources:
+The following example request returns buckets composed of three different source types:
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -766,16 +766,16 @@ The aggregation returns the average `taxful_total_price` of the first `6` bucket
 
 ## Paginating composite results
 
-If a request results in more than `size` buckets, then `size` buckets are returned. In this case, the result contains an `after_key` object containing the key of the next bucket in the list. To retrieve the next `size` buckets of the request, make the request again, supplying the `after_key` in the `after` parameter. For an example, see the request in [Histogram](#histogram).
+If a request results in more than `size` buckets, then `size` buckets are returned. In this case, the results contain an `after_key` object containing the key of the next bucket in the list. To retrieve the next `size` buckets of the request, send the request again, supplying the `after_key` in the `after` parameter. For an example, see the request in [Histogram](#histogram).
 
-Always use the `after_key` rather than copying the last bucket to continue a paginated response. The two are sometimes not the same.
+Always use the `after_key` rather than copying the last bucket to continue a paginated response. The two are sometimes different.
 {: .important}
 
 ## Improving performance with index sorting
 
-To speed up composite aggregations on large datasets, you can sort your index using the same fields and order as your aggregation sources. When the `index.sort.field` and `index.sort.order` match the source fields and their order in the composite aggregation, OpenSearch can return results more efficiently and with less memory usage. While index sorting adds minor overhead during indexing, the query performance gains for composite aggregations are significant.
+To speed up composite aggregations on large datasets, you can sort your index using the same fields and order used in your aggregation sources. When the `index.sort.field` and `index.sort.order` match the source fields and order used in the composite aggregation, OpenSearch can return results more efficiently and with less memory usage. While index sorting adds minor overhead during indexing, the query performance gains for composite aggregations are significant.
 
-The following example request sets sort fields and a sort order for each of the fields on the `my-sorted-index` index:
+The following example request sets sort fields and a sort order for each of the fields in the `my-sorted-index` index:
 
 ```json
 PUT /my-sorted-index
@@ -803,7 +803,7 @@ PUT /my-sorted-index
 ```
 {% include copy-curl.html %}
 
-The following request creates a composite aggregation on the `my-sorted-index` index. Because the index is sorted on `customer_id` ascending and `timestamp` descending, and the aggregation sources match that sort order, this query runs faster and with reduced memory pressure:
+The following request creates a composite aggregation on the `my-sorted-index` index. Because the index is sorted by `customer_id` in ascending order and `timestamp` in descending order and the aggregation sources match that sort order, this query runs faster and with reduced memory pressure:
 
 ```json
 GET /my-sorted-index/_search
