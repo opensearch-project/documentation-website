@@ -7,18 +7,18 @@ nav_order: 55
 
 # Percolate
 
-Use the `percolate` query to find stored queries that match a given document. This operation is the opposite of a regular search: instead of finding documents that match a query, you find queries that match a document. Percolate queries are often used for alerting, notifications, and reverse search use cases.
+Use the `percolate` query to find stored queries that match a given document. This operation is the opposite of a regular search: instead of finding documents that match a query, you find queries that match a document. `percolate` queries are often used for alerting, notifications, and reverse search use cases.
 
 When working with `percolate` queries, consider the following key points:
 
 - You can percolate a document provided inline or fetch an existing document from an index.
 - The document and the stored queries must use the same field names and types.
 - You can combine percolation with filtering and scoring to build complex matching systems.
-- Percolate queries are considered [expensive queries]({{site.url}}{{site.baseurl}}/query-dsl/#expensive-queries) and will only run if the cluster setting `search.allow_expensive_queries` is set to `true` (default). If this setting is `false`, percolate queries will be rejected.
+- `percolate` queries are considered [expensive queries]({{site.url}}{{site.baseurl}}/query-dsl/#expensive-queries) and will only run if the cluster setting `search.allow_expensive_queries` is set to `true` (default). If this setting is `false`, `percolate` queries will be rejected.
 
-Percolate queries are useful in a variety of real-time matching scenarios. Some common use cases include:
+`percolate` queries are useful in a variety of real-time matching scenarios. Some common use cases include:
 
-- **E-commerce notifications**: Users can register interest in products, for example: “Notify me when new Apple laptops are in stock”. When new product documents are indexed, the system finds all users with matching saved queries and sends alerts.
+- **E-commerce notifications**: Users can register interest in products, for example, "Notify me when new Apple laptops are in stock". When new product documents are indexed, the system finds all users with matching saved queries and sends alerts.
 - **Job alerts**: Job seekers save queries based on preferred job titles or locations, and new job postings are matched against these to trigger alerts.
 - **Security and alerting systems**: Percolate incoming log or event data against saved rules or anomaly patterns.
 - **News filtering**: Match incoming articles against saved topic profiles to categorize or deliver relevant content.
@@ -33,9 +33,9 @@ Percolate queries are useful in a variety of real-time matching scenarios. Some 
 
 ## Example
 
-The following examples demonstrate how to store percolator queries and test documents against them using different methods.
+The following examples demonstrate how to store `percolate` queries and test documents against them using different methods.
 
-### Create an index to store saved queries
+### Create an index for storing saved queries
 
 First, create an index and configure its `mappings` with a [`percolator` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/) to store the saved queries:
 
@@ -103,7 +103,7 @@ POST /my_percolator_index/_search
 ```
 {% include copy-curl.html %}
 
-The response provides the stored percolator query that searches for documents containing the word “apple” in the `title` field, identified by `_id`: `1`
+The response provides the stored `percolate` query that searches for documents containing the word "apple" in the `title` field, identified by `_id`: `1`:
 
 ```json
 {
@@ -213,7 +213,7 @@ The `_percolator_document_slot` field helps you identify each document (by index
 
 ### Percolate an existing indexed document
 
-You can reference an existing document already stored in another index to check for matching percolator queries.
+You can reference an existing document already stored in another index to check for matching `percolate` queries.
 
 Create a separate index for your documents:
 
@@ -241,7 +241,7 @@ POST /products/_doc/1
 ```
 {% include copy-curl.html %}
 
-Check if the stored queries match the indexed document:
+Check whether the stored queries match the indexed document:
 
 ```json
 POST /my_percolator_index/_search
@@ -257,7 +257,7 @@ POST /my_percolator_index/_search
 ```
 {% include copy-curl.html %}
 
-You must provide both `index` and `id` when using an already stored document.
+You must provide both `index` and `id` when using a stored document.
 {: .note}
 
 The corresponding query is returned:
@@ -514,14 +514,14 @@ Both batch percolation (using `documents`) and named percolation (using `bool` w
 
 ## Highlighting matches
 
-Percolate queries handle highlighting differently from regular queries:
+`percolate` queries handle highlighting differently from regular queries:
 
 - In a regular query, the document is stored in the index, and the search query is used to highlight the matching terms.
-- In a percolate query, the roles are reversed: the saved queries (in the percolator index) are used to highlight the document.
+- In a `percolate` query, the roles are reversed: the saved queries (in the percolator index) are used to highlight the document.
 
-This means the document provided in `document` or `documents` is the target for highlighting and the percolator queries determine the sections that are highlighted.
+This means that the document provided in `document` or `documents` is the target for highlighting and that the `percolate` queries determine the sections to be highlighted.
 
-### Single document highlighting
+### Highlighting a single document
 
 This example uses the previously defined searches in `my_percolator_index`. Use the following request to highlight matches in the `title` field:
 
@@ -606,7 +606,7 @@ The matches are highlighted depending on the query that was matched:
 }
 ```
 
-### Multiple document highlighting
+### Highlighting multiple documents
 
 When percolating multiple documents using the `documents` array, a slot index is assigned to each document. The highlight keys then take the following form, where `<slot>` is the index of the document in your `documents` array:
 
@@ -704,7 +704,7 @@ The `percolate` query supports the following parameters.
 
 | Parameter | Required/Optional | Description |
 |-----------|-------------------|-------------|
-| `field` | Required | The field containing the stored percolator queries. |
+| `field` | Required | The field containing the stored `percolate` queries. |
 | `document` | Optional | A single inline document to match against saved queries. |
 | `documents` | Optional | An array of multiple inline documents to match against saved queries. |
 | `index` | Optional | An index containing the document you want to match. |
