@@ -10,7 +10,7 @@ nav_order: 80
 
 The `wrapper` query lets you submit a complete query in Base64-encoded JSON format. It is useful when the query must be embedded in contexts that only support string values.
 
-Use this query only when you need to work around system constraints. For readability and maintainability, it's better to use standard JSON-based queries when possible.
+Use this query only when you need to manage system constraints. For readability and maintainability, it's better to use standard JSON-based queries when possible.
 
 ## Example
 
