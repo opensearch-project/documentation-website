@@ -149,7 +149,7 @@ Migration Assistant requires network connectivity to AWS services and outbound i
     - **AWS Elastic Load Balancing (ELB)** – *(Capture-and-Replay only)* – Used by the Migration console to connect to the Application Load Balancer.
     - **AWS Secrets Manager** – Securely stores credentials when using basic authentication on source or target.
     - **AWS Systems Manager Parameter Store** – Holds configuration parameters.
-    - **AWS Systems Manager Session Manager** – Enables secure EC2 shell access.
+    - **AWS Systems Manager Session Manager** – Enables secure shell access to Elastic Container Service tasks such as the Migration console.
     - **AWS X-Ray** – Supports distributed tracing.
     - **Amazon VPC** – Ensure proper routing, DNS resolution, and endpoint configuration.
 
