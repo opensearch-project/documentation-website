@@ -17,7 +17,7 @@ When a multi-term query expands into many terms (for example `prefix: "error*"` 
 ## Available rewrite methods
 
 | Rewrite method | Description |
-| [`constant_score`](#constant_score-default) | (Default) All expanded terms are evaluated together as a single unit, assigning the same score to every match. Efficient for filtering use cases. |
+| [`constant_score`](#constant_score-default) | (Default) All expanded terms are evaluated together as a single unit, assigning the same score to every match, matching documents are not scored individually. Making it very  efficient for filtering use cases |
 | [`scoring_boolean`](#scoring_boolean) | Breaks the query into a Boolean `should` clause with one term query per match. Each result is scored individually based on relevance. |
 | [`constant_score_boolean`](#constant_score_boolean) | Similar to `scoring_boolean`, but all documents receive a fixed score regardless of term frequency. Maintains Boolean structure without TF/IDF weighting. |
 | [`top_terms_N`](#top_terms_N) | Restricts scoring and execution to the N most frequent terms. Reduces resource usage and prevents clause overload. |
@@ -32,11 +32,46 @@ All Boolean-based rewrites, such as `scoring_boolean`, `constant_score_boolean`,
 indices.query.bool.max_clause_count
 ```
 
-This setting controls the maximum number of allowed Boolean `should` clauses (default: 1024). If your query expands beyond this limit, it will be rejected with a `too_many_clauses` error.
+This setting controls the maximum number of allowed Boolean `should` clauses (default: `1024`). If your query expands beyond this limit, it will be rejected with a `too_many_clauses` error. 
+
+For example, a wildcard like "error*" might expand to hundreds or thousands of matching terms, such as: "error", "errors", "error_log", "error404", and others. Each of these terms turns into a separate term query. If the number of terms exceeds the `indices.query.bool.max_clause_count` limit, the query fails with an error. See following example:
+
+```json
+POST /logs/_search
+{
+  "query": {
+    "wildcard": {
+      "message": {
+        "value": "error*",
+        "rewrite": "scoring_boolean"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Query is expanded internally as follows:
+
+```json
+{
+  "bool": {
+    "should": [
+      { "term": { "message": "error" } },
+      { "term": { "message": "errors" } },
+      { "term": { "message": "error_log" } },
+      { "term": { "message": "error404" } },
+      ...
+    ]
+  }
+}
+```
 
 ## constant_score (default)
 
-* Executes all term matches as a single bitset query.
+The constant_score rewrite method wraps all expanded terms into a single query and skips the scoring phase entirely. This approach offers the following characteristics:
+
+* Executes all term matches as a single [bit array](https://en.wikipedia.org/wiki/Bit_array) query.
 * Ignores scoring altogether; every document gets `_score = 1.0`.
 * Fastest option; ideal when filtering is the goal.
 
@@ -56,9 +91,12 @@ POST /logs/_search
 
 ## scoring_boolean
 
+The `scoring_boolean` rewrite method breaks the expanded terms into separate `term` queries combined under a Boolean `should` clause. This approach works as follows:
+
 * Expands the wildcard into individual `term` queries inside a Boolean `should` clause.
 * Each document’s score reflects how many terms it matches and their term frequency.
-* Can trigger `too_many_clauses` if many terms match.
+
+The following example is using `scoring_boolean` rewrite configuration:
 
 ```json
 POST /logs/_search
@@ -77,24 +115,51 @@ POST /logs/_search
 
 ## constant_score_boolean
 
+The `constant_score_boolean` rewrite method uses the same Boolean structure as `scoring_boolean` but disables scoring, making it useful when clause logic is needed without relevance ranking. This method offers the following characteristics:
+
 * Similar structure to `scoring_boolean`, but documents are not ranked.
 * All matching docs receive the same score.
-* This retains Boolean clause flexibility (e.g., use with `must_not`) without ranking.
+* This retains Boolean clause flexibility, such as using `must_not`, without ranking.
+
+See the following example query using `must_not`:
 
 ```json
 POST /logs/_search
 {
   "query": {
-    "wildcard": {
-      "message": {
-        "value": "warning*",
-        "rewrite": "constant_score_boolean"
+    "bool": {
+      "must_not": {
+        "wildcard": {
+          "message": {
+            "value": "error*",
+            "rewrite": "constant_score_boolean"
+          }
+        }
       }
     }
   }
 }
 ```
 {% include copy-curl.html %}
+
+This query is internally expanded as follows:
+
+```json
+{
+  "bool": {
+    "must_not": {
+      "bool": {
+        "should": [
+          { "term": { "message": "error" } },
+          { "term": { "message": "errors" } },
+          { "term": { "message": "error_log" } },
+          ...
+        ]
+      }
+    }
+  }
+}
+```
 
 ## top_terms_N
 
@@ -142,7 +207,7 @@ POST /logs/_search
 
 * Picks the top N matching terms and applies a blended frequency to all.
 * Blending makes scoring smoother across terms that differ in frequency.
-* Good tradeoff when you want performance with realistic scoring.
+* Good trade-off when you want performance with realistic scoring.
 
 ```json
 POST /logs/_search
@@ -170,5 +235,5 @@ The `rewrite` parameter gives you control over how multi-term queries behave und
 | `constant_score_boolean`    | Same score, but with Boolean structure | Moderate    | Use with `must_not` or `minimum_should_match` |
 | `top_terms_N`               | TF/IDF on top N terms                  | Efficient   | Truncates expansion                           |
 | `top_terms_boost_N`         | Static boosts                          | Fast        | Less accurate                                 |
-| `top_terms_blended_freqs_N` | Blended score                          | Balanced    | Best scoring/efficiency tradeoff              |
+| `top_terms_blended_freqs_N` | Blended score                          | Balanced    | Best scoring/efficiency trade-off              |
 
