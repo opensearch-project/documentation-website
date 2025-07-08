@@ -93,6 +93,7 @@ There are other ways to change log levels:
 
    - `${sys:opensearch.logs.base_path}` is the directory for logs (for example, `/var/log/opensearch/`).
    - `${sys:opensearch.logs.cluster_name}` is the name of the cluster.
+   - `${sys:opensearch.logs.node_name}` is the name of the node.
    - `[%node_name]` is the name of the node.
 
 ## Search request slow logs

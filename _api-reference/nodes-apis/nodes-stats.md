@@ -44,7 +44,7 @@ thread_pool | Statistics about each thread pool for the node.
 fs | File system statistics, such as read/write statistics, data path, and free disk space.
 transport | Transport layer statistics about send/receive in cluster communication.
 http | Statistics about the HTTP layer.
-breakers | Statistics about the field data circuit breakers.
+breaker | Statistics about the field data circuit breakers.
 script | Statistics about scripts, such as compilations and cache evictions. 
 discovery | Statistics about cluster states.
 ingest | Statistics about ingest pipelines.

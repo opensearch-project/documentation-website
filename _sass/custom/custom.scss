@@ -391,12 +391,17 @@ div.highlighter-rouge {
   display: flex;
   justify-content: flex-end; 
 }
- 
-// Copy code button
+
+.button-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+}
+
 .copy-button {
   @extend .btn-general;
   background-color: $sidebar-color;
-  display: inline;
 }
 
 // Copy as curl button
@@ -1249,6 +1254,75 @@ body {
   font-weight: 700;
   line-height: 24px;
 }
+
+.code-container {
+  position: relative;
+  padding-bottom: 3.5rem; /* Make room for scroll bar */
+  background-color: $code-background-color;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    background: inherit; /* Match parent background */
+}
+
+/* Add horizontal scroll to the code area */
+.code-container .highlight {
+  overflow-x: auto;
+  margin: 0;
+}
+
+.code-container .highlight pre {
+  margin: 0;
+  white-space: pre;
+}
+
+.code-tabs {
+  margin-bottom: 1.5rem;
+}
+
+.code-tabs .tab-nav {
+  border-bottom: 1px solid #eeebee;
+  margin-bottom: -1px;
+}
+
+.code-tabs .tab-button {
+  background: none;
+  border: 1px solid transparent;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-bottom: -1px;
+  color: $blue-dk-200;
+  &:hover {
+    background-color: $blue-lt-100;
+  }
+}
+
+.code-tabs .tab-button.active {
+  border-color: #eeebee;
+  border-bottom-color: #fff;
+  color: $blue-dk-300;
+}
+
+.code-tabs .tab {
+  display: none;
+  border: 1px solid #eeebee;
+  padding: 15px;
+}
+
+.code-tabs .tab.active {
+  display: block;
+}
+
+/* Ensure copy buttons stay on top of scrolled content */
+.copy-button {
+  z-index: 1;
+  position: relative;
+}
+
 
 @import "../font-awesome.scss";
 @import "../_navigation-header.scss";

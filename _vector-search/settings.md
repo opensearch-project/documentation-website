@@ -42,51 +42,59 @@ Setting | Static/Dynamic | Default | Description
 `index.knn.advanced.approximate_threshold` | Dynamic | `0` | The number of vectors that a segment must have before creating specialized data structures for ANN search. Set to `-1` to disable building vector data structures and to `0` to always build them.
 `index.knn.advanced.filtered_exact_search_threshold`| Dynamic | None    | The filtered ID threshold value used to switch to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this setting's value, then exact search will be performed on the filtered IDs.
 `index.knn.derived_source.enabled` | Static | `true` | Prevents vectors from being stored in `_source`, reducing disk usage for vector indexes.
+| `index.knn.memory_optimized_search`    | Dynamic | `false` | Enables memory-optimized search on an index. |
 
 An index created in OpenSearch version 2.11 or earlier will still use the previous `ef_construction` and `ef_search` values (`512`).
 {: .note}
 
 ## Remote index build settings
-Introduced 3.0 
-{: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/k-NN/issues/2391).    
-{: .warning}
-
-The following settings control [remote vector index building]({{site.url}}{{site.baseurl}}/vector-search/remote-index-build/). 
-
-The `poll_interval`, `timeout`, and `size_threshold` are advanced settings. Their default values are set as a result of extensive benchmarking.
-{: .important}
+The following settings control [remote vector index building]({{site.url}}{{site.baseurl}}/vector-search/remote-index-build/).
 
 ### Cluster settings
 
 The following remote index build settings apply at the cluster level.
 
-Setting | Static/Dynamic | Default | Description
-:--- | :--- | :--- | :---
-`knn.feature.remote_index_build.enabled` | Dynamic | `false` | Enables remote vector index building for the cluster.
-`knn.remote_index_build.vector_repo` | Dynamic | None | The repository to which the remote index builder should write.
-`knn.remote_index_build.client.endpoint` | Dynamic | None | The endpoint URL of the remote build service.
-`knn.remote_index_build.client.poll_interval` | Dynamic | `5s` | How frequently the client should poll the remote build service for job status.
-`knn.remote_index_build.client.timeout` | Dynamic | `60m` | The maximum amount of time to wait for remote build completion before falling back to a CPU-based build.
+| Setting                                   | Static/Dynamic | Default | Description                                                                                              |
+|:------------------------------------------|:---------------|:--------|:---------------------------------------------------------------------------------------------------------|
+| `knn.remote_index_build.enabled`          | Dynamic        | `false` | Enables remote vector index building for the cluster.                                                    |
+| `knn.remote_index_build.repository`       | Dynamic        | None    | The repository to which the remote index builder should write.                                           |
+| `knn.remote_index_build.service.endpoint` | Dynamic        | None    | The endpoint URL of the remote build service.                                                            |
+
+#### Advanced cluster settings
+
+The following are advanced cluster settings. The default values for these settings are configured using extensive benchmarking. 
+
+| Setting                                 | Static/Dynamic | Default | Description                                                                                                                                                                                                                                                                                                                        |
+|:----------------------------------------|:---------------|:--------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `knn.remote_index_build.poll.interval`  | Dynamic        | `5s`    | How frequently the client should poll the remote build service for job status.                                                                                                                                                                                                                                                     |
+| `knn.remote_index_build.client.timeout` | Dynamic        | `60m`   | The maximum amount of time to wait for remote build completion before falling back to a CPU-based build.                                                                                                                                                                                                                           |
+| `knn.remote_index_build.size.max`       | Dynamic        | `0`     | The maximum segment size for the remote index build service, based on the service implementation constraints. Must be greater than `0`. |
 
 ### Index settings
 
 The following remote index build settings apply at the index level.
 
-Setting | Static/Dynamic | Default | Description
-:--- | :--- | :--- | :---
-`index.knn.remote_index_build.enabled` | Dynamic | `false` | Enables remote index building for the index. Currently, the remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) indexes with the `hnsw` method and the default 32-bit floating-point (`FP32`) vectors.
-`index.knn.remote_index_build.size_threshold` | Dynamic | `50mb` | The minimum size required to enable remote vector builds.
+| Setting                                       | Static/Dynamic | Default | Description                                               |
+|:----------------------------------------------|:---------------|:--------|:----------------------------------------------------------|
+| `index.knn.remote_index_build.enabled`        | Dynamic        | `false` | Enables remote index building for the index.              |
+
+#### Advanced index settings
+
+The following index settings are advanced settings whose default values are set as a result of extensive benchmarking.
+
+| Setting                                 | Static/Dynamic | Default | Description                                               |
+|:----------------------------------------|:---------------|:--------|:----------------------------------------------------------|
+| `index.knn.remote_index_build.size.min` | Dynamic        | `50mb`  | The minimum size required to enable remote vector builds. |
 
 ### Remote build authentication
 
 The remote build service username and password are secure settings that must be set in the [OpenSearch keystore]({{site.url}}{{site.baseurl}}/security/configuration/opensearch-keystore/) as follows:
 
 ```bash
-./bin/opensearch-keystore add knn.remote_index_build.client.username
-./bin/opensearch-keystore add knn.remote_index_build.client.password
+./bin/opensearch-keystore add knn.remote_index_build.service.username
+./bin/opensearch-keystore add knn.remote_index_build.service.password
 ```
 {% include copy.html %}
 
-You can reload the secure settings without restarting the node by using the [Nodes Reload Secure]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/) API.
+You can reload the secure settings without restarting the node by using the [Nodes Reload Secure Setings API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/).
