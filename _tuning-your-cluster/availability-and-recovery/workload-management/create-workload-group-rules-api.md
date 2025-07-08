@@ -92,7 +92,7 @@ The following request provides the next page of rules from the same workload gro
 
 ### Delete a rule
 
-The following request deletes a rule with the specified id.
+The following request deletes a rule using the rule's ID:
 
 ```json
 DELETE /_rules/workload_group/{id}
