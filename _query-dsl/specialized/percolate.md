@@ -9,10 +9,12 @@ nav_order: 55
 
 Use the `percolate` query to find stored queries that match a given document. This operation is the opposite of a regular search: instead of finding documents that match a query, you find queries that match a document. Percolate queries are often used for alerting, notifications, and reverse search use cases.
 
+When working with `percolate` queries, consider the following key points:
+
 - You can percolate a document provided inline or fetch an existing document from an index.
 - The document and the stored queries must use the same field names and types.
 - You can combine percolation with filtering and scoring to build complex matching systems.
-- Percolate queries are considered expensive and will only run if the cluster setting `search.allow_expensive_queries` is set to `true` (default). If this setting is `false`, percolate queries will be rejected.
+- Percolate queries are considered [expensive queries]({{site.url}}{{site.baseurl}}/query-dsl/#expensive-queries) and will only run if the cluster setting `search.allow_expensive_queries` is set to `true` (default). If this setting is `false`, percolate queries will be rejected.
 
 Percolate queries are useful in a variety of real-time matching scenarios. Some common use cases include:
 
@@ -29,7 +31,11 @@ Percolate queries are useful in a variety of real-time matching scenarios. Some 
 4. If highlighting is enabled, matched text snippets are also returned.
 5. If multiple documents are sent, `_percolator_document_slot` displays the matching document.
 
-## Create an index to store saved queries
+## Example
+
+The following examples demonstrate how to store percolator queries and test documents against them using different methods.
+
+### Create an index to store saved queries
 
 First, create an index and configure its `mappings` with a [`percolator` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/) to store the saved queries:
 
@@ -78,7 +84,7 @@ POST /my_percolator_index/_doc/2
 ```
 {% include copy-curl.html %}
 
-## Percolate an inline document
+### Percolate an inline document
 
 Test an inline document against the saved queries:
 
@@ -97,7 +103,7 @@ POST /my_percolator_index/_search
 ```
 {% include copy-curl.html %}
 
-This will match the saved query looking for "apple":
+The response provides the stored percolator query that searches for documents containing the word “apple” in the `title` field, identified by `_id`: `1`
 
 ```json
 {
@@ -131,7 +137,7 @@ This will match the saved query looking for "apple":
 }
 ```
 
-## Percolate with multiple documents
+### Percolate with multiple documents
 
 To test multiple documents in the same query, use the following request:
 
@@ -205,7 +211,9 @@ The `_percolator_document_slot` field helps you identify each document (by index
 }
 ```
 
-## Percolate an existing indexed document
+### Percolate an existing indexed document
+
+You can reference an existing document already stored in another index to check for matching percolator queries.
 
 Create a separate index for your documents:
 
@@ -286,7 +294,7 @@ The corresponding query is returned:
 }
 ```
 
-## Batch percolation (multiple documents)
+### Batch percolation (multiple documents)
 
 You can check multiple documents in one request:
 
@@ -358,7 +366,7 @@ Each match indicates the matching document in the `_percolator_document_slot` fi
 }
 ```
 
-## Multi-query percolation using a named query
+### Multi-query percolation using a named query
 
 You can percolate different documents inside a named query:
 
