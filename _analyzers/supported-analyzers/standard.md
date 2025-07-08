@@ -7,17 +7,19 @@ nav_order: 50
 
 # Standard analyzer
 
-The `standard` analyzer is the default analyzer used when no other analyzer is specified. It is designed to provide a basic and efficient approach to generic text processing.
+The `standard` analyzer is the built-in default analyzer used for general-purpose full-text search in OpenSearch. It is designed to provide consistent, language-agnostic text processing by efficiently breaking down text into searchable terms.
 
-This analyzer consists of the following tokenizers and token filters:
+The `standard` analyzer performs the following operations:
 
-- `standard` tokenizer: Removes most punctuation and splits text on spaces and other common delimiters.
-- `lowercase` token filter: Converts all tokens to lowercase, ensuring case-insensitive matching.
-- `stop` token filter: Removes common stopwords, such as "the", "is", and "and", from the tokenized output.
+- **Tokenization**: Uses the [`standard`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/standard/) tokenizer, which splits text into words based on Unicode text segmentation rules, handling spaces, punctuation, and common delimiters.
+- **Lowercasing**: Applies the [`lowercase`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/lowercase/) token filter to convert all tokens to lowercase, ensuring consistent matching regardless of input case.
 
-## Example 
+This combination makes the `standard` analyzer ideal for indexing a wide range of natural language content without needing language-specific customizations.
 
-Use the following command to create an index named `my_standard_index` with a `standard` analyzer:
+
+## Example: Creating an index with the standard analyzer
+
+You can assign the `standard` analyzer to a text field when creating an index:
 
 ```json
 PUT /my_standard_index
@@ -26,7 +28,7 @@ PUT /my_standard_index
     "properties": {
       "my_field": {
         "type": "text",
-        "analyzer": "standard"  
+        "analyzer": "standard"
       }
     }
   }
@@ -34,33 +36,35 @@ PUT /my_standard_index
 ```
 {% include copy-curl.html %}
 
+
 ## Parameters
 
-You can configure a `standard` analyzer with the following parameters.
+The `standard` analyzer supports the following optional parameters.
 
-Parameter | Required/Optional | Data type | Description
-:--- | :--- | :--- | :--- 
-`max_token_length` | Optional | Integer | Sets the maximum length of the produced token. If this length is exceeded, the token is split into multiple tokens at the length configured in `max_token_length`. Default is `255`.
-`stopwords` | Optional | String or list of strings | A string specifying a predefined list of stopwords (such as `_english_`) or an array specifying a custom list of stopwords. Default is `_none_`.
-`stopwords_path` | Optional | String | The path (absolute or relative to the config directory) to the file containing a list of stop words.
+| Parameter | Data type | Default | Description |
+|:----------|:-----|:--------|:------------|
+| `max_token_length` | Integer | `255` | The maximum length that a token can be before it is split. |
+| `stopwords` | String or list of strings | None | A list of stopwords or a [predefined stopword set for a language]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stop/#predefined-stopword-sets-by-language) to remove during analysis. For example, `_english_`. |
+| `stopwords_path` | String | None | The path to a file containing stopwords to be used during analysis. |
 
+Only use one of the parameters `stopwords` or `stopwords_path`. If both are used, no error is returned but only the `stopwords` parameter is applied.
+{: .note}
 
-## Configuring a custom analyzer
+## Example: Analyzer with parameters
 
-Use the following command to configure an index with a custom analyzer that is equivalent to the `standard` analyzer:
+The following example creates a `products` index and configures the `max_token_length` and `stopwords` parameters:
 
 ```json
-PUT /my_custom_index
+PUT /animals
 {
   "settings": {
     "analysis": {
       "analyzer": {
-        "my_custom_analyzer": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [
-            "lowercase", 
-            "stop"
+        "my_manual_stopwords_analyzer": {
+          "type": "standard",
+          "max_token_length": 10,
+          "stopwords": [
+            "the", "is", "and", "but", "an", "a", "it"
           ]
         }
       }
@@ -70,28 +74,47 @@ PUT /my_custom_index
 ```
 {% include copy-curl.html %}
 
-## Generated tokens
-
-Use the following request to examine the tokens generated using the analyzer:
+Use the following `_analyze` API request to see how the `my_manual_stopwords_analyzer` processes text:
 
 ```json
-POST /my_custom_index/_analyze
+POST /animals/_analyze
 {
-  "analyzer": "my_custom_analyzer",
-  "text": "The slow turtle swims away"
+  "analyzer": "my_manual_stopwords_analyzer",
+  "text": "The Turtle is Large but it is Slow"
 }
 ```
 {% include copy-curl.html %}
 
-The response contains the generated tokens:
+The returned tokens:
+
+- Have been split on spaces.
+- Have been lowercased.
+- Have had stopwords removed.
 
 ```json
 {
   "tokens": [
-    {"token": "slow","start_offset": 4,"end_offset": 8,"type": "<ALPHANUM>","position": 1},
-    {"token": "turtle","start_offset": 9,"end_offset": 15,"type": "<ALPHANUM>","position": 2},
-    {"token": "swims","start_offset": 16,"end_offset": 21,"type": "<ALPHANUM>","position": 3},
-    {"token": "away","start_offset": 22,"end_offset": 26,"type": "<ALPHANUM>","position": 4}
+    {
+      "token": "turtle",
+      "start_offset": 4,
+      "end_offset": 10,
+      "type": "<ALPHANUM>",
+      "position": 1
+    },
+    {
+      "token": "large",
+      "start_offset": 14,
+      "end_offset": 19,
+      "type": "<ALPHANUM>",
+      "position": 3
+    },
+    {
+      "token": "slow",
+      "start_offset": 30,
+      "end_offset": 34,
+      "type": "<ALPHANUM>",
+      "position": 7
+    }
   ]
 }
 ```
