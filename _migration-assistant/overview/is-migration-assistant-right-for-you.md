@@ -157,7 +157,9 @@ Migration Assistant requires network connectivity to AWS services and outbound i
 
 - The `_source` field must be enabled on all indexes to be migrated. See [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/).
 - The source cluster must have the Amazon S3 plugin installed.
-- Snapshots must include global cluster state (`include_global_state: true`).
+- If you choose to bring your own snapshot (i.e., one not created by Migration Assistant), the following settings must be applied when creating the snapshot:
+  - `include_global_state: true` – Ensures that global cluster state is included.
+  - `compress: false` – Disables metadata compression, which is required for compatibility with Reindex-from-Snapshot.
 - Shards up to **80 GiB** are supported by default. Larger shard sizes can be configured, except in **AWS GovCloud**, where 80 GiB is the maximum.
 
 ### Capture-and-Replay
