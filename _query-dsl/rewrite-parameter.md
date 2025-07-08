@@ -26,7 +26,7 @@ When a multi-term query expands into many terms (for example `prefix: "error*"` 
 
 ## Boolean-based rewrite limits
 
-All Boolean-based rewrites, such as `scoring_boolean`, `constant_score_boolean`, and `top_terms_*`, are subject to:
+All Boolean-based rewrites, such as `scoring_boolean`, `constant_score_boolean`, and `top_terms_*`, are subject to the following configuration:
 
 ```json
 indices.query.bool.max_clause_count
@@ -34,7 +34,7 @@ indices.query.bool.max_clause_count
 
 This setting controls the maximum number of allowed Boolean `should` clauses (default: `1024`). If your query expands beyond this limit, it will be rejected with a `too_many_clauses` error. 
 
-For example, a wildcard like "error*" might expand to hundreds or thousands of matching terms, such as: "error", "errors", "error_log", "error404", and others. Each of these terms turns into a separate term query. If the number of terms exceeds the `indices.query.bool.max_clause_count` limit, the query fails with an error. See following example:
+For example, a wildcard, such as "error*", might expand to hundreds or thousands of matching terms, which could include: "error", "errors", "error_log", "error404", and others. Each of these terms turns into a separate term query. If the number of terms exceed the `indices.query.bool.max_clause_count` limit, the query fails. See following example:
 
 ```json
 POST /logs/_search
@@ -184,9 +184,13 @@ POST /logs/_search
 
 ## top_terms_boost_N
 
+The `top_terms_boost_N` rewrite method selects the top N matching terms and applies static `boost` values instead of computing full relevance scores. It works as follows:
+
 * Limits expansion to the top N terms like `top_terms_N`.
 * Rather than computing TF/IDF, it assigns a pre-set boost per term.
 * Provides faster execution with predictable relevance weights.
+
+See the following example query using `top_terms_boost_2` rewrite parameter:
 
 ```json
 POST /logs/_search
@@ -205,9 +209,13 @@ POST /logs/_search
 
 ## top_terms_blended_freqs_N
 
+The `top_terms_blended_freqs_N` rewrite method selects the top N matching terms and blends their document frequencies to produce more balanced relevance scores. This approach offers the following characteristics:
+
 * Picks the top N matching terms and applies a blended frequency to all.
 * Blending makes scoring smoother across terms that differ in frequency.
 * Good trade-off when you want performance with realistic scoring.
+
+See the following example query using `top_terms_blended_freqs_2` rewrite parameter:
 
 ```json
 POST /logs/_search
