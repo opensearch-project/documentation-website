@@ -130,7 +130,7 @@ POST /articles-optimized/_bulk
 ```
 {% include copy-curl.html %}
 
-Find documents where the `quote` field contains terms similar to "dark" and "night":
+Find documents in which the `quote` field contains terms similar to "dark" and "night":
 
 ```json
 GET /articles-optimized/_search
