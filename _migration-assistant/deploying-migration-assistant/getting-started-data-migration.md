@@ -123,6 +123,7 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
    ```json
    {"username":"admin","password":"myStrongPassword123!"}
    ```
+   
    Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment. 
 
 2. From the same shell as the Bootstrap instance, modify the `cdk.context.json` file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory and configure the following settings:
