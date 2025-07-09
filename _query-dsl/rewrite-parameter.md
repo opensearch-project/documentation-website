@@ -31,12 +31,12 @@ The `rewrite` parameter gives you control over how multi-term queries behave int
 The following table summarizes the available rewrite methods.
 
 | Rewrite method | Description |
-| [`constant_score`](#constant_score-default) | (Default) All expanded terms are evaluated together as a single unit, assigning the same score to every match. Matching documents are not scored individually, making it very efficient for filtering use cases. |
-| [`scoring_boolean`](#scoring_boolean) | Breaks the query into a Boolean `should` clause with one term query per match. Each result is scored individually based on relevance. |
-| [`constant_score_boolean`](#constant_score_boolean) | Similar to `scoring_boolean`, but all documents receive a fixed score regardless of term frequency. Maintains Boolean structure without TF/IDF weighting. |
-| [`top_terms_N`](#top_terms_N) | Restricts scoring and execution to the N most frequent terms. Reduces resource usage and prevents clause overload. |
-| [`top_terms_boost_N`](#top_terms_boost_N) | Like `top_terms_N`, but uses static boosting instead of full scoring. Offers performance improvements with simplified relevance. |
-| [`top_terms_blended_freqs_N`](#top_terms_blended_freqs_N) | Chooses the top N matching terms and averages their document frequencies for scoring. Produces balanced scores without full term explosion. |
+| [`constant_score`](#constant-score) | (Default) All expanded terms are evaluated together as a single unit, assigning the same score to every match. Matching documents are not scored individually, making it very efficient for filtering use cases. |
+| [`scoring_boolean`](#scoring-boolean) | Breaks the query into a Boolean `should` clause with one term query per match. Each result is scored individually based on relevance. |
+| [`constant_score_boolean`](#constant-score-boolean) | Similar to `scoring_boolean`, but all documents receive a fixed score regardless of term frequency. Maintains Boolean structure without TF/IDF weighting. |
+| [`top_terms_N`](#top-terms-n) | Restricts scoring and execution to the N most frequent terms. Reduces resource usage and prevents clause overload. |
+| [`top_terms_boost_N`](#top-terms-boost-n) | Like `top_terms_N`, but uses static boosting instead of full scoring. Offers performance improvements with simplified relevance. |
+| [`top_terms_blended_freqs_N`](#top-terms-blended-frequencies-n) | Chooses the top N matching terms and averages their document frequencies for scoring. Produces balanced scores without full term explosion. |
 
 ## Boolean-based rewrite limits
 
