@@ -1,20 +1,13 @@
 ---
 layout: default
-title: Migrating metadata
-nav_order: 85
+title: Snapshot
+nav_order: 4
 parent: Migration phases
-permalink: /migration-assistant/migration-phases/migrating-metadata/
 ---
 
-# Migrating metadata
+## Creating snapshot
 
-Metadata migration involves creating a snapshot of your cluster and then migrating the metadata from the snapshot using the migration console.
-
-This tool gathers information from a source cluster through a snapshot or through HTTP requests against the source cluster. These snapshots are fully compatible with the backfill process for `Reindex-From-Snapshot` (RFS) scenarios.
-
-After collecting information on the source cluster, comparisons are made against the target cluster. If running a migration, any metadata items that do not already exist will be created on the target cluster.
-
-## Creating the snapshot
+TODO: Add Bring your own snapshot
 
 Creating a snapshot of the source cluster captures all the metadata and documents to be migrated to a new target cluster.
 
@@ -246,3 +239,6 @@ As Metadata migration supports migrating from ES 6.8 on to the latest versions o
 {% include copy.html %}
 
 For additional technical details, [view the mapping type removal source code](https://github.com/opensearch-project/opensearch-migrations/blob/main/transformation/src/main/java/org/opensearch/migrations/transformation/rules/IndexMappingTypeRemoval.java).
+
+TODO: Add troublshooting
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verify-backfill-components/">Verify Backfill Components</a></li>

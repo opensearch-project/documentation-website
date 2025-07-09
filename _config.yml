@@ -89,6 +89,9 @@ collections:
   data-prepper: 
     permalink: /:collection/:path/
     output: true
+  migration-upgrade:
+    permalink: /:collection/:path/
+    output: true
   migration-assistant:
     permalink: /:collection/:path/
     output: true
@@ -215,6 +218,12 @@ clients_collection:
         name: Clients
         nav_fold: true
 
+migrations_and_upgrades_collection:
+  collections:
+    migrations-and-upgrades:
+        name: Migrations and upgrades
+        nav_fold: true
+
 migration_assistant_collection:
   collections:
     migration-assistant:
@@ -262,9 +271,15 @@ defaults:
       section-name: "Benchmark"
   -
     scope:
+      path: "_migrations-and-upgrades"
+    values:
+      section: "migrations-and-upgrades"
+      section-name: "Migrations and upgrades"
+  -
+    scope:
       path: "_migration-assistant"
     values:
-      section: "migration-assistant"
+      section: "migrations-assistant"
       section-name: "Migration Assistant"
 
 # Enable or disable the site search
@@ -326,6 +341,7 @@ plugins:
   - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-spec-insert
+  - jekyll-include-cache
 
 # This format has to conform to RFC822
 last-modified-at:

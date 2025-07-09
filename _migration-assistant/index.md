@@ -8,22 +8,24 @@ has_toc: false
 permalink: /migration-assistant/
 redirect_from:
   - /migration-assistant/index/
+  - /migration-assistant/overview/
   - /upgrade-to/index/
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
-tutorial_cards:
-  - heading: "Overview"
-    description: "Get familiar with the key components of Migration Assistant and evaluate your use case."
-    link: "/migration-assistant/overview/"
-  - heading: "Deploying Migration Assistant"
-    description: "Follow step-by-step instructions to deploy Migration Assistant and prepare data for migration."
-    link: "/deploying-migration-assistant/"
-  - heading: "Migration phases"
-    description: "Execute your migration in phases—metadata, backfill, and traffic replay—for a controlled and validated transition."
-    link: "/migration-phases/"
-  - heading: "Migration console"
-    description: "Use CLI commands provided by the migration console to orchestrate and monitor your migration process."
-    link: "/migration-console/"
+  - /upgrade-to/snapshot-migrate/
+items:
+  - heading: "Is Migration Assistant right for you?"
+    description: "Evaluate whether Migration Assistant is right for your use case."
+    link: "/migration-assistant/overview/is-migration-assistant-right-for-you/"
+  - heading: "Key components"
+    description: "Get familiar with the key components of Migration Assistant."
+    link: "/migration-assistant/overview/key-components/"
+  - heading: "Architecture"
+    description: "Understand how Migration Assistant integrates into your infrastructure."
+    link: "/migration-assistant/overview/architecture/"
+  - heading: "Execute your migration in phases"
+    description: "A step-by-step guide for performing a migration."
+    link: "/migration-assistant/migration-phases"
 ---
 
 # Migration Assistant for OpenSearch
@@ -37,8 +39,5 @@ Migration Assistant for OpenSearch aids you in successfully performing an end-to
 
 This user guide focuses on conducting a comprehensive migration involving both existing and live data with zero downtime and the option to back out of a migration.
 
-It's crucial to note that migration strategies are not universally applicable. This guide provides a detailed methodology, based on certain assumptions detailed throughout, emphasizing the importance of robust engineering practices to ensure a successful migration.
-{: .tip }
-
-{% include cards.html cards=page.tutorial_cards %}
+{% include list.html list_items=page.items%}
 
