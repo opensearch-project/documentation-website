@@ -152,7 +152,7 @@ The response includes an array instead of an object:
 }
 ```
 
-## Precision tuning with compression
+### Precision tuning with compression
 
 Percentile ranks are calculated using the `tdigest` algorithm by default. You can control the trade-off between accuracy and memory usage by adjusting the `tdigest.compression` configuration. Higher values provide better accuracy, however require more memory. 
 
@@ -213,9 +213,9 @@ GET /transaction_data/_search
 ```
 {% include copy-curl.html %}
 
-## Missing values
+### Missing values
 
-If some documents are missing the target field, you can instruct the query to use a fallback value by setting the `missing` parameter. This ensures that documents without an amount field will be treated as if the value were `0`, and included in the percentile ranks computation. See following example:
+If some documents are missing the target field, you can instruct the query to use a fallback value by setting the `missing` parameter. The following example ensures that documents without an amount field will be treated as if the value were `0`, and included in the percentile ranks computation:
 
 ```json
 GET /transaction_data/_search
@@ -234,11 +234,11 @@ GET /transaction_data/_search
 ```
 {% include copy-curl.html %}
 
-## Script
+### Script
 
 Instead of specifying a field, you can dynamically compute the value using a script. This is useful when you need to apply transformations, such as converting currencies or applying weights. 
 
-### Inline script
+#### Inline script
 
 The following example uses inline script to calculate the percentile ranks of the transformed values `30` and `60`, against values from the amount field multiplied by 10%:
 
@@ -260,7 +260,7 @@ GET /transaction_data/_search
 ```
 {% include copy-curl.html %}
 
-## Stored script
+#### Stored script
 
 Stored scripts can also be used.
 
