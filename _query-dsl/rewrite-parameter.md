@@ -14,7 +14,7 @@ When a multi-term query expands into many terms (for example `prefix: "error*"` 
 * Affect how scores are calculated for matching documents.
 * Impact memory and latency depending on the rewrite method used.
 
-The `rewrite` parameter gives you control over how multi-term queries behave under the hood.
+The `rewrite` parameter gives you control over how multi-term queries behave internally.
 
 | Mode                        | Scores                                 | Performance | Notes                                         |
 | --------------------------- | -------------------------------------- | ----------- | --------------------------------------------- |
