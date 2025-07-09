@@ -31,7 +31,7 @@ The `rewrite` parameter gives you control over how multi-term queries behave und
 The following table summarizes the available rewrite methods.
 
 | Rewrite method | Description |
-| [`constant_score`](#constant_score-default) | (Default) All expanded terms are evaluated together as a single unit, assigning the same score to every match. Matching documents are not scored individually, making it very  efficient for filtering use cases. |
+| [`constant_score`](#constant_score-default) | (Default) All expanded terms are evaluated together as a single unit, assigning the same score to every match. Matching documents are not scored individually, making it very efficient for filtering use cases. |
 | [`scoring_boolean`](#scoring_boolean) | Breaks the query into a Boolean `should` clause with one term query per match. Each result is scored individually based on relevance. |
 | [`constant_score_boolean`](#constant_score_boolean) | Similar to `scoring_boolean`, but all documents receive a fixed score regardless of term frequency. Maintains Boolean structure without TF/IDF weighting. |
 | [`top_terms_N`](#top_terms_N) | Restricts scoring and execution to the N most frequent terms. Reduces resource usage and prevents clause overload. |
