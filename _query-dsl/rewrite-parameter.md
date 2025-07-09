@@ -14,7 +14,21 @@ When a multi-term query expands into many terms (for example `prefix: "error*"` 
 * Affect how scores are calculated for matching documents.
 * Impact memory and latency depending on the rewrite method used.
 
+The `rewrite` parameter gives you control over how multi-term queries behave under the hood.
+
+| Mode                        | Scores                                 | Performance | Notes                                         |
+| --------------------------- | -------------------------------------- | ----------- | --------------------------------------------- |
+| `constant_score`            | Same score for all matches             | Best        | Default mode, ideal for filters               |
+| `scoring_boolean`           | TF/IDF-based                           | Moderate    | Full relevance scoring                        |
+| `constant_score_boolean`    | Same score, but with Boolean structure | Moderate    | Use with `must_not` or `minimum_should_match` |
+| `top_terms_N`               | TF/IDF on top N terms                  | Efficient   | Truncates expansion                           |
+| `top_terms_boost_N`         | Static boosts                          | Fast        | Less accurate                                 |
+| `top_terms_blended_freqs_N` | Blended score                          | Balanced    | Best scoring/efficiency trade-off              |
+
+
 ## Available rewrite methods
+
+The following table summarizes the available rewrite methods.
 
 | Rewrite method | Description |
 | [`constant_score`](#constant_score-default) | (Default) All expanded terms are evaluated together as a single unit, assigning the same score to every match. Matching documents are not scored individually, making it very  efficient for filtering use cases. |
@@ -26,7 +40,7 @@ When a multi-term query expands into many terms (for example `prefix: "error*"` 
 
 ## Boolean-based rewrite limits
 
-All Boolean-based rewrites, such as `scoring_boolean`, `constant_score_boolean`, and `top_terms_*`, are subject to the following configuration:
+All Boolean-based rewrites, such as `scoring_boolean`, `constant_score_boolean`, and `top_terms_*`, are subject to the following [Dynamic cluster-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-cluster-level-index-settings):
 
 ```json
 indices.query.bool.max_clause_count
@@ -74,6 +88,8 @@ The default `constant_score` rewrite method wraps all expanded terms into a sing
 * Executes all term matches as a single [bit array](https://en.wikipedia.org/wiki/Bit_array) query.
 * Ignores scoring altogether; every document gets a `_score` of `1.0`.
 * Fastest option; ideal for filtering.
+
+The following example runs a `wildcard` query using the default `constant_score` rewrite method to efficiently filter documents matching the pattern `warning*` in the `message` field
 
 ```json
 POST /logs/_search
@@ -163,9 +179,13 @@ This query is internally expanded as follows:
 
 ## Top terms N
 
+The `top_terms_N` method is one of several rewrite options designed to balance scoring accuracy and performance when expanding multi-term queries. It works as follows:
+
 * Only the N most frequently matching terms are selected and scored.
 * Useful when you expect a large term expansion and want to limit the load.
 * Other valid terms are ignored to preserve performance.
+
+The following query uses the `top_terms_2` rewrite method to score only the two most frequent terms that match the `warning*` pattern in the `message` field:
 
 ```json
 POST /logs/_search
@@ -231,17 +251,3 @@ POST /logs/_search
 }
 ```
 {% include copy-curl.html %}
-
-## Summary
-
-The `rewrite` parameter gives you control over how multi-term queries behave under the hood.
-
-| Mode                        | Scores                                 | Performance | Notes                                         |
-| --------------------------- | -------------------------------------- | ----------- | --------------------------------------------- |
-| `constant_score`            | Same score for all matches             | Best        | Default mode, ideal for filters               |
-| `scoring_boolean`           | TF/IDF-based                           | Moderate    | Full relevance scoring                        |
-| `constant_score_boolean`    | Same score, but with Boolean structure | Moderate    | Use with `must_not` or `minimum_should_match` |
-| `top_terms_N`               | TF/IDF on top N terms                  | Efficient   | Truncates expansion                           |
-| `top_terms_boost_N`         | Static boosts                          | Fast        | Less accurate                                 |
-| `top_terms_blended_freqs_N` | Blended score                          | Balanced    | Best scoring/efficiency trade-off              |
-
