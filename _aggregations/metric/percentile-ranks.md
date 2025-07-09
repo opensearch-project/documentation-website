@@ -20,7 +20,7 @@ See following examples covering multiple approaches to using `percentile_ranks`.
 
 ### Add sample data
 
-First, create a test index:
+First, create a sample index:
 
 ```json
 PUT /transaction_data
@@ -57,7 +57,7 @@ POST /transaction_data/_bulk
 ```
 {% include copy-curl.html %}
 
-### Basic percentile rank aggregation
+### Percentile rank aggregation
 
 Run a `percentile_ranks` aggregation to calculate how certain values compare to the overall distribution:
 
@@ -152,9 +152,9 @@ The response includes an array instead of an object:
 }
 ```
 
-### Precision tuning with compression
+### Precision tuning with tdigest
 
-Percentile ranks are calculated using the `tdigest` algorithm by default. You can control the trade-off between accuracy and memory usage by adjusting the `tdigest.compression` configuration. Higher values provide better accuracy, however require more memory. 
+Percentile ranks are calculated using the `tdigest` algorithm by default. You can control the trade-off between accuracy and memory usage by adjusting the `tdigest.compression` configuration. Higher values provide better accuracy, however require more memory. For more information on how tdigest works see [precision tuning with tdigest]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/#precision-tuning-with-tdigest)
 
 The following example is configured with `tdigest.compression` set to `200`:
 
@@ -179,7 +179,7 @@ GET /transaction_data/_search
 
 ### HDR histogram
 
-As an alternative to `tdigest`, you can use the High Dynamic Range (HDR) histogram algorithm, which is better suited for large numbers of buckets and fast processing.
+As an alternative to `tdigest`, you can use the High Dynamic Range (HDR) histogram algorithm, which is better suited for large numbers of buckets and fast processing. For further details regarding how HDR histogram works see [HDR histogram]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/#hdr-histogram)
 
 You should use HDR if you:
 
