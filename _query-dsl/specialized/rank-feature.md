@@ -7,7 +7,7 @@ nav_order: 75
 
 # Rank feature
 
-Use the `rank_feature` query to boost document scores based on numeric values in the document, such as relevance scores, popularity, or freshness. This query is ideal if you want to fine-tune relevance ranking using numerical features. Unlike [full-text queries]({{site.url}}{{site.baseurl}}/query-dsl/full-text/index/), `rank_feature` focuses solely on a numeric signal, and is most effective when combined with other queries in a compound query like `bool`.
+Use the `rank_feature` query to boost document scores based on numeric values in the document, such as relevance scores, popularity, or freshness. This query is ideal if you want to fine-tune relevance ranking using numerical features. Unlike [full-text queries]({{site.url}}{{site.baseurl}}/query-dsl/full-text/index/), `rank_feature` focuses solely on a numeric signal; it is most effective when combined with other queries in a compound query like `bool`.
 
 The `rank_feature` query expects the target field to be mapped as a [`rank_feature` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/). This enables internally optimized scoring for fast and efficient boosting.
 
@@ -15,14 +15,16 @@ The score impact depends on the field value and the optional `saturation`, `log`
 
 ## Parameters
 
+The `rank_feature` query supports the following parameters.
+
 | Parameter               | Required/Optional | Description                                                                                                              |
 | ----------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `field`                 | Required          | A `rank_feature` or `rank_features` field that contributes to document scoring.|
 | `boost`                 | Optional          | A multiplier applied to the score. Default is `1.0`. Values between 0 and 1 reduce the score, values above 1 amplify it. |
-| `saturation`            | Optional          | Applies a saturation function to the feature value. Boost grows with value but levels off beyond the `pivot`. (Default function if no other function is provided)|
+| `saturation`            | Optional          | Applies a saturation function to the feature value. Boost grows with value but levels off beyond the `pivot`. Default function if no other function is provided. |
 | `log`                   | Optional          | Uses a logarithmic scoring function based on the field value. Best for large ranges of values.|
 | `sigmoid`               | Optional          | Applies a sigmoid (S-shaped) curve to score impact, controlled by `pivot` and `exponent`.|
-| `positive_score_impact` | Optional          | When `false`, lower values score higher. Useful for features like price where smaller is better. Defined as part of the mapping. (Default is `true`)|
+| `positive_score_impact` | Optional          | When `false`, lower values score higher. Useful for features like price, for which smaller is better. Defined as part of the mapping. Default is `true`. |
 
 Only one function out of `saturation`, `log`, or `sigmoid` may be used at a time.
 {: .note}
@@ -83,7 +85,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-This query alone does not perform filtering, rather it scores all documents based on the value of `popularity`. Higher values yield higher scores:
+This query alone does not perform filtering. Rather, it scores all documents based on the value of `popularity`. Higher values yield higher scores:
 
 ```json
 {
@@ -165,7 +167,7 @@ This query alone does not perform filtering, rather it scores all documents base
 
 ## Combine with full-text search
 
-To filter relevant results and boost them based on popularity use the following request:
+To filter relevant results and boost them based on popularity, use the following request. This query ranks all documents matching "headphones" and boosts those with higher popularity:
 
 ```json
 POST /products/_search
@@ -188,13 +190,12 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-This ranks all documents matching "headphones" and boosts those with higher popularity.
 
 ## Boost parameter
 
 The `boost` parameter allows you to scale the score contribution of the rank_feature clause. It’s especially useful in compound queries such as `bool`, where you want to control how much influence a numeric field (such as popularity, freshness, or relevance score) has on the final document ranking.
 
-In the following example, the bool query matches documents with the term "headphones" in the `title`, and boosts more popular results using a `rank_feature` clause with a `boost` of `2.0`:
+In the following example, the `bool` query matches documents with the term "headphones" in the `title` and boosts more popular results using a `rank_feature` clause with a `boost` of `2.0`. This doubles the contribution of the `rank_feature` score in the overall document score:
 
 ```json
 POST /products/_search
@@ -218,15 +219,16 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-This will double the contribution of the rank_feature score in the overall document score. A `boost` less than `1.0` would down-weight its influence.
 
 ## Configure score function
 
-By default, the `rank_feature` query uses a `saturation` function with a `pivot` value derived from the field. You can explicitly control this with the `saturation`, `log` or `sigmoid` functions.
+By default, the `rank_feature` query uses a `saturation` function with a `pivot` value derived from the field. You can explicitly set the function to `saturation`, `log` or `sigmoid`.
 
 ### Saturation function
 
-The `saturation` function is the default scoring method used in `rank_feature` queries. It assigns higher scores to documents with larger feature values, but the increase in score becomes more gradual as the value exceeds a specified pivot. This is useful when you want to give diminishing returns to very large values, for example, boosting `popularity` while avoiding over-rewarding extremely high numbers. The formulae for calculating score is: `value of the rank_feature field / (value of the rank_feature field + pivot)`. The produced score is always between `0` and `1`. If the pivot is not provided, approximate geometric mean of all `rank_feature` values in the index is used. See following example using `saturation` with `pivot` configured to `50`:
+The `saturation` function is the default scoring method used in `rank_feature` queries. It assigns higher scores to documents with larger feature values, but the increase in score becomes more gradual as the value exceeds a specified pivot. This is useful when you want to give diminishing returns to very large values, for example, boosting `popularity` while avoiding over-rewarding extremely high numbers. The formula for calculating score is: `value of the rank_feature field / (value of the rank_feature field + pivot)`. The produced score is always between `0` and `1`. If the pivot is not provided, approximate geometric mean of all `rank_feature` values in the index is used. 
+
+The following example uses `saturation` with a `pivot` of `50`:
 
 ```json
 POST /products/_search
@@ -243,7 +245,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-The `pivot` defines the point at which scoring growth slows down. Values higher than `pivot` still increase the score, but with diminishing returns, as can be seen in the returned hits:
+The `pivot` defines the point at which the scoring growth slows down. Values higher than `pivot` still increase the score, but with diminishing returns, as can be seen in the returned hits:
 
 ```json
 {
@@ -325,7 +327,7 @@ The `pivot` defines the point at which scoring growth slows down. Values higher 
 
 ### Log function
 
-The log function is helpful when the range of values in your `rank_feature` field varies significantly. It applies a logarithmic scale to the `score`, which reduces the effect of extremely high values and helps normalize scoring across wide value distributions. This is especially useful when a small difference between low values should be more impactful than a large difference between high values. The score is derived using formulae: `log(scaling_factor + rank_feature field)`, see following example:
+The log function is helpful when the range of values in your `rank_feature` field varies significantly. It applies a logarithmic scale to the `score`, which reduces the effect of extremely high values and helps normalize scoring across wide value distributions. This is especially useful when a small difference between low values should be more impactful than a large difference between high values. The score is calculated using the formula `log(scaling_factor + rank_feature field)`. The following example uses a `scaling_factor` of 2:
 
 ```json
 POST /products/_search
@@ -342,7 +344,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-In the example dataset, the `popularity` field ranges from `1` to `500`. The `log` function compresses the `score` contribution from large values like `250` and `500`, while still allowing documents with `10` or `25` to have meaningful scores. This is unlike `saturation`, where documents above the pivot rapidly approach the same maximum score.”
+In the example dataset, the `popularity` field ranges from `1` to `500`. The `log` function compresses the `score` contribution from large values like `250` and `500`, while still allowing documents with `10` or `25` to have meaningful scores. In contrast, if you applied the `saturation` function, documents above the pivot would rapidly approach the same maximum score:
 
 ```json
 {
@@ -424,7 +426,7 @@ In the example dataset, the `popularity` field ranges from `1` to `500`. The `lo
 
 ### Sigmoid function
 
-The `sigmoid` function provides a smooth, S-shaped scoring curve which is especially useful when you want to control the steepness and midpoint of the scoring impact. The score is derived using formulae: `rank feature field value^exp / (rank feature field value^exp + pivot^exp)`, see following example of a query using `sigmoid` function with configured `pivot` and `exponent`:
+The `sigmoid` function provides a smooth, S-shaped scoring curve, which is especially useful when you want to control the steepness and midpoint of the scoring impact. The score is derived using the formula `rank feature field value^exp / (rank feature field value^exp + pivot^exp)`. The following example uses a `sigmoid` function with a configured `pivot` and `exponent`. The `pivot` defines the value at which the score is 0.5. The `exponent` controls how steep the curve is. Lower values result in a sharper transition around the pivot:
 
 ```json
 POST /products/_search
@@ -442,10 +444,8 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-* `pivot` defines the value at which the score is 0.5.
-* `exponent` controls how steep the curve is. Lower values result in a sharper transition around the pivot.
 
-The sigmoid function smoothly boosts scores around the `pivot` (`50` in this case), giving moderate preference to values near the pivot while flattening out both high and low extremes:
+The sigmoid function smoothly boosts scores around the `pivot` (in this example,`50`), giving moderate preference to values near the pivot while flattening out both high and low extremes:
 
 ```json
 {
