@@ -29,7 +29,7 @@ jobs:
         with:
           script: |
             let assignee = context.payload.pull_request.user.login;
-            const prOwners = ['Naarcha-AWS', 'kolchfa-aws', 'natebower'];
+            const prOwners = ['kolchfa-aws', 'natebower'];
             
             if (!prOwners.includes(assignee)) {
               assignee = 'kolchfa-aws'
