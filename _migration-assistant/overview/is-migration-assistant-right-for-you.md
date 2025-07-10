@@ -19,7 +19,6 @@ Migration Assistant also supports live traffic replication, enabling zero-downti
 
 The following matrix shows which source versions can be directly migrated to which OpenSearch target versions:
 
-
 <!-- Migration matrix rendering logic retained -->
 {% comment %}First, collect all unique target versions{% endcomment %}
 {% assign all_targets = "" | split: "" %}
@@ -62,7 +61,7 @@ The following matrix shows which source versions can be directly migrated to whi
 
 **Supported AWS Regions**
 
-Refer to [AWS Supported Regions](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/plan-your-deployment.html#supported-aws-regions) for the for the full list of supported regions.
+Refer to [AWS Supported Regions](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/plan-your-deployment.html#supported-aws-regions) for the full list of supported regions.
 
 ## Supported features
 
@@ -78,9 +77,8 @@ Before starting an upgrade or migration, consider the cluster feature to be incl
 | **Aliases**   | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
 | **Index State Management (ISM) policies**  | Expected in 2025    | Manually migrate using an API. For more information about ISM support, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944). |
 | **Elasticsearch Kibana dashboards** | Expected in 2025 | This tool is only needed when migrating from Elasticsearch Kibana dashboards to OpenSearch Dashboards. Start by exporting JSON files from Kibana and importing them into OpenSearch Dashboards. For Elasticsearch versions 7.10.2 to 7.17, use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool before importing X-Pack visualizations like Canvas and Lens in Kibana dashboards, as they may require recreation for compatibility with OpenSearch.|
-| **Security constructs**   | No   | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, leverage AWS Identity and Access Management (IAM) for enhanced security management. |
+| **Security constructs**   | No   | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, use AWS Identity and Access Management (IAM) for enhanced security management. |
 | **Plugins**  | No  | Check plugin compatibility; some Elasticsearch plugins may not have direct OpenSearch equivalents. |
-
 
 ## Checklist
 
@@ -108,6 +106,8 @@ Migration Assistant requires network connectivity to AWS services and outbound i
 
 #### Source and Target Connectivity
 
+To meet connectivity requirements, ensure the following:
+
 - You must establish connectivity between:
   - The source cluster and/or Amazon S3 (for snapshots, which may only require updating the bucket policy) and Migration Assistant
   - The target cluster and Migration Assistant
@@ -118,14 +118,18 @@ Migration Assistant requires network connectivity to AWS services and outbound i
 
 #### Deploying into a New VPC
 
-- Migration Assistant provisions a new VPC with required components (e.g., NAT gateway, subnets).
+When deploying into a new VPC, consider the following:
+
+- Migration Assistant provisions a new VPC with required components (for example, NAT gateway, subnets).
 - You must establish network access from this VPC to both the source and target clusters.
 
 #### Deploying into an Existing VPC
 
-- If installing Migration Assistant into an existing VPC (e.g., same VPC as the source or target), you may need to configure connectivity to any cluster external to the target VPC.
+When deploying into an existing VPC, follow these considerations:
+
+- If installing Migration Assistant into an existing VPC (for example, same VPC as the source or target), you may need to configure connectivity to any cluster external to the target VPC.
   - For example, if installed in the source VPC, you may need VPC endpoints or peering to reach the target.
-  
+
 - Ensure all required AWS services are reachable by Migration Assistant components.
 
   - If the VPC has outbound access using:
@@ -136,7 +140,7 @@ Migration Assistant requires network connectivity to AWS services and outbound i
 
   - If using isolated subnets with no outbound access, you must configure VPC interface endpoints or routing to the following services:
 
-    - **Amazon Application Load Balancer (ALB)** – *(`Capture-and-Replay` only)* - Used to optionally reroute client traffic from the source to the target during migration.
+    - **Amazon Application Load Balancer (ALB)** – *(Capture-and-Replay only)* – Used to optionally reroute client traffic from the source to the target during migration.
     - **Amazon CloudWatch** – Publishes migration metrics.
     - **Amazon CloudWatch Logs** – Ingests ECS task logs.
     - **Amazon EC2** – Used to bootstrap Migration Assistant. When deploying using CloudFormation, the bootstrap EC2 instance requires outbound internet access (using NAT gateway or IGW) to download the latest release from GitHub.
@@ -144,7 +148,7 @@ Migration Assistant requires network connectivity to AWS services and outbound i
     - **Amazon Elastic Container Registry (Amazon ECR)** – Pulls container images.
     - **Amazon Elastic Container Service (Amazon ECS)** – Orchestrates container workloads.
     - **Amazon Elastic File System (Amazon EFS)** – Stores persistent logs.
-    - **Amazon Managed Streaming for Apache Kafka** – *(`Capture-and-Replay` only)* - Used as a durable storage to capture and replay HTTP live traffic.
+    - **Amazon Managed Streaming for Apache Kafka** – *(Capture-and-Replay only)* – Used as a durable storage to capture and replay HTTP live traffic.
     - **Amazon S3** – Stores and retrieves snapshots and artifacts.
     - **AWS Elastic Load Balancing (ELB)** – *(Capture-and-Replay only)* – Used by the Migration console to connect to the Application Load Balancer.
     - **AWS Secrets Manager** – Securely stores credentials when using basic authentication on source or target.
@@ -153,16 +157,20 @@ Migration Assistant requires network connectivity to AWS services and outbound i
     - **AWS X-Ray** – Supports distributed tracing.
     - **Amazon VPC** – Ensure proper routing, DNS resolution, and endpoint configuration.
 
-### Reindex-from-Snapshot
+### Reindex-from-snapshot
+
+To use Reindex-from-Snapshot, ensure the following:
 
 - The `_source` field must be enabled on all indexes to be migrated. See [Source documentation]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/).
 - The source cluster must have the Amazon S3 plugin installed.
-- If you choose to bring your own snapshot (i.e., one not created by Migration Assistant), the following settings must be applied when creating the snapshot:
+- If you choose to bring your own snapshot (that is, one not created by Migration Assistant), the following settings must be applied when creating the snapshot:
   - `include_global_state: true` – Ensures that global cluster state is included.
   - `compress: false` – Disables metadata compression, which is required for compatibility with Reindex-from-Snapshot.
 - Shards up to **80 GiB** are supported by default. Larger shard sizes can be configured, except in **AWS GovCloud**, where 80 GiB is the maximum.
 
-### Capture-and-Replay
+### Capture-and-replay
+
+Capture-and-Replay has the following requirements:
 
 - The Traffic Capture Proxy must be deployed to intercept client traffic.
 - Live capture is recommended only for workloads with **< 4 TB/day** of incoming traffic to the source cluster.
