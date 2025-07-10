@@ -15,7 +15,7 @@ This quickstart outlines how to deploy Migration Assistant for OpenSearch and ex
 Before using this quickstart, make sure you review ["Is Migration Assistant right for you?"]({{site.url}}{{site.baseurl}}/migration-assistant/overview/is-migration-assistant-right-for-you/#supported-migration-paths).
 
 
- Since this guide uses [AWS Cloud Development Kit](https://aws.amazon.com/cdk/), ensure the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
+Because this guide uses [AWS Cloud Development Kit](https://aws.amazon.com/cdk/), make sure that the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
 ---
 
