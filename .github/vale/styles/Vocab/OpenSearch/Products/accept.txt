@@ -13,7 +13,7 @@ Anthropic Claude
 Apache Kafka
 Auditbeat
 AWS Cloud
-Capture-and-Replay
+Capture and Replay
 Cohere Command
 Cohere Embed
 Cohere Embed English
