@@ -12,22 +12,10 @@ redirect_from:
 
 This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, the steps can be modified for use with other cloud providers.
 
-## Prerequisites and assumptions
+Before using this quickstart, make sure you review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/overview/is-migration-assistant-right-for-you/#supported-migration-paths).
 
-Before using this quickstart, make sure you fulfill the following prerequisites:
 
-* Verify that your migration path [is supported]({{site.url}}{{site.baseurl}}/migration-assistant/overview/is-migration-assistant-right-for-you/#supported-migration-paths). Note that we test with the exact versions specified, but you should be able to migrate data on alternative minor versions as long as the major version is supported.
-* The source cluster must be deployed Amazon Simple Storage Service (Amazon S3) plugin.
-* The target cluster must be deployed.
-* Verify that the `CDKToolkit` stack exists and is set to `CREATE_COMPLETE`. For more information about how to bootstrap your AWS account in the required AWS Region, see [the CDKToolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
-
-The steps in this guide assume the following:
-
-* In this guide, a snapshot will be taken and stored in Amazon S3; the following assumptions are made about this snapshot:
-  * The `_source` flag is enabled on all indexes to be migrated.
-  * The snapshot includes the global cluster state (`include_global_state` is `true`).
-  * Shard sizes of up to approximately 80 GB are supported. Larger shards cannot be migrated. If this presents challenges for your migration, contact the [migration team](https://opensearch.slack.com/archives/C054JQ6UJFK).
-* Migration Assistant will be installed in the same AWS Region and have access to both the source snapshot and target cluster.
+Because this guide uses [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/), make sure that the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
 ---
 
