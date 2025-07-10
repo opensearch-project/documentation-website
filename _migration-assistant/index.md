@@ -8,10 +8,6 @@ has_toc: false
 permalink: /migration-assistant/
 redirect_from:
   - /migration-assistant/index/
-  - /migration-assistant/overview/
-  - /upgrade-to/index/
-  - /upgrade-to/
-  - /upgrade-to/upgrade-to/
   - /upgrade-to/snapshot-migrate/
 items:
   - heading: "Is Migration Assistant right for you?"

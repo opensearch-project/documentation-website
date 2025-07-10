@@ -3,7 +3,6 @@ layout: default
 title: Handling breaking changes in field types
 nav_order: 60
 parent: Planning your migration
-grand_parent: Migration phases
 ---
 
 # Handling breaking changes in field types

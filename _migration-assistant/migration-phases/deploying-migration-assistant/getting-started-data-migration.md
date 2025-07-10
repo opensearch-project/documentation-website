@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Getting started with data migration
-parent: Deploying Migration Assistant
+nav_exclude: true
 nav_order: 10
 permalink: /migration-assistant/deploying-migration-assistant/getting-started-data-migration/
 redirect_from:

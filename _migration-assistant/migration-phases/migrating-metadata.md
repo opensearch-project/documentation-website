@@ -1,12 +1,13 @@
 ---
 layout: default
-title: Migrating metadata
-nav_order: 85
+title: Migrate Metadata
+nav_order: 5
 parent: Migration phases
-permalink: /migration-assistant/migration-phases/migrating-metadata/
+redirect_from:
+  - /migration-assistant/migration-phases/migrating-metadata
 ---
 
-# Migrating metadata
+# Migrate metadata
 
 Metadata migration involves creating a snapshot of your cluster and then migrating the metadata from the snapshot using the migration console.
 
@@ -128,7 +129,7 @@ Results:
 ```
 
 
-## Using the migrate command
+## Using the `migrate` command
 
 Running through the same data as the evaluate command all of the migrated items will be applied onto the target cluster.  If re-run multiple times items that were previously migrated will not be recreated.  If any items do need to be re-migrated, please delete them from the target cluster and then rerun the evaluate then migrate commands to ensure the desired changes are made.
 

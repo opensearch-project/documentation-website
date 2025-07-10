@@ -2,7 +2,7 @@
 layout: default
 title: Live traffic migration
 nav_order: 99
-parent: Migration phases
+nav_exclude: true
 permalink: /live-traffic-migration/
 has_toc: false
 has_children: true

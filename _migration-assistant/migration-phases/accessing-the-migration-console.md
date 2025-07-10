@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Accessing the Migration Console
-parent: Deploying Migration Assistant
+parent: Migration phases
 nav_order: 10
-redirect_from:
 ---
+
 # Accessing the Migration Console
 
 The Migrations Assistant deployment includes an ECS task that hosts tools to run different phases of the migration and check the progress or results of the migration.

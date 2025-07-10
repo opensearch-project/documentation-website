@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Deploy
+title: Deploying Migration Assistant
 parent: Migration phases
 nav_order: 2
 redirect_from:
@@ -9,6 +9,7 @@ redirect_from:
 ---
 
 # Deploying Migration Assistant
+
 This document assumes you have performed assessment.
 
 ---

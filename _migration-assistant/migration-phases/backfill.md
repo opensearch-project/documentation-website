@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Migrate Data
+title: Using backfill
 nav_order: 6
 parent: Migration phases
 permalink: /migration-assistant/migration-phases/backfill/
 ---
 
-# Backfill
+# Using backfill
 
 After the [metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/) for your cluster has been migrated, you can use capture proxy data replication and snapshots to backfill your data into the next cluster.
 

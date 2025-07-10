@@ -5,9 +5,9 @@ nav_order: 4
 parent: Migration phases
 ---
 
-## Creating snapshot
+# Creating a snapshot
 
-TODO: Add Bring your own snapshot
+<----!TODO: Add Bring your own snapshot-----!>
 
 Creating a snapshot of the source cluster captures all the metadata and documents to be migrated to a new target cluster.
 
@@ -41,11 +41,11 @@ Anticipated duration remaining: 0h 0m 0s
 Throughput: 38.13 MiB/sec
 ```
 
-### Managing slow snapshot speeds
+## Managing slow snapshot speeds
 
 Depending on the size of the data in the source cluster and the bandwidth allocated for snapshots, the process can take some time. Adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic. 
 
-## Command arguments
+### Command arguments
 
 For the following commands, to identify all valid arguments, please run with `--help`.
 
@@ -121,7 +121,7 @@ Results:
 ```
 
 
-## Using the migrate command
+## Using the `migrate` command
 
 Running through the same data as the evaluate command all of the migrated items will be applied onto the target cluster.  If re-run multiple times items that were previously migrated will not be recreated.  If any items do need to be re-migrated, please delete them from the target cluster and then rerun the evaluate then migrate commands to ensure the desired changes are made.
 
@@ -241,4 +241,4 @@ As Metadata migration supports migrating from ES 6.8 on to the latest versions o
 For additional technical details, [view the mapping type removal source code](https://github.com/opensearch-project/opensearch-migrations/blob/main/transformation/src/main/java/org/opensearch/migrations/transformation/rules/IndexMappingTypeRemoval.java).
 
 TODO: Add troublshooting
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verify-backfill-components/">Verify Backfill Components</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verifying-backfill-components/">Verify Backfill Components</a></li>

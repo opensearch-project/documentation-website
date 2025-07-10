@@ -1,9 +1,8 @@
 ---
 layout: default
-title: Replay
+title: Using Traffic Replayer
 nav_order: 7
-grand_parent: Migration phases
-parent: Live traffic migration
+parent: Migration phases
 redirect_from:
   - /migration-assistant/migration-phases/using-traffic-replayer/
 ---

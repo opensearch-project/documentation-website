@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Assess
+title: Assessing your cluster for migration
 nav_order: 1
 parent: Migration phases
 redirect_from:
-  - /migration-assistant/migration-phases/assessing-your-cluster-for-migration/
+  - /migration-assistant/migration-phases/planning-your-migration/assessing-your-cluster-for-migration/
 ---
 
 # Assessing your cluster for migration

@@ -2,7 +2,6 @@
 layout: default
 title: Planning your migration
 nav_order: 59
-parent: Migration phases
 has_toc: false
 has_children: true 
 ---
@@ -11,5 +10,5 @@ has_children: true
 
 This section describes how to plan for your migration to OpenSearch by:
 
-- [Assessing your current cluster for migration]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/planning-your-migration/assessing-your-cluster-for-migration/).
-- [Verifying that you have the tools for migration]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/planning-your-migration/verifying-migration-tools/).
+- [Assessing your current cluster for migration]({{site.url}}{{site.baseurl}}/migration-assistant/planning-your-migration/assessing-your-cluster-for-migration/).
+- [Verifying that you have the tools for migration]({{site.url}}{{site.baseurl}}/migration-assistant/planning-your-migration/verifying-migration-tools/).

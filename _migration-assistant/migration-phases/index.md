@@ -6,7 +6,6 @@ nav_order: 30
 has_children: true
 has_toc: false
 permalink: /migration-assistant/migration-phases/
-redirect-from: /migration-assistant/migration-phases/index/
 ---
 
 # Migration phases
@@ -41,9 +40,9 @@ details[open] {
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deployment/">Deployment</a></li>
 
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/create-snapshot/">Create Snapshot</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/">Migrate Metadata</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/">Migrate Data</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/teardown/">Teardown</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/removing-migration-infrastructure/">Teardown</a></li>
 </ol>
 
 </details>
@@ -54,10 +53,10 @@ details[open] {
 <ol>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/">Assessment</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deployment/">Deployment</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verify-backfill-components/">Verify Backfill Components</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verifying-migration-tools/verifying-backfill-components/">Verify Backfill Components</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-source-to-proxy/">Reroute Traffic from Source to Capture Proxy</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verify-live-capture-components/">Verify Live Capture Components</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/">Migrate Metadata</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verifying-migration-tools/verifying-live-capture-components/">Verify Live Capture Components</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/">Replay Captured Traffic</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/switching-traffic-from-the-source-cluster/">Reroute Traffic from Capture Proxy to Target</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/teardown/">Teardown</a></li>

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Live Capture Setup Verification
+title: Verifying live capture components
 nav_order: 9
-redirect_from:
-  - /migration-assistant/migration-phases/verifying-migration-tools/
+grand_parent: Migration phases
+parent: Verifying migration tools
 ---
 
-# Verifying migration tools
+# Verifying live capture components
 
 Before using the Migration Assistant, take the following steps to verify that your cluster is ready for migration.
 

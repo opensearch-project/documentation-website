@@ -3,7 +3,6 @@ layout: default
 title: Managing type mapping deprecation
 nav_order: 60
 parent: Planning your migration
-grand_parent: Migration phases
 ---
 
 # Managing type mapping deprecation

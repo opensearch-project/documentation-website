@@ -1,15 +1,14 @@
 ---
 layout: default
-title: Verifying migration tools
-nav_order: 70
-parent: Planning your migration
-grand_parent: Migration phases
-permalink: /migration-assistant/migration-phases/planning-your-migration/verifying-migration-tools/
+title: Verifying backfill components
+grand_parent: Migrations phases
+nav_order: 3
+parent: Verifying migration tools
 redirect_from:
-  - /migration-assistant/migration-phases/verifying-migration-tools/
+  - /migration-assistant/planning-your-migration/migration-phases/verifying-migration-tools/
 ---
 
-# Verifying migration tools
+# Verifying backfill components
 
 Before using the Migration Assistant, take the following steps to verify that your cluster is ready for migration.
 
@@ -190,35 +189,5 @@ After all verifications are complete, reset all resources before using Migration
 
 The following steps outline how to reset resources with Migration Assistant before executing the actual migration. At this point all verifications are expected to have been completed. These steps can be performed after [Accessing the Migration Console]({{site.url}}{{site.baseurl}}/migration-assistant/migration-console/accessing-the-migration-console/).
 
-### Traffic Replayer
 
-To stop running Traffic Replayer, use the following command:
-
-```bash
-console replay stop
-```
-{% include copy.html %}
-
-### Kafka 
-
-To clear all captured traffic from the Kafka topic, you can run the following command. 
-
-This command will result in the loss of any traffic data captured by the capture proxy up to this point and thus should be used with caution.
-{: .warning}
-
-```bash
-console kafka delete-topic
-```
-{% include copy.html %}
-
-### Target cluster 
-
-To clear non-system indexes from the target cluster that may have been created as a result of testing, you can run the following command: 
-
-This command will result in the loss of all data in the target cluster and should be used with caution.
-{: .warning}
-
-```bash
-console clusters clear-indices --cluster target
-```
 {% include copy.html %}
