@@ -100,11 +100,11 @@ If you answered "yes" to most of these questions, Migration Assistant is likely 
 
 Before using Migration Assistant, review the following assumptions and limitations.
 
-### Networking and Environment
+### Networking and environment
 
 Migration Assistant requires network connectivity to AWS services and outbound internet access to build and deploy. Requirements differ based on whether you're deploying into a new or existing VPC.
 
-#### Source and Target Connectivity
+#### Source and target connectivity
 
 To meet connectivity requirements, ensure the following:
 
@@ -116,14 +116,14 @@ To meet connectivity requirements, ensure the following:
   - VPC peering
   - AWS Transit Gateway
 
-#### Deploying into a New VPC
+#### Deploying into a new VPC
 
 When deploying into a new VPC, consider the following:
 
 - Migration Assistant provisions a new VPC with required components (for example, NAT gateway, subnets).
 - You must establish network access from this VPC to both the source and target clusters.
 
-#### Deploying into an Existing VPC
+#### Deploying into an existing VPC
 
 When deploying into an existing VPC, follow these considerations:
 
