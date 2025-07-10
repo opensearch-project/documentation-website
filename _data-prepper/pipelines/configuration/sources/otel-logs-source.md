@@ -30,6 +30,7 @@ You can configure the `otel_logs_source` source with the following options.
 | thread_count  | Integer | The number of threads to keep in the `ScheduledThreadPool`. Default value is `500`. |
 | max_connection_count | Integer | The maximum number of open connections allowed. Default value is `500`. |
 | compression | String | The compression type applied to the client request payload. Valid values are `none` or `gzip`. Use `gzip` to apply GZip decompression to the incoming request. Default is `none` (no compression). |
+| output_format | String | Specifies the output format of the generated events. Valid values are `otel` or `opensearch`. Default is `opensearch`. |
 
 ### SSL
 
@@ -52,6 +53,15 @@ To get started, create a `pipeline.yaml` file and add `otel_logs_source` as the 
 source:
     - otel_logs_source:
 ```
+
+To generate data in the OpenTelemetry format, set the `output_format` setting to `otel`, as shown in the following example:
+
+```yaml
+source:
+    - otel_logs_source:
+        output_format: otel
+```
+{% include copy.html %}
 
 ## Metrics
 

@@ -12,7 +12,7 @@ OpenSearch supports the following specialized queries:
 
 - `distance_feature`: Calculates document scores based on the dynamically calculated distance between the origin and a document's `date`, `date_nanos`, or `geo_point` fields. This query can skip non-competitive hits.
 
-- `more_like_this`: Finds documents similar to the provided text, document, or collection of documents.
+- [`more_like_this`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/more-like-this/): Finds documents similar to the provided text, document, or collection of documents.
 
 - [`knn`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/): Used for searching raw vectors during [vector search]({{site.url}}{{site.baseurl}}/vector-search/).
 
@@ -28,4 +28,4 @@ OpenSearch supports the following specialized queries:
 
 - [`script_score`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/): Calculates a custom score for matching documents using a script.
 
-- `wrapper`: Accepts other queries as JSON or YAML strings.
+- [`wrapper`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/wrapper/): Accepts other queries as JSON or YAML strings.
