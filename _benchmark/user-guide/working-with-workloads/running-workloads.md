@@ -41,6 +41,38 @@ Results from the test appear in the directory set by the `--output-path` option 
 
 If you want to run the test in test mode to make sure that your workload operates as intended, add the `--test-mode` option to the `execute-test` command. Test mode ingests only the first 1,000 documents from each index provided and runs query operations against them.
 
+### Working with `--workload-params`
+
+You can customize the behavior of a workload by passing workload-specific parameters using the `--workload-params` option. This flag accepts a comma-separated list of key-value pairs that override default values defined in the workload’s `workload.json` file.
+
+For example, some workloads let you configure the number of documents indexed, the number of clients used for query execution, or the index name. These parameters can be critical for tailoring benchmarks to your specific use case or infrastructure constraints.
+
+To pass workload parameters, use the following syntax:
+
+```bash
+--workload-params="number_of_documents:100000,index_name:custom-index"
+```
+
+Add this option to your `execute-test` command as shown in the following example:
+
+```bash
+opensearch-benchmark execute-test \
+--pipeline=benchmark-only \
+--workload=nyc_taxis \
+--target-host=https://localhost:9200 \
+--client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false \
+--workload-params="bulk_size:500,index_name:nyc_custom"
+```
+
+To find available workload parameters for a given workload, use the following steps:
+
+1. Navigate to the workload’s directory in the [OpenSearch Benchmark Workloads GitHub repository](https://github.com/opensearch-project/opensearch-benchmark-workloads).
+2. Open the `workload.json` file.
+3. Look for parameter definitions under the `params` section or within individual operation templates.
+
+Each workload documents its available parameters in the `workload.json` file, making it the authoritative source for customizing benchmark runs.
+
+
 ## Step 3: Validate the test
 
 After running an OpenSearch Benchmark test, take the following steps to verify that it has run properly:
