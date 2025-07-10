@@ -2,8 +2,7 @@
 layout: default
 title: Configuration options
 nav_order: 15
-nav_exclude: true
-permalink: /migration-assistant/deploying-migration-assistant/configuration-options/
+parent: Deploying Migration Assistant
 ---
 
 # Configuration options
@@ -98,11 +97,20 @@ The following sample CDK performs a live capture migration with C&R:
             "passwordFromSecretArn": <TARGET_CLUSTER_PASSWORD_SECRET>
         }
     },
-    "captureProxyServiceEnabled": true,
-    "captureProxyExtraArgs": "",
+
+    "// settingsForCaptureAndReplay": "Enable the following services for live traffic capture and replay:",
     "trafficReplayerServiceEnabled": true,
-    "trafficReplayerExtraArgs": "--speedup-factor 2.0",
-    "targetClusterProxyServiceEnabled": true
+
+    "// help trafficReplayerExtraArgs": "Increase the speedup factor to replay requests at a faster rate in order to catch up.",
+    "trafficReplayerExtraArgs": "--speedup-factor 1.5",
+
+    "// help capture/target proxy pt. 1 of 2": "captureProxyService and targetClusterProxyService deployment will fail without network access to clusters.",
+    "// help capture/target proxy pt. 2 of 2": "In most cases, keep the desired count setting at `0` until you verify connectivity in the migration console. After verifying connectivity, you can redeploy with a higher desired count.",
+    "captureProxyServiceEnabled": true,
+    "captureProxyDesiredCount": 3,
+    "targetClusterProxyServiceEnabled": true,
+    "targetClusterProxyDesiredCount": 3
+
   }
 }
 ```
@@ -111,13 +119,15 @@ The following sample CDK performs a live capture migration with C&R:
 Performing a live capture migration requires that a Capture Proxy be configured to capture incoming traffic and send it to the target cluster using the Traffic Replayer service. For arguments available in `captureProxyExtraArgs`, refer to the `@Parameter` fields [here](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java). For `trafficReplayerExtraArgs`, refer to the `@Parameter` fields [here](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). At a minimum, no extra arguments may be needed.
 
 
-| Name  | Example  | Description   |
-| :--- | :--- | :--- |
-| `captureProxyServiceEnabled`    | `true`  | Enables the Capture Proxy service deployment using an AWS CloudFormation stack.  |
-| `captureProxyExtraArgs`  | `"--suppressCaptureForHeaderMatch user-agent .*elastic-java/7.17.0.*"`  | Extra arguments for the Capture Proxy command, including options specified by the [Capture Proxy](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java).  |
-| `trafficReplayerServiceEnabled` | `true`  | Enables the Traffic Replayer service deployment using a CloudFormation stack.  |
-| `trafficReplayerExtraArgs`      | `"--sigv4-auth-header-service-region es,us-east-1 --speedup-factor 5"`                 | Extra arguments for the Traffic Replayer command, including options for auth headers and other parameters specified by the [Traffic Replayer](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). |
-| `targetClusterProxyServiceEnabled` | `true` | Enables the target cluster proxy service deployment using a CloudFormation stack. |
+| Name  | Example                                                                | Description   |
+| :--- |:-----------------------------------------------------------------------| :--- |
+| `captureProxyServiceEnabled`    | `true`                                                                 | Enables the Capture Proxy service deployment using an AWS CloudFormation stack.  |
+| `captureProxyExtraArgs`  | `"--suppressCaptureForHeaderMatch user-agent .*elastic-java/7.17.0.*"` | Extra arguments for the Capture Proxy command, including options specified by the [Capture Proxy](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java).  |
+| `captureProxyDesiredCount`  | `0`                                                                    |  Sets the number of Capture Proxy Amazon Elastic Container Service (Amazon ECS) tasks. In most cases, keep this setting at `0` until you verify connectivity between the source and target clusters in the migration console. After deployment, you can modify the networking setup to allow ingress from the migration security groups into the existing cluster security groups.  |
+| `trafficReplayerServiceEnabled` | `true`                                                                 | Enables the Traffic Replayer service deployment using a CloudFormation stack.  |
+| `trafficReplayerExtraArgs`      | `"--sigv4-auth-header-service-region es,us-east-1 --speedup-factor 5"` | Extra arguments for the Traffic Replayer command, including options for auth headers and other parameters specified by the [Traffic Replayer](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java). |
+| `targetClusterProxyServiceEnabled` | `true`                                                                 | Enables the target cluster proxy service deployment using a CloudFormation stack. |
+| `targetClusterProxyDesiredCount`  | `0`                                                                    | Sets the number of target cluster proxy Amazon ECS tasks. In most cases, keep this setting at `0` until you verify connectivity between the source and target clusters in the migration console. After deployment, you can modify the networking setup to allow ingress from the migration security groups into the existing cluster security groups.  |
 
 For arguments available in `captureProxyExtraArgs`, see the `@Parameter` fields in [`CaptureProxy.java`](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficCaptureProxyServer/src/main/java/org/opensearch/migrations/trafficcapture/proxyserver/CaptureProxy.java). For `trafficReplayerExtraArgs`, see the `@Parameter` fields in [`TrafficReplayer.java`](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/trafficReplayer/src/main/java/org/opensearch/migrations/replay/TrafficReplayer.java).
 
