@@ -27,7 +27,7 @@ breaking_changes:
     comp: []
     transformation:
       title: "Type Mapping Deprecation"
-      url: "https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/"
+      url: "https://docs.opensearch.org/docs/latest/migration-assistant/planning-your-migration/handling-type-mapping-deprecation/"
   - title: "OpenSearch 3.x: Breaking Changes"
     url: "/docs/latest/breaking-changes/#300"
     introducedIn: "OpenSearch 3.x"
@@ -46,7 +46,7 @@ breaking_changes:
     comp: []
     transformation:
       title: "Type Mapping Deprecation"
-      url: "https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/"
+      url: "https://docs.opensearch.org/docs/latest/migration-assistant/planning-your-migration/handling-type-mapping-deprecation/"
   - title: "Elasticsearch 6.0 - 6.6 Breaking Changes"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes.html"
     introducedIn: "Elasticsearch 6.x"

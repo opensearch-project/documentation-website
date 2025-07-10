@@ -4,6 +4,8 @@ title: Planning your migration
 nav_order: 59
 has_toc: false
 has_children: true 
+redirect_from:
+   - /migration-assistant/migration-phases/planning-your-migration/index/
 ---
 
 # Planning your migration

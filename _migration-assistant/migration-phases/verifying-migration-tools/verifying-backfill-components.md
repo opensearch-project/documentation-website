@@ -5,7 +5,7 @@ grand_parent: Migrations phases
 nav_order: 3
 parent: Verifying migration tools
 redirect_from:
-  - /migration-assistant/planning-your-migration/migration-phases/verifying-migration-tools/
+  - /migration-assistant/planning-your-migration/migration-phases/verifying-backfill-components/
 ---
 
 # Verifying backfill components

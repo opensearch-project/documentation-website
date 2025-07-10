@@ -4,8 +4,7 @@ title: Verifying migration tools
 parent: Migrations phases
 nav_order: 3
 has_children: true
-redirect_from:
-  - /migration-assistant/planning-your-migration/migration-phases/verifying-migration-tools/
+permalink: /migration-assistant/planning-your-migration/migration-phases/verifying-migration-tools/
 ---
 
 # Verifying migration tools
@@ -14,7 +13,7 @@ Before you begin migrating data, it is important to verify that each component o
 
 Use the following pages to verify key components:
 
-- [Verifying backfill components]({{site.url}}{{site.baseurl}}/migration-assistant/planning-your-migration/migration-phases/verifying-migration-tools/verifying-backfill-components/)
-- [Verifying live capture components]({{site.url}}{{site.baseurl}}/migration-assistant/planning-your-migration/migration-phases/verifying-migration-tools/verifying-live-capture-components/)
+- [Verifying backfill components]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verifying-migration-tools/verifying-backfill-components/)
+- [Verifying live capture components]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verifying-migration-tools/verifying-live-capture-components/)
 
 
