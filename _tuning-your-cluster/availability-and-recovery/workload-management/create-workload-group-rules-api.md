@@ -62,7 +62,7 @@ You can retrieve rules created using the Create Workload Group Rules API by rule
 The following request retrieves a rule by ID for the `workload_group` feature type:
 
 ```json
-GET /_rules/workload_group/{_id}
+GET /_rules/workload_group/{id}
 ```
 {% include copy-curl.html %}
 
@@ -90,6 +90,15 @@ The following request provides the next page of rules from the same workload gro
 ```
 {% include copy-curl.html %}
 
+### Delete a rule
+
+The following request deletes a rule using the rule's ID:
+
+```json
+DELETE /_rules/workload_group/{id}
+```
+{% include copy-curl.html %}
+
 ## Example responses
 
 <details open markdown="block"> 
@@ -100,7 +109,7 @@ The following request provides the next page of rules from the same workload gro
 
 ```json
 {
-  "_id": "wi6VApYBoX5wstmtU_8l",
+  "id": "wi6VApYBoX5wstmtU_8l",
   "description": "description for rule",
   "index_pattern": ["log*", "event*"],
   "workload_group": "EITBzjFkQ6CA-semNWGtRQ",
@@ -121,7 +130,7 @@ The following request provides the next page of rules from the same workload gro
 {
   "rules": [
     {
-      "_id": "z1MJApUB0zgMcDmz-UQq",
+      "id": "z1MJApUB0zgMcDmz-UQq",
       "description": "Rule for tagging workload_group_id to index123",
       "index_pattern": ["index123"],
       "workload_group": "workload_group_id",
@@ -137,3 +146,17 @@ If the `search_after` field is present in the response, more results are availab
 To retrieve the next page, include the `search_after` value in the next `GET` request as a query parameter, such as `GET /_rules/{feature_type}?search_after=z1MJApUB0zgMcDmz-UQq`.
 
 </details>
+
+
+<details markdown="block"> 
+  <summary> 
+    Response: Delete rules 
+  </summary> 
+  {: .text-delta }
+
+```json
+{ "acknowledged": true }
+```
+
+</details>
+
