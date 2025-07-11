@@ -11,10 +11,10 @@ redirect_from:
 
 The `scripted_metric` metric is a multi-value metric aggregation that returns metrics calculated from a specified script. The aggregation goes through up to four script stages during execution. These stages run in order and allow you to accumulate and combine results from your documents:
 
-- `init_script`: Runs once per shard before any documents are processed. Use this to set up an initial state (for example, initialize counters or lists in a state object). If not provided, the state starts as an empty object on each shard. (_Optional_)
-- `map_script`: Runs for each document collected by the aggregation. This script updates the state based on the document’s data. For example, you might check a field value and then increment a counter or sum a running total in the state. (In our examples below, the map script will either add or subtract an amount, or categorize a response code.) (_Required_)
-- `combine_script`: Runs once per shard after all documents on that shard have been processed by the map script. This script aggregates the shard’s state into a single result to be sent back to the coordinating node. In practice, you typically use the combine script to finalize the computation for one shard (for example, summing up counters or totals stored in state). The script should return the consolidated value or structure for its shard. (_Required_)
-- `reduce_script`: Runs once on the coordinating node after receiving combined results from all shards. This script receives a special variable states, which is an array containing each shard’s output from the combine script. The reduce script iterates over states and produces the final aggregation output (for example, summing shard sums, or merging maps of counts). The value returned by the reduce script will be the value reported in the aggregation results. (_Required_)
+- `init_script`: Runs once per shard before any documents are processed. Used to set up an initial state. For example, initialize counters or lists in a state object. If not provided, the state starts as an empty object on each shard. (_Optional_)
+- `map_script`: Runs for each document collected by the aggregation. This script updates the state based on the document’s data. For example, you might check the field's value and then increment a counter or sum a running total in the state. (_Required_)
+- `combine_script`: Runs once per shard after all documents on that shard have been processed by the `map_script`. This script aggregates the shard’s state into a single result to be sent back to the coordinating node. This script is used to finalize the computation for one shard. For example, summing up counters or totals stored in state. The script should return the consolidated value or structure for its shard. (_Required_)
+- `reduce_script`: Runs once on the coordinating node after receiving combined results from all shards. This script receives a special variable states, which is an array containing each shard’s output from the combine script. The `reduce_script` iterates over states and produces the final aggregation output. For example, summing shard sums, or merging maps of counts. The value returned by the reduce script will be the value reported in the aggregation results. (_Required_)
 
 All four scripts share a mutable object called `state` that is defined by you. The `state` is local to each shard during the `init`, `map`, and `combine` phases. The result is passed into the states array for the `reduce` phase. Therefore each shard’s `state` is independent until they are combined in the `reduce` step.
 
@@ -22,7 +22,7 @@ All four scripts share a mutable object called `state` that is defined by you. T
 
 Scripts can use any valid operations and objects internally, however the data you store in `state`, or return from any script, must be of permitted types. This restriction exists because the intermediate state needs to be sent between nodes. The allowed types are:
 
-- Primitive types (int, long, float, double, boolean)
+- Primitive types: `int`, `long`, `float`, `double`, `boolean`
 - String
 - Map (with keys and values only of allowed types)
 - Array (containing only allowed types)
