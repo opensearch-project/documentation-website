@@ -23,14 +23,14 @@ When you delete the last model version in a model group, that model group is aut
 
 For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
-#### Example request
+## Example request
 
 ```json
 DELETE _plugins/_ml/model_groups/<model_group_id>
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

@@ -39,7 +39,7 @@ Field | Data type |  Description
 `guardrails`| Object | The guardrails for the model.
 `interface`| Object | The interface for the model.
 
-#### Example request: Disabling a model
+## Example request: Disabling a model
 
 ```json
 PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
@@ -49,7 +49,7 @@ PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
 ```
 {% include copy-curl.html %}
 
-#### Example request: Rate limiting inference calls for a model
+## Example request: Rate limiting inference calls for a model
 
 The following request limits the number of times you can call the Predict API on the model to 4 Predict API calls per minute:
 
@@ -64,7 +64,7 @@ PUT /_plugins/_ml/models/T_S-cY0BKCJ3ot9qr0aP
 ```
 {% include copy-curl.html %}
 
-#### Example requests: Updating the guardrails
+## Example requests: Updating the guardrails
 
 ```json
 PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
@@ -112,7 +112,7 @@ PUT /_plugins/_ml/models/9uGdCJABjaMXYrp14YRj
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -130,7 +130,7 @@ PUT /_plugins/_ml/models/9uGdCJABjaMXYrp14YRj
 }
 ```
 
-#### Example request: Updating the model interface 
+## Example request: Updating the model interface 
 
 You can update a model's interface to define input and output schemas. This is useful when working with models that lack a default interface or require customization. For more information about model interfaces, see [The `Interface` parameter]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-interface-parameter). 
 
@@ -162,7 +162,7 @@ PUT /_plugins/_ml/models/IMcNB5UB7judm8f45nXo
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

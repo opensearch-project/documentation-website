@@ -30,7 +30,7 @@ For information about user access for this API, see [Model access control consid
 POST /_plugins/_ml/models/<model_id>/_deploy
 ```
 
-#### Example request: Deploying to all available ML nodes
+## Example request: Deploying to all available ML nodes
 
 In this example request, OpenSearch deploys the model to any available OpenSearch ML node:
 
@@ -39,7 +39,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 ```
 {% include copy-curl.html %}
 
-#### Example request: Deploying to a specific node
+## Example request: Deploying to a specific node
 
 If you want to reserve the memory of other ML nodes within your cluster, you can deploy your model to a specific node(s) by specifying the `node_ids` in the request body:
 
@@ -51,7 +51,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

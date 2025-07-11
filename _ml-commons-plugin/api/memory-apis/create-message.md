@@ -53,7 +53,7 @@ Field | Data type | Required/Optional | Updatable | Description
 To create or update a message successfully, you must provide at least one of the preceding fields. The provided field(s) cannot be null or empty.
 {: .note}
 
-#### Example request: Create a message
+## Example request: Create a message
 
 ```json
 POST /_plugins/_ml/memory/SXA2cY0BfUsSoeNTz-8m/messages
@@ -69,7 +69,7 @@ POST /_plugins/_ml/memory/SXA2cY0BfUsSoeNTz-8m/messages
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -77,7 +77,7 @@ POST /_plugins/_ml/memory/SXA2cY0BfUsSoeNTz-8m/messages
 }
 ```
 
-#### Example request: Add a field to `additional_info`
+## Example request: Add a field to `additional_info`
 
 ```json
 PUT /_plugins/_ml/memory/message/WnA3cY0BfUsSoeNTI-_J
@@ -89,7 +89,7 @@ PUT /_plugins/_ml/memory/message/WnA3cY0BfUsSoeNTI-_J
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -126,7 +126,7 @@ The updated message contains an additional `feedback` field:
 }
 ```
 
-#### Example request: Change a field in `additional_info`
+## Example request: Change a field in `additional_info`
 
 ```json
 PUT /_plugins/_ml/memory/message/WnA3cY0BfUsSoeNTI-_J
@@ -138,7 +138,7 @@ PUT /_plugins/_ml/memory/message/WnA3cY0BfUsSoeNTI-_J
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

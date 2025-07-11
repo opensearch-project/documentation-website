@@ -32,14 +32,14 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `message_id` | String | The ID of the message to trace.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/message/TAuCZY0BT2tRrkdmCPqZ/traces
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

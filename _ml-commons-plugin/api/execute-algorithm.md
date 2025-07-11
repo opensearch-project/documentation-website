@@ -15,7 +15,7 @@ Some algorithms, such as [Localization]({{site.url}}{{site.baseurl}}/ml-commons-
 POST _plugins/_ml/_execute/<algorithm_name>
 ```
 
-#### Example request: Execute localization 
+## Example request: Execute localization 
 
 The following example uses the Localization algorithm to find subset-level information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest, such as spikes, drops, changes, or anomalies.
 
@@ -44,7 +44,7 @@ POST /_plugins/_ml/_execute/anomaly_localization
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

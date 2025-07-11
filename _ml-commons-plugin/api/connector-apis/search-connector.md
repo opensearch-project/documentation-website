@@ -17,7 +17,7 @@ POST /_plugins/_ml/connectors/_search
 GET /_plugins/_ml/connectors/_search
 ```
 
-#### Example request
+## Example request
 
 ```json
 POST /_plugins/_ml/connectors/_search
@@ -30,7 +30,7 @@ POST /_plugins/_ml/connectors/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

@@ -28,7 +28,7 @@ PUT /_plugins/_ml/model_groups/<model_group_id>
 
 Refer to [Request fields](#request-body-fields) for request field descriptions. 
 
-#### Example request
+## Example request
 
 ```json
 PUT /_plugins/_ml/model_groups/<model_group_id>

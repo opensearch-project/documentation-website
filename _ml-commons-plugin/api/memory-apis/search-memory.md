@@ -22,7 +22,7 @@ GET /_plugins/_ml/memory/_search
 POST /_plugins/_ml/memory/_search
 ```
 
-#### Example request: Searching for all memories
+## Example request: Searching for all memories
 
 ```json
 POST /_plugins/_ml/memory/_search
@@ -35,7 +35,7 @@ POST /_plugins/_ml/memory/_search
 ```
 {% include copy-curl.html %}
 
-#### Example request: Searching for a memory by name
+## Example request: Searching for a memory by name
 
 ```json
 POST /_plugins/_ml/memory/_search
@@ -51,7 +51,7 @@ POST /_plugins/_ml/memory/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

@@ -42,7 +42,7 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `workflow_step` | String | The name of the step to retrieve. Specify multiple step names as a comma-separated list. For example, `create_connector,delete_model,deploy_model`. |
 
-#### Example request
+## Example request
 
 To fetch all workflow steps, use the following request:
 
@@ -59,7 +59,7 @@ GET /_plugins/_flow_framework/workflow/_step?workflow_steps=create_connector,del
 {% include copy-curl.html %}
 
 
-#### Example response
+## Example response
 
 OpenSearch responds with the workflow steps. The order of fields in the returned steps may not exactly match the original JSON but will function identically.
 

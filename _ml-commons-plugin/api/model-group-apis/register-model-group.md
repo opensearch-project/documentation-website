@@ -33,7 +33,7 @@ Field |Data type | Description
 `backend_roles` | Array | A list of the model owner's backend roles to add to the model. Can be specified only if `access_mode` is `restricted`. Cannot be specified at the same time as `add_all_backend_roles`. Optional.
 `add_all_backend_roles` | Boolean | If `true`, all backend roles of the model owner are added to the model group. Default is `false`. Cannot be specified at the same time as `backend_roles`. Admin users cannot set this parameter to `true`. Optional.
 
-#### Example request
+## Example request
 
 ```json
 POST /_plugins/_ml/model_groups/_register
@@ -45,7 +45,7 @@ POST /_plugins/_ml/model_groups/_register
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -90,7 +90,7 @@ Any user who shares a backend role with the model group can access any model in 
 An admin user can access all model groups regardless of their access mode. 
 {: .note}
 
-#### Example request: A list of backend roles
+## Example request: A list of backend roles
 
 The following request registers a restricted model group, which can be accessed only by users with the `IT` backend role:
 
@@ -105,7 +105,7 @@ POST /_plugins/_ml/model_groups/_register
 ```
 {% include copy-curl.html %}
 
-#### Example request: All backend roles
+## Example request: All backend roles
 
 The following request registers a restricted model group, adding all backend roles of the user to the model group:
 

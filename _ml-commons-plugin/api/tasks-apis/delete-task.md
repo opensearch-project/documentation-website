@@ -19,14 +19,14 @@ ML Commons does not check the task status when running the delete request. There
 DELETE /_plugins/_ml/tasks/<task_id>
 ```
 
-#### Example request
+## Example request
 
 ```json
 DELETE /_plugins/_ml/tasks/xQRYLX8BydmmU1x6nuD3
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

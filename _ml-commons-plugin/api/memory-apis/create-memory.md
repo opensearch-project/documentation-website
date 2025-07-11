@@ -42,7 +42,7 @@ Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `name` | String | Optional | The name of the memory.
 
-#### Example request
+## Example request
 
 ```json
 POST /_plugins/_ml/memory/
@@ -52,7 +52,7 @@ POST /_plugins/_ml/memory/
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
