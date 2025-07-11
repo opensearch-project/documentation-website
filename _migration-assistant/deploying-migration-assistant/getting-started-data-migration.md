@@ -106,7 +106,14 @@ These commands deploy the following stacks:
 
 Use the following steps to configure and deploy RFS, deploy Migration Assistant, and verify installation of the required stacks:
 
-1. Add the source and target cluster password as separate **Secrets** in [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) as an unstructured string. Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment.
+1. Add the basic authentication information (username and password) for both the source and target clusters as separate secrets in [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html). Each secret must include two key-value pairs: one for the username and one for the password. The plaintext of each secret should resemble the following example:
+
+   ```json
+   {"username":"admin","password":"myStrongPassword123!"}
+   ```
+   
+   Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment. 
+
 2. From the same shell as the Bootstrap instance, modify the `cdk.context.json` file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory and configure the following settings:
 
     ```json
@@ -118,8 +125,7 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
             "endpoint": "<TARGET CLUSTER ENDPOINT>",
             "auth": {
                 "type": "basic",
-                "username": "<TARGET CLUSTER USERNAME>",
-                "passwordFromSecretArn": "<TARGET CLUSTER PASSWORD SECRET>"
+                "userSecretArn": "<SECRET_WITH_USERNAME_AND_PASSWORD_KEYS>"
             }
         },
         "sourceCluster": {
@@ -127,8 +133,7 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
             "version": "<SOURCE ENGINE VERSION>",
             "auth": {
                 "type": "basic",
-                "username": "<TARGET CLUSTER USERNAME>",
-                "passwordFromSecretArn": "<TARGET CLUSTER PASSWORD SECRET>"
+                "userSecretArn": "<SECRET_WITH_USERNAME_AND_PASSWORD_KEYS>"
             }
         },
         "reindexFromSnapshotExtraArgs": "<RFS PARAMETERS (see below)>",
