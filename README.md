@@ -21,11 +21,7 @@ The following resources provide important guidance regarding contributions to th
 
 If you encounter problems or have questions when contributing to the documentation, these people can help:
 
-- [cwillum](https://github.com/cwillum)
-- [hdhalter](https://github.com/hdhalter)
 - [kolchfa-aws](https://github.com/kolchfa-aws)
-- [Naarcha-AWS](https://github.com/Naarcha-AWS)
-- [vagimeli](https://github.com/vagimeli)
 
 
 ## Code of conduct
