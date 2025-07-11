@@ -26,14 +26,7 @@ Community contributions remain essential in keeping this documentation comprehen
 
 If you encounter problems or have questions when contributing to the documentation, these people can help:
 
-- [ariamarble](https://github.com/ariamarble)
-- [carolxob](https://github.com/carolxob)
-- [cwillum](https://github.com/cwillum)
-- [hdhalter](https://github.com/hdhalter)
-- [JeffH-AWS](https://github.com/JeffH-AWS)
 - [kolchfa-aws](https://github.com/kolchfa-aws)
-- [Naarcha-AWS](https://github.com/Naarcha-AWS)
-- [vagimeli](https://github.com/vagimeli)
 
 
 ## How the website works
