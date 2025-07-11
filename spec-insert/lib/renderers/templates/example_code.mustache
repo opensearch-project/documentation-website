@@ -1,0 +1,16 @@
+{% capture step1_rest %}
+{{{rest_code}}}
+{% endcapture %}
+
+{% capture step1_python %}
+{{{python_code}}}
+{% endcapture %}
+
+{% capture step1_javascript %}
+{{{javascript_code}}}
+{% endcapture %}
+
+{% include code-block.html
+rest=step1_rest
+python=step1_python
+%}
