@@ -22,8 +22,6 @@ The following resources provide important guidance regarding contributions to th
 If you encounter problems or have questions when contributing to the documentation, these people can help:
 
 - [kolchfa-aws](https://github.com/kolchfa-aws)
-- [Naarcha-AWS](https://github.com/Naarcha-AWS)
-
 
 ## Code of conduct
 
