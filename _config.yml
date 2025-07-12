@@ -89,7 +89,7 @@ collections:
   data-prepper: 
     permalink: /:collection/:path/
     output: true
-  migration-upgrade:
+  migrate-or-upgrade:
     permalink: /:collection/:path/
     output: true
   migration-assistant:
@@ -147,7 +147,7 @@ opensearch_collection:
     install-and-configure:
       name: Install and configure
       nav_fold: true
-    migration-upgrade:
+    migrate-or-upgrade:
       name: Migrate or upgrade
       nav_fold: true
     tuning-your-cluster:

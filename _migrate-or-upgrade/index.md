@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Migration Assistant for OpenSearch
+title: Migrate or upgrade
 nav_order: 1
 has_children: false
 nav_exclude: true
 has_toc: false
-permalink: /migrations-and-upgrades/
+permalink: /migrate-or-upgrade/
 redirect_from:
   - /upgrade-to/index/
   - /upgrade-to/
