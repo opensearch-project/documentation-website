@@ -204,7 +204,7 @@ You can use an existing Amazon Simple Storage Service (Amazon S3) snapshot to pe
 ```
 {% include copy.html %}
 
-The version of the cluster used for the provided snapshot configuration should be aligned with the source cluster version, and thus we require the source cluster version to be specified. If access to the source cluster is not required, it can also be disabled, as shown below:
+The version of the cluster used for the provided snapshot configuration should be aligned with the source cluster version. The source cluster version is required for bring-your-own-snapshot to ensure that the provided snapshot is parsed appropriately. If access to the source cluster is not required for monitoring and verification, it can be disabled as shown below:
 ```json
     "sourceCluster": {
         "disabled": true,
