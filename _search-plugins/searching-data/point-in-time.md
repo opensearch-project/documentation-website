@@ -131,9 +131,9 @@ Function | API | Description
 [Create PIT]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-in-time-api/#create-a-pit) | `POST /<target_indexes>/_search/point_in_time?keep_alive=1h` | Creates a PIT.
 [List PIT]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-in-time-api/#list-all-pits) | `GET /_search/point_in_time/_all` | Lists all PITs.
 [Delete PIT]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-in-time-api/#delete-pits) | `DELETE /_search/point_in_time`<br> `DELETE /_search/point_in_time/_all` | Deletes a PIT or all PITs.
-[PIT segments]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-in-time-api/#pit-segments) | `GET /_cat/pit_segments/_all` | Provides information about the disk utilization of a PIT by describing its Lucene segments.
+[CAT PIT segments]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pit-segments/) | `GET /_cat/pit_segments/_all` | Provides information about the disk utilization of a PIT by describing its Lucene segments.
 
-For required permissions, see [Security model]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-int-time-api#security-model).
+For required permissions, see [Security model]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-in-time-api#security-model).
 
 ## PIT settings
 
