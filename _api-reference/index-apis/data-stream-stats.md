@@ -9,24 +9,12 @@ nav_order: 74
 
 The Data Stream Stats API provides statistics about one or more data streams. This includes information such as the number of backing indexes, store size, and maximum timestamp. This API is useful for monitoring storage and indexing activity across data streams.
 
-<!-- spec_insert_start
-api: indices.data_streams_stats
-component: endpoints
--->
 ## Endpoints
 ```json
 GET /_data_stream/_stats
 GET /_data_stream/{name}/_stats
 ```
-<!-- spec_insert_end -->
 
-<!-- spec_insert_start
-api: indices.data_streams_stats
-component: path_parameters
-include_global: false
-include_deprecated: false
-pretty: false
--->
 ## Path parameters
 
 The following table lists the available path parameters. All path parameters are optional.
@@ -35,15 +23,6 @@ The following table lists the available path parameters. All path parameters are
 | :--- | :--- | :--- |
 | `name` | List or String | A comma-separated list of data streams used to limit the request. Wildcard expressions (`*`) are supported. To target all data streams in a cluster, omit this parameter or use `*`. |
 
-<!-- spec_insert_end -->
-
-<!-- spec_insert_start
-api: indices.data_streams_stats
-component: query_parameters
-include_global: true
-include_deprecated: false
-pretty: false
--->
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -55,8 +34,6 @@ The following table lists the available query parameters. All query parameters a
 | `human` | Boolean | Whether to return human-readable values for statistics. | `false` |
 | `pretty` | Boolean | Whether to pretty format the returned JSON response. | `false` |
 | `source` | String | The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests. | N/A |
-
-<!-- spec_insert_end -->
 
 ## Example
 
