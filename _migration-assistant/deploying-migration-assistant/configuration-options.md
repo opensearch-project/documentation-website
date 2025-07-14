@@ -204,6 +204,15 @@ You can use an existing Amazon Simple Storage Service (Amazon S3) snapshot to pe
 ```
 {% include copy.html %}
 
+The version of the cluster used for the provided snapshot configuration should be aligned with the source cluster version, and thus we require the source cluster version to be specified. If access to the source cluster is not required, it can also be disabled, as shown below:
+```json
+    "sourceCluster": {
+        "disabled": true,
+        "version": "ES 7.10"
+    }
+```
+{% include copy.html %}
+
 By default, Amazon S3 buckets automatically allow roles in the same AWS account (with the appropriate `s3:*` permissions) to access the S3 bucket, regardless of the bucket's AWS Region. If the external S3 bucket is in the same AWS account as the Migration Assistant deployment, no further IAM configuration is required to access the bucket.
 
 If you use a custom permission model with Amazon S3, any access control list (ACL) or custom bucket policy should allow the Migration Assistant task roles for RFS and the migration console to read from the S3 bucket.
