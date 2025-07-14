@@ -71,7 +71,7 @@ If there are no segments (there is no data stored), the API does not return any 
 
 ## Example request: PIT segments of PITs by ID
 
-If you want to list segments for one or several PITs, specify their PIT IDs in the request body:
+To list segments for one or several PITs, specify their PIT IDs in the request body:
 
 ```json
 GET /_cat/pit_segments
