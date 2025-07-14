@@ -23,7 +23,7 @@ PUT /deliveries
   "mappings": {
     "properties": {
       "shipment_id": { "type": "keyword" },
-      "weight_kg": { "type": "float" }
+      "weight_kg": { "type": "double" }
     }
   }
 }
@@ -64,12 +64,19 @@ GET /deliveries/_search
 ```
 {% include copy-curl.html %}
 
-### Sample response
-
 The response contains value of `45.6` corresponding to the sum of `12.5` + `7.8` + `15.0` + `10.3`:
 
 ```json
 {
+  ...
+  "hits": {
+    "total": {
+      "value": 4,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
   "aggregations": {
     "total_weight": {
       "value": 45.6
@@ -101,13 +108,22 @@ GET /deliveries/_search
 ```
 {% include copy-curl.html %}
 
-The response includes `total_weight_grams` of 45600.0:
+The response includes `total_weight_grams` of `45600`:
 
 ```json
 {
+  ...
+  "hits": {
+    "total": {
+      "value": 4,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
   "aggregations": {
     "total_weight_grams": {
-      "value": 45600.0
+      "value": 45600
     }
   }
 }
@@ -128,7 +144,7 @@ GET /deliveries/_search
       "sum": {
         "field": "weight_kg",
         "script": {
-          "source": "_value * 1.1"
+          "source": "Math.round(_value * 110) / 100.0"
         }
       }
     }
@@ -141,6 +157,15 @@ The response reflects a 10% increase applied to the original total weight.
 
 ```json
 {
+  ...
+  "hits": {
+    "total": {
+      "value": 4,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
   "aggregations": {
     "adjusted_weight": {
       "value": 50.16
