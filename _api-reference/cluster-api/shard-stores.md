@@ -9,24 +9,12 @@ nav_order: 70
 
 The `_shard_stores` API provides information about the shard copies for one or more indexes. This API helps to diagnose issues with unallocated shards by indicating why shards are unassigned and providing their current states.
 
-<!-- spec_insert_start
-api: indices.shard_stores
-component: endpoints
--->
 ## Endpoints
 ```json
 GET /_shard_stores
 GET /{index}/_shard_stores
 ```
-<!-- spec_insert_end -->
 
-<!-- spec_insert_start
-api: indices.shard_stores
-component: path_parameters
-include_global: false
-include_deprecated: false
-pretty: false
--->
 ## Path parameters
 
 The following table lists the available path parameters. All path parameters are optional.
@@ -35,16 +23,6 @@ The following table lists the available path parameters. All path parameters are
 | :--- | :--- | :--- |
 | `index` | List or String | List of data streams, indexes, and aliases used to limit the request. |
 
-<!-- spec_insert_end -->
-
-<!-- spec_insert_start
-api: indices.shard_stores
-component: query_parameters
-include_global: false
-include_deprecated: false
-columns: Parameter, Data type, Description, Default
-pretty: true
--->
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
@@ -54,8 +32,6 @@ The following table lists the available query parameters. All query parameters a
 | `expand_wildcards` | List or String | Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | `open`  |
 | `ignore_unavailable` | Boolean | If `true`, missing or closed indexes are not included in the response. | `false` |
 | `status` | List or String | List of shard health statuses used to limit the request. <br> Valid values are: <br> - `all`: Return all shards, regardless of health status. <br> - `green`: The primary shard and all replica shards are assigned. <br> - `red`: The primary shard is unassigned. <br> - `yellow`: One or more replica shards are unassigned. | `yellow,red` |
-
-<!-- spec_insert_end -->
 
 ## Example
 
