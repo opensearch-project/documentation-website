@@ -3,8 +3,6 @@ layout: default
 title: Point in Time
 parent: Search options
 nav_order: 20
-has_children: true
-has_toc: false
 redirect_from:
   - /opensearch/point-in-time/
   - /search-plugins/point-in-time/
@@ -18,7 +16,7 @@ Normally, if you run a query on an index multiple times, the same query may retu
 
 ## Paginating search results
 
-Besides the PIT functionality, there are three ways to [paginate search results]({{site.url}}{{site.baseurl}}/opensearch/search/paginate) in OpenSearch: using the Scroll API, specifying `from` and `size` parameters for your search, and using the `search_after` functionality. However, all three have limitations:
+Besides the PIT functionality, there are three ways to [paginate search results]({{site.url}}{{site.baseurl}}/opensearch/search/paginate/) in OpenSearch: using the Scroll API, specifying `from` and `size` parameters for your search, and using the `search_after` functionality. However, all three have limitations:
 
 - The Scroll API's search results are frozen at the moment of the request, but they are bound to a particular query. Additionally, scroll can only move forward in the search, so if a request for a page fails, the subsequent request skips that page and returns the following one.
 - If you specify the `from` and `size` parameters for your search, the search results are not frozen in time, so they may be inconsistent because of documents being indexed or deleted. The `from` and `size` feature is not recommended for deep pagination because every page request requires processing of all results and filtering them for the requested page.
@@ -123,41 +121,25 @@ GET /_search
 
 In every request you can only query for one slice, so the next query will be the same as the previous one, except the `slice.id` will be `1`.
 
-## Security model
-
-This section describes the permissions needed to use PIT API operations if you are running OpenSearch with the Security plugin enabled.
-
-Users can access all PIT API operations using the `point_in_time_full_access` role. If this role doesn't meet your needs, mix and match individual PIT permissions to suit your use case. Each action corresponds to an operation in the REST API. For example, the `indices:data/read/point_in_time/create` permission lets you create a PIT. The following are the possible permissions:
-
-- `indices:data/read/point_in_time/create` &ndash; Create API
-- `indices:data/read/point_in_time/delete` &ndash; Delete API
-- `indices:data/read/point_in_time/readall` &ndash; List All PITs API
-- `indices:data/read/search` &ndash; Search API
-- `indices:monitor/point_in_time/segments` &ndash; PIT Segments API
-
-For `all` API operations, such as list all and delete all, the user needs the all indexes (*) permission. For API operations such as search, create PIT, or delete list, the user only needs individual index permissions.
-
-The PIT IDs always contain the underlying (resolved) indexes when saved. The following sections describe the required permissions for aliases and data streams.
-
-### Alias permissions
-
-For aliases, users must have either index **or** alias permissions for any PIT operation.
-
-### Data stream permissions
-
-For data streams, users must have both the data stream **and** the data stream's backing index permissions for any PIT operation. For example, the user must have permissions for the `data-stream-11` data stream and for its backing index `.ds-my-data-stream11-000001`.
-
-If users have the data stream permissions only, they will be able to create a PIT, but they will not be able to use the PIT ID for other operations, such as search, without the backing index permissions.
 
 ## API
 
-The following table lists all [Point in Time API]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api) functions.
+The following table lists all [Point in Time API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-int-time-api/) functions.
 
 Function | API | Description
 :--- | :--- | :---
-[Create PIT]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#create-a-pit) | `POST /<target_indexes>/_search/point_in_time?keep_alive=1h` | Creates a PIT.
-[List PIT]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#list-all-pits) | `GET /_search/point_in_time/_all` | Lists all PITs.
-[Delete PIT]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#delete-pits) | `DELETE /_search/point_in_time`<br> `DELETE /_search/point_in_time/_all` | Deletes a PIT or all PITs.
-[PIT segments]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#pit-segments) | `GET /_cat/pit_segments/_all` | Provides information about the disk utilization of a PIT by describing its Lucene segments.
+[Create PIT]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-int-time-api/#create-a-pit) | `POST /<target_indexes>/_search/point_in_time?keep_alive=1h` | Creates a PIT.
+[List PIT]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-int-time-api/#list-all-pits) | `GET /_search/point_in_time/_all` | Lists all PITs.
+[Delete PIT]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-int-time-api/#delete-pits) | `DELETE /_search/point_in_time`<br> `DELETE /_search/point_in_time/_all` | Deletes a PIT or all PITs.
+[PIT segments]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-int-time-api/#pit-segments) | `GET /_cat/pit_segments/_all` | Provides information about the disk utilization of a PIT by describing its Lucene segments.
 
-For information about the relevant cluster and node settings, see [PIT Settings]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#pit-settings).
+For required permissions, see [Security model]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-int-time-api#security-model).
+
+## PIT settings
+
+You can specify the following settings for a PIT.
+
+Setting | Description | Default 
+:--- | :--- | :---
+`point_in_time.max_keep_alive` | A cluster-level setting that specifies the maximum value for the `keep_alive` parameter. | 24h
+`search.max_open_pit_context` | A node-level setting that specifies the maximum number of open PIT contexts for the node. | 300

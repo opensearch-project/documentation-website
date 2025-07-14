@@ -1,18 +1,19 @@
 ---
 layout: default
-title: Point in Time API
-nav_order: 59
+title: Point in Time
+nav_order: 25
 has_children: false
-parent: Point in Time
+parent: Search APIs
 grand_parent: Search options
 redirect_from:
   - /opensearch/point-in-time-api/
   - /search-plugins/point-in-time-api/
+  - /search-plugins/searching-data/point-in-time-api/
 ---
 
-# Point in Time API
+# Point in Time
 
-Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-time/) API to manage PITs. 
+Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-time/) APIs to manage PITs. 
 
 ---
 
@@ -38,17 +39,17 @@ POST /<target_indexes>/_search/point_in_time?keep_alive=1h&routing=&expand_wildc
 
 Parameter | Data type | Description 
 :--- | :--- | :---
-target_indexes | String | The name(s) of the target index(es) for the PIT. May contain a comma-separated list or a wildcard index pattern.
+`target_indexes` | String | The name(s) of the target index(es) for the PIT. May contain a comma-separated list or a wildcard index pattern.
 
 ### Query parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
-keep_alive | Time |  The amount of time to keep the PIT. Every time you access a PIT by using the Search API, the PIT lifetime is extended by the amount of time equal to the `keep_alive` parameter. Required.
-preference | String | The node or the shard used to perform the search. Optional. Default is random.
-routing | String | Specifies to route search requests to a specific shard. Optional. Default is the document's `_id`. 
-expand_wildcards | String | The type of index that can match the wildcard pattern. Supports comma-separated values. Valid values are the following:<br>- `all`: Match any index or data stream, including hidden ones. <br>- `open`: Match open, non-hidden indexes or non-hidden data streams. <br>- `closed`: Match closed, non-hidden indexes or non-hidden data streams. <br>- `hidden`: Match hidden indexes or data streams. Must be combined with `open`, `closed` or both `open` and `closed`.<br>- `none`: No wildcard patterns are accepted.<br> Optional. Default is `open`.
-allow_partial_pit_creation | Boolean | Specifies whether to create a PIT with partial failures. Optional. Default is `true`.
+`keep_alive` | Time |  The amount of time to keep the PIT. Every time you access a PIT by using the Search API, the PIT lifetime is extended by the amount of time equal to the `keep_alive` parameter. Required.
+`preference` | String | The node or the shard used to perform the search. Optional. Default is random.
+`routing` | String | Specifies to route search requests to a specific shard. Optional. Default is the document's `_id`. 
+`expand_wildcards` | String | The type of index that can match the wildcard pattern. Supports comma-separated values. Valid values are the following:<br>- `all`: Match any index or data stream, including hidden ones. <br>- `open`: Match open, non-hidden indexes or non-hidden data streams. <br>- `closed`: Match closed, non-hidden indexes or non-hidden data streams. <br>- `hidden`: Match hidden indexes or data streams. Must be combined with `open`, `closed` or both `open` and `closed`.<br>- `none`: No wildcard patterns are accepted.<br> Optional. Default is `open`.
+`allow_partial_pit_creation` | Boolean | Specifies whether to create a PIT with partial failures. Optional. Default is `true`.
 
 #### Example request
 
@@ -75,8 +76,8 @@ POST /my-index-1/_search/point_in_time?keep_alive=100m
 
 Field | Data type | Description 
 :--- | :--- | :---  
-pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | The PIT ID.
-creation_time | long | The time the PIT was created, in milliseconds since the epoch. 
+`pit_id` | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) | The PIT ID.
+`creation_time` | long | The time the PIT was created, in milliseconds since the epoch. 
 
 ## Extend a PIT time
 
@@ -146,15 +147,15 @@ GET /_search/point_in_time/_all
 
 Field | Data type | Description 
 :--- | :--- | :---  
-pits | Array of JSON objects | The list of all PITs. 
+`pits` | Array of JSON objects | The list of all PITs. 
 
 Each PIT object contains the following fields.
 
 Field | Data type | Description 
 :--- | :--- | :---  
-pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | The PIT ID.
-creation_time | long | The time the PIT was created, in milliseconds since the epoch. 
-keep_alive | long |  The amount of time to keep the PIT, in milliseconds.
+`pit_id` | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) | The PIT ID.
+`creation_time` | long | The time the PIT was created, in milliseconds since the epoch. 
+`keep_alive` | long |  The amount of time to keep the PIT, in milliseconds.
 
 ## Delete PITs
 Introduced 2.4
@@ -180,7 +181,7 @@ If you want to delete one or several PITs, specify their PIT IDs in the request 
 
 Field | Data type | Description  
 :--- | :--- | :---
-pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) or an array of binaries | The PIT IDs of the PITs to be deleted. Required.
+`pit_id` | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) or an array of binaries | The PIT IDs of the PITs to be deleted. Required.
 
 #### Example request: Delete PITs by ID
 
@@ -218,56 +219,31 @@ For each PIT, the response contains a JSON object with a PIT ID and a `successfu
 
 Field | Data type | Description  
 :--- | :--- | :---
-successful | Boolean | Whether the delete operation was successful.
-pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary)  | The PIT ID of the PIT to be deleted.
+`successful` | Boolean | Whether the delete operation was successful.
+`pit_id` | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/)  | The PIT ID of the PIT to be deleted.
 
-## PIT segments
-Introduced 2.4
-{: .label .label-purple }
+## Security model
 
-Similarly to the [CAT Segments API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-segments), the PIT Segments API provides low-level information about the disk utilization of a PIT by describing its Lucene segments. The PIT Segments API supports listing segment information of a specific PIT by ID or of all PITs at once.
+This section describes the permissions needed to use PIT API operations if you are running OpenSearch with the Security plugin enabled.
 
-#### Example request: PIT segments of all PITs
+Users can access all PIT API operations using the `point_in_time_full_access` role. If this role doesn't meet your needs, mix and match individual PIT permissions to suit your use case. Each action corresponds to an operation in the REST API. For example, the `indices:data/read/point_in_time/create` permission lets you create a PIT. The following are the possible permissions:
 
-```json
-GET /_cat/pit_segments/_all
-```
+- `indices:data/read/point_in_time/create` &ndash; Create API
+- `indices:data/read/point_in_time/delete` &ndash; Delete API
+- `indices:data/read/point_in_time/readall` &ndash; List All PITs API
+- `indices:data/read/search` &ndash; Search API
+- `indices:monitor/point_in_time/segments` &ndash; PIT Segments API
 
-If you want to list segments for one or several PITs, specify their PIT IDs in the request body.
+For `all` API operations, such as list all and delete all, the user needs the all indexes (*) permission. For API operations such as search, create PIT, or delete list, the user only needs individual index permissions.
 
-### Request body fields
+The PIT IDs always contain the underlying (resolved) indexes when saved. The following sections describe the required permissions for aliases and data streams.
 
-Field | Data type | Description  
-:--- | :--- | :---
-pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) or an array of binaries | The PIT IDs of the PITs whose segments are to be listed. Required.
+### Alias permissions
 
-#### Example request: PIT segments of PITs by ID
+For aliases, users must have either index **or** alias permissions for any PIT operation.
 
-```json
-GET /_cat/pit_segments
+### Data stream permissions
 
-{
-    "pit_id": [
-        "o463QQEPbXktaW5kZXgtMDAwMDAxFkhGN09fMVlPUkVPLXh6MUExZ1hpaEEAFjBGbmVEZHdGU1EtaFhhUFc4ZkR5cWcAAAAAAAAAAAEWaXBPNVJtZEhTZDZXTWFFR05waXdWZwEWSEY3T18xWU9SRU8teHoxQTFnWGloQQAA",
-        "o463QQEPbXktaW5kZXgtMDAwMDAxFkhGN09fMVlPUkVPLXh6MUExZ1hpaEEAFjBGbmVEZHdGU1EtaFhhUFc4ZkR5cWcAAAAAAAAAAAIWaXBPNVJtZEhTZDZXTWFFR05waXdWZwEWSEY3T18xWU9SRU8teHoxQTFnWGloQQAA"
-    ]
-}
-```
+For data streams, users must have both the data stream **and** the data stream's backing index permissions for any PIT operation. For example, the user must have permissions for the `data-stream-11` data stream and for its backing index `.ds-my-data-stream11-000001`.
 
-#### Example response
-
-```json
-index  shard prirep ip            segment generation docs.count docs.deleted  size size.memory committed searchable version compound
-index1 0     r      10.212.36.190 _0               0          4            0 3.8kb        1364 false     true       8.8.2   true
-index1 1     p      10.212.36.190 _0               0          3            0 3.7kb        1364 false     true       8.8.2   true
-index1 2     r      10.212.74.139 _0               0          2            0 3.6kb        1364 false     true       8.8.2   true
-```
-
-## PIT settings
-
-You can specify the following settings for a PIT.
-
-Setting | Description | Default 
-:--- | :--- | :---
-point_in_time.max_keep_alive | A cluster-level setting that specifies the maximum value for the `keep_alive` parameter. | 24h
-search.max_open_pit_context | A node-level setting that specifies the maximum number of open PIT contexts for the node. | 300
+If users have the data stream permissions only, they will be able to create a PIT, but they will not be able to use the PIT ID for other operations, such as search, without the backing index permissions.
