@@ -25,7 +25,7 @@ GET /_plugins/_ml/models/_search
 POST /_plugins/_ml/models/_search
 ```
 
-#### Example request: Searching for all models
+## Example request: Searching for all models
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -38,7 +38,7 @@ POST /_plugins/_ml/models/_search
 ```
 {% include copy-curl.html %}
 
-#### Example request: Searching for models with the algorithm "FIT_RCF"
+## Example request: Searching for models with the algorithm "FIT_RCF"
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -134,7 +134,7 @@ GET _plugins/_ml/models/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

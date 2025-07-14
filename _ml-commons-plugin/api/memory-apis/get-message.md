@@ -38,14 +38,14 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `message_id` | String | The ID of the message to retrieve.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/message/0m8ya40BfUsSoeNTj-pU
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -82,7 +82,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `memory_id` | String | The ID of the memory for which to retrieve messages.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/messages
@@ -100,7 +100,7 @@ POST /_plugins/_ml/message/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

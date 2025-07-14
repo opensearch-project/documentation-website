@@ -21,14 +21,14 @@ GET /_plugins/_ml/<nodeId>/stats/
 GET /_plugins/_ml/<nodeId>/stats/<stat>
 ```
 
-#### Example request: Get all stats for all nodes
+## Example request: Get all stats for all nodes
 
 ```json
 GET /_plugins/_ml/stats
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -56,21 +56,21 @@ GET /_plugins/_ml/stats
 }
 ```
 
-#### Example request: Get all stats for a specific node
+## Example request: Get all stats for a specific node
 
 ```json
 GET /_plugins/_ml/<nodeId>/stats/
 ```
 {% include copy-curl.html %}
 
-#### Example request: Get a specified stat for a specific node 
+## Example request: Get a specified stat for a specific node 
 
 ```json
 GET /_plugins/_ml/<nodeId>/stats/<stat>
 ```
 {% include copy-curl.html %}
 
-#### Example request: Get a specified stat for all nodes
+## Example request: Get a specified stat for all nodes
 
 ```json
 GET /_plugins/_ml/stats/<stat>

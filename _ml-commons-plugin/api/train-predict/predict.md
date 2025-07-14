@@ -18,7 +18,7 @@ For information about user access for this API, see [Model access control consid
 POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>
 ```
 
-#### Example request
+## Example request
 
 ```json
 POST /_plugins/_ml/_predict/kmeans/<model-id>
@@ -34,7 +34,7 @@ POST /_plugins/_ml/_predict/kmeans/<model-id>
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
