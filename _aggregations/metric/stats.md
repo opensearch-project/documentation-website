@@ -20,9 +20,9 @@ The `stats` aggregation is a multi-value metric aggregation that computes a summ
 
 ## Example
 
-### Computing stats on electricity usage
-
 The following example computes `stats` aggregation on electricity usage.
+
+### Computing stats on electricity usage
 
 Create an index named `power_usage` and add documents where each document contains the number of kilowatt-hours (kWh) consumed during a given hour using the following request:
 
@@ -83,7 +83,7 @@ The response includes `count`, `min`, `max`, `avg`, and `sum` for the three valu
 
 You can also use a script to compute the values used in the `stats` aggregation. This is useful when the metric is derived from document fields or requires transformation.
 
-For example, if you want to convert kilowatt-hours to watt-hours before computing `stats` aggregation. Since 1 kWh = 1000 Wh, the can use the following request which utilizes a script to multiply the values by 1000. This aggregation uses the result of `doc['kwh'].value * 1000` as the input value for each document:
+For example, if you want to convert kilowatt-hours to watt-hours before computing `stats` aggregation. Since `1 kWh` = `1000 Wh`, the can use the following request which utilizes a script to multiply the values by 1000. This aggregation uses the result of `doc['kwh'].value * 1000` as the input value for each document:
 
 ```json
 GET /power_usage/_search
