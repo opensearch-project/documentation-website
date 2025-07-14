@@ -35,7 +35,7 @@ Field | Data type | Required/Optional | Description
 `parameters`| Object | Required | The parameters required by the agent. 
 `parameters.verbose`| Boolean | Optional | Provides verbose output. 
 
-#### Example request
+## Example request
 
 ```json
 POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
@@ -47,7 +47,7 @@ POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

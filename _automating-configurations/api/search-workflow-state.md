@@ -16,7 +16,7 @@ GET /_plugins/_flow_framework/workflow/state/_search
 POST /_plugins/_flow_framework/workflow/state/_search
 ``` 
 
-#### Example request: All workflows with a state of `NOT_STARTED`
+## Example request: All workflows with a state of `NOT_STARTED`
 
 ```json
 GET /_plugins/_flow_framework/workflow/state/_search
@@ -30,7 +30,7 @@ GET /_plugins/_flow_framework/workflow/state/_search
 ```
 {% include copy-curl.html %}
 
-#### Example request: All workflows that have a `resources_created` field with a `workflow_step_id` of `register_model_2`
+## Example request: All workflows that have a `resources_created` field with a `workflow_step_id` of `register_model_2`
 
 ```json
 GET /_plugins/_flow_framework/workflow/state/_search
@@ -55,6 +55,6 @@ GET /_plugins/_flow_framework/workflow/state/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The response contains documents matching the search parameters.

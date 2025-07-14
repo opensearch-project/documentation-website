@@ -136,7 +136,7 @@ The following table lists the available request fields.
 |`version`	|Object	|Optional	| A key-value map with two fields: `template`, which identifies the template version, and `compatibility`, which identifies a list of minimum required OpenSearch versions.	|
 |`workflows`	|Object	|Optional	|A map of workflows. Presently, only the `provision` key is supported. The value for the workflow key is a key-value map that includes fields for `user_params` and lists of `nodes` and `edges`.	|
 
-#### Example request: Register and deploy an externally hosted model (YAML)
+## Example request: Register and deploy an externally hosted model (YAML)
 
 To provide a template in YAML format, specify `Content-Type: application/yaml` in the request header:
 
@@ -216,7 +216,7 @@ workflows:
 ```
 {% include copy-curl.html %}
 
-#### Example request: Register and deploy a remote model (JSON)
+## Example request: Register and deploy a remote model (JSON)
 
 To provide a template in JSON format, specify `Content-Type: application/json` in the request header:
 
@@ -300,7 +300,7 @@ The following JSON template is equivalent to the YAML template provided in the p
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 OpenSearch responds with the `workflow_id`:
 
@@ -312,7 +312,7 @@ OpenSearch responds with the `workflow_id`:
 
 Once you have created a workflow, you can use other workflow APIs with the `workflow_id`.
 
-#### Example response with wait_for_completion_timeout enabled
+## Example response with wait_for_completion_timeout enabled
 
 ```json
 {
