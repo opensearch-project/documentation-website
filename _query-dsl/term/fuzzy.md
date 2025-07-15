@@ -2,7 +2,7 @@
 layout: default
 title: Fuzzy
 parent: Term-level queries
-nav_order: 20
+nav_order: 80
 ---
 
 # Fuzzy query
