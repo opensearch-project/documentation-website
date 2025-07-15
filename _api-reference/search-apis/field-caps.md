@@ -7,9 +7,9 @@ nav_order: 45
 
 # Field capabilities API
 
-The `_field_caps` API provides information about the capabilities of fields across one or more indices. It is typically used by clients to determine how fields are mapped and whether they can be used for search, sorting, and aggregations across multiple indices.
+The `_field_caps` API provides information about the capabilities of fields across one or more indexes. It is typically used by clients to determine how fields are mapped and whether they can be used for search, sorting, and aggregations across multiple indexes.
 
-This API is particularly useful when indices have varying mappings and a query needs to evaluate field compatibility across them.
+This API is particularly useful when indexes have varying mappings and a query needs to evaluate field compatibility across them.
 
 ## Endpoints
 
@@ -44,11 +44,11 @@ The following table lists the available query parameters. All query parameters a
 
 | Field          | Data type | Description                                                             |
 | :------------- | :-------- | :---------------------------------------------------------------------- |
-| `index_filter` | Object    | An optional query DSL object to filter indices included in the request. See [example using index filter](#example-using-index-filter) for more details. |
+| `index_filter` | Object    | An optional query DSL object to filter indexes included in the request. See [example using index filter](#example-using-index-filter) for more details. |
 
 ## Example
 
-Create two indices with different mappings for the same field:
+Create two indexes with different mappings for the same field:
 
 ```json
 PUT /store-west
@@ -76,7 +76,7 @@ PUT /store-east
 ```
 {% include copy-curl.html %}
 
-Query field capabilities across both indices:
+Query field capabilities across both indexes:
 
 ```json
 GET /store-west,store-east/_field_caps?fields=product,price
@@ -124,7 +124,7 @@ The response provides capabilities of the available fields:
 ```
 ## Example using index filter
 
-You can also restrict the indices considered using an `index_filter`. The `index_filter` filters out indices based on field-level metadata, not actual document content. The following request limits the index selection to those that contain mappings with field `product`, even if there are no documents indexed:
+You can also restrict the indexes considered using an `index_filter`. The `index_filter` filters out indexes based on field-level metadata, not actual document content. The following request limits the index selection to those that contain mappings with field `product`, even if there are no documents indexed:
 
 ```json
 POST /_field_caps?fields=product,price
@@ -184,12 +184,12 @@ The following table lists all response body fields.
 
 | Field                                            | Data type    | Description                                                                                                              |
 | :----------------------------------------------- | :----------- | :----------------------------------------------------------------------------------------------------------------------- |
-| `indices`                                        | List         | The list of indices included in the response.                                                                            |
+| `indices`                                        | List         | The list of indexes included in the response.                                                                            |
 | `fields`                                         | Object       | A map where each key is a field name and the value is an object mapping types to field capabilities.                     |
 | `fields.<field>.<type>.type`                     | String       | The data type of the field (e.g., `float`, `text`, `keyword`).                                                           |
 | `fields.<field>.<type>.searchable`               | Boolean      | Whether the field is indexed and searchable.                                                                             |
 | `fields.<field>.<type>.aggregatable`             | Boolean      | Whether the field can be used in aggregations like `sum`, `terms`, etc.                                                  |
-| `fields.<field>.<type>.indices`                  | List         | A list of indices where this field appears with the corresponding type.                                                  |
-| `fields.<field>.<type>.non_searchable_indices`   | List or null | A list of indices where the field is *not* searchable. `null` means all indices agree.                                   |
-| `fields.<field>.<type>.non_aggregatable_indices` | List or null | A list of indices where the field is *not* aggregatable. `null` means all indices agree.                                 |
-| `fields.<field>.<type>.meta`                     | Object       | Merged metadata values from all mappings. Keys are custom metadata keys, and values are arrays of values across indices. |
+| `fields.<field>.<type>.indices`                  | List         | A list of indexes where this field appears with the corresponding type.                                                  |
+| `fields.<field>.<type>.non_searchable_indices`   | List or null | A list of indexes where the field is *not* searchable. `null` means all indices agree.                                   |
+| `fields.<field>.<type>.non_aggregatable_indices` | List or null | A list of indexes where the field is *not* aggregatable. `null` means all indices agree.                                 |
+| `fields.<field>.<type>.meta`                     | Object       | Merged metadata values from all mappings. Keys are custom metadata keys, and values are arrays of values across indexes. |
