@@ -15,8 +15,8 @@ This guide uses [Docker](https://www.docker.com/) for a quick local setup. For o
 
 There are two ways to get started:
 
-* [Try OpenSearch with a single command](#option-1-try-opensearch-in-one-command) -- great for quick demos.
-* [Set up a custom Docker cluster](#option-2-set-up-a-custom-docker-cluster) -- ideal for more control.
+* [Try OpenSearch with a single command](#option-1-try-opensearch-in-one-command) -- Great for quick demos.
+* [Set up a custom Docker cluster](#option-2-set-up-a-custom-docker-cluster) -- Ideal for more control.
 
 ## Prerequisite
 
@@ -69,8 +69,8 @@ You should get a response that looks like this:
 
 Use Docker Compose to run a local multi-node OpenSearch and OpenSearch Dashboards cluster:
 
-- [Set up a cluster without security](#set-up-a-cluster-without-security-for-local-development) -- best for local development
-- [Set up a cluster with security](#set-up-a-cluster-with-security-recommended-for-most-use-cases) -- try OpenSearch with security by installing it with default certificates
+- [Set up a cluster without security](#set-up-a-cluster-without-security-for-local-development) -- Best for local development.
+- [Set up a cluster with security](#set-up-a-cluster-with-security-recommended-for-most-use-cases) -- Try OpenSearch with security by installing it with default certificates.
 
 ### Set up a cluster without security (for local development)
 
@@ -199,7 +199,7 @@ This configuration enables security using demo certificates and requires additio
 
     You should get a response similar to the one in [Option 1](#option-1-try-opensearch-in-one-command). 
 
-You can now explore OpenSearch Dashboards by opening `https://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+You can now explore OpenSearch Dashboards by opening `https://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin`, and the default password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
 
 ## Common issues
 
