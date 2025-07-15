@@ -46,7 +46,7 @@ Parameter | Data type | Description
 Parameter | Data type | Description
 :--- | :--- | :---
 `keep_alive` | Time |  The amount of time to keep the PIT. Every time you access a PIT by using the Search API, the PIT lifetime is extended by the amount of time equal to the `keep_alive` parameter. Required.
-`preference` | String | The node or the shard used to perform the search. Optional. Default is random.
+`preference` | String | The node or shard used to perform the search. Optional. Default is `random`.
 `routing` | String | Specifies to route search requests to a specific shard. Optional. Default is the document's `_id`. 
 `expand_wildcards` | String | The type of index that can match the wildcard pattern. Supports comma-separated values. Valid values are the following:<br>- `all`: Match any index or data stream, including hidden ones. <br>- `open`: Match open, non-hidden indexes or non-hidden data streams. <br>- `closed`: Match closed, non-hidden indexes or non-hidden data streams. <br>- `hidden`: Match hidden indexes or data streams. Must be combined with `open`, `closed` or both `open` and `closed`.<br>- `none`: No wildcard patterns are accepted.<br> Optional. Default is `open`.
 `allow_partial_pit_creation` | Boolean | Specifies whether to create a PIT with partial failures. Optional. Default is `true`.
@@ -76,8 +76,8 @@ POST /my-index-1/_search/point_in_time?keep_alive=100m
 
 Field | Data type | Description 
 :--- | :--- | :---  
-`pit_id` | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) | The PIT ID.
-`creation_time` | long | The time the PIT was created, in milliseconds since the epoch. 
+`pit_id` | [Base64-encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) | The PIT ID.
+`creation_time` | long | The time at which the PIT was created, in milliseconds since the epoch. 
 
 ## Extend a PIT time
 
@@ -153,8 +153,8 @@ Each PIT object contains the following fields.
 
 Field | Data type | Description 
 :--- | :--- | :---  
-`pit_id` | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) | The PIT ID.
-`creation_time` | long | The time the PIT was created, in milliseconds since the epoch. 
+`pit_id` | [Base64-encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) | The PIT ID.
+`creation_time` | long | The time at which the PIT was created, in milliseconds since the epoch. 
 `keep_alive` | long |  The amount of time to keep the PIT, in milliseconds.
 
 ## Delete PITs
@@ -181,7 +181,7 @@ If you want to delete one or several PITs, specify their PIT IDs in the request 
 
 Field | Data type | Description  
 :--- | :--- | :---
-`pit_id` | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) or an array of binaries | The PIT IDs of the PITs to be deleted. Required.
+`pit_id` | [Base64-encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) or an array of binaries | The PIT IDs of the PITs to be deleted. Required.
 
 #### Example request: Delete PITs by ID
 
@@ -220,7 +220,7 @@ For each PIT, the response contains a JSON object with a PIT ID and a `successfu
 Field | Data type | Description  
 :--- | :--- | :---
 `successful` | Boolean | Whether the delete operation was successful.
-`pit_id` | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/)  | The PIT ID of the PIT to be deleted.
+`pit_id` | [Base64-encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/)  | The PIT ID of the PIT to be deleted.
 
 ## Security model
 

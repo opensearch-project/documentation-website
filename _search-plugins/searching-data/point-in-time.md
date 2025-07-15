@@ -141,5 +141,5 @@ You can specify the following settings for a PIT.
 
 Setting | Description | Default 
 :--- | :--- | :---
-`point_in_time.max_keep_alive` | A cluster-level setting that specifies the maximum value for the `keep_alive` parameter. | 24h
-`search.max_open_pit_context` | A node-level setting that specifies the maximum number of open PIT contexts for the node. | 300
+`point_in_time.max_keep_alive` | A cluster-level setting that specifies the maximum value for the `keep_alive` parameter. | `24h`
+`search.max_open_pit_context` | A node-level setting that specifies the maximum number of open PIT contexts for the node. | `300`

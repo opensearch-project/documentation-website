@@ -9,7 +9,7 @@ nav_order: 46
 Introduced 2.4
 {: .label .label-purple }
 
-The CAT Point in Time (PIT) segments operation provides low-level information about the disk utilization of a PIT by describing its Lucene segments. The PIT Segments API supports listing segment information of a specific PIT by ID or of all PITs at once.
+The CAT Point in Time (PIT) segments operation provides low-level information about the disk utilization of a PIT by describing its Lucene segments. The PIT Segments API supports listing segment information for a specific PIT by ID or for all PITs at once.
 
 ## Endpoints
 
@@ -58,9 +58,9 @@ The following table lists the available query parameters. All query parameters a
 
 Field | Data type | Description  
 :--- | :--- | :---
-`pit_id` | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) or an array of binaries | The PIT IDs of the PITs whose segments are to be listed. Required.
+`pit_id` | [Base64-encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) or an array of binaries | The PIT IDs of the PITs whose segments are to be listed. Required.
 
-## Example request: PIT segments of all PITs
+## Example request: PIT segments for all PITs
 
 ```json
 GET /_cat/pit_segments/_all
@@ -69,7 +69,7 @@ GET /_cat/pit_segments/_all
 
 If there are no segments (there is no data stored), the API does not return any information.
 
-## Example request: PIT segments of PITs by ID
+## Example request: PIT segments for PITs by ID
 
 To list segments for one or several PITs, specify their PIT IDs in the request body:
 
