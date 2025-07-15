@@ -942,7 +942,7 @@ PUT _plugins/_security/api/rolesmapping/<role>
 
 #### Host-based role mapping
 
-The `hosts` parameter maps requests originating from specific IP addresses or hostnames to the given role. This is useful when you want to assign roles based on the client's source address:
+The `hosts` parameter maps requests originating from specific IP addresses or hostnames to the given role. CIDR blocks are not supported, but you can use wildcard patterns (globs), such as `192.168.*.*` or `*.example.com`. This is useful when you want to assign roles based on the client's source address:
 
 * To match by IP address (for example, `"192.168.1.10"`), no additional configuration is needed.
 * To match by hostname (for example, `"myserver.example.com"`), you must set the cluster-level configuration parameter:
