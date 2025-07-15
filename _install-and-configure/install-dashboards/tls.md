@@ -36,6 +36,9 @@ Setting | Description
 `opensearch.ssl.keystore.path` | Uses a JKS or PKCS12/PFX key store file instead of a PEM certificate and key.
 `opensearch.ssl.keystore.password` | Sets the password for the key store. Required.
 `opensearch_security.cookie.secure` | If TLS is enabled for OpenSearch Dashboards, change this setting to `true`. For HTTP, set it to `false`.
+`opensearch_security.cookie.ttl`| Specifies the time-to-live (TTL) for the authentication cookie, in milliseconds. Optional. Default is `3600000` (1 hour).
+`opensearch_security.session.keepalive`| Determines whether the session TTL resets (is "kept alive") on each user activity. Optional. Default is `true`.
+`opensearch_security.session.ttl`| Defines the time-to-live (TTL) for user sessions, in milliseconds. Optional. Default is `3600000` (1 hour).
 
 The following `opensearch_dashboards.yml` configuration shows OpenSearch and OpenSearch Dashboards running on the same machine with the demo configuration:
 
