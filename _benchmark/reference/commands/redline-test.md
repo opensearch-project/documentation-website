@@ -65,11 +65,11 @@ opensearch-benchmark execute-test \
 
 ## Latency- or CPU-based feedback
 
-OpenSearch Benchmark (OSB) supports a `timeout` value per request, which cancels a request if it exceeds the specified duration. You can set this value using the `--client-options=timeout:<int>` flag. The default is 10 seconds.
+OpenSearch Benchmark supports a `timeout` value per request, which cancels a request if it exceeds the specified duration. You can set this value using the `--client-options=timeout:<int>` flag. The default is 10 seconds.
 
-You can adjust this value to define the maximum request latency OSB should tolerate during redline testing. For example, to determine the highest load your cluster can handle without exceeding 15 seconds of latency, set the timeout in client options to `15`.
+You can adjust this value to define the maximum request latency that OpenSearch Benchmark should tolerate during redline testing. For example, to determine the highest load your cluster can handle without exceeding 15 seconds of latency, set the timeout in client options to `15`.
 
-Redline testing also supports CPU-based feedback in addition to latency and request error monitoring. This helps prevent exceeding safe utilization limits for your cluster.
+Redline testing also supports CPU-based feedback in addition to latency and request error monitoring. This helps to prevent exceeding safe utilization limits for your cluster.
 
 ### Requirements
 
