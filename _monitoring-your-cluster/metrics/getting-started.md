@@ -86,7 +86,7 @@ OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
 Once you've enabled the feature flag, you can enable the metrics framework feature by using the following setting, which enables metrics in the `opensearch.yaml` file:
 
 ```bash
-telemetry.feature.metrics.enabled=true
+telemetry.feature.metrics.enabled: true
 ```
 
 The metrics framework feature supports various telemetry solutions through plugins. Use the following instructions to enable the `telemetry-otel` plugin:
