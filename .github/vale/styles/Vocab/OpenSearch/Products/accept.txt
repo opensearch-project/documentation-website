@@ -10,6 +10,7 @@ Amazon SageMaker
 AWS Secrets Manager
 Ansible
 Anthropic Claude
+Apache HttpClient 5 Transport
 Apache Kafka
 Auditbeat
 AWS Cloud
