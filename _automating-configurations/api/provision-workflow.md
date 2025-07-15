@@ -51,7 +51,7 @@ POST /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_provision
 The following request performs a synchronous provisioning call, waiting for up to 2 seconds for completion:
 
 ```json
-POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision&wait_for_completion_timeout=2s
+POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision?wait_for_completion_timeout=2s
 ```
 {% include copy-curl.html %}
 
