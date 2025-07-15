@@ -35,62 +35,11 @@ require __DIR__ . '/vendor/autoload.php';
 
 ## Connecting to OpenSearch
 
-To connect to the default OpenSearch host, create a client object with the address `https://localhost:9200` if you are using the Security plugin:  
-
-```php
-$client = (new \OpenSearch\ClientBuilder())
-    ->setHosts(['https://localhost:9200'])
-    ->setBasicAuthentication('admin', 'admin') // For testing only. Don't store credentials in code.
-    ->setSSLVerification(false) // For testing only. Use certificate for validation
-    ->build();
-```
-{% include copy.html %} 
+Use a PSR client to connect to OpenSearch. For information about the supported PSR clients, see [Client factories](https://github.com/opensearch-project/opensearch-php/blob/main/USER_GUIDE.md#client-factories). For information about basic authentication using PSR clients, see [Basic authentication using a PSR client](https://github.com/opensearch-project/opensearch-php/blob/main/guides/auth.md#using-a-psr-client).
 
 ## Connecting to Amazon OpenSearch Service
 
-The following example illustrates connecting to Amazon OpenSearch Service:
-
-```php
-$client = (new \OpenSearch\ClientBuilder())
-    ->setSigV4Region('us-east-2')
-
-    ->setSigV4Service('es')
-    
-    // Default credential provider.
-    ->setSigV4CredentialProvider(true)
-    
-    // Using a custom access key and secret
-    ->setSigV4CredentialProvider([
-      'key' => 'awskeyid',
-      'secret' => 'awssecretkey',
-    ])
-    
-    ->build();
-```
-{% include copy.html %} 
-
-## Connecting to Amazon OpenSearch Serverless
-
-The following example illustrates connecting to Amazon OpenSearch Serverless Service:
-
-```php
-$client = (new \OpenSearch\ClientBuilder())
-    ->setSigV4Region('us-east-2')
-
-    ->setSigV4Service('aoss')
-    
-    // Default credential provider.
-    ->setSigV4CredentialProvider(true)
-    
-    // Using a custom access key and secret
-    ->setSigV4CredentialProvider([
-      'key' => 'awskeyid',
-      'secret' => 'awssecretkey',
-    ])
-    
-    ->build();
-```
-{% include copy.html %} 
+For information about connecting to OpenSearch Service, see [IAM authentication using a PSR client](https://github.com/opensearch-project/opensearch-php/blob/main/guides/auth.md#using-a-psr-client-1).
 
 
 ## Creating an index
