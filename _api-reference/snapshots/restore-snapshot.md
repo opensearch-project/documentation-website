@@ -6,17 +6,17 @@ parent: Snapshot APIs
 nav_order: 9
 ---
 
-# Restore Snapshot
+# Restore snapshot
 **Introduced 1.0**
 {: .label .label-purple }
 
-Restores a snapshot of a cluster or specified data streams and indices. 
+Restores a snapshot of a cluster or specified data streams and indexes. 
 
-* For information about indices and clusters, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/index).
+* For information about indexes and clusters, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/index/).
 
 * For information about data streams, see [Data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams).
 
-If open indexes with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indexes. See [Example request](#example-request) for information about renaming an index. See [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index) for information about closing an index.
+If open indexes with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indexes. See [Example request](#example-request) for information about renaming an index. See [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/) for information about closing an index.
 {: .note}
 
 ## Endpoints
@@ -56,7 +56,8 @@ All request body parameters are optional.
 | rename_alias_pattern | String | The pattern to apply to the restored aliases. Aliases matching the rename pattern will be renamed according to the `rename_alias_replacement` setting. <br /><br /> The rename pattern is applied as defined by the regular expression that supports referencing the original text. <br /> <br /> If two or more aliases are renamed to the same name, these aliases will be merged into one.|
 | rename_alias_replacement | String | The rename replacement string for aliases.|
 | source_remote_store_repository | String | The name of the remote store repository of the source index being restored. If not provided, the Snapshot Restore API will use the repository that was registered when the snapshot was created.
-| wait_for_completion | Boolean | Whether to return a response after the restore operation has completed.  If `false`, the request returns a response when the restore operation initializes.  If `true`, the request returns a response when the restore operation completes. Defaults to `false`. |
+| wait_for_completion | Boolean | Whether to return a response after the restore operation has completed. If `false`, the request returns a response when the restore operation initializes. If `true`, the request returns a response when the restore operation completes. Defaults to `false`. |
+storage_type | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
 
 <sup>1</sup>The cluster state includes:
 * Persistent cluster settings
