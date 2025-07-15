@@ -18,7 +18,7 @@ These APIs form the foundation of OpenSearch's search capabilities:
 
 - **[Search]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/)**: Run search queries across one or more indexes.
 - **[Multi-search]({{site.url}}{{site.baseurl}}/api-reference/search-apis/multi-search/)**: Run multiple search requests in a single API call.
-- **[Point in time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time-api/)**: Create a consistent view of the index for search operations.
+- **[Point in Time]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-in-time-api/)**: Create a consistent view of the index for search operations.
 - **[Scroll]({{site.url}}{{site.baseurl}}/api-reference/search-apis/scroll/)**: Retrieve large numbers of results from a search query.
 - **[Count]({{site.url}}{{site.baseurl}}/api-reference/search-apis/count/)**: Get the number of documents that match a query.
 
