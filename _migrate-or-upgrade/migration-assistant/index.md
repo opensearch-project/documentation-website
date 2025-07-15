@@ -1,24 +1,24 @@
 ---
 layout: default
 title: Migration Assistant for OpenSearch
-nav_order: 1
-has_children: false
-nav_exclude: true
-has_toc: false
+nav_order: 2
+has_toc: true
 permalink: /migration-assistant/
 redirect_from:
+  - /upgrade-or-migrate/migration-assistant/
   - /migration-assistant/index/
+  - /migrate-or-upgrade/migration-assistant/index/
   - /upgrade-to/snapshot-migrate/
 items:
   - heading: "Is Migration Assistant right for you?"
     description: "Evaluate whether Migration Assistant is right for your use case."
-    link: "/migration-assistant/overview/is-migration-assistant-right-for-you/"
+    link: "/migration-assistant/is-migration-assistant-right-for-you/"
   - heading: "Key components"
     description: "Get familiar with the key components of Migration Assistant."
-    link: "/migration-assistant/overview/key-components/"
+    link: "/migration-assistant/key-components/"
   - heading: "Architecture"
     description: "Understand how Migration Assistant integrates into your infrastructure."
-    link: "/migration-assistant/overview/architecture/"
+    link: "/migration-assistant/architecture/"
   - heading: "Execute your migration in phases"
     description: "A step-by-step guide for performing a migration."
     link: "/migration-assistant/migration-phases"

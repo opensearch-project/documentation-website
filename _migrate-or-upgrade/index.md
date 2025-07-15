@@ -1,121 +1,201 @@
 ---
 layout: default
-title: Migrate or upgrade
-nav_order: 1
-has_children: false
-nav_exclude: true
-has_toc: false
-permalink: /migrate-or-upgrade/
+title: Upgrade or Migrate OpenSearch
+nav_order: 20
+has_children: true
+permalink: /upgrade-or-migrate/
 redirect_from:
+  - /migrate-or-upgrade/index/
+  - /upgrade-opensearch/index/
+  - /migrate-or-upgrade/
   - /upgrade-to/index/
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
-tutorial_cards:
-  - heading: "Overview"
-    description: "Get familiar with the key components of Migration Assistant and evaluate your use case."
-    link: "/migration-assistant/overview/"
-  - heading: "Migration phases"
-    description: "Execute your migration in phases—metadata, backfill, and traffic replay—for a controlled and validated transition."
-    link: "/migration-assistant/migration-phases/"
+has_toc: true
 ---
+# Upgrade or Migrate OpenSearch
 
-# Migration and upgrade options
+The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/206) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release Schedule and Maintenance Policy]({{site.url}}/releases.html).
 
 Upgrading or migrating OpenSearch is essential for maintaining optimal performance, security, and access to the latest features. Whether you're upgrading an existing OpenSearch deployment or migrating from another system such as Elasticsearch OSS, choosing the right approach is critical to a successful transition.
 
-This page outlines four primary methods for upgrading or migrating OpenSearch clusters—each with distinct benefits and trade-offs. These methods include rolling upgrades, snapshot and restore, Migration Assistant, and remote reindexing. Use this guide to evaluate which option best fits your data size, infrastructure, and operational requirements.
+This page outlines upgrade planning guidance and four supported methods: rolling upgrades, snapshot and restore, remote reindexing, and using the OpenSearch Migration Assistant.
 
-## Migration Assistant
+---
 
-The Migration Assistant is a comprehensive tool designed to simplify upgrades by automating the process and supporting live data capture.
+## Before You Begin
 
-**Pros:**
-- Supports multi-version upgrades in a single migration.
-- Enables near-zero downtime using live data capture.
-- Includes rollback support to revert changes if issues occur.
-- Integrates with existing OpenSearch tooling for a streamlined experience.
+Take time to plan the process before making any changes to your cluster:
 
-**Cons:**
-- Requires additional setup and infrastructure.
+- How long will the upgrade process take?
+- Can your system tolerate downtime?
+- Do you have the ability to test in a staging environment?
 
-### Why choose Migration Assistant?
+Make sure to:
 
-Migration Assistant offers the most automated and resilient path for OpenSearch upgrades, especially for complex environments and large version gaps.
+- Review [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/)
+- Check [plugin compatibility]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins)
+- Review [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices)
+- Back up [configuration files](#backing-up-configuration-files)
+- Take a [snapshot](#creating-a-snapshot)
 
-- **Multi-version hops:** Avoids sequential upgrades by migrating across multiple versions in one step.
-- **Live data capture:** Maintains service continuity by syncing changes during the migration.
-- **Reversion support:** Provides a fallback option in case of errors or issues.
-- **Integrated automation:** Designed to fit into OpenSearch workflows for a guided upgrade experience.
+Stop nonessential indexing before upgrading.
+{: .tip}
 
+---
 
-### Getting started with Migration Assistant
+## Migration and Upgrade Methods
 
-- Upgrade or migrate with [Migration Assistant for OpenSearch]({{site.url}}{{site.baseurl}}/migration-assistant/)
+### Migration Assistant
 
-## Rolling upgrades
-
-Rolling upgrades allow you to upgrade one node at a time, keeping the cluster operational throughout the process. Note that this is only an upgrade option.
+The Migration Assistant provides the most automated and resilient upgrade path.
 
 **Pros:**
-- Minimal downtime; the cluster remains available during the upgrade.
-- No new infrastructure is required.
+- Supports multi-version hops
+- Enables near-zero downtime via live data capture
+- Includes rollback support
+- Designed to integrate with OpenSearch workflows
 
 **Cons:**
-- Only supports adjacent major version upgrades.
-- Incompatibilities may still arise, requiring a snapshot restore that can be complex and risky.
-- Multiple upgrade cycles are needed for large version jumps.
-- Manual reindexing may be required to enable newer features.
+- Requires setup and infrastructure
 
-### Getting started with rolling upgrades
+[Get started with Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/)
 
-- Perform a [rolling upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/).
+---
 
+### Rolling Upgrade
 
-## Snapshot and restore
-
-This method involves taking a snapshot of your existing OpenSearch or Elasticsearch OSS cluster and restoring it to a new cluster running the target version.
+Upgrade one node at a time while keeping the cluster operational.
 
 **Pros:**
-- Original cluster remains untouched, allowing rollback if needed (note: may result in data loss without a change data capture (CDC) solution. In some cases, one may choose to use `Capture-and-Replay` from Migration Assistant in combination with Snapshot and Restore).
-- Scales well for large data volumes, including cold storage and datasets up to 1 PB.
+- Minimal downtime
+- No new infrastructure needed
 
 **Cons:**
-- Requires downtime or an external CDC solution.
-- Requires provisioning a new cluster.
-- Manual reindexing may be necessary for full feature support.
+- Supports only adjacent major versions
+- Multiple upgrade cycles for larger version gaps
+- Reindexing may be required
 
-### Get started with Snapshot and Restore
+[Perform a rolling upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/migrate-or-upgrade/rolling-upgrade/)
 
-Upgrade or Migration with [Snapshot and Restore](https://docs.aws.amazon.com/solutions/latest/ tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/)
+---
 
-## Remote reindexing
+### Snapshot and Restore
 
-This method reindexes data from your current cluster into a new OpenSearch cluster, typically running in parallel.
-
-## Other migration options
-
-Additional migration strategies not covered in detail in this documentation include rebuilding your target cluster from source systems and using traffic replication to mirror production traffic during migration.
+Take a snapshot of your current cluster and restore to a new OpenSearch version.
 
 **Pros:**
-- No downtime; clusters operate concurrently.
-- Supports upgrades across multiple versions.
+- Leaves source cluster unchanged
+- Supports large datasets and cold storage
 
 **Cons:**
-- Slow and resource-intensive, not recommended for data sets over 1 GB.
-- May impact performance of the source cluster.
-- Requires careful configuration and a compatible target cluster.
+- Requires downtime or a change data capture (CDC) solution
+- Requires provisioning a new cluster
 
-## Why choose Migration Assistant?
+[Get started with Snapshot and Restore](https://docs.aws.amazon.com/solutions/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/)
 
-Migration Assistant offers the most automated and resilient path for OpenSearch upgrades, especially for complex environments and large version gaps.
+---
 
-- **Multi-version hops:** Avoids sequential upgrades by migrating across multiple versions in one step.
-- **Live data capture:** Maintains service continuity by syncing changes during the migration.
-- **Reversion support:** Provides a fallback option in case of errors or issues.
-- **Integrated automation:** Designed to fit into OpenSearch workflows for a guided upgrade experience.
+### Remote Reindexing
 
-## Before you begin
+Reindex data from the old cluster into the new OpenSearch cluster.
 
-Before choosing a method, make sure that your OpenSearch clients and plugins are compatible with the target version. For example, tools like Logstash OSS and Filebeat OSS may enforce version checks that impact upgrade paths.
+**Pros:**
+- No downtime
+- Supports large version jumps
+
+**Cons:**
+- Slower and more resource-intensive
+- Can degrade source cluster performance
+
+Learn more in the [Reindex API docs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/)
+
+---
+### Reviewing the OpenSearch tools compatibility matrices
+
+If your OpenSearch cluster interacts with other services in your environment, like Logstash or Beats, then you should check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to determine whether other components will need to be upgraded.
+
+### Reviewing plugin compatibility
+
+Review the plugins you use to determine compatibility with the target version of OpenSearch. Official OpenSearch Project plugins can be found in the [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any third-party plugins, then you should check the documentation for those plugins to determine whether they are compatible.
+
+Go to [Available plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins) to see a reference table that highlights version compatibility for bundled OpenSearch plugins.
+
+Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugin versions 2.3.0.x work only with OpenSearch 2.3.0.
+{: .important}
 
 
+---
+
+## Backing Up Configuration Files
+
+Back up important files such as `opensearch.yml`, plugin configs, and TLS certs from these paths:
+
+- `opensearch/config`
+- `opensearch-dashboards/config`
+
+See [security configuration guidance]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution).
+
+---
+
+## Creating a Snapshot
+
+We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). Snapshots you take before an upgrade can be used as restore points if you need to roll back the cluster to its original version.
+
+You can further reduce the risk of data loss by storing your snapshots on external storage, such as a mounted Network File System (NFS) or a cloud storage solution like those listed in the following table.
+
+| Repository | Plugin |
+| --- | --- |
+| [Amazon S3](https://aws.amazon.com/s3/) | [repository-s3](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-s3) |
+| [Google Cloud Storage](https://cloud.google.com/storage) | [repository-gcs](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-gcs) |
+| [HDFS](https://hadoop.apache.org/) | [repository-hdfs](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-hdfs) |
+| [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) | [repository-azure](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-azure) |
+
+---
+
+## Index Compatibility Reference
+
+<style>
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+th {
+  background-color: #F5F7F7;
+}
+th,
+td {
+  text-align: center;
+  padding: 0.5em 1em;
+}
+</style>
+<table>
+  <tr><th>Lucene Version</th><th>OpenSearch Version</th><th>Elasticsearch Version</th></tr>
+  <tr><td>9.10.0</td><td>2.14.0<br>2.13.0</td><td>8.13</td></tr>
+  <tr><td>9.9.2</td><td>2.12.0</td><td>&#8212;</td></tr>
+  <tr><td>9.7.0</td><td>2.11.1<br>2.9.0</td><td>8.9.0</td></tr>
+  <tr><td>9.6.0</td><td>2.8.0</td><td>8.8.0</td></tr>
+  <tr><td>9.5.0</td><td>2.7.0<br>2.6.0</td><td>8.7.0</td></tr>
+  <tr><td>9.4.2</td><td>2.5.0<br>2.4.1</td><td>8.6</td></tr>
+  <tr><td>9.4.1</td><td>2.4.0</td><td>&#8212;</td></tr>
+  <tr><td>9.4.0</td><td>&#8212;</td><td>8.5</td></tr>
+  <tr><td>9.3.0</td><td>2.3.0<br>2.2.x</td><td>8.4</td></tr>
+  <tr><td>9.2.0</td><td>2.1.0</td><td>8.3</td></tr>
+  <tr><td>9.1.0</td><td>2.0.x</td><td>8.2</td></tr>
+  <tr><td>9.0.0</td><td>&#8212;</td><td>8.1<br>8.0</td></tr>
+  <tr><td>8.11.1</td><td>&#8212;</td><td>7.17</td></tr>
+  <tr><td>8.10.1</td><td>1.3.x<br>1.2.x</td><td>7.16</td></tr>
+  <tr><td>8.9.0</td><td>1.1.0</td><td>7.15<br>7.14</td></tr>
+  <tr><td>8.8.2</td><td>1.0.0</td><td>7.13</td></tr>
+  <tr><td>8.8.0</td><td>&#8212;</td><td>7.12</td></tr>
+  <tr><td>8.7.0</td><td>&#8212;</td><td>7.11<br>7.10</td></tr>
+  <tr><td>8.6.2</td><td>&#8212;</td><td>7.9</td></tr>
+  <tr><td>8.5.1</td><td>&#8212;</td><td>7.8<br>7.7</td></tr>
+  <tr><td>8.4.0</td><td>&#8212;</td><td>7.6</td></tr>
+  <tr><td>8.3.0</td><td>&#8212;</td><td>7.5</td></tr>
+  <tr><td>8.2.0</td><td>&#8212;</td><td>7.4</td></tr>
+  <tr><td>8.1.0</td><td>&#8212;</td><td>7.3</td></tr>
+  <tr><td>8.0.0</td><td>&#8212;</td><td>7.2<br>7.1</td></tr>
+  <tr><td>7.7.3</td><td>&#8212;</td><td>6.8</td></tr>
+</table>
+<p style="text-align:right"><sub><em>A dash (&#8212;) indicates no release contains the listed Lucene version.</em></sub></p>

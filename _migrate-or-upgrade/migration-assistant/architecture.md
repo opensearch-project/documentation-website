@@ -2,8 +2,8 @@
 layout: default
 title: Architecture
 nav_order: 15
-parent: Overview
-permalink: /migration-assistant/overview/architecture/
+parent: Migration Assistant for OpenSearch
+permalink: /migration-assistant/architecture/
 ---
 
 # Architecture

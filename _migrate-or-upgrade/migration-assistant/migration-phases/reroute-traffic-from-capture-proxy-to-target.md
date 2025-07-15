@@ -3,8 +3,7 @@ layout: default
 title: Cutover
 nav_order: 7
 parent: Migration phases
-redirect_from:
-  - /migration-assistant/migration-phases/switching-traffic-from-the-source-cluster/
+permalink: /migration-assistant/migration-phases/switching-traffic-from-the-source-cluster/
 ---
 
 # Switching traffic from the source cluster

@@ -224,7 +224,7 @@ clients_collection:
 migration_assistant_collection:
   collections:
     migration-assistant:
-        name: Migration Assistant
+        name: Migration Assistant for OpenSearch
         nav_fold: true
 
 benchmark_collection:
@@ -268,10 +268,10 @@ defaults:
       section-name: "Benchmark"
   -
     scope:
-      path: "_migration-assistant"
+      path: "_migrate-or-upgrade/migration-assistant"
     values:
-      section: "migrations-assistant"
-      section-name: "Migration Assistant"
+      section: "migration-assistant"
+      section-name: "Migration Assistant for OpenSearch"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.

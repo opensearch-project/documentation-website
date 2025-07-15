@@ -3,8 +3,7 @@ layout: default
 title: Reroute Client Traffic
 nav_order: 3
 parent: Migration phases
-redirect_from:
-  - /migration-assistant/migration-phases/resource-source-to-proxy
+permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
 ---
 
 ## Capture proxy data replication

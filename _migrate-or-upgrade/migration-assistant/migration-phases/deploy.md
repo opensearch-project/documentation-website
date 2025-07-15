@@ -1,19 +1,16 @@
 ---
 layout: default
-title: Getting started with data migration
-nav_exclude: true
-nav_order: 10
-permalink: /migration-assistant/deploying-migration-assistant/getting-started-data-migration/
+title: Deploying Migration Assistant
+parent: Migration phases
+nav_order: 2
+permalink: /migration-assistant/migration-phases/deploy/
 redirect_from:
-  - /upgrade-to/snapshot-migrate/
   - /migration-assistant/getting-started-with-data-migration/
 ---
 
-# Getting started with data migration
+# Deploying Migration Assistant
 
-This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, the steps can be modified for use with other cloud providers.
-
-Before using this quickstart, make sure you review ["Is Migration Assistant right for you?"]({{site.url}}{{site.baseurl}}/migration-assistant/overview/is-migration-assistant-right-for-you/#supported-migration-paths).
+This document assumes you have performed assessment.
 
 ---
 
@@ -221,7 +218,7 @@ TARGET CLUSTER
 ConnectionResult(connection_message='Successfully connected!', connection_established=True, cluster_version='')
 ```
 
-To learn more about migration console commands, see [Migration commands].
+To learn more about migration console commands, see [Migration console command reference](https://docs.opensearch.org/docs/latest/migration-assistant/migration-console/migration-console-commands-references/).
 
 ---
 

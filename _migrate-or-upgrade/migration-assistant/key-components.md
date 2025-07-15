@@ -1,9 +1,9 @@
 ---
 layout: default
+parent: Migration Assistant for OpenSearch
 title: Key components
-nav_order: 10
-parent: Overview
-permalink: /migration-assistant/overview/key-components/
+nav_order: 20
+permalink: /migration-assistant/key-components/
 ---
 
 # Key components 

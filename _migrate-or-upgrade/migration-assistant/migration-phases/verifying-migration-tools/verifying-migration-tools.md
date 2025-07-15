@@ -2,9 +2,10 @@
 layout: default
 title: Verifying migration tools
 parent: Migrations phases
+parent: Verifying migration tools
 nav_order: 3
 has_children: true
-permalink: /migration-assistant/planning-your-migration/migration-phases/verifying-migration-tools/
+permalink: /migration-assistant/migration-phases/verifying-migration-tools/verifying-migration-tools/
 ---
 
 # Verifying migration tools

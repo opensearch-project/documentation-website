@@ -1,11 +1,12 @@
 ---
 layout: default
+parent: Migration Assistant for OpenSearch
 title: Migration console
 nav_order: 50
 has_children: true
-permalink: /migration-console/
+permalink: /migration-assistant/migration-console/
 redirect_from: 
-  - /migration-console/index/
+  - /migration-assistant/migration-console/index/
 ---
 
 # Migration console

@@ -1,13 +1,20 @@
 ---
 layout: default
-title: Snapshot
-nav_order: 4
+title: Migrate Metadata
+nav_order: 5
 parent: Migration phases
+permalink: /migration-assistant/migration-phases/migrate-metadata/
 ---
 
-# Creating a snapshot
+# Migrate metadata
 
-<----!TODO: Add Bring your own snapshot-----!>
+Metadata migration involves creating a snapshot of your cluster and then migrating the metadata from the snapshot using the migration console.
+
+This tool gathers information from a source cluster through a snapshot or through HTTP requests against the source cluster. These snapshots are fully compatible with the backfill process for `Reindex-From-Snapshot` (RFS) scenarios.
+
+After collecting information on the source cluster, comparisons are made against the target cluster. If running a migration, any metadata items that do not already exist will be created on the target cluster.
+
+## Creating the snapshot
 
 Creating a snapshot of the source cluster captures all the metadata and documents to be migrated to a new target cluster.
 
@@ -41,11 +48,11 @@ Anticipated duration remaining: 0h 0m 0s
 Throughput: 38.13 MiB/sec
 ```
 
-## Managing slow snapshot speeds
+### Managing slow snapshot speeds
 
 Depending on the size of the data in the source cluster and the bandwidth allocated for snapshots, the process can take some time. Adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic. 
 
-### Command arguments
+## Command arguments
 
 For the following commands, to identify all valid arguments, please run with `--help`.
 
@@ -239,6 +246,3 @@ As Metadata migration supports migrating from ES 6.8 on to the latest versions o
 {% include copy.html %}
 
 For additional technical details, [view the mapping type removal source code](https://github.com/opensearch-project/opensearch-migrations/blob/main/transformation/src/main/java/org/opensearch/migrations/transformation/rules/IndexMappingTypeRemoval.java).
-
-TODO: Add troublshooting
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verifying-backfill-components/">Verify Backfill Components</a></li>

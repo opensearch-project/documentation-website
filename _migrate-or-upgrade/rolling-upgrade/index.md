@@ -1,19 +1,24 @@
 ---
 layout: default
 title: Rolling upgrade
-parent: Upgrading OpenSearch
+parent: Migrate or upgrade
 nav_order: 10
+nav_exclude: false
+has_toc: true
+redirect_from: 
+ - /upgrade-opensearch/appendix
+ - /rolling-upgrade/index
 ---
 
 # Rolling upgrade
 
 Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
 
-This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Appendix]({{site.url}}{{site.baseurl}}/upgrade-opensearch/appendix/).
+This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Appendix]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/appendix/).
 
 ## Preparing to upgrade
 
-Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
+Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/migration-or-upgrade/rolling-upgrade/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
 **Important:** OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .important}

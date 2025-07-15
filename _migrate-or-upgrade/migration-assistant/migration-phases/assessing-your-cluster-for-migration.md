@@ -3,6 +3,7 @@ layout: default
 title: Assessing your cluster for migration
 nav_order: 1
 parent: Migration phases
+permalink: /migration-assistant/migration-phases/assessment/
 ---
 
 # Assessing your cluster for migration
