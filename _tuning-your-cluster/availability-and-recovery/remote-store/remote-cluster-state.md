@@ -67,10 +67,14 @@ The remote cluster state functionality has the following limitations:
 
 ## Remote cluster state publication
 
-
 The cluster manager node processes updates to the cluster state. It then publishes the updated cluster state through the local transport layer to all of the follower nodes. With the `remote_store.publication` feature enabled, the cluster state is backed up to the remote store during every state update. The follower nodes can then fetch the state from the remote store directly, which reduces the overhead on the cluster manager node for publication. 
 
-To enable the feature flag for the `remote_store.publication` feature, follow the steps in the [experimental feature flag documentation]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+To enable this feature, configure the following setting in `opensearch.yml`:
+
+```yml
+# Enable Remote cluster state publication
+cluster.remote_store.publication.enabled: true
+```
 
 Enabling the setting does not change the publication flow, and follower nodes will not send acknowledgements back to the cluster manager node
 until they download the updated cluster state from the remote store.
@@ -89,8 +93,11 @@ You do not have to use different remote store repositories for state and routing
 
 To configure remote publication, use the following cluster settings.
 
-Setting | Default | Description
-:--- | :--- | :---
-`cluster.remote_store.state.read_timeout` | 20s | The amount of time to wait for remote state download to complete on the follower node.
-`cluster.remote_store.routing_table.path_type` | HASHED_PREFIX | The path type to be used for creating an index routing path in the blob store. Valid values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`.
-`cluster.remote_store.routing_table.path_hash_algo` | FNV_1A_BASE64 | The algorithm to be used for constructing the prefix or infix of the blob store path. This setting is applied if `cluster.remote_store.routing_table.path_type` is `hashed_prefix` or `hashed_infix`. Valid algorithm values are `FNV_1A_BASE64` and `FNV_1A_COMPOSITE_1`.
+Setting | Default  | Description
+:--- |:---| :---
+`cluster.remote_store.state.read_timeout` | 20s | The amount of time to wait for the remote state download to complete on the follower node.
+`cluster.remote_store.state.path.prefix` | "" (Empty string) | The fixed prefix to add to the index metadata files in the blob store.
+`cluster.remote_store.index_metadata.path_type` | `HASHED_PREFIX`  | The path type used for creating an index metadata path in the blob store. Valid values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`.
+`cluster.remote_store.index_metadata.path_hash_algo` | `FNV_1A_BASE64 `  | The algorithm that constructs the prefix or infix for the index metadata path in the blob store. This setting is applied if the ``cluster.remote_store.index_metadata.path_type` setting is `HASHED_PREFIX` or `HASHED_INFIX`. Valid algorithm values are `FNV_1A_BASE64` and `FNV_1A_COMPOSITE_1`.
+`cluster.remote_store.routing_table.path.prefix` | "" (Empty string) | The fixed prefix to add for the index routing files in the blob store.
+  

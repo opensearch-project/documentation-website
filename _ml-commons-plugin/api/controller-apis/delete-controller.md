@@ -12,7 +12,7 @@ nav_order: 50
 
 Use this API to delete a controller for a model based on the `model_id`.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE /_plugins/_ml/controllers/<model_id>
@@ -26,14 +26,14 @@ The following table lists the available path parameters.
 | :--- | :--- | :--- |
 | `model_id` | String | The model ID of the model for which to delete the controller. |
 
-#### Example request
+## Example request
 
 ```json
 DELETE /_plugins/_ml/controllers/MzcIJX8BA7mbufL6DOwl
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

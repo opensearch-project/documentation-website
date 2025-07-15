@@ -2,7 +2,6 @@
 layout: default
 title: CAT recovery
 parent: CAT API
-
 nav_order: 50
 has_children: false
 redirect_from:
@@ -16,35 +15,53 @@ redirect_from:
 The CAT recovery operation lists all completed and ongoing index and shard recoveries.
 
 
-## Path and HTTP methods
-
+<!-- spec_insert_start
+api: cat.recovery
+component: endpoints
+-->
+## Endpoints
+```json
+GET /_cat/recovery
+GET /_cat/recovery/{index}
 ```
-GET _cat/recovery
-```
+<!-- spec_insert_end -->
 
-## URL parameters
 
-All CAT recovery URL parameters are optional.
+<!-- spec_insert_start
+api: cat.recovery
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
+## Query parameters
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-active_only | Boolean | Whether to only include ongoing shard recoveries. Default is `false`.
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-detailed | Boolean | Whether to include detailed information about shard recoveries. Default is `false`.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `active_only` | Boolean | If `true`, the response only includes ongoing shard recoveries. | `false` |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, and `p`. | N/A |
+| `detailed` | Boolean | When `true`, includes detailed information about shard recoveries. | `false` |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. | N/A |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
+<!-- spec_insert_end -->
 
 ## Example requests
 
-```
+```json
 GET _cat/recovery?v
 ```
 {% include copy-curl.html %}
 
 To see only the recoveries of a specific index, add the index name after your query.
 
-```
+```json
 GET _cat/recovery/<index>?v
 ```
 {% include copy-curl.html %}

@@ -2,7 +2,7 @@
 layout: default
 title: Dangling indexes
 parent: Index APIs
-nav_order: 30
+nav_order: 32
 ---
 
 # Dangling indexes API
@@ -11,25 +11,28 @@ nav_order: 30
 
 After a node joins a cluster, dangling indexes occur if any shards exist in the node's local directory that do not already exist in the cluster. Dangling indexes can be listed, deleted, or imported.
 
-## Path and HTTP methods
+## Endpoints
 
 List dangling indexes:
 
-```
+```json
 GET /_dangling
 ```
+{% include copy-curl.html %}
 
 Import a dangling index:
 
-```
+```json
 POST /_dangling/<index-uuid>
 ```
+{% include copy-curl.html %}
 
 Delete a dangling index:
 
-```
+```json
 DELETE /_dangling/<index-uuid>
 ```
+{% include copy-curl.html %}
 
 ## Path parameters
 
@@ -49,31 +52,29 @@ accept_data_loss | Boolean | Must be set to `true` for an `import` or `delete` b
 timeout | Time units | The amount of time to wait for a response. If no response is received in the defined time period, an error is returned. Default is `30` seconds.
 cluster_manager_timeout | Time units | The amount of time to wait for a connection to the cluster manager. If no response is received in the defined time period, an error is returned. Default is `30` seconds.
 
-## Examples
+## Example requests
 
-The following are example requests and a example response.
-
-#### Sample list
+### Sample list
 
 ````bash
 GET /_dangling
 ````
 {% include copy-curl.html %}
 
-#### Sample import
+### Sample import
 
 ````bash
 POST /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
 ````
 {% include copy-curl.html %}
  
-#### Sample delete
+### Sample delete
 
 ````bash
 DELETE /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
 ````
 
-#### Example response body
+## Example response 
 
 ````json
 {

@@ -42,6 +42,9 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
+In OpenSearch 2.x and earlier, complexity can increase exponentially with the number of characters, leading to high heap memory usage and reduced performance. To avoid this, do not use case-insensitive searches. Instead, apply a [lowercase token filter]({{site.url}}{{site.baseurl}}/analyzers/token-filters/lowercase/) in the indexed field's analyzer and use lowercase query terms.
+{: .warning}
+
 The response contains the matching documents despite any differences in case:
 
 ```json
@@ -95,4 +98,5 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `value` | String | The term to search for in the field specified in `<field>`. A document is returned in the results only if its field value exactly matches the term, with the correct spacing and capitalization.
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
+`_name` | String | The name of the query for query tagging. Optional.
 `case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).

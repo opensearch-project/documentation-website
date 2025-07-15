@@ -19,7 +19,7 @@ The POST method creates a new controller. The PUT method updates an existing con
 
 To learn how to set rate limits at the model level for all users, see [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/). The rate limit is set to either the model-level limit or the user-level limit, whichever is more restrictive. For example, if the model-level limit is 2 requests per minute and the user-level limit is 4 requests per minute, the overall limit will be set to 2 requests per minute.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/controllers/<model_id>
@@ -35,7 +35,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `model_id` | String | The model ID of the model for which you want to set rate limits. Required.
 
-## Request fields
+## Request body fields
 
 The following table lists the available request fields.
 
@@ -51,7 +51,7 @@ Field | Data type | Description
 `unit` | String | The unit of time for the rate limiter. Valid values are `DAYS`, `HOURS`, `MICROSECONDS`, `MILLISECONDS`, `MINUTES`, `NANOSECONDS`, and `SECONDS`.
 
 
-#### Example request: Create a controller
+## Example request: Create a controller
 
 ```json
 POST _plugins/_ml/controllers/mtw-ZI0B_1JGmyB068C0
@@ -70,7 +70,7 @@ POST _plugins/_ml/controllers/mtw-ZI0B_1JGmyB068C0
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -79,7 +79,7 @@ POST _plugins/_ml/controllers/mtw-ZI0B_1JGmyB068C0
 }
 ```
 
-#### Example request: Update the rate limit for one user
+## Example request: Update the rate limit for one user
 
 To update the limit for `user1`, send a PUT request and specify the updated information:
 
@@ -114,7 +114,7 @@ This will update only the `user1` object, leaving all other user limits intact:
 }
 ```
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -133,7 +133,7 @@ This will update only the `user1` object, leaving all other user limits intact:
 }
 ```
 
-#### Example request: Delete the rate limit for one user
+## Example request: Delete the rate limit for one user
 
 To delete the limit for `user2`, send a POST request containing all other users' limits: 
 
@@ -164,7 +164,7 @@ This will overwrite the controller with the new information:
 }
 ```
 
-#### Example response
+## Example response
 
 ```json
 {

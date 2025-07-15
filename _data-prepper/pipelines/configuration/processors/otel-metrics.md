@@ -141,7 +141,7 @@ The following `JSON` file is a more detailed form of OpenTelemetry representatio
 
 The `exponential_histogram_max_allowed_scale` parameter defines the maximum allowed scale for an exponential histogram. If you increase this parameter, you will increase potential memory consumption. See the [OpenTelemetry specifications](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto) for more information on exponential histograms and their computational complexity.
 
-All exponential histograms that have a scale that is above the configured parameter (by default, a value of `10`) are discarded and logged with an error level. You can check the log that Data Prepper creates to see the `ERROR` log message.
+All exponential histograms that have a scale that is above the configured parameter (by default, a value of `10`) are discarded and logged with an error level. You can check the log that OpenSearch Data Prepper creates to see the `ERROR` log message.
 
 The absolute scale value is used for comparison, so a scale of `-11` that is treated equally to `11` exceeds the configured value of `10` and can be discarded.
 {: .note}

@@ -12,13 +12,13 @@ ML Commons can predict new data with your trained model either from indexed data
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>
 ```
 
-#### Example request
+## Example request
 
 ```json
 POST /_plugins/_ml/_predict/kmeans/<model-id>
@@ -34,7 +34,7 @@ POST /_plugins/_ml/_predict/kmeans/<model-id>
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

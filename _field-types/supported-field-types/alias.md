@@ -10,6 +10,8 @@ redirect_from:
 ---
 
 # Alias field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 An alias field type creates another name for an existing field. You can use aliases in the[search](#using-aliases-in-search-api-operations) and [field capabilities](#using-aliases-in-field-capabilities-api-operations) API operations, with some [exceptions](#exceptions). To set up an [alias](#alias-field), you need to specify the [original field](#original-field) name in the `path` parameter.
 

@@ -11,9 +11,9 @@ You can use a hybrid query to combine relevance scores from multiple queries int
 
 ## Example
 
-Learn how to use the `hybrid` query by following the steps in [Using hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/#using-hybrid-search).
+Learn how to use the `hybrid` query by following the steps in [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
 
-For a comprehensive example, follow the [Neural search tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
+For a comprehensive example, follow the [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
 
 ## Parameters
 
@@ -22,6 +22,7 @@ The following table lists all top-level parameters supported by `hybrid` queries
 Parameter | Description
 :--- | :---
 `queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause in order to be returned in the results. The documents' relevance scores from all query clauses are combined into one score by applying a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/). The maximum number of query clauses is 5. Required.
+`filter` | A filter to apply to all the subqueries of the hybrid query. 
 
 ## Disabling hybrid queries
 

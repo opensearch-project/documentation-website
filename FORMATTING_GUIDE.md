@@ -9,6 +9,8 @@ This guide provides an overview of the formatted elements commonly used in the O
 * [Adding pages or sections](#adding-pages-or-sections)
 * [Buttons](#buttons)
 * [Callouts](#callouts)
+* [Cards](#cards)
+* [Code blocks](#code-blocks)
 * [Collapsible blocks](#collapsible-blocks)
 * [Dashes](#dashes)
 * [Horizontal rule](#horizontal-rule)
@@ -22,6 +24,7 @@ This guide provides an overview of the formatted elements commonly used in the O
   * [Nested lists](#nested-lists) 
   * [Lists with code snippets or images](#lists-with-code-snippets-or-images)
 * [Math](#math)
+* [Steps](#steps)
 * [Tables](#tables)
 * [Text style](#text-style)
 * [Variables in curly braces](#variables-in-curly-braces)
@@ -54,7 +57,7 @@ Each collection must have an `index.md` file that corresponds to the collection'
 
 ## Buttons
 
-You can use either `copy` or `copy-curl` includes for code snippets. The `copy` include places a **Copy** button on the code snippet, while the `copy-curl` include places both **Copy** and **Copy as cURL** buttons. Use the `copy-curl` include for API requests. If an API request is already in the cURL format, use the `copy` include.
+You can use either `copy` or `copy-curl` includes for code snippets formatted using triple backticks. The `copy` include places a **Copy** button on the code snippet, while the `copy-curl` include places both **Copy** and **Copy as cURL** buttons. Use the `copy-curl` include for API requests. If an API request is already in the cURL format, use the `copy` include.
 
 **Example of a `copy` include**
 
@@ -108,6 +111,100 @@ For a callout with multiple paragraphs or lists, use `>`:
 {: .note}
 
 ```
+
+## Cards
+
+To add a card to a page, specify it in the front matter as follows. The `description`, `link`, and `list` are optional. Use relative links. You can optionally style the text using HTML tags:
+
+```yaml
+tutorial_cards:
+  - heading: "Getting started with semantic and hybrid search"
+    description: "Learn how to implement semantic and hybrid search"
+    link: "/vector-search/tutorials/neural-search-tutorial/"
+    list:
+      - "<b>Platform:</b> OpenSearch"
+      - "<b>Model:</b> Anthropic Claude" 
+      - "<b>Deployment:</b> Amazon Bedrock"  
+```
+
+Insert an include in the page body where you want the cards to appear:
+
+```
+{% include cards.html cards=page.tutorial_cards %}  
+```
+
+## Code blocks
+
+There are two ways to format code blocks:
+
+1. **Single code block**: Use triple backticks and provide the highlighting language for the code block. For example, format a REST request in the following way:
+    ````json
+    ```json
+    PUT /hotels-index
+    {
+      "settings": {
+        "index.knn": true
+      },
+      "mappings": {
+        "properties": {
+          "location": {
+            "type": "knn_vector",
+            "dimension": 2,
+            "space_type": "l2"
+          }
+        }
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+    ````
+    For information about the copy and copy as cURL button include, see [Buttons](#buttons).
+1. **Tabbed panel**: Use a tabbed panel to provide the same example in multiple programming languages. If using this method, the [buttons](#buttons) are inserted programmatically. Use the following syntax to provide the example in multiple languages. This example creates a tabbed panel with a **REST** and **Python** tabs:
+    ```` 
+    {% capture step1_rest %}
+    PUT /hotels-index
+    {
+      "settings": {
+        "index.knn": true
+      },
+      "mappings": {
+        "properties": {
+          "location": {
+            "type": "knn_vector",
+            "dimension": 2,
+            "space_type": "l2"
+          }
+        }
+      }
+    }
+    {% endcapture %}
+
+    {% capture step1_python %}
+    from opensearchpy import OpenSearch
+
+    client.indices.create(
+        index="hotels-index",
+        body={
+            "settings": {"index.knn": True},
+            "mappings": {
+                "properties": {
+                    "location": {
+                        "type": "knn_vector",
+                        "dimension": 2,
+                        "space_type": "l2"
+                    }
+                }
+            }
+        }
+    )
+    {% endcapture %}
+
+    {% include code-block.html 
+        rest=step1_rest
+        python=step1_python %}
+    ``` 
+    ````
+    The supported languages are listed in [this yaml file](/_data/code_languages.yml).
 
 ## Collapsible blocks
 
@@ -397,6 +494,32 @@ Some Markdown paragraph. Here's a formula:
 </p>
 
 And back to Markdown.
+```
+
+Alternatively, you can use double dollar signs (`$$`) for both display and inline math directly in Markdown:
+
+```
+The probability of selecting pair $$i$$ is proportional to $$1 \over i^\alpha$$.
+```
+
+## Steps
+
+To insert steps, specify them in the front matter as follows. Steps are automatically numbered. Use relative links. The `description` and `link` are optional:
+
+```yaml
+steps:
+  - heading: "Create an OpenSearch index"
+    description: "Create an OpenSearch index to store your embeddings."
+    link: "/vector-search/creating-vector-index/#storing-raw-vectors-or-embeddings-generated-outside-of-opensearch"
+  - heading: "Ingest embeddings"
+    description: "Ingest your embeddings into the index."
+    link: "/vector-search/ingesting-data/#raw-vector-ingestion"
+```
+
+Insert an include in the page body where you want the steps to appear:
+
+```
+{% include list.html list_items=page.steps%}
 ```
 
 ## Tables

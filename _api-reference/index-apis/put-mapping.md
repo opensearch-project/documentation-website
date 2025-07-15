@@ -2,7 +2,7 @@
 layout: default
 title: Create or update mappings
 parent: Index APIs
-nav_order: 27
+nav_order: 30
 redirect_from:
   - /opensearch/rest-api/index-apis/put-mapping/
   - /opensearch/rest-api/index-apis/update-mapping/
@@ -17,51 +17,24 @@ If you want to create or add mappings and fields to an index, you can use the pu
 
 You can't use this operation to update mappings that already map to existing data in the index. You must first create a new index with your desired mappings, and then use the [reindex API operation]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) to map all the documents from your old index to the new index. If you don't want any downtime while you re-index your indexes, you can use [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias).
 
+## Endpoints
 
-## Required path parameter
-
-The only required path parameter is the index with which to associate the mapping. If you don't specify an index, you will get an error. You can specify a single index, or multiple indexes separated by a comma as follows:
-
-```
+```json
 PUT /<target-index>/_mapping
 PUT /<target-index1>,<target-index2>/_mapping
 ```
 
-## Required request body field
 
-The request body must contain `properties`, which has all of the mappings that you want to create or update.
+## Path parameters
 
-```json
-{
-  "properties":{
-    "color":{
-      "type": "text"
-    },
-    "year":{
-      "type": "integer"
-    }
-  }
-}
-```
-
-## Optional request body fields
-
-### dynamic
-
-You can make the document structure match the structure of the index mapping by setting the `dynamic` request body field to `strict`, as seen in the following example:
+The only required path parameter is the index with which to associate the mapping. If you don't specify an index, you will get an error. You can specify a single index, or multiple indexes separated by a comma as follows:
 
 ```json
-{
-  "dynamic": "strict",
-  "properties":{
-    "color":{
-      "type": "text"
-    }
-  }
-}
+PUT /<target-index>/_mapping
+PUT /<target-index1>,<target-index2>/_mapping
 ```
 
-## Optional query parameters
+## Query parameters
 
 Optionally, you can add query parameters to make a more specific request. For example, to skip any missing or closed indexes in the response, you can add the `ignore_unavailable` query parameter to your request as follows:
 
@@ -80,7 +53,42 @@ cluster_manager_timeout | Time | How long to wait for a connection to the cluste
 timeout | Time | How long to wait for the response to return. Default is `30s`.
 write_index_only | Boolean | Whether OpenSearch should apply mapping updates only to the write index.
 
-#### Sample Request
+## Request body fields
+
+### properties
+
+The request body must contain `properties`, which has all of the mappings that you want to create or update.
+
+```json
+{
+  "properties":{
+    "color":{
+      "type": "text"
+    },
+    "year":{
+      "type": "integer"
+    }
+  }
+}
+```
+
+### dynamic
+
+You can make the document structure match the structure of the index mapping by setting the `dynamic` request body field to `strict`, as seen in the following example:
+
+```json
+{
+  "dynamic": "strict",
+  "properties":{
+    "color":{
+      "type": "text"
+    }
+  }
+}
+```
+
+
+## Example request
 
 The following request creates a new mapping for the `sample-index` index:
 
@@ -100,7 +108,7 @@ PUT /sample-index/_mapping
 ```
 {% include copy-curl.html %}
 
-#### Sample Response
+## Example response
 
 Upon success, the response returns `"acknowledged": true`.
 

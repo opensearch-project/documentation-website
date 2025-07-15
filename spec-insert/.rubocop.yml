@@ -1,0 +1,30 @@
+require: rubocop-rake
+AllCops:
+  Include:
+    - 'lib/**/*.rb'
+    - 'Rakefile'
+  NewCops: enable
+  TargetRubyVersion: 3.3
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/ParameterLists:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
+Style/SingleLineMethods:
+  Enabled: false
+
+Naming/FileName:
+  Exclude:
+    - 'lib/jekyll-spec-insert.rb' # For Jekyll to recognize the plugin

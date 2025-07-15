@@ -2,7 +2,6 @@
 layout: default
 title: CAT snapshots
 parent: CAT API
-
 nav_order: 65
 has_children: false
 redirect_from:
@@ -16,22 +15,41 @@ redirect_from:
 The CAT snapshots operation lists all snapshots for a repository.
 
 
-## Path and HTTP methods
-
+<!-- spec_insert_start
+api: cat.snapshots
+component: endpoints
+-->
+## Endpoints
+```json
+GET /_cat/snapshots
+GET /_cat/snapshots/{repository}
 ```
-GET _cat/snapshots
-```
+<!-- spec_insert_end -->
 
-## URL parameters
 
-All CAT snapshots URL parameters are optional.
+<!-- spec_insert_start
+api: cat.snapshots
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
+## Query parameters
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
+The following table lists the available query parameters.
 
-Parameter | Type | Description
-:--- | :--- | :---
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `repository` | List or String | **(Required)** A comma-separated list of snapshot repositories used to limit the request. Accepts wildcard expressions. `_all` returns all repositories. If any repository fails during the request, OpenSearch returns an error. | N/A |
+| `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `ignore_unavailable` | Boolean | When `true`, the response does not include information from unavailable snapshots. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
+<!-- spec_insert_end -->
 
 ## Example request
 

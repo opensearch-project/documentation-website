@@ -18,25 +18,10 @@ The nodes info API represents mostly static information about your cluster's nod
 - Thread pools settings 
 - Installed plugins
 
-## Example
 
-To get information about all nodes in a cluster, use the following query:
-
-```json
-GET /_nodes
-```
-{% include copy-curl.html %}
-
-To get thread pool information about the cluster manager node only, use the following query:
+## Endpoints
 
 ```json
-GET /_nodes/master:true/thread_pool
-```
-{% include copy-curl.html %}
-
-## Path and HTTP methods
-
-```bash
 GET /_nodes
 GET /_nodes/<nodeId>
 GET /_nodes/<metrics>
@@ -88,6 +73,13 @@ GET /_nodes/cluster_manager:true/process,transport
 ```
 {% include copy-curl.html %}
 
+To get thread pool information about the cluster manager node only, use the following query:
+
+```json
+GET /_nodes/master:true/thread_pool
+```
+{% include copy-curl.html %}
+
 ## Example response
 
 The response contains the metric groups specified in the `<metrics>` request parameter (in this case, `process` and `transport`):
@@ -136,7 +128,7 @@ The response contains the metric groups specified in the `<metrics>` request par
 }
 ```
 
-## Response fields
+## Response body fields
 
 The response contains the basic node identification and build info for every node matching the `<nodeId>` request parameter. The following table lists the response fields.
 

@@ -29,7 +29,7 @@ When the Security plugin is enabled, all memories exist in a `private` security 
 
 You can retrieve memory information by using the `memory_id`. The response includes all messages within the memory.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/memory/<memory_id>
@@ -42,14 +42,14 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `memory_id` | String | The ID of the memory to retrieve.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/N8AE1osB0jLkkocYjz7D
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -65,7 +65,7 @@ GET /_plugins/_ml/memory/N8AE1osB0jLkkocYjz7D
 
 Use this command to get all memories.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/memory
@@ -91,20 +91,20 @@ Create Memory            | ABCDEF | -
 Get Memory (next_token = 3, max_results = 3) -> ABC[DEF] | DEF
 
 
-#### Example request: Get all memories
+## Example request: Get all memories
 
 ```json
 GET /_plugins/_ml/memory/
 ```
 {% include copy-curl.html %}
 
-#### Example request: Paginating results
+## Example request: Paginating results
 
 ```json
 GET /_plugins/_ml/memory?max_results=2&next_token=1
 ```
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -120,7 +120,7 @@ GET /_plugins/_ml/memory?max_results=2&next_token=1
 }
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists the available response fields.
 

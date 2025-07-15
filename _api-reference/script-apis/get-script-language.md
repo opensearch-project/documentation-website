@@ -89,7 +89,7 @@ The `GET _script_language` request returns the available contexts for each langu
 }
 ```
 
-## Response fields
+## Response body fields
 
 The request contains the following response fields.
 

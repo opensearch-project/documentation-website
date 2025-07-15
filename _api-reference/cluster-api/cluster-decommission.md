@@ -18,27 +18,27 @@ The cluster decommission operation adds support decommissioning based on awarene
 For more information about allocation awareness, see [Shard allocation awareness]({{site.url}}{{site.baseurl}}//opensearch/cluster/#shard-allocation-awareness).
 
 
-## HTTP and Path methods
+## Endpoints
 
-```
+```json
 PUT  /_cluster/decommission/awareness/{awareness_attribute_name}/{awareness_attribute_value}
 GET  /_cluster/decommission/awareness/{awareness_attribute_name}/_status
 DELETE /_cluster/decommission/awareness
 ```
 
-## URL parameters
+## Path parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
 awareness_attribute_name | String | The name of awareness attribute, usually `zone`.
 awareness_attribute_value | String | The value of the awareness attribute. For example, if you have shards allocated in two different zones, you can give each zone a value of `zone-a` or `zoneb`. The cluster decommission operation decommissions the zone listed in the method.
 
+## Example requests
 
-## Example: Decommissioning and recommissioning a zone
+### Decommissioning and recommissioning a zone
 
 You can use the following example requests to decommission and recommission a zone:
 
-#### Request
 
 The following example request decommissions `zone-a`:
 
@@ -54,8 +54,18 @@ DELETE /_cluster/decommission/awareness
 ```
 {% include copy-curl.html %}
 
-#### Example response
+### Getting zone decommission status
 
+The following example requests returns the decommission status of all zones.
+
+```json
+GET /_cluster/decommission/awareness/zone/_status
+```
+{% include copy-curl.html %}
+
+#### Example responses
+
+The following example response shows a successful zone decommission:
 
 ```json
 {
@@ -63,18 +73,10 @@ DELETE /_cluster/decommission/awareness
 }
 ```
 
-## Example: Getting zone decommission status
+### Getting zone decommission status
 
-The following example requests returns the decommission status of all zones.
+The following example response returns the decommission status of all zones:
 
-#### Request
-
-```json
-GET /_cluster/decommission/awareness/zone/_status
-```
-{% include copy-curl.html %}
-
-#### Example response
 
 ```json
 {

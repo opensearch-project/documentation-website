@@ -1,28 +1,27 @@
 ---
 layout: default
 title: Analyze API
-has_children: true
 nav_order: 7
 redirect_from:
   - /api-reference/analyze-apis/perform-text-analysis/
   - /opensearch/rest-api/analyze-apis/
-  - /api-reference/analyze-apis/
+  - /api-reference/analyze-apis/terminology/
 ---
 
 # Analyze API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Analyze API allows you to perform [text analysis]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/), which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search.
+The Analyze API allows you to perform [text analysis]({{site.url}}{{site.baseurl}}/analyzers/), which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search. For more information about common analysis components such as character filters, tokenizers, token filters, and normalizers, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/#analyzers).
 
 The Analyze API analyzes a text string and returns the resulting tokens.
 
 If you use the Security plugin, you must have the `manage index` privilege. If you only want to analyze text, you must have the `manage cluster` privilege.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 GET /_analyze
 GET /{index}/_analyze
 POST /_analyze
@@ -40,26 +39,21 @@ Parameter | Data type | Description
 :--- | :--- | :---
 index | String | Index that is used to derive the analyzer.
 
-## Query parameters
+## Request body fields
 
-You can include the following optional query parameters in your request.
-
-Field | Data type | Description
-:--- | :--- | :---
-analyzer | String | The name of the analyzer to apply to the `text` field. The analyzer can be built in or configured in the index.<br /><br />If `analyzer` is not specified, the analyze API uses the analyzer defined in the mapping of the `field` field.<br /><br />If the `field` field is not specified, the analyze API uses the default analyzer for the index.<br /><br > If no index is specified or the index does not have a default analyzer, the analyze API uses the standard analyzer.
-attributes | Array of Strings | Array of token attributes for filtering the output of the `explain` field.
-char_filter | Array of Strings | Array of character filters for preprocessing characters before the `tokenizer` field.
-explain | Boolean | If true, causes the response to include token attributes and additional details. Defaults to `false`.
-field | String | Field for deriving the analyzer. <br /><br > If you specify `field`, you must also specify the `index` path parameter. <br /><br > If you specify the `analyzer` field, it overrides the value of `field`. <br /><br > If you do not specify `field`, the analyze API uses the default analyzer for the index. <br /><br > If you do not specify the `index` field, or the index does not have a default analyzer, the analyze API uses the standard analyzer.
-filter | Array of Strings | Array of token filters to apply after the `tokenizer` field.
-normalizer | String | Normalizer for converting text into a single token. 
-tokenizer | String | Tokenizer for converting the `text` field into tokens.
-
-The following query parameter is required.
+The following table lists the available request body fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-text | String or Array of Strings | Text to analyze. If you provide an array of strings, the text is analyzed as a multi-value field.
+`text` | String or Array of Strings | The text to analyze. If you provide an array of strings, the text is analyzed as a multi-value field. Required.
+`analyzer` | String | The name of the analyzer to apply to the `text` field. The analyzer can be built or configured in the index.<br /><br />If `analyzer` is not specified, the analyze API uses the analyzer defined in the mapping of the `field` field.<br /><br />If the `field` field is not specified, the analyze API uses the default analyzer for the index.<br /><br > If no index is specified or the index does not have a default analyzer, the analyze API uses the [standard analyzer]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/standard/). Optional. See [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/).
+`attributes` | Array of Strings | An array of token attributes for filtering the output of the `explain` field.
+`char_filter` | Array of Strings | An array of character filters for preprocessing characters before the `tokenizer` field. Optional. See [Character filters]({{site.url}}{{site.baseurl}}/analyzers/character-filters/index/).
+`explain` | Boolean | If `true`, causes the response to include token attributes and additional details. Optional. Default is `false`.
+`field` | String | Field for deriving the analyzer. <br /><br > If you specify `field`, you must also specify the `index` path parameter. <br /><br > If you specify the `analyzer` field, it overrides the value of `field`. <br /><br > If you do not specify `field`, the analyze API uses the default analyzer for the index. <br /><br > If you do not specify the `index` field or the index does not have a default analyzer, the analyze API uses the standard analyzer. Optional.
+`filter` | Array of Strings | Array of token filters to apply after the `tokenizer` field. Optional. See [Token filters]({{site.url}}{{site.baseurl}}/analyzers/token-filters/index/).
+`normalizer` | String | A normalizer for converting text into a single token. Optional. See [Normalizers]({{site.url}}{{site.baseurl}}/analyzers/normalizers/). 
+`tokenizer` | String | A tokenizer for converting the `text` field into tokens. Optional. See [Tokenizers]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/index/).
 
 ## Example requests
 
@@ -81,7 +75,7 @@ text | String or Array of Strings | Text to analyze. If you provide an array of 
 
 [Set a token limit](#set-a-token-limit)
 
-#### Analyze array of text strings
+### Analyze array of text strings
 
 When you pass an array of strings to the `text` field, it is analyzed as a multi-value field.
 
@@ -145,7 +139,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Apply a built-in analyzer
+### Apply a built-in analyzer
 
 If you omit the `index` path parameter, you can apply any of the built-in analyzers to the text string.
 
@@ -190,7 +184,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Apply a custom analyzer
+### Apply a custom analyzer
 
 You can create your own analyzer and specify it in an analyze request.
 
@@ -244,7 +238,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Apply a custom transient analyzer
+### Apply a custom transient analyzer
 
 You can build a custom transient analyzer from tokenizers, token filters, or character filters. Use the `filter` parameter to specify token filters.
 
@@ -373,7 +367,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Specify an index
+### Specify an index
 
 You can analyze text using an index's default analyzer, or you can specify a different analyzer.
 
@@ -446,7 +440,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Derive the analyzer from an index field
+### Derive the analyzer from an index field
 
 You can pass text and a field in the index. The API looks up the field's analyzer and uses it to analyze the text.
 
@@ -493,7 +487,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Specify a normalizer
+### Specify a normalizer
 
 Instead of using a keyword field, you can use the normalizer associated with the index. A normalizer causes the analysis change to produce a single token.
 
@@ -557,7 +551,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Get token details
+### Get token details
 
 You can obtain additional details for all tokens by setting the `explain` attribute to `true`.
 
@@ -640,7 +634,7 @@ The previous request returns the following fields:
 }
 ````
 
-#### Set a token limit
+### Set a token limit
 
 You can set a limit to the number of tokens generated. Setting a lower value reduces a node's memory usage. The default value is 10000.
 
@@ -659,7 +653,7 @@ PUT /books2
 The preceding request is an index API rather than an analyze API. See [Dynamic index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) for additional details.
 {: .note}
 
-### Response fields
+## Response body fields
 
 The text analysis endpoints return the following response fields.
 

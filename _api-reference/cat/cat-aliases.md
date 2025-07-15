@@ -16,24 +16,41 @@ has_children: false
 The CAT aliases operation lists the mapping of aliases to indexes, plus routing and filtering information.
 
 
-## Path and HTTP methods
 
+<!-- spec_insert_start
+api: cat.aliases
+component: endpoints
+-->
+## Endpoints
+```json
+GET /_cat/aliases
+GET /_cat/aliases/{name}
 ```
-GET _cat/aliases/<alias>
-GET _cat/aliases
-```
+<!-- spec_insert_end -->
 
 
-## URL parameters
+<!-- spec_insert_start
+api: cat.aliases
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
+## Query parameters
 
-All CAT aliases URL parameters are optional.
+The following table lists the available query parameters. All query parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `local` | Boolean | Whether to return information from the local node only instead of from the cluster manager node. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 
-Parameter | Type | Description
-:--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
-expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
+<!-- spec_insert_end -->
+
 
 ## Example requests
 

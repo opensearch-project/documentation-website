@@ -11,9 +11,9 @@ nav_order: 50
 
 The nodes reload secure settings endpoint allows you to change secure settings on a node and reload the secure settings without restarting the node.
 
-## Path and HTTP methods
+## Endpoints
 
-```
+```json
 POST _nodes/reload_secure_settings
 POST _nodes/<nodeId>/reload_secure_settings
 ```
@@ -26,7 +26,7 @@ Parameter | Type | Description
 :--- | :--- | :---
 nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
 
-## Request fields
+## Request body fields
 
 The request may include an optional object containing the password for the OpenSearch keystore.
 

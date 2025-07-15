@@ -3,20 +3,21 @@ layout: default
 title: http
 parent: Sources
 grand_parent: Pipelines
-nav_order: 5
+nav_order: 30
 redirect_from:
   - /data-prepper/pipelines/configuration/sources/http-source/
 ---
 
 # http
 
-The `http` plugin accepts HTTP requests from clients. Currently, `http` only supports the JSON UTF-8 codec for incoming requests, such as `[{"key1": "value1"}, {"key2": "value2"}]`. The following table describes options you can use to configure the `http` source.
+The `http` plugin accepts HTTP requests from clients. The following table describes options you can use to configure the `http` source.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 port | No | Integer | The port that the source is running on. Default value is `2021`. Valid options are between `0` and `65535`.
+path | No | String | The URI path for log ingestion should start with a forward slash (/), for example, `/${pipelineName}/logs`. The `${pipelineName}` placeholder will be replaced with the pipeline name. The default value is `/log/ingest`.
 health_check_service | No | Boolean | Enables the health check service on the `/health` endpoint on the defined port. Default value is `false`.
-unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default value is `false`.
+unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. OpenSearch Data Prepper ignores this option if no authentication is defined. Default value is `false`.
 request_timeout | No | Integer | The request timeout, in milliseconds. Default value is `10000`.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default value is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default value is `500`.
@@ -35,6 +36,21 @@ aws_region | Conditionally | String | AWS region used by ACM or Amazon S3. Requi
 <!--- ## Configuration
 
 Content will be added to this section.--->
+
+## Ingestion
+
+Clients should send HTTP `POST` requests to the endpoint `/log/ingest`.
+
+The `http` protocol only supports the JSON UTF-8 codec for incoming requests, for example, `[{"key1": "value1"}, {"key2": "value2"}]`.
+
+#### Example: Ingest data with cURL
+
+The following cURL command can be used to ingest data:
+
+```
+curl "http://localhost:2021/log/ingest" --data '[{"key1": "value1"}, {"key2": "value2"}]'
+```
+{% include copy-curl.html %}
 
 ## Metrics
 

@@ -56,6 +56,7 @@ ID | Name | GPA | Graduation year
 1 | John Doe | 3.89 | 2022
 2 | Jonathan Powers | 3.85 | 2025
 3 | Jane Doe | 3.52 | 2024
+... | | |
 
 ## Clusters and nodes
 
@@ -125,35 +126,6 @@ Individual words in a search query are called search _terms_. Each search term i
 1. A match on a longer document should tend to be scored lower than a match on a shorter document. A document that contains a full dictionary would match on any word but is not very relevant to any particular word. This corresponds to the _length normalization_ component of the score.
 
 OpenSearch uses the BM25 ranking algorithm to calculate document relevance scores and then returns the results sorted by relevance. To learn more, see [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25).
-
-## Advanced concepts
-
-The following section describes more advanced OpenSearch concepts.
-
-### Update lifecycle
-
-The lifecycle of an update operation consists of the following steps:
-
-1. An update is received by a primary shard and is written to the shard's transaction log ([translog](#translog)). The translog is flushed to disk (followed by an fsync) before the update is acknowledged. This guarantees durability.
-1. The update is also passed to the Lucene index writer, which adds it to an in-memory buffer.
-1. On a [refresh operation](#refresh), the Lucene index writer flushes the in-memory buffers to disk (with each buffer becoming a new Lucene segment), and a new index reader is opened over the resulting segment files. The updates are now visible for search.
-1. On a [flush operation](#flush), the shard fsyncs the Lucene segments. Because the segment files are a durable representation of the updates, the translog is no longer needed to provide durability, so the updates can be purged from the translog.
-
-### Translog
-
-An indexing or bulk call responds when the documents have been written to the translog and the translog is flushed to disk, so the updates are durable. The updates will not be visible to search requests until after a [refresh operation](#refresh).
-
-### Refresh
-
-Periodically, OpenSearch performs a _refresh_ operation, which writes the documents from the in-memory Lucene index to files. These files are not guaranteed to be durable because an `fsync` is not performed. A refresh makes documents available for search.
-
-### Flush
-
-A _flush_ operation persists the files to disk using `fsync`, ensuring durability. Flushing ensures that the data stored only in the translog is recorded in the Lucene index. OpenSearch performs a flush as needed to ensure that the translog does not grow too large.
-
-### Merge
-
-In OpenSearch, a shard is a Lucene index, which consists of _segments_ (or segment files). Segments store the indexed data and are immutable. Periodically, smaller segments are merged into larger ones. Merging reduces the overall number of segments on each shard, frees up disk space, and improves search performance. Eventually, segments reach a maximum size specified in the merge policy and are no longer merged into larger segments. The merge policy also specifies how often merges are performed. 
 
 ## Next steps
 

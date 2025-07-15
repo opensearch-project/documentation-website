@@ -12,7 +12,7 @@ nav_order: 20
 
 Use this API to retrieve information about a controller for a model by model ID.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/controllers/<model_id>
@@ -26,14 +26,14 @@ The following table lists the available path parameters.
 | :--- | :--- | :--- |
 | `model_id` | String | The model ID of the model for which to retrieve the controller. |
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/controllers/T_S-cY0BKCJ3ot9qr0aP
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -69,9 +69,9 @@ If there is no controller defined for the model, OpenSearch returns an error:
 }
 ```
 
-## Response fields
+## Response body fields
 
-For response field descriptions, see [Create Controller API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller#request-fields).
+For response field descriptions, see [Create Controller API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller#request-body-fields).
 
 ## Required permissions
 

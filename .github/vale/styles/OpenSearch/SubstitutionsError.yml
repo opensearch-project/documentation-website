@@ -37,6 +37,7 @@ swap:
   'pre-trained': pretrained
   'premigration': pre-migration
   're-enable': reenable
+  'retrieval augmented generation': retrieval-augmented generation
   'screen shot': screenshot
   'sample request': example request
   'sample response': example response
@@ -53,3 +54,4 @@ swap:
   'web site': website
   'whitespace': white space
   'user interface \(UI\)': UI
+  'judgement': judgment

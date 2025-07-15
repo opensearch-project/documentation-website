@@ -96,8 +96,8 @@ GET logs/_search
 "aggregations" : {
   "pages" : {
     "doc_count" : 2,
-    "min_price" : {
-      "value" : 200.0
+    "min_load_time" : {
+      "value" : 200
     }
   }
  }

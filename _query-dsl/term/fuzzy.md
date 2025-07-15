@@ -89,5 +89,5 @@ Parameter | Data type | Description
 Specifying a large value in `max_expansions` can lead to poor performance, especially if `prefix_length` is set to `0`, because of the large number of variations of the word that OpenSearch tries to match.
 {: .warning}
 
-If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, fuzzy queries are not run.
+If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, then fuzzy queries are not executed.
 {: .important}

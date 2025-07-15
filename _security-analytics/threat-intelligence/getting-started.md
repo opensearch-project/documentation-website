@@ -7,7 +7,7 @@ nav_order: 41
 
 # Getting started
 
-To get started with threat intelligence, you'll need to set up your threat intelligence sources and set up monitors to scan your log sources. The following tutorial shows you how to get started using OpenSearch Dashboards. Alternatively, you can use the [API](({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/). 
+To get started with threat intelligence, you'll need to set up your threat intelligence sources and set up monitors to scan your log sources. The following tutorial shows you how to get started using OpenSearch Dashboards. Alternatively, you can use the [API]({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/). 
 
 ## Threat intelligence view
 
@@ -50,15 +50,64 @@ Local files uploaded as the threat intelligence source must use the following sp
 
 When using the `S3_SOURCE` as a remote store, the following connection information must be provided:
 
-- **IAM Role ARN**: The Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role.
-- **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored.
-- **Specify a directory or file**: The object key or directory path for the `STIX2` file in the S3 bucket.
+- **IAM Role ARN**: The Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role. When using the AWS OpenSearch Service, the role ARN needs to be in the same account as the OpenSearch domain. For more information about adding a new role for the AWS OpenSearch Service, see [Add service ARN](#add-aws-opensearch-service-arn).
+- **S3 bucket directory**: The name of the Amazon Simple Storage Service (Amazon S3) bucket in which the `STIX2` file is stored. To access an S3 bucket in a different AWS account, see the [Cross-account S3 bucket connection](#cross-account-s3-bucket-connection) section for more details.
+- **Specify a file**: The object key for the `STIX2` file in the S3 bucket.
 - **Region**: The AWS Region for the S3 bucket.
 
 You can also set the **Download schedule**, which determines to where OpenSearch downloads an updated `STIX2` file from the connected S3 bucket. The default interval is once a day. Only daily intervals are supported. 
 
 Alternatively, you can check the **Download on demand** option, which prevents new data from the bucket from being automatically downloaded.
 
+#### Add AWS OpenSearch Service ARN
+
+If you're using the AWS OpenSearch Service, create a new ARN role with a custom trust policy. For instructions on how to create the role, see [Creating a role for an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html#roles-creatingrole-service-console).
+
+When creating the role, customize the following settings:
+
+- Add the following custom trust policy:
+
+      ```bash
+      { 
+         "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Effect": "Allow",
+                  "Principal": {
+                      "Service": [
+                          "opensearchservice.amazonaws.com"
+                      ]
+                  },
+                  "Action": "sts:AssumeRole"
+              }
+          ]
+      }
+      ```
+      
+- On the Permissions policies page, add the `AmazonS3ReadOnlyAccess` permission. 
+   
+
+#### Cross-account S3 bucket connection
+
+Because the role ARN needs to be in the same account as the OpenSearch domain, a trust policy needs to be configured that allows the OpenSearch domain to download from S3 buckets from the same account.
+
+To download from an S3 bucket in another account, the trust policy for that bucket needs to give the role ARN permission to read from the object, as shown in the following example:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+     {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::123456789012:role/account-1-threat-intel-role"
+            },
+          "Action": "s3:*",
+            "Resource": "arn:aws:s3:::account-2-threat-intel-bucket/*"
+     }
+ ]
+}
+```
 
 ## Step 2: Set up scanning for your log sources
 

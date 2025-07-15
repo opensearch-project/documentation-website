@@ -30,7 +30,7 @@ The following is the syntax for the `append` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 
@@ -43,6 +43,7 @@ Parameter | Required/Optional | Description |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
+`allow_duplicates` | Optional | Specifies whether to append the values already contained in the field. If `true`, duplicate values are appended. Otherwise, they are skipped. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
 

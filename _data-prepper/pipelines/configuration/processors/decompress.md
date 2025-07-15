@@ -16,7 +16,7 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `keys` | Yes | List<String> | The fields in the event that will be decompressed.                                                                                          
 `type` | Yes | Enum | The type of decompression to use for the `keys` in the event. Only `gzip` is supported.                                           
-`decompress_when` | No | String| A [Data Prepper conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) that determines when the `decompress` processor will run on certain events.
+`decompress_when` | No | String| A [Data Prepper conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) that determines when the `decompress` processor will run on certain events.
 `tags_on_failure` | No | List<String> | A list of strings with which to tag events when the processor fails to decompress the `keys` inside an event. Defaults to `_decompression_failure`.                               
 
 ## Usage

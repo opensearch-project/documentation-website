@@ -45,24 +45,13 @@ An analyzer must contain exactly one tokenizer and may contain zero or more char
 
 There is also a special type of analyzer called a ***normalizer***. A normalizer is similar to an analyzer except that it does not contain a tokenizer and can only include specific types of character filters and token filters. These filters can perform only character-level operations, such as character or pattern replacement, and cannot perform operations on the token as a whole. This means that replacing a token with a synonym or stemming is not supported. See [Normalizers]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) for further details.
 
-## Built-in analyzers
+## Supported analyzers
 
-The following table lists the built-in analyzers that OpenSearch provides. The last column of the table contains the result of applying the analyzer to the string `It’s fun to contribute a brand-new PR or 2 to OpenSearch!`.
-
-Analyzer | Analysis performed | Analyzer output 
-:--- | :--- | :---
-**Standard** (default) | - Parses strings into tokens at word boundaries <br> - Removes most punctuation <br> - Converts tokens to lowercase | [`it’s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `2`, `to`, `opensearch`]
-**Simple** | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters <br> - Converts tokens to lowercase  | [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `to`, `opensearch`]
-**Whitespace** | - Parses strings into tokens on white space | [`It’s`, `fun`, `to`, `contribute`, `a`,`brand-new`, `PR`, `or`, `2`, `to`, `OpenSearch!`]
-**Stop** | - Parses strings into tokens on any non-letter character <br> - Removes non-letter characters <br> - Removes stop words <br> - Converts tokens to lowercase | [`s`, `fun`, `contribute`, `brand`, `new`, `pr`, `opensearch`]
-**Keyword** (no-op) | - Outputs the entire string unchanged | [`It’s fun to contribute a brand-new PR or 2 to OpenSearch!`]
-**Pattern** | - Parses strings into tokens using regular expressions <br> - Supports converting strings to lowercase <br> - Supports removing stop words | [`it`, `s`, `fun`, `to`, `contribute`, `a`,`brand`, `new`, `pr`, `or`, `2`, `to`, `opensearch`]
-[**Language**]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/) | Performs analysis specific to a certain language (for example, `english`). | [`fun`, `contribut`, `brand`, `new`, `pr`, `2`, `opensearch`]
-**Fingerprint** | - Parses strings on any non-letter character <br> - Normalizes characters by converting them to ASCII <br> - Converts tokens to lowercase <br> - Sorts, deduplicates, and concatenates tokens into a single token <br> - Supports removing stop words | [`2 a brand contribute fun it's new opensearch or pr to`] <br> Note that the apostrophe was converted to its ASCII counterpart.
+For a list of supported analyzers, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/).
 
 ## Custom analyzers
 
-If needed, you can combine tokenizers, token filters, and character filters to create a custom analyzer.
+If needed, you can combine tokenizers, token filters, and character filters to create a custom analyzer. For more information, see [Creating a custom analyzer]({{site.url}}{{site.baseurl}}/analyzers/custom-analyzer/).
 
 ## Text analysis at indexing time and query time
 
@@ -170,6 +159,31 @@ The response provides information about the analyzers for each field:
 }
 ```
 
+## Normalizers
+
+Tokenization divides text into individual terms, but it does not address variations in token forms. Normalization resolves these issues by converting tokens into a standard format. This ensures that similar terms are matched appropriately, even if they are not identical.
+
+### Normalization techniques
+
+The following normalization techniques can help address variations in token forms:
+
+1. **Case normalization**: Converts all tokens to lowercase to ensure case-insensitive matching. For example, "Hello" is normalized to "hello".
+
+2. **Stemming**: Reduces words to their root form. For instance, "cars" is stemmed to "car" and "running" is normalized to "run".
+
+3. **Synonym handling:** Treats synonyms as equivalent. For example, "jogging" and "running" can be indexed under a common term, such as "run".
+
+### Normalization
+
+A search for `Hello` will match documents containing `hello` because of case normalization.
+
+A search for `cars` will also match documents containing `car` because of stemming.
+
+A query for `running` can retrieve documents containing `jogging` using synonym handling.
+
+Normalization ensures that searches are not limited to exact term matches, allowing for more relevant results. For instance, a search for `Cars running` can be normalized to match `car run`.
+
 ## Next steps
 
 - Learn more about specifying [index analyzers]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) and [search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
+- See the list of [supported analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/).

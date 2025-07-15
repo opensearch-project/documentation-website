@@ -96,7 +96,7 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
 
 1. In `docker-compose.yml`, change `opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}` to `opensearch-dashboards-no-security`.
 1. Change `OPENSEARCH_HOSTS` or `opensearch.hosts` to `http://` rather than `https://`.
-1. Enter `docker-compose up`.
+1. Enter `docker compose up`.
 
 #### Tarball 
 
@@ -155,26 +155,26 @@ Use the following steps to reinstall the plugin:
 
 1. Disable shard allocation and stop all nodes so that shards don't move when the cluster is restarted:
 
-  ```json
-  curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
-    "transient": {
-      "cluster.routing.allocation.enable": "none"
-      }
-   }'
-  ```
-  {% include copy.html %}
+    ```json
+    curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
+      "transient": {
+        "cluster.routing.allocation.enable": "none"
+        }
+     }'
+    ```
+    {% include copy.html %}
  
 2. Install the Security plugin on all nodes in your cluster using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install):
 
-  ```bash
-  bin/opensearch-plugin install opensearch-security
-  ```
-  {% include copy.html %}
-  
+    ```bash
+    bin/opensearch-plugin install opensearch-security
+    ```
+    {% include copy.html %}
+    
 3. Add the necessary configuration to `opensearch.yml` for TLS encryption. See
 [Configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/) for information about the settings that need to be configured.
 
-4. Create the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable. For more information, see [Setting up a custom admin password](https://opensearch.org/docs/latest/security/configuration/demo-configuration/#setting-up-a-custom-admin-password).
+4. Create the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable. For more information, see [Setting up a custom admin password]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#setting-up-a-custom-admin-password).
   
 5. Restart the nodes and reenable shard allocation:
 

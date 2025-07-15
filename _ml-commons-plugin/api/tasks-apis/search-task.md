@@ -10,13 +10,13 @@ nav_order: 15
 
 Searches tasks based on parameters indicated in the request body.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/tasks/_search
 ```
 
-#### Example request: Search for a task in which `function_name` is `KMEANS`
+## Example request: Search for a task in which `function_name` is `KMEANS`
 
 ```json
 GET /_plugins/_ml/tasks/_search
@@ -36,7 +36,7 @@ GET /_plugins/_ml/tasks/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

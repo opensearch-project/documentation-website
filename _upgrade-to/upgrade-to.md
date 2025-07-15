@@ -6,6 +6,10 @@ nav_order: 15
 
 # Migrating from Elasticsearch OSS to OpenSearch
 
+
+OpenSearch provides a [Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/) to assist you in migrating from other search solutions.
+{: .warning}
+
 If you want to migrate from an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach]({{site.url}}{{site.baseurl}}/upgrade-to/snapshot-migrate/) unappealing, you can migrate your existing nodes from Elasticsearch OSS to OpenSearch.
 
 If your existing cluster runs an older version of Elasticsearch OSS, the first step is to upgrade to version 6.x or 7.x.

@@ -743,7 +743,7 @@ If you run a document-level query while the index is getting reindexed, the API 
 
 ## Update monitor
 
-When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers do not match the existing monitor or the monitor does not exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating a monitor, you can optionally include `seq_no` and `primary_term` as parameters. If these numbers do not match the existing monitor or the monitor does not exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Example request
 ```json
@@ -1609,7 +1609,7 @@ POST _plugins/_alerting/destinations
 
 ## Update destination
 
-When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers do not match the existing destination or the destination doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating a destination, you can optionally include `seq_no` and `primary_term` as parameters. If these numbers do not match the existing destination or the destination doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Example request
 ```json
@@ -1857,7 +1857,7 @@ POST _plugins/_alerting/destinations/email_accounts
 
 ## Update email account
 
-When updating an email account, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email account or the email account doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating an email account, you can optionally include `seq_no` and `primary_term` as parameters. If these numbers don't match the existing email account or the email account doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Example request
 ```json
@@ -2117,7 +2117,7 @@ POST _plugins/_alerting/destinations/email_groups
 
 ## Update email group
 
-When updating an email group, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email group or the email group doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating an email group, you can optionally include `seq_no` and `primary_term` as parameters. If these numbers don't match the existing email group or the email group doesn't exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Example request
 ```json
@@ -2329,8 +2329,6 @@ POST _plugins/_alerting/destinations/email_groups/_search
 </details>
 
 ## Create comment
-This is an experimental feature and is not recommended for use in a production environment.   
-{: .warning}
 
 Add comments to a specific alert, providing additional context or notes related to that alert, using the following request.
 
@@ -2371,8 +2369,6 @@ POST _plugins/_alerting/comments/<alert-id>
 </details>
 
 ## Update comment
-This is an experimental feature and is not recommended for use in a production environment.   
-{: .warning}
 
 Modify the content of a previously added comment associated with an alert using the following request.
 
@@ -2414,8 +2410,6 @@ PUT _plugins/_alerting/comments/<comment-id>
 </details>
 
 ## Search comment
-This is an experimental feature and is not recommended for use in a production environment.   
-{: .warning}
 
 Query and retrieve existing comments associated with alerts using the following request.
 
@@ -2496,8 +2490,6 @@ GET _plugins/_alerting/comments/_search
 </details>
 
 ## Delete comment
-This is an experimental feature and is not recommended for use in a production environment.   
-{: .warning}
 
 Remove a specific comment associated with an alert using the following request.
 

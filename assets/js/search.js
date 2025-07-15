@@ -173,7 +173,10 @@
 
         const showNoResults = () => {
             emptyResults();
-            elResults.appendChild(document.createRange().createContextualFragment('<span>No results found!</span>'));
+            const resultElement = document.createElement('div');
+            resultElement.classList.add('search-page--results--no-results');
+            resultElement.appendChild(document.createRange().createContextualFragment('<span>No results found.</span>'));
+            elResults.appendChild(resultElement);
             showResults();
             elSpinner?.classList.remove(CLASSNAME_SPINNING);
         };
@@ -278,8 +281,6 @@
 
 
 window.doResultsPageSearch = async (query, type, version) => {
-    console.log("Running results page search!");
-
     const searchResultsContainer = document.getElementById('searchPageResultsContainer');
 
     try {
@@ -291,7 +292,7 @@ window.doResultsPageSearch = async (query, type, version) => {
         if (data.results && data.results.length > 0) {
             data.results.forEach(result => {
               const resultElement = document.createElement('div');
-              resultElement.classList.add('search-page--results--diplay--container--item');
+              resultElement.classList.add('search-page--results--display--container--item');
 
               const contentCite = document.createElement('cite');
               const crumbs = [...result.ancestors];
@@ -302,11 +303,9 @@ window.doResultsPageSearch = async (query, type, version) => {
 
               const titleLink = document.createElement('a');
               titleLink.href = result.url;
+              titleLink.classList.add('search-page--results--display--container--item--link');
               titleLink.textContent = result.title;
-              titleLink.style.fontSize = '1.5em';
-              titleLink.style.fontWeight = 'bold';
-              titleLink.style.display = 'block';
-
+              
               const contentSpan = document.createElement('span');
               contentSpan.textContent = result.content;
               contentSpan.style.display = 'block';
@@ -317,16 +316,10 @@ window.doResultsPageSearch = async (query, type, version) => {
 
               // Append the result element to the searchResultsContainer
               searchResultsContainer.appendChild(resultElement);
-
-              const breakline = document.createElement('hr');
-              breakline.style.border = '.5px solid #ccc';
-              breakline.style.margin = 'auto';
-              searchResultsContainer.appendChild(breakline);
             });
         } else {
           const noResultsElement = document.createElement('div');
           noResultsElement.textContent = 'No results found.';
-          noResultsElement.style.fontSize = '2em';
           searchResultsContainer.appendChild(noResultsElement);
         }
     } catch (error) {

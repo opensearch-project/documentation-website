@@ -24,7 +24,7 @@ When the Security plugin is enabled, all memories exist in a `private` security 
 
 You can retrieve message information by using the `message_id`.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/memory/message/<message_id>
@@ -38,14 +38,14 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `message_id` | String | The ID of the message to retrieve.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/message/0m8ya40BfUsSoeNTj-pU
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -62,13 +62,13 @@ GET /_plugins/_ml/memory/message/0m8ya40BfUsSoeNTj-pU
 }
 ```
 
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-fields).
+For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).
 
 ## Get all messages within a memory
 
 Use this command to get a list of messages for a certain memory.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 GET /_plugins/_ml/memory/<memory_id>/messages
@@ -82,7 +82,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `memory_id` | String | The ID of the memory for which to retrieve messages.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/messages
@@ -100,7 +100,7 @@ POST /_plugins/_ml/message/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -133,7 +133,7 @@ POST /_plugins/_ml/message/_search
 }
 ```
 
-## Response fields
+## Response body fields
 
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-fields).
+For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).
 

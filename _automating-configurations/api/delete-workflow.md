@@ -13,7 +13,7 @@ Note that deleting a workflow only deletes the stored template---it does not dep
 
 When a workflow is deleted, its corresponding status (returned by the [Workflow State API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/)) is also deleted unless either the provisioning status is `IN_PROGRESS` or resources have been provisioned.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 DELETE /_plugins/_flow_framework/workflow/<workflow_id>
@@ -35,7 +35,7 @@ The following table lists the available query parameters. All query parameters a
 | :--- | :--- | :--- |
 | `clear_status` | Boolean | Determines whether to delete the workflow state (without deprovisioning resources) after deleting the template. OpenSearch deletes the workflow state only if the provisioning status is not `IN_PROGRESS`. Default is `false`. |
 
-#### Example request
+## Example request
 
 ```json
 DELETE /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50
@@ -47,7 +47,7 @@ DELETE /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50?clear_status=true
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 If the workflow exists, a delete response contains the status of the deletion, where the `result` field is set to `deleted` on success or `not_found` if the workflow does not exist (it may have already been deleted):
 

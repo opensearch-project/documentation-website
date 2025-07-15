@@ -15,24 +15,73 @@ The CAT segment replication operation returns information about active and last 
 Call the CAT Segment Replication API only on indexes with segment replication enabled.
 {: .note}
 
-## Path and HTTP methods
-
+<!-- spec_insert_start
+api: cat.segment_replication
+component: endpoints
+-->
+## Endpoints
 ```json
 GET /_cat/segment_replication
-GET /_cat/segment_replication/<index>
+GET /_cat/segment_replication/{index}
 ```
+<!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: cat.segment_replication
+component: path_parameters
+columns: Parameter, Data type, Description
+include_deprecated: false
+-->
 ## Path parameters
 
-The following table lists the available optional path parameter.
+The following table lists the available path parameters. All path parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. |
+
+<!-- spec_insert_end -->
+
+
+<!-- spec_insert_start
+api: cat.segment_replication
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `active_only` | Boolean | When `true`, the response only includes ongoing segment replication events. | `false` |
+| `allow_no_indices` | Boolean | Whether to ignore the index if a wildcard index expression resolves to no concrete indexes. This includes the `_all` string or when no indexes have been specified. | N/A |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, and `p`. | N/A |
+| `completed_only` | Boolean | When `true`, the response only includes the last-completed segment replication events. | `false` |
+| `detailed` | Boolean | When `true`, the response includes additional metrics for each stage of a segment replication event. | `false` |
+| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `ignore_throttled` | Boolean | Whether specified concrete, expanded, or aliased indexes should be ignored when throttled. | N/A |
+| `ignore_unavailable` | Boolean | Whether the specified concrete indexes should be ignored when missing or closed. | N/A |
+| `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. | N/A |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `shards` | List | A comma-separated list of shards to display. | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
+| `timeout` | String | The operation timeout. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
+<!-- spec_insert_end -->
+
+## Path parameters
 
 Parameter | Type | Description
 :--- | :--- | :---
 `index` | String | The name of the index, or a comma-separated list or wildcard expression of index names used to filter results. If this parameter is not provided, the response contains information about all indexes in the cluster.
 
 ## Query parameters
-
-The CAT segment replication API operation supports the following optional query parameters.
 
 Parameter | Data type  | Description
 :--- |:-----------| :---

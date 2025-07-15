@@ -17,14 +17,45 @@ You can use a search pipeline in the following ways:
 
 ## Specifying an existing search pipeline for a request
 
-After you [create a search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/), you can use the pipeline with a query by specifying the pipeline name in the `search_pipeline` query parameter:
+After you [create a search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/), you can use the pipeline with a query in the following ways. For a complete example of using a search pipeline with a `filter_query` processor, see [`filter_query` processor example]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/filter-query-processor#example).
+
+### Specifying the pipeline in a query parameter
+
+You can specify the pipeline name in the `search_pipeline` query parameter as follows:
 
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
 ```
 {% include copy-curl.html %}
 
-For a complete example of using a search pipeline with a `filter_query` processor, see [`filter_query` processor example]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/filter-query-processor#example).
+### Specifying the pipeline in the request body
+
+You can provide a search pipeline ID in the search request body as follows:
+
+```json
+GET /my-index/_search
+{
+    "query": {
+        "match_all": {}
+    },
+    "from": 0,
+    "size": 10,
+    "search_pipeline": "my_pipeline"
+}
+```
+{% include copy-curl.html %}
+
+For multi-search, you can provide a search pipeline ID in the search request body as follows:
+
+```json
+GET /_msearch
+{ "index": "test"}
+{ "query": { "match_all": {} }, "from": 0, "size": 10, "search_pipeline": "my_pipeline"}
+{ "index": "test-1", "search_type": "dfs_query_then_fetch"}
+{ "query": { "match_all": {} }, "search_pipeline": "my_pipeline1" }
+
+```
+{% include copy-curl.html %}
 
 ## Using a temporary search pipeline for a request
 

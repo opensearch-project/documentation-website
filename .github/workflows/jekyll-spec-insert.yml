@@ -1,0 +1,20 @@
+name: Lint and Test Jekyll Spec Insert
+on:
+  push:
+    paths:
+      - 'spec-insert/**'
+  pull_request:
+    paths:
+      - 'spec-insert/**'
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with: { ruby-version: 3.3.0 }
+      - run: bundle install
+      - working-directory: spec-insert
+        run: |
+          bundle exec rubocop
+          bundle exec rspec

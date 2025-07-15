@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Data Types
+title: Data types
 parent: SQL and PPL
 nav_order: 7
 ---
@@ -25,7 +25,6 @@ text | text | VARCHAR
 date | timestamp | TIMESTAMP
 date_nanos | timestamp | TIMESTAMP
 ip | ip | VARCHAR
-date | timestamp | TIMESTAMP
 binary | binary | VARBINARY
 object | struct | STRUCT
 nested | array | STRUCT

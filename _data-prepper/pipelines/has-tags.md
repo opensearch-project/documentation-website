@@ -10,7 +10,7 @@ nav_order: 20
 
 The `hasTags()` function takes one or more string type arguments and returns `true` if all of the arguments passed are present in an event's tags. If an argument does not exist in the event's tags, then the function returns `false`. 
 
-For example, if you use the expression `hasTags("tag1")` and the event contains `tag1`, then Data Prepper returns `true`. If you use the expression `hasTags("tag2")` but the event only contains `tag1`, then Data Prepper returns `false`.
+For example, if you use the expression `hasTags("tag1")` and the event contains `tag1`, then OpenSearch Data Prepper returns `true`. If you use the expression `hasTags("tag2")` but the event only contains `tag1`, then Data Prepper returns `false`.
 
 #### Example
 
@@ -42,4 +42,4 @@ For example, if you use the expression `hasTags("tag1")` and the event contains 
   ]
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}

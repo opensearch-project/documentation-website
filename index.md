@@ -9,4 +9,4 @@ permalink: /
 
 {% include banner.html %}
 
-{% include cards.html %}
+{% include home_cards.html %}

@@ -66,5 +66,5 @@ Parameter | Data type | Description
 `case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).
 `rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
 
-If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, prefix queries are not run. If `index_prefixes` is enabled, the `search.allow_expensive_queries` setting is ignored and an optimized query is built and run.
+If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, then prefix queries are not executed. If `index_prefixes` is enabled, then the `search.allow_expensive_queries` setting is ignored and an optimized query is built and run.
 {: .important}

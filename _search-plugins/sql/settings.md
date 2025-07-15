@@ -79,6 +79,8 @@ Setting | Default | Description
 `plugins.query.memory_limit` | 85% | Configures the heap memory usage limit for the circuit breaker of the query engine.
 `plugins.query.size_limit` | 200 | Sets the default size of index that the query engine fetches from OpenSearch.
 `plugins.query.datasources.enabled` | true | Change to `false` to disable support for data sources in the plugin.
+`plugins.query.field_type_tolerance` | true | If `false`, then an array is reduced to the first non-array value at any nesting level. For example, `[[1, 2], [3, 4]]` will be reduced to `1`. If `true`, then the array is preserved. Default is `true`.
+`plugins.calcite.enabled` | false | Set to `true` to enable experimental features that use the Apache Calcite query engine, including advanced SQL and PPL capabilities such as subsearches, joins, and lookup operations.
 
 ## Spark connector settings
 

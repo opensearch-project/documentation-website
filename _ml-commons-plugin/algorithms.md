@@ -7,7 +7,7 @@ nav_order: 125
 
 # Supported algorithms
 
-ML Commons supports various algorithms to help train and predict machine learning (ML) models or test data-driven predictions without a model. This page outlines the algorithms supported by the ML Commons plugin and the API operations they support.
+OpenSearch provides built-in machine learning (ML) algorithms that run natively within your cluster for tasks like anomaly detection, clustering, and predictive analytics. These algorithms allow you to analyze your data directly in OpenSearch without requiring external ML models or services. Each algorithm is optimized for specific use cases, from detecting unusual patterns in metrics to grouping similar data points together.
 
 ## Common limitations
 
@@ -59,20 +59,31 @@ The training process supports multithreading, but the number of threads must be 
 
 ## Linear regression
 
-Linear regression maps the linear relationship between inputs and outputs. In ML Commons, the linear regression algorithm is adopted from the public machine learning library [Tribuo](https://tribuo.org/), which offers multidimensional linear regression models. The model supports the linear optimizer in training, including popular approaches like Linear Decay, SQRT_DECAY, [ADA](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf), [ADAM](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/Adam.html), and [RMS_DROP](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/RMSProp.html). 
+Linear regression maps the linear relationship between inputs and outputs. In ML Commons, the linear regression algorithm is adopted from the public machine learning library [Tribuo](https://tribuo.org/), which offers multidimensional linear regression models. The model supports the linear optimizer in training, including popular approaches like Linear Decay, SQRT_DECAY, [ADA](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf), [ADAM](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/Adam.html), and [RMS_PROP](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/RMSProp.html).
+
+**Optimizers supported:** [SIMPLE_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=learning%20rate%20SGD.-,getSimpleSGD,-public%20static%C2%A0), [LINEAR_DECAY_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=linear%20decay%20SGD.-,getLinearDecaySGD,-public%20static%C2%A0), [SQRT_DECAY_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=sqrt%20decay%20SGD.-,getSqrtDecaySGD,-public%20static%C2%A0), [ADA_GRAD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/AdaGrad.html), [ADA_DELTA](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/AdaDelta.html), [ADAM](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/Adam.html), and [RMS_PROP](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/RMSProp.html).  
+**Objectives supported:** [ABSOLUTE_LOSS](https://tribuo.org/learn/4.2/javadoc/org/tribuo/regression/sgd/objectives/AbsoluteLoss.html), [HUBER](https://tribuo.org/learn/4.2/javadoc/org/tribuo/regression/sgd/objectives/Huber.html), and [SQUARED_LOSS](https://tribuo.org/learn/4.2/javadoc/org/tribuo/regression/sgd/objectives/SquaredLoss.html).  
+**momentum_type supported:** [STANDARD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.Momentum.html#STANDARD:~:text=No%20momentum.-,STANDARD,-public%20static%20final) and [NESTEROV](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.Momentum.html#STANDARD:~:text=Standard%20momentum.-,NESTEROV,-public%20static%20final).  
 
 ### Parameters
 
 Parameter | Type   | Description | Default value
 :--- |:--- | :--- | :---
-`learningRate` | Double | The initial step size used in an iterative optimization algorithm. | `0.01`
-`momentumFactor` | Double | The extra weight factors that accelerate the rate at which the weight is adjusted. This helps move the minimization routine out of local minima.  | `0`
+`target` | String | The name of the target variable to predict. Identifies which feature the model will learn to predict during training. | `NA`
+`learning_rate` | Double | The initial step size used in an iterative optimization algorithm. | `0.01`
+`momentum_factor` | Double | The extra weight factors that accelerate the rate at which the weight is adjusted. This helps move the minimization routine out of local minima.  | `0`
 `epsilon` | Double | The value for stabilizing gradient inversion. | `1.00E-06`
 `beta1` | Double | The exponential decay rates for the moment estimates. |  `0.9`
 `beta2` | Double | The exponential decay rates for the moment estimates. |  `0.99`
-`decayRate` | Double | The Root Mean Squared Propagation (RMSProp). | `0.9`
-`momentumType` | String | The defined Stochastic Gradient Descent (SGD) momentum type that helps accelerate gradient vectors in the right directions, leading to a fast convergence.| `STANDARD`
-`optimizerType` | String | The optimizer used in the model. | `SIMPLE_SGD`
+`decay_rate` | Double | The Root Mean Squared Propagation (RMSProp). | `0.9`
+`momentum_type` | String | The defined Stochastic Gradient Descent (SGD) momentum type that helps accelerate gradient vectors in the right directions, leading to a fast convergence.| `STANDARD`
+`optimiser` | String | The optimizer used in the model. | `ADA_GRAD`
+`objective` | String | The objective function used. | `SQUARED_LOSS` 
+`epochs` | Integer | The number of iterations. | `5`|
+`batch_size` | Integer | The minimum batch size. | `1`
+`logging_interval` | Integer | The frequency of logging during training iterations. Set to `-1` to disable logging. | `-1`
+`seed` | Long | A random seed used for reproducible results. Controls the initialization of random number generators. | `12345`
+
 
 
 ### Supported APIs
@@ -412,23 +423,27 @@ The Localization algorithm can only be executed directly. Therefore, it cannot b
 
 A classification algorithm, logistic regression models the probability of a discrete outcome given an input variable. In ML Commons, these classifications include both binary and multi-class. The most common is the binary classification, which takes two values, such as "true/false" or "yes/no", and predicts the outcome based on the values specified. Alternatively, a multi-class output can categorize different inputs based on type. This makes logistic regression most useful for situations where you are trying to determine how your inputs fit best into a specified category. 
 
+**Optimizers supported:** [SIMPLE_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=learning%20rate%20SGD.-,getSimpleSGD,-public%20static%C2%A0), [LINEAR_DECAY_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=linear%20decay%20SGD.-,getLinearDecaySGD,-public%20static%C2%A0), [SQRT_DECAY_SGD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.html#:~:text=sqrt%20decay%20SGD.-,getSqrtDecaySGD,-public%20static%C2%A0), [ADA_GRAD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/AdaGrad.html), [ADA_DELTA](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/AdaDelta.html), [ADAM](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/Adam.html), and [RMS_PROP](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/RMSProp.html).
+**Objectives supported:** [HINGE](https://tribuo.org/learn/4.2/javadoc/org/tribuo/classification/sgd/objectives/Hinge.html) and [LOGMULTICLASS](https://tribuo.org/learn/4.2/javadoc/org/tribuo/classification/sgd/objectives/LogMulticlass.html).  
+**Momentum type supported:** [STANDARD](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.Momentum.html#STANDARD:~:text=No%20momentum.-,STANDARD,-public%20static%20final) and [NESTEROV](https://tribuo.org/learn/4.2/javadoc/org/tribuo/math/optimisers/SGD.Momentum.html#STANDARD:~:text=Standard%20momentum.-,NESTEROV,-public%20static%20final).  
+
 ### Parameters
 
 | Parameter | Type | Description | Default value |
 |---|---|---|---|
-| `learningRate` | Double | The initial step size used in an iterative optimization algorithm. | `1` |
-| `momentumFactor` | Double | The extra weight factors that accelerate the rate at which the weight is adjusted. This helps move the minimization routine out of local minima. | `0` |
+| `learning_rate` | Double | The initial step size used in an iterative optimization algorithm. | `1` |
+| `momentum_factor` | Double | The extra weight factors that accelerate the rate at which the weight is adjusted. This helps move the minimization routine out of local minima. | `0` |
 | `epsilon` | Double | The value for stabilizing gradient inversion. | `0.1` |
 | `beta1` | Double | The exponential decay rates for the moment estimates. | `0.9` |
 | `beta2` | Double | The exponential decay rates for the moment estimates. | `0.99` |
-| `decayRate` | Double | The Root Mean Squared Propagation (RMSProp). | `0.9` |
-| `momentumType` | String | The Stochastic Gradient Descent (SGD) momentum that helps accelerate gradient vectors in the right direction, leading to faster convergence between vectors. | `STANDARD` |
-| `optimizerType` | String | The optimizer used in the model.  | `AdaGrad` |
+| `decay_rate` | Double | The Root Mean Squared Propagation (RMSProp). | `0.9` |
+| `momentum_type` | String | The Stochastic Gradient Descent (SGD) momentum that helps accelerate gradient vectors in the right directions, leading to a fast convergence. | `STANDARD` |
+| `optimiser` | String | The optimizer used in the model.  | `ADA_GRAD` |
 | `target` | String | The target field. | null |
-| `objectiveType` | String | The objective function type. | `LogMulticlass` |
+| `objective` | String | The objective function type. | `LOGMULTICLASS` |
 | `epochs` | Integer | The number of iterations. | `5` |
-| `batchSize` | Integer | The size of min batches. | `1` |
-| `loggingInterval` | Integer | The interval of logs lost after many iterations. The interval is `1` if the algorithm contains no logs. | `1000` |
+| `batch_size` | Integer | The minimum batch size. | `1` |
+| `logging_interval` | Integer | The interval of logs lost after many iterations. The interval is `1` if the algorithm contains no logs. | `1000` |
 
 ### Supported APIs
 

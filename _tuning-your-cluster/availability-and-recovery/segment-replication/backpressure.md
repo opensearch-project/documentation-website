@@ -13,7 +13,7 @@ Segment replication backpressure is a shard-level rejection mechanism that dynam
 
 Replica shards are also monitored to determine whether the shards are stuck or lagging for an extended period of time. When replica shards are stuck or lagging for more than double the amount of time defined by the `segrep.pressure.time.limit` field, the shards are removed and replaced with new replica shards.
 
-## Request fields
+## Request body fields
 
 Segment replication backpressure is disabled by default. To enable it, set `segrep.pressure.enabled` to `true`. You can update the following dynamic cluster settings using the [cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) API endpoint.
 
@@ -24,7 +24,7 @@ Field | Data type | Description
 `segrep.pressure.checkpoint.limit` | Integer | The maximum number of indexing checkpoints that a replica shard can fall behind when copying from primary. Once `segrep.pressure.checkpoint.limit` is breached along with `segrep.pressure.time.limit`, the segment replication backpressure mechanism is initiated. Default is `4` checkpoints.
 `segrep.pressure.replica.stale.limit `| Floating point | The maximum number of stale replica shards that can exist in a replication group. Once `segrep.pressure.replica.stale.limit` is breached, the segment replication backpressure mechanism is initiated. Default is `.5`, which is 50% of a replication group.
 
-## Path and HTTP methods
+## Endpoints
 
 You can use the segment replication API endpoint to retrieve segment replication backpressure metrics as follows:
 

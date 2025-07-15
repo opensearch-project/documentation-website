@@ -54,6 +54,7 @@ gibibyte
 [Ii]nstrumentations?
 [Ii]ntracluster
 [Jj]avadoc
+[Jj]accard
 k-NN
 [Kk]eystore
 kibibyte
@@ -77,12 +78,17 @@ Levenshtein
 [Mm]ultivalued
 [Mm]ultiword
 [Nn]amespace
-[Oo]versamples?
+[Oo]ffline
 [Oo]nboarding
+[Oo]versamples?
 pebibyte
+p\d{2}
 [Pp]erformant
 [Pp]laintext
 [Pp]luggable
+[Pp]ointwise
+[Pp]reaggregate(s|d)?
+[Pp]recompute(s|d)?
 [Pp]reconfigure
 [Pp]refetch
 [Pp]refilter
@@ -92,6 +98,7 @@ pebibyte
 [Pp]repper
 [Pp]reprocess
 [Pp]retrain
+[Pp]rotobufs?
 [Pp]seudocode
 [Qq]uantiles?
 [Qq]uantiz(e|ation|ing|er)
@@ -101,8 +108,10 @@ pebibyte
 [Rr]eenable
 [Rr]eindex
 [Rr]eingest
+[Rr]eprovision(ed|ing)?
 [Rr]erank(er|ed|ing)?
 [Rr]epo
+[Rr]escor(e|ed|ing)?
 [Rr]ewriter
 [Rr]ollout
 [Rr]ollup
@@ -126,6 +135,7 @@ stdout
 [Ss]ubvector
 [Ss]ubwords?
 [Ss]uperset
+[Ss]uperadmins?
 [Ss]yslog
 tebibyte
 [Tt]emplated

@@ -116,7 +116,7 @@ You can now run your first benchmark. The following benchmark uses the [percolat
 
 Benchmarks are run using the [`execute-test`]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) command with the following command flags:
 
-For additional `execute_test` command flags, see the [execute-test]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
+For additional `execute-test` command flags, see the [execute-test]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
 {: .tip}
 
 * `--pipeline=benchmark-only` : Informs OSB that users wants to provide their own OpenSearch cluster.
@@ -136,7 +136,7 @@ opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolato
 ```
 {% include copy.html %}
 
-When the `execute_test` command runs, all tasks and operations in the `percolator` workload run sequentially.
+When the `execute-test` command runs, all tasks and operations in the `percolator` workload run sequentially.
 
 ### Validating the test
 

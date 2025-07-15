@@ -2,7 +2,7 @@
 layout: default
 title: Blocks
 parent: Index APIs
-nav_order: 6
+nav_order: 7
 ---
 
 # Blocks
@@ -12,7 +12,7 @@ nav_order: 6
 Use the Blocks API to limit certain operations on a specified index. Different types of blocks allow you to restrict index write, read, or metadata operations. 
 For example, adding a `write` block through the API ensures that all index shards have properly accounted for the block before returning a successful response. Any in-flight write operations to the index must be complete before the `write` block takes effect.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT /<index>/_block/<block>
@@ -23,7 +23,7 @@ PUT /<index>/_block/<block>
 | Parameter | Data type | Description |
 :--- | :--- | :---
 | `index` | String | A comma-delimited list of index names. Wildcard expressions (`*`) are supported. To target all data streams and indexes in a cluster, use `_all` or `*`. Optional. |
-| `<block>` | String | Specifies the type of block to apply to the index. Valid values are: <br> `metadata`: Disables all metadata changes, such as closing the index. <br> `read`: Disables any read operations. <br> `read_only`: Disables any write operations and metadata changes. <br> `write`: Disables write operations. However, metadata changes are still allowed. |
+| `<block>` | String | Specifies the type of block to apply to the index. Valid values are: <br> - `metadata`: Blocks metadata changes, such as closing the index. <br> - `read`: Blocks read operations. <br> - `read_only`: Blocks write operations and metadata changes. <br> - `write`: Blocks write operations but allows metadata changes. <br> - `search_only`: Blocks indexing and write operations while allowing read-only access through search replicas. <br> OpenSearch automatically manages this block through the Scale API as part of the reader-writer separation mechanism. Therefore, do not set this parameter manually. |
 
 ## Query parameters
 
@@ -44,6 +44,7 @@ The following example request disables any `write` operations made to the test i
 ```json
 PUT /test-index/_block/write
 ```
+{% include copy.html %}
 
 ## Example response
 

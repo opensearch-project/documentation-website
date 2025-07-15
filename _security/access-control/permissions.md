@@ -267,6 +267,7 @@ See [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/inde
 
 See [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
 
+- cluster:indices:admin/opensearch/ism/managedindex
 - cluster:admin/opendistro/ism/managedindex/add
 - cluster:admin/opendistro/ism/managedindex/change
 - cluster:admin/opendistro/ism/managedindex/remove
@@ -528,7 +529,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:monitor/data_stream/stats` | Permission to stream stats.  |
 | `indices:monitor/recovery` | Permission to access recovery stats. |
 | `indices:monitor/segments` |  Permission to access segment stats. |
-| `indices:monitor/settings/get` | Permission to get mointor settings.  |
+| `indices:monitor/settings/get` | Permission to get monitor settings.  |
 | `indices:monitor/shard_stores` |  Permission to access shard store stats. |
 | `indices:monitor/stats` | Permission to access monitoring stats.  |
 | `indices:monitor/upgrade` | Permission to access upgrade stats.  |

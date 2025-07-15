@@ -38,7 +38,7 @@ We provide a fully functional example that can help you understand how to use SA
 
 1. From the command line, run:
    ```zsh
-   $ docker-compose up.
+   $ docker compose up.
    ```
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}.

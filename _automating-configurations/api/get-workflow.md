@@ -9,7 +9,7 @@ nav_order: 20
 
 The Get Workflow API retrieves the workflow template.   
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_flow_framework/workflow/<workflow_id>
@@ -23,14 +23,14 @@ The following table lists the available path parameters.
 | :--- | :--- | :--- |
 | `workflow_id` | String | The ID of the workflow to be retrieved. Required. |
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 To retrieve a template in YAML format, specify `Content-Type: application/yaml` in the request header:
 

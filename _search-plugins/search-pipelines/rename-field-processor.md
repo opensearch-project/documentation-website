@@ -13,7 +13,7 @@ Introduced 2.8
 
 The `rename_field` search response processor intercepts a search response and renames the specified field. This is useful when your index and your application use different names for the same field. For example, if you rename a field in your index, the `rename_field` processor can change the new name to the old one before sending the response to your application.
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 

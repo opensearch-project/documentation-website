@@ -28,7 +28,7 @@ curl -X GET "http://localhost:9200/_cluster/health"
 If you're using the Security plugin, provide the username and password in the request:
 
 ```bash
-curl -X GET "http://localhost:9200/_cluster/health" -ku admin:<custom-admin-password>
+curl -X GET "https://localhost:9200/_cluster/health" -ku admin:<custom-admin-password>
 ```
 {% include copy.html %}
 
@@ -37,7 +37,7 @@ The default username is `admin`, and the password is set in your `docker-compose
 OpenSearch generally returns responses in a flat JSON format by default. For a human-readable response body, provide the `pretty` query parameter:
 
 ```bash
-curl -X GET "http://localhost:9200/_cluster/health?pretty"
+curl -X GET "https://localhost:9200/_cluster/health?pretty"
 ```
 {% include copy.html %}
 
@@ -46,7 +46,7 @@ For more information about `pretty` and other useful query parameters, see [Comm
 For requests that contain a body, specify the `Content-Type` header and provide the request payload in the `-d` (data) option:
 
 ```json
-curl -X GET "http://localhost:9200/students/_search?pretty" -H 'Content-Type: application/json' -d'
+curl -X GET "https://localhost:9200/students/_search?pretty" -H 'Content-Type: application/json' -d'
 {
   "query": {
     "match_all": {}
@@ -59,7 +59,7 @@ curl -X GET "http://localhost:9200/students/_search?pretty" -H 'Content-Type: ap
 
 The Dev Tools console in OpenSearch Dashboards uses a simpler syntax to format REST requests as compared to the cURL command. To send requests in Dev Tools, use the following steps:
 
-1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin`, and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+1. Access OpenSearch Dashboards by opening `https://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin`, and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
 1. On the top menu bar, go to **Management > Dev Tools**.
 1. In the left pane of the console, enter the following request:
     ```json
@@ -200,7 +200,7 @@ PUT /students/_doc/1
   "address": "123 Main St."
 }
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 Alternatively, you can update parts of a document by calling the Update Document API:
 

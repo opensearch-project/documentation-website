@@ -63,40 +63,40 @@ Then install the OpenSearch Kubernetes Operator using the following steps:
 3. Enter `make build manifests`.
 4. Start a Kubernetes cluster. When using minikube, open a new terminal window and enter `minikube start`. Kubernetes will now use a containerized minikube cluster with a namespace called `default`. Make sure that `~/.kube/config` points to the cluster.
 
-```yml
-apiVersion: v1
-clusters:
-- cluster:
-    certificate-authority: /Users/naarcha/.minikube/ca.crt
-    extensions:
-    - extension:
-        last-update: Mon, 29 Aug 2022 10:11:47 CDT
-        provider: minikube.sigs.k8s.io
-        version: v1.26.1
-      name: cluster_info
-    server: https://127.0.0.1:61661
-  name: minikube
-contexts:
-- context:
-    cluster: minikube
-    extensions:
-    - extension:
-        last-update: Mon, 29 Aug 2022 10:11:47 CDT
-        provider: minikube.sigs.k8s.io
-        version: v1.26.1
-      name: context_info
-    namespace: default
-    user: minikube
-  name: minikube
-current-context: minikube
-kind: Config
-preferences: {}
-users:
-- name: minikube
-  user:
-    client-certificate: /Users/naarcha/.minikube/profiles/minikube/client.crt
-    client-key: /Users/naarcha/.minikube/profiles/minikube/client.key
-```    
+  ```yml
+  apiVersion: v1
+  clusters:
+  - cluster:
+      certificate-authority: /Users/naarcha/.minikube/ca.crt
+      extensions:
+      - extension:
+          last-update: Mon, 29 Aug 2022 10:11:47 CDT
+          provider: minikube.sigs.k8s.io
+          version: v1.26.1
+        name: cluster_info
+      server: https://127.0.0.1:61661
+    name: minikube
+  contexts:
+  - context:
+      cluster: minikube
+      extensions:
+      - extension:
+          last-update: Mon, 29 Aug 2022 10:11:47 CDT
+          provider: minikube.sigs.k8s.io
+          version: v1.26.1
+        name: context_info
+      namespace: default
+      user: minikube
+    name: minikube
+  current-context: minikube
+  kind: Config
+  preferences: {}
+  users:
+  - name: minikube
+    user:
+      client-certificate: /Users/naarcha/.minikube/profiles/minikube/client.crt
+      client-key: /Users/naarcha/.minikube/profiles/minikube/client.key
+  ```    
    
 5. Enter `make install` to create the CustomResourceDefinition that runs in your Kubernetes cluster. 
 6. Start the OpenSearch Kubernetes Operator. Enter `make run`. 

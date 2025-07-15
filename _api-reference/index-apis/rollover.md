@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Rollover Index
+title: Roll over index
 parent: Index APIs
 nav_order: 63
 ---
 
-# Rollover Index
+# Roll over index
 Introduced 1.0
 {: .label .label-purple }
 
-The Rollover Index API creates a new index for a data stream or index alias based on the `wait_for_active_shards` setting.
+The roll over index API operation creates a new index for a data stream or index alias based on the `wait_for_active_shards` setting.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /<rollover-target>/_rollover/
@@ -40,30 +40,30 @@ During the index alias rollover process, if you don't specify a custom name and 
 
 ## Using date math with index rollovers
 
-When using an index alias for time-series data, you can leverage [date math](https://opensearch.org/docs/latest/field-types/supported-field-types/date/) in the index name to track the rollover date. For example, you can create an alias pointing to `my-index-{now/d}-000001`. If you create an alias on June 11, 2029, then the index name would be `my-index-2029.06.11-000001`. For a rollover on June 12, 2029, the new index would be named `my-index-2029.06.12-000002`. See [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index) for a practical example.
+When using an index alias for time-series data, you can use [date math]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/) in the index name to track the rollover date. For example, you can create an alias pointing to `my-index-{now/d}-000001`. If you create an alias on June 11, 2029, then the index name would be `my-index-2029.06.11-000001`. For a rollover on June 12, 2029, the new index would be named `my-index-2029.06.12-000002`. See [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index) for a practical example.
 
 ## Path parameters
 
-The Rollover Index API supports the parameters listed in the following table.
+The following table lists the available path parameters.
 
-Parameter | Type | Description 
+Parameter | Data type | Description 
 :--- | :--- | :--- 
 `<rollover-target>` | String | The name of the data stream or index alias to roll over. Required. |
 `<target-index>` | String | The name of the index to create. Supports date math. Data streams do not support this parameter. If the name of the alias's current write index does not end with `-` and a number, such as `my-index-000001` or `my-index-2`, then the parameter is required. 
 
 ## Query parameters
 
-The following table lists the supported query parameters.
+The following table lists the available query parameters.
 
-Parameter | Type | Description 
+Parameter | Data type | Description 
 :--- | :--- | :--- 
 `cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
 `timeout` | Time | The amount of time to wait for a response. Default is `30s`.
 `wait_for_active_shards` | String | The number of active shards that must be available before OpenSearch processes the request. Default is `1` (only the primary shard). You can also set to `all` or a positive integer. Values greater than `1` require replicas. For example, if you specify a value of `3`, then the index must have two replicas distributed across two additional nodes in order for the operation to succeed.
 
-## Request body
+## Request body fields
 
-The following request body parameters are supported.
+The following request body fields are supported.
 
 ### `alias`
 
@@ -81,7 +81,7 @@ Parameter | Type | Description
 
 ### `mappings`
 
-The `mappings` parameter specifies the index field mappings. It is optional. See [Mappings and field types](https://opensearch.org/docs/latest/field-types/) for more information.
+The `mappings` parameter specifies the index field mappings. It is optional. See [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/) for more information.
 
 ### `conditions`
 
@@ -89,16 +89,15 @@ The `conditions` parameter is an optional object defining criteria for triggerin
 
 The object body supports the following parameters.
 
-Parameter | Type | Description 
+Parameter | Data type | Description 
 :--- | :--- | :--- 
-| `max_age` | Time units | Triggers a rollover after the maximum elapsed time since index creation is reached. The elapsed time is always calculated since the index creation time, even if the index origination date is configured to a custom date, such as when using the `index.lifecycle.parse_origination_date` or `index.lifecycle.origination_date` settings. Optional. |
+`max_age` | Time units | Triggers a rollover after the maximum elapsed time since index creation is reached. The elapsed time is always calculated since the index creation time, even if the index origination date is configured to a custom date, such as when using the `index.lifecycle.parse_origination_date` or `index.lifecycle.origination_date` settings. Optional. |
 `max_docs` | Integer | Triggers a rollover after the specified maximum number of documents, excluding documents added since the last refresh and documents in replica shards. Optional. 
 `max_size` | Byte units  | Triggers a rollover when the index reaches a specified size, calculated as the total size of all primary shards. Replicas are not counted. Use the `_cat indices` API and check the `pri.store.size` value to see the current index size. Optional.
-`max_primary_shard_size` | Byte units  | Triggers a rollover when the largest primary shard in the index reaches a certain size. This is the maximum size of the primary shards in the index. As with `max_size`, replicas are ignored. To see the current shard size, use the `_cat shards` API. The `store` value shows the size of each shard, and `prirep` indicates whether a shard is a primary (`p`) or a replica (`r`). Optional.
 
 ### `settings`
 
-The `settings` parameter specifies the index configuration options. See [Index settings](https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index-settings/) for more information.
+The `settings` parameter specifies the index configuration options. See [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/) for more information.
 
 ## Example requests
 
@@ -106,7 +105,7 @@ The following examples illustrate using the Rollover Index API. A rollover occur
 
 - The index was created 5 or more days ago.
 - The index contains 500 or more documents.
-- The index's largest primary shard is 100 GB or larger.
+- The index is 100 GB or larger.
 
 ### Rolling over a data stream
 
@@ -118,7 +117,7 @@ POST my-data-stream/_rollover
   "conditions": {
     "max_age": "5d",
     "max_docs": 500,
-    "max_primary_shard_size": "100gb"
+    "max_size": "100gb"
   }
 }
 ```
@@ -149,7 +148,7 @@ POST my-alias/_rollover
   "conditions": {
     "max_age": "5d",
     "max_docs": 500,
-    "max_primary_shard_size": "100gb"
+    "max_size": "100gb"
   }
 }
 ```
@@ -172,7 +171,7 @@ POST my-alias/_rollover
 
 ## Example response
 
-OpenSearch returns the following response confirming that all conditions except `max_primary_shard_size` were met:
+OpenSearch returns the following response confirming that all conditions except `max_size` were met:
 
 ```json
 {
@@ -185,7 +184,7 @@ OpenSearch returns the following response confirming that all conditions except 
   "conditions": {
     "[max_age: 5d]": true,
     "[max_docs: 500]": true,
-    "[max_primary_shard_size: 100gb]": false
+    "[max_size: 100gb]": false
   }
 }
 ```

@@ -13,40 +13,25 @@ redirect_from:
 
 You can include a query and a script as part of your update request so OpenSearch can run the script to update all of the documents that match the query.
 
-## Example
+
+## Endpoints
 
 ```json
-POST test-index1/_update_by_query
-{
-  "query": {
-    "term": {
-      "oldValue": 10
-    }
-  },
-  "script" : {
-    "source": "ctx._source.oldValue += params.newValue",
-    "lang": "painless",
-    "params" : {
-      "newValue" : 20
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Path and HTTP methods
-
-```
-POST <target-index1>, <target-index2>/_update_by_query
+POST <index1>, <index2>/_update_by_query
 ```
 
-## URL parameters
-
-All URL parameters are optional.
+## Path parameters
 
 Parameter | Type | Description
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Comma-separated list of indexes to update. To update all indexes, use * or omit this parameter.
+
+## Query parameters
+
+All parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :--- | :---
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 analyzer | String | Analyzer to use in the query string.
 analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is `false`.
@@ -75,13 +60,13 @@ _source | String | Whether to include the `_source` field in the response.
 _source_excludes | String | A comma-separated list of source fields to exclude from the response.
 _source_includes | String | A comma-separated list of source fields to include in the response.
 stats | String | Value to associate with the request for additional logging.
-terminate_after | Integer | The maximum number of documents OpenSearch should process before terminating the request.
+terminate_after | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request.
 timeout | Time | How long the operation should wait from a response from active shards. Default is `1m`.
 version | Boolean | Whether to include the document version as a match.
 wait_for_active_shards | String | The number of shards that must be active before OpenSearch executes the operation. Valid values are `all` or any integer up to the total number of shards in the index. Default is 1, which is the primary shard.
 wait_for_completion | boolean | When set to `false`, the response body includes a task ID and OpenSearch executes the operation asynchronously. The task ID can be used to check the status of the task or to cancel the task. Default is set to `true`.
 
-## Request body
+## Request body options
 
 To update your indexes and documents by query, you must include a [query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) and a script in the request body that OpenSearch can run to update your documents. If you don't specify a query, then every document in the index gets updated.
 
@@ -101,6 +86,27 @@ To update your indexes and documents by query, you must include a [query]({{site
   }
 }
 ```
+
+## Example requests
+
+```json
+POST test-index1/_update_by_query
+{
+  "query": {
+    "term": {
+      "oldValue": 10
+    }
+  },
+  "script" : {
+    "source": "ctx._source.oldValue += params.newValue",
+    "lang": "painless",
+    "params" : {
+      "newValue" : 20
+    }
+  }
+}
+```
+{% include copy-curl.html %}
 
 ## Example response
 ```json

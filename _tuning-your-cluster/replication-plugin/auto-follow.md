@@ -98,7 +98,7 @@ To delete a replication rule, send the following request to the follower cluster
 ```bash
 curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-password>' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
 {
-   "leader_alias" : "my-conection-alias",
+   "leader_alias" : "my-connection-alias",
    "name": "my-replication-rule"
 }'
 ```

@@ -12,7 +12,7 @@ The OpenSearch index request cache is a specialized caching mechanism designed t
 
 The cache is automatically invalidated at the configured refresh interval. The invalidation includes document updates (including document deletions) and changes to index settings. This ensures that stale results are never returned from the cache. When the cache size exceeds its configured limit, the least recently used entries are evicted to make room for new entries.
 
-Search requests with `size=0` are cached in the request cache by default. Search requests with non-deterministic characteristics (such as `Math.random()`) or relative times (such as `now` or `new Date()`) are ineligible for caching.
+Some queries are ineligible for the request cache. These include profiled queries, scroll queries, and search requests with non-deterministic characteristics (such as those using `Math.random()` or DFS queries) or relative times (such as `now` or `new Date()`). By default, only requests with `size=0` are cacheable. In OpenSearch 2.19 and later, this behavior can be changed using `indices.requests.cache.maximum_cacheable_size`.
 {: .note}
 
 ## Configuring request caching
@@ -28,6 +28,7 @@ Setting | Data type  | Default | Level | Static/Dynamic | Description
 `indices.cache.cleanup_interval` | Time unit  | `1m` (1 minute)  | Cluster | Static | Schedules a recurring background task that cleans up expired entries from the cache at the specified interval. 
 `indices.requests.cache.size` | Percentage | `1%`      | Cluster | Static | The cache size as a percentage of the heap size (for example, to use 1% of the heap, specify `1%`). 
 `index.requests.cache.enable` | Boolean    | `true`    | Index | Dynamic | Enables or disables the request cache. 
+`indices.requests.cache.maximum_cacheable_size` | Integer    | `0`    | Cluster | Dynamic | Sets the maximum `size` of queries to be added to the request cache.
 
 ### Example
 

@@ -2,7 +2,7 @@
 layout: default
 title: Update settings
 parent: Index APIs
-nav_order: 75
+nav_order: 47
 redirect_from:
   - /opensearch/rest-api/index-apis/update-settings/
 ---
@@ -11,28 +11,22 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-You can use the update settings API operation to update index-level settings. You can change dynamic index settings at any time, but static settings cannot be changed after index creation. For more information about static and dynamic index settings, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
+You can use the update settings API operation to update index-level settings. You can change dynamic index settings at any time, but static settings cannot be changed after index creation. For more information about static and dynamic index settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 Aside from the static and dynamic index settings, you can also update individual plugins' settings. To get the full list of updatable settings, run `GET <target-index>/_settings?include_defaults=true`.
 
-## Example
+
+## Endpoints
 
 ```json
-PUT /sample-index1/_settings
-{
-  "index.plugins.index_state_management.rollover_skip": true,
-  "index": {
-    "number_of_replicas": 4
-  }
-}
+PUT /<index>/_settings
 ```
-{% include copy-curl.html %}
 
-## Path and HTTP methods
+## Path parameters
 
-```
-PUT /<target-index>/_settings
-```
+Parameter | Type | Description
+:--- | :--- | :---
+&lt;index&gt; | String | The index to update. Can be a comma-separated list of multiple index names. Use `_all` or `*` to specify all indexes.
 
 ## Query parameters
 
@@ -59,7 +53,20 @@ The request body must all of the index settings that you want to update.
 }
 ```
 
-## Response
+## Example request
+
+```json
+PUT /sample-index1/_settings
+{
+  "index.plugins.index_state_management.rollover_skip": true,
+  "index": {
+    "number_of_replicas": 4
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Example response
 
 ```json
 {

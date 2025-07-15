@@ -13,7 +13,7 @@ Introduced 2.12
 
 The `oversample` request processor multiplies the `size` parameter of the search request by a specified `sample_factor` (>= 1.0), saving the original value in the `original_size` pipeline variable. The `oversample` processor is designed to work with the [`truncate_hits` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/truncate-hits-processor/) but may be used on its own.
 
-## Request fields
+## Request body fields
 
 The following table lists all request fields.
 

@@ -19,3 +19,5 @@ OpenSearch supports the following workflow APIs:
 * [Search workflow state]({{site.url}}{{site.baseurl}}/automating-configurations/api/search-workflow-state/)
 * [Deprovision workflow]({{site.url}}{{site.baseurl}}/automating-configurations/api/deprovision-workflow/)
 * [Delete workflow]({{site.url}}{{site.baseurl}}/automating-configurations/api/delete-workflow/)
+
+For information about workflow access control, see [Workflow template security]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-security/).

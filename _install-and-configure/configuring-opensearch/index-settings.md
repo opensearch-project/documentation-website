@@ -34,7 +34,7 @@ OpenSearch supports the following dynamic cluster-level index settings:
 
 - `action.auto_create_index` (Boolean): Automatically creates an index if the index doesn't already exist. Also applies any index templates that are configured. Default is `true`. 
 
-- `action.destructive_requires_name` (Boolean): When set to `true`, you must specify the index name to delete an index. You cannot delete all indexes or use wildcards. Default is `true`. 
+- `action.destructive_requires_name` (Boolean): When `true`, you must specify the index name to delete an index. You cannot delete all indexes or use wildcards. Default is `false`. 
 
 - `cluster.default.index.refresh_interval` (Time unit): Sets the refresh interval when the `index.refresh_interval` setting is not provided. This setting can be useful when you want to set a default refresh interval across all indexes in a cluster and support the `searchIdle` setting. You cannot set the interval lower than the `cluster.minimum.index.refresh_interval` setting. 
 
@@ -72,6 +72,24 @@ OpenSearch supports the following dynamic cluster-level index settings:
 - `cluster.remote_store.index.segment_metadata.retention.max_count` (Integer): Controls the minimum number of metadata files to keep in the segment repository on a remote store. A value below `1` disables the deletion of stale segment metadata files. Default is `10`.
 
 - `cluster.remote_store.segment.transfer_timeout` (Time unit): Controls the maximum amount of time to wait for all new segments to update after refresh to the remote store. If the upload does not complete within a specified amount of time, it throws a `SegmentUploadFailedException` error. Default is `30m`. It has a minimum constraint of `10m`.
+
+- `cluster.remote_store.translog.path.prefix` (String): Controls the fixed path prefix for translog data on a remote-store-enabled cluster. This setting only applies when the `cluster.remote_store.index.path.type` setting is either `HASHED_PREFIX` or `HASHED_INFIX`. Default is an empty string, `""`.
+
+- `cluster.remote_store.segments.path.prefix` (String): Controls the fixed path prefix for segment data on a remote-store-enabled cluster. This setting only applies when the `cluster.remote_store.index.path.type` setting is either `HASHED_PREFIX` or `HASHED_INFIX`. Default is an empty string, `""`.
+
+- `cluster.snapshot.shard.path.prefix` (String): Controls the fixed path prefix for snapshot shard-level blobs. This setting only applies when the repository `shard_path_type` setting is either `HASHED_PREFIX` or `HASHED_INFIX`. Default is an empty string, `""`.
+
+- `cluster.default_number_of_replicas` (Integer): Controls the default number of replicas for indexes in the cluster. The index-level `index.number_of_replicas` setting defaults to this value if not configured. Default is `1`.
+
+- `cluster.thread_pool.<fixed-threadpool>.size` (Integer): Controls the sizes of both the fixed and resizable queue thread pools. Overrides the defaults provided in `opensearch.yml`.
+
+- `cluster.thread_pool.<scaling-threadpool>.max` (Integer): Sets the maximum size of the scaling thread pool. Overrides the default provided in `opensearch.yml`.
+
+- `cluster.thread_pool.<scaling-threadpool>.core` (Integer): Specifies the core size of the scaling thread pool. Overrides the default provided in `opensearch.yml`.
+
+
+Before tuning thread pool settings dynamically, note that these are expert-level settings that can potentially destabilize your cluster. Modifying thread pool settings applies the same thread pool size to all nodes, so it's not recommended for clusters with different hardware for the same roles. Similarly, avoid tuning thread pools shared by both data nodes and cluster manager nodes. After making these changes, we recommend monitoring your cluster to ensure that it remains stable and performs as expected.
+{: .warning}
 
 ## Index-level index settings
 
@@ -142,6 +160,8 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.use_compound_file` (Boolean): This setting controls the Apache Lucene `useCompoundFile` index writer settings, which specifies whether newly written segment files will be packed into a compound file. Default is `true`.
 
+- `index.append_only.enabled` (Boolean): Set to `true` to prevent any updates to documents in the index. Default is `false`.
+
 ### Updating a static index setting
 
 You can update a static index setting only on a closed index. The following example demonstrates updating the index codec setting.
@@ -179,9 +199,15 @@ For more information about updating settings, including supported query paramete
 
 OpenSearch supports the following dynamic index-level index settings:
 
-- `index.number_of_replicas` (Integer): The number of replica shards each primary shard should have. For example, if you have 4 primary shards and set `index.number_of_replicas` to 3, the index has 12 replica shards. Default is 1.
+- `index.number_of_replicas` (Integer): The number of replica shards each primary shard should have. For example, if you have 4 primary shards and set `index.number_of_replicas` to 3, the index has 12 replica shards. If not set, defaults to `cluster.default_number_of_replicas` (which is `1` by default).
+
+- `index.number_of_search_replicas` (Integer): The number of search replica shards that each primary shard should have. For example, if you have 4 primary shards and set `index.number_of_search_replicas` to 3, the index has 12 search replica shards. Default is `0`.
 
 - `index.auto_expand_replicas` (String): Whether the cluster should automatically add replica shards based on the number of data nodes. Specify a lower bound and upper limit (for example, 0--9) or `all` for the upper limit. For example, if you have 5 data nodes and set `index.auto_expand_replicas` to 0--3, then the cluster does not automatically add another replica shard. However, if you set this value to `0-all` and add 2 more nodes for a total of 7, the cluster will expand to now have 6 replica shards. Default is disabled.
+
+- `index.auto_expand_search_replicas` (String): Controls whether the cluster automatically adjusts the number of search replica shards based on the number of available search nodes. Specify the value as a range with a lower and upper bound, for example, `0-3` or `0-all`. If you don't specify a value, this feature is disabled. 
+
+   For example, if you have 5 data nodes and set `index.auto_expand_search_replicas` to `0-3`, the index can have up to 3 search replicas and the cluster does not automatically add another search replica shard. However, if you set `index.auto_expand_search_replicas` to `0-all` and add 2 more nodes, for a total of 7, the cluster will expand to now have 7 search replica shards. This setting is disabled by default.
 
 - `index.search.idle.after` (Time unit): The amount of time a shard should wait for a search or get request until it goes idle. Default is `30s`.
 
@@ -215,7 +241,7 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.query.default_field` (List): A field or list of fields that OpenSearch uses in queries in case a field isn't specified in the parameters.
 
-- `index.query.max_nested_depth` (Integer): The maximum number of nesting levels for `nested` queries. Default is `Integer.MAX_VALUE`. Minimum is 1 (single `nested` query).
+- `index.query.max_nested_depth` (Integer): The maximum number of nesting levels for `nested` queries. Default is `20`. Minimum is `1` (single `nested` query).
 
 - `index.requests.cache.enable` (Boolean): Enables or disables the index request cache. Default is `true`. For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
 
@@ -232,6 +258,10 @@ OpenSearch supports the following dynamic index-level index settings:
 - `index.optimize_doc_id_lookup.fuzzy_set.enabled` (Boolean): This setting controls whether `fuzzy_set` should be enabled in order to optimize document ID lookups in index or search calls by using an additional data structure, in this case, the Bloom filter data structure. Enabling this setting improves performance for upsert and search operations that rely on document IDs by creating a new data structure (Bloom filter). The Bloom filter allows for the handling of negative cases (that is, IDs being absent in the existing index) through faster off-heap lookups. Note that creating a Bloom filter requires additional heap usage during indexing time. Default is `false`.
 
 - `index.optimize_doc_id_lookup.fuzzy_set.false_positive_probability` (Double): Sets the false-positive probability for the underlying `fuzzy_set` (that is, the Bloom filter). A lower false-positive probability ensures higher throughput for upsert and get operations but results in increased storage and memory use. Allowed values range between `0.01` and `0.50`. Default is `0.20`.
+
+- `index.routing.allocation.total_shards_per_node` (Integer): The maximum combined total number of primary and replica shards from a single index that can be allocated to a single node. Default is `-1` (unlimited). Helps control per-index shard distribution across nodes by limiting the number of shards per node. Use with caution because shards from this index may remain unallocated if nodes reach their configured limits.
+
+- `index.routing.allocation.total_primary_shards_per_node` (Integer): The maximum number of primary shards from a single index that can be allocated to a single node. This setting is applicable only for remote-backed clusters. Default is `-1` (unlimited). Helps control per-index primary shard distribution across nodes by limiting the number of primary shards per node. Use with caution because primary shards from this index may remain unallocated if nodes reach their configured limits.
 
 ### Updating a dynamic index setting
 

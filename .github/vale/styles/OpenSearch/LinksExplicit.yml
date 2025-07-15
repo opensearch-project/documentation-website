@@ -1,0 +1,8 @@
+extends: existence
+message: "In links, use '{{site.url}}{{site.baseurl}}' instead of 'https://www.opensearch.org/docs/latest'."
+level: error
+nonword: true
+scope: raw
+tokens:
+  - '\]\(https:\/\/www.opensearch.org\/docs\/latest'
+  

@@ -25,14 +25,17 @@ OpenSearch supports two search types: `query_then_fetch` and `dfs_query_then_fet
 
 When you send a search request to a node, the node becomes a _coordinating node_. During the first phase of search, the _query phase_, the coordinating node routes the search request to all shards in the index, including primary and replica shards. Each shard then runs the search query locally and returns metadata about the matching documents, which includes their document IDs and relevance scores. The `normalization-processor` then normalizes and combines scores from different query clauses. The coordinating node merges and sorts the local lists of results, compiling a global list of top documents that match the query. After that, search execution enters a _fetch phase_, in which the coordinating node requests the documents in the global list from the shards where they reside. Each shard returns the documents' `_source` to the coordinating node. Finally, the coordinating node sends a search response containing the results back to you.
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`normalization.technique` | String | The technique for normalizing scores. Valid values are [`min_max`](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization)) and [`l2`](https://en.wikipedia.org/wiki/Cosine_similarity#L2-normalized_Euclidean_distance). Optional. Default is `min_max`.
-`combination.technique` | String | The technique for combining scores. Valid values are [`arithmetic_mean`](https://en.wikipedia.org/wiki/Arithmetic_mean), [`geometric_mean`](https://en.wikipedia.org/wiki/Geometric_mean), and [`harmonic_mean`](https://en.wikipedia.org/wiki/Harmonic_mean). Optional. Default is `arithmetic_mean`.
+`normalization.technique` | String | The technique for normalizing scores. Valid values are [`min_max`](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization)), [`l2`](https://en.wikipedia.org/wiki/Cosine_similarity#L2-normalized_Euclidean_distance), and [`z_score`](https://en.wikipedia.org/wiki/Standard_score). Optional. Default is `min_max`.
+ `normalization.parameters.lower_bounds` | Array of objects | Defines the lower bound values (the minimum threshold scores) for each query. The array must contain the same number of objects as the number of queries. Optional. Applies only when the normalization technique is [`min_max`](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization)). If not provided, OpenSearch does not apply a lower bound to any subquery and uses the actual minimum score from the retrieved results for normalization.
+`normalization.parameters.lower_bounds.mode` | String | Specifies how the lower bound is applied to a query. Valid values are: <br> - `apply`: Uses `min_score` for normalization without modifying the original scores. Formula: `min_max_score = if (score < lowerBoundScore) then (score - minScore) / (maxScore - minScore) else (score - lowerBoundScore) / (maxScore - lowerBoundScore)`. <br> - `clip`: Replaces scores below the lower bound with `min_score`. Formula: `min_max_score = if (score < lowerBoundScore) then 0.0 else (score - lowerBoundScore) / (maxScore - lowerBoundScore)`. <br> - `ignore`: Does not apply a lower bound to this query and uses the standard `min_max` formula instead. <br> Optional. Default is `apply`. 
+`normalization.parameters.lower_bounds.min_score` | Float | The lower bound threshold. Valid values are in the [-10000.0, 10000.0] range. If `mode` is set to `ignore`, then this value has no effect. Optional. Default is `0.0`. 
+`combination.technique` | String | The technique for combining scores. Valid values are [`arithmetic_mean`](https://en.wikipedia.org/wiki/Arithmetic_mean), [`geometric_mean`](https://en.wikipedia.org/wiki/Geometric_mean), and [`harmonic_mean`](https://en.wikipedia.org/wiki/Harmonic_mean). Optional. Default is `arithmetic_mean`. `z_score` supports only `arithmetic_mean`.
 `combination.parameters.weights` | Array of floating-point values | Specifies the weights to use for each query. Valid values are in the [0.0, 1.0] range and signify decimal percentages. The closer the weight is to 1.0, the more weight is given to a query. The number of values in the `weights` array must equal the number of queries. The sum of the values in the array must equal 1.0. Optional. If not provided, all queries are given equal weight.
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
@@ -42,11 +45,11 @@ Field | Data type | Description
 
 The following example demonstrates using a search pipeline with a `normalization-processor`. 
 
-For a comprehensive example, follow the [Neural search tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
+For a comprehensive example, follow the [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
 
 ### Creating a search pipeline 
 
-The following request creates a search pipeline containing a `normalization-processor` that uses the `min_max` normalization technique and the `arithmetic_mean` combination technique:
+The following request creates a search pipeline containing a `normalization-processor` that uses the `min_max` normalization technique and the `arithmetic_mean` combination technique. The combination technique assigns a weight of 30% to the first query and 70% to the second query:
 
 ```json
 PUT /_search/pipeline/nlp-search-pipeline
@@ -66,6 +69,39 @@ PUT /_search/pipeline/nlp-search-pipeline
               0.7
             ]
           }
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The following example demonstrates using the `lower_bounds` parameter with the `min_max` normalization technique. It omits the `weights` parameter in the combination technique, causing the queries to be weighted equally by default. In this example, the `lower_bounds` parameter is used to set different lower bounds for each query in a hybrid search. For the first query, a lower bound of 0.5 is applied, while for the second query, the lower bound is ignored. This allows for fine-tuning of the normalization process for each individual query in a hybrid search:
+
+```json
+PUT /_search/pipeline/nlp-search-pipeline
+{
+  "description": "Post processor for hybrid search",
+  "phase_results_processors": [
+    {
+      "normalization-processor": {
+        "normalization": {
+          "technique": "min_max",
+          "parameters": {
+            "lower_bounds": [
+                {
+                  "mode": "apply",
+                  "min_score": 0.5
+                },
+                {
+                  "mode": "ignore"
+                }
+              ]
+          }
+        },
+        "combination": {
+          "technique": "arithmetic_mean"
         }
       }
     }
@@ -112,7 +148,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-For more information about setting up hybrid search, see [Using hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/#using-hybrid-search).
+For more information about setting up hybrid search, see [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/).
 
 ## Search tuning recommendations
 

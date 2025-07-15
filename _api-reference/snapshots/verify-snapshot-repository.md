@@ -17,6 +17,12 @@ If verification is successful, the verify snapshot repository API returns a list
 If you use the Security plugin, you must have the `manage cluster` privilege.
 {: .note}
 
+## Endpoints
+
+```json
+GET _snapshot/<repository>/
+```
+
 ## Path parameters
 
 Path parameters are optional. 
@@ -70,7 +76,7 @@ In the preceding sample, one node is connected to the snapshot repository. If mo
 }
 ````
 
-## Response fields
+## Response body fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---

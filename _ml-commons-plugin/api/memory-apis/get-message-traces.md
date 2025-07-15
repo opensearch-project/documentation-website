@@ -18,7 +18,7 @@ When the Security plugin is enabled, all memories exist in a `private` security 
 {: .important}
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/memory/message/<message_id>/traces
@@ -32,14 +32,14 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `message_id` | String | The ID of the message to trace.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/message/TAuCZY0BT2tRrkdmCPqZ/traces
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -92,7 +92,7 @@ green    open    opensearch_dashboards_sample_data_flights    pJde0irnTce4-uobHw
 green    open    my_test_data    T4hwNs7CTJGIfw2QpCqQ_Q    1    1    6    0    91.7kb    45.8kb
 green    open    .opendistro-job-scheduler-lock    XjgmXAVKQ4e8Y-ac54VBzg    1    1    3    0    38.7kb    19.4kb
 """,
-      "origin": "CatIndexTool",
+      "origin": "ListIndexTool",
       "additional_info": {},
       "parent_message_id": "TAuCZY0BT2tRrkdmCPqZ",
       "trace_number": 2
@@ -137,6 +137,6 @@ green    open    .opendistro-job-scheduler-lock    XjgmXAVKQ4e8Y-ac54VBzg    1  
 }
 ```
 
-## Response fields
+## Response body fields
 
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-fields).
+For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).

@@ -7,7 +7,7 @@ nav_order: 5
 
 # Expression syntax  
 
-Expressions provide flexibility in manipulating, filtering, and routing data. The following sections provide information about expression syntax in Data Prepper.
+Expressions provide flexibility in manipulating, filtering, and routing data. The following sections provide information about expression syntax in OpenSearch Data Prepper.
 
 ## Key terms
 
@@ -30,6 +30,9 @@ The following table lists the supported operators. Operators are listed in order
 |----------------------|-------------------------------------------------------|---------------|
 | `()`                 | Priority expression                                   | Left to right |
 | `not`<br> `+`<br>  `-`| Unary logical NOT<br>Unary positive<br>Unary negative | Right to left |
+| `*`, `/`             | Multiplication and division operators                 | Left to right |
+| `+`, `-`             | Addition and subtraction operators                    | Left to right |
+| `+`                  | String concatenation operator                         | Left to right |
 | `<`, `<=`, `>`, `>=` | Relational operators                                  | Left to right |
 | `==`, `!=`           | Equality operators                                    | Left to right |
 | `and`, `or`          | Conditional expression                                | Left to right |
@@ -44,14 +47,14 @@ Relational operators compare numeric values or JSON pointers that resolve to num
 <Number | JSON Pointer> > <Number | JSON Pointer>
 <Number | JSON Pointer> >= <Number | JSON Pointer>
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 For example, to check if the value of the `status_code` field in an event is within the range of successful HTTP responses (200--299), you can use the following expression:
 
 ```
 /status_code >= 200 and /status_code < 300
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### Equality operators
 
@@ -61,7 +64,7 @@ Equality operators are used to test whether two values are equivalent. These ope
 <Any> == <Any>
 <Any> != <Any>
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 The following are some example equality operators:
 
@@ -78,7 +81,6 @@ Conditional expressions allow you to combine multiple expressions or values usin
 <Any> or <Any>
 not <Any>
 ```
-{% include copy-curl.html %}
 
 The following are some example conditional expressions: 
 
@@ -89,11 +91,66 @@ not /status_code in {200, 202}
 /response == null
 /response != null
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
+
+### Arithmetic expressions
+
+Arithmetic expressions enable basic mathematical operations like addition, subtraction, multiplication, and division. These expressions can be combined with conditional expressions to create more complex conditional statements. The available arithmetic operators are +, -, *, and /. The syntax for using the arithmetic operators is as follows:
+
+```
+<Any> + <Any>
+<Any> - <Any>
+<Any> * <Any>
+<Any> / <Any>
+```
+
+The following are example arithmetic expressions: 
+
+```
+/value + length(/message)
+/bytes / 1024
+/value1 - /value2
+/TimeInSeconds * 1000
+```
+{% include copy.html %}
+
+The following are some example arithmetic expressions used in conditional expressions : 
+
+```
+/value + length(/message) > 200
+/bytes / 1024 < 10
+/value1 - /value2 != /value3 + /value4
+```
+{% include copy.html %}
+
+### String concatenation expressions
+
+String concatenation expressions enable you to combine strings to create new strings. These concatenated strings can also be used within conditional expressions. The syntax for using string concatenation is as follows:
+
+```
+<String Variable or String Literal> + <String Variable or String Literal>
+```
+
+The following are example string concatenation expressions:
+
+```
+/name + "suffix"
+"prefix" + /name
+"time of " + /timeInMs + " ms"
+```
+{% include copy.html %}
+
+The following are example string concatenation expressions that can be used in conditional expressions:
+
+```
+/service + ".com" == /url
+"www." + /service != /url
+```
+{% include copy.html %}
 
 ### Reserved symbols
 
-Reserved symbols are symbols that are not currently used in the expression syntax but are reserved for possible future functionality or extensions. Reserved symbols include `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, and `${<text>}`.
+Certain symbols, such as ^, %, xor, =, +=, -=, *=, /=, %=, ++, --, and ${<text>}, are reserved for future functionality or extensions. Reserved symbols include `^`, `%`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, and `${<text>}`.
 
 ## Syntax components
 
@@ -106,7 +163,7 @@ Priority expressions specify the evaluation order of expressions. They are enclo
 ```
 /is_cool == (/name == "Steven")
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### JSON pointers
 
@@ -121,7 +178,7 @@ The shorthand syntax for a JSON pointer can be expressed using the following reg
 ```
 /\w+(/\w+)*`
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
  
 
 The following is an example of this shorthand syntax:
@@ -129,7 +186,7 @@ The following is an example of this shorthand syntax:
 ```
 /Hello/World/0
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 #### Escaped syntax
 
@@ -138,7 +195,7 @@ The escaped syntax for a JSON pointer can be expressed as follows:
 ```
 "/<Valid String Characters | Escaped Character>(/<Valid String Characters | Escaped Character>)*"
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 The following is an example of an escaped JSON pointer:
 
@@ -147,7 +204,7 @@ The following is an example of an escaped JSON pointer:
 # { "Hello - 'world/" : [{ "\"JsonPointer\"": true }] }
 "/Hello - 'world\//0/\"JsonPointer\""
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### Literals
 
@@ -170,6 +227,9 @@ White space is optional around relational operators, regex equality operators, e
 | `()`                 | Priority expression      | Yes                  | `/a==(/b==200)`<br>`/a in ({200})`                             | `/status in({200})`                   |
 | `in`, `not in`       | Set operators            | Yes                  | `/a in {200}`<br>`/a not in {400}`                             | `/a in{200, 202}`<br>`/a not in{400}` |
 | `<`, `<=`, `>`, `>=` | Relational operators     | No                   | `/status < 300`<br>`/status>=300`                              |                                       |
+| `+`                  | String concatenation operator   | No                   | `/status_code + /message + "suffix"`
+| `+`, `-`             | Arithmetic addition and subtraction operators | No      | `/status_code + length(/message) - 2`
+| `*`, `/`             | Multiplication and division operators | No              | `/status_code * length(/message) / 3`
 | `=~`, `!~`           | Regex equality operators | No                   | `/msg =~ "^\w*$"`<br>`/msg=~"^\w*$"`                           |                                       |
 | `==`, `!=`           | Equality operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
 | `and`, `or`, `not`   | Conditional operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |

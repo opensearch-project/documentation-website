@@ -11,45 +11,34 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-If you need to update a document's fields in your index, you can use the update document API operation. You can do so by specifying the new data you want to be in your index or by including a script in your request body, which OpenSearch runs to update the document. By default, the update operation only updates a document that exists in the index. If a document does not exist, the API returns an error. To _upsert_ a document (update the document that exists or index a new one), use the [upsert](#upsert) operation.
+If you need to update a document's fields in your index, you can use the update document API operation. You can do so by specifying the new data you want to be in your index or by including a script in your request body, which OpenSearch runs to update the document. By default, the update operation only updates a document that exists in the index. If a document does not exist, the API returns an error. To _upsert_ a document (update the document that exists or index a new one), use the [upsert](#using-the-upsert-operation) operation.
 
-## Example
+
+You cannot explicitly specify an ingest pipeline when calling the Update Document API. If a `default_pipeline` or `final_pipeline` is defined in your index, the following behavior applies:
+
+- **Upsert operations**: When indexing a new document, the `default_pipeline` and `final_pipeline` defined in the index are executed as specified.  
+- **Update operations**: When updating an existing document, ingest pipeline execution is not recommended because it may produce erroneous results. Support for running ingest pipelines during update operations is deprecated and will be removed in version 3.0.0. If your index has a defined ingest pipeline, the update document operation will return the following deprecation warning: 
+```
+the index [sample-index1] has a default ingest pipeline or a final ingest pipeline, the support of the ingest pipelines for update operation causes unexpected result and will be removed in 3.0.0
+```
+
+## Endpoints
 
 ```json
-POST /sample-index1/_update/1
-{
-  "doc": {
-    "first_name" : "Bruce",
-    "last_name" : "Wayne"
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Script example
-
-```json
-POST /test-index1/_update/1
-{
-  "script" : {
-    "source": "ctx._source.secret_identity = \"Batman\""
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Path and HTTP methods
-
-```
 POST /<index>/_update/<_id>
 ```
 
-## URL parameters
+## Path parameters
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name of the index. | Yes
 &lt;_id&gt; | String | The ID of the document to update. | Yes
+
+## Query parameters
+
+Parameter | Type | Description | Required
+:--- | :--- | :--- | :---
 if_seq_no | Integer | Only perform the update operation if the document has the specified sequence number. | No
 if_primary_term | Integer | Perform the update operation if the document has the specified primary term. | No
 lang | String | Language of the script. Default is `painless`. | No
@@ -63,7 +52,7 @@ _source_includes | List | A comma-separated list of source fields to include in 
 timeout | Time | How long to wait for a response from the cluster. | No
 wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the update request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
 
-## Request body
+## Request body fields
 
 Your request body must contain the information with which you want to update your document. If you only want to replace certain fields in your document, your request body must include a `doc` object containing the fields that you want to update:
 
@@ -90,9 +79,37 @@ You can also use a script to tell OpenSearch how to update your document:
 }
 ```
 
-## Upsert
+## Example requests
 
-Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the object. 
+### Update a document
+
+```json
+POST /sample-index1/_update/1
+{
+  "doc": {
+    "first_name" : "Bruce",
+    "last_name" : "Wayne"
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Update a document with a script 
+
+```json
+POST /test-index1/_update/1
+{
+  "script" : {
+    "source": "ctx._source.secret_identity = \"Batman\""
+  }
+}
+```
+{% include copy-curl.html %}
+
+
+### Using the upsert operation
+
+Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the request. This is useful when you're not sure if a document already exists and want to ensure the correct content is present either way.
 
 In the following example, the `upsert` operation updates the `first_name` and `last_name` fields if a document already exists. If a document does not exist, a new one is indexed using content in the `upsert` object.
 
@@ -109,6 +126,7 @@ POST /sample-index1/_update/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 Consider an index that contains the following document:
 
@@ -123,6 +141,7 @@ Consider an index that contains the following document:
   }
 }
 ```
+{% include copy-curl.html %}
 
 After the upsert operation, the document's `first_name` and `last_name` fields are updated:
 
@@ -137,6 +156,7 @@ After the upsert operation, the document's `first_name` and `last_name` fields a
   }
 }
 ```
+{% include copy-curl.html %}
 
 If the document does not exist in the index, a new document is indexed with the fields specified in the `upsert` object:
 
@@ -151,6 +171,7 @@ If the document does not exist in the index, a new document is indexed with the 
   }
 }
 ```
+{% include copy-curl.html %}
 
 You can also add `doc_as_upsert` to the request and set it to `true` to use the information in the `doc` field for performing the upsert operation:
 
@@ -165,6 +186,7 @@ POST /sample-index1/_update/1
   "doc_as_upsert": true
 }
 ```
+{% include copy-curl.html %}
 
 Consider an index that contains the following document:
 
@@ -179,8 +201,9 @@ Consider an index that contains the following document:
   }
 }
 ```
+{% include copy-curl.html %}
 
-After the upsert operation, the document's `first_name` and `last_name` fields are updated and an `age` field is added. If the document does not exist in the index, a new document is indexed with the fields specified in the `upsert` object. In both cases, the document is as follows:
+After the upsert operation, the document's `first_name` and `last_name` fields are updated and an `age` field is added. If the document does not exist in the index, a new document is created using the fields from the `doc` object:
 
 ```json
 {
@@ -194,8 +217,50 @@ After the upsert operation, the document's `first_name` and `last_name` fields a
   }
 }
 ```
+{% include copy-curl.html %}
+
+You can also use a script to control how the document is updated. By setting the `scripted_upsert` parameter to `true`, you instruct OpenSearch to use the script even when the document doesn't exist yet. This allows you to define the entire upsert logic in the script.
+
+In the following example, the script sets the document to contain specific fields regardless of whether it previously existed:
+
+```json
+POST /sample-index1/_update/2
+{
+  "scripted_upsert": true,
+  "script": {
+    "source": "ctx._source.first_name = params.first_name; ctx._source.last_name = params.last_name; ctx._source.age = params.age;",
+    "params": {
+      "first_name": "Selina",
+      "last_name": "Kyle",
+      "age": 28
+    }
+  },
+  "upsert": {}
+}
+```
+{% include copy-curl.html %}
+
+If the document with ID `2` does not already exist, this operation creates it using the script. If the document does exist, the script updates the specified fields. In both cases, the result is:
+
+```json
+{
+  "_index": "sample-index1",
+  "_id": "2",
+  "_score": 1,
+  "_source": {
+    "first_name": "Selina",
+    "last_name": "Kyle",
+    "age": 28
+  }
+}
+```
+{% include copy-curl.html %}
+
+Using `scripted_upsert` gives you full control over document creation and updates when standard `doc`-based operations are not flexible enough.
+
 
 ## Example response
+
 ```json
 {
   "_index": "sample-index1",

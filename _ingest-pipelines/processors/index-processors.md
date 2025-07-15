@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Ingest processors
-nav_order: 30
+nav_order: 80
 has_children: true
 has_toc: false
 redirect_from:
@@ -68,6 +68,12 @@ Processor type | Description
 `uppercase` | Converts text in a specific field to uppercase letters.
 `urldecode` | Decodes a string from URL-encoded format.
 `user_agent` | Extracts details from the user agent sent by a browser to its web requests. 
+
+## Processor limit settings
+
+You can limit the number of ingest processors using the cluster setting `cluster.ingest.max_number_processors`. The total number of processors includes both the number of processors and the number of [`on_failure`]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/) processors.
+
+The default value for `cluster.ingest.max_number_processors` is `Integer.MAX_VALUE`. Adding a higher number of processors than the value configured in `cluster.ingest.max_number_processors` will throw an `IllegalStateException`.
 
 ## Batch-enabled processors
 

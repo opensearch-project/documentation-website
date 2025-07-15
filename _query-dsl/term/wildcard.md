@@ -36,6 +36,8 @@ If you change `*` to `?`, you get no matches because `?` refers to a single char
 
 Wildcard queries tend to be slow because they need to iterate over a lot of terms. Avoid placing wildcard characters at the beginning of a query because it could be a very expensive operation in terms of both resources and time.
 
+The [wildcard field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/) builds an index that is specially designed to be very efficient for wildcard and regular expression queries.
+
 ## Parameters
 
 The query accepts the name of the field (`<field>`) as a top-level parameter:
@@ -64,5 +66,5 @@ Parameter | Data type | Description
 `case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).
 `rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
 
-If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, wildcard queries are not run.
+If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/#expensive-queries) is set to `false`, then wildcard queries are not executed.
 {: .important}

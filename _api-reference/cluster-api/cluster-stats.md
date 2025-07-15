@@ -16,24 +16,73 @@ redirect_from:
 The cluster stats API operation returns statistics about your cluster.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET _cluster/stats
 GET _cluster/stats/nodes/<node-filters>
+GET _cluster/stats/<metric>/nodes/<node-filters>
+GET _cluster/stats/<metric>/<index_metric>/nodes/<node-filters>
 ```
 
-## URL parameters
+## Path parameters
 
-All cluster stats parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
 &lt;node-filters&gt; | List | A comma-separated list of [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters) that OpenSearch uses to filter results.
+metric | String | A comma-separated list of [metric groups](#metric-groups), for example, `jvm,fs`. Default is all metric groups.
+index_metric | String | A comma-separated list of [index metric groups](#index-metric-groups), for example, `docs,store`. Default is all index metrics.
 
 
-  Although the `master` node is now called `cluster_manager` for version 2.0, we retained the `master` field for backwards compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. To see an example node count increase, see the Response sample.
-   {: .note }
+Although the term `master` was deprecated in favor of `cluster_manager` subsequent to OpenSearch 2.0, the `master` field was retained for backward compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. For an example node count increase, see the [example response](#example-response).
+{: .note }
+
+### Metric groups
+
+The following table lists all available metric groups.
+
+Metric | Description
+:--- |:----
+`indices` | Statistics about indexes in the cluster.
+`os` | Statistics about the host OS, including load and memory.
+`process` | Statistics about processes, including open file descriptors and CPU usage.
+`jvm` | Statistics about the JVM, including heap usage and threads.
+`fs` | Statistics about file system usage.
+`plugins` | Statistics about OpenSearch plugins integrated with the nodes.
+`network_types` | A list of the transport and HTTP networks connected to the nodes.
+`discovery_type` | The method used by the nodes to find other nodes in the cluster.
+`packaging_types` | Information about each node's OpenSearch distribution.
+`ingest` | Statistics about ingest pipelines.
+
+### Index metric groups
+
+To filter the information returned for the `indices` metric, you can use specific `index_metric` values. These values are only supported when using the following query types:
+
+```json
+GET _cluster/stats/_all/<index_metric>/nodes/<node-filters>
+GET _cluster/stats/indices/<index_metric>/nodes/<node-filters>
+```
+
+The following index metrics are supported:
+
+- `shards`
+- `docs`
+- `store`
+- `fielddata`
+- `query_cache`
+- `completion`
+- `segments`
+- `mappings`
+- `analysis`
+
+For example, the following query requests statistics for `docs` and `search`:
+
+```json
+GET _cluster/stats/indices/docs,segments/nodes/_all
+```
+{% include copy-curl.html %}
 
 ## Example request
 
@@ -491,32 +540,32 @@ GET _cluster/stats/nodes/_cluster_manager
 
 Field | Description
 :--- | :---
-nodes | How many nodes returned in the response.
-cluster_name | The cluster's name.
-cluster_uuid | The cluster's uuid.
-timestamp | The Unix epoch time of when the cluster was last refreshed.
-status | The cluster's health status.
-indices | Statistics about the indexes in the cluster.
-indices.count | How many indexes are in the cluster.
-indices.shards | Information about the cluster's shards.
-indices.docs | How many documents are still in the cluster and how many documents are deleted.
-indices.store | Information about the cluster's storage.
-indices.fielddata | Information about the cluster's field data
-indices.query_cache | Data about the cluster's query cache.
-indices.completion | How many bytes in memory are used to complete operations.
-indices.segments | Information about the cluster's segments, which are small Lucene indexes.
-indices.mappings | Mappings within the cluster.
-indices.analysis | Information about analyzers used in the cluster.
-nodes | Statistics about the nodes in the cluster.
-nodes.count | How many nodes were returned from the request.
-nodes.versions | OpenSearch's version number.
-nodes.os | Information about the operating systems used in the nodes.
-nodes.process | The processes the returned nodes use.
-nodes.jvm | Statistics about the Java Virtual Machines in use.
-nodes.fs | The nodes' file storage.
-nodes.plugins | The OpenSearch plugins integrated within the nodes.
-nodes.network_types | The transport and HTTP networks within the nodes.
-nodes.discovery_type | The method the nodes use to find other nodes within the cluster.
-nodes.packaging_types | Information about the nodes' OpenSearch distribution.
-nodes.ingest | Information about the nodes' ingest pipelines/nodes, if there are any.
-total_time_spent | The total amount of download and upload time spent across all shards in the cluster when downloading or uploading from the remote store.
+`nodes` | The number of nodes returned in the response.
+`cluster_name` | The cluster's name.
+`cluster_uuid` | The cluster's UUID.
+`timestamp` | The Unix epoch time indicating when the cluster was last refreshed.
+`status` | The cluster's health status.
+`indices` | Statistics about the indexes in the cluster.
+`indices.count` | The number of indexes in the cluster.
+`indices.shards` | Information about the cluster's shards.
+`indices.docs` | The number of documents remaining in the cluster and the number of documents that were deleted.
+`indices.store` | Information about the cluster's storage.
+`indices.fielddata` | Information about the cluster's field data.
+`indices.query_cache` | Data about the cluster's query cache.
+`indices.completion` | The number of bytes in memory that were used to complete operations.
+`indices.segments` | Information about the cluster's segments, which are small Lucene indexes.
+`indices.mappings` | Information about mappings in the cluster.
+`indices.analysis` | Information about analyzers used in the cluster.
+`nodes` | Statistics about the nodes in the cluster.
+`nodes.count` | The number of nodes returned by the request.
+`nodes.versions` | The OpenSearch version number for each node.
+`nodes.os` | Information about the operating systems used by the nodes.
+`nodes.process` | A list of processes used by each node.
+`nodes.jvm` | Statistics about the JVMs in use.
+`nodes.fs` | Information about the node's file storage.
+`nodes.plugins` | A list of the OpenSearch plugins integrated with the nodes.
+`nodes.network_types` | A list of the transport and HTTP networks connected to the nodes.
+`nodes.discovery_type` | A list of methods used by the nodes to find other nodes in the cluster.
+`nodes.packaging_types` | Information about each node's OpenSearch distribution.
+`nodes.ingest` | Information about the node's ingest pipelines/nodes, if there are any.
+`total_time_spent` | The total amount of download and upload time spent across all shards in the cluster when downloading or uploading from the remote store.

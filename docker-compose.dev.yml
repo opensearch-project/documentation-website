@@ -1,0 +1,12 @@
+services:
+  doc_builder:
+    image: ruby:3.2.4
+    volumes:
+      - .:/app
+    working_dir: /app
+    ports:
+      - "4000:4000"
+    command: bash -c "bundler install && bash build.sh"
+    environment:
+      BUNDLE_PATH: /app/vendor/bundle  # Avoid installing gems globally.
+      DOCKER_BUILD: true               # Signify build.sh to bind to 0.0.0.0 for effective doc access from host.

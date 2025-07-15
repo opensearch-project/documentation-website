@@ -2,7 +2,7 @@
 layout: default
 title: Reindex document
 parent: Document APIs
-nav_order: 60
+nav_order: 17
 redirect_from: 
   - /opensearch/reindex-data/
   - /opensearch/rest-api/document-apis/reindex/
@@ -14,30 +14,16 @@ redirect_from:
 
 The reindex document API operation lets you copy all or a subset of your data from a source index into a destination index.
 
-## Example
+
+## Endpoints
 
 ```json
 POST /_reindex
-{
-   "source":{
-      "index":"my-source-index"
-   },
-   "dest":{
-      "index":"my-destination-index"
-   }
-}
-```
-{% include copy-curl.html %}
-
-## Path and HTTP methods
-
-```
-POST /_reindex
 ```
 
-## URL parameters
+## Query parameters
 
-All URL parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -80,6 +66,21 @@ op_type | Whether to copy over documents that are missing in the destination ind
 pipeline | Which ingest pipeline to utilize during the reindex.
 script | A script that OpenSearch uses to apply transformations to the data during the reindex operation.
 lang | The scripting language. Valid options are `painless`, `expression`, `mustache`, and `java`.
+
+## Example request
+
+```json
+POST /_reindex
+{
+   "source":{
+      "index":"my-source-index"
+   },
+   "dest":{
+      "index":"my-destination-index"
+   }
+}
+```
+{% include copy-curl.html %}
 
 ## Example response
 ```json

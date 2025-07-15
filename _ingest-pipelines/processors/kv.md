@@ -27,7 +27,7 @@ The following is the syntax for the `kv` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 
@@ -85,8 +85,6 @@ To test the pipeline, run the following query:
 
 ```json
 POST _ingest/pipeline/kv-pipeline/_simulate
-
-```json
 {  
   "docs": [  
     {  
@@ -103,7 +101,7 @@ POST _ingest/pipeline/kv-pipeline/_simulate
 
 **Response**
 
-The following example response confirms that the pipeline is working as expected:
+The following example response confirms that, in addition to the original `message` field, the document contains fields generated from key-value pairs:
 
 ```json
 {  
@@ -132,8 +130,6 @@ The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=kv-pipeline
-
-```json
 {  
   "message": "goodbye=everybody hello=world"  
 }  

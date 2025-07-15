@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Querqy
-parent: Search relevance
+parent: Query rewriting
+grand_parent: Search relevance
 has_children: false
 redirect_from:
   - /search-plugins/querqy/
@@ -28,7 +29,7 @@ Answer `yes` to the security prompts during the installation as Querqy requires 
 
 After installing the Querqy plugin you can find comprehensive documentation on the Querqy.org site: [Querqy](https://docs.querqy.org/querqy/index.html)
 
-## Path and HTTP methods
+## Endpoints
 
 ```
 POST /myindex/_search

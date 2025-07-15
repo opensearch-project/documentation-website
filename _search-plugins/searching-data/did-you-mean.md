@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Did-you-mean
-parent: Searching data
-nav_order: 25
+parent: Search options
+nav_order: 70
 redirect_from:
   - /opensearch/search/did-you-mean/
 ---
@@ -205,7 +205,7 @@ field | The field from which to source suggestions. Required. Can be set for eac
 analyzer | The analyzer with which to analyze the input text. Defaults to the analyzer configured for the `field`.
 size | The maximum number of suggestions to return for each token in the input text.
 sort | Specifies how suggestions should be sorted in the response. Valid values are:<br>- `score`: Sort by similarity score, then document frequency, and then the term itself.<br>- `frequency`: Sort by document frequency, then similarity score, and then the term itself.
-suggest_mode | The suggest mode specifies the terms for which suggestions should be included in the response. Valid values are:<br>- `missing`: Return suggestions only for the input text terms that are not in the index. <br>- `popular`: Return suggestions only if they occur in the documents more frequently than in the original input text.<br> - `always`: Always return suggestions for each term in the input text.<br>Default is `missing`.
+suggest_mode | The suggest mode specifies the terms for which suggestions should be included in the response. Valid values are:<br>- `missing`: Return suggestions only for input terms that have zero occurrences in the specified field of the index. This check is field specific: if a term appears in other fields but not in the targeted field, it is still considered missing. Note that this mode does not consider term frequency across the entire index---only the specified field. <br>- `popular`: Return suggestions only if they occur in the documents more frequently than in the original input text.<br> - `always`: Always return suggestions for each term in the input text.<br>Default is `missing`.
 max_edits | The maximum edit distance for suggestions. Valid values are in the [1, 2] range. Default is 2.
 prefix_length | An integer that specifies the minimum length the matched prefix must be to start returning suggestions. If the prefix of `prefix_length` is not matched, but the search term is still within the edit distance, no suggestions are returned. Default is 1. Higher values improve spellcheck performance because misspellings don’t tend to occur in the beginning of words.
 min_word_length | The minimum length a suggestion must be in order to be included in the response. Default is 4.

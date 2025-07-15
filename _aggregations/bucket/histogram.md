@@ -49,5 +49,12 @@ GET opensearch_dashboards_sample_data_logs/_search
     ]
   }
  }
-}
 ```
+
+### Parameters
+
+`histogram` aggregations support the following parameters.
+
+| Parameter  | Required/Optional | Data type             | Description |
+| :--        | :--               | :--                   | :--         |
+| `interval`  | Required         | Numeric               | The field value width used to construct each bucket. |

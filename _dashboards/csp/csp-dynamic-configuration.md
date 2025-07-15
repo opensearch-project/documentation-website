@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Configuring CSP rules for `frame-ancestors`
+title: Configuring CSP rules for frame ancestors
 nav_order: 140
 has_children: false
 ---
 
-# Configuring CSP rules for `frame-ancestors`
+# Configuring CSP rules for frame ancestors
 Introduced 2.13
 {: .label .label-purple }
 

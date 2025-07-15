@@ -17,18 +17,16 @@ The most basic cluster allocation explain request finds an unassigned shard and 
 If you add some options, you can instead get information on a specific shard, including why OpenSearch assigned it to its current node.
 
 
+## Endpoints
 
-## Path and HTTP methods
-
-```
+```json
 GET _cluster/allocation/explain
 POST _cluster/allocation/explain
 ```
 
+## Query parameters
 
-## URL parameters
-
-All cluster allocation explain parameters are optional.
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -36,7 +34,7 @@ include_yes_decisions | Boolean | OpenSearch makes a series of yes or no decisio
 include_disk_info | Boolean | Whether to include information about disk usage in the response. Default is `false`.
 
 
-## Request body
+## Request body fields
 
 All cluster allocation explain fields are optional.
 

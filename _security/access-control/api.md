@@ -171,14 +171,14 @@ Introduced 1.0
 
 Changes the password for the current user.
 
-#### Path and HTTP methods
+#### Endpoints
 
 ```json
 PUT _plugins/_security/api/account
 ```
 {% include copy-curl.html %}
 
-#### Request fields
+#### Request body fields
 
 | Field              | Data type  | Description                    | Required  |
 |:-------------------|:-----------|:-------------------------------|:----------|
@@ -206,7 +206,7 @@ PUT _plugins/_security/api/account
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field    | Data type  | Description                   |
 |:---------|:-----------|:------------------------------|
@@ -1426,7 +1426,7 @@ GET _plugins/_security/api/_upgrade_check
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field    | Data type  | Description                   |
 |:---------|:-----------|:------------------------------|
@@ -1453,7 +1453,7 @@ POST _plugins/_security/api/_upgrade_perform
 ```
 {% include copy-curl.html %}
 
-#### Request fields
+#### Request body fields
 
 | Field           | Data type  | Description                                                                                                       | Required |
 |:----------------|:-----------|:------------------------------------------------------------------------------------------------------------------|:---------|
@@ -1473,7 +1473,7 @@ POST _plugins/_security/api/_upgrade_perform
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field    | Data type  | Description                   |
 |:---------|:-----------|:------------------------------|
@@ -1568,14 +1568,14 @@ PUT _plugins/_security/api/nodesdn/<cluster-name>
 
 Makes a bulk update for the list of distinguished names.
 
-#### Path and HTTP methods
+#### Endpoints
 
 ```json
 PATCH _plugins/_security/api/nodesdn
 ```
 {% include copy-curl.html %}
 
-#### Request fields
+#### Request body fields
 
 | Field           | Data type  | Description                                                                                                       | Required |
 |:----------------|:-----------|:------------------------------------------------------------------------------------------------------------------|:---------|
@@ -1607,7 +1607,7 @@ PATCH _plugins/_security/api/nodesdn
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field   | Data type | Description          |
 |:--------|:----------|:---------------------|
@@ -1682,7 +1682,7 @@ GET _plugins/_security/api/ssl/certs
 
 Reload transport layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload transport layer certificates.
 
-#### Path and HTTP methods
+#### Endpoints
 
 ```json
 PUT /_plugins/_security/api/ssl/transport/reloadcerts
@@ -1705,7 +1705,7 @@ curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/transpor
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field   | Data type | Description                                                                       |
 |:--------|:----------|:----------------------------------------------------------------------------------|
@@ -1717,7 +1717,7 @@ curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/transpor
 
 Reload HTTP layer communication certificates. These REST APIs let a super admin (or a user with sufficient permissions to access this API) reload HTTP layer certificates.
 
-#### Path and HTTP methods
+#### Endpoints
 
 ```json
 PUT /_plugins/_security/api/ssl/http/reloadcerts
@@ -1741,7 +1741,7 @@ curl -X PUT "https://your-opensearch-cluster/_plugins/_security/api/ssl/http/rel
 }
 ```
 
-#### Response fields
+#### Response body fields
 
 | Field   | Data type | Description                                                         |
 |:--------|:----------|:--------------------------------------------------------------------|
@@ -1822,7 +1822,7 @@ For details on using audit logging to track access to OpenSearch clusters, as we
 You can do an initial configuration of audit logging in the `audit.yml` file, found in the `opensearch-project/security/config` directory. Thereafter, you can use the REST API or Dashboards for further changes to the configuration.
 {: note.}
 
-#### Request fields
+#### Request body fields
 
 Field | Data type | Description
 :--- | :--- | :---

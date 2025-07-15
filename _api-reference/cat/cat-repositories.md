@@ -2,7 +2,6 @@
 layout: default
 title: CAT repositories
 parent: CAT API
-
 nav_order: 52
 has_children: false
 redirect_from:
@@ -15,28 +14,44 @@ redirect_from:
 
 The CAT repositories operation lists all snapshot repositories for a cluster.
 
-## Path and HTTP methods
-
+<!-- spec_insert_start
+api: cat.repositories
+component: endpoints
+-->
+## Endpoints
+```json
+GET /_cat/repositories
 ```
-GET _cat/repositories
-```
+<!-- spec_insert_end -->
 
-## URL parameters
 
-All CAT repositories URL parameters are optional.
+<!-- spec_insert_start
+api: cat.repositories
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
+## Query parameters
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
+<!-- spec_insert_end -->
 
 ## Example request
 
 The following example request lists all snapshot repositories in the cluster:
 
-```
+```json
 GET _cat/repositories?v
 ```
 {% include copy-curl.html %}

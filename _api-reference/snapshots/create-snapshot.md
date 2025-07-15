@@ -15,7 +15,7 @@ Creates a snapshot within an existing repository.
 
 * To view a list of your repositories, see [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT /_snapshot/<repository>/<snapshot>
@@ -26,7 +26,7 @@ POST /_snapshot/<repository>/<snapshot>
 
 Parameter | Data type | Description
 :--- | :--- | :---
-repository | String | Repostory name to contain the snapshot. |
+repository | String | Repository name to store the snapshot. |
 snapshot | String | Name of Snapshot to create. |
 
 ## Query parameters
@@ -35,7 +35,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 wait_for_completion | Boolean |  Whether to wait for snapshot creation to complete before continuing. If you include this parameter, the snapshot definition is returned after completion. |
 
-## Request fields
+## Request body fields
 
 The request body is optional.
 
@@ -48,7 +48,7 @@ Field | Data type | Description
 
 ## Example requests
 
-##### Request without a body
+### Request without a body
 
 The following request creates a snapshot called `my-first-snapshot` in an S3 repository called `my-s3-repository`. A request body is not included because it is optional.
 
@@ -57,7 +57,7 @@ POST _snapshot/my-s3-repository/my-first-snapshot
 ```
 {% include copy-curl.html %}
 
-##### Request with a body
+### Request with a body
 
 You can also add a request body to include or exclude certain indices or specify other settings:
 
@@ -87,7 +87,7 @@ Upon success, the response content depends on whether you include the `wait_for_
 To verify that the snapshot was created, use the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API, passing the snapshot name as the `snapshot` path parameter.
 {: .note}
 
-##### `wait_for_completion` included
+### `wait_for_completion` included
 
 The snapshot definition is returned.
 
@@ -125,7 +125,7 @@ The snapshot definition is returned.
 }
 ```
 
-#### Response fields
+## Response body fields
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 
@@ -144,4 +144,5 @@ The snapshot definition is returned.
 | failures | array | Failures, if any, that occured during snapshot creation. |
 | shards | object | Total number of shards created along with number of successful and failed shards. |
 | state | string | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
-| remote_store_index_shallow_copy | Boolean | Whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`. |
+| remote_store_index_shallow_copy | Boolean | Whether the snapshots of the remote store indexes is captured as a shallow copy. Default is `false`. |
+| pinned_timestamp | long      | A timestamp (in milliseconds) pinned by the snapshot for the implicit locking of remote store files referenced by the snapshot. |

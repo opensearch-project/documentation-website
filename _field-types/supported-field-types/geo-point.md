@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Geopoint field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A geopoint field type contains a geographic point specified by latitude and longitude. 
 

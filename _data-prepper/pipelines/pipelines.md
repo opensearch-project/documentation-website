@@ -10,7 +10,7 @@ redirect_from:
 
 # Pipelines
 
-Pipelines are critical components that streamline the process of acquiring, transforming, and loading data from various sources into a centralized data repository or processing system. The following diagram illustrates how Data Prepper ingests data into OpenSearch.
+Pipelines are critical components that streamline the process of acquiring, transforming, and loading data from various sources into a centralized data repository or processing system. The following diagram illustrates how OpenSearch Data Prepper ingests data into OpenSearch.
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png" alt="Data Prepper pipeline">{: .img-fluid}
 
@@ -36,7 +36,7 @@ simple-sample-pipeline:
   sink:
     - stdout:
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### Pipeline components
 
@@ -63,7 +63,7 @@ If a pipeline component fails to process and send an event, then the source rece
 
 ### Conditional routing
 
-Pipelines also support conditional routing, which enables the routing of events to different sinks based on specific conditions. To add conditional routing, specify a list of named routes using the `route` component and assign specific routes to sinks using the `routes` property. Any sink with the `routes` property will only accept events matching at least one of the routing conditions.
+Pipelines also support conditional routing, which enables the routing of events to different sinks based on specific conditions. To add conditional routing, specify a list of named routes using the `route` component and assign specific routes to sinks using the `routes` property. Any sink with the `routes` property only accepts events matching at least one of the routing conditions.
 
 In the following example pipeline, `application-logs` is a named route with a condition set to `/log_type == "application"`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the condition. Data Prepper routes events satisfying this condition to the first OpenSearch sink. By default, Data Prepper routes all events to sinks without a defined route, as shown in the third OpenSearch sink of the given pipeline:
 
@@ -88,7 +88,7 @@ conditional-routing-sample-pipeline:
         hosts: [ "https://opensearch:9200" ]
         index: all_logs
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Next steps
 

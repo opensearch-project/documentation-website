@@ -63,7 +63,7 @@ Name | Description
 `jwt_header` | The HTTP header that stores the token. Typically the `Authorization` header with the `Bearer` schema: `Authorization: Bearer <token>`. Optional. Default is `Authorization`.
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header, but as an URL parameter, define the name of the parameter here. Optional.
 `subject_key` | The key in the JSON payload that stores the user's name. If not defined, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used. Most IdP providers use the `preferred_username` claim. Optional.
-`roles_key` | The key in the JSON payload that stores the user's roles. The value of this key must be a comma-separated list of roles. Required only if you want to use roles in the JWT.
+`roles_key` | The key in the JSON payload that stores the user's roles. The value must be a comma-separated list of roles. This key is required only if you want to use roles in the JWT. You can configure `roles_key` as a list to extract roles from nested JWT claims.
 
 
 ## OpenID Connect URL
@@ -102,7 +102,7 @@ jwks_uri: "https://keycloak.example.com:8080/auth/realms/master/protocol/openid-
 For more information about IdP endpoints, see the following:
 
 - [Okta](https://developer.okta.com/docs/api/resources/oidc#well-knownopenid-configuration)
-- [Keycloak](https://www.keycloak.org/docs/latest/securing_apps/index.html#other-openid-connect-libraries)
+- [Keycloak](https://www.keycloak.org/guides.html#securing-apps)
 - [Auth0](https://auth0.com/docs/protocols/oidc/openid-connect-discovery)
 - [Connect2ID](https://connect2id.com/products/server/docs/api/discovery)
 - [Salesforce](https://help.salesforce.com/articleView?id=remoteaccess_using_openid_discovery_endpoint.htm&type=5)
@@ -427,7 +427,7 @@ The following steps use Docker and [Keycloak IdP](https://www.keycloak.org/) to 
   - `new-realm.json` specifies the details of the [realm](https://www.keycloak.org/docs/latest/server_admin/#core-concepts-and-terms). In this example, the realm is named `new`.
   - `config.yml` configures `basic_internal_auth_domain` and `oidc_auth_domain`.
   - `opensearch_dashboards.yml` should point to Keycloak for authentication. Make sure that the `opensearch_security.openid.connect_url` setting points to the URL of the realm.
-5. At the command line, run `docker-compose up`.
+5. At the command line, run `docker compose up`.
 6. Access OpenSearch Dashboards at `http://localhost:5601` and log in with username `testuser` and password `testpassword` configured in the `new-realm.json` file. 
 
 After logging in, the `testuser` receives the backend role `admin` from Keycloak, which is mapped to the `all_access` OpenSearch role. These backend roles can be managed using the Keycloak Administrative Console at http://localhost:8080, using username `admin` and password `admin`.

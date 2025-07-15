@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Geoshape field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A geoshape field type contains a geographic shape, such as a polygon or a collection of geographic points. To index a geoshape, OpenSearch tesselates the shape into a triangular mesh and stores each triangle in a BKD tree. This provides a 10<sup>-7</sup>decimal degree of precision, which represents near-perfect spatial resolution. Performance of this process is mostly impacted by the number of vertices in a polygon you are indexing.
 

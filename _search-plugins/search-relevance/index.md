@@ -10,12 +10,12 @@ redirect_from:
 
 # Search relevance
 
-Search relevance evaluates the accuracy of the search results returned by a query. The higher the relevance, the better the search engine. 
+Search relevance evaluates the accuracy of the search results returned by a query. The higher the relevance, the better the search engine.
 
 OpenSearch provides the following search relevance features:
 
-- [Comparing search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/) from two queries side by side in OpenSearch Dashboards. 
+- [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/): A suite of tools that support search quality improvements through experimentation.
 
-- [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) using a cross-encoder reranker. 
+- [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) using a cross-encoder reranker.
 
-- Rewriting queries using [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/).
+- [Query rewriting]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-rewriting/).

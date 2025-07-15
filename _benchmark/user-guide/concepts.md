@@ -3,13 +3,20 @@ layout: default
 title: Concepts
 nav_order: 3
 parent: User guide
+has_toc: false
 redirect_from: 
   - /benchmark/user-guide/concepts/
 ---
 
 # Concepts
 
-Before using OpenSearch Benchmark, familiarize yourself with the following concepts.
+Before you start using OpenSearch Benchmark, it's helpful to understand the following concepts, in order to effectively design, run, and analyze your benchmarks to evaluate OpenSearch performance under different scenarios.
+
+## Benchmark architecture
+
+The following diagram illustrates how OpenSearch Benchmark operates when running against a local host.
+
+![Benchmark workflow]({{site.url}}{{site.baseurl}}/images/benchmark/osb-workflow.jpg).
 
 ## Core concepts and definitions
 

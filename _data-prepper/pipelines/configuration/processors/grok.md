@@ -54,7 +54,7 @@ processor:
 ```
 {% include copy.html %}
 
-The `grok_when` option can take a conditional expression. This expression is detailed in the [Expression syntax](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) documentation.
+The `grok_when` option can take a conditional expression. This expression is detailed in the [Expression syntax]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) documentation.
 
 ## Grok performance metadata
 

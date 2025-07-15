@@ -20,17 +20,18 @@ For example, if you want to check if the string `"abcd"` is contained within the
 ```
 contains('/message', 'abcd')
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
-This will return `true` if the field `message` contains the substring `abcd` or `false` if it does not.
+This call returns `true` if the field `message` contains the substring `abcd` or `false` if it does not.
 
-Alternatively, you can also use a literal string as the first argument:
+Alternatively, you can use a literal string as the first argument:
 
 ```
 contains('This is a test message', 'test')
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
-In this case, the function will return `true` because the substring `test` is present within the string `This is a test message`.
+In this case, the function returns `true` because the substring `test` is present within the string `This is a test message`.
 
-Note that the `contains()` function performs a case-sensitive search by default. If you need to perform a case-insensitive search, you can use the `containsIgnoreCase()` function instead.
+The `contains()` function performs a case-sensitive search.
+{: .note}

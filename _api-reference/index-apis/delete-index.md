@@ -2,7 +2,7 @@
 layout: default
 title: Delete index
 parent: Index APIs
-nav_order: 35
+nav_order: 22
 redirect_from:
   - /opensearch/rest-api/index-apis/delete-index/
 ---
@@ -13,19 +13,13 @@ redirect_from:
 
 If you no longer need an index, you can use the delete index API operation to delete it.
 
-## Example
+## Endpoints
 
 ```json
-DELETE /sample-index
-```
-{% include copy-curl.html %}
-
-## Path and HTTP methods
-```
 DELETE /<index-name>
 ```
 
-## URL parameters
+## Query parameters
 
 All parameters are optional.
 
@@ -36,6 +30,13 @@ expand_wildcards | String | Expands wildcard expressions to different indexes. C
 ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 timeout | Time | How long to wait for the response to return. Default is `30s`.
+
+## Example request
+
+```json
+DELETE /sample-index
+```
+{% include copy-curl.html %}
 
 
 ## Example response

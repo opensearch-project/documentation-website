@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Token count field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A token count field type stores the number of analyzed tokens in a string.
 

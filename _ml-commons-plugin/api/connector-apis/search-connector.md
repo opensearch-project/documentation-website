@@ -10,14 +10,14 @@ nav_order: 25
 
 Use the `_search` endpoint to search for a connector. This API uses a query to search for matching connectors.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /_plugins/_ml/connectors/_search
 GET /_plugins/_ml/connectors/_search
 ```
 
-#### Example request
+## Example request
 
 ```json
 POST /_plugins/_ml/connectors/_search
@@ -30,7 +30,7 @@ POST /_plugins/_ml/connectors/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

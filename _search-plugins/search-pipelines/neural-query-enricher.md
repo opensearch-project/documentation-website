@@ -13,7 +13,7 @@ Introduced 2.11
 
 The `neural_query_enricher` search request processor is designed to set a default machine learning (ML) model ID at the index or field level for [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) queries. To learn more about ML models, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
-## Request fields
+## Request body fields
 
 The following table lists all available request fields.
 

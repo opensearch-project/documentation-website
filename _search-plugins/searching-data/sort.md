@@ -1,13 +1,13 @@
 ---
 layout: default
 title: Sort results
-parent: Searching data
-nav_order: 22
+parent: Search options
+nav_order: 30
 redirect_from:
   - /opensearch/search/sort/
 ---
 
-## Sort results
+# Sort results
 
 Sorting allows your users to sort results in a way that’s most meaningful to them.
 

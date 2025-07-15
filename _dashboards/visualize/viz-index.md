@@ -3,6 +3,7 @@ layout: default
 title: Building data visualizations
 nav_order: 40
 has_children: true
+has_toc: false
 ---
 
 # Building data visualizations
@@ -38,12 +39,6 @@ Controls is a panel, instead of a visualization type, added to a dashboard to fi
 Data tables, or tables, show your raw data in tabular form. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-table-1.png" width="600" height="600" alt="Example data table in OpenSearch Dashboards">
-
-### Gantt charts
-
-Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plugin, instead of built-in, visualization type in Dashboards. See [Gantt charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/gantt-chart.png" width="600" height="600" alt="Example Gantt chart in OpenSearch Dashboards">
 
 ### Gauge charts
 
@@ -81,7 +76,7 @@ Region maps show patterns and trends across geographic locations. A region map i
 
 ### Markdown
 
-Markdown is a the markup language used in Dashboards to provide context to your data visualizations. Using Markdown, you can display information and instructions along with the visualization. 
+Markdown is the markup language used in Dashboards to provide context to your data visualizations. Using Markdown, you can display information and instructions along with the visualization. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/markdown.png" width="600" height="600" alt="Example coordinate map in OpenSearch Dashboards">
 
@@ -126,3 +121,13 @@ VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives yo
 [Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations. Vega visualizations give you the flexibility to visualize multidimensional data using a layered approach in order to build and manipulate visualizations in a structured manner. Vega can be used to create customized visualizations using any Dashboards visualization type.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vega-1.png" width="600" height="600" alt="Example Vega visualization with JSON specification in OpenSearch Dashboards">
+
+## Next steps
+
+To try building various visualizations, see the following articles:
+
+- [Area charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/area/)
+- [Coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/)
+- [Time-series visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/)
+- [Vega visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/)
+- [Drag-and-drop visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/)

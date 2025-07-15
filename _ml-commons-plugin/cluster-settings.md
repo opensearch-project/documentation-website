@@ -2,13 +2,12 @@
 layout: default
 title: ML Commons cluster settings
 has_children: false
-nav_order: 10
+nav_order: 140
 ---
 
-# ML Commons cluster settings
+# ML cluster settings
 
-
-To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your 'opensearch.yml' file. 
+To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your `opensearch.yml` file. 
 
 To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
@@ -36,7 +35,7 @@ We recommend setting `plugins.ml_commons.only_run_on_ml_node` to `true` on produ
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.only_run_on_ml_node: true
 ```
 
@@ -52,7 +51,7 @@ plugins.ml_commons.only_run_on_ml_node: true
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.task_dispatch_policy: round_robin
 ```
 
@@ -68,7 +67,7 @@ Sets the number of ML tasks that can run on each ML node. When set to `0`, no ML
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.max_ml_task_per_node: 10
 ```
 
@@ -83,7 +82,7 @@ Sets the number of ML models that can be deployed to each ML node. When set to `
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.max_model_on_node: 10
 ```
 
@@ -99,7 +98,7 @@ When returning runtime information with the [Profile API]({{site.url}}{{site.bas
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.sync_up_job_interval_in_seconds: 3
 ```
 
@@ -114,7 +113,7 @@ Controls how many predict requests are monitored on one node. If set to `0`, Ope
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.monitoring_request_count: 100
 ```
 
@@ -129,7 +128,7 @@ Controls how many register model tasks can run in parallel on one node. If set t
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.max_register_model_tasks_per_node: 10
 ```
 
@@ -146,7 +145,7 @@ Controls how many deploy model tasks can run in parallel on one node. If set to 
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.max_deploy_model_tasks_per_node: 10
 ```
 
@@ -157,11 +156,11 @@ plugins.ml_commons.max_deploy_model_tasks_per_node: 10
 
 ## Register models using URLs
 
-This setting gives you the ability to register models using a URL. By default, ML Commons only allows registration of [pretrained]({{site.url}}{{site.baseurl}}//ml-commons-plugin/pretrained-models/) models from the OpenSearch model repository.
+This setting gives you the ability to register models using a URL. By default, ML Commons only allows registration of [pretrained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) models from the OpenSearch model repository.
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.allow_registering_model_via_url: false
 ```
 
@@ -172,11 +171,11 @@ plugins.ml_commons.allow_registering_model_via_url: false
 
 ## Register models using local files
 
-This setting gives you the ability to register a model using a local file. By default, ML Commons only allows registration of [pretrained]({{site.url}}{{site.baseurl}}//ml-commons-plugin/pretrained-models/) models from the OpenSearch model repository.
+This setting gives you the ability to register a model using a local file. By default, ML Commons only allows registration of [pretrained]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) models from the OpenSearch model repository.
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.allow_registering_model_via_local_file: false
 ```
 
@@ -196,7 +195,7 @@ The default URL value for this trusted URL setting is not secure. For security, 
 {: .warning }
 
 
-```
+```yaml
 plugins.ml_commons.trusted_url_regex: <model-repository-url>
 ```
 
@@ -211,7 +210,7 @@ Assigns how long in seconds an ML task will live. After the timeout, the task wi
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.ml_task_timeout_in_seconds: 600
 ```
 
@@ -230,7 +229,7 @@ Starting with OpenSearch 2.5, ML Commons runs a native memory circuit breaker to
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.native_memory_threshold: 90
 ```
 
@@ -247,7 +246,7 @@ Values are based on the percentage of JVM heap memory available. When set to `0`
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.jvm_heap_memory_threshold: 85
 ```
 
@@ -264,7 +263,7 @@ Valid values are in byte units. To disable the circuit breaker, set this value t
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.disk_free_space_threshold: 5G
 ```
 
@@ -279,7 +278,7 @@ Use this setting to specify the names of nodes on which you don't want to run ML
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.exclude_nodes._name: node1, node2
 ```
 
@@ -289,7 +288,7 @@ When enabled, this setting grants users the ability to deploy models to specific
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.allow_custom_deployment_plan: false
 ```
 
@@ -304,7 +303,7 @@ This setting is applicable when you send a prediction request for an externally 
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.model_auto_deploy.enable: false
 ```
 
@@ -319,13 +318,13 @@ This setting automatically redeploys deployed or partially deployed models upon 
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.model_auto_redeploy.enable: true 
 ```
 
 ### Values
 
-- Default value: true
+- Default value: `true`
 - Valid values: `false`, `true`
 
 ## Set retires for auto redeploy
@@ -334,7 +333,7 @@ This setting sets the limit for the number of times a deployed or partially depl
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.model_auto_redeploy.lifetime_retry_times: 3
 ```
 
@@ -349,7 +348,7 @@ This setting sets the ratio of success for the auto-redeployment of a model base
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.model_auto_redeploy_success_ratio: 0.8
 ```
 
@@ -364,14 +363,32 @@ When set to `true`, this setting enables the ability to run Python-based models 
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.enable_inhouse_python_model: false
 ```
 
 ### Values
 
-- Default value: false
+- Default value: `false`
 - Valid values: `false`, `true`
+
+## Safely delete models
+Introduced 2.19
+{: .label .label-purple }
+
+When set to `true`, this setting enables a safety feature that checks for downstream dependencies before deleting a model. This helps prevent accidental deletion of models in active use by agents, search pipelines, ingest pipelines, and other downstream tasks. If this setting is enabled and you attempt to delete a model that has active downstream dependencies, you'll receive an error message and the model will not be deleted.
+
+### Setting
+
+```yaml
+plugins.ml_commons.safe_delete_model: true
+```
+
+### Values
+
+- Default value: `false`
+- Valid values: `false`, `true`
+
 
 ## Enable access control for connectors
 
@@ -379,7 +396,7 @@ When set to `true`, the setting allows admins to control access and permissions 
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.connector_access_control_enabled: true
 ```
 
@@ -394,7 +411,7 @@ This setting allows a cluster admin to enable running local models on the cluste
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.local_model.enabled: true
 ```
 
@@ -409,7 +426,7 @@ This setting allows a cluster admin to control the types of nodes on which exter
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
 ```
 
@@ -424,7 +441,7 @@ This setting allows a cluster admin to control the types of nodes on which local
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
 ```
 
@@ -438,7 +455,7 @@ This setting allows a cluster admin to enable remote inference on the cluster. I
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.remote_inference.enabled: true
 ```
 
@@ -453,7 +470,7 @@ When set to `true`, this setting enables the agent framework (including agents a
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.agent_framework_enabled: true
 ```
 
@@ -468,7 +485,7 @@ When set to `true`, this setting enables conversational memory, which stores all
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.memory_feature_enabled: true
 ```
 
@@ -484,7 +501,7 @@ When set to `true`, this setting enables the search processors for retrieval-aug
 
 ### Setting
 
-```
+```yaml
 plugins.ml_commons.rag_pipeline_feature_enabled: true
 ```
 

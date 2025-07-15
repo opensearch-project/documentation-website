@@ -13,7 +13,22 @@ Runs a stored script written in the Painless language.
 
 OpenSearch provides several ways to run a script; the following sections show how to run a script by passing script information in the request body of a `GET <index>/_search` request.
 
-## Request fields
+## Endpoints
+
+```json
+GET books/_search
+{
+  "script_fields": {
+    "total_ratings": {
+      "script": {
+        "id": "my-first-script" 
+      }
+    }
+  }
+}
+```
+
+## Request field options
 
 | Field | Data type | Description | 
 :--- | :--- | :---
@@ -104,7 +119,7 @@ The `GET books/_search` request returns the following fields:
 }
 ````
 
-## Response fields
+## Response body fields
 
 | Field | Data type | Description | 
 :--- | :--- | :---

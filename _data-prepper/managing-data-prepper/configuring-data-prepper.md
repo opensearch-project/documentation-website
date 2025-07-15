@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Configuring Data Prepper
-parent: Managing Data Prepper
+title: Configuring OpenSearch Data Prepper
+parent: Managing OpenSearch Data Prepper
 nav_order: 5
 redirect_from:
  - /clients/data-prepper/data-prepper-reference/
  - /monitoring-plugins/trace/data-prepper-reference/
 ---
 
-# Configuring Data Prepper
+# Configuring OpenSearch Data Prepper
 
-You can customize your Data Prepper configuration by editing the `data-prepper-config.yaml` file in your Data Prepper installation. The following configuration options are independent from pipeline configuration options. 
+You can customize your OpenSearch Data Prepper configuration by editing the `data-prepper-config.yaml` file in your Data Prepper installation. The following configuration options are independent from pipeline configuration options. 
 
 
 ## Data Prepper configuration

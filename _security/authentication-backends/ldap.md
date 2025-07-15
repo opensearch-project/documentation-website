@@ -21,7 +21,7 @@ We provide a fully functional example that can help you understand how to use an
 
 1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example-v2.13.zip).
 1. Update the `.env` file with a strong password for `admin` user.
-1. At the command line, run `docker-compose up`.
+1. At the command line, run `docker compose up`.
 1. Review the files:
 
    * `docker-compose.yml` defines a single OpenSearch node, an LDAP server, and a PHP administration tool for the LDAP server.

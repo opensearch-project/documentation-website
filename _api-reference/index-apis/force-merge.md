@@ -11,6 +11,13 @@ nav_order: 37
 
 The force merge API operation forces a merge on the shards of one or more indexes. For a data stream, the API forces a merge on the shards of the stream's backing index.
 
+## Endpoints
+
+```json
+POST /_forcemerge
+POST /<index>/_forcemerge/
+```
+
 ## The merge operation
 
 In OpenSearch, a shard is a Lucene index, which consists of _segments_ (or segment files). Segments store the indexed data. Periodically, smaller segments are merged into larger ones and the larger segments become immutable. Merging reduces the overall number of segments on each shard and frees up disk space. 
@@ -45,12 +52,6 @@ When you force merge multiple indexes, the merge operation is executed on each s
 
 It can be useful to force merge data streams in order to manage a data stream's backing indexes, especially after a rollover operation. Time-based indexes receive indexing requests only during a specified time period. Once that time period has elapsed and the index receives no more write requests, you can force merge segments of all index shards into one segment. Searches on single-segment shards are more efficient because they use simpler data structures.
 
-## Path and HTTP methods
-
-```json
-POST /_forcemerge
-POST /<index>/_forcemerge/
-```
 
 ## Path parameters
 
@@ -135,7 +136,7 @@ POST /.testindex-logs/_forcemerge?primary_only=true
 }
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists all response fields.
 

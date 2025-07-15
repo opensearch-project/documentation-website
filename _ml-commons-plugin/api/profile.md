@@ -2,7 +2,7 @@
 layout: default
 title: Profile
 parent: ML Commons APIs
-nav_order: 40
+nav_order: 100
 ---
 
 # Profile
@@ -24,7 +24,7 @@ PUT _cluster/settings
 
 To clear all monitoring requests, set `plugins.ml_commons.monitoring_request_count` to `0`. 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/profile
@@ -41,7 +41,7 @@ Parameter | Data type | Description
 `model_id` | String | Returns runtime data for a specific model. You can provide multiple model IDs as comma-separated values to retrieve multiple model profiles.
 `task_id`| String | Returns runtime data for a specific task. You can provide multiple task IDs as comma-separated values to retrieve multiple task profiles.
 
-### Request fields
+### Request body fields
 
 All profile body request fields are optional.
 
@@ -53,7 +53,7 @@ Field | Data type | Description
 `return_all_tasks` | Boolean | Determines whether or not a request returns all tasks. When set to `false`, task profiles are left out of the response.
 `return_all_models` | Boolean | Determines whether or not a profile request returns all models. When set to `false`, model profiles are left out of the response.
 
-#### Example request: Returning all tasks and models on a specific node
+## Example request: Returning all tasks and models on a specific node
 
 ```json
 GET /_plugins/_ml/profile
@@ -65,7 +65,7 @@ GET /_plugins/_ml/profile
 ```
 {% include copy-curl.html %}
 
-#### Example response 
+## Example response 
 
 ```json
 {

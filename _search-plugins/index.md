@@ -8,37 +8,45 @@ nav_exclude: true
 permalink: /search-plugins/
 redirect_from:
   - /search-plugins/index/
+keyword:
+  - heading: "Keyword (BM25) search"
+    description: "Find exact and close matches using traditional text search"
+    link: "/search-plugins/keyword-search/"
+vector:
+  - heading: "Vector search"
+    description: "Search by similarity using dense or sparse vector embeddings"
+    link: "/vector-search/"
+ai:
+  - heading: "AI search"
+    description: "Build intelligent search applications using AI models"
+    link: "/vector-search/ai-search/"
 ---
 
-# Search
+# Search features
 
 OpenSearch provides many features for customizing your search use cases and improving search relevance. 
 
 ## Search methods
 
-OpenSearch supports the following search methods:
+OpenSearch supports the following search methods.
 
-- **Traditional lexical search**
+### Exact matching and keywords
 
-    - [Keyword (BM25) search]({{site.url}}{{site.baseurl}}/search-plugins/keyword-search/): Searches the document corpus for words that appear in the query.
+OpenSearch implements lexical (keyword) text search using the BM25 algorithm to match and rank documents based on term frequency and document length.
 
-- **Machine learning (ML)-powered search**
+{% include cards.html cards=page.keyword %}
 
-    - **Vector search**
+### Similarity and meaning
 
-        - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/): Searches for k-nearest neighbors to a search term across an index of vectors.
+OpenSearch supports similarity (k-nearest neighbor) search using dense and sparse vector embeddings to power use cases such as semantic search, retrieval-augmented generation, and multimodal image search. 
 
-    - **Neural search**: [Neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/) facilitates generating vector embeddings at ingestion time and searching them at search time. Neural search lets you integrate ML models into your search and serves as a framework for implementing other search methods. The following search methods are built on top of neural search:
+{% include cards.html cards=page.vector %}
 
-        - [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/): Considers the meaning of the words in the search context. Uses dense retrieval based on text embedding models to search text data. 
+### AI-powered search
 
-        - [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/multimodal-search/): Uses multimodal embedding models to search text and image data. 
+OpenSearch supports AI-powered search capabilities beyond vector embeddings. OpenSearch's AI search enables search and ingestion flows to be enriched by any AI service to power the full range of AI-enhanced search use cases.
 
-        - [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/): Uses sparse retrieval based on sparse embedding models to search text data.
-
-        - [Hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/hybrid-search/): Combines traditional search and vector search to improve search relevance.
-
-        - [Conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/): Implements a retrieval-augmented generative search. 
+{% include cards.html cards=page.ai %}
 
 ## Query languages
 
@@ -64,9 +72,11 @@ OpenSearch offers several ways to improve search performance:
 
 ## Search relevance
 
-OpenSearch provides the following search relevance features:
+*Search relevance* is a measure of how well a document matches a search query. When you run a search query, OpenSearch compares the words in your query to the words in each document and assigns a relevance score based on factors such as how frequently the words appear and how closely they match. For more information, see [Relevance]({{site.url}}{{site.baseurl}}/getting-started/intro/#relevance).
 
-- [Compare Search Results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/): A search comparison tool in OpenSearch Dashboards that you can use to compare results from two queries side by side. 
+To help you fine-tune and improve search relevance, OpenSearch provides several specialized features:
+
+- [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/): A suite of tools that support search quality improvements through experimentation. 
 
 - [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/): Offers query rewriting capability.
 

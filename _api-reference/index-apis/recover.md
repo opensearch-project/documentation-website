@@ -24,18 +24,18 @@ Shard recovery occurs automatically in the following scenarios:
 The Recovery API reports solely on completed recoveries for shard copies presently stored in the cluster. It reports only the most recent recovery for each shard copy and does not include historical information about previous recoveries or information about recoveries of shard copies that no longer exist. Consequently, if a shard copy completes a recovery and is subsequently relocated to a different node, then the information about the original recovery is not displayed in the Recovery API.
 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_recovery
-GET /<index-name>/recovery/
+GET /<index>/_recovery/
 ```
 
 ## Path parameters
 
 Parameter | Data type | Description 
 :--- | :--- 
-`index-name` |  String | A comma-separated list of indexes, data streams, or index aliases to which the operation is applied. Supports wildcard expressions (`*`). Use `_all` or `*` to specify all indexes and data streams in a cluster. |
+`index` |  String | A comma-separated list of indexes, data streams, or index aliases to which the operation is applied. Supports wildcard expressions (`*`). Use `_all` or `*` to specify all indexes and data streams in a cluster. |
 
 
 ## Query parameters
@@ -48,24 +48,6 @@ Parameter | Data type | Description
 `detailed` | Boolean | When `true`, provides detailed information about shard recoveries. Default is `false`.
 `index`  | String | A comma-separated list or wildcard expression of index names used to limit the request.
 
-## Response fields
-
-The API responds with the following information about the recovery shard.
-
-Parameter | Data type | Description 
-:--- | :--- | :--- 
-`id` | Integer | The ID of the shard. 
-`type` | String | The recovery source for the shard. Returned values include: <br> - `EMPTY_STORE`: An empty store. Indicates a new primary shard or the forced allocation of an empty primary shard using the Cluster Reroute API. <br> - `EXISTING_STORE`: The store of an existing primary shard. Indicates that the recovery is related to node startup or the allocation of an existing primary shard. <br> - `LOCAL_SHARDS`: Shards belonging to another index on the same node. Indicates that the recovery is related to a clone, shrink, or split operation. <br> - `PEER`: A primary shard on another node. Indicates that the recovery is related to shard replication. <br> - `SNAPSHOT`: A snapshot. Indicates that the recovery is related to a snapshot restore operation. 
-`STAGE` | String | The recovery stage. Returned values can include: <br> - `INIT`: Recovery has not started. <br> - `INDEX`: Reading index metadata and copying bytes from the source to the destination. <br> - `VERIFY_INDEX`: Verifying the integrity of the index. <br> - `TRANSLOG`: Replaying the transaction log. <br> - `FINALIZE`: Cleanup. <br> - `DONE`: Complete. 
-`primary` | Boolean | When `true`, the shard is a primary shard. 
-`start_time` | String | The timestamp indicating when the recovery started. 
-`stop_time` | String | The timestamp indicating when the recovery completed. 
-`total_time_in_millis` | String | The total amount of time taken to recover a shard, in milliseconds. 
-`source` | Object | The recovery source. This can include a description of the repository (if the recovery is from a snapshot) or a description of the source node. 
-`target` | Object | The destination node. 
-`index` | Object | Statistics about the physical index recovery. 
-`translog` | Object | Statistics about the translog recovery. 
- `start` | Object | Statistics about the amount of time taken to open and start the index. 
 
 ## Example requests
 
@@ -73,7 +55,7 @@ The following examples demonstrate how to recover information using the Recovery
 
 ### Recover information from several or all indexes
 
-The following example request returns recovery information about several indexes in a [human-readable format](https://opensearch.org/docs/latest/api-reference/common-parameters/#human-readable-output):
+The following example request returns recovery information about several indexes in a [human-readable format]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#human-readable-output):
 
 ```json
 GET index1,index2/_recovery?human
@@ -289,3 +271,22 @@ The following response returns detailed recovery information about an index name
   }
 }
 ```
+
+## Response body fields
+
+The API responds with the following information about the recovery shard.
+
+Parameter | Data type | Description 
+:--- | :--- | :--- 
+`id` | Integer | The ID of the shard. 
+`type` | String | The recovery source for the shard. Returned values include: <br> - `EMPTY_STORE`: An empty store. Indicates a new primary shard or the forced allocation of an empty primary shard using the Cluster Reroute API. <br> - `EXISTING_STORE`: The store of an existing primary shard. Indicates that the recovery is related to node startup or the allocation of an existing primary shard. <br> - `LOCAL_SHARDS`: Shards belonging to another index on the same node. Indicates that the recovery is related to a clone, shrink, or split operation. <br> - `PEER`: A primary shard on another node. Indicates that the recovery is related to shard replication. <br> - `SNAPSHOT`: A snapshot. Indicates that the recovery is related to a snapshot restore operation. 
+`STAGE` | String | The recovery stage. Returned values can include: <br> - `INIT`: Recovery has not started. <br> - `INDEX`: Reading index metadata and copying bytes from the source to the destination. <br> - `VERIFY_INDEX`: Verifying the integrity of the index. <br> - `TRANSLOG`: Replaying the transaction log. <br> - `FINALIZE`: Cleanup. <br> - `DONE`: Complete. 
+`primary` | Boolean | When `true`, the shard is a primary shard. 
+`start_time` | String | The timestamp indicating when the recovery started. 
+`stop_time` | String | The timestamp indicating when the recovery completed. 
+`total_time_in_millis` | String | The total amount of time taken to recover a shard, in milliseconds. 
+`source` | Object | The recovery source. This can include a description of the repository (if the recovery is from a snapshot) or a description of the source node. 
+`target` | Object | The destination node. 
+`index` | Object | Statistics about the physical index recovery. 
+`translog` | Object | Statistics about the translog recovery. 
+ `start` | Object | Statistics about the amount of time taken to open and start the index. 

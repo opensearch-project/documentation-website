@@ -18,6 +18,7 @@ This section provides documentation for OpenSearch-supported tools, including:
 - [OpenSearch CLI](#opensearch-cli)
 - [OpenSearch Kubernetes operator](#opensearch-kubernetes-operator)
 - [OpenSearch upgrade, migration, and comparison tools](#opensearch-upgrade-migration-and-comparison-tools)
+- [Sycamore](#sycamore) for AI-powered extract, transform, load (ETL) on complex documents for vector and hybrid search
 
 For information about Data Prepper, the server-side data collector for filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/index/).
 
@@ -25,7 +26,7 @@ For information about Data Prepper, the server-side data collector for filtering
 
 Historically, many multiple popular agents and ingestion tools have worked with Elasticsearch OSS, such as Beats, Logstash, Fluentd, FluentBit, and OpenTelemetry. OpenSearch aims to continue to support a broad set of agents and ingestion tools, but not all have been tested or have explicitly added OpenSearch compatibility.
 
-As an intermediate compatibility solution, OpenSearch has a setting that instructs the cluster to return version 7.10.2 rather than its actual version.
+As an intermediate compatibility solution, OpenSearch 1.x and 2.x provide a setting that instructs the cluster to return version 7.10.2 rather than its actual version.
 
 If you use clients that include a version check, such as versions of Logstash OSS or Filebeat OSS between 7.x - 7.12.x, enable the setting:
 
@@ -83,6 +84,7 @@ Some users report compatibility issues with ingest pipelines on these versions o
 | ODFE 1.0 to 1.12 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
 | ODFE 1.13 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
 | OpenSearch 1.x to 2.x | Yes via version setting | Yes via version setting | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
+| OpenSearch 3.x | *No* | *No* | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
 
 \* Most current compatible version with Elasticsearch OSS.
 
@@ -122,3 +124,9 @@ The OpenSearch Kubernetes Operator is an open-source Kubernetes operator that he
 OpenSearch migration tools facilitate migrations to OpenSearch and upgrades to newer versions of OpenSearch. These can help you can set up a proof-of-concept environment locally using Docker containers or deploy to AWS using a one-click deployment script. This empowers you to fine-tune cluster configurations and manage workloads more effectively before migration. 
 
 For more information about OpenSearch migration tools, see the documentation in the [OpenSearch Migration GitHub repository](https://github.com/opensearch-project/opensearch-migrations/tree/capture-and-replay-v0.1.0).
+
+## Sycamore 
+
+[Sycamore](https://github.com/aryn-ai/sycamore) is an open-source, AI-powered document processing engine designed to prepare unstructured data for retrieval-augmented generation (RAG) and semantic search using Python. Sycamore supports chunking and enriching a wide range of complex document types, including reports, presentations, transcripts, and manuals. Additionally, Sycamore can extract and process embedded elements, such as tables, figures, graphs, and other infographics. It can then load the data into target indexes, including vector and keyword indexes, using an [OpenSearch connector](https://sycamore.readthedocs.io/en/stable/sycamore/connectors/opensearch.html). 
+
+For more information, see [Sycamore]({{site.url}}{{site.baseurl}}/tools/sycamore/).

@@ -14,19 +14,19 @@ Updates a model based on the `model_ID`.
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT /_plugins/_ml/models/<model_id>
 ```
 
-## Request fields
+## Request body fields
 
 The following table lists the updatable fields. Not all request fields are applicable to all models. To determine whether the field is applicable to your model type, see [Register Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/).
 
 Field | Data type |  Description
 :---  | :--- | :--- 
-`connector` | Object | Contains specifications for a connector for a model hosted on a third-party platform. For more information, see [Creating a connector for a specific model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-connector-for-a-specific-model). For information about the updatable fields within a connector, see [Update Connector API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/update-connector/#request-fields).
+`connector` | Object | Contains specifications for a connector for a model hosted on a third-party platform. For more information, see [Creating a connector for a specific model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-connector-for-a-specific-model). For information about the updatable fields within a connector, see [Update Connector API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/update-connector/#request-body-fields).
 `connector_id` | Optional | The connector ID of a standalone connector for a model hosted on a third-party platform. For more information, see [Standalone connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-standalone-connector). To update a standalone connector, you must undeploy the model, update the connector, and then redeploy the model.
 `description` | String | The model description. 
 `is_enabled`| Boolean | Specifies whether the model is enabled. Disabling the model makes it unavailable for Predict API requests, regardless of the model's deployment status. Default is `true`.
@@ -39,7 +39,7 @@ Field | Data type |  Description
 `guardrails`| Object | The guardrails for the model.
 `interface`| Object | The interface for the model.
 
-#### Example request: Disabling a model
+## Example request: Disabling a model
 
 ```json
 PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
@@ -49,7 +49,7 @@ PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
 ```
 {% include copy-curl.html %}
 
-#### Example request: Rate limiting inference calls for a model
+## Example request: Rate limiting inference calls for a model
 
 The following request limits the number of times you can call the Predict API on the model to 4 Predict API calls per minute:
 
@@ -64,7 +64,7 @@ PUT /_plugins/_ml/models/T_S-cY0BKCJ3ot9qr0aP
 ```
 {% include copy-curl.html %}
 
-#### Example requests: Updating the guardrails
+## Example requests: Updating the guardrails
 
 ```json
 PUT /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
@@ -112,7 +112,7 @@ PUT /_plugins/_ml/models/9uGdCJABjaMXYrp14YRj
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -127,6 +127,56 @@ PUT /_plugins/_ml/models/9uGdCJABjaMXYrp14YRj
   },
   "_seq_no": 48,
   "_primary_term": 4
+}
+```
+
+## Example request: Updating the model interface 
+
+You can update a model's interface to define input and output schemas. This is useful when working with models that lack a default interface or require customization. For more information about model interfaces, see [The `Interface` parameter]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-interface-parameter). 
+
+The following example request specifies the output schema for an [AI21 Labs Jurassic model](https://aws.amazon.com/bedrock/ai21/) that was registered without a post-processing function:
+
+```json
+PUT /_plugins/_ml/models/IMcNB5UB7judm8f45nXo
+{
+    "interface": {
+        "output": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"inference_results\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"output\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"dataAsMap\": {\n                  \"type\": \"object\",\n                  \"properties\": {\n                    \"id\": {\n                      \"type\": \"number\"\n                    },\n                    \"prompt\": {\n                      \"type\": \"object\",\n                      \"properties\": {\n                        \"text\": {\n                          \"type\": \"string\"\n                        },\n                        \"tokens\": {\n                          \"type\": \"array\",\n                          \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                              \"generatedToken\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                  \"token\": {\n                                    \"type\": \"string\"\n                                  },\n                                  \"logprob\": {\n                                    \"type\": \"number\"\n                                  },\n                                  \"raw_logprob\": {\n                                    \"type\": \"number\"\n                                  }\n                                }\n                              },\n                              \"textRange\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                  \"start\": {\n                                    \"type\": \"number\"\n                                  },\n                                  \"end\": {\n                                    \"type\": \"number\"\n                                  }\n                                }\n                              }\n                            }\n                          }\n                        }\n                      }\n                    },\n                    \"completions\": {\n                      \"type\": \"array\",\n                      \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                          \"data\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                              \"text\": {\n                                \"type\": \"string\"\n                              },\n                              \"tokens\": {\n                                \"type\": \"array\",\n                                \"items\": {\n                                  \"type\": \"object\",\n                                  \"properties\": {\n                                    \"generatedToken\": {\n                                      \"type\": \"object\",\n                                      \"properties\": {\n                                        \"token\": {\n                                          \"type\": \"string\"\n                                        },\n                                        \"logprob\": {\n                                          \"type\": \"number\"\n                                        },\n                                        \"raw_logprob\": {\n                                          \"type\": \"number\"\n                                        }\n                                      }\n                                    },\n                                    \"textRange\": {\n                                      \"type\": \"object\",\n                                      \"properties\": {\n                                        \"start\": {\n                                          \"type\": \"number\"\n                                        },\n                                        \"end\": {\n                                          \"type\": \"number\"\n                                        }\n                                      }\n                                    }\n                                  }\n                                }\n                              }\n                            }\n                          },\n                          \"finishReason\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                              \"reason\": {\n                                \"type\": \"string\"\n                              },\n                              \"length\": {\n                                \"type\": \"number\"\n                              }\n                            }\n                          }\n                        }\n                      }\n                    }\n                  }\n                }\n              }\n            }\n          },\n          \"status_code\": {\n            \"type\": \"integer\"\n          }\n        }\n      }\n    }\n  }\n}"
+    }
+}
+```
+{% include copy-curl.html %}
+
+If the model was registered using the [Amazon Bedrock AI21 Labs Jurassic blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md), a default interface is applied automatically.
+{: .note}
+
+If the model interface is no longer needed, you can remove both the input and output schemas in order to bypass model schema validation:
+
+```json
+PUT /_plugins/_ml/models/IMcNB5UB7judm8f45nXo
+{
+  "interface": {
+    "input": null,
+    "output": null
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Example response
+
+```json
+{
+  "_index": ".plugins-ml-model",
+  "_id": "IMcNB5UB7judm8f45nXo",
+  "_version": 2,
+  "result": "updated",
+  "_shards": {
+    "total": 2,
+    "successful": 2,
+    "failed": 0
+  },
+  "_seq_no": 379,
+  "_primary_term": 5
 }
 ```
 

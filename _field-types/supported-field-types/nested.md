@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Nested field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A nested field type is a special type of [object field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object/). 
 
@@ -312,3 +314,8 @@ Parameter | Description
 `include_in_parent` | A Boolean value that specifies whether all fields in the child nested object should also be added to the parent document in flattened form. Default is `false`.
 `include_in_root` | A Boolean value that specifies whether all fields in the child nested object should also be added to the root document in flattened form. Default is `false`.
 `properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to `true`.
+
+## Next steps
+
+- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on nested fields.
+- Learn about [retrieving inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/).

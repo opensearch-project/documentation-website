@@ -7,7 +7,7 @@ nav_order: 10
 
 # Codec processor combinations
 
-At ingestion time, data received by the [`s3` source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/) can be parsed by [codecs]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#codec). Codecs compresses and decompresses large data sets in a certain format before ingestion them through a Data Prepper pipeline [processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
+At ingestion time, data received by the [`s3` source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/) can be parsed by [codecs]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#codec). Codecs compresses and decompresses large data sets in a certain format before ingestion them through an OpenSearch Data Prepper pipeline [processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
 
 While most codecs can be used with most processors, the following codec processor combinations can make your pipeline more efficient when used with the following input types.
 

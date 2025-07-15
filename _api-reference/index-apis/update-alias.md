@@ -2,7 +2,7 @@
 layout: default
 title: Create or update alias
 parent: Index APIs
-nav_order: 5
+nav_order: 6
 ---
 
 # Create or Update Alias
@@ -10,12 +10,12 @@ nav_order: 5
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Create or Update Alias API adds a data stream or index to an alias or updates the settings for an existing alias. For more alias API operations, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
+The Create or Update Alias API adds one or more indexes to an alias or updates the settings for an existing alias. For more alias API operations, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
 
 The Create or Update Alias API is distinct from the [Alias API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/alias/), which supports the addition and removal of aliases and the removal of alias indexes. In contrast, the following API only supports adding or updating an alias without updating the index itself. Each API also uses different request body parameters.
 {: .note}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 POST /<target>/_alias/<alias-name>
@@ -35,7 +35,7 @@ PUT /_alias
 
 | Parameter | Type | Description |
 :--- | :--- | :---
-| `target` | String | A comma-delimited list of data streams and indexes. Wildcard expressions (`*`) are supported. To target all data streams and indexes in a cluster, use `_all` or `*`. Optional. |
+| `target` | String | A comma-delimited list of indexes. Wildcard expressions (`*`) are supported. To target all indexes in a cluster, use `_all` or `*`. Optional. |
 | `alias-name` | String | The alias name to be created or updated. Optional. |
 
 ## Query parameters
@@ -53,7 +53,7 @@ In the request body, you can specify the index name, the alias name, and the set
 
 Field | Type | Description
 :--- | :--- | :--- | :---
-`index` | String | A comma-delimited list of data streams or indexes that you want to associate with the alias. If this field is set, it will override the index name specified in the URL path.
+`index` | String | A comma-delimited list of indexes that you want to associate with the alias. If this field is set, it will override the index name specified in the URL path.
 `alias` | String | The name of the alias. If this field is set, it will override the alias name specified in the URL path.
 `is_write_index` | Boolean | Specifies whether the index should be a write index. An alias can only have one write index at a time. If a write request is submitted to an alias that links to multiple indexes, then OpenSearch runs the request only on the write index.
 `routing` | String | Assigns a custom value to a shard for specific operations. 

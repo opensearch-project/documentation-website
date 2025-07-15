@@ -11,6 +11,8 @@ redirect_from:
 ---
 
 # Text field type
+**Introduced 1.0**
+{: .label .label-purple }
 
 A `text` field type contains a string that is analyzed. It is used for full-text search because it allows partial matches. Searches for multiple terms can match some but not all of them. Depending on the analyzer, results can be case insensitive, stemmed, have stopwords removed, have synonyms applied, and so on.
 
@@ -120,12 +122,12 @@ GET testindex/_search
 {
   "query": {
     "match": {
-      "text": "date of birth"
+      "dob": "date of birth"
     }
   },
   "highlight": {
     "fields": {
-      "text": {} 
+      "dob": {} 
     }
   }
 }

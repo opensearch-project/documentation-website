@@ -20,7 +20,7 @@ To create and deploy an OpenSearch cluster according to your requirements, it’
 
 There are many ways to design a cluster. The following illustration shows a basic architecture that includes a four-node cluster that has one dedicated cluster manager node, one dedicated coordinating node, and two data nodes that are cluster manager eligible and also used for ingesting data.
 
-  The nomenclature for the cluster manager node is now referred to as the cluster manager node.
+  The master node is now referred to as the cluster manager node.
    {: .note }
 
 ![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.png)
@@ -37,7 +37,8 @@ Data | Stores and searches data. Performs all data-related operations (indexing,
 Ingest | Pre-processes data before storing it in the cluster. Runs an ingest pipeline that transforms your data before adding it to an index. | If you plan to ingest a lot of data and run complex ingest pipelines, we recommend you use dedicated ingest nodes. You can also optionally offload your indexing from the data nodes so that your data nodes are used exclusively for searching and aggregating.
 Coordinating | Delegates client requests to the shards on the data nodes, collects and aggregates the results into one final result, and sends this result back to the client. | A couple of dedicated coordinating-only nodes is appropriate to prevent bottlenecks for search-heavy workloads. We recommend using CPUs with as many cores as you can.
 Dynamic | Delegates a specific node for custom work, such as machine learning (ML) tasks, preventing the consumption of resources from data nodes and therefore not affecting any OpenSearch functionality. 
-Search | Provides access to [searchable snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/searchable_snapshot/). Incorporates techniques like frequently caching used segments and removing the least used data segments in order to access the searchable snapshot index (stored in a remote long-term storage source, for example, Amazon S3 or Google Cloud Storage). | Search nodes contain an index allocated as a snapshot cache. Thus, we recommend dedicated nodes with a setup with more compute (CPU and memory) than storage capacity (hard disk).
+Warm | Provides access to [searchable snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/searchable_snapshot/). Incorporates techniques like frequently caching used segments and removing the least used data segments in order to access the searchable snapshot index (stored in a remote long-term storage source, for example, Amazon Simple Storage Service [Amazon S3] or Google Cloud Storage). | Search nodes contain an index allocated as a snapshot cache. Thus, we recommend using dedicated nodes with more compute (CPU and memory) than storage capacity (hard disk).
+Search | Search nodes are dedicated nodes that host only search replica shards, helping separate search workloads from indexing workloads. | Because search nodes host search replicas and handle search traffic, we recommend using them for dedicated memory-optimized instances. 
 
 By default, each node is a cluster-manager-eligible, data, ingest, and coordinating node. Deciding on the number of nodes, assigning node types, and choosing the hardware for each node type depends on your use case. You must take into account factors like the amount of time you want to hold on to your data, the average size of your documents, your typical workload (indexing, searches, aggregations), your expected price-performance ratio, your risk tolerance, and so on.
 
@@ -192,11 +193,27 @@ To better understand and monitor your cluster, use the [CAT API]({{site.url}}{{s
 
 ## (Advanced) Step 6: Configure shard allocation awareness or forced awareness
 
+To further fine-tune your shard allocation, you can set custom node attributes for shard allocation awareness or forced awareness.
+
 ### Shard allocation awareness
 
-If your nodes are spread across several geographical zones, you can configure shard allocation awareness to allocate all replica shards to a zone that’s different from their primary shard.
+You can set custom node attributes on OpenSearch nodes to be used for shard allocation awareness. For example, you can set the `zone` attribute on each node to represent the zone in which the node is located. You can also use the `zone` attribute to ensure that the primary shard and its replica shards are allocated in a balanced manner across available, distinct zones. In this scenario, maximum shard copies per zone would equal `ceil (number_of_shard_copies/number_of_distinct_zones)`.
 
-With shard allocation awareness, if the nodes in one of your zones fail, you can be assured that your replica shards are spread across your other zones. It adds a layer of fault tolerance to ensure your data survives a zone failure beyond just individual node failures.
+OpenSearch, by default, allocates shard copies of a single shard across different nodes. When only 1 zone is available, such as after a zone failure, OpenSearch allocates replica shards to the only remaining zone---it considers only available zones (attribute values) when calculating the maximum number of allowed shard copies per zone.
+
+For example, if your index has a total of 5 shard copies (1 primary and 4 replicas) and nodes in 3 distinct zones, then OpenSearch will perform the following to allocate all 5 shard copies:
+
+- Allocate no more than 2 shards per zone, which will require at least 2 nodes in 2 zones.
+- Allocate the last shard in the third zone, with at least 1 node needed in the third zone.
+
+Alternatively, if you have 3 nodes in the first zone and 1 node in each remaining zone, then OpenSearch will allocate:
+
+- 2 shard copies in the first zone.
+- 1 shard copy in the remaining 2 zones.
+
+The final shard copy will remain unallocated due to the lack of nodes.
+
+With shard allocation awareness, if the nodes in one of your zones fail, you can be assured that your replica shards are spread across your other zones, adding a layer of fault tolerance to ensure that your data survives zone failures.
 
 To configure shard allocation awareness, add zone attributes to `opensearch-d1` and `opensearch-d2`, respectively:
 
@@ -218,6 +235,8 @@ PUT _cluster/settings
   }
 }
 ```
+
+You can also use multiple attributes for shard allocation awareness by providing the attributes as a comma-separated string, for example, `zone,rack`.
 
 You can either use `persistent` or `transient` settings. We recommend the `persistent` setting because it persists through a cluster reboot. Transient settings don't persist through a cluster reboot.
 

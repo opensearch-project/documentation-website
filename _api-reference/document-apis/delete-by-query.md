@@ -13,33 +13,24 @@ redirect_from:
 
 You can include a query as part of your delete request so OpenSearch deletes all documents that match that query.
 
-## Example
+## Endpoints
 
 ```json
-POST sample-index1/_delete_by_query
-{
-  "query": {
-    "match": {
-      "movie-length": "124"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Path and HTTP methods
-
-```
 POST <index>/_delete_by_query
 ```
 
-## URL parameters
-
-All URL parameters are optional.
+## Path parameters
 
 Parameter | Type | Description
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name or list of the data streams, indexes, or aliases to delete from. Supports wildcards. If left blank, OpenSearch searches all indexes.
+
+## Query parameters
+
+All parameters are optional.
+
+Parameter | Type | Description
+:--- | :--- | :--- | :---
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 analyzer | String | The analyzer to use in the query string.
 analyze_wildcard | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is `false`.
@@ -54,7 +45,7 @@ max_docs | Integer | How many documents the delete by query operation should pro
 preference | String | Specifies which shard or node OpenSearch should perform the delete by query operation on.
 q | String | Lucene query string's query.
 request_cache | Boolean | Specifies whether OpenSearch should use the request cache. Default is whether it’s enabled in the index’s settings.
-refresh | Boolean | If true, OpenSearch refreshes shards to make the delete by query operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`.
+refresh | Boolean | If true, OpenSearch refreshes shards to make the delete by query operation available to search results. Valid values are `true` and `false`. Default is `false`.
 requests_per_second | Integer | Specifies the request's throttling in sub-requests per second. Default is -1, which means no throttling.
 routing | String | Value used to route the operation to a specific shard.
 scroll | Time | Amount of time the search context should be open.
@@ -67,14 +58,14 @@ _source | String | Specifies whether to include the `_source` field in the respo
 _source_excludes | String | A comma-separated list of source fields to exclude from the response.
 _source_includes | String | A comma-separated list of source fields to include in the response.
 stats | String | Value to associate with the request for additional logging.
-terminate_after | Integer | The maximum number of documents OpenSearch should process before terminating the request.
+terminate_after | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request.
 timeout | Time | How long the operation should wait from a response from active shards. Default is `1m`.
 version | Boolean | Whether to include the document version as a match.
 wait_for_active_shards | String | The number of shards that must be active before OpenSearch executes the operation. Valid values are `all` or any integer up to the total number of shards in the index. Default is 1, which is the primary shard.
 wait_for_completion | Boolean | Setting this parameter to false indicates to OpenSearch it should not wait for completion and perform this request asynchronously. Asynchronous requests run in the background, and you can use the [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks) API to monitor progress.
 
 
-## Request body
+## Request body fields
 
 To search your index for specific documents, you must include a [query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) in the request body that OpenSearch uses to match documents. If you don't use a query, OpenSearch treats your delete request as a simple [delete document operation]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document).
 
@@ -87,6 +78,21 @@ To search your index for specific documents, you must include a [query]({{site.u
   }
 }
 ```
+
+## Example request
+
+```json
+POST sample-index1/_delete_by_query
+{
+  "query": {
+    "match": {
+      "movie-length": "124"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
 
 ## Example response
 ```json

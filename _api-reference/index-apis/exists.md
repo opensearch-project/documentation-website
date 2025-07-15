@@ -2,7 +2,7 @@
 layout: default
 title: Index exists
 parent: Index APIs
-nav_order: 50
+nav_order: 19
 redirect_from:
   - /opensearch/rest-api/index-apis/exists/
 ---
@@ -13,20 +13,14 @@ redirect_from:
 
 The index exists API operation returns whether or not an index already exists.
 
-## Example
+
+## Endpoints
 
 ```json
-HEAD /sample-index
-```
-{% include copy-curl.html %}
-
-## Path and HTTP methods
-
-```
 HEAD /<index-name>
 ```
 
-## URL parameters
+## Query parameters
 
 All parameters are optional.
 
@@ -39,6 +33,13 @@ include_defaults | Boolean | Whether to include default settings as part of the 
 ignore_unavailable | Boolean | If true, OpenSearch does not search for missing or closed indexes. Default is `false`.
 local | Boolean | Whether to return information from only the local node instead of from the cluster manager node. Default is `false`.
 
+
+## Example request
+
+```json
+HEAD /sample-index
+```
+{% include copy-curl.html %}
 
 ## Example response
 

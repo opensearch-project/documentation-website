@@ -8,7 +8,7 @@ nav_order: 35
 
 # Monitor API
 
-You can use the threat intelligence Monitor API to create, search, and update [monitors](https://opensearch.org/docs/latest/observing-your-data/alerting/monitors/) for your threat intelligence feeds.
+You can use the threat intelligence Monitor API to create, search, and update [monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/) for your threat intelligence feeds.
 
 
 ---
@@ -16,7 +16,7 @@ You can use the threat intelligence Monitor API to create, search, and update [m
 
 Creates or updates a threat intelligence monitor.
 
-### Path and HTTP methods
+### Endpoints
 
 The `POST` method creates a new monitor. The `PUT` method updates a monitor.
 
@@ -25,7 +25,7 @@ POST _plugins/_security_analytics/threat_intel/monitors
 PUT _plugins/_security_analytics/threat_intel/monitors/<monitor_id>
 ```
 
-### Request fields
+### Request body fields
 
 You can specify the following fields in the request body.
 
@@ -207,7 +207,7 @@ The following section provides example requests for the Monitor API.
 
 Deletes an existing threat intelligence monitor.
 
-### Path and HTTP methods
+### Endpoints
 
 ```json
 DELETE /_plugins/_security_analytics/threat_intel/monitors/<monitor_id>

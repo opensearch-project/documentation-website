@@ -1,8 +1,8 @@
 ---
 layout: default
-parent: Searching data
+parent: Search options
 title: Retrieve specific fields
-nav_order: 60
+nav_order: 80
 ---
 
 # Retrieve specific fields
@@ -68,7 +68,7 @@ If `_source` is disabled in the index mappings, [searching with docvalue fields]
 You can list the fields you want to retrieve in the `fields` parameter. Wildcard patterns are also accepted:
 
 ```json
-GET "/index1/_search?pretty"
+GET /index1/_search
 {
     "_source": false,
     "fields": ["age", "nam*"],
@@ -169,7 +169,7 @@ The following example demonstrates how to use the `docvalue_fields` parameter.
 1. Create an index with the following mappings:
 
     ```json
-    PUT my_index
+    PUT /my_index
     {
       "mappings": {
         "properties": {
@@ -186,15 +186,18 @@ The following example demonstrates how to use the `docvalue_fields` parameter.
 2. Index the following documents into the newly created index:
 
     ```json
-    POST my_index/_doc/1
+    POST /my_index/_doc/1
     {
       "title": "OpenSearch Basics",
       "author": "John Doe",
       "publication_date": "2021-01-01",
       "price": 29.99
     }
+    ```
+    {% include copy-curl.html %}
     
-    POST my_index/_doc/2
+    ```json
+    POST /my_index/_doc/2
     {
       "title": "Advanced OpenSearch",
       "author": "Jane Smith",
@@ -207,7 +210,7 @@ The following example demonstrates how to use the `docvalue_fields` parameter.
 3. Retrieve only the `author` and `publication_date` fields using `docvalue_fields`:
 
     ```json
-    POST my_index/_search
+    POST /my_index/_search
     {
       "_source": false,
       "docvalue_fields": ["author", "publication_date"],
@@ -259,7 +262,7 @@ In OpenSearch, if you want to retrieve doc values for nested objects, you cannot
 1. Define the index mappings:
 
     ```json
-    PUT my_index
+    PUT /my_index
     {
       "mappings": {
         "properties": {
@@ -282,7 +285,7 @@ In OpenSearch, if you want to retrieve doc values for nested objects, you cannot
 2. Index your data:
 
     ```json
-    POST my_index/_doc/1
+    POST /my_index/_doc/1
     {
       "title": "OpenSearch Basics",
       "author": "John Doe",
@@ -305,7 +308,7 @@ In OpenSearch, if you want to retrieve doc values for nested objects, you cannot
 3. Perform a search with `inner_hits` and `docvalue_fields`:
 
     ```json
-    POST my_index/_search
+    POST /my_index/_search
     {
       "query": {
         "nested": {
@@ -405,7 +408,7 @@ Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for
 1. Create an index with the following mappings:
 
     ```json
-    PUT my_index
+    PUT /my_index
     {
       "mappings": {
         "properties": {
@@ -432,14 +435,17 @@ Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for
 2. Index your data:
 
     ```json
-    POST my_index/_doc/1
+    POST /my_index/_doc/1
     {
       "title": "OpenSearch Basics",
       "author": "John Doe",
       "publication_date": "2022-01-01",
       "price": 29.99
     }
+    ```
+    {% include copy-curl.html %}
     
+    ```json
     POST my_index/_doc/2
     {
       "title": "Advanced OpenSearch",
@@ -453,7 +459,7 @@ Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for
 3. Perform a search with `stored_fields`:
 
     ```json
-    POST my_index/_search
+    POST /my_index/_search
     {
       "_source": false,
       "stored_fields": ["title", "author"],
@@ -508,7 +514,7 @@ In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you c
 1. Create an index with the following mappings:
 
     ```json
-    PUT my_index
+    PUT /my_index
     {
       "mappings": {
         "properties": {
@@ -531,7 +537,7 @@ In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you c
 2. Index your data:
 
     ```json
-    POST my_index/_doc/1
+    POST /my_index/_doc/1
     {
       "title": "OpenSearch Basics",
       "author": "John Doe",
@@ -554,7 +560,7 @@ In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you c
 3. Perform a search with `inner_hits` and `stored_fields`:
 
     ```json
-    POST my_index/_search
+    POST /my_index/_search
     {
       "_source": false,
       "query": {
@@ -641,7 +647,7 @@ You can include or exclude specific fields from the `_source` field in the searc
 1. Index your data:
 
     ```json
-    PUT my_index/_doc/1
+    PUT /my_index/_doc/1
     {
       "title": "OpenSearch Basics",
       "author": "John Doe",
@@ -654,7 +660,7 @@ You can include or exclude specific fields from the `_source` field in the searc
 2. Perform a search using source filtering:
 
     ```json
-    POST my_index/_search
+    POST /my_index/_search
     {
       "_source": ["title", "author"],
       "query": {
@@ -694,7 +700,7 @@ The following is the expected response:
 You can choose to exclude fields by using the `"excludes"` parameter in a search request, as shown in the following example:
 
 ```json
-POST my_index/_search
+POST /my_index/_search
 {
   "_source": {
     "excludes": ["price"]
@@ -854,26 +860,26 @@ If you have an index of products, where each product document contains the `pric
 
 2. Use the `script_fields` parameter to include a custom field called `discounted_price` in the search results. This field will be calculated based on the `price` and `discount_percentage` fields using a script:
 
-```json
-GET /products/_search
-{
-  "_source": ["product_id", "name", "price", "discount_percentage"],
-  "query": {
-    "match": {
-      "category": "Electronics"
-    }
-  },
-  "script_fields": {
-    "discounted_price": {
-      "script": {
-        "lang": "painless",
-        "source": "doc[\"price\"].value * (1 - doc[\"discount_percentage\"].value / 100)"
+    ```json
+    GET /products/_search
+    {
+      "_source": ["product_id", "name", "price", "discount_percentage"],
+      "query": {
+        "match": {
+          "category": "Electronics"
+        }
+      },
+      "script_fields": {
+        "discounted_price": {
+          "script": {
+            "lang": "painless",
+            "source": "doc[\"price\"].value * (1 - doc[\"discount_percentage\"].value / 100)"
+          }
+        }
       }
     }
-  }
-}
-```
-{% include copy-curl.html %}
+    ```
+    {% include copy-curl.html %}
 
 You should receive the following response:
 

@@ -15,14 +15,14 @@ This API retrieves a conversational memory for [conversational search]({{site.ur
 When the Security plugin is enabled, all memories exist in a `private` security mode. Only the user who created a memory can interact with that memory and its messages.
 {: .important}
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/memory/_search
 POST /_plugins/_ml/memory/_search
 ```
 
-#### Example request: Searching for all memories
+## Example request: Searching for all memories
 
 ```json
 POST /_plugins/_ml/memory/_search
@@ -35,7 +35,7 @@ POST /_plugins/_ml/memory/_search
 ```
 {% include copy-curl.html %}
 
-#### Example request: Searching for a memory by name
+## Example request: Searching for a memory by name
 
 ```json
 POST /_plugins/_ml/memory/_search
@@ -51,7 +51,7 @@ POST /_plugins/_ml/memory/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -120,7 +120,7 @@ POST /_plugins/_ml/memory/_search
 }
 ```
 
-## Response fields
+## Response body fields
 
 The following table lists all response fields.
 

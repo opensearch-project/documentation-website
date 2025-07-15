@@ -15,24 +15,41 @@ has_children: false
 The CAT allocation operation lists the allocation of disk space for indexes and the number of shards on each node.
 
 
-## Path and HTTP methods
 
+<!-- spec_insert_start
+api: cat.allocation
+component: endpoints
+-->
+## Endpoints
+```json
+GET /_cat/allocation
+GET /_cat/allocation/{node_id}
 ```
-GET _cat/allocation?v
-GET _cat/allocation/<node_name>
-```
+<!-- spec_insert_end -->
 
-## URL parameters
 
-All CAT allocation URL parameters are optional.
+<!-- spec_insert_start
+api: cat.allocation
+component: query_parameters
+columns: Parameter, Data type, Description, Default
+include_deprecated: false
+-->
+## Query parameters
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, and `p`. | N/A |
+| `cluster_manager_timeout` | String | A timeout for connection to the cluster manager node. | N/A |
+| `format` | String | A short version of the HTTP `Accept` header, such as `json` or `yaml`. | N/A |
+| `h` | List | A comma-separated list of column names to display. | N/A |
+| `help` | Boolean | Returns help information. | `false` |
+| `local` | Boolean | Returns local information but does not retrieve the state from cluster-manager node. | `false` |
+| `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
+| `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
+
+<!-- spec_insert_end -->
 
 ## Example requests
 

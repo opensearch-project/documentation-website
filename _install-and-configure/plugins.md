@@ -10,9 +10,9 @@ redirect_from:
 
 # Installing plugins
 
-OpenSearch comprises of a number of plugins that add features and capabilities to the core platform. The plugins available to you are dependent on how OpenSearch was installed and which plugins were subsequently added or removed. For example, the minimal distribution of OpenSearch enables only core functionality, such as indexing and search. Using the minimal distribution of OpenSearch is beneficial when you are working in a testing environment, have custom plugins, or are intending to integrate OpenSearch with other services.
+OpenSearch includes a number of plugins that add features and capabilities to the core platform. The plugins available to you are dependent on how OpenSearch was installed and which plugins were subsequently added or removed. For example, the minimal distribution of OpenSearch enables only core functionality, such as indexing and search. Using the minimal distribution of OpenSearch is beneficial when you are working in a testing environment, have custom plugins, or are intending to integrate OpenSearch with other services.
 
-The standard distribution of OpenSearch has much more functionality included. You can choose to add additional plugins or remove any of the plugins you don't need. 
+The standard distribution of OpenSearch includes many more plugins offering much more functionality. You can choose to add additional plugins or remove any of the plugins you don't need. 
 
 For a list of the available plugins, see [Available plugins](#available-plugins).
 
@@ -181,7 +181,7 @@ Continue with installation? [y/N]y
 
 ### Install a plugin using Maven coordinates
 
-The `opensearch-plugin install` tool also allows you to specify Maven coordinates for available artifacts and versions hosted on [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). The tool parses the Maven coordinates you provide and constructs a URL. As a result, the host must be able to connect directly to the Maven Central site. The plugin installation fails if you pass coordinates to a proxy or local repository.
+The `opensearch-plugin install` tool also allows you to specify Maven coordinates for available artifacts and versions hosted on [Maven Central](https://central.sonatype.com/namespace/org.opensearch.plugin). The tool parses the Maven coordinates you provide and constructs a URL. As a result, the host must be able to connect directly to the Maven Central site. The plugin installation fails if you pass coordinates to a proxy or local repository.
 
 #### Usage
 ```bash
@@ -289,6 +289,7 @@ The following plugins are bundled with all OpenSearch distributions except for t
 | Index Management | [opensearch-index-management](https://github.com/opensearch-project/index-management) | 1.0.0 |
 | Job Scheduler | [opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler) | 1.0.0 |
 | k-NN | [opensearch-knn](https://github.com/opensearch-project/k-NN) | 1.0.0 |
+| Learning to Rank | [opensearch-ltr](https://github.com/opensearch-project/opensearch-learning-to-rank-base) | 2.19.0 |
 | ML Commons | [opensearch-ml](https://github.com/opensearch-project/ml-commons) | 1.3.0 |
 | Skills | [opensearch-skills](https://github.com/opensearch-project/skills) | 2.12.0 |
 | Neural Search | [neural-search](https://github.com/opensearch-project/neural-search) | 2.4.0 |
@@ -297,10 +298,43 @@ The following plugins are bundled with all OpenSearch distributions except for t
 | Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 |
 | Security Analytics | [opensearch-security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
 | SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 |
+| Learning to Rank Base | [opensearch-learning-to-rank-base](https://github.com/opensearch-project/opensearch-learning-to-rank-base) | 2.19.0 |
+| Remote Metadata SDK | [opensearch-remote-metadata-sdk](https://github.com/opensearch-project/opensearch-remote-metadata-sdk) | 2.19.0 |
+| Query Insights | [query-insights](https://github.com/opensearch-project/query-insights) | 2.16.0 |
+| System Templates | [opensearch-system-templates](https://github.com/opensearch-project/opensearch-system-templates) | 2.17.0 |
+| User Behavior Insights | [ubi](https://github.com/opensearch-project/user-behavior-insights) | 3.0.0 |
+| Search Relevance | [search-relevance](https://github.com/opensearch-project/search-relevance) | 3.1.0 |
 
 _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._<br>
 _<sup>2</sup>Performance Analyzer is not available on Windows._
 
+
+#### Downloading bundled plugins for offline installation
+
+Each bundled plugin can be downloaded and installed offline from a [zip file](#install-a-plugin-from-a-zip-file).
+
+The URL for the corresponding plugin can be found in the `manifest.yml` file located in the root directory of the extracted bundle.
+
+### Core plugins
+
+A _core_ (or _native_) plugin in OpenSearch is a plugin that resides in the [OpenSearch core engine repository](https://github.com/opensearch-project/OpenSearch/tree/main/plugins). These plugins are tightly integrated with the OpenSearch engine, are versioned alongside core releases, and are not bundled by default in the standard OpenSearch distribution.
+
+
+#### Downloading core plugins for offline installation
+
+Each core plugins in [this list](https://github.com/opensearch-project/OpenSearch/tree/main/plugins) can be downloaded and installed offline from a [zip file](#install-a-plugin-from-a-zip-file) using the official `plugins` repository URL template:
+
+```html
+https://artifacts.opensearch.org/releases/plugins/<plugin-name>/<version>/<plugin-name>-<version>.zip
+```
+
+The `<plugin-name>` corresponds to the name of the bundled plugin (for example, `analysis-icu`). The `<version>` must match the version of the OpenSearch distribution (for example, `2.19.1`). 
+
+For example, use the following URL to download the `analysis-icu` bundled plugin distribution for OpenSearch version `2.19.1`:
+
+```
+https://artifacts.opensearch.org/releases/plugins/analysis-icu/2.19.1/analysis-icu-2.19.1.zip
+```
 
 ### Additional plugins
 
@@ -333,6 +367,7 @@ You can specify only one of the `opensearch.version` or `dependencies` propertie
 - [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/)
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
 - [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
+- [Learning to Rank]({{site.url}}{{site.baseurl}}/search-plugins/ltr/index/)
 - [ML Commons]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
 - [Neural search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
 - [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)

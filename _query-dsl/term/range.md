@@ -217,5 +217,5 @@ Parameter | Data type | Description
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
 `time_zone` | String | The time zone used to convert [`date`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) values to UTC in the query. Valid values are ISO 8601 [UTC offsets](https://en.wikipedia.org/wiki/List_of_UTC_offsets) and [IANA time zone IDs](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For more information, see [Time zone](#time-zone).
 
-If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, range queries on [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) and [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) fields are not run.
+If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, then range queries on [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) and [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) fields are not executed.
 {: .important}

@@ -2,7 +2,7 @@
 layout: default
 title: Get index
 parent: Index APIs
-nav_order: 40
+nav_order: 24
 redirect_from:
   - /opensearch/rest-api/index-apis/get-index/
 ---
@@ -13,20 +13,24 @@ redirect_from:
 
 You can use the get index API operation to return information about an index.
 
-## Example
+
+## Endpoints
 
 ```json
-GET /sample-index
-```
-{% include copy-curl.html %}
-
-## Path and HTTP methods
-
-```
-GET /<index-name>
+GET /<index>
 ```
 
-## URL parameters
+## Path parameters
+
+## Path parameters
+
+The following table lists the available path parameters. All path parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `<index>` | String | A comma-separated list of indexes, data streams, or index aliases to which the operation is applied. Supports wildcard expressions (`*`). Use `_all` or `*` to specify all indexes and data streams in a cluster. |
+
+## Query parameters
 
 All parameters are optional.
 
@@ -40,6 +44,12 @@ ignore_unavailable | Boolean | If true, OpenSearch does not include missing or c
 local | Boolean | Whether to return information from only the local node instead of from the cluster manager node. Default is `false`.
 cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 
+## Example request
+
+```json
+GET /sample-index
+```
+{% include copy-curl.html %}
 
 ## Example response
 ```json

@@ -11,17 +11,25 @@ nav_order: 7
 
 Deletes a snapshot from a repository.
 
+Deleting a snapshot that is in progress stops the snapshot operation and deletes the partially created snapshot.
+
 * To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
 
 * To view a list of your repositories, see [cat repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories).
 
 * To view a list of your snapshots, see [cat snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots).
 
+## Path and HTTP method
+
+```json
+DELETE _snapshot/<repository>/<snapshot>
+```
+
 ## Path parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
-repository | String | Repostory that contains the snapshot. |
+repository | String | Repository that contains the snapshot. |
 snapshot | String | Snapshot to delete. |
 
 ## Example request

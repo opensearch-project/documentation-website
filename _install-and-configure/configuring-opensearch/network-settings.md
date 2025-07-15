@@ -39,6 +39,8 @@ OpenSearch supports the following advanced network settings for HTTP communicati
 
 - `http.compression` (Static, Boolean): Enables support for compression using `Accept-Encoding` when applicable. When `HTTPS` is enabled, the default is `false`, otherwise, the default is `true`. Disabling compression for HTTPS helps mitigate potential security risks, such as `BREACH` attacks. To enable compression for HTTPS traffic, explicitly set `http.compression` to `true`.
 
+- `http.max_header_size`: (Static, string) The maximum combined size of all HTTP headers allowed in a request. Default is `16KB`.
+
 ## Advanced transport settings
 
 OpenSearch supports the following advanced network settings for transport communication:
@@ -51,9 +53,8 @@ OpenSearch supports the following advanced network settings for transport commun
 
 ## Selecting the transport
 
-The default OpenSearch transport is provided by the `transport-netty4` module and uses the [Netty 4](https://netty.io/) engine for both internal TCP-based communication between nodes in the cluster and external HTTP-based communication with clients. This communication is fully asynchronous and non-blocking. However, there are other transport plugins available that can be used interchangeably:
+The default OpenSearch transport is provided by the `transport-netty4` module and uses the [Netty 4](https://netty.io/) engine for both internal TCP-based communication between nodes in the cluster and external HTTP-based communication with clients. This communication is fully asynchronous and non-blocking. The following table lists other available transport plugins that can be used interchangeably.
 
 Plugin | Description
 :---------- | :--------
-`transport-nio`    | The OpenSearch transport based on Java NIO. <br> Installation: `./bin/opensearch-plugin install transport-nio` <br> Configuration (using `opensearch.yml`): <br> `transport.type: nio-transport` <br> `http.type: nio-http-transport`
 `transport-reactor-netty4`    | The OpenSearch HTTP transport based on [Project Reactor](https://github.com/reactor/reactor-netty) and Netty 4 (**experimental**) <br> Installation: `./bin/opensearch-plugin install transport-reactor-netty4` <br> Configuration (using `opensearch.yml`): <br> `http.type: reactor-netty4` <br> `http.type: reactor-netty4-secure`

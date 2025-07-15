@@ -16,9 +16,12 @@ The searchable snapshot feature incorporates techniques like caching frequently 
 
 ## Configuring a node to use searchable snapshots
 
-To configure the searchable snapshots feature, create a node in your `opensearch.yml file` and define the node role as `search`. Optionally, you can also configure the `cache.size` property for the node.
+As of OpenSearch 3.0, nodes that use the searchable snapshots feature must have the `warm` node role instead of the `search` role.
+{: .important}
 
-A `search` node reserves storage for the cache to perform searchable snapshot queries. In the case of a dedicated search node where the node exclusively has the `search` role, this value defaults to a fixed percentage of available storage. In other cases, the value needs to be configured by the user using the `node.search.cache.size` setting.
+To configure the searchable snapshots feature, create a node in your `opensearch.yml` file and define the node role as `warm`. Optionally, you can also configure the `cache.size` property for the node.
+
+A `warm` node reserves storage for the cache to perform searchable snapshot queries. In the case of a dedicated search node where the node exclusively has the `warm` role, this value defaults to a fixed percentage (80%) of available storage. In other cases, the value needs to be configured using the `node.search.cache.size` setting.
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -27,26 +30,26 @@ Parameter | Type | Description
 
 ```yaml
 node.name: snapshots-node
-node.roles: [ search ]
+node.roles: [ warm ]
 node.search.cache.size: 50gb
 ```
 
-If you're running Docker, you can create a node with the `search` node role by adding the line `- node.roles=search` to your `docker-compose.yml` file:
+If you're running Docker, you can create a node with the `warm` node role by adding the line `- node.roles=warm` to your `docker-compose.yml` file:
 
 ```yaml
 version: '3'
 services:
   opensearch-node1:
-    image: opensearchproject/opensearch:2.7.0
+    image: opensearchproject/opensearch:3.0.0
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node1
-      - node.roles=search
+      - node.roles=warm
       - node.search.cache.size=50gb
 ```
 
-
+- Starting with version 2.18, k-NN indexes support searchable snapshots for the NMSLIB and Faiss engines.
 
 ## Create a searchable snapshot index
 
@@ -54,7 +57,7 @@ A searchable snapshot index is created by specifying the `remote_snapshot` stora
 
 Request Field | Description
 :--- | :---
-`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the `search` node role in order to restore a snapshot using the `remote_snapshot` type. <br /><br > Defaults to `local`.
+`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the `warm` node role in order to restore a snapshot using the `remote_snapshot` type. <br /><br > Default is `local`.
 
 #### Example request
 
@@ -106,6 +109,6 @@ The following are known limitations of the searchable snapshots feature:
 
 - Accessing data from a remote repository is slower than local disk reads, so higher latencies on search queries are expected.
 - Many remote object stores charge on a per-request basis for retrieval, so users should closely monitor any costs incurred.
-- Searching remote data can impact the performance of other queries running on the same node. We recommend that users provision dedicated nodes with the `search` role for performance-critical applications.
+- Searching remote data can impact the performance of other queries running on the same node. We recommend that users provision dedicated nodes with the `warm` role for performance-critical applications.
 - For better search performance, consider [force merging]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/) indexes into a smaller number of segments before taking a snapshot. For the best performance, at the cost of using compute resources prior to snapshotting, force merge your index into one segment.
-- We recommend configuring a maximum ratio of remote data to local disk cache size using the `cluster.filecache.remote_data_ratio` setting. A ratio of 5 is a good starting point for most workloads to ensure good query performance. If the ratio is too large, then there may not be sufficient disk space to handle the search workload. For more details on the maximum ratio of remote data, see issue [#11676](https://github.com/opensearch-project/OpenSearch/issues/11676). 
+- We recommend configuring a maximum ratio of remote data to local disk cache size using the `cluster.filecache.remote_data_ratio` setting. A ratio of 5 is a good starting point for most workloads to ensure good query performance. If the ratio is too large, then there may not be sufficient disk space to handle the search workload. For more details on the maximum ratio of remote data, see issue [#11676](https://github.com/opensearch-project/OpenSearch/issues/11676).

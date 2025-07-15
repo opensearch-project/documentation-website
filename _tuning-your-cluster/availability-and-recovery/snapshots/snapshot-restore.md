@@ -68,7 +68,7 @@ Before you can take a snapshot, you have to "register" a snapshot repository. A 
    ```
   {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
+You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
 ### Amazon S3
 
@@ -108,6 +108,20 @@ You will most likely not need to specify any parameters except for `location`. F
    ```bash
    sudo ./bin/opensearch-keystore add s3.client.default.access_key
    sudo ./bin/opensearch-keystore add s3.client.default.secret_key
+   ```
+
+1. (Optional) If you're using a custom S3 endpoint (for example, MinIO), disable the Amazon EC2 metadata connection:
+
+   ```bash
+   export AWS_EC2_METADATA_DISABLED=true
+   ```
+
+   If you're installing OpenSearch using Helm, update the following settings in your values file:
+
+   ```yml
+   extraEnvs:
+     - name: AWS_EC2_METADATA_DISABLED
+       value: "true"
    ```
 
 1. (Optional) If you're using temporary credentials, add your session token:
@@ -176,17 +190,34 @@ You will most likely not need to specify any parameters except for `location`. F
 
    ```json
    {
-	   "Version": "2012-10-17",
-	   "Statement": [{
-		   "Action": [
-			   "s3:*"
-		   ],
-		   "Effect": "Allow",
-		   "Resource": [
-			   "arn:aws:s3:::your-bucket",
-			   "arn:aws:s3:::your-bucket/*"
-		   ]
-	   }]
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Action": [
+           "s3:GetBucketLocation",
+           "s3:ListBucket",
+           "s3:ListBucketMultipartUploads",
+           "s3:ListBucketVersions"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+           "arn:aws:s3:::your-bucket"
+         ]
+       },
+       {
+         "Action": [
+           "s3:AbortMultipartUpload",
+           "s3:DeleteObject",
+           "s3:GetObject",
+           "s3:ListMultipartUploadParts",
+           "s3:PutObject"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+           "arn:aws:s3:::your-bucket/*"
+         ]
+       }
+     ]
    }
    ```
 
@@ -204,7 +235,7 @@ You will most likely not need to specify any parameters except for `location`. F
    ```
    {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
+You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
 
 ### Registering a Microsoft Azure storage account using Helm 
@@ -250,7 +281,7 @@ Use the following steps to register a snapshot repository backed by an Azure sto
      azure-snapshot-storage-account-key: ### Insert base64 encoded key
    ```
 
-1. [Deploy OpenSearch using Helm](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/helm/) with the following additional values. Specify the value of the storage account in the `AZURE_SNAPSHOT_STORAGE_ACCOUNT` environment variable:
+1. [Deploy OpenSearch using Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/) with the following additional values. Specify the value of the storage account in the `AZURE_SNAPSHOT_STORAGE_ACCOUNT` environment variable:
 
    ```yaml
    extraInitContainers:
@@ -479,15 +510,19 @@ Request parameters | Description
 `include_global_state` | Whether to restore the cluster state. Default is `false`.
 `include_aliases` | Whether to restore aliases alongside their associated indexes. Default is `true`.
 `partial` | Whether to allow the restoration of partial snapshots. Default is `false`.
-`rename_pattern` | If you want to rename indexes as you restore them, use this option to specify a regular expression that matches all indexes you want to restore. Use capture groups (`()`) to reuse portions of the index name.
-`rename_replacement` | If you want to rename indexes as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, and so on.
+`rename_pattern` | If you want to rename indexes, use this option to specify a regular expression that matches all the indexes that you want to restore and rename. Use capture groups (`()`) to reuse portions of the index name.
+`rename_replacement` | If you want to rename indexes, use this option to specify the name replacement pattern. Use `$0` to include the entire matching index name or the number of the capture group. For example, `$1` would include the content of the first capture group.
+`rename_alias_pattern` | If you want to rename aliases, use this option to specify a regular expression that matches all the aliases you want to restore and rename. Use capture groups (`()`) to reuse portions of the alias name.
+`rename_alias_replacement` | If you want to rename aliases, use this option to specify the name replacement pattern. Use `$0` to include the entire matching alias name or the number of the capture group. For example, `$1` would include the content of the first capture group.
 `index_settings` | If you want to change [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) applied during the restore operation, specify them here. You cannot change `index.number_of_shards`.
 `ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults applied during restore. You cannot ignore `index.number_of_shards`, `index.number_of_replicas`, or `index.auto_expand_replicas`.
 `storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
 
 ### Conflicts and compatibility
 
-One way to avoid naming conflicts when restoring indexes is to use the `rename_pattern` and `rename_replacement` options. You can then, if necessary, use the `_reindex` API to combine the two. The simpler way is to delete existing indexes prior to restoring from a snapshot.
+One way to avoid index naming conflicts when restoring indexes is to use the `rename_pattern` and `rename_replacement` options. You can then, if necessary, use the `_reindex` API to combine the two. However, it may be simpler to delete the indexes that caused the conflict prior to restoring them from a snapshot.
+
+Similarly, to avoid alias naming conflicts when restoring indexes with aliases, you can use the `rename_alias_pattern` and `rename_alias_replacement` options. 
 
 You can use the `_close` API to close existing indexes prior to restoring from a snapshot, but the index in the snapshot has to have the same number of shards as the existing index.
 

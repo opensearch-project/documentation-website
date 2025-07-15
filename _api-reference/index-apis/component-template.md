@@ -2,7 +2,7 @@
 layout: default
 title: Create or update component template
 parent: Index APIs
-nav_order: 29
+nav_order: 31
 ---
 
 # Create or update component template
@@ -15,7 +15,7 @@ If any settings or mappings are directly defined in the index template or the in
 
 Component templates are used solely during the process of index creation. For data streams, this includes the creation of the data stream itself and the creation of the backing indexes that support the stream. Modifications made to component templates will not affect existing indexes, including the backing indexes of a data stream.
 
-## Path and HTTP methods
+## Endpoints
 
 The PUT method adds a component template and accepts both query parameters and a request body. The GET method retrieves information about an existing component template and accepts only query parameters:
 
@@ -40,7 +40,7 @@ Parameter | Data type | Description
 `cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
 `timeout` | Time | The amount of time for the operation to wait for a response. Default is `30s`.
 
-## Request fields
+## Request body fields
 
 The following options can be used in the request body to customize the index template.
 
@@ -75,11 +75,11 @@ Parameter | Data type | Description
 
 #### `mappings`
 
-The field mappings that exist in the index. For more information, see [Mappings and field types](https://opensearch.org/docs/latest/field-types/). Optional.
+The field mappings that exist in the index. For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/). Optional.
 
 #### `settings`
 
-Any configuration options for the index. For more information, see [Index settings](https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index-settings/).
+Any configuration options for the index. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 
 ## Example requests
 

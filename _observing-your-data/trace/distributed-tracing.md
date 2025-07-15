@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Distrbuted tracing 
+title: Distributed tracing 
 parent: Trace Analytics
 nav_order: 65
 ---
