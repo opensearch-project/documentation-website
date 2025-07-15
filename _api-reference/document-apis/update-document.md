@@ -106,9 +106,10 @@ POST /test-index1/_update/1
 ```
 {% include copy-curl.html %}
 
+
 ### Using the upsert operation
 
-Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the object. 
+Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the request. This is useful when you're not sure if a document already exists and want to ensure the correct content is present either way.
 
 In the following example, the `upsert` operation updates the `first_name` and `last_name` fields if a document already exists. If a document does not exist, a new one is indexed using content in the `upsert` object.
 
@@ -202,7 +203,7 @@ Consider an index that contains the following document:
 ```
 {% include copy-curl.html %}
 
-After the upsert operation, the document's `first_name` and `last_name` fields are updated and an `age` field is added. If the document does not exist in the index, a new document is indexed with the fields specified in the `upsert` object. In both cases, the document is as follows:
+After the upsert operation, the document's `first_name` and `last_name` fields are updated and an `age` field is added. If the document does not exist in the index, a new document is created using the fields from the `doc` object:
 
 ```json
 {
@@ -217,6 +218,46 @@ After the upsert operation, the document's `first_name` and `last_name` fields a
 }
 ```
 {% include copy-curl.html %}
+
+You can also use a script to control how the document is updated. By setting the `scripted_upsert` parameter to `true`, you instruct OpenSearch to use the script even when the document doesn't exist yet. This allows you to define the entire upsert logic in the script.
+
+In the following example, the script sets the document to contain specific fields regardless of whether it previously existed:
+
+```json
+POST /sample-index1/_update/2
+{
+  "scripted_upsert": true,
+  "script": {
+    "source": "ctx._source.first_name = params.first_name; ctx._source.last_name = params.last_name; ctx._source.age = params.age;",
+    "params": {
+      "first_name": "Selina",
+      "last_name": "Kyle",
+      "age": 28
+    }
+  },
+  "upsert": {}
+}
+```
+{% include copy-curl.html %}
+
+If the document with ID `2` does not already exist, this operation creates it using the script. If the document does exist, the script updates the specified fields. In both cases, the result is:
+
+```json
+{
+  "_index": "sample-index1",
+  "_id": "2",
+  "_score": 1,
+  "_source": {
+    "first_name": "Selina",
+    "last_name": "Kyle",
+    "age": 28
+  }
+}
+```
+{% include copy-curl.html %}
+
+Using `scripted_upsert` gives you full control over document creation and updates when standard `doc`-based operations are not flexible enough.
+
 
 ## Example response
 
