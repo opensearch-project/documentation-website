@@ -49,7 +49,7 @@ GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status?all=true
 ``` 
 {% include copy-curl.html %}
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status
@@ -57,7 +57,7 @@ GET /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_status
 {% include copy-curl.html %}
 
 
-#### Example response
+## Example response
 
 OpenSearch responds with a summary of the provisioning status and a list of created resources. 
 
