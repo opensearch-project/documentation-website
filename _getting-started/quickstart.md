@@ -20,7 +20,7 @@ There are two ways to get started:
 
 ## Prerequisite
 
-Before you begin, install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) on your machine.
+Before you begin, install [Docker](https://docs.docker.com/get-docker/) on your machine.
 
 ## Option 1: Try OpenSearch in one command
 
