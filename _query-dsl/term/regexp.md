@@ -2,7 +2,7 @@
 layout: default
 title: Regexp
 parent: Term-level queries
-nav_order: 60
+nav_order: 100
 ---
 
 # Regexp query
