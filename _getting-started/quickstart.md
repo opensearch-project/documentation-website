@@ -179,6 +179,7 @@ This configuration enables security using demo certificates and requires additio
     ```bash
     docker compose ps
     ```
+    {% include copy.html %}
 
     You should see an output like the following:
 
