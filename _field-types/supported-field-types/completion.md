@@ -46,7 +46,7 @@ The `completion` field type supports the following mapping parameters.
 | `analyzer` | Specifies the index-time analyzer for input text. Default is `simple`. See [Index analyzers]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/).  |
 | `search_analyzer` | Defines the analyzer used at search time. Default is the value of `analyzer`. See [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/). |
 | `preserve_separators` | If `true` (default), preserves separators such as spaces or punctuation. If set to `false`, allows queries like `queensg` to match a suggestion like "Queen's Gambit".    |
-| `preserve_position_increments` | If `true` (default), maintains position increments for analyzed tokens. Setting this to `false` can match suggestions like "The Sicilian Defense" when typing `s`, because it skips over stopwords like "The". Alternatively, you can index both "Sicilian Defense" and "The Sicilian Defense" as separate inputs without changing the analyzer. |
+| `preserve_position_increments` | If `true` (default), maintains position increments for analyzed tokens. Setting this to `false` can match suggestions like "The Sicilian Defense" when typing `s` because it skips over stopwords like "The". Alternatively, you can index both "Sicilian Defense" and "The Sicilian Defense" as separate inputs without changing the analyzer. |
 | `max_input_length`             | Limits the length of each input string. Default is `50` UTF-16 code points. This applies only at index time to prevent large inputs from bloating the underlying data structure. Most prefix completions work well within this limit.  |
 
 ### Example mapping
