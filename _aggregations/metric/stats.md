@@ -79,6 +79,91 @@ The response includes `count`, `min`, `max`, `avg`, and `sum` for the three valu
 }
 ```
 
+### Running stats aggregation per bucket
+
+You can compute separate statistics for each device by nesting a stats aggregation inside a terms aggregation on the device_id field. The terms aggregation groups documents into buckets based on unique device_id values, and the stats aggregation computes summary statistics within each bucket. See following example:
+
+```json
+GET /power_usage/_search
+{
+  "size": 0,
+  "aggs": {
+    "per_device": {
+      "terms": {
+        "field": "device_id.keyword"
+      },
+      "aggs": {
+        "device_usage_stats": {
+          "stats": {
+            "field": "kwh"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response returns one bucket per `device_id` with computed `count`, `min`, `max`, `avg`, and `sum` fields within each bucket:
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 3,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "per_device": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "A1",
+          "doc_count": 1,
+          "device_usage_stats": {
+            "count": 1,
+            "min": 1.2000000476837158,
+            "max": 1.2000000476837158,
+            "avg": 1.2000000476837158,
+            "sum": 1.2000000476837158
+          }
+        },
+        {
+          "key": "A2",
+          "doc_count": 1,
+          "device_usage_stats": {
+            "count": 1,
+            "min": 0.699999988079071,
+            "max": 0.699999988079071,
+            "avg": 0.699999988079071,
+            "sum": 0.699999988079071
+          }
+        },
+        {
+          "key": "A3",
+          "doc_count": 1,
+          "device_usage_stats": {
+            "count": 1,
+            "min": 1.5,
+            "max": 1.5,
+            "avg": 1.5,
+            "sum": 1.5
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+This allows you to compare usage statistics across devices in a single query.
+
 ### Using a script to compute derived values
 
 You can also use a script to compute the values used in the `stats` aggregation. This is useful when the metric is derived from document fields or requires transformation.
