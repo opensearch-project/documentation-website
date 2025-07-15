@@ -45,7 +45,7 @@ The following table lists the available request body fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`text` | String or Array of Strings | Text to analyze. If you provide an array of strings, the text is analyzed as a multi-value field. Required.
+`text` | String or Array of Strings | The text to analyze. If you provide an array of strings, the text is analyzed as a multi-value field. Required.
 `analyzer` | String | The name of the analyzer to apply to the `text` field. The analyzer can be built in or configured in the index.<br /><br />If `analyzer` is not specified, the analyze API uses the analyzer defined in the mapping of the `field` field.<br /><br />If the `field` field is not specified, the analyze API uses the default analyzer for the index.<br /><br > If no index is specified or the index does not have a default analyzer, the analyze API uses the [standard analyzer]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/standard/). Optional. See [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/index/).
 `attributes` | Array of Strings | An array of token attributes for filtering the output of the `explain` field.
 `char_filter` | Array of Strings | An array of character filters for preprocessing characters before the `tokenizer` field. Optional. See [Character filters]({{site.url}}{{site.baseurl}}/analyzers/character-filters/index/).
