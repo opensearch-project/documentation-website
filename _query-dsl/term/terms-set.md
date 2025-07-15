@@ -2,7 +2,7 @@
 layout: default
 title: Terms set
 parent: Term-level queries
-nav_order: 90
+nav_order: 30
 ---
 
 # Terms set query
