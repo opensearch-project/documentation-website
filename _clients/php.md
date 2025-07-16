@@ -39,7 +39,7 @@ Use a PSR client to connect to OpenSearch. For information about the supported P
 
 ## Connecting to Amazon OpenSearch Service
 
-For information about connecting to OpenSearch Service, see [IAM authentication using a PSR client](https://github.com/opensearch-project/opensearch-php/blob/main/guides/auth.md#using-a-psr-client-1).
+For information about connecting to Amazon OpenSearch Service, see [IAM authentication using a PSR client](https://github.com/opensearch-project/opensearch-php/blob/main/guides/auth.md#using-a-psr-client-1).
 
 
 ## Creating an index
