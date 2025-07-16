@@ -69,7 +69,7 @@ GET /_cluster/state/metadata,routing_table/my-index
 ```
 {% include copy-curl.html %}
 
-Retrieve only the currently elected master node:
+Retrieve only the currently elected cluster manager node:
 
 ```json
 GET /_cluster/state/master_node
