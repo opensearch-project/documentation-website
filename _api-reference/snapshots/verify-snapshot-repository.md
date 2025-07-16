@@ -1,8 +1,7 @@
 ---
 layout: default
-title: Verify Snaphot Repository
+title: Verify snaphot repository
 parent: Snapshot APIs
-
 nav_order: 4
 ---
 
