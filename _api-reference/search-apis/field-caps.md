@@ -35,7 +35,7 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `allow_no_indices` | Boolean | If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with foo but no index starts with bar. Default is `true`. |
-| `expand_wildcards` | List or String | The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. <br> Default is `open`. |
+| `expand_wildcards` | List or String | The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with `open`, `closed`, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. <br> Default is `open`. |
 | `fields` | List or String | A comma-separated list of fields to retrieve capabilities for. Wildcard (`*`) expressions are supported. |
 | `ignore_unavailable` | Boolean | If `true`, missing or closed indexes are not included in the response. Default is `false`. |
 | `include_unmapped` | Boolean | If `true`, unmapped fields are included in the response. Default is `false`. |
@@ -46,7 +46,7 @@ The following table lists the available request body fields.
 
 | Field          | Data type | Description                                                             |
 | :------------- | :-------- | :---------------------------------------------------------------------- |
-| `index_filter` | Object    | A query DSL object used to filter indexes included in the request. See [example using index filter](#example-using-an-index-filter). _Optional_.|
+| `index_filter` | Object    | A query DSL object used to filter indexes included in the request. See [Example: Using an index filter](#example-using-an-index-filter). _Optional_.|
 
 ## Example
 
@@ -87,7 +87,7 @@ GET /store-west,store-east/_field_caps?fields=product,price
 
 ### Example response
 
-The response provides capabilities of the available fields:
+The response provides the capabilities of the available fields:
 
 ```json
 {
@@ -188,11 +188,11 @@ The following table lists all response body fields.
 | Field                                            | Data type    | Description                                                                                                              |
 | :----------------------------------------------- | :----------- | :----------------------------------------------------------------------------------------------------------------------- |
 | `indices`                                        | List         | The list of indexes included in the response.                                                                            |
-| `fields`                                         | Object       | A map  of types to field capabilities, where each key is a field name and its value is an object.                  |
+| `fields`                                         | Object       | A map of types to field capabilities, where each key is a field name and its value is an object.                  |
 | `fields.<field>.<type>.type`                     | String       | The data type of the field (for example, `float`, `text`, `keyword`).                                                           |
 | `fields.<field>.<type>.searchable`               | Boolean      | Whether the field is indexed and searchable.                                                                             |
 | `fields.<field>.<type>.aggregatable`             | Boolean      | Whether the field can be used in aggregations like `sum` or `terms`.                                                  |
-| `fields.<field>.<type>.indices`                  | List         | A list of indexes where this field appears with the corresponding type.                                                  |
-| `fields.<field>.<type>.non_searchable_indices`   | List or null | A list of indexes where the field is *not* searchable. `null` means that the field is not searchable in any index.                                   |
-| `fields.<field>.<type>.non_aggregatable_indices` | List or null | A list of indexes where the field is *not* aggregatable. `null` means that the field is not aggregatable in any index.                               |
+| `fields.<field>.<type>.indices`                  | List         | A list of indexes in which this field appears with the corresponding type.                                                  |
+| `fields.<field>.<type>.non_searchable_indices`   | List or null | A list of indexes in which the field is *not* searchable. `null` means that the field is not searchable in any index.                                   |
+| `fields.<field>.<type>.non_aggregatable_indices` | List or null | A list of indexes in which the field is *not* aggregatable. `null` means that the field is not aggregatable in any index.                               |
 | `fields.<field>.<type>.meta`                     | Object       | Merged metadata values from all mappings. Keys are custom metadata keys, and values are arrays of values across indexes. |
