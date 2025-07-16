@@ -38,7 +38,7 @@ The `metric` parameter narrows the parts of the cluster state returned by the re
 - `_all`: Returns all available cluster state sections. _(Default)_
 - `blocks`: Includes information about read/write level blocks in the cluster.
 - `master_node`: Shows which node is currently acting as cluster manager.
-- `metadata`: Returns index settings, mappings, and aliases. If specific indices are targeted, only their metadata is returned.
+- `metadata`: Returns index settings, mappings, and aliases. If specific indexes are targeted, only their metadata is returned.
 - `nodes`: Includes all nodes in the cluster and their metadata.
 - `routing_table`: Returns the routing information for all shards and replicas.
 - `version`: Displays the cluster state version number.
@@ -49,7 +49,7 @@ You can combine values in a comma-separated list, such as `metric=metadata,nodes
 
 The `commands` array in the request body defines actions to apply to shard allocation. Supported actions include:
 
-### move
+### Move
 
 Moves a started shard (primary or replica) from one node to another. This can be used to balance load or drain a node before maintenance. The shard must be in the `STARTED` state. Both primary and replica shards can be moved using this command. 
 
@@ -60,7 +60,7 @@ Moves a started shard (primary or replica) from one node to another. This can be
 * `from_node`: Name of the node to move the shard from.
 * `to_node`: Name of the node to move the shard to.
 
-### cancel
+### Cancel
 
 Cancels allocation of a shard (including recovery). This command forces resynchronization by canceling existing allocations and letting the system reinitialize them. Replica shard allocations can be canceled by default, but canceling a primary shard requires `allow_primary=true` to prevent accidental data disruption
 
@@ -71,7 +71,7 @@ Cancels allocation of a shard (including recovery). This command forces resynchr
 * `node`: The name or node ID of the node to perform action on.
 * `allow_primary` (optional: If `true`, allows cancelling primary shard allocations. Default is `false`).
 
-### allocate_replica
+### Allocate_replica
 
 Assigns an unassigned replica to a specified node. This operation respects allocation deciders. Use this command to manually trigger allocation of replicas when automatic allocation fails.
 
@@ -81,7 +81,7 @@ Assigns an unassigned replica to a specified node. This operation respects alloc
 * `shard`: The shard number.
 * `node`: The name or node ID of the node to perform action on.
 
-### allocate_stale_primary
+### Allocate_stale_primary
 
 Force-allocates a primary shard to a node that holds a stale copy. This command should be used with extreme caution. It bypasses safety checks and may lead to **data loss**, especially if a more recent shard copy exists on another node that is temporarily offline. If that node rejoins the cluster later, its data will be deleted or replaced by the stale copy that was forcefully promoted.
 
@@ -94,7 +94,7 @@ Use this only when no up-to-date copies are available and you have no way to res
 * `node`: The name or node ID of the node to perform action on.
 * `accept_data_loss`: Must be `true`
 
-### allocate_empty_primary
+### Allocate_empty_primary
 
 Force-allocates a new empty primary shard to a node. This operation initializes a new primary shard without any existing data. Any previous data for the shard will be **permanently lost**. If a node with valid data for that shard later rejoins the cluster, its copy will be erased. This command is intended for disaster recovery when **no valid shard copies exist** and recovery from snapshot or backup is not an option.
 

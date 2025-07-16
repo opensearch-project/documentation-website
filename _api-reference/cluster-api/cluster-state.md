@@ -47,9 +47,9 @@ The following table lists the available query parameters. All query parameters a
 | `flat_settings`  | Boolean   | If `true`, returns settings in a flat format. Default is `false`. |
 | `wait_for_metadata_version` | Integer | Waits until the metadata version is equal or greater than this value before responding. |
 | `wait_for_timeout` | Time   | Specifies how long to wait when using `wait_for_metadata_version`. Default is `30s`. |
-| `ignore_unavailable` | Boolean | Whether to ignore missing or closed indices. Default is `false`. |
+| `ignore_unavailable` | Boolean | Whether to ignore missing or closed indexes. Default is `false`. |
 | `expand_wildcards` | String | Whether to expand wildcard expressions for index names. Options: `open` `closed`, `hidden`, `none`, `all`. Default is `open`. |
-| `allow_no_indices` | Boolean | Whether to fail if a wildcard expression or index alias resolves to no indices. Default is `true`. |
+| `allow_no_indices` | Boolean | Whether to fail if a wildcard expression or index alias resolves to no indexes. Default is `true`. |
 
 
 
