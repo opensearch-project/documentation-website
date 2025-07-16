@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Cleanup Snapshot Repository
+title: Cleanup snapshot repository
 parent: Snapshot APIs
 nav_order: 11
 ---
 
-# Cleanup Snapshot Repository 
+# Cleanup snapshot repository 
 Introduced 1.0
 {: .label .label-purple }
 

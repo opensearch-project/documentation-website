@@ -26,14 +26,14 @@ The following table lists the available path parameters.
 | :--- | :--- | :--- |
 | `model_id` | String | The model ID of the model to retrieve. |
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/models/N8AE1osB0jLkkocYjz7D
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

@@ -2,7 +2,7 @@
 layout: default
 title: Wildcard
 parent: Term-level queries
-nav_order: 100
+nav_order: 90
 ---
 
 # Wildcard query

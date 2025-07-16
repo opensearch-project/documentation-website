@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Delete Snapshot Repository
+title: Delete snapshot repository
 parent: Snapshot APIs
 nav_order: 3
 ---

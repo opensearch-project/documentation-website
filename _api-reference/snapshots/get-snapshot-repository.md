@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Get Snapshot Repository
+title: Get snapshot repository
 parent: Snapshot APIs
 nav_order: 2
 ---

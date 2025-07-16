@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Register Snapshot Repository
+title: Register snapshot repository
 parent: Snapshot APIs
 nav_order: 1
 ---

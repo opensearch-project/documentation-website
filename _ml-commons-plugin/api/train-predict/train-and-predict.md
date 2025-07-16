@@ -14,7 +14,7 @@ Use to train and then immediately predict against the same training dataset. Can
 - `FIT_RCF`
 - `k-means`
 
-#### Example request: Train and predict with indexed data
+## Example request: Train and predict with indexed data
 
 ```json
 POST /_plugins/_ml/_train_predict/kmeans
@@ -47,7 +47,7 @@ POST /_plugins/_ml/_train_predict/kmeans
 ```
 {% include copy-curl.html %}
 
-#### Example request: Train and predict with data directly
+## Example request: Train and predict with data directly
 
 ```json
 POST /_plugins/_ml/_train_predict/kmeans
@@ -147,7 +147,7 @@ POST /_plugins/_ml/_train_predict/kmeans
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
