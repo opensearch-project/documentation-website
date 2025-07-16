@@ -16,6 +16,22 @@ vector_search_101:
   - heading: "Getting started with semantic and hybrid search"
     description: "Build your first AI search application"
     link: "/tutorials/vector-search/neural-search-tutorial/"
+ai_search_types:
+  - heading: "Semantic search"
+    description: "Understands the meaning and intent behind a query to deliver more relevant results"
+    link: "/vector-search/ai-search/semantic-search/"
+  - heading: "Hybrid search"
+    description: "Improves relevance by combining keyword-based and semantic search techniques"
+    link: "/vector-search/ai-search/hybrid-search/"
+  - heading: "Multimodal search"
+    description: "Enables searching across different types of data, such as text and images"
+    link: "/vector-search/ai-search/multimodal-search/"
+  - heading: "Neural sparse search"
+    description: "Uses sparse vector representations and deep learning models for efficient retrieval"
+    link: "/vector-search/ai-search/neural-sparse-search/"
+  - heading: "Conversational search with RAG"
+    description: "Combines natural dialogue with retrieval-augmented generation to provide contextual answers"
+    link: "/vector-search/ai-search/conversational-search/"
 other:
   - heading: "Vector operations"
     description: "Learn how to generate embeddings and optimize vector storage"
@@ -35,6 +51,10 @@ Explore the following tutorials to learn about implementing vector search applic
 ## Vector search 101
 
 {% include cards.html cards=page.vector_search_101 %}
+
+## AI search types
+
+{% include cards.html cards=page.ai_search_types %}
 
 ## Vector search applications
 
