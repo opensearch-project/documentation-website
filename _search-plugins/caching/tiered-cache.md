@@ -16,7 +16,7 @@ OpenSearch provides an implementation of a `_tiered` spillover `cache_`. This im
 
 ## Installing required plugins
 
-To use tiered caching, install a tiered cache plugin. As of OpenSearch 2.13, the only available cache plugin is the `cache-ehcache` plugin. This plugin provides a disk cache implementation that can be used as a disk tier within a tiered cache. For more information about installing non-bundled plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#additional-plugins).
+To use tiered caching, install the `cache-ehcache` plugin. This plugin provides a disk cache implementation that can be used as a disk tier within a tiered cache. For more information about installing non-bundled plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#additional-plugins).
 
 A tiered cache will fail to initialize if the `cache-ehcache` plugin is not installed or if disk cache properties are not set. 
 {: .warning}
