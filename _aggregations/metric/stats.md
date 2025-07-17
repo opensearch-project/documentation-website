@@ -9,7 +9,7 @@ redirect_from:
 
 # Stats aggregations
 
-The `stats` aggregation is a multi-value metric aggregation that computes a summary of numeric data. This aggregation is useful for quick understanding of the distribution of a numeric fields. It can operate [directly on a field](#computing-stats-on-electricity-usage), apply a [script to derive the values](#using-a-script-to-compute-derived-values), or [handle documents with missing fields](#handling-documents-with-missing-fields). The `stats` aggregation returns five values:
+The `stats` aggregation is a multi-value metric aggregation that computes a summary of numeric data. This aggregation is useful for quickly understanding the distribution of numeric fields. It can operate [directly on a field](#computing-stats-on-electricity-usage), apply a [script to derive the values](#using-a-script-to-compute-derived-values), or [handle documents with missing fields](#handling-documents-with-missing-fields). The `stats` aggregation returns five values:
 
 * `count`: The number of values collected
 * `min`: The lowest value
@@ -24,13 +24,12 @@ The `stats` aggregation takes the following optional parameters.
 | Parameter | Data type | Description                                                                                |
 | --------- | --------- | ------------------------------------------------------------------------------------------ |
 | `field`   | String    | The field to aggregate on. Must be a numeric field.                                            |
-| `script`  | Object    | The script to calculate custom values for aggregation. Can be used instead of or with `field`. |
+| `script`  | Object    | The script used to calculate custom values for aggregation. Can be used instead of or with `field`. |
 | `missing` | Number    | The default value used for documents missing the target field. 
 
 ## Example
 
 The following example computes a `stats` aggregation for electricity usage.
-
 
 Create an index named `power_usage` and add documents containing the number of kilowatt-hours (kWh) consumed during a given hour:
 
@@ -45,7 +44,7 @@ PUT /power_usage/_bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-To compute statistics on the `kwh` field across all documents, use a `stats` aggregation named `consumption_stats` over the `kwh` field. Setting `size` to `0` specifies not to return document hits:
+To compute statistics on the `kwh` field across all documents, use a `stats` aggregation named `consumption_stats` over the `kwh` field. Setting `size` to `0` specifies that document hits should not be returned:
 
 ```json
 GET /power_usage/_search
@@ -89,7 +88,7 @@ The response includes `count`, `min`, `max`, `avg`, and `sum` values for the thr
 
 ### Running a stats aggregation per bucket
 
-You can compute separate statistics for each device by nesting a `stats` aggregation inside a `terms` aggregation on the `device_id` field. The `terms` aggregation groups documents into buckets based on unique `device_id` values, and the `stats` aggregation computes summary statistics within each bucket:
+You can compute separate statistics for each device by nesting a `stats` aggregation inside a `terms` aggregation in the `device_id` field. The `terms` aggregation groups documents into buckets based on unique `device_id` values, and the `stats` aggregation computes summary statistics within each bucket:
 
 ```json
 GET /power_usage/_search
@@ -113,7 +112,7 @@ GET /power_usage/_search
 ```
 {% include copy-curl.html %}
 
-The response returns one bucket per `device_id` with computed `count`, `min`, `max`, `avg`, and `sum` fields within each bucket:
+The response returns one bucket per `device_id`, with computed `count`, `min`, `max`, `avg`, and `sum` fields within each bucket:
 
 ```json
 {
@@ -170,13 +169,13 @@ The response returns one bucket per `device_id` with computed `count`, `min`, `m
 }
 ```
 
-This allows you to compare usage statistics across devices in a single query.
+This allows you to compare usage statistics across devices with a single query.
 
 ### Using a script to compute derived values
 
 You can also use a script to compute the values used in the `stats` aggregation. This is useful when the metric is derived from document fields or requires transformation.
 
-For example, if you want to convert kilowatt-hours to watt-hours before computing `stats` aggregation. Since `1 kWh` = `1000 Wh`, the script multiplies the values by 1000. This aggregation uses the result of `doc['kwh'].value * 1000` as the input value for each document:
+For example, if you want to convert kWh to watt-hours (Wh) before computing `stats` aggregation. Since `1 kWh` = `1000 Wh`, the script multiplies the values by 1,000. This aggregation uses the result of `doc['kwh'].value * 1000` as the input value for each document:
 
 ```json
 GET /power_usage/_search
@@ -195,7 +194,7 @@ GET /power_usage/_search
 ```
 {% include copy-curl.html %}
 
-The `stats` aggregation returned in the response reflect values of `1200`, `700`, and `1500` watt-hours:
+The `stats` aggregation returned in the response reflects values of `1200`, `700`, and `1500` Wh:
 
 ```json
 {
@@ -222,9 +221,9 @@ The `stats` aggregation returned in the response reflect values of `1200`, `700`
 
 ### Using a value script with a field
 
-When combining a field with a transformation, you can specify both `field` and `script`. This allows using the `_value` variable to reference the field’s value within the script.
+When combining a field with a transformation, you can specify both `field` and `script`. This allows using the `_value` variable to reference the field's value within the script.
 
-The following example increases each energy reading by 5% before computing `stats` aggregation:
+The following example increases each energy reading by 5% before computing the `stats` aggregation:
 
 ```json
 GET /power_usage/_search
