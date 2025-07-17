@@ -19,7 +19,7 @@ The `stats` aggregation is a multi-value metric aggregation that computes a summ
 
 ## Parameters
 
-All parameters are optional.
+The `stats` aggregation takes the following optional parameters.
 
 | Parameter | Data type | Description                                                                                |
 | --------- | --------- | ------------------------------------------------------------------------------------------ |
@@ -29,11 +29,10 @@ All parameters are optional.
 
 ## Example
 
-The following example computes `stats` aggregation on electricity usage.
+The following example computes a `stats` aggregation for electricity usage.
 
-### Computing stats on electricity usage
 
-Create an index named `power_usage` and add documents where each document contains the number of kilowatt-hours (kWh) consumed during a given hour using the following request:
+Create an index named `power_usage` and add documents containing the number of kilowatt-hours (kWh) consumed during a given hour:
 
 ```json
 PUT /power_usage/_bulk?refresh=true
@@ -46,7 +45,7 @@ PUT /power_usage/_bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-To compute statistics on the `kwh` field across all documents, use the following aggregation request which suppresses document hits by setting `size` to `0`, and defines a `stats` aggregation named `consumption_stats` over the `kwh` field:
+To compute statistics on the `kwh` field across all documents, use a `stats` aggregation named `consumption_stats` over the `kwh` field. Setting `size` to `0` specifies not to return document hits:
 
 ```json
 GET /power_usage/_search
@@ -63,7 +62,7 @@ GET /power_usage/_search
 ```
 {% include copy-curl.html %}
 
-The response includes `count`, `min`, `max`, `avg`, and `sum` for the three values ingested:
+The response includes `count`, `min`, `max`, `avg`, and `sum` values for the three documents in the index:
 
 ```json
 {
@@ -88,9 +87,9 @@ The response includes `count`, `min`, `max`, `avg`, and `sum` for the three valu
 }
 ```
 
-### Running stats aggregation per bucket
+### Running a stats aggregation per bucket
 
-You can compute separate statistics for each device by nesting a stats aggregation inside a terms aggregation on the device_id field. The terms aggregation groups documents into buckets based on unique device_id values, and the stats aggregation computes summary statistics within each bucket. See following example:
+You can compute separate statistics for each device by nesting a `stats` aggregation inside a `terms` aggregation on the `device_id` field. The `terms` aggregation groups documents into buckets based on unique `device_id` values, and the `stats` aggregation computes summary statistics within each bucket:
 
 ```json
 GET /power_usage/_search
@@ -177,7 +176,7 @@ This allows you to compare usage statistics across devices in a single query.
 
 You can also use a script to compute the values used in the `stats` aggregation. This is useful when the metric is derived from document fields or requires transformation.
 
-For example, if you want to convert kilowatt-hours to watt-hours before computing `stats` aggregation. Since `1 kWh` = `1000 Wh`, the can use the following request which utilizes a script to multiply the values by 1000. This aggregation uses the result of `doc['kwh'].value * 1000` as the input value for each document:
+For example, if you want to convert kilowatt-hours to watt-hours before computing `stats` aggregation. Since `1 kWh` = `1000 Wh`, the script multiplies the values by 1000. This aggregation uses the result of `doc['kwh'].value * 1000` as the input value for each document:
 
 ```json
 GET /power_usage/_search
@@ -245,7 +244,7 @@ GET /power_usage/_search
 ```
 {% include copy-curl.html %}
 
-### Handling documents with missing fields
+### Missing values
 
 If some documents do not contain the target field, they are excluded by default from the aggregation. To include them using a default value, you can specify the `missing` parameter.
 
