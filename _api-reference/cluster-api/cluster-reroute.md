@@ -8,11 +8,11 @@ has_children: false
 
 # Cluster reroute API
 
-The `/_cluster/reroute` API allows you to manually control the allocation of individual shards within the cluster. This includes moving, allocating, or canceling shard allocations. It's typically used for advanced scenarios such as manual recovery or custom load balancing.
+The `/_cluster/reroute` API allows you to manually control the allocation of individual shards within the cluster. This includes moving, allocating, or canceling shard allocations. It's typically used for advanced scenarios, such as manual recovery or custom load balancing.
 
-Shard movement is subject to cluster allocation deciders. You should always test reroute commands with `dry_run=true` before applying them in production environments. Use the `explain=true` parameter to obtain detailed insight into allocation decisions, which can assist in understanding why a particular reroute request may or may not be allowed. If shard allocation fails due to prior issues or cluster instability, you can reattempt allocation using the `retry_failed=true` parameter.
+Shard movement is subject to cluster allocation deciders. Always test reroute commands using `dry_run=true` before applying them in production environments. Use the `explain=true` parameter to obtain detailed insight into allocation decisions, which can assist in understanding why a particular reroute request may or may not be allowed. If shard allocation fails because of prior issues or cluster instability, you can reattempt allocation using the `retry_failed=true` parameter.
 
-For further information regarding shard distribution and cluster health, see [Cluster health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) and [Allocation explain API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-allocation/).
+For more information regarding shard distribution and cluster health, see [Cluster health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) and [Allocation explain API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-allocation/).
 
 ## Endpoints
 
