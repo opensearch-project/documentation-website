@@ -168,7 +168,7 @@ The response includes an array instead of an object:
 
 ### Precision tuning with tdigest
 
-Percentile ranks are calculated using the `tdigest` algorithm by default. You can control the trade-off between accuracy and memory usage by adjusting the `tdigest.compression` configuration. Higher values provide better accuracy, however require more memory. For more information on how tdigest works see [precision tuning with tdigest]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/#precision-tuning-with-tdigest)
+Percentile ranks are calculated using the `tdigest` algorithm by default. You can control the trade-off between accuracy and memory usage by adjusting the `tdigest.compression` configuration. Higher values provide better accuracy, however require more memory. For more information about how tdigest works see [precision tuning with tdigest]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/#precision-tuning-with-tdigest)
 
 The following example is configured with `tdigest.compression` set to `200`:
 
