@@ -11,6 +11,16 @@ redirect_from:
 
 The `sum` aggregation is a single-value metric aggregation that calculates the total sum of numeric values extracted from a field across all matching documents. This aggregation is commonly used to compute totals for metrics such as revenue, quantity, or duration.
 
+## Parameters
+
+The `sum` aggregation takes the following parameters.
+
+| Parameter | Data type | Description                                                                                |
+| --------- | --------- | ------------------------------------------------------------------------------------------ |
+| `field`   | string    | The field to aggregate on. Must be a numeric field.                                            |
+| `script`  | object    | The script to calculate custom values for aggregation. Can be used instead of or with `field`. |
+| `missing` | number    | The default value used for documents missing the target field. 
+
 ## Example
 
 The following example demonstrates how to calculate the total weight of deliveries recorded in a logistics index. 
