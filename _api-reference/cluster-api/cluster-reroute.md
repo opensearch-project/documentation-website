@@ -69,7 +69,7 @@ The `cancel` command requires the following parameters:
 * `index`: The name of the index.
 * `shard`: The shard number.
 * `node`: The name or node ID of the node to perform the action on.
-* `allow_primary` (_Optional): If `true`, allows cancelling primary shard allocations. Default is `false`.
+* `allow_primary` (_Optional_): If `true`, allows cancelling primary shard allocations. Default is `false`.
 
 ### Allocate replica
 
