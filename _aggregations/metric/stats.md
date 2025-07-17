@@ -175,7 +175,7 @@ This allows you to compare usage statistics across devices with a single query.
 
 You can also use a script to compute the values used in the `stats` aggregation. This is useful when the metric is derived from document fields or requires transformation.
 
-For example, to convert kilowatt-hours (kWh) to watt-hours (Wh) before running the `stats` aggregation, since `1 kWh` equals `1,000 Wh`, you can use a script that multiplies each value by `1,000`. The following script `doc['kwh'].value * 1000` is used to derive the input value for each document.
+For example, to convert kilowatt-hours (kWh) to watt-hours (Wh) before running the `stats` aggregation, because `1 kWh` equals `1,000 Wh`, you can use a script that multiplies each value by `1,000`. The following script `doc['kwh'].value * 1000` is used to derive the input value for each document:
 
 ```json
 GET /power_usage/_search
