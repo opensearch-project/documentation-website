@@ -6,13 +6,13 @@ parent: Cluster APIs
 has_children: false
 ---
 
-# Cluster reroute API
+# Cluster reroute
 
 The `/_cluster/reroute` API allows you to manually control the allocation of individual shards within the cluster. This includes moving, allocating, or canceling shard allocations. It's typically used for advanced scenarios, such as manual recovery or custom load balancing.
 
 Shard movement is subject to cluster allocation deciders. Always test reroute commands using `dry_run=true` before applying them in production environments. Use the `explain=true` parameter to obtain detailed insight into allocation decisions, which can assist in understanding why a particular reroute request may or may not be allowed. If shard allocation fails because of prior issues or cluster instability, you can reattempt allocation using the `retry_failed=true` parameter.
 
-For more information regarding shard distribution and cluster health, see [Cluster health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) and [Allocation explain API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-allocation/).
+For more information regarding shard distribution and cluster health, see [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) and [Cluster allocation explain]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-allocation/).
 
 ## Endpoints
 
@@ -27,7 +27,7 @@ POST /_cluster/reroute
 | `dry_run`        | Boolean   | If `true`, validates and simulates the reroute request without applying it. Default is `false`.    |
 | `explain`        | Boolean   | If `true`, returns an explanation of why the command was accepted or rejected. Default is `false`. |
 | `retry_failed`   | Boolean   | If `true`, retries allocation of shards that previously failed. Default is `false`.                |
-| `metric`         | String    | Limits the returned metadata. See [metric options](#metric-options) for list of available options. Default is `_all`. |
+| `metric`         | String    | Limits the returned metadata. See [Metric options](#metric-options) for a list of available options. Default is `_all`. |
 | `cluster_manager_timeout` | Time      | The timeout for connection to the cluster manager node. Default is `30s`.                              |
 | `timeout`        | Time      | The overall request timeout. Default is `30s`.                                                         |
 
@@ -37,7 +37,7 @@ The `metric` parameter filters the cluster state values returned by the Reroute 
 
 - `_all` _(Default)_: Returns all available cluster state sections. 
 - `blocks`: Includes information about read- and write-level blocks in the cluster.
-- `cluster_manager_node`: Shows which node is currently acting as cluster manager.
+- `cluster_manager_node`: Shows which node is currently acting as the cluster manager.
 - `metadata`: Returns index settings, mappings, and aliases. If specific indexes are targeted, only their metadata is returned.
 - `nodes`: Includes all nodes in the cluster and their metadata.
 - `routing_table`: Returns the routing information for all shards and replicas.
@@ -69,7 +69,7 @@ The `cancel` command requires the following parameters:
 * `index`: The name of the index.
 * `shard`: The shard number.
 * `node`: The name or node ID of the node to perform the action on.
-* `allow_primary` (_Optional_): If `true`, allows cancelling primary shard allocations. Default is `false`.
+* `allow_primary` _(Optional)_: If `true`, allows cancellation of primary shard allocations. Default is `false`.
 
 ### Allocate replica
 
@@ -102,7 +102,7 @@ The `allocate_stale_primary` command requires the following parameters:
 
 The `allocate_empty_primary` command force-allocates a new empty primary shard to a node. This operation initializes a new primary shard without any existing data. 
 
-Any previous data for the shard will be **permanently lost**. If a node with valid data for that shard later rejoins the cluster, its copy will be erased. This command is intended for disaster recovery when **no valid shard copies exist** and recovery from snapshot or backup is not an option.
+Any previous data for the shard will be **permanently lost**. If a node with valid data for that shard later rejoins the cluster, its copy will be erased. This command is intended for disaster recovery when **no valid shard copies exist** and recovery from backup or a snapshot is not possible.
 {: .warning}
 
 The `allocate_empty_primary` command requires the following parameters:
@@ -227,7 +227,7 @@ This returns a `decisions` array explaining the outcome:
 
 ## Response body fields
 
-The response includes cluster state metadata and optionally a `decisions` array if `explain=true` was used.
+The response includes cluster state metadata and, optionally, a `decisions` array if `explain=true` was used.
 
 | Field                        | Data type | Description                                                             |
 | ---------------------------- | --------- | ----------------------------------------------------------------------- |
@@ -235,10 +235,10 @@ The response includes cluster state metadata and optionally a `decisions` array 
 | `state.cluster_uuid`         | String    | The unique identifier of the cluster.                                       |
 | `state.version`              | Integer   | The version of the cluster state.                                           |
 | `state.state_uuid`           | String    | The UUID for this specific state version.                                   |
-| `state.master_node`          | String    | Same as `cluster_manager_node`, this is maintained for backward compatibility.                                 |
+| `state.master_node`          | String    | As with `cluster_manager_node`, this is maintained for backward compatibility.                                 |
 | `state.cluster_manager_node` | String    | The ID of the elected cluster manager node.  |
 | `state.blocks`               | Object    | Any global or index-level cluster blocks.                               |
-| `state.nodes`                | Object    | The cluster nodes metadata, including its name and address.                      |
+| `state.nodes`                | Object    | The cluster node's metadata, including its name and address.                      |
 | `state.routing_table`        | Object    | The shard routing information for each index.                               |
 | `state.routing_nodes`        | Object    | The shard allocation organized by node.                                     |
 | `commands`                   | List      | A list of processed reroute commands.                                   |
