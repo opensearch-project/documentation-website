@@ -9,7 +9,7 @@ redirect_from:
 
 # Stats aggregations
 
-The `stats` aggregation is a multi-value metric aggregation that computes a summary of numeric data. This aggregation is useful for quickly understanding the distribution of numeric fields. It can operate [directly on a field](#computing-stats-on-electricity-usage), apply a [script to derive the values](#using-a-script-to-compute-derived-values), or [handle documents with missing fields](#handling-documents-with-missing-fields). The `stats` aggregation returns five values:
+The `stats` aggregation is a multi-value metric aggregation that computes a summary of numeric data. This aggregation is useful for quickly understanding the distribution of numeric fields. It can operate directly on a field, apply a script to derive the values, or handle documents with missing fields. The `stats` aggregation returns five values:
 
 * `count`: The number of values collected
 * `min`: The lowest value
