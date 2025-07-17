@@ -8,6 +8,7 @@ datatable: true
 redirect_from:
   - /opensearch/segment-replication/
   - /opensearch/segment-replication/index/
+  - /tuning-your-cluster/segment-replication/
 ---
 
 # Segment replication
