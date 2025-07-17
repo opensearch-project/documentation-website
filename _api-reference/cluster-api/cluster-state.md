@@ -35,7 +35,7 @@ You can limit the information returned by the API using the `metric` path parame
 - `metadata`: Returns cluster metadata, including settings, index mappings, and templates.
 - `nodes`: Returns information about the nodes in the cluster.
 - `routing_table`: Provides the routing information for all shards.
-- `master_node`: Displays the ID of the currently elected cluster manager node.
+- `cluster_manager_node`: Displays the ID of the currently elected cluster manager node.
 - `version`: Displays the current cluster state version.
 
 ## Query parameters
@@ -45,6 +45,7 @@ The following table lists the available query parameters. All query parameters a
 | Parameter        | Data type | Description |
 | ---------------- | --------- | ----------- |
 | `local`          | Boolean   | If `true`, retrieves the state from the local node instead of the cluster manager node. Default is `false`. |
+| `cluster_manager_timeout` | Time      | The timeout duration for connecting to the cluster manager node. Default is `30s`. |
 | `cluster_manager_timeout` | Time      | The timeout duration for connecting to the cluster manager node. Default is `30s`. |
 | `flat_settings`  | Boolean   | If `true`, returns settings in a flat format. Default is `false`. |
 | `wait_for_metadata_version` | Integer | Waits until the metadata version is equal or greater than this value before responding. |
@@ -74,7 +75,7 @@ GET /_cluster/state/metadata,routing_table/my-index
 Retrieve only the currently elected cluster manager node:
 
 ```json
-GET /_cluster/state/master_node
+GET /_cluster/state/cluster_manager_node
 ```
 {% include copy-curl.html %}
 
