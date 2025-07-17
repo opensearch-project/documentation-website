@@ -18,7 +18,7 @@ The `sum` aggregation takes the following parameters.
 | Parameter | Data type | Description                                                                                |
 | --------- | --------- | ------------------------------------------------------------------------------------------ |
 | `field`   | String    | The field to aggregate on. Must be a numeric field.                                            |
-| `script`  | Object    | The script to calculate custom values for aggregation. Can be used instead of or with `field`. |
+| `script`  | Object    | The script used to calculate custom values for aggregation. Can be used instead of or with `field`. |
 | `missing` | Number    | The default value used for documents missing the target field. |
 
 ## Example
@@ -73,7 +73,7 @@ GET /deliveries/_search
 ```
 {% include copy-curl.html %}
 
-The response contains value of `45.6` corresponding to the sum of `12.5` + `7.8` + `15.0` + `10.3`:
+The response contains the value `45.6`, corresponding to the sum of `12.5` + `7.8` + `15.0` + `10.3`:
 
 ```json
 {
@@ -117,7 +117,7 @@ GET /deliveries/_search
 ```
 {% include copy-curl.html %}
 
-The response includes `total_weight_grams` of `45600`:
+The response includes the `total_weight_grams` of `45600`:
 
 ```json
 {
@@ -140,7 +140,7 @@ The response includes `total_weight_grams` of `45600`:
 
 ### Combining a field with a value script
 
-You can also specify both a `field` and a `script`, using the special variable `_value` to reference the field’s value. This is useful when applying transformations to existing field values.
+You can also specify both a `field` and a `script`, using the special variable `_value` to reference the field's value. This is useful when applying transformations to existing field values.
 
 The following example increases all weights by 10% before summing:
 
@@ -187,7 +187,7 @@ The response reflects a 10% increase applied to the original total weight:
 
 Documents missing the target field are ignored by default. To include them using a default value, use the `missing` parameter. 
 
-The following example assigns a default value of `0` to missing `weight_kg` fields, this ensures that the documents without this field are treated as having `weight_kg` set as `0` and included in the aggregation.
+The following example assigns a default value of `0` to missing `weight_kg` fields. This ensures that the documents without this field are treated as having `weight_kg` set to `0` and included in the aggregation.
 
 ```json
 GET /deliveries/_search
