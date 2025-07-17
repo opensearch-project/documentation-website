@@ -26,7 +26,7 @@ The `percentiles` aggregation takes the following parameters:
 | `keyed`                                  | Boolean          | Optional       | If set to `false` returns results as a array, otherwise returns results as JSON object. Default is `true` |
 | `tdigest.compression`                    | Double           | Optional       | Controls accuracy and memory usage of the `tdigest` algorithm. For further details see [precision tuning with tdigest](#precision-tuning-with-tdigest).                                      |
 | `hdr.number_of_significant_value_digits` | Integer          | Optional       | Precision setting for the HDR histogram. For further details see [HDR histogram](#hdr-histogram)                                   |
-| `missing`                                | Number           | Optional       | Default value for documents missing the field.                                                                              |
+| `missing`                                | Number           | Optional       | Default value used for documents missing the field.                                                                              |
 | `script`                                 | Object           | Optional       | Script to compute custom values instead of using a field. Supports inline or stored scripts.                                |
 
 ## Examples
