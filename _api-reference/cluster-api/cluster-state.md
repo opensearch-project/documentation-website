@@ -50,7 +50,7 @@ The following table lists the available query parameters. All query parameters a
 | `wait_for_metadata_version` | Integer | Waits until the metadata version is equal or greater than this value before responding. |
 | `wait_for_timeout` | Time   | Specifies how long to wait when using `wait_for_metadata_version`. Default is `30s`. |
 | `ignore_unavailable` | Boolean | Whether to ignore missing or closed indexes. Default is `false`. |
-| `expand_wildcards` | String | Whether to expand wildcard expressions for index names. Options: `open` `closed`, `hidden`, `none`, `all`. Default is `open`. |
+| `expand_wildcards` | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. <br> Default is `open`. |
 | `allow_no_indices` | Boolean | Whether to fail if a wildcard expression or index alias resolves to no indexes. Default is `true`. |
 
 
