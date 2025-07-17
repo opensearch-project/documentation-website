@@ -58,20 +58,20 @@ The `move` command requires the following parameters:
 * `index`: The name of the index.
 * `shard`: The shard number.
 * `from_node`: The name of the node to move the shard from.
-* `to_node`: Name of the node to move the shard to.
+* `to_node`: The name of the node to move the shard to.
 
 ### Cancel
 
-Cancels allocation of a shard (including recovery). This command forces resynchronization by canceling existing allocations and letting the system reinitialize them. Replica shard allocations can be canceled by default, but canceling a primary shard requires `allow_primary=true` to prevent accidental data disruption
+Cancels allocation of a shard (including recovery). This command forces resynchronization by canceling existing allocations and letting the system reinitialize them. Replica shard allocations can be canceled by default, but canceling a primary shard requires `allow_primary=true` in order to prevent accidental data disruption.
 
-`cancel` command requires the following parameters:
+The `cancel` command requires the following parameters:
 
 * `index`: The name of the index.
 * `shard`: The shard number.
-* `node`: The name or node ID of the node to perform action on.
-* `allow_primary` (optional: If `true`, allows cancelling primary shard allocations. Default is `false`).
+* `node`: The name or node ID of the node to perform the action on.
+* `allow_primary` (_Optional): If `true`, allows cancelling primary shard allocations. Default is `false`.
 
-### Allocate_replica
+### Allocate replica
 
 The `allocate_replica` command assigns an unassigned replica to a specified node. This operation respects allocation deciders. Use this command to manually trigger allocation of replicas when automatic allocation fails.
 
@@ -109,12 +109,12 @@ The `allocate_empty_primary` command requires the following parameters:
 
 * `index`: The name of the index.
 * `shard`: The shard number.
-* `node` : The name or node ID of the node to perform action on.
-* `accept_data_loss`: Must be `true`
+* `node` : The name or node ID of the node to perform the action on.
+* `accept_data_loss`: Must be set to `true`.
 
 ## Example
 
-See following examples using `reroute` API.
+The following are examples of using the Cluster Reroute API.
 
 ### Moving a shard
 
@@ -173,7 +173,7 @@ POST /_cluster/reroute?dry_run=true
 
 ### Retrying failed allocations
 
-If some shards failed to allocate due to previous issues, you can reattempt allocation:
+If some shards failed to allocate because of previous issues, you can reattempt allocation:
 
 ```json
 POST /_cluster/reroute?retry_failed=true
