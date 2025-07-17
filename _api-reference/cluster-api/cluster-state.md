@@ -19,16 +19,18 @@ GET /_cluster/state/{metric}/{target}
 
 ## Path parameters
 
+The following table lists the available path parameters. All path parameters are optional.
+
 | Parameter   | Data type         | Description |
 | ----------- | ----------------- | ----------- |
-| `metric`    | String or list    | Optional. Comma-separated list of metrics to include in the response. See [metric options](#metric-options) for list of available options. Default is `_all` |
-| `target`     | String or list    | Optional. Comma-separated list of index names, data streams, and index aliases to limit the scope of the response. |
+| `metric`    | String or list    | A comma-separated list of metrics to include in the response. See [metric options](#metric-options) for list of available options. Default is `_all`. |
+| `target`     | String or list    | A comma-separated list of index names, data streams, and index aliases to limit the scope of the response. |
 
 ## Metric options
 
 You can limit the information returned by the API using the `metric` path parameter. The following options are available:
 
-- `_all`: Returns all metrics. _(Default)_
+- `_all` _(Default)_: Returns all metrics. 
 - `blocks`: Includes information about index-level and global blocks.
 - `metadata`: Returns cluster metadata, including settings, index mappings, and templates.
 - `nodes`: Returns information about the nodes in the cluster.
@@ -43,7 +45,7 @@ The following table lists the available query parameters. All query parameters a
 | Parameter        | Data type | Description |
 | ---------------- | --------- | ----------- |
 | `local`          | Boolean   | If `true`, retrieves the state from the local node instead of the cluster manager node. Default is `false`. |
-| `master_timeout` | Time      | The timeout duration for connecting to the cluster manager node. Default is `30s`. |
+| `cluster_manager_timeout` | Time      | The timeout duration for connecting to the cluster manager node. Default is `30s`. |
 | `flat_settings`  | Boolean   | If `true`, returns settings in a flat format. Default is `false`. |
 | `wait_for_metadata_version` | Integer | Waits until the metadata version is equal or greater than this value before responding. |
 | `wait_for_timeout` | Time   | Specifies how long to wait when using `wait_for_metadata_version`. Default is `30s`. |
@@ -83,11 +85,11 @@ The following table lists all response fields.
 | Field                  | Data type | Description                                                                       |
 | ---------------------- | --------- | --------------------------------------------------------------------------------- |
 | `cluster_name`         | String    | The name of the cluster.                                                          |
-| `cluster_uuid`         | String    | Unique identifier for the cluster.                                                |
-| `version`              | Integer   | Current version of the cluster state.                                             |
-| `state_uuid`           | String    | Unique identifier for this version of the state.                                  |
+| `cluster_uuid`         | String    | The unique identifier for the cluster.                                                |
+| `version`              | Integer   | The current version of the cluster state.                                             |
+| `state_uuid`           | String    | The unique identifier for this version of the state.                                  |
 | `master_node`          | String    | Node ID of the cluster manager (master) node.                                     |
-| `cluster_manager_node` | String    | Node ID of the elected cluster manager. Replaces `master_node` in newer versions. |
+| `cluster_manager_node` | String    | The node ID of the elected cluster manager node. |
 | `blocks`               | Object    | Index-level block settings.                                                       |
 | `metadata`             | Object    | Index mappings, settings, and aliases.                                            |
 | `nodes`                | Object    | Details of all nodes in the cluster.                                              |

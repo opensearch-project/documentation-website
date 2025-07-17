@@ -236,9 +236,9 @@ The response includes cluster state metadata and optionally a `decisions` array 
 | `state.version`              | Integer   | The version of the cluster state.                                           |
 | `state.state_uuid`           | String    | The UUID for this specific state version.                                   |
 | `state.master_node`          | String    | The ID of the elected cluster manager node.                                 |
-| `state.cluster_manager_node` | String    | Same as `master_node`; OpenSearch includes both for legacy and clarity. |
+| `state.cluster_manager_node` | String    | The ID of the elected cluster manager node.  |
 | `state.blocks`               | Object    | Any global or index-level cluster blocks.                               |
-| `state.nodes`                | Object    | The cluster nodes metadata including name and address.                      |
+| `state.nodes`                | Object    | The cluster nodes metadata, including its name and address.                      |
 | `state.routing_table`        | Object    | The shard routing information for each index.                               |
 | `state.routing_nodes`        | Object    | The shard allocation organized by node.                                     |
 | `commands`                   | List      | A list of processed reroute commands.                                   |
