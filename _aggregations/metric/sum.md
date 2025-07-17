@@ -185,9 +185,9 @@ The response reflects a 10% increase applied to the original total weight:
 
 ### Missing values
 
-Documents missing the target field are ignored by default. To include them using a default value, use the `missing` parameter. This ensures that documents without the field are treated as having zero weight and included in the aggregation.
+Documents missing the target field are ignored by default. To include them using a default value, use the `missing` parameter. 
 
-The following example assigns a default value of `0` for missing `weight_kg` fields:
+The following example assigns a default value of `0` to missing `weight_kg` fields, this ensures that the documents without this field are treated as having `weight_kg` set as `0` and included in the aggregation.
 
 ```json
 GET /deliveries/_search
