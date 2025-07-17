@@ -21,8 +21,8 @@ The `percentiles` aggregation takes the following parameters:
 
 | Parameter                                | Data type        | Required/Optional | Description                                                                                                                 |
 | ---------------------------------------- | ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `field`                                  | String           | Required      | The numeric field to compute percentiles on.                                                                                    |
-| `percents`                               | Array of doubles | Optional       | The list of percentiles to calculate. Default is `[1, 5, 25, 50, 75, 95, 99]`.                                                 |
+| `field`                                  | String           | Required      | The numeric field used to compute percentiles on.                                                                                    |
+| `percents`                               | Array of doubles | Optional       | The list of percentiles returned in the response. Default is `[1, 5, 25, 50, 75, 95, 99]`.                                                 |
 | `keyed`                                  | Boolean          | Optional       | If set to `false` returns results as a array, otherwise returns results as JSON object. Default is `true` |
 | `tdigest.compression`                    | Double           | Optional       | Controls accuracy and memory usage of the `tdigest` algorithm. For further details see [precision tuning with tdigest](#precision-tuning-with-tdigest).                                      |
 | `hdr.number_of_significant_value_digits` | Integer          | Optional       | Precision setting for the HDR histogram. For further details see [HDR histogram](#hdr-histogram)                                   |
