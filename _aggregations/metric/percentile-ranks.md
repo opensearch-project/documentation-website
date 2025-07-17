@@ -15,7 +15,7 @@ For example, if you want to know how a transaction amount of `45` compares to ot
 
 ## Parameters
 
-The `percentile_ranks` aggregation takes the following parameters:
+The `percentile_ranks` aggregation takes the following parameters.
 
 | Parameter                                | Data type        | Required/Optional | Description                                                                                                                         |
 | ---------------------------------------- | ---------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
