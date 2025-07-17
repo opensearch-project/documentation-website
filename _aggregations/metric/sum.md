@@ -19,13 +19,13 @@ The `sum` aggregation takes the following parameters.
 | --------- | --------- | ------------------------------------------------------------------------------------------ |
 | `field`   | String    | The field to aggregate on. Must be a numeric field.                                            |
 | `script`  | Object    | The script to calculate custom values for aggregation. Can be used instead of or with `field`. |
-| `missing` | Number    | The default value used for documents missing the target field. 
+| `missing` | Number    | The default value used for documents missing the target field. |
 
 ## Example
 
 The following example demonstrates how to calculate the total weight of deliveries recorded in a logistics index. 
 
-### Create the index
+Create an index:
 
 ```json
 PUT /deliveries
@@ -40,7 +40,7 @@ PUT /deliveries
 ```
 {% include copy-curl.html %}
 
-### Add sample documents
+Add sample documents:
 
 ```json
 POST /deliveries/_bulk?refresh=true
@@ -55,9 +55,8 @@ POST /deliveries/_bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-### Run the sum aggregation
 
-The following request computes the total weight across all documents in the `deliveries` index, omits document hits and returns the total sum of `weight_kg`:
+The following request computes the total weight across all documents in the `deliveries` index, omits document hits by setting `size` to `0`, and returns the total sum of `weight_kg`:
 
 ```json
 GET /deliveries/_search
@@ -163,7 +162,7 @@ GET /deliveries/_search
 ```
 {% include copy-curl.html %}
 
-The response reflects a 10% increase applied to the original total weight.
+The response reflects a 10% increase applied to the original total weight:
 
 ```json
 {
@@ -184,7 +183,7 @@ The response reflects a 10% increase applied to the original total weight.
 }
 ```
 
-### Handling missing values
+### Missing values
 
 Documents missing the target field are ignored by default. To include them using a default value, use the `missing` parameter. This ensures that documents without the field are treated as having zero weight and included in the aggregation.
 
