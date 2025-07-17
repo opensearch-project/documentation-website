@@ -17,9 +17,9 @@ The `sum` aggregation takes the following parameters.
 
 | Parameter | Data type | Description                                                                                |
 | --------- | --------- | ------------------------------------------------------------------------------------------ |
-| `field`   | string    | The field to aggregate on. Must be a numeric field.                                            |
-| `script`  | object    | The script to calculate custom values for aggregation. Can be used instead of or with `field`. |
-| `missing` | number    | The default value used for documents missing the target field. 
+| `field`   | String    | The field to aggregate on. Must be a numeric field.                                            |
+| `script`  | Object    | The script to calculate custom values for aggregation. Can be used instead of or with `field`. |
+| `missing` | Number    | The default value used for documents missing the target field. 
 
 ## Example
 
