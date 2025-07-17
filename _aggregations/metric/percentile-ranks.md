@@ -13,6 +13,20 @@ The `percentile_ranks` aggregation estimates the percentage of observed values t
 
 For example, if you want to know how a transaction amount of `45` compares to other transaction values in a dataset, a percentile rank aggregation will return a value like `82.3`, which means 82.3% of transactions were less than or equal to `45`.
 
+## Parameters
+
+The `percentile_ranks` aggregation takes the following parameters:
+
+| Parameter                                | Data type        | Required/Optional | Description                                                                                                                         |
+| ---------------------------------------- | ---------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `field`                                  | String           | Required          | The numeric field to compute percentile ranks on.                                                                                   |
+| `values`                                 | Array of doubles | Required          | The values for which to calculate percentile ranks.                                                                                 |
+| `keyed`                                  | Boolean          | Optional          | If set to `false`, returns results as an array. Otherwise returns results as a JSON object. Default is `true`.                      |
+| `tdigest.compression`                    | Double           | Optional          | Controls accuracy and memory usage of the `tdigest` algorithm. See [precision tuning with tdigest](#precision-tuning-with-tdigest). |
+| `hdr.number_of_significant_value_digits` | Integer          | Optional          | The precision setting for the HDR histogram. See [HDR histogram](#hdr-histogram).                                                       |
+| `missing`                                | Number           | Optional          | The default value to use when the target field is missing in a document.                                                                |
+| `script`                                 | Object           | Optional          | The script to compute custom values instead of using a field. Supports inline or stored scripts.                                        |
+
 
 ## Examples
 

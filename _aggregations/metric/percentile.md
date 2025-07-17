@@ -15,6 +15,20 @@ For example, a 95th percentile of `load_time` = `120ms` means 95% of values are 
 
 Similarly to the [`cardinality`]({{site.url}}{{site.baseurl}}/aggregations/metric/cardinality/) metric, the `percentile` metric is also approximate.
 
+## Parameters
+
+The `percentiles` aggregation takes the following parameters:
+
+| Parameter                                | Data type        | Required/Optional | Description                                                                                                                 |
+| ---------------------------------------- | ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `field`                                  | String           | Required      | The numeric field to compute percentiles on.                                                                                    |
+| `percents`                               | Array of doubles | Optional       | The list of percentiles to calculate. Default is `[1, 5, 25, 50, 75, 95, 99]`.                                                 |
+| `keyed`                                  | Boolean          | Optional       | If set to `false` returns results as a array, otherwise returns results as JSON object. Default is `true` |
+| `tdigest.compression`                    | Double           | Optional       | Controls accuracy and memory usage of the `tdigest` algorithm. For further details see [precision tuning with tdigest](#precision-tuning-with-tdigest).                                      |
+| `hdr.number_of_significant_value_digits` | Integer          | Optional       | Precision setting for the HDR histogram. For further details see [HDR histogram](#hdr-histogram)                                   |
+| `missing`                                | Number           | Optional       | Default value for documents missing the field.                                                                              |
+| `script`                                 | Object           | Optional       | Script to compute custom values instead of using a field. Supports inline or stored scripts.                                |
+
 ## Examples
 
 The following examples demonstrate different configurations of the `percentiles` aggregation.
