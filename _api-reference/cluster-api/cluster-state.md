@@ -46,7 +46,6 @@ The following table lists the available query parameters. All query parameters a
 | ---------------- | --------- | ----------- |
 | `local`          | Boolean   | If `true`, retrieves the state from the local node instead of the cluster manager node. Default is `false`. |
 | `cluster_manager_timeout` | Time      | The timeout duration for connecting to the cluster manager node. Default is `30s`. |
-| `cluster_manager_timeout` | Time      | The timeout duration for connecting to the cluster manager node. Default is `30s`. |
 | `flat_settings`  | Boolean   | If `true`, returns settings in a flat format. Default is `false`. |
 | `wait_for_metadata_version` | Integer | Waits until the metadata version is equal or greater than this value before responding. |
 | `wait_for_timeout` | Time   | Specifies how long to wait when using `wait_for_metadata_version`. Default is `30s`. |
@@ -89,7 +88,7 @@ The following table lists all response fields.
 | `cluster_uuid`         | String    | The unique identifier for the cluster.                                                |
 | `version`              | Integer   | The current version of the cluster state.                                             |
 | `state_uuid`           | String    | The unique identifier for this version of the state.                                  |
-| `master_node`          | String    | Node ID of the cluster manager (master) node.                                     |
+| `master_node`          | String    | Same as `cluster_manager_node`, this is maintained for backward compatibility.                                    |
 | `cluster_manager_node` | String    | The node ID of the elected cluster manager node. |
 | `blocks`               | Object    | Index-level block settings.                                                       |
 | `metadata`             | Object    | Index mappings, settings, and aliases.                                            |

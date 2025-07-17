@@ -37,7 +37,7 @@ The `metric` parameter filters the cluster state values returned by the Reroute 
 
 - `_all` _(Default)_: Returns all available cluster state sections. 
 - `blocks`: Includes information about read- and write-level blocks in the cluster.
-- `master_node`: Shows which node is currently acting as cluster manager.
+- `cluster_manager_node`: Shows which node is currently acting as cluster manager.
 - `metadata`: Returns index settings, mappings, and aliases. If specific indexes are targeted, only their metadata is returned.
 - `nodes`: Includes all nodes in the cluster and their metadata.
 - `routing_table`: Returns the routing information for all shards and replicas.
@@ -235,7 +235,7 @@ The response includes cluster state metadata and optionally a `decisions` array 
 | `state.cluster_uuid`         | String    | The unique identifier of the cluster.                                       |
 | `state.version`              | Integer   | The version of the cluster state.                                           |
 | `state.state_uuid`           | String    | The UUID for this specific state version.                                   |
-| `state.master_node`          | String    | The ID of the elected cluster manager node.                                 |
+| `state.master_node`          | String    | Same as `cluster_manager_node`, this is maintained for backward compatibility.                                 |
 | `state.cluster_manager_node` | String    | The ID of the elected cluster manager node.  |
 | `state.blocks`               | Object    | Any global or index-level cluster blocks.                               |
 | `state.nodes`                | Object    | The cluster nodes metadata, including its name and address.                      |
