@@ -73,32 +73,39 @@ Cancels allocation of a shard (including recovery). This command forces resynchr
 
 ### Allocate_replica
 
-Assigns an unassigned replica to a specified node. This operation respects allocation deciders. Use this command to manually trigger allocation of replicas when automatic allocation fails.
+The `allocate_replica` command assigns an unassigned replica to a specified node. This operation respects allocation deciders. Use this command to manually trigger allocation of replicas when automatic allocation fails.
 
-`allocate_replica` command requires the following parameters:
-
-* `index`: The name of the index.
-* `shard`: The shard number.
-* `node`: The name or node ID of the node to perform action on.
-
-### Allocate_stale_primary
-
-Force-allocates a primary shard to a node that holds a stale copy. This command should be used with extreme caution. It bypasses safety checks and may lead to **data loss**, especially if a more recent shard copy exists on another node that is temporarily offline. If that node rejoins the cluster later, its data will be deleted or replaced by the stale copy that was forcefully promoted.
-
-Use this only when no up-to-date copies are available and you have no way to restore the original data.
-
-`allocate_stale_primary` command requires the following parameters:
+The `allocate_replica` command requires the following parameters:
 
 * `index`: The name of the index.
 * `shard`: The shard number.
-* `node`: The name or node ID of the node to perform action on.
-* `accept_data_loss`: Must be `true`
+* `node`: The name or node ID of the node to perform the action on.
 
-### Allocate_empty_primary
+### Allocate stale primary
 
-Force-allocates a new empty primary shard to a node. This operation initializes a new primary shard without any existing data. Any previous data for the shard will be **permanently lost**. If a node with valid data for that shard later rejoins the cluster, its copy will be erased. This command is intended for disaster recovery when **no valid shard copies exist** and recovery from snapshot or backup is not an option.
+The `allocate_stale_primary` command force-allocates a primary shard to a node that holds a stale copy. 
 
-`allocate_empty_primary` command required the following parameters:
+This command should be used with extreme caution. It bypasses safety checks and may lead to **data loss**, especially if a more recent shard copy exists on another node that is temporarily offline. If that node rejoins the cluster later, its data will be deleted or replaced by the stale copy that was forcefully promoted.
+{: .warning}
+
+Use this command only when no up-to-date copies are available and you have no way to restore the original data.
+{: .tip}
+
+The `allocate_stale_primary` command requires the following parameters:
+
+* `index`: The name of the index.
+* `shard`: The shard number.
+* `node`: The name or node ID of the node to perform the action on.
+* `accept_data_loss`: Must be set to `true`.
+
+### Allocate empty primary
+
+The `allocate_empty_primary` command force-allocates a new empty primary shard to a node. This operation initializes a new primary shard without any existing data. 
+
+Any previous data for the shard will be **permanently lost**. If a node with valid data for that shard later rejoins the cluster, its copy will be erased. This command is intended for disaster recovery when **no valid shard copies exist** and recovery from snapshot or backup is not an option.
+{: .warning}
+
+The `allocate_empty_primary` command requires the following parameters:
 
 * `index`: The name of the index.
 * `shard`: The shard number.
