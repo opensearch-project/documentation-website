@@ -27,16 +27,16 @@ POST /_cluster/reroute
 | `dry_run`        | Boolean   | If `true`, validates and simulates the reroute request without applying it. Default is `false`.    |
 | `explain`        | Boolean   | If `true`, returns an explanation of why the command was accepted or rejected. Default is `false`. |
 | `retry_failed`   | Boolean   | If `true`, retries allocation of shards that previously failed. Default is `false`.                |
-| `metric`         | String    | Limits the returned metadata. See [metric options](#metric-options) for list of available options. Default is `_all` |
-| `master_timeout` | Time      | The timeout for connection to the cluster manager node. Default is `30s`.                              |
+| `metric`         | String    | Limits the returned metadata. See [metric options](#metric-options) for list of available options. Default is `_all`. |
+| `cluster_manager_timeout` | Time      | The timeout for connection to the cluster manager node. Default is `30s`.                              |
 | `timeout`        | Time      | The overall request timeout. Default is `30s`.                                                         |
 
 ### Metric options
 
-The `metric` parameter narrows the parts of the cluster state returned by the reroute API. This is useful for reducing response size or inspecting specific parts of the cluster state. The possible options are the following:
+The `metric` parameter filters the cluster state values returned by the Reroute API. This is useful for reducing response size or inspecting specific parts of the cluster state. This parameter supports the following values:
 
-- `_all`: Returns all available cluster state sections. _(Default)_
-- `blocks`: Includes information about read/write level blocks in the cluster.
+- `_all` _(Default)_: Returns all available cluster state sections. 
+- `blocks`: Includes information about read- and write-level blocks in the cluster.
 - `master_node`: Shows which node is currently acting as cluster manager.
 - `metadata`: Returns index settings, mappings, and aliases. If specific indexes are targeted, only their metadata is returned.
 - `nodes`: Includes all nodes in the cluster and their metadata.
@@ -47,17 +47,17 @@ You can combine values in a comma-separated list, such as `metric=metadata,nodes
 
 ## Request body fields
 
-The `commands` array in the request body defines actions to apply to shard allocation. Supported actions include:
+The `commands` array in the request body defines actions to apply to shard allocation. It supports the following actions.
 
 ### Move
 
-Moves a started shard (primary or replica) from one node to another. This can be used to balance load or drain a node before maintenance. The shard must be in the `STARTED` state. Both primary and replica shards can be moved using this command. 
+The `move` command moves a started shard (primary or replica) from one node to another. This can be used to balance load or drain a node before maintenance. The shard must be in the `STARTED` state. Both primary and replica shards can be moved using this command. 
 
-`move` command requires the following parameters:
+The `move` command requires the following parameters:
 
 * `index`: The name of the index.
-* `shard`: Shard number.
-* `from_node`: Name of the node to move the shard from.
+* `shard`: The shard number.
+* `from_node`: The name of the node to move the shard from.
 * `to_node`: Name of the node to move the shard to.
 
 ### Cancel
