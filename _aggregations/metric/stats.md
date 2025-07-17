@@ -17,6 +17,15 @@ The `stats` aggregation is a multi-value metric aggregation that computes a summ
 * `sum`: The total of all values
 * `avg`: The average of the values (sum divided by count)
 
+## Parameters
+
+All parameters are optional.
+
+| Parameter | Data type | Description                                                                                |
+| --------- | --------- | ------------------------------------------------------------------------------------------ |
+| `field`   | String    | The field to aggregate on. Must be a numeric field.                                            |
+| `script`  | Object    | The script to calculate custom values for aggregation. Can be used instead of or with `field`. |
+| `missing` | Number    | The default value used for documents missing the target field. 
 
 ## Example
 
