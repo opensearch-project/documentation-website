@@ -62,7 +62,7 @@ The `move` command requires the following parameters:
 
 ### Cancel
 
-Cancels allocation of a shard (including recovery). This command forces resynchronization by canceling existing allocations and letting the system reinitialize them. Replica shard allocations can be canceled by default, but canceling a primary shard requires `allow_primary=true` in order to prevent accidental data disruption.
+The `cancel` command cancels allocation of a shard (including recovery). This command forces resynchronization by canceling existing allocations and letting the system reinitialize them. Replica shard allocations can be canceled by default, but canceling a primary shard requires `allow_primary=true` in order to prevent accidental data disruption.
 
 The `cancel` command requires the following parameters:
 
