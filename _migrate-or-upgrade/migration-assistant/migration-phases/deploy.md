@@ -2,6 +2,7 @@
 layout: default
 title: Deploying Migration Assistant
 parent: Migration phases
+grand_parent: Migration Assistant for OpenSearch
 nav_order: 2
 permalink: /migration-assistant/migration-phases/deploy/
 redirect_from:

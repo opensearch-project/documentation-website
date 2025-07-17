@@ -3,6 +3,7 @@ layout: default
 title: Assessing your cluster for migration
 nav_order: 1
 parent: Migration phases
+grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/assessment/
 ---
 
@@ -70,6 +71,6 @@ For complex migrations involving multiple transformations or breaking changes, w
 
 ## Supported transformations
 
-The following [transformations]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/live-traffic-migration/using-traffic-replayer/#transformations) are included in Migration Assistant. They can be enabled, combined, and configured to customize a migration for your use case. To request additional Migration Assistant transformations , create a GitHub issue [in the OpenSearch migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
+The following [transformations]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/#transformations) are included in Migration Assistant. They can be enabled, combined, and configured to customize a migration for your use case. To request additional Migration Assistant transformations , create a GitHub issue [in the OpenSearch migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
 
 - [Type mapping deprecation]({{site.url}}{{site.baseurl}}/migration-assistant/planning-your-migration/handling-type-mapping-deprecation/)

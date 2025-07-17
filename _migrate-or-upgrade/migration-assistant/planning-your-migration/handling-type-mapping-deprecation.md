@@ -2,7 +2,9 @@
 layout: default
 title: Managing type mapping deprecation
 nav_order: 60
+grand_parent: Migration Assistant for OpenSearch
 parent: Planning your migration
+permalink: /migration-assistant/planning-your-migration/handling-type-mapping-deprecation/
 ---
 
 # Managing type mapping deprecation

@@ -3,7 +3,9 @@ layout: default
 title: Using Traffic Replayer
 nav_order: 7
 parent: Migration phases
-redirect_from:
+grand_parent: Migration Assistant for OpenSearch
+permalink: /migration-assistant/migration-phases/replay-captured-traffic/
+redirect_from: 
   - /migration-assistant/migration-phases/using-traffic-replayer/
 ---
 
@@ -19,7 +21,7 @@ For example, if a document was deleted after a snapshot was taken, starting Traf
 
 ## Configuration options
 
-[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migration-assistant/deploying-migration-assistant/configuration-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster. 
+[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploying-migration-assistant/configuration-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster.
 
 ## Using Traffic Replayer
 

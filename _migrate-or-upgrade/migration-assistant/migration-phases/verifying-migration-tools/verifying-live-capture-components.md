@@ -3,7 +3,7 @@ layout: default
 title: Verifying live capture components
 nav_order: 9
 parent: Verifying migration tools
-permalink: /migrations-assisstant/migration-phases/verifying-livee-capture-compontents/
+permalink: /migration-assistant/migration-phases/verifying-migration-tools/verifying-live-capture-components/
 ---
 
 # Verifying live capture components

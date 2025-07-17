@@ -272,6 +272,12 @@ defaults:
     values:
       section: "migration-assistant"
       section-name: "Migration Assistant for OpenSearch"
+  -
+    scope:
+      path: "_migration-assistant"
+    values:
+      section: "migration-assistant"
+      section-name: "Migration Assistant for OpenSearch"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.

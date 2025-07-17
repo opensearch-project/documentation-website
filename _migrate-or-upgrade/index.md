@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Upgrade or Migrate OpenSearch
+title: Migrate or upgrade
 nav_order: 20
 has_children: true
 permalink: /upgrade-or-migrate/
@@ -12,8 +12,9 @@ redirect_from:
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
 has_toc: true
+nav_exclude: false
 ---
-# Upgrade or Migrate OpenSearch
+# Migrate or Upgrade OpenSearch
 
 The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/206) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release Schedule and Maintenance Policy]({{site.url}}/releases.html).
 
@@ -76,7 +77,7 @@ Upgrade one node at a time while keeping the cluster operational.
 - Multiple upgrade cycles for larger version gaps
 - Reindexing may be required
 
-[Perform a rolling upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/migrate-or-upgrade/rolling-upgrade/)
+[Perform a rolling upgrade]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/)
 
 ---
 

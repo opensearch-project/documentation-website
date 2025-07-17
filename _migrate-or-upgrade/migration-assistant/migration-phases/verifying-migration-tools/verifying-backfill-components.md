@@ -1,11 +1,11 @@
 ---
 layout: default
 title: Verifying backfill components
-grand_parent: Migrations phases
+grand_parent: Migration phases
 nav_order: 3
 parent: Verifying migration tools
-permalink: /migration-assistant/migration-phases/verifying-backfill-components/
-retirct-from:
+permalink: /migration-assistant/migration-phases/verifying-migration-tools/verifying-backfill-components/
+redirect_from:
   - /migration-assistant/planning-your-migration/migration-phases/verifying-backfill-components/
 ---
 

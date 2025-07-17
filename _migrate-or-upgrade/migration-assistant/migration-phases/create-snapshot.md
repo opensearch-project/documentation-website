@@ -2,6 +2,7 @@
 layout: default
 title: Creating a snapshot
 parent: Migration phases
+grand_parent: Migration Assistant for OpenSearch
 nav_order: 4
 permalink: /migration-assistant/migration-phases/create-snapshot/
 ---
@@ -120,48 +121,6 @@ Migration Candidates:
 Results:
    0 issue(s) detected
 ```
-
-
-## Using the `migrate` command
-
-Running through the same data as the evaluate command all of the migrated items will be applied onto the target cluster.  If re-run multiple times items that were previously migrated will not be recreated.  If any items do need to be re-migrated, please delete them from the target cluster and then rerun the evaluate then migrate commands to ensure the desired changes are made.
-
-```shell
-console metadata migrate [...]
-```
-{% include copy.html %}
-
-You should receive a response similar to the following:
-
-```shell
-Starting Metadata Migration
-
-Clusters:
-   Source:
-      Snapshot: OpenSearch 1.3.16 FileSystemRepo(repoRootDir=/tmp/junit10626813752669559861)
-
-   Target:
-      Remote Cluster: OpenSearch 2.14.0 ConnectionContext(uri=http://localhost:33042, protocol=HTTP, insecure=false, compressionSupported=false)
-
-
-Migrated Items:
-   Index Templates:
-      simple_index_template
-
-   Component Templates:
-      simple_component_template
-
-   Indexes:
-      blog_2023, movies_2023
-
-   Aliases:
-      alias1, movies-alias
-
-
-Results:
-   0 issue(s) detected
-```
-
 
 ## Metadata verification process
 

@@ -3,6 +3,7 @@ layout: default
 title: Removing migration infrastructure
 nav_order: 8
 parent: Migration phases
+grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/remove-migration-infrastructure/
 ---
 

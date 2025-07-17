@@ -3,6 +3,7 @@ layout: default
 title: Accessing the Migration Console
 parent: Migration phases
 nav_order: 10
+permlink: /migration-assistant/accessing-the-migration-console
 ---
 
 # Accessing the Migration Console

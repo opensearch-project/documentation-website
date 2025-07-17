@@ -3,6 +3,7 @@ layout: default
 title: Reroute Client Traffic
 nav_order: 3
 parent: Migration phases
+grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
 ---
 
@@ -56,24 +57,6 @@ console kafka describe-topic-records
 Note the records in the logging topic.
    
 After a short period, execute the same command again and compare the increased number of records against the expected HTTP requests.
-
-## Creating a snapshot
-
-Create a snapshot for your backfill using the following command:
-
-```bash
-console snapshot create
-```
-{% include copy.html %}
-
-To check the progress of your snapshot, use the following command:
-
-```bash
-console snapshot status --deep-check
-```
-{% include copy.html %}
-
-Depending on the size of the data in the source cluster and the bandwidth allocated for snapshots, the process can take some time. Adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic.
 
 ## Backfilling documents to the source cluster
 

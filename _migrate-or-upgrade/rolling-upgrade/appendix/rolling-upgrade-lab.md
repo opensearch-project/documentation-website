@@ -36,7 +36,7 @@ To use, invoke class="codeblock-label"
 
 # Rolling upgrade lab
 
-You can follow these steps <OuiToken iconType="tokenStruct" size="xs" color="gray" /> on your own compatible host to recreate the same cluster state the OpenSearch Project used for testing [rolling upgrades]({{site.url}}{{site.baseurl}}/install-and-configure/migrate-or-upgrade/rolling-upgrade/). This exercise is useful if you want to test the upgrade process in a development environment.
+You can follow these steps <OuiToken iconType="tokenStruct" size="xs" color="gray" /> on your own compatible host to recreate the same cluster state the OpenSearch Project used for testing [rolling upgrades]({{site.url}}{{site.baseurl}}/igrate-or-upgrade/rolling-upgrade/). This exercise is useful if you want to test the upgrade process in a development environment.
 
 The steps used in this lab were validated on an arbitrarily chosen [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) `t2.large` instance using [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) kernel version `Linux 5.10.162-141.675.amzn2.x86_64` and [Docker](https://www.docker.com/) version `20.10.17, build 100c701`. The instance was provisioned with an attached 20 GiB gp2 [Amazon EBS](https://aws.amazon.com/ebs/) root volume. These specifications are included for informational purposes and do not represent hardware requirements for OpenSearch or OpenSearch Dashboards.
 

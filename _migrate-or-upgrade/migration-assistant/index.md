@@ -2,7 +2,8 @@
 layout: default
 title: Migration Assistant for OpenSearch
 nav_order: 2
-has_toc: true
+has_toc: false
+has_children: true
 permalink: /migration-assistant/
 redirect_from:
   - /upgrade-or-migrate/migration-assistant/
@@ -21,7 +22,7 @@ items:
     link: "/migration-assistant/architecture/"
   - heading: "Execute your migration in phases"
     description: "A step-by-step guide for performing a migration."
-    link: "/migration-assistant/migration-phases"
+    link: "/migration-assistant/migration-phases/"
 ---
 
 # Migration Assistant for OpenSearch
@@ -36,4 +37,3 @@ Migration Assistant for OpenSearch aids you in successfully performing an end-to
 This user guide focuses on conducting a comprehensive migration involving both existing and live data with zero downtime and the option to back out of a migration.
 
 {% include list.html list_items=page.items%}
-

@@ -3,6 +3,7 @@ layout: default
 title: Take and restore snapshots
 parent: Snapshots
 nav_order: 10
+has_toc: false
 has_children: false
 grand_parent: Availability and recovery
 redirect_from: 

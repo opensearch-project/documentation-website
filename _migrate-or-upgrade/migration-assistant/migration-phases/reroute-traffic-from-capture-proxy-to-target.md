@@ -1,9 +1,10 @@
 ---
 layout: default
-title: Cutover
+title: Reroute traffic to target
 nav_order: 7
 parent: Migration phases
-permalink: /migration-assistant/migration-phases/switching-traffic-from-the-source-cluster/
+grand_parent: Migration Assistant for OpenSearch
+permalink: /migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/
 ---
 
 # Switching traffic from the source cluster

@@ -151,13 +151,26 @@ layout: table_wrappers
       <div id="main-content-wrap" class="main-content-wrap">
         {% unless page.url == "/" %}
           {% if page.parent %}
+            {% comment %}
+              Calculate breadcrumb URLs by finding parent and grand_parent pages
+              Search in both html_pages and collection pages
+            {% endcomment %}
+            {% assign all_pages = site.html_pages %}
+            {% if page.collection %}
+              {% assign collection_pages = site[page.collection] %}
+              {% assign all_pages = all_pages | concat: collection_pages %}
+            {% endif %}
+            
+            {% assign parent_page = all_pages | where: "title", page.parent | first %}
+            {% assign grand_parent_page = all_pages | where: "title", page.grand_parent | first %}
+            
             <nav aria-label="Breadcrumb" class="breadcrumb-nav">
               <ol class="breadcrumb-nav-list">
                 {% if page.grand_parent %}
-                  <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.grand_parent }}</a></li>
-                  <li class="breadcrumb-nav-list-item"><a href="{{ second_level_url }}">{{ page.parent }}</a></li>
+                  <li class="breadcrumb-nav-list-item"><a href="{{ grand_parent_page.url | relative_url }}">{{ page.grand_parent }}</a></li>
+                  <li class="breadcrumb-nav-list-item"><a href="{{ parent_page.url | relative_url }}">{{ page.parent }}</a></li>
                 {% else %}
-                  <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.parent }}</a></li>
+                  <li class="breadcrumb-nav-list-item"><a href="{{ parent_page.url | relative_url }}">{{ page.parent }}</a></li>
                 {% endif %}
                 <li class="breadcrumb-nav-list-item"><span>{{ page.title }}</span></li>
               </ol>
@@ -231,6 +244,7 @@ layout: table_wrappers
 
         </div>
       </div>
+      {% unless page.has_toc == false %}
       <div class="toc-wrap">
         <div class="sticky-wrap">
           <div class="toc">
@@ -239,6 +253,7 @@ layout: table_wrappers
           {% include feedback.html %}
         </div>
       </div>
+      {% endunless %}
       {% if site.search_enabled != false %}
         {% if site.search.button %}
           <a href="#" id="search-button" class="search-button">

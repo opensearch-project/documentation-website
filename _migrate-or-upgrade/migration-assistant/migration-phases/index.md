@@ -5,7 +5,7 @@ parent: Migration Assistant for OpenSearch
 nav_order: 40
 nav_exclude: false
 has_children: true
-has_toc: true
+has_toc: false
 permalink: /migration-assistant/migration-phases/
 ---
 
@@ -31,7 +31,7 @@ details[open] {
 }
 </style>
 
-<details>
+<details id="scenario-1">
 <summary>Scenario 1 – Backfill Only</summary>
 
 <ol>
@@ -40,42 +40,95 @@ details[open] {
 
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/create-snapshot/">Create Snapshot</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/">Migrate Data</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/">Backfill</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/">Teardown</a></li>
 </ol>
 
 </details>
 
-<details>
+<details id="scenario-2">
 <summary>Scenario 2 – Live Capture Only</summary>
 
 <ol>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/">Assessment</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/">Deployment</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/">Deploy</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verifying-migration-tools/verifying-backfill-components/">Verify Backfill Components</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-source-to-proxy/">Reroute Traffic from Source to Capture Proxy</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/">Migrate Metadata</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verifying-migration-tools/verifying-live-capture-components/">Verify Live Capture Components</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/using-traffic-replayer/">Replay Captured Traffic</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/switching-traffic-from-the-source-cluster/">Reroute Traffic from Capture Proxy to Target</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/">Replay Captured Traffic</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/">Reroute Traffic from Capture Proxy to Target</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/">Teardown</a></li>
 </ol>
 
 </details>
 
-<details>
+<details id="scenario-3">
 <summary>Scenario 3 –  Live Capture with Backfill</summary>
 
 <ol>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment">Assessment</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/">Deployment</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/">Deploy</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-source-to-proxy/">Reroute Traffic from Source to Capture Proxy</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/create-snapshot/">Create Snapshot</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/">Migrate Metadata</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/">Migrate Data</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/using-traffic-replayer/">Replay Traffic</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/switching-traffic-from-the-source-cluster/">Reroute Traffic from Capture Proxy to Target</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/">Backfill</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/">Replay Captured Traffic</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/">Reroute Traffic from Capture Proxy to Target</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/">Teardown</a></li>
 </ol>
 
 </details>
+
+<script>
+(function() {
+  // Function to save details state to localStorage
+  function saveDetailsState() {
+    const details = document.querySelectorAll('details[id]');
+    const state = {};
+    details.forEach(detail => {
+      state[detail.id] = detail.open;
+    });
+    localStorage.setItem('migration-phases-details-state', JSON.stringify(state));
+  }
+
+  // Function to restore details state from localStorage
+  function restoreDetailsState() {
+    const savedState = localStorage.getItem('migration-phases-details-state');
+    if (savedState) {
+      try {
+        const state = JSON.parse(savedState);
+        Object.keys(state).forEach(id => {
+          const detail = document.getElementById(id);
+          if (detail && state[id]) {
+            detail.open = true;
+          }
+        });
+      } catch (e) {
+        console.warn('Failed to restore details state:', e);
+      }
+    }
+  }
+
+  // Wait for DOM to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      restoreDetailsState();
+      
+      // Add event listeners to save state when details are toggled
+      const details = document.querySelectorAll('details[id]');
+      details.forEach(detail => {
+        detail.addEventListener('toggle', saveDetailsState);
+      });
+    });
+  } else {
+    restoreDetailsState();
+    
+    // Add event listeners to save state when details are toggled
+    const details = document.querySelectorAll('details[id]');
+    details.forEach(detail => {
+      detail.addEventListener('toggle', saveDetailsState);
+    });
+  }
+})();
+</script>
