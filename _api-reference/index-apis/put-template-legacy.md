@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 107
 ---
 
-Put template API is deprecated. Please use the new [Create or update index template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/) API.
+Put template API is deprecated. Use the new [Create or update index template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/) API.
 {: .warning}
 
 # Put template
