@@ -2,7 +2,7 @@
 layout: default
 title: Close index
 parent: Index APIs
-nav_order: 20
+nav_order: 25
 redirect_from:
   - /opensearch/rest-api/index-apis/close-index/
 ---
