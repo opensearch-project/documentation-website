@@ -87,7 +87,7 @@ securityAnalyticsDashboards@3.1.0.0
 To remove a plugin, use the following command:
 
 ```bash
-sudo bin/opensearch-dashboards-plugin remove alertingPlugin
+sudo bin/opensearch-dashboards-plugin remove alertingDashboards
 ```
 {% include copy.html %}
 
