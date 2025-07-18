@@ -6,7 +6,7 @@ nav_order: 60
 
 # Implementing faceted search in OpenSearch
 
-A _facet_ is a filterable field that users can select to narrow their search results. In an e-commerce context, you might see facets like `brand`, `color`, `size`, and `price_range` on the left side of search results. For example, a query like "winter jacket" may return many products. Facets let users filter products by a particular color or price range.
+A _facet_ is a filterable field that users can select to narrow their search results. In an e-commerce context, you might see facets like brand, color, size, and price range on the left side of search results. For example, a query like "winter jacket" may return many products. Facets let users filter products by a particular color or price range.
 
 Faceted search displays value or range counts for each facet, helping users understand the distribution of results and quickly apply filters. This approach is especially useful in e-commerce and location-based search. You can implement facets using `terms` aggregations for exact values (like colors or sizes) and `range` aggregations for continuous values (like prices, dates, or distances).
 
