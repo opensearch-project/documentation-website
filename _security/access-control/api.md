@@ -951,7 +951,7 @@ The `hosts` parameter maps requests originating from specific IP addresses or ho
   opensearch_security.host_resolver_mode: ip-hostname
   ```
 
-  This enables reverse DNS lookups to resolve hostnames. For more information, see [Configuring OpenSearch](https://docs.opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index/).
+  This enables reverse DNS lookups to resolve hostnames. For more information, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 Using `"*"` in `hosts` matches all client IPs and hostnames, meaning this role will be applied to every request, regardless of user. This can unintentionally overgrant access if used alongside `users: ["someuser"]`. Avoid setting `hosts: ["*"]` unless you're intentionally granting the role to all client IPs.
 {: .warning}

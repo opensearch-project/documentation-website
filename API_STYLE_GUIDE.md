@@ -48,7 +48,7 @@ Provide an API name that describes its function, followed by a description of it
 Use sentence capitalization for the heading (for example, "Create or update mappings"). When you refer to the API operation, you can use lowercase with code font.
 
 If there is a corresponding OpenSearch Dashboards feature, provide a “See also” link that references it. 
-*Example*: “To learn more about monitor findings, see [Document findings](https://opensearch.org/docs/latest/monitoring-plugins/alerting/monitors/#document-findings)."
+*Example*: “To learn more about monitor findings, see [Document findings](https://docs.opensearch.org/latest/monitoring-plugins/alerting/monitors/#document-findings)."
 
 If applicable, provide any caveats to its usage with a note or tip, as in the following example:
 
