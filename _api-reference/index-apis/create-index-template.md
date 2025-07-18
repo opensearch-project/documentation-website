@@ -2,7 +2,7 @@
 layout: default
 title: Create or update index template
 parent: Index APIs
-nav_order: 26
+nav_order: 35
 ---
 
 # Create or update index template
