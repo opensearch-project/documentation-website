@@ -14,56 +14,31 @@ This tutorial shows you how to implement faceted search in OpenSearch using a pr
 
 ## Step 1: Define your index mapping
 
-Start by defining the fields you'll use for faceting. The [mapping]({{site.url}}{{site.baseurl}}/field-types/) configuration is crucial for effective faceted search. For example, the `color` field is defined as two types:
+Start by defining the fields you'll use for faceting. The [mapping]({{site.url}}{{site.baseurl}}/field-types/) configuration is crucial for effective faceted search. For faceting on string fields, map the fields to `keyword` instead of `text` because `text` fields are not optimized for aggregations.
 
-- A [`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/) field for exact matching and faceting
-- An analyzed [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field (`color.analyzed`) for fuzzy text searches. 
+While you can enable aggregations on text fields by setting `"fielddata": true`, this approach should be avoided in production because it loads all field values into heap memory, significantly increasing memory usage and potentially causing performance issues and out-of-memory errors.
+{: .tip}
 
-By default, `text` fields are analyzed using the `standard` analyzer, which splits text into tokens and converts the tokens to lowercase. You can test how the analyzer processes text by using the `_analyze` API:
+A common challenge with faceted search is handling inconsistent capitalization in your data. For example, colors might be stored as "red", "RED", or "Red", which creates separate facet buckets and fragments your results.
 
-```json
-POST /products/_analyze
-{
-  "text": ["Red T-shirt"],
-  "analyzer": "standard"
-}
-```
-
-The response shows that "Red T-shirt" becomes individual lowercase tokens: `["red", "t", "shirt"]`:
+To solve this, create an ingest pipeline that normalizes values to lowercase during indexing:
 
 ```json
+PUT _ingest/pipeline/normalize-color-pipeline
 {
-  "tokens": [
+  "description": "Normalize color field to lowercase",
+  "processors": [
     {
-      "token": "red",
-      "start_offset": 0,
-      "end_offset": 3,
-      "type": "<ALPHANUM>",
-      "position": 0
-    },
-    {
-      "token": "t",
-      "start_offset": 4,
-      "end_offset": 5,
-      "type": "<ALPHANUM>",
-      "position": 1
-    },
-    {
-      "token": "shirt",
-      "start_offset": 6,
-      "end_offset": 11,
-      "type": "<ALPHANUM>",
-      "position": 2
+      "lowercase": {
+        "field": "color"
+      }
     }
   ]
 }
 ```
+{% include copy-curl.html %}
 
-This dual configuration allows flexible text searching on the analyzed field while maintaining consistent facet values on the keyword field. For example, searching "RED" would match products with "red" color, but the facet will always show "red" (as stored) rather than creating separate buckets for different capitalizations.
-
-Even if text analysis isn't needed initially, having the analyzed field prevents future reindexing if requirements change.
-
-To define the mappings for this example, send the following request:
+Then map all fields to `keyword` for aggregation and apply the pipeline to the index:
 
 ```json
 PUT /products
@@ -77,23 +52,18 @@ PUT /products
         "type": "text"
       },
       "color": {
-        "type": "keyword",
-        "fields": {
-          "analyzed": {
-            "type": "text"
-          }
-        }
+        "type": "keyword"
       },
       "size": {
         "type": "keyword"
       },
       "price": {
         "type": "float"
-      },
-      "in_stock": {
-        "type": "boolean"
       }
     }
+  },
+  "settings": {
+    "default_pipeline": "normalize-color-pipeline"
   }
 }
 ```
@@ -108,11 +78,11 @@ POST /products/_bulk
 { "index": {"_id": 1} }
 { "name": "Cotton T-shirt", "description": "Comfortable t-shirt for everyday wear", "color": "red", "size": "M", "price": 19.99 }
 { "index": {"_id": 2} }
-{ "name": "T-shirt", "description": "Soft cotton t-shirt perfect for casual outings", "color": "blue", "size": "L", "price": 19.99 }
+{ "name": "T-shirt", "description": "Soft cotton t-shirt perfect for casual outings", "color": "Blue", "size": "L", "price": 19.99 }
 { "index": {"_id": 3} }
 { "name": "Jeans", "description": "Classic denim jeans with a modern fit", "color": "blue", "size": "M", "price": 49.99 }
 { "index": {"_id": 4} }
-{ "name": "Sweater", "description": "Warm wool sweater for cold weather", "color": "red", "size": "L", "price": 39.99 }
+{ "name": "Sweater", "description": "Warm wool sweater for cold weather", "color": "RED", "size": "L", "price": 39.99 }
 ```
 {% include copy-curl.html %}
 
@@ -144,9 +114,9 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-This request returns all t-shirt aggregated by color and size:
+This response contains all t-shirt aggregated by color and size:
 
-<details open markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -154,7 +124,7 @@ This request returns all t-shirt aggregated by color and size:
 
 ```json
 {
-  "took": 675,
+  "took": 68,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -174,11 +144,11 @@ This request returns all t-shirt aggregated by color and size:
         "_id": "2",
         "_score": 0.59534115,
         "_source": {
-          "name": "T-shirt",
-          "description": "Soft cotton t-shirt perfect for casual outings",
           "color": "blue",
           "size": "L",
-          "price": 19.99
+          "price": 19.99,
+          "name": "T-shirt",
+          "description": "Soft cotton t-shirt perfect for casual outings"
         }
       },
       {
@@ -186,11 +156,11 @@ This request returns all t-shirt aggregated by color and size:
         "_id": "1",
         "_score": 0.48764127,
         "_source": {
-          "name": "Cotton T-shirt",
-          "description": "Comfortable t-shirt for everyday wear",
           "color": "red",
           "size": "M",
-          "price": 19.99
+          "price": 19.99,
+          "name": "Cotton T-shirt",
+          "description": "Comfortable t-shirt for everyday wear"
         }
       }
     ]
@@ -230,6 +200,8 @@ This request returns all t-shirt aggregated by color and size:
 
 </details>
 
+### Searching multiple fields
+
 To search in both the `name` and `description` fields, use a `multi_match` query. Note that while the query searches across multiple text fields (`name` and `description`), the aggregations use the keyword fields (`color`, `size`) to ensure consistent facet values:
 
 ```json
@@ -246,14 +218,12 @@ POST /products/_search
   "aggs": {
     "colors": {
       "terms": {
-        "field": "color",
-        "size": 10
+        "field": "color"
       }
     },
     "sizes": {
       "terms": {
-        "field": "size",
-        "size": 10
+        "field": "size"
       }
     }
   }
@@ -263,7 +233,7 @@ POST /products/_search
 
 The response contains both t-shirts:
 
-<details open markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -271,7 +241,7 @@ The response contains both t-shirts:
 
 ```json
 {
-  "took": 34,
+  "took": 33,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -291,11 +261,11 @@ The response contains both t-shirts:
         "_id": "2",
         "_score": 1.0944791,
         "_source": {
-          "name": "T-shirt",
-          "description": "Soft cotton t-shirt perfect for casual outings",
           "color": "blue",
           "size": "L",
-          "price": 19.99
+          "price": 19.99,
+          "name": "T-shirt",
+          "description": "Soft cotton t-shirt perfect for casual outings"
         }
       },
       {
@@ -303,11 +273,11 @@ The response contains both t-shirts:
         "_id": "1",
         "_score": 0.9111493,
         "_source": {
-          "name": "Cotton T-shirt",
-          "description": "Comfortable t-shirt for everyday wear",
           "color": "red",
           "size": "M",
-          "price": 19.99
+          "price": 19.99,
+          "name": "Cotton T-shirt",
+          "description": "Comfortable t-shirt for everyday wear"
         }
       }
     ]
@@ -357,31 +327,36 @@ If you only need the facet counts without the actual search results, set `"size"
 POST /products/_search
 {
   "size": 0,
-  "query": {
-    "multi_match": {
-      "query": "cotton t-shirt",
-      "fields": ["name", "description"],
-      "operator": "and",
-      "type": "best_fields"
-    }
-  },
   "aggs": {
     "colors": {
       "terms": {
-        "field": "color",
-        "size": 10
-      }
-    },
-    "sizes": {
-      "terms": {
-        "field": "size",
-        "size": 10
+        "field": "color"
       }
     }
   }
 }
 ```
 {% include copy-curl.html %}
+
+### Specifying the number of results
+
+By default, `terms` aggregations return the top 10 most frequent terms. If you need more or fewer results, you can set the `size` parameter:
+
+```json
+POST /products/_search
+{
+  "aggs": {
+    "colors": {
+      "terms": {
+        "field": "color",
+        "size": 20
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
 
 ## Step 4: Filter by facet values
 
@@ -404,14 +379,12 @@ POST /products/_search
   "aggs": {
     "colors": {
       "terms": {
-        "field": "color",
-        "size": 10
+        "field": "color"
       }
     },
     "sizes": {
       "terms": {
-        "field": "size",
-        "size": 10
+        "field": "size"
       }
     }
   }
@@ -421,7 +394,7 @@ POST /products/_search
 
 The response contains the matching product:
 
-<details open markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -429,7 +402,7 @@ The response contains the matching product:
 
 ```json
 {
-  "took": 27,
+  "took": 38,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -449,11 +422,11 @@ The response contains the matching product:
         "_id": "2",
         "_score": 0.59534115,
         "_source": {
-          "name": "T-shirt",
-          "description": "Soft cotton t-shirt perfect for casual outings",
           "color": "blue",
           "size": "L",
-          "price": 19.99
+          "price": 19.99,
+          "name": "T-shirt",
+          "description": "Soft cotton t-shirt perfect for casual outings"
         }
       }
     ]
@@ -514,7 +487,7 @@ POST /products/_search
 
 The response buckets products by price:
 
-<details open markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -616,7 +589,7 @@ The response buckets products by price:
 
 ### Geographic ranges
 
-To use geographic ranges, first create a mapping that contains a `store_location` field of the `geo_point` type:
+Geographic ranges are useful for location-based faceting, such as finding stores within certain distances from a user's location. First, create a mapping that contains a `store_location` field of the `geo_point` type:
 
 ```json
 PUT /stores
@@ -673,7 +646,7 @@ POST /stores/_search
 
 The response contains all three stores bucketed by distance:
 
-<details open markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -784,8 +757,7 @@ POST /products/_search
   "aggs": {
     "all_colors": {
       "terms": {
-        "field": "color",
-        "size": 10
+        "field": "color"
       }
     },
     "sizes_for_red": {
@@ -795,8 +767,7 @@ POST /products/_search
       "aggs": {
         "sizes": {
           "terms": {
-            "field": "size",
-            "size": 10
+            "field": "size"
           }
         }
       }
@@ -808,7 +779,7 @@ POST /products/_search
 
 The response contains the matching t-shirt and the color buckets for all t-shirts:
 
-<details open markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -899,14 +870,12 @@ POST /products/_search
   "aggs": {
     "colors": {
       "terms": {
-        "field": "color",
-        "size": 10
+        "field": "color"
       }
     },
     "sizes": {
       "terms": {
-        "field": "size",
-        "size": 10
+        "field": "size"
       }
     }
   }
@@ -916,7 +885,7 @@ POST /products/_search
 
 The response contains non-red products with the color and size buckets:
 
-<details open markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -1022,14 +991,12 @@ POST /products/_search
   "aggs": {
     "all_colors": {
       "terms": {
-        "field": "color",
-        "size": 10
+        "field": "color"
       }
     },
     "sizes_for_selected_colors": {
       "terms": {
-        "field": "size",
-        "size": 10
+        "field": "size"
       }
     }
   }
@@ -1039,7 +1006,7 @@ POST /products/_search
 
 The response contains red and blue shirts:
 
-<details open markdown="block">
+<details markdown="block">
   <summary>
     Response
   </summary>
@@ -1123,7 +1090,7 @@ The response contains red and blue shirts:
 
 </details>
 
-### Multi-select with global aggregations
+### Multi-select faceting with global aggregations
 
 Sometimes you want to filter search results by a facet value while still showing users all available options in that facet category. Global aggregations bypass query filters to show unfiltered facet counts, allowing users to see what other choices are available. This pattern is common in e-commerce where selecting a color should still display all color options, even if some have zero results in the current filtered set.
 
@@ -1149,16 +1116,14 @@ POST /products/_search
       "aggs": {
         "color_counts": {
           "terms": {
-            "field": "color",
-            "size": 10
+            "field": "color"
           }
         }
       }
     },
     "sizes_for_red": {
       "terms": {
-        "field": "size",
-        "size": 10
+        "field": "size"
       }
     },
     "price_ranges_for_red": {
@@ -1173,6 +1138,12 @@ POST /products/_search
 {% include copy-curl.html %}
 
 The response contains the aggregations for all colors and filtered color:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -1269,9 +1240,11 @@ The response contains the aggregations for all colors and filtered color:
 }
 ```
 
+</details>
+
 ### Multi-select faceting with complex filtering
 
-When you have multiple facet fields with selections (for example, red and blue colors and M and L sizes), you need separate aggregations for each facet:
+When you have multiple facet fields with selections (for example, red and blue colors and M and L sizes), you need separate aggregations for each facet in order to maintain proper facet counts. Notice how each aggregation excludes its own filter to show accurate counts. The `colors` aggregation filters by size but not color, while the `sizes` aggregation filters by color but not size:
 
 ```json
 POST /products/_search
@@ -1300,8 +1273,7 @@ POST /products/_search
       "aggs": {
         "colors": {
           "terms": {
-            "field": "color",
-            "size": 10
+            "field": "color"
           }
         }
       }
@@ -1318,8 +1290,7 @@ POST /products/_search
       "aggs": {
         "sizes": {
           "terms": {
-            "field": "size",
-            "size": 10
+            "field": "size"
           }
         }
       }
@@ -1425,7 +1396,7 @@ PUT /products-advanced
 Index products with hierarchical data using the ingest pipeline to automatically generate hierarchy levels:
 
 ```json
-POST /products-advanced/_bulk?pipeline=hierarchy_pipeline
+POST /products-advanced/_bulk
 { "index": {"_id": 1} }
 { "name": "Cotton T-Shirt", "color": "red", "category_path": "Clothing>Shirts>T-Shirts" }
 { "index": {"_id": 2} }
@@ -1441,7 +1412,7 @@ POST /products-advanced/_bulk?pipeline=hierarchy_pipeline
 ```
 {% include copy-curl.html %}
 
-Query hierarchical facets to get all hierarchy levels in a single aggregation. This is useful for queries like "Show me all 'Athletic' products regardless of top category":
+Query hierarchical facets using multiple aggregations to obtain different views of your category data. You can aggregate on individual hierarchy levels or view the complete hierarchy paths in a single result:
 
 ```json
 POST /products-advanced/_search
@@ -1449,20 +1420,17 @@ POST /products-advanced/_search
   "aggs": {
     "top_categories": {
       "terms": {
-        "field": "category_level1",
-        "size": 10
+        "field": "category_level1"
       }
     },
     "subcategories": {
       "terms": {
-        "field": "category_level2", 
-        "size": 10
+        "field": "category_level2"
       }
     },
     "full_hierarchy": {
       "terms": {
-        "field": "category_hierarchy",
-        "size": 20
+        "field": "category_hierarchy"
       }
     }
   }
@@ -1471,6 +1439,12 @@ POST /products-advanced/_search
 {% include copy-curl.html %}
 
 The response contains a flat structure with separate aggregations results. The categories show counts with cross-category totals. For example, the `Athletic` subcategory shows combined count from both `Clothing` (1) and `Footwear` (1):
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -1686,6 +1660,8 @@ The response contains a flat structure with separate aggregations results. The c
 }
 ```
 
+</details>
+
 For hierarchical navigation, use nested aggregations:
 
 ```json
@@ -1694,22 +1670,19 @@ POST /products-advanced/_search
   "aggs": {
     "top_categories": {
       "terms": {
-        "field": "category_level1",
-        "size": 10
+        "field": "category_level1"
       },
       "aggs": {
         "subcategories": {
           "terms": {
-            "field": "category_level2",
-            "size": 10
+            "field": "category_level2"
           }
         }
       }
     },
     "full_hierarchy": {
       "terms": {
-        "field": "category_hierarchy",
-        "size": 20
+        "field": "category_hierarchy"
       }
     }
   }
@@ -1718,6 +1691,12 @@ POST /products-advanced/_search
 {% include copy-curl.html %}
 
 The response has a hierarchical structure with subcategories nested under their parent categories. For example, `Athletic` appears under both `Clothing` (1) and `Footwear` (1). Subcategory counts are scoped to their parent category:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -1943,7 +1922,9 @@ The response has a hierarchical structure with subcategories nested under their 
 }
 ```
 
-Prefix queries enable filtering to specific branches of a category hierarchy, allowing you to scope results to a particular category level and all its subcategories. To show products only in the `Clothing>Shirts` category and its subcategories, use the `keyword` field for exact prefix matching:
+</details>
+
+Prefix queries enable filtering on specific branches of a category hierarchy, allowing you to scope results to a particular category level and all its subcategories. To show products only in the `Clothing>Shirts` category and its subcategories, use the `keyword` field for exact prefix matching:
 
 ```json
 POST /products-advanced/_search
@@ -1958,6 +1939,12 @@ POST /products-advanced/_search
 {% include copy-curl.html %}
 
 The response contains the matching documents. Note that the athletic shirt is not returned:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -2035,6 +2022,8 @@ The response contains the matching documents. Note that the athletic shirt is no
 }
 ```
 
+</details>
+
 To aggregate by color on the `Clothing` category only, use the following request: 
 
 ```json
@@ -2048,8 +2037,7 @@ POST /products-advanced/_search
   "aggs": {
     "colors": {
       "terms": {
-        "field": "color",
-        "size": 10
+        "field": "color"
       }
     }
   }
@@ -2058,6 +2046,12 @@ POST /products-advanced/_search
 {% include copy-curl.html %}
 
 The response contains only `Clothing` products:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -2173,13 +2167,15 @@ The response contains only `Clothing` products:
 }
 ```
 
+</details>
+
 Similarly, you can aggregate the Clothing > Shirts category by specifying `"category_path": "Clothing>Shirts"` in the `prefix` query. Your application code can then strip prefixes for cleaner display (for example, changing `Clothing>Shirts` to `Shirts`) if necessary. OpenSearch does the heavy lifting (tokenizing and aggregating), while your application code handles the display formatting by stripping prefixes based on hierarchy level.
 
 
 ## Related articles
 
+- [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/)
 - [Supported field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/)
-- [Text analysis]({{site.url}}{{site.baseurl}}/analyzers/)
-- [Aggregations]({{site.url}}{{site.baseurl}}/aggregations/)
 - [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/)
 - [Query and filter context]({{site.url}}{{site.baseurl}}/query-dsl/query-filter-context/)
+- [Aggregations]({{site.url}}{{site.baseurl}}/aggregations/)
