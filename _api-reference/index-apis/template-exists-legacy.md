@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Template exists
+title: Template exists (deprecated)
 parent: Index APIs
 nav_order: 157
 ---
 
-This template API is deprecated. Please use the new [Check if index template exists]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/) API.
+This template API is deprecated. Please use the new [Check if index template exists]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index-template-exists/) API.
 {: .warning}
 
 # Check template exists

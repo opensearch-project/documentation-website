@@ -123,9 +123,7 @@ To get a list of all templates that match a pattern:
 GET _index_template/daily*
 ```
 
-## Check if index template exists
-
-To check if a specific index template exists:
+To check if a specific template exists:
 
 ```json
 HEAD _index_template/<name>

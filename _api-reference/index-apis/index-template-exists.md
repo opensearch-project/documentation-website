@@ -2,8 +2,8 @@
 layout: default
 title: Check index template exists
 parent: Index APIs
-nav_order: 97
---------------
+nav_order: 98
+---
 
 # Check index template existence
 
