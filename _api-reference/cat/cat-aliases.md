@@ -41,7 +41,7 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
-| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
+| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with `open`, `closed`, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
