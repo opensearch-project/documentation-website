@@ -49,3 +49,41 @@ The `select_entries` processor includes only `key1` and `key2` in the processed 
 ```json
 {"key1": "value1", "key2": "value2"}
 ```
+
+### Accessing nested fields
+
+Use `/` to access nested fields.
+
+For example, when your source contains the following events with nested fields:
+
+```
+{
+  "field1": "abc",
+  "field2": 123,
+  "field3": {
+    "name": "Alice",
+    "surname": "Smith"
+  },
+  "field4": {
+    "address": "123 Main St"
+  }
+}
+```
+
+You can use the following syntax to select subset of fields:
+
+```
+pipeline:
+  source:
+    ...
+  ....  
+  processor:
+    - select_entries:
+        include_keys:
+          - field1
+          - field2
+          - field3/name
+        select_when: '/field3/surname == "Smith"'
+  sink:
+```
+
