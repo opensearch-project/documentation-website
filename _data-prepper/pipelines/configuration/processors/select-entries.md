@@ -70,7 +70,7 @@ For example, when your source contains the following events with nested fields:
 }
 ```
 
-You can use the following syntax to select subset of fields:
+You can use the following syntax to select a subset of fields:
 
 ```
 pipeline:
