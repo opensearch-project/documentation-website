@@ -97,7 +97,7 @@ For more information, see the [related discussion](https://github.com/opensearch
 
 ### Permissions
 
-In order to execute creation of OBO token the user needs to be assigned `security:obo/create` permission.
+To create an OBO token, you must have the `security:obo/create` permission.
 
 ## Service Accounts
 
