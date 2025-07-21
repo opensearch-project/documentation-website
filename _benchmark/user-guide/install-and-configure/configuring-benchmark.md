@@ -16,6 +16,35 @@ OpenSearch Benchmark configuration data is stored in `~/.benchmark/benchmark.ini
 
 The file is separated into the following sections, which you can customize based on the needs of your cluster.
 
+## client_options
+
+This section explains how to customize client-level settings during benchmark execution using the `--client-options` command line flag.
+
+You can pass client-specific parameters to OpenSearch Benchmark using the `--client-options` flag. These parameters let you control low-level client behavior such as timeouts, authentication methods, and SSL settings.
+
+The `--client-options` flag accepts a comma-separated list of key-value pairs, as shown in the following example:
+
+```bash
+--client-options=timeout:120,verify_certs:false
+```
+
+You can customize `--client-options` with the following settings.
+
+| Option | Type | Description |
+| :---- | :---- | :---- |
+| `timeout` | Integer | Sets the request timeout value in seconds. |
+| `verify_certs` | Boolean | Determines whether to verify SSL certificates when connecting to the OpenSearch cluster. |
+
+This example runs a benchmark with a 2-minute timeout and disabled certificate verification:
+
+```bash
+opensearch-benchmark execute-test \
+--target-hosts=https://localhost:9200 \
+--pipeline=benchmark-only \
+--workload=geonames \
+--client-options=timeout:120,verify_certs:false
+```
+
 <!-- vale off -->
 ## meta
 <!-- vale on -->
