@@ -37,7 +37,7 @@ Field                | Type    | Required | Description
 `connection_timeout` | Duration | Optional | sdk timeout defines the time sdk maintains the connection to the client before timing out.
 `max_backoff`        | Duration | Optional | Maximum backoff time for exponential backoff. 
 `max_concurrency`    | Integer  | Optional | Max concurrency defined from the client side. 
-`max_retries`        | Integer | Optional | Total retries we want before failing`.  
+`max_retries`        | Integer | Optional | The maximum number of retries before failing.  
 
 
 #### Example configuration
