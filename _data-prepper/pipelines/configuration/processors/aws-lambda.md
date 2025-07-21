@@ -35,7 +35,7 @@ Field                | Type    | Required | Description
 `api_call_timeout`   | Duration | Optional | Api call timeout defines the time sdk maintains the api call to complete before timing out.
 `base_delay`         | Duration | Optional | Base delay for exponential backoff.
 `connection_timeout` | Duration | Optional | sdk timeout defines the time sdk maintains the connection to the client before timing out.
-`max_backoff`        | Duration | Optional | Maximum backoff time for exponential backoff. 
+`max_backoff`        | Duration | Optional | The maximum backoff time for exponential backoff, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
 `max_concurrency`    | Integer  | Optional | Max concurrency defined from the client side. 
 `max_retries`        | Integer | Optional | The maximum number of retries before failing.  
 
