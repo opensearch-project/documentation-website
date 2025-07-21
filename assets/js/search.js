@@ -284,7 +284,7 @@ window.doResultsPageSearch = async (query, type, version) => {
     const searchResultsContainer = document.getElementById('searchPageResultsContainer');
 
     try {
-        const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${version}&t=${type}`);
+        const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${version}&t=DOCS`);
         const data = await response.json();
         // Clear any previous search results
         searchResultsContainer.innerHTML = '';
