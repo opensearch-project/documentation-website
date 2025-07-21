@@ -64,13 +64,10 @@ opensearch-benchmark execute-test \
 --workload-params="bulk_size:500,index_name:nyc_custom"
 ```
 
-To find available workload parameters for a given workload, use the following steps:
+Available workload parameters can be found in the `README` of each workload in the [OpenSearch Benchmark Workloads GitHub repository](https://github.com/opensearch-project/opensearch-benchmark-workloads).
+{: .tip}
 
-1. Navigate to the workload’s directory in the [OpenSearch Benchmark Workloads GitHub repository](https://github.com/opensearch-project/opensearch-benchmark-workloads).
-2. Open the `workload.json` file.
-3. Look for parameter definitions under the `params` section or within individual operation templates.
 
-Each workload documents its available parameters in the `workload.json` file, making it the authoritative source for customizing benchmark runs.
 
 
 ## Step 3: Validate the test
