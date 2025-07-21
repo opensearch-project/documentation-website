@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 107
 ---
 
-Post template API is deprecated. Use the new [Create or update index template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/) API.
+Post template API is deprecated. Use the new [Create or Update Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/) API.
 {: .note}
 
 # Post template
@@ -33,7 +33,7 @@ All query parameters are optional.
 | Parameter        | Type    | Description                                                                                                       |
 | :--------------- | :------ | :---------------------------------------------------------------------------------------------------------------- |
 | `order`          | Integer | The order in which to apply the template if multiple templates match. Higher values are applied last. Default is `0`. |
-| `create`         | Boolean | If true, the operation will fail if a template with the same name already exists. Default is `false`.             |
+| `create`         | Boolean | If true, the operation fails if a template with the same name already exists. Default is `false`.             |
 | `cluster_manager_timeout` | Time    | The time to wait for connection to the cluster manager node. Default is `30s`.                                        |
 
 ## Request body

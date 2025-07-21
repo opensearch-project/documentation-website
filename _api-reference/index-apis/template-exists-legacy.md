@@ -5,10 +5,10 @@ parent: Index APIs
 nav_order: 157
 ---
 
-This template API is deprecated. Use the new [Check if index template exists]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index-template-exists/) API.
+The Template Exists API is deprecated. Use the new [Index Template Exists]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index-template-exists/) API.
 {: .warning}
 
-# Check template exists
+# Template exists
 
 The template exists API operation is used to verify whether one or more index templates created using the legacy `/_template` endpoint exist.
 

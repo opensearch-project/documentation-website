@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 96
 ---
 
-Get template API is deprecated. Use the new [get index template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-index-template/) API.
+Get template API is deprecated. Use the new [Get Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-index-template/) API.
 {: .warning}
 
 # Get template

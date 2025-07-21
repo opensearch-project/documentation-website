@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Check index template exists
+title: Index template exists
 parent: Index APIs
 nav_order: 98
 ---
 
-# Check index template existence
+# Index template exists
 
 The index template exists API operation is used to verify whether an index template exists.
 
@@ -41,13 +41,13 @@ HEAD /_index_template/my-template
 
 ## Example responses
 
-If the template exists:
+If the template exists, the response returns a success code:
 
 ```json
 200 OK
 ```
 
-If the template does not exist:
+If the template does not exist, the response returns a failure code:
 
 ```json
 404 Not Found
