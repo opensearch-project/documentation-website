@@ -6,10 +6,10 @@ parent: Index APIs
 nav_order: 65
 ---
 
-Delete template API is deprecated. Use the new [Delete Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index-template/) API.
-{: .warning}
-
 # Delete template
+
+Delete Template API is deprecated. Use the new [Delete Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index-template/) API.
+{: .warning}
 
 Delete template API operation deletes an index template created using the legacy `/_template` endpoint.
 

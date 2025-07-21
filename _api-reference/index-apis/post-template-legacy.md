@@ -5,10 +5,10 @@ parent: Index APIs
 nav_order: 107
 ---
 
-Post template API is deprecated. Use the new [Create or Update Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/) API.
-{: .note}
-
 # Post template
+
+Post Template API is deprecated. Use the new [Create or Update Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/) API.
+{: .warning}
 
 The post template API operation is used to create or update an index template. Templates define settings, mappings, and aliases applied automatically when a matching index is created.
 

@@ -9,7 +9,7 @@ nav_order: 50
 **Introduced 1.0**
 {: .label .label-purple }
 
-The nodes API makes it possible to retrieve information about individual nodes within your cluster. 
+The Nodes API makes it possible to retrieve information about individual nodes within your cluster. 
 
 ## Node filters
 

@@ -5,10 +5,10 @@ parent: Index APIs
 nav_order: 96
 ---
 
-Get template API is deprecated. Use the new [Get Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-index-template/) API.
-{: .warning}
-
 # Get template
+
+Get Template API is deprecated. Use the new [Get Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-index-template/) API.
+{: .warning}
 
 The get template API operation is used to retrieve one or more index templates created using the legacy `/_template` endpoint.
 

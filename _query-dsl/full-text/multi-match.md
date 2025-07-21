@@ -427,7 +427,7 @@ The response contains the only document in which both `John` and `Doe` are prese
 }
 ```
 
-You can use the Validate API operation to gain insight into how the preceding query is executed:
+You can use the validate API operation to gain insight into how the preceding query is executed:
 
 ```json
 GET /customers/_validate/query?explain

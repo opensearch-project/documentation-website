@@ -417,7 +417,7 @@ POST _plugins/_anomaly_detection/detectors/_validate/detector
 }
 ```
 
-If the validate detector API doesn’t find any issue in the detector configuration, it returns an empty response:
+If the Validate Detector API doesn’t find any issue in the detector configuration, it returns an empty response:
 
 #### Example response
 
@@ -425,7 +425,7 @@ If the validate detector API doesn’t find any issue in the detector configurat
 {}
 ```
 
-If the validate detector API finds an issue, it returns a message explaining what's wrong with the configuration. In this example, the feature query aggregates over a field that doesn’t exist in the data source:
+If the Validate Detector API finds an issue, it returns a message explaining what's wrong with the configuration. In this example, the feature query aggregates over a field that doesn’t exist in the data source:
 
 #### Example response
 
@@ -496,11 +496,11 @@ POST _plugins/_anomaly_detection/detectors/_validate/model
 }
 ```
 
-If the validate detector API finds areas of improvement with your configuration, it returns a response with suggestions about how you can change your configuration to improve model training.
+If the Validate Detector API finds areas of improvement with your configuration, it returns a response with suggestions about how you can change your configuration to improve model training.
 
 #### Sample Responses
 
-In this example, the validate detector API returns a response indicating that changing the detector interval length to at least four minutes can increase the chances of successful model training.
+In this example, the Validate Detector API returns a response indicating that changing the detector interval length to at least four minutes can increase the chances of successful model training.
 
 ```json
 {
