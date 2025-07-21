@@ -31,7 +31,7 @@ Field                | Type    | Required | Description
 `tags_on_match_failure` | List | Optional |  A list of tags to add to events when Lambda matching fails or encounters an unexpected error.
 `sdk_timeout`        | Duration| Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
- `client`            | Object  | Optional | The client configuration.
+`client`            | Object  | Optional | The client configuration.
 `api_call_timeout`   | Duration | Optional | The time SDK maintains the API call to complete before timing out, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
 `base_delay`         | Duration | Optional | The base delay for exponential backoff, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
 `connection_timeout` | Duration | Optional | The time SDK maintains the connection to the client before timing out, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
