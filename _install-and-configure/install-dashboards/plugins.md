@@ -48,7 +48,7 @@ The following table lists available OpenSearch Dashboards plugins. All listed pl
 | `securityAnalyticsDashboards` | [security-analytics-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin)| 2.4.0 |
 | `securityDashboards` | [security-dashboards-plugin](https://github.com/opensearch-project/security-dashboards-plugin) | 1.0.0 |
 
-_<sup>*</sup>`dashboardNotebooks` was merged in to the Observability plugin with the release of OpenSearch 1.2.0._<br>
+_<sup>*</sup>`dashboardNotebooks` was merged into the Observability plugin with the release of OpenSearch 1.2.0._<br>
 
 ## Installing a plugin
 
@@ -95,4 +95,4 @@ Then remove all associated entries from `opensearch_dashboards.yml` and restart 
 
 ## Updating plugins
 
-OpenSearch Dashboards doesn’t update plugins. Instead, you must [remove the old version](#removing-a-plugin), [reinstall the plugin](#installing-a-plugin), and restart OpenSearch Dashboards.
+OpenSearch Dashboards doesn't update plugins. Instead, you must [remove the old version](#removing-a-plugin), [reinstall the plugin](#installing-a-plugin), and restart OpenSearch Dashboards.
