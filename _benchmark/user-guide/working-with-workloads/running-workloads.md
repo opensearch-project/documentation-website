@@ -43,7 +43,7 @@ If you want to run the test in test mode to make sure that your workload operate
 
 ### Working with `--workload-params`
 
-You can customize the behavior of a workload by passing workload-specific parameters using the `--workload-params` option. This flag accepts a comma-separated list of key-value pairs that override default values defined in the workload’s `workload.json` file.
+You can customize the behavior of a workload by passing workload-specific parameters using the `--workload-params` option. This flag accepts a comma-separated list of key-value pairs that override default values defined in the workload's `workload.json` file.
 
 For example, some workloads let you configure the number of documents indexed, the number of clients used for query execution, or the index name. These parameters can be critical for tailoring benchmarks to your specific use case or infrastructure constraints.
 
@@ -53,7 +53,7 @@ To pass workload parameters, use the following syntax:
 --workload-params="number_of_documents:100000,index_name:custom-index"
 ```
 
-Add this option to your `execute-test` command as shown in the following example:
+Add this option to your `execute-test` command, as shown in the following example:
 
 ```bash
 opensearch-benchmark execute-test \
