@@ -8,7 +8,7 @@ redirect_from:
  - /api-reference/explain/
 ---
 
-# Explain
+# Explain API
 **Introduced 1.0**
 {: .label .label-purple }
 

@@ -7,7 +7,7 @@ redirect_from:
   - /api-reference/profile/
 ---
 
-# Profile
+# Profile API
 **Introduced 1.0**
 {: .label .label-purple }
 

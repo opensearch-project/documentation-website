@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 61
 ---
 
-# Refresh index 
+# Refresh Index API
 Introduced 1.0
 {: .label .label-purple }
 

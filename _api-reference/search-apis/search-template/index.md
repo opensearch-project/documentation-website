@@ -11,7 +11,7 @@ redirect_from:
   - /api-reference/search-apis/search-template/
 ---
 
-# Search templates
+# Search Templates API
 
 You can convert your full-text queries into a search template to accept user input and dynamically insert it into your query.
 

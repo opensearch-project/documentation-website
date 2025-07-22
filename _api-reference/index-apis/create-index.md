@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/rest-api/create-index/
 ---
 
-# Create index
+# Create Index API
 **Introduced 1.0**
 {: .label .label-purple }
 

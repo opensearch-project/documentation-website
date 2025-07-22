@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 50
 ---
 
-# Delete a model group
+# Delete Model Group API
 
 You can only delete a model group if it does not contain any model versions. 
 {: .important}

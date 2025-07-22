@@ -5,7 +5,7 @@ parent: Snapshot APIs
 nav_order: 10
 ---
 
-# Clone snapshot
+# Clone Snapshot API
 Introduced 1.0
 {: .label .label-purple }
 

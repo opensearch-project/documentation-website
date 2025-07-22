@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 15
 ---
 
-# Update an agent
+# Update Agent API
 **Introduced 3.1**
 {: .label .label-purple }
 

@@ -5,7 +5,7 @@ parent: Snapshot APIs
 nav_order: 4
 ---
 
-# Verify snapshot repository
+# Verify Snapshot Repository API
 **Introduced 1.0**
 {: .label .label-purple }
 

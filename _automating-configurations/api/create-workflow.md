@@ -5,7 +5,7 @@ parent: Workflow APIs
 nav_order: 10
 ---
 
-# Create or update a workflow
+# Create or Update Workflow API
 
 Creating a workflow adds the content of a workflow template to the flow framework system index. You can provide workflows in JSON format (by specifying `Content-Type: application/json`) or YAML format (by specifying `Content-Type: application/yaml`). By default, the workflow is validated to help identify invalid configurations, including:
 
@@ -150,12 +150,12 @@ YAML templates permit comments.
 The following is an example YAML template for registering and deploying an externally hosted model:
 
 ```yaml
-# This name is required
+# This Name Is Required API
 name: createconnector-registerremotemodel-deploymodel
-# Other fields are optional but useful
+# Other Fields Are Optional But Useful API
 description: This template creates a connector to a remote model, registers it, and
   deploys that model
-# Other templates with a similar use case can be searched
+# Other Templates With A Similar Use Case Can Be Searched API
 use_case: REMOTE_MODEL_DEPLOYMENT
 version:
   # Templates may be versioned by their authors
@@ -164,7 +164,7 @@ version:
   compatibility:
   - 2.12.0
   - 3.0.0
-# One or more workflows can be included, presently only provision is supported
+# One Or More Workflows Can Be Included, Presently Only Provision Is Supported API
 workflows:
   provision:
     # These nodes are the workflow steps corresponding to ML Commons APIs

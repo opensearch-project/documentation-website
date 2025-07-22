@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 6
 ---
 
-# Create or Update Alias
+# Create Or Update Alias API
 
 **Introduced 1.0**
 {: .label .label-purple }

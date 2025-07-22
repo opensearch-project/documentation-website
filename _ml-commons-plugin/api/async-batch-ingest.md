@@ -7,7 +7,7 @@ has_toc: false
 nav_order: 80
 ---
 
-# Asynchronous batch ingestion
+# Asynchronous Batch Ingestion API
 **Deprecated 3.0**
 {: .label .label-red }
 

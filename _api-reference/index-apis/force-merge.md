@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 37
 ---
 
-# Force merge
+# Force Merge API
 **Introduced 1.0**
 {: .label .label-purple }
 

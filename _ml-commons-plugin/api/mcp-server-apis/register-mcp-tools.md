@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Register MCP tools
+# Register MCP Tools API
 **Introduced 3.0**
 {: .label .label-purple }
 

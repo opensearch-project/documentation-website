@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 27
 ---
 
-# Get index template
+# Get Index Template API
 
 The Get Index Template API returns information about one or more index templates.
 

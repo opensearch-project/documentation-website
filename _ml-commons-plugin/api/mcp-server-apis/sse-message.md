@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 60
 ---
 
-# MCP SSE message
+# MCP SSE Message API
 **Introduced 3.0**
 {: .label .label-purple }
 

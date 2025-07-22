@@ -7,7 +7,7 @@ has_children: true
 nav_order: 10
 ---
 
-# Pull-based ingestion management
+# Pull-based Ingestion Management API
 **Introduced 3.0**
 {: .label .label-purple }
 

@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 50
 ---
 
-# Delete an agent
+# Delete Agent API
 **Introduced 2.13**
 {: .label .label-purple }
 

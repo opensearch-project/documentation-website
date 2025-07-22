@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Create or update a memory
+# Create Or Update Memory API
 **Introduced 2.12**
 {: .label .label-purple }
 
