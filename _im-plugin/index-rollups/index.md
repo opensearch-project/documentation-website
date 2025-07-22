@@ -17,7 +17,7 @@ For example, say you collect CPU consumption data every five seconds and store i
 
 You can use index rollup in three ways:
 
-1. Use the Index Rollup API for an on-demand index rollup job that operates on an index that's not being actively ingested, such as a rolled-over index. For example, you can perform an index rollup operation to reduce data collected at a 5-minute interval to a weekly average for trend analysis.
+1. Use the Index Rollup API for an on-demand index rollup job that operates on an index that's not being actively ingested, such as a rolled-over index. For example, you can perform an index rollup operation to aggregate data collected at a 5-minute interval to a weekly average for trend analysis.
 2. Use the OpenSearch Dashboards UI to create an index rollup job that runs on a defined schedule. You can also set it up to roll up your indexes as it’s being actively ingested. For example, you can continuously roll up Logstash indexes from a five second interval to a one hour interval.
 3. Specify the index rollup job as an ISM action for complete index management. This allows you to roll up an index after a certain event such as a rollover, index age reaching a certain point, index becoming read-only, and so on. You can also have rollover and index rollup jobs running in sequence, where the rollover first moves the current index to a warm node and then the index rollup job creates a new index with the minimized data on the hot node.
 

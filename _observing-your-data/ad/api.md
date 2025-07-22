@@ -417,7 +417,7 @@ POST _plugins/_anomaly_detection/detectors/_validate/detector
 }
 ```
 
-If the Validate Detector API doesn't find any issue in the detector configuration, it returns an empty response:
+If the Validate Detector API doesn't find any issues in the detector configuration, it returns an empty response:
 
 #### Example response
 
@@ -500,7 +500,7 @@ If the Validate Detector API identifies areas of improvement in your configurati
 
 #### Sample Responses
 
-In this example, the Validate Detector API returns a response indicating that changing the detector interval length to at least 4 minutes can increase the chances of successful model training.
+In this example, the Validate Detector API returns a response indicating that changing the detector interval length to at least 4 minutes can increase the probability of successful model training.
 
 ```json
 {

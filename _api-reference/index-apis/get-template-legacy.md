@@ -74,7 +74,7 @@ The response object contains the following fields.
 
 | Field            | Type             | Description                                                                    |
 | ---------------- | ---------------- | ------------------------------------------------------------------------------ |
-| `order`          | Integer          | The execution order of the template. Templates with higher order are applied last. |
+| `order`          | Integer          | An integer that determines the priority of the template when multiple templates match an index. Templates with a higher order value have higher precedence and are applied after lower-order templates, allowing them to override conflicting settings or mappings. |
 | `index_patterns` | Array of strings | The list of index name patterns to which the template applies.  |
 | `settings`       | Object           | The index-level settings defined in the template. |
 | `mappings`       | Object           | The field mappings defined for indexes that match the pattern. |
