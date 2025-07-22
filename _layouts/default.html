@@ -168,7 +168,7 @@ layout: table_wrappers
                     {% assign collection_config = site.opensearch_collection.collections[page.collection] %}
                     {% if collection_config %}
                       <li class="breadcrumb-nav-list-item">
-                        <a href="/{{ page.collection }}/">{{ collection_config.name }}</a>
+                        <a href="{{site.url}}{{site.baseurl}}/{{ page.collection }}/">{{ collection_config.name }}</a>
                       </li>
                     {% endif %}
                   {% endif %}
