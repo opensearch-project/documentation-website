@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Get task
+# Get Task API
 
 You can retrieve information about a task using the `task_id`.
 

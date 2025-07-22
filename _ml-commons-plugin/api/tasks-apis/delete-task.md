@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 20
 ---
 
-# Delete a task
+# Delete Task API
 
 Deletes a task based on the `task_id`.
 

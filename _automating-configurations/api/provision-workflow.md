@@ -5,7 +5,7 @@ parent: Workflow APIs
 nav_order: 30
 ---
 
-# Provision a workflow
+# Provision Workflow API
 
 Provisioning a workflow is a one-time setup process usually performed by a cluster administrator to create resources that will be used by end users.  
 

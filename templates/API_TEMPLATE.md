@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Example API 
+title: Example operation
 parent: 
 nav_order: 
 ---
 
-# Example API 
+# Example Operation API 
 Introduced 1.0
 {: .label .label-purple }
 

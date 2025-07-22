@@ -5,7 +5,7 @@ parent: Nodes APIs
 nav_order: 30
 ---
 
-# Nodes hot threads
+# Nodes Hot Threads API
 **Introduced 1.0**
 {: .label .label-purple }
 

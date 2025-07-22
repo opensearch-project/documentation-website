@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 10
 ---
 
-# Clear cache
+# Clear Cache API
 **Introduced 1.0**
 {: .label .label-purple }
 

@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT cluster manager
-parent: CAT API
+parent: CAT APIs
 redirect_from:
  - /opensearch/rest-api/cat/cat-master/
 nav_order: 30
 has_children: false
 ---
 
-# CAT cluster_manager
+# CAT Cluster Manager API
 **Introduced 1.0**
 {: .label .label-purple }
 

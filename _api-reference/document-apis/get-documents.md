@@ -7,7 +7,7 @@ redirect_from:
  - /opensearch/rest-api/document-apis/get-documents/
 ---
 
-# Get document
+# Get Document API
 **Introduced 1.0**
 {: .label .label-purple }
 

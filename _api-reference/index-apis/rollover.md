@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 63
 ---
 
-# Roll over index
+# Roll Over Index API
 Introduced 1.0
 {: .label .label-purple }
 

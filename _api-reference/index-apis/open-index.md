@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/rest-api/index-apis/open-index/
 ---
 
-# Open index
+# Open Index API
 **Introduced 1.0**
 {: .label .label-purple }
 

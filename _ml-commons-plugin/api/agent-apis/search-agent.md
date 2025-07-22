@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 30
 ---
 
-# Search for an agent
+# Search Agent API
 **Introduced 2.13**
 {: .label .label-purple }
 

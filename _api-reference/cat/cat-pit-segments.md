@@ -1,11 +1,11 @@
 ---
 layout: default
 title: CAT PIT segments
-parent: CAT API
+parent: CAT APIs
 nav_order: 46
 ---
 
-# CAT PIT segments
+# CAT Pit Segments API
 Introduced 2.4
 {: .label .label-purple }
 

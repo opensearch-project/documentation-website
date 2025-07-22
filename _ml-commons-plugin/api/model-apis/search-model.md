@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 35
 ---
 
-# Search for a model
+# Search Model API
 
 You can use this command to search for models you've already created.
 

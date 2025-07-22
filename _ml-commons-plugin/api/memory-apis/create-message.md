@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 40
 ---
 
-# Create or update a message
+# Create Or Update Message API
 **Introduced 2.12**
 {: .label .label-purple }
 

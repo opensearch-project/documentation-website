@@ -5,7 +5,7 @@ parent: Workflow APIs
 nav_order: 80
 ---
 
-# Delete a workflow
+# Delete Workflow API
 
 When you no longer need a workflow template, you can delete it by calling the Delete Workflow API.
 

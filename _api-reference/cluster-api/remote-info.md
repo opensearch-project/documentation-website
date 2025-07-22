@@ -8,7 +8,7 @@ redirect_from:
  - /api-reference/remote-info/
 ---
 
-# Remote cluster information
+# Remote Cluster Information API
 **Introduced 1.0**
 {: .label .label-purple }
 

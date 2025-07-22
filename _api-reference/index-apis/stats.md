@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 72
 ---
 
-# Index Stats 
+# Index Stats API 
 **Introduced 1.0**
 {: .label .label-purple }
 

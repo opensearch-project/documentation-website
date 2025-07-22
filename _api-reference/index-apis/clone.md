@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/rest-api/index-apis/clone/
 ---
 
-# Clone index
+# Clone Index API
 **Introduced 1.0**
 {: .label .label-purple }
 

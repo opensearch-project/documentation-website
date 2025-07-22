@@ -2,7 +2,7 @@
 layout: default
 title: Position increment gap
 parent: Mapping parameters
-grand_parent: Mapping and field types
+
 nav_order: 140
 has_children: false
 has_toc: false

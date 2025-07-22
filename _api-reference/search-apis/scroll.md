@@ -8,7 +8,7 @@ redirect_from:
  - /api-reference/scroll/
 ---
 
-# Scroll
+# Scroll API
 **Introduced 1.0**
 {: .label .label-purple }
 

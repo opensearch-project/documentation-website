@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT allocation
-parent: CAT API
+parent: CAT APIs
 redirect_from:
 - /opensearch/rest-api/cat/cat-allocation/
 nav_order: 5
 has_children: false
 ---
 
-# CAT allocation
+# CAT Allocation API
 **Introduced 1.0**
 {: .label .label-purple }
 

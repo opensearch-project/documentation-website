@@ -8,7 +8,7 @@ redirect_from:
  - /api-reference/multi-search/
 ---
 
-# Multi-search 
+# Multi-search API
 **Introduced 1.0**
 {: .label .label-purple }
 

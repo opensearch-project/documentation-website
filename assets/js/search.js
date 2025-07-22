@@ -80,7 +80,7 @@
         };
 
         const getBreadcrumbs = result => {
-            const crumbs = [...result.ancestors];
+            const crumbs = [...result.ancestors].filter(crumb => crumb && crumb.trim());
 
             if (result.type === 'DOCS') crumbs.unshift(`OpenSearch ${result.versionLabel || result.version}`);
             else if (result.type) crumbs.unshift(result.type);
@@ -295,7 +295,7 @@ window.doResultsPageSearch = async (query, type, version) => {
               resultElement.classList.add('search-page--results--display--container--item');
 
               const contentCite = document.createElement('cite');
-              const crumbs = [...result.ancestors];
+              const crumbs = [...result.ancestors].filter(crumb => crumb && crumb.trim());
               if (result.type === 'DOCS') crumbs.unshift(`OpenSearch ${result.versionLabel || result.version}`);
               else if (result.type) crumbs.unshift(result.type);
               contentCite.textContent = crumbs.join(' › ')?.replace?.(/</g, '&lt;');

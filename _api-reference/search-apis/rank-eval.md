@@ -7,7 +7,7 @@ redirect_from:
   - /api-reference/rank-eval/
 ---
 
-# Ranking evaluation
+# Ranking Evaluation API
 **Introduced 1.0**
 {: .label .label-purple }
 

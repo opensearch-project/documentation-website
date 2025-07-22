@@ -5,7 +5,7 @@ parent: Workflow APIs
 nav_order: 60
 ---
 
-# Search for a workflow
+# Search Workflow API
 
 You can retrieve created workflows with their `workflow_id` or search for workflows by using a query matching a field. You can use the `use_case` field to search for similar workflows.
 

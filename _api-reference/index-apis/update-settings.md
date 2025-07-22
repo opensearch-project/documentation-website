@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/rest-api/index-apis/update-settings/
 ---
 
-# Update settings
+# Update Settings API
 **Introduced 1.0**
 {: .label .label-purple }
 

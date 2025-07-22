@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Common REST Parameters
+title: Common REST parameters
 nav_order: 93
 redirect_from:
   - /opensearch/common-parameters/
 ---
 
-# Common REST parameters
+# Common REST parameters 
 **Introduced 1.0**
 {: .label .label-purple }
 

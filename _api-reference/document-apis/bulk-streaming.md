@@ -7,7 +7,7 @@ redirect_from:
  - /opensearch/rest-api/document-apis/bulk/streaming/
 ---
 
-# Streaming bulk
+# Streaming Bulk API
 **Introduced 2.17.0**
 {: .label .label-purple }
 

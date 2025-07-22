@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT segments
-parent: CAT API
+parent: CAT APIs
 nav_order: 55
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-segments/
 ---
 
-# CAT segments
+# CAT Segments API
 **Introduced 1.0**
 {: .label .label-purple }
 

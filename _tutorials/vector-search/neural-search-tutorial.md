@@ -3,7 +3,6 @@ layout: default
 title: Getting started with semantic and hybrid search
 has_children: false
 parent: Vector search
-grand_parent: Tutorials
 nav_order: 3
 redirect_from:
   - /ml-commons-plugin/semantic-search/
