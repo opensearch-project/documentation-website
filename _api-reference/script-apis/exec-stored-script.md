@@ -5,7 +5,7 @@ parent: Script APIs
 nav_order: 2
 ---
 
-# Execute Painless stored script
+# Execute Painless Stored Script API
 **Introduced 1.0**
 {: .label .label-purple }
 

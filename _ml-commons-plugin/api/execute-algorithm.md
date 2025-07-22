@@ -5,7 +5,7 @@ parent: ML Commons APIs
 nav_order: 90
 ---
 
-# Execute algorithm
+# Execute Algorithm API
 
 Some algorithms, such as [Localization]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms#localization), don't require trained models. You can run no-model-based algorithms using the `execute` API.
 

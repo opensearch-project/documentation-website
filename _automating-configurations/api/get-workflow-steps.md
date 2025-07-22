@@ -5,7 +5,7 @@ parent: Workflow APIs
 nav_order: 50
 ---
 
-# Get workflow steps
+# Get Workflow Steps API
 
 This API returns a list of workflow steps, including their required inputs, outputs, default timeout values, and required plugins. For example, for the `register_remote_model` step, the Get Workflow Steps API returns the following information:
 

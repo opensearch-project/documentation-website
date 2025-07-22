@@ -5,7 +5,7 @@ has_children: true
 nav_order: 50
 ---
 
-# Nodes API
+# Nodes APIs
 **Introduced 1.0**
 {: .label .label-purple }
 

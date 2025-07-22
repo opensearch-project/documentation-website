@@ -5,7 +5,7 @@ parent: ML Commons APIs
 nav_order: 110
 ---
 
-# Stats
+# Stats API
 
 The Stats API provides basic statistics about ML Commons, such as the number of running tasks. To monitor machine learning workflows using more detailed time-series metrics, see [Monitoring machine learning workflows]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/metrics/getting-started/#monitoring-machine-learning-workflows).
 {: .note }

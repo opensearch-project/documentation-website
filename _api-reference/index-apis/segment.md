@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 64
 ---
 
-# Segment
+# Segment API
 Introduced 1.0
 {: .label .label-purple }
 

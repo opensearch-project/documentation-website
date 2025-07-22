@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 62
 ---
 
-# Resolve index
+# Resolve Index API
 
 The Resolve Index API helps you understand how OpenSearch resolves aliases, data streams, and concrete indexes that match a specified name or wildcard expression.
 

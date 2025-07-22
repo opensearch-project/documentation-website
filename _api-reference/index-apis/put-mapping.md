@@ -9,7 +9,7 @@ redirect_from:
   - /opensearch/rest-api/update-mapping/
 ---
 
-# Create or update mappings
+# Create Or Update Mappings API
 **Introduced 1.0**
 {: .label .label-purple }
 

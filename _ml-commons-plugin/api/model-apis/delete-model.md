@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 50
 ---
 
-# Delete a model
+# Delete Model API
 
 Deletes a model based on the `model_id`.
 

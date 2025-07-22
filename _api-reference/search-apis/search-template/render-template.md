@@ -9,7 +9,7 @@ redirect_from:
   - /api-reference/search-apis/render-template/
 ---
 
-# Render template 
+# Render Template API
 
 The Render Template API previews the final query generated from a [search template]({{site.url}}{{site.baseurl}}/search-plugins/search-template/) by substituting parameters without executing the search.
 

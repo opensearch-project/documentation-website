@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 30
 ---
 
-# Delete a memory
+# Delete Memory API
 **Introduced 2.12**
 {: .label .label-purple }
 

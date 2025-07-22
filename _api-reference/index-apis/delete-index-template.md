@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 28
 ---
 
-# Delete index template
+# Delete Index Template API
 
 The Delete Index Template API deletes one or more index templates.
 

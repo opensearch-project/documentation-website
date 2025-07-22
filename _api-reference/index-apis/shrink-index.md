@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/rest-api/index-apis/shrink-index/
 ---
 
-# Shrink index
+# Shrink Index API
 **Introduced 1.0**
 {: .label .label-purple }
 

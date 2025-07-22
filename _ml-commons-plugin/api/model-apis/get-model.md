@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 30
 ---
 
-# Get a model
+# Get Model API
 
 You can retrieve model information using the `model_id`.
 

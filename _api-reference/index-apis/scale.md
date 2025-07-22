@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 50
 ---
 
-# Scale
+# Scale API
 **Introduced 3.0**
 {: .label .label-purple }
 

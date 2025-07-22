@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT thread pool
-parent: CAT API
+parent: CAT APIs
 nav_order: 75
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-thread-pool/
 ---
 
-# CAT thread pool
+# CAT Thread Pool API
 **Introduced 1.0**
 {: .label .label-purple }
 

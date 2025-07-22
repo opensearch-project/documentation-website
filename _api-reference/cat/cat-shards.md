@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT shards
-parent: CAT API
+parent: CAT APIs
 nav_order: 60
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-shards/
 ---
 
-# CAT shards
+# CAT Shards API
 **Introduced 1.0**
 {: .label .label-purple }
 
