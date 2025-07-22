@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT indices
-parent: CAT API
+parent: CAT APIs
 nav_order: 25
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-indices/
 ---
 
-# CAT indices
+# Cat Indices API
 **Introduced 1.0**
 {: .label .label-purple }
 

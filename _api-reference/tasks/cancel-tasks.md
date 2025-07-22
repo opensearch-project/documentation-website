@@ -1,11 +1,11 @@
 ---
 layout: default
 title: Cancel tasks
-parent: Tasks API
+parent: Tasks APIs
 nav_order: 30
 ---
 
-# Cancel tasks
+# Cancel Tasks API
 **Introduced 1.0**
 {: .label .label-purple }
 

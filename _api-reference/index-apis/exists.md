@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/rest-api/index-apis/exists/
 ---
 
-# Index exists
+# Index Exists API
 **Introduced 1.0**
 {: .label .label-purple }
 

@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 7
 ---
 
-# Blocks
+# Blocks API
 **Introduced 1.0**
 {: .label .label-purple }
 

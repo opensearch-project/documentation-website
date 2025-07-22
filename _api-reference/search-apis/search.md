@@ -8,7 +8,7 @@ redirect_from:
   - /api-reference/search/
 ---
 
-# Search
+# Search API
 **Introduced 1.0**
 {: .label .label-purple }
 

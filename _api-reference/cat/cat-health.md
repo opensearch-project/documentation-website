@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT health
-parent: CAT API
+parent: CAT APIs
 nav_order: 20
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-health/
 ---
 
-# CAT health
+# Cat Health API
 **Introduced 1.0**
 {: .label .label-purple }
 

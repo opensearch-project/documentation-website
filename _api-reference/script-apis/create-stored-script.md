@@ -5,7 +5,7 @@ parent: Script APIs
 nav_order: 1
 ---
 
-# Create or update stored script
+# Create Or Update Stored Script API
 **Introduced 1.0**
 {: .label .label-purple }
 

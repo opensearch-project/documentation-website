@@ -7,7 +7,7 @@ redirect_from:
  - /opensearch/rest-api/document-apis/update-document/
 ---
 
-# Update document
+# Update Document API
 **Introduced 1.0**
 {: .label .label-purple }
 

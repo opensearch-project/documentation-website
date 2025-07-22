@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 36
 ---
 
-# Flush
+# Flush API
 
 **Introduced 1.0**
 {: .label .label-purple }

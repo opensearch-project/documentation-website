@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CAT aliases
-parent: CAT API
+parent: CAT APIs
 redirect_from:
 - /opensearch/rest-api/cat/cat-aliases/
 
@@ -9,7 +9,7 @@ nav_order: 1
 has_children: false
 ---
 
-# CAT aliases
+# Cat Aliases API
 **Introduced 1.0**
 {: .label .label-purple }
 

@@ -5,7 +5,7 @@ parent: Nodes APIs
 nav_order: 10
 ---
 
-# Nodes info
+# Nodes Info API
 **Introduced 1.0**
 {: .label .label-purple }
 

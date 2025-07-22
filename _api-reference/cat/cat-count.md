@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CAT count
-parent: CAT API
+parent: CAT APIs
 nav_order: 10
 has_children: false
 redirect_from:
@@ -9,7 +9,7 @@ redirect_from:
 
 ---
 
-# CAT count
+# Cat Count API
 **Introduced 1.0**
 {: .label .label-purple }
 

@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT nodeattrs
-parent: CAT API
+parent: CAT APIs
 nav_order: 35
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-nodeattrs/
 ---
 
-# CAT nodeattrs
+# Cat Nodeattrs API
 **Introduced 1.0**
 {: .label .label-purple }
 

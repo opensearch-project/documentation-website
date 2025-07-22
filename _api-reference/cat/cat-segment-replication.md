@@ -1,12 +1,12 @@
 ---
 layout: default
 title: CAT segment replication
-parent: CAT API
+parent: CAT APIs
 nav_order: 53
 has_children: false
 ---
 
-# CAT segment replication
+# Cat Segment Replication API
 **Introduced 2.7**
 {: .label .label-purple }
 

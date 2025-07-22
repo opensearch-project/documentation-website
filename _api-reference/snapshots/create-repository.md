@@ -5,7 +5,7 @@ parent: Snapshot APIs
 nav_order: 1
 ---
 
-# Registering or updating a snapshot repository
+# Registering Or Updating A Snapshot Repository API
 **Introduced 1.0**
 {: .label .label-purple }
 

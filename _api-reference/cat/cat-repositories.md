@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT repositories
-parent: CAT API
+parent: CAT APIs
 nav_order: 52
 has_children: false
 redirect_from:
  - /opensearch/rest-api/cat/cat-repositories/
 ---
 
-# CAT repositories
+# Cat Repositories API
 **Introduced 1.0**
 {: .label .label-purple }
 

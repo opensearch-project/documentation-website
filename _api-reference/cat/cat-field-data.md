@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT field data
-parent: CAT API
+parent: CAT APIs
 nav_order: 15
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-field-data/
 ---
 
-# CAT Field Data
+# Cat Field Data API
 **Introduced 1.0**
 {: .label .label-purple }
 
