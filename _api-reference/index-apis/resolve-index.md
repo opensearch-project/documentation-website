@@ -2,7 +2,7 @@
 layout: default
 title: Resolve index
 parent: Index APIs
-nav_order: 62
+nav_order: 120
 ---
 
 # Resolve Index API
