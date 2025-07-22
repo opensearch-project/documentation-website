@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 50
 ---
 
-# Train 
+# Train API
 
 The train API operation trains a model based on a selected algorithm. Training can occur both synchronously and asynchronously.
 

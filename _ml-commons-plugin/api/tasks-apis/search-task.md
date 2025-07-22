@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 15
 ---
 
-# Search for a task
+# Search Task API
 
 Searches tasks based on parameters indicated in the request body.
 

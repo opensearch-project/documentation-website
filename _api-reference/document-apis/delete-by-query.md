@@ -7,7 +7,7 @@ redirect_from:
  - /opensearch/rest-api/document-apis/delete-by-query/
 ---
 
-# Delete By Query API
+# Delete by Query API
 **Introduced 1.0**
 {: .label .label-purple}
 

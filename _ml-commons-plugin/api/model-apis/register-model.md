@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Register a model
+# Register Model API
 
 All versions of a particular model are held in a model group. You can either [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/) before registering a model to the group or register a first version of a model, thereby creating the group. Each model group name in the cluster must be globally unique. 
 

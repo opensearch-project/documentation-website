@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 27
 ---
 
-# Update a connector
+# Update Connector API
 **Introduced 2.12**
 {: .label .label-purple }
 

@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Create a connector
+# Create Connector API
 
 Creates a standalone connector. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 

@@ -28,6 +28,100 @@ color_scheme: opensearch
 
 # Define Jekyll collections
 collections:
+  # Define a collection named "tests", its documents reside in the "_tests" directory
+  install-and-configure:
+    permalink: /:collection/:path/
+    output: true
+  im-plugin:
+    permalink: /:collection/:path/
+    output: true
+  ingest-pipelines:
+    permalink: /:collection/:path/
+    output: true
+  dashboards:
+    permalink: /:collection/:path/
+    output: true
+  tuning-your-cluster:
+    permalink: /:collection/:path/
+    output: true
+  security:
+    permalink: /:collection/:path/
+    output: true 
+  security-analytics:
+    permalink: /:collection/:path/
+    output: true
+  search-plugins:
+    permalink: /:collection/:path/
+    output: true
+  ml-commons-plugin:
+    permalink: /:collection/:path/
+    output: true  
+  tuning-your-cluster:
+    permalink: /:collection/:path/
+    output: true
+  monitoring-your-cluster:
+    permalink: /:collection/:path/
+    output: true
+  observing-your-data:
+    permalink: /:collection/:path/
+    output: true
+  reporting:
+    permalink: /:collection/:path/
+    output: true
+  analyzers:
+    permalink: /:collection/:path/
+    output: true
+  query-dsl:
+    permalink: /:collection/:path/
+    output: true 
+  aggregations:
+    permalink: /:collection/:path/
+    output: true
+  field-types:
+    permalink: /:collection/:path/
+    output: true
+  clients:
+    permalink: /:collection/:path/
+    output: true
+  benchmark:
+    permalink: /:collection/:path/
+    output: true
+  data-prepper: 
+    permalink: /:collection/:path/
+    output: true
+  migration-assistant:
+    permalink: /:collection/:path/
+    output: true
+  tools:
+    permalink: /:collection/:path/
+    output: true
+  api-reference:
+    permalink: /:collection/:path/
+    output: true  
+  troubleshoot:
+    permalink: /:collection/:path/
+    output: true
+  external_links:
+    permalink: /:collection/:path/
+    output: true
+  developer-documentation:
+    permalink: /:collection/:path/
+    output: true
+  about:
+    permalink: /:collection/:path/
+    output: true
+  automating-configurations:
+    permalink: /:collection/:path/
+    output: true
+  dashboards-assistant:
+    permalink: /:collection/:path/
+    output: true
+  getting-started:
+    permalink: /:collection/:path/
+    output: true
+  workspace:
+    permalink: /:collection/:path/
+    output: true
   vector-search:
     permalink: /:collection/:path/
     output: true
@@ -38,13 +132,106 @@ collections:
 opensearch_collection:
   # Define the collections used in the theme
   collections:
+    about:
+      name: About OpenSearch
+      nav_fold: true
+    getting-started:
+      name: Getting started
+      nav_fold: true
     tutorials:
       name: Tutorials
+      nav_fold: true
+    install-and-configure:
+      name: Install and upgrade
+      nav_fold: true
+    tuning-your-cluster:
+      name: Creating and tuning your cluster
+      nav_fold: true
+    im-plugin:
+      name: Managing Indexes
+      nav_fold: true
+    ingest-pipelines:
+      name: Ingest Pipelines
+      nav_fold: true
+    dashboards:
+      name: OpenSearch Dashboards
+      nav_fold: true
+    security:
+      name: Security in OpenSearch
+      nav_fold: true
+    security-analytics:
+      name: Security analytics 
+      nav_fold: true
+    field-types:
+      name: Mappings and field types
+      nav_fold: true
+    analyzers:
+      name: Text analysis
+      nav_fold: true
+    query-dsl:
+      name: Query DSL
+      nav_fold: true
+    aggregations:
+      name: Aggregations
+      nav_fold: true
+    search-plugins:
+      name: Search features
       nav_fold: true
     vector-search:
       name: Vector search 
       nav_fold: true
+    ml-commons-plugin:
+      name: Machine learning
+      nav_fold: true
+    automating-configurations:
+      name: Automating configurations
+      nav_fold: true
+    monitoring-your-cluster:
+      name: Monitoring your cluster
+      nav_fold: true
+    observing-your-data:
+      name: Observability
+      nav_fold: true
+    reporting:
+      name: Reporting
+      nav_fold: true
+    tools:
+      name: Tools
+      nav_fold: true
+    api-reference:
+      name: API reference
+      nav_fold: true
+    troubleshoot:
+      name: Troubleshooting
+      nav_fold: true
+    developer-documentation:
+      name: Developer documentation
+      nav_fold: true
     
+
+clients_collection:
+  collections:
+    clients:
+        name: Clients
+        nav_fold: true
+
+migration_assistant_collection:
+  collections:
+    migration-assistant:
+        name: Migration Assistant
+        nav_fold: true
+
+benchmark_collection:
+  collections:
+    benchmark:
+      name: OpenSearch Benchmark
+      nav_fold: true
+
+data_prepper_collection:
+  collections:
+    data-prepper: 
+      name: OpenSearch Data Prepper
+      nav_fold: true
 
 # Defaults
 

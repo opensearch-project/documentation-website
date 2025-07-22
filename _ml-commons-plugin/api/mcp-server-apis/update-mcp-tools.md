@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 20
 ---
 
-# Update MCP tools
+# Update MCP Tools API
 **Introduced 3.0**
 {: .label .label-purple }
 
