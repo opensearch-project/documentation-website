@@ -2,7 +2,7 @@
 layout: default
 title: Properties
 parent: Mapping parameters
-grand_parent: Mapping and field types
+
 nav_order: 150
 has_children: false
 has_toc: false

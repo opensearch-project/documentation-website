@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Search
+title: Search features
 nav_order: 1
 has_children: false
 has_toc: false

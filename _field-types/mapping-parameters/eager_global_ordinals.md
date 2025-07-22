@@ -2,7 +2,7 @@
 layout: default
 title: Eager global ordinals
 parent: Mapping parameters
-grand_parent: Mapping and field types
+
 nav_order: 35
 has_children: false
 has_toc: false
