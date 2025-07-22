@@ -2,12 +2,12 @@
 layout: default
 title: Get index
 parent: Index APIs
-nav_order: 24
+nav_order: 90
 redirect_from:
   - /opensearch/rest-api/index-apis/get-index/
 ---
 
-# Get index
+# Get Index API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -19,8 +19,6 @@ You can use the get index API operation to return information about an index.
 ```json
 GET /<index>
 ```
-
-## Path parameters
 
 ## Path parameters
 

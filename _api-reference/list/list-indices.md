@@ -6,7 +6,7 @@ nav_order: 25
 has_children: false
 ---
 
-# List indices
+# List Indices API
 **Introduced 2.18**
 {: .label .label-purple }
 

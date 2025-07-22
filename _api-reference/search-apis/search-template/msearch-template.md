@@ -9,7 +9,7 @@ redirect_from:
   - /api-reference/search-apis/msearch-template/
 ---
 
-# Multi-search template 
+# Multi-search Template API
 
 **Introduced 1.0**
 {: .label .label-purple }

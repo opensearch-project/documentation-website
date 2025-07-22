@@ -6,7 +6,7 @@ parent: Cluster APIs
 has_children: false
 ---
 
-# Cluster pending tasks
+# Cluster Pending Tasks API
 
 The `/_cluster/pending_tasks` API returns a list of cluster-level changes that have not yet been executed. These pending tasks are typically queued operations such as index creation, template updates, shard allocation changes, and other cluster state updates.
 

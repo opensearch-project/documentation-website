@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 20
 ---
 
-# Get a connector
+# Get Connector API
 
 This API retrieves a connector by its ID.
 

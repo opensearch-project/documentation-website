@@ -5,13 +5,13 @@ parent: Snapshot APIs
 nav_order: 4
 ---
 
-# Verify snapshot repository
+# Verify Snapshot Repository API
 **Introduced 1.0**
 {: .label .label-purple }
 
 Verifies that a snapshot repository is functional. Verifies the repository on each node in a cluster.
 
-If verification is successful, the verify snapshot repository API returns a list of nodes connected to the snapshot repository. If verification failed, the API returns an error.
+If verification is successful, the Verify Snapshot Repository API returns a list of nodes connected to the snapshot repository. If verification fails, the API returns an error.
 
 If you use the Security plugin, you must have the `manage cluster` privilege.
 {: .note}

@@ -5,7 +5,7 @@ parent: Workflow APIs
 nav_order: 20
 ---
 
-# Get a workflow
+# Get Workflow API
 
 The Get Workflow API retrieves the workflow template.   
 

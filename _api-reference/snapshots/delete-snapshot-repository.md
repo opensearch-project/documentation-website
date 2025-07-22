@@ -5,7 +5,7 @@ parent: Snapshot APIs
 nav_order: 3
 ---
 
-# Delete snapshot repository configuration
+# Delete Snapshot Repository Configuration API
 **Introduced 1.0**
 {: .label .label-purple }
 

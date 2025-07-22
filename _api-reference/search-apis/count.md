@@ -8,12 +8,11 @@ redirect_from:
  - /api-reference/count/
 ---
 
-# Count
+# Count API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The count API gives you quick access to the number of documents that match a query.
-You can also use it to check the document count of an index, data stream, or cluster.
+The Count API returns the count of documents that match a query. You can use it to check the document count of an index, a data stream, or a cluster.
 
 
 ## Endpoints

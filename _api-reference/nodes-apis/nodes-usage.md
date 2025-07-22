@@ -5,7 +5,7 @@ parent: Nodes APIs
 nav_order: 40
 ---
 
-# Nodes usage
+# Nodes Usage API
 **Introduced 1.0**
 {: .label .label-purple }
 

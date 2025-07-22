@@ -5,7 +5,7 @@ parent: Workflow APIs
 nav_order: 40
 ---
 
-# Get a workflow status
+# Get Workflow Status API
 
 [Provisioning a workflow]({{site.url}}{{site.baseurl}}/automating-configurations/api/provision-workflow/) may take a significant amount of time, particularly when the action is associated with OpenSearch indexing operations. The Get Workflow State API permits monitoring of the provisioning deployment status until it is complete.
 

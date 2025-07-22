@@ -2,12 +2,12 @@
 layout: default
 title: Split index
 parent: Index APIs
-nav_order: 70
+nav_order: 150
 redirect_from:
   - /opensearch/rest-api/index-apis/split/
 ---
 
-# Split index
+# Split Index API
 **Introduced 1.0**
 {: .label .label-purple }
 

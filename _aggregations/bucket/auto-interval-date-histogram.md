@@ -2,7 +2,6 @@
 layout: default
 title: Auto-interval date histogram
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 12
 ---
 

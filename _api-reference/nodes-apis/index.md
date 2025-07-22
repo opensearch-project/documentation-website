@@ -5,11 +5,11 @@ has_children: true
 nav_order: 50
 ---
 
-# Nodes API
+# Nodes APIs
 **Introduced 1.0**
 {: .label .label-purple }
 
-The nodes API makes it possible to retrieve information about individual nodes within your cluster. 
+The Nodes API makes it possible to retrieve information about individual nodes in your cluster. 
 
 ## Node filters
 

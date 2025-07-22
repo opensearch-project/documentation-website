@@ -8,7 +8,7 @@ redirect_from:
  - /opensearch/rest-api/cluster-allocation/
 ---
 
-# Cluster allocation explain
+# Cluster Allocation Explain API
 **Introduced 1.0**
 {: .label .label-purple }
 

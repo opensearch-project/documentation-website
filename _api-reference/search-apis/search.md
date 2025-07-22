@@ -8,11 +8,11 @@ redirect_from:
   - /api-reference/search/
 ---
 
-# Search
+# Search API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Search API operation lets you execute a search request to search your cluster for data.
+The search API operation lets you search your cluster for data.
 
 ## Endpoints
 

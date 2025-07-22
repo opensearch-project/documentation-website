@@ -7,7 +7,7 @@ redirect_from:
  - /opensearch/rest-api/document-apis/update-by-query/
 ---
 
-# Update by query
+# Update By Query API
 **Introduced 1.0**
 {: .label .label-purple}
 

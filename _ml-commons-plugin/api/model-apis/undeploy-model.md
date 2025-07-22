@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 45
 ---
 
-# Undeploy a model
+# Undeploy Model API
 
 To undeploy a model from memory, use the undeploy operation.
 

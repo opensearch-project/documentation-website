@@ -2,7 +2,6 @@
 layout: default
 title: Grok
 parent: Ingest processors
-grand_parent: Ingest pipelines
 nav_order: 140
 ---
 

@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 60
 ---
 
-# Predict
+# Predict API
 
 ML Commons can predict new data with your trained model either from indexed data or a data frame. To use the Predict API, the `model_id` is required.
 
