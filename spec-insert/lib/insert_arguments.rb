@@ -2,10 +2,12 @@
 
 require_relative 'utils'
 require_relative 'spec_insert_error'
-
+require 'json'
 # Doc Insert Arguments
 class InsertArguments
   attr_reader :raw
+
+  Rest = Struct.new(:verb, :path, :query, :body, :raw_lines, keyword_init:true)
 
   # @param [Hash] args raw arguments read from the doc insert marker
   def initialize(args)
@@ -59,6 +61,34 @@ class InsertArguments
   # @return [Boolean]
   def omit_header
     parse_boolean(@raw['omit_header'], default: false)
+  end
+
+  # @return [Rest, nil]
+  def rest
+    lines = @raw['rest']&.split("\n")&.map(&:strip) || []
+    return nil if lines.empty?
+
+    verb, full_path = lines.first.to_s.split
+    path, query_string = full_path.to_s.split('?', 2)
+
+    query = (query_string || "").split('&').to_h do |pair|
+      k, v = pair.split('=', 2)
+      [k, v || "false"]
+    end
+
+    body = begin
+             JSON.parse(@raw['body']) if @raw['body']
+           rescue JSON::ParserError
+             @raw['body']
+           end
+
+    Rest.new(
+      verb: verb,
+      path: path,
+      query: query,
+      body: body,
+      raw_lines: lines
+    )
   end
 
   private
