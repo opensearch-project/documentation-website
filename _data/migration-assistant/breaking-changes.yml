@@ -47,6 +47,21 @@ breaking_changes:
     transformation:
       title: "Type Mapping Deprecation"
       url: "https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/"
+  - title: "Removal of Strings in Elasticsearch 5.x"
+    url: "https://www.elastic.co/blog/strings-are-dead-long-live-strings"
+    introducedIn: "Elasticsearch 5.x"
+    comp: [ ]
+    transformation:
+      title: "Field Type Converter"
+      url: "https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/planning-your-migration/handling-field-type-breaking-changes/#example-field-type-converterjs-implementation"
+  - title: "Elasticsearch 2.0 - 2.4 Breaking Changes"
+    url: "https://www.elastic.co/guide/en/elasticsearch/reference/2.4/breaking-changes.html"
+    introducedIn: "Elasticsearch 2.x"
+    comp: [ ]
+  - title: "Elasticsearch 5.0 - 5.6 Breaking Changes"
+    url: "https://www.elastic.co/guide/en/elasticsearch/reference/5.6/breaking-changes.html"
+    introducedIn: "Elasticsearch 5.x"
+    comp: [ ]
   - title: "Elasticsearch 6.0 - 6.6 Breaking Changes"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes.html"
     introducedIn: "Elasticsearch 6.x"
