@@ -8,7 +8,7 @@ nav_order: 5
 has_children: false
 ---
 
-# Cat Allocation API
+# CAT Allocation API
 **Introduced 1.0**
 {: .label .label-purple }
 

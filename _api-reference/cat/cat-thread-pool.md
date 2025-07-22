@@ -8,7 +8,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-thread-pool/
 ---
 
-# Cat Thread Pool API
+# CAT Thread Pool API
 **Introduced 1.0**
 {: .label .label-purple }
 

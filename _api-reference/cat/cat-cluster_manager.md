@@ -8,7 +8,7 @@ nav_order: 30
 has_children: false
 ---
 
-# Cat Cluster_manager API
+# CAT Cluster_manager API
 **Introduced 1.0**
 {: .label .label-purple }
 

@@ -8,7 +8,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-segments/
 ---
 
-# Cat Segments API
+# CAT Segments API
 **Introduced 1.0**
 {: .label .label-purple }
 

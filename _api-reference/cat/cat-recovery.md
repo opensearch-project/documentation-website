@@ -8,7 +8,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-recovery/
 ---
 
-# Cat Recovery API
+# CAT Recovery API
 **Introduced 1.0**
 {: .label .label-purple }
 

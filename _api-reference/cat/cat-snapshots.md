@@ -8,7 +8,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-snapshots/
 ---
 
-# Cat Snapshots API
+# CAT Snapshots API
 **Introduced 1.0**
 {: .label .label-purple }
 

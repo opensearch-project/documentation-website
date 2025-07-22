@@ -8,7 +8,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-plugins/
 ---
 
-# Cat Plugins API
+# CAT Plugins API
 **Introduced 1.0**
 {: .label .label-purple }
 

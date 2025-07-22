@@ -9,7 +9,7 @@ nav_order: 1
 has_children: false
 ---
 
-# Cat Aliases API
+# CAT Aliases API
 **Introduced 1.0**
 {: .label .label-purple }
 

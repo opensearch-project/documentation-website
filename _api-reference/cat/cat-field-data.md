@@ -8,7 +8,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-field-data/
 ---
 
-# Cat Field Data API
+# CAT Field Data API
 **Introduced 1.0**
 {: .label .label-purple }
 

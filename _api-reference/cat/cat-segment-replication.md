@@ -6,7 +6,7 @@ nav_order: 53
 has_children: false
 ---
 
-# Cat Segment Replication API
+# CAT Segment Replication API
 **Introduced 2.7**
 {: .label .label-purple }
 

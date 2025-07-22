@@ -9,7 +9,7 @@ redirect_from:
 
 ---
 
-# Cat Count API
+# CAT Count API
 **Introduced 1.0**
 {: .label .label-purple }
 

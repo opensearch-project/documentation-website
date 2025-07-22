@@ -8,7 +8,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-indices/
 ---
 
-# Cat Indices API
+# CAT Indices API
 **Introduced 1.0**
 {: .label .label-purple }
 

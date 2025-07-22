@@ -8,7 +8,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-tasks/
 ---
 
-# Cat Tasks API
+# CAT Tasks API
 **Introduced 1.0**
 {: .label .label-purple }
 

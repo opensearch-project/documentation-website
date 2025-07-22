@@ -8,7 +8,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-shards/
 ---
 
-# Cat Shards API
+# CAT Shards API
 **Introduced 1.0**
 {: .label .label-purple }
 

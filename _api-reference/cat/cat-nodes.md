@@ -8,7 +8,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-nodes/
 ---
 
-# Cat Nodes API
+# CAT Nodes API
 **Introduced 1.0**
 {: .label .label-purple }
 

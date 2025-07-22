@@ -8,7 +8,7 @@ redirect_from:
  - /opensearch/rest-api/cat/cat-repositories/
 ---
 
-# Cat Repositories API
+# CAT Repositories API
 **Introduced 1.0**
 {: .label .label-purple }
 

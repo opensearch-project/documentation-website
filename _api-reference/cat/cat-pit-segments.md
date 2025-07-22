@@ -5,7 +5,7 @@ parent: CAT APIs
 nav_order: 46
 ---
 
-# Cat Pit Segments API
+# CAT Pit Segments API
 Introduced 2.4
 {: .label .label-purple }
 

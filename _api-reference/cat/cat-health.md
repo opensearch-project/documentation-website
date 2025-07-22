@@ -8,7 +8,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-health/
 ---
 
-# Cat Health API
+# CAT Health API
 **Introduced 1.0**
 {: .label .label-purple }
 
