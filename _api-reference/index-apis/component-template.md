@@ -2,7 +2,7 @@
 layout: default
 title: Create or update component template
 parent: Index APIs
-nav_order: 31
+nav_order: 30
 ---
 
 # Create Or Update Component Template API
