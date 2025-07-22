@@ -2,7 +2,7 @@
 layout: default
 title: Scale
 parent: Index APIs
-nav_order: 50
+nav_order: 130
 ---
 
 # Scale API

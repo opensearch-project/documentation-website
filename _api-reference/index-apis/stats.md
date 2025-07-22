@@ -2,7 +2,7 @@
 layout: default
 title: Stats
 parent: Index APIs
-nav_order: 72
+nav_order: 155
 ---
 
 # Index Stats API 
