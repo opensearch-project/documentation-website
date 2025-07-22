@@ -8,10 +8,10 @@ nav_order: 65
 
 # Delete template
 
-Delete Template API is deprecated. Use the new [Delete Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index-template/) API.
+The Delete Template API has been deprecated. Use the new [Delete Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index-template/) API.
 {: .warning}
 
-Delete template API operation deletes an index template created using the legacy `/_template` endpoint.
+The delete template API operation deletes an index template created using the legacy `/_template` endpoint.
 
 
 ## Endpoints
@@ -22,11 +22,11 @@ DELETE /_template/<template-name>
 
 ## Path parameters
 
-The following table lists the available path parameters.
+The following table lists the available path parameters. All path parameters are required.
 
 | Parameter    | Type   | Description                                                 |
 | :----------- | :----- | :---------------------------------------------------------- |
-| `index-name` | String | The name of the index to delete. Supports wildcard expressions _(Required)_. |
+| `index-name` | String | The name of the index to delete. Supports wildcard expressions. |
 
 ## Query parameters
 
@@ -34,7 +34,7 @@ The following table lists the available query parameters. All parameters are opt
 
 | Parameter       | Type | Description                                                                                  |
 | :-------------- | :--- | :------------------------------------------------------------------------------------------- |
-| `cluster_manager_timeout` | Time | Specifies the period to wait for a connection to the cluster manager node. Default is `30s`. |
+| `cluster_manager_timeout` | Time | Specifies how long to wait for a connection to the cluster manager node. Default is `30s`. |
 | `timeout`                 | Time    | Specifies how long to wait for the operation to complete. Default is `30s`. |
 
 ## Example request

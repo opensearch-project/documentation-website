@@ -23,7 +23,7 @@ A pipeline worker consumes events from the work queue in batches to optimize the
 
 One reason why Logstash works in batches is that some code needs to be executed regardless of how many events are processed at a time within the pipeline worker. Instead of executing that code 100 times for 100 events, it’s more efficient to run it once for a batch of 100 events.
 
-Another reason is that a few output plugins group together events as batches. For example, if you send 100 requests to OpenSearch, the OpenSearch output plugin uses the Bulk API to send a single request that groups together the 100 requests.
+Another reason is that a few output plugins group events as batches. For example, if you send 100 requests to OpenSearch, the OpenSearch output plugin uses the Bulk API to send a single request that groups the 100 requests.
 
 Logstash determines the batch size by two configuration options⁠---a number representing the maximum batch size and the batch delay. The batch delay is how long Logstash waits before processing the unprocessed batch of events.
 If you set the maximum batch size to 50 and the batch delay to 100 ms, Logstash processes a batch if they're either 50 unprocessed events in the work queue or if one hundred milliseconds have elapsed.

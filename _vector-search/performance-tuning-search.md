@@ -23,7 +23,7 @@ Native library indexes are constructed during indexing, but they're loaded into 
 
 Once a native library index is loaded (native library indexes are loaded outside of the OpenSearch JVM), OpenSearch caches them in memory. Initial queries are expensive and complete in a few seconds, while subsequent queries are faster and complete in milliseconds (assuming that the k-NN circuit breaker isn't triggered).
 
-Starting with version 3.1, you can use the [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/) mode, which enables the engine to load only the necessary bytes during search instead of loading the entire index outside the JVM. When this mode is enabled, the Warm-up API loads the minimal required information into memory, including opening read streams to the underlying indexes. Thus, the Warm-up API helps ensure that searches after warm-up run faster, even with memory-optimized search enabled.
+Starting with version 3.1, you can use [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/), which enables the engine to load only the necessary bytes during search instead of loading the entire index outside the JVM. When this mode is enabled, the Warm-up API loads the minimal required information into memory, including opening read streams to the underlying indexes. Thus, the Warm-up API helps ensure that searches after warm-up run faster, even with memory-optimized search enabled.
 
 To avoid this latency penalty during your first queries, you can use the warmup API operation on the indexes you want to search:
 

@@ -29,8 +29,8 @@ All parameters are optional.
 
 | Parameter                 | Type    | Description                                                                                          |
 | ------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
-| `local`                   | Boolean | If true, the request does not retrieve the state from the cluster manager node. Defaults to `false`. |
-| `cluster_manager_timeout` | Time    | Specifies the time to wait for a connection to the cluster manager node. Default is `30s`.           |
+| `local`                   | Boolean | If true, the request does not retrieve the state from the cluster manager node. Default is `false`. |
+| `cluster_manager_timeout` | Time    | Specifies how long to wait for a connection to the cluster manager node. Default is `30s`.           |
 
 ## Example request
 
