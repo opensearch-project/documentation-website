@@ -22,8 +22,8 @@ To use the Refresh Index API, you must have write access to the indexes you want
 
 ## Refresh request behavior
 
-The Refresh Index API call is synchronous. The response is only returned after refreshing all targeted shards.
-Because refresh operations are resource-intensive, we recommend relying on automatic periodic refreshes using `index.refresh_interval`.
+The Refresh Index API call is synchronous. The response is returned only after all targeted shards have been refreshed.
+Because refresh operations are resource intensive, we recommend relying on automatic periodic refreshes using `index.refresh_interval`.
 
 ## Endpoints
 
