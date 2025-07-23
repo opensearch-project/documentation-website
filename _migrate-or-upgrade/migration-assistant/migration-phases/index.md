@@ -2,6 +2,7 @@
 layout: default
 title: Migration phases
 parent: Migration Assistant for OpenSearch
+grand_parent: Migrate or upgrade
 nav_order: 40
 nav_exclude: false
 has_children: true
@@ -36,10 +37,20 @@ details[open] {
 
 <ol>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/">Assessment</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/">Deploy</a></li>
-
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/">Deploy</a>
+    <ul>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/verifying-backfill-components/">Verify Backfill Components</a></li>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/">Configuration Options</a></li>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/iam-and-security-groups-for-existing-clusters/">IAM and Security Groups for Existing Clusters</a></li>
+    </ul>
+  </li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/create-snapshot/">Create Snapshot</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a>
+    <ul>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/">Managing type mapping deprecation</a></li>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/">Handling breaking changes in field types</a></li>
+    </ul>
+  </li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/">Backfill</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/">Teardown</a></li>
 </ol>
@@ -51,11 +62,20 @@ details[open] {
 
 <ol>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/">Assessment</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/">Deploy</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verifying-migration-tools/verifying-backfill-components/">Verify Backfill Components</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/">Deploy</a>
+    <ul>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/iam-and-security-groups-for-existing-clusters/">IAM and Security Groups for Existing Clusters</a></li>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/">Configuration Options</a></li>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/verifying-live-capture-components/">Verify Live Capture Components</a></li>
+    </ul>
+  </li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-source-to-proxy/">Reroute Traffic from Source to Capture Proxy</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/verifying-migration-tools/verifying-live-capture-components/">Verify Live Capture Components</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a>
+    <ul>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/">Managing type mapping deprecation</a></li>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/">Handling breaking changes in field types</a></li>
+    </ul>
+  </li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/">Replay Captured Traffic</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/">Reroute Traffic from Capture Proxy to Target</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/">Teardown</a></li>
@@ -67,11 +87,23 @@ details[open] {
 <summary>Scenario 3 –  Live Capture with Backfill</summary>
 
 <ol>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment">Assessment</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/">Deploy</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/">Assessment</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/">Deploy</a>
+    <ul>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/iam-and-security-groups-for-existing-clusters/">IAM and Security Groups for Existing Clusters</a></li>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/">Configuration Options</a></li>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/verifying-backfill-components/">Verify Backfill Components</a></li>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/verifying-live-capture-components/">Verify Live Capture Components</a></li>
+    </ul>
+  </li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-source-to-proxy/">Reroute Traffic from Source to Capture Proxy</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/create-snapshot/">Create Snapshot</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a>
+    <ul>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/">Managing type mapping deprecation</a></li>
+      <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/">Handling breaking changes in field types</a></li>
+    </ul>
+  </li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/">Backfill</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/">Replay Captured Traffic</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/">Reroute Traffic from Capture Proxy to Target</a></li>

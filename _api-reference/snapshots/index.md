@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Snapshot APIs
+parent: API reference
 has_children: true
 nav_order: 80
 redirect_from:

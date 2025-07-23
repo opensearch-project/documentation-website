@@ -1,9 +1,12 @@
 ---
 layout: default
 title: IAM and security groups for existing clusters
-nav_order: 20
-nav_exclude: true
-permalink: /migration-assistant/deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
+nav_order: 4
+grand_parent: Migration phases
+parent: Deploy
+permalink: /migration-assistant/migration-phases/deploy/iam-and-security-groups-for-existing-clusters/
+redirect_from:
+  - /migration-assistant/deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
 ---
 
 # IAM and security groups for existing clusters

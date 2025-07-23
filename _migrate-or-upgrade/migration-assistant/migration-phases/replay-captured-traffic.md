@@ -11,6 +11,9 @@ redirect_from:
 
 # Using Traffic Replayer
 
+**Note:** This page is only relevant if you are using Capture-and-Replay to avoid downtime during a migration. If you are only performing backfill migration or can tolerate downtime, you can skip this step.
+{: .note}
+
 This guide covers how to use Traffic Replayer to replay captured traffic from a source cluster to a target cluster during the migration process. Traffic Replayer allows you to verify that the target cluster can handle requests in the same way as the source cluster and catch up to real-time traffic for a smooth migration.
 
 ## When to run Traffic Replayer
@@ -21,7 +24,7 @@ For example, if a document was deleted after a snapshot was taken, starting Traf
 
 ## Configuration options
 
-[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploying-migration-assistant/configuration-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster.
+[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster.
 
 ## Using Traffic Replayer
 

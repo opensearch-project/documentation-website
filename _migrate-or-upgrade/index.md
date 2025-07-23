@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Migrate or upgrade
-nav_order: 20
 has_children: true
 permalink: /upgrade-or-migrate/
 redirect_from:
@@ -12,7 +11,7 @@ redirect_from:
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
 has_toc: true
-nav_exclude: false
+nav_exclude: true
 ---
 # Migrate or Upgrade OpenSearch
 
@@ -47,22 +46,6 @@ Stop nonessential indexing before upgrading.
 
 ## Migration and Upgrade Methods
 
-### Migration Assistant
-
-The Migration Assistant provides the most automated and resilient upgrade path.
-
-**Pros:**
-- Supports multi-version hops
-- Enables near-zero downtime via live data capture
-- Includes rollback support
-- Designed to integrate with OpenSearch workflows
-
-**Cons:**
-- Requires setup and infrastructure
-
-[Get started with Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/)
-
----
 
 ### Rolling Upgrade
 
@@ -76,6 +59,7 @@ Upgrade one node at a time while keeping the cluster operational.
 - Supports only adjacent major versions
 - Multiple upgrade cycles for larger version gaps
 - Reindexing may be required
+- Manual reindex may be required for full feature compatibility
 
 [Perform a rolling upgrade]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/)
 
@@ -86,14 +70,32 @@ Upgrade one node at a time while keeping the cluster operational.
 Take a snapshot of your current cluster and restore to a new OpenSearch version.
 
 **Pros:**
-- Leaves source cluster unchanged
 - Supports large datasets and cold storage
+- Reversion possible since original cluster is untouched. However, there may be a loss of data if no change data capture (CDC) solution is in place. 
 
 **Cons:**
 - Requires downtime or a change data capture (CDC) solution
 - Requires provisioning a new cluster
+- Manually reindex may be required for full feature compatibility.
 
 [Get started with Snapshot and Restore](https://docs.aws.amazon.com/solutions/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/)
+
+---
+
+### Migration Assistant
+
+The Migration Assistant provides the most automated and resilient upgrade path.
+
+**Pros:**
+- Handles multi-version hops, allowing for seamless upgrades across multiple versions
+- Live data capture allows for little to zero downtime, ensuring data consistency during migrations
+- Ability to revert changes if issues arise during or after the upgrade
+
+**Cons:**
+- Requires additional setup
+- Requires additional infrastructure
+
+[Get started with Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/)
 
 ---
 

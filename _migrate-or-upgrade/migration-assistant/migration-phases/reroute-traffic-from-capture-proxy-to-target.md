@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Reroute traffic to target
+title: Reroute Traffic to Target
 nav_order: 7
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
@@ -8,6 +8,9 @@ permalink: /migration-assistant/migration-phases/reroute-traffic-from-capture-pr
 ---
 
 # Switching traffic from the source cluster
+
+**Note:** This page is only relevant if you are using Capture-and-Replay to avoid downtime during a migration. If you are only performing backfill migration or can tolerate downtime, you can skip this step.
+{: .note}
 
 After the source and target clusters are synchronized, traffic needs to be switched to the target cluster so that the source cluster can be taken offline.
 

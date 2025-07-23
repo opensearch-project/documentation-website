@@ -9,8 +9,6 @@ permalink: /migration-assistant/migration-phases/create-snapshot/
 
 # Creating a snapshot
 
-<----!TODO: Add Bring your own snapshot-----!>
-
 Creating a snapshot of the source cluster captures all the metadata and documents to be migrated to a new target cluster.
 
 Create the initial snapshot of the source cluster using the following command:

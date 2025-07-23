@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Accessing the migration console
-nav_order: 35
+nav_order: 1
 parent: Migration console
+grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-console/accessing-the-migration-console/
 ---
 

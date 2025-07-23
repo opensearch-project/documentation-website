@@ -1,13 +1,15 @@
 ---
 layout: default
-title: Assessing your cluster for migration
+title: Assessment
 nav_order: 1
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
+has_children: true
+has_toc: false
 permalink: /migration-assistant/migration-phases/assessment/
 ---
 
-# Assessing your cluster for migration
+# Assessment
 
 The goal of the Migration Assistant is to streamline the process of migrating from one location or version of Elasticsearch/OpenSearch to another. However, completing a migration sometimes requires resolving client compatibility issues before they can communicate directly with the target cluster.
 
@@ -71,6 +73,7 @@ For complex migrations involving multiple transformations or breaking changes, w
 
 ## Supported transformations
 
-The following [transformations]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/#transformations) are included in Migration Assistant. They can be enabled, combined, and configured to customize a migration for your use case. To request additional Migration Assistant transformations , create a GitHub issue [in the OpenSearch migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
+Below is a list of transformations that are included in Migration Assistant. They can be enabled, combined, and configured to customize a migration for your use case. Depending on your use case and the type of transformation, a transformation may have to be added to Capture-and-Replay, Metadata Migration Tool, or Reindex-from-Snapshot. To request additional Migration Assistant transformations, create a GitHub issue [in the OpenSearch migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
 
-- [Type mapping deprecation]({{site.url}}{{site.baseurl}}/migration-assistant/planning-your-migration/handling-type-mapping-deprecation/)
+- [Managing type mapping deprecation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/)
+- [Handling breaking changes in field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/)

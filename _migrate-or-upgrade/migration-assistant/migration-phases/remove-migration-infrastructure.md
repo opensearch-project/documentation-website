@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Removing migration infrastructure
+title: Removing Migration Assistant
 nav_order: 8
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch

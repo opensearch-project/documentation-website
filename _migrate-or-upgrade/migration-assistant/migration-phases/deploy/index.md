@@ -1,17 +1,18 @@
 ---
 layout: default
-title: Deploying Migration Assistant
+title: Deploy
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
 nav_order: 2
+has_children: true
 permalink: /migration-assistant/migration-phases/deploy/
 redirect_from:
   - /migration-assistant/getting-started-with-data-migration/
 ---
 
-# Deploying Migration Assistant
+# Deploy
 
-This document assumes you have performed assessment.
+This document assumes you have performed [assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) to understand any upgrade breaking changes and limitations before beginning.
 
 ---
 

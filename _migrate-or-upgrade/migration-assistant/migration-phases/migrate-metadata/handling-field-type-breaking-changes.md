@@ -1,8 +1,12 @@
 ---
 layout: default
 title: Handling breaking changes in field types
-nav_order: 60
-parent: Planning your migration
+nav_order: 2
+parent: Migrate Metadata
+grand_parent: Migration phases
+permalink: /migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/
+redirect_from:
+  - /migration-assistant/migration-phases/assessment/handling-field-type-breaking-changes/
 ---
 
 # Handling breaking changes in field types
