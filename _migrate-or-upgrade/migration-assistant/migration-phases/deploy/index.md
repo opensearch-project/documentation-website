@@ -12,7 +12,7 @@ redirect_from:
 
 # Deploy
 
-This document assumes you have performed [assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) to understand any upgrade breaking changes and limitations before beginning.
+This document assumes you have performed [assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) to understand upgrade breaking changes and limitations before beginning.
 
 ---
 

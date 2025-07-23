@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Rolling upgrade
-nav_order: 10
+title: Rolling Upgrade
+nav_order: 20
 has_toc: true
 permalink: /migrate-or-upgrade/rolling-upgrade/
 redirect_from: 

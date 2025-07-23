@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Snapshot restore
-nav_order: 30
+title: Snapshot Restore
+nav_order: 10
 has_toc: false
 permalink: /migrate-or-upgrade/snapshot-restore/
 redirect_from: 
