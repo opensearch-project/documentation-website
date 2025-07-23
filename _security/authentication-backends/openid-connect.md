@@ -102,7 +102,7 @@ jwks_uri: "https://keycloak.example.com:8080/auth/realms/master/protocol/openid-
 For more information about IdP endpoints, see the following:
 
 - [Okta](https://developer.okta.com/docs/api/resources/oidc#well-knownopenid-configuration)
-- [Keycloak](https://www.keycloak.org/docs/latest/securing_apps/index.html#other-openid-connect-libraries)
+- [Keycloak](https://www.keycloak.org/guides.html#securing-apps)
 - [Auth0](https://auth0.com/docs/protocols/oidc/openid-connect-discovery)
 - [Connect2ID](https://connect2id.com/products/server/docs/api/discovery)
 - [Salesforce](https://help.salesforce.com/articleView?id=remoteaccess_using_openid_discovery_endpoint.htm&type=5)

@@ -5,15 +5,15 @@ parent: Snapshot APIs
 nav_order: 5
 ---
 
-# Create snapshot
+# Create Snapshot API
 **Introduced 1.0**
 {: .label .label-purple }
 
 Creates a snapshot within an existing repository.
 
-* To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
+* To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/).
 
-* To view a list of your repositories, see [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository).
+* To view a list of your repositories, see [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository/).
 
 ## Endpoints
 

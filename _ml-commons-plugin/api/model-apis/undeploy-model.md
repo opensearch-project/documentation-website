@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 45
 ---
 
-# Undeploy a model
+# Undeploy Model API
 
 To undeploy a model from memory, use the undeploy operation.
 
@@ -18,14 +18,14 @@ For information about user access for this API, see [Model access control consid
 POST /_plugins/_ml/models/<model_id>/_undeploy
 ```
 
-#### Example request: Undeploying a model from all ML nodes
+## Example request: Undeploying a model from all ML nodes
 
 ```json
 POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_undeploy
 ```
 {% include copy-curl.html %}
 
-#### Example request: Undeploying specific models from specific nodes
+## Example request: Undeploying specific models from specific nodes
 
 ```json
 POST /_plugins/_ml/models/_undeploy
@@ -36,7 +36,7 @@ POST /_plugins/_ml/models/_undeploy
 ```
 {% include copy-curl.html %}
 
-#### Example request: Undeploying specific models from all nodes
+## Example request: Undeploying specific models from all nodes
 
 ```json
 {
@@ -45,7 +45,7 @@ POST /_plugins/_ml/models/_undeploy
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -69,7 +69,7 @@ PUT /_cluster/settings
 }
 ```
 
-#### Example request: Creating a model with a TTL
+## Example request: Creating a model with a TTL
 ```json
 POST /_plugins/_ml/models/_register
  {
@@ -81,7 +81,7 @@ POST /_plugins/_ml/models/_register
  }
 ```
 
-#### Example request: Updating a model with a TTL when the model is undeployed
+## Example request: Updating a model with a TTL when the model is undeployed
 ```json
 PUT /_plugins/_ml/models/COj7K48BZzNMh1sWedLK
 {

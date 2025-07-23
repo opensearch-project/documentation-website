@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 30
 ---
 
-# Search for an agent
+# Search Agent API
 **Introduced 2.13**
 {: .label .label-purple }
 
@@ -19,7 +19,7 @@ GET /_plugins/_ml/agents/_search
 POST /_plugins/_ml/agents/_search
 ```
 
-#### Example request: Searching for all agents
+## Example request: Searching for all agents
 
 ```json
 POST /_plugins/_ml/agents/_search
@@ -32,7 +32,7 @@ POST /_plugins/_ml/agents/_search
 ```
 {% include copy-curl.html %}
 
-#### Example request: Searching for agents of a certain type
+## Example request: Searching for agents of a certain type
 
 ```json
 POST /_plugins/_ml/agents/_search
@@ -69,7 +69,7 @@ GET _plugins/_ml/agents/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

@@ -27,9 +27,7 @@ When configuring Amazon settings, only change the values mentioned in this tutor
 
 ### Deploy DeepSeek-R1 to Amazon Bedrock
 
-Follow [this notebook](https://github.com/DennisTraub/deepseekr1-on-bedrock/blob/main/deepseek-bedrock.ipynb) to deploy the DeepSeek-R1 model to Amazon Bedrock.
-
-Note the Amazon Bedrock DeepSeek-R1 model Amazon Resource Name (ARN); you'll use it in the following steps.
+Deploy DeepSeek-R1 on Amazon Bedrock. For more information, see [Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html). Note the Amazon Bedrock DeepSeek-R1 model Amazon Resource Name (ARN); you'll use it in the following steps.
 
 ### Create an OpenSearch cluster
 

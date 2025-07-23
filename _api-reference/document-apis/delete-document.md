@@ -7,7 +7,7 @@ redirect_from:
  - /opensearch/rest-api/document-apis/delete-document/
 ---
 
-# Delete document
+# Delete Document API
 **Introduced 1.0**
 {: .label .label-purple }
 

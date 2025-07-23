@@ -12,7 +12,7 @@ The `--redline-test` command enables OpenSearch Benchmark to automatically deter
 
 When the `--redline-test` flag is used, OpenSearch Benchmark performs the following steps:
 
-1. **Client initialization**: OpenSearch Benchmark initializes a large number of clients (default: 1,000). You can override this with `--redline-test=<int>`.
+1. **Client initialization**: OpenSearch Benchmark initializes a large number of clients (default: 1,000). You can override this with the optional `--redline-max-clients=<int>` flag.
 2. **Feedback mechanism**: OpenSearch Benchmark ramps up the number of active clients. A FeedbackActor monitors real-time request failures and adjusts the client count accordingly.
 3. **Shared state coordination**: OpenSearch Benchmark uses Python's multiprocessing library to manage shared dictionaries and queues for inter-process communication:
    - **Workers** create and share client state maps with the WorkerCoordinatorActor.
@@ -63,6 +63,36 @@ opensearch-benchmark execute-test \
 ```
 {% include copy.html %}
 
+## Latency- or CPU-based feedback
+
+OpenSearch Benchmark supports a `timeout` value per request, which cancels a request if it exceeds the specified duration. You can set this value using the `--client-options=timeout:<int>` flag. The default is 10 seconds.
+
+You can adjust this value to define the maximum request latency that OpenSearch Benchmark should tolerate during redline testing. For example, to determine the highest load your cluster can handle without exceeding 15 seconds of latency, set the timeout in client options to `15`.
+
+Redline testing also supports CPU-based feedback in addition to latency and request error monitoring. This helps to prevent exceeding safe utilization limits for your cluster.
+
+### Requirements
+
+To use CPU-based feedback during redline testing, your setup must meet the following requirements:
+
+- A metrics store must be configured. Using an in-memory store results in the following error:
+
+  ```bash
+  [ERROR] Cannot execute-test. Error in worker_coordinator (CPU-based feedback requires a metrics store. You are using an in-memory metrics store)
+  ```
+
+- The `--redline-cpu-max-usage flag` is required. This flag sets the maximum allowed CPU usage (as a percentage) per node during testing.
+- The `node-stats` telemetry device is automatically enabled when CPU-based feedback is active.
+
+### Behavior
+
+The redline CPU feedback loop operates with the following behaviors:
+
+- The `FeedbackActor` queries the metrics store at regular intervals to retrieve average CPU usage for each node.
+- If any node exceeds the threshold set by `--redline-cpu-max-usage`, the system initiates a scale-down.
+- After scaling down, the actor waits before attempting to scale up again.
+
+
 ## Results
 
 During a redline test, OpenSearch Benchmark provides detailed logs with scaling decisions and request failures during the test. At the end of a redline test, OpenSearch Benchmark logs the maximum number of clients that your cluster supported without request errors.
@@ -76,9 +106,17 @@ Redline test finished. Maximum stable client number reached: 410
 
 ## Configuration tips and test behavior
 
-Use the following options and behaviors to better understand and customize redline test execution:
+Use the following optional command flags to better understand and customize redline test execution:
 
 - `--redline-scale-step`: Specifies the number of clients to unpause in each scaling iteration.
 - `--redline-scaledown-percentage`: Specifies the percentage of clients to pause when an error occurs.
 - `--redline-post-scaledown-sleep`: Specifies the number of seconds the feedback actor waits before initiating a scale-up after scaling down.
 - `--redline-max-clients`: Specifies the maximum number of clients allowed during redline testing. If unset, OpenSearch Benchmark defaults to the number of clients defined in the test procedure.
+
+### For CPU-based feedback
+
+Use the following additional flags to configure CPU-based feedback:
+
+- `--redline-cpu-max-usage`: (Required) Maximum allowed CPU load (as a percentage) per node before triggering a scale-down.
+- `--redline-cpu-window-seconds`: Duration (in seconds) over which to average CPU usage per node. Default is 30 seconds.
+- `--redline-cpu-check-interval`: Interval (in seconds) between CPU usage checks. Default is 30 seconds.

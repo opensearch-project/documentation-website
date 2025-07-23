@@ -441,3 +441,52 @@ Override the query so that it contains a `knn` query, including the embedding ou
 ```
 
 {% include copy.html %}
+
+
+---
+
+## Neural sparse search
+
+This example demonstrates how to configure neural sparse search.
+
+### ML resources
+
+Create and deploy a [neural sparse encoding model](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md#neural-sparse-encoding).
+
+### Index
+
+Ensure that the index mappings include a `rank_features` field:
+
+```
+"<embedding_field_name>": {
+    "type": "rank_features"
+}
+```
+{% include copy.html %}
+
+### Ingest pipeline
+
+Configure a single ML inference processor. Map your input text to the `text_doc` model input field. Optionally, map the output `response` to a new document field. Transform the response if needed using a JSONPath expression. 
+
+
+### Search pipeline
+
+Configure a single ML inference search request processor. Map the query field containing the input text to the `text_doc` model input field. Optionally, map the output `response` to a new field. Transform the response if needed using a JSONPath expression. Include a neural sparse query:
+
+```
+{
+    "_source": {
+        "excludes": [
+            "<embedding_field>"
+        ]
+    },
+    "query": {
+        "neural_sparse": {
+            "<embedding_field>": {
+                "query_tokens": ${response},
+            }
+        }
+    }
+}
+```
+{% include copy.html %}

@@ -55,8 +55,7 @@ The following CDK performs a backfill migrations using RFS:
         "endpoint": <TARGET_CLUSTER_ENDPOINT>,
         "auth": {
             "type": "basic",
-            "username": <TARGET_CLUSTER_USERNAME>,
-            "passwordFromSecretArn": <TARGET_CLUSTER_PASSWORD_SECRET>
+            "userSecretArn": <SECRET_WITH_USERNAME_AND_PASSWORD_KEYS>
         }
     },
     "reindexFromSnapshotServiceEnabled": true,
@@ -97,8 +96,7 @@ The following sample CDK performs a live capture migration with C&R:
         "endpoint": <TARGET_CLUSTER_ENDPOINT>,
         "auth": {
             "type": "basic",
-            "username": <TARGET_CLUSTER_USERNAME>,
-            "passwordFromSecretArn": <TARGET_CLUSTER_PASSWORD_SECRET>
+            "userSecretArn": <SECRET_WITH_USERNAME_AND_PASSWORD_KEYS>
         }
     },
 
@@ -159,8 +157,7 @@ Both the source and target cluster can use no authentication, authentication lim
         "version": "ES 7.10",
         "auth": {
             "type": "basic",
-            "username": <TARGET_CLUSTER_USERNAME>,
-            "passwordFromSecretArn": <TARGET_CLUSTER_PASSWORD_SECRET>
+            "userSecretArn": <SECRET_WITH_USERNAME_AND_PASSWORD_KEYS>
         }
     }
 ```
@@ -207,6 +204,15 @@ You can use an existing Amazon Simple Storage Service (Amazon S3) snapshot to pe
         "snapshotRepoName": "my-snapshot-repo",
         "s3Uri": "s3://my-s3-bucket-name/my-bucket-path-to-snapshot-repo",
         "s3Region": "us-east-2"
+    }
+```
+{% include copy.html %}
+
+The version of the cluster used for the provided snapshot configuration should be aligned with the source cluster version. The source cluster version is required to ensure that the provided snapshot is parsed appropriately. If access to the source cluster is not required for monitoring and verification, it can be disabled as follows:
+```json
+    "sourceCluster": {
+        "disabled": true,
+        "version": "ES 7.10"
     }
 ```
 {% include copy.html %}

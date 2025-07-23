@@ -27,7 +27,7 @@ The [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/o
 
 ### Step 2: Ingest telemetry data
 
-- Configure the OTel collectors to send telemetry data (traces, metrics, logs) to your OpenSearch cluster, using the [preexisting setup](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector).
+- Configure the OTel collectors to send telemetry data (traces, metrics, logs) to your OpenSearch cluster, using the [preexisting setup](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otel-collector).
 - Confirm that [Data Prepper](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/dataprepper) is set up to process the incoming data, handle trace analytics and service map pipelines, submit data to required indexes, and perform preaggregated calculations.
 
 ### Step 3: Explore Trace Analytics in OpenSearch Dashboards

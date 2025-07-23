@@ -55,6 +55,7 @@ PUT /bakery-items
 Ingest documents into the index:
 
 ```json
+POST /bakery-items/_bulk
 { "index": {} }
 { "item": "Chocolate Cake", "category": "cakes", "price": 15, "baked_date": "2023-07-01T00:00:00Z" }
 { "index": {} }

@@ -10,9 +10,11 @@ Amazon SageMaker
 AWS Secrets Manager
 Ansible
 Anthropic Claude
+Apache HttpClient 5 Transport
 Apache Kafka
 Auditbeat
 AWS Cloud
+Capture and Replay
 Cohere Command
 Cohere Embed
 Cohere Embed English
@@ -61,8 +63,10 @@ Log4j
 Logstash
 Lucene
 macOS
+Metadata-Migration-Tool
 Metricbeat
 Microsoft Power BI
+Migration Assistant
 Minikube
 Nagios
 Okta
@@ -93,6 +97,7 @@ PyTorch
 Querqy
 Query Workbench
 RankLib
+Reindex-from-Snapshot
 RCF Summarize
 RPM Package Manager
 Ruby
@@ -104,6 +109,8 @@ Titan
 Titan Multimodal Embeddings
 Titan Text Embeddings
 TorchScript
+Traffic Capture Proxy
+Traffic Replayer
 Tribuo
 VisBuilder
 Winlogbeat

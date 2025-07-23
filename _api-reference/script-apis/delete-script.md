@@ -5,7 +5,7 @@ parent: Script APIs
 nav_order: 4
 ---
 
-# Delete script
+# Delete Script API
 **Introduced 1.0**
 {: .label .label-purple }
 

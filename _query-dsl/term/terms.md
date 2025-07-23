@@ -2,7 +2,7 @@
 layout: default
 title: Terms
 parent: Term-level queries
-nav_order: 80
+nav_order: 20
 ---
 
 # Terms query
@@ -265,7 +265,7 @@ The `terms` query can filter for multiple terms simultaneously. However, when th
 
 The following example assumes that you have two indexes: a `products` index, which contains all the products sold by a company, and a `customers` index, which stores filters representing customers who own specific products.
 
-First, create a `products` index and map `product_id` as a `keyword`:
+First, create a `products` index and map `product_id` as an integer:
 
 ```json
 PUT /products

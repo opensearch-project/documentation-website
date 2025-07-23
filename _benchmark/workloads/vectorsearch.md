@@ -4,7 +4,7 @@ title: Vector search
 nav_order: 35
 ---
 
-# Vector search
+# Vector search workload
 
 The vector search workload benchmarks OpenSearch's vector engine capabilities for both indexing and search operations. It tests various vector search algorithms, quantization methods, and index configurations to measure performance metrics like throughput, latency, and recall accuracy. The workload supports different datasets and can evaluate both trained and untrained vector search methods.
 

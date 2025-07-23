@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Get Snapshot Status
+title: Get snapshot status
 parent: Snapshot APIs
 nav_order: 8
 ---
 
-# Get snapshot status
+# Get Snapshot Status API
 **Introduced 1.0**
 {: .label .label-purple }
 

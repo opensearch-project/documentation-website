@@ -4,7 +4,6 @@ title: Deleting search pipelines
 nav_order: 30
 has_children: false
 parent: Search pipelines
-grand_parent: Search
 ---
 
 # Deleting search pipelines

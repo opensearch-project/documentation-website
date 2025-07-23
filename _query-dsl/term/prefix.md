@@ -2,7 +2,7 @@
 layout: default
 title: Prefix
 parent: Term-level queries
-nav_order: 40
+nav_order: 60
 ---
 
 # Prefix query

@@ -5,11 +5,11 @@ parent: Nodes APIs
 nav_order: 20
 ---
 
-# Nodes stats
+# Nodes Stats API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The nodes stats API returns statistics about your cluster.
+The Nodes Stats API returns statistics about your cluster.
 
 ## Endpoints
 

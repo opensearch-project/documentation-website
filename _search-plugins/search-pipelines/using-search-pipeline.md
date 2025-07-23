@@ -4,7 +4,6 @@ title: Using a search pipeline
 nav_order: 20
 has_children: false
 parent: Search pipelines
-grand_parent: Search
 ---
 
 # Using a search pipeline

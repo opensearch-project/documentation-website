@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 70
 ---
 
-# Get message traces
+# Get Message Traces API
 **Introduced 2.12**
 {: .label .label-purple }
 
@@ -32,14 +32,14 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `message_id` | String | The ID of the message to trace.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/message/TAuCZY0BT2tRrkdmCPqZ/traces
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
