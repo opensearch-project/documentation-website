@@ -152,7 +152,7 @@ The response includes only the three requested percentiles aggregations:
 
 ### Keyed response
 
-You can set `keyed: false` to return results as an array:
+You can change the format of the returned aggregation from JSON object to list of key-value pairs by setting the `keyed` parameter to `false`:
 
 ```json
 GET /latency_data/_search

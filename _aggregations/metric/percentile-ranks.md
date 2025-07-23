@@ -117,7 +117,7 @@ The response demonstrates that 28.6% of the values are less than or equal to `25
 
 ### Keyed response
 
-You can change the format of the aggregation response by setting the `keyed` parameter to `false`:
+You can change the format of the returned aggregation from json object to list of key-value pairs by setting the `keyed` parameter to `false`:
 
 ```json
 GET /transaction_data/_search
