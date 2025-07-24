@@ -16,14 +16,14 @@ redirect_from:
 
 User Behavior Insights (UBI) is a schema for capturing user search behavior. Search behavior consists of the queries the user issues, the results that are presented to them, and the actions they take on those results. The UBI schema links all user interactions (events) to the search result they were performed on. That is, it does not only capture the chronological sequence of events, it also captures the causal links between events. Analysis of this behavior is used for improving the quality of search results.
 
-Client applications such as web pages capture user behavior and send UBI data to a UBI endpoint. In the case of Web pages, JavaScript code performs that function. 
+Client applications such as web pages or apps capture user behavior and send UBI data to a UBI endpoint. In the case of web pages, JavaScript code performs that function. 
 
-In principle, queries sent to the server and results returned by the server can be sent to the UBI endpoint from the client. But as a special case, they can instead be sent directly to the UBI endpoint from the server, without incurring a round-trip to the client. That is the function of the UBI plugin.
+In principle, queries sent to the server and results returned by the server can be sent to the UBI endpoint from the client. But as an optimization, they can instead be sent directly to the UBI endpoint from the server, without incurring a round-trip to the client. That is the function of the UBI plugin, and is not a requirement to adopt UBI.
 
 UBI includes the following elements:
 * A machine-readable [schema](https://github.com/o19s/ubi) that faciliates interoperablity of the UBI specification.
-* An OpenSearch [plugin](https://github.com/opensearch-project/user-behavior-insights) that captures server-side behavior.
 * A client-side JavaScript [example reference implementation]({{site.url}}{{site.baseurl}}/search-plugins/ubi/data-structures/) that shows how to capture events and send them to the OpenSearch UBI plugin.
+* An OpenSearch [plugin](https://github.com/opensearch-project/user-behavior-insights) that captures server-side behavior.
 
 <!-- vale off -->
 
