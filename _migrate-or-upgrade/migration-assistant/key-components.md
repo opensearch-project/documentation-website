@@ -26,7 +26,7 @@ This component is designed for HTTP RESTful traffic. It forwards traffic to the 
 
 ## Traffic Replayer
 
-Acting as a traffic simulation tool, [Traffic Replayer](https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/live-traffic-migration/replay-captured-traffic/) replays recorded request traffic to a target cluster, mirroring source traffic patterns. It links original requests and their responses to those directed at the target cluster, facilitating comparative analysis.
+Acting as a traffic simulation tool, [Traffic Replayer]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/) replays recorded request traffic to a target cluster, mirroring source traffic patterns. It links original requests and their responses to those directed at the target cluster, facilitating comparative analysis.
 
 ## Metadata-Migration-Tool
 

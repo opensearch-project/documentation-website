@@ -232,7 +232,7 @@ TARGET CLUSTER
 ConnectionResult(connection_message='Successfully connected!', connection_established=True, cluster_version='')
 ```
 
-To learn more about migration console commands, see [Migration console command reference](https://docs.opensearch.org/docs/latest/migration-assistant/migration-console/migration-console-commands-references/).
+To learn more about migration console commands, see [Migration console command reference]({{site.url}}{{site.baseurl}}/migration-assistant/migration-console/migration-console-command-reference/).
 
 ---
 
