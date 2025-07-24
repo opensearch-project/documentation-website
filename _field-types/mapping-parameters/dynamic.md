@@ -398,7 +398,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-Indexing succeeds because the new field `room` matches the dynamic templates.
+The new field `room` is indexed because matches the dynamic templates.
 
 3. Indexing also succeeds when the new field `floor` is added even though it does not match any properties or dynamic tamplates. However mappings will not be created for `floor` and so queries such as `{"match": {"floor": "1"}}` will not return the doc.
 
