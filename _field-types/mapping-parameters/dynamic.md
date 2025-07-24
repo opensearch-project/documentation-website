@@ -413,3 +413,4 @@ PUT testindex1/_doc/1
   "floor": "1"
 }
 ```
+{% include copy-curl.html %}
