@@ -16,7 +16,7 @@ redirect_from:
 
 User Behavior Insights (UBI) is a schema for capturing user search behavior. Search behavior consists of the queries that the user submits, the results that are presented to them, and the actions they take on those results. The UBI schema links all user interactions (events) to the search result they were performed on. That is, it does not only capture the chronological sequence of events, it also captures the causal links between events. Analysis of this behavior is used for improving the quality of search results.
 
-Client applications such as web pages or apps capture user behavior and send UBI data to a UBI endpoint. In the case of web pages, JavaScript code performs that function. 
+Client applications such as web pages or apps capture user behavior and send UBI data to a UBI endpoint. For web pages, this is typically handled by JavaScript code.
 
 In principle, queries sent to the server and results returned by the server can be sent to the UBI endpoint from the client. But as an optimization, they can instead be sent directly to the UBI endpoint from the server, without incurring a round-trip to the client. That is the function of the UBI plugin, and is not a requirement to adopt UBI.
 
