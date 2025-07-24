@@ -191,16 +191,16 @@ class VersionSelector extends HTMLElement {
 
         frag.querySelector('#selected').textContent = `${PREFIX}${this.getAttribute('selected')}`;
 
-        const pathName = location.pathname.replace(/\/docs(\/((latest|\d+\.\d+)\/?)?)?/, '');
+        const pathName = location.pathname.replace(/^\/(latest|\d+\.\d+)(\/)?/, '');
         const versionsDOMNodes = DOC_VERSIONS.map((v, idx) => v === DOC_VERSION_LATEST
-          ? `<a href="/docs/latest/${pathName}" class="latest">${PREFIX}${v}</a>`
-          : `<a href="/docs/${v}/${pathName}">${PREFIX}${v}</a>`,
+          ? `<a href="/latest/${pathName}" class="latest">${PREFIX}${v}</a>`
+          : `<a href="/${v}/${pathName}">${PREFIX}${v}</a>`,
         );
         if (Array.isArray(DOC_VERSIONS_ARCHIVED) && DOC_VERSIONS_ARCHIVED.length) {
             versionsDOMNodes.push(
                 `<a class="show-archived"><span>Show archived</span><svg xmlns="http://www.w3.org/2000/svg" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6l6-6"/></g></svg></a>`,
                 `<a class="archived">Archived</a>`,
-                ...DOC_VERSIONS_ARCHIVED.map((v, idx) => `<a href="/docs/${v}/${pathName}">${PREFIX}${v}</a>`)
+                ...DOC_VERSIONS_ARCHIVED.map((v, idx) => `<a href="/${v}/${pathName}">${PREFIX}${v}</a>`)
             );
         }
 

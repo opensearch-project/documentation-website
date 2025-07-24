@@ -151,7 +151,7 @@ You can specify the following options for `MULTI_MATCH` in any order:
 - `zero_terms_query`
 - `boost`
 
-Refer to `multi_match` query [documentation]({{site.baseurl}}/query-dsl/full-text/multi-match/) for parameter description and supported values.
+Refer to `multi_match` query [documentation]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/) for parameter description and supported values.
 
 ### For example, REST API search for `Dale` in either the `firstname` or `lastname` fields:
 
