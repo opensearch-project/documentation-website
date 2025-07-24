@@ -6,7 +6,7 @@ component: path_parameters
 -->
 ## Path parameters
 
-The following table lists the available path parameters. All path parameters are optional.
+The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
