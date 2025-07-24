@@ -3,9 +3,10 @@ layout: default
 title: Configuring OpenSearch
 nav_order: 10
 has_children: true
+permalink: /install-and-configure/configuring-opensearch/
 redirect_from:
-  - /install-and-configure/configuring-opensearch/
   - /opensearch/configuration/
+  - /install-and-configure/configuring-opensearch/index/
 ---
 
 # Configuring OpenSearch
