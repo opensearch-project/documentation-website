@@ -193,8 +193,8 @@ class VersionSelector extends HTMLElement {
 
         const pathName = location.pathname.replace(/^\/(latest|\d+\.\d+)(\/)?/, '');
         const versionsDOMNodes = DOC_VERSIONS.map((v, idx) => v === DOC_VERSION_LATEST
-          ? `<a href="/docs/latest/${pathName}" class="latest">${PREFIX}${v}</a>`
-          : `<a href="/docs/${v}/${pathName}">${PREFIX}${v}</a>`,
+          ? `<a href="/latest/${pathName}" class="latest">${PREFIX}${v}</a>`
+          : `<a href="/${v}/${pathName}">${PREFIX}${v}</a>`,
         );
         if (Array.isArray(DOC_VERSIONS_ARCHIVED) && DOC_VERSIONS_ARCHIVED.length) {
             versionsDOMNodes.push(
