@@ -53,18 +53,18 @@ items:
       - label: Members
         url: /community/members/index.html
   - label: Documentation
-    url: /docs/latest/
+    url: /latest/
     children:
       - label: OpenSearch and Dashboards
-        url: /docs/latest/about/
+        url: /latest/about/
       - label: Data Prepper
-        url: /docs/latest/data-prepper/
+        url: /latest/data-prepper/
       - label: Clients
-        url: /docs/latest/clients/
+        url: /latest/clients/
       - label: Benchmark
-        url: /docs/latest/benchmark/
+        url: /latest/benchmark/
       - label: Migration Assistant
-        url: /docs/latest/migration-assistant/
+        url: /latest/migration-assistant/
   - label: Platform
     url: /platform/index.html
     children:
