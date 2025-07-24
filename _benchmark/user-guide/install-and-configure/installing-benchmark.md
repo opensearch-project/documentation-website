@@ -144,7 +144,7 @@ To ensure that your benchmark data and logs persist after your Docker container 
 
 Use the `-v` option to specify a local directory to mount and a directory in the container where the volume is attached.
 
-The following example mounts a volume from the user's home directory to the OpenSearch Benchmark container's default benchmark data path at `/opensearch-benchmark/.benchmark`, then runs a test benchmark using the `geonames` workload:
+The following example mounts a volume from the user's home directory to the OpenSearch Benchmark container's default benchmark data path at `/opensearch-benchmark/.benchmark` and then runs a test benchmark using the `geonames` workload:
 
 ```bash
 docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark execute-test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
