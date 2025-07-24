@@ -51,6 +51,7 @@ config:
             subject_key: preferred_username
             roles_key: roles
             openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
+            required_audience: your-openid-client-id
         authentication_backend:
           type: noop
 ```
@@ -64,6 +65,9 @@ Name | Description
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header, but as an URL parameter, define the name of the parameter here. Optional.
 `subject_key` | The key in the JSON payload that stores the user's name. If not defined, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used. Most IdP providers use the `preferred_username` claim. Optional.
 `roles_key` | The key in the JSON payload that stores the user's roles. The value must be a comma-separated list of roles. This key is required only if you want to use roles in the JWT. You can configure `roles_key` as a list to extract roles from nested JWT claims.
+`required_audience` | The name of the audience that the JWT must specify. You can set a single value (for example, `project1`) or multiple comma-separated values (for example, `project1,admin`). If you set multiple values, the JWT must have at least one required audience. This parameter corresponds to the [`aud` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3).
+`required_issuer` | The target issuer of JWT stored in the JSON payload. This corresponds to the [`iss` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
+`jwt_clock_skew_tolerance_seconds` | Sets a window of time, in seconds, to compensate for any disparity between the JWT authentication server and OpenSearch node clock times, thereby preventing authentication failures due to the misalignment. Security sets 30 seconds as the default. Use this setting to apply a custom value.
 
 
 ## OpenID Connect URL
