@@ -400,7 +400,7 @@ PUT testindex1/_doc/1
 
 The new field `room` is indexed because matches the dynamic templates.
 
-3. Indexing also succeeds when the new field `floor` is added even though it does not match any properties or dynamic tamplates. However mappings will not be created for `floor` and so queries such as `{"match": {"floor": "1"}}` will not return the doc.
+If you add a new field `floor`, it is indexed even though it does not match any mapping properties or dynamic templates. However, mappings are not created for the `floor` field. Thus, queries such as `{"match": {"floor": "1"}}` do not return this document:
 
 ```json
 PUT testindex1/_doc/1
