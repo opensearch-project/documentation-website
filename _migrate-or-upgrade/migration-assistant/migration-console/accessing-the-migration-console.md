@@ -5,6 +5,8 @@ nav_order: 1
 parent: Migration console
 grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-console/accessing-the-migration-console/
+redirect_from:
+  - /migration-console/accessing-the-migration-console/
 ---
 
 # Accessing the migration console

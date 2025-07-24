@@ -6,6 +6,7 @@ nav_exclude: true
 permalink: /migration-assistant/migration-phases/live-traffic-migration/switching-traffic-from-the-source-cluster/
 redirect_from:
   - /migration-assistant/migration-phases/switching-traffic-from-the-source-cluster/
+  - /migration-phases/switching-traffic-from-the-source-cluster/
 ---
 
 # Switching traffic from the source cluster

@@ -8,32 +8,38 @@ nav_exclude: false
 has_children: true
 has_toc: false
 permalink: /migration-assistant/migration-phases/
+redirect_from:
+  - /migration-assistant/overview/migration-phases/
+  - /migration-phases/
 ---
 
 # Migration phases
 
-This page outlines the core phases of migrating with Migration Assistant. Each scenario below consists of a sequence of common steps. Expand a scenario to explore the detailed flow.
+This page outlines the core phases of migrating with Migration Assistant. There are three migration scenarios, each consisting of a sequence of common steps.
 
 <style>
-details {
+.scenario-container {
   border: 1px solid #aaa;
   border-radius: 0.5rem;
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   background-color: #f9f9f9;
 }
-summary {
+.scenario-title {
   font-weight: bold;
-  cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #2c5aa0;
+  border-bottom: 2px solid #e1e4e8;
+  padding-bottom: 0.5rem;
 }
-details[open] {
-  background-color: #eef6ff;
+.scenario-container ol {
+  margin-top: 0.5rem;
 }
 </style>
 
-<details id="scenario-1">
-<summary>Scenario 1 – Backfill Only</summary>
+<div class="scenario-container" id="scenario-1">
+<div class="scenario-title">Scenario 1 – Backfill Only</div>
 
 <ol>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/">Assessment</a></li>
@@ -55,10 +61,10 @@ details[open] {
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/">Teardown</a></li>
 </ol>
 
-</details>
+</div>
 
-<details id="scenario-2">
-<summary>Scenario 2 – Live Capture Only</summary>
+<div class="scenario-container" id="scenario-2">
+<div class="scenario-title">Scenario 2 – Live Capture Only</div>
 
 <ol>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/">Assessment</a></li>
@@ -81,10 +87,10 @@ details[open] {
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/">Teardown</a></li>
 </ol>
 
-</details>
+</div>
 
-<details id="scenario-3">
-<summary>Scenario 3 –  Live Capture with Backfill</summary>
+<div class="scenario-container" id="scenario-3">
+<div class="scenario-title">Scenario 3 – Live Capture with Backfill</div>
 
 <ol>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/">Assessment</a></li>
@@ -110,57 +116,4 @@ details[open] {
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/">Teardown</a></li>
 </ol>
 
-</details>
-
-<script>
-(function() {
-  // Function to save details state to localStorage
-  function saveDetailsState() {
-    const details = document.querySelectorAll('details[id]');
-    const state = {};
-    details.forEach(detail => {
-      state[detail.id] = detail.open;
-    });
-    localStorage.setItem('migration-phases-details-state', JSON.stringify(state));
-  }
-
-  // Function to restore details state from localStorage
-  function restoreDetailsState() {
-    const savedState = localStorage.getItem('migration-phases-details-state');
-    if (savedState) {
-      try {
-        const state = JSON.parse(savedState);
-        Object.keys(state).forEach(id => {
-          const detail = document.getElementById(id);
-          if (detail && state[id]) {
-            detail.open = true;
-          }
-        });
-      } catch (e) {
-        console.warn('Failed to restore details state:', e);
-      }
-    }
-  }
-
-  // Wait for DOM to be ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      restoreDetailsState();
-      
-      // Add event listeners to save state when details are toggled
-      const details = document.querySelectorAll('details[id]');
-      details.forEach(detail => {
-        detail.addEventListener('toggle', saveDetailsState);
-      });
-    });
-  } else {
-    restoreDetailsState();
-    
-    // Add event listeners to save state when details are toggled
-    const details = document.querySelectorAll('details[id]');
-    details.forEach(detail => {
-      detail.addEventListener('toggle', saveDetailsState);
-    });
-  }
-})();
-</script>
+</div>

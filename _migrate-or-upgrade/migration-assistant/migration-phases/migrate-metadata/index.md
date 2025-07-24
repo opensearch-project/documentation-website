@@ -9,6 +9,7 @@ has_toc: false
 permalink: /migration-assistant/migration-phases/migrate-metadata/
 redirect_from:
   - /migration-assistant/migration-phases/migrating-metadata/
+  - /migration-phases/migrating-metadata/
 ---
 
 # Migrate metadata

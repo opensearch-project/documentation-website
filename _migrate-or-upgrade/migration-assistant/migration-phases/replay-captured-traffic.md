@@ -7,6 +7,7 @@ grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/replay-captured-traffic/
 redirect_from: 
   - /migration-assistant/migration-phases/using-traffic-replayer/
+  - /migration-phases/using-traffic-replayer/
 ---
 
 # Using Traffic Replayer

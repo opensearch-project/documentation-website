@@ -8,6 +8,7 @@ has_children: true
 permalink: /migration-assistant/migration-phases/deploy/
 redirect_from:
   - /migration-assistant/getting-started-with-data-migration/
+  - /deploying-migration-assistant/
 ---
 
 # Deploy

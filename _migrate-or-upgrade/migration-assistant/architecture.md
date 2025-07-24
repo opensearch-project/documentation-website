@@ -4,6 +4,8 @@ title: Architecture
 nav_order: 15
 parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/architecture/
+redirect_from:
+  - /migration-assistant/overview/architecture/
 ---
 
 # Architecture

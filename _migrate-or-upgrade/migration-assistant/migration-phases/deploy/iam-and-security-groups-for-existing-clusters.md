@@ -7,6 +7,7 @@ parent: Deploy
 permalink: /migration-assistant/migration-phases/deploy/iam-and-security-groups-for-existing-clusters/
 redirect_from:
   - /migration-assistant/deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
+  - /deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
 ---
 
 # IAM and security groups for existing clusters

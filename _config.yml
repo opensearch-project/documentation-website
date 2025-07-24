@@ -268,12 +268,6 @@ defaults:
       section-name: "Benchmark"
   -
     scope:
-      path: "_migrate-or-upgrade/migration-assistant"
-    values:
-      section: "migration-assistant"
-      section-name: "Migration Assistant for OpenSearch"
-  -
-    scope:
       path: "_migration-assistant"
     values:
       section: "migration-assistant"

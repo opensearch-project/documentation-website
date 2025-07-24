@@ -2,9 +2,10 @@
 layout: default
 title: Is Migration Assistant right for you?
 nav_order: 10
-parent: Overview
+parent: Migration Assistant for OpenSearch
+permalink: /migration-assistant/is-migration-assistant-right-for-you/
 redirect_from:
-  - /migration-assistant/is-migration-assistant-right-for-you/
+  - /migration-assistant/overview/is-migration-assistant-right-for-you/
 ---
 
 # Is Migration Assistant right for you?

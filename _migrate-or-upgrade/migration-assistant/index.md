@@ -26,7 +26,7 @@ items:
 
 # Migration Assistant for OpenSearch
 
-Migration Assistant for OpenSearch aids you in successfully performing an end-to-end, zero-downtime migration to OpenSearch from other search providers. It helps with the following scenarios:
+Migration Assistant for OpenSearch aids you in successfully performing an end-to-end, zero-downtime upgrade and migration to OpenSearch.
 
 - **Metadata migration**: Migrating cluster metadata, such as index settings, aliases, and templates.
 - **Backfill migration**: Migrating existing or historical data from a source to a target cluster.
