@@ -8,6 +8,7 @@ datatable: true
 redirect_from:
   - /opensearch/segment-replication/
   - /opensearch/segment-replication/index/
+  - /tuning-your-cluster/segment-replication/
 ---
 
 # Segment replication
@@ -401,7 +402,7 @@ The following table lists benchmarking results for the `stackoverflow` dataset f
 
 As the number of replicas increases, the amount of time required for primary shards to keep replicas up to date (known as the _replication lag_) also increases. This is because segment replication copies the segment files directly from primary shards to replicas. 
 
-The benchmarking results show a non-zero error rate as the number of replicas increases. The error rate indicates that the [segment replication backpressure]({{site.urs}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/) mechanism is initiated when replicas cannot keep up with the primary shard. However, the error rate is offset by the significant CPU and memory gains that segment replication provides.
+The benchmarking results show a non-zero error rate as the number of replicas increases. The error rate indicates that the [segment replication backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/) mechanism is initiated when replicas cannot keep up with the primary shard. However, the error rate is offset by the significant CPU and memory gains that segment replication provides.
 
 ## Next steps
 
