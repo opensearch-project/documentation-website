@@ -46,7 +46,7 @@ class DocProcessor
                          .filter { |line, _index| line.match?(START_MARKER) }
                          .map { |_line, index| index }
     end_indices = start_indices.map do |index|
-      (index..lines.length - 1).find { |i| lines[i].match?(END_MARKER) }
+      (index..(lines.length - 1)).find { |i| lines[i].match?(END_MARKER) }
     end.compact
 
     validate_markers!(start_indices, end_indices)
