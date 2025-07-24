@@ -164,6 +164,7 @@ To use `Reindex-from-Snapshot` (RFS), ensure the following:
   - `include_global_state: true` – Ensures that global cluster state is included.
   - `compress: false` – Disables metadata compression, which is required for compatibility with RFS.
 - Shards of up to **80 GiB** are supported by default. Larger shard sizes can be configured, **except in AWS GovCloud (US)**, where 80 GiB is the maximum.
+- OS 2.9+ shapshots of indexes using `zstd` or `zstd_no_dict` codecs are currently not supported. If currently required to migrate with `Reindex-from-Snapshot`, you must perform a reindex on the source cluster to `default` or `best_compression` prior to using a new snapshot with RFS.
 
 ### Capture and Replay
 

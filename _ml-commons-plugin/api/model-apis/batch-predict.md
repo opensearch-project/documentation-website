@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 65
 ---
 
-# Batch predict
+# Batch Predict API
 
 ML Commons can perform inference on large datasets in an offline asynchronous mode using a model deployed on external model servers. To use the Batch Predict API, you must provide the `model_id` for an externally hosted model. Amazon SageMaker, Cohere, and OpenAI are currently the only verified external servers that support this API.
 

@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 50
 ---
 
-# MCP SSE session
+# MCP SSE Session API
 **Introduced 3.0**
 {: .label .label-purple }
 

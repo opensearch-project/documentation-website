@@ -2,7 +2,6 @@
 layout: default
 title: Using semantic highlighting
 parent: Vector search
-grand_parent: Tutorials
 nav_order: 60
 ---
 

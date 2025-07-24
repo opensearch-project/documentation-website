@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Create or update a controller
+# Create or Update Controller API
 **Introduced 2.12**
 {: .label .label-purple }
 

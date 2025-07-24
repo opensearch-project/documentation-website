@@ -5,7 +5,7 @@ parent: List API
 nav_order: 20
 ---
 
-# List shards
+# List Shards API
 **Introduced 2.18**
 {: .label .label-purple }
 

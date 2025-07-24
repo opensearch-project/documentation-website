@@ -5,7 +5,7 @@ parent: Cluster APIs
 nav_order: 75
 ---
 
-# Voting configuration exclusions
+# Voting Configuration Exclusions API
 
 The `_cluster/voting_config_exclusions` API allows you to exclude one or more nodes from the voting configuration. This is useful when you want to safely remove cluster-manager-eligible nodes from the cluster or to change the current cluster manager.
 

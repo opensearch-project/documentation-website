@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 20
 ---
 
-# Get a memory
+# Get Memory API
 **Introduced 2.12**
 {: .label .label-purple }
 

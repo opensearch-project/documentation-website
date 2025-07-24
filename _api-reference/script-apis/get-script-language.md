@@ -5,7 +5,7 @@ parent: Script APIs
 nav_order: 6
 ---
 
-# Get script language
+# Get Script Language API
 **Introduced 1.0**
 {: .label .label-purple }
 

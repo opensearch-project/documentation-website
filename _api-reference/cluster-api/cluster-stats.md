@@ -9,7 +9,7 @@ redirect_from:
   - /opensearch/rest-api/cluster-stats/
 ---
 
-# Cluster stats
+# Cluster Stats API
 **Introduced 1.0**
 {: .label .label-purple }
 

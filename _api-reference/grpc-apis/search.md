@@ -5,7 +5,7 @@ parent: gRPC APIs
 nav_order: 20
 ---
 
-# Search (gRPC)
+# Search (grpc) API
 **Introduced 3.0**
 {: .label .label-purple }
 

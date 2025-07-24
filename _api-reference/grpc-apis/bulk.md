@@ -5,7 +5,7 @@ parent: gRPC APIs
 nav_order: 20
 ---
 
-# Bulk (gRPC)
+# Bulk (grpc) API
 **Introduced 3.0**
 {: .label .label-purple }
 

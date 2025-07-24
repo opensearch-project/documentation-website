@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Register a model group
+# Register Model Group API
 
 To register a model group, send a `POST` request to the `_register` endpoint. You can register a model group in `public`, `private`, or `restricted` access mode. 
 

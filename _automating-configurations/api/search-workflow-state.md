@@ -5,7 +5,7 @@ parent: Workflow APIs
 nav_order: 65
 ---
 
-# Search for a workflow
+# Search Workflow State API
 
 You can search for resources created by workflows by matching a query to a field. The fields you can search correspond to those returned by the [Get Workflow Status API]({{site.url}}{{site.baseurl}}/automating-configurations/api/get-workflow-status/).
 

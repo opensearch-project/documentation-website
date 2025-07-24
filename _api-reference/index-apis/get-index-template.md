@@ -2,10 +2,10 @@
 layout: default
 title: Get index template
 parent: Index APIs
-nav_order: 27
+nav_order: 85
 ---
 
-# Get index template
+# Get Index Template API
 
 The Get Index Template API returns information about one or more index templates.
 

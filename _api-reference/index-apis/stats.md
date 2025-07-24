@@ -2,10 +2,10 @@
 layout: default
 title: Stats
 parent: Index APIs
-nav_order: 72
+nav_order: 155
 ---
 
-# Index Stats 
+# Index Stats API 
 **Introduced 1.0**
 {: .label .label-purple }
 

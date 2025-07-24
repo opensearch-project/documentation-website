@@ -80,7 +80,7 @@
         };
 
         const getBreadcrumbs = result => {
-            const crumbs = [...result.ancestors];
+            const crumbs = [...result.ancestors].filter(crumb => crumb && crumb.trim());
 
             if (result.type === 'DOCS') crumbs.unshift(`OpenSearch ${result.versionLabel || result.version}`);
             else if (result.type) crumbs.unshift(result.type);
@@ -284,7 +284,7 @@ window.doResultsPageSearch = async (query, type, version) => {
     const searchResultsContainer = document.getElementById('searchPageResultsContainer');
 
     try {
-        const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${version}&t=${type}`);
+        const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${version}&t=DOCS`);
         const data = await response.json();
         // Clear any previous search results
         searchResultsContainer.innerHTML = '';
@@ -295,7 +295,7 @@ window.doResultsPageSearch = async (query, type, version) => {
               resultElement.classList.add('search-page--results--display--container--item');
 
               const contentCite = document.createElement('cite');
-              const crumbs = [...result.ancestors];
+              const crumbs = [...result.ancestors].filter(crumb => crumb && crumb.trim());
               if (result.type === 'DOCS') crumbs.unshift(`OpenSearch ${result.versionLabel || result.version}`);
               else if (result.type) crumbs.unshift(result.type);
               contentCite.textContent = crumbs.join(' › ')?.replace?.(/</g, '&lt;');

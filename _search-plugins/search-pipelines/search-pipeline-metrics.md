@@ -4,7 +4,6 @@ title: Search pipeline metrics
 nav_order: 50
 has_children: false
 parent: Search pipelines
-grand_parent: Search
 ---
 
 # Search pipeline metrics

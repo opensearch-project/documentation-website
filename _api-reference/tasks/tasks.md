@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Tasks API
+title: Tasks APIs
 has_children: yes
 nav_order: 85
 redirect_from:
@@ -8,7 +8,7 @@ redirect_from:
  - /api-reference/tasks/
 ---
 
-# Tasks
+# Tasks APIs
 **Introduced 1.0**
 {: .label .label-purple }
 

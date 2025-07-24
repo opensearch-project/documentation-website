@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT templates
-parent: CAT API
+parent: CAT APIs
 nav_order: 70
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-templates/
 ---
 
-# CAT templates
+# CAT Templates API
 **Introduced 1.0**
 {: .label .label-purple }
 

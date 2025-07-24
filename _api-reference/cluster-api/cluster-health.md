@@ -9,7 +9,7 @@ redirect_from:
  - /opensearch/rest-api/cluster-health/
 ---
 
-# Cluster health
+# Cluster Health API
 **Introduced 1.0**
 {: .label .label-purple }
 
