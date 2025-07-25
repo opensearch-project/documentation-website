@@ -2,7 +2,7 @@
 layout: default
 title: Index data
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/im-plugin/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/
 ---
 
 # Index data

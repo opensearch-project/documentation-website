@@ -3,7 +3,7 @@ layout: default
 title: Complex Queries
 parent: SQL
 nav_order: 6
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql/complex/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/complex/
 ---
 
 # Complex queries

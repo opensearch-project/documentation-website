@@ -3,7 +3,7 @@ layout: default
 title: Protocol
 parent: SQL
 nav_order: 14
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/response-formats/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/response-formats/
 ---
 
 # Protocol

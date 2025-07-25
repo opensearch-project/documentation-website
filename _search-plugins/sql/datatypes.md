@@ -3,7 +3,7 @@ layout: default
 title: Data Types
 parent: SQL
 nav_order: 73
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/datatypes/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/datatypes/
 ---
 
 # Data types

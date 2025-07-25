@@ -3,7 +3,7 @@ layout: default
 title: ODBC Driver
 parent: SQL
 nav_order: 72
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql/odbc/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/odbc/
 ---
 
 # ODBC driver

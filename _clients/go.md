@@ -3,8 +3,8 @@ layout: default
 title: Go client
 nav_order: 80
 nav_exclude: true
-redirect_to: https://opensearch.org/docs/latest/clients/go/
-canonical_url: https://opensearch.org/docs/latest/clients/go/
+redirect_to: https://docs.opensearch.org/latest/clients/go/
+canonical_url: https://docs.opensearch.org/latest/clients/go/
 ---
 
 # Go client

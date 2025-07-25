@@ -3,7 +3,7 @@ layout: default
 title: System indices
 parent: Configuration
 nav_order: 15
-canonical_url: https://opensearch.org/docs/latest/security/configuration/system-indices/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/system-indices/
 ---
 
 # System indices
