@@ -5,7 +5,7 @@ nav_order: 55
 has_children: true
 has_toc: false
 parent: Supported field types
-canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/geographic/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/geographic/
 ---
 
 # Geographic field types

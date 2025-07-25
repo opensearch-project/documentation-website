@@ -4,7 +4,7 @@ title: Cluster settings
 nav_order: 50
 parent: Cluster APIs
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-settings/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-settings/
 ---
 
 # Cluster settings
