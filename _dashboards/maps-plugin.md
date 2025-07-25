@@ -5,7 +5,7 @@ nav_order: 60
 redirect_from:
   - /dashboards/maps/
   - /dashboards/visualize/maps/
-canonical_url: https://opensearch.org/docs/latest/dashboards/visualize/maps/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/maps/
 ---
 
 # Using the Maps plugin

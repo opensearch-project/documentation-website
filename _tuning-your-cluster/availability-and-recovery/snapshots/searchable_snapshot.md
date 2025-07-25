@@ -6,7 +6,7 @@ nav_order: 40
 grand_parent: Availability and Recovery
 redirect_from: 
   - /opensearch/snapshots/searchable_snapshot/
-canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/snapshots/searchable_snapshot/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/searchable_snapshot/
 ---
 
 # Searchable snapshots

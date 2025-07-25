@@ -3,7 +3,7 @@ layout: default
 title: Create Snapshot
 parent: Snapshot APIs
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/api-reference/snapshots/create-snapshot/
+canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/create-snapshot/
 ---
 
 ## Create snapshot

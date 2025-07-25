@@ -7,7 +7,7 @@ parent: Cartesian field types
 grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/xy-point/
-canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/xy-point/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/xy-point/
 ---
 
 # xy point field type

@@ -3,7 +3,7 @@ layout: default
 title: Working with rules
 parent: Using Security Analytics
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/security-analytics/usage/rules/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/usage/rules/
 ---
 
 # Working with rules
