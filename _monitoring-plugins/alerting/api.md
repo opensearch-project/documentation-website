@@ -3,7 +3,7 @@ layout: default
 title: API
 parent: Alerting
 nav_order: 15
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/alerting/api/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/api/
 ---
 
 # Alerting API

@@ -4,7 +4,7 @@ title: Reindex
 parent: Document APIs
 grand_parent: REST API reference
 nav_order: 60
-canonical_url: https://opensearch.org/docs/latest/api-reference/document-apis/reindex/
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/reindex/
 ---
 
 # Index document

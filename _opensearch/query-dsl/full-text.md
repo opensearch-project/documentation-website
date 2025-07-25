@@ -3,7 +3,7 @@ layout: default
 title: Full-text queries
 parent: Query DSL
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/query-dsl/full-text/index/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/full-text/index/
 ---
 
 # Full-text queries

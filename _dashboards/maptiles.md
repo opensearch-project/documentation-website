@@ -4,7 +4,7 @@ title: WMS map server
 nav_order: 5
 redirect_from:
   - /docs/opensearch-dashboards/maptiles/
-canonical_url: https://opensearch.org/docs/latest/dashboards/visualize/maptiles/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/maptiles/
 ---
 
 {%- comment -%}The `/docs/opensearch-dashboards/maptiles/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}

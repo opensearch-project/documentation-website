@@ -2,7 +2,7 @@
 layout: default
 title: Data streams
 nav_order: 13
-canonical_url: https://opensearch.org/docs/latest/im-plugin/data-streams/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/data-streams/
 ---
 
 # Data streams

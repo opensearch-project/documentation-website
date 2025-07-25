@@ -6,7 +6,7 @@ has_children: true
 redirect_from:
   - /im-plugin/ism/
 has_toc: false
-canonical_url: https://opensearch.org/docs/latest/im-plugin/ism/index/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/ism/index/
 ---
 
 # Index State Management

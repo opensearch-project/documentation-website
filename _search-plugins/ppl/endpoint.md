@@ -3,7 +3,7 @@ layout: default
 title: Endpoint
 parent: Piped processing language
 nav_order: 1
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql-ppl-api/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql-ppl-api/
 ---
 
 # Endpoint
