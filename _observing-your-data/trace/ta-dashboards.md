@@ -5,7 +5,7 @@ parent: Trace Analytics
 nav_order: 50
 redirect_from:
   - /observability-plugin/trace/ta-dashboards/
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/trace/ta-dashboards/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/ta-dashboards/
 ---
 
 # Trace Analytics OpenSearch Dashboards plugin

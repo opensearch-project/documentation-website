@@ -4,7 +4,7 @@ title: GeoHex grid aggregations
 parent: Aggregations
 permalink: /aggregations/geohexgrid/
 nav_order: 4
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/geohex-grid/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geohex-grid/
 ---
 
 # GeoHex grid aggregations

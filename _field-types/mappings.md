@@ -4,7 +4,7 @@ title: Mapping
 nav_order: 13
 redirect_from: 
   - /opensearch/mappings/
-canonical_url: https://opensearch.org/docs/latest/field-types/
+canonical_url: https://docs.opensearch.org/latest/field-types/
 ---
 
 # Mapping

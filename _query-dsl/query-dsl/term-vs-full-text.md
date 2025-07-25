@@ -4,7 +4,7 @@ title: Term-level and full-text queries compared
 parent: Query DSL
 permalink: /query-dsl/term-vs-full-text/
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/query-dsl/term-vs-full-text/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term-vs-full-text/
 ---
 
 # Term-level and full-text queries compared

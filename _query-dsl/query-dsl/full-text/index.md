@@ -8,7 +8,7 @@ permalink: /query-dsl/full-text/
 redirect_from:
   - /opensearch/query-dsl/full-text/
   - /opensearch/query-dsl/full-text/index/
-canonical_url: https://opensearch.org/docs/latest/query-dsl/full-text/index/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/full-text/index/
 ---
 
 # Full-text queries

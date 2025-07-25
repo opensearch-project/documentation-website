@@ -7,7 +7,7 @@ nav_order: 40
 permalink: /query-dsl/compound/
 redirect_from: 
   - /opensearch/query-dsl/compound/index/
-canonical_url: https://opensearch.org/docs/latest/query-dsl/compound/index/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/index/
 ---
 
 # Compound queries

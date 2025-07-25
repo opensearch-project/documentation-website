@@ -4,7 +4,7 @@ title: Functions
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 7
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql/functions/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/functions/
 ---
 
 # Functions
