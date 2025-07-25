@@ -5,7 +5,7 @@ parent: Dev Tools
 nav_order: 10
 redirect_from:
   - /dashboards/run-queries/
-canonical_url: https://opensearch.org/docs/latest/dashboards/dev-tools/run-queries/
+canonical_url: https://docs.opensearch.org/latest/dashboards/dev-tools/run-queries/
 ---
 
 # Running queries in the Dev Tools console

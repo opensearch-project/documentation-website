@@ -3,7 +3,7 @@ layout: default
 title: Index settings
 nav_order: 3
 has_children: true
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index-settings/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/index-settings/
 ---
 
 # Index settings

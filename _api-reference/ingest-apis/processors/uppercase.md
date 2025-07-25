@@ -4,7 +4,7 @@ title: Uppercase
 parent: Ingest processors 
 grand_parent: Ingest APIs
 nav_order: 310
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/uppercase/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/uppercase/
 ---
 
 # Uppercase

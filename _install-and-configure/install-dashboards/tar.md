@@ -5,7 +5,7 @@ parent: Installing OpenSearch Dashboards
 nav_order: 30
 redirect_from: 
   - /dashboards/install/tar/
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-dashboards/tar/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/tar/
 ---
 
 # Run OpenSearch Dashboards using the tarball

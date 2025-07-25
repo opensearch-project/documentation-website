@@ -5,7 +5,7 @@ nav_order: 4
 has_children: true
 redirect_from:
   - /upgrade-opensearch/index/
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/upgrade-opensearch/index/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/upgrade-opensearch/index/
 ---
 
 # Upgrading OpenSearch

@@ -3,7 +3,7 @@ layout: default
 title: Model access control
 has_children: false
 nav_order: 180
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/model-access-control/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/model-access-control/
 ---
 
 # Model access control

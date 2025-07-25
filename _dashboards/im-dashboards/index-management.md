@@ -5,7 +5,7 @@ parent: Index management in Dashboards
 nav_order: 16
 redirect_from:
   - /dashboards/admin-ui-index/index-management/
-canonical_url: https://opensearch.org/docs/latest/dashboards/im-dashboards/index-management/
+canonical_url: https://docs.opensearch.org/latest/dashboards/im-dashboards/index-management/
 ---
 
 # Indexes

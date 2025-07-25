@@ -4,7 +4,7 @@ title: Search Relevance Stats API
 nav_order: 65
 parent: Search relevance
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/search-plugins/search-relevance/stats-api/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/stats-api/
 ---
 
 # Search Relevance Stats API

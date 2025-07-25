@@ -3,8 +3,8 @@ layout: default
 title: corpora
 parent: Workload reference
 nav_order: 70
-canonical_url: https://opensearch.org/docs/latest/benchmark/reference/workloads/corpora/
-redirect_to: https://opensearch.org/docs/latest/benchmark/reference/workloads/corpora/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/corpora/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/workloads/corpora/
 ---
 
 # corpora
