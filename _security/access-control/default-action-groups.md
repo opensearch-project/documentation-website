@@ -3,7 +3,7 @@ layout: default
 title: Default action groups
 parent: Access control
 nav_order: 115
-canonical_url: https://opensearch.org/docs/latest/security/access-control/default-action-groups/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/default-action-groups/
 ---
 
 # Default action groups

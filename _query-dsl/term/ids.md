@@ -4,7 +4,7 @@ title: IDs
 parent: Term-level queries
 grand_parent: Query DSL
 nav_order: 30
-canonical_url: https://opensearch.org/docs/latest/query-dsl/term/ids/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/ids/
 ---
 
 # IDs query

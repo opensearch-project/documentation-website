@@ -4,7 +4,7 @@ title: Wildcard
 parent: Term-level queries
 grand_parent: Query DSL
 nav_order: 100
-canonical_url: https://opensearch.org/docs/latest/query-dsl/term/wildcard/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/wildcard/
 ---
 
 # Wildcard query

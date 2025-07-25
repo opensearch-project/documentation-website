@@ -7,7 +7,7 @@ nav_exclude: true
 permalink: /troubleshoot/
 redirect_from:
   - /troubleshoot/index/
-canonical_url: https://opensearch.org/docs/latest/troubleshoot/
+canonical_url: https://docs.opensearch.org/latest/troubleshoot/
 ---
 
 # Common issues

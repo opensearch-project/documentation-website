@@ -3,7 +3,7 @@ layout: default
 title: Configuring TLS certificates
 parent: Configuration
 nav_order: 15
-canonical_url: https://opensearch.org/docs/latest/security/configuration/tls/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/tls/
 ---
 
 # Configuring TLS certificates

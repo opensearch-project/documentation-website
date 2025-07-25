@@ -6,7 +6,7 @@ has_children: false
 nav_exclude: true
 redirect_from:
     -/dashboards/
-canonical_url: https://opensearch.org/docs/latest/dashboards/
+canonical_url: https://docs.opensearch.org/latest/dashboards/
 ---
 
 # OpenSearch Dashboards

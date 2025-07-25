@@ -7,7 +7,7 @@ nav_exclude: true
 permalink: /im-plugin/
 redirect_from:
   - /opensearch/index-data/
-canonical_url: https://opensearch.org/docs/latest/im-plugin/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/
 ---
 
 # Managing indexes

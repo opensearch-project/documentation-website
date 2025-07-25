@@ -3,7 +3,7 @@ layout: default
 title: Clear Index or Data Stream Cache
 parent: Index APIs
 nav_order: 320
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/clear-index-cache/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/clear-index-cache/
 ---
 
 ## Clear index or data stream cache

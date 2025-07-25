@@ -2,7 +2,7 @@
 layout: default
 title: Alias
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/alias/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/alias/
 ---
 
 # Alias

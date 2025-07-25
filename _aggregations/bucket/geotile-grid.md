@@ -6,7 +6,7 @@ grand_parent: Aggregations
 nav_order: 87
 redirect_from:
   - /query-dsl/aggregations/bucket/geotile-grid/
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/geotile-grid/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geotile-grid/
 ---
 
 # Geotile grid aggregations
