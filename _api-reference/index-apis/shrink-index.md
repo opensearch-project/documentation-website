@@ -3,7 +3,7 @@ layout: default
 title: Shrink index
 parent: Index APIs
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/shrink-index/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/shrink-index/
 ---
 
 # Shrink index

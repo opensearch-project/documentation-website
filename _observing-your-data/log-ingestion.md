@@ -4,7 +4,7 @@ title: Log ingestion
 nav_order: 30
 redirect_from:
   - /observability-plugin/log-analytics/
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/log-ingestion/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/log-ingestion/
 ---
 
 # Log Ingestion

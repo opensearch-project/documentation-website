@@ -3,7 +3,7 @@ layout: default
 title: Limitations
 parent: SQL and PPL
 nav_order: 99
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/limitation/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/limitation/
 ---
 
 # Limitations

@@ -4,7 +4,7 @@ title: Delete
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 12
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql/delete/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/delete/
 ---
 
 

@@ -6,7 +6,7 @@ nav_order: 55
 redirect_from:
   - /security/configuration/saml/
   - /security/configuration/saml/
-canonical_url: https://opensearch.org/docs/latest/security/authentication-backends/saml/
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/saml/
 ---
 
 # SAML
