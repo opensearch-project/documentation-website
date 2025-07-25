@@ -3,8 +3,8 @@ layout: default
 title: compare
 nav_order: 55
 parent: Command reference
-canonical_url: https://opensearch.org/docs/latest/benchmark/reference/commands/compare/
-redirect_to: https://opensearch.org/docs/latest/benchmark/reference/commands/compare/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/compare/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/compare/
 ---
 
 # compare

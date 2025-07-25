@@ -4,7 +4,7 @@ title: Downloading and installing the Reporting CLI tool
 nav_order: 10
 parent: Creating reports with the Reporting CLI
 
-canonical_url: https://opensearch.org/docs/latest/reporting/rep-cli-install/
+canonical_url: https://docs.opensearch.org/latest/reporting/rep-cli-install/
 ---
 
 # Downloading and installing the Reporting CLI tool

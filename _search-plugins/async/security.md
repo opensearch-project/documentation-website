@@ -6,7 +6,7 @@ parent: Asynchronous search
 has_children: false
 redirect_from:
  - /search-plugins/async/security/
-canonical_url: https://opensearch.org/docs/latest/search-plugins/async/security/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/async/security/
 ---
 
 # Asynchronous search security

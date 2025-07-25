@@ -6,7 +6,7 @@ nav_order: 80
 redirect_from:
  - /security/access-control/users-roles/
  - /security-plugin/access-control/users-roles/
-canonical_url: https://opensearch.org/docs/latest/security/access-control/users-roles/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/users-roles/
 ---
 
 # Users and roles
