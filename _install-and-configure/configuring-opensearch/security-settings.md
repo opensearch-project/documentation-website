@@ -3,7 +3,7 @@ layout: default
 title: Security settings
 parent: Configuring OpenSearch
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/security-settings/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/security-settings/
 ---
 
 # Security settings

@@ -4,8 +4,8 @@ title: geoip
 parent: Processors
 grand_parent: Pipelines
 nav_order: 49
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/geoip/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/geoip/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/geoip/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/geoip/
 ---
 
 # geoip

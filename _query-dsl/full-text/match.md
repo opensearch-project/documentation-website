@@ -4,7 +4,7 @@ title: Match
 parent: Full-text queries
 grand_parent: Query DSL
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/query-dsl/full-text/match/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/full-text/match/
 ---
 
 # Match query

@@ -3,7 +3,7 @@ layout: default
 title: Conversational search with Cohere Command
 parent: Tutorials
 nav_order: 20
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/tutorials/conversational-search-cohere/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/conversational-search-cohere/
 ---
 
 # Conversational search using the Cohere Command model

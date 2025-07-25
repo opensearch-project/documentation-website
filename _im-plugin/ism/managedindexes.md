@@ -6,7 +6,7 @@ parent: Index State Management
 has_children: false
 redirect_from: 
  - /im-plugin/ism/managedindices/
-canonical_url: https://opensearch.org/docs/latest/im-plugin/ism/managedindexes/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/ism/managedindexes/
 ---
 
 # Managed indexes

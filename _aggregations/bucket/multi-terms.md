@@ -7,7 +7,7 @@ nav_order: 130
 redirect_from:
   - /query-dsl/aggregations/bucket/multi-terms/
   - /query-dsl/aggregations/multi-terms/
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/multi-terms/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/multi-terms/
 ---
 
 # Multi-terms aggregations

@@ -3,8 +3,8 @@ layout: default
 title: Running a workload
 nav_order: 9
 parent: User guide
-canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/running-workloads/
-redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/running-workloads/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/running-workloads/
+redirect_to: https://docs.opensearch.org/latest/benchmark/user-guide/running-workloads/
 ---
 
 # Running a workload

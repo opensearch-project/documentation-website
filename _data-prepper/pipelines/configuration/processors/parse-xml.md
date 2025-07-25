@@ -4,8 +4,8 @@ title: parse_xml
 parent: Processors
 grand_parent: Pipelines
 nav_order: 83
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/parse-xml/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/parse-xml/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/parse-xml/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/parse-xml/
 ---
 
 # parse_xml

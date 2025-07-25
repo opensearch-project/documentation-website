@@ -4,7 +4,7 @@ title: Tokenizers
 nav_order: 60
 has_children: false
 has_toc: false
-canonical_url: https://opensearch.org/docs/latest/analyzers/tokenizers/index/
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/index/
 ---
 
 # Tokenizers

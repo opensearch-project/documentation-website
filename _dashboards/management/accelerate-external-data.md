@@ -5,7 +5,7 @@ parent: Connecting Amazon S3 to OpenSearch
 grand_parent: Data sources
 nav_order: 15
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/accelerate-external-data/
 ---
 
 # Optimize query performance using OpenSearch indexing

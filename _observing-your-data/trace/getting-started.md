@@ -6,7 +6,7 @@ nav_order: 1
 redirect_from:
   - /observability-plugin/trace/get-started/
   - /monitoring-plugins/trace/get-started/
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/trace/getting-started/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/getting-started/
 ---
 
 # Getting started with Trace Analytics

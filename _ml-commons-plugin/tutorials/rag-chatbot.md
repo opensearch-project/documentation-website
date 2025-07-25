@@ -3,14 +3,14 @@ layout: default
 title: RAG chatbot
 parent: Tutorials
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/tutorials/rag-chatbot/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/rag-chatbot/
 ---
 
 # RAG chatbot
 
 One of the known limitations of large language models (LLMs) is that their knowledge base only contains information from the period of time during which they were trained. LLMs have no knowledge of recent events or of your internal data. You can augment the LLM knowledge base by using retrieval-augmented generation (RAG).
 
-This tutorial illustrates how to build your own chatbot using [agents and tools](https://opensearch.org/docs/latest/ml-commons-plugin/agents-tools/index/) and RAG. RAG supplements the LLM knowledge base with information contained in OpenSearch indexes.
+This tutorial illustrates how to build your own chatbot using [agents and tools](https://docs.opensearch.org/latest/ml-commons-plugin/agents-tools/index/) and RAG. RAG supplements the LLM knowledge base with information contained in OpenSearch indexes.
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}

@@ -5,7 +5,7 @@ parent: Configuration
 nav_order: 15
 redirect_from:
   - /security-plugin/configuration/tls/
-canonical_url: https://opensearch.org/docs/latest/security/configuration/tls/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/tls/
 ---
 
 # Configuring TLS certificates
@@ -138,7 +138,7 @@ plugins.security.authcz.admin_dn:
 
 For security reasons, you cannot use wildcards or regular expressions as values for the `admin_dn` setting.
 
-For more information about admin and super admin user roles, see [Admin and super admin roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#admin-and-super-admin-roles) and [Configuring super admin certificates](https://opensearch.org/docs/latest/security/configuration/tls/#configuring-admin-certificates).
+For more information about admin and super admin user roles, see [Admin and super admin roles](https://docs.opensearch.org/latest/security/access-control/users-roles/#admin-and-super-admin-roles) and [Configuring super admin certificates](https://docs.opensearch.org/latest/security/configuration/tls/#configuring-admin-certificates).
 
 
 ## (Advanced) OpenSSL

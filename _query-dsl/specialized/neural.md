@@ -4,7 +4,7 @@ title: Neural
 parent: Specialized queries
 grand_parent: Query DSL
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/query-dsl/specialized/neural/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/neural/
 ---
 
 # Neural query

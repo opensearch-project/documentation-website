@@ -5,7 +5,7 @@ parent: Configuration
 nav_order: 5
 redirect_from:
  - /security-plugin/configuration/configuration/
-canonical_url: https://opensearch.org/docs/latest/security/configuration/configuration/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/configuration/
 ---
 
 # Configuring the Security backend

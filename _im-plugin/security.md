@@ -3,7 +3,7 @@ layout: default
 title: Index management security
 nav_order: 40
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/im-plugin/security/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/security/
 ---
 
 # Index management security
