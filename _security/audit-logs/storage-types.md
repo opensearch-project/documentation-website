@@ -6,7 +6,7 @@ nav_order: 135
 redirect_from:
   - /security/audit-logs/storage-types/
   - /security-plugin/audit-logs/storage-types/
-canonical_url: https://opensearch.org/docs/latest/security/audit-logs/storage-types/
+canonical_url: https://docs.opensearch.org/latest/security/audit-logs/storage-types/
 ---
 
 # Audit log storage types

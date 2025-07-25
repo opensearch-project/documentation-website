@@ -3,7 +3,7 @@ layout: default
 title: Join
 parent: Ingest processors
 nav_order: 160
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/join/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/join/
 ---
 
 # Join processor

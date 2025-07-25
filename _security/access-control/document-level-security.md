@@ -6,7 +6,7 @@ nav_order: 85
 redirect_from:
 - /security/access-control/document-level-security/
 - /security-plugin/access-control/document-level-security/
-canonical_url: https://opensearch.org/docs/latest/security/access-control/document-level-security/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/document-level-security/
 ---
 
 # Document-level security

@@ -4,7 +4,7 @@ title: Inner hits
 parent: Searching data
 has_children: false
 nav_order: 70
-canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/inner-hits/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/inner-hits/
 ---
 
 # Inner hits

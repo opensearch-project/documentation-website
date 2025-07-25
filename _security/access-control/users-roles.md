@@ -6,7 +6,7 @@ nav_order: 85
 redirect_from:
  - /security/access-control/users-roles/
  - /security-plugin/access-control/users-roles/
-canonical_url: https://opensearch.org/docs/latest/security/access-control/users-roles/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/users-roles/
 ---
 
 # Defining users and roles
@@ -248,7 +248,7 @@ Map the role to your user:
 
 OpenSearch user roles are essential for controlling access to cluster resources. Users can be categorized as regular users, admin users, or super admin users based on their access rights and responsibilities.
 
-For more information about defining users, see [Defining users](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-users). For more information about defining roles, see [Defining roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#defining-roles).
+For more information about defining users, see [Defining users](https://docs.opensearch.org/latest/security/access-control/users-roles/#defining-users). For more information about defining roles, see [Defining roles](https://docs.opensearch.org/latest/security/access-control/users-roles/#defining-roles).
 
 
 ### Regular users
@@ -260,7 +260,7 @@ Admin users have elevated permissions that allow them to perform various adminis
 - Configure permissions.
 - Adjust backend settings.
 
-Admin users can perform these tasks by configuring settings in the `opensearch.yml` file, using OpenSearch Dashboards, or interacting with the REST API. For more information about configuring users and roles, see [predefined roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#predefined-roles).
+Admin users can perform these tasks by configuring settings in the `opensearch.yml` file, using OpenSearch Dashboards, or interacting with the REST API. For more information about configuring users and roles, see [predefined roles](https://docs.opensearch.org/latest/security/access-control/users-roles/#predefined-roles).
 
 ### Super admin users
 Super admin users have the highest level of administrative authority within the OpenSearch environment. This role is typically reserved for select users and should be managed carefully.
@@ -281,4 +281,4 @@ plugins.security.authcz.admin_dn:
 
 If the super admin certificate is signed by a different CA, then the admin CA must be concatenated with the node's CA in the file defined in `plugins.security.ssl.http.pemtrustedcas_filepath` in `opensearch.yml`. 
 
-For more information, see [Configuring super admin certificates](https://opensearch.org/docs/latest/security/configuration/tls/#configuring-admin-certificates).
+For more information, see [Configuring super admin certificates](https://docs.opensearch.org/latest/security/configuration/tls/#configuring-admin-certificates).

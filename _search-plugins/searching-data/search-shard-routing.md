@@ -3,7 +3,7 @@ layout: default
 parent: Searching data
 title: Search shard routing
 nav_order: 70
-canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/search-shard-routing/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/search-shard-routing/
 ---
 
 # Search shard routing

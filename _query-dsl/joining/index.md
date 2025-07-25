@@ -3,7 +3,7 @@ layout: default
 title: Joining queries
 has_children: true
 nav_order: 55
-canonical_url: https://opensearch.org/docs/latest/query-dsl/joining/index/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/joining/index/
 ---
 
 # Joining queries

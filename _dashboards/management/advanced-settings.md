@@ -3,7 +3,7 @@ layout: default
 title: Advanced settings
 parent: Dashboards Management
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/dashboards/management/advanced-settings/
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/advanced-settings/
 ---
 
 # Advanced settings
@@ -19,7 +19,7 @@ To access **Advanced settings**, go to **Dashboards Management** and select **Ad
 
 ## Required permissions
 
-To modify settings, you must have permission to make changes. See [Multi-tenancy configuration](https://opensearch.org/docs/latest/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants) for guidance about assigning role access to tenants.
+To modify settings, you must have permission to make changes. See [Multi-tenancy configuration](https://docs.opensearch.org/latest/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants) for guidance about assigning role access to tenants.
 
 ## Advanced settings descriptions
 

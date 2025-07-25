@@ -3,7 +3,7 @@ layout: default
 title: Telemetry devices
 nav_order: 45
 parent: OpenSearch Benchmark Reference
-canonical_url: https://opensearch.org/docs/latest/benchmark/reference/telemetry/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/telemetry/
 ---
 
 # Telemetry devices

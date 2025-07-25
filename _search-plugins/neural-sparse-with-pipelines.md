@@ -4,7 +4,7 @@ title: Configuring ingest pipelines
 parent: Neural sparse search
 nav_order: 10
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/search-plugins/neural-sparse-with-pipelines/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/neural-sparse-with-pipelines/
 ---
 
 # Configuring ingest pipelines for neural sparse search

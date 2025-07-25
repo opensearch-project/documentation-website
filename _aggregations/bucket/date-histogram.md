@@ -5,7 +5,7 @@ parent: Bucket aggregations
 nav_order: 20
 redirect_from:
   - /query-dsl/aggregations/bucket/date-histogram/
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/date-histogram/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/date-histogram/
 ---
 
 # Date histogram aggregations
