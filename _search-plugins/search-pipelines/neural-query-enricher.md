@@ -5,7 +5,7 @@ nav_order: 12
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
-canonical_url: https://opensearch.org/docs/latest/search-plugins/search-pipelines/neural-query-enricher/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/neural-query-enricher/
 ---
 
 # Neural query enricher processor

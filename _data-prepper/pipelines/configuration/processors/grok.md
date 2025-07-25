@@ -4,8 +4,8 @@ title: Grok
 parent: Processors
 grand_parent: Pipelines
 nav_order: 54
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/grok/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/grok/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/grok/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/grok/
 ---
 
 # Grok
@@ -48,7 +48,7 @@ processor:
         match:
           message: ['%{IPV6:clientip} %{WORD:request} %{POSINT:bytes}']
 ```
-The `grok_when` option can take a conditional expression. This expression is detailed in the [Expression syntax](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) documentation.
+The `grok_when` option can take a conditional expression. This expression is detailed in the [Expression syntax](https://docs.opensearch.org/latest/data-prepper/pipelines/expression-syntax/) documentation.
 
 ## Metrics
 

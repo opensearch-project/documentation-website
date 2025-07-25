@@ -6,7 +6,7 @@ has_children: true
 parent: Availability and recovery
 redirect_from: 
   - /opensearch/shard-indexing-backpressure/
-canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/shard-indexing-backpressure/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/shard-indexing-backpressure/
 ---
 
 # Shard indexing backpressure

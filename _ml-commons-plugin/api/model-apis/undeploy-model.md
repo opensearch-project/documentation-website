@@ -4,7 +4,7 @@ title: Undeploy model
 parent: Model APIs
 grand_parent: ML Commons API
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/model-apis/undeploy-model/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-apis/undeploy-model/
 ---
 
 # Undeploy a model

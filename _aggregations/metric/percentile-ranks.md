@@ -6,7 +6,7 @@ grand_parent: Aggregations
 nav_order: 80
 redirect_from:
   - /query-dsl/aggregations/metric/percentile-ranks/
-canonical_url: https://opensearch.org/docs/latest/aggregations/metric/percentile-ranks/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/percentile-ranks/
 ---
 
 # Percentile rank aggregations

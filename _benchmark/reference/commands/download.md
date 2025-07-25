@@ -5,8 +5,8 @@ nav_order: 60
 parent: Command reference
 grand_parent: OpenSearch Benchmark Reference
 redirect_from: /benchmark/commands/download/
-canonical_url: https://opensearch.org/docs/latest/benchmark/reference/commands/download/
-redirect_to: https://opensearch.org/docs/latest/benchmark/reference/commands/download/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/download/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/download/
 ---
 
 <!-- vale off -->

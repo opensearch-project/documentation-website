@@ -4,7 +4,7 @@ title: Grok
 parent: Ingest processors
 grand_parent: Ingest pipelines
 nav_order: 140
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/grok/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/grok/
 ---
 
 # Grok processor 

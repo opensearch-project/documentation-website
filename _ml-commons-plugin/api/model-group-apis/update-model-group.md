@@ -4,7 +4,7 @@ title: Update model group
 parent: Model group APIs
 grand_parent: ML Commons API
 nav_order: 20
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/model-group-apis/update-model-group/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-group-apis/update-model-group/
 ---
 
 # Update a model group

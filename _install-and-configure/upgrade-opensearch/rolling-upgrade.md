@@ -3,7 +3,7 @@ layout: default
 title: Rolling Upgrade
 parent: Upgrading OpenSearch
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/upgrade-opensearch/rolling-upgrade/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/upgrade-opensearch/rolling-upgrade/
 ---
 
 # Rolling Upgrade

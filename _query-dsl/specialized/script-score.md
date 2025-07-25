@@ -4,7 +4,7 @@ title: Script score
 parent: Specialized queries
 grand_parent: Query DSL
 nav_order: 60
-canonical_url: https://opensearch.org/docs/latest/query-dsl/specialized/script-score/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/script-score/
 ---
 
 # Script score query
