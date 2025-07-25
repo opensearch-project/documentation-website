@@ -3,7 +3,7 @@ layout: default
 title: Generating self-signed certificates
 parent: Configuration
 nav_order: 20
-canonical_url: https://opensearch.org/docs/latest/security/configuration/generate-certificates/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/generate-certificates/
 ---
 
 # Generating self-signed certificates

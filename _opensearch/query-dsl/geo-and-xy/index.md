@@ -4,7 +4,7 @@ title: Geographic and xy queries
 parent: Query DSL
 has_children: true
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/query-dsl/geo-and-xy/index/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/geo-and-xy/index/
 ---
 
 # Geographic and xy queries

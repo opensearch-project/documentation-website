@@ -6,7 +6,7 @@ grand_parent: Upgrading OpenSearch
 nav_order: 50
 redirect_from:
   - /upgrade-opensearch/appendix/rolling-upgrade-lab/
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/upgrade-opensearch/appendix/rolling-upgrade-lab/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/upgrade-opensearch/appendix/rolling-upgrade-lab/
 ---
 
 <!--

@@ -4,7 +4,7 @@ title: Execute Painless script
 parent: Script APIs
 grand_parent: REST API reference
 nav_order: 7
-canonical_url: https://opensearch.org/docs/latest/api-reference/script-apis/exec-script/
+canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/exec-script/
 ---
 
 ## Execute Painless script
