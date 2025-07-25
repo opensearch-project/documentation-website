@@ -4,7 +4,7 @@ title: Reranking search results
 parent: Search relevance
 has_children: false
 nav_order: 60
-canonical_url: https://opensearch.org/docs/latest/search-plugins/search-relevance/reranking-search-results/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/reranking-search-results/
 ---
 
 # Reranking search results

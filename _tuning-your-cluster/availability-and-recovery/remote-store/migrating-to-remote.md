@@ -4,7 +4,7 @@ title: Migrating to remote-backed storage
 nav_order: 5
 parent: Remote-backed storage
 grand_parent: Availability and recovery
-canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/migrating-to-remote/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/remote-store/migrating-to-remote/
 ---
 
 # Migrating to remote-backed storage

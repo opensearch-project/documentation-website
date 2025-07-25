@@ -4,7 +4,7 @@ title: key_value
 parent: Processors
 grand_parent: Pipelines
 nav_order: 56
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/key-value/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/key-value/
 ---
 
 # key_value
@@ -38,6 +38,6 @@ destination | The destination field for the parsed source. The parsed source ove
 `drop_keys_with_no_value` | Specifies whether keys should be dropped if they have a null value. Default is `false`. If `drop_keys_with_no_value` is set to `true`, then `{"key1=value1&key2"}` parses to `{"key1": "value1"}`. 
 `strict_grouping` | Specifies whether strict grouping should be enabled when the `value_grouping` or `string_literal_character` options are used. Default is `false`. | When enabled, groups with unmatched end characters yield errors. The event is ignored after the errors are logged. 
 `string_literal_character` | Can be set to either a single quotation mark (`'`) or a double quotation mark (`"`). Default is `null`. | When this option is used, any text contained within the specified quotation mark character will be ignored and excluded from key-value parsing. For example, `text1 "key1=value1" text2 key2=value2` would parse to `{"key2": "value2"}`. 
-`key_value_when` | Allows you to specify a [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"`, that will be evaluated to determine whether the processor should be applied to the event. 
+`key_value_when` | Allows you to specify a [conditional expression](https://docs.opensearch.org/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"`, that will be evaluated to determine whether the processor should be applied to the event. 
 
 

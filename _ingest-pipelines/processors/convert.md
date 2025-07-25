@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 30
 redirect_from:
    - /api-reference/ingest-apis/processors/convert/
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/convert/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/convert/
 ---
 
 This documentation describes using the `convert` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `convert_entry_type` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/convert-entry-type/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.

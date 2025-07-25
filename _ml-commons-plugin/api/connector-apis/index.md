@@ -5,7 +5,7 @@ parent: ML Commons APIs
 has_children: true
 has_toc: false
 nav_order: 25
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/connector-apis/index/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/connector-apis/index/
 ---
 
 # Connector APIs

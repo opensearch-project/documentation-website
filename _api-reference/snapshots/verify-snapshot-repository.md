@@ -4,7 +4,7 @@ title: Verify Snaphot Repository
 parent: Snapshot APIs
 
 nav_order: 4
-canonical_url: https://opensearch.org/docs/latest/api-reference/snapshots/verify-snapshot-repository/
+canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/verify-snapshot-repository/
 ---
 
 # Verify snapshot repository

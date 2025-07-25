@@ -5,7 +5,7 @@ parent: Bucket aggregations
 nav_order: 110
 redirect_from:
   - /query-dsl/aggregations/bucket/ip-range/
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/ip-range/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/ip-range/
 ---
 
 # IP range aggregations

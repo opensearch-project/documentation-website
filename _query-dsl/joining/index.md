@@ -6,7 +6,7 @@ nav_order: 55
 has_toc: false
 redirect_from:
   - /query-dsl/joining/
-canonical_url: https://opensearch.org/docs/latest/query-dsl/joining/index/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/joining/index/
 ---
 
 # Joining queries

@@ -3,7 +3,7 @@ layout: default
 title: Terms
 parent: Term-level queries
 nav_order: 80
-canonical_url: https://opensearch.org/docs/latest/query-dsl/term/terms/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/terms/
 ---
 
 # Terms query
@@ -304,7 +304,7 @@ PUT students/_doc/3
 ```
 {% include copy-curl.html %}
 
-To store customer bitmap filters, you'll create a `customer_filter` [binary field](https://opensearch.org/docs/latest/field-types/supported-field-types/binary/) in the `customers` index. Specify `store` as `true` to store the field:
+To store customer bitmap filters, you'll create a `customer_filter` [binary field](https://docs.opensearch.org/latest/field-types/supported-field-types/binary/) in the `customers` index. Specify `store` as `true` to store the field:
 
 ```json
 PUT /customers

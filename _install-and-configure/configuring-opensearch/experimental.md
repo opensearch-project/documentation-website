@@ -3,7 +3,7 @@ layout: default
 title: Experimental feature flags
 parent: Configuring OpenSearch
 nav_order: 120
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/experimental/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/experimental/
 ---
 
 # Experimental feature flags

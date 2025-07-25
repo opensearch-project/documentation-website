@@ -7,7 +7,7 @@ has_toc: true
 redirect_from:
   - /security-plugin/configuration/
   - /security-plugin/configuration/index/
-canonical_url: https://opensearch.org/docs/latest/security/configuration/index/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/index/
 ---
 
 # Security configuration
@@ -87,7 +87,7 @@ After initial setup, if you make changes to your security configuration or disab
 
 1. Find the `securityadmin` script. The script is typically stored in the OpenSearch plugins directory, `plugins/opensearch-security/tools/securityadmin.[sh|bat]`. 
    - Note: If you're using OpenSearch 1.x, the `securityadmin` script is located in the `plugins/opendistro_security/tools/` directory. 
-   - For more information, see [Basic usage](https://opensearch.org/docs/latest/security/configuration/security-admin/#basic-usage).
+   - For more information, see [Basic usage](https://docs.opensearch.org/latest/security/configuration/security-admin/#basic-usage).
 2. Run the script by using the following command:
    ```
     ./plugins/opensearch-security/tools/securityadmin.[sh|bat]

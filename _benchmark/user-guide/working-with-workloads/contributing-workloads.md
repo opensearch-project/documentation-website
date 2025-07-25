@@ -6,7 +6,7 @@ grand_parent: User guide
 parent: Working with workloads
 redirect_from: 
   - /benchmark/user-guide/contributing-workloads/
-canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/working-with-workloads/contributing-workloads/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/working-with-workloads/contributing-workloads/
 ---
 
 # Sharing custom workloads

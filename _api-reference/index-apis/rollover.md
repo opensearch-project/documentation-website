@@ -3,7 +3,7 @@ layout: default
 title: Roll over index
 parent: Index APIs
 nav_order: 63
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/rollover/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/rollover/
 ---
 
 # Roll over index
@@ -41,7 +41,7 @@ During the index alias rollover process, if you don't specify a custom name and 
 
 ## Using date math with index rollovers
 
-When using an index alias for time-series data, you can use [date math](https://opensearch.org/docs/latest/field-types/supported-field-types/date/) in the index name to track the rollover date. For example, you can create an alias pointing to `my-index-{now/d}-000001`. If you create an alias on June 11, 2029, then the index name would be `my-index-2029.06.11-000001`. For a rollover on June 12, 2029, the new index would be named `my-index-2029.06.12-000002`. See [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index) for a practical example.
+When using an index alias for time-series data, you can use [date math](https://docs.opensearch.org/latest/field-types/supported-field-types/date/) in the index name to track the rollover date. For example, you can create an alias pointing to `my-index-{now/d}-000001`. If you create an alias on June 11, 2029, then the index name would be `my-index-2029.06.11-000001`. For a rollover on June 12, 2029, the new index would be named `my-index-2029.06.12-000002`. See [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index) for a practical example.
 
 ## Path parameters
 
@@ -82,7 +82,7 @@ Parameter | Type | Description
 
 ### `mappings`
 
-The `mappings` parameter specifies the index field mappings. It is optional. See [Mappings and field types](https://opensearch.org/docs/latest/field-types/) for more information.
+The `mappings` parameter specifies the index field mappings. It is optional. See [Mappings and field types](https://docs.opensearch.org/latest/field-types/) for more information.
 
 ### `conditions`
 
@@ -98,7 +98,7 @@ Parameter | Data type | Description
 
 ### `settings`
 
-The `settings` parameter specifies the index configuration options. See [Index settings](https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index-settings/) for more information.
+The `settings` parameter specifies the index configuration options. See [Index settings](https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/index-settings/) for more information.
 
 ## Example requests
 

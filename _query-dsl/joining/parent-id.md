@@ -3,7 +3,7 @@ layout: default
 title: Parent ID
 parent: Joining queries
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/query-dsl/joining/parent-id/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/joining/parent-id/
 ---
 
 # Parent ID query

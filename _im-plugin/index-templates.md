@@ -4,7 +4,7 @@ title: Index templates
 nav_order: 6
 redirect_from:
   - /opensearch/index-templates/
-canonical_url: https://opensearch.org/docs/latest/im-plugin/index-templates/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-templates/
 ---
 
 # Index templates
