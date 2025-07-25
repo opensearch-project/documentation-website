@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /im-plugin/ism/error-prevention/
-canonical_url: https://opensearch.org/docs/latest/im-plugin/ism/error-prevention/index/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/ism/error-prevention/index/
 ---
 
 # ISM error prevention

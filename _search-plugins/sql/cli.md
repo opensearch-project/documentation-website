@@ -3,7 +3,7 @@ layout: default
 title: SQL and PPL CLI
 parent: SQL and PPL
 nav_order: 3
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/cli/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/cli/
 ---
 
 # SQL and PPL CLI

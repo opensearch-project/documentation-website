@@ -3,7 +3,7 @@ layout: default
 title: Multi-tenancy aggregate view for saved objects
 parent: OpenSearch Dashboards multi-tenancy
 nav_order: 150
-canonical_url: https://opensearch.org/docs/latest/security/multi-tenancy/mt-agg-view/
+canonical_url: https://docs.opensearch.org/latest/security/multi-tenancy/mt-agg-view/
 ---
 
 # OpenSearch Dashboards multi-tenancy aggregate view for saved objects

@@ -3,8 +3,8 @@ layout: default
 title: Pipeline options
 parent: Pipelines
 nav_order: 11
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/pipelines-configuration-options/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/pipelines-configuration-options/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/pipelines-configuration-options/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/pipelines-configuration-options/
 ---
 
 # Pipeline options

@@ -4,7 +4,7 @@ title: Query string queries
 parent: Full-text queries
 grand_parent: Query DSL
 nav_order: 25
-canonical_url: https://opensearch.org/docs/latest/query-dsl/full-text/query-string/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/full-text/query-string/
 ---
 
 # Query string queries

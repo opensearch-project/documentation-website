@@ -4,7 +4,7 @@ title: Point in Time
 nav_order: 58
 has_children: true
 has_toc: false
-canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/point-in-time/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/point-in-time/
 ---
 
 # Point in Time

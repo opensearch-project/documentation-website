@@ -3,7 +3,7 @@ layout: default
 title: Configuring sign-in options
 parent: Configuration
 nav_order: 35
-canonical_url: https://opensearch.org/docs/latest/security/configuration/multi-auth/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/multi-auth/
 ---
 
 # Configuring Dashboards sign-in for multiple authentication options

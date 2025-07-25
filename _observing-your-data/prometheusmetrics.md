@@ -4,7 +4,7 @@ title: Metrics analytics
 nav_order: 40
 redirect_from:
   - /observing-your-data/prometheusmetrics/
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/prometheusmetrics/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/prometheusmetrics/
 ---
 
 # Metrics analytics

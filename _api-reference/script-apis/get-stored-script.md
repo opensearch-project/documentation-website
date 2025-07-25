@@ -3,7 +3,7 @@ layout: default
 title: Get Stored Script
 parent: Script APIs
 nav_order: 3
-canonical_url: https://opensearch.org/docs/latest/api-reference/script-apis/get-stored-script/
+canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/get-stored-script/
 ---
 
 ## Get stored script
