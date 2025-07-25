@@ -4,7 +4,7 @@ title: Fuzzy
 parent: Term-level queries
 grand_parent: Query DSL
 nav_order: 20
-canonical_url: https://opensearch.org/docs/latest/query-dsl/term/fuzzy/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/fuzzy/
 ---
 
 # Fuzzy query

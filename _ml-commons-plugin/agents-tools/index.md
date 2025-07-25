@@ -4,7 +4,7 @@ title: Agents and tools
 has_children: true
 has_toc: false
 nav_order: 27
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/agents-tools/index/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/agents-tools/index/
 ---
 
 # Agents and tools

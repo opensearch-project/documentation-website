@@ -2,7 +2,7 @@
 layout: default
 title: Custom branding
 nav_order: 130
-canonical_url: https://opensearch.org/docs/latest/dashboards/branding/
+canonical_url: https://docs.opensearch.org/latest/dashboards/branding/
 ---
 
 # Custom branding

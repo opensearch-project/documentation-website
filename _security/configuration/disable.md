@@ -5,7 +5,7 @@ parent: Configuration
 nav_order: 40
 redirect_from: 
  - /security-plugin/configuration/disable/
-canonical_url: https://opensearch.org/docs/latest/security/configuration/disable-enable-security/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/disable-enable-security/
 ---
 
 # Disabling security

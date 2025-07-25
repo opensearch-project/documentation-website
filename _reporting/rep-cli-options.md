@@ -6,7 +6,7 @@ parent: Reporting using the CLI
 grand_parent: Reporting
 redirect_from:
   - /dashboards/reporting-cli/rep-cli-options/
-canonical_url: https://opensearch.org/docs/latest/reporting/rep-cli-options/
+canonical_url: https://docs.opensearch.org/latest/reporting/rep-cli-options/
 ---
 
 # Reporting CLI options

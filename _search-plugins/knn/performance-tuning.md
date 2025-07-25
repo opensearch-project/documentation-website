@@ -4,7 +4,7 @@ title: Performance tuning
 parent: k-NN search
 grand_parent: Search methods
 nav_order: 45
-canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/performance-tuning/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/performance-tuning/
 ---
 
 # Performance tuning
