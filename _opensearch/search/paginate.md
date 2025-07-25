@@ -3,7 +3,7 @@ layout: default
 title: Paginate results
 parent: Searching data
 nav_order: 21
-canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/paginate/
 ---
 
 ## Paginate results
