@@ -4,7 +4,7 @@ title: Search for a model group
 parent: Model group APIs
 grand_parent: ML Commons API
 nav_order: 30
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/model-group-apis/search-model-group/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-group-apis/search-model-group/
 ---
 
 # Search for a model group

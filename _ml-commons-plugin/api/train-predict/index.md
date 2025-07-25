@@ -4,7 +4,7 @@ title: Train and Predict APIs
 parent: ML Commons API
 has_children: true
 nav_order: 30
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/train-predict/index/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/train-predict/index/
 ---
 
 # Train and Predict APIs

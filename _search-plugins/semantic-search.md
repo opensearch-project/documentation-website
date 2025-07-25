@@ -5,7 +5,7 @@ nav_order: 35
 has_children: false
 redirect_from:
   - /search-plugins/neural-text-search/
-canonical_url: https://opensearch.org/docs/latest/search-plugins/semantic-search/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/semantic-search/
 ---
 
 # Semantic search

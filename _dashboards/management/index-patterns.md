@@ -3,7 +3,7 @@ layout: default
 title: Index patterns
 parent: Dashboards Management
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/dashboards/management/index-patterns/
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/index-patterns/
 ---
 
 # Index patterns

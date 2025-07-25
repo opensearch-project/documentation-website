@@ -7,7 +7,7 @@ redirect_from:
   - /dashboards/install/index/
   - /dashboards/compatibility/
   - /install-and-configure/install-dashboards/index/
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-dashboards/index/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/index/
 ---
 
 # Installing OpenSearch Dashboards

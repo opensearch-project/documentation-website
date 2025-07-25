@@ -3,7 +3,7 @@ layout: default
 title: Dot expander
 parent: Ingest processors
 nav_order: 65
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/dot-expander/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/dot-expander/
 ---
 
 # Dot expander 

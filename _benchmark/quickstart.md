@@ -2,8 +2,8 @@
 layout: default
 title: Quickstart
 nav_order: 2
-canonical_url: https://opensearch.org/docs/latest/benchmark/quickstart/
-redirect_to: https://opensearch.org/docs/latest/benchmark/quickstart/
+canonical_url: https://docs.opensearch.org/latest/benchmark/quickstart/
+redirect_to: https://docs.opensearch.org/latest/benchmark/quickstart/
 ---
 
 # OpenSearch Benchmark quickstart

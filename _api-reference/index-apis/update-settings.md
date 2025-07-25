@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 75
 redirect_from:
   - /opensearch/rest-api/index-apis/update-settings/
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/update-settings/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/update-settings/
 ---
 
 # Update settings

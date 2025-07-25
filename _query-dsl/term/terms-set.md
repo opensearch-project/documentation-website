@@ -4,7 +4,7 @@ title: Terms set
 parent: Term-level queries
 grand_parent: Query DSL
 nav_order: 90
-canonical_url: https://opensearch.org/docs/latest/query-dsl/term/terms-set/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/terms-set/
 ---
 
 # Terms set query

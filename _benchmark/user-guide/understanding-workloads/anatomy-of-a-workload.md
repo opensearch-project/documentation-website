@@ -4,8 +4,8 @@ title: Anatomy of a workload
 nav_order: 15
 grand_parent: User guide
 parent: Understanding workloads
-canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/
-redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/
+redirect_to: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-workloads/anatomy-of-a-workload/
 ---
 
 # Anatomy of a workload
@@ -162,7 +162,7 @@ According to this `schedule`, the actions will run in the following order:
 3. The `clients` field defines the number of clients, in this example, eight, that will run the bulk indexing operation concurrently.
 4. The `search` operation runs a `match_all` query to match all documents after they have been indexed by the `bulk` API using the specified clients.
    - The `iterations` field defines the number of times each client runs the `search` operation. The benchmark report automatically adjusts the percentile numbers based on this number. To generate a precise percentile, the benchmark needs to run at least 1,000 iterations.
-   - The `target-throughput` field defines the number of requests per second that each client performs. When set, the setting can help reduce benchmark latency. For example, a `target-throughput` of 100 requests divided by 8 clients means that each client will issue 12 requests per second. For more information about how target throughput is defined in OpenSearch Benchmark, see [Throughput and latency](https://opensearch.org/docs/latest/benchmark/user-guide/concepts/#throughput-and-latency).
+   - The `target-throughput` field defines the number of requests per second that each client performs. When set, the setting can help reduce benchmark latency. For example, a `target-throughput` of 100 requests divided by 8 clients means that each client will issue 12 requests per second. For more information about how target throughput is defined in OpenSearch Benchmark, see [Throughput and latency](https://docs.opensearch.org/latest/benchmark/user-guide/concepts/#throughput-and-latency).
 
 ## index.json
 

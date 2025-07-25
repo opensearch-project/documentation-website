@@ -9,7 +9,7 @@ redirect_from:
   - /opensearch/snapshots/snapshot-restore/
   - /opensearch/snapshot-restore/
   - /availability-and-recovery/snapshots/snapshot-restore/
-canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/
 ---
 
 # Take and restore snapshots
@@ -69,7 +69,7 @@ Before you can take a snapshot, you have to "register" a snapshot repository. A 
    ```
   {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
+You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API](https://docs.opensearch.org/latest/api-reference/snapshots/create-repository/).
 
 ### Amazon S3
 
@@ -205,7 +205,7 @@ You will most likely not need to specify any parameters except for `location`. F
    ```
    {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
+You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://docs.opensearch.org/latest/api-reference/snapshots/create-repository/).
 
 ## Take snapshots
 
