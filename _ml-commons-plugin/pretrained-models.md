@@ -4,7 +4,7 @@ title: Pretrained models
 parent: Using ML models within OpenSearch
 grand_parent: Integrating ML models
 nav_order: 120
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/pretrained-models/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/pretrained-models/
 ---
 
 # OpenSearch-provided pretrained models

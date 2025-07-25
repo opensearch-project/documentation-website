@@ -2,7 +2,7 @@
 layout: default
 title: Migrating Docker clusters to OpenSearch
 nav_order: 25
-canonical_url: https://opensearch.org/docs/latest/upgrade-to/docker-upgrade-to/
+canonical_url: https://docs.opensearch.org/latest/upgrade-to/docker-upgrade-to/
 ---
 
 # Migrating Docker clusters to OpenSearch

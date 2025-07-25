@@ -3,7 +3,7 @@ layout: default
 title: Dissect
 parent: Ingest processors
 nav_order: 60
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/dissect/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/dissect/
 ---
 
 # Dissect

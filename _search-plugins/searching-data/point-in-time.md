@@ -8,7 +8,7 @@ has_toc: false
 redirect_from:
   - /opensearch/point-in-time/
   - /search-plugins/point-in-time/
-canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/point-in-time/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/point-in-time/
 ---
 
 # Point in Time

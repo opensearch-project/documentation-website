@@ -6,7 +6,7 @@ nav_order: 85
 redirect_from:
  - /security/access-control/users-roles/
  - /security-plugin/access-control/users-roles/
-canonical_url: https://opensearch.org/docs/latest/security/access-control/users-roles/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/users-roles/
 ---
 
 # Users and roles
@@ -30,7 +30,7 @@ OpenSearch Dashboards provides a user-friendly interface for managing roles. Rol
 ### Editing the `roles.yml` file
 
 If you want more granular control of your security configuration, you can edit roles and their associated permissions in the `roles.yml` file. This method provides direct access to the underlying configuration and can be version controlled for use in collaborative development environments.
-For more information about creating roles, see the [Create roles](https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles) documentation.
+For more information about creating roles, see the [Create roles](https://docs.opensearch.org/latest/security/access-control/users-roles/#create-roles) documentation.
 
 Unless you need to create new [reserved or hidden users]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources), we **highly** recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
 {: .warning }

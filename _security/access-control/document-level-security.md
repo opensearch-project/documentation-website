@@ -6,19 +6,19 @@ nav_order: 85
 redirect_from:
  - /security/access-control/document-level-security/
  - /security-plugin/access-control/document-level-security/
-canonical_url: https://opensearch.org/docs/latest/security/access-control/document-level-security/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/document-level-security/
 ---
 
 # Document-level security (DLS)
 
 Document-level security lets you restrict a role to a subset of documents in an index.
-For more information about OpenSearch users and roles, see the [documentation](https://opensearch.org/docs/latest/security/access-control/users-roles/#create-roles).
+For more information about OpenSearch users and roles, see the [documentation](https://docs.opensearch.org/latest/security/access-control/users-roles/#create-roles).
 
 Use the following steps to get started with document-level and field-level security:
 1. Open OpenSearch Dashboards.
 2. Choose **Security** > **Roles**.
 3. Select **Create Role** and provide a name for the role.
-4. Review the **Index permissions** section and any necessary [index permissions](https://opensearch.org/docs/latest/security/access-control/permissions/) for the role. 
+4. Review the **Index permissions** section and any necessary [index permissions](https://docs.opensearch.org/latest/security/access-control/permissions/) for the role. 
 5. Add document-level security, with the addition of a domain-specific language (DSL) query in the `Document level security - optional` section. A typical request sent to the `_search` API includes `{ "query": { ... } }` around the query, but with document-level security in OpenSearch Dashboards, you only need to specify the query itself. For example, the following DSL query specifies that for the new role to have access to a document, the query's `genres` field must include `Comedy`:
 
    ```json
