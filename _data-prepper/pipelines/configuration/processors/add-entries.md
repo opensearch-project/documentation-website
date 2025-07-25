@@ -4,8 +4,8 @@ title: add_entries
 parent: Processors
 grand_parent: Pipelines
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/add-entries/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/add-entries/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/add-entries/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/add-entries/
 ---
 
 # add_entries

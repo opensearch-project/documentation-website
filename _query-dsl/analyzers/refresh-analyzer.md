@@ -7,7 +7,7 @@ has_toc: false
 redirect_from: 
   - /im-plugin/refresh-analyzer/
   - /im-plugin/refresh-analyzer/index/
-canonical_url: https://opensearch.org/docs/latest/im-plugin/refresh-analyzer/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/refresh-analyzer/
 ---
 
 # Refresh search analyzer

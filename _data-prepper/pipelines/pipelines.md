@@ -6,8 +6,8 @@ nav_order: 10
 redirect_from:
   - /data-prepper/pipelines/
   - /clients/data-prepper/pipelines/
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/pipelines/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/pipelines/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/pipelines/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/pipelines/
 ---
 
 # Pipelines
