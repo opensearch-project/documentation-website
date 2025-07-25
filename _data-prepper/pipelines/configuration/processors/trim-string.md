@@ -4,8 +4,8 @@ title: trim_string
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/trim-string/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/trim-string/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/trim-string/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/trim-string/
 ---
 
 # trim_string

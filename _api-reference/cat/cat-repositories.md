@@ -5,7 +5,7 @@ parent: CAT API
 
 nav_order: 55
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/api-reference/cat/cat-repositories/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-repositories/
 ---
 
 # CAT repositories

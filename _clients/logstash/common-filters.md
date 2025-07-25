@@ -3,7 +3,7 @@ layout: default
 title: Common filter plugins
 parent: Logstash
 nav_order: 220
-canonical_url: https://opensearch.org/docs/latest/tools/logstash/common-filters/
+canonical_url: https://docs.opensearch.org/latest/tools/logstash/common-filters/
 ---
 
 # Common filter plugins

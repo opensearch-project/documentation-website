@@ -5,7 +5,7 @@ nav_order: 51
 has_children: false
 parent: Autocomplete field types
 grand_parent: Supported field types
-canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/completion/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/completion/
 ---
 
 # Completion field type

@@ -3,7 +3,7 @@ layout: default
 title: Read from OpenSearch
 parent: Logstash
 nav_order: 220
-canonical_url: https://opensearch.org/docs/latest/tools/logstash/read-from-opensearch/
+canonical_url: https://docs.opensearch.org/latest/tools/logstash/read-from-opensearch/
 ---
 
 # Read from OpenSearch

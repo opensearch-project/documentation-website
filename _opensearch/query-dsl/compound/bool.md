@@ -4,7 +4,7 @@ title: Boolean queries
 parent: Compound queries
 grand_parent: Query DSL
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/query-dsl/compound/bool/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/bool/
 ---
 
 # Boolean queries
