@@ -3,7 +3,7 @@ layout: default
 title: Index document
 parent: Document APIs
 nav_order: 1
-canonical_url: https://opensearch.org/docs/latest/api-reference/document-apis/index-document/
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/index-document/
 ---
 
 # Index document

@@ -5,7 +5,7 @@ parent: Installing OpenSearch
 redirect_from:
 - /opensearch/install/deb/
 nav_order: 55
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-opensearch/debian/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/debian/
 ---
 
 {% comment %}

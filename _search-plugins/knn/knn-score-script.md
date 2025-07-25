@@ -5,7 +5,7 @@ nav_order: 20
 parent: k-NN
 has_children: false
 has_math: true
-canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/knn-score-script/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/knn-score-script/
 ---
 
 # Exact k-NN with scoring script
