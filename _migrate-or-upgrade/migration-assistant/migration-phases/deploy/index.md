@@ -14,16 +14,15 @@ redirect_from:
 # Deploy
 
 This document assumes you have performed [assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) to understand upgrade breaking changes and limitations before beginning.
-This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, the steps can be modified for use with other cloud providers.
+This guide outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, you can modify the steps for use with other cloud providers.
 
-Before using this quickstart, make sure you review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/).
+Before using this quickstart, review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/).
 
-
-Because this guide uses [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/), make sure that the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
+Because this guide uses [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/), ensure that the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
 ---
 
-## Step 1: Install Bootstrap on an Amazon EC2 instance (~10 minutes)
+## Step 1: Install bootstrap on an Amazon EC2 instance (~10 minutes)
 
 To begin your migration, use the following steps to install a `bootstrap` box on an Amazon Elastic Compute Cloud (Amazon EC2) instance. The instance uses AWS CloudFormation to create and manage the stack.
 
@@ -33,13 +32,13 @@ To begin your migration, use the following steps to install a `bootstrap` box on
    * **Stack Name:** `MigrationBootstrap`
    * **Stage Name:** `dev`
    * Choose **Next** after each step > **Acknowledge** > **Submit**.
-4. Verify that the Bootstrap stack exists and is set to `CREATE_COMPLETE`. This process takes around 10 minutes to complete.
+4. Verify that the bootstrap stack exists and is set to `CREATE_COMPLETE`. This process takes around 10 minutes to complete.
 
 ---
 
-## Step 2: Set up Bootstrap instance access (~5 minutes)
+## Step 2: Set up bootstrap instance access (~5 minutes)
 
-Use the following steps to set up Bootstrap instance access:
+Use the following steps to set up bootstrap instance access:
 
 1. After deployment, find the EC2 instance ID for the `bootstrap-dev-instance`.
 2. Create an AWS Identity and Access Management (IAM) policy using the following snippet, replacing `<aws-region>`, `<aws-account>`, `<stage>`, and `<ec2-instance-id>` with your information:
@@ -66,9 +65,9 @@ Use the following steps to set up Bootstrap instance access:
 
 ---
 
-## Step 3: Log in to Bootstrap and building Migration Assistant (~15 minutes)
+## Step 3: Log in to bootstrap and build Migration Assistant (~15 minutes)
 
-Next, log in to Bootstrap and build Migration Assistant using the following steps.
+Next, log in to bootstrap and build Migration Assistant using the following steps.
 
 ### Prerequisites
 
@@ -87,7 +86,7 @@ To use these steps, make sure you fulfill the following prerequisites:
     ```
     {% include copy.html %}
     
-3. Once logged in, run the following command from the shell of the Bootstrap instance in the `/opensearch-migrations` directory:
+3. Once logged in, run the following command from the shell of the bootstrap instance in the `/opensearch-migrations` directory:
 
     ```bash
     ./initBootstrap.sh && cd deployment/cdk/opensearch-service-migration

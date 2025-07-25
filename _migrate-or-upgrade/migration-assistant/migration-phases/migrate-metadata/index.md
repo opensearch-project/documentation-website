@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Migrate Metadata
+title: Migrate metadata
 nav_order: 5
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch

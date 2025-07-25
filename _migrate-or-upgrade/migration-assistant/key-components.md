@@ -16,9 +16,9 @@ The following are the key components of Migration Assistant.
 
 In this solution, your source cluster operates on either Elasticsearch or OpenSearch and is hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances or in a similar computing environment. Traffic is rerouted from the source cluster to a traffic capture proxy and replayed to a target typically on a later version of OpenSearch.
 
-## Migration Console
+## Migration console
 
-The migration console provides a migration-specific CLI and offers a variety of tools for streamlining the migration process. Everything necessary for completing a migration, other than cleaning up the migration resources, can be performed through this console.
+The migration console provides a migration-specific CLI and offers a variety of tools for streamlining the migration process. You can perform everything necessary for completing a migration, other than cleaning up the migration resources, through this console.
 
 ## Traffic Capture Proxy
 
@@ -28,7 +28,7 @@ This component is designed for HTTP RESTful traffic. It forwards traffic to the 
 
 Acting as a traffic simulation tool, [Traffic Replayer]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/) replays recorded request traffic to a target cluster, mirroring source traffic patterns. It links original requests and their responses to those directed at the target cluster, facilitating comparative analysis.
 
-## Metadata-Migration-Tool
+## Metadata Migration Tool
 
 The metadata migration tool integrated into the Migration CLI can be used independently to migrate cluster metadata, including index mappings, index configuration settings, templates, component templates, and aliases.
 

@@ -11,7 +11,7 @@ redirect_from:
 
 # Accessing the migration console
 
-The Bootstrap box deployed through Migration Assistant contains a script that simplifies access to the migration console through that instance.
+The bootstrap box deployed through Migration Assistant contains a script that simplifies access to the migration console through that instance.
 
 To access the migration console, use the following commands:
 

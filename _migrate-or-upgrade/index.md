@@ -47,7 +47,7 @@ Stop nonessential indexing before upgrading.
 ## Migration and Upgrade Methods
 
 
-### Rolling Upgrade
+### Rolling upgrade
 
 Upgrade one node at a time while keeping the cluster operational.
 

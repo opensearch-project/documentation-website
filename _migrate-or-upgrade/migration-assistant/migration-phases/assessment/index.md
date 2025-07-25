@@ -11,7 +11,7 @@ permalink: /migration-assistant/migration-phases/assessment/
 
 # Assessment
 
-The goal of the Migration Assistant is to streamline the process of migrating from one location or version of Elasticsearch/OpenSearch to another. However, completing a migration sometimes requires resolving client compatibility issues before they can communicate directly with the target cluster.
+The goal of Migration Assistant is to streamline the process of migrating from one location or version of Elasticsearch/OpenSearch to another. However, completing a migration sometimes requires resolving client compatibility issues before they can communicate directly with the target cluster.
 
 
 ## Understanding breaking changes
