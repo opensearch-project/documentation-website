@@ -3,7 +3,7 @@ layout: default
 title: Pretrained models
 parent: ML framework
 nav_order: 120
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/pretrained-models/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/pretrained-models/
 ---
 
 Pretrained models were taken out of experimental status and released to General Availability in OpenSearch 2.9.  

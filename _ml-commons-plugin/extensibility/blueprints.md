@@ -4,7 +4,7 @@ title: Building blueprints
 has_children: false
 nav_order: 65
 parent: ML extensibility 
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/remote-models/blueprints/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/remote-models/blueprints/
 ---
 
 # Building blueprints

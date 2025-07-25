@@ -7,7 +7,7 @@ nav_order: 10
 redirect_from:
   - /opensearch/query-dsl/geo-and-xy/geo-bounding-box/
   - /query-dsl/query-dsl/geo-and-xy/geo-bounding-box/
-canonical_url: https://opensearch.org/docs/latest/query-dsl/geo-and-xy/geo-bounding-box/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/geo-and-xy/geo-bounding-box/
 ---
 
 # Geo-bounding box queries

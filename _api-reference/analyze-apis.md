@@ -6,7 +6,7 @@ nav_order: 7
 redirect_from:
   - /opensearch/rest-api/analyze-apis/
   - /api-reference/analyze-apis/
-canonical_url: https://opensearch.org/docs/latest/api-reference/analyze-apis/
+canonical_url: https://docs.opensearch.org/latest/api-reference/analyze-apis/
 ---
 
 # Analyze API

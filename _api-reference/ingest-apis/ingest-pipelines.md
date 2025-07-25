@@ -4,7 +4,7 @@ title: Ingest pipelines
 parent: Ingest APIs
 has_children: true
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/
 ---
 
 # Ingest pipelines
