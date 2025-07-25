@@ -4,7 +4,7 @@ title: k-NN index
 nav_order: 5
 parent: k-NN search
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/knn-index/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/knn-index/
 ---
 
 # k-NN index
@@ -368,9 +368,9 @@ Setting | Default | Updatable | Description
 :--- | :--- | :--- | :---
 `index.knn` | false | false | Whether the index should build native library indexes for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but approximate k-NN search functionality will be disabled.
 `index.knn.algo_param.ef_search` | 100 | true | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Only available for NMSLIB.
-`index.knn.algo_param.ef_construction` | 100 | false | Deprecated in 1.0.0. Instead, use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value.
-`index.knn.algo_param.m` | 16 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
-`index.knn.space_type` | l2 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.algo_param.ef_construction` | 100 | false | Deprecated in 1.0.0. Instead, use the [mapping parameters](https://docs.opensearch.org/latest/search-plugins/knn/knn-index/#method-definitions) to set this value.
+`index.knn.algo_param.m` | 16 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://docs.opensearch.org/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.space_type` | l2 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://docs.opensearch.org/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
 
 An index created in OpenSearch version 2.11 or earlier will still use the old `ef_construction` and `ef_search` values (`512`).
 {: .note}

@@ -3,7 +3,7 @@ layout: default
 title: Field names
 nav_order: 10
 parent: Metadata fields
-canonical_url: https://opensearch.org/docs/latest/field-types/metadata-fields/field-names/
+canonical_url: https://docs.opensearch.org/latest/field-types/metadata-fields/field-names/
 ---
 
 # Field names

@@ -5,7 +5,7 @@ parent: Metric aggregations
 nav_order: 50
 redirect_from:
   - /query-dsl/aggregations/metric/matrix-stats/
-canonical_url: https://opensearch.org/docs/latest/aggregations/metric/matrix-stats/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/matrix-stats/
 ---
 
 # Matrix stats aggregations

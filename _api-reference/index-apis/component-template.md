@@ -3,7 +3,7 @@ layout: default
 title: Create or update component template
 parent: Index APIs
 nav_order: 29
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/component-template/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/component-template/
 ---
 
 # Create or update component template
@@ -76,11 +76,11 @@ Parameter | Data type | Description
 
 #### `mappings`
 
-The field mappings that exist in the index. For more information, see [Mappings and field types](https://opensearch.org/docs/latest/field-types/). Optional.
+The field mappings that exist in the index. For more information, see [Mappings and field types](https://docs.opensearch.org/latest/field-types/). Optional.
 
 #### `settings`
 
-Any configuration options for the index. For more information, see [Index settings](https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/index-settings/).
+Any configuration options for the index. For more information, see [Index settings](https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/index-settings/).
 
 ## Example requests
 

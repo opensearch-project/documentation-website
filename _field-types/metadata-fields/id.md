@@ -3,7 +3,7 @@ layout: default
 title: ID
 nav_order: 20
 parent: Metadata fields
-canonical_url: https://opensearch.org/docs/latest/field-types/metadata-fields/id/
+canonical_url: https://docs.opensearch.org/latest/field-types/metadata-fields/id/
 ---
 
 # ID

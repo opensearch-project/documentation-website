@@ -3,7 +3,7 @@ layout: default
 title: Geocentroid
 parent: Metric aggregations
 nav_order: 45
-canonical_url: https://opensearch.org/docs/latest/aggregations/metric/geocentroid/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/geocentroid/
 ---
 
 # Geocentroid

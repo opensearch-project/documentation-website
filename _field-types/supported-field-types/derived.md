@@ -4,7 +4,7 @@ title: Derived
 nav_order: 62
 has_children: false
 parent: Supported field types
-canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/derived/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/derived/
 ---
 
 # Derived field type

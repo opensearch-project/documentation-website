@@ -4,7 +4,7 @@ title: Dynamic parameter
 nav_order: 10
 redirect_from:
   - /opensearch/dynamic/
-canonical_url: https://opensearch.org/docs/latest/field-types/dynamic/
+canonical_url: https://docs.opensearch.org/latest/field-types/dynamic/
 ---
 
 # Dynamic parameter

@@ -6,7 +6,7 @@ nav_order: 50
 redirect_from:
   - /observability-plugin/trace/ta-dashboards/
   - /monitoring-plugins/trace/ta-dashboards/
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/trace/ta-dashboards/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/ta-dashboards/
 ---
 
 # Trace Analytics plugin for OpenSearch Dashboards
@@ -77,7 +77,7 @@ Certain fields, such as `serviceName`, must be present to perform correlation an
 
 ### Correlation indexes
 
-Navigating from the service dialog to its corresponding traces or logs requires the existence of correlating fields and that the target indexes (for example, logs) follow the specified naming conventions, as described at [Simple Schema for Observability](https://opensearch.org/docs/latest/observing-your-data/ss4o/).  
+Navigating from the service dialog to its corresponding traces or logs requires the existence of correlating fields and that the target indexes (for example, logs) follow the specified naming conventions, as described at [Simple Schema for Observability](https://docs.opensearch.org/latest/observing-your-data/ss4o/).  
 
 ---
 

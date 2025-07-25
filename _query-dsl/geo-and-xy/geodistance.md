@@ -3,7 +3,7 @@ layout: default
 title: Geodistance
 parent: Geographic and xy queries
 nav_order: 20
-canonical_url: https://opensearch.org/docs/latest/query-dsl/geo-and-xy/geodistance/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/geo-and-xy/geodistance/
 ---
 
 # Geodistance query
