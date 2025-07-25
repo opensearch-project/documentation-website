@@ -4,7 +4,7 @@ title: Remote Store Stats API
 nav_order: 20
 parent: Remote-backed storage
 grand_parent: Availability and recovery
-canonical_url: https://docs.opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/
 ---
 
 # Remote Store Stats API

@@ -7,7 +7,7 @@ has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-count/
 
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/cat/cat-count/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-count/
 ---
 
 # CAT count

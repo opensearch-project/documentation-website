@@ -6,7 +6,7 @@ parent: Coordinate and region maps
 nav_order: 40
 redirect_from:
   - /dashboards/selfhost-maps-server/
-canonical_url: https://docs.opensearch.org/docs/latest/dashboards/visualize/selfhost-maps-server/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/selfhost-maps-server/
 ---
 
 # Using self-hosted map servers

@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 nav_exclude: true
 permalink: /getting-started/
-canonical_url: https://docs.opensearch.org/docs/latest/getting-started/
+canonical_url: https://docs.opensearch.org/latest/getting-started/
 ---
 
 # Getting started

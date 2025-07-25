@@ -3,7 +3,7 @@ layout: default
 title: Stats
 parent: Index APIs
 nav_order: 72
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/index-apis/stats/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/stats/
 ---
 
 # Index Stats 

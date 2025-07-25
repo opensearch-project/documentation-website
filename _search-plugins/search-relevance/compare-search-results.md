@@ -7,7 +7,7 @@ has_children: false
 has_toc: false
 redirect_from:
   - /search-plugins/search-relevance/
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/search-relevance/compare-search-results/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/compare-search-results/
 ---
 
 # Comparing search results

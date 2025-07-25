@@ -5,7 +5,7 @@ has_children: true
 nav_order: 15
 redirect_from:
   - /opensearch/api-reference/cluster-api/
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/cluster-api/index/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/index/
 ---
 
 # Cluster APIs

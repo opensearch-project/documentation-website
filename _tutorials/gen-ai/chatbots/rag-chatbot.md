@@ -10,7 +10,7 @@ redirect_from:
   - /ml-commons-plugin/tutorials/rag-chatbot/
   - /vector-search/tutorials/chatbots/rag-chatbot/
   - /tutorials/gen-ai/chatbots/rag-chatbot/
-canonical_url: https://docs.opensearch.org/docs/latest/tutorials/gen-ai/chatbots/rag-chatbot/
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/chatbots/rag-chatbot/
 ---
 
 # RAG chatbot

@@ -4,7 +4,7 @@ title: Settings
 nav_order: 90
 redirect_from:
   - /search-plugins/knn/settings/
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/settings/
+canonical_url: https://docs.opensearch.org/latest/vector-search/settings/
 ---
 
 # Vector search settings

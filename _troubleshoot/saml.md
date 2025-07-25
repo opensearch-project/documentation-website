@@ -2,7 +2,7 @@
 layout: default
 title: Troubleshoot SAML
 nav_order: 20
-canonical_url: https://docs.opensearch.org/docs/latest/troubleshoot/saml/
+canonical_url: https://docs.opensearch.org/latest/troubleshoot/saml/
 ---
 
 # SAML troubleshooting

@@ -5,7 +5,7 @@ parent: Anomaly detection
 nav_order: 4
 redirect_from: 
   - /monitoring-plugins/ad/settings/
-canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/ad/settings/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/settings/
 ---
 
 # Anomaly Detection settings

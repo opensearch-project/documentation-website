@@ -5,7 +5,7 @@ nav_order: 60
 parent: OpenSearch Benchmark Reference
 has_children: true
 redirect_from: /benchmark/workloads/index/
-canonical_url: https://docs.opensearch.org/docs/latest/benchmark/reference/workloads/index/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/index/
 ---
 
 # OpenSearch Benchmark workload reference

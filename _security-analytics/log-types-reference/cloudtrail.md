@@ -3,7 +3,7 @@ layout: default
 title: AWS CloudTrail
 parent: Supported log types
 nav_order: 28
-canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/log-types-reference/cloudtrail/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/log-types-reference/cloudtrail/
 ---
 
 # AWS CloudTrail

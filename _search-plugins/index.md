@@ -20,7 +20,7 @@ ai:
   - heading: "AI search"
     description: "Build intelligent search applications using AI models"
     link: "/vector-search/ai-search/"
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/
 ---
 
 # Search features

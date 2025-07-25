@@ -5,7 +5,7 @@ parent: Configuration
 nav_order: 25
 redirect_from:
   - /security-plugin/configuration/security-admin/
-canonical_url: https://docs.opensearch.org/docs/latest/security/configuration/security-admin/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/security-admin/
 ---
 
 # Applying changes to configuration files

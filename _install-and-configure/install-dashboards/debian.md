@@ -3,7 +3,7 @@ layout: default
 title: Debian
 parent: Installing OpenSearch Dashboards
 nav_order: 33
-canonical_url: https://docs.opensearch.org/docs/latest/install-and-configure/install-dashboards/debian/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/debian/
 ---
 
 {% comment %}

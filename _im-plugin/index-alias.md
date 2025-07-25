@@ -4,7 +4,7 @@ title: Index aliases
 nav_order: 11
 redirect_from:
   - /opensearch/index-alias/
-canonical_url: https://docs.opensearch.org/docs/latest/im-plugin/index-alias/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-alias/
 ---
 
 # Index aliases

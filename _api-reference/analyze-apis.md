@@ -6,7 +6,7 @@ redirect_from:
   - /api-reference/analyze-apis/perform-text-analysis/
   - /opensearch/rest-api/analyze-apis/
   - /api-reference/analyze-apis/terminology/
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/analyze-apis/
+canonical_url: https://docs.opensearch.org/latest/api-reference/analyze-apis/
 ---
 
 # Analyze API

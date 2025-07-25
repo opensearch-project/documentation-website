@@ -8,7 +8,7 @@ parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/autocomplete/
   - /field-types/autocomplete/
-canonical_url: https://docs.opensearch.org/docs/latest/field-types/supported-field-types/autocomplete/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/autocomplete/
 ---
 
 # Autocomplete field types

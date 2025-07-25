@@ -3,7 +3,7 @@ layout: default
 title: Correlation engine APIs
 parent: API tools
 nav_order: 55
-canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/api-tools/correlation-eng/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/api-tools/correlation-eng/
 ---
 
 # Correlation engine APIs

@@ -5,7 +5,7 @@ has_children: true
 nav_order: 15
 redirect_from: 
   - /data-prepper/common-use-cases/
-canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/common-use-cases/common-use-cases/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/common-use-cases/common-use-cases/
 ---
 
 # Common use cases

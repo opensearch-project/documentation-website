@@ -3,7 +3,7 @@ layout: default
 title: Index rollups API
 parent: Index rollups
 nav_order: 9
-canonical_url: https://docs.opensearch.org/docs/latest/im-plugin/index-rollups/rollup-api/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-rollups/rollup-api/
 ---
 
 # Index rollups API

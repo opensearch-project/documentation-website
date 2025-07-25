@@ -6,7 +6,7 @@ parent: Reporting using the CLI
 grand_parent: Reporting
 redirect_from:
   - /dashboards/reporting-cli/rep-cli-install/
-canonical_url: https://docs.opensearch.org/docs/latest/reporting/rep-cli-install/
+canonical_url: https://docs.opensearch.org/latest/reporting/rep-cli-install/
 ---
 
 # Download and install the Reporting CLI tool

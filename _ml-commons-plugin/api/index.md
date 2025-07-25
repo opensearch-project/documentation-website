@@ -7,7 +7,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /ml-commons-plugin/api/
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/index/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/index/
 ---
 
 # ML APIs 

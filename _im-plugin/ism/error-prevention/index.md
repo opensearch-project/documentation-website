@@ -7,7 +7,7 @@ has_toc: false
 redirect_from:
   - /im-plugin/ism/error-prevention/
   - /im-plugin/ism/error-prevention/index/
-canonical_url: https://docs.opensearch.org/docs/latest/im-plugin/ism/error-prevention/index/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/ism/error-prevention/index/
 ---
 
 # ISM error prevention

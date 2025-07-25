@@ -7,7 +7,7 @@ nav_order: 40
 redirect_from:
    - /search-plugins/hybrid-search/
    - /vector-search/ai-search/hybrid-search/
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/ai-search/hybrid-search/index/
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/
 ---
 
 # Hybrid search

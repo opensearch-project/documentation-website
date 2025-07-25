@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
     - /analyzers/token-filters/index/
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/index/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/index/
 ---
 
 # Token filters
