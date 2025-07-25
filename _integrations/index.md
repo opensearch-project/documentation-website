@@ -7,7 +7,7 @@ nav_exclude: true
 permalink: /integrations/
 redirect_from:
   - /integrations/index/
-canonical_url: https://opensearch.org/docs/latest/integrations/
+canonical_url: https://docs.opensearch.org/latest/integrations/
 ---
 
 # Integrations in OpenSearch Dashboards
@@ -32,7 +32,7 @@ A consistent telemetry data schema is crucial for effective observability, enabl
 
 OpenSearch adopted the [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol as the foundation for its observability solution. OTel is a community-driven standard that defines a consistent schema and data collection approach for metrics, logs, and traces. It is widely supported by APIs, SDKs, and telemetry collectors, enabling features like auto-instrumentation for seamless observability integration. 
 
-This shared schema allows cross-correlation and analysis across different data sources. To this end, OpenSearch derived the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which encodes the OTel standard as OpenSearch mappings. OpenSearch also supports the [Piped Processing Language (PPL)](https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/), which is designed for high-dimensionality querying in observability use cases.
+This shared schema allows cross-correlation and analysis across different data sources. To this end, OpenSearch derived the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which encodes the OTel standard as OpenSearch mappings. OpenSearch also supports the [Piped Processing Language (PPL)](https://docs.opensearch.org/latest/search-plugins/sql/ppl/index/), which is designed for high-dimensionality querying in observability use cases.
 
 ---
 

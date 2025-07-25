@@ -4,7 +4,7 @@ title: select_entries
 parent: Processors
 grand_parent: Pipelines
 nav_order: 59
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/select-entries/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/select-entries/
 ---
 
 # select_entries
@@ -19,7 +19,7 @@ You can configure the `select_entries` processor using the following options.
 | Option | Required | Description |
 | :--- | :--- | :--- |
 | `include_keys` | Yes | A list of keys to be selected from an event. |
-| `select_when` | No | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. If the condition is not met, then the event continues through the pipeline unmodified with all the original fields present. |
+| `select_when` | No | A [conditional expression](https://docs.opensearch.org/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. If the condition is not met, then the event continues through the pipeline unmodified with all the original fields present. |
 
 ## Usage
 

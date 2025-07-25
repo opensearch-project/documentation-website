@@ -3,7 +3,7 @@ layout: default
 title: Split
 parent: Ingest processors
 nav_order: 270
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/split/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/split/
 ---
 
 # Split processor

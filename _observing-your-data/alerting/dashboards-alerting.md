@@ -3,7 +3,7 @@ layout: default
 title: Alerting dashboards and visualizations 
 parent: Alerting
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/alerting/dashboards-alerting/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/dashboards-alerting/
 ---
 
 # Alerting dashboards and visualizations
@@ -89,5 +89,5 @@ Once you've created or associated alerting monitors, verify that the monitor is 
 
 ## Next steps
 
-- [Learn more about the Dashboard application](https://opensearch.org/docs/latest/dashboards/dashboard/index/).
-- [Learn more about alerting](https://opensearch.org/docs/latest/observing-your-data/alerting/index/).
+- [Learn more about the Dashboard application](https://docs.opensearch.org/latest/dashboards/dashboard/index/).
+- [Learn more about alerting](https://docs.opensearch.org/latest/observing-your-data/alerting/index/).

@@ -3,7 +3,7 @@ layout: default
 title: Configuring Log4j
 parent: Managing Data Prepper
 nav_order: 20
-canonical_url: https://opensearch.org/docs/latest/data-prepper/managing-data-prepper/configuring-log4j/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/managing-data-prepper/configuring-log4j/
 ---
 
 # Configuring Log4j

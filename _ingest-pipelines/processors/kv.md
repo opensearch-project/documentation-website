@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 200
 redirect_from:
    - /api-reference/ingest-apis/processors/lowercase/
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/kv/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/kv/
 ---
 
 This documentation describes using the `kv` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `key_value` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/key-value/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.

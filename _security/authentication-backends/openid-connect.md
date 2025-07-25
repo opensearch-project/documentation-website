@@ -5,7 +5,7 @@ parent: Authentication backends
 nav_order: 50
 redirect_from:
   - /security-plugin/configuration/openid-connect/
-canonical_url: https://opensearch.org/docs/latest/security/authentication-backends/openid-connect/
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/openid-connect/
 ---
 
 # OpenID Connect

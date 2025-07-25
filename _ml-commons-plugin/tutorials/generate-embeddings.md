@@ -3,7 +3,7 @@ layout: default
 title: Generating embeddings
 parent: Tutorials
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/tutorials/generate-embeddings/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/generate-embeddings/
 ---
 
 # Generating embeddings for arrays of objects
