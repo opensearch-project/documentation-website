@@ -6,7 +6,7 @@ grand_parent: Optimizing vector storage
 nav_order: 10
 has_children: false
 has_math: true
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/optimizing-storage/lucene-scalar-quantization/
+canonical_url: https://docs.opensearch.org/latest/vector-search/optimizing-storage/lucene-scalar-quantization/
 ---
 
 # Lucene scalar quantization

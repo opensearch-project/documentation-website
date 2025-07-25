@@ -27,7 +27,7 @@ inside_cards:
   - heading: "Binary quantization"
     description: "Use built-in binary quantization for the Faiss engine"
     link: "/vector-search/optimizing-storage/binary-quantization/"
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/optimizing-storage/knn-vector-quantization/
+canonical_url: https://docs.opensearch.org/latest/vector-search/optimizing-storage/knn-vector-quantization/
 ---
 
 # Vector quantization

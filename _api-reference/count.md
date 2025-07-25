@@ -4,7 +4,7 @@ title: Count
 nav_order: 21
 redirect_from:
  - /opensearch/rest-api/count/
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/count/
+canonical_url: https://docs.opensearch.org/latest/api-reference/count/
 ---
 
 # Count

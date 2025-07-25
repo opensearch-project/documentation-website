@@ -27,7 +27,7 @@ chatbots:
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Anthropic Claude"  
       - "<b>Deployment:</b> Amazon Bedrock"
-canonical_url: https://docs.opensearch.org/docs/latest/tutorials/gen-ai/chatbots/index/
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/chatbots/index/
 ---
 
 # Chatbots and agents tutorials

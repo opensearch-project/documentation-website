@@ -3,7 +3,7 @@ layout: default
 title: Text chunking
 parent: Ingest processors
 nav_order: 250
-canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/processors/text-chunking/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/text-chunking/
 ---
 
 # Text chunking processor

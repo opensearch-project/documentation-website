@@ -5,7 +5,7 @@ parent: Connecting Amazon S3 to OpenSearch
 grand_parent: Data sources
 nav_order: 10
 has_children: false
-canonical_url: https://docs.opensearch.org/docs/latest/dashboards/management/query-data-source/
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/query-data-source/
 ---
 
 # Query and visualize Amazon S3 data

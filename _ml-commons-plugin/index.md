@@ -41,7 +41,7 @@ algorithms:
   - heading: "Supported algorithms"
     link: "/ml-commons-plugin/algorithms/"
     description: "Learn about the natively supported clustering, pattern detection, and statistical analysis algorithms"
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/
 ---
 
 # Machine learning

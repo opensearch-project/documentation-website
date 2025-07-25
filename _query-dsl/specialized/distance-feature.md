@@ -4,7 +4,7 @@ title: Distance feature
 parent: Specialized queries
 nav_order: 5
 has_math: true
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/specialized/distance-feature/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/distance-feature/
 ---
 
 # Distance feature query

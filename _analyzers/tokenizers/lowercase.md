@@ -3,7 +3,7 @@ layout: default
 title: Lowercase
 parent: Tokenizers
 nav_order: 70
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/tokenizers/lowercase/
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/lowercase/
 ---
 
 # Lowercase tokenizer

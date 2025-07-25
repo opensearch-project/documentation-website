@@ -7,7 +7,7 @@ has_toc: false
 nav_order: 20
 redirect_from: 
   - /ml-commons-plugin/extensibility/index/
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/agents-tools/tools/index/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/agents-tools/tools/index/
 ---
 
 # Tools

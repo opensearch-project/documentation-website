@@ -3,7 +3,7 @@ title: Query insights dashboards
 layout: default
 parent: Query insights
 nav_order: 60
-canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/query-insights/query-insights-dashboard/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/query-insights/query-insights-dashboard/
 ---
 
 # Query insights dashboards

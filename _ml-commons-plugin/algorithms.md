@@ -3,7 +3,7 @@ layout: default
 title: Supported algorithms 
 has_children: false
 nav_order: 125
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/algorithms/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/algorithms/
 ---
 
 # Supported algorithms

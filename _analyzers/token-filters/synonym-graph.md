@@ -3,7 +3,7 @@ layout: default
 title: Synonym graph
 parent: Token filters
 nav_order: 420
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/synonym-graph/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/synonym-graph/
 ---
 
 # Synonym graph token filter

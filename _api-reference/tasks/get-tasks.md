@@ -3,7 +3,7 @@ layout: default
 title: Get task
 parent: Tasks API
 nav_order: 20
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/tasks/get-tasks/
+canonical_url: https://docs.opensearch.org/latest/api-reference/tasks/get-tasks/
 ---
 
 # Get task

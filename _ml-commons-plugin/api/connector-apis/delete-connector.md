@@ -4,7 +4,7 @@ title: Delete connector
 parent: Connector APIs
 grand_parent: ML Commons APIs
 nav_order: 30
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/connector-apis/delete-connector/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/connector-apis/delete-connector/
 ---
 
 # Delete a connector

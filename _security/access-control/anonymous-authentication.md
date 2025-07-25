@@ -3,7 +3,7 @@ layout: default
 title: Anonymous authentication
 parent: Access control
 nav_order: 145
-canonical_url: https://docs.opensearch.org/docs/latest/security/access-control/anonymous-authentication/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/anonymous-authentication/
 ---
 
 # Anonymous authentication

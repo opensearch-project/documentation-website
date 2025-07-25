@@ -4,7 +4,7 @@ title: Migrating from Open Distro
 nav_order: 30
 redirect_from:
   - /clients/data-prepper/migrate-open-distro/
-canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/migrate-open-distro/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/migrate-open-distro/
 ---
 
 # Migrating from Open Distro

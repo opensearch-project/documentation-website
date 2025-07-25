@@ -4,7 +4,7 @@ title: Simple Schema for Observability
 nav_order: 120
 redirect_from:
 - /observing-your-data/ssfo/ 
-canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/ss4o/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ss4o/
 ---
 
 # Simple Schema for Observability

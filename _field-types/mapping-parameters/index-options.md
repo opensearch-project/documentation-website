@@ -6,7 +6,7 @@ grand_parent: Mapping and field types
 nav_order: 70
 has_children: false
 has_toc: false
-canonical_url: https://docs.opensearch.org/docs/latest/field-types/mapping-parameters/index-options/
+canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/index-options/
 ---
 
 # Index options

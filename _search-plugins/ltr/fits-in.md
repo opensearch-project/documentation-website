@@ -4,7 +4,7 @@ title: Scope of the plugin
 nav_order: 20
 parent: Learning to Rank
 has_children: false
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/ltr/fits-in/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ltr/fits-in/
 ---
 
 # Scope of the plugin

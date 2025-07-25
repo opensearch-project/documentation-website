@@ -6,7 +6,7 @@ grand_parent: User guide
 parent: Understanding results
 redirect_from: 
   - /benchmark/user-guide/telemetry
-canonical_url: https://docs.opensearch.org/docs/latest/benchmark/user-guide/understanding-results/telemetry/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-results/telemetry/
 ---
 
 # Enabling telemetry devices

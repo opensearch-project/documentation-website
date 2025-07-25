@@ -4,7 +4,7 @@ title: Children
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 15
-canonical_url: https://docs.opensearch.org/docs/latest/aggregations/bucket/children/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/children/
 ---
 
 # Children

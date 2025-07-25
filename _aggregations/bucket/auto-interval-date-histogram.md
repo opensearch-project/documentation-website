@@ -4,7 +4,7 @@ title: Auto-interval date histogram
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 12
-canonical_url: https://docs.opensearch.org/docs/latest/aggregations/bucket/auto-interval-date-histogram/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/auto-interval-date-histogram/
 ---
 
 # Auto-interval date histogram

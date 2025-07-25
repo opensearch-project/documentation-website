@@ -2,7 +2,7 @@
 layout: default
 title: Stemming
 nav_order: 140
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/stemming/
+canonical_url: https://docs.opensearch.org/latest/analyzers/stemming/
 ---
 
 # Stemming

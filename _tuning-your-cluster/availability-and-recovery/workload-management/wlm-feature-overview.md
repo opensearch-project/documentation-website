@@ -4,7 +4,7 @@ title: Workload management
 nav_order: 70
 has_children: true
 parent: Availability and recovery
-canonical_url: https://docs.opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/
 ---
 
 Introduced 2.18

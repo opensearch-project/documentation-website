@@ -3,7 +3,7 @@ layout: default
 title: Multi-match
 parent: Full-text queries
 nav_order: 50
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/full-text/multi-match/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/full-text/multi-match/
 ---
 
 # Multi-match queries

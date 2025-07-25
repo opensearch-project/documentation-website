@@ -4,7 +4,7 @@ title: Asynchronous batch ingestion
 nav_order: 90
 parent: Connecting to externally hosted models 
 grand_parent: Integrating ML models
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/remote-models/async-batch-ingestion/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/remote-models/async-batch-ingestion/
 ---
 
 

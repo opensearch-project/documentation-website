@@ -9,7 +9,7 @@ redirect_from:
   - /opensearch/index-data/
   - /opensearch/rest-api/index-apis/index/
   - /im-plugin/index/
-canonical_url: https://docs.opensearch.org/docs/latest/im-plugin/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/
 ---
 
 # Managing indexes

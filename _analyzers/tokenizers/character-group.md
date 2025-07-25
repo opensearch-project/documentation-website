@@ -5,7 +5,7 @@ parent: Tokenizers
 nav_order: 20
 has_children: false
 has_toc: false
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/tokenizers/character-group/
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/character-group/
 ---
 
 # Character group tokenizer

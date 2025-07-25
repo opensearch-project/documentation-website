@@ -4,7 +4,7 @@ title: Logging feature scores
 nav_order: 50
 parent: Learning to Rank
 has_children: false
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/ltr/logging-features/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ltr/logging-features/
 ---
 
 # Logging feature scores

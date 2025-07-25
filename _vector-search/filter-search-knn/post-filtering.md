@@ -3,7 +3,7 @@ layout: default
 title: Post-filtering
 parent: Filtering data
 nav_order: 20
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/filter-search-knn/post-filtering/
+canonical_url: https://docs.opensearch.org/latest/vector-search/filter-search-knn/post-filtering/
 ---
 
 ## Post-filtering

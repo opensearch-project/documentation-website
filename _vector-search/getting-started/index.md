@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /vector-search/getting-started/
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/getting-started/index/
+canonical_url: https://docs.opensearch.org/latest/vector-search/getting-started/index/
 ---
 
 # Getting started with vector search

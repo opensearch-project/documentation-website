@@ -5,7 +5,7 @@ parent: Metric aggregations
 nav_order: 130
 redirect_from:
   - /query-dsl/aggregations/metric/top-hits/
-canonical_url: https://docs.opensearch.org/docs/latest/aggregations/metric/top-hits/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/top-hits/
 ---
 
 # Top hits aggregations

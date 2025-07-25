@@ -4,7 +4,7 @@ title: Character filters
 nav_order: 90
 has_children: true
 has_toc: false
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/character-filters/index/
+canonical_url: https://docs.opensearch.org/latest/analyzers/character-filters/index/
 ---
 
 # Character filters

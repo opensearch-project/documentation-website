@@ -3,7 +3,7 @@ layout: default
 title: Simulate index templates
 parent: Index APIs
 nav_order: 29
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/index-apis/simulate-index-template/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/simulate-index-template/
 ---
 
 # Simulate index templates

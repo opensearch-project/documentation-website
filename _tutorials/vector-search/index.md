@@ -23,7 +23,7 @@ other:
   - heading: "Semantic search"
     description: "Implement semantic search using various machine learning models"
     link: "/tutorials/vector-search/semantic-search/"
-canonical_url: https://docs.opensearch.org/docs/latest/tutorials/vector-search/index/
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/index/
 ---
 
 # Vector search tutorials

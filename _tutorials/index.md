@@ -25,7 +25,7 @@ cards:
   - heading: "Generative AI applications"
     description: "Create AI-powered applications like RAG, chatbots, and advanced conversational systems" 
     link: "/tutorials/gen-ai/"
-canonical_url: https://docs.opensearch.org/docs/latest/tutorials/
+canonical_url: https://docs.opensearch.org/latest/tutorials/
 ---
 
 # Tutorials

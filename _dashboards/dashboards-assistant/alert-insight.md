@@ -4,7 +4,7 @@ title: Alert insights
 parent: OpenSearch Assistant for OpenSearch Dashboards
 nav_order: 1
 has_children: false
-canonical_url: https://docs.opensearch.org/docs/latest/dashboards/dashboards-assistant/alert-insight/
+canonical_url: https://docs.opensearch.org/latest/dashboards/dashboards-assistant/alert-insight/
 ---
 
 # Alert insights

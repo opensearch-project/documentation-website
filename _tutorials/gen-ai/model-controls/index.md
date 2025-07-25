@@ -15,7 +15,7 @@ model_controls:
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Anthropic Claude"  
       - "<b>Deployment:</b> Amazon Bedrock"   
-canonical_url: https://docs.opensearch.org/docs/latest/tutorials/gen-ai/model-controls/index/
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/model-controls/index/
 ---
 
 # Model guardrails tutorials

@@ -4,7 +4,7 @@ title: Get model group
 parent: Model group APIs
 grand_parent: ML Commons APIs
 nav_order: 30
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/model-group-apis/get-model-group/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-group-apis/get-model-group/
 ---
 
 # Get model group

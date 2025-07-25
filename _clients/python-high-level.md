@@ -2,7 +2,7 @@
 layout: default
 title: High-level Python client
 nav_order: 5
-canonical_url: https://docs.opensearch.org/docs/latest/clients/python-high-level/
+canonical_url: https://docs.opensearch.org/latest/clients/python-high-level/
 ---
 
 The OpenSearch high-level Python client (`opensearch-dsl-py`) will be deprecated after version 2.1.0. We recommend switching to the [Python client (`opensearch-py`)]({{site.url}}{{site.baseurl}}/clients/python-low-level/), which now includes the functionality of `opensearch-dsl-py`.

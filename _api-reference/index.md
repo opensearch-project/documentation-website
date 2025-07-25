@@ -9,7 +9,7 @@ permalink: /api-reference/
 redirect_from:
   - /opensearch/rest-api/index/
   - /api-reference/index/
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/
+canonical_url: https://docs.opensearch.org/latest/api-reference/
 ---
 
 # REST API reference

@@ -5,7 +5,7 @@ nav_order: 12
 redirect_from:
   - /opensearch/rest-api/ingest-apis/get-ingest/
   - /api-reference/ingest-apis/get-ingest/
-canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/get-ingest/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/get-ingest/
 ---
 
 # Get pipeline

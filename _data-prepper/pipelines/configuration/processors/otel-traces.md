@@ -4,7 +4,7 @@ title: otel_traces
 parent: Processors
 grand_parent: Pipelines
 nav_order: 75
-canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/otel-traces/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/otel-traces/
 ---
 
 # otel_trace

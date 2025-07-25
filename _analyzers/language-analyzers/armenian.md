@@ -4,7 +4,7 @@ title: Armenian
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 20
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/language-analyzers/armenian/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/armenian/
 ---
 
 # Armenian analyzer

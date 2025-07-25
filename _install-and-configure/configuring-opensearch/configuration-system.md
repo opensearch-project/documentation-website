@@ -3,7 +3,7 @@ layout: default
 title: Configuration and system settings
 parent: Configuring OpenSearch
 nav_order: 10
-canonical_url: https://docs.opensearch.org/docs/latest/install-and-configure/configuring-opensearch/configuration-system/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/configuration-system/
 ---
 
 # Configuration and system settings

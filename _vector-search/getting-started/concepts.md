@@ -3,7 +3,7 @@ layout: default
 title: Concepts
 parent: Getting started
 nav_order: 40
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/getting-started/concepts/
+canonical_url: https://docs.opensearch.org/latest/vector-search/getting-started/concepts/
 ---
 
 # Concepts  

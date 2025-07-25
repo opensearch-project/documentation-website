@@ -3,7 +3,7 @@ layout: default
 title: Index analyzers
 nav_order: 20
 parent: Analyzers
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/index-analyzers/
+canonical_url: https://docs.opensearch.org/latest/analyzers/index-analyzers/
 ---
 
 # Index analyzers

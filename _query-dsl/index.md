@@ -12,7 +12,7 @@ redirect_from:
   - /docs/opensearch/query-dsl/
   - /query-dsl/query-dsl/
   - /query-dsl/index/
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/
 ---
 
 {%- comment -%}The `/docs/opensearch/query-dsl/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}

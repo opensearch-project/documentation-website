@@ -5,7 +5,7 @@ nav_order: 20
 has_children: true
 parent: Supported field types
 has_math: true
-canonical_url: https://docs.opensearch.org/docs/latest/field-types/supported-field-types/knn-vector/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/knn-vector/
 ---
 
 # k-NN vector

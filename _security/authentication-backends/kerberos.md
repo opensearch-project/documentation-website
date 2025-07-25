@@ -3,7 +3,7 @@ layout: default
 title: Kerberos
 parent: Authentication backends
 nav_order: 75
-canonical_url: https://docs.opensearch.org/docs/latest/security/authentication-backends/kerberos/
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/kerberos/
 ---
 
 # Kerberos

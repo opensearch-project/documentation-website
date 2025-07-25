@@ -3,7 +3,7 @@ layout: default
 title: Anomaly detection visualizations and dashboards
 parent: Anomaly detection
 nav_order: 50
-canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/ad/dashboards-anomaly-detection/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/dashboards-anomaly-detection/
 ---
 
 # Anomaly detection dashboards and visualizations

@@ -4,7 +4,7 @@ title: Span containing
 parent: Span queries
 grand_parent: Query DSL
 nav_order: 10
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/span/span-containing/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/span/span-containing/
 ---
 
 # Span containing query

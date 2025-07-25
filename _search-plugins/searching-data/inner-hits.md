@@ -4,7 +4,7 @@ title: Retrieve inner hits
 parent: Search options
 has_children: false
 nav_order: 75
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/searching-data/inner-hits/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/inner-hits/
 ---
 
 # Retrieve inner hits

@@ -6,7 +6,7 @@ nav_order: 100
 redirect_from:
  - /security/access-control/impersonation/
  - /security-plugin/access-control/impersonation/
-canonical_url: https://docs.opensearch.org/docs/latest/security/access-control/impersonation/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/impersonation/
 ---
 
 # User impersonation

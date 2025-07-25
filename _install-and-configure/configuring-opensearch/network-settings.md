@@ -3,7 +3,7 @@ layout: default
 title: Network settings
 parent: Configuring OpenSearch
 nav_order: 20
-canonical_url: https://docs.opensearch.org/docs/latest/install-and-configure/configuring-opensearch/network-settings/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/network-settings/
 ---
 
 # Network settings

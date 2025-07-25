@@ -4,7 +4,7 @@ title: Anomaly detector suggestions
 parent: OpenSearch Assistant for OpenSearch Dashboards
 nav_order: 1
 has_children: false
-canonical_url: https://docs.opensearch.org/docs/latest/dashboards/dashboards-assistant/suggest-anomaly-detector/
+canonical_url: https://docs.opensearch.org/latest/dashboards/dashboards-assistant/suggest-anomaly-detector/
 ---
 
 # Anomaly detector suggestions

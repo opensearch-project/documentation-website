@@ -6,7 +6,7 @@ nav_order: 115
 redirect_from:
  - /security/access-control/default-action-groups/
  - /security-plugin/access-control/default-action-groups/
-canonical_url: https://docs.opensearch.org/docs/latest/security/access-control/default-action-groups/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/default-action-groups/
 ---
 
 # Default action groups

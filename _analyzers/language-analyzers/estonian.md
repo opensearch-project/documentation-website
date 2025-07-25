@@ -4,7 +4,7 @@ title: Estonian
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 130
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/language-analyzers/estonian/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/estonian/
 ---
 
 # Estonian analyzer

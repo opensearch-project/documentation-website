@@ -2,7 +2,7 @@
 layout: default
 title: Security APIs
 nav_order: 84
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/security-apis/
+canonical_url: https://docs.opensearch.org/latest/api-reference/security-apis/
 ---
 
 # Security APIs

@@ -6,7 +6,7 @@ nav_order: 100
 redirect_from:
   - /ml-commons-plugin/tutorials/reranking-bedrock/
   - /vector-search/tutorials/reranking/reranking-bedrock/
-canonical_url: https://docs.opensearch.org/docs/latest/tutorials/reranking/reranking-bedrock/
+canonical_url: https://docs.opensearch.org/latest/tutorials/reranking/reranking-bedrock/
 ---
 
 # Reranking search results using Amazon Bedrock models

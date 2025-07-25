@@ -8,7 +8,7 @@ nav_order: 60
 redirect_from: 
   - /ml-commons-plugin/extensibility/index/
   - /ml-commons-plugin/remote-models/
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/remote-models/index/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/remote-models/index/
 ---
 
 # Connecting to externally hosted models

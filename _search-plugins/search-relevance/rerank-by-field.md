@@ -5,7 +5,7 @@ parent: Reranking search results
 grand_parent: Search relevance
 has_children: false
 nav_order: 20
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/search-relevance/rerank-by-field/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/rerank-by-field/
 ---
 
 # Reranking search results by a field

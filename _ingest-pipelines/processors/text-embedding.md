@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 260
 redirect_from:
    - /api-reference/ingest-apis/processors/text-embedding/
-canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/processors/text-embedding/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/text-embedding/
 ---
 
 # Text embedding processor

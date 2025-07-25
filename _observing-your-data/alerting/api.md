@@ -5,7 +5,7 @@ parent: Alerting
 nav_order: 15
 redirect_from:
   - /monitoring-plugins/alerting/api/
-canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/alerting/api/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/api/
 ---
 
 # Alerting API

@@ -3,7 +3,7 @@ layout: default
 title: Porter stem
 parent: Token filters
 nav_order: 340
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/porter-stem/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/porter-stem/
 ---
 
 # Porter stem token filter

@@ -8,7 +8,7 @@ has_children: false
 has_math: true
 redirect_from:
   - /search-plugins/knn/painless-functions/ 
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/vector-search-techniques/painless-functions/
+canonical_url: https://docs.opensearch.org/latest/vector-search/vector-search-techniques/painless-functions/
 ---
 
 # Painless scripting extensions

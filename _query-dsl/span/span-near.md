@@ -4,7 +4,7 @@ title: Span near
 parent: Span queries
 grand_parent: Query DSL
 nav_order: 50
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/span/span-near/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/span/span-near/
 ---
 
 # Span near query

@@ -4,7 +4,7 @@ title: Search connector
 parent: Connector APIs
 grand_parent: ML Commons APIs
 nav_order: 25
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/connector-apis/search-connector/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/connector-apis/search-connector/
 ---
 
 # Search for a connector

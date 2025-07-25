@@ -3,7 +3,7 @@ layout: default
 title: Meta
 nav_order: 30
 parent: Metadata fields
-canonical_url: https://docs.opensearch.org/docs/latest/field-types/metadata-fields/meta/
+canonical_url: https://docs.opensearch.org/latest/field-types/metadata-fields/meta/
 ---
 
 # Meta

@@ -4,7 +4,7 @@ title: Bengali
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 40
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/language-analyzers/bengali/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/bengali/
 ---
 
 # Bengali analyzer

@@ -4,7 +4,7 @@ title: .NET clients
 nav_order: 75
 has_children: true
 has_toc: false
-canonical_url: https://docs.opensearch.org/docs/latest/clients/dot-net/
+canonical_url: https://docs.opensearch.org/latest/clients/dot-net/
 ---
 
 # .NET clients

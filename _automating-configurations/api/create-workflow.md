@@ -3,7 +3,7 @@ layout: default
 title: Create or update a workflow
 parent: Workflow APIs
 nav_order: 10
-canonical_url: https://docs.opensearch.org/docs/latest/automating-configurations/api/create-workflow/
+canonical_url: https://docs.opensearch.org/latest/automating-configurations/api/create-workflow/
 ---
 
 # Create or update a workflow

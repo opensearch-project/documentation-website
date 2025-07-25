@@ -3,7 +3,7 @@ layout: default
 title: Synonym
 parent: Token filters
 nav_order: 415
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/synonym/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/synonym/
 ---
 
 # Synonym token filter

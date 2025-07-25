@@ -13,7 +13,7 @@ cards:
   - heading: "Radial search"
     description: "Search all points in a vector space that reside within a specified maximum distance or minimum score threshold from a query point"
     link: "/vector-search/specialized-operations/radial-search-knn/"
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/specialized-operations/index/
+canonical_url: https://docs.opensearch.org/latest/vector-search/specialized-operations/index/
 ---
 
 # Specialized vector search

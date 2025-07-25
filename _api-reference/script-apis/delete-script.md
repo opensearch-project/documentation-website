@@ -3,7 +3,7 @@ layout: default
 title: Delete Script
 parent: Script APIs
 nav_order: 4
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/script-apis/delete-script/
+canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/delete-script/
 ---
 
 # Delete script

@@ -3,7 +3,7 @@ layout: default
 title: Nested
 parent: Joining queries
 nav_order: 30
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/joining/nested/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/joining/nested/
 ---
 
 # Nested query

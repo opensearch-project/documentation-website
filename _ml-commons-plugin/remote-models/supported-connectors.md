@@ -7,7 +7,7 @@ parent: Connecting to externally hosted models
 grand_parent: Integrating ML models
 redirect_from:
   - /ml-commons-plugin/extensibility/supported-connectors/
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/remote-models/supported-connectors/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/remote-models/supported-connectors/
 ---
 
 # Supported connectors
