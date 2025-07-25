@@ -1,133 +1,58 @@
 items:
-  -
-    label: OpenSearchCon
-    fragments: 
-      - opensearchcon
-      - sessions
-      - speakers
-      - exhibitors
-      - workshops
-      - unconference
-      - opensearchcon2023-cfp
+  - label: About
+    url: https://opensearch.org/about.html
     children:
-      -
-        label: 2024 - Stay Informed
-        url: /events/opensearchcon/
-      -
-        label: Sessions
-        url: /events/opensearchcon/sessions/
-      -
-        label: Speakers
-        url: /events/opensearchcon/speakers/
-      -
-        label: Exhibitors
-        url: /events/opensearchcon/exhibitors/
-      -
-        label: Workshops
-        url: /events/opensearchcon/workshops/
-      -
-        label: Unconference
-        url: /events/opensearchcon/unconference/
-      -
-        label: CFP is closed
-        url: /opensearchcon2023-cfp.html
-  -
-    label: Download
-    fragments:
-      - downloads
-      - versions
-    url: /downloads.html
-  -
-    label: About
-    url: /about.html
-    fragments:
-      - about
-      - releases
-      - roadmap
-      - faq
-    children:
-      -
-       label: Releases
-       url: /releases.html
-      -
-       label: Roadmap
-       url: https://github.com/orgs/opensearch-project/projects/1
-      -
-       label: FAQ
-       url: /faq
-  -
-    label: Community
-    fragments:
-      - events
-      - community_projects
-      - blog
-      - partners
-      - slack
-    children:
-      -
-        label: Blog
-        url: /blog
-      -
-        label: Forum
-        url: https://forum.opensearch.org/
-      -
-        label: Slack
-        url: /slack.html
-      -
-        label: Events
-        url: /events
-      -
-        label: Partners
-        url: /partners
-      -
-        label: Projects
-        url: /community_projects
-  -
-    label: Documentation
-    fragments: 
-    - docs
-    - opensearch
-    - data-prepper
-    - clients
-    - benchmark
-    url: /docs/latest/
-    children:
-      -
-        label: OpenSearch and Dashboards
-        url: /docs/latest/about/
-      -
-        label: Data Prepper
-        url: /docs/latest/data-prepper/
-      -
-        label: Clients
-        url: /docs/latest/clients/
-      -
-        label: Benchmark
-        url: /docs/latest/benchmark/
-  -
-    label: Platform
-    url: /platform/index.html
-    fragments: 
-      - platform
-      - search
-      - observability
-      - security-analytics
-      - vector-database
-      - benchmarks
+      - label: Releases
+        url: https://opensearch.org/releases.html
+      - label: Roadmap
+        url: https://github.com/orgs/opensearch-project/projects/1
+      - label: FAQ
+        url: https://opensearch.org/faq/
+  - label: Platform
+    url: https://opensearch.org/platform/index.html
     children:
       - label: Search
-        url: /platform/search/index.html
+        url: https://opensearch.org/platform/search/index.html
       - label: Observability
-        url: /platform/observability/index.html
-      -
-        label: Security Analytics
-        url: /platform/security-analytics/index.html
-      -
-        label: Vector Database
-        url: /platform/search/vector-database.html
-      -
-        label: Playground Demo
+        url: https://opensearch.org/platform/observability/index.html
+      - label: Security Analytics
+        url: https://opensearch.org/platform/security-analytics/index.html
+      - label: Vector Database
+        url: https://opensearch.org/platform/search/vector-database.html
+      - label: Playground Demo
         url: https://playground.opensearch.org/
-      -
-        label: Performance Benchmarks
-        url: /benchmarks
+      - label: Performance Benchmarks
+        url: https://opensearch.org/benchmarks/
+  - label: Community
+    url: https://opensearch.org/community/
+    children:
+      - label: Forum
+        url: https://forum.opensearch.org/
+      - label: Slack
+        url: https://opensearch.org/slack.html
+      - label: Events
+        url: https://opensearch.org/events/
+        class_name: events-page-menu-link__device-based
+      - label: Solutions Providers
+        url: https://opensearch.org/solutions-providers/
+      - label: Projects
+        url: https://opensearch.org/community_projects/
+      - label: Members
+        url: https://opensearch.org/authors-list/
+  - label: Documentation
+    url: https://docs.opensearch.org/latest/
+    children:
+      - label: OpenSearch and Dashboards
+        url: https://docs.opensearch.org/latest/about/
+      - label: Data Prepper
+        url: https://docs.opensearch.org/latest/data-prepper/
+      - label: Clients
+        url: https://docs.opensearch.org/latest/clients/
+      - label: Benchmark
+        url: https://docs.opensearch.org/latest/benchmark/
+      - label: Migration Assistant
+        url: https://docs.opensearch.org/latest/migration-assistant/
+  - label: Blog
+    url: https://opensearch.org/blog/
+  - label: Download
+    url: https://opensearch.org/downloads.html
