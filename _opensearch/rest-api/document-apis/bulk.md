@@ -4,7 +4,7 @@ title: Bulk
 parent: Document APIs
 grand_parent: REST API reference
 nav_order: 20
-canonical_url: https://opensearch.org/docs/latest/api-reference/document-apis/bulk/
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/bulk/
 ---
 
 # Bulk

@@ -4,7 +4,7 @@ title: Get index
 parent: Index APIs
 grand_parent: REST API reference
 nav_order: 20
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/get-index/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/get-index/
 ---
 
 # Get index

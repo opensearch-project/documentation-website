@@ -4,7 +4,7 @@ title: Alerting security
 nav_order: 10
 parent: Alerting
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/alerting/security/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/security/
 ---
 
 # Alerting security

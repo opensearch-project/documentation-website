@@ -4,7 +4,7 @@ title: Monitors
 nav_order: 1
 parent: Alerting
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/alerting/monitors/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/monitors/
 ---
 
 # Monitors

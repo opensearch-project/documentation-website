@@ -2,7 +2,7 @@
 layout: default
 title: Reindex data
 nav_order: 16
-canonical_url: https://opensearch.org/docs/latest/im-plugin/reindex-data/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/reindex-data/
 ---
 
 # Reindex data

@@ -3,7 +3,7 @@ layout: default
 title: Docker
 parent: Install OpenSearch
 nav_order: 3
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/docker/
 ---
 
 # Docker image

@@ -3,7 +3,7 @@ layout: default
 title: Docker security configuration
 parent: Install OpenSearch
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-dashboards/docker/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/docker/
 ---
 
 # Docker security configuration

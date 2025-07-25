@@ -3,7 +3,7 @@ layout: default
 title: Cluster health
 parent: REST API reference
 nav_order: 55
-canonical_url: https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-health/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-health/
 ---
 
 # Cluster health

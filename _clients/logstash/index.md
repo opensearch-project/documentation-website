@@ -6,7 +6,7 @@ has_children: true
 has_toc: true
 redirect_from:
   - /clients/logstash/
-canonical_url: https://opensearch.org/docs/latest/tools/logstash/index/
+canonical_url: https://docs.opensearch.org/latest/tools/logstash/index/
 ---
 
 # Logstash
@@ -58,7 +58,7 @@ The OpenSearch Logstash plugin has two installation options at this time: Linux 
 
 Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-downloads.html) version 8 or 11 installed.
 
-If you're migrating from an existing Logstash installation, you can install the [OpenSearch output plugin](https://rubygems.org/gems/logstash-output-opensearch/) manually and [update pipeline.conf](https://opensearch.org/docs/latest/clients/logstash/ship-to-opensearch/). We include this plugin by default in our tarball and Docker downloads.
+If you're migrating from an existing Logstash installation, you can install the [OpenSearch output plugin](https://rubygems.org/gems/logstash-output-opensearch/) manually and [update pipeline.conf](https://docs.opensearch.org/latest/clients/logstash/ship-to-opensearch/). We include this plugin by default in our tarball and Docker downloads.
 {: .note }
 
 ### Tarball

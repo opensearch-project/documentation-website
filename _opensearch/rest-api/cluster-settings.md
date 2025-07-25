@@ -3,7 +3,7 @@ layout: default
 title: Cluster settings
 parent: REST API reference
 nav_order: 60
-canonical_url: https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-settings/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-settings/
 ---
 
 # Cluster settings

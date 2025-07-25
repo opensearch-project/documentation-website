@@ -3,7 +3,7 @@ layout: default
 title: Cluster allocation explain
 parent: REST API reference
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-allocation/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-allocation/
 ---
 
 # Cluster allocation explain

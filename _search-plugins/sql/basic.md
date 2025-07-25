@@ -3,7 +3,7 @@ layout: default
 title: Basic Queries
 parent: SQL
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/sql/basic/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql/basic/
 ---
 
 

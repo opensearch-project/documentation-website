@@ -3,7 +3,7 @@ layout: default
 title: Audit log storage types
 parent: Audit logs
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/security/audit-logs/storage-types/
+canonical_url: https://docs.opensearch.org/latest/security/audit-logs/storage-types/
 ---
 
 # Audit log storage types
