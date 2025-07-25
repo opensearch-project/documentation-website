@@ -7,7 +7,7 @@ has_toc: true
 redirect_from:
   - /clients/logstash/
   - /clients/logstash/index/
-canonical_url: https://opensearch.org/docs/latest/tools/logstash/index/
+canonical_url: https://docs.opensearch.org/latest/tools/logstash/index/
 ---
 
 # Logstash

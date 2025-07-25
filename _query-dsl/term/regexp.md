@@ -4,7 +4,7 @@ title: Regexp
 parent: Term-level queries
 grand_parent: Query DSL
 nav_order: 60
-canonical_url: https://opensearch.org/docs/latest/query-dsl/term/regexp/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/regexp/
 ---
 
 # Regexp query

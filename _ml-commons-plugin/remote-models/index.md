@@ -7,7 +7,7 @@ has_toc: false
 nav_order: 60
 redirect_from: 
   - /ml-commons-plugin/extensibility/index/
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/remote-models/index/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/remote-models/index/
 ---
 
 # Connecting to externally hosted models

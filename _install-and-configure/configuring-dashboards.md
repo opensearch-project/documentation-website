@@ -2,7 +2,7 @@
 layout: default
 title: Configuring OpenSearch Dashboards
 nav_order: 15
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/configuring-dashboards/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-dashboards/
 ---
 
 # Configuring OpenSearch Dashboards

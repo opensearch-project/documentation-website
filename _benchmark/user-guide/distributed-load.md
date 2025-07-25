@@ -3,8 +3,8 @@ layout: default
 title: Running distributed loads
 nav_order: 15
 parent: User guide
-canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/distributed-load/
-redirect_to: https://opensearch.org/docs/latest/benchmark/user-guide/distributed-load/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/distributed-load/
+redirect_to: https://docs.opensearch.org/latest/benchmark/user-guide/distributed-load/
 ---
 
 # Running distributed loads 

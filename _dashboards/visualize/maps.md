@@ -6,7 +6,7 @@ parent: Using coordinate and region maps
 nav_order: 10
 redirect_from:
   - /dashboards/maps/
-canonical_url: https://opensearch.org/docs/latest/dashboards/visualize/maps/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/maps/
 ---
 
 # Using maps 

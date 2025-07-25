@@ -3,8 +3,8 @@ layout: default
 title: Log analytics
 parent: Common use cases
 nav_order: 30
-canonical_url: https://opensearch.org/docs/latest/data-prepper/common-use-cases/log-analytics/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/common-use-cases/log-analytics/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/common-use-cases/log-analytics/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/common-use-cases/log-analytics/
 ---
 
 # Log analytics
