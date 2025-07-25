@@ -3,7 +3,7 @@ layout: default
 title: Debian
 parent: Installing OpenSearch
 nav_order: 55
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-opensearch/debian/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/debian/
 ---
 
 {% comment %}

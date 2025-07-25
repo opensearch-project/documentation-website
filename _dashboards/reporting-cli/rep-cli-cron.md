@@ -4,7 +4,7 @@ title: Scheduling reports with the cron utility
 nav_order: 20
 parent: Creating reports with the Reporting CLI
 
-canonical_url: https://opensearch.org/docs/latest/reporting/rep-cli-cron/
+canonical_url: https://docs.opensearch.org/latest/reporting/rep-cli-cron/
 ---
 
 # Scheduling reports with the cron utility

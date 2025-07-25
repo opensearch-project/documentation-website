@@ -4,7 +4,7 @@ title: Availability and Recovery
 nav_order: 20
 has_children: true
 has_toc: true
-canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/index/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/index/
 ---
 
 # Availability and recovery

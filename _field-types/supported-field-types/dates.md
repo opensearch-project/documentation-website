@@ -5,7 +5,7 @@ nav_order: 25
 has_children: true
 has_toc: false
 parent: Supported field types
-canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/dates/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/dates/
 ---
 
 # Date field types
