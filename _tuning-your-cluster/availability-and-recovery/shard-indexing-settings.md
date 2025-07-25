@@ -6,7 +6,7 @@ nav_order: 50
 grand_parent: Availability and recovery
 redirect_from: 
   - /opensearch/shard-indexing-settings/
-canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/shard-indexing-settings/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/shard-indexing-settings/
 ---
 
 # Settings

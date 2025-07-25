@@ -6,7 +6,7 @@ nav_order: 15
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-field-data/
-canonical_url: https://opensearch.org/docs/latest/api-reference/cat/cat-field-data/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-field-data/
 ---
 
 # CAT fielddata

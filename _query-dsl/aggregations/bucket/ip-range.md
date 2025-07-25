@@ -4,7 +4,7 @@ title: IP range
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 110
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/ip-range/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/ip-range/
 ---
 
 # IP range aggregations

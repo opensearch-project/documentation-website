@@ -6,7 +6,7 @@ parent: k-NN
 has_children: false
 redirect_from:
  - /search-plugins/knn/jni-library/
-canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/jni-libraries/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/jni-libraries/
 ---
 
 # JNI libraries

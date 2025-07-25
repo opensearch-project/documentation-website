@@ -3,7 +3,7 @@ layout: default
 title: Using area charts
 parent: Building data visualizations
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/dashboards/visualize/area/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/area/
 ---
 
 # Using area charts
@@ -18,7 +18,7 @@ In this tutorial you'll create a simple area chart using sample data and aggrega
 
 You have several aggregation options in Dashboards, and the choice influences your analysis. The use cases for aggregations vary from analyzing data in real time to using Dashboards to create a visualization dashboard. If you need an overview of aggregations in OpenSearch, see [Aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/) before starting this tutorial.
 
-Make sure you have [installed the latest version of Dashboards](https://opensearch.org/docs/latest/install-and-configure/install-dashboards/index/) and added the sample data before continuing with this tutorial. _This tutorial uses Dashboards version 2.4.1_.
+Make sure you have [installed the latest version of Dashboards](https://docs.opensearch.org/latest/install-and-configure/install-dashboards/index/) and added the sample data before continuing with this tutorial. _This tutorial uses Dashboards version 2.4.1_.
 {: .note}
 
 ## Set up the area chart

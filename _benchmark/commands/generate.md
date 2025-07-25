@@ -3,8 +3,8 @@ layout: default
 title: generate
 nav_order: 70
 parent: Command reference
-canonical_url: https://opensearch.org/docs/latest/benchmark/reference/commands/command-flags/
-redirect_to: https://opensearch.org/docs/latest/benchmark/reference/commands/command-flags/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/command-flags/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/command-flags/
 ---
 
 The `generate` command generates visualizations based on benchmark results. 

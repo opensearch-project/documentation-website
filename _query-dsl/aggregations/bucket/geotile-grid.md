@@ -4,7 +4,7 @@ title: Geotile grid
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 87
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/geotile-grid/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geotile-grid/
 ---
 
 # Geotile grid aggregations

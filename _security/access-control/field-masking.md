@@ -6,7 +6,7 @@ nav_order: 95
 redirect_from:
  - /security/access-control/field-masking/
  - /security-plugin/access-control/field-masking/
-canonical_url: https://opensearch.org/docs/latest/security/access-control/field-masking/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/field-masking/
 ---
 
 # Field masking

@@ -4,7 +4,7 @@ title: Missing
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 120
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/missing/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/missing/
 ---
 
 # Missing aggregations
