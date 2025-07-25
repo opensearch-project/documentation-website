@@ -13,17 +13,17 @@ redirect_from:
 has_toc: true
 nav_exclude: true
 ---
-# Migrate or Upgrade OpenSearch
+# Migrate or upgrade OpenSearch
 
-The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/206) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release Schedule and Maintenance Policy]({{site.url}}/releases.html).
+The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/206) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release schedule and maintenance policy]({{site.url}}/releases.html).
 
 Upgrading or migrating OpenSearch is essential for maintaining optimal performance, security, and access to the latest features. Whether you're upgrading an existing OpenSearch deployment or migrating from another system such as Elasticsearch OSS, choosing the right approach is critical to a successful transition.
 
-This page outlines upgrade planning guidance and four supported methods: rolling upgrades, snapshot and restore, remote reindexing, and using the OpenSearch Migration Assistant.
+This page outlines upgrade planning guidance and four supported methods: rolling upgrades, snapshot and restore, remote reindexing, and using Migration Assistant.
 
 ---
 
-## Before You Begin
+## Before you begin
 
 Take time to plan the process before making any changes to your cluster:
 
@@ -44,8 +44,7 @@ Stop nonessential indexing before upgrading.
 
 ---
 
-## Migration and Upgrade Methods
-
+## Migration and upgrade methods
 
 ### Rolling upgrade
 
@@ -65,7 +64,7 @@ Upgrade one node at a time while keeping the cluster operational.
 
 ---
 
-### Snapshot and Restore
+### Snapshot and restore
 
 Take a snapshot of your current cluster and restore to a new OpenSearch version.
 
@@ -78,13 +77,13 @@ Take a snapshot of your current cluster and restore to a new OpenSearch version.
 - Requires provisioning a new cluster
 - Manually reindex may be required for full feature compatibility.
 
-[Get started with Snapshot and Restore](https://docs.aws.amazon.com/solutions/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/)
+[Get started with snapshot and restore](https://docs.aws.amazon.com/solutions/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/)
 
 ---
 
 ### Migration Assistant
 
-The Migration Assistant provides the most automated and resilient upgrade path.
+Migration Assistant provides the most automated and resilient upgrade path.
 
 **Pros:**
 - Handles multi-version hops, allowing for seamless upgrades across multiple versions
@@ -99,7 +98,7 @@ The Migration Assistant provides the most automated and resilient upgrade path.
 
 ---
 
-### Remote Reindexing
+### Remote reindexing
 
 Reindex data from the old cluster into the new OpenSearch cluster.
 
@@ -114,6 +113,7 @@ Reindex data from the old cluster into the new OpenSearch cluster.
 Learn more in the [Reindex API docs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/)
 
 ---
+
 ### Reviewing the OpenSearch tools compatibility matrices
 
 If your OpenSearch cluster interacts with other services in your environment, like Logstash or Beats, then you should check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to determine whether other components will need to be upgraded.
@@ -127,10 +127,9 @@ Go to [Available plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plu
 Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugin versions 2.3.0.x work only with OpenSearch 2.3.0.
 {: .important}
 
-
 ---
 
-## Backing Up Configuration Files
+## Backing up configuration files
 
 Back up important files such as `opensearch.yml`, plugin configs, and TLS certs from these paths:
 
@@ -141,7 +140,7 @@ See [security configuration guidance]({{site.url}}{{site.baseurl}}/security-plug
 
 ---
 
-## Creating a Snapshot
+## Creating a snapshot
 
 We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). Snapshots you take before an upgrade can be used as restore points if you need to roll back the cluster to its original version.
 
@@ -156,7 +155,7 @@ You can further reduce the risk of data loss by storing your snapshots on extern
 
 ---
 
-## Index Compatibility Reference
+## Index compatibility reference
 
 <style>
 table {
