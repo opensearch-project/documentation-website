@@ -3,7 +3,7 @@ layout: default
 title: Improving search performance
 nav_order: 220
 has_children: true
-canonical_url: https://opensearch.org/docs/latest/search-plugins/improving-search-performance/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/improving-search-performance/
 ---
 
 # Improving search performance

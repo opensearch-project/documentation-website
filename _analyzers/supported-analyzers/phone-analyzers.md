@@ -3,7 +3,7 @@ layout: default
 title: Phone number analyzers
 parent: Analyzers
 nav_order: 140
-canonical_url: https://opensearch.org/docs/latest/analyzers/supported-analyzers/phone-analyzers/
+canonical_url: https://docs.opensearch.org/latest/analyzers/supported-analyzers/phone-analyzers/
 ---
 
 # Phone number analyzers

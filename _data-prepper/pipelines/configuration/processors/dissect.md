@@ -4,7 +4,7 @@ title: dissect
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/dissect/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/dissect/
 ---
 
 # dissect

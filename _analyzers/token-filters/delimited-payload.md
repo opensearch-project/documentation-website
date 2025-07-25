@@ -3,7 +3,7 @@ layout: default
 title: Delimited payload
 parent: Token filters
 nav_order: 90
-canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/delimited-payload/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/delimited-payload/
 ---
 
 # Delimited payload token filter

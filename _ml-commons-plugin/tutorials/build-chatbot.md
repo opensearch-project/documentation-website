@@ -3,7 +3,7 @@ layout: default
 title: Build your own chatbot
 parent: Tutorials
 nav_order: 60
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/tutorials/build-chatbot/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/build-chatbot/
 ---
 
 # Build your own chatbot

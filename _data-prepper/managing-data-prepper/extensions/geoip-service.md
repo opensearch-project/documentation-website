@@ -4,7 +4,7 @@ title: geoip_service
 nav_order: 5
 parent: Extensions
 grand_parent: Managing OpenSearch Data Prepper
-canonical_url: https://opensearch.org/docs/latest/data-prepper/managing-data-prepper/extensions/geoip-service/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/managing-data-prepper/extensions/geoip-service/
 ---
 
 # geoip_service

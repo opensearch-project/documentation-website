@@ -4,7 +4,7 @@ title: Working with features
 nav_order: 30
 parent: Learning to Rank
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/search-plugins/ltr/working-with-features/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ltr/working-with-features/
 ---
 
 # Working with features

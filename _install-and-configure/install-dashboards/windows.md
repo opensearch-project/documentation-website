@@ -5,7 +5,7 @@ parent: Installing OpenSearch Dashboards
 nav_order: 37
 redirect_from: 
   - /dashboards/install/windows/
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-dashboards/windows/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/windows/
 ---
 
 # Run OpenSearch Dashboards on Windows

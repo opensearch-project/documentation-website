@@ -5,7 +5,7 @@ parent: Reranking search results
 grand_parent: Search relevance
 has_children: false
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/search-plugins/search-relevance/rerank-cross-encoder/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/rerank-cross-encoder/
 ---
 
 # Reranking search results using a cross-encoder model

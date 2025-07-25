@@ -5,7 +5,7 @@ nav_order: 10
 has_children: false
 parent: Search pipelines
 grand_parent: Search
-canonical_url: https://opensearch.org/docs/latest/search-plugins/search-pipelines/creating-search-pipeline/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/creating-search-pipeline/
 ---
 
 # Creating a search pipeline

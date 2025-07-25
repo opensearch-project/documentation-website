@@ -4,7 +4,7 @@ title: uppercase_string
 parent: Processors
 grand_parent: Pipelines
 nav_order: 125
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/uppercase-string/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/uppercase-string/
 ---
 
 # uppercase_string

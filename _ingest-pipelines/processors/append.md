@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 10
 redirect_from:
    - /api-reference/ingest-apis/processors/append/
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/append/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/append/
 ---
 
 This documentation describes using the `append` processor in OpenSearch ingest pipelines. Consider using the [OpenSearch Data Prepper `add_entries` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/add-entries/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.

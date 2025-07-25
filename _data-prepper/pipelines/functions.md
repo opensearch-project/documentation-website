@@ -4,7 +4,7 @@ title: Functions
 parent: Pipelines
 nav_order: 10
 has_children: true
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/functions/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/functions/
 ---
 
 # Functions

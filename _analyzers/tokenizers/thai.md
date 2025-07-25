@@ -3,7 +3,7 @@ layout: default
 title: Thai
 parent: Tokenizers
 nav_order: 140
-canonical_url: https://opensearch.org/docs/latest/analyzers/tokenizers/thai/
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/thai/
 ---
 
 # Thai tokenizer

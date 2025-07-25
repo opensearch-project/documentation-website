@@ -3,7 +3,7 @@ layout: default
 title: Additional plugins
 parent: Installing plugins
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/additional-plugins/index/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/additional-plugins/index/
 ---
 
 # Additional plugins

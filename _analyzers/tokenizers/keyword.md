@@ -3,7 +3,7 @@ layout: default
 title: Keyword 
 parent: Tokenizers
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/analyzers/tokenizers/keyword/
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/keyword/
 ---
 
 # Keyword tokenizer

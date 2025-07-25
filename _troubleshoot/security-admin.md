@@ -2,7 +2,7 @@
 layout: default
 title: Troubleshoot securityadmin.sh
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/troubleshoot/security-admin/
+canonical_url: https://docs.opensearch.org/latest/troubleshoot/security-admin/
 ---
 
 # securityadmin.sh Troubleshooting

@@ -4,7 +4,7 @@ title: Optimizing search with LTR
 nav_order: 70
 parent: Learning to Rank
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/search-plugins/ltr/searching-with-your-model/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ltr/searching-with-your-model/
 ---
 
 # Optimizing search with LTR

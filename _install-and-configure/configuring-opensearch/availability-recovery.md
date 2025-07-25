@@ -3,7 +3,7 @@ layout: default
 title: Availability and recovery settings
 parent: Configuring OpenSearch
 nav_order: 90
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/availability-recovery/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/availability-recovery/
 ---
 
 # Availability and recovery settings

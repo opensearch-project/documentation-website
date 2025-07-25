@@ -5,7 +5,7 @@ nav_order: 5
 parent: Monitors
 grand_parent: Alerting
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/alerting/per-query-bucket-monitors/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/per-query-bucket-monitors/
 ---
 
 # Per query and per bucket monitors

@@ -3,7 +3,7 @@ layout: default
 title: Query Insights plugin health
 parent: Query insights
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/query-insights/health/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/query-insights/health/
 ---
 
 # Query Insights plugin health

@@ -4,7 +4,7 @@ title: List indices
 parent: List API
 nav_order: 25
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/api-reference/list/list-indices/
+canonical_url: https://docs.opensearch.org/latest/api-reference/list/list-indices/
 ---
 
 # List indices

@@ -6,7 +6,7 @@ nav_order: 90
 redirect_from:
  - /security/access-control/field-level-security/
  - /security-plugin/access-control/field-level-security/
-canonical_url: https://opensearch.org/docs/latest/security/access-control/field-level-security/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/field-level-security/
 ---
 
 # Field-level security

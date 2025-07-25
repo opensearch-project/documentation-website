@@ -3,7 +3,7 @@ layout: default
 title: Classic
 parent: Token filters
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/classic/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/classic/
 ---
 
 # Classic token filter

@@ -7,7 +7,7 @@ permalink: /migration-console/
 has_toc: false
 redirect_from: 
   - /migration-console/index/
-canonical_url: https://opensearch.org/docs/latest/migration-console/
+canonical_url: https://docs.opensearch.org/latest/migration-console/
 ---
 
 # Migration console

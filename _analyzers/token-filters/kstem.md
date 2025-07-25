@@ -3,7 +3,7 @@ layout: default
 title: KStem
 parent: Token filters
 nav_order: 220
-canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/kstem/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/kstem/
 ---
 
 # KStem token filter

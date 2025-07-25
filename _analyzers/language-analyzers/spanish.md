@@ -4,7 +4,7 @@ title: Spanish
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 300
-canonical_url: https://opensearch.org/docs/latest/analyzers/language-analyzers/spanish/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/spanish/
 ---
 
 # Spanish analyzer

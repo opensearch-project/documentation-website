@@ -5,7 +5,7 @@ parent: Metric aggregations
 nav_order: 120
 redirect_from:
   - /query-dsl/aggregations/metric/sum/
-canonical_url: https://opensearch.org/docs/latest/aggregations/metric/sum/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/sum/
 ---
 
 # Sum aggregations
