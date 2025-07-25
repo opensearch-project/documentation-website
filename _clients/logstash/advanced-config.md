@@ -3,7 +3,7 @@ layout: default
 title: Advanced configurations
 parent: Logstash
 nav_order: 230
-canonical_url: https://opensearch.org/docs/latest/tools/logstash/advanced-config/
+canonical_url: https://docs.opensearch.org/latest/tools/logstash/advanced-config/
 ---
 
 # Advanced configurations

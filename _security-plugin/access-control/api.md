@@ -3,7 +3,7 @@ layout: default
 title: API
 parent: Access control
 nav_order: 90
-canonical_url: https://opensearch.org/docs/latest/security/access-control/api/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/api/
 ---
 
 # API

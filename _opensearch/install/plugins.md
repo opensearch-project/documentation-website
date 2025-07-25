@@ -3,7 +3,7 @@ layout: default
 title: OpenSearch plugins
 parent: Install OpenSearch
 nav_order: 90
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/plugins/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/plugins/
 ---
 
 # OpenSearch plugin installation

@@ -3,7 +3,7 @@ layout: default
 title: Update mapping
 parent: REST API reference
 nav_order: 6
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/put-mapping/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/put-mapping/
 ---
 
 # Update mapping

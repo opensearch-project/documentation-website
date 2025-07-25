@@ -3,7 +3,7 @@ layout: default
 title: Important settings
 parent: Install OpenSearch
 nav_order: 70
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-opensearch/index/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/index/
 ---
 
 # Important settings

@@ -4,7 +4,7 @@ title: Update by query
 parent: Document APIs
 grand_parent: REST API reference
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/api-reference/document-apis/update-by-query/
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/update-by-query/
 ---
 
 # Update by query

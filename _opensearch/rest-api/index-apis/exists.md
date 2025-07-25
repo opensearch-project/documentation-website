@@ -4,7 +4,7 @@ title: Index exists
 parent: Index APIs
 grand_parent: REST API reference
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/exists/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/exists/
 ---
 
 # Index exists

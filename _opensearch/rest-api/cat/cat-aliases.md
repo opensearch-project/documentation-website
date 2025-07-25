@@ -5,7 +5,7 @@ parent: CAT
 grand_parent: REST API reference
 nav_order: 1
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/api-reference/cat/cat-aliases/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-aliases/
 ---
 
 # cat aliases
