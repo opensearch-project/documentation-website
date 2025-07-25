@@ -5,7 +5,7 @@ nav_order: 2
 has_children: true
 redirect_from:
   - /dashboards/install/
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-dashboards/index/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/index/
 ---
 
 # Install and configure OpenSearch Dashboards

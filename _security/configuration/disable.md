@@ -3,7 +3,7 @@ layout: default
 title: Disabling security
 parent: Configuration
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/security/configuration/disable-enable-security/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/disable-enable-security/
 ---
 
 # Disabling security

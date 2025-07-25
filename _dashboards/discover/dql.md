@@ -5,7 +5,7 @@ parent: Exploring data
 nav_order: 40
 redirect_from:
   - /dashboards/dql/
-canonical_url: https://opensearch.org/docs/latest/dashboards/dql/
+canonical_url: https://docs.opensearch.org/latest/dashboards/dql/
 ---
 
 # Using Dashboards Query Language

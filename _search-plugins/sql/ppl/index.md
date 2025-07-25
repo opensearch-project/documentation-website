@@ -9,7 +9,7 @@ redirect_from:
   - /search-plugins/sql/ppl
   - /search-plugins/ppl
   - /observability-plugin/ppl
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/ppl/index/
 ---
 
 # PPL &ndash; Piped Processing Language

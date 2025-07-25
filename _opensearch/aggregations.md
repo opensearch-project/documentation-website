@@ -3,7 +3,7 @@ layout: default
 title: Aggregations
 nav_order: 14
 has_children: true
-canonical_url: https://opensearch.org/docs/latest/aggregations/
+canonical_url: https://docs.opensearch.org/latest/aggregations/
 ---
 
 # Aggregations

@@ -3,7 +3,7 @@ layout: default
 title: RPM
 parent: Install OpenSearch Dashboards
 nav_order: 31
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-dashboards/rpm/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/rpm/
 ---
 
 {% comment %}
