@@ -5,7 +5,7 @@ nav_order: 1
 has_children: false
 redirect_from:
   - /im-plugin/
-canonical_url: https://opensearch.org/docs/latest/im-plugin/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/
 ---
 
 # About Index Management

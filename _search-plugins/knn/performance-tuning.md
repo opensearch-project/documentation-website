@@ -3,7 +3,7 @@ layout: default
 title: Performance tuning
 parent: k-NN
 nav_order: 8
-canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/performance-tuning/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/performance-tuning/
 ---
 
 # Performance tuning

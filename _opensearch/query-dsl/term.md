@@ -3,7 +3,7 @@ layout: default
 title: Term-level queries
 parent: Query DSL
 nav_order: 30
-canonical_url: https://opensearch.org/docs/latest/query-dsl/term/index/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/index/
 ---
 
 # Term-level queries
