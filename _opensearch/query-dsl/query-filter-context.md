@@ -3,7 +3,7 @@ layout: default
 title: Query and filter context
 parent: Query DSL
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/query-dsl/query-filter-context/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/query-filter-context/
 ---
 
 # Query and filter context

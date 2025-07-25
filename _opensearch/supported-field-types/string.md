@@ -5,7 +5,7 @@ nav_order: 45
 has_children: true
 has_toc: false
 parent: Supported field types
-canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/string/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/string/
 ---
 
 # String field types

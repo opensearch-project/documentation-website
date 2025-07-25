@@ -3,7 +3,7 @@ layout: default
 title: Nodes info
 parent: Nodes APIs
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/api-reference/nodes-apis/nodes-info/
+canonical_url: https://docs.opensearch.org/latest/api-reference/nodes-apis/nodes-info/
 ---
 
 # Nodes info

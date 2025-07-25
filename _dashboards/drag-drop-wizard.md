@@ -3,7 +3,7 @@ layout: default
 title: Using the drag-and-drop wizard
 parent: Building data visualizations
 nav_order: 100
-canonical_url: https://opensearch.org/docs/latest/dashboards/visualize/visbuilder/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visbuilder/
 ---
 
 The drag-and-drop visualization wizard is an experimental feature in OpenSearch 2.3. Therefore, we do not recommend the use of the drag-and-drop wizard in a production environment. For updates on the progress of drag and drop, or if you want to leave feedback that could help improve the feature, see the [Drag and drop git issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2280). 

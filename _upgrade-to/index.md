@@ -4,7 +4,7 @@ title: About the migration process
 nav_order: 1
 redirect_from:
   - /upgrade-to/index/
-canonical_url: https://opensearch.org/docs/latest/upgrade-to/
+canonical_url: https://docs.opensearch.org/latest/upgrade-to/
 ---
 
 # About the migration process

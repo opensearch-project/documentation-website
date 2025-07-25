@@ -6,7 +6,7 @@ has_children: true
 parent: Notifications
 redirect_from:
   - /notifications-plugin/api/
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/notifications/api/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/notifications/api/
 ---
 
 # Notifications API

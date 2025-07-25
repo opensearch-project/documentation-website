@@ -2,7 +2,7 @@
 layout: default
 title: Search templates
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/api-reference/search-template/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-template/
 ---
 
 # Search templates

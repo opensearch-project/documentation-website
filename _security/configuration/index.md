@@ -7,7 +7,7 @@ has_toc: false
 redirect_from:
   - /security-plugin/configuration/
   - /security-plugin/configuration/index/
-canonical_url: https://opensearch.org/docs/latest/security/configuration/index/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/index/
 ---
 
 # Security configuration

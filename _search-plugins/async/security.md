@@ -4,7 +4,7 @@ title: Asynchronous search security
 nav_order: 2
 parent: Asynchronous search
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/search-plugins/async/security/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/async/security/
 ---
 
 # Asynchronous search security
