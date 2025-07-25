@@ -4,8 +4,8 @@ title: dynamodb
 parent: Sources
 grand_parent: Pipelines
 nav_order: 3
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/dynamo-db/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/dynamo-db/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/dynamo-db/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/dynamo-db/
 ---
 
 # dynamodb
@@ -94,7 +94,7 @@ Option | Required | Type   | Description
 
 ## Exposed metadata attributes
 
-The following metadata will be added to each event that is processed by the `dynamodb` source. These metadata attributes can be accessed using the [expression syntax `getMetadata` function](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/#getmetadata).
+The following metadata will be added to each event that is processed by the `dynamodb` source. These metadata attributes can be accessed using the [expression syntax `getMetadata` function](https://docs.opensearch.org/latest/data-prepper/pipelines/expression-syntax/#getmetadata).
 
 * `primary_key`: The primary key of the DynamoDB item. For tables that only contain a partition key, this value provides the partition key. For tables that contain both a partition and sort key, the `primary_key` attribute will be equal to the partition and sort key, separated by a `|`, for example, `partition_key|sort_key`.
 * `partition_key`: The partition key of the DynamoDB item.

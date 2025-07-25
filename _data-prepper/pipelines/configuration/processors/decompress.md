@@ -4,8 +4,8 @@ title: decompress
 parent: Processors
 grand_parent: Pipelines
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/decompress/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/decompress/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/decompress/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/decompress/
 ---
 
 # decompress
@@ -18,7 +18,7 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `keys` | Yes | List<String> | The fields in the event that will be decompressed.                                                                                          
 `type` | Yes | Enum | The type of decompression to use for the `keys` in the event. Only `gzip` is supported.                                           
-`decompress_when` | No | String| A [Data Prepper conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/) that determines when the `decompress` processor will run on certain events.
+`decompress_when` | No | String| A [Data Prepper conditional expression](https://docs.opensearch.org/latest/data-prepper/pipelines/expression-syntax/) that determines when the `decompress` processor will run on certain events.
 `tags_on_failure` | No | List<String> | A list of strings with which to tag events when the processor fails to decompress the `keys` inside an event. Defaults to `_decompression_failure`.                               
 
 ## Usage

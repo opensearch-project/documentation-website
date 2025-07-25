@@ -6,7 +6,7 @@ grand_parent: Aggregations
 nav_order: 140
 redirect_from:
   - /query-dsl/aggregations/metric/value-count/
-canonical_url: https://opensearch.org/docs/latest/aggregations/metric/value-count/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/value-count/
 ---
 
 # Value count aggregations

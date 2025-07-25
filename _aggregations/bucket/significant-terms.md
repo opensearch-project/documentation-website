@@ -6,7 +6,7 @@ grand_parent: Aggregations
 nav_order: 180
 redirect_from:
   - /query-dsl/aggregations/bucket/significant-terms/
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/significant-terms/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/significant-terms/
 ---
 
 # Significant terms aggregations

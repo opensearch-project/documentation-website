@@ -5,7 +5,7 @@ nav_order: 30
 parent: k-NN search
 grand_parent: Search methods
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/api/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/api/
 ---
 
 # k-NN plugin API

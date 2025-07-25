@@ -3,7 +3,7 @@ layout: default
 title: Using Vega
 parent: Building data visualizations
 nav_order: 45
-canonical_url: https://opensearch.org/docs/latest/dashboards/visualize/vega/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/vega/
 ---
 
 # Using Vega

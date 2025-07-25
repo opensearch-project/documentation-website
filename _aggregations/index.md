@@ -10,7 +10,7 @@ redirect_from:
   - /opensearch/aggregations/
   - /query-dsl/aggregations/
   - /aggregations/index/
-canonical_url: https://opensearch.org/docs/latest/aggregations/
+canonical_url: https://docs.opensearch.org/latest/aggregations/
 ---
 
 # Aggregations

@@ -5,8 +5,8 @@ nav_order: 25
 has_children: true
 parent: OpenSearch Benchmark Reference
 redirect_from: /benchmark/metrics/index/
-canonical_url: https://opensearch.org/docs/latest/benchmark/reference/metrics/index/
-redirect_to: https://opensearch.org/docs/latest/benchmark/reference/metrics/index/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/metrics/index/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/metrics/index/
 ---
 
 # Metrics
@@ -15,7 +15,7 @@ After a workload completes, OpenSearch Benchmark stores all metric records withi
 
 ## Storing metrics
 
-You can specify whether metrics are stored in memory or in a metrics store while running the benchmark by setting the [`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file. 
+You can specify whether metrics are stored in memory or in a metrics store while running the benchmark by setting the [`datastore.type`](https://docs.opensearch.org/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file. 
 
 ### In memory
 

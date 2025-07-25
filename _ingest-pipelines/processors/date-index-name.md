@@ -3,7 +3,7 @@ layout: default
 title: Date index name
 parent: Ingest processors
 nav_order: 55
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/date-index-name/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/date-index-name/
 ---
 
 # Date index name processor

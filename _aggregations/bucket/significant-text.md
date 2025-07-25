@@ -6,7 +6,7 @@ grand_parent: Aggregations
 nav_order: 190
 redirect_from:
   - /query-dsl/aggregations/bucket/significant-text/
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/significant-text/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/significant-text/
 ---
 
 # Significant text aggregations

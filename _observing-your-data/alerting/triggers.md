@@ -4,7 +4,7 @@ title: Triggers
 nav_order: 40
 grand_parent: Alerting
 parent: Monitors
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/alerting/triggers/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/triggers/
 ---
 
 # Triggers
@@ -146,7 +146,7 @@ Variable | Data type | Description
 
 Per bucket and per document monitors support printing sample documents in notification messages. Per document monitors support printing the list of queries that triggered the creation of the finding associated with the alert. When the monitor runs, it adds each new alert to the `ctx` variables, for example, `newAlerts` for per bucket monitors and `alerts` for per document monitors. Each alert has its own list of `sample_documents`, and each per document monitor alert has its own list of `associated_queries`. The message template can be formatted to iterate through the list of alerts, the list of `associated_queries`, and the `sample_documents` for each alert.
 
-An alerting monitor uses the permissions of the user that created it. Be mindful of the Notifications plugin channel to which alert messages are sent and the content of the message mustache template. To learn more about security in the Alerting plugin, see [Alerting security](https://opensearch.org/docs/latest/observing-your-data/alerting/security/).
+An alerting monitor uses the permissions of the user that created it. Be mindful of the Notifications plugin channel to which alert messages are sent and the content of the message mustache template. To learn more about security in the Alerting plugin, see [Alerting security](https://docs.opensearch.org/latest/observing-your-data/alerting/security/).
 {: .note}
 
 #### Sample document variables

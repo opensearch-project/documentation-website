@@ -6,7 +6,7 @@ parent: k-NN search
 grand_parent: Search methods
 has_children: false
 has_math: true
-canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/knn-vector-quantization/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/knn-vector-quantization/
 ---
 
 # k-NN vector quantization

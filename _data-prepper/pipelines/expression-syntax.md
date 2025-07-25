@@ -3,8 +3,8 @@ layout: default
 title: Expression syntax
 parent: Pipelines
 nav_order: 12
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/expression-syntax/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/expression-syntax/
 ---
 
 # Expression syntax 
