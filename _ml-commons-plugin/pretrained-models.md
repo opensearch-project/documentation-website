@@ -3,7 +3,7 @@ layout: default
 title: Pretrained models
 parent: Model-serving framework
 nav_order: 120
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/pretrained-models/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/pretrained-models/
 ---
 
 The model-serving framework is an experimental feature. For updates on the progress of the model-serving framework, or if you want to leave feedback that could help improve the feature, join the discussion in the [Model-serving framework forum](https://forum.opensearch.org/t/feedback-machine-learning-model-serving-framework-experimental-release/11439).    

@@ -5,7 +5,7 @@ nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
-canonical_url: https://opensearch.org/docs/latest/query-dsl/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/
 ---
 
 # Query DSL, aggregations, and analyzers

@@ -7,7 +7,7 @@ nav_order: 85
 redirect_from:
   - /aggregations/geohexgrid/
   - /query-dsl/aggregations/geohexgrid/
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/geohex-grid/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geohex-grid/
 ---
 
 # Geohex grid aggregations

@@ -4,7 +4,7 @@ title: Date range
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 30
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/date-range/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/date-range/
 ---
 
 # Date range aggregations

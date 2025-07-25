@@ -9,7 +9,7 @@ redirect_from:
   - /opensearch/bucket-agg/
   - /query-dsl/aggregations/bucket-agg/
   - /aggregations/bucket-agg/
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/index/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/index/
 ---
 
 # Bucket aggregations

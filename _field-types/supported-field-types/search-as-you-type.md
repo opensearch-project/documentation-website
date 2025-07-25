@@ -8,7 +8,7 @@ grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/search-as-you-type/
   - /field-types/search-as-you-type/
-canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/search-as-you-type/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/search-as-you-type/
 ---
 
 # Search-as-you-type field type

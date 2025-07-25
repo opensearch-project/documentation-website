@@ -4,7 +4,7 @@ title: Global
 parent: Bucket aggregations
 grand_parent: Aggregations
 nav_order: 90
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/global/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/global/
 ---
 
 # Global aggregations

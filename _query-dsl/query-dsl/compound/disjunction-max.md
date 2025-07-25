@@ -4,7 +4,7 @@ title: Disjunction max queries
 parent: Compound queries
 grand_parent: Query DSL
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/query-dsl/compound/disjunction-max/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/disjunction-max/
 ---
 
 # Disjunction max queries

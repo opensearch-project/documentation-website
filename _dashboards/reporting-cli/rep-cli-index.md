@@ -3,7 +3,7 @@ layout: default
 title: Creating reports with the Reporting CLI
 nav_order: 75
 has_children: true
-canonical_url: https://opensearch.org/docs/latest/reporting/rep-cli-index/
+canonical_url: https://docs.opensearch.org/latest/reporting/rep-cli-index/
 ---
 
 # Creating reports with the Reporting CLI

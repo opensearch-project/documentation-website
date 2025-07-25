@@ -8,7 +8,7 @@ permalink: /query-dsl/compound/bool/
 redirect_from:
   - /opensearch/query-dsl/compound/bool/
   - /opensearch/query-dsl/bool/
-canonical_url: https://opensearch.org/docs/latest/query-dsl/compound/bool/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/bool/
 ---
 
 # Boolean queries
