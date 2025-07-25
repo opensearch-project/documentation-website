@@ -5,7 +5,7 @@ parent: Index APIs
 nav_order: 35
 redirect_from:
   - /opensearch/rest-api/index-apis/delete-index/
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/delete-index/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/delete-index/
 ---
 
 # Delete index

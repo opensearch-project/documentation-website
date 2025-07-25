@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /security/multi-tenancy/
-canonical_url: https://opensearch.org/docs/latest/security/multi-tenancy/tenant-index/
+canonical_url: https://docs.opensearch.org/latest/security/multi-tenancy/tenant-index/
 ---
 
 # OpenSearch Dashboards multi-tenancy

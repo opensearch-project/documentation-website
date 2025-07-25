@@ -5,7 +5,7 @@ has_children: true
 nav_order: 50
 redirect_from:
    - /ml-commons-plugin/model-serving-framework/
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/using-ml-models/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/using-ml-models/
 ---
 
 ML Framework was taken out of experimental status and released as Generally Available in OpenSearch 2.9.  

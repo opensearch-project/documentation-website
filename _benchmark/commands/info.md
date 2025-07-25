@@ -3,8 +3,8 @@ layout: default
 title: info
 nav_order: 75
 parent: Command reference
-canonical_url: https://opensearch.org/docs/latest/benchmark/reference/commands/info/
-redirect_to: https://opensearch.org/docs/latest/benchmark/reference/commands/info/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/info/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/info/
 ---
 
 # info

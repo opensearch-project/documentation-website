@@ -4,7 +4,7 @@ title: IP2Geo
 parent: Ingest processors 
 grand_parent: Ingest APIs
 nav_order: 130
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/ip2geo/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/ip2geo/
 ---
 
 # IP2Geo

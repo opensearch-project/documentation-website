@@ -4,8 +4,8 @@ title: opensearch
 parent: Sources
 grand_parent: Pipelines
 nav_order: 30
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/opensearch/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/opensearch/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/opensearch/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/opensearch/
 ---
 
 # opensearch
@@ -153,8 +153,8 @@ Option | Required | Type    | Description
 ### Default search behavior
 
 By default, the `opensearch` source will look up the cluster version and distribution to determine 
-which `search_context_type` to use. For versions and distributions that support [Point in Time](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#point-in-time-with-search_after), `point_in_time` will be used. 
-If `point_in_time` is not supported by the cluster, then [scroll](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#scroll-search) will be used. For Amazon OpenSearch Serverless collections, [search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter) will be used because neither `point_in_time` nor `scroll` are supported by collections.
+which `search_context_type` to use. For versions and distributions that support [Point in Time](https://docs.opensearch.org/latest/search-plugins/searching-data/paginate/#point-in-time-with-search_after), `point_in_time` will be used. 
+If `point_in_time` is not supported by the cluster, then [scroll](https://docs.opensearch.org/latest/search-plugins/searching-data/paginate/#scroll-search) will be used. For Amazon OpenSearch Serverless collections, [search_after](https://docs.opensearch.org/latest/search-plugins/searching-data/paginate/#the-search_after-parameter) will be used because neither `point_in_time` nor `scroll` are supported by collections.
 
 ### Connection
 

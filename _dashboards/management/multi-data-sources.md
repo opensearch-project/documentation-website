@@ -4,7 +4,7 @@ title: Multiple data sources
 parent: Index patterns
 grand_parent: Dashboards Management
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/dashboards/management/multi-data-sources/
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/multi-data-sources/
 ---
 
 # Multiple data sources

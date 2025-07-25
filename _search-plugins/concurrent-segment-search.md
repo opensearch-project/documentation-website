@@ -2,7 +2,7 @@
 layout: default
 title: Concurrent segment search
 nav_order: 53
-canonical_url: https://opensearch.org/docs/latest/search-plugins/concurrent-segment-search/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/concurrent-segment-search/
 ---
 
 # Concurrent segment search

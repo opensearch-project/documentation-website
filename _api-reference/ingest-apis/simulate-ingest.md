@@ -6,7 +6,7 @@ grand_parent: Ingest APIs
 nav_order: 11
 redirect_from:
   - /opensearch/rest-api/ingest-apis/simulate-ingest/
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/simulate-ingest/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/simulate-ingest/
 ---
 
 # Simulate pipeline

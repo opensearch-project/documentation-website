@@ -52,7 +52,7 @@ Use lowercase when referring to features, unless you are referring to a formally
 
 A plugin is a feature or distinct component that extends the functionality of OpenSearch. For now, capitalize plugin names, but use *plugin* sparingly. The concept of plugins will become obsolete once we re-architect the product. For example:
 
-* “Interaction with the *ML Commons* plugin occurs through either the REST API or [ad](https://opensearch.org/docs/latest/search-plugins/sql/ppl/functions#ad) and [kmeans](https://opensearch.org/docs/latest/search-plugins/sql/ppl/functions#kmeans) Piped Processing Language (PPL) commands.”
+* “Interaction with the *ML Commons* plugin occurs through either the REST API or [ad](https://docs.opensearch.org/latest/search-plugins/sql/ppl/functions#ad) and [kmeans](https://docs.opensearch.org/latest/search-plugins/sql/ppl/functions#kmeans) Piped Processing Language (PPL) commands.”
 * “Use the *Neural Search* plugin to integrate ML language models into your search workloads.”
 
 ### Voice and tone
@@ -257,7 +257,7 @@ When introducing a code or command line example that refers to a variable or pla
           - Where space is limited (for example, in a table), you can use "*See* [link text]."
      - Ensure that the link text matches the section title text. <br> <br> Example: "To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website." <br>
 
-- **Embedded links**: Embedded links are woven into a sentence without formal introductory text. They're especially useful in tables or other elements where space is tight. The text around the embedded link must relate to the information in the link so that the reader understands the context. Do not use *here* or *click here* for link text because it creates accessibility problems. <br> <br> Example: "Finally, [delete the index](https://opensearch.org/docs/latest/api-reference/index-apis/delete-index)."
+- **Embedded links**: Embedded links are woven into a sentence without formal introductory text. They're especially useful in tables or other elements where space is tight. The text around the embedded link must relate to the information in the link so that the reader understands the context. Do not use *here* or *click here* for link text because it creates accessibility problems. <br> <br> Example: "Finally, [delete the index](https://docs.opensearch.org/latest/api-reference/index-apis/delete-index)."
 
 ### Lists
 

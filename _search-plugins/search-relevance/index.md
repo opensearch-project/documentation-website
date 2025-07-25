@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /search-plugins/search-relevance/
-canonical_url: https://opensearch.org/docs/latest/search-plugins/search-relevance/index/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/index/
 ---
 
 # Search relevance
