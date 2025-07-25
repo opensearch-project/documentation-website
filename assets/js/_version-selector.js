@@ -192,6 +192,7 @@ class VersionSelector extends HTMLElement {
         frag.querySelector('#selected').textContent = `${PREFIX}${this.getAttribute('selected')}`;
 
         const pathName = location.pathname.replace(/^\/(latest|\d+\.\d+)(\/)?/, '');
+        
         const versionsDOMNodes = DOC_VERSIONS.map((v, idx) => v === DOC_VERSION_LATEST
         ? `<a href="/latest/${pathName}" class="latest">${PREFIX}${v}</a>`
         : `<a href="/${v}/${pathName}">${PREFIX}${v}</a>`,
