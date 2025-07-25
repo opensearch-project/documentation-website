@@ -628,8 +628,10 @@ Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `min_index_age` | The minimum age of the index required to transition. | `string` | No
 `min_rollover_age` | The minimum age required after a rollover has occurred to transition to the next state. | `string` | No
+`min_state_age` | The minimum time the index must spend in the current state before transitioning. | `string` | No
 `min_doc_count` | The minimum document count of the index required to transition. | `number` | No
 `min_size` | The minimum size of the total primary shard storage (not counting replicas) required to transition. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so your index is transitioned to the next state. | `string` | No
+`no_alias` | Controls transition based on alias presence. If `true`, transition occurs only when the index has **no aliases**. If `false`, transition occurs only when at least **one alias exists**. | `boolean` | No
 `cron` | The `cron` job that triggers the transition if no other transition happens first. | `object` | No
 `cron.cron.expression` | The `cron` expression that triggers the transition. | `string` | Yes
 `cron.cron.timezone` | The timezone that triggers the transition. | `string` | Yes
