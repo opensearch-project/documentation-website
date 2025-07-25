@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Index page
+title: OpenSearch Documentation
 nav_exclude: true
 redirect_to: /about/
 permalink: /
