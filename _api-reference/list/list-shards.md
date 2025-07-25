@@ -3,7 +3,7 @@ layout: default
 title: List shards
 parent: List API
 nav_order: 20
-canonical_url: https://opensearch.org/docs/latest/api-reference/list/list-shards/
+canonical_url: https://docs.opensearch.org/latest/api-reference/list/list-shards/
 ---
 
 # List shards

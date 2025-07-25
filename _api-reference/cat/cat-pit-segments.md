@@ -3,7 +3,7 @@ layout: default
 title: CAT PIT segments
 parent: CAT API
 nav_order: 46
-canonical_url: https://opensearch.org/docs/latest/api-reference/cat/cat-pit-segments/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-pit-segments/
 ---
 
 # CAT PIT segments

@@ -3,7 +3,7 @@ layout: default
 title: Length
 parent: Token filters
 nav_order: 240
-canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/length/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/length/
 ---
 
 # Length token filter

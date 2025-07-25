@@ -8,7 +8,7 @@ permalink: /tools/
 redirect_from:
   - /clients/agents-and-ingestion-tools/index/
   - /tools/index/
-canonical_url: https://opensearch.org/docs/latest/tools/
+canonical_url: https://docs.opensearch.org/latest/tools/
 ---
 
 # OpenSearch tools

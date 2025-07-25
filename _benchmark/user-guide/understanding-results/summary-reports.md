@@ -6,7 +6,7 @@ grand_parent: User guide
 parent: Understanding results
 redirect_from: 
   - /benchmark/user-guide/understanding-results/
-canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/understanding-results/summary-reports/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-results/summary-reports/
 ---
 
 # Understanding the summary report

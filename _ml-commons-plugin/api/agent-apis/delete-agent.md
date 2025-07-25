@@ -4,7 +4,7 @@ title: Delete agent
 parent: Agent APIs
 grand_parent: ML Commons APIs
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/agent-apis/delete-agent/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agent-apis/delete-agent/
 ---
 
 # Delete an agent

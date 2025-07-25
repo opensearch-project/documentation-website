@@ -3,7 +3,7 @@ layout: default
 title: Reverse
 parent: Token filters
 nav_order: 360
-canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/reverse/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/reverse/
 ---
 
 # Reverse token filter

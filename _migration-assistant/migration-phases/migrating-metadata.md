@@ -3,7 +3,7 @@ layout: default
 title: Migrating metadata
 nav_order: 85
 parent: Migration phases
-canonical_url: https://opensearch.org/docs/latest/migration-assistant/migration-phases/migrating-metadata/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrating-metadata/
 ---
 
 # Migrating metadata

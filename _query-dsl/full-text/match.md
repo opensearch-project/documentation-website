@@ -3,7 +3,7 @@ layout: default
 title: Match
 parent: Full-text queries
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/query-dsl/full-text/match/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/full-text/match/
 ---
 
 # Match query

@@ -4,7 +4,7 @@ title: Query Group Lifecycle API
 nav_order: 20
 parent: Workload management
 grand_parent: Availability and recovery
-canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/workload-management/query-group-lifecycle-api/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/workload-management/query-group-lifecycle-api/
 ---
 
 # Query Group Lifecycle API

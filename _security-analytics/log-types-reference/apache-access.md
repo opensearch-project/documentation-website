@@ -3,7 +3,7 @@ layout: default
 title: Apache Access
 parent: Supported log types
 nav_order: 25
-canonical_url: https://opensearch.org/docs/latest/security-analytics/log-types-reference/apache-access/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/log-types-reference/apache-access/
 ---
 
 # Apache Access

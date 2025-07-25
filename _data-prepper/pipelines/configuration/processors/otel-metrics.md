@@ -4,7 +4,7 @@ title: otel_metrics
 parent: Processors
 grand_parent: Pipelines
 nav_order: 72
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/otel-metrics/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/otel-metrics/
 ---
 
 # otel_metrics 

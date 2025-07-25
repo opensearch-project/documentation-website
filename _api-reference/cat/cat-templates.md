@@ -6,7 +6,7 @@ nav_order: 70
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-templates/
-canonical_url: https://opensearch.org/docs/latest/api-reference/cat/cat-templates/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-templates/
 ---
 
 # CAT templates

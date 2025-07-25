@@ -4,7 +4,7 @@ title: Getting started with the high-level .NET client
 nav_order: 10
 has_children: false
 parent: .NET clients
-canonical_url: https://opensearch.org/docs/latest/clients/OSC-dot-net/
+canonical_url: https://docs.opensearch.org/latest/clients/OSC-dot-net/
 ---
 
 # Getting started with the high-level .NET client (OpenSearch.Client)

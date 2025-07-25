@@ -5,7 +5,7 @@ nav_order: 59
 parent: Migration phases
 has_toc: false
 has_children: true 
-canonical_url: https://opensearch.org/docs/latest/migration-assistant/migration-phases/planning-your-migration/index/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/planning-your-migration/index/
 ---
 
 # Planning your migration

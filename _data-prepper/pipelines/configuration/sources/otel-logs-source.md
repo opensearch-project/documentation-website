@@ -4,7 +4,7 @@ title: otel_logs_source
 parent: Sources
 grand_parent: Pipelines
 nav_order: 60
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/otel-logs-source/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/otel-logs-source/
 ---
 
 # otel_logs_source

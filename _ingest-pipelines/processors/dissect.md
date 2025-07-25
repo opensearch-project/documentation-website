@@ -3,7 +3,7 @@ layout: default
 title: Dissect
 parent: Ingest processors
 nav_order: 60
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/dissect/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/dissect/
 ---
 
 This documentation describes using the `dissect` processor in OpenSearch ingest pipelines. Consider using the [OpenSearch Data Prepper `dissect` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/dissect/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.

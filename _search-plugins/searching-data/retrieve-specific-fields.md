@@ -3,7 +3,7 @@ layout: default
 parent: Search options
 title: Retrieve specific fields
 nav_order: 80
-canonical_url: https://opensearch.org/docs/latest/search-plugins/searching-data/retrieve-specific-fields/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/retrieve-specific-fields/
 ---
 
 # Retrieve specific fields

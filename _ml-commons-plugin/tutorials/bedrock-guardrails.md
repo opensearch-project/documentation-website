@@ -3,7 +3,7 @@ layout: default
 title: Using Amazon Bedrock guardrails 
 parent: Tutorials
 nav_order: 25
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/tutorials/bedrock-guardrails/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/bedrock-guardrails/
 ---
 
 # Using Amazon Bedrock guardrails 

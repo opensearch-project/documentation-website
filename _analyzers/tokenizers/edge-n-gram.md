@@ -3,7 +3,7 @@ layout: default
 title: Edge n-gram
 parent: Tokenizers
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/analyzers/tokenizers/edge-n-gram/
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/edge-n-gram/
 ---
 
 # Edge n-gram tokenizer

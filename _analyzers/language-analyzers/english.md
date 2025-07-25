@@ -4,7 +4,7 @@ title: English
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 120
-canonical_url: https://opensearch.org/docs/latest/analyzers/language-analyzers/english/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/english/
 ---
 
 # English analyzer

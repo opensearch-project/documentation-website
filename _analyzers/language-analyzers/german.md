@@ -4,7 +4,7 @@ title: German
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 170
-canonical_url: https://opensearch.org/docs/latest/analyzers/language-analyzers/german/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/german/
 ---
 
 # German analyzer

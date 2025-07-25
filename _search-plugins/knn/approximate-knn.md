@@ -5,7 +5,7 @@ nav_order: 15
 parent: k-NN search
 has_children: false
 has_math: true
-canonical_url: https://opensearch.org/docs/latest/search-plugins/knn/approximate-knn/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/knn/approximate-knn/
 ---
 
 # Approximate k-NN search

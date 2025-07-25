@@ -3,7 +3,7 @@ layout: default
 title: Hunspell
 parent: Token filters
 nav_order: 160
-canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/hunspell/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/hunspell/
 ---
 
 # Hunspell token filter

@@ -4,7 +4,7 @@ title: dynamodb
 parent: Sources
 grand_parent: Pipelines
 nav_order: 20
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sources/dynamo-db/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/dynamo-db/
 ---
 
 # dynamodb

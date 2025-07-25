@@ -4,7 +4,7 @@ title: Sinks
 parent: Pipelines
 has_children: true
 nav_order: 25
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/sinks/sinks/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sinks/sinks/
 ---
 
 # Sinks

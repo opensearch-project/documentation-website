@@ -8,7 +8,7 @@ nav_exclude: true
 permalink: /search-plugins/
 redirect_from:
   - /search-plugins/index/
-canonical_url: https://opensearch.org/docs/latest/search-plugins/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/
 ---
 
 # Search features

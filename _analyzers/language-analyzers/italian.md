@@ -4,7 +4,7 @@ title: Italian
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 220
-canonical_url: https://opensearch.org/docs/latest/analyzers/language-analyzers/italian/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/italian/
 ---
 
 # Italian analyzer

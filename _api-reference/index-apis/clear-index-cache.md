@@ -3,7 +3,7 @@ layout: default
 title: Clear cache
 parent: Index APIs
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/clear-index-cache/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/clear-index-cache/
 ---
 
 # Clear cache

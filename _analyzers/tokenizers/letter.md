@@ -3,7 +3,7 @@ layout: default
 title: Letter
 parent: Tokenizers
 nav_order: 60
-canonical_url: https://opensearch.org/docs/latest/analyzers/tokenizers/letter/
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/letter/
 ---
 
 # Letter tokenizer

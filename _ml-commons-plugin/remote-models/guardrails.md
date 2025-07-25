@@ -6,7 +6,7 @@ has_toc: false
 nav_order: 70
 parent: Connecting to externally hosted models 
 grand_parent: Integrating ML models
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/remote-models/guardrails/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/remote-models/guardrails/
 ---
 
 # Configuring model guardrails

@@ -3,7 +3,7 @@ layout: default
 title: Whitespace
 parent: Tokenizers
 nav_order: 160
-canonical_url: https://opensearch.org/docs/latest/analyzers/tokenizers/whitespace/
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/whitespace/
 ---
 
 # Whitespace tokenizer

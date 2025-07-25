@@ -3,7 +3,7 @@ layout: default
 title: Star-tree index
 parent: Improving search performance
 nav_order: 54
-canonical_url: https://opensearch.org/docs/latest/search-plugins/star-tree-index/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/star-tree-index/
 ---
 
 # Star-tree index

@@ -3,7 +3,7 @@ layout: default
 title: Stop
 parent: Token filters
 nav_order: 410
-canonical_url: https://opensearch.org/docs/latest/analyzers/token-filters/stop/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/stop/
 ---
 
 # Stop token filter

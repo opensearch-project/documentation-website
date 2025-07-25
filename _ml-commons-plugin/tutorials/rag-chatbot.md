@@ -3,7 +3,7 @@ layout: default
 title: RAG chatbot
 parent: Tutorials
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/tutorials/rag-chatbot/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/tutorials/rag-chatbot/
 ---
 
 # RAG chatbot

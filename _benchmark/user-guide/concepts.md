@@ -5,7 +5,7 @@ nav_order: 3
 parent: User guide
 redirect_from: 
   - /benchmark/user-guide/concepts/
-canonical_url: https://opensearch.org/docs/latest/benchmark/user-guide/concepts/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/concepts/
 ---
 
 # Concepts
