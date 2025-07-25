@@ -4,7 +4,7 @@ title: cidrContains()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/cidrcontains/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/cidrcontains/
 ---
 
 # cidrContains()

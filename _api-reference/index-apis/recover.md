@@ -3,7 +3,7 @@ layout: default
 title: Recovery
 parent: Index APIs
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/recover/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/recover/
 ---
 
 # Recovery API
@@ -74,7 +74,7 @@ The following examples demonstrate how to recover information using the Recovery
 
 ### Recover information from several or all indexes
 
-The following example request returns recovery information about several indexes in a [human-readable format](https://opensearch.org/docs/latest/api-reference/common-parameters/#human-readable-output):
+The following example request returns recovery information about several indexes in a [human-readable format](https://docs.opensearch.org/latest/api-reference/common-parameters/#human-readable-output):
 
 ```json
 GET index1,index2/_recovery?human

@@ -4,7 +4,7 @@ title: Vector search
 nav_order: 22
 has_children: false
 has_toc: false
-canonical_url: https://opensearch.org/docs/latest/search-plugins/vector-search/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/vector-search/
 ---
 
 # Vector search

@@ -3,7 +3,7 @@ layout: default
 title: Community ID
 parent: Ingest processors
 nav_order: 55
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/community_id/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/community_id/
 ---
 
 # Community ID processor

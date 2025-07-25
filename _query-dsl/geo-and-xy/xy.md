@@ -6,7 +6,7 @@ nav_order: 50
 redirect_from: 
   - /opensearch/query-dsl/geo-and-xy/xy/
   - /query-dsl/query-dsl/geo-and-xy/xy/
-canonical_url: https://opensearch.org/docs/latest/query-dsl/geo-and-xy/xy/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/geo-and-xy/xy/
 ---
 
 # xy query

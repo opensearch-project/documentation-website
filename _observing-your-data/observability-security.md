@@ -5,7 +5,7 @@ nav_order: 5
 has_children: false
 redirect_from:
   - /observing-your-data/security/
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/observability-security/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/observability-security/
 ---
 
 # Observability security

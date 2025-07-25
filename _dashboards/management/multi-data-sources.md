@@ -5,7 +5,7 @@ parent: Data sources
 nav_order: 10
 redirect_from:
   - /dashboards/discover/multi-data-sources/
-canonical_url: https://opensearch.org/docs/latest/dashboards/management/multi-data-sources/
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/multi-data-sources/
 ---
 
 # Configuring and using multiple data sources in OpenSearch Dashboards
