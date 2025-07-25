@@ -7,7 +7,7 @@ nav_order: 40
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-nodes/
-canonical_url: https://opensearch.org/docs/latest/api-reference/cat/cat-nodes/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-nodes/
 ---
 
 # CAT nodes

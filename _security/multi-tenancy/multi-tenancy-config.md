@@ -3,7 +3,7 @@ layout: default
 title: Multi-tenancy configuration
 parent: OpenSearch Dashboards multi-tenancy
 nav_order: 145
-canonical_url: https://opensearch.org/docs/latest/security/multi-tenancy/multi-tenancy-config/
+canonical_url: https://docs.opensearch.org/latest/security/multi-tenancy/multi-tenancy-config/
 ---
 
 

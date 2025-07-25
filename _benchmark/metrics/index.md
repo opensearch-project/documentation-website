@@ -11,7 +11,7 @@ After a workload completes, OpenSearch Benchmark stores all metric records withi
 
 ## Storing metrics
 
-You can specify whether metrics are stored in memory or in a metrics store while running the benchmark by setting the [`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file. 
+You can specify whether metrics are stored in memory or in a metrics store while running the benchmark by setting the [`datastore.type`](https://docs.opensearch.org/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file. 
 
 ### In memory
 

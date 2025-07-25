@@ -4,7 +4,7 @@ title: Lowercase
 parent: Ingest processors 
 grand_parent: Ingest APIs
 nav_order: 210
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/lowercase/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/lowercase/
 ---
 
 # Lowercase

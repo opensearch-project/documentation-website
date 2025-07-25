@@ -3,8 +3,8 @@ layout: default
 title: Metric keys
 nav_order: 35
 parent: Metrics
-canonical_url: https://opensearch.org/docs/latest/benchmark/reference/metrics/metric-keys/
-redirect_to: https://opensearch.org/docs/latest/benchmark/reference/metrics/metric-keys/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/metrics/metric-keys/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/metrics/metric-keys/
 ---
 
 # Metric keys

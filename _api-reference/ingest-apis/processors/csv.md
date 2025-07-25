@@ -4,7 +4,7 @@ title: CSV
 parent: Ingest processors 
 grand_parent: Ingest APIs
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/csv/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/csv/
 ---
 
 # CSV

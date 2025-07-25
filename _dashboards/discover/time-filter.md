@@ -5,7 +5,7 @@ parent: Exploring data
 nav_order: 10
 redirect_from:
   - /dashboards/get-started/time-filter/
-canonical_url: https://opensearch.org/docs/latest/dashboards/discover/time-filter/
+canonical_url: https://docs.opensearch.org/latest/dashboards/discover/time-filter/
 ---
 
 # Setting the time filter

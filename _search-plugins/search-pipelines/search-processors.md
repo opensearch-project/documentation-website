@@ -5,7 +5,7 @@ nav_order: 50
 has_children: true
 parent: Search pipelines
 grand_parent: Search
-canonical_url: https://opensearch.org/docs/latest/search-plugins/search-pipelines/search-processors/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/search-processors/
 ---
 
 # Search processors
