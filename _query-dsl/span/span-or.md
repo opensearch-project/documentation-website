@@ -4,7 +4,7 @@ title: Span or
 parent: Span queries
 grand_parent: Query DSL
 nav_order: 70
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/span/span-or/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/span/span-or/
 ---
 
 # Span or query

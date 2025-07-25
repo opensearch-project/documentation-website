@@ -3,7 +3,7 @@ layout: default
 title: Lowercase
 parent: Token filters
 nav_order: 260
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/lowercase/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/lowercase/
 ---
 
 # Lowercase token filter

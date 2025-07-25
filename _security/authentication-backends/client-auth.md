@@ -6,7 +6,7 @@ nav_order: 70
 redirect_from:
   - /security/configuration/client-auth/
   - /security-plugin/configuration/client-auth/
-canonical_url: https://docs.opensearch.org/docs/latest/security/authentication-backends/client-auth/
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/client-auth/
 ---
 
 # Client certificate authentication

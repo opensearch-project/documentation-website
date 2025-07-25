@@ -3,7 +3,7 @@ layout: default
 title: Configuration options
 nav_order: 15
 parent: Deploying Migration Assistant
-canonical_url: https://docs.opensearch.org/docs/latest/migration-assistant/deploying-migration-assistant/configuration-options/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/deploying-migration-assistant/configuration-options/
 ---
 
 # Configuration options

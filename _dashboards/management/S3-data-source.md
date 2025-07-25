@@ -4,7 +4,7 @@ title: Connecting Amazon S3 to OpenSearch
 parent: Data sources
 nav_order: 15
 has_children: true
-canonical_url: https://docs.opensearch.org/docs/latest/dashboards/management/S3-data-source/
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/S3-data-source/
 ---
 
 # Connecting Amazon S3 to OpenSearch

@@ -6,7 +6,7 @@ grand_parent: Mapping and field types
 nav_order: 110
 has_children: false
 has_toc: false
-canonical_url: https://docs.opensearch.org/docs/latest/field-types/mapping-parameters/normalizer/
+canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/normalizer/
 ---
 
 # Normalizer

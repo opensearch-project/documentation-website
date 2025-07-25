@@ -69,7 +69,7 @@ semantic_search:
       - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
       - "<b>Model:</b> Amazon Titan Text Embeddings"  
       - "<b>Deployment:</b> Amazon Bedrock"
-canonical_url: https://docs.opensearch.org/docs/latest/tutorials/vector-search/semantic-search/index/
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/semantic-search/index/
 ---
 
 # Semantic search tutorials

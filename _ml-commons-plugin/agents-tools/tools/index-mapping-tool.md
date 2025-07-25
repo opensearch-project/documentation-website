@@ -6,7 +6,7 @@ has_toc: false
 nav_order: 30
 parent: Tools
 grand_parent: Agents and tools
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/agents-tools/tools/index-mapping-tool/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/agents-tools/tools/index-mapping-tool/
 ---
 
 <!-- vale off -->

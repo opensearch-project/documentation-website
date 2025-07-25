@@ -3,7 +3,7 @@ layout: default
 title: Min hash
 parent: Token filters
 nav_order: 270
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/min-hash/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/min-hash/
 ---
 
 # Min hash token filter

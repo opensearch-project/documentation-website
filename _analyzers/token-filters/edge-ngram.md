@@ -3,7 +3,7 @@ layout: default
 title: Edge n-gram
 parent: Token filters
 nav_order: 120
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/edge-ngram/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/edge-ngram/
 ---
 # Edge n-gram token filter
 The `edge_ngram` token filter is very similar to the `ngram` token filter, where a particular string is split into substrings of different lengths. The `edge_ngram` token filter, however, generates n-grams (substrings) only from the beginning (edge) of a token. It's particularly useful in scenarios like autocomplete or prefix matching, where you want to match the beginning of words or phrases as the user types them.

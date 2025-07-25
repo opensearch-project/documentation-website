@@ -3,7 +3,7 @@ layout: default
 title: Creating a custom analyzer
 nav_order: 40
 parent: Analyzers
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/custom-analyzer/
+canonical_url: https://docs.opensearch.org/latest/analyzers/custom-analyzer/
 ---
 
 # Creating a custom analyzer

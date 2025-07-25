@@ -6,7 +6,7 @@ grand_parent: Optimizing vector storage
 nav_order: 30
 has_children: false
 has_math: true
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/optimizing-storage/faiss-product-quantization/
+canonical_url: https://docs.opensearch.org/latest/vector-search/optimizing-storage/faiss-product-quantization/
 ---
 
 # Faiss product quantization

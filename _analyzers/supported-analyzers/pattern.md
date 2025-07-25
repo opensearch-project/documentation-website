@@ -3,7 +3,7 @@ layout: default
 title: Pattern analyzer
 parent: Analyzers
 nav_order: 90
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/supported-analyzers/pattern/
+canonical_url: https://docs.opensearch.org/latest/analyzers/supported-analyzers/pattern/
 ---
 
 # Pattern analyzer

@@ -3,7 +3,7 @@ layout: default
 title: Execute algorithm 
 parent: ML Commons APIs
 nav_order: 37
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/execute-algorithm/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/execute-algorithm/
 ---
 
 # Execute algorithm

@@ -3,7 +3,7 @@ layout: default
 title: Pipeline
 parent: Ingest processors
 nav_order: 220
-canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/processors/pipeline/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/pipeline/
 ---
 
 # Pipeline processor

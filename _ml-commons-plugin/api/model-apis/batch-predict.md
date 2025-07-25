@@ -4,7 +4,7 @@ title:  Batch predict
 parent: Model APIs
 grand_parent: ML Commons APIs
 nav_order: 65
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/model-apis/batch-predict/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-apis/batch-predict/
 ---
 
 # Batch predict

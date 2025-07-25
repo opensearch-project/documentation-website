@@ -3,7 +3,7 @@ layout: default
 title: Decimal digit
 parent: Token filters
 nav_order: 80
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/decimal-digit/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/decimal-digit/
 ---
 
 # Decimal digit token filter

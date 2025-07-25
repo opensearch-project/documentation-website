@@ -5,7 +5,7 @@ nav_order: 110
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/search-pipelines/rerank-processor/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/rerank-processor/
 ---
 
 # Rerank processor

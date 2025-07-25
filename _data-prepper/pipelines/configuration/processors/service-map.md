@@ -4,7 +4,7 @@ title: service_map
 parent: Processors
 grand_parent: Pipelines
 nav_order: 95
-canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/service-map/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/service-map/
 ---
 
 # service_map

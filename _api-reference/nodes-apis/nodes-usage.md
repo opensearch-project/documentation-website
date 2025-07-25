@@ -3,7 +3,7 @@ layout: default
 title: Nodes usage
 parent: Nodes APIs
 nav_order: 40
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/nodes-apis/nodes-usage/
+canonical_url: https://docs.opensearch.org/latest/api-reference/nodes-apis/nodes-usage/
 ---
 
 # Nodes usage

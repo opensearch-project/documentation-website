@@ -7,7 +7,7 @@ nav_order: 20
 redirect_from:
   - /opensearch/query-dsl/term/
   - /query-dsl/term/
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/term/index/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/index/
 ---
 
 # Term-level queries

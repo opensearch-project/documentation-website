@@ -6,7 +6,7 @@ param_table:
     false_text: _Optional_
 
 text_replacements:
-  - replace: "https://opensearch.org/docs/latest"
+  - replace: "https://docs.opensearch.org/latest"
     with: "{{site.url}}{{site.baseurl}}"
   - replace: "\n"
     with: " "

@@ -8,7 +8,7 @@ has_toc: true
 redirect_from:
   - /query-dsl/analyzers/language-analyzers/
   - /analyzers/language-analyzers/
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/language-analyzers/index/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/index/
 ---
 
 # Language analyzers

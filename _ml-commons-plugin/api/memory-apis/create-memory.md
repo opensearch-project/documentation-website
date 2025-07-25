@@ -4,7 +4,7 @@ title: Create or update memory
 parent: Memory APIs
 grand_parent: ML Commons APIs
 nav_order: 10
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/memory-apis/create-memory/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/memory-apis/create-memory/
 ---
 
 # Create or update a memory

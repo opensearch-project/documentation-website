@@ -3,7 +3,7 @@ layout: default
 title: Create or update component template
 parent: Index APIs
 nav_order: 31
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/index-apis/component-template/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/component-template/
 ---
 
 # Create or update component template

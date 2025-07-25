@@ -4,7 +4,7 @@ title: Scroll
 nav_order: 71
 redirect_from:
  - /opensearch/rest-api/scroll/
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/scroll/
+canonical_url: https://docs.opensearch.org/latest/api-reference/scroll/
 ---
 
 # Scroll

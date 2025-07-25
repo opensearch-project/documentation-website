@@ -3,7 +3,7 @@ layout: default
 title: Predicate token filter
 parent: Token filters
 nav_order: 340
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/predicate-token-filter/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/predicate-token-filter/
 ---
 
 # Predicate token filter

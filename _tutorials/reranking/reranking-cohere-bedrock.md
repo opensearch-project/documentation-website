@@ -5,7 +5,7 @@ parent: Reranking search results
 nav_order: 95
 redirect_from:
   - /vector-search/tutorials/reranking/reranking-cohere-bedrock/
-canonical_url: https://docs.opensearch.org/docs/latest/tutorials/reranking/reranking-cohere-bedrock/
+canonical_url: https://docs.opensearch.org/latest/tutorials/reranking/reranking-cohere-bedrock/
 ---
 
 # Reranking search results using Cohere Rerank on Amazon Bedrock

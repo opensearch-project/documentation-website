@@ -4,7 +4,7 @@ title: Mapper-size plugin
 parent: Installing plugins
 nav_order: 20
 
-canonical_url: https://docs.opensearch.org/docs/latest/install-and-configure/additional-plugins/mapper-size-plugin/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/additional-plugins/mapper-size-plugin/
 ---
 
 # Mapper-size plugin

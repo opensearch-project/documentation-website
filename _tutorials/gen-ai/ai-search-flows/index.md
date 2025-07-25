@@ -12,7 +12,7 @@ flows:
   - heading: Creating and customizing AI search workflows
     link: /tutorials/gen-ai/ai-search-flows/building-flows/
     description: "Learn how to build AI search flows in OpenSearch Dashboards"   
-canonical_url: https://docs.opensearch.org/docs/latest/tutorials/gen-ai/ai-search-flows/index/
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/ai-search-flows/index/
 ---
 
 # AI search workflows tutorials

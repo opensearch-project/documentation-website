@@ -39,7 +39,7 @@ auto_items:
   - heading: "Search text"
     description: "Search your text using vector search. Query text is automatically converted to vector embeddings and compared to document embeddings."
     link: "/vector-search/searching-data/#searching-auto-generated-embeddings"
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/getting-started/vector-search-options/
+canonical_url: https://docs.opensearch.org/latest/vector-search/getting-started/vector-search-options/
 ---
 
 # Preparing vectors

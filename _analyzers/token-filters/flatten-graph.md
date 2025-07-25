@@ -3,7 +3,7 @@ layout: default
 title: Flatten graph
 parent: Token filters
 nav_order: 150
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/flatten-graph/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/flatten-graph/
 ---
 
 # Flatten graph token filter

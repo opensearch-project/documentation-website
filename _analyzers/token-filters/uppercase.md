@@ -3,7 +3,7 @@ layout: default
 title: Uppercase
 parent: Token filters
 nav_order: 460
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/token-filters/uppercase/
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/uppercase/
 ---
 
 # Uppercase token filter

@@ -19,7 +19,7 @@ paths:
       x-version-added: '1.0'
       description: Returns results matching a query.
       externalDocs:
-        url: https://opensearch.org/docs/latest/api-reference/search/
+        url: https://docs.opensearch.org/latest/api-reference/search/
       parameters:
         - $ref: '#/components/parameters/search___query.analyze_wildcard'
         - $ref: '#/components/parameters/search___query.analyzer'
@@ -29,7 +29,7 @@ paths:
       x-version-added: '1.0'
       description: Returns results matching a query.
       externalDocs:
-          url: https://opensearch.org/docs/latest/api-reference/search/
+          url: https://docs.opensearch.org/latest/api-reference/search/
       parameters:
           - $ref: '#/components/parameters/search___query.analyze_wildcard'
           - $ref: '#/components/parameters/search___query.analyzer'
@@ -41,7 +41,7 @@ paths:
       x-version-added: '1.0'
       description: Returns results matching a query.
       externalDocs:
-        url: https://opensearch.org/docs/latest/api-reference/search/
+        url: https://docs.opensearch.org/latest/api-reference/search/
       parameters:
         - $ref: '#/components/parameters/search___path.index'
         - $ref: '#/components/parameters/search___query.analyze_wildcard'
@@ -53,7 +53,7 @@ paths:
       x-version-added: '1.0'
       description: Returns results matching a query.
       externalDocs:
-        url: https://opensearch.org/docs/latest/api-reference/search/
+        url: https://docs.opensearch.org/latest/api-reference/search/
       parameters:
         - $ref: '#/components/parameters/search___path.index'
         - $ref: '#/components/parameters/search___query.analyze_wildcard'
@@ -90,7 +90,7 @@ components:
       name: expand_wildcard
       description: |-
           Whether to expand wildcard expression to concrete indices that are open, closed, or both.
-          For more information, see [cat health API](https://opensearch.org/docs/latest/api-reference/cat/health/).
+          For more information, see [cat health API](https://docs.opensearch.org/latest/api-reference/cat/health/).
       schema:
         oneOf:
           - type: string

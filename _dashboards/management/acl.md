@@ -3,7 +3,7 @@ layout: default
 title: Access control lists for saved objects
 parent: Dashboards Management
 nav_order: 50
-canonical_url: https://docs.opensearch.org/docs/latest/dashboards/management/acl/
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/acl/
 ---
 
 # Access control lists for saved objects

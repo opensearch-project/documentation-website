@@ -3,7 +3,7 @@ layout: default
 title: Search performance tuning
 nav_order: 20
 parent: Performance tuning
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/performance-tuning-search/
+canonical_url: https://docs.opensearch.org/latest/vector-search/performance-tuning-search/
 ---
 
 # Search performance tuning

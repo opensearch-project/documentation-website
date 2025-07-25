@@ -6,7 +6,7 @@ nav_order: 60
 redirect_from: 
   - /opensearch/reindex-data/
   - /opensearch/rest-api/document-apis/reindex/
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/document-apis/reindex/
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/reindex/
 ---
 
 # Reindex document

@@ -3,7 +3,7 @@ layout: default
 title: Template
 parent: Specialized queries
 nav_order: 70
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/specialized/template/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/template/
 ---
 
 # Template query

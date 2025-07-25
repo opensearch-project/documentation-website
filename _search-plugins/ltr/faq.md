@@ -4,7 +4,7 @@ title: Common issues
 nav_order: 1000
 parent: Learning to Rank
 has_children: false
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/ltr/faq/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ltr/faq/
 ---
 
 # Common issues

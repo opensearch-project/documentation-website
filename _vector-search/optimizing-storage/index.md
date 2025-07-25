@@ -13,7 +13,7 @@ storage_cards:
   - heading: "Disk-based vector search"
     description: "Uses binary quantization to reduce the operational costs of vector workloads"
     link: "/vector-search/optimizing-storage/disk-based-vector-search/"
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/optimizing-storage/index/
+canonical_url: https://docs.opensearch.org/latest/vector-search/optimizing-storage/index/
 ---
 
 # Optimizing vector storage

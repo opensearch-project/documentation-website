@@ -4,7 +4,7 @@ title: Lithuanian
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 230
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/language-analyzers/lithuanian/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/lithuanian/
 ---
 
 # Lithuanian analyzer

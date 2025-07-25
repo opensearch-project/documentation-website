@@ -4,7 +4,7 @@ title: Finnish
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 140
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/language-analyzers/finnish/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/finnish/
 ---
 
 # Finnish analyzer

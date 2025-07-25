@@ -5,7 +5,7 @@ parent: Compound queries
 nav_order: 50
 redirect_from:
   - /query-dsl/query-dsl/compound/disjunction-max/
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/compound/disjunction-max/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/disjunction-max/
 ---
 
 # Disjunction max query

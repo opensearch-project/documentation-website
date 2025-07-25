@@ -11,7 +11,7 @@
 
 ## Introduction
 
-The `.md` documents in this repository are rendered into HTML pages using [Jekyll](https://jekyllrb.com/). These HTML pages are hosted on [opensearch.org](https://opensearch.org/docs/latest/).
+The `.md` documents in this repository are rendered into HTML pages using [Jekyll](https://jekyllrb.com/). These HTML pages are hosted on [opensearch.org](https://docs.opensearch.org/latest/).
 
 ## Starting the Jekyll server locally
 You can run the Jekyll server locally to view the rendered HTML pages using the following steps:

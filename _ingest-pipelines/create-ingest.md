@@ -5,7 +5,7 @@ nav_order: 10
 redirect_from:
   - /opensearch/rest-api/ingest-apis/create-update-ingest/
   - /api-reference/ingest-apis/create-ingest/
-canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/create-ingest/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/create-ingest/
 ---
 
 # Create pipeline

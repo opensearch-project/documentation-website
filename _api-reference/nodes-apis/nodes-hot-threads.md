@@ -3,7 +3,7 @@ layout: default
 title: Nodes hot threads
 parent: Nodes APIs
 nav_order: 30
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/nodes-apis/nodes-hot-threads/
+canonical_url: https://docs.opensearch.org/latest/api-reference/nodes-apis/nodes-hot-threads/
 ---
 
 # Nodes hot threads

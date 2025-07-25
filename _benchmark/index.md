@@ -33,7 +33,7 @@ items:
   - heading: "Analyze performance metrics"
     description: "View your benchmark report and analyze your metrics"  
     link: "/benchmark/user-guide/understanding-results/summary-reports/"
-canonical_url: https://docs.opensearch.org/docs/latest/benchmark/
+canonical_url: https://docs.opensearch.org/latest/benchmark/
 ---
 
 # OpenSearch Benchmark

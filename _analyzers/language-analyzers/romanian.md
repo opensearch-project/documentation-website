@@ -4,7 +4,7 @@ title: Romanian
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 270
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/language-analyzers/romanian/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/romanian/
 ---
 
 # Romanian analyzer

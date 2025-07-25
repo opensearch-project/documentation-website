@@ -7,7 +7,7 @@ has_toc: false
 redirect_from:
   - /vector-search/api/knn/
   - /vector-search/api/
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/api/index/
+canonical_url: https://docs.opensearch.org/latest/vector-search/api/index/
 ---
 
 # Vector search API

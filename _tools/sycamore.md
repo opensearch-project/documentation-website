@@ -3,7 +3,7 @@ layout: default
 title: Sycamore
 nav_order: 210
 has_children: false
-canonical_url: https://docs.opensearch.org/docs/latest/tools/sycamore/
+canonical_url: https://docs.opensearch.org/latest/tools/sycamore/
 ---
 
 # Sycamore

@@ -3,7 +3,7 @@ layout: default
 title: Setting up a demo configuration
 parent: Configuration
 nav_order: 4
-canonical_url: https://docs.opensearch.org/docs/latest/security/configuration/demo-configuration/
+canonical_url: https://docs.opensearch.org/latest/security/configuration/demo-configuration/
 ---
 
 # Setting up a demo configuration

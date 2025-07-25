@@ -8,7 +8,7 @@ nav_exclude: true
 permalink: /monitoring-your-cluster/
 redirect_from: 
   - /monitoring-your-cluster/index/
-canonical_url: https://docs.opensearch.org/docs/latest/monitoring-your-cluster/
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/
 ---
 
 # Monitoring your cluster

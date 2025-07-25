@@ -3,7 +3,7 @@ layout: default
 title: Search for a workflow
 parent: Workflow APIs
 nav_order: 60
-canonical_url: https://docs.opensearch.org/docs/latest/automating-configurations/api/search-workflow/
+canonical_url: https://docs.opensearch.org/latest/automating-configurations/api/search-workflow/
 ---
 
 # Search for a workflow

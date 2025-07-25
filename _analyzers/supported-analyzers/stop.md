@@ -3,7 +3,7 @@ layout: default
 title: Stop analyzer
 parent: Analyzers
 nav_order: 110
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/supported-analyzers/stop/
+canonical_url: https://docs.opensearch.org/latest/analyzers/supported-analyzers/stop/
 ---
 
 # Stop analyzer

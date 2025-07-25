@@ -2,7 +2,7 @@
 layout: default
 title: Vector search
 nav_order: 35
-canonical_url: https://docs.opensearch.org/docs/latest/benchmark/workloads/vectorsearch/
+canonical_url: https://docs.opensearch.org/latest/benchmark/workloads/vectorsearch/
 ---
 
 # Vector search

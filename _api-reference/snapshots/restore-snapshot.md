@@ -4,7 +4,7 @@ title: Restore Snapshot
 parent: Snapshot APIs
 
 nav_order: 9
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/snapshots/restore-snapshot/
+canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/restore-snapshot/
 ---
 
 # Restore Snapshot

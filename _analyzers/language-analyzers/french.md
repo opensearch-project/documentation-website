@@ -4,7 +4,7 @@ title: French
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 150
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/language-analyzers/french/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/french/
 ---
 
 # French analyzer

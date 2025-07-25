@@ -3,7 +3,7 @@ layout: default
 title: Configuring CSP rules for frame ancestors
 nav_order: 140
 has_children: false
-canonical_url: https://docs.opensearch.org/docs/latest/dashboards/csp/csp-dynamic-configuration/
+canonical_url: https://docs.opensearch.org/latest/dashboards/csp/csp-dynamic-configuration/
 ---
 
 # Configuring CSP rules for frame ancestors

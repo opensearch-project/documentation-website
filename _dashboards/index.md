@@ -7,7 +7,7 @@ nav_exclude: true
 permalink: /dashboards/
 redirect_from:
   - /dashboards/index/
-canonical_url: https://docs.opensearch.org/docs/latest/dashboards/
+canonical_url: https://docs.opensearch.org/latest/dashboards/
 ---
 
 # OpenSearch Dashboards

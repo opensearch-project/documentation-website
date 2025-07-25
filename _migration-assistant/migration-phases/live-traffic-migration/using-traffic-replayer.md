@@ -6,7 +6,7 @@ grand_parent: Migration phases
 parent: Live traffic migration
 redirect_from:
   - /migration-assistant/migration-phases/using-traffic-replayer/
-canonical_url: https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/live-traffic-migration/using-traffic-replayer/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/live-traffic-migration/using-traffic-replayer/
 ---
 
 # Using Traffic Replayer

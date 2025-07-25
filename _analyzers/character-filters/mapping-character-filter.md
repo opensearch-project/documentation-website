@@ -3,7 +3,7 @@ layout: default
 title: Mapping
 parent: Character filters
 nav_order: 120
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/character-filters/mapping-character-filter/
+canonical_url: https://docs.opensearch.org/latest/analyzers/character-filters/mapping-character-filter/
 ---
 
 # Mapping character filter

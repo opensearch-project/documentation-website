@@ -2,7 +2,7 @@
 layout: default
 title: Go client
 nav_order: 50
-canonical_url: https://docs.opensearch.org/docs/latest/clients/go/
+canonical_url: https://docs.opensearch.org/latest/clients/go/
 ---
 
 # Go client

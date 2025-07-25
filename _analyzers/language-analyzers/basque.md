@@ -4,7 +4,7 @@ title: Basque
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 30
-canonical_url: https://docs.opensearch.org/docs/latest/analyzers/language-analyzers/basque/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/basque/
 ---
 
 # Basque analyzer

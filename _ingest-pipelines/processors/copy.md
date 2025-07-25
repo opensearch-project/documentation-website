@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 35
 redirect_from:
    - /api-reference/ingest-apis/processors/copy/
-canonical_url: https://docs.opensearch.org/docs/latest/ingest-pipelines/processors/copy/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/copy/
 ---
 
 This documentation describes using the `copy` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `copy_values` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/copy-values/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.

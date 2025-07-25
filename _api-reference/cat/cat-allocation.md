@@ -6,7 +6,7 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-allocation/
 nav_order: 5
 has_children: false
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/cat/cat-allocation/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-allocation/
 ---
 
 # CAT allocation
