@@ -3,7 +3,7 @@ layout: default
 title: Anomaly detection API
 parent: Anomaly detection
 nav_order: 1
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/ad/api/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/api/
 ---
 
 # Anomaly detection API

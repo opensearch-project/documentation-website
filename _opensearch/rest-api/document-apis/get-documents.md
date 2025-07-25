@@ -4,7 +4,7 @@ title: Get document
 parent: Document APIs
 grand_parent: REST API reference
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/api-reference/document-apis/get-documents/
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/get-documents/
 ---
 
 # Get document

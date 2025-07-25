@@ -3,7 +3,7 @@ layout: default
 title: Metrics Reference
 parent: Performance Analyzer
 nav_order: 3
-canonical_url: https://opensearch.org/docs/latest/monitoring-your-cluster/pa/reference/
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/reference/
 ---
 
 # Metrics reference

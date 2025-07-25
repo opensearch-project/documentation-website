@@ -4,7 +4,7 @@ title: Clone index
 parent: Index APIs
 grand_parent: REST API reference
 nav_order: 70
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/clone/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/clone/
 ---
 
 # Clone index

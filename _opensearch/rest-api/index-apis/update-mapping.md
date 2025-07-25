@@ -4,7 +4,7 @@ title: Update mapping
 parent: Index APIs
 grand_parent: REST API reference
 nav_order: 220
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/put-mapping/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/put-mapping/
 ---
 
 # Update mapping

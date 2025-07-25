@@ -7,7 +7,7 @@ has_toc: false
 redirect_from:
   - /docs/opensearch-dashboards/
   - /dashboards/
-canonical_url: https://opensearch.org/docs/latest/dashboards/
+canonical_url: https://docs.opensearch.org/latest/dashboards/
 ---
 
 {%- comment -%}The `/docs/opensearch-dashboards/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}

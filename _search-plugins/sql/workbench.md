@@ -3,7 +3,7 @@ layout: default
 title: Query Workbench
 parent: SQL
 nav_order: 1
-canonical_url: https://opensearch.org/docs/latest/dashboards/query-workbench/
+canonical_url: https://docs.opensearch.org/latest/dashboards/query-workbench/
 ---
 
 # Query Workbench

@@ -3,7 +3,7 @@ layout: default
 title: Settings
 parent: Anomaly detection
 nav_order: 4
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/ad/settings/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/settings/
 ---
 
 # Settings

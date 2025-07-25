@@ -3,7 +3,7 @@ layout: default
 title: OpenSearch Dashboards multi-tenancy
 parent: Access control
 nav_order: 30
-canonical_url: https://opensearch.org/docs/latest/security/multi-tenancy/tenant-index/
+canonical_url: https://docs.opensearch.org/latest/security/multi-tenancy/tenant-index/
 ---
 
 # OpenSearch Dashboards multi-tenancy

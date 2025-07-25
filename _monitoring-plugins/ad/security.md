@@ -4,7 +4,7 @@ title: Anomaly detection security
 nav_order: 10
 parent: Anomaly detection
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/ad/security/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/security/
 ---
 
 # Anomaly detection security

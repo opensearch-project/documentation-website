@@ -2,7 +2,7 @@
 layout: default
 title: Upgrade from Elasticsearch OSS to OpenSearch
 nav_order: 15
-canonical_url: https://opensearch.org/docs/latest/upgrade-to/upgrade-to/
+canonical_url: https://docs.opensearch.org/latest/upgrade-to/upgrade-to/
 ---
 
 # Upgrade from Elasticsearch OSS to OpenSearch

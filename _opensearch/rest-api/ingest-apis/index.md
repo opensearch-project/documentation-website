@@ -6,7 +6,7 @@ has_children: true
 nav_order: 3
 redirect_from:
   - /opensearch/rest-api/ingest-apis/
-canonical_url: https://opensearch.org/docs/latest/api-reference/ingest-apis/index/
+canonical_url: https://docs.opensearch.org/latest/api-reference/ingest-apis/index/
 ---
 
 # Ingest APIs

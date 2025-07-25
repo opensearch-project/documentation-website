@@ -3,7 +3,7 @@ layout: default
 title: Active Directory and LDAP
 parent: Configuration
 nav_order: 30
-canonical_url: https://opensearch.org/docs/latest/security/authentication-backends/ldap/
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/ldap/
 ---
 
 # Active Directory and LDAP

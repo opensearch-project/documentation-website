@@ -3,7 +3,7 @@ layout: default
 title: Cluster stats
 parent: REST API reference
 nav_order: 65
-canonical_url: https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-stats/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-stats/
 ---
 
 # Cluster stats

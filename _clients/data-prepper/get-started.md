@@ -3,8 +3,8 @@ layout: default
 title: Get Started
 parent: Data Prepper
 nav_order: 1
-canonical_url: https://opensearch.org/docs/latest/data-prepper/getting-started/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/getting-started/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/getting-started/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/getting-started/
 nav_exclude: true
 ---
 
