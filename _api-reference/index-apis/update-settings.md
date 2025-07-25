@@ -3,7 +3,7 @@ layout: default
 title: Update settings
 parent: Index APIs
 nav_order: 120
-canonical_url: https://opensearch.org/docs/latest/api-reference/index-apis/update-settings/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/update-settings/
 ---
 
 # Update settings

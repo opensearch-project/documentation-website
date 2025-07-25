@@ -4,7 +4,7 @@ title: IP address
 nav_order: 30
 has_children: false
 parent: Supported field types
-canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/ip/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/ip/
 ---
 
 # IP address field type

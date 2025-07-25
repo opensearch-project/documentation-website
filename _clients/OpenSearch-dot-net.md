@@ -5,8 +5,8 @@ nav_order: 30
 has_children: false
 parent: .NET clients
 nav_exclude: true
-redirect_to: https://opensearch.org/docs/latest/clients/OpenSearch-dot-net/
-canonical_url: https://opensearch.org/docs/latest/clients/OpenSearch-dot-net/
+redirect_to: https://docs.opensearch.org/latest/clients/OpenSearch-dot-net/
+canonical_url: https://docs.opensearch.org/latest/clients/OpenSearch-dot-net/
 ---
 
 # Low-level .NET client (OpenSearch.Net)

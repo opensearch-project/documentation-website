@@ -4,7 +4,7 @@ title: Stats API
 parent: Shard indexing backpressure
 nav_order: 2
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/stats-api/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/stats-api/
 ---
 
 # Stats API

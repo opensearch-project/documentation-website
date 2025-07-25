@@ -7,7 +7,7 @@ grand_parent: Availability and Recovery
 has_children: false
 redirect_from:
   - /opensearch/snapshots/snapshot-management/
-canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-management/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-management/
 ---
 
 # Snapshot Management

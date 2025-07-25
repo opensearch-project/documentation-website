@@ -4,7 +4,7 @@ title: Compound queries
 parent: Query DSL
 has_children: true
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/query-dsl/compound/index/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/index/
 ---
 
 # Compound queries
