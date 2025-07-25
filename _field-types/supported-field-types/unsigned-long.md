@@ -5,7 +5,7 @@ parent: Numeric field types
 grand_parent: Supported field types
 nav_order: 15
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/unsigned-long/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/unsigned-long/
 ---
 
 # Unsigned long field type

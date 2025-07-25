@@ -2,7 +2,7 @@
 layout: default
 title: Metric analytics
 nav_order: 40
-canonical_url: https://opensearch.org/docs/latest/observing-your-data/prometheusmetrics/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/prometheusmetrics/
 ---
 
 # Metric analytics

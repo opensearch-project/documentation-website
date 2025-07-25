@@ -3,7 +3,7 @@ layout: default
 title: Geopolygon
 parent: Geographic and xy queries
 nav_order: 30
-canonical_url: https://opensearch.org/docs/latest/query-dsl/geo-and-xy/geopolygon/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/geo-and-xy/geopolygon/
 ---
 
 # Geopolygon query

@@ -2,7 +2,7 @@
 layout: default
 title: Troubleshoot securityadmin.sh
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/troubleshoot/security-admin/
+canonical_url: https://docs.opensearch.org/latest/troubleshoot/security-admin/
 ---
 
 # securityadmin.sh Troubleshooting
@@ -93,7 +93,7 @@ Connected as CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE
 ERR: CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE is not an admin user
 ```
 
-You must use an admin certificate when executing the script. To learn more, see  [Configuring super admin certificates](https://opensearch.org/docs/latest/security/configuration/tls/#configuring-admin-certificates).
+You must use an admin certificate when executing the script. To learn more, see  [Configuring super admin certificates](https://docs.opensearch.org/latest/security/configuration/tls/#configuring-admin-certificates).
 
 ## Use the diagnose option
 

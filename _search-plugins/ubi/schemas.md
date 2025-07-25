@@ -4,7 +4,7 @@ title: UBI index schemas
 parent: User Behavior Insights
 has_children: false
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/search-plugins/ubi/schemas/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ubi/schemas/
 ---
 
 # UBI index schemas

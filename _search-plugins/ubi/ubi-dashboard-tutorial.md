@@ -4,7 +4,7 @@ title: UBI dashboard tutorial
 parent: User Behavior Insights
 has_children: false
 nav_order: 25
-canonical_url: https://opensearch.org/docs/latest/search-plugins/ubi/ubi-dashboard-tutorial/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ubi/ubi-dashboard-tutorial/
 ---
 
 

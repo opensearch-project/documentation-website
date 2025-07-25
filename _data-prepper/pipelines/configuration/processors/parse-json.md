@@ -4,7 +4,7 @@ title: parse_json
 parent: Processors
 grand_parent: Pipelines
 nav_order: 80
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/parse-json/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/parse-json/
 ---
 
 # parse_json

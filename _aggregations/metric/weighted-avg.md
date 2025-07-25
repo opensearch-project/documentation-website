@@ -3,7 +3,7 @@ layout: default
 title: Weighted average
 parent: Metric aggregations
 nav_order: 150
-canonical_url: https://opensearch.org/docs/latest/aggregations/metric/weighted-avg/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/weighted-avg/
 ---
 
 # Weighted average

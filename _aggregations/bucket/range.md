@@ -6,7 +6,7 @@ nav_order: 150
 redirect_from:
   - /query-dsl/aggregations/bucket/date-range/
   - /query-dsl/aggregations/bucket/range/
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/range/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/range/
 ---
 
 # Range aggregations

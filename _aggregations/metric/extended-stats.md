@@ -5,7 +5,7 @@ parent: Metric aggregations
 nav_order: 30
 redirect_from:
   - /query-dsl/aggregations/metric/extended-stats/
-canonical_url: https://opensearch.org/docs/latest/aggregations/metric/extended-stats/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/extended-stats/
 ---
 
 # Extended stats aggregations

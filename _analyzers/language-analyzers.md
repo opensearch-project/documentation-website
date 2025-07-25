@@ -5,7 +5,7 @@ nav_order: 100
 parent: Analyzers
 redirect_from:
   - /query-dsl/analyzers/language-analyzers/
-canonical_url: https://opensearch.org/docs/latest/analyzers/language-analyzers/
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/
 ---
 
 # Language analyzers

@@ -5,7 +5,7 @@ parent: Connecting Amazon S3 to OpenSearch
 grand_parent: Data sources
 nav_order: 15
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/accelerate-external-data/
 ---
 
 # Optimizing query performance using OpenSearch indexing
@@ -64,7 +64,7 @@ WITH (
 
 ## Materialized views
 
-With _materialized views_, you can use complex queries, such as aggregations, to power Dashboards visualizations. Materialized views ingest a small amount of your data, depending on the query, into OpenSearch. OpenSearch then forms an index from the ingested data that you can use for visualizations. You can manage the materialized view index with Index State Management. For more information, see [Index State Management](https://opensearch.org/docs/latest/im-plugin/ism/index/).
+With _materialized views_, you can use complex queries, such as aggregations, to power Dashboards visualizations. Materialized views ingest a small amount of your data, depending on the query, into OpenSearch. OpenSearch then forms an index from the ingested data that you can use for visualizations. You can manage the materialized view index with Index State Management. For more information, see [Index State Management](https://docs.opensearch.org/latest/im-plugin/ism/index/).
 
 ### Define materialized view settings
 

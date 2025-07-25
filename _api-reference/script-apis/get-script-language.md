@@ -3,7 +3,7 @@ layout: default
 title: Get Script Language
 parent: Script APIs
 nav_order: 6
-canonical_url: https://opensearch.org/docs/latest/api-reference/script-apis/get-script-language/
+canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/get-script-language/
 ---
 
 # Get script language

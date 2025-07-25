@@ -5,7 +5,7 @@ parent: Access control
 nav_order: 120
 redirect_from: 
  - /security-plugin/access-control/api/
-canonical_url: https://opensearch.org/docs/latest/security/access-control/api/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/api/
 ---
 
 # API

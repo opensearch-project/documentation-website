@@ -3,7 +3,7 @@ layout: default
 title: Fingerprint
 parent: Ingest processors
 nav_order: 105
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/fingerprint/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/fingerprint/
 ---
 
 # Fingerprint processor

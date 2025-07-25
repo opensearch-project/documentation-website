@@ -5,7 +5,7 @@ parent: Metric aggregations
 nav_order: 70
 redirect_from:
   - /query-dsl/aggregations/metric/minimum/
-canonical_url: https://opensearch.org/docs/latest/aggregations/metric/minimum/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/minimum/
 ---
 
 # Minimum aggregations

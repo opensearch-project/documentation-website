@@ -5,7 +5,7 @@ parent: Bucket aggregations
 nav_order: 50
 redirect_from:
   - /query-dsl/aggregations/bucket/filter/
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/filter/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/filter/
 ---
 
 # Filter aggregations

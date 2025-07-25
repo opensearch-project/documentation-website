@@ -6,7 +6,7 @@ nav_order: 60
 has_math: true
 redirect_from:
   - /query-dsl/query-dsl/compound/function-score/
-canonical_url: https://opensearch.org/docs/latest/query-dsl/compound/function-score/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/function-score/
 ---
 
 # Function score query

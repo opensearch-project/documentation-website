@@ -4,7 +4,7 @@ title: map_to_list
 parent: Processors
 grand_parent: Pipelines
 nav_order: 63
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/map-to-list/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/map-to-list/
 ---
 
 # map_to_list
@@ -24,7 +24,7 @@ Option | Required | Type | Description
 `exclude_keys` | No | List | The keys in the source map that will be excluded from processing. Default is an empty list (`[]`).
 `remove_processed_fields` | No | Boolean | When `true`, the processor will remove the processed fields from the source map. Default is `false`.
 `convert_field_to_list` | No | Boolean | If `true`, the processor will convert the fields from the source map into lists and place them in fields in the target list. Default is `false`.
-`map_to_list_when` | No | String | A [conditional expression](https://opensearch.org/docs/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. Default is `null`. All events will be processed unless otherwise stated.
+`map_to_list_when` | No | String | A [conditional expression](https://docs.opensearch.org/latest/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. Default is `null`. All events will be processed unless otherwise stated.
 `tags_on_failure` | No | List | A list of tags to add to the event metadata when the event fails to process.
 
 ## Usage

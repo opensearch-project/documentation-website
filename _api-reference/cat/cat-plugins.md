@@ -7,7 +7,7 @@ nav_order: 50
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-plugins/
-canonical_url: https://opensearch.org/docs/latest/api-reference/cat/cat-plugins/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-plugins/
 ---
 
 # CAT plugins

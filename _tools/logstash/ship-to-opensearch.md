@@ -5,7 +5,7 @@ parent: Logstash
 nav_order: 220
 redirect_from:
  - /clients/logstash/ship-to-opensearch/
-canonical_url: https://opensearch.org/docs/latest/tools/logstash/ship-to-opensearch/
+canonical_url: https://docs.opensearch.org/latest/tools/logstash/ship-to-opensearch/
 ---
 
 # Ship events to OpenSearch
@@ -159,7 +159,7 @@ The following list provides details on the credential resolution logic:
 The OpenSearch output plugin can store both time series datasets (such as logs, events, and metrics) and non-time series data in OpenSearch.
 The data stream is recommended to index time series datasets (such as logs, metrics, and events) into OpenSearch.
 
-To learn more about data streams, see the [data stream documentation](https://opensearch.org/docs/latest/opensearch/data-streams/).
+To learn more about data streams, see the [data stream documentation](https://docs.opensearch.org/latest/opensearch/data-streams/).
 
 To ingest data into a data stream through Logstash, create the data stream and specify the name of the data stream and set the `action` setting to `create`, as shown in the following example configuration:
 
