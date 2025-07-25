@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 20
 redirect_from:
    - /api-reference/ingest-apis/processors/bytes/
-canonical_url: https://opensearch.org/docs/latest/ingest-pipelines/processors/bytes/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/bytes/
 ---
 
 # Bytes processor

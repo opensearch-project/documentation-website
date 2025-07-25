@@ -7,7 +7,7 @@ parent: Availability and recovery
 redirect_from: 
   - /opensearch/remote/
   - /tuning-your-cluster/availability-and-recovery/remote/
-canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/index/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/remote-store/index/
 ---
 
 # Remote-backed storage
@@ -106,7 +106,7 @@ You can use remote-backed storage to:
 
 ## Benchmarks
 
-The OpenSearch Project has run remote store using multiple workload options available within the [OpenSearch Benchmark](https://opensearch.org/docs/latest/benchmark/index/) tool. This section summarizes the benchmark results for the following workloads: 
+The OpenSearch Project has run remote store using multiple workload options available within the [OpenSearch Benchmark](https://docs.opensearch.org/latest/benchmark/index/) tool. This section summarizes the benchmark results for the following workloads: 
 
 - [StackOverflow](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/so)
 - [HTTP logs](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/http_logs)

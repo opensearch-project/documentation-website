@@ -3,7 +3,7 @@ layout: default
 title: Working with alerts
 parent: Using Security Analytics
 nav_order: 46
-canonical_url: https://opensearch.org/docs/latest/security-analytics/usage/alerts/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/usage/alerts/
 ---
 
 # Working with alerts

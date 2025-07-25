@@ -3,7 +3,7 @@ layout: default
 title: Security Analytics settings
 nav_order: 100
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/security-analytics/settings/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/settings/
 ---
 
 # Security Analytics settings

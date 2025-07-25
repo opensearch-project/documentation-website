@@ -3,7 +3,7 @@ layout: default
 title: Integrating ML models
 nav_order: 15
 has_children: true
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/integrating-ml-models/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/integrating-ml-models/
 ---
 
 # Integrating ML models

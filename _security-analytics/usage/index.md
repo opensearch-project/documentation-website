@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /security-analytics/usage/
-canonical_url: https://opensearch.org/docs/latest/security-analytics/usage/index/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/usage/index/
 ---
 
 # Using Security Analytics

@@ -4,7 +4,7 @@ title: Neural sparse
 parent: Specialized queries
 grand_parent: Query DSL
 nav_order: 55
-canonical_url: https://opensearch.org/docs/latest/query-dsl/specialized/neural-sparse/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/neural-sparse/
 ---
 
 # Neural sparse query

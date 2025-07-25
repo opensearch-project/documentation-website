@@ -6,7 +6,7 @@ has_children: true
 nav_order: 15
 redirect_from:
   - /dashboards/geojson-regionmaps/
-canonical_url: https://opensearch.org/docs/latest/dashboards/visualize/geojson-regionmaps/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/geojson-regionmaps/
 ---
 
 # Using coordinate and region maps
