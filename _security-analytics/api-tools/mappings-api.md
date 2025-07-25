@@ -3,7 +3,7 @@ layout: default
 title: Mappings APIs
 parent: API tools
 nav_order: 45
-canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/api-tools/mappings-api/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/api-tools/mappings-api/
 ---
 
 # Mappings APIs

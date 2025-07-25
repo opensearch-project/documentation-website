@@ -7,7 +7,7 @@ grand_parent: Availability and recovery
 has_children: false
 redirect_from: 
   - /opensearch/stats-api/
-canonical_url: https://docs.opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/stats-api/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/stats-api/
 ---
 
 # Stats API

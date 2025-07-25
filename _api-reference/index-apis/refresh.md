@@ -3,7 +3,7 @@ layout: default
 title: Refresh index
 parent: Index APIs
 nav_order: 61
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/index-apis/refresh/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/refresh/
 ---
 
 # Refresh index 

@@ -4,7 +4,7 @@ title: Get task
 parent: Tasks APIs
 grand_parent: ML Commons APIs
 nav_order: 10
-canonical_url: https://docs.opensearch.org/docs/latest/ml-commons-plugin/api/tasks-apis/get-task/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/tasks-apis/get-task/
 ---
 
 # Get task

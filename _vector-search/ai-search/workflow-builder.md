@@ -5,7 +5,7 @@ parent: AI search
 nav_order: 80
 redirect_from:
    - /automating-configurations/workflow-builder/
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/ai-search/workflow-builder/
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflow-builder/
 ---
 
 # Building AI search workflows in OpenSearch Dashboards

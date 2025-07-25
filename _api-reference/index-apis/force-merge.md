@@ -3,7 +3,7 @@ layout: default
 title: Force merge
 parent: Index APIs
 nav_order: 37
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/index-apis/force-merge/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/force-merge/
 ---
 
 # Force merge

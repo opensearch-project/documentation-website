@@ -5,7 +5,7 @@ nav_order: 20
 parent: Monitors
 grand_parent: Alerting
 has_children: false
-canonical_url: https://docs.opensearch.org/docs/latest/observing-your-data/alerting/per-document-monitors/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/per-document-monitors/
 ---
 
 # Per document monitors

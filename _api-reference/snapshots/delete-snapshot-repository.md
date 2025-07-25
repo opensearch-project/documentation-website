@@ -3,7 +3,7 @@ layout: default
 title: Delete Snapshot Repository
 parent: Snapshot APIs
 nav_order: 3
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/snapshots/delete-snapshot-repository/
+canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/delete-snapshot-repository/
 ---
 
 # Delete snapshot repository configuration

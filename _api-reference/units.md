@@ -4,7 +4,7 @@ title: Supported units
 nav_order: 90
 redirect_from:
   - /opensearch/units/
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/units/
+canonical_url: https://docs.opensearch.org/latest/api-reference/units/
 ---
 
 # Supported units

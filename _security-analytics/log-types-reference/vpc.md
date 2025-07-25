@@ -3,7 +3,7 @@ layout: default
 title: VPC Flow
 parent: Supported log types
 nav_order: 90
-canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/log-types-reference/vpc/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/log-types-reference/vpc/
 ---
 
 # VPC Flow

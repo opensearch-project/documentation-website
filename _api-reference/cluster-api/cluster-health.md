@@ -7,7 +7,7 @@ has_children: false
 redirect_from: 
  - /api-reference/cluster-health/
  - /opensearch/rest-api/cluster-health/
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/cluster-api/cluster-health/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-health/
 ---
 
 # Cluster health

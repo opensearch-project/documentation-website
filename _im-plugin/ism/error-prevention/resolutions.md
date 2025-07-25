@@ -4,7 +4,7 @@ title: ISM Error Prevention resolutions
 parent: ISM Error Prevention
 grand_parent: Index State Management
 nav_order: 5
-canonical_url: https://docs.opensearch.org/docs/latest/im-plugin/ism/error-prevention/resolutions/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/ism/error-prevention/resolutions/
 ---
 
 # ISM error prevention resolutions

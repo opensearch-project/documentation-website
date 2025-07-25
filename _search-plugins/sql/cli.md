@@ -5,7 +5,7 @@ parent: SQL and PPL
 nav_order: 3
 redirect_from:
  - /search-plugins/sql/cli/
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/sql/cli/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/cli/
 ---
 
 # SQL and PPL CLI

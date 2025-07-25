@@ -5,7 +5,7 @@ parent: Metric aggregations
 nav_order: 65
 redirect_from:
   - /query-dsl/aggregations/metric/median-absolute-deviation/
-canonical_url: https://docs.opensearch.org/docs/latest/aggregations/metric/median-absolute-deviation/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/median-absolute-deviation/
 ---
 
 # Median absolute deviation aggregations

@@ -3,7 +3,7 @@ layout: default
 title: Rule APIs
 parent: API tools
 nav_order: 40
-canonical_url: https://docs.opensearch.org/docs/latest/security-analytics/api-tools/rule-api/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/api-tools/rule-api/
 ---
 
 # Rule APIs

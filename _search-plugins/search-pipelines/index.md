@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /search-plugins/search-pipelines/
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/search-pipelines/index/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/index/
 ---
 
 # Search pipelines

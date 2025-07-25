@@ -2,7 +2,7 @@
 layout: default
 title: Using snapshots to migrate data
 nav_order: 5
-canonical_url: https://docs.opensearch.org/docs/latest/upgrade-to/snapshot-migrate/
+canonical_url: https://docs.opensearch.org/latest/upgrade-to/snapshot-migrate/
 ---
 
 # Using snapshots to migrate data

@@ -3,7 +3,7 @@ layout: default
 title: Get Stored Script Contexts
 parent: Script APIs
 nav_order: 5
-canonical_url: https://docs.opensearch.org/docs/latest/api-reference/script-apis/get-script-contexts/
+canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/get-script-contexts/
 ---
 
 # Get stored script contexts

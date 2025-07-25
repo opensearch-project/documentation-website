@@ -3,7 +3,7 @@ layout: default
 title: Wildcard
 parent: Term-level queries
 nav_order: 100
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/term/wildcard/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/wildcard/
 ---
 
 # Wildcard query

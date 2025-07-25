@@ -5,7 +5,7 @@ nav_order: 10
 redirect_from:
   - /query-dsl/query-dsl/term-vs-full-text/
   - /opensearch/query-dsl/term-vs-full-text/
-canonical_url: https://docs.opensearch.org/docs/latest/query-dsl/term-vs-full-text/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term-vs-full-text/
 ---
 
 # Term-level and full-text queries compared

@@ -3,7 +3,7 @@ layout: default
 title: Dynamic configuration in OpenSearch Dashboards
 parent: OpenSearch Dashboards multi-tenancy
 nav_order: 147
-canonical_url: https://docs.opensearch.org/docs/latest/security/multi-tenancy/dynamic-config/
+canonical_url: https://docs.opensearch.org/latest/security/multi-tenancy/dynamic-config/
 ---
 
 

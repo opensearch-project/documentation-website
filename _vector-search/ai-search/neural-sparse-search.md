@@ -8,7 +8,7 @@ redirect_from:
   - /search-plugins/neural-sparse-search/
   - /search-plugins/sparse-search/
   - /search-plugins/neural-sparse-search/
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/ai-search/neural-sparse-search/
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/neural-sparse-search/
 ---
 
 # Neural sparse search

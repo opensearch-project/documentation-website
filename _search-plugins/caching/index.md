@@ -4,7 +4,7 @@ title: Caching
 parent: Improving search performance
 has_children: true
 nav_order: 100
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/caching/index/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/caching/index/
 ---
 
 # Caching

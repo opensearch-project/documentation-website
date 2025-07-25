@@ -4,7 +4,7 @@ title: Buffers
 parent: Pipelines
 has_children: true
 nav_order: 30
-canonical_url: https://docs.opensearch.org/docs/latest/data-prepper/pipelines/configuration/buffers/buffers/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/buffers/buffers/
 ---
 
 # Buffers

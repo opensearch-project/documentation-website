@@ -6,7 +6,7 @@ has_children: true
 redirect_from:
   - /search-plugins/knn/filter-search-knn/ 
   - /vector-search/filter-search-knn/
-canonical_url: https://docs.opensearch.org/docs/latest/vector-search/filter-search-knn/index/
+canonical_url: https://docs.opensearch.org/latest/vector-search/filter-search-knn/index/
 ---
 
 # Filtering data

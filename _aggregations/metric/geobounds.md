@@ -5,7 +5,7 @@ parent: Metric aggregations
 nav_order: 40
 redirect_from:
   - /query-dsl/aggregations/metric/geobounds/
-canonical_url: https://docs.opensearch.org/docs/latest/aggregations/metric/geobounds/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/geobounds/
 ---
 
 # Geobounds aggregation

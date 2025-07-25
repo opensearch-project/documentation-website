@@ -4,7 +4,7 @@ title: Settings
 parent: Asynchronous search
 grand_parent: Improving search performance
 nav_order: 4
-canonical_url: https://docs.opensearch.org/docs/latest/search-plugins/async/settings/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/async/settings/
 ---
 
 # Asynchronous Search settings
