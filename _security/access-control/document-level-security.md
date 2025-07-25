@@ -3,7 +3,7 @@ layout: default
 title: Document-level security
 parent: Access control
 nav_order: 85
-canonical_url: https://opensearch.org/docs/latest/security/access-control/document-level-security/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/document-level-security/
 ---
 
 # Document-level security (DLS)

@@ -4,7 +4,7 @@ title: About ML Commons
 nav_order: 1
 has_children: false
 has_toc: false
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/
 ---
 
 # ML Commons plugin

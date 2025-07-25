@@ -6,8 +6,8 @@ grand_parent: Pipelines
 nav_order: 45
 redirect_from: 
  - /data-prepper/pipelines/configuration/processors/otel-trace-raw/
-canonical_url: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/otel-trace-raw/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/pipelines/configuration/processors/otel-trace-raw/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/otel-trace-raw/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/otel-trace-raw/
 ---
 
 # otel_trace_raw

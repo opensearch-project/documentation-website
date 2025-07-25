@@ -4,7 +4,7 @@ title: Pipeline aggregations
 parent: Aggregations
 nav_order: 4
 has_children: false
-canonical_url: https://opensearch.org/docs/latest/aggregations/pipeline-agg/
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline-agg/
 ---
 
 # Pipeline aggregations

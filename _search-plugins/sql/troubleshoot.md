@@ -3,7 +3,7 @@ layout: default
 title: Troubleshooting
 parent: SQL and PPL
 nav_order: 88
-canonical_url: https://opensearch.org/docs/latest/search-plugins/sql/troubleshoot/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/troubleshoot/
 ---
 
 # Troubleshooting

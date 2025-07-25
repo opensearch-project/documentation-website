@@ -2,7 +2,7 @@
 layout: default
 title: Mapping
 nav_order: 13
-canonical_url: https://opensearch.org/docs/latest/field-types/
+canonical_url: https://docs.opensearch.org/latest/field-types/
 ---
 
 # Mapping

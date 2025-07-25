@@ -3,7 +3,7 @@ layout: default
 title: OpenID Connect
 parent: Authentication backends
 nav_order: 50
-canonical_url: https://opensearch.org/docs/latest/security/authentication-backends/openid-connect/
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/openid-connect/
 ---
 
 # OpenID Connect

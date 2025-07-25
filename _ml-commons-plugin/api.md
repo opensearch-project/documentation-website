@@ -3,7 +3,7 @@ layout: default
 title: API
 has_children: false
 nav_order: 99
-canonical_url: https://opensearch.org/docs/latest/ml-commons-plugin/api/index/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/index/
 ---
 
 # ML Commons API 

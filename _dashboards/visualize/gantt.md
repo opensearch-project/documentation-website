@@ -5,7 +5,7 @@ parent: Building data visualizations
 nav_order: 30
 redirect_from:
   - /dashboards/gantt/
-canonical_url: https://opensearch.org/docs/latest/dashboards/visualize/gantt/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/gantt/
 ---
 
 # Gantt charts

@@ -3,8 +3,8 @@ layout: default
 title: Peer forwarder
 parent: Managing Data Prepper
 nav_order: 10
-canonical_url: https://opensearch.org/docs/latest/data-prepper/managing-data-prepper/peer-forwarder/
-redirect_to: https://opensearch.org/docs/latest/data-prepper/managing-data-prepper/peer-forwarder/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/managing-data-prepper/peer-forwarder/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/managing-data-prepper/peer-forwarder/
 ---
 
 # Peer forwarder

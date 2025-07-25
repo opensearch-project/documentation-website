@@ -4,7 +4,7 @@ title: Creating a cluster
 nav_order: 8
 redirect_from: 
   - /opensearch/cluster/
-canonical_url: https://opensearch.org/docs/latest/tuning-your-cluster/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/
 ---
 
 # Creating a cluster

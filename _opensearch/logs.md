@@ -2,7 +2,7 @@
 layout: default
 title: Logs
 nav_order: 60
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/configuring-opensearch/logs/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/logs/
 ---
 
 # Logs

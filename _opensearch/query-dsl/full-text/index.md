@@ -4,7 +4,7 @@ title: Full-text queries
 parent: Query DSL
 has_children: true
 nav_order: 30
-canonical_url: https://opensearch.org/docs/latest/query-dsl/full-text/index/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/full-text/index/
 ---
 
 # Full-text queries

@@ -3,7 +3,7 @@ layout: default
 title: Adding multiple data sources
 parent: Exploring data
 nav_order: 5
-canonical_url: https://opensearch.org/docs/latest/dashboards/management/multi-data-sources/
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/multi-data-sources/
 ---
 
 # Adding multiple data sources
