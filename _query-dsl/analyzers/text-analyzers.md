@@ -7,7 +7,7 @@ permalink: /analyzers/text-analyzers/
 redirect_from: 
   - /opensearch/query-dsl/text-analyzers/
   - /query-dsl/analyzers/text-analyzers/
-canonical_url: https://opensearch.org/docs/latest/analyzers/
+canonical_url: https://docs.opensearch.org/latest/analyzers/
 ---
 
 

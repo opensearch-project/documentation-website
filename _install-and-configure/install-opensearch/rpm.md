@@ -3,7 +3,7 @@ layout: default
 title: RPM
 parent: Installing OpenSearch
 nav_order: 51
-canonical_url: https://opensearch.org/docs/latest/install-and-configure/install-opensearch/rpm/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/rpm/
 ---
 
 {% comment %}

@@ -7,7 +7,7 @@ has_toc: false
 redirect_from:
   - /opensearch/supported-field-types/
   - /opensearch/supported-field-types/index/
-canonical_url: https://opensearch.org/docs/latest/field-types/supported-field-types/index/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/index/
 ---
 
 # Supported field types

@@ -6,7 +6,7 @@ permalink: /aggregations/bucket-agg/
 nav_order: 3
 redirect_from:
   - /opensearch/bucket-agg/
-canonical_url: https://opensearch.org/docs/latest/aggregations/bucket/index/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/index/
 ---
 
 # Bucket aggregations
@@ -84,7 +84,7 @@ While the `doc_count` field provides a representation of the number of individua
 * The field does not support nested arrays; only positive integers can be used.
 * If a document does not contain the `_doc_count` field, aggregation uses the document to increase the count by 1.
 
-OpenSearch features that rely on an accurate document count illustrate the importance of using the `_doc_count` field. To see how this field can be used to support other search tools, refer to [Index rollups](https://opensearch.org/docs/latest/im-plugin/index-rollups/index/), an OpenSearch feature for the Index Management (IM) plugin that stores documents with pre-aggregated data in rollup indexes.
+OpenSearch features that rely on an accurate document count illustrate the importance of using the `_doc_count` field. To see how this field can be used to support other search tools, refer to [Index rollups](https://docs.opensearch.org/latest/im-plugin/index-rollups/index/), an OpenSearch feature for the Index Management (IM) plugin that stores documents with pre-aggregated data in rollup indexes.
 {: .tip}
 
 ### Example usage

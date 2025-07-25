@@ -4,7 +4,7 @@ title: Search
 nav_order: 75
 redirect_from:
   - /opensearch/rest-api/search/
-canonical_url: https://opensearch.org/docs/latest/api-reference/search/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search/
 ---
 
 # Search
