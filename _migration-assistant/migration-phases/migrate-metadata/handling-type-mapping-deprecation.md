@@ -1,15 +1,18 @@
 ---
 layout: default
-title: Managing type mapping deprecation
+title: Transform type mappings
 nav_order: 1
-parent: Migrate Metadata
+parent: Migrate metadata
 grand_parent: Migration phases
 permalink: /migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/
 redirect_from:
   - /migration-assistant/migration-phases/assessment/handling-type-mapping-deprecation/
 ---
 
-# Managing type mapping deprecation
+# Transform type mappings
+
+{: .note }
+These transformations may not apply to your use case, but the framework for creating a transformation is designed to handle mutations, data enrichments, and other modifications when moving or modifying workloads to a new target.
 
 This guide provides solutions for managing the deprecation of the type mapping functionality when migrating from Elasticsearch 6.x or earlier to OpenSearch.
 

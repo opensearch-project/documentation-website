@@ -150,105 +150,58 @@ layout: table_wrappers
     <div class="main">
       <div id="main-content-wrap" class="main-content-wrap">
         {% unless page.url == "/" %}
-          {% comment %} Don't show breadcrumbs for collection index pages {% endcomment %}
-          {% assign is_collection_index = false %}
-          {% if page.collection %}
-            {% assign collection_index_url = "/" | append: page.collection | append: "/" %}
-            {% if page.url == collection_index_url %}
-              {% assign is_collection_index = true %}
-            {% endif %}
+          {% if page.parent %}
+            <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+              <ol class="breadcrumb-nav-list">
+                {% if page.grand_parent %}
+                  {%- comment -%}Find URLs for 4-level breadcrumb{%- endcomment -%}
+                  {%- assign all_pages = site.pages -%}
+                  {%- if page.section == "migration-assistant" -%}
+                    {%- assign all_pages = all_pages | concat: site.migration-assistant -%}
+                  {%- endif -%}
+                  
+                  {%- assign grandparent_url = "" -%}
+                  {%- assign parent_url = "" -%}
+                  
+                  {%- for p in all_pages -%}
+                    {%- if p.title == page.grand_parent -%}
+                      {%- assign grandparent_url = p.url | absolute_url -%}
+                    {%- elsif p.title == page.parent -%}
+                      {%- assign parent_url = p.url | absolute_url -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  
+                  {%- comment -%}Find great-grandparent by looking at grandparent's parent{%- endcomment -%}
+                  {%- assign great_grandparent_url = "" -%}
+                  {%- assign great_grandparent_title = "" -%}
+                  {%- for p in all_pages -%}
+                    {%- if p.title == page.grand_parent and p.parent -%}
+                      {%- assign great_grandparent_title = p.parent -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  
+                  {%- if great_grandparent_title != "" -%}
+                    {%- for p in all_pages -%}
+                      {%- if p.title == great_grandparent_title -%}
+                        {%- assign great_grandparent_url = p.url | absolute_url -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+                  
+                  {%- if great_grandparent_title != "" and great_grandparent_url != "" -%}
+                    <li class="breadcrumb-nav-list-item"><a href="{{ great_grandparent_url }}">{{ great_grandparent_title }}</a></li>
+                  {%- endif -%}
+                  <li class="breadcrumb-nav-list-item"><a href="{{ grandparent_url }}">{{ page.grand_parent }}</a></li>
+                  <li class="breadcrumb-nav-list-item"><a href="{{ parent_url }}">{{ page.parent }}</a></li>
+                {% else %}
+                  <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.parent }}</a></li>
+                {% endif %}
+                <li class="breadcrumb-nav-list-item"><span>{{ page.title }}</span></li>
+              </ol>
+            </nav>
           {% endif %}
-
-          {% unless is_collection_index %}
-            {% if page.collection or page.parent %}
-              <nav aria-label="Breadcrumb" class="breadcrumb-nav">
-                <ol class="breadcrumb-nav-list">
-                  {% comment %} Add collection as first level {% endcomment %}
-                  {% if page.collection %}
-                    {% assign collection_config = nil %}
-                    {% if page.section == "opensearch" %}
-                      {% assign collection_config = site.opensearch_collection.collections[page.collection] %}
-                    {% elsif page.section == "data-prepper" %}
-                      {% assign collection_config = site.data_prepper_collection.collections[page.collection] %}
-                    {% elsif page.section == "clients" %}
-                      {% assign collection_config = site.clients_collection.collections[page.collection] %}
-                    {% elsif page.section == "benchmark" %}
-                      {% assign collection_config = site.benchmark_collection.collections[page.collection] %}
-                    {% elsif page.section == "migration-assistant" %}
-                      {% assign collection_config = site.migration_assistant_collection.collections[page.collection] %}
-                    {% else %}
-                      {% comment %} Fallback: try opensearch collection first {% endcomment %}
-                      {% assign collection_config = site.opensearch_collection.collections[page.collection] %}
-                    {% endif %}
-                    
-                    {% comment %} Only show collection breadcrumb if it's different from current page title {% endcomment %}
-                    {% if collection_config and collection_config.name != page.title %}
-                      <li class="breadcrumb-nav-list-item">
-                        <a href="{{site.url}}{{site.baseurl}}/{{ page.collection }}/">{{ collection_config.name }}</a>
-                      </li>
-                    {% endif %}
-                  {% endif %}
-
-                  {% if page.parent %}
-                    {% comment %} Find the parent page {% endcomment %}
-                    {% assign parent_page = nil %}
-                    {% assign grand_parent_page = nil %}
-                    
-                    {% comment %} Look for parent in the same collection {% endcomment %}
-                    {% if page.collection %}
-                      {% assign collection_pages = site[page.collection] %}
-                      {% for p in collection_pages %}
-                        {% if p.title == page.parent %}
-                          {% assign parent_page = p %}
-                          {% break %}
-                        {% endif %}
-                      {% endfor %}
-                    {% else %}
-                      {% comment %} Look for parent in site pages {% endcomment %}
-                      {% for p in site.pages %}
-                        {% if p.title == page.parent %}
-                          {% assign parent_page = p %}
-                          {% break %}
-                        {% endif %}
-                      {% endfor %}
-                    {% endif %}
-                    
-                    {% comment %} If we have a grand parent, find that too {% endcomment %}
-                    {% if page.grand_parent and parent_page %}
-                      {% if page.collection %}
-                        {% assign collection_pages = site[page.collection] %}
-                        {% for p in collection_pages %}
-                          {% if p.title == page.grand_parent %}
-                            {% assign grand_parent_page = p %}
-                            {% break %}
-                          {% endif %}
-                        {% endfor %}
-                      {% else %}
-                        {% for p in site.pages %}
-                          {% if p.title == page.grand_parent %}
-                            {% assign grand_parent_page = p %}
-                            {% break %}
-                          {% endif %}
-                        {% endfor %}
-                      {% endif %}
-                    {% endif %}
-                    
-                    {% if page.grand_parent and grand_parent_page and parent_page %}
-                      <li class="breadcrumb-nav-list-item"><a href="{{ grand_parent_page.url | relative_url }}">{{ page.grand_parent }}</a></li>
-                      <li class="breadcrumb-nav-list-item"><a href="{{ parent_page.url | relative_url }}">{{ page.parent }}</a></li>
-                    {% elsif parent_page %}
-                      <li class="breadcrumb-nav-list-item"><a href="{{ parent_page.url | relative_url }}">{{ page.parent }}</a></li>
-                    {% else %}
-                      {% comment %} Fallback: show parent name without link if page not found {% endcomment %}
-                      <li class="breadcrumb-nav-list-item"><span>{{ page.parent }}</span></li>
-                    {% endif %}
-                  {% endif %}
-
-                  <li class="breadcrumb-nav-list-item"><span>{{ page.title }}</span></li>
-                </ol>
-              </nav>
-            {% endif %}
-          {% endunless %}
         {% endunless %}
         <div id="main-content" class="main-content" role="main">
           {% if page.section == "opensearch" %}
@@ -317,7 +270,6 @@ layout: table_wrappers
 
         </div>
       </div>
-      {% unless page.has_toc == false %}
       <div class="toc-wrap">
         <div class="sticky-wrap">
           <div class="toc">
@@ -326,7 +278,6 @@ layout: table_wrappers
           {% include feedback.html %}
         </div>
       </div>
-      {% endunless %}
       {% if site.search_enabled != false %}
         {% if site.search.button %}
           <a href="#" id="search-button" class="search-button">

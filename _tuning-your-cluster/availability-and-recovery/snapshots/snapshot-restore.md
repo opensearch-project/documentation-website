@@ -8,6 +8,7 @@ has_children: false
 grand_parent: Availability and recovery
 redirect_from: 
   - /opensearch/snapshots/snapshot-restore/
+  - /upgrade-to/snapshot-migrate/
   - /opensearch/snapshot-restore/
   - /availability-and-recovery/snapshots/snapshot-restore/
 ---

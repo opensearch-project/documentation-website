@@ -1,7 +1,7 @@
 ---
 layout: default
 title: IAM and security groups for existing clusters
-nav_order: 4
+nav_order: 2
 grand_parent: Migration phases
 parent: Deploy
 permalink: /migration-assistant/migration-phases/deploy/iam-and-security-groups-for-existing-clusters/

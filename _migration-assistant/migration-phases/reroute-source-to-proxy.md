@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Reroute Client Traffic
+title: Reroute client traffic
 nav_order: 3
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
 ---
 
-# Reroute Client Traffic
+# Reroute client traffic to Traffic Capture Proxy
 
 **Note:** This page is only relevant if you are using Capture-and-Replay to avoid downtime during a migration. If you are only performing backfill migration or can tolerate downtime, you can skip this step.
 {: .note}

@@ -2,7 +2,6 @@
 layout: default
 title: Migration phases
 parent: Migration Assistant for OpenSearch
-grand_parent: Migrate or upgrade
 nav_order: 40
 nav_exclude: false
 has_children: true
@@ -75,7 +74,7 @@ This page outlines the core phases of migrating with Migration Assistant. There 
       <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/verifying-live-capture-components/">Verify Live Capture Components</a></li>
     </ul>
   </li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-source-to-proxy/">Reroute Traffic from Source to Capture Proxy</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-source-to-proxy/">Reroute traffic from source to Capture Proxy</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a>
     <ul>
       <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/">Managing type mapping deprecation</a></li>
@@ -83,7 +82,7 @@ This page outlines the core phases of migrating with Migration Assistant. There 
     </ul>
   </li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/">Replay Captured Traffic</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/">Reroute Traffic from Capture Proxy to Target</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/">Reroute traffic from Capture Proxy to Target</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/">Teardown</a></li>
 </ol>
 
@@ -102,7 +101,7 @@ This page outlines the core phases of migrating with Migration Assistant. There 
       <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/verifying-live-capture-components/">Verify Live Capture Components</a></li>
     </ul>
   </li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-source-to-proxy/">Reroute Traffic from Source to Capture Proxy</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-source-to-proxy/">Reroute traffic from source to Capture Proxy</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/create-snapshot/">Create Snapshot</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/">Migrate Metadata</a>
     <ul>
@@ -112,7 +111,7 @@ This page outlines the core phases of migrating with Migration Assistant. There 
   </li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/">Backfill</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/">Replay Captured Traffic</a></li>
-  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/">Reroute Traffic from Capture Proxy to Target</a></li>
+  <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/">Reroute traffic from Capture Proxy to Target</a></li>
   <li><a href="{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/">Teardown</a></li>
 </ol>
 

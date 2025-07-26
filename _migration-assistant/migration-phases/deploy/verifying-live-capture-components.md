@@ -2,7 +2,7 @@
 layout: default
 title: Verifying live capture components
 grand_parent: Migration phases
-nav_order: 2
+nav_order: 4
 parent: Deploy
 permalink: /migration-assistant/migration-phases/deploy/verifying-live-capture-components/
 ---

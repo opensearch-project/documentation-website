@@ -359,4 +359,3 @@ exclude:
   - _site/
   - spec-insert
   - release-notes
-  - _migration-assistant/

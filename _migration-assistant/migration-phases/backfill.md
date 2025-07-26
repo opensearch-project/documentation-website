@@ -13,11 +13,15 @@ redirect_from:
 
 After the [metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/) for your cluster has been migrated, you can use capture proxy data replication and snapshots to backfill your data into the next cluster.
 
+## Migrate documents with RFS
+
+You can now use RFS to migrate documents from your original cluster:
+
 ### Starting the backfill
 
-Use the following command to start the backfill and deploy the workers:
+To start the migration from RFS, start a `backfill` using the following command:
 
-```shell
+```bash
 console backfill start
 ```
 {% include copy.html %}
@@ -40,6 +44,13 @@ The status will be `Running` even if all the shards have been migrated.
 
 ### Scaling up the fleet
 
+_(Optional)_ To speed up the migration, increase the number of documents processed simultaneously by using the following command:
+
+```bash
+console backfill scale <NUM_WORKERS>
+```
+{% include copy.html %}
+
 To speed up the transfer, you can scale the number of workers. It may take a few minutes for these additional workers to come online. The following command will update the worker fleet to a size of 10:
 
 ```shell
@@ -48,6 +59,45 @@ console backfill scale 5
 {% include copy.html %}
 
 We recommend slowly scaling up the fleet while monitoring the health metrics of the target cluster to avoid over-saturating it. [Amazon OpenSearch Service domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/monitoring.html) provide a number of metrics and logs that can provide this insight.
+
+### Monitoring the backfill
+
+To check the status of the documentation backfill, use the following command:
+
+```bash
+console backfill status
+```
+{% include copy.html %}
+
+Use the following command for detailed monitoring of the backfill process:
+
+```bash
+console backfill status --deep-check
+```
+{% include copy.html %}
+
+You should receive the following output:
+
+```json
+BackfillStatus.RUNNING
+Running=9
+Pending=1
+Desired=10
+Shards total: 62
+Shards completed: 46
+Shards incomplete: 16
+Shards in progress: 11
+Shards unclaimed: 5
+```
+
+Logs and metrics are available in Amazon CloudWatch in the `OpenSearchMigrations` log group.
+
+If you need to stop the backfill process, use the following command:
+
+```bash
+console backfill stop
+```
+{% include copy.html %}
 
 ### Pausing the migration
 
@@ -115,3 +165,17 @@ green  open   .kibana_1
 ```
 
 You can run additional queries against the target cluster to mimic your production workflow and closely examine the results.
+
+## Verify that all documents were migrated
+
+Use the following query in CloudWatch Logs Insights to identify failed documents:
+
+```bash
+fields @message
+| filter @message like "Bulk request succeeded, but some operations failed."
+| sort @timestamp desc
+| limit 10000
+```
+{% include copy.html %}
+
+If any failed documents are identified, you can index the failed documents directly as opposed to using RFS.

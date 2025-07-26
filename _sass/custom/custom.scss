@@ -805,6 +805,11 @@ main {
   -moz-osx-font-smoothing: auto;
 }
 
+// Fix breadcrumb leading slash
+.breadcrumb-nav-list-item:first-child::before {
+  content: none !important;
+}
+
 .main-content {
   h1, h2, h3, h4, h5, h6 {
     a {

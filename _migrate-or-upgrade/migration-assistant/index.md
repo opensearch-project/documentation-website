@@ -1,38 +1,34 @@
 ---
 layout: default
-title: Migration Assistant for OpenSearch
-nav_order: 30
-has_children: true
-permalink: /migration-assistant/
-redirect_from:
-  - /upgrade-or-migrate/migration-assistant/
-  - /migration-assistant/index/
-  - /migrate-or-upgrade/migration-assistant/index/
-  - /upgrade-to/snapshot-migrate/
-items:
-  - heading: "Is Migration Assistant right for you?"
-    description: "Evaluate whether Migration Assistant is right for your use case."
-    link: "/migration-assistant/is-migration-assistant-right-for-you/"
-  - heading: "Key components"
-    description: "Get familiar with the key components of Migration Assistant."
-    link: "/migration-assistant/key-components/"
-  - heading: "Architecture"
-    description: "Understand how Migration Assistant integrates into your infrastructure."
-    link: "/migration-assistant/architecture/"
-  - heading: "Execute your migration in phases"
-    description: "A step-by-step guide for performing a migration."
-    link: "/migration-assistant/migration-phases/"
+title: Migration Assistant
+nav_order: 70
+parent: Migrate or upgrade
+has_children: false
+has_toc: true
+nav_exclude: false
+permalink: /upgrade-or-migrate/migration-assistant/
 ---
 
-# Migration Assistant for OpenSearch
+# Migration Assistant
 
-Migration Assistant for OpenSearch helps you successfully perform an end-to-end, zero-downtime upgrade and migration to OpenSearch.
+Migration Assistant for OpenSearch assists you in migrating or upgrading your Elasticsearch and OpenSearch workloads to OpenSearch managed clusters. This solution automates manual tasks with a low-risk and prescriptive migration path for existing and live data. It also includes advanced features, such as a metadata migration tool and capture and replay comparison tooling to help you identify potential migration and upgrade issues earlier. The migration process is streamlined, performance and behavioral comparisons based on real customer workloads are enabled, and the pre-migration, migration, and validation phases are accelerated.
 
-- **Metadata migration**: Migrate cluster metadata, such as index settings, aliases, and templates.
-- **Backfill migration**: Migrate existing or historical data from a source to a target cluster.
-- **Live traffic migration**: Replicate live ongoing traffic from a source to a target cluster.
-- **Comparative tooling**: Compare the performance and behaviors of an existing cluster with a prospective new one.
+This solution prescribes a systematic migration workflow to upgrade, migrate, recover, and modify an OpenSearch cluster. The workflow includes a migration console command line interface (CLI) for management, a dedicated scaling group for existing data backfill, and a replayer to synchronize live traffic between source and target clusters. Users can pause or abort the migration without affecting production traffic, thereby reducing risk. Additionally, the backfill functionality minimizes further risk by retrieving data from a snapshot, leaving the source cluster unaffected, and supporting multi-hop migrations, which decreases the overall number of migrations required.
 
-This user guide focuses on conducting a comprehensive migration involving both existing and live data with zero downtime and the option to back out of a migration.
+## Benefits
 
-{% include list.html list_items=page.items%}
+### Simplified management experience
+
+Transfer data from an originating (source) cluster to a designated target (OpenSearch cluster).
+
+### Adaptable, low-risk migration
+
+Safely capture and replay traffic on source and target clusters to identify optimal performance while reducing migration risk through abort capabilities, comparison tools, source preservation, and multi-hop support.
+
+### Centralized location for data analysis
+
+Record requests and responses between the source and destination clusters for comparison, then forward the latency metrics and response codes to an analytics hub. You can analyze the data essential for transitioning your traffic from a legacy system to a new OpenSearch destination.
+
+## Getting Started
+
+To find out more, refer to the [Migration Assistant documentation]({{site.url}}{{site.baseurl}}/migration-assistant/).

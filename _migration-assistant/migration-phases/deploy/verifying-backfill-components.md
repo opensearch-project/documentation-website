@@ -2,7 +2,7 @@
 layout: default
 title: Verifying backfill components
 grand_parent: Migration phases
-nav_order: 1
+nav_order: 3
 parent: Deploy
 permalink: /migration-assistant/migration-phases/deploy/verifying-backfill-components/
 redirect_from:

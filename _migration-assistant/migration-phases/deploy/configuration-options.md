@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Configuration options
-nav_order: 3
+nav_order: 1
 grand_parent: Migration phases
 parent: Deploy
 permalink: /migration-assistant/migration-phases/deploy/configuration-options/
