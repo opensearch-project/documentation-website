@@ -8,7 +8,7 @@ nav_order: 60
 
 A _facet_ is a filterable field that users can select to narrow their search results. In an e-commerce context, you might see facets like brand, color, size, and price range on the left side of search results. For example, a query like "winter jacket" may return many products. Facets let users filter products by a particular color or price range.
 
-Faceted search displays value or range counts for each facet, helping users understand the distribution of results and quickly apply filters. This approach is especially useful in e-commerce and location-based search. You can implement facets using `terms` aggregations for exact values (like colors or sizes) and `range` aggregations for continuous values (like prices, dates, or distances).
+Faceted search displays value or range counts for each facet, helping users understand the distribution of results and quickly apply filters. This approach is especially useful in e-commerce and location-based search. You can implement facets using [`terms`]({{site.url}}{{site.baseurl}}/aggregations/bucket/terms/) aggregations for exact values (like colors or sizes) and [`range`]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/) aggregations for continuous values (like prices, dates, or distances).
 
 This tutorial shows you how to implement faceted search in OpenSearch using a product catalog for an e-commerce website as an example.
 
@@ -402,7 +402,7 @@ The response contains the matching product:
 
 ```json
 {
-  "took": 38,
+  "took": 66,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -458,6 +458,365 @@ The response contains the matching product:
 
 </details>
 
+The results appear as follows.
+
+![Faceted search results]({{site.url}}{{site.baseurl}}/images/faceted-search/faceted-search-filter.png)
+
+### Maintaining facet options during filtering
+
+When users select a facet filter, they typically expect to see what other filtering options are still available. For example, if a user filters for red t-shirts, the color facet should still show all available colors (red, blue, and others) from the original search results, not just "red". This helps users understand the full range of options and easily switch between filters.
+
+You can achieve this behavior by using a `post_filter`. The `post_filter` filters the search results after aggregations are calculated, so facets reflect the unfiltered dataset:
+
+```json
+POST /products/_search
+{
+  "query": {
+    "match": {
+      "name": "t-shirt"
+    }
+  },
+  "post_filter": {
+    "term": { "color": "red" }
+  },
+  "aggs": {
+    "all_colors": {
+      "terms": {
+        "field": "color"
+      }
+    },
+    "sizes_for_red": {
+      "filter": {
+        "term": { "color": "red" }
+      },
+      "aggs": {
+        "sizes": {
+          "terms": {
+            "field": "size"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the matching t-shirt and the color buckets for all t-shirts:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 17,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.48764127,
+    "hits": [
+      {
+        "_index": "products",
+        "_id": "1",
+        "_score": 0.48764127,
+        "_source": {
+          "color": "red",
+          "size": "M",
+          "price": 19.99,
+          "name": "Cotton T-shirt",
+          "description": "Comfortable t-shirt for everyday wear"
+        }
+      }
+    ]
+  },
+  "aggregations": {
+    "sizes_for_red": {
+      "doc_count": 1,
+      "sizes": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": "M",
+            "doc_count": 1
+          }
+        ]
+      }
+    },
+    "all_colors": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "blue",
+          "doc_count": 1
+        },
+        {
+          "key": "red",
+          "doc_count": 1
+        }
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+The results appear as follows.
+
+![Faceted search results maintaining filters]({{site.url}}{{site.baseurl}}/images/faceted-search/faceted-search-maintain.png)
+
+Alternatively, you can use [global aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/global/) to ensure that facets always reflect the complete dataset, regardless of applied filters:
+
+```json
+POST /products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match": { "name": "t-shirt" } }
+      ],
+      "filter": [
+        { "term": { "color": "red" } }
+      ]
+    }
+  },
+  "aggs": {
+    "all_facets": {
+      "global": {},
+      "aggs": {
+        "all_colors": {
+          "filter": {
+            "match": { "name": "t-shirt" }
+          },
+          "aggs": {
+            "colors": {
+              "terms": {
+                "field": "color"
+              }
+            }
+          }
+        }
+      }
+    },
+    "filtered_sizes": {
+      "terms": {
+        "field": "size"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The global aggregation approach runs against the entire index, so you need to reapply your base query (the t-shirt search) within the global aggregation to get the correct facet counts. The response is similar to the one in the preceding approach:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 9,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.48764127,
+    "hits": [
+      {
+        "_index": "products",
+        "_id": "1",
+        "_score": 0.48764127,
+        "_source": {
+          "color": "red",
+          "size": "M",
+          "price": 19.99,
+          "name": "Cotton T-shirt",
+          "description": "Comfortable t-shirt for everyday wear"
+        }
+      }
+    ]
+  },
+  "aggregations": {
+    "filtered_sizes": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "M",
+          "doc_count": 1
+        }
+      ]
+    },
+    "all_facets": {
+      "doc_count": 4,
+      "all_colors": {
+        "doc_count": 2,
+        "colors": {
+          "doc_count_error_upper_bound": 0,
+          "sum_other_doc_count": 0,
+          "buckets": [
+            {
+              "key": "blue",
+              "doc_count": 1
+            },
+            {
+              "key": "red",
+              "doc_count": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+</details>
+
+### Excluding facet values
+
+In addition to filtering for specific facet values, users may want to exclude certain values from their results. For example, a user might want to see all products except red ones. Use the `must_not` clause to exclude specific facet values:
+
+```json
+POST /products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match_all": {} }
+      ],
+      "must_not": [
+        { "term": { "color": "red" } }
+      ]
+    }
+  },
+  "aggs": {
+    "colors": {
+      "terms": {
+        "field": "color"
+      }
+    },
+    "sizes": {
+      "terms": {
+        "field": "size"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains non-red products with the color and size buckets:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 6,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "products",
+        "_id": "2",
+        "_score": 1,
+        "_source": {
+          "color": "blue",
+          "size": "L",
+          "price": 19.99,
+          "name": "T-shirt",
+          "description": "Soft cotton t-shirt perfect for casual outings"
+        }
+      },
+      {
+        "_index": "products",
+        "_id": "3",
+        "_score": 1,
+        "_source": {
+          "color": "blue",
+          "size": "M",
+          "price": 49.99,
+          "name": "Jeans",
+          "description": "Classic denim jeans with a modern fit"
+        }
+      }
+    ]
+  },
+  "aggregations": {
+    "sizes": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "L",
+          "doc_count": 1
+        },
+        {
+          "key": "M",
+          "doc_count": 1
+        }
+      ]
+    },
+    "colors": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "blue",
+          "doc_count": 2
+        }
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+The results appear as follows.
+
+![Faceted search results exclude filtering]({{site.url}}{{site.baseurl}}/images/faceted-search/faceted-search-exlclude.png)
+
 ## Step 5: Range facets
 
 You can create range facets for numeric fields like price, ratings, or dates.
@@ -495,7 +854,7 @@ The response buckets products by price:
 
 ```json
 {
-  "took": 19,
+  "took": 76,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -515,11 +874,11 @@ The response buckets products by price:
         "_id": "1",
         "_score": 1,
         "_source": {
-          "name": "Cotton T-shirt",
-          "description": "Comfortable t-shirt for everyday wear",
           "color": "red",
           "size": "M",
-          "price": 19.99
+          "price": 19.99,
+          "name": "Cotton T-shirt",
+          "description": "Comfortable t-shirt for everyday wear"
         }
       },
       {
@@ -527,11 +886,11 @@ The response buckets products by price:
         "_id": "2",
         "_score": 1,
         "_source": {
-          "name": "T-shirt",
-          "description": "Soft cotton t-shirt perfect for casual outings",
           "color": "blue",
           "size": "L",
-          "price": 19.99
+          "price": 19.99,
+          "name": "T-shirt",
+          "description": "Soft cotton t-shirt perfect for casual outings"
         }
       },
       {
@@ -539,11 +898,11 @@ The response buckets products by price:
         "_id": "3",
         "_score": 1,
         "_source": {
-          "name": "Jeans",
-          "description": "Classic denim jeans with a modern fit",
           "color": "blue",
           "size": "M",
-          "price": 49.99
+          "price": 49.99,
+          "name": "Jeans",
+          "description": "Classic denim jeans with a modern fit"
         }
       },
       {
@@ -551,11 +910,11 @@ The response buckets products by price:
         "_id": "4",
         "_score": 1,
         "_source": {
-          "name": "Sweater",
-          "description": "Warm wool sweater for cold weather",
           "color": "red",
           "size": "L",
-          "price": 39.99
+          "price": 39.99,
+          "name": "Sweater",
+          "description": "Warm wool sweater for cold weather"
         }
       }
     ]
@@ -735,237 +1094,7 @@ The response contains all three stores bucketed by distance:
 
 </details>
 
-## Advanced faceting scenarios
-
-The following sections provide examples of advanced faceted search functionality.
-
-### Post-filter faceting
-
-When a user selects the `red` color, you want to show all available colors for the base query (t-shirts) while also showing other facets (like sizes) filtered to only show options available for red products. Use `post_filter` to achieve this:
-
-```json
-POST /products/_search
-{
-  "query": {
-    "match": {
-      "name": "t-shirt"
-    }
-  },
-  "post_filter": {
-    "term": { "color": "red" }
-  },
-  "aggs": {
-    "all_colors": {
-      "terms": {
-        "field": "color"
-      }
-    },
-    "sizes_for_red": {
-      "filter": {
-        "term": { "color": "red" }
-      },
-      "aggs": {
-        "sizes": {
-          "terms": {
-            "field": "size"
-          }
-        }
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The response contains the matching t-shirt and the color buckets for all t-shirts:
-
-<details markdown="block">
-  <summary>
-    Response
-  </summary>
-  {: .text-delta}
-
-```json
-{
-  "took": 57,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 1,
-      "relation": "eq"
-    },
-    "max_score": 0.48764127,
-    "hits": [
-      {
-        "_index": "products",
-        "_id": "1",
-        "_score": 0.48764127,
-        "_source": {
-          "name": "Cotton T-shirt",
-          "description": "Comfortable t-shirt for everyday wear",
-          "color": "red",
-          "size": "M",
-          "price": 19.99
-        }
-      }
-    ]
-  },
-  "aggregations": {
-    "sizes_for_red": {
-      "doc_count": 1,
-      "sizes": {
-        "doc_count_error_upper_bound": 0,
-        "sum_other_doc_count": 0,
-        "buckets": [
-          {
-            "key": "M",
-            "doc_count": 1
-          }
-        ]
-      }
-    },
-    "all_colors": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "blue",
-          "doc_count": 1
-        },
-        {
-          "key": "red",
-          "doc_count": 1
-        }
-      ]
-    }
-  }
-}
-```
-
-</details>
-
-### Exclude filtering
-
-To exclude specific facet values (for example, show all products except red ones), use the `must_not` clause:
-
-```json
-POST /products/_search
-{
-  "query": {
-    "bool": {
-      "must": [
-        { "match_all": {} }
-      ],
-      "must_not": [
-        { "term": { "color": "red" } }
-      ]
-    }
-  },
-  "aggs": {
-    "colors": {
-      "terms": {
-        "field": "color"
-      }
-    },
-    "sizes": {
-      "terms": {
-        "field": "size"
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The response contains non-red products with the color and size buckets:
-
-<details markdown="block">
-  <summary>
-    Response
-  </summary>
-  {: .text-delta}
-
-```json
-{
-  "took": 58,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 2,
-      "relation": "eq"
-    },
-    "max_score": 1,
-    "hits": [
-      {
-        "_index": "products",
-        "_id": "2",
-        "_score": 1,
-        "_source": {
-          "name": "T-shirt",
-          "description": "Soft cotton t-shirt perfect for casual outings",
-          "color": "blue",
-          "size": "L",
-          "price": 19.99
-        }
-      },
-      {
-        "_index": "products",
-        "_id": "3",
-        "_score": 1,
-        "_source": {
-          "name": "Jeans",
-          "description": "Classic denim jeans with a modern fit",
-          "color": "blue",
-          "size": "M",
-          "price": 49.99
-        }
-      }
-    ]
-  },
-  "aggregations": {
-    "sizes": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "L",
-          "doc_count": 1
-        },
-        {
-          "key": "M",
-          "doc_count": 1
-        }
-      ]
-    },
-    "colors": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
-        {
-          "key": "blue",
-          "doc_count": 2
-        }
-      ]
-    }
-  }
-}
-```
-
-</details>
-
-### Hierarchical faceting
+## Hierarchical faceting
 
 Hierarchical faceting enables drill-down through a hierarchy of attributes like Category > Subcategory > Product type. This can be implemented using fields that encode the hierarchy with delimiters.
 
@@ -1326,6 +1455,10 @@ The response contains a flat structure with separate aggregations results. The c
 
 </details>
 
+The results appear as follows.
+
+![Faceted search results with hierarchical flat categories]({{site.url}}{{site.baseurl}}/images/faceted-search/faceted-search-hierarchical-flat.png)
+
 For hierarchical navigation, use nested aggregations:
 
 ```json
@@ -1587,6 +1720,10 @@ The response has a hierarchical structure with subcategories nested under their 
 ```
 
 </details>
+
+The results appear as follows.
+
+![Faceted search results with hierarchical nested categories]({{site.url}}{{site.baseurl}}/images/faceted-search/faceted-search-hierarchical-nested.png)
 
 Prefix queries enable filtering on specific branches of a category hierarchy, allowing you to scope results to a particular category level and all its subcategories. To show products only in the `Clothing>Shirts` category and its subcategories, use the `keyword` field for exact prefix matching:
 
