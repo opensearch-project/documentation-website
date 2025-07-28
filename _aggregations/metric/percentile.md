@@ -13,27 +13,25 @@ The `percentiles` aggregation estimates the value at a given percentile of a num
 
 For example, a 95th percentile of `load_time` = `120ms` means 95% of values are less than or equal to 120ms.
 
-Similarly to the [`cardinality`]({{site.url}}{{site.baseurl}}/aggregations/metric/cardinality/) metric, the `percentile` metric is also approximate.
+Similarly to the [`cardinality`]({{site.url}}{{site.baseurl}}/aggregations/metric/cardinality/) metric, the `percentile` metric is approximate.
 
 ## Parameters
 
-The `percentiles` aggregation takes the following parameters:
+The `percentiles` aggregation takes the following parameters.
 
 | Parameter                                | Data type        | Required/Optional | Description                                                                                                                 |
 | ---------------------------------------- | ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `field`                                  | String           | Required      | The numeric field used to compute percentiles on.                                                                                    |
 | `percents`                               | Array of doubles | Optional       | The list of percentiles returned in the response. Default is `[1, 5, 25, 50, 75, 95, 99]`.                                                 |
 | `keyed`                                  | Boolean          | Optional       | If set to `false` returns results as a array, otherwise returns results as JSON object. Default is `true` |
-| `tdigest.compression`                    | Double           | Optional       | Controls accuracy and memory usage of the `tdigest` algorithm. For further details see [precision tuning with tdigest](#precision-tuning-with-tdigest).                                      |
-| `hdr.number_of_significant_value_digits` | Integer          | Optional       | Precision setting for the HDR histogram. For further details see [HDR histogram](#hdr-histogram)                                   |
+| `tdigest.compression`                    | Double           | Optional       | Controls accuracy and memory usage of the `tdigest` algorithm. See [Precision tuning with tdigest](#precision-tuning-with-tdigest).                                      |
+| `hdr.number_of_significant_value_digits` | Integer          | Optional       | Precision setting for the HDR histogram. See [HDR histogram](#hdr-histogram).                                   |
 | `missing`                                | Number           | Optional       | Default value used for documents missing the field.                                                                              |
-| `script`                                 | Object           | Optional       | Script used to compute custom values instead of using a field. Supports inline or stored scripts.                                |
+| `script`                                 | Object           | Optional       | Script used to compute custom values instead of using a field. Supports inline and stored scripts.                                |
 
-## Examples
+## Example
 
-The following examples demonstrate different configurations of the `percentiles` aggregation.
 
-### Create an index and add sample data
 
 First, create an index:
 
@@ -75,7 +73,7 @@ POST /latency_data/_bulk
 
 ### Percentiles aggregation
 
-The following example calculates the default set of percentiles for the `load_time` field"
+The following example calculates the default set of percentiles for the `load_time` field:
 
 ```json
 GET /latency_data/_search
@@ -113,9 +111,9 @@ By default, the 1st, 5th, 25th, 50th, 75th, 95th, and 99th percentiles are retur
 }
 ```
 
-### Custom percentiles
+## Custom percentiles
 
-You can specify the exact percentiles using `percents` setting:
+You can specify the exact percentiles using `percents` array:
 
 ```json
 GET /latency_data/_search
@@ -152,7 +150,7 @@ The response includes only the three requested percentiles aggregations:
 
 ### Keyed response
 
-You can change the format of the returned aggregation from JSON object to list of key-value pairs by setting the `keyed` parameter to `false`:
+You can change the format of the returned aggregation from JSON object to a list of key-value pairs by setting the `keyed` parameter to `false`:
 
 ```json
 GET /latency_data/_search
@@ -216,20 +214,19 @@ The response provides percentiles as an array of values:
 
 The `tdigest` algorithm is the default method used to calculate percentiles. It provides a memory-efficient way to estimate percentile ranks, especially when working with floating-point data such as response times or latencies.
 
-Unlike exact percentile calculations, `tdigest` uses a probabilistic approach that groups values into centroids—small clusters that summarize the distribution. This method enables accurate estimates for most percentiles without needing to store all the raw data in memory.
+Unlike exact percentile calculations, `tdigest` uses a probabilistic approach that groups values into _centroids_---small clusters that summarize the distribution. This method enables accurate estimates for most percentiles without needing to store all the raw data in memory.
 
-The algorithm is designed to be highly accurate near the tails of the distribution, the low percentiles (1st) and high percentiles (99th), which are often the most important for performance analysis. You can control the precision of the results using the `compression` parameter.
+The algorithm is designed to be highly accurate near the tails of the distribution, the low percentiles (such as 1st) and high percentiles (such as 99th), which are often the most important for performance analysis. You can control the precision of the results using the `compression` parameter.
 
-A higher compression value means more centroids are used, increasing accuracy, especially in the tails, but requiring more memory and CPU. A lower compression value reduces memory usage and speeds up execution, but results may be less accurate.
+A higher `compression` value means that more centroids are used, increasing accuracy, especially in the tails, but requiring more memory and CPU. A lower `compression` value reduces memory usage and speeds up execution, but the results may be less accurate.
 
-#### When to use tdigest
 
-Use tdigest when:
+Use `tdigest` when:
 
 * Your data includes floating-point values, such as response times, latency, or duration.
-* You need accurate results in the extreme percentiles, for example 1st, 99th.
+* You need accurate results in the extreme percentiles, for example 1st or 99th.
 
-Avoid tdigest if:
+Avoid `tdigest` when:
 
 * You are working only with integer data and want maximum speed.
 * You care less about accuracy in the distribution tails and prefer faster aggregation (consider using [`hdr`](#hdr-histogram) instead).
@@ -264,9 +261,9 @@ For example, if you're measuring response times ranging from 1 microsecond to 1 
 
 This trade-off makes HDR much faster and more memory-intensive than [`tdigest`](#precision-tuning-with-tdigest)
 
-Breakdown of HDR significant digits:
+The following table presents the breakdown of HDR significant digits.
 
-| Significant Digits | Relative Precision (Max Error) |
+| Significant digits | Relative precision (max error) |
 | ------------------ | ------------------------------ |
 | 1                  | 1 part in 10       = 10%       |
 | 2                  | 1 part in 100      = 1%        |
@@ -307,7 +304,7 @@ GET /latency_data/_search
 
 ### Missing values
 
-You can use `missing` setting to configure fallback value for documents that do not have the target field. See following example:
+Use the `missing` setting to configure a fallback value for documents that do not have the target field:
 
 ```json
 GET /latency_data/_search
@@ -325,11 +322,11 @@ GET /latency_data/_search
 ```
 {% include copy-curl.html %}
 
-### Script
+## Script
 
 Instead of specifying a field, you can dynamically compute the value using a script. This is useful when you need to apply transformations, such as converting currencies or applying weights. 
 
-#### Inline script
+### Inline script
 
 Use a script to compute derived values:
 
@@ -351,11 +348,10 @@ GET /latency_data/_search
 ```
 {% include copy-curl.html %}
 
-#### Stored script
+### Stored script
 
-Stored scripts can also be used.
 
-First, create a sample script using the following command:
+First, create a sample script using the following request:
 
 ```json
 POST _scripts/load_script
@@ -366,8 +362,9 @@ POST _scripts/load_script
   }
 }
 ```
+{% include copy-curl.html %}
 
-Use the stored script in the `percentiles` aggregation, providing the `params` used by the stored script:
+Then use the stored script in the `percentiles` aggregation, providing the `params` required by the stored script:
 
 ```json
 GET /latency_data/_search
@@ -389,3 +386,4 @@ GET /latency_data/_search
   }
 }
 ```
+{% include copy-curl.html %}
