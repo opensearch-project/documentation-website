@@ -2,11 +2,9 @@
 layout: default
 title: Migration Assistant
 nav_order: 70
-parent: Migrate or upgrade
 has_children: false
 has_toc: true
-nav_exclude: false
-permalink: /upgrade-or-migrate/migration-assistant/
+permalink: /migrate-or-upgrade/migration-assistant/
 ---
 
 # Migration Assistant
