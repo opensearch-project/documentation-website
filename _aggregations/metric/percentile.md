@@ -388,3 +388,4 @@ GET /latency_data/_search
 }
 ```
 {% include copy-curl.html %}
+{% include copy-curl.html %}
