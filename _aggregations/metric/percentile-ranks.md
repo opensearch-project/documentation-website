@@ -19,7 +19,7 @@ The `percentile_ranks` aggregation takes the following parameters.
 
 | Parameter                                | Data type        | Required/Optional | Description                                                                                                                         |
 | ---------------------------------------- | ---------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `field`                                  | String           | Required          | The numeric field used to compute percentile ranks on.                                                                                   |
+| `field`                                  | String           | Required          | The numeric field used to compute percentile ranks.                                                                                   |
 | `values`                                 | Array of doubles | Required          | The values used to calculate percentile ranks.                                                                                 |
 | `keyed`                                  | Boolean          | Optional          | If set to `false`, returns results as an array. Otherwise returns results as a JSON object. Default is `true`.                      |
 | `tdigest.compression`                    | Double           | Optional          | Controls accuracy and memory usage of the `tdigest` algorithm. See [Precision tuning with tdigest](#precision-tuning-with-tdigest). |
@@ -114,7 +114,7 @@ The response demonstrates that 28.6% of the values are less than or equal to `25
 
 ## Keyed response
 
-You can change the format of the returned aggregation from JSON object to a list of key-value pairs by setting the `keyed` parameter to `false`:
+You can change the format of the returned aggregation from a JSON object to a list of key-value pairs by setting the `keyed` parameter to `false`:
 
 ```json
 GET /transaction_data/_search
@@ -165,7 +165,7 @@ The response includes an array instead of an object:
 
 ## Precision tuning with tdigest
 
-By default, percentile ranks are calculated using the `tdigest` algorithm. You can control the trade-off between accuracy and memory usage by specifying the `tdigest.compression` parameter. Higher values provide better accuracy but require more memory. For more information about how tdigest works, see [precision tuning with tdigest]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/#precision-tuning-with-tdigest)
+By default, percentile ranks are calculated using the `tdigest` algorithm. You can control the trade-off between accuracy and memory usage by specifying the `tdigest.compression` parameter. Higher values provide better accuracy but require more memory. For more information about how tdigest works, see [Precision tuning with tdigest]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/#precision-tuning-with-tdigest).
 
 The following example is configured with `tdigest.compression` set to `200`:
 
@@ -190,7 +190,7 @@ GET /transaction_data/_search
 
 ### HDR histogram
 
-As an alternative to `tdigest`, you can use the High Dynamic Range (HDR) histogram algorithm, which is better suited for large numbers of buckets and fast processing. For more information about how HDR histogram works, see [HDR histogram]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/#hdr-histogram)
+As an alternative to `tdigest`, you can use the High Dynamic Range (HDR) histogram algorithm, which is better suited for large numbers of buckets and fast processing. For more information about how the HDR histogram works, see [HDR histogram]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/#hdr-histogram).
 
 You should use HDR if you:
 
@@ -226,7 +226,7 @@ GET /transaction_data/_search
 
 ### Missing values
 
-If some documents are missing the target field, you can instruct the query to use a fallback value by setting the `missing` parameter. The following example ensures that documents without an amount field are treated as if their values are `0` and are included in the percentile ranks computation:
+If some documents are missing the target field, you can instruct the query to use a fallback value by setting the `missing` parameter. The following example ensures that documents without an `amount` field are treated as if their values are `0` and are included in the percentile ranks computation:
 
 ```json
 GET /transaction_data/_search

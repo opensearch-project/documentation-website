@@ -11,7 +11,7 @@ redirect_from:
 
 The `percentiles` aggregation estimates the value at a given percentile of a numeric field. This is useful for understanding distribution boundaries.
 
-For example, a 95th percentile of `load_time` = `120ms` means 95% of values are less than or equal to 120ms.
+For example, a 95th percentile of `load_time` = `120ms` means that 95% of values are less than or equal to 120 ms.
 
 Similarly to the [`cardinality`]({{site.url}}{{site.baseurl}}/aggregations/metric/cardinality/) metric, the `percentile` metric is approximate.
 
@@ -21,13 +21,13 @@ The `percentiles` aggregation takes the following parameters.
 
 | Parameter                                | Data type        | Required/Optional | Description                                                                                                                 |
 | ---------------------------------------- | ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `field`                                  | String           | Required      | The numeric field used to compute percentiles on.                                                                                    |
+| `field`                                  | String           | Required      | The numeric field used to compute percentiles.                                                                                    |
 | `percents`                               | Array of doubles | Optional       | The list of percentiles returned in the response. Default is `[1, 5, 25, 50, 75, 95, 99]`.                                                 |
-| `keyed`                                  | Boolean          | Optional       | If set to `false` returns results as a array, otherwise returns results as JSON object. Default is `true` |
+| `keyed`                                  | Boolean          | Optional       | If set to `false`, returns results as an array. Otherwise, returns results as a JSON object. Default is `true`. |
 | `tdigest.compression`                    | Double           | Optional       | Controls accuracy and memory usage of the `tdigest` algorithm. See [Precision tuning with tdigest](#precision-tuning-with-tdigest).                                      |
-| `hdr.number_of_significant_value_digits` | Integer          | Optional       | Precision setting for the HDR histogram. See [HDR histogram](#hdr-histogram).                                   |
-| `missing`                                | Number           | Optional       | Default value used for documents missing the field.                                                                              |
-| `script`                                 | Object           | Optional       | Script used to compute custom values instead of using a field. Supports inline and stored scripts.                                |
+| `hdr.number_of_significant_value_digits` | Integer          | Optional       | The precision setting for the HDR histogram. See [HDR histogram](#hdr-histogram).                                   |
+| `missing`                                | Number           | Optional       | The default value used when the target field is missing in a document.                                                                              |
+| `script`                                 | Object           | Optional       | The script used to compute custom values instead of using a field. Supports inline and stored scripts.                                |
 
 ## Example
 
@@ -113,7 +113,7 @@ By default, the 1st, 5th, 25th, 50th, 75th, 95th, and 99th percentiles are retur
 
 ## Custom percentiles
 
-You can specify the exact percentiles using `percents` array:
+You can specify the exact percentiles using the `percents` array:
 
 ```json
 GET /latency_data/_search
@@ -131,7 +131,7 @@ GET /latency_data/_search
 ```
 {% include copy-curl.html %}
 
-The response includes only the three requested percentiles aggregations:
+The response includes only the three requested percentile aggregations:
 
 ```json
 {
@@ -150,7 +150,7 @@ The response includes only the three requested percentiles aggregations:
 
 ### Keyed response
 
-You can change the format of the returned aggregation from JSON object to a list of key-value pairs by setting the `keyed` parameter to `false`:
+You can change the format of the returned aggregation from a JSON object to a list of key-value pairs by setting the `keyed` parameter to `false`:
 
 ```json
 GET /latency_data/_search
@@ -216,15 +216,15 @@ The `tdigest` algorithm is the default method used to calculate percentiles. It 
 
 Unlike exact percentile calculations, `tdigest` uses a probabilistic approach that groups values into _centroids_---small clusters that summarize the distribution. This method enables accurate estimates for most percentiles without needing to store all the raw data in memory.
 
-The algorithm is designed to be highly accurate near the tails of the distribution, the low percentiles (such as 1st) and high percentiles (such as 99th), which are often the most important for performance analysis. You can control the precision of the results using the `compression` parameter.
+The algorithm is designed to be highly accurate near the tails of the distribution---the low percentiles (such as 1st) and high percentiles (such as 99th)---which are often the most important for performance analysis. You can control the precision of the results using the `compression` parameter.
 
-A higher `compression` value means that more centroids are used, increasing accuracy, especially in the tails, but requiring more memory and CPU. A lower `compression` value reduces memory usage and speeds up execution, but the results may be less accurate.
+A higher `compression` value means that more centroids are used, which increases accuracy (especially in the tails) but requires more memory and CPU. A lower `compression` value reduces memory usage and speeds up execution, but the results may be less accurate.
 
 
 Use `tdigest` when:
 
 * Your data includes floating-point values, such as response times, latency, or duration.
-* You need accurate results in the extreme percentiles, for example 1st or 99th.
+* You need accurate results in the extreme percentiles, for example, the 1st or 99th.
 
 Avoid `tdigest` when:
 
@@ -253,13 +253,13 @@ GET /latency_data/_search
 
 ### HDR histogram
 
-HDR (High Dynamic Range) histogram is an alternative to [`tdigest`](#precision-tuning-with-tdigest) for calculating percentiles. It is especially useful when dealing with large datasets and latency measurements. It is designed for speed and supports a wide dynamic range of values while maintaining a fixed, configurable level of precision.
+The High Dynamic Range (HDR) histogram is an alternative to [`tdigest`](#precision-tuning-with-tdigest) for calculating percentiles. It is especially useful when dealing with large datasets and latency measurements. It is designed for speed and supports a wide dynamic range of values while maintaining a fixed, configurable level of precision.
 
 Unlike [`tdigest`](#precision-tuning-with-tdigest), which offers more accuracy in the tails of a distribution (extreme percentiles), HDR prioritizes speed and uniform accuracy across the range. It works best when the number of buckets is large and extreme precision in rare values is not required.
 
 For example, if you're measuring response times ranging from 1 microsecond to 1 hour and configure HDR with 3 significant digits, it will record values with a precision of ±1 microsecond for values up to 1 millisecond and ±3.6 seconds for values near 1 hour.
 
-This trade-off makes HDR much faster and more memory-intensive than [`tdigest`](#precision-tuning-with-tdigest)
+This trade-off makes HDR much faster and more memory-intensive than [`tdigest`](#precision-tuning-with-tdigest).
 
 The following table presents the breakdown of HDR significant digits.
 
@@ -304,7 +304,7 @@ GET /latency_data/_search
 
 ### Missing values
 
-Use the `missing` setting to configure a fallback value for documents that do not have the target field:
+Use the `missing` setting to configure a fallback value for documents that do not contain the target field:
 
 ```json
 GET /latency_data/_search
