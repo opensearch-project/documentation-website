@@ -363,6 +363,7 @@ POST _scripts/load_script
 }
 ```
 {% include copy-curl.html %}
+{% include copy-curl.html %}
 
 Then use the stored script in the `percentiles` aggregation, providing the `params` required by the stored script:
 
