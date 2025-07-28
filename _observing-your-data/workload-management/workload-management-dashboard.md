@@ -32,6 +32,8 @@ This page includes the following sections:
 - **Create workload group**: Navigates to the page to define a new workload group.
 - **Refresh button**: Updates statistics to reflect the most recent data.
 
+![WLM Overview Interface]({{site.url}}{{site.baseurl}}/images/Workload-Management/Overview.png)
+
 ### Workload group table
 
 Below the summary cards, a table lists all workload groups with key metrics:
@@ -56,6 +58,7 @@ The **CPU usage** and **Memory usage** columns display resource consumption usin
 - **Limit**: The rejection threshold for the group (drawn as a red line)
 
 When you hover over the plot, a tooltip appears showing the detailed usage distribution.
+![Box Plot Tooltip]({{site.url}}{{site.baseurl}}/images/Workload-Management/BoxplotTooltip.png)
 
 You can sort the table by clicking column headers, and control pagination using the navigation arrows and **Rows per page** dropdown.
 
@@ -177,5 +180,6 @@ At the bottom of the page, the following actions are available:
 - **Create workload group**: Submits the form and creates the workload group. This button becomes active once all required fields are completed.
 
 ![Create Workload Group UI]({{site.url}}{{site.baseurl}}/images/Workload-Management/Create1.png)
+![Create Workload Group UI]({{site.url}}{{site.baseurl}}/images/Workload-Management/Create2.png)
 
 
