@@ -3,7 +3,7 @@ layout: default
 title: Dynamic tool
 has_children: false
 has_toc: false
-nav_order: 130
+nav_order: 25
 parent: Tools
 grand_parent: Agents and tools
 ---
@@ -14,16 +14,17 @@ grand_parent: Agents and tools
 {: .label .label-purple }
 <!-- vale on -->
 
-The `DynamicTool` supports user to customize OpenSearch APIs as a tool, previously all the tools are hard coded and user can't use an OpenSearch API as tool if the tool
-is not implemented which is a hard limitation. 
+The `DynamicTool` converts OpenSearch APIs into executable tools for ML agents. This allows you to integrate cluster management and monitoring operations directly into your AI workflows.
 
-## Cluster Health API as a tool
-To use cluster health API as a tool, you can follow below steps.
+For example, you can create tools that check cluster health, retrieve node statistics, or perform other administrative tasks, then have ML agents execute these tools as part of automated workflows or in response to natural language queries.
+
+## Running Cluster Health API as a tool
+
+To run [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) as a tool, follow these steps.
 
 ### Step 1: Register a flow agent that will run the DynamicTool
 
-A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request, please note the tool's
-parameters configuration.
+A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request, specifying the tool's parameters:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -70,7 +71,7 @@ POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
 ```
 {% include copy-curl.html %} 
 
-OpenSearch returns the CluserHealthTool results:
+OpenSearch returns the `ClusterHealthTool` results:
 
 ```json
 {
@@ -87,13 +88,13 @@ OpenSearch returns the CluserHealthTool results:
 }
 ```
 
-## Node stats API as a tool
-To use node stats API as a tool, you can follow below steps.
+## Running Node Stats API as a tool
+
+To run [Node Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) as a tool, follow these steps.
 
 ### Step 1: Register a flow agent that will run the DynamicTool
 
-A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request, please note the tool's
-parameters configuration.
+To create a flow agent, send the following register agent request, specifying the tool's parameters:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -134,14 +135,14 @@ Then, run the agent by sending the following request:
 POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
 {
   "parameters": {
-    "question": "What the index searcher thread pool stats in the OpenSearch cluster?",
+    "question": "What are the index searcher thread pool stats in the OpenSearch cluster?",
     "node_id": "-bi3Rw1OTA6-jK4Uh5_Thg"
   }
 }
 ```
 {% include copy-curl.html %} 
 
-OpenSearch returns the CluserHealthTool results:
+OpenSearch returns the `NodeStatsTool` results:
 
 ```json
 {
@@ -166,10 +167,11 @@ The following table lists all tool parameters that are available when registerin
 
 | Parameter | Type | Required/Optional | Description |
 |:---|:---|:---|:---|
-| `method` | String | Required | The method that corresponding API uses. |
-| `uri` | String | Required | The uri that the corresponding API uses, the uri supports `${place_holder}` configuration and these place holders will be replaced during agent run time with the parameters passed in the agent request body.|
-| `request_body` | String | Optional | This is the request body of the corresponding API, the request body supports `{place_holder}` configuration and these place holders will be replaced during agent run time with the parameters passed in the agent request body. |
-| `response_filter` | String | Optional | The json path response filter, the corresponding API response is always json format, so you can filter the target fields with a json path response filter.  |
+| `method` | String | Required | The HTTP method used by the API (for example, `GET`, `POST`).                                                                               |
+| `uri` | String | Required | The API URI. Supports `${placeholder}` syntax. Placeholders are replaced at runtime with values from the agent request body. |
+| `request_body`    | String | Optional | The API request body. Supports `{placeholder}` syntax. Placeholders are replaced at runtime with values from the agent request body. |
+| `response_filter` | String | Optional | A JSONPath expression used to filter fields from the API's JSON response. |
+
 
 ## Execute parameters
 
