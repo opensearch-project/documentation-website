@@ -636,7 +636,8 @@ Parameter | Description | Type | Required
 `cron.cron.expression` | The `cron` expression that triggers the transition. | `string` | Yes
 `cron.cron.timezone` | The timezone that triggers the transition. | `string` | Yes
 
-**Note:** All time-based values (`min_index_age`, `min_rollover_age`, `min_state_age`) use [standard OpenSearch time units](https://docs.opensearch.org/latest/api-reference/common-parameters/#time-units).
+All time-based values (`min_index_age`, `min_rollover_age`, `min_state_age`) use [standard OpenSearch time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units).
+{: .note}
 
 
 The following example transitions the index to a `cold` state after a period of 30 days:
