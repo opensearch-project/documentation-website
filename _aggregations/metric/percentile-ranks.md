@@ -70,3 +70,5 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
     }
   }
 }
+```
+{% include copy-curl.html %}
