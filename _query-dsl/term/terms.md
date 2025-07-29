@@ -54,6 +54,108 @@ To use terms lookup, you must enable the `_source` mapping field because terms l
 
 Terms lookup tries to fetch the document field values from a shard on a local data node. Thus, using an index with a single primary shard that has full replicas on all applicable data nodes reduces network traffic.
 
+
+**Introduced 3.2**
+
+## Terms lookup by query
+
+You can use a `query` instead of a document ID to collect terms from multiple documents. This allows the `terms` query to extract all values for a given field from all documents matching the specified query.
+
+### Example
+
+Suppose you have an index with group memberships:
+
+```json
+PUT groups/_doc/1
+{
+  "group": "g1",
+  "members": ["alice", "bob"]
+}
+```
+```json
+PUT groups/_doc/2
+{
+  "group": "g1",
+  "members": ["carol", "alice"]
+}
+```
+```json
+PUT groups/_doc/3
+{
+  "group": "g2"
+}
+```
+```json
+PUT groups/_doc/4
+{
+  "group": "g1",
+  "members": []
+}
+```
+```json
+PUT groups/_doc/5
+{
+  "group": "g2",
+  "members": "carol"
+}
+```
+```json
+PUT groups/_doc/6
+{
+  "group": "g1",
+  "members": null
+}
+```
+
+Now, to search in a `users` index for all users who are members of any group with `"group": "g1"`, use:
+
+```json
+GET users/_search
+{
+  "query": {
+    "terms": {
+      "username": {
+        "index": "groups",
+        "path": "members",
+        "query": {
+          "term": { "group": "g1" }
+        }
+      }
+    }
+  }
+}
+```
+
+This will collect the `members` field from all documents in `groups` matching the query and use those values as the terms for the search.
+
+### Edge Case Behavior
+
+- If some documents matching the query do not have the specified field, those documents are ignored for terms extraction.
+- If the field is a list, all its items are collected.
+- If the field is a scalar, its value is collected.
+- If the field is missing, null, or an empty list, it is skipped.
+- Duplicates from multiple documents are deduplicated.
+- If no documents match the query, the terms query acts as if no values were specified (typically matches nothing).
+- If none of the matched documents have the field, the query will not match anything.
+
+#### Example: Field Present and Missing
+
+If your lookup matches three documents, but only two have the `members` field:
+- Only the values from those two documents are used.
+- If one has `["alice", "bob"]` and another has `["carol"]`, the resulting terms list is `["alice", "bob", "carol"]`.
+
+#### Example: Field Is Scalar and List
+
+If the field is sometimes a single value and sometimes a list:
+- All values are flattened into a single list and deduplicated.
+
+#### Example: Field is Empty List or Null
+
+- If the field is an empty list or null, it is ignored for that document.
+
+**Note:**  
+This feature is available only when using the `query` parameter instead of `id` in the terms lookup object.  
+
 ### Example
 
 As an example, create an index that contains student data, mapping `student_id` as a `keyword`:
@@ -253,6 +355,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `index` | String | The name of the index in which to fetch field values. Required.
 `id` | String | The document ID of the document from which to fetch field values. Required.
+`query` | Object | A query object to select multiple documents from which to fetch field values. Required if `id` is not supplied.
 `path` | String | The name of the field from which to fetch field values. Specify nested fields using dot path notation. Required.
 `routing` | String | Custom routing value of the document from which to fetch field values. Optional. Required if a custom routing value was provided when the document was indexed.
 `store` | Boolean | Whether to perform the lookup on the stored field instead of `_source`. Optional.
@@ -350,7 +453,7 @@ Next, index the customer filter into the `customers` index. The document ID for 
 ```json
 POST customers/_doc/customer123
 {
-  "customer_filter": "OjAAAAEAAAAAAAIAEAAAAG8A3gBNAQ==" 
+  "customer_filter": "OjAAAAEAAAAAAAIAEAAAAG8A3gBNAQ=="
 }
 ```
 {% include copy-curl.html %}
