@@ -2,6 +2,7 @@
 layout: default
 title: Migrate or upgrade
 has_children: true
+has_toc: false
 permalink: /upgrade-or-migrate/
 redirect_from:
   - /migrate-or-upgrade/index/
@@ -10,7 +11,6 @@ redirect_from:
   - /upgrade-to/index/
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
-has_toc: true
 nav_exclude: true
 ---
 # Migrate or upgrade OpenSearch

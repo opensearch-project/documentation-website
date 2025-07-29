@@ -6,8 +6,6 @@ parent: Rolling upgrade
 has_children: true
 nav_order: 30
 permalink: /migrate-or-upgrade/rolling-upgrade/appendix/
-redirect_from:
-  - /upgrade-opensearch/appendix/
 ---
 
 # Upgrades appendix

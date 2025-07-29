@@ -5,8 +5,8 @@ nav_order: 20
 has_toc: true
 permalink: /migrate-or-upgrade/rolling-upgrade/
 redirect_from: 
- - /upgrade-opensearch/appendix
- - /rolling-upgrade/index
+ - /upgrade-opensearch/appendix/
+ - /rolling-upgrade/index/
 ---
 
 # Rolling upgrade
@@ -199,7 +199,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/ro
    ```
 1. The upgrade is now complete, and you can begin enjoying the latest features and fixes!
 
-# Rolling restart
+## Rolling restart
 
 A rolling restart follows the same step-by-step procedure as a rolling upgrade, with the exception of upgrading of actual nodes. During rolling restart, nodes are restarted one at a time—typically to apply configuration changes, refresh certificates, or perform system-level maintenance—without disrupting cluster availability.
 
@@ -255,7 +255,7 @@ To perform a rolling restart, follow the steps outlined in [Rolling upgrade](#ro
 
 By preserving quorum and restarting nodes sequentially, rolling restarts ensure zero downtime and full data continuity.
 
-### Related articles
+## Related articles
 
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)

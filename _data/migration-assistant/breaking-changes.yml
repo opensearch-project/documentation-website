@@ -22,22 +22,22 @@ breaking_changes:
     introducedIn: "OpenSearch 1.x"
     comp: []
   - title: "OpenSearch 2.x: Remove mapping types parameter"
-    url: "https://docs.opensearch.org/docs/latest/breaking-changes/#remove-mapping-types-parameter"
+    url: "https://docs.opensearch.org/latest/breaking-changes/#remove-mapping-types-parameter"
     introducedIn: "OpenSearch 2.x"
     comp: []
     transformation:
       title: "Type Mapping Deprecation"
-      url: "https://docs.opensearch.org/docs/latest/migration-assistant/planning-your-migration/handling-type-mapping-deprecation/"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/"
   - title: "OpenSearch 3.x: Breaking Changes"
-    url: "/docs/latest/breaking-changes/#300"
+    url: "https://docs.opensearch.org/latest/breaking-changes/#300"
     introducedIn: "OpenSearch 3.x"
     comp: []
   - title: "OpenSearch Notifications Plugins"
-    url: "https://docs.opensearch.org/docs/latest/breaking-changes/#add-opensearch-notifications-plugins"
+    url: "https://docs.opensearch.org/latest/breaking-changes/#add-opensearch-notifications-plugins"
     introducedIn: "OpenSearch 2.x"
     comp: []
   - title: "OpenSearch 2.x: Client JDK 8 Support Dropped"
-    url: "https://docs.opensearch.org/docs/latest/breaking-changes/#drop-support-for-jdk-8"
+    url: "https://docs.opensearch.org/latest/breaking-changes/#drop-support-for-jdk-8"
     introducedIn: "OpenSearch 2.x"
     comp: []
   - title: "Removal of Types in Elasticsearch 7.x"
@@ -46,7 +46,7 @@ breaking_changes:
     comp: []
     transformation:
       title: "Type Mapping Deprecation"
-      url: "https://docs.opensearch.org/docs/latest/migration-assistant/planning-your-migration/handling-type-mapping-deprecation/"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/"
   - title: "Elasticsearch 6.0 - 6.6 Breaking Changes"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes.html"
     introducedIn: "Elasticsearch 6.x"
