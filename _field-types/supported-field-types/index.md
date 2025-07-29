@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /opensearch/supported-field-types/
   - /opensearch/supported-field-types/index/
+  - /field-types/supported-field-types/
 ---
 
 # Supported field types
