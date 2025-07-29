@@ -380,7 +380,6 @@ If the ID token from the IdP is especially large, OpenSearch may throw a server 
 
 OpenSearch Dashboards does not strictly require HTTP basic authentication. You can configure it to authenticate using only OpenID Connect. However, if you need to support multiple authentication methods (for example, using OpenID for users and HTTP basic for automated services), you must configure multiple authentication domains.
 
-If you're using OpenID as the primary method, ensure that the HTTP basic domain (if present) is placed first in the chain and set the `challenge` flag to `false`.
 
 You can also use other methods, such as client certificates, to authenticate the internal Dashboards server user without requiring HTTP basic authentication.
 
