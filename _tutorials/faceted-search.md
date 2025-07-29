@@ -16,10 +16,10 @@ This tutorial shows you how to implement faceted search in OpenSearch using a pr
 
 Start by defining the fields you'll use for faceting. The [mapping]({{site.url}}{{site.baseurl}}/field-types/) configuration is crucial for effective faceted search. For faceting on string fields, map the fields to `keyword` instead of `text` because `text` fields are not optimized for aggregations.
 
-While you can enable aggregations on text fields by setting `"fielddata": true`, this approach should be avoided in production because it loads all field values into heap memory, significantly increasing memory usage and potentially causing performance issues and out-of-memory errors.
+While you can enable aggregations on `text` fields by setting `"fielddata": true`, this approach should be avoided in production because it loads all field values into heap memory, significantly increasing memory usage and potentially causing performance issues and out-of-memory errors.
 {: .tip}
 
-A common challenge with faceted search is handling inconsistent capitalization in your data. For example, colors might be stored as "red", "RED", or "Red", which creates separate facet buckets and fragments your results.
+A common challenge in faceted search is handling inconsistent capitalization in your data. For example, colors might be stored as "red", "RED", or "Red", which creates separate facet buckets and fragments your results.
 
 To solve this, create an ingest pipeline that normalizes values to lowercase during indexing:
 
@@ -114,7 +114,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-This response contains all t-shirt aggregated by color and size:
+The response contains all t-shirts aggregated by color and size:
 
 <details markdown="block">
   <summary>
@@ -464,7 +464,7 @@ The results appear as follows.
 
 ### Maintaining facet options during filtering
 
-When users select a facet filter, they typically expect to see what other filtering options are still available. For example, if a user filters for red t-shirts, the color facet should still show all available colors (red, blue, and others) from the original search results, not just "red". This helps users understand the full range of options and easily switch between filters.
+When users select a facet filter, they typically expect to still see the other available filtering options. For example, if a user filters for red t-shirts, the color facet should still show all available colors (red, blue, and others) from the original search results, not just "red". This helps users understand the full range of options and easily switch between filters.
 
 You can achieve this behavior by using a `post_filter`. The `post_filter` filters the search results after aggregations are calculated, so facets reflect the unfiltered dataset:
 
@@ -622,7 +622,7 @@ POST /products/_search
 ```
 {% include copy-curl.html %}
 
-The global aggregation approach runs against the entire index, so you need to reapply your base query (the t-shirt search) within the global aggregation to get the correct facet counts. The response is similar to the one in the preceding approach:
+The global aggregation runs against the entire index, so you need to reapply your base query (the t-shirt search) within the global aggregation to get the correct facet counts. The response is similar to the one produced by the preceding approach:
 
 <details markdown="block">
   <summary>
@@ -819,7 +819,7 @@ The results appear as follows.
 
 ## Step 5: Range facets
 
-You can create range facets for numeric fields like price, ratings, or dates.
+You can create range facets for fields containing numeric values like prices, ratings, or dates.
 
 ### Numeric ranges
 
@@ -1096,7 +1096,7 @@ The response contains all three stores bucketed by distance:
 
 ## Hierarchical faceting
 
-Hierarchical faceting enables drill-down through a hierarchy of attributes like Category > Subcategory > Product type. This can be implemented using fields that encode the hierarchy with delimiters.
+Hierarchical faceting enables drill-down through a hierarchy of attributes, like Category > Subcategory > Product type. This can be implemented using fields that encode the hierarchy with delimiters.
 
 First, create an ingest pipeline that uses the `path_hierarchy` tokenizer to automatically generate all hierarchy levels:
 
@@ -1161,7 +1161,7 @@ curl -XPUT "http://localhost:9200/_ingest/pipeline/category-hierarchy-pipeline" 
 ```
 {% include copy.html %}
 
-This approach avoids using `fielddata` on text fields by explicitly storing each hierarchy level as separate keyword fields. While this requires more storage space, it provides better query performance and is more memory-efficient for aggregations. In production systems, you can automate the hierarchy level extraction during indexing using ingest pipelines or application logic.
+This approach avoids using `fielddata` on `text` fields by explicitly storing each hierarchy level as a separate `keyword` field. While this requires more storage space, it provides better query performance and is more memory efficient for aggregations. In production systems, you can automate the hierarchy level extraction during indexing using ingest pipelines or application logic.
 
 Next, define your index mapping with hierarchical fields and set the pipeline as a default pipeline on the index:
 
@@ -1231,7 +1231,7 @@ POST /products-advanced/_search
 ```
 {% include copy-curl.html %}
 
-The response contains a flat structure with separate aggregations results. The categories show counts with cross-category totals. For example, the `Athletic` subcategory shows combined count from both `Clothing` (1) and `Footwear` (1):
+The response contains a flat structure with separate aggregation results. The categories show counts with cross-category totals. For example, the `Athletic` subcategory shows the combined count from both `Clothing` (1) and `Footwear` (1):
 
 <details markdown="block">
   <summary>
@@ -1725,7 +1725,7 @@ The results appear as follows.
 
 ![Faceted search results with hierarchical nested categories]({{site.url}}{{site.baseurl}}/images/faceted-search/faceted-search-hierarchical-nested.png)
 
-Prefix queries enable filtering on specific branches of a category hierarchy, allowing you to scope results to a particular category level and all its subcategories. To show products only in the `Clothing>Shirts` category and its subcategories, use the `keyword` field for exact prefix matching:
+Prefix queries enable filtering on specific branches of a category hierarchy, allowing you to scope results to a particular category level and all its subcategories. To show products contained only in the `Clothing>Shirts` category and its subcategories, use the `keyword` field for exact prefix matching:
 
 ```json
 POST /products-advanced/_search
@@ -1970,7 +1970,7 @@ The response contains only `Clothing` products:
 
 </details>
 
-Similarly, you can aggregate the Clothing > Shirts category by specifying `"category_path": "Clothing>Shirts"` in the `prefix` query. Your application code can then strip prefixes for cleaner display (for example, changing `Clothing>Shirts` to `Shirts`) if necessary. OpenSearch does the heavy lifting (tokenizing and aggregating), while your application code handles the display formatting by stripping prefixes based on hierarchy level.
+Similarly, you can aggregate the `Clothing>Shirts` category by specifying `"category_path": "Clothing>Shirts"` in the `prefix` query. Your application code can then strip prefixes to provide a cleaner display (for example, change `Clothing>Shirts` to `Shirts`) if necessary. OpenSearch does the heavy lifting (tokenizing and aggregating), while your application code handles the display formatting by stripping prefixes based on hierarchy level.
 
 
 ## Related articles
