@@ -95,6 +95,10 @@ While the conversation about the usage of OBO tokens continues, it is critical t
 
 For more information, see the [related discussion](https://github.com/opensearch-project/security/issues/2891).
 
+### Permissions
+
+To create an OBO token, you must have the `security:obo/create` permission.
+
 ## Service Accounts
 
 Service Accounts tokens are the second form of authentication token supported by the Security plugin. 

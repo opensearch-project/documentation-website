@@ -2,7 +2,7 @@
 layout: default
 title: IDs
 parent: Term-level queries
-nav_order: 30
+nav_order: 40
 ---
 
 # IDs query

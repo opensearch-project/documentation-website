@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Get Snapshot Repository
+title: Get snapshot repository
 parent: Snapshot APIs
 nav_order: 2
 ---
 
-# Get snapshot repository.
+# Get Snapshot Repository. API
 **Introduced 1.0**
 {: .label .label-purple }
 

@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Create or update a memory
+# Create Or Update Memory API
 **Introduced 2.12**
 {: .label .label-purple }
 
@@ -42,7 +42,7 @@ Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `name` | String | Optional | The name of the memory.
 
-#### Example request
+## Example request
 
 ```json
 POST /_plugins/_ml/memory/
@@ -52,7 +52,7 @@ POST /_plugins/_ml/memory/
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

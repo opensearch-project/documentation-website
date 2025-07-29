@@ -9,7 +9,7 @@ redirect_from:
   - /opensearch/rest-api/cluster-awareness/
 ---
 
-# Cluster routing and awareness
+# Cluster Routing And Awareness API
 **Introduced 1.0**
 {: .label .label-purple }
 

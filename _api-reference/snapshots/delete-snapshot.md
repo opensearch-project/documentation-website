@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Delete Snapshot
+title: Delete snapshot
 parent: Snapshot APIs
 nav_order: 7
 ---

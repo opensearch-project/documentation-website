@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Example API 
+title: Example operation
 parent: 
 nav_order: 
 ---
 
-# Example API 
+# Example Operation API 
 Introduced 1.0
 {: .label .label-purple }
 
@@ -44,46 +44,20 @@ The following table lists the available request body fields.
 | `example_object.required_request_field` | Type | Required request field description. Required. |
 | `example_object.optional_request_field` | Type | Optional request field description. Optional. Default is ... |
 
-## Example request(s)
-
-**TIP:** If multiple examples exist for the request, separate those examples using an `h3` header underneath this section.
-
-### Request with an example object
-
-The following example shows an API request with an example object: 
+## Example request
 
 ```json
 POST /_example/endpoint/
 {
-    "example_object": {
-        "required_request_field": "example value",
-        "optional_request_field": "example value"
-    }
+  "example_object": {
+      "required_request_field": "example value",
+      "optional_request_field": "example value"
+  }
 }
 ```
 {% include copy-curl.html %}
 
-### Request without an example object
-
-The following example shows an API request without an example object:
-
-```json
-POST /_example/endpoint/
-```
-{% include copy-curl.html %}
-
-
 ## Example response
-
-**TIP:** If multiple examples exist for the request, separate those examples using an `h3` header under this section, similar to the [Example requests](#example-requests).
-
-The following example shows an API response:
-
-<details open markdown="block">
-  <summary>
-    Response
-  </summary>
-  {: .text-delta}
 
 ```json
 {
@@ -94,7 +68,6 @@ The following example shows an API response:
   }
 }
 ```
-</details>
 
 ## Response body fields
 
@@ -107,5 +80,3 @@ The following table lists all response body fields.
 ## Required permissions
 
 If you use the Security plugin, make sure you have the appropriate permissions: `cluster:example/permission/name`.
-
-

@@ -5,7 +5,7 @@ parent: Workflow APIs
 nav_order: 60
 ---
 
-# Search for a workflow
+# Search Workflow API
 
 You can retrieve created workflows with their `workflow_id` or search for workflows by using a query matching a field. You can use the `use_case` field to search for similar workflows.
 
@@ -16,7 +16,7 @@ GET /_plugins/_flow_framework/workflow/_search
 POST /_plugins/_flow_framework/workflow/_search
 ``` 
 
-#### Example request: All created workflows
+## Example request: All created workflows
 
 ```json
 GET /_plugins/_flow_framework/workflow/_search
@@ -28,7 +28,7 @@ GET /_plugins/_flow_framework/workflow/_search
 ```
 {% include copy-curl.html %}
 
-#### Example request: All workflows with a `use_case` of `REMOTE_MODEL_DEPLOYMENT`
+## Example request: All workflows with a `use_case` of `REMOTE_MODEL_DEPLOYMENT`
 
 ```json
 GET /_plugins/_flow_framework/workflow/_search
@@ -42,6 +42,6 @@ GET /_plugins/_flow_framework/workflow/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 OpenSearch responds with a list of workflow templates matching the search parameters.

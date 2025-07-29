@@ -6,7 +6,7 @@ Depending on the intended purpose of the API, *some sections will be required wh
 
 Use the [API_TEMPLATE](templates/API_TEMPLATE.md) to create an API documentation page.
 
-### A note on terminology ###
+### A note on terminology
 
 Terminology for API parameters varies in the software industry, where two or even three names may be used to label the same type of parameter. For consistency, we use the following nomenclature for parameters in our API documentation:
 * *Path parameter* – "path parameter" and "URL parameter" are sometimes used synonymously. To avoid confusion, we use "path parameter" in this documentation.
@@ -30,14 +30,14 @@ The following sections describe the basic API documentation structure. Each sect
 
 Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
-1. Name of API (heading level 2)
-1. Endpoints (heading level 3)
-1. (Optional) Path parameters (heading level 3)
-1. (Optional) Query parameters (heading level 3)
-1. (Optional) Request fields (heading level 3)
-1. Example request (heading level 4)
-1. (Optional) Example response (heading level 4)
-1. (Optional) Response fields (heading level 3)
+1. Name of API 
+1. Endpoints 
+1. (Optional) Path parameters 
+1. (Optional) Query parameters 
+1. (Optional) Request body fields 
+1. Example request 
+1. Example response 
+1. (Optional) Response body fields 
 
 ## API name
 
@@ -48,7 +48,7 @@ Provide an API name that describes its function, followed by a description of it
 Use sentence capitalization for the heading (for example, "Create or update mappings"). When you refer to the API operation, you can use lowercase with code font.
 
 If there is a corresponding OpenSearch Dashboards feature, provide a “See also” link that references it. 
-*Example*: “To learn more about monitor findings, see [Document findings](https://opensearch.org/docs/latest/monitoring-plugins/alerting/monitors/#document-findings)."
+*Example*: “To learn more about monitor findings, see [Document findings](https://docs.opensearch.org/latest/monitoring-plugins/alerting/monitors/#document-findings)."
 
 If applicable, provide any caveats to its usage with a note or tip, as in the following example:
 
@@ -59,6 +59,7 @@ If applicable, provide any caveats to its usage with a note or tip, as in the fo
 
 For relatively complex API calls that include path parameters, it's sometimes a good idea to provide an example so that users can visualize how the request is properly formed. This section is optional and includes examples that illustrate how the endpoint and path parameters fit together in the request. The following is an example of this section for the nodes stats API:
 
+````
 ```json
 GET /_nodes/stats
 GET /_nodes/<node_id>/stats
@@ -67,6 +68,7 @@ GET /_nodes/<node_id>/stats/<metric>
 GET /_nodes/stats/<metric>/<index_metric>
 GET /_nodes/<node_id>/stats/<metric>/<index_metric>
 ```
+````
 
 ### Path parameters
 
@@ -83,8 +85,10 @@ Introduce what the path parameters can do at a high level. Provide a table with 
 *Data type* – Data type capitalized (such as Boolean, String, or Integer).
 *Description* – Sentence to describe the parameter function, default values or range of values, and any usage examples.
 
+```md
 Parameter | Data type | Description
 :--- | :--- | :---
+```
 
 ### Query parameters
 
@@ -100,8 +104,10 @@ Include a paragraph that describes how to use the query parameters with an examp
 
 For GET and DELETE APIs: Introduce what you can do with the optional parameters. Include a table with the same columns as the path parameter table.
 
+```md
 Parameter | Data type | Description
 :--- | :--- | :---
+```
 
 ### Request body fields
 
@@ -112,18 +118,25 @@ Include a table with these columns:
 *Data type* – Data type capitalized (such as Boolean, String, or Integer).
 *Description* – Sentence to describe the field’s function, default values or range of values, and any usage examples.
 
+```md
 Field | Data type | Description
 :--- | :--- | :--- 
+```
 
 ## Example request
 
-Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test the request yourself in the Dashboards Dev Tools console to make sure it works. See the following examples.
+Make sure that you test the request. You can optionally add a descriptive sentence for the request. See the following examples.
 
-The following request gets all the settings in your index:
+````md
+## Example request
 
 ```json
 GET /sample-index1/_settings
 ```
+````
+
+````md
+## Example request
 
 The following request copies all of your field mappings and settings from a source index to a destination index:
 
@@ -138,12 +151,49 @@ POST _reindex
    }
 }
 ```
+````
+
+To showcase multiple example requests, include a request description in the heading:
+
+````markdown
+## Example request: Searching for all agents
+
+```json
+POST /_plugins/_ml/agents/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 1000
+}
+```
+{% include copy-curl.html %}
+
+## Example request: Searching for agents of a certain type
+
+```json
+POST /_plugins/_ml/agents/_search
+{
+  "query": {
+    "term": {
+      "type": {
+        "value": "flow"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+````
+
+If the responses are significantly different, you can include a response for each request. If the responses are the same, include one response at the end of all requests.
 
 ## Example response
 
-Include a JSON example response to show what the API returns. See the following examples.
+Include a JSON example response to show what the API returns. You can optionally add a descriptive sentence for the response. See the following examples.
 
-The `GET /sample-index1/_settings` request returns the following response fields: 
+````md
+## Example response
 
 ```json
 {
@@ -164,8 +214,32 @@ The `GET /sample-index1/_settings` request returns the following response fields
   }
 }
 ```
+````
 
-The `POST _reindex` request returns the following response fields: 
+````md
+## Example response: Get all stats
+
+The response contains statistics for each node:
+
+```json
+{
+  "zbduvgCCSOeu6cfbQhTpnQ" : {
+    "ml_executing_task_count" : 0
+  },
+  "54xOe0w8Qjyze00UuLDfdA" : {
+    "ml_executing_task_count" : 0
+  }
+}
+````
+
+Enclose long responses in a `details` block:
+
+````md
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -188,10 +262,14 @@ The `POST _reindex` request returns the following response fields:
   "failures" : [ ]
 }
 ```
+</details>
+````
 
 ### Response body fields
 
 For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response.
 
+```md
 Field | Data type | Description
 :--- | :--- | :---
+```

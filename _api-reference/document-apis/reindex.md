@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/rest-api/document-apis/reindex/
 ---
 
-# Reindex document
+# Reindex Document API
 **Introduced 1.0**
 {: .label .label-purple}
 
@@ -30,7 +30,7 @@ Parameter | Type | Description
 refresh | Boolean | If true, OpenSearch refreshes shards to make the reindex operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`.
 timeout | Time | How long to wait for a response from the cluster. Default is `30s`.
 wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the reindex request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed.
-wait_for_completion | Boolean | Waits for the matching tasks to complete. Default is `false`.
+wait_for_completion | Boolean | If `false`, OpenSearch runs the reindex operation asynchronously, without waiting for it to complete. The request returns immediately, and the task continues in the background. You can monitor its progress using the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/). Default is `true`, which means the operation runs synchronously.
 requests_per_second | Integer | Specifies the request’s throttling in sub-requests per second. Default is -1, which means no throttling.
 require_alias | Boolean | Whether the destination index must be an index alias. Default is `false`.
 scroll | Time | How long to keep the search context open. Default is `5m`.

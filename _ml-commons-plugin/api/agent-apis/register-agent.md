@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Register an agent
+# Register Agent API
 **Introduced 2.13**
 {: .label .label-purple }
 

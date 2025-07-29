@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 60
 ---
 
-# Search for a message
+# Search Message API
 **Introduced 2.12**
 {: .label .label-purple }
 
@@ -30,7 +30,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `memory_id` | String | The ID of the memory used to search for messages matching the query.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/_search
@@ -44,7 +44,7 @@ GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

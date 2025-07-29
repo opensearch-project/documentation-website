@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT recovery
-parent: CAT API
+parent: CAT APIs
 nav_order: 50
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-recovery/
 ---
 
-# CAT recovery
+# CAT Recovery API
 **Introduced 1.0**
 {: .label .label-purple }
 

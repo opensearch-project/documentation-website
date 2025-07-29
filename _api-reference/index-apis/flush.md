@@ -2,10 +2,10 @@
 layout: default
 title: Flush
 parent: Index APIs
-nav_order: 36
+nav_order: 75
 ---
 
-# Flush
+# Flush API
 
 **Introduced 1.0**
 {: .label .label-purple }
