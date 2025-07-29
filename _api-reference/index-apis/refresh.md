@@ -20,6 +20,11 @@ After a shard becomes idle, the indexes will not refresh until either the next s
 
 To use the Refresh Index API, you must have write access to the indexes you want to refresh.
 
+## Refresh request behavior
+
+The Refresh Index API call is synchronous. The response is returned only after all targeted shards have been refreshed.
+Because refresh operations are resource intensive, we recommend relying on automatic periodic refreshes using `index.refresh_interval`.
+
 ## Endpoints
 
 ```json
