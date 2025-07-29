@@ -184,7 +184,7 @@ The following error response indicates that the search query failed because the 
 }
 ```
 
-For text fields, the index parameter being false is enough to disable searching on that field, however, for the other field types, we must also disable `doc_values` to have the same effect.  
+For text fields, the index parameter being false is enough to disable searching on that field (this is because text fields do not support doc_values), however, for the other field types, we must also disable `doc_values` to have the same effect.  
 
 Query `products-no-index` using the `name` field:
 
@@ -202,7 +202,7 @@ POST /products-no-index/_search
 ```
 {% include copy-curl.html %}
 
-The following error response indicates that the search query succeeded because the name field is not indexed but still has `doc_values` enabled:
+The following response indicates that the search query succeeded because the name field is not indexed but still has `doc_values` enabled:
 
 ```json
 {
