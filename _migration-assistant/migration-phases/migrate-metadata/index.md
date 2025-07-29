@@ -96,7 +96,7 @@ Results:
 ```
 
 
-## Using the `migrate` command
+## Using the migrate command
 
 Running through the same data as the evaluate command all of the migrated items will be applied onto the target cluster.  If re-run multiple times items that were previously migrated will not be recreated.  If any items do need to be re-migrated, please delete them from the target cluster and then rerun the evaluate then migrate commands to ensure the desired changes are made.
 
