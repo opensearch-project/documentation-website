@@ -17,7 +17,7 @@ class SpecInsert < BaseMustacheRenderer
   def initialize(args)
     action = Api::Action.by_full_name[args.api]
     super(action, args)
-    raise SpecInsertError, '`api` argument not specified.' unless @args.api
+    raise SpecInsertError, '`api` argument could not be resolved.' unless @action
     raise SpecInsertError, "API Action '#{@args.api}' does not exist in the spec." unless @action
   end
 

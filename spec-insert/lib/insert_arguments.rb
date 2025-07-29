@@ -27,7 +27,16 @@ class InsertArguments
 
   # @return [String]
   def api
-    @raw['api']
+    return @raw['api'] if @raw['api'].present?
+
+    if rest_line = rest&.raw_lines&.first
+      inferred_action = Api::Action.find_by_rest(rest_line)
+      raise SpecInsertError, "Could not infer API from rest line: #{rest_line}" unless inferred_action
+
+      return inferred_action.full_name
+    end
+
+    nil
   end
 
   # @return [String]
