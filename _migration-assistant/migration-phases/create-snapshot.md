@@ -20,17 +20,25 @@ console snapshot create [...]
 ```
 {% include copy.html %}
 
+**Note:** The Migration Assistant will automatically generate a snapshot name and configure the necessary S3 repository. You only need to specify `--snapshot-name` if you are using an existing snapshot that you created outside of Migration Assistant.
+
+**For existing snapshots:**
+If you have an existing snapshot, you can specify it during the RFS configuration in your `cdk.context.json` file using the `reindexFromSnapshotExtraArgs` parameter:
+```json
+"reindexFromSnapshotExtraArgs": "--s3-repo-uri s3://your-bucket/repo --s3-region us-west-2 --snapshot-name your-existing-snapshot"
+```
+
 To check the snapshot creation status, run the following command:
 
 ```bash
-console snapshot status [...]
+console snapshot status
 ```
 {% include copy.html %}
 
 To learn more information about the snapshot, run the following command:
 
 ```bash
-console snapshot status --deep-check [...]
+console snapshot status --deep-check
 ```
 {% include copy.html %}
 

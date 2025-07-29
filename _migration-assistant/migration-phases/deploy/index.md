@@ -22,6 +22,34 @@ Before using this quickstart, review [Is Migration Assistant right for you?]({{s
 
 Because this guide uses [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/), ensure that the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
+## Planning Your Deployment Environment
+
+Before beginning the deployment, consider the following environment planning steps:
+
+- **Choose a unique stage name**: Avoid using "dev" if you have existing deployments or potential conflicts. Consider using "test", "staging", "prod", or other descriptive names.
+- **Verify domain endpoints**: Ensure your source and target cluster endpoints are accessible and properly formatted.
+- **Prepare authentication**: Have your cluster credentials and AWS Secrets Manager ARNs ready.
+- **Check AWS credentials**: Verify that your AWS credentials are properly configured for the target account and region.
+
+## Prerequisites
+
+Before proceeding with the deployment, ensure you have completed the following prerequisites:
+
+### AWS Environment Setup
+1. **Configure AWS credentials**: Run `aws configure` to set up your credentials, or ensure environment variables are properly set.
+2. **Verify account access**: Test your credentials with `aws sts get-caller-identity`.
+3. **Check region**: Ensure you're deploying to the correct AWS region.
+
+### Development Environment Setup
+1. **Install Docker**: Docker is required for building container images. Verify installation with `docker --version`.
+2. **Install Node.js and npm**: Required for CDK operations. Verify with `node --version` and `npm --version`.
+3. **Install AWS CDK CLI**: Run `npm install -g aws-cdk` if not already installed.
+
+### Project Setup
+1. **Build Docker images**: From the deployment directory, run `./buildDockerImages.sh` to build required container images.
+2. **Install dependencies**: Run `npm install` in the CDK deployment directory.
+3. **Bootstrap CDK**: If this is your first CDK deployment in the region, run `cdk bootstrap --c contextId=<your-context-id>`.
+
 ---
 
 ## Step 1: Install bootstrap on an Amazon EC2 instance (~10 minutes)
@@ -152,6 +180,52 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
 
     The source and target cluster authorization can be configured to have no authorization, `basic` with a username and password, or `sigv4`. 
 
+    ### Environment Configuration Examples
+
+    To avoid conflicts with existing deployments, consider using different context IDs and stage names:
+
+    ```json
+    {
+    "test-deploy": {
+        "stage": "test",
+        "migrationAssistanceEnabled": true,
+        "migrationConsoleServiceEnabled": true,
+        "reindexFromSnapshotServiceEnabled": true,
+        "sourceCluster": {
+            "endpoint": "https://migration-source-es710.us-west-2.es.amazonaws.com",
+            "version": "ES_7.10",
+            "auth": {
+                "type": "basic",
+                "username": "admin",
+                "passwordFromSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-source-password"
+            }
+        },
+        "targetCluster": {
+            "endpoint": "https://migration-target-os219.us-west-2.es.amazonaws.com",
+            "auth": {
+                "type": "basic",
+                "username": "admin",
+                "passwordFromSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-target-password"
+            }
+        }
+    },
+    "prod-deploy": {
+        "stage": "prod",
+        "migrationAssistanceEnabled": true,
+        "migrationConsoleServiceEnabled": true,
+        "reindexFromSnapshotServiceEnabled": true,
+        "// ... additional production-specific configuration"
+    }
+    }
+    ```
+    {% include copy.html %}
+
+    **Important Notes:**
+    - Use unique `stage` values to prevent resource naming conflicts
+    - Ensure secret ARNs are complete and accessible in your deployment region
+    - Domain endpoints can be simplified names or full AWS URLs
+    - Deploy using: `./deploy.sh <contextId>` (e.g., `./deploy.sh test-deploy`)
+
 3. After the `cdk.context.json` file is fully configured, bootstrap the account and deploy the required stacks using the following command:
 
     ```bash
@@ -234,6 +308,64 @@ ConnectionResult(connection_message='Successfully connected!', connection_establ
 ```
 
 To learn more about migration console commands, see [Migration console command reference]({{site.url}}{{site.baseurl}}/migration-assistant/migration-console/migration-console-command-reference/).
+
+---
+
+## Troubleshooting
+
+### Common Deployment Issues
+
+**Problem: AWS credentials not configured**
+```
+Unable to locate credentials. You can configure credentials by running "aws configure".
+```
+**Resolution:**
+1. Run `aws configure` and provide your access key, secret key, and region
+2. Alternatively, set environment variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION`
+3. Verify credentials with: `aws sts get-caller-identity`
+
+**Problem: Stack naming conflicts**
+```
+Stack with id OSMigrations-dev-us-west-2-MigrationConsole already exists
+```
+**Resolution:**
+1. Use a different `stage` value in your context configuration (e.g., "test", "staging")
+2. Or destroy existing stacks: `cdk destroy "*" --c contextId=<existing-context>`
+3. Ensure unique context IDs for parallel deployments
+
+**Problem: Docker build failures**
+```
+ERROR: failed to solve: public.ecr.aws/sam/build-nodejs18.x: pulling from host public.ecr.aws failed
+```
+**Resolution:**
+1. Run `docker logout public.ecr.aws` to clear authentication cache
+2. Retry the build process: `./buildDockerImages.sh`
+
+**Problem: CDK bootstrap required**
+```
+This stack uses assets, so the toolkit stack must be deployed to the environment
+```
+**Resolution:**
+1. Bootstrap CDK in your region: `cdk bootstrap --c contextId=<your-context>`
+2. Ensure you have the correct AWS credentials and region configured
+
+### Rollback Procedures
+
+If you need to remove a deployment:
+
+1. **Stop all running services:**
+   ```bash
+   console backfill stop  # If backfill is running
+   ```
+
+2. **Destroy CDK stacks:**
+   ```bash
+   cdk destroy "*" --c contextId=<your-context> --force
+   ```
+
+3. **Clean up manually if needed:**
+   - Remove any remaining CloudFormation stacks from the AWS console
+   - Delete any orphaned resources (ECS tasks, load balancers, etc.)
 
 ---
 

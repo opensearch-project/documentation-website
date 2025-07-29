@@ -8,7 +8,7 @@
     {% for step in scenario.steps %}
       <li>
         {% if step.url %}
-          <a href="{{ step.url }}">{{ step.title }}</a>
+          <a href="{{ site.url }}{{ site.baseurl }}{{ step.url }}">{{ step.title }}</a>
         {% else %}
           {{ step.title }}
         {% endif %}
@@ -18,7 +18,7 @@
             {% for substep in step.substeps %}
               <li>
                 {% if substep.url %}
-                  <a href="{{ substep.url }}">{{ substep.title }}</a>
+                  <a href="{{ site.url }}{{ site.baseurl }}{{ substep.url }}">{{ substep.title }}</a>
                 {% else %}
                   {{ substep.title }}
                 {% endif %}
