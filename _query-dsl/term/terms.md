@@ -253,7 +253,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `index` | String | The name of the index in which to fetch field values. Required.
 `id` | String | The document ID of the document from which to fetch field values. Required.
-`query` | Object | A query object to select multiple documents from which to fetch field values. Required if `id` is not supplied.
+`query` | Object | A query object used to select multiple documents from which to fetch field values. Required if `id` is not supplied.
 `path` | String | The name of the field from which to fetch field values. Specify nested fields using dot path notation. Required.
 `routing` | String | Custom routing value of the document from which to fetch field values. Optional. Required if a custom routing value was provided when the document was indexed.
 `store` | Boolean | Whether to perform the lookup on the stored field instead of `_source`. Optional.
@@ -414,7 +414,7 @@ GET /users/_search
 ```
 {% include copy-curl.html %}
 
-This query collects all values from the `members` field of documents in `groups` whose `group` is set to `g1`, and uses them as terms for the `username` field in the `users` index:
+This query collects all values from the `members` field of documents in `groups` whose `group` is set to `g1` and uses them as terms for the `username` field in the `users` index:
 
 ```json
 {
@@ -432,7 +432,7 @@ This query collects all values from the `members` field of documents in `groups`
 This query processes matching documents as follows:
 
 - The lookup query matches documents 1, 2, 3, 4, and 5 (all specify group `g1`).
-- Doc 6 (using a different group `g2`) is ignored by the query.
+- Doc 6 (using a different group, `g2`) is ignored by the query.
 - The `members` field for each matching document is processed as follows:
     - Doc 1: `["alice", "bob"]` (list) → both `alice` and `bob` are collected.
     - Doc 2: `"carol"` (scalar) → `carol` is collected.
