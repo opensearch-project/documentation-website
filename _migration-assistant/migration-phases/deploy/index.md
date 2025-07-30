@@ -35,7 +35,7 @@ Before beginning the deployment, consider the following environment planning ste
 
 Before proceeding with the deployment, ensure you have completed the following prerequisites:
 
-### AWS Environment Setup
+### AWS Environment setup
 1. **Configure AWS credentials**: Run `aws configure` to set up your credentials, or ensure environment variables are properly set.
 2. **Verify account access**: Test your credentials with `aws sts get-caller-identity`.
 3. **Check region**: Ensure you're deploying to the correct AWS region.
@@ -313,7 +313,9 @@ To learn more about migration console commands, see [Migration console command r
 
 ## Troubleshooting
 
-### Common Deployment Issues
+The following section covers common issues you may encounter during deployment and their resolutions.
+
+### Common deployment issues
 
 **Problem: AWS credentials not configured**
 ```
