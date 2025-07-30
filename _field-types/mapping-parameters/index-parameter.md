@@ -14,6 +14,19 @@ The `index` mapping parameter controls whether a field is included in the invert
 
 By default, all field types are indexed.
 
+## Index and Doc Values
+
+Enabling the index parameter will create an mapping between the terms and document lists. For any subsequent documents, the value of the fields where the index parameter is enabled will be processed into its terms, and foe each of those terms, the document id will be added to the corresponding document list of the term in the mapping. When the `doc_values` parameter is enabled, the document will be mapped to the list of terms is contains for that field. This helps with operations that need to quickly access a value for a document like in sorting.
+
+The table below shows how the field bahaves depending on the combination of how index and `doc_values` are enabled.
+
+| Index Option | Doc Values Option | Behavior       | Use Case       
+| :--       | :--               | :--            | :--            |
+| True   | True          | When index and `doc_values` are enabled, the field can be searched on, and sorting, scripting, and aggregations are supported.    | This should be used for any field you want to query directly and perform complex operations on.          |
+| True   | False          | When index is enabled but `doc_values` is not, the field can be only be searched on, meaning that queries can still be performed, but the document-to-term lookup is no longer supported. Sort, scripting, and aggregation operations will now take longer.    | Used for fields that you want to query but not perform sorts or aggregations on like text fields.          |
+| False   | True          | When the index is not enabled bug `doc_values` is, we can still search on the field (although not as efficiently), and sorting, scripting, and aggregations will work. It is worth noting that not all field types support doc_values like text, for example.     | Used for fields that you want to analyze with aggregations but not filter and query.          |
+| False   | False          | Now, that both index and `doc_values` are disabled, we are no longer able to search on this field, and queries that attempt to search on that field will return an error.    | Data that you do not have to perform any operations on like metadata.          |
+
 ## Supported data types
 
 The `index` mapping parameter can be applied to the following data types:
