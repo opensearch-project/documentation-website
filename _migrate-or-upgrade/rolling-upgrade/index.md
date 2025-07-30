@@ -4,8 +4,8 @@ title: Rolling upgrade
 nav_order: 20
 has_toc: true
 permalink: /migrate-or-upgrade/rolling-upgrade/
+nav_exclude: false
 redirect_from: 
- - /upgrade-opensearch/appendix/
  - /rolling-upgrade/index/
 ---
 
@@ -13,7 +13,7 @@ redirect_from:
 
 Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
 
-This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Appendix]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/appendix/).
+This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/).
 
 ## Preparing to upgrade
 
@@ -257,6 +257,7 @@ By preserving quorum and restarting nodes sequentially, rolling restarts ensure 
 
 ## Related articles
 
+- [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/) - A hands-on lab with step-by-step instructions for practicing rolling upgrades in a test environment
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)

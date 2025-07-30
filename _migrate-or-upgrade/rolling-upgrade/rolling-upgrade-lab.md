@@ -1,11 +1,13 @@
 ---
 layout: default
 title: Rolling upgrade lab
-parent: Upgrades appendix
-grand_parent: Rolling upgrade
-nav_order: 50
+parent: Rolling upgrade
+nav_exclude: true
 redirect_from:
   - /upgrade-opensearch/appendix/rolling-upgrade-lab/
+  - /install-and-configure/upgrade-opensearch/appendix/index/
+  - /migrate-or-upgrade/rolling-upgrade/appendix/
+  - /migrate-or-upgrade/rolling-upgrade/appendix/rolling-upgrade-lab/
 ---
 
 <!--
