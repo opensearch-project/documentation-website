@@ -66,7 +66,7 @@ Name | Description
 `subject_key` | The key in the JSON payload that stores the user's name. If not defined, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used. Most IdP providers use the `preferred_username` claim. Optional.
 `roles_key` | The key in the JSON payload that stores the user's roles. The value must be a comma-separated list of roles. This key is required only if you want to use roles in the JWT. You can configure `roles_key` as a list to extract roles from nested JWT claims.
 `required_audience` | The name of the audience that the JWT must specify. You can specify a single value (for example, `project1`) or multiple comma-separated values (for example, `project1,admin`). If you specify multiple values, the JWT must have at least one required audience. This parameter corresponds to the [`aud` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3).
-`required_issuer` | The target issuer of JWT stored in the JSON payload. This corresponds to the [`iss` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
+`required_issuer` | The target issuer of the JWT stored in the JSON payload. This corresponds to the [`iss` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
 `jwt_clock_skew_tolerance_seconds` | Specifies a window of time, in seconds, to compensate for any disparity between the JWT authentication server and OpenSearch node clock times, thereby preventing authentication failures due to the misalignment. The Security plugin sets 30 seconds as the default. Use this setting to apply a custom value.
 
 
