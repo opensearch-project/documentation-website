@@ -41,7 +41,7 @@ aws ecs execute-command --cluster "migration-${STAGE}-ecs-cluster" --task "${TAS
 ```
 {% include copy.html %}
 
-### Stage Configuration Examples
+### Stage configuration examples
 
 For different deployment environments, adjust the stage accordingly:
 

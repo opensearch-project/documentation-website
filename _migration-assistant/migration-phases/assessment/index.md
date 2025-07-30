@@ -73,7 +73,7 @@ For complex migrations involving multiple transformations or breaking changes, w
 
 ## Supported transformations
 
-Below is a list of transformations that are included in Migration Assistant. They can be enabled, combined, and configured to customize a migration for your use case. Depending on your use case and the type of transformation, a transformation may have to be added to Capture-and-Replay, Metadata Migration Tool, or Reindex-from-Snapshot. To request additional Migration Assistant transformations, create a GitHub issue [in the OpenSearch migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
+The following is a list of transformations that are included in Migration Assistant. They can be enabled, combined, and configured to customize a migration for your use case. Depending on your use case and the type of transformation, a transformation may have to be added to Capture-and-Replay, Metadata Migration Tool, or Reindex-from-Snapshot. To request additional Migration Assistant transformations, create a GitHub issue [in the OpenSearch migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
 
 - [Managing type mapping deprecation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/)
 - [Handling breaking changes in field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/)

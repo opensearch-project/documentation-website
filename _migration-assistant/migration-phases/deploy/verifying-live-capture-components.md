@@ -72,7 +72,7 @@ Set the **Filter desired status** to **Any desired status** to view all tasks, t
 
 ## Verifying replication
 
-Use the following steps to verify that replication is working once the traffic capture proxy is deployed:
+Use the following steps to verify that replication is working once the Traffic Capture Proxy is deployed:
 
 
 1. Navigate to the **Migration ECS Cluster** in the AWS Management Console.

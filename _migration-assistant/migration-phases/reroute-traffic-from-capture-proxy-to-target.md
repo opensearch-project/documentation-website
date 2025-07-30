@@ -29,7 +29,7 @@ Use the following steps to switch traffic from the source cluster to the target 
 
 1. In the AWS Management Console, navigate to **ECS** > **Migration Assistant Cluster**. Note the desired count of the capture proxy, which should be greater than 1.
 
-2. Update the **ECS Service** of the target proxy to be at least as large as the traffic capture proxy. Wait for tasks to start up, and verify that all targets are healthy in the target proxy service's **Load balancer health** section.
+2. Update the **ECS Service** of the target proxy to be at least as large as the Traffic Capture Proxy. Wait for tasks to start up, and verify that all targets are healthy in the target proxy service's **Load balancer health** section.
 
 3. Navigate to **EC2** > **Load Balancers** > **Migration Assistant ALB**.
 
