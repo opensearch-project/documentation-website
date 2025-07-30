@@ -104,7 +104,7 @@ The following options shape how each test runs and how results appear:
 
 The following options set which version of OpenSearch and the OpenSearch plugins the benchmark test uses: 
 
-- `--distribution-version`: Downloads the specified OpenSearch distribution based on version number. For a list of released OpenSearch versions, see [Version history]({{site.latesturl}}{{site.baseurl}}/version-history/). 
+- `--distribution-version`: Downloads the specified OpenSearch distribution based on version number. For a list of released OpenSearch versions, see [Version history]({{site.url}}{{site.latesturl}}/version-history/). 
 - `--distribution-repository`: Defines the repository from where the OpenSearch distribution should be downloaded. Default is `release`.
 - `--revision`: Defines the current source code revision to use for running a benchmark test. Default is `current`.
    - `current`: Uses the source tree's current revision based on your OpenSearch distribution. 
