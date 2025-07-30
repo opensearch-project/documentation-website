@@ -56,8 +56,8 @@ search_type | String | Whether OpenSearch should use global term and document fr
 search_timeout | Time | How long to wait until OpenSearch deems the request timed out. Default is no timeout.
 slices | String or integer | The number slices to split an operation into for faster processing, specified by integer. When set to `auto` OpenSearch it should decides how many the number of slices for the operation. Default is `1`, which indicates an operation will not be split.
 sort | List | A comma-separated list of &lt;field&gt; : &lt;direction&gt; pairs to sort by.
-_source | String | Controls the parts of the document source available to the script and returned in the response. Excluded fields may be removed from the document if not reassigned in the script. 
-_source_excludes | String | A comma-separated list of source fields to exclude from the script context and the response. Excluded fields may be removed from the document unless explicitly preserved by the script. 
+_source | String | Controls the fields of the document `_source` available to the script and returned in the response. Excluded fields may be removed from the document `_source` if not reassigned in the script. 
+_source_excludes | String | A comma-separated list of source fields to exclude from the script context and the response. Excluded fields may be removed from the document `_source` unless explicitly preserved by the script. 
 _source_includes | String | A comma-separated list of source fields to include in the script context and the response. Only these fields will be available for script processing. 
 stats | String | Value to associate with the request for additional logging.
 terminate_after | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request.
