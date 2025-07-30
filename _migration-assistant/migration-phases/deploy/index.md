@@ -16,7 +16,7 @@ redirect_from:
 This document assumes you have performed [assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) to understand upgrade breaking changes and limitations before beginning.
 This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, you can modify the steps for use with other cloud providers.
 
-**Note:** Although this page focuses on RFS-only deployment, you can add capture and replay functionality or replace RFS options with Capture and Replay as described in [Configuration options]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/#live-capture-migration-with-cr).
+**Note:** Although this page focuses on RFS-only deployment, you can add capture and replay functionality or replace RFS options with  Capture-and-Replay  as described in [Configuration options]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/#live-capture-migration-with-cr).
 
 Before using this quickstart, review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/).
 

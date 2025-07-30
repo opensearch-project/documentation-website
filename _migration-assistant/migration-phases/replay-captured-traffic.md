@@ -296,7 +296,7 @@ Migration Assistant creates an Amazon CloudWatch dashboard named `MigrationAssis
 - The number of active connections.
 - The replay speed multiplier. 
 
-You can find the Capture and Replay dashboard in the AWS Management Console for CloudWatch Dashboards in the AWS Region where you deployed Migration Assistant.
+You can find the  Capture-and-Replay  dashboard in the AWS Management Console for CloudWatch Dashboards in the AWS Region where you deployed Migration Assistant.
 
 Traffic Replayer emits various OpenTelemetry metrics to Amazon CloudWatch, and traces are sent through AWS X-Ray. The following are some useful metrics that can help evaluate migration performance.
 

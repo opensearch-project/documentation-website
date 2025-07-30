@@ -70,7 +70,7 @@ Before starting an upgrade or migration, consider the cluster feature to be incl
 
 | Feature | Supported | Recommendations   |
 | :--- |:--- | :--- |
-| **Documents**  | Yes  | Migrate existing data with RFS and live traffic with Capture and Replay. |
+| **Documents**  | Yes  | Migrate existing data with RFS and live traffic with  Capture-and-Replay . |
 | **Index settings**  | Yes   | Migrate with the `Metadata-Migration-Tool`. |
 | **Index mappings**  | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
 | **Index templates**   | Yes   | Migrate with the `Metadata-Migration-Tool`. |
@@ -138,7 +138,7 @@ When deploying to an existing VPC, consider the following:
 
   - If using isolated subnets with no outbound access, you must configure VPC interface endpoints or routing to the following services:
 
-    - **Application Load Balancer** (Capture and Replay only) – Used to optionally reroute client traffic from the source to the target during migration.
+    - **Application Load Balancer** ( Capture-and-Replay  only) – Used to optionally reroute client traffic from the source to the target during migration.
     - **Amazon CloudWatch** – Publishes migration metrics.
     - **Amazon CloudWatch Logs** – Ingests Amazon Elastic Container Service (Amazon ECS) task logs.
     - **Amazon Elastic Compute Cloud (Amazon EC2)** – Used to bootstrap Migration Assistant. When deploying using AWS CloudFormation, the bootstrap EC2 instance requires outbound internet access (using NAT gateway or an internet gateway) to download the latest version from GitHub.
@@ -146,9 +146,9 @@ When deploying to an existing VPC, consider the following:
     - **Amazon Elastic Container Registry (Amazon ECR)** – Pulls container images.
     - **Amazon ECS** – Orchestrates container workloads.
     - **Amazon Elastic File System (Amazon EFS)** – Stores persistent logs.
-    - **Amazon Managed Streaming for Apache Kafka (Amazon MSK)** (Capture and Replay only) – Used as durable storage to capture and replay live HTTP traffic.
+    - **Amazon Managed Streaming for Apache Kafka (Amazon MSK)** ( Capture-and-Replay  only) – Used as durable storage to capture and replay live HTTP traffic.
     - **Amazon S3** – Stores and retrieves snapshots and artifacts.
-    - **Elastic Load Balancing** (Capture and Replay only) – Used by the migration console to connect to the Application Load Balancer.
+    - **Elastic Load Balancing** ( Capture-and-Replay  only) – Used by the migration console to connect to the Application Load Balancer.
     - **AWS Secrets Manager** – Securely stores credentials when using basic authentication on the source or target.
     - **AWS Systems Manager Parameter Store** – Stores configuration parameters.
     - **AWS Systems Manager Session Manager** – Enables secure shell access to ECS tasks such as the migration console.
@@ -167,9 +167,9 @@ To use `Reindex-from-Snapshot` (RFS), ensure the following:
 - Shards of up to **80 GiB** are supported by default. Larger shard sizes can be configured, **except in AWS GovCloud (US)**, where 80 GiB is the maximum.
 - In OpenSearch 2.9 and later, snapshots of indexes that use the zstd or zstd_no_dict codecs are not supported. If you need to migrate these indexes using `Reindex -from-Snapshot`, you must first reindex them on the source cluster using either `default` or `best_compression` before creating a new snapshot for use with RFS.
 
-### Capture and Replay
+###  Capture-and-Replay 
 
-Capture and Replay has the following requirements:
+ Capture-and-Replay  has the following requirements:
 
 - The Traffic Capture Proxy must be deployed to intercept client traffic.
 - Live capture is recommended only for workloads with **< 4 TB/day** of incoming traffic to the source cluster.
