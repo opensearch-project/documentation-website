@@ -9,11 +9,13 @@ permalink: /migrate-or-upgrade/migration-assistant/
 
 # Migration Assistant
 
-Migration Assistant for OpenSearch assists you in migrating or upgrading your Elasticsearch and OpenSearch workloads to OpenSearch managed clusters. This solution automates manual tasks with a low-risk and prescriptive migration path for existing and live data. It also includes advanced features, such as a metadata migration tool and capture and replay comparison tooling to help you identify potential migration and upgrade issues earlier. The migration process is streamlined, performance and behavioral comparisons based on real customer workloads are enabled, and the pre-migration, migration, and validation phases are accelerated.
+Migration Assistant for OpenSearch assists you in migrating or upgrading your Elasticsearch and OpenSearch workloads to OpenSearch managed clusters. This solution automates manual tasks with a low-risk and prescriptive migration path for existing and live data. It also includes advanced features, such as a metadata migration tool and Capture and Replay comparison tooling to help you identify potential migration and upgrade issues earlier. The migration process is streamlined, performance and behavioral comparisons based on real customer workloads are enabled, and the pre-migration, migration, and validation phases are accelerated.
 
-This solution prescribes a systematic migration workflow to upgrade, migrate, recover, and modify an OpenSearch cluster. The workflow includes a migration console command line interface (CLI) for management, a dedicated scaling group for existing data backfill, and a replayer to synchronize live traffic between source and target clusters. Users can pause or abort the migration without affecting production traffic, thereby reducing risk. Additionally, the backfill functionality minimizes further risk by retrieving data from a snapshot, leaving the source cluster unaffected, and supporting multi-hop migrations, which decreases the overall number of migrations required.
+This solution prescribes a systematic migration workflow to upgrade, migrate, recover, and modify an OpenSearch cluster. The workflow includes a migration console command line interface (CLI) for management, a dedicated scaling group for existing data backfill, and a Replayer to synchronize live traffic between source and target clusters. Users can pause or stop the migration without affecting production traffic, thereby reducing risk. Additionally, the backfill functionality minimizes further risk by retrieving data from a snapshot, leaving the source cluster unaffected, and supporting multi-hop migrations, which decreases the overall number of migrations required.
 
-Migration Assistant offers several key advantages for your migration and upgrade needs:
+Migration Assistant offers several key advantages for your migration and upgrade needs.
+
+The following sections describe the key benefits of using Migration Assistant for your OpenSearch migration or upgrade project.
 
 ## Benefits
 
@@ -23,7 +25,7 @@ Transfer data from an originating (source) cluster to a designated target (OpenS
 
 ### Adaptable, low-risk migration
 
-Safely capture and replay traffic on source and target clusters to identify optimal performance while reducing migration risk through abort capabilities, comparison tools, source preservation, and multi-hop support.
+Safely Capture and Replay traffic on source and target clusters to identify optimal performance while reducing migration risk through stop capabilities, comparison tools, source preservation, and multi-hop support.
 
 ### Centralized location for data analysis
 
