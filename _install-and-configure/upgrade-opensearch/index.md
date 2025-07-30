@@ -9,7 +9,7 @@ redirect_from:
 
 # Upgrading OpenSearch
 
-The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/206) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release Schedule and Maintenance Policy]({{site.url}}/releases.html).
+The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/206) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release Schedule and Maintenance Policy](https://opensearch.org/releases.html).
 
 We recognize that users are excited about upgrading OpenSearch in order to enjoy the latest features, and we will continue to expand on these upgrade and migration documents to cover additional topics, such as upgrading OpenSearch Dashboards and preserving custom configurations, such as for plugins.
 
