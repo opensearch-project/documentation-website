@@ -3,7 +3,6 @@ layout: default
 title: Is Migration Assistant right for you?
 nav_order: 10
 parent: Migration Assistant for OpenSearch
-permalink: /migration-assistant/is-migration-assistant-right-for-you/
 redirect_from:
   - /migration-assistant/overview/is-migration-assistant-right-for-you/
 ---
@@ -30,25 +29,25 @@ The following matrix shows which source versions can be directly migrated to whi
 {% endfor %}
 {% assign unique_targets = all_targets | uniq | sort %}
 
-<table class="migration-matrix">
+<table class="migration-matrix" style="border-collapse: collapse; border: 1px solid #ddd;">
   <thead>
     <tr>
-      <th>Source Version</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Source Version</th>
       {% for target in unique_targets %}
-        <th>{{ target }}</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">{{ target }}</th>
       {% endfor %}
     </tr>
   </thead>
   <tbody>
     {% for path in site.data.migration-assistant.valid_migrations.migration_paths %}
-      <tr>
-        <th>{{ path.source }}</th>
-        {% for target_version in unique_targets %}
-          <td>
-            {% if path.targets contains target_version %}✓{% endif %}
-          </td>
-        {% endfor %}
-      </tr>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px;">{{ path.source }}</th>
+      {% for target_version in unique_targets %}
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+        {% if path.targets contains target_version %}✓{% endif %}
+      </td>
+      {% endfor %}
+    </tr>
     {% endfor %}
   </tbody>
 </table>
@@ -69,7 +68,7 @@ Refer to [Supported AWS Regions](https://docs.aws.amazon.com/solutions/latest/mi
 Before starting an upgrade or migration, consider the cluster feature to be included. The following table lists what can be migrated using Migration Assistant, whether it is currently supported, and recommendations for how to handle each component.
 
 | Feature | Supported | Recommendations   |
-| :--- |:--- | :--- |
+| :--- | :--- | :--- |
 | **Documents**  | Yes  | Migrate existing data with RFS and live traffic with  Capture-and-Replay . |
 | **Index settings**  | Yes   | Migrate with the `Metadata-Migration-Tool`. |
 | **Index mappings**  | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
