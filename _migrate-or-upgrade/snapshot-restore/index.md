@@ -55,13 +55,15 @@ Snapshots capture data as it existed when the snapshot was initiated, but they'r
 
 ## Snapshot repository options for migration
 
+Choose the appropriate repository type based on your migration requirements and infrastructure setup.
+
 ### Shared file systems
 Best for migrations within the same infrastructure where both clusters can access shared storage.
 
 ### Amazon S3
 Ideal for cloud migrations or when migrating between different environments. Provides durability and accessibility across regions.
 
-### Azure Blob Storage
+### Azure blob storage
 Suitable for Azure-based migrations or hybrid cloud scenarios.
 
 ### Cross-cloud considerations
