@@ -109,7 +109,7 @@ When using the CDK deployment for Migration Assistant, you might encounter the f
 
 #### Bucket permissions
 
-To make sure that you can delete snapshots as well as create them during the CDK deployment process, confirm that the `OSMigrations-dev-<region>-CustomS3AutoDeleteObjects` stack has S3 object deletion rights. Then, verify that `OSMigrations-dev-<region>-default-SnapshotRole` has the following S3 permissions:  
+To make sure that you can delete snapshots and create them during the CDK deployment process, confirm that the `OSMigrations-dev-<region>-CustomS3AutoDeleteObjects` stack has S3 object deletion rights. Then, verify that `OSMigrations-dev-<region>-default-SnapshotRole` has the following S3 permissions:  
 
   - List bucket contents  
   - Read/Write/Delete objects

@@ -313,7 +313,7 @@ This metric shows the delay between requests hitting the source and target clust
 The following metrics are also reported:
 
 - **Throughput**: `bytesWrittenToTarget` and `bytesReadFromTarget` indicate the throughput to and from the cluster.
-- **Retries**: `numRetriedRequests` tracks the number of requests retried due to status code mismatches between the source and target.
+- **Retries**: `numRetriedRequests` tracks the number of requests retried because of status code mismatches between the source and target.
 - **Event counts**: Various `(*)Count` metrics track the number of completed events.
 - **Durations**: `(*)Duration` metrics measure the duration of each step in the process.
 - **Exceptions**: `(*)ExceptionCount` shows the number of exceptions encountered during each processing phase.

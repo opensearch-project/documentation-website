@@ -107,7 +107,7 @@ Older versions of the Elasticsearch S3 repository plugin may have trouble readin
 {"error":{"root_cause":[{"type":"repository_verification_exception","reason":"[migration_assistant_repo] path [rfs-snapshot-repo] is not accessible on master node"}],"type":"repository_verification_exception","reason":"[migration_assistant_repo] path [rfs-snapshot-repo] is not accessible on master node","caused_by":{"type":"i_o_exception","reason":"Unable to upload object [rfs-snapshot-repo/tests-s8TvZ3CcRoO8bvyXcyV2Yg/master.dat] using a single upload","caused_by":{"type":"amazon_service_exception","reason":"Unauthorized (Service: null; Status Code: 401; Error Code: null; Request ID: null)"}}},"status":500}
 ```
 
-If you encounter this issue, you can resolve it by temporarily enabling IMDSv1 on the instances in your source cluster for the duration of the snapshot. There is a toggle for this available in the AWS Management Console as well as in the AWS CLI. Switching this toggle will turn on the older access model and enable the Elasticsearch S3 repository plugin to work as normal. For more information about IMDSv1, see [Modify instance metadata options for existing instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-existing-instances.html).
+If you encounter this issue, you can resolve it by temporarily enabling IMDSv1 on the instances in your source cluster for the duration of the snapshot. There is a toggle for this available in the AWS Management Console and in the AWS CLI. Switching this toggle will turn on the older access model and enable the Elasticsearch S3 repository plugin to work as normal. For more information about IMDSv1, see [Modify instance metadata options for existing instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-existing-instances.html).
 
 ## Switching over client traffic
 
@@ -175,7 +175,7 @@ When using the CDK deployment for Migration Assistant, you might encounter the f
 
 #### Bucket permissions
 
-To make sure that you can delete snapshots as well as create them during the CDK deployment process, confirm that the `OSMigrations-dev-<region>-CustomS3AutoDeleteObjects` stack has S3 object deletion rights. Then, verify that `OSMigrations-dev-<region>-default-SnapshotRole` has the following S3 permissions:  
+To make sure that you can delete snapshots and create them during the CDK deployment process, confirm that the `OSMigrations-dev-<region>-CustomS3AutoDeleteObjects` stack has S3 object deletion rights. Then, verify that `OSMigrations-dev-<region>-default-SnapshotRole` has the following S3 permissions:  
 
   - List bucket contents  
   - Read/Write/Delete objects
