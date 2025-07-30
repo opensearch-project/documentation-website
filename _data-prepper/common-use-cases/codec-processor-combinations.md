@@ -21,7 +21,7 @@ The JSON array does not require a processor.
 
 Unlike a JSON array, [NDJSON](https://www.npmjs.com/package/ndjson) allows for each row of data to be delimited by a newline, meaning data is processed per line instead of an array.
 
-The NDJSON input type is parsed using the [newline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) codec, which parses each single line as a single log event. The [parse_json]({{site.url}}{{site.baseurl}}data-prepper/pipelines/configuration/processors/parse-json/) processor then outputs each line as a single event.
+The NDJSON input type is parsed using the [newline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#newline-codec) codec, which parses each single line as a single log event. The [parse_json]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/parse-json/) processor then outputs each line as a single event.
 
 ## CSV
 
