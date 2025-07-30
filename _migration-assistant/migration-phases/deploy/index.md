@@ -351,7 +351,7 @@ This stack uses assets, so the toolkit stack must be deployed to the environment
 1. Bootstrap CDK in your region: `cdk bootstrap --c contextId=<your-context>`
 2. Ensure you have the correct AWS credentials and region configured
 
-### Rollback Procedures
+### Rollback procedures
 
 If you need to remove a deployment:
 
@@ -367,7 +367,7 @@ If you need to remove a deployment:
 
 3. **Clean up manually if needed:**
    - Remove any remaining CloudFormation stacks from the AWS console
-   - Delete any orphaned resources (ECS tasks, load balancers, etc.)
+   - Delete any orphaned resources (For example, ECS tasks and load balancers)
 
 ---
 
