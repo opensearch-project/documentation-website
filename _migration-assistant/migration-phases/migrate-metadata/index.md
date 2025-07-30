@@ -139,7 +139,7 @@ Results:
 
 ## Metadata verification process
 
-Before moving on to additional migration steps, it is recommended to confirm details of your cluster.  Depending on your configuration, this could be checking the sharding strategy or making sure index mappings are correctly defined by ingesting a test document.
+Before moving on to additional migration steps, we recommend confirming details of your cluster.  Depending on your configuration, this could be checking the sharding strategy or making sure index mappings are correctly defined by ingesting a test document.
 
 ## Troubleshooting
 

@@ -114,6 +114,10 @@ Learn more in the [Reindex API docs]({{site.url}}{{site.baseurl}}/api-reference/
 
 ---
 
+## Additional considerations
+
+Before proceeding with your chosen migration or upgrade method, review the following compatibility requirements.
+
 ### Reviewing the OpenSearch tools compatibility matrices
 
 If your OpenSearch cluster interacts with other services in your environment, like Logstash or Beats, then you should check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to determine whether other components will need to be upgraded.
@@ -172,7 +176,7 @@ td {
 }
 </style>
 <table>
-  <tr><th>Lucene Version</th><th>OpenSearch Version</th><th>Elasticsearch Version</th></tr>
+  <tr><th>Lucene version</th><th>OpenSearch version</th><th>Elasticsearch version</th></tr>
   <tr><td>9.10.0</td><td>2.14.0<br>2.13.0</td><td>8.13</td></tr>
   <tr><td>9.9.2</td><td>2.12.0</td><td>&#8212;</td></tr>
   <tr><td>9.7.0</td><td>2.11.1<br>2.9.0</td><td>8.9.0</td></tr>
