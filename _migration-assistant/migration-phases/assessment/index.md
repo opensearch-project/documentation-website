@@ -16,7 +16,7 @@ The goal of Migration Assistant is to streamline the process of migrating from o
 
 ## Understanding breaking changes
 
-Before performing any upgrade or migration, you should review any breaking changes that might exist between version because there may be changes required in order for clients to connect to the new cluster. Use the following tool by selecting the versions in your migration path. The tool will respond with any breaking changes you should note when migrating:
+Before performing any upgrade or migration, you should review any breaking changes that might exist between versions because there may be changes required in order for clients to connect to the new cluster. Use the following tool by selecting the versions in your migration path. The tool will respond with any breaking changes you should note when migrating:
 
 <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/migration-assistant/assets/css/breaking-changes-selector.css">
 
@@ -69,7 +69,7 @@ We recommend running production-like queries against the target cluster before s
 - Locate the necessary indices and fields
 - Retrieve the expected results
 
-For complex migrations involving multiple transformations or breaking changes, we highly recommend performing a trial migration with representative, non-production data (e.g., in a staging environment) to fully test client compatibility with the target cluster.
+For complex migrations involving multiple transformations or breaking changes, we highly recommend performing a trial migration with representative, non-production data (such as in a staging environment) to fully test client compatibility with the target cluster.
 
 ## Supported transformations
 
