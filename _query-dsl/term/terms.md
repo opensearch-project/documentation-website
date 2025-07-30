@@ -54,225 +54,6 @@ To use terms lookup, you must enable the `_source` mapping field because terms l
 
 Terms lookup tries to fetch the document field values from a shard on a local data node. Thus, using an index with a single primary shard that has full replicas on all applicable data nodes reduces network traffic.
 
-**Introduced 3.2**
-
-## Terms lookup by query
-
-You can use a `query` instead of a document ID to collect terms from multiple documents. This allows the `terms` query to extract all values for a given field from all documents matching the specified query.
-
-### Example
-
-Suppose you have an index with group memberships:
-
-```json
-PUT groups/_doc/1
-{
-  "group": "g1",
-  "members": ["alice", "bob"]
-}
-```
-```json
-PUT groups/_doc/2
-{
-  "group": "g1",
-  "members": ["carol", "alice"]
-}
-```
-```json
-PUT groups/_doc/3
-{
-  "group": "g2"
-}
-```
-```json
-PUT groups/_doc/4
-{
-  "group": "g1",
-  "members": []
-}
-```
-```json
-PUT groups/_doc/5
-{
-  "group": "g2",
-  "members": "carol"
-}
-```
-```json
-PUT groups/_doc/6
-{
-  "group": "g1",
-  "members": null
-}
-```
-
-Now, to search in a `users` index for all users who are members of any group with `"group": "g1"`, use:
-
-```json
-GET users/_search
-{
-  "query": {
-    "terms": {
-      "username": {
-        "index": "groups",
-        "path": "members",
-        "query": {
-          "term": { "group": "g1" }
-        }
-      }
-    }
-  }
-}
-```
-
-This will collect the `members` field from all documents in `groups` matching the query and use those values as the terms for the search.
-
-### Edge Case Behavior
-
-- If some documents matching the query do not have the specified field, those documents are ignored for terms extraction.
-- If the field is a list, all its items are collected.
-- If the field is a scalar, its value is collected.
-- If the field is missing, null, or an empty list, it is skipped.
-- Duplicates from multiple documents are deduplicated.
-- If no documents match the query, the terms query acts as if no values were specified (typically matches nothing).
-- If none of the matched documents have the field, the query will not match anything.
-
-#### Example: Field Present and Missing
-
-If your lookup matches three documents, but only two have the `members` field:
-- Only the values from those two documents are used.
-- If one has `["alice", "bob"]` and another has `["carol"]`, the resulting terms list is `["alice", "bob", "carol"]`.
-
-#### Example: Field Is Scalar and List
-
-If the field is sometimes a single value and sometimes a list:
-- All values are flattened into a single list and deduplicated.
-
-#### Example: Field is Empty List or Null
-
-- If the field is an empty list or null, it is ignored for that document.
-
-
-#### Complete Example: Handling Lists, Scalars, Missing, Empty, and Null Fields
-
-Suppose you have an index of users, and another index of groups where group membership can be recorded as a list, a single value, missing, empty, or null. Here’s how “terms lookup by query” works in all these cases:
-
-**Step 1: Create the users index and add some users**
-
-```json
-PUT users
-{
-  "mappings": {
-    "properties": {
-      "username": { "type": "keyword" }
-    }
-  }
-}
-```
-
-```json
-PUT users/_doc/u1
-{ "username": "alice" }
-PUT users/_doc/u2
-{ "username": "bob" }
-PUT users/_doc/u3
-{ "username": "carol" }
-PUT users/_doc/u4
-{ "username": "dave" }
-```
-
-**Step 2: Create the groups index and add documents with all possible field cases**
-
-```json
-PUT groups
-{
-  "mappings": {
-    "properties": {
-      "group": { "type": "keyword" },
-      "members": { "type": "keyword" }
-    }
-  }
-}
-```
-
-```json
-PUT groups/_doc/1
-{ "group": "g1", "members": ["alice", "bob"] }         // members as list
-PUT groups/_doc/2
-{ "group": "g1", "members": "carol" }                  // members as scalar
-PUT groups/_doc/3
-{ "group": "g1" }                                      // members missing
-PUT groups/_doc/4
-{ "group": "g1", "members": [] }                       // members as empty list
-PUT groups/_doc/5
-{ "group": "g1", "members": null }                     // members as null
-PUT groups/_doc/6
-{ "group": "g2", "members": "carol" }                  // group g2, scalar
-```
-
-**Step 3: Use terms lookup by query to find all users who are members of any group with `"group": "g1"`**
-
-```json
-GET users/_search
-{
-  "query": {
-    "terms": {
-      "username": {
-        "index": "groups",
-        "path": "members",
-        "query": { "term": { "group": "g1" } }
-      }
-    }
-  }
-}
-```
-
-**Response:**
-
-```json
-{
-  "hits": {
-    "total": { "value": 3, "relation": "eq" },
-    "hits": [
-      { "_index": "users", "_id": "u1", "_score": 1.0, "_source": { "username": "alice" } },
-      { "_index": "users", "_id": "u2", "_score": 1.0, "_source": { "username": "bob" } },
-      { "_index": "users", "_id": "u3", "_score": 1.0, "_source": { "username": "carol" } }
-    ]
-  }
-}
-```
-
-### Explanation
-
-- The lookup query matches documents 1, 2, 3, 4, and 5 (all `group: "g1"`).
-- For `members` field:
-    - Doc 1: `["alice", "bob"]` (list) → both "alice" and "bob" are collected.
-    - Doc 2: `"carol"` (scalar) → "carol" is collected.
-    - Doc 3: missing field → ignored.
-    - Doc 4: empty list → ignored.
-    - Doc 5: null → ignored.
-- All collected values are flattened and deduplicated: `["alice", "bob", "carol"]`.
-- The query matches users with those usernames.
-- Doc 6 (`group: "g2"`) is ignored by the query.
-
-**Edge Case Behavior Demonstrated:**
-- Missing `members` field: ignored (Doc 3).
-- `members` as a list: all items used (Doc 1).
-- `members` as a scalar: value used (Doc 2).
-- `members` as null or empty: ignored (Docs 4 & 5).
-- Duplicates: deduplicated (if "alice" appeared in multiple docs, only one result).
-- If no documents match the group, the result would be empty.
-- If none of the matched documents have the field, the result would be empty.
-
-**Note:**  
-This feature is available only when using the `query` parameter instead of `id` in the terms lookup object, and is supported from OpenSearch 3.2 onward.
-
-**Tip:**  
-When using curl, always use `-H 'Content-Type: application/json'`. If your OpenSearch is not running on `localhost:9200`, adjust the URL accordingly.
-
-**Note:**  
-This feature is available only when using the `query` parameter instead of `id` in the terms lookup object.  
-
 ### Example
 
 As an example, create an index that contains student data, mapping `student_id` as a `keyword`:
@@ -487,9 +268,78 @@ This is useful when you want to search one index based on field values from docu
 
 For a list of supported parameters, see [terms lookup parameters](#parameters-1). To use terms lookup by query, you must provide the `query` parameter instead of `id` in the terms lookup object.  
 
+### How values are collected
+
+The behavior of the terms lookup depends on how the target field appears in the matched documents:
+
+- If a document matching the query does not contain the specified field, the document is ignored for terms extraction.
+- If the field is a list, all its items are collected.
+- If the field is a scalar, its value is collected.
+- If the same field is a single value or a list for different documents, all values are flattened into a single list and deduplicated.
+- Multiple lists are flattened into a single list.
+- If the field is missing, `null`, or an empty list, it is skipped.
+- Duplicates from multiple documents are deduplicated.
+- If no documents match the query, the `terms` query acts as if no values were specified (typically, matches nothing).
+- If none of the matched documents contain the field, the query does not match anything.
+
 ### Example
 
-Suppose that you have an index containing group memberships:
+First, create an index named `users`, which contains user information:
+
+```json
+PUT /users
+{
+  "mappings": {
+    "properties": {
+      "username": { "type": "keyword" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Add user data to the index:
+
+```json
+PUT users/_doc/u1
+{ "username": "alice" }
+```
+{% include copy-curl.html %}
+
+```json
+PUT users/_doc/u2
+{ "username": "bob" }
+```
+{% include copy-curl.html %}
+
+```json
+PUT users/_doc/u3
+{ "username": "carol" }
+```
+{% include copy-curl.html %}
+
+```json
+PUT users/_doc/u4
+{ "username": "dave" }
+```
+{% include copy-curl.html %}
+
+Next, create an index containing group memberships:
+
+```json
+PUT groups
+{
+  "mappings": {
+    "properties": {
+      "group": { "type": "keyword" },
+      "members": { "type": "keyword" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Add group membership data to the index:
 
 ```json
 PUT groups/_doc/1
@@ -504,7 +354,7 @@ PUT groups/_doc/1
 PUT groups/_doc/2
 {
   "group": "g1",
-  "members": ["carol", "alice"]
+  "members": "carol"
 }
 ```
 {% include copy-curl.html %}
@@ -512,7 +362,7 @@ PUT groups/_doc/2
 ```json
 PUT groups/_doc/3
 {
-  "group": "g2"
+  "group": "g1"
 }
 ```
 {% include copy-curl.html %}
@@ -529,8 +379,8 @@ PUT groups/_doc/4
 ```json
 PUT groups/_doc/5
 {
-  "group": "g2",
-  "members": "carol"
+  "group": "g1",
+  "members": null
 }
 ```
 {% include copy-curl.html %}
@@ -538,8 +388,8 @@ PUT groups/_doc/5
 ```json
 PUT groups/_doc/6
 {
-  "group": "g1",
-  "members": null
+  "group": "g2",
+  "members": "carol"
 }
 ```
 {% include copy-curl.html %}
@@ -547,7 +397,7 @@ PUT groups/_doc/6
 To search the `users` index for all users who are members of the `g1` group, use the following request:
 
 ```json
-GET users/_search
+GET /users/_search
 {
   "query": {
     "terms": {
@@ -564,34 +414,32 @@ GET users/_search
 ```
 {% include copy-curl.html %}
 
-This collects all values from the `members` field of documents in `groups` whose `group` is set to `g1`, and uses them as terms for the `username` field in the `users` index.
+This query collects all values from the `members` field of documents in `groups` whose `group` is set to `g1`, and uses them as terms for the `username` field in the `users` index:
 
-### How values are collected
+```json
+{
+  "hits": {
+    "total": { "value": 3, "relation": "eq" },
+    "hits": [
+      { "_index": "users", "_id": "u1", "_score": 1.0, "_source": { "username": "alice" } },
+      { "_index": "users", "_id": "u2", "_score": 1.0, "_source": { "username": "bob" } },
+      { "_index": "users", "_id": "u3", "_score": 1.0, "_source": { "username": "carol" } }
+    ]
+  }
+}
+```
 
-The behavior of the terms lookup depends on how the target field appears in the matched documents:
+This query processes matching documents as follows:
 
-- If some documents matching the query do not contain the specified field, those documents are ignored for terms extraction.
-- If the field is a list, all its items are collected.
-- If the field is a scalar, its value is collected.
-- If the field is missing, null, or an empty list, it is skipped.
-- Duplicates from multiple documents are deduplicated.
-- If no documents match the query, the `terms` query acts as if no values were specified (typically, matches nothing).
-- If none of the matched documents contain the field, the query does not match anything.
-
-#### Example: Missing fields
-
-If your lookup matches three documents, but only two have the `members` field:
-- Only the values from those two documents are used.
-- If one has `["alice", "bob"]` and another has `["carol"]`, the resulting terms list is `["alice", "bob", "carol"]`.
-
-#### Example: Field specified as scalar and list
-
-If the field is sometimes a single value and sometimes a list:
-- All values are flattened into a single list and deduplicated.
-
-#### Example: Empty or null fields
-
-- If the field is an empty list or null, it is ignored for that document.
+- The lookup query matches documents 1, 2, 3, 4, and 5 (all specify group `g1`).
+- Doc 6 (using a different group `g2`) is ignored by the query.
+- The `members` field for each matching document is processed as follows:
+    - Doc 1: `["alice", "bob"]` (list) → both `alice` and `bob` are collected.
+    - Doc 2: `"carol"` (scalar) → `carol` is collected.
+    - Doc 3: missing `members` field → ignored.
+    - Doc 4: empty list → ignored.
+    - Doc 5: null → ignored.
+- All collected values are flattened and deduplicated, so the final result is `["alice", "bob", "carol"]`.
 
 ## Bitmap filtering
 **Introduced 2.17**
