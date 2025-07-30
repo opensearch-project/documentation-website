@@ -4,7 +4,7 @@ title: Assessment
 nav_order: 1
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
-has_children: true
+has_children: false
 has_toc: false
 permalink: /migration-assistant/migration-phases/assessment/
 ---

@@ -32,7 +32,7 @@ The following matrix shows which source versions can be directly migrated to whi
 <table class="migration-matrix" style="border-collapse: collapse; border: 1px solid #ddd;">
   <thead>
     <tr>
-      <th style="border: 1px solid #ddd; padding: 8px;">Source Version</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Source version</th>
       {% for target in unique_targets %}
       <th style="border: 1px solid #ddd; padding: 8px;">{{ target }}</th>
       {% endfor %}
