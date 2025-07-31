@@ -48,32 +48,22 @@ Before performing any upgrade or migration, you should review any breaking chang
 
 <div id="migration-data" 
      data-migration-paths="{{ site.data.migration-assistant.valid_migrations.migration_paths | jsonify | escape }}"
-     data-breaking-changes="{{ site.data.migration-assistant.breaking-changes.breaking_changes | jsonify | escape }}"
+     data-breaking-changes="{{ site.data.migration-assistant.breaking-changes.breaking-changes.breaking_changes | jsonify | escape }}"
      style="display:none;"></div>
 
 <script type="module" src="{{site.url}}{{site.baseurl}}/migration-assistant/assets/js/breaking-changes-index.js"></script>
 
 ## Impact of data transformations
 
-Any time you apply a transformation to your data, such as:
+Any time you apply a transformation to your data, such as changing index names, modifying field names or field mappings, or splitting indexes with type mappings, these changes might need to be reflected in your client configurations. For example, if your clients are reliant on specific index or field names, you must ensure that their queries are updated accordingly.
 
-- Changing index names
-- Modifying field names or field mappings
-- Splitting indexes with type mappings
-
-These changes might need to be reflected in your client configurations. For example, if your clients are reliant on specific index or field names, you must ensure that their queries are updated accordingly.
-
-We recommend running production-like queries against the target cluster before switching over actual production traffic. This helps verify that the client can:
-
-- Communicate with the target cluster.
-- Locate the necessary indexes and fields.
-- Retrieve the expected results.
+We recommend running production-like queries against the target cluster before switching over actual production traffic. This helps verify that the client can communicate with the target cluster, locate the necessary indexes and fields, and retrieve the expected results.
 
 For complex migrations involving multiple transformations or breaking changes, we highly recommend performing a trial migration with representative, non-production data (such as in a staging environment) to fully test client compatibility with the target cluster.
 
 ## Supported transformations
 
-The following is a list of transformations that are included in Migration Assistant. They can be enabled, combined, and configured to customize a migration for your use case. Depending on your use case and the type of transformation, a transformation may have to be added to Capture and Replay, Metadata Migration Tool, or Reindex-from-Snapshot. To request additional Migration Assistant transformations, create a GitHub issue [in the OpenSearch migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
+The following is a list of transformations that are included in Migration Assistant. They can be enabled, combined, and configured to customize a migration for your use case. Depending on your use case and the type of transformation, a transformation may have to be added to Capture-and-Replay, Metadata Migration Tool, or Reindex-from-Snapshot. To request additional Migration Assistant transformations, create a GitHub issue [in the OpenSearch migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
 
 - [Managing type mapping deprecation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/)
 - [Handling breaking changes in field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/)

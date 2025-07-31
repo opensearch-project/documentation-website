@@ -112,8 +112,6 @@ During migration:
 
 ## Next steps
 
-For detailed technical implementation:
-
 - **Snapshot creation and management**: See [Take and restore snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/).
 - **API reference**: See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/) for complete API documentation.
 - **Automated snapshots**: See [Snapshot management]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-management/) for information about scheduling and automation.

@@ -60,4 +60,4 @@ export STAGE=dev
 ```
 {% include copy.html %}
 
-The `STAGE` value corresponds to the `stage` parameter you specified in your CDK context configuration during deployment.
+The `STAGE` value corresponds to the `stage` parameter you specified in your AWS CDK context configuration during deployment.

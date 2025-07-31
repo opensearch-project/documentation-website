@@ -11,7 +11,7 @@ redirect_from:
 
 # Using backfill
 
-After the [metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/) for your cluster has been migrated, you can use capture proxy data replication and snapshots to backfill your data into the next cluster.
+After the [metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/) for your cluster has been migrated, you can use Capture Proxy data replication and snapshots to backfill your data into the next cluster.
 
 ## Migrate documents with RFS
 
@@ -58,7 +58,7 @@ console backfill scale 5
 ```
 {% include copy.html %}
 
-We recommend slowly scaling up the fleet while monitoring the health metrics of the target cluster to avoid over-saturating it. [Amazon OpenSearch Service domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/monitoring.html) provide a number of metrics and logs that can provide this insight.
+We recommend slowly scaling up the fleet while monitoring the health metrics of the target cluster to avoid oversaturating it. [Amazon OpenSearch Service domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/monitoring.html) provide a number of metrics and logs that can be used for this monitoring.
 
 ### Monitoring the backfill
 
@@ -69,7 +69,7 @@ console backfill status
 ```
 {% include copy.html %}
 
-Use the following command for detailed monitoring of the backfill process:
+Use the following command to perform detailed monitoring of the backfill process:
 
 ```bash
 console backfill status --deep-check
