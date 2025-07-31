@@ -23,9 +23,9 @@ export AWS_REGION=us-west-2
 {% include copy.html %}
 
 **Important:** The `STAGE` value must match the `stage` parameter you used in your CDK context configuration. For example:
-- If you deployed with `"stage": "test"`, use `export STAGE=test`
-- If you deployed with `"stage": "prod"`, use `export STAGE=prod`
-- If you deployed with `"stage": "dev"`, use `export STAGE=dev`
+- If you deployed with `"stage": "test"`, use `export STAGE=test`.
+- If you deployed with `"stage": "prod"`, use `export STAGE=prod`.
+- If you deployed with `"stage": "dev"`, use `export STAGE=dev`.
 
 When opening the console a message will appear above the command prompt, `Welcome to the Migration Assistant Console`.
 

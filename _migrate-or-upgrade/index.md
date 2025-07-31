@@ -51,8 +51,8 @@ Stop nonessential indexing before upgrading.
 Upgrade one node at a time while keeping the cluster operational.
 
 **Pros**:
-- Minimal downtime
-- No new infrastructure needed
+- Minimal downtime.
+- No new infrastructure needed.
 
 **Cons**:
 - Supports only adjacent major versions.
@@ -70,7 +70,7 @@ Take a snapshot of your current cluster and restore to a new OpenSearch version.
 
 **Pros**:
 - Supports large datasets and cold storage.
-- Reversion possible since original cluster is untouched. However, there may be a loss of data if no change data capture (CDC) solution is in place. 
+- Reversion possible since original cluster is untouched. However, there may be a loss of data if no change data capture (CDC) solution is in place.
 
 **Cons**:
 - Requires downtime or a CDC solution.
@@ -88,11 +88,11 @@ Migration Assistant provides the most automated and resilient upgrade path.
 **Pros**:
 - Handles multi-version hops, allowing for seamless upgrades across multiple versions.
 - Live data capture allows for little to zero downtime, ensuring data consistency during migrations.
-- Ability to revert changes if issues arise during or after the upgrade
+- Ability to revert changes if issues arise during or after the upgrade.
 
 **Cons**:
-- Requires additional setup
-- Requires additional infrastructure
+- Requires additional setup.
+- Requires additional infrastructure.
 
 [Get started with Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/).
 
@@ -103,12 +103,12 @@ Migration Assistant provides the most automated and resilient upgrade path.
 Reindex data from the old cluster into the new OpenSearch cluster.
 
 **Pros**:
-- No downtime
-- Supports large version jumps
+- No downtime.
+- Supports large version jumps.
 
 **Cons**:
-- Slower and more resource intensive
-- Can degrade source cluster performance
+- Slower and more resource intensive.
+- Can degrade source cluster performance.
 
 Learn more in the [Reindex API documentation]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/).
 

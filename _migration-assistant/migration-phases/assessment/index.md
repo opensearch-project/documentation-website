@@ -65,9 +65,9 @@ These changes might need to be reflected in your client configurations. For exam
 
 We recommend running production-like queries against the target cluster before switching over actual production traffic. This helps verify that the client can:
 
-- Communicate with the target cluster
-- Locate the necessary indexes and fields
-- Retrieve the expected results
+- Communicate with the target cluster.
+- Locate the necessary indexes and fields.
+- Retrieve the expected results.
 
 For complex migrations involving multiple transformations or breaking changes, we highly recommend performing a trial migration with representative, non-production data (such as in a staging environment) to fully test client compatibility with the target cluster.
 

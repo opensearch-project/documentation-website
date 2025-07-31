@@ -1,5 +1,5 @@
 scenarios:
-  - title: "Scenario 1 – Backfill only"
+  - title: "Scenario 1: Backfill only"
     steps:
       - title: "Assessment"
         url: "/migration-assistant/migration-phases/assessment/"
@@ -26,7 +26,7 @@ scenarios:
       - title: "Teardown"
         url: "/migration-assistant/migration-phases/remove-migration-infrastructure/"
 
-  - title: "Scenario 2 – Live capture only"
+  - title: "Scenario 2: Live capture only"
     steps:
       - title: "Assessment"
         url: "/migration-assistant/migration-phases/assessment/"
@@ -55,7 +55,7 @@ scenarios:
       - title: "Teardown"
         url: "/migration-assistant/migration-phases/remove-migration-infrastructure/"
 
-  - title: "Scenario 3 – Live capture with backfill"
+  - title: "Scenario 3: Live capture with backfill"
     steps:
       - title: "Assessment"
         url: "/migration-assistant/migration-phases/assessment/"
