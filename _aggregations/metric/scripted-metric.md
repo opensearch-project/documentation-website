@@ -9,7 +9,7 @@ redirect_from:
 
 # Scripted metric aggregations
 
-The `scripted_metric` aggregation is a multi-value metric aggregation that returns metrics calculated from a specified script. The aggregation goes through up to four script stages during execution. These stages run in order and allow you to accumulate and combine results from your documents.
+The `scripted_metric` aggregation is a multi-value metric aggregation that returns metrics calculated from a specified script. A script has four stages: `init`, `map`, `combine`, and `reduce`, which are run in order by each aggregation, and allow you to combine results from your documents.
 
 All four scripts share a mutable object called `state` that is defined by you. The `state` is local to each shard during the `init`, `map`, and `combine` phases. The result is passed into the states array for the `reduce` phase. Therefore each shard’s `state` is independent until they are combined in the `reduce` step.
 
@@ -31,8 +31,8 @@ Scripts can use any valid operations and objects internally, however the data yo
 
 - Primitive types: `int`, `long`, `float`, `double`, `boolean`
 - String
-- Map (with keys and values only of allowed types)
-- Array (containing only allowed types)
+- Map (with keys and values only of allowed types: Primitive types, String, Map, Array)
+- Array (containing only allowed types: Primitive types, String, Map, Array)
 
 Therefore your `state` can be a number, a string, a map (object) or an array (list), or a combination of these. For example, you can use a map to accumulate multiple counters, an array to collect values, or a single number to keep a running total. If you need to return multiple metrics, you can store them in a map or array. If you return a map as the final value from the reduce script, the aggregation result will contain an object. If you return a single number or string, the result will be a single value.
 
@@ -57,7 +57,7 @@ For example, you can supply a `threshold` or `field` name via `params` and refer
 
 ## Example
 
-The following are examples
+The following are two separate examples demonstrating different ways to use `scripted_metric`.
 
 ### Calculating net profit from transactions
 
@@ -96,9 +96,9 @@ PUT transactions/_bulk?refresh=true
 In order to run a search with a scripted metric aggregation to calculate the profit, use the following scripts:
 
 - The `init_script` sets up an empty list to hold transaction values for each shard. 
-- The `map_script` for each document adds the document’s amount to the `state.transactions` list, as a positive value if type is `sale`, or as a negative value if type is `cost`. By the end of the `map` phase, each shard’s `state.transactions` will contain a list of numbers representing the income and expenses on that shard. 
-- The `combine_script` takes that list and sums it up to produce the shard’s total profit and returns that number. 
-- The `reduce_script` runs on the coordinating node, receiving an array states of profit values (one from each shard). It sums those values, while checking for null, to get the overall profit, and returns it.
+- The `map_script` for each document adds the document’s amount to the `state.transactions` list as a positive number if the type is `sale`, or as a negative number if the type is `cost`. By the end of the map phase, each shard will have a `state.transactions` list representing its income and expenses. 
+- The `combine_script` processes the `state.transactions` list and computes a single `shardProfit` value for the shard. This `shardProfit` number is then returned as the shard's output. 
+- The `reduce_script` runs on the coordinating node, receiving the array `states`, which holds the `shardProfit` value from each shard. It checks for null entries and sums these values to compute the overall profit, and returns the final result.
 
 See following example:
 
