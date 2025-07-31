@@ -33,7 +33,7 @@ Take time to plan the process before making any changes to your cluster:
 
 Make sure to:
 
-- Review [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/)
+- Review [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
 - Check [plugin compatibility]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins)
 - Review [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices)
 - Back up [configuration files](#backing-up-configuration-files)
