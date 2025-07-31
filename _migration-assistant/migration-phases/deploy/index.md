@@ -29,7 +29,7 @@ Before beginning the deployment, consider the following environment planning ste
 
 - **Choose a unique stage name**: Avoid using "dev" if you have existing deployments or potential conflicts. Consider using "test", "staging", "prod", or other descriptive names.
 - **Verify domain endpoints**: Ensure your source and target cluster endpoints are accessible and properly formatted.
-- **Prepare authentication**: **Prepare authentication**: Have your cluster credentials and AWS Secrets Manager Amazon Resource Names (ARNs) ready.
+- **Prepare authentication**: Have your cluster credentials and AWS Secrets Manager Amazon Resource Names (ARNs) ready.
 - **Check AWS credentials**: Verify that your AWS credentials are properly configured for the target account and AWS Region.
 
 ## Prerequisites
@@ -40,16 +40,6 @@ Before proceeding with the deployment, ensure you have completed the following p
 1. **Configure AWS credentials**: Run `aws configure` to set up your credentials or ensure environment variables are properly set.
 2. **Verify account access**: Test your credentials with `aws sts get-caller-identity`.
 3. **Check region**: Ensure you're deploying to the correct AWS Region.
-
-### Development environment setup
-1. **Install Docker**: Docker is required for building container images. Verify installation with `docker --version`.
-2. **Install Node.js and npm**: Required for CDK operations. Verify with `node --version` and `npm --version`.
-3. **Install the AWS CDK CLI**: Run `npm install -g aws-cdk` if not already installed.
-
-### Project setup
-1. **Build Docker images**: From the deployment directory, run `./buildDockerImages.sh` to build required container images.
-2. **Install dependencies**: Run `npm install` in the CDK deployment directory.
-3. **Bootstrap the CDK**: If this is your first CDK deployment in the Region, run `cdk bootstrap --c contextId=<your-context-id>`.
 
 ---
 
