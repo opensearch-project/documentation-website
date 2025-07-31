@@ -131,7 +131,7 @@ Use the following steps to verify that the traffic switchover is complete:
 ### Fixing unidentified traffic patterns
 
 When switching over traffic to the target cluster, you might encounter unidentified traffic patterns. To help identify the cause of these patterns, use the following steps:
-* Verify that the target cluster allows traffic ingress from the **Target Proxy Security Group**.
+* Verify that the target cluster allows traffic ingress from the **Target Proxy security group**.
 * Navigate to **Target Proxy ECS Tasks** to investigate any failing tasks.
 Set the **Filter desired status** to **Any desired status** to view all tasks, then navigate to the logs for any stopped tasks.
 
@@ -149,10 +149,10 @@ Use the following steps to verify that replication is working once the Traffic C
 6. Run `console kafka describe-topic-records`. Wait 30 seconds for another Application Load Balancer health check.
 7. Run `console kafka describe-topic-records` again and verify that the number of RECORDS increased between runs.
 8. Run `console replay start` to start Traffic Replayer.
-9.  Run `tail -f /shared-logs-output/traffic-replayer-default/*/tuples/tuples.log  | jq '.targetResponses[]."Status-Code"'` to confirm that the Kafka requests were sent to the target and that it responded as expected. If the responses don't appear:
+9. Run `tail -f /shared-logs-output/traffic-replayer-default/*/tuples/tuples.log  | jq '.targetResponses[]."Status-Code"'` to confirm that the Kafka requests were sent to the target and that it responded as expected. If the responses don't appear:
     * Check that the migration console can access the target cluster by running `./catIndices.sh`, which should show the indexes in the source and target.
     * Confirm that messages are still being recorded to Kafka.
-    * Check for errors in the Traffic Replayer logs (`/migration/STAGE/default/traffic-replayer-default`) using CloudWatch.
+    * Check for errors in the Traffic Replayer logs (`/migration/STAGE/default/traffic-replayer-default`) using Amazon CloudWatch.
 10. (Reset) Update the desired count for the **Capture Proxy Service** back to its original value in Amazon ECS.
 
 ### Troubleshooting
@@ -165,7 +165,7 @@ If the source cluster is configured to require authentication, the capture proxy
 
 ### Traffic does not reach the source cluster 
 
-Verify that the source cluster allows traffic ingress from the Capture Proxy Security Group.
+Verify that the source cluster allows traffic ingress from the Capture Proxy security Group.
 
 Look for failing tasks by navigating to **Traffic Capture Proxy ECS**. Change **Filter desired status** to **Any desired status** in order to see all tasks and navigate to the logs for stopped tasks.
 

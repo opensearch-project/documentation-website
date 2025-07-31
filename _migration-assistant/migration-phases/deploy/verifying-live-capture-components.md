@@ -65,7 +65,7 @@ Use the following steps to verify that the traffic switchover is complete:
 ### Fixing unidentified traffic patterns
 
 When switching over traffic to the target cluster, you might encounter unidentified traffic patterns. To help identify the cause of these patterns, use the following steps:
-* Verify that the target cluster allows traffic ingress from the **Target Proxy Security Group**.
+* Verify that the target cluster allows traffic ingress from the **Target Proxy security group**.
 * Navigate to **Target Proxy ECS Tasks** to investigate any failing tasks.
 Set **Filter desired status** to **Any desired status** to view all tasks, then navigate to the logs for any stopped tasks.
 
@@ -99,7 +99,7 @@ If the source cluster is configured to require authentication, the Capture Proxy
 
 ### Traffic does not reach the source cluster 
 
-Verify that the source cluster allows traffic ingress from the Capture Proxy Security Group.
+Verify that the source cluster allows traffic ingress from the Capture Proxy security group.
 
 Look for failing tasks by navigating to **Traffic Capture Proxy ECS**. Change **Filter desired status** to **Any desired status** in order to see all tasks and navigate to the logs for stopped tasks.
 
@@ -147,7 +147,7 @@ console kafka delete-topic
 
 ### Target cluster 
 
-To clear non-system indexes from the target cluster that may have been created as a result of testing, you can run the following command: 
+To clear non-system indexes from the target cluster that may have been created as a result of testing, you can run the following command. 
 
 This command will result in the loss of all data in the target cluster and should be used with caution.
 {: .warning}

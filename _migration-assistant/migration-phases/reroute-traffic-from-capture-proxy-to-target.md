@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Reroute traffic to Target
+title: Reroute traffic to the target
 nav_order: 7
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch

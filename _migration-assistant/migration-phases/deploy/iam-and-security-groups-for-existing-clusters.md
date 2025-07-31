@@ -22,7 +22,7 @@ Use the following scenarios for Amazon OpenSearch Service or Amazon OpenSearch S
 
 For an OpenSearch Domain, two main configurations are typically required to ensure proper functioning of the migration solution:
 
-1. **Security Group Configuration**
+1. **Security group configuration**
 
    The domain should have a security group that allows communication from the applicable migration services (Traffic Replayer, Migration Console, `Reindex-from-Snapshot`). The CDK automatically creates an `osClusterAccessSG` security group, which is applied to the migration services. The user should then add this security group to their existing domain to allow access.
 
@@ -68,7 +68,7 @@ Although the CDK does not automatically set up the Capture Proxy on source clust
 
 Before [setting up Capture Proxy instances](https://github.com/opensearch-project/opensearch-migrations/tree/main/TrafficCapture/trafficCaptureProxyServer#installing-capture-proxy-on-coordinator-nodes) on the source cluster, ensure the following configurations are in place:
 
-1. **Security Group Configuration**:  
+1. **Security group Configuration**:  
    The coordinator nodes should add the `trafficStreamSourceSG` security group to allow sending captured traffic to Kafka.
 
 2. **IAM Policy Configuration**:  
