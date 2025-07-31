@@ -7,12 +7,12 @@ grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
 ---
 
-# Reroute client traffic to Traffic Capture Proxy
+# Reroute client traffic to the Traffic Capture Proxy
 
-**Note:** This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration or can tolerate downtime, you can skip this step.
+**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration or can tolerate downtime, you can skip this step.
 {: .note}
 
-## Capture proxy data replication
+## Capture Proxy data replication
 
 If you're interested in capturing live traffic during your migration, Migration Assistant includes an Application Load Balancer for routing traffic to the capture proxy and the target cluster. Upstream client traffic must be routed through the capture proxy in order to replay the requests later. Before using the capture proxy, remember the following:
 

@@ -12,7 +12,7 @@ redirect_from:
 # Transform field types
 
 {: .note }
-These transformations may not apply to your use case, but the framework for creating a transformation is designed to handle mutations, data enrichments, and other modifications when moving or modifying workloads to a new target.
+These transformations may not apply to your use case, but the framework for creating a transformation is designed to handle mutations, data enrichments, and other modifications when modifying workloads or moving them to a new target.
 
 This guide explains how to use Migration Assistant to transform field types that are deprecated or incompatible during a migration to OpenSearch.
 

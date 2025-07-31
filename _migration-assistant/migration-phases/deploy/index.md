@@ -13,10 +13,11 @@ redirect_from:
 
 # Deploy
 
-This document assumes you have performed [assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) to understand upgrade breaking changes and limitations before beginning.
+This quickstart assumes that you have performed an [assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) to understand upgrade breaking changes and limitations before beginning.
+
 This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, you can modify the steps for use with other cloud providers.
 
-**Note:** Although this page focuses on RFS-only deployment, you can add capture and replay functionality or replace RFS options with  Capture and Replay  as described in [Configuration options]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/#live-capture-migration-with-cr).
+**Note**: Although this page focuses on RFS-only deployment, you can add capture and replay functionality or replace RFS options with  Capture and Replay  as described in [Configuration options]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/#live-capture-migration-with-cr).
 
 Before using this quickstart, review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/).
 
@@ -28,14 +29,14 @@ Before beginning the deployment, consider the following environment planning ste
 
 - **Choose a unique stage name**: Avoid using "dev" if you have existing deployments or potential conflicts. Consider using "test", "staging", "prod", or other descriptive names.
 - **Verify domain endpoints**: Ensure your source and target cluster endpoints are accessible and properly formatted.
-- **Prepare authentication**: Have your cluster credentials and AWS Secrets Manager ARNs ready.
+- **Prepare authentication**: **Prepare authentication**: Have your cluster credentials and AWS Secrets Manager Amazon Resource Names (ARNs) ready.
 - **Check AWS credentials**: Verify that your AWS credentials are properly configured for the target account and AWS Region.
 
 ## Prerequisites
 
 Before proceeding with the deployment, ensure you have completed the following prerequisites.
 
-### AWS Environment setup
+### AWS environment setup
 1. **Configure AWS credentials**: Run `aws configure` to set up your credentials or ensure environment variables are properly set.
 2. **Verify account access**: Test your credentials with `aws sts get-caller-identity`.
 3. **Check region**: Ensure you're deploying to the correct AWS Region.
@@ -43,16 +44,16 @@ Before proceeding with the deployment, ensure you have completed the following p
 ### Development environment setup
 1. **Install Docker**: Docker is required for building container images. Verify installation with `docker --version`.
 2. **Install Node.js and npm**: Required for CDK operations. Verify with `node --version` and `npm --version`.
-3. **Install AWS CDK CLI**: Run `npm install -g aws-cdk` if not already installed.
+3. **Install the AWS CDK CLI**: Run `npm install -g aws-cdk` if not already installed.
 
-### Project Setup
+### Project setup
 1. **Build Docker images**: From the deployment directory, run `./buildDockerImages.sh` to build required container images.
 2. **Install dependencies**: Run `npm install` in the CDK deployment directory.
-3. **Bootstrap CDK**: If this is your first CDK deployment in the region, run `cdk bootstrap --c contextId=<your-context-id>`.
+3. **Bootstrap the CDK**: If this is your first CDK deployment in the Region, run `cdk bootstrap --c contextId=<your-context-id>`.
 
 ---
 
-## Step 1: Install bootstrap on an Amazon EC2 instance (~10 minutes)
+## Step 1: Install Bootstrap on an Amazon EC2 instance (~10 minutes)
 
 To begin your migration, use the following steps to install a `bootstrap` box on an Amazon Elastic Compute Cloud (Amazon EC2) instance. The instance uses AWS CloudFormation to create and manage the stack.
 
@@ -62,13 +63,13 @@ To begin your migration, use the following steps to install a `bootstrap` box on
    * **Stack Name:** `MigrationBootstrap`
    * **Stage Name:** `dev`
    * Choose **Next** after each step > **Acknowledge** > **Submit**.
-4. Verify that the bootstrap stack exists and is set to `CREATE_COMPLETE`. This process takes around 10 minutes to complete.
+4. Verify that the Bootstrap stack exists and is set to `CREATE_COMPLETE`. This process takes around 10 minutes to complete.
 
 ---
 
-## Step 2: Set up bootstrap instance access (~5 minutes)
+## Step 2: Set up Bootstrap instance access (~5 minutes)
 
-Use the following steps to set up bootstrap instance access:
+Use the following steps to set up Bootstrap instance access:
 
 1. After deployment, find the EC2 instance ID for the `bootstrap-dev-instance`.
 2. Create an AWS Identity and Access Management (IAM) policy using the following snippet, replacing `<aws-region>`, `<aws-account>`, `<stage>`, and `<ec2-instance-id>` with your information:
@@ -95,9 +96,9 @@ Use the following steps to set up bootstrap instance access:
 
 ---
 
-## Step 3: Log in to bootstrap and build Migration Assistant (~15 minutes)
+## Step 3: Log in to Bootstrap and build Migration Assistant (~15 minutes)
 
-Next, log in to bootstrap and build Migration Assistant using the following steps.
+Next, log in to Bootstrap and build Migration Assistant using the following steps.
 
 ### Prerequisites
 
@@ -116,7 +117,7 @@ To use these steps, make sure you fulfill the following prerequisites:
     ```
     {% include copy.html %}
     
-3. Once logged in, run the following command from the shell of the bootstrap instance in the `/opensearch-migrations` directory:
+3. Once logged in, run the following command from the shell of the Bootstrap instance in the `/opensearch-migrations` directory:
 
     ```bash
     ./initBootstrap.sh && cd deployment/cdk/opensearch-service-migration
@@ -180,7 +181,7 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
 
     The source and target cluster authorization can be configured to have no authorization, `basic` with a username and password, or `sigv4`. 
 
-    ### Environment Configuration Examples
+    ### Environment configuration examples
 
     To avoid conflicts with existing deployments, consider using different context IDs and stage names:
 
@@ -220,11 +221,11 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
     ```
     {% include copy.html %}
 
-    **Important Notes:**
-    - Use unique `stage` values to prevent resource naming conflicts
-    - Ensure secret ARNs are complete and accessible in your deployment region
-    - Domain endpoints can be simplified names or full AWS URLs
-    - Deploy using: `./deploy.sh <contextId>` (e.g., `./deploy.sh test-deploy`)
+    **Important Notes**:
+    - Use unique `stage` values to prevent resource naming conflicts.
+    - Ensure secret ARNs are complete and accessible in your deployment Region.
+    - Domain endpoints can be simplified names or full AWS URLs.
+    - Deploy using `./deploy.sh <contextId>` (for example, `./deploy.sh test-deploy`).
 
 3. After the `cdk.context.json` file is fully configured, bootstrap the account and deploy the required stacks using the following command:
 
@@ -313,7 +314,7 @@ To learn more about migration console commands, see [Migration console command r
 
 ## Troubleshooting
 
-The following section covers common issues you may encounter during deployment and their resolutions.
+The following section covers common deployment issues and resolutions.
 
 ### Common deployment issues
 
@@ -321,53 +322,53 @@ The following section covers common issues you may encounter during deployment a
 ```
 Unable to locate credentials. You can configure credentials by running "aws configure".
 ```
-**Resolution:**
-1. Run `aws configure` and provide your access key, secret key, and region
-2. Alternatively, set environment variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION`
-3. Verify credentials with: `aws sts get-caller-identity`
+**Resolution**:
+1. Run `aws configure` and provide your access key, secret key, and Region.
+2. Alternatively, set environment variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION`.
+3. Verify credentials with `aws sts get-caller-identity`.
 
 **Problem: Stack naming conflicts**
 ```
 Stack with id OSMigrations-dev-us-west-2-MigrationConsole already exists
 ```
-**Resolution:**
-1. Use a different `stage` value in your context configuration (e.g., "test", "staging")
-2. Or destroy existing stacks: `cdk destroy "*" --c contextId=<existing-context>`
-3. Ensure unique context IDs for parallel deployments
+**Resolution**:
+1. Use a different `stage` value in your context configuration (for example, "test", "staging").
+2. Or destroy existing stacks: `cdk destroy "*" --c contextId=<existing-context>`.
+3. Ensure unique context IDs for parallel deployments.
 
 **Problem: Docker build failures**
 ```
 ERROR: failed to solve: public.ecr.aws/sam/build-nodejs18.x: pulling from host public.ecr.aws failed
 ```
-**Resolution:**
-1. Run `docker logout public.ecr.aws` to clear authentication cache
-2. Retry the build process: `./buildDockerImages.sh`
+**Resolution**:
+1. Run `docker logout public.ecr.aws` to clear the authentication cache.
+2. Retry the build process: `./buildDockerImages.sh`.
 
 **Problem: CDK bootstrap required**
 ```
 This stack uses assets, so the toolkit stack must be deployed to the environment
 ```
-**Resolution:**
-1. Bootstrap CDK in your region: `cdk bootstrap --c contextId=<your-context>`
-2. Ensure you have the correct AWS credentials and region configured
+**Resolution**:
+1. Bootstrap the CDK in your Region: `cdk bootstrap --c contextId=<your-context>`.
+2. Ensure you have configured the correct AWS credentials and Region.
 
 ### Rollback procedures
 
 If you need to remove a deployment:
 
-1. **Stop all running services:**
+1. **Stop all running services**:
    ```bash
    console backfill stop  # If backfill is running
    ```
 
-2. **Destroy CDK stacks:**
+2. **Destroy CDK stacks**:
    ```bash
    cdk destroy "*" --c contextId=<your-context> --force
    ```
 
-3. **Clean up manually if needed:**
-   - Remove any remaining CloudFormation stacks from the AWS console
-   - Delete any orphaned resources (For example, ECS tasks and load balancers)
+3. **Clean up manually if needed**:
+   - Remove any remaining CloudFormation stacks from the AWS Management Console.
+   - Delete any orphaned resources, for example, Amazon Elastic Container Service (Amazon ECS) tasks and load balancers.
 
 ---
 
@@ -375,8 +376,8 @@ If you need to remove a deployment:
 
 After completing the deployment, proceed with the migration phases:
 
-1. **[Create a snapshot]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/create-snapshot/)** - Create a snapshot of your source cluster
-2. **[Migrate metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/)** - Migrate cluster metadata to the target
-3. **[Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/)** - Migrate documents and monitor the process
+1. **[Create a snapshot]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/create-snapshot/)**: Create a snapshot of your source cluster.
+2. **[Migrate metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/)**: Migrate cluster metadata to the target.
+3. **[Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/)**: Migrate documents and monitor the process.
 
 For more information about the complete migration process, see [Migration phases]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/).

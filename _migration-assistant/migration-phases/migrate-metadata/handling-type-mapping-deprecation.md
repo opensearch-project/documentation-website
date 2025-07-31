@@ -12,7 +12,7 @@ redirect_from:
 # Transform type mappings
 
 {: .note }
-These transformations may not apply to your use case, but the framework for creating a transformation is designed to handle mutations, data enrichments, and other modifications when moving or modifying workloads to a new target.
+These transformations may not apply to your use case, but the framework for creating a transformation is designed to handle mutations, data enrichments, and other modifications when modifying workloads or moving them to a new target.
 
 This guide provides solutions for managing the deprecation of the type mapping functionality when migrating from Elasticsearch 6.x or earlier to OpenSearch.
 
