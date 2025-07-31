@@ -253,9 +253,193 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `index` | String | The name of the index in which to fetch field values. Required.
 `id` | String | The document ID of the document from which to fetch field values. Required.
+`query` | Object | A query object used to select multiple documents from which to fetch field values. Required if `id` is not supplied.
 `path` | String | The name of the field from which to fetch field values. Specify nested fields using dot path notation. Required.
 `routing` | String | Custom routing value of the document from which to fetch field values. Optional. Required if a custom routing value was provided when the document was indexed.
 `store` | Boolean | Whether to perform the lookup on the stored field instead of `_source`. Optional.
+
+## Terms lookup by query
+**Introduced 3.2**
+{: .label .label-purple}
+
+You can use a query to dynamically extract values from multiple documents and use them in a `terms` query. Instead of specifying a document ID, the `query` parameter lets you match documents and collect all values for a specified field across those matches.
+
+This is useful when you want to search one index based on field values from documents in another index.
+
+For a list of supported parameters, see [terms lookup parameters](#parameters-1). To use terms lookup by query, you must provide the `query` parameter instead of `id` in the terms lookup object.  
+
+### How values are collected
+
+The behavior of the terms lookup depends on how the target field appears in the matched documents:
+
+- If a document matching the query does not contain the specified field, the document is ignored for terms extraction.
+- If the field is a list, all its items are collected.
+- If the field is a scalar, its value is collected.
+- If the same field is a single value or a list for different documents, all values are flattened into a single list and deduplicated.
+- Multiple lists are flattened into a single list.
+- If the field is missing, `null`, or an empty list, it is skipped.
+- Duplicates from multiple documents are deduplicated.
+- If no documents match the query, the `terms` query acts as if no values were specified (typically, matches nothing).
+- If none of the matched documents contain the field, the query does not match anything.
+
+### Example
+
+First, create an index named `users`, which contains user information:
+
+```json
+PUT /users
+{
+  "mappings": {
+    "properties": {
+      "username": { "type": "keyword" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Add user data to the index:
+
+```json
+PUT users/_doc/u1
+{ "username": "alice" }
+```
+{% include copy-curl.html %}
+
+```json
+PUT users/_doc/u2
+{ "username": "bob" }
+```
+{% include copy-curl.html %}
+
+```json
+PUT users/_doc/u3
+{ "username": "carol" }
+```
+{% include copy-curl.html %}
+
+```json
+PUT users/_doc/u4
+{ "username": "dave" }
+```
+{% include copy-curl.html %}
+
+Next, create an index containing group memberships:
+
+```json
+PUT groups
+{
+  "mappings": {
+    "properties": {
+      "group": { "type": "keyword" },
+      "members": { "type": "keyword" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Add group membership data to the index:
+
+```json
+PUT groups/_doc/1
+{
+  "group": "g1",
+  "members": ["alice", "bob"]
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT groups/_doc/2
+{
+  "group": "g1",
+  "members": "carol"
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT groups/_doc/3
+{
+  "group": "g1"
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT groups/_doc/4
+{
+  "group": "g1",
+  "members": []
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT groups/_doc/5
+{
+  "group": "g1",
+  "members": null
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT groups/_doc/6
+{
+  "group": "g2",
+  "members": "carol"
+}
+```
+{% include copy-curl.html %}
+
+To search the `users` index for all users who are members of the `g1` group, use the following request:
+
+```json
+GET /users/_search
+{
+  "query": {
+    "terms": {
+      "username": {
+        "index": "groups",
+        "path": "members",
+        "query": {
+          "term": { "group": "g1" }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+This query collects all values from the `members` field of documents in `groups` whose `group` is set to `g1` and uses them as terms for the `username` field in the `users` index:
+
+```json
+{
+  "hits": {
+    "total": { "value": 3, "relation": "eq" },
+    "hits": [
+      { "_index": "users", "_id": "u1", "_score": 1.0, "_source": { "username": "alice" } },
+      { "_index": "users", "_id": "u2", "_score": 1.0, "_source": { "username": "bob" } },
+      { "_index": "users", "_id": "u3", "_score": 1.0, "_source": { "username": "carol" } }
+    ]
+  }
+}
+```
+
+This query processes matching documents as follows:
+
+- The lookup query matches documents 1, 2, 3, 4, and 5 (all specify group `g1`).
+- Doc 6 (using a different group, `g2`) is ignored by the query.
+- The `members` field for each matching document is processed as follows:
+    - Doc 1: `["alice", "bob"]` (list) → both `alice` and `bob` are collected.
+    - Doc 2: `"carol"` (scalar) → `carol` is collected.
+    - Doc 3: missing `members` field → ignored.
+    - Doc 4: empty list → ignored.
+    - Doc 5: null → ignored.
+- All collected values are flattened and deduplicated, so the final result is `["alice", "bob", "carol"]`.
 
 ## Bitmap filtering
 **Introduced 2.17**
@@ -350,7 +534,7 @@ Next, index the customer filter into the `customers` index. The document ID for 
 ```json
 POST customers/_doc/customer123
 {
-  "customer_filter": "OjAAAAEAAAAAAAIAEAAAAG8A3gBNAQ==" 
+  "customer_filter": "OjAAAAEAAAAAAAIAEAAAAG8A3gBNAQ=="
 }
 ```
 {% include copy-curl.html %}
