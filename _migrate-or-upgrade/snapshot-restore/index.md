@@ -61,7 +61,7 @@ Choose the appropriate repository type based on your migration requirements and 
 Best for migrations within the same infrastructure where both clusters can access shared storage.
 
 ### Amazon S3
-Ideal for cloud migrations or when migrating between different environments. Provides durability and accessibility across regions.
+Ideal for cloud migrations or when migrating between different environments. Provides durability and accessibility across AWS Regions.
 
 ### Azure Blob Storage
 Suitable for Azure-based migrations or hybrid cloud scenarios.
