@@ -14,7 +14,7 @@ The following are the key components of Migration Assistant.
 
 ## Elasticsearch/OpenSearch source
 
-In this solution, your source cluster operates on either Elasticsearch or OpenSearch and is hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances or in a similar computing environment. Traffic is rerouted from the source cluster to a Traffic Capture Proxy and replayed to a target typically on a later version of OpenSearch.
+In this solution, your source cluster operates on either Elasticsearch or OpenSearch and is hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances or in a similar computing environment. Traffic is rerouted from the source cluster to a Traffic Capture Proxy and replayed to a target, typically on a later version of OpenSearch.
 
 ## Migration console
 
@@ -38,4 +38,4 @@ The metadata migration tool integrated into the Migration CLI can be used indepe
 
 ## Target cluster
 
-The target cluster is the destination cluster for migration or comparison cluster in an A/B test.
+The target cluster is the destination cluster for migration or the comparison cluster in an A/B test.
