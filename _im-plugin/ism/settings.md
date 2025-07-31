@@ -16,7 +16,7 @@ All settings are available using the OpenSearch `_cluster/settings` operation. N
 Setting | Default | Description
 :--- | :--- | :---
 `plugins.index_state_management.enabled` | True | Specifies whether ISM is enabled or not.
-`plugins.index_state_management.job_interval` | 5 minutes | The interval at which the managed index jobs are run.
+`plugins.index_state_management.job_interval` | 5 | The interval (in minutes) at which the managed index jobs are run.
 `plugins.index_state_management.jitter` | 0.6 | A randomized delay that is added to a job's base run time to prevent a surge of activity from all indexes at the same time. A value of 0.6 means a delay of 0-60% of a job interval is added to the base interval. For example, if you have a base interval time of 30 minutes, a value of 0.6 means an amount anywhere between 0 to 18 minutes gets added to your job interval. Maximum is 1, which means an additional interval time of 100%. This maximum cannot exceed `plugins.jobscheduler.jitter_limit`, which also has a default of 0.6. For example, if `plugins.index_state_management.jitter` is set to 0.8, ISM uses `plugins.jobscheduler.jitter_limit` of 0.6 instead.
 `plugins.index_state_management.coordinator.sweep_period` | 10 minutes | How often the routine background sweep is run.
 `plugins.index_state_management.coordinator.backoff_millis` | 50 milliseconds | The backoff time between retries for failures in the `ManagedIndexCoordinator` (such as when we update managed indexes).
