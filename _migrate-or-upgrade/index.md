@@ -33,11 +33,11 @@ Take time to plan the process before making any changes to your cluster:
 
 Make sure to:
 
-- Review [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/)
-- Check [plugin compatibility]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins)
+- Review [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
+- Check [plugin compatibility]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins).
 - Review [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices)
-- Back up [configuration files](#backing-up-configuration-files)
-- Take a [snapshot](#creating-a-snapshot)
+- Back up [configuration files](#backing-up-configuration-files).
+- Take a [snapshot](#creating-a-snapshot).
 
 Stop nonessential indexing before upgrading.
 {: .tip}
@@ -50,17 +50,17 @@ Stop nonessential indexing before upgrading.
 
 Upgrade one node at a time while keeping the cluster operational.
 
-**Pros:**
+**Pros**:
 - Minimal downtime
 - No new infrastructure needed
 
-**Cons:**
-- Supports only adjacent major versions
-- Multiple upgrade cycles for larger version gaps
-- Reindexing may be required
-- Manual reindex may be required for full feature compatibility
+**Cons**:
+- Supports only adjacent major versions.
+- Multiple upgrade cycles for larger version gaps.
+- Reindexing may be required.
+- Manual reindex may be required for full feature compatibility.
 
-[Perform a rolling upgrade]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/)
+[Perform a rolling upgrade]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/).
 
 ---
 
@@ -68,16 +68,16 @@ Upgrade one node at a time while keeping the cluster operational.
 
 Take a snapshot of your current cluster and restore to a new OpenSearch version.
 
-**Pros:**
-- Supports large datasets and cold storage
+**Pros**:
+- Supports large datasets and cold storage.
 - Reversion possible since original cluster is untouched. However, there may be a loss of data if no change data capture (CDC) solution is in place. 
 
-**Cons:**
-- Requires downtime or a change data capture (CDC) solution
-- Requires provisioning a new cluster
-- Manually reindex may be required for full feature compatibility.
+**Cons**:
+- Requires downtime or a CDC solution.
+- Requires provisioning a new cluster.
+- Manual reindexing may be required for full feature compatibility.
 
-[Get started with snapshot and restore](https://docs.aws.amazon.com/solutions/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/)
+[Get started with snapshot and restore](https://docs.aws.amazon.com/solutions/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/).
 
 ---
 
@@ -85,16 +85,16 @@ Take a snapshot of your current cluster and restore to a new OpenSearch version.
 
 Migration Assistant provides the most automated and resilient upgrade path.
 
-**Pros:**
-- Handles multi-version hops, allowing for seamless upgrades across multiple versions
-- Live data capture allows for little to zero downtime, ensuring data consistency during migrations
+**Pros**:
+- Handles multi-version hops, allowing for seamless upgrades across multiple versions.
+- Live data capture allows for little to zero downtime, ensuring data consistency during migrations.
 - Ability to revert changes if issues arise during or after the upgrade
 
-**Cons:**
+**Cons**:
 - Requires additional setup
 - Requires additional infrastructure
 
-[Get started with Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/)
+[Get started with Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/).
 
 ---
 
@@ -102,15 +102,15 @@ Migration Assistant provides the most automated and resilient upgrade path.
 
 Reindex data from the old cluster into the new OpenSearch cluster.
 
-**Pros:**
+**Pros**:
 - No downtime
 - Supports large version jumps
 
-**Cons:**
-- Slower and more resource-intensive
+**Cons**:
+- Slower and more resource intensive
 - Can degrade source cluster performance
 
-Learn more in the [Reindex API docs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/)
+Learn more in the [Reindex API documentation]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/).
 
 ---
 
@@ -124,7 +124,7 @@ If your OpenSearch cluster interacts with other services in your environment, li
 
 ### Reviewing plugin compatibility
 
-Review the plugins you use to determine compatibility with the target version of OpenSearch. Official OpenSearch Project plugins can be found in the [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any third-party plugins, then you should check the documentation for those plugins to determine whether they are compatible.
+Review your plugins to determine compatibility with the target version of OpenSearch. Official OpenSearch Project plugins can be found in the [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any third-party plugins, then you should check the documentation for those plugins to determine whether they are compatible.
 
 Go to [Available plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins) to see a reference table that highlights version compatibility for bundled OpenSearch plugins.
 
@@ -135,12 +135,12 @@ Major, minor, and patch plugin versions must match OpenSearch major, minor, and 
 
 ## Backing up configuration files
 
-Back up important files such as `opensearch.yml`, plugin configs, and TLS certs from these paths:
+Back up important files such as `opensearch.yml`, plugin configurations, and TLS certifications from these paths:
 
 - `opensearch/config`
 - `opensearch-dashboards/config`
 
-See [security configuration guidance]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution).
+See [this security configuration guidance]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution).
 
 ---
 
@@ -148,7 +148,7 @@ See [security configuration guidance]({{site.url}}{{site.baseurl}}/security-plug
 
 We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). Snapshots you take before an upgrade can be used as restore points if you need to roll back the cluster to its original version.
 
-You can further reduce the risk of data loss by storing your snapshots on external storage, such as a mounted Network File System (NFS) or a cloud storage solution like those listed in the following table.
+You can further reduce the risk of data loss by storing your snapshots in external storage, such as a mounted Network File System (NFS) or a cloud storage solution like those listed in the following table.
 
 | Repository | Plugin |
 | --- | --- |
@@ -204,4 +204,4 @@ td {
   <tr><td>8.0.0</td><td>&#8212;</td><td>7.2<br>7.1</td></tr>
   <tr><td>7.7.3</td><td>&#8212;</td><td>6.8</td></tr>
 </table>
-<p style="text-align:right"><sub><em>A dash (&#8212;) indicates no release contains the listed Lucene version.</em></sub></p>
+<p style="text-align:right"><sub><em>A dash (&#8212;) indicates that no version contains the listed Lucene version.</em></sub></p>

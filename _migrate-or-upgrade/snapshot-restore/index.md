@@ -15,25 +15,25 @@ Snapshots are one of the most reliable methods for migrating data between OpenSe
 
 Snapshot and restore is ideal for migration scenarios when:
 
-- **Migrating between different OpenSearch versions** where in-place upgrades aren't supported
-- **Moving to a different infrastructure** (on-premises to cloud, different cloud providers)
-- **Changing cluster architecture** (different node configurations, shard strategies)
-- **Zero-downtime requirements** aren't critical and you can afford some downtime
-- **Large data volumes** where other migration methods might be impractical
-- **Complete cluster migration** including indexes, settings, and metadata
+- **Migrating between different OpenSearch versions** where in-place upgrades aren't supported.
+- **Moving to a different infrastructure** (on-premises to cloud, different cloud providers).
+- **Changing cluster architecture** (different node configurations, shard strategies).
+- **Zero-downtime requirements** aren't critical and you can afford some downtime.
+- **Large data volumes** where other migration methods might be impractical.
+- **Complete cluster migration** including indexes, settings, and metadata.
 
 ## Migration workflow overview
 
 A typical snapshot-based migration follows this workflow:
 
-1. **Prepare the source cluster** - Ensure cluster health and configure snapshot repository
-2. **Create snapshot repository** - Set up shared storage accessible by both clusters
-3. **Take comprehensive snapshots** - Capture all necessary indexes and cluster state
-4. **Set up target cluster** - Deploy and configure the destination OpenSearch cluster
-5. **Register repository on target** - Connect the target cluster to the snapshot repository
-6. **Restore snapshots** - Selectively restore indexes and configurations
-7. **Validate and test** - Verify data integrity and application functionality
-8. **Switch traffic** - Update applications to use the new cluster
+1. **Prepare the source cluster** - Ensure cluster health and configure snapshot repository.
+2. **Create snapshot repository** - Set up shared storage accessible by both clusters.
+3. **Take comprehensive snapshots** - Capture all necessary indexes and cluster state.
+4. **Set up target cluster** - Deploy and configure the destination OpenSearch cluster.
+5. **Register repository on target** - Connect the target cluster to the snapshot repository.
+6. **Restore snapshots** - Selectively restore indexes and configurations.
+7. **Validate and test** - Verify data integrity and application functionality.
+8. **Switch traffic** - Update applications to use the new cluster.
 
 ## Key considerations for migration
 
