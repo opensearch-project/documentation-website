@@ -58,7 +58,7 @@ Upgrade one node at a time while keeping the cluster operational.
 - Supports only adjacent major versions.
 - Multiple upgrade cycles for larger version gaps.
 - Reindexing may be required.
-- Manual reindex may be required for full feature compatibility.
+- Manual reindexing may be required for full feature compatibility.
 
 [Perform a rolling upgrade]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/).
 
@@ -70,7 +70,7 @@ Take a snapshot of your current cluster and restore to a new OpenSearch version.
 
 **Pros**:
 - Supports large datasets and cold storage.
-- Reversion possible since original cluster is untouched. However, there may be a loss of data if no change data capture (CDC) solution is in place.
+- Reversion is possible because the original cluster is untouched. However, there may be a loss of data if no change data capture (CDC) solution is in place. 
 
 **Cons**:
 - Requires downtime or a CDC solution.

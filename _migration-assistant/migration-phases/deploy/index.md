@@ -22,25 +22,25 @@ Before using this quickstart, review [Is Migration Assistant right for you?]({{s
 
 Because this guide uses [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/), ensure that the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
-## Planning Your Deployment Environment
+## Planning Your Deployment environment
 
 Before beginning the deployment, consider the following environment planning steps:
 
 - **Choose a unique stage name**: Avoid using "dev" if you have existing deployments or potential conflicts. Consider using "test", "staging", "prod", or other descriptive names.
 - **Verify domain endpoints**: Ensure your source and target cluster endpoints are accessible and properly formatted.
 - **Prepare authentication**: Have your cluster credentials and AWS Secrets Manager ARNs ready.
-- **Check AWS credentials**: Verify that your AWS credentials are properly configured for the target account and region.
+- **Check AWS credentials**: Verify that your AWS credentials are properly configured for the target account and AWS Region.
 
 ## Prerequisites
 
-Before proceeding with the deployment, ensure you have completed the following prerequisites:
+Before proceeding with the deployment, ensure you have completed the following prerequisites.
 
 ### AWS Environment setup
-1. **Configure AWS credentials**: Run `aws configure` to set up your credentials, or ensure environment variables are properly set.
+1. **Configure AWS credentials**: Run `aws configure` to set up your credentials or ensure environment variables are properly set.
 2. **Verify account access**: Test your credentials with `aws sts get-caller-identity`.
-3. **Check region**: Ensure you're deploying to the correct AWS region.
+3. **Check region**: Ensure you're deploying to the correct AWS Region.
 
-### Development Environment Setup
+### Development environment setup
 1. **Install Docker**: Docker is required for building container images. Verify installation with `docker --version`.
 2. **Install Node.js and npm**: Required for CDK operations. Verify with `node --version` and `npm --version`.
 3. **Install AWS CDK CLI**: Run `npm install -g aws-cdk` if not already installed.
