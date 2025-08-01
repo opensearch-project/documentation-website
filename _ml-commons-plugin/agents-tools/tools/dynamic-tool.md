@@ -169,7 +169,7 @@ The following table lists all tool parameters that are available when registerin
 |:---|:---|:---|:---|
 | `method` | String | Required | The HTTP method used by the API (for example, `GET`, `POST`).                                                                               |
 | `uri` | String | Required | The API URI. Supports `${placeholder}` syntax. Placeholders are replaced at runtime with values from the agent request body. |
-| `request_body`    | String | Optional | The API request body. Supports `{placeholder}` syntax. Placeholders are replaced at runtime with values from the agent request body. |
+| `request_body`    | String | Optional | The API request body. Supports `${placeholder}` syntax. Placeholders are replaced at runtime with values from the agent request body. |
 | `response_filter` | String | Optional | A JSONPath expression used to filter fields from the API's JSON response. |
 
 
