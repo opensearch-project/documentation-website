@@ -39,7 +39,7 @@ docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -
 This process may take some time. After it finishes, OpenSearch is now running on port `9200`. To verify that OpenSearch is running, send the following request: 
 
 ```bash
-curl https://localhost:9200
+curl http://localhost:9200
 ```
 {% include copy.html %}
 
