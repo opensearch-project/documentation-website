@@ -14,13 +14,13 @@ grand_parent: Agents and tools
 {: .label .label-purple }
 <!-- vale on -->
 
-The `DynamicTool` converts OpenSearch APIs into executable tools for ML agents. This allows you to integrate cluster management and monitoring operations directly into your AI workflows.
+The `DynamicTool` converts OpenSearch APIs into executable tools for machine learning (ML) agents. This allows you to integrate cluster management and monitoring operations directly into your AI workflows.
 
 For example, you can create tools that check cluster health, retrieve node statistics, or perform other administrative tasks, then have ML agents execute these tools as part of automated workflows or in response to natural language queries.
 
-## Running Cluster Health API as a tool
+## Running the Cluster Health API as a tool
 
-To run [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) as a tool, follow these steps.
+To run the [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) as a tool, follow these steps.
 
 ### Step 1: Register a flow agent that will run the DynamicTool
 
@@ -88,9 +88,9 @@ OpenSearch returns the `ClusterHealthTool` results:
 }
 ```
 
-## Running Node Stats API as a tool
+## Running the Node Stats API as a tool
 
-To run [Node Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) as a tool, follow these steps.
+To run the [Node Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) as a tool, follow these steps.
 
 ### Step 1: Register a flow agent that will run the DynamicTool
 
@@ -179,4 +179,4 @@ The following table lists all tool parameters that are available when running th
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
-`question` | String | Required | The natural language question to send to the LLM. 
+`question` | String | Required | The natural language question to send to the large language model (LLM). 
