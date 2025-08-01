@@ -19,22 +19,22 @@ columns:
     links:
       - 
         title: About
-        url: '/about.html'
+        url: 'https://opensearch.org/about/'
       - 
         title: Release Schedule
-        url: '/releases.html'
+        url: 'https://opensearch.org/releases/#release-schedule'
       - 
         title: Maintenance Policy
-        url: '/releases.html#maintenance-policy'
+        url: 'https://opensearch.org/releases/#maintenance-policy'
       - 
         title: FAQ
-        url: '/faq/'
+        url: 'https://opensearch.org/faq/'
       -
         title: 'Testimonials'
-        url: '/testimonials/'
+        url: 'https://opensearch.org/testimonials/
       -
         title: 'Trademark and Brand Policy'
-        url: '/trademark-brand-policy.html'
+        url: 'https://opensearch.org/trademark-brand-policy/'
       -
         title: 'Privacy'
         url: 'https://aws.amazon.com/privacy/'
