@@ -7,6 +7,7 @@ require_relative 'endpoints'
 require_relative 'path_parameters'
 require_relative 'query_parameters'
 require_relative 'body_parameters'
+require_relative 'example_code'
 
 # Class to render spec insertions
 class SpecInsert < BaseMustacheRenderer
@@ -16,7 +17,7 @@ class SpecInsert < BaseMustacheRenderer
   def initialize(args)
     action = Api::Action.by_full_name[args.api]
     super(action, args)
-    raise SpecInsertError, '`api` argument not specified.' unless @args.api
+    raise SpecInsertError, '`api` argument could not be resolved.' unless @action
     raise SpecInsertError, "API Action '#{@args.api}' does not exist in the spec." unless @action
   end
 
@@ -40,8 +41,10 @@ class SpecInsert < BaseMustacheRenderer
       BodyParameters.new(@action, @args, is_request: true).render
     when :response_body_parameters
       BodyParameters.new(@action, @args, is_request: false).render
+    when :example_code
+      ExampleCode.new(@action, @args).render
     else
-      raise SpecInsertError, "Invalid component: #{@args.component}"
+      raise SpecInsertError, "Invalid component: #{@args.component}, from spec_insert.rb "
     end
   end
 end
