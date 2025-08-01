@@ -10,7 +10,7 @@ has_toc: false
 
 # Query sets
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).
 {: .warning}
 
 A query set is a collection of queries. These queries are used in experiments for search relevance evaluation. Search Relevance Workbench offers different sampling techniques for creating query sets from real user data that adheres to the [User Behavior Insights (UBI)]({{site.url}}{{site.baseurl}}/search-plugins/ubi/schemas/) specification.
@@ -37,10 +37,10 @@ The following table lists the available input parameters.
 
 Field | Data type |  Description
 :---  | :--- | :---
-`name` | String |	The name of the query set.
-`description` | String | A short description of the query set.
+`name` | String |	The name of the query set with a maximum length of 50 characters.
+`description` | String | A short description of the query set with a maximum length of 250 characters.
 `sampling` | String | Defines which sampler to use. Valid values are `pptss` (Probability-Proportional-to-Size-Sampling), `random`, `topn` (most frequent queries), and `manual`.
-`querySetSize` | Integer | The target number of queries in the query set. Depending on the number of unique queries in `ubi_queries`, the resulting query set may contain fewer queries.
+`querySetSize` | Integer | The target number of queries in the query set. Depending on the number of unique queries in `ubi_queries`, the resulting query set may contain fewer queries. This size has to be a positive integer.
 
 ### Example request: Sampling 20 queries with the Top N sampler
 
