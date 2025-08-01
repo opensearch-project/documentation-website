@@ -241,9 +241,9 @@ The Security plugin supports the following audit log settings:
 
 The Security plugin supports the following hostname verification and DNS lookup settings:
 
-- `plugins.security.ssl.transport.enforce_hostname_verification` (Static): Whether to verify hostnames on the transport layer. Optional. Default is `true`.
+- `transport.ssl.enforce_hostname_verification` (Static): Whether to verify hostnames on the transport layer. Optional. Default is `true`.
 
-- `plugins.security.ssl.transport.resolve_hostname` (Static): Whether to resolve hostnames against DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is enabled.
+- `transport.ssl.resolve_hostname` (Static): Whether to resolve hostnames against DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is enabled.
 
 For more information, see [Hostname verification and DNS lookup]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-hostname-verification-and-dns-lookup).
 
@@ -397,7 +397,7 @@ plugins.security.roles_mapping_resolution: MAPPING_ONLY
 plugins.security.ssl.transport.pemcert_filepath: esnode.pem
 plugins.security.ssl.transport.pemkey_filepath: esnode-key.pem
 plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
-plugins.security.ssl.transport.enforce_hostname_verification: false
+transport.ssl.enforce_hostname_verification: false
 plugins.security.ssl.http.enabled: true
 plugins.security.ssl.http.pemcert_filepath: esnode.pem
 plugins.security.ssl.http.pemkey_filepath: esnode-key.pem
