@@ -98,7 +98,10 @@ Querqy
 Query Workbench
 RankLib
 Reindex-from-Snapshot
+<<<<<<< HEAD
 Replayer
+=======
+>>>>>>> 7bf1c6723152a1e4ae2cfcc86e5fed0c333d8271
 RCF Summarize
 RPM Package Manager
 Ruby
