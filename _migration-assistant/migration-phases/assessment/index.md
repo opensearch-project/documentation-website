@@ -48,7 +48,7 @@ Before performing any upgrade or migration, you should review any breaking chang
 
 <div id="migration-data" 
      data-migration-paths="{{ site.data.migration-assistant.valid_migrations.migration_paths | jsonify | escape }}"
-     data-breaking-changes="{{ site.data.migration-assistant.breaking-changes.breaking-changes.breaking_changes | jsonify | escape }}"
+     data-breaking-changes="{{ site.data.migration-assistant.breaking-changes.breaking_changes | jsonify | escape }}"
      style="display:none;"></div>
 
 <script type="module" src="{{site.url}}{{site.baseurl}}/migration-assistant/assets/js/breaking-changes-index.js"></script>
