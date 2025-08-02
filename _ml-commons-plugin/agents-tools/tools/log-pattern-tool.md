@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Log Pattern Tool
+title: Log Pattern tool
 has_children: false
 has_toc: false
 nav_order: 37
@@ -9,7 +9,7 @@ grand_parent: Agents and tools
 ---
 
 <!-- vale off -->
-# LogPatternTool
+# Log Pattern tool
 **Introduced 2.19**
 {: .label .label-purple }
 <!-- vale on -->

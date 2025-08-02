@@ -1,11 +1,13 @@
 ---
 layout: default
 title: Rolling upgrade lab
-parent: Upgrades appendix
-grand_parent: Upgrading OpenSearch
-nav_order: 50
+parent: Rolling upgrade
+nav_exclude: true
 redirect_from:
   - /upgrade-opensearch/appendix/rolling-upgrade-lab/
+  - /install-and-configure/upgrade-opensearch/appendix/index/
+  - /migrate-or-upgrade/rolling-upgrade/appendix/
+  - /migrate-or-upgrade/rolling-upgrade/appendix/rolling-upgrade-lab/
 ---
 
 <!--
@@ -36,7 +38,7 @@ To use, invoke class="codeblock-label"
 
 # Rolling upgrade lab
 
-You can follow these steps <OuiToken iconType="tokenStruct" size="xs" color="gray" /> on your own compatible host to recreate the same cluster state the OpenSearch Project used for testing [rolling upgrades]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/). This exercise is useful if you want to test the upgrade process in a development environment.
+You can follow these steps on your own compatible host to recreate the same cluster state that the OpenSearch Project used for testing [rolling upgrades]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/). This exercise is useful if you want to test the upgrade process in a development environment.
 
 The steps used in this lab were validated on an arbitrarily chosen [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) `t2.large` instance using [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) kernel version `Linux 5.10.162-141.675.amzn2.x86_64` and [Docker](https://www.docker.com/) version `20.10.17, build 100c701`. The instance was provisioned with an attached 20 GiB gp2 [Amazon EBS](https://aws.amazon.com/ebs/) root volume. These specifications are included for informational purposes and do not represent hardware requirements for OpenSearch or OpenSearch Dashboards.
 
@@ -884,9 +886,8 @@ You need to query the ecommerce index again in order to confirm that the sample 
 
 ## Next steps
 
-Review the following resoures to learn more about how OpenSearch works:
+Review the following resources to learn more about how OpenSearch works:
 
 - [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/)
 - [Quickstart guide for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/)
 - [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)
-

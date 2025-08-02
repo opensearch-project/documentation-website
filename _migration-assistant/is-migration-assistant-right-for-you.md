@@ -2,16 +2,16 @@
 layout: default
 title: Is Migration Assistant right for you?
 nav_order: 10
-parent: Overview
+parent: Migration Assistant for OpenSearch
 redirect_from:
-  - /migration-assistant/is-migration-assistant-right-for-you/
+  - /migration-assistant/overview/is-migration-assistant-right-for-you/
 ---
 
 # Is Migration Assistant right for you?
 
 Whether Migration Assistant is right for you depends on your upgrade path, infrastructure complexity, and operational goals. This page will help you evaluate whether Migration Assistant fits your use case.
 
-Migration Assistant addresses key limitations in traditional migration approaches. For example, if you're upgrading across multiple major versions—such as from Elasticsearch 6.8 to OpenSearch 2.19—Migration Assistant enables you to complete the process in a single step. Other methods, like rolling upgrades or snapshot restores, require upgrading through each major version, often with reindexing at every stage.
+Migration Assistant addresses key limitations in traditional migration approaches. For example, if you're upgrading across multiple major versions—such as from Elasticsearch 6.8 to OpenSearch 2.19—you can use Migration Assistant to complete the process in a single step. Other methods, like rolling upgrades or snapshot restoration, require upgrading through each major version and often reindexing at every stage.
 
 Migration Assistant also supports live traffic replication, enabling zero-downtime migrations. This makes it a strong fit for environments where minimizing service disruption is critical.
 
@@ -29,25 +29,25 @@ The following matrix shows which source versions can be directly migrated to whi
 {% endfor %}
 {% assign unique_targets = all_targets | uniq | sort %}
 
-<table class="migration-matrix">
+<table class="migration-matrix" style="border-collapse: collapse; border: 1px solid #ddd;">
   <thead>
     <tr>
-      <th>Source Version</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Source version</th>
       {% for target in unique_targets %}
-        <th>{{ target }}</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">{{ target }}</th>
       {% endfor %}
     </tr>
   </thead>
   <tbody>
     {% for path in site.data.migration-assistant.valid_migrations.migration_paths %}
-      <tr>
-        <th>{{ path.source }}</th>
-        {% for target_version in unique_targets %}
-          <td>
-            {% if path.targets contains target_version %}✓{% endif %}
-          </td>
-        {% endfor %}
-      </tr>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px;">{{ path.source }}</th>
+      {% for target_version in unique_targets %}
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+        {% if path.targets contains target_version %}✓{% endif %}
+      </td>
+      {% endfor %}
+    </tr>
     {% endfor %}
   </tbody>
 </table>
@@ -68,7 +68,7 @@ Refer to [Supported AWS Regions](https://docs.aws.amazon.com/solutions/latest/mi
 Before starting an upgrade or migration, consider the cluster feature to be included. The following table lists what can be migrated using Migration Assistant, whether it is currently supported, and recommendations for how to handle each component.
 
 | Feature | Supported | Recommendations   |
-| :--- |:--- | :--- |
+| :--- | :--- | :--- |
 | **Documents**  | Yes  | Migrate existing data with RFS and live traffic with Capture and Replay. |
 | **Index settings**  | Yes   | Migrate with the `Metadata-Migration-Tool`. |
 | **Index mappings**  | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
@@ -84,10 +84,10 @@ Before starting an upgrade or migration, consider the cluster feature to be incl
 
 Use this checklist to determine whether Migration Assistant is the right fit for your migration:
 
-- Are you migrating across one or more major versions—for example, from Elasticsearch 5 to OpenSearch 3—in a single step?
+- Are you migrating across one or more major versions—such as from Elasticsearch 5 to OpenSearch 3—in a single step?
 - Are you upgrading but want the ability to safely back out, reducing the risk of data loss or service disruption?
 - Do you need to maintain high service availability with minimal or zero downtime?
-- Do you need to validate a new OpenSearch cluster before switching over---with rollback capabilities?
+- Do you need to validate a new OpenSearch cluster before switching over—with rollback capabilities?
 - Is your environment self-managed or running on Amazon OpenSearch Service?
 - Are you looking for tooling to migrate index settings and other metadata?
 - Do you need to reconfigure your target cluster—for example, by changing the sharding strategy and reindexing?
@@ -164,7 +164,7 @@ To use `Reindex-from-Snapshot` (RFS), ensure the following:
   - `include_global_state: true` – Ensures that global cluster state is included.
   - `compress: false` – Disables metadata compression, which is required for compatibility with RFS.
 - Shards of up to **80 GiB** are supported by default. Larger shard sizes can be configured, **except in AWS GovCloud (US)**, where 80 GiB is the maximum.
-- Snapshots using `zstd` compression are not supported for migration. If compression is needed, use the default `LZ4` format instead.
+- In OpenSearch 2.9 and later, snapshots of indexes that use the zstd or zstd_no_dict codecs are not supported. If you need to migrate these indexes using `Reindex-from-Snapshot`, you must first reindex them on the source cluster using either `default` or `best_compression` before creating a new snapshot for use with RFS.
 
 ### Capture and Replay
 

@@ -15,6 +15,7 @@ Index Management plugin
 Job Scheduler
 Job Scheduler plugin
 k-NN plugin
+Metadata Migration Tool
 ML Commons
 ML Commons plugin
 Neural Search plugin

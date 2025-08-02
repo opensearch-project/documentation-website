@@ -7,13 +7,13 @@ nav_order: 10
 
 # Rolling upgrade
 
-Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
+Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process, you can continue to index and query data in your cluster.
 
-This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Appendix]({{site.url}}{{site.baseurl}}/upgrade-opensearch/appendix/).
+This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/).
 
 ## Preparing to upgrade
 
-Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
+Review [Migrate or upgrade OpenSearch]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
 **Important:** OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .important}
@@ -253,6 +253,63 @@ By preserving quorum and restarting nodes sequentially, rolling restarts ensure 
 
 ### Related articles
 
+A rolling restart follows the same step-by-step procedure as a rolling upgrade, with the exception of upgrading of actual nodes. During a rolling restart, nodes are restarted one at a time—typically to apply configuration changes, refresh certificates, or perform system-level maintenance—without disrupting cluster availability.
+
+To perform a rolling restart, follow the steps outlined in [Performing the upgrade](#performing-the-upgrade), excluding the steps that involve upgrading the OpenSearch binary or container image:
+
+1. **Check cluster health**  
+   Ensure the cluster status is green and all shards are assigned.  
+   _(See [step 1](#performing-the-upgrade) in the rolling upgrade procedure)_
+
+2. **Disable shard allocation**  
+   Prevent OpenSearch from trying to reallocate shards while nodes are offline.  
+   _(See [step 2](#performing-the-upgrade) in the rolling upgrade procedure)_
+
+3. **Flush transaction logs**  
+   Commit recent operations to Lucene to reduce recovery time.  
+   _(See [step 3](#performing-the-upgrade) in the rolling upgrade procedure)_
+
+4. **Review and identify the next node to restart**  
+   Ensure you restart the current cluster manager node last.  
+   _(See [step 4](#performing-the-upgrade) in the rolling upgrade procedure)_
+
+5. **Check which node is the current cluster manager**  
+   Use the `_cat/nodes` API to determine which node is the current active cluster manager.  
+   _(See [step 5](#performing-the-upgrade) in the rolling upgrade procedure)_
+
+6. **Stop the node**  
+   Shut down the node gracefully. Do not delete the associated data volume.  
+   _(See [step 6](#performing-the-upgrade) in the rolling upgrade procedure)_
+
+7. **Confirm the node has left the cluster**  
+   Use `_cat/nodes` to verify that it's no longer listed.  
+   _(See [step 7](#performing-the-upgrade) in the rolling upgrade procedure)_
+
+8. **Restart the node**  
+   Start the same node (same binary/version/config) and let it rejoin the cluster.  
+   _(See [step 8](#performing-the-upgrade) in the rolling upgrade procedure — without upgrading the binary)_
+
+9. **Verify that the restarted node has rejoined**  
+   Check `_cat/nodes` to confirm that the node is present and healthy.  
+   _(See [step 9](#performing-the-upgrade) in the rolling upgrade procedure)_
+
+10. **Reenable shard allocation**  
+    Restore full shard movement capability.  
+    _(See [step 10](#performing-the-upgrade) in the rolling upgrade procedure)_
+
+11. **Confirm cluster health is green**  
+    Validate stability before restarting the next node.  
+    _(See [step 11](#performing-the-upgrade) in the rolling upgrade procedure)_
+
+12. **Repeat the process for all other nodes**  
+    Restart each node one at a time. If a node is eligible for the cluster manager role, restart it last.  
+    _(See [step 12](#performing-the-upgrade) in the rolling upgrade procedure — again, no upgrade step)_
+
+By preserving quorum and restarting nodes sequentially, rolling restarts ensure zero downtime and full data continuity.
+
+## Related articles
+
+- [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/) -- A hands-on lab with step-by-step instructions for practicing rolling upgrades in a test environment.
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)

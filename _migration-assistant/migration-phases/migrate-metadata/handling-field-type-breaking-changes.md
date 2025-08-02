@@ -1,12 +1,18 @@
 ---
 layout: default
-title: Handling breaking changes in field types
-nav_order: 60
-parent: Planning your migration
+title: Transform field types
+nav_order: 2
+parent: Migrate metadata
 grand_parent: Migration phases
+permalink: /migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/
+redirect_from:
+  - /migration-assistant/migration-phases/assessment/handling-field-type-breaking-changes/
 ---
 
-# Handling breaking changes in field types
+# Transform field types
+
+{: .note }
+These transformations may not apply to your use case, but the framework for creating a transformation is designed to handle mutations, data enrichments, and other modifications when modifying workloads or moving them to a new target.
 
 This guide explains how to use Migration Assistant to transform field types that are deprecated or incompatible during a migration to OpenSearch.
 
