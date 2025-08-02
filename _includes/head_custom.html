@@ -9,7 +9,7 @@
 {% if jekyll.environment == "development" %}
   <script src="{{ '/assets/js/version-selector.js' | relative_url }}"></script>
 {% else %}
-  <script src="{{ '/latest/assets/js/version-selector.js' }}"></script>
+  <script src="{{site.baseurl}}/assets/js/version-selector.js"></script>
 {% endif %}
 
 <!-- Last-Modified: {% last_modified_at %} -->

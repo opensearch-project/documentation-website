@@ -24,8 +24,6 @@ If you encounter problems or have questions when contributing to the documentati
 
 - [kolchfa-aws](https://github.com/kolchfa-aws)
 - [natebower](https://github.com/natebower)
-=======
->>>>>>> 7bf1c6723152a1e4ae2cfcc86e5fed0c333d8271
 
 ## Code of conduct
 
