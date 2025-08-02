@@ -23,7 +23,6 @@ The following resources provide important guidance regarding contributions to th
 If you encounter problems or have questions when contributing to the documentation, these people can help:
 
 - [kolchfa-aws](https://github.com/kolchfa-aws)
-<<<<<<< HEAD
 - [natebower](https://github.com/natebower)
 =======
 >>>>>>> 7bf1c6723152a1e4ae2cfcc86e5fed0c333d8271

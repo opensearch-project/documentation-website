@@ -17,29 +17,10 @@ This quickstart assumes that you have performed an [assessment]({{site.url}}{{si
 
 This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, you can modify the steps for use with other cloud providers.
 
-**Note**: Although this page focuses on RFS-only deployment, you can add capture and replay functionality or replace RFS options with  Capture and Replay  as described in [Configuration options]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/#live-capture-migration-with-cr).
+Before using this quickstart, make sure you review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/overview/is-migration-assistant-right-for-you/#supported-migration-paths).
 
-Before using this quickstart, review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/).
 
-Because this guide uses [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/), ensure that the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
-
-## Planning Your Deployment environment
-
-Before beginning the deployment, consider the following environment planning steps:
-
-- **Choose a unique stage name**: Avoid using "dev" if you have existing deployments or potential conflicts. Consider using "test", "staging", "prod", or other descriptive names.
-- **Verify domain endpoints**: Ensure your source and target cluster endpoints are accessible and properly formatted.
-- **Prepare authentication**: Have your cluster credentials and AWS Secrets Manager Amazon Resource Names (ARNs) ready.
-- **Check AWS credentials**: Verify that your AWS credentials are properly configured for the target account and AWS Region.
-
-## Prerequisites
-
-Before proceeding with the deployment, ensure you have completed the following prerequisites.
-
-### AWS environment setup
-1. **Configure AWS credentials**: Run `aws configure` to set up your credentials or ensure environment variables are properly set.
-2. **Verify account access**: Test your credentials with `aws sts get-caller-identity`.
-3. **Check region**: Ensure you're deploying to the correct AWS Region.
+Because this guide uses [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/), make sure that the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
 ---
 
