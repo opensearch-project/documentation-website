@@ -13,7 +13,7 @@ This document serves as a high-level, platform-agnostic overview of the rolling 
 
 ## Preparing to upgrade
 
-Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
+Review [Migrate or upgrade OpenSearch]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
 **Important:** OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .important}
