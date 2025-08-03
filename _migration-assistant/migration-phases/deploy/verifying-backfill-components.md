@@ -1,14 +1,15 @@
 ---
 layout: default
-title: Verifying migration tools
-nav_order: 70
-parent: Planning your migration
+title: Verifying backfill components
 grand_parent: Migration phases
+nav_order: 3
+parent: Deploy
+permalink: /migration-assistant/migration-phases/deploy/verifying-backfill-components/
 redirect_from:
-  - /migration-assistant/migration-phases/verifying-migration-tools/
+  - /migration-assistant/migration-phases/verifying-migration-tools/verifying-backfill-components/
 ---
 
-# Verifying migration tools
+# Verifying backfill components
 
 Before using the Migration Assistant, take the following steps to verify that your cluster is ready for migration.
 
@@ -106,7 +107,7 @@ Older versions of the Elasticsearch S3 repository plugin may have trouble readin
 {"error":{"root_cause":[{"type":"repository_verification_exception","reason":"[migration_assistant_repo] path [rfs-snapshot-repo] is not accessible on master node"}],"type":"repository_verification_exception","reason":"[migration_assistant_repo] path [rfs-snapshot-repo] is not accessible on master node","caused_by":{"type":"i_o_exception","reason":"Unable to upload object [rfs-snapshot-repo/tests-s8TvZ3CcRoO8bvyXcyV2Yg/master.dat] using a single upload","caused_by":{"type":"amazon_service_exception","reason":"Unauthorized (Service: null; Status Code: 401; Error Code: null; Request ID: null)"}}},"status":500}
 ```
 
-If you encounter this issue, you can resolve it by temporarily enabling IMDSv1 on the instances in your source cluster for the duration of the snapshot. There is a toggle for this available in the AWS Management Console as well as in the AWS CLI. Switching this toggle will turn on the older access model and enable the Elasticsearch S3 repository plugin to work as normal. For more information about IMDSv1, see [Modify instance metadata options for existing instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-existing-instances.html).
+If you encounter this issue, you can resolve it by temporarily enabling IMDSv1 on the instances in your source cluster for the duration of the snapshot. There is a toggle for this available in the AWS Management Console and in the AWS CLI. Switching this toggle will turn on the older access model and enable the Elasticsearch S3 repository plugin to work as normal. For more information about IMDSv1, see [Modify instance metadata options for existing instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-existing-instances.html).
 
 ## Switching over client traffic
 
@@ -130,14 +131,14 @@ Use the following steps to verify that the traffic switchover is complete:
 ### Fixing unidentified traffic patterns
 
 When switching over traffic to the target cluster, you might encounter unidentified traffic patterns. To help identify the cause of these patterns, use the following steps:
-* Verify that the target cluster allows traffic ingress from the **Target Proxy Security Group**.
+* Verify that the target cluster allows traffic ingress from the **Target Proxy security group**.
 * Navigate to **Target Proxy ECS Tasks** to investigate any failing tasks.
 Set the **Filter desired status** to **Any desired status** to view all tasks, then navigate to the logs for any stopped tasks.
 
 
 ## Verifying replication
 
-Use the following steps to verify that replication is working once the traffic capture proxy is deployed:
+Use the following steps to verify that replication is working once the Traffic Capture Proxy is deployed:
 
 
 1. Navigate to the **Migration ECS Cluster** in the AWS Management Console.
@@ -148,10 +149,10 @@ Use the following steps to verify that replication is working once the traffic c
 6. Run `console kafka describe-topic-records`. Wait 30 seconds for another Application Load Balancer health check.
 7. Run `console kafka describe-topic-records` again and verify that the number of RECORDS increased between runs.
 8. Run `console replay start` to start Traffic Replayer.
-9.  Run `tail -f /shared-logs-output/traffic-replayer-default/*/tuples/tuples.log  | jq '.targetResponses[]."Status-Code"'` to confirm that the Kafka requests were sent to the target and that it responded as expected. If the responses don't appear:
+9. Run `tail -f /shared-logs-output/traffic-replayer-default/*/tuples/tuples.log  | jq '.targetResponses[]."Status-Code"'` to confirm that the Kafka requests were sent to the target and that it responded as expected. If the responses don't appear:
     * Check that the migration console can access the target cluster by running `./catIndices.sh`, which should show the indexes in the source and target.
     * Confirm that messages are still being recorded to Kafka.
-    * Check for errors in the Traffic Replayer logs (`/migration/STAGE/default/traffic-replayer-default`) using CloudWatch.
+    * Check for errors in the Traffic Replayer logs (`/migration/STAGE/default/traffic-replayer-default`) using Amazon CloudWatch.
 10. (Reset) Update the desired count for the **Capture Proxy Service** back to its original value in Amazon ECS.
 
 ### Troubleshooting
@@ -164,7 +165,7 @@ If the source cluster is configured to require authentication, the capture proxy
 
 ### Traffic does not reach the source cluster 
 
-Verify that the source cluster allows traffic ingress from the Capture Proxy Security Group.
+Verify that the source cluster allows traffic ingress from the Capture Proxy security Group.
 
 Look for failing tasks by navigating to **Traffic Capture Proxy ECS**. Change **Filter desired status** to **Any desired status** in order to see all tasks and navigate to the logs for stopped tasks.
 
@@ -174,7 +175,7 @@ When using the CDK deployment for Migration Assistant, you might encounter the f
 
 #### Bucket permissions
 
-To make sure that you can delete snapshots as well as create them during the CDK deployment process, confirm that the `OSMigrations-dev-<region>-CustomS3AutoDeleteObjects` stack has S3 object deletion rights. Then, verify that `OSMigrations-dev-<region>-default-SnapshotRole` has the following S3 permissions:  
+To make sure that you can delete snapshots and create them during the AWS Cloud Development Kit (AWS CDK) deployment process, confirm that the `OSMigrations-dev-<region>-CustomS3AutoDeleteObjects` stack has S3 object deletion rights. Then, verify that `OSMigrations-dev-<region>-default-SnapshotRole` has the following S3 permissions:
 
   - List bucket contents  
   - Read/Write/Delete objects
@@ -189,35 +190,5 @@ After all verifications are complete, reset all resources before using Migration
 
 The following steps outline how to reset resources with Migration Assistant before executing the actual migration. At this point all verifications are expected to have been completed. These steps can be performed after [Accessing the Migration Console]({{site.url}}{{site.baseurl}}/migration-assistant/migration-console/accessing-the-migration-console/).
 
-### Traffic Replayer
 
-To stop running Traffic Replayer, use the following command:
-
-```bash
-console replay stop
-```
-{% include copy.html %}
-
-### Kafka 
-
-To clear all captured traffic from the Kafka topic, you can run the following command. 
-
-This command will result in the loss of any traffic data captured by the capture proxy up to this point and thus should be used with caution.
-{: .warning}
-
-```bash
-console kafka delete-topic
-```
-{% include copy.html %}
-
-### Target cluster 
-
-To clear non-system indexes from the target cluster that may have been created as a result of testing, you can run the following command: 
-
-This command will result in the loss of all data in the target cluster and should be used with caution.
-{: .warning}
-
-```bash
-console clusters clear-indices --cluster target
-```
 {% include copy.html %}

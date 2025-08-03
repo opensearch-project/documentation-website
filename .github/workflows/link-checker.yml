@@ -8,10 +8,10 @@ jobs:
     if: github.repository == 'opensearch-project/documentation-website'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.0'
+        ruby-version: '3.2'
         bundler-cache: true
     - run: |
         JEKYLL_FATAL_LINK_CHECKER=all bundle exec jekyll build --future

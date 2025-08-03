@@ -1,14 +1,20 @@
 ---
 layout: default
 title: Using Traffic Replayer
-nav_order: 100
-grand_parent: Migration phases
-parent: Live traffic migration
-redirect_from:
+nav_order: 7
+parent: Migration phases
+grand_parent: Migration Assistant for OpenSearch
+permalink: /migration-assistant/migration-phases/replay-captured-traffic/
+redirect_from: 
   - /migration-assistant/migration-phases/using-traffic-replayer/
+  - /migration-phases/using-traffic-replayer/
+  - /migration-assistant/migration-phases/live-traffic-migration/using-traffic-replayer/
 ---
 
 # Using Traffic Replayer
+
+**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration or can tolerate downtime, you can skip this step.
+{: .note}
 
 This guide covers how to use Traffic Replayer to replay captured traffic from a source cluster to a target cluster during the migration process. Traffic Replayer allows you to verify that the target cluster can handle requests in the same way as the source cluster and catch up to real-time traffic for a smooth migration.
 
@@ -20,7 +26,7 @@ For example, if a document was deleted after a snapshot was taken, starting Traf
 
 ## Configuration options
 
-[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migration-assistant/deploying-migration-assistant/configuration-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster. 
+[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster.
 
 ## Using Traffic Replayer
 
@@ -291,7 +297,7 @@ Migration Assistant creates an Amazon CloudWatch dashboard named `MigrationAssis
 - The number of active connections.
 - The replay speed multiplier. 
 
-You can find the Capture and Replay dashboard in the AWS Management Console for CloudWatch Dashboards in the AWS Region where you deployed Migration Assistant.
+You can find the  Capture and Replay  dashboard in the AWS Management Console for Amazon CloudWatch dashboards in the AWS Region where you deployed Migration Assistant.
 
 Traffic Replayer emits various OpenTelemetry metrics to Amazon CloudWatch, and traces are sent through AWS X-Ray. The following are some useful metrics that can help evaluate migration performance.
 
@@ -308,7 +314,7 @@ This metric shows the delay between requests hitting the source and target clust
 The following metrics are also reported:
 
 - **Throughput**: `bytesWrittenToTarget` and `bytesReadFromTarget` indicate the throughput to and from the cluster.
-- **Retries**: `numRetriedRequests` tracks the number of requests retried due to status code mismatches between the source and target.
+- **Retries**: `numRetriedRequests` tracks the number of requests retried because of status code mismatches between the source and target.
 - **Event counts**: Various `(*)Count` metrics track the number of completed events.
 - **Durations**: `(*)Duration` metrics measure the duration of each step in the process.
 - **Exceptions**: `(*)ExceptionCount` shows the number of exceptions encountered during each processing phase.

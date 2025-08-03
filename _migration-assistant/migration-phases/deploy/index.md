@@ -1,16 +1,21 @@
 ---
 layout: default
-title: Getting started with data migration
-parent: Deploying Migration Assistant
-nav_order: 10
+title: Deploy
+parent: Migration phases
+grand_parent: Migration Assistant for OpenSearch
+nav_order: 2
+has_children: true
+permalink: /migration-assistant/migration-phases/deploy/
 redirect_from:
-  - /upgrade-to/snapshot-migrate/
   - /migration-assistant/getting-started-with-data-migration/
+  - /deploying-migration-assistant/
 ---
 
-# Getting started with data migration
+# Deploy
 
-This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, the steps can be modified for use with other cloud providers.
+This quickstart assumes that you have performed an [assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) to understand upgrade breaking changes and limitations before beginning.
+
+This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, you can modify the steps for use with other cloud providers.
 
 Before using this quickstart, make sure you review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/overview/is-migration-assistant-right-for-you/#supported-migration-paths).
 
@@ -62,7 +67,7 @@ Use the following steps to set up Bootstrap instance access:
 
 ---
 
-## Step 3: Log in to Bootstrap and building Migration Assistant (~15 minutes)
+## Step 3: Log in to Bootstrap and build Migration Assistant (~15 minutes)
 
 Next, log in to Bootstrap and build Migration Assistant using the following steps.
 
@@ -147,6 +152,52 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
 
     The source and target cluster authorization can be configured to have no authorization, `basic` with a username and password, or `sigv4`. 
 
+    ### Environment configuration examples
+
+    To avoid conflicts with existing deployments, consider using different context IDs and stage names:
+
+    ```json
+    {
+    "test-deploy": {
+        "stage": "test",
+        "migrationAssistanceEnabled": true,
+        "migrationConsoleServiceEnabled": true,
+        "reindexFromSnapshotServiceEnabled": true,
+        "sourceCluster": {
+            "endpoint": "https://migration-source-es710.us-west-2.es.amazonaws.com",
+            "version": "ES_7.10",
+            "auth": {
+                "type": "basic",
+                "username": "admin",
+                "passwordFromSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-source-password"
+            }
+        },
+        "targetCluster": {
+            "endpoint": "https://migration-target-os219.us-west-2.es.amazonaws.com",
+            "auth": {
+                "type": "basic",
+                "username": "admin",
+                "passwordFromSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-target-password"
+            }
+        }
+    },
+    "prod-deploy": {
+        "stage": "prod",
+        "migrationAssistanceEnabled": true,
+        "migrationConsoleServiceEnabled": true,
+        "reindexFromSnapshotServiceEnabled": true,
+        "// ... additional production-specific configuration"
+    }
+    }
+    ```
+    {% include copy.html %}
+
+    **Important Notes**:
+    - Use unique `stage` values to prevent resource naming conflicts.
+    - Ensure secret ARNs are complete and accessible in your deployment Region.
+    - Domain endpoints can be simplified names or full AWS URLs.
+    - Deploy using `./deploy.sh <contextId>` (for example, `./deploy.sh test-deploy`).
+
 3. After the `cdk.context.json` file is fully configured, bootstrap the account and deploy the required stacks using the following command:
 
     ```bash
@@ -228,125 +279,76 @@ TARGET CLUSTER
 ConnectionResult(connection_message='Successfully connected!', connection_established=True, cluster_version='')
 ```
 
-To learn more about migration console commands, see [Migration commands].
+To learn more about migration console commands, see [Migration console command reference]({{site.url}}{{site.baseurl}}/migration-assistant/migration-console/migration-console-command-reference/).
 
 ---
 
-## Step 7: Create a snapshot
+## Troubleshooting
 
-Run the following command to initiate snapshot creation from the source cluster:
+The following section covers common deployment issues and resolutions.
 
-```bash
-console snapshot create [...]
+### Common deployment issues
+
+**Problem: AWS credentials not configured**
 ```
-{% include copy.html %}
-
-To check the snapshot creation status, run the following command:
-
-```bash
-console snapshot status [...]
+Unable to locate credentials. You can configure credentials by running "aws configure".
 ```
-{% include copy.html %}
+**Resolution**:
+1. Run `aws configure` and provide your access key, secret key, and Region.
+2. Alternatively, set environment variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION`.
+3. Verify credentials with `aws sts get-caller-identity`.
 
-To learn more information about the snapshot, run the following command:
-
-```bash
-console snapshot status --deep-check [...]
+**Problem: Stack naming conflicts**
 ```
-{% include copy.html %}
+Stack with id OSMigrations-dev-us-west-2-MigrationConsole already exists
+```
+**Resolution**:
+1. Use a different `stage` value in your context configuration (for example, "test", "staging").
+2. Or destroy existing stacks: `cdk destroy "*" --c contextId=<existing-context>`.
+3. Ensure unique context IDs for parallel deployments.
 
-Wait for snapshot creation to complete before moving to step 9.
+**Problem: Docker build failures**
+```
+ERROR: failed to solve: public.ecr.aws/sam/build-nodejs18.x: pulling from host public.ecr.aws failed
+```
+**Resolution**:
+1. Run `docker logout public.ecr.aws` to clear the authentication cache.
+2. Retry the build process: `./buildDockerImages.sh`.
 
-To learn more about snapshot creation, see [Snapshot Creation].
+**Problem: CDK bootstrap required**
+```
+This stack uses assets, so the toolkit stack must be deployed to the environment
+```
+**Resolution**:
+1. Bootstrap the CDK in your Region: `cdk bootstrap --c contextId=<your-context>`.
+2. Ensure you have configured the correct AWS credentials and Region.
+
+### Rollback procedures
+
+If you need to remove a deployment:
+
+1. **Stop all running services**:
+   ```bash
+   console backfill stop  # If backfill is running
+   ```
+
+2. **Destroy CDK stacks**:
+   ```bash
+   cdk destroy "*" --c contextId=<your-context> --force
+   ```
+
+3. **Clean up manually if needed**:
+   - Remove any remaining CloudFormation stacks from the AWS Management Console.
+   - Delete any orphaned resources, for example, Amazon Elastic Container Service (Amazon ECS) tasks and load balancers.
 
 ---
 
-## Step 8: Migrate metadata
+## Next steps
 
-Run the following command to migrate metadata:
+After completing the deployment, proceed with the migration phases:
 
-```bash
-console metadata migrate [...]
-```
-{% include copy.html %}
+1. **[Create a snapshot]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/create-snapshot/)**: Create a snapshot of your source cluster.
+2. **[Migrate metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/)**: Migrate cluster metadata to the target.
+3. **[Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/)**: Migrate documents and monitor the process.
 
-For more information, see [Migrating metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/).
-
----
-
-## Step 9: Migrate documents with RFS
-
-You can now use RFS to migrate documents from your original cluster:
-
-1. To start the migration from RFS, start a `backfill` using the following command:
-
-    ```bash
-    console backfill start
-    ```
-    {% include copy.html %}
-
-2. _(Optional)_ To speed up the migration, increase the number of documents processed at a simultaneously by using the following command:
-
-    ```bash
-    console backfill scale <NUM_WORKERS>
-    ```
-    {% include copy.html %}
-
-3. To check the status of the documentation backfill, use the following command:
-
-    ```bash
-    console backfill status
-    ```
-    {% include copy.html %}
-
-4. If you need to stop the backfill process, use the following command:
-
-    ```bash
-    console backfill stop
-    ```
-    {% include copy.html %}
-
-For more information, see [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/).
-
----
-
-## Step 10: Backfill monitoring
-
-Use the following command for detailed monitoring of the backfill process:
-
-```bash
-console backfill status --deep-check
-```
-{% include copy.html %}
-
-You should receive the following output:
-
-```json
-BackfillStatus.RUNNING
-Running=9
-Pending=1
-Desired=10
-Shards total: 62
-Shards completed: 46
-Shards incomplete: 16
-Shards in progress: 11
-Shards unclaimed: 5
-```
-
-Logs and metrics are available in Amazon CloudWatch in the `OpenSearchMigrations` log group.
-
----
-
-## Step 11: Verify that all documents were migrated 
-
-Use the following query in CloudWatch Logs Insights to identify failed documents:
-
-```bash
-fields @message
-| filter @message like "Bulk request succeeded, but some operations failed."
-| sort @timestamp desc
-| limit 10000
-```
-{% include copy.html %}
-
-If any failed documents are identified, you can index the failed documents directly as opposed to using RFS.
+For more information about the complete migration process, see [Migration phases]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/).
