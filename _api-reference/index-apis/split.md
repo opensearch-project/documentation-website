@@ -13,7 +13,7 @@ redirect_from:
 
 The split index API operation splits an existing read-only index into a new index, cutting each primary shard into some amount of primary shards in the new index.
 
-Index is read-only when the `index.blocks.write` in index settings is set to `true`.
+To make the index read-only, set the `index.blocks.write` index setting to `true`.
 {: .note}
 
 ## Example

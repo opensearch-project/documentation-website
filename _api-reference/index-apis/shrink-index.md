@@ -13,7 +13,7 @@ redirect_from:
 
 The shrink index API operation moves all of your data in an existing read-only index into a new index with fewer primary shards.
 
-Index is read-only when the `index.blocks.write` in index settings is set to `true`.
+To make the index read-only, set the `index.blocks.write` index setting to `true`.
 {: .note}
 
 
