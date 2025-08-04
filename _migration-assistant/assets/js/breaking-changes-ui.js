@@ -145,12 +145,12 @@ const BreakingChangesUI = (function() {
         targets.forEach(target => allTargetVersions.add(target));
       });
       
-      // Convert Set to Array and sort in reverse order (latest version first)
+      // Convert Set to Array and sort in order (latest version last)
       const targetVersions = Array.from(allTargetVersions).sort((a, b) => {
-        // Use the version index to sort in reverse order
-        return getVersionIndex(b) - getVersionIndex(a);
+        // Use the version index to sort in order
+        return getVersionIndex(a) - getVersionIndex(b);
       });
-      console.log('Filtered target versions (latest first):', targetVersions);
+      console.log('Filtered target versions (latest last):', targetVersions);
       
       // Populate target dropdown with filtered versions
       this.populateDropdown(elements.targetSelect, targetVersions, 'Select Target');
@@ -166,12 +166,12 @@ const BreakingChangesUI = (function() {
       const selectedSource = elements.sourceSelect.value;
       
       if (selectedSource) {
-        // Get valid targets for this source and sort in reverse order (latest version first)
+        // Get valid targets for this source and sort in order (latest version last)
         const validTargets = (MIGRATION_MAP.sourceToTargets[selectedSource] || []).sort((a, b) => {
-          // Use the version index to sort in reverse order
-          return getVersionIndex(b) - getVersionIndex(a);
+          // Use the version index to sort in order
+          return getVersionIndex(a) - getVersionIndex(b);
         });
-        console.log('Valid targets for', selectedSource, '(latest first):', validTargets);
+        console.log('Valid targets for', selectedSource, '(latest last):', validTargets);
         this.populateDropdown(elements.targetSelect, validTargets, 'Select Target');
       } else {
         // If no source selected, show all possible targets
