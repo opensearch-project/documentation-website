@@ -59,12 +59,14 @@ PUT testindex/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Skip list example
+## Example: Skip list
 
-Create a mapping with skip list indexing enabled for better range query performance:
+Use the `skip_list` parameter for better query performance. The `skip_list` parameter is particularly beneficial for fields that are frequently used in `range` queries or aggregations, because it allows the query engine to skip over document ranges that don't match the query criteria.
+
+Create a mapping with skip list indexing enabled:
 
 ```json
-PUT testindex_skiplist
+PUT /testindex_skiplist
 {
   "mappings" : {
     "properties" :  {
@@ -78,7 +80,7 @@ PUT testindex_skiplist
 ```
 {% include copy-curl.html %}
 
-Index documents with numeric values:
+Index a document containing a numeric value:
 
 ```json
 PUT testindex_skiplist/_doc/1
@@ -88,7 +90,6 @@ PUT testindex_skiplist/_doc/1
 ```
 {% include copy-curl.html %}
 
-The `skip_list` parameter is particularly beneficial for fields that are frequently used in range queries or aggregations, as it allows the query engine to skip over document ranges that don't match the query criteria.
 
 ## Scaled float field type
 
