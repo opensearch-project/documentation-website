@@ -13,7 +13,7 @@ redirect_from:
 
 The shrink index API operation moves all of your data in an existing read-only index into a new index with fewer primary shards.
 
-To make the index read-only, set the [dynamic index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) `index.blocks.write` to `true`.
+To make the index read-only, set the [dynamic index-level index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) `index.blocks.write` to `true`.
 {: .note}
 
 

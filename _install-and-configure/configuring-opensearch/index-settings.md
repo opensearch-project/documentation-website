@@ -209,7 +209,7 @@ OpenSearch supports the following dynamic index-level index settings:
 
    For example, if you have 5 data nodes and set `index.auto_expand_search_replicas` to `0-3`, the index can have up to 3 search replicas and the cluster does not automatically add another search replica shard. However, if you set `index.auto_expand_search_replicas` to `0-all` and add 2 more nodes, for a total of 7, the cluster will expand to now have 7 search replica shards. This setting is disabled by default.
 
-- `index.blocks.write` (Boolean): Controls whether the index is read-only. `true` blocks all write requests and sets the index as read-only. Default is `false`.
+- `index.blocks.write` (Boolean): Specifies whether the index is read-only. Setting to `true` blocks all write requests and makes the index read-only. Default is `false`.
 
 - `index.search.idle.after` (Time unit): The amount of time a shard should wait for a search or get request until it goes idle. Default is `30s`.
 
