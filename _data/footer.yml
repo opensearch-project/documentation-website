@@ -4,16 +4,16 @@ columns:
     links:
       -
         title: Code of Conduct
-        url: '/codeofconduct.html'
+        url: 'https://opensearch.org/code-of-conduct/'
       -
         title: 'Forum'
         url: 'https://forum.opensearch.org/'
       -
-        title: 'Github'
+        title: 'GitHub'
         url: 'https://github.com/opensearch-project'
       -
         title: 'Slack'
-        url: '/slack.html'
+        url: 'https://opensearch.org/slack/'
   -
     title: 'Resources'
     links:
@@ -43,7 +43,7 @@ columns:
     links:
       -
         title: 'Connect'
-        url: '/connect.html'
+        url: 'https://opensearch.org/connect/'
       -
         title: 'Twitter'
         url: 'https://twitter.com/OpenSearchProj'
