@@ -39,7 +39,7 @@ docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -
 This process may take some time. After it finishes, OpenSearch is now running on port `9200`. To verify that OpenSearch is running, send the following request: 
 
 ```bash
-curl https://localhost:9200
+curl http://localhost:9200
 ```
 {% include copy.html %}
 
@@ -67,7 +67,7 @@ You should get a response that looks like this:
 
 ## Option 2: Set up a custom Docker cluster
 
-Use Docker Compose to run a local multi-node OpenSearch and OpenSearch Dashboards cluster:
+Use [Docker Compose](https://docs.docker.com/compose/) to run a local multi-node OpenSearch and OpenSearch Dashboards cluster:
 
 - [Set up a cluster without security](#set-up-a-cluster-without-security-for-local-development) -- Best for local development.
 - [Set up a cluster with security](#set-up-a-cluster-with-security-recommended-for-most-use-cases) -- Try OpenSearch with security by installing it with default certificates.
@@ -107,7 +107,7 @@ This configuration disables security and should only be used in test environment
 1. To verify that OpenSearch is running, send the following request: 
 
     ```bash
-    curl https://localhost:9200
+    curl http://localhost:9200
     ```
     {% include copy.html %}
 
@@ -211,14 +211,6 @@ Eliminate the need for running your Docker commands with `sudo` by adding your u
 ```bash
 sudo usermod -aG docker $USER
 ```
-
-### Error message: "-bash: docker-compose: command not found"
-
-If you installed Docker Desktop, then Docker Compose is already installed on your machine. Try `docker compose` (without the hyphen) instead of `docker-compose`. See [Use Docker Compose](https://docs.docker.com/get-started/08_using_compose/).
-
-### Error message: "docker: 'compose' is not a docker command."
-
-If you installed Docker Engine, then you must install Docker Compose separately, and you will use the command `docker-compose` (with a hyphen). See [Docker Compose](https://github.com/docker/compose).
 
 ### Error message: "max virtual memory areas vm.max_map_count [65530] is too low"
 
