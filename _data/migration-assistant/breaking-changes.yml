@@ -64,7 +64,7 @@ breaking_changes:
     introducedIn: "Elasticsearch 6.x"
     comp: [ "dashboards" ]
   - title: "Removal of Strings in Elasticsearch 5.x"
-    url: "https://www.elastic.co/blog/strings-are-dead-long-live-strings"
+    url: "https://www.elastic.co/guide/en/elasticsearch/reference/5.0/breaking_50_mapping_changes.html"
     introducedIn: "Elasticsearch 5.x"
     comp: []
     transformation:
