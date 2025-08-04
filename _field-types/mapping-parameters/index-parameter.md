@@ -10,22 +10,24 @@ has_toc: false
 
 # Index
 
-The `index` mapping parameter controls whether a field is included in the inverted index. When set to `true`, the field is indexed and available for queries. When set to `false`, the field is stored in the document but not indexed, making it non-searchable when [doc_values]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) are not enabled. If you do not need to search a particular field, disabling indexing and doc_values for that field can reduce index size and improve indexing performance. For example, you can disable indexing on large text fields or metadata that is only used for display.
+The `index` mapping parameter controls whether a field is included in the inverted index. When set to `true`, the field is indexed and available for queries. When set to `false`, the field is stored in the document but not indexed, making it non-searchable when [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) are not enabled. If you do not need to search a particular field, disabling indexing and `doc_values` for that field can reduce index size and improve indexing performance. For example, you can disable indexing on large text fields or metadata that is only used for display.
 
 By default, all field types are indexed.
 
-## Index and Doc Values
+##  The index and doc values parameters compared
 
-Enabling the index parameter will create an mapping between the terms and document lists. For any subsequent documents, the value of the fields where the index parameter is enabled will be processed into its terms, and foe each of those terms, the document id will be added to the corresponding document list of the term in the mapping. When the `doc_values` parameter is enabled, the document will be mapped to the list of terms is contains for that field. This helps with operations that need to quickly access a value for a document like in sorting.
+When you enable the `index` parameter, OpenSearch creates a mapping of terms to the documents that contain them. For each new document, the values of the indexed fields are broken into terms, and each term is linked to the document ID in the mapping.
 
-The table below shows how the field bahaves depending on the combination of how index and `doc_values` are enabled.
+When you enable the `doc_values` parameter, OpenSearch creates a reverse mapping: each document is linked to the list of terms found in that field. This is useful for operations like sorting, where the system needs fast access to a document's field values.
 
-| Index Option | Doc Values Option | Behavior       | Use Case       
+The following table illustrates the field behavior depending on the combination of `index` and `doc_values`.
+
+| `index` parameter value | `doc_values` parameter value | Behavior       | Use case       
 | :--       | :--               | :--            | :--            |
-| True   | True          | When index and `doc_values` are enabled, the field can be searched on, and sorting, scripting, and aggregations are supported.    | This should be used for any field you want to query directly and perform complex operations on.          |
-| True   | False          | When index is enabled but `doc_values` is not, the field can be only be searched on, meaning that queries can still be performed, but the document-to-term lookup is no longer supported. Sort, scripting, and aggregation operations will now take longer.    | Used for fields that you want to query but not perform sorts or aggregations on like text fields.          |
-| False   | True          | When the index is not enabled bug `doc_values` is, we can still search on the field (although not as efficiently), and sorting, scripting, and aggregations will work. It is worth noting that not all field types support doc_values like text, for example.     | Used for fields that you want to analyze with aggregations but not filter and query.          |
-| False   | False          | Now, that both index and `doc_values` are disabled, we are no longer able to search on this field, and queries that attempt to search on that field will return an error.    | Data that you do not have to perform any operations on like metadata.          |
+| `true`   | `true`          | The field is searchable and supports sorting, scripting, and aggregations.    | Use for any field you want to query directly and perform complex operations on.          |
+| `true`   | `false`          | The field is searchable but does not support document to term lookup (thus, sorting, scripting, and aggregations take longer). |  Use for fields you want to query but don’t need for sorting or aggregations, such as `text` fields.          |
+| `false`   | `true`         | The field is searchable (although not as efficiently) and supports sorting, scripting, and aggregations. Note that not all field types support `doc_values` (for example, `text` fields do not support `doc_values`).     | Use for fields that you want to aggregate on but not filter or query.          |
+| `false`  | `false`          | The field is not searchable. Queries that attempt searching the field return an error.    | Use for fields on which you do not want to perform any operations, such as metadata fields.          |
 
 ## Supported data types
 
@@ -40,7 +42,7 @@ The `index` mapping parameter can be applied to the following data types:
 
 ## Enabling indexing on a field
 
-The following request creates an index named `products` with both a `description` and `name` field that are indexed (the default behavior):
+The following request creates an index named `products` with a `description` and `name` fields that are indexed (the default behavior):
 
 ```json
 PUT /products
@@ -197,9 +199,9 @@ The following error response indicates that the search query failed because the 
 }
 ```
 
-For text fields, the index parameter being false is enough to disable searching on that field (this is because text fields do not support doc_values), however, for the other field types, we must also disable `doc_values` to have the same effect.  
+For `text` fields, setting the `index` parameter to `false` disables searching on the field because `text` fields do not support `doc_values`. To make other fields not searchable, you must additionally set `doc_values` to  `false`.  
 
-Query `products-no-index` using the `name` field:
+Query the `products-no-index` using the `name` field:
 
 ```json
 POST /products-no-index/_search
@@ -215,7 +217,7 @@ POST /products-no-index/_search
 ```
 {% include copy-curl.html %}
 
-The following response indicates that the search query succeeded because the name field is not indexed but still has `doc_values` enabled:
+The following response confirms that the search query succeeded because the `name` field, though not indexed, has `doc_values` enabled:
 
 ```json
 {
