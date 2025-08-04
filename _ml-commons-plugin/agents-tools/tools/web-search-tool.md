@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Web search tool
+title: Web Search tool
 has_children: false
 has_toc: false
 nav_order: 130
@@ -9,7 +9,7 @@ grand_parent: Agents and tools
 ---
 
 <!-- vale off -->
-# Web search tool
+# Web Search tool
 **Introduced 3.0**
 {: .label .label-purple }
 <!-- vale on -->

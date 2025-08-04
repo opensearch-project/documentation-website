@@ -2,10 +2,10 @@
 layout: default
 title: Blocks
 parent: Index APIs
-nav_order: 7
+nav_order: 10
 ---
 
-# Blocks
+# Blocks API
 **Introduced 1.0**
 {: .label .label-purple }
 

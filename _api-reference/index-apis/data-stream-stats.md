@@ -2,10 +2,10 @@
 layout: default
 title: Data stream stats
 parent: Index APIs
-nav_order: 74
+nav_order: 50
 ---
 
-# Data stream stats
+# Data Stream Stats API
 
 The Data Stream Stats API provides statistics about one or more data streams. This includes information such as the number of backing indexes, store size, and maximum timestamp. This API is useful for monitoring storage and indexing activity across data streams.
 

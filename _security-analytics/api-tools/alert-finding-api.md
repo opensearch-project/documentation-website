@@ -141,7 +141,7 @@ POST /_plugins/_security_analytics/detectors/<detector_id>/_acknowledge/alerts
 
 ## Get findings
 
-The Get findings API returns findings based on the detector attributes.
+The Get Findings API returns findings based on the detector attributes.
 
 ### Parameters
 

@@ -66,7 +66,28 @@
     {%- if node.parent == nil -%}
       {%- unless node.nav_exclude -%}
       {% assign nested_owned_tree_id = include.owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: node.title | append: "_navitems" | replace: " ", "_" %}
-      <li role="none" class="nav-list-item{% if page.collection == include.key and page.url == node.url or page.parent == node.title or page.grand_parent == node.title %} active{% endif %}">
+      {%- comment -%}Check if current page is a descendant of this node{%- endcomment -%}
+      {%- assign is_ancestor = false -%}
+      {%- if page.collection == include.key -%}
+        {%- if page.url == node.url or page.parent == node.title or page.grand_parent == node.title -%}
+          {%- assign is_ancestor = true -%}
+        {%- else -%}
+          {%- comment -%}Check for 4-level deep pages{%- endcomment -%}
+          {%- for child in pages_list -%}
+            {%- if child.parent == node.title -%}
+              {%- for grand_child in pages_list -%}
+                {%- if grand_child.parent == child.title and grand_child.grand_parent == node.title -%}
+                  {%- if page.parent == grand_child.title -%}
+                    {%- assign is_ancestor = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endif -%}
+      <li role="none" class="nav-list-item{% if is_ancestor %} active{% endif %}">
         {%- if node.has_children -%}
           <a
             role="treeitem"
@@ -89,7 +110,22 @@
           <ul role="tree" class="nav-list" id="{{ nested_owned_tree_id }}">
           {%- for child in children_list -%}
             {%- unless child.nav_exclude -%}
-            <li role="none" class="nav-list-item {% if page.url == child.url or page.parent == child.title %} active{% endif %}">
+            {%- comment -%}Check if current page is a descendant of this child{%- endcomment -%}
+            {%- assign child_is_ancestor = false -%}
+            {%- if page.url == child.url or page.parent == child.title -%}
+              {%- assign child_is_ancestor = true -%}
+            {%- else -%}
+              {%- comment -%}Check for 4-level deep pages{%- endcomment -%}
+              {%- for grand_child in pages_list -%}
+                {%- if grand_child.parent == child.title and grand_child.grand_parent == node.title -%}
+                  {%- if page.parent == grand_child.title -%}
+                    {%- assign child_is_ancestor = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            <li role="none" class="nav-list-item{% if child_is_ancestor %} active{% endif %}">
               {%- if child.has_children -%}
                 {% assign nested_nested_owned_tree_id = nested_owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: child.title | append: "_navitems" | replace: " ", "_" %}
                 <a
@@ -112,13 +148,46 @@
                 <ul role="tree" class="nav-list" id="{{ nested_nested_owned_tree_id }}">
                 {%- for grand_child in grand_children_list -%}
                   {%- unless grand_child.nav_exclude -%}
-                  <li role="none" class="nav-list-item {% if page.url == grand_child.url %} active{% endif %}">
+                  {%- comment -%}Check if current page is a descendant of this grand_child{%- endcomment -%}
+                  {%- assign grand_child_is_ancestor = false -%}
+                  {%- if page.url == grand_child.url or page.parent == grand_child.title -%}
+                    {%- assign grand_child_is_ancestor = true -%}
+                  {%- endif -%}
+                  <li role="none" class="nav-list-item{% if grand_child_is_ancestor %} active{% endif %}">
+                    {%- if grand_child.has_children -%}
+                      {% assign nested_nested_nested_owned_tree_id = nested_nested_owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: grand_child.title | append: "_navitems" | replace: " ", "_" %}
+                      <a
+                        role="treeitem"
+                        aria-owns="{{ nested_nested_nested_owned_tree_id }}"
+                        {%- if page.url == grand_child.url -%}aria-current="page"{%- endif -%}
+                        href="#" 
+                        class="nav-list-expander"
+                      ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
+                    {%- endif -%}
                     <a
                       role="treeitem"
+                      {%- if grand_child.has_children -%}aria-owns="{{ nested_nested_nested_owned_tree_id }}"{%- endif -%}
                       {%- if page.url == grand_child.url -%}aria-current="page"{%- endif -%}
                       href="{{ grand_child.url | absolute_url }}" 
                       class="nav-list-link{% if page.url == grand_child.url %} active{% endif %}"
                     >{{ grand_child.title }}</a>
+                    {%- if grand_child.has_children -%}
+                      {%- assign great_grand_children_list = pages_list | where: "parent", grand_child.title -%}
+                      <ul role="tree" class="nav-list" id="{{ nested_nested_nested_owned_tree_id }}">
+                      {%- for great_grand_child in great_grand_children_list -%}
+                        {%- unless great_grand_child.nav_exclude -%}
+                        <li role="none" class="nav-list-item {% if page.url == great_grand_child.url %} active{% endif %}">
+                          <a
+                            role="treeitem"
+                            {%- if page.url == great_grand_child.url -%}aria-current="page"{%- endif -%}
+                            href="{{ great_grand_child.url | absolute_url }}" 
+                            class="nav-list-link{% if page.url == great_grand_child.url %} active{% endif %}"
+                          >{{ great_grand_child.title }}</a>
+                        </li>
+                        {%- endunless -%}
+                      {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
                   </li>
                   {%- endunless -%}
                 {%- endfor -%}

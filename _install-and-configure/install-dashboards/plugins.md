@@ -96,3 +96,7 @@ Then remove all associated entries from `opensearch_dashboards.yml` and restart 
 ## Updating plugins
 
 OpenSearch Dashboards doesn't update plugins. Instead, you must [remove the old version](#removing-a-plugin), [reinstall the plugin](#installing-a-plugin), and restart OpenSearch Dashboards.
+
+## Plugin dependencies
+
+Some plugins extend functionality of other plugins. If a plugin has a dependency on another plugin, you must install the required dependency before installing the dependent plugin. For plugin dependencies, see the [manifest file](https://github.com/opensearch-project/opensearch-build/blob/main/manifests/{{site.opensearch_version}}/opensearch-dashboards-{{site.opensearch_version}}.yml). In this file, each plugin's dependencies are listed in the `depends_on` parameter.

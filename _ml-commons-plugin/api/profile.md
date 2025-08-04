@@ -5,7 +5,7 @@ parent: ML Commons APIs
 nav_order: 100
 ---
 
-# Profile
+# Profile API
 
 The profile API operation returns runtime information about ML tasks and models. The profile operation can help debug model issues at runtime. 
 

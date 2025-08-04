@@ -75,7 +75,7 @@ The `actions` parameter supports the following options.
 
 | Field | Data type | Description |
 |:---|:---|:---|
-| `action_type` | String | Required. Sets the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. |
+| `action_type` | String | Required. Specifies the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. |
 | `method`  | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`. |
 | `url` | String      | Required. Specifies the connection endpoint at which the action occurs. This must match the regex expression for the connection used when [adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index#adding-trusted-endpoints).|
 | `request_body` | String | Required. Sets the parameters contained in the request body of the action. The parameters must include `\"inputText\`, which specifies how users of the connector should construct the request payload for the `action_type`.  |

@@ -140,7 +140,7 @@ Defines the path to the `--provision-config-instance` and any OpenSearch plugin 
 ## distribution-version
 <!-- vale on -->
 
-Downloads the specified OpenSearch distribution based on version number. For a list of released OpenSearch versions, see [Version history](https://opensearch.org/docs/version-history/).
+Downloads the specified OpenSearch distribution based on version number. For a list of released OpenSearch versions, see [Version history]({{site.url}}{{site.latesturl}}/version-history/).
 
 <!-- vale off -->
 ## distribution-repository

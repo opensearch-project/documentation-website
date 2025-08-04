@@ -7,7 +7,7 @@ redirect_from:
  - /opensearch/rest-api/document-apis/bulk/
 ---
 
-# Bulk
+# Bulk API
 **Introduced 1.0**
 {: .label .label-purple }
 

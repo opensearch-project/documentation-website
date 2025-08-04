@@ -2,7 +2,7 @@
 layout: default
 title: Dynamic
 parent: Mapping parameters
-grand_parent: Mapping and field types
+
 nav_order: 30
 has_children: false
 has_toc: false
@@ -344,3 +344,73 @@ PUT testindex1/_doc/1
   "floor": "1"
 }
 ```
+
+---
+
+## Example: Create an index with `dynamic` set to `false_allow_templates`
+
+1. Create an index with predefined dynamic templates and `dynamic` set to `false_allow_templates` by sending the following request: 
+
+```json
+PUT testindex1
+{
+  "mappings": {
+    "dynamic": "false_allow_templates",
+    "dynamic_templates": [
+      {
+        "strings": {
+          "match": "room*",
+          "match_mapping_type": "string",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      }
+    ],
+    "properties": {
+      "patient": {
+        "properties": {
+          "id": {
+            "type": "keyword"
+          },
+          "name": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+2. Index a document with an object field `patient` containing two string fields and a new field `room` that matches one of the dynamic templates by sending the following request:
+
+```json
+PUT testindex1/_doc/1
+{ 
+  "patient": { 
+    "name" : "John Doe",
+    "id" : "123456"
+  },
+  "room": "room1"
+}
+```
+{% include copy-curl.html %}
+
+The new field `room` is indexed because it matches the dynamic templates.
+
+If you add a new field `floor`, it is indexed even though it does not match any mapping properties or dynamic templates. However, mappings are not created for the `floor` field. Thus, queries such as `{"match": {"floor": "1"}}` do not return this document:
+
+```json
+PUT testindex1/_doc/1
+{ 
+  "patient": { 
+    "name" : "John Doe",
+    "id" : "123456"
+  },
+  "room": "room1",
+  "floor": "1"
+}
+```
+{% include copy-curl.html %}

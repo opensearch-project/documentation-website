@@ -160,22 +160,29 @@ GET /my-nlp-index/_mapping
 
 The `semantic` field type supports the following parameters.
 
-| Parameter | Data type | Required/Optional | Description |
-|-----------|-----------|----------------------|-------------|
-| `type` | String | Required | Must be set to `semantic`. |
-| `raw_field_type` | String | Optional | The underlying field type wrapped by the `semantic` field. The raw input is stored as this type at the path of the semantic field, allowing it to behave like a standard field of that type. Valid values are `text`, `keyword`, `match_only_text`, `wildcard`, `token_count`, and `binary`. Default is `text`. You can use any parameters supported by the underlying field type; those parameters function as expected. |
-| `model_id` | String | Required | The ID of the ML model used to generate embeddings from field values during indexing and from query input during search. |
-| `search_model_id` | String | Optional | The ID of the ML model used specifically for query-time embedding generation. If not specified, the `model_id` is used. Cannot be specified together with `semantic_field_search_analyzer`. |
-| `semantic_info_field_name` | String | Optional | A custom name for the internal metadata field that stores the embedding and model information. By default, this field name is derived by appending `_semantic_info` to the semantic field name. |
-| `chunking` | Boolean | Optional | Enables fixed-length token chunking during ingestion. When enabled, the input is split into chunks using a default configuration. See [Text chunking](#text-chunking).|
-| `semantic_field_search_analyzer` | String | Optional | Specifies an analyzer for tokenizing the query input when using a sparse model. Valid values are `standard`, `bert-uncased`, and `mbert-uncased`. Cannot be used together with `search_model_id`. For more information, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/). |
+| Parameter                        | Data type                | Updatable | Required/Optional | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+|----------------------------------|--------------------------|-----------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `type`                           | String                   | No        | Required          | Must be set to `semantic`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `raw_field_type`                 | String                   | No        | Optional          | The underlying field type wrapped by the `semantic` field. The raw input is stored as this type at the path of the `semantic` field, allowing it to behave like a standard field of that type. Valid values are `text`, `keyword`, `match_only_text`, `wildcard`, `token_count`, and `binary`. Default is `text`. You can use any parameters supported by the underlying field type; those parameters function as expected.                                                                                                                                                              |
+| `model_id`                       | String                   | Yes       | Required          | The ID of the ML model used to generate embeddings from field values during indexing and from query input during search.                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `search_model_id`                | String                   | Yes       | Optional          | The ID of the ML model used specifically for query-time embedding generation. If not specified, the `model_id` is used. Cannot be specified together with `semantic_field_search_analyzer`.                                                                                                                                                                                                                                                                                                                                                                                            |
+| `semantic_info_field_name`       | String                   | No        | Optional          | A custom name for the internal metadata field that stores the embedding and model information. By default, this field name is derived by appending `_semantic_info` to the `semantic` field name.                                                                                                                                                                                                                                                                                                                                                                                      |
+| `chunking`                       | Boolean or Array of maps | No        | Optional          | Enables chunking of long-form text during ingestion. Set to `Yes` to use a default fixed token-length strategy, or specify a list of strategy objects to apply multiple chunking algorithms in sequence. See [Text chunking](#text-chunking).                                                                                                                                                                                                                                                                                                                                          |
+| `semantic_field_search_analyzer` | String                   | Yes       | Optional          | Specifies an analyzer for tokenizing the query input when using a sparse model. Valid values are `standard`, `bert-uncased`, and `mbert-uncased`. Cannot be used together with `search_model_id`. For more information, see [Analyzers]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/).                                                                                                                                                                                                                                                                                  |
+| `dense_embedding_config`         | Map                      | No        | Optional          | Defines custom settings for the underlying `knn_vector` field used when a `semantic` field is backed by a dense embedding model. This allows fine-grained control over vector indexing behavior, similarity function, and engine parameters. If omitted, OpenSearch applies default settings based on the model's embedding dimension and engine defaults. For supported parameters, see [Dense embedding config](#dense-embedding-configuration).                                                                                                                                     |
+| `sparse_encoding_config`         | Map                      | No        | Optional          | Configures how sparse vectors are encoded for the `semantic` field when using a sparse model. Supports all pruning strategies available in the [`sparse_encoding` processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/sparse-encoding/#pruning-sparse-vectors). If omitted, a default pruning strategy is applied using `max_ratio` with a prune ratio of `0.1`. This helps reduce noise and index size while preserving the most informative dimensions of the sparse vector. For supported parameters, see [Sparse encoding config](#sparse-encoding-configuration). |
+| `skip_existing_embedding`        | Boolean                  | Yes       | Optional          | Determines whether to skip embedding generation for the `semantic` field. When enabled, OpenSearch checks the existing document to see if the `semantic` field already has an embedding and whether both the `semantic` field's value and the ID of the ML model used to generate the embedding have not changed. If both conditions are true, OpenSearch reuses the existing embedding and skips generation. Default is `false`.                                                                                                                                                                 |
 
 
 ## Text chunking
 
 By default, text chunking is disabled for `semantic` fields. This is because enabling chunking requires storing each chunk's embedding in a nested object, which can increase search latency. Searching nested objects requires joining child documents to their parent, along with additional scoring and aggregation logic. The more matching child documents there are, the higher the potential latency.
 
-If you're working with long-form text and want to improve search relevance, you can enable chunking by setting the `chunking` parameter for the `semantic` field to `true` when creating an index:
+If you're working with long-form text and want to improve search relevance, you can enable chunking through the `chunking` parameter for the `semantic` field.
+
+### Basic chunking configuration
+
+To enable default chunking behavior (fixed token length using all defaults), set `chunking` to `true`:
 
 ```json
 PUT /my-nlp-index
@@ -193,19 +200,181 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
+This is equivalent to setting the `algorithm` to `fixed_token_length`:
+
+```json
+PUT /my-nlp-index
+{
+  "mappings": {
+    "properties": {
+      "passage": {
+        "type": "semantic",
+        "model_id": "nF7yX5cBsaYnPfyOq2SG",
+        "chunking": [
+          {
+            "algorithm": "fixed_token_length"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
 Chunking is performed using the [fixed token length algorithm]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/#the-fixed-token-length-algorithm). 
 
-### Limitations
+### Advanced chunking configuration
+
+To set up an advanced chunking configuration, you can specify `chunking` as a list of chunking strategies, where each strategy is applied in sequence to the `semantic` field. Each item in the list must specify an `algorithm` and its parameters.
+
+For example, to apply the `delimiter` algorithm followed by fixed token chunking, use the following request. The text is first split at paragraph breaks (`\n\n`), and each resulting segment is then divided into fixed-size token chunks:
+
+```json
+PUT /my-nlp-index
+{
+  "mappings": {
+    "properties": {
+      "passage": {
+        "type": "semantic",
+        "model_id": "nF7yX5cBsaYnPfyOq2SG",
+        "chunking": [
+          {
+            "algorithm": "delimiter",
+            "parameters": {
+              "delimiter": "\n\n"
+            }
+          },
+          {
+            "algorithm": "fixed_token_length",
+            "parameters": {
+              "token_limit": 128,
+              "overlap_rate": 0.2
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+This gives you more control over how input text is segmented and ensures that embeddings better reflect natural language boundaries.
+
+### Supported algorithms
+
+The `chunking` parameter supports all algorithms supported by the [text chunking ingest processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/).
+
+
+## Dense embedding configuration
+
+When a `semantic` field uses a dense model, OpenSearch automatically generates a companion `knn_vector` field to store the embeddings. You can use the `dense_embedding_config` parameter to customize how this vector field is configured during index creation.
+
+The structure of `dense_embedding_config` closely mirrors the configuration for a standard `knn_vector` field. You can use this parameter to configure settings like the k-NN engine and indexing behavior.
+
+For all supported parameters for the `dense_embedding_config`, see [k-NN vector parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/#parameters). While `dense_embedding_config` supports most of the same options as `knn_vector`, the following parameters are not supported:
+
+- `dimension`: The embedding dimension must match the output dimension of the ML model and is automatically inferred from the `model_id`. You should set the correct dimension in the model configuration, not in the field mapping.
+
+- `space_type`: The similarity space (for example, `cosinesimil`, `l2`, or `innerproduct`) must align with the model and is resolved from the model configuration.
+
+The following example contains a `dense_embedding_config`:
+
+```json
+PUT /my-nlp-index
+{
+  "mappings": {
+    "properties": {
+      "passage": {
+        "type": "semantic",
+        "model_id": "nF7yX5cBsaYnPfyOq2SG",
+        "dense_embedding_config": {
+          "method": {
+            "name": "hnsw",
+            "engine": "lucene",
+            "parameters": {
+              "ef_construction": 128,
+              "m": 32
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Sparse encoding configuration
+
+When a `semantic` field uses a sparse model, OpenSearch automatically generates a companion field to store the sparse vector representation. By default, this vector is pruned in order to reduce dimensionality and improve efficiency.
+
+The `sparse_encoding_config` parameter allows you to control how pruning is applied during encoding by specifying a strategy and its parameters. This provides fine-grained control over how sparse vectors are indexed, balancing accuracy and storage/performance.
+
+The `sparse_encoding_config` object supports all pruning strategies available in the [sparse encoding ingest processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/sparse-encoding/#pruning-sparse-vectors).
+
+The following example contains a `sparse_encoding_config`. It keeps only the 64 highest-scoring terms in the sparse vector:
+
+```json
+PUT /my-nlp-index
+{
+  "mappings": {
+    "properties": {
+      "passage": {
+        "type": "semantic",
+        "model_id": "nF7yX5cBsaYnPfyOq2SG",
+        "sparse_encoding_config": {
+          "prune_type": "top_k",
+          "prune_ratio": 64
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Ingest batch size for semantic fields
+
+When documents are ingested into an index containing `semantic` fields, OpenSearch uses a system-generated ingest pipeline to call the underlying ML model and generate embeddings. To optimize performance, these operations are batched. 
+
+You can control the number of documents processed together during this step using the index-level dynamic `index.neural_search.semantic_ingest_batch_size` setting. This setting specifies the number of documents batched together when generating embeddings for `semantic` fields during ingestion (default is `10`). 
+
+Batching improves throughput by reducing the overhead of model inference. However, increasing the batch size may also increase memory usage. You should tune this setting based on your model's performance characteristics and expected ingest volume.
+
+This setting controls how many documents are processed together in a batch, but it does not directly determine the size of the input sent to the model.
+{: .note}
+
+If a single document contains multiple semantic fields, embeddings are generated for each one.
+{: .note}
+
+If text chunking is enabled for a `semantic` field, the content may be split into multiple chunks, and embeddings will be generated for each chunk. As a result, the actual number of model inference calls and total embedding inputs per batch may be significantly higher than the batch size value.
+{: .note}
+
+The following example updates the ingest batch size to 32 for the `my-index` index. The change takes effect immediately and applies to all subsequently ingested documents containing `semantic` fields.
+
+```json
+PUT /my-index/_settings
+{
+  "index": {
+    "neural_search.semantic_ingest_batch_size": 32
+  }
+}
+```
+{% include copy-curl.html %}
+
+For more information about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+
+## Limitations
 
 Note the following limitations of the `semantic` field:
 
-- When using a `semantic` field with a dense model, the automatically generated `knn_vector` subfield takes the `dimension` and `space_type` values from the model configuration, so you must ensure that this information is defined before using the model. Other `knn_vector` parameters use default values and cannot be customized.
+- Remote cluster support: `neural` queries on `semantic` fields are not supported in cross-cluster search. While you can retrieve documents from remote indexes, semantic queries require access to the local model configuration and index mappings. Thus, you must run the query directly against the embedding field using traditional query methods.
 
-- Text chunking uses a [fixed token length algorithm]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/#the-fixed-token-length-algorithm) with default settings. You cannot modify the chunking algorithm.
+- Repeated inference: When a document is updated, OpenSearch reruns inference on the `semantic` field even if the field's content has not changed. There is currently no way to reuse previously generated embeddings, which may lead to unnecessary inference operations.
 
-- For sparse models, OpenSearch applies a default prune ratio of `0.1` when generating sparse embeddings. This value is not configurable. Querying a semantic field with a sparse model is not supported by the [`neural_sparse_two_phase_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/), which is used to optimize search latency.
-
-- Querying a `semantic` field from a remote cluster is not supported.
+- Mapping restrictions: The `semantic` field does not support dynamic mappings and must be explicitly defined in the index mapping. Additionally, you cannot use a `semantic` field in the `fields` section of another field, so multi-field configurations are not supported.
 
 ## Next steps
 

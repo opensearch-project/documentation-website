@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 40
 ---
 
-# Search for a model group
+# Search Model Group API
 
 When you search for a model group, only those model groups to which you have access will be returned. For example, for a match all query, model groups that will be returned are:
 

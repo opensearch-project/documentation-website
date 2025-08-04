@@ -7,7 +7,7 @@ redirect_from:
  - /opensearch/rest-api/document-apis/update-by-query/
 ---
 
-# Update by query
+# Update By Query API
 **Introduced 1.0**
 {: .label .label-purple}
 
@@ -56,15 +56,18 @@ search_type | String | Whether OpenSearch should use global term and document fr
 search_timeout | Time | How long to wait until OpenSearch deems the request timed out. Default is no timeout.
 slices | String or integer | The number slices to split an operation into for faster processing, specified by integer. When set to `auto` OpenSearch it should decides how many the number of slices for the operation. Default is `1`, which indicates an operation will not be split.
 sort | List | A comma-separated list of &lt;field&gt; : &lt;direction&gt; pairs to sort by.
-_source | String | Whether to include the `_source` field in the response.
-_source_excludes | String | A comma-separated list of source fields to exclude from the response.
-_source_includes | String | A comma-separated list of source fields to include in the response.
+_source | String | Controls the fields of the document `_source` available to the script and returned in the response. Excluded fields may be removed from the document `_source` if not reassigned in the script. 
+_source_excludes | String | A comma-separated list of source fields to exclude from the script context and the response. Excluded fields may be removed from the document `_source` unless explicitly preserved by the script. 
+_source_includes | String | A comma-separated list of source fields to include in the script context and the response. Only these fields will be available for script processing. 
 stats | String | Value to associate with the request for additional logging.
 terminate_after | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request.
 timeout | Time | How long the operation should wait from a response from active shards. Default is `1m`.
 version | Boolean | Whether to include the document version as a match.
 wait_for_active_shards | String | The number of shards that must be active before OpenSearch executes the operation. Valid values are `all` or any integer up to the total number of shards in the index. Default is 1, which is the primary shard.
-wait_for_completion | boolean | When set to `false`, the response body includes a task ID and OpenSearch executes the operation asynchronously. The task ID can be used to check the status of the task or to cancel the task. Default is set to `true`.
+wait_for_completion | Boolean | When set to `false`, the response body includes a task ID and OpenSearch executes the operation asynchronously. The task ID can be used to check the status of the task or to cancel the task. Default is set to `true`.
+
+When using `_source`, `_source_includes`, or `_source_excludes` in an `update_by_query` request, these settings affect not only the response but also the fields available to the update script. If a field is excluded from `_source` and not explicitly handled in the script, it may be removed from the document during the update operation. To preserve excluded fields, ensure that the script reads and reassigns them as needed.
+{: .important}
 
 ## Request body options
 

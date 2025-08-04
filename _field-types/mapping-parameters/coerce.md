@@ -2,7 +2,7 @@
 layout: default
 title: Coerce
 parent: Mapping parameters
-grand_parent: Mapping and field types
+
 nav_order: 15
 has_children: false
 has_toc: false

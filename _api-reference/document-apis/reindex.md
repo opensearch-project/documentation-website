@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/rest-api/document-apis/reindex/
 ---
 
-# Reindex document
+# Reindex Document API
 **Introduced 1.0**
 {: .label .label-purple}
 

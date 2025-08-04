@@ -2,13 +2,13 @@
 layout: default
 title: Get settings
 parent: Index APIs
-nav_order: 45
+nav_order: 95
 redirect_from:
   - /opensearch/rest-api/index-apis/get-settings/
   - /opensearch/rest-api/index-apis/get-index/
 ---
 
-# Get settings
+# Get Settings API
 **Introduced 1.0**
 {: .label .label-purple }
 

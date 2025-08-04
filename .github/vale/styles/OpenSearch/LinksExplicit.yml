@@ -5,4 +5,5 @@ nonword: true
 scope: raw
 tokens:
   - '\]\(https:\/\/www.opensearch.org\/docs\/latest'
-  
+  - '\]\(https:\/\/docs.opensearch.org\/docs\/latest'
+  - '\]\(https:\/\/docs.opensearch.org\/latest'
