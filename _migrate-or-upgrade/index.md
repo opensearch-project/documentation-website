@@ -15,7 +15,7 @@ nav_exclude: true
 ---
 # Migrate or upgrade OpenSearch
 
-The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/206) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release schedule and maintenance policy]({{site.url}}/releases.html).
+The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/206) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release schedule and maintenance policy](https://opensearch.org/releases.html).
 
 Upgrading or migrating OpenSearch is essential for maintaining optimal performance, security, and access to the latest features. Whether you're upgrading an existing OpenSearch deployment or migrating from another system such as Elasticsearch OSS, choosing the right approach is critical to a successful transition.
 
@@ -77,7 +77,7 @@ Take a snapshot of your current cluster and restore to a new OpenSearch version.
 - Requires provisioning a new cluster.
 - Manual reindexing may be required for full feature compatibility.
 
-[Get started with snapshot and restore](https://docs.aws.amazon.com/solutions/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/).
+[Get started with snapshot and restore]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/).
 
 ---
 
