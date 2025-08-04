@@ -2,7 +2,7 @@
 layout: default
 title: Search analyzer
 parent: Mapping parameters
-grand_parent: Mapping and field types
+
 nav_order: 160
 has_children: false
 has_toc: false

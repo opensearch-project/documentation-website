@@ -4,6 +4,7 @@ title: Optimizing benchmarks
 nav_order: 25
 parent: User guide
 has_children: true
+has_toc: false
 more_cards: 
   - heading: "Running distributed loads"
     description: "Configure multiple load generator machines to run large-scale benchmarks"

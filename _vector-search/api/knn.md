@@ -57,6 +57,34 @@ Field |  Description
 Some statistics contain *graph* in the name. In these cases, *graph* is synonymous with *native library index*. The term *graph* is reflective of when the plugin only supported the HNSW algorithm, which consists of hierarchical graphs.
 {: .note}
 
+#### Remote index build stats
+Introduced 3.0 
+{: .label .label-purple }
+
+If you configured [remote index build]({{site.url}}{{site.baseurl}}/vector-search/remote-index-build/), the response contains additional fields. The following table lists the available remote index build stats response body fields.
+
+| Field | Description |
+|:---|:---|
+| `repository_stats.read_success_count` | The number of successful read operations from the repository. |
+| `repository_stats.read_failure_count` | The number of failed read operations from the repository. |
+| `repository_stats.successful_read_time_in_millis` | The total time, in milliseconds, spent on successful read operations. |
+| `repository_stats.write_success_count` | The number of successful write operations to the repository. |
+| `repository_stats.write_failure_count` | The number of failed write operations to the repository. |
+| `repository_stats.successful_write_time_in_millis` | The total time, in milliseconds, spent on successful write operations. |
+| `client_stats.build_request_success_count` | The number of successful build request operations. |
+| `client_stats.build_request_failure_count` | The number of failed build request operations. |
+| `client_stats.status_request_failure_count` | The number of failed status request operations. |
+| `client_stats.status_request_success_count` | The number of successful status request operations. |
+| `client_stats.index_build_success_count` | The number of successful index build operations. |
+| `client_stats.index_build_failure_count` | The number of failed index build operations. |
+| `client_stats.waiting_time_in_ms` | The total time, in milliseconds, that the client has spent awaiting completion of remote builds. |
+| `build_stats.remote_index_build_flush_time_in_millis` | The total time, in milliseconds, spent on remote flush operations. |
+| `build_stats.remote_index_build_merge_time_in_millis` | The total time, in milliseconds, spent on remote merge operations. |
+| `build_stats.remote_index_build_current_merge_operations` | The current number of remote merge operations in progress. |
+| `build_stats.remote_index_build_current_flush_operations` | The current number of remote flush operations in progress. |
+| `build_stats.remote_index_build_current_merge_size` | The current size of remote merge operations. |
+| `build_stats.remote_index_build_current_flush_size` | The current size of remote flush operations. |
+
 #### Example request
 
 The following examples demonstrate how to retrieve statistics related to the k-NN plugin. 

@@ -5,11 +5,11 @@ parent: Nodes APIs
 nav_order: 20
 ---
 
-# Nodes stats
+# Nodes Stats API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The nodes stats API returns statistics about your cluster.
+The Nodes Stats API returns statistics about your cluster.
 
 ## Endpoints
 
@@ -44,7 +44,7 @@ thread_pool | Statistics about each thread pool for the node.
 fs | File system statistics, such as read/write statistics, data path, and free disk space.
 transport | Transport layer statistics about send/receive in cluster communication.
 http | Statistics about the HTTP layer.
-breakers | Statistics about the field data circuit breakers.
+breaker | Statistics about the field data circuit breakers.
 script | Statistics about scripts, such as compilations and cache evictions. 
 discovery | Statistics about cluster states.
 ingest | Statistics about ingest pipelines.

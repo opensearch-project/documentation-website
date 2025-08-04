@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Register a model
+# Register Model API
 
 All versions of a particular model are held in a model group. You can either [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/) before registering a model to the group or register a first version of a model, thereby creating the group. Each model group name in the cluster must be globally unique. 
 
@@ -58,13 +58,13 @@ Field | Data type | Required/Optional | Description
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The ID of the model group to which to register the model.
 
-#### Example request: OpenSearch-provided text embedding model
+## Example request: OpenSearch-provided text embedding model
 
 ```json
 POST /_plugins/_ml/models/_register
 {
   "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
   "model_format": "TORCH_SCRIPT"
 }
@@ -90,12 +90,12 @@ Field | Data type | Required/Optional | Description
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The ID of the model group to which to register this model.
 
-#### Example request: OpenSearch-provided sparse encoding model
+## Example request: OpenSearch-provided sparse encoding model
 
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill",
+    "name": "amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill",
     "version": "1.0.0",
     "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
     "model_format": "TORCH_SCRIPT"
@@ -116,9 +116,9 @@ Field | Data type | Required/Optional | Description
 `name`| String | Required | The model name. |
 `version` | String | Required | The model version. |
 `model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
-`function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
+`function_name` | String | Required | Set this parameter to `TEXT_EMBEDDING`, `SPARSE_ENCODING`, `SPARSE_TOKENIZE`, `TEXT_SIMILARITY`, or `QUESTION_ANSWERING`.
 `model_content_hash_value` | String | Required | The model content hash generated using the SHA-256 hashing algorithm.
-[`model_config`](#the-model_config-object)  | Object | Required | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string that contains all model configurations. |
+[`model_config`](#the-model_config-object)  | Object | Required | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. The optional `all_config` JSON string contains all model configurations. The `additional_config` object contains the corresponding `space_type` for pretrained models or the specified `space_type` for custom models. See [Space types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/#distance-calculation). |
 `url` | String | Required | The URL that contains the model. |
 `description` | String | Optional| The model description. |
 `model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
@@ -134,6 +134,7 @@ Field | Data type | Required/Optional | Description
 | `embedding_dimension` | Integer | The dimension of the model-generated dense vector. For a Hugging Face model, the dimension is specified in the model card. For example, in the [`all-MiniLM-L6-v2` Hugging Face model card](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), the statement `384 dimensional dense vector space` specifies 384 as the embedding dimension. Required. |
 | `framework_type` | String  | The framework the model is using. Currently, OpenSearch supports `sentence_transformers` and `huggingface_transformers` frameworks. The `sentence_transformers` model outputs text embeddings directly, so ML Commons does not perform any post processing. For `huggingface_transformers`, ML Commons performs post processing by applying mean pooling to get text embeddings. See the example [`all-MiniLM-L6-v2` Hugging Face model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) for more details. Required. |
 | `all_config` | String | This field is used for reference purposes. You can specify all model configurations in this field. For example, if you are using a Hugging Face model, you can minify the `config.json` file to one line and save its contents in the `all_config` field. Once the model is uploaded, you can use the get model API operation to get all model configurations stored in this field. Optional. |
+| `additional_config` | Object | Additional model configurations. Contains the `space_type`, which specifies the distance metric for k-NN search. For OpenSearch-provided pretrained models, this value is automatically set to the corresponding metric (for example, `l2` for `huggingface/sentence-transformers/all-distilroberta-v1`). For custom models, specify your preferred space type. Optional. See [Space types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/#distance-calculation). |
 
 You can further customize a pretrained sentence transformer model's post-processing logic with the following optional fields in the `model_config` object.
 
@@ -142,7 +143,7 @@ You can further customize a pretrained sentence transformer model's post-process
 | `pooling_mode` | String | The post-process model output, either `mean`, `mean_sqrt_len`, `max`, `weightedmean`, or `cls`.|
 | `normalize_result` | Boolean | When set to `true`, normalizes the model output in order to scale to a standard range for the model. |
 
-#### Example request: Custom model
+## Example request: Custom model
 
 The following example request registers a version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
 
@@ -153,6 +154,7 @@ POST /_plugins/_ml/models/_register
     "version": "1.0.0",
     "description": "test model",
     "model_format": "TORCH_SCRIPT",
+    "function_name": "TEXT_EMBEDDING",
     "model_group_id": "FTNlQ4gBYW0Qyy5ZoxfR",
     "model_content_hash_value": "c15f0d2e62d872be5b5bc6c84d2e0f4921541e29fefbef51d59cc10a8ae30e0f",
     "model_config": {
@@ -187,7 +189,7 @@ Field | Data type | Required/Optional | Description
 `guardrails`| Object | Optional | The guardrails for the model input. For more information, see [Guardrails](#the-guardrails-parameter).|
 `interface`| Object | Optional | The interface for the model. For more information, see [Interface](#the-interface-parameter).|
 
-#### Example request: Externally hosted with a standalone connector
+## Example request: Externally hosted with a standalone connector
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -201,7 +203,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-#### Example request: Externally hosted with a connector specified as part of the model
+## Example request: Externally hosted with a connector specified as part of the model
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -240,7 +242,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 OpenSearch responds with the `task_id`, task `status`, and `model_id`:
 
@@ -275,7 +277,7 @@ Field | Data type | Description
 
 The following examples configure an externally hosted model with guardrails.
 
-#### Example request: Regex and stopword validation
+## Example request: Regex and stopword validation
 
 The following example uses a regular expression and a set of stopwords to validate the LLM response:
 
@@ -314,7 +316,7 @@ POST /_plugins/_ml/models/_register
 
 For a complete example, see [Validating input/output using stopwords and regex]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/#validating-inputoutput-using-stopwords-and-regex).
 
-#### Example request: Guardrail model validation
+## Example request: Guardrail model validation
 
 The following example uses a guardrail model to validate the LLM response:
 
@@ -343,7 +345,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 
 For a complete example, see [Validating input/output using a guardrail model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/#validating-inputoutput-using-a-guardrail-model).
 
-#### Example response
+## Example response
 
 OpenSearch responds with the `task_id`, task `status`, and `model_id`:
 
@@ -386,7 +388,7 @@ The following connector blueprints currently support creating predefined model i
 
 To learn more about connector blueprints, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 
-#### Example request: Externally hosted model with an interface
+## Example request: Externally hosted model with an interface
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -446,7 +448,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 OpenSearch responds with the `task_id`, task `status`, and `model_id`:
 

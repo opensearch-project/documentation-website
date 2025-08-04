@@ -2,7 +2,7 @@
 layout: default
 title: Remove
 parent: Ingest processors
-nav_order: 230
+nav_order: 222
 redirect_from:
    - /api-reference/ingest-apis/processors/remove/
 ---
@@ -22,7 +22,7 @@ The following is the syntax for the `remove` processor:
     }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

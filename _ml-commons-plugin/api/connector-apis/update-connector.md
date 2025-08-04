@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 27
 ---
 
-# Update a connector
+# Update Connector API
 **Introduced 2.12**
 {: .label .label-purple }
 
@@ -44,7 +44,7 @@ The following table lists the updatable fields. For more information about all c
 
 
 
-#### Example request
+## Example request
 
 ```json
 PUT /_plugins/_ml/connectors/u3DEbI0BfUsSoeNTti-1
@@ -54,7 +54,7 @@ PUT /_plugins/_ml/connectors/u3DEbI0BfUsSoeNTti-1
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

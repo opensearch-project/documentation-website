@@ -2,7 +2,7 @@
 layout: default
 title: Exists
 parent: Term-level queries
-nav_order: 10
+nav_order: 70
 ---
 
 # Exists query

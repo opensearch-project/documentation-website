@@ -24,7 +24,7 @@ The following is the syntax for the `sort` processor:
   ]
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

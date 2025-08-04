@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/rest-api/cluster-settings/
 ---
 
-# Cluster settings
+# Cluster Settings API
 **Introduced 1.0**
 {: .label .label-purple }
 

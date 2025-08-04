@@ -4,7 +4,6 @@ title: Creating a search pipeline
 nav_order: 10
 has_children: false
 parent: Search pipelines
-grand_parent: Search
 ---
 
 # Creating a search pipeline

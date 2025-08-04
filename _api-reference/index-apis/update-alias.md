@@ -2,10 +2,10 @@
 layout: default
 title: Create or update alias
 parent: Index APIs
-nav_order: 6
+nav_order: 160
 ---
 
-# Create or Update Alias
+# Create Or Update Alias API
 
 **Introduced 1.0**
 {: .label .label-purple }

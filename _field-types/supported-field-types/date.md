@@ -16,9 +16,9 @@ redirect_from:
 
 A date in OpenSearch can be represented as one of the following:
 
-- A long value that corresponds to milliseconds since the epoch (the value must be non-negative). Dates are stored in this form internally.
+- A long value that corresponds to milliseconds since the epoch. Dates are stored in this form internally.
 - A formatted string.
-- An integer value that corresponds to seconds since the epoch (the value must be non-negative).
+- An integer value that corresponds to seconds since the epoch.
 
 To represent date ranges, there is a date [range field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/).
 {: .note }

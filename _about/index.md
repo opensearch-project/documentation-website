@@ -81,7 +81,7 @@ This section contains documentation for OpenSearch and OpenSearch Dashboards.
 ## Get involved
 
 [OpenSearch](https://opensearch.org) is supported by the OpenSearch Software Foundation. All components are available under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) on [GitHub](https://github.com/opensearch-project/).
-The project welcomes GitHub issues, bug fixes, features, plugins, documentation---anything at all. To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website.
+The project welcomes GitHub issues, bug fixes, features, plugins, documentation---anything at all. To get involved, see [Contributing](https://github.com/opensearch-project/.github/blob/main/CONTRIBUTING.md).
 
 ---
 

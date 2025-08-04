@@ -7,6 +7,7 @@ nav_order: 20
 
 # Live queries
 **Introduced 3.0**
+{: .label .label-purple }
 
 Use the Live Queries API to retrieve currently running search queries across the cluster or on specific nodes. Monitoring live queries using Query Insights allows you to get real-time visibility into the search queries that are currently executing within your OpenSearch cluster. This is useful for identifying and debugging queries that might be running for an unexpectedly long time or consuming significant resources at the moment.
 

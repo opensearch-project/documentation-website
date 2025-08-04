@@ -4,7 +4,7 @@ title: Memory APIs
 parent: ML Commons APIs
 has_children: true
 has_toc: false
-nav_order: 28
+nav_order: 50
 redirect_from: /ml-commons-plugin/api/memory-apis/
 ---
 

@@ -7,7 +7,7 @@ redirect_from:
  - /opensearch/rest-api/document-apis/bulk/
 ---
 
-# Bulk
+# Bulk API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -44,9 +44,6 @@ require_alias | Boolean | Set to `true` to require that all actions target an in
 routing | String | Routes the request to the specified shard.
 timeout | Time | How long to wait for the request to return. Default is `1m`.
 wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the bulk request. Default is `1` (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have 2 replicas distributed across 2 additional nodes in order for the request to succeed.
-{% comment %}_source | List | asdf
-_source_excludes | List | asdf
-_source_includes | List | asdf{% endcomment %}
 
 
 ## Request body
@@ -58,7 +55,6 @@ Action and metadata\n
 Optional document\n
 Action and metadata\n
 Optional document\n
-
 ```
 
 The optional JSON document doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse bulk requests and requires that the request body end with a newline character.
@@ -102,7 +98,7 @@ By default, this action updates existing documents and returns an error if the d
 
 ### Upsert
 
-To upsert a document, specify `doc_as_upsert` as `true`. If a document exists, it is updated; if it does not exist, a new document is indexed with the parameters specified in the `doc` field: 
+To upsert a document, specify `doc_as_upsert` as `true`. If a document exists, it is updated; if it does not exist, a new document is indexed with the parameters specified in the `doc` field:
 
 ```json
 { "update": { "_index": "movies", "_id": "tt0816711" } }
@@ -111,12 +107,24 @@ To upsert a document, specify `doc_as_upsert` as `true`. If a document exists, i
 
 ### Script
 
-You can specify a script for more complex document updates by defining the script with the `source` or `id` from a document: 
+You can specify a script for more complex document updates by defining the script with the `source` or `id` from a document:
 
 ```json
 { "update": { "_index": "movies", "_id": "tt0816711" } }
 { "script" : { "source": "ctx._source.title = \"World War Z\"" } }
 ```
+
+### Scripted upsert
+
+You can use a script to insert or update a document in one operation by setting `scripted_upsert` to `true`. This ensures that the script runs whether or not the document exists. If the document does not exist, the script initializes its content from scratch.
+
+```json
+POST _bulk
+{ "update": { "_index": "movies", "_id": "tt0816711" } }
+{ "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "upsert": {}, "scripted_upsert": true }
+```
+
+This operation creates a new document if one with ID `tt0816711` does not exist, using the logic in the script. If the document does exist, the same script is applied to update its fields.
 
 ## Example request
 

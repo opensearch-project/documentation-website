@@ -2,7 +2,7 @@
 layout: default
 title: Index APIs
 has_children: true
-nav_order: 1
+nav_order: 30
 redirect_from:
   - /opensearch/rest-api/index-apis/index/
   - /opensearch/rest-api/index-apis/

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: REST API reference
+title: API reference
 nav_order: 1
 has_toc: false
 has_children: true
@@ -11,16 +11,15 @@ redirect_from:
   - /api-reference/index/
 ---
 
-# REST API reference
+# API reference
+
+You can use [REST APIs](#rest-apis) for most operations in OpenSearch. Starting with OpenSearch 3.0, you can use alternative experimental [gRPC APIs](#grpc-apis). 
+
+## REST APIs 
 **Introduced 1.0**
 {: .label .label-purple }
 
-You can use REST APIs for most operations in OpenSearch. In this reference, we provide a description of the API, and details that include the endpoints, supported parameters, and example requests and responses.
-
-This reference includes the REST APIs supported by OpenSearch. If a REST API is missing, please provide feedback or submit a pull request in GitHub.
-{: .tip }
-
-## Related articles 
+OpenSearch supports the following REST APIs:
 
 - [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/)
 - [Access control API]({{site.url}}{{site.baseurl}}/security/access-control/api/)
@@ -63,5 +62,8 @@ This reference includes the REST APIs supported by OpenSearch. If a REST API is 
 - [Transforms API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
 - [Hot reload TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#hot-reloading-tls-certificates)
 
+## gRPC APIs
+**Introduced 3.0**
+{: .label .label-purple }
 
-
+Starting with OpenSearch 3.0, you can use gRPC APIs---a high-performance alternative to traditional REST interfaces. These APIs use the gRPC protocol to provide more efficient communication with OpenSearch clusters. For more information and supported APIs, see [gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/).

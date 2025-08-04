@@ -35,7 +35,7 @@ docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -
 OpenSearch is now running on port 9200. To verify that OpenSearch is running, send the following request: 
 
 ```bash
-curl https://localhost:9200
+curl http://localhost:9200
 ```
 {% include copy.html %}
 
@@ -87,6 +87,8 @@ PUT /hotels-index
 }
 ```
 {% include copy-curl.html %}
+
+Vector queries usually have a `size` > 0, so by default they don't enter the request cache. In OpenSearch 2.19 or later, if your workload mostly consists of vector queries, consider increasing the dynamic `indices.requests.cache.maximum_cacheable_size` cluster setting to a larger value, such as `256`. This allows queries with a `size` of up to 256 to enter the request cache, improving performance. For more information, see [Request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache).
 
 ## Step 2: Add data to your index
 

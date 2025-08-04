@@ -6,10 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 65
 ---
 
-# Batch predict
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/2488).
-{: .warning}
+# Batch Predict API
 
 ML Commons can perform inference on large datasets in an offline asynchronous mode using a model deployed on external model servers. To use the Batch Predict API, you must provide the `model_id` for an externally hosted model. Amazon SageMaker, Cohere, and OpenAI are currently the only verified external servers that support this API.
 
@@ -129,7 +126,7 @@ The response contains the task ID for the register operation:
 
 To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once the registration is complete, the task `state` changes to `COMPLETED`.
 
-#### Example request
+## Example request
 
 Once you have completed the prerequisite steps, you can call the Batch Predict API. The parameters in the batch predict request override those defined in the connector:
 
@@ -143,7 +140,7 @@ POST /_plugins/_ml/models/lyjxwZABNrAVdFa9zrcZ/_batch_predict
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The response contains the task ID for the batch predict operation:
 
@@ -156,14 +153,14 @@ The response contains the task ID for the batch predict operation:
 
 To check the status of the batch predict job, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). You can find the job details in the `remote_job` field in the task. Once the prediction is complete, the task `state` changes to `COMPLETED`.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/tasks/KYZSv5EBqL2d0mFvs80C
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The response contains the batch predict operation details in the `remote_job` field:
 
@@ -215,14 +212,14 @@ For the definition of each field in the result, see [OpenAI Batch API](https://p
 
 You can also cancel the batch predict operation running on the remote platform using the task ID returned by the batch predict request. To add this capability, set the `action_type` to `cancel_batch_predict` in the connector configuration when creating the connector.  
 
-#### Example request
+## Example request
 
 ```json
 POST /_plugins/_ml/tasks/KYZSv5EBqL2d0mFvs80C/_cancel_batch
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
