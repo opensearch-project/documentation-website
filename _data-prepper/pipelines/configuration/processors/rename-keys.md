@@ -1,12 +1,12 @@
 ---
 layout: default
-title: rename_keys
+title: Rename keys
 parent: Processors
 grand_parent: Pipelines
-nav_order: 85
+nav_order: 310
 ---
 
-# rename_keys
+# Rename keys processor
 
 The `rename_keys` processor renames keys in an event.
 

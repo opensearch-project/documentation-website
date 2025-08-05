@@ -1,12 +1,12 @@
 ---
 layout: default
-title: otel_traces 
+title: OTel trace 
 parent: Processors
 grand_parent: Pipelines
-nav_order: 75
+nav_order: 260
 ---
 
-# otel_trace
+# OTel trace processor
 
 The `otel_trace` processor completes trace-group-related fields in all incoming OpenSearch Data Prepper span records by state caching the root span information for each `traceId`. 
 

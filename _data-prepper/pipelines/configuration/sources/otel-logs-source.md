@@ -1,12 +1,12 @@
 ---
 layout: default
-title: otel_logs_source 
+title: OTel logs 
 parent: Sources
 grand_parent: Pipelines
 nav_order: 60
 ---
 
-# otel_logs_source
+# OTel logs source
 
 
 The `otel_logs_source` source is an OpenTelemetry source that follows the [OpenTelemetry Protocol Specification](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md) and receives logs from the OTel Collector in the form of `ExportLogsServiceRequest` records.
@@ -49,7 +49,7 @@ You can configure SSL in the `otel_logs_source` source with the following option
 
 To get started, create a `pipeline.yaml` file and add `otel_logs_source` as the source:
 
-```
+```yaml
 source:
     - otel_logs_source:
 ```

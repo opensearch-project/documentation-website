@@ -1,12 +1,12 @@
 ---
 layout: default
-title: write_json
+title: Write JSON
 parent: Processors
 grand_parent: Pipelines
-nav_order: 56
+nav_order: 440
 ---
 
-# write_json
+# Write JSON processor
 
 
 The `write_json` processor converts an object in an event into a JSON string. You can customize the processor to choose the source and target field names.

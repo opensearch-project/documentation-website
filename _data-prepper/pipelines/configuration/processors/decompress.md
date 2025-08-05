@@ -1,12 +1,12 @@
 ---
 layout: default
-title: decompress
+title: Decompress
 parent: Processors
 grand_parent: Pipelines
-nav_order: 40
+nav_order: 90
 ---
 
-# decompress
+# Decompress processor
 
 The `decompress` processor decompresses any Base64-encoded compressed fields inside of an event.
 

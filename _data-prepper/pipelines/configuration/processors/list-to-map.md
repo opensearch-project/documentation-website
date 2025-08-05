@@ -1,12 +1,12 @@
 ---
 layout: default
-title: list_to_map 
+title: List to map 
 parent: Processors
 grand_parent: Pipelines
-nav_order: 58
+nav_order: 180
 ---
 
-# list_to_map
+# List to map processor
 
 The `list_to_map` processor converts a list of objects from an event, where each object contains a `key` field, into a map of target keys.
 
