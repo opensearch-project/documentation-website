@@ -173,4 +173,4 @@ Capture and Replay has the following requirements:
 - The Traffic Capture Proxy must be deployed to intercept client traffic.
 - Live capture is recommended only for workloads with **< 4 TB/day** of incoming traffic to the source cluster.
 - Automatically generated document IDs are **not preserved** during replay. Clients must explicitly provide document IDs for `index` and `update` operations.
-- Migration Assistant does not guarantee zero-downtime migration through live traffic capture and replay for migration paths starting from Elasticsearch 1.x and Elasticsearch 2.x.
+- Migration Assistant does not guarantee zero-downtime migration through live traffic Capture and Replay for migration paths starting from Elasticsearch 1.x and Elasticsearch 2.x.
