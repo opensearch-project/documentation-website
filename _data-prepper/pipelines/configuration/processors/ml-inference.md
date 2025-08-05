@@ -1,39 +1,44 @@
 ---
 layout: default
-title: ml_inference
+title: ML inference
 parent: Processors
 grand_parent: Pipelines
-nav_order: 11
+nav_order: 210
 ---
 
-# ml_commons integration for OpenSearch Data Prepper
+# ML inference processor
 
-The [ML Commons](https://docs.opensearch.org/latest/ml-commons-plugin/) is a plugin for OpenSearch that extends its capabilities to include machine learning functionalities. By integrating ml-commons into OpenSearch Data Prepper pipelines developers can seamlessly leverage various ML models directly for ingestion within OpenSearch Service to power a wide range of AI-driven search experiences like [Vector Search](https://docs.opensearch.org/latest/vector-search/), [Semantic Search](https://docs.opensearch.org/latest/vector-search/ai-search/semantic-search/), [Conversational Search](https://docs.opensearch.org/2.10/ml-commons-plugin/conversational-search/), and more.
+The `ml_inference` processor allows you to use OpenSearch machine learning (ML) functionality within OpenSearch Data Prepper. By integrating ML models into Data Prepper pipelines, you can apply them during data ingestion into OpenSearch Service in order to power AI-driven search experiences such as vector search, semantic search, or conversational search. To explore OpenSearch AI-powered search types, see [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/).
 
+Using the `ml_inference` processor, you can invoke an OpenSearch-hosted ML model within your Data Prepper pipeline in order to process events. The processor supports both real-time invocations and asynchronous (offline) batch job invocations.
 
-## ml_inference processor configuration
-The ml_inference processor enables invocation of a Ml-Commons hosted ML model within your Data Prepper pipeline in order to process events. It supports both realtime invocations and asynchronous offline batch job invocations based on your use case.
+To use the `ml_inference` processor, you must have the ML Commons plugin installed on your cluster. The plugin is included by default in standard OpenSearch distributions. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+{: .note}
 
 ## Configuration fields
 
-You can configure the ml_inference processor using the following configuration options.
+The following table describes the configuration options for the `ml_inference` processor.
 
-Field                | Type    | Required | Description                                                                 
--------------------- | ------- | -------- | ---------------------------------------------------------------------------- 
-`host`               | String  | Required | The name of the OpenSearch host that has the ml-commons plugin installed.
-`action_type`        | String  | Required | Specifies the action type, only `batch_predict` is allowed now. Default is `batch_predict`.
-`model_id`           | String  | Required | The ML model id to be invoked in ml-commons plugin
-`output_path`        | String  | Required | The S3 location to write the offline batch job responses to.
-`aws.region`         | String  | Required | The AWS Region in which the OpenSearch Service is located.
-`aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the ml-commons plugin.
-`service_name`       | String  | Optional | AI service hosting the remote model for ML Commons predictions, default is `sagemaker`.             
-`input_key`          | String  | Optional | The name of the field that defines the S3 key name.
-`ml_when`            | String  | Optional | A conditional expression that determines when to invoke the ml_inference processor.
-`tags_on_failure`    | List    | Optional | A list of tags to add to events when ml_inference plugin fails or encounters an unexpected error.
+| Option | Required | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `host`             | Yes      | String | The name of the OpenSearch host.                                                                          |
+| `action_type`      | Yes      | String | The type of action to perform. Currently, only `batch_predict` is supported. Default is `batch_predict`. |
+| `model_id`         | Yes      | String | The ID of the ML model to invoke.                                             |
+| `output_path`      | Yes      | String | The [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) location where the offline batch job results will be written.                                      |
+| `aws.region`       | Yes      | String | The AWS Region where the OpenSearch Service is deployed.                                                  |
+| `aws.sts_role_arn` | No       | String | The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role to assume.                                  |
+| `service_name`     | No       | String | The name of the AI service hosting the model used for inference. Default is `sagemaker` (Amazon SageMaker).  |
+| `input_key`        | No       | String | The name of the event field to use as the S3 object key name when writing batch job results. This allows dynamic naming of output files based on event data.                                                              |
+| `ml_when`          | No       | String | A conditional expression that determines when to invoke the `ml_inference` processor.                     |
+| `tags_on_failure`  | No       | List   | A list of tags to add to events if the `ml_inference` processor fails or encounters an error.             |
+
+
 
 #### Example configuration
 
-```
+The following example shows an example `map_to_list` processor configuration:
+
+```yaml
   processor:
     - ml_inference:
         host: "https://search-ml-inference-test.us-west-2.es.amazonaws.com"
@@ -47,39 +52,41 @@ Field                | Type    | Required | Description
         ml_when: /bucket == "offlinebatch"
 
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Usage
 
-The processor supports the following invocation types: 
-
-- `batch_predict`: The processor invokes the [batch_predict](https://docs.opensearch.org/latest/ml-commons-plugin/api/model-apis/batch-predict/) API in ML-Commons for offline batch processing.
-- `predict`: The processor invokes the [predict](https://docs.opensearch.org/latest/ml-commons-plugin/api/train-predict/predict/) API in ML-Commons for real-time inference. (Coming soon)
+The processor supports `batch_predict` operations, which invoke the [Batch Predict API]({{site.url}}{{site.baseurl}}ml-commons-plugin/api/model-apis/batch-predict/) for offline batch processing.
 
 
 ## Behavior
 
-For batch_predict operations, the ml_inference processor works best with the [S3 Scan](https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/s3/) source. Configure S3 Scan to process metadata only by setting:
+For `batch_predict` operations, the ml_inference processor works best with the [S3 source]({{site.url}}{{site.baseurl}}data-prepper/pipelines/configuration/sources/s3/). To configure S3 to process metadata only, configure the S3 scan block as follows:
 
+```yaml
+scan:
+  buckets:
+    - bucket:
+        name: test-offlinebatch
+        data_selection: metadata_only
 ```
-  scan:
-    buckets:
-      - bucket:
-          name: test-offlinebatch
-          data_selection: metadata_only
-```
-{% include copy-curl.html %}
+{% include copy.html %}
 
-When metadata_only is enabled, the processor receives events in this format:
-```
+When `metadata_only` is enabled, the processor receives events in the following format:
+
+```json
 {"bucket":"test-offlinebatch","length":6234,"time":1738108982.000000000,"key":"input_folder/batch_input_1.json"}
 ```
-You can use ml_when conditions to filter specific records for processing.
+
+To filter specific records for processing, use `ml_when` conditions.
 
 
-## Monitor the offline batch jobs staus
-Once offline batch jobs are created by the OpenSearch Data Prepper pipelines, you can track the status of offline batch jobs through the AI provider's native console (SageMaker/Bedrock) or ML-Commons GetTask API.
-Example query to check job status in Ml-Commons:
+## Monitoring the offline batch jobs status
+
+Once an offline batch job is created by the OpenSearch Data Prepper pipeline, you can track its status using the AI provider's (Amazon SageMaker or Amazon Bedrock) native console.
+
+Alternatively, you can check the job status by calling the [Search Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/search-task/). For example, to search for all currently running tasks, use the following request:
+
 ```json
 GET /_plugins/_ml/tasks/_search
 {
