@@ -75,9 +75,14 @@ Transformations:
 
 ### String to keyword conversion
 
-**Source properties:**
-```json
-{
+<table>
+<tr>
+<th>Source Field Type</th>
+<th>Target Field Type</th>
+</tr>
+<tr>
+<td>
+<pre><code class="language-json">{
   "properties": {
     "status": {
       "type": "string",
@@ -89,12 +94,10 @@ Transformations:
       "index": "no"
     }
   }
-}
-```
-
-**Target properties:**
-```json
-{
+}</code></pre>
+</td>
+<td>
+<pre><code class="language-json">{
   "properties": {
     "status": {
       "type": "keyword",
@@ -105,14 +108,21 @@ Transformations:
       "index": false
     }
   }
-}
-```
+}</code></pre>
+</td>
+</tr>
+</table>
 
 ### String to text conversion
 
-**Source properties:**
-```json
-{
+<table>
+<tr>
+<th>Source Field Type</th>
+<th>Target Field Type</th>
+</tr>
+<tr>
+<td>
+<pre><code class="language-json">{
   "properties": {
     "title": {
       "type": "string",
@@ -125,12 +135,10 @@ Transformations:
       "term_vector": "with_positions"
     }
   }
-}
-```
-
-**Target properties:**
-```json
-{
+}</code></pre>
+</td>
+<td>
+<pre><code class="language-json">{
   "properties": {
     "title": {
       "type": "text",
@@ -142,16 +150,23 @@ Transformations:
       "term_vector": "with_positions"
     }
   }
-}
-```
+}</code></pre>
+</td>
+</tr>
+</table>
 
 ### Multi-field transformation
 
 The transformation also handles multi-fields (fields with sub-fields) recursively:
 
-**Source properties:**
-```json
-{
+<table>
+<tr>
+<th>Source Field Type</th>
+<th>Target Field Type</th>
+</tr>
+<tr>
+<td>
+<pre><code class="language-json">{
   "properties": {
     "name": {
       "type": "string",
@@ -168,12 +183,10 @@ The transformation also handles multi-fields (fields with sub-fields) recursivel
       }
     }
   }
-}
-```
-
-**Target properties:**
-```json
-{
+}</code></pre>
+</td>
+<td>
+<pre><code class="language-json">{
   "properties": {
     "name": {
       "type": "text",
@@ -189,34 +202,41 @@ The transformation also handles multi-fields (fields with sub-fields) recursivel
       }
     }
   }
-}
-```
+}</code></pre>
+</td>
+</tr>
+</table>
 
 ## Norms handling
 
 The transformation also handles the legacy `norms` configuration:
 
-**Source properties:**
-```json
-{
+<table>
+<tr>
+<th>Source Field Type</th>
+<th>Target Field Type</th>
+</tr>
+<tr>
+<td>
+<pre><code class="language-json">{
   "title": {
     "type": "string",
     "norms": {
       "enabled": false
     }
   }
-}
-```
-
-**Target properties:**
-```json
-{
+}</code></pre>
+</td>
+<td>
+<pre><code class="language-json">{
   "title": {
     "type": "text",
     "norms": false
   }
-}
-```
+}</code></pre>
+</td>
+</tr>
+</table>
 
 ## Migration scenarios
 
@@ -249,6 +269,4 @@ If you encounter issues with string field conversion:
 ## Related documentation
 
 For additional help with field type transformations, see:
-- [Transform type mappings]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/) - Handle deprecated mapping types from Elasticsearch 6.x
 - [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) - Configure custom field type transformations
-- [Flattened type handling]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-flattened-type/) - Automatic conversion of flattened to flat_object for OpenSearch 2.7+

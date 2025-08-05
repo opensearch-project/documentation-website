@@ -38,9 +38,14 @@ Transformations:
 
 ### Example transformation
 
-**Source properties (Elasticsearch with X-Pack):**
-```json
-{
+<table>
+<tr>
+<th>Source Field Type</th>
+<th>Target Field Type</th>
+</tr>
+<tr>
+<td>
+<pre><code class="language-json">{
   "properties": {
     "labels": {
       "type": "flattened"
@@ -49,12 +54,10 @@ Transformations:
       "type": "text"
     }
   }
-}
-```
-
-**Target properties (OpenSearch 2.7+):**
-```json
-{
+}</code></pre>
+</td>
+<td>
+<pre><code class="language-json">{
   "properties": {
     "labels": {
       "type": "flat_object"
@@ -63,8 +66,10 @@ Transformations:
       "type": "text"
     }
   }
-}
-```
+}</code></pre>
+</td>
+</tr>
+</table>
 
 ## Migration scenarios
 
@@ -107,4 +112,7 @@ If you encounter issues with flattened field migration:
    GET /your-index/_mapping
    ```
 
-For additional help with field type transformations, see [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/).
+## Related documentation
+
+For additional help with field type transformations, see:
+- [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) - Configure custom field type transformations

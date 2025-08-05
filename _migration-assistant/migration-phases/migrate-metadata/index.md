@@ -179,6 +179,7 @@ For guidance on handling specific field type compatibility issues, see:
 - [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) - Configure custom field type transformations
 - [Flattened type handling]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-flattened-type/) - Automatic conversion of flattened to flat_object for OpenSearch 2.7+
 - [Field Data Type Deprecation - string]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-string-type-deprecation/) - Automatic conversion of string to text/keyword for Elasticsearch 1.x-5.x
+- [dense_vector to knn_vector conversion]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-dense-vector-conversion/) - Automatic conversion of dense_vector to knn_vector for Elasticsearch 7.x
 
 #### Deprecation of Mapping Types
 
