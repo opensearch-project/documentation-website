@@ -69,7 +69,7 @@ breaking_changes:
     comp: []
     transformation:
       title: "Field Type Converter"
-      url: "https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/planning-your-migration/handling-field-type-breaking-changes/#example-field-type-converterjs-implementation"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/#example-field-type-converterjs-implementation"
   - title: "Elasticsearch 5.0 - 5.6 Breaking Changes"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/5.6/breaking-changes.html"
     introducedIn: "Elasticsearch 5.x"
