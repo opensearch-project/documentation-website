@@ -71,15 +71,13 @@ Transformations:
       Convert field type string to text/keyword based on field data mappings
 ```
 
-## Example transformations
-
-### String to keyword conversion
+## Transformation Behavior
 
 <table style="border-collapse: collapse; border: 1px solid #ddd;">
   <thead>
     <tr>
-      <th style="border: 1px solid #ddd; padding: 8px;">Source Field Type</th>
-      <th style="border: 1px solid #ddd; padding: 8px;">Target Field Type</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Source field type</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Target field type</th>
     </tr>
   </thead>
   <tbody>
@@ -114,20 +112,6 @@ Transformations:
 }</code></pre>
       </td>
     </tr>
-  </tbody>
-</table>
-
-
-### String to text conversion
-
-<table style="border-collapse: collapse; border: 1px solid #ddd;">
-  <thead>
-    <tr>
-      <th style="border: 1px solid #ddd; padding: 8px;">Source Field Type</th>
-      <th style="border: 1px solid #ddd; padding: 8px;">Target Field Type</th>
-    </tr>
-  </thead>
-  <tbody>
     <tr>
       <td style="border: 1px solid #ddd; padding: 8px;">
         <pre><code>{
@@ -164,15 +148,31 @@ Transformations:
   </tbody>
 </table>
 
-## Migration scenarios
-
-### Migrating from Elasticsearch 1.x-5.x
+## Behavior differences
 
 The Migration Assistant automatically converts all `string` fields during metadata migration. No additional configuration is required.
 
 ### Mixed field types
 
-If your source cluster already contains a mix of `string`, `text`, and `keyword` fields (common in Elasticsearch 5.x during the transition period), only the `string` fields will be converted. Existing `text` and `keyword` fields remain unchanged.
+If your source cluster already contains a mix of `string`, `text`, and `keyword` fields (common in Elasticsearch 5.x with restored Elasticsearch 2.x indices), only the `string` fields will be converted. Existing `text` and `keyword` fields remain unchanged.
+
+### Query and aggregation impacts
+
+After migration, be aware of these key differences:
+
+- **Term queries**: Work differently on `text` (analyzed) vs `keyword` (exact match) fields
+- **Aggregations**: `text` fields cannot be used for aggregations unless fielddata is enabled; `keyword` fields are aggregation-ready
+- **Sorting**: `text` fields cannot be used for sorting by default; `keyword` fields support sorting
+- **Case sensitivity**: `keyword` fields are case-sensitive; `text` fields depend on the analyzer
+
+### Application compatibility
+
+Review your application code for:
+- Queries that expect the old `string` field behavior
+- Aggregations or sorting on fields now converted to `text`
+- Case-sensitive searches on fields now using `keyword`
+
+For fields requiring both analyzed and exact-match capabilities, consider using multi-fields with both `text` and `keyword` mappings after migration.
 
 ## Troubleshooting
 

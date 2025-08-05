@@ -40,8 +40,8 @@ Transformations:
 <table style="border-collapse: collapse; border: 1px solid #ddd;">
   <thead>
     <tr>
-      <th style="border: 1px solid #ddd; padding: 8px;">Source Field Type</th>
-      <th style="border: 1px solid #ddd; padding: 8px;">Target Field Type</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Source field type</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Target field type</th>
     </tr>
   </thead>
   <tbody>

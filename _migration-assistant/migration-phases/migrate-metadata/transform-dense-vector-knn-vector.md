@@ -57,15 +57,13 @@ Transformations:
       Convert field data type dense_vector to OpenSearch knn_vector
 ```
 
-## Example transformations
-
-### Basic dense_vector transformation
+## Transformation Behavior
 
 <table style="border-collapse: collapse; border: 1px solid #ddd;">
   <thead>
     <tr>
-      <th style="border: 1px solid #ddd; padding: 8px;">Source Field Type</th>
-      <th style="border: 1px solid #ddd; padding: 8px;">Target Field Type</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Source field type</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Target field type</th>
     </tr>
   </thead>
   <tbody>
@@ -105,8 +103,6 @@ Transformations:
   </tbody>
 </table>
 
-## Configuration details
-
 ### HNSW algorithm parameters
 
 The transformation automatically configures the HNSW (Hierarchical Navigable Small World) algorithm with:
@@ -132,9 +128,7 @@ When any `dense_vector` fields are converted, the following index setting is aut
 }
 ```
 
-## Migration scenarios
-
-### Migrating from Elasticsearch 7.x
+## Behavior differences
 
 The Migration Assistant automatically transforms all `dense_vector` fields during metadata migration. The k-NN plugin must be installed and enabled on the target OpenSearch cluster.
 
