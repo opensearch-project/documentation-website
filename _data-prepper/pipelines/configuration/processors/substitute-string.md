@@ -53,7 +53,7 @@ pipeline:
 
 Next, create a log file named `logs_json.log`. After that, replace the `path` of the file source in your `pipeline.yaml` file with your file path. For more detailed information, see [Configuring OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
 
-Before you run OpenSearch Data Prepper, the source appears in the following format:
+Before you run Data Prepper, the source appears in the following format:
 
 ```json
 {"message": "ab:cd:ab:cd"}

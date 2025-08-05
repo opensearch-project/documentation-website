@@ -41,5 +41,5 @@ Use mutate string processors to modify the contents or format of string values. 
 | [`split_string`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/split-string/) | Split a string into a list using a specified delimiter. |
 | [`uppercase_string`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/uppercase-string/) | Convert a string to uppercase. |
 | [`lowercase_string`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/lowercase-string/) | Convert a string to lowercase. |
-| [`trim_string`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/trim-string/) | Remove leading and trailing whitespace from a string. |
+| [`trim_string`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/trim-string/) | Remove leading and trailing white space from a string. |
 

@@ -72,6 +72,6 @@ ad-pipeline:
             random_cut_forest:
 ```
 
-When you run the `anomaly_detector` processor, the processor extracts the value for the `latency` key, and then passes the value through the RCF ML algorithm. You can configure any key that comprises integers or real numbers as values. In the following example, you can configure `bytes` or `latency` as the key for an anomaly detector. 
+When you run the `anomaly_detector` processor, the processor extracts the value for the `latency` key and then passes the value through the RCF ML algorithm. You can configure any key that comprises integers or real numbers as values. In the following example, you can configure `bytes` or `latency` as the key for an anomaly detector. 
 
 `{"ip":"1.2.3.4", "bytes":234234, "latency":0.2}`
