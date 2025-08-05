@@ -89,6 +89,9 @@ collections:
   data-prepper: 
     permalink: /:collection/:path/
     output: true
+  migrate-or-upgrade:
+    permalink: /:collection/:path/
+    output: true
   migration-assistant:
     permalink: /:collection/:path/
     output: true
@@ -142,7 +145,10 @@ opensearch_collection:
       name: Tutorials
       nav_fold: true
     install-and-configure:
-      name: Install and upgrade
+      name: Install and configure
+      nav_fold: true
+    migrate-or-upgrade:
+      name: Migrate or upgrade
       nav_fold: true
     tuning-your-cluster:
       name: Creating and tuning your cluster
@@ -218,7 +224,7 @@ clients_collection:
 migration_assistant_collection:
   collections:
     migration-assistant:
-        name: Migration Assistant
+        name: Migration Assistant for OpenSearch
         nav_fold: true
 
 benchmark_collection:
@@ -265,7 +271,7 @@ defaults:
       path: "_migration-assistant"
     values:
       section: "migration-assistant"
-      section-name: "Migration Assistant"
+      section-name: "Migration Assistant for OpenSearch"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.

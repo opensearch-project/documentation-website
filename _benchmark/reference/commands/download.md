@@ -37,7 +37,7 @@ Use the following options to customize how OpenSearch Benchmark downloads OpenSe
 - `--provision-config-repository`: Defines the repository from which OpenSearch Benchmark loads `provision-configs` and `provision-config-instances`. 
 - `--provision-config-revision`: Defines a specific Git revision in the `provision-config` that OpenSearch Benchmark should use. 
 - `--provision-config-path`: Defines the path to the `--provision-config-instance` and any OpenSearch plugin configurations to use. 
-- `--distribution-version`: Downloads the specified OpenSearch distribution based on version number. For a list of released OpenSearch versions, see [Version history](https://opensearch.org/docs/version-history/). 
+- `--distribution-version`: Downloads the specified OpenSearch distribution based on version number. For a list of released OpenSearch versions, see [Version history]({{site.url}}{{site.latesturl}}/version-history/). 
 - `--distribution-repository`: Defines the repository from where the OpenSearch distribution should be downloaded. Default is `release`.
 - `--provision-config-instance`: Defines the `--provision-config-instance` to use. You can view possible configuration instances using the command `opensearch-benchmark list provision-config-instances`.  
 - `--provision-config-instance-params`: A comma-separated list of key-value pairs injected verbatim as variables for the `provision-config-instance`.
