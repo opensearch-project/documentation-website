@@ -1,43 +1,43 @@
 ---
 layout: default
-title: dense_vector to knn_vector conversion
+title: Transform dense_vector to knn_vector
 nav_order: 5
 parent: Migrate metadata
 grand_parent: Migration phases
-permalink: /migration-assistant/migration-phases/migrate-metadata/handling-dense-vector-conversion/
+permalink: /migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/
 ---
 
-# dense_vector to knn_vector conversion
+# Transform dense_vector to knn_vector
 
-Convert mapping type dense_vector to OpenSearch knn_vector.
+Convert field data type dense_vector to OpenSearch knn_vector.
 
-This guide explains how the Migration Assistant automatically handles the conversion of Elasticsearch's `dense_vector` field type to OpenSearch's `knn_vector` field type during migration.
+This guide explains how the Migration Assistant automatically handles the transformation of Elasticsearch's `dense_vector` field type to OpenSearch's `knn_vector` field type during migration.
 
 ## Overview
 
 The `dense_vector` field type was introduced in Elasticsearch 7.x for storing dense vectors used in machine learning and similarity search applications. When migrating from Elasticsearch 7.x to OpenSearch, the Migration Assistant automatically converts `dense_vector` fields to OpenSearch's equivalent `knn_vector` type.
 
-This conversion includes mapping the vector configuration parameters and enabling the necessary OpenSearch k-NN plugin settings.
+This transformation includes mapping the vector configuration parameters and enabling the necessary OpenSearch k-NN plugin settings.
 
 ## Compatibility
 
-The `dense_vector` to `knn_vector` conversion applies to:
-- **Source clusters**: Elasticsearch 7.x with dense_vector fields
-- **Target clusters**: OpenSearch (any version)
+The `dense_vector` to `knn_vector` transformation applies to:
+- **Source clusters**: Elasticsearch 7.x+
+- **Target clusters**: OpenSearch 1.x+
 - **Automatic conversion**: No configuration required
 
 ## Automatic conversion logic
 
 The Migration Assistant performs the following transformations when converting `dense_vector` to `knn_vector`:
 
-### Field type conversion
+### Field type transformation
 - Changes `type: "dense_vector"` to `type: "knn_vector"`
 - Maps `dims` parameter to `dimension`
 - Converts similarity metrics to OpenSearch space types
 - Configures HNSW algorithm with Lucene engine
 
 ### Similarity mapping
-The conversion maps Elasticsearch similarity functions to OpenSearch space types:
+The transformation maps Elasticsearch similarity functions to OpenSearch space types:
 - `cosine` → `cosinesimil`
 - `dot_product` → `innerproduct`
 - `l2` (default) → `l2`
@@ -54,21 +54,24 @@ During the migration process, you'll see this transformation in the output:
 ```
 Transformations:
    dense_vector to knn_vector:
-      Convert mapping type dense_vector to OpenSearch knn_vector
+      Convert field data type dense_vector to OpenSearch knn_vector
 ```
 
 ## Example transformations
 
-### Basic dense_vector conversion
+### Basic dense_vector transformation
 
-<table>
-<tr>
-<th>Source Field Type</th>
-<th>Target Field Type</th>
-</tr>
-<tr>
-<td>
-<pre><code class="language-json">{
+<table style="border-collapse: collapse; border: 1px solid #ddd;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px;">Source Field Type</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Target Field Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">
+        <pre><code>{
   "properties": {
     "embedding": {
       "type": "dense_vector",
@@ -77,9 +80,9 @@ Transformations:
     }
   }
 }</code></pre>
-</td>
-<td>
-<pre><code class="language-json">{
+      </td>
+      <td style="border: 1px solid #ddd; padding: 8px;">
+        <pre><code>{
   "properties": {
     "embedding": {
       "type": "knn_vector",
@@ -97,130 +100,16 @@ Transformations:
     }
   }
 }</code></pre>
-</td>
-</tr>
-</table>
-
-### Advanced configuration with index options
-
-<table>
-<tr>
-<th>Source Field Type</th>
-<th>Target Field Type</th>
-</tr>
-<tr>
-<td>
-<pre><code class="language-json">{
-  "properties": {
-    "vector_field": {
-      "type": "dense_vector",
-      "dims": 256,
-      "similarity": "dot_product",
-      "index_options": {
-        "m": 16,
-        "ef_construction": 200
-      }
-    }
-  }
-}</code></pre>
-</td>
-<td>
-<pre><code class="language-json">{
-  "properties": {
-    "vector_field": {
-      "type": "knn_vector",
-      "dimension": 256,
-      "method": {
-        "name": "hnsw",
-        "engine": "lucene",
-        "space_type": "innerproduct",
-        "parameters": {
-          "encoder": {
-            "name": "sq"
-          },
-          "m": 16,
-          "ef_construction": 200
-        }
-      }
-    }
-  }
-}</code></pre>
-</td>
-</tr>
-</table>
-
-### Multiple vector fields
-
-<table>
-<tr>
-<th>Source Field Type</th>
-<th>Target Field Type</th>
-</tr>
-<tr>
-<td>
-<pre><code class="language-json">{
-  "properties": {
-    "title_embedding": {
-      "type": "dense_vector",
-      "dims": 384,
-      "similarity": "cosine"
-    },
-    "content_embedding": {
-      "type": "dense_vector",
-      "dims": 768,
-      "similarity": "l2"
-    },
-    "title": {
-      "type": "text"
-    }
-  }
-}</code></pre>
-</td>
-<td>
-<pre><code class="language-json">{
-  "properties": {
-    "title_embedding": {
-      "type": "knn_vector",
-      "dimension": 384,
-      "method": {
-        "name": "hnsw",
-        "engine": "lucene",
-        "space_type": "cosinesimil",
-        "parameters": {
-          "encoder": {
-            "name": "sq"
-          }
-        }
-      }
-    },
-    "content_embedding": {
-      "type": "knn_vector",
-      "dimension": 768,
-      "method": {
-        "name": "hnsw",
-        "engine": "lucene",
-        "space_type": "l2",
-        "parameters": {
-          "encoder": {
-            "name": "sq"
-          }
-        }
-      }
-    },
-    "title": {
-      "type": "text"
-    }
-  }
-}</code></pre>
-</td>
-</tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 ## Configuration details
 
 ### HNSW algorithm parameters
 
-The conversion automatically configures the HNSW (Hierarchical Navigable Small World) algorithm with:
+The transformation automatically configures the HNSW (Hierarchical Navigable Small World) algorithm with:
 - **Engine**: `lucene` (OpenSearch's default)
 - **Encoder**: `sq` (scalar quantization for memory efficiency)
 - **Method**: `hnsw` (approximate nearest neighbor search)
@@ -247,7 +136,7 @@ When any `dense_vector` fields are converted, the following index setting is aut
 
 ### Migrating from Elasticsearch 7.x
 
-The Migration Assistant automatically converts all `dense_vector` fields during metadata migration. The k-NN plugin must be installed and enabled on the target OpenSearch cluster.
+The Migration Assistant automatically transforms all `dense_vector` fields during metadata migration. The k-NN plugin must be installed and enabled on the target OpenSearch cluster.
 
 ### Query compatibility
 

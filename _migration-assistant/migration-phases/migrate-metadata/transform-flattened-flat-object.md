@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Flattened type handling
+title: Transform flattened to flat_object
 nav_order: 3
 parent: Migrate metadata
 grand_parent: Migration phases
-permalink: /migration-assistant/migration-phases/migrate-metadata/handling-flattened-type/
+permalink: /migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/
 ---
 
-# Flattened type handling
+# Transform flattened to flat_object
 
-This guide explains how the Migration Assistant automatically handles the `flattened` field type during migration to OpenSearch.
+This guide explains how the Migration Assistant automatically transforms the `flattened` field type during migration to OpenSearch.
 
 ## Overview
 
@@ -17,14 +17,13 @@ The `flattened` field type was introduced in Elasticsearch 7.3 as an X-Pack feat
 
 When migrating to OpenSearch 2.7 or later, the Migration Assistant automatically converts `flattened` field types to OpenSearch's equivalent `flat_object` type. This transformation requires no configuration or user intervention.
 
+
 ## Compatibility
 
-The `flattened` field type is:
-- **Supported in**: Elasticsearch 7.3+ with X-Pack
-- **Not supported in**:
-  - Elasticsearch versions without X-Pack
-  - Any OpenSearch version prior to 2.7
-  - Open source Elasticsearch distributions
+The `flattened` to `flat_object` field type transformation applies to:
+- **Source clusters**: Elasticsearch 7.3+
+- **Target clusters**: OpenSearch 2.7+
+- **Automatic conversion**: No configuration required during metadata
 
 ## Automatic migration
 
@@ -38,14 +37,17 @@ Transformations:
 
 ### Example transformation
 
-<table>
-<tr>
-<th>Source Field Type</th>
-<th>Target Field Type</th>
-</tr>
-<tr>
-<td>
-<pre><code class="language-json">{
+<table style="border-collapse: collapse; border: 1px solid #ddd;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px;">Source Field Type</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Target Field Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">
+        <pre><code>{
   "properties": {
     "labels": {
       "type": "flattened"
@@ -55,9 +57,9 @@ Transformations:
     }
   }
 }</code></pre>
-</td>
-<td>
-<pre><code class="language-json">{
+      </td>
+      <td style="border: 1px solid #ddd; padding: 8px;">
+        <pre><code>{
   "properties": {
     "labels": {
       "type": "flat_object"
@@ -67,8 +69,9 @@ Transformations:
     }
   }
 }</code></pre>
-</td>
-</tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 ## Migration scenarios

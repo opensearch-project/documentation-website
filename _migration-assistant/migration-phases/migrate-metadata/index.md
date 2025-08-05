@@ -177,9 +177,9 @@ Metadata migration requires modifying data from the source to the target version
 For guidance on handling specific field type compatibility issues, see:
 - [Transform type mappings]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/) - Handle deprecated mapping types from Elasticsearch 6.x
 - [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) - Configure custom field type transformations
-- [Flattened type handling]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-flattened-type/) - Automatic conversion of flattened to flat_object for OpenSearch 2.7+
-- [Field Data Type Deprecation - string]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-string-type-deprecation/) - Automatic conversion of string to text/keyword for Elasticsearch 1.x-5.x
-- [dense_vector to knn_vector conversion]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-dense-vector-conversion/) - Automatic conversion of dense_vector to knn_vector for Elasticsearch 7.x
+- [Transform flattened to flat_object]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/) - Automatic transformation of flattened to flat_object
+- [Transform string to text/keyword]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/) - Automatic transformation of string to text/keyword
+- [Transform dense_vector to knn_vector]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/) - Automatic transformation of dense_vector to knn_vector
 
 #### Deprecation of Mapping Types
 

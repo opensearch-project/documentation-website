@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Field Data Type Deprecation - string
+title: Transform string to text/keyword
 nav_order: 4
 parent: Migrate metadata
 grand_parent: Migration phases
-permalink: /migration-assistant/migration-phases/migrate-metadata/handling-string-type-deprecation/
+permalink: /migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/
 ---
 
-# Field Data Type Deprecation - string
+# Transform string to text/keyword
 
-Convert mapping type string to text/keyword based on field data mappings.
+Convert field data type string to text/keyword based on field data mappings.
 
 This guide explains how the Migration Assistant automatically handles the deprecated `string` field type during migration from older Elasticsearch versions.
 
@@ -21,9 +21,9 @@ When migrating from Elasticsearch 1.x through 5.x to newer versions, the Migrati
 
 ## Compatibility
 
-The `string` field type conversion applies to:
-- **Source clusters**: Elasticsearch 1.x through 5.x
-- **Target clusters**: Any version with text/keyword (Elasticsearch 5.0+ or OpenSearch)
+The `string` to `text`/`keyword` field type transformation applies to:
+- **Source clusters**: Elasticsearch 1.x - 5.x
+- **Target clusters**: Elasticsearch 5.x+ or OpenSearch 1.x+
 - **Automatic conversion**: No configuration required during metadata
 
 ## Automatic conversion logic
@@ -68,21 +68,24 @@ During the migration process, you'll see this transformation in the output:
 ```
 Transformations:
    string to text/keyword:
-      Convert mapping type string to text/keyword based on field data mappings
+      Convert field type string to text/keyword based on field data mappings
 ```
 
 ## Example transformations
 
 ### String to keyword conversion
 
-<table>
-<tr>
-<th>Source Field Type</th>
-<th>Target Field Type</th>
-</tr>
-<tr>
-<td>
-<pre><code class="language-json">{
+<table style="border-collapse: collapse; border: 1px solid #ddd;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px;">Source Field Type</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Target Field Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">
+        <pre><code>{
   "properties": {
     "status": {
       "type": "string",
@@ -95,9 +98,9 @@ Transformations:
     }
   }
 }</code></pre>
-</td>
-<td>
-<pre><code class="language-json">{
+      </td>
+      <td style="border: 1px solid #ddd; padding: 8px;">
+        <pre><code>{
   "properties": {
     "status": {
       "type": "keyword",
@@ -109,20 +112,25 @@ Transformations:
     }
   }
 }</code></pre>
-</td>
-</tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
+
 
 ### String to text conversion
 
-<table>
-<tr>
-<th>Source Field Type</th>
-<th>Target Field Type</th>
-</tr>
-<tr>
-<td>
-<pre><code class="language-json">{
+<table style="border-collapse: collapse; border: 1px solid #ddd;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px;">Source Field Type</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">Target Field Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px;">
+        <pre><code>{
   "properties": {
     "title": {
       "type": "string",
@@ -136,9 +144,9 @@ Transformations:
     }
   }
 }</code></pre>
-</td>
-<td>
-<pre><code class="language-json">{
+      </td>
+      <td style="border: 1px solid #ddd; padding: 8px;">
+        <pre><code>{
   "properties": {
     "title": {
       "type": "text",
@@ -151,91 +159,9 @@ Transformations:
     }
   }
 }</code></pre>
-</td>
-</tr>
-</table>
-
-### Multi-field transformation
-
-The transformation also handles multi-fields (fields with sub-fields) recursively:
-
-<table>
-<tr>
-<th>Source Field Type</th>
-<th>Target Field Type</th>
-</tr>
-<tr>
-<td>
-<pre><code class="language-json">{
-  "properties": {
-    "name": {
-      "type": "string",
-      "analyzer": "standard",
-      "fields": {
-        "raw": {
-          "type": "string",
-          "index": "not_analyzed"
-        },
-        "suggest": {
-          "type": "string",
-          "analyzer": "simple"
-        }
-      }
-    }
-  }
-}</code></pre>
-</td>
-<td>
-<pre><code class="language-json">{
-  "properties": {
-    "name": {
-      "type": "text",
-      "analyzer": "standard",
-      "fields": {
-        "raw": {
-          "type": "keyword"
-        },
-        "suggest": {
-          "type": "text",
-          "analyzer": "simple"
-        }
-      }
-    }
-  }
-}</code></pre>
-</td>
-</tr>
-</table>
-
-## Norms handling
-
-The transformation also handles the legacy `norms` configuration:
-
-<table>
-<tr>
-<th>Source Field Type</th>
-<th>Target Field Type</th>
-</tr>
-<tr>
-<td>
-<pre><code class="language-json">{
-  "title": {
-    "type": "string",
-    "norms": {
-      "enabled": false
-    }
-  }
-}</code></pre>
-</td>
-<td>
-<pre><code class="language-json">{
-  "title": {
-    "type": "text",
-    "norms": false
-  }
-}</code></pre>
-</td>
-</tr>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 ## Migration scenarios
