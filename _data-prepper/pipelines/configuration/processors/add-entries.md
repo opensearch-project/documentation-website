@@ -1,12 +1,12 @@
 ---
 layout: default
-title: add_entries
+title: Add entries
 parent: Processors
 grand_parent: Pipelines
-nav_order: 40
+nav_order: 10
 ---
 
-# add_entries
+# Add entries processor
 
 The `add_entries` processor adds entries to an event.
 

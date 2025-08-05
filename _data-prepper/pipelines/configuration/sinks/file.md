@@ -1,12 +1,12 @@
 ---
 layout: default
-title: file
+title: File
 parent: Sinks
 grand_parent: Pipelines
 nav_order: 45
 ---
 
-# file
+# File sink
 
 Use the `file` sink to create a flat file output, usually a `.log` file.
 
@@ -23,7 +23,7 @@ append | No | Boolean | When `true`, the sink file is opened in append mode.
 
 The following example shows basic usage of the `file` sink:
 
-```
+```yaml
 sample-pipeline:
   sink:
     - file:
