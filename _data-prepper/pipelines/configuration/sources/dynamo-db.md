@@ -1,12 +1,12 @@
 ---
 layout: default
-title: dynamodb
+title: DynamoDB
 parent: Sources
 grand_parent: Pipelines
 nav_order: 20
 ---
 
-# dynamodb
+# DynamoDB source
 
 The `dynamodb` source enables change data capture (CDC) on [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) tables. It can receive table events, such as `create`, `update`, or `delete`, using DynamoDB streams and supports initial snapshots using [point-in-time recovery (PITR)](https://aws.amazon.com/dynamodb/pitr/).
 

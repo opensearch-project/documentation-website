@@ -1,12 +1,12 @@
 ---
 layout: default
-title: truncate
+title: Truncate
 parent: Processors
 grand_parent: Pipelines
-nav_order: 121
+nav_order: 410
 ---
 
-# truncate
+# Truncate processor
 
 The `truncate` processor truncates a key's value at the beginning, the end, or on both sides of the value string, based on the processor's configuration. If the key's value is a list, then each member in the string list is truncated. Non-string members of the list are not truncated. When the `truncate_when` option is provided, input is truncated only when the condition specified is `true` for the event being processed.
 
