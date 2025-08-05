@@ -32,6 +32,13 @@ breaking_changes:
     url: "https://docs.opensearch.org/latest/breaking-changes/#drop-support-for-jdk-8"
     introducedIn: "OpenSearch 2.x"
     comp: []
+  - title: "Removal of 'flattened' field type in OpenSearch 1.0"
+    url: "https://docs.opensearch.org/2.7/field-types/supported-field-types/flat-object/"
+    introducedIn: "OpenSearch 1.x"
+    comp: []
+    transformation:
+      title: "Type Mapping Deprecation"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/"
   - title: "Amazon OpenSearch Service: Upgrade Guidance"
     url: "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/version-migration.html"
     introducedIn: "OpenSearch 1.x"
@@ -40,6 +47,13 @@ breaking_changes:
     url: "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html"
     introducedIn: "OpenSearch 1.x"
     comp: []
+  - title: "Removal of 'dense_vector' field type in OpenSearch 1.0"
+    url: "https://docs.opensearch.org/1.0/search-plugins/knn/knn-index/"
+    introducedIn: "OpenSearch 1.x"
+    comp: []
+    transformation:
+      title: "Type Mapping Deprecation"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/"
   - title: "Removal of Types in Elasticsearch 7.x"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/7.10/removal-of-types.html"
     introducedIn: "Elasticsearch 7.x"
