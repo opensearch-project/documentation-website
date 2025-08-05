@@ -4,7 +4,6 @@ title: Debugging a search pipeline
 nav_order: 25
 has_children: false
 parent: Search pipelines
-grand_parent: Search
 ---
 
 

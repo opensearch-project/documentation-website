@@ -86,9 +86,9 @@ The OpenSearch [`opentelemetry-demo` repository](https://github.com/opensearch-p
 
 To visualize OTel metric data in OpenSearch, follow these steps: 
 
-1. Install the [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo). See the [Getting Started](https://github.com/opensearch-project/opentelemetry-demo/blob/main/tutorial/GettingStarted.md) guide for instructions.
+1. Install the [`opentelemetry-demo` repository](https://github.com/opensearch-project/opentelemetry-demo). See [Quick start](https://github.com/opensearch-project/opentelemetry-demo/blob/main/README.md#quick-start) for instructions.
 2. Collect the OTel signals, including metric signals. See the [OTel Collector](https://opentelemetry.io/docs/collector/) guide for instructions.  
-3. Configure the OTel pipeline to emit metric signals. See the [OTel Collector Pipeline](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otelcollector) guide for instructions.
+3. Configure the OTel pipeline to emit metric signals. See the [OTel Collector Pipeline](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otel-collector) guide for instructions.
 
 #### Example YAML config file
 
@@ -111,7 +111,7 @@ To visualize OTel metric data in OpenSearch, follow these steps:
 ```
 {% include copy-curl.html %}
     
-4. Configure the [Data Prepper pipeline](https://github.com/opensearch-project/opentelemetry-demo/blob/main/src/dataprepper/pipelines.yaml) to emit the collected metric signals into the OpenSearch metrics index.
+4. Configure the [Data Prepper pipeline](https://github.com/opensearch-project/opentelemetry-demo/blob/main/src/dataprepper/README.md) to emit the collected metric signals into the OpenSearch metrics index.
 
 #### Example YAML config file
 

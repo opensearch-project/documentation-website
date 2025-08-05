@@ -111,7 +111,7 @@ falsepositives:
     "reason": "{\"error\":\"Sigma rule must have a log source\",\"error\":\"Sigma rule must have a detection definitions\"}",
     "caused_by": {
       "type": "exception",
-      "reason": "java.util.Arrays$ArrayList: {\"error\":\"Sigma rule must have a log source\",\"error\":\"Sigma rule must have a detection definitions\"}"
+      "reason": "{\"error\":\"Sigma rule must have a log source\",\"error\":\"Sigma rule must have a detection definitions\"}"
     }
   },
   "status": 400

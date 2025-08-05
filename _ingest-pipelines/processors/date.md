@@ -26,7 +26,7 @@ The following is the syntax for the `date` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

@@ -127,8 +127,8 @@ The Faiss engine supports the following methods.
 
 Method name | Requires training | Supported spaces 
 :--- | :--- |:---
-[`hnsw`](#hnsw-parameters-1) | No | `l2`, `innerproduct` (not available when [PQ](#pq-parameters) is used), `hamming` 
-[`ivf`](#ivf-parameters) | Yes | `l2`, `innerproduct`, `hamming` (supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized#binary-vectors).
+[`hnsw`](#hnsw-parameters-1) | No | `l2`, `innerproduct` (not available when [PQ](#pq-parameters) is used), `hamming`, and `cosinesimil` (supported in OpenSearch 2.19 and later).
+[`ivf`](#ivf-parameters) | Yes | `l2`, `innerproduct`, `hamming` (supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized#binary-vectors), `cosinesimil` (supported in OpenSearch 2.19 and later).
 
 
 #### HNSW parameters
@@ -137,8 +137,8 @@ The `hnsw` method supports the following parameters.
 
 Parameter name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`ef_search` | No | 100 | No | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches.
-`ef_construction` | No | 100 | No | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed.
+`ef_search` | No | 100 | No | The size of the dynamic list used during k-NN searches. Higher values result in more accurate but slower searches. Default is `256` for [binary indexes]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/).
+`ef_construction` | No | 100 | No | The size of the dynamic list used during k-NN graph creation. Higher values result in a more accurate graph but slower indexing speed. Default is `256` for [binary indexes]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/).
 `m` | No | 16 | No | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between `2` and `100`.
 `encoder` | No | flat | No | An encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index at the expense of search accuracy.
 
@@ -159,7 +159,7 @@ For more information about these parameters, see the [Faiss documentation](https
 
 ### IVF training requirements
 
-The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-a-model), passing the IVF method definition. IVF requires, at a minimum, that there be `nlist` training data points, but we recommend [that you use more than this](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset). Training data can be the same as the data you plan to index or come from a separate dataset.
+The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the [Train API]({{site.url}}{{site.baseurl}}/vector-search/api/knn#train-a-model), passing the IVF method definition. IVF requires, at a minimum, that there be `nlist` training data points, but we recommend [that you use more than this](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset). Training data can be the same as the data you plan to index or come from a separate dataset.
 
 ### Supported encoders
 
@@ -378,7 +378,7 @@ In general, select Faiss for large-scale use cases. Lucene is a good option for 
 |  Max dimensions |    16,000 |  16,000 |  16,000 |
 |  Filter |    Post-filter |  Post-filter |  Filter during search |
 |  Training required |    No (Yes for PQ) |  Yes |  No |
-|  Similarity metrics | `l2`, `innerproduct` |  `l2`, `innerproduct` |  `l2`, `cosinesimil` |
+|  Similarity metrics | `l2`, `innerproduct`, `cosinesimil` |  `l2`, `innerproduct`, `cosinesimil` |  `l2`, `cosinesimil` |
 |  Number of vectors   |    Tens of billions |  Tens of billions |  Less than 10 million |
 |  Indexing latency |   Low  |  Lowest  |  Low  |
 |  Query latency and quality  |    Low latency and high quality  |  Low latency and low quality  |  High latency and high quality  |

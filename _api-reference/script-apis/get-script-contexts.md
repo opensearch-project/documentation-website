@@ -5,7 +5,7 @@ parent: Script APIs
 nav_order: 5
 ---
 
-# Get stored script contexts
+# Get Stored Script Contexts API
 **Introduced 1.0**
 {: .label .label-purple }
 

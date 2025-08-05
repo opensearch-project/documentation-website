@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 20
 ---
 
-# Get a controller
+# Get Controller API
 **Introduced 2.12**
 {: .label .label-purple }
 
@@ -26,14 +26,14 @@ The following table lists the available path parameters.
 | :--- | :--- | :--- |
 | `model_id` | String | The model ID of the model for which to retrieve the controller. |
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/controllers/T_S-cY0BKCJ3ot9qr0aP
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

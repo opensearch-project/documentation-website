@@ -2,10 +2,10 @@
 layout: default
 title: Refresh index
 parent: Index APIs
-nav_order: 61
+nav_order: 115
 ---
 
-# Refresh index 
+# Refresh Index API
 Introduced 1.0
 {: .label .label-purple }
 
@@ -19,6 +19,11 @@ OpenSearch's refresh behavior depends on whether or not `index.refresh_interval`
 After a shard becomes idle, the indexes will not refresh until either the next search request or a Refresh Index API request is sent. The first search request on an idle shard will wait for the refresh operation to complete. 
 
 To use the Refresh Index API, you must have write access to the indexes you want to refresh.
+
+## Refresh request behavior
+
+The Refresh Index API call is synchronous. The response is returned only after all targeted shards have been refreshed.
+Because refresh operations are resource intensive, we recommend relying on automatic periodic refreshes using `index.refresh_interval`.
 
 ## Endpoints
 

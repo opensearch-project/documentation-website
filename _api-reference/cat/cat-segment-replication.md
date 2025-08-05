@@ -1,12 +1,12 @@
 ---
 layout: default
 title: CAT segment replication
-parent: CAT API
+parent: CAT APIs
 nav_order: 53
 has_children: false
 ---
 
-# CAT segment replication
+# CAT Segment Replication API
 **Introduced 2.7**
 {: .label .label-purple }
 
@@ -60,7 +60,7 @@ The following table lists the available query parameters. All query parameters a
 | `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, and `p`. | N/A |
 | `completed_only` | Boolean | When `true`, the response only includes the last-completed segment replication events. | `false` |
 | `detailed` | Boolean | When `true`, the response includes additional metrics for each stage of a segment replication event. | `false` |
-| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
+| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with `open`, `closed`, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |

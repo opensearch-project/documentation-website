@@ -11,7 +11,7 @@ redirect_from:
 
 # Snapshot Management API
 
-Use the snapshot management (SM) API to automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). 
+Use the Snapshot Management (SM) API to automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). 
 
 ---
 
@@ -307,7 +307,7 @@ Provides the enabled/disabled status and the metadata for all policies specified
 
 SM uses a state machine for snapshot creation and deletion. The image on the left shows one execution period of the creation workflow, from the CREATION_START state to the CREATION_FINISHED state. Deletion workflow follows the same pattern as creation workflow. 
 
-The creation workflow starts in the CREATION_START state and continuously checks if the conditions in the creation cron schedule are met. After the conditions are met, the creation workflow switches to the CREATION_CONDITION_MET state and continues to the CREATING state. The CREATING state calls the create snapshot API asynchronously and then waits for snapshot creation to end in the CREATION_FINISHED state. Once snapshot creation ends, the creation workflow goes back to the CREATION_START state, and the cycle continues. The `current_state` field of `metadata.creation` and `metadata.deletion` returns the current state of the state machine.
+The creation workflow starts in the CREATION_START state and continuously checks whether the conditions in the creation cron schedule are met. After the conditions are met, the creation workflow switches to the CREATION_CONDITION_MET state and continues to the CREATING state. The CREATING state calls the Create Snapshot API asynchronously and then waits for snapshot creation to end in the CREATION_FINISHED state. Once snapshot creation ends, the creation workflow returns to the CREATION_START state and the cycle continues. The `current_state` field of `metadata.creation` and `metadata.deletion` returns the current state of the state machine.
 
 #### Request
 

@@ -5,12 +5,16 @@ Amazon
 Amazon OpenSearch Serverless
 Amazon OpenSearch Service
 Amazon Bedrock
+Amazon Kinesis
 Amazon SageMaker
 AWS Secrets Manager
 Ansible
 Anthropic Claude
+Apache HttpClient 5 Transport
+Apache Kafka
 Auditbeat
 AWS Cloud
+Capture and Replay
 Cohere Command
 Cohere Embed
 Cohere Embed English
@@ -50,6 +54,7 @@ JSON Web Token
 Keycloak
 Kerberos
 Kibana
+Kinesis
 Kubernetes
 Lambda
 Langflow
@@ -58,8 +63,10 @@ Log4j
 Logstash
 Lucene
 macOS
+Metadata-Migration-Tool
 Metricbeat
 Microsoft Power BI
+Migration Assistant
 Minikube
 Nagios
 Okta
@@ -90,9 +97,12 @@ PyTorch
 Querqy
 Query Workbench
 RankLib
+Reindex-from-Snapshot
+Replayer
 RCF Summarize
 RPM Package Manager
 Ruby
+Search Relevance Workbench
 Simple Schema for Observability
 Tableau
 Textract
@@ -100,6 +110,8 @@ Titan
 Titan Multimodal Embeddings
 Titan Text Embeddings
 TorchScript
+Traffic Capture Proxy
+Traffic Replayer
 Tribuo
 VisBuilder
 Winlogbeat

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Delete Snapshot
+title: Delete snapshot
 parent: Snapshot APIs
 nav_order: 7
 ---
@@ -10,6 +10,8 @@ nav_order: 7
 {: .label .label-purple }
 
 Deletes a snapshot from a repository.
+
+Deleting a snapshot that is in progress stops the snapshot operation and deletes the partially created snapshot.
 
 * To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
 

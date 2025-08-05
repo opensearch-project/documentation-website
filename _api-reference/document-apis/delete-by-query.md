@@ -7,7 +7,7 @@ redirect_from:
  - /opensearch/rest-api/document-apis/delete-by-query/
 ---
 
-# Delete by query
+# Delete by Query API
 **Introduced 1.0**
 {: .label .label-purple}
 
@@ -45,7 +45,7 @@ max_docs | Integer | How many documents the delete by query operation should pro
 preference | String | Specifies which shard or node OpenSearch should perform the delete by query operation on.
 q | String | Lucene query string's query.
 request_cache | Boolean | Specifies whether OpenSearch should use the request cache. Default is whether it’s enabled in the index’s settings.
-refresh | Boolean | If true, OpenSearch refreshes shards to make the delete by query operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`.
+refresh | Boolean | If true, OpenSearch refreshes shards to make the delete by query operation available to search results. Valid values are `true` and `false`. Default is `false`.
 requests_per_second | Integer | Specifies the request's throttling in sub-requests per second. Default is -1, which means no throttling.
 routing | String | Value used to route the operation to a specific shard.
 scroll | Time | Amount of time the search context should be open.
@@ -58,7 +58,7 @@ _source | String | Specifies whether to include the `_source` field in the respo
 _source_excludes | String | A comma-separated list of source fields to exclude from the response.
 _source_includes | String | A comma-separated list of source fields to include in the response.
 stats | String | Value to associate with the request for additional logging.
-terminate_after | Integer | The maximum number of documents OpenSearch should process before terminating the request.
+terminate_after | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request.
 timeout | Time | How long the operation should wait from a response from active shards. Default is `1m`.
 version | Boolean | Whether to include the document version as a match.
 wait_for_active_shards | String | The number of shards that must be active before OpenSearch executes the operation. Valid values are `all` or any integer up to the total number of shards in the index. Default is 1, which is the primary shard.

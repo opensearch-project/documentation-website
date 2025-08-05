@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT nodes
-parent: CAT API
+parent: CAT APIs
 nav_order: 40
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-nodes/
 ---
 
-# CAT nodes
+# CAT Nodes API
 **Introduced 1.0**
 {: .label .label-purple }
 

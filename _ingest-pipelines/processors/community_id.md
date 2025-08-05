@@ -24,7 +24,7 @@ The following is the `community_id` processor syntax:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

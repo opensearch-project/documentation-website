@@ -2,12 +2,12 @@
 layout: default
 title: Open index
 parent: Index APIs
-nav_order: 55
+nav_order: 100
 redirect_from:
   - /opensearch/rest-api/index-apis/open-index/
 ---
 
-# Open index
+# Open Index API
 **Introduced 1.0**
 {: .label .label-purple }
 

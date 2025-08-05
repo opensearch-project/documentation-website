@@ -5,6 +5,12 @@ parent: Installing OpenSearch Dashboards
 nav_order: 33
 ---
 
+{% comment %}
+The following liquid syntax declares a variable, major_version_mask, which is transformed into "N.x" where "N" is the major version number. This is required for proper versioning references to the Yum repo.
+{% endcomment %}
+{% assign version_parts = site.opensearch_major_minor_version | split: "." %}
+{% assign major_version_mask = version_parts[0] | append: ".x" %}
+
 # Installing OpenSearch Dashboards (Debian)
 
 Installing OpenSearch Dashboards using the Advanced Packaging Tool (APT) package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/) method. For example, the package manager handles several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`.
@@ -56,7 +62,7 @@ The Debian package is not signed. If you would like to verify the fingerprint, t
    ```
 1. Download and import the GPG key.
    ```bash
-   curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | gpg --import -
+   curl -o- https://artifacts.opensearch.org/publickeys/opensearch-release.pgp | gpg --import -
    ```
 1. Verify the signature.
    ```bash
@@ -73,11 +79,11 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```
 1. Import the public GPG key. This key is used to verify that the APT repository is signed.
     ```bash
-    curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-keyring
+    curl -o- https://artifacts.opensearch.org/publickeys/opensearch-release.pgp | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-release-keyring
     ```
 1. Create an APT repository for OpenSearch.
    ```bash
-   echo "deb [signed-by=/usr/share/keyrings/opensearch-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-dashboards-2.x.list
+   echo "deb [signed-by=/usr/share/keyrings/opensearch-release-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{major_version_mask}}/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-dashboards-{{major_version_mask}}.list
    ```
 1. Verify that the repository was created successfully.
     ```bash

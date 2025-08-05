@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 40
 ---
 
-# Search for a model group
+# Search Model Group API
 
 When you search for a model group, only those model groups to which you have access will be returned. For example, for a match all query, model groups that will be returned are:
 
@@ -23,7 +23,7 @@ POST /_plugins/_ml/model_groups/_search
 GET /_plugins/_ml/model_groups/_search
 ```
 
-#### Example request: Match all
+## Example request: Match all
 
 The following request is sent by `user1` who has the `IT` and `HR` roles:
 
@@ -38,7 +38,7 @@ POST /_plugins/_ml/model_groups/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -130,7 +130,7 @@ POST /_plugins/_ml/model_groups/_search
 }
 ```
 
-#### Example request: Search for model groups with an owner name
+## Example request: Search for model groups with an owner name
 
 The following request to search for model groups of `user` is sent by `user2` who has the `IT` backend role:
 
@@ -163,7 +163,7 @@ GET /_plugins/_ml/model_groups/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -222,7 +222,7 @@ GET /_plugins/_ml/model_groups/_search
 }
 ```
 
-#### Example request: Search for model groups with a model group ID
+## Example request: Search for model groups with a model group ID
 
 ```json
 GET /_plugins/_ml/model_groups/_search
@@ -244,7 +244,7 @@ GET /_plugins/_ml/model_groups/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

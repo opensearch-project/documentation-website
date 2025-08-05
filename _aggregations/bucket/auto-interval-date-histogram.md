@@ -2,7 +2,6 @@
 layout: default
 title: Auto-interval date histogram
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 12
 ---
 
@@ -104,6 +103,8 @@ GET /blogs/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Example response
 
 The response shows that the blog posts were aggregated into two buckets. The interval was automatically set to 1 year, with all three 2022 blog posts collected in one bucket and the 2023 blog post in another:
 

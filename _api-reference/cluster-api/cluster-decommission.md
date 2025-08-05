@@ -9,7 +9,7 @@ redirect_from:
   - /opensearch/rest-api/cluster-decommission/
 ---
 
-# Cluster decommission
+# Cluster Decommission API
 **Introduced 1.0**
 {: .label .label-purple }
 

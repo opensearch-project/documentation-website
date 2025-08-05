@@ -1,15 +1,15 @@
 ---
 layout: default
-title: CreateAnomalyDetectorTool
+title: Create Anomaly Detector tool
 has_children: false
 has_toc: false
-nav_order: 70
+nav_order: 22
 parent: Tools
 grand_parent: Agents and tools
 ---
 
 <!-- vale off -->
-# CreateAnomalyDetectorTool
+# Create Anomaly Detector tool
 **Introduced 2.16**
 {: .label .label-purple }
 <!-- vale on -->

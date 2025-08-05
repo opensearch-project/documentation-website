@@ -92,7 +92,7 @@ The Debian package is not signed. If you would like to verify the fingerprint, t
 
 1. Download and import the GPG key.
    ```bash
-   curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | gpg --import -
+   curl -o- https://artifacts.opensearch.org/publickeys/opensearch-release.pgp | gpg --import -
    ```
    {% include copy.html %}
 
@@ -114,13 +114,13 @@ APT, the primary package management tool for Debian–based operating systems, a
 
 1. Import the public GPG key. This key is used to verify that the APT repository is signed.
     ```bash
-    curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-keyring
+    curl -o- https://artifacts.opensearch.org/publickeys/opensearch-release.pgp | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-release-keyring
     ```
     {% include copy.html %}
 
 1. Create an APT repository for OpenSearch:
    ```bash
-   echo "deb [signed-by=/usr/share/keyrings/opensearch-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-2.x.list
+   echo "deb [signed-by=/usr/share/keyrings/opensearch-release-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch/{{major_version_mask}}/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-{{major_version_mask}}.list
    ```
    {% include copy.html %}
 
