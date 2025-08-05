@@ -20,7 +20,7 @@ To open the dashboard, go to **OpenSearch Plugins** > **Workload management** in
 
 The dashboard includes the following pages:
 
-- **Overview**: Monitor overall resource usage.
+- **Overview**: View a cluster-level summary of workload groups, including real-time CPU and memory usage, and identify groups exceeding resource thresholds.
 - **Workload group details**: View stats and settings for individual workload groups.
 - **Create workload group**: Define a new workload group and its rules.
 
@@ -34,7 +34,13 @@ You can:
 
 - Identify how many workload groups are defined and how many are exceeding thresholds.
 - Filter the table by workload group name.
-- View real-time CPU and memory usage for each group using box plots.
+- View real-time CPU and memory usage for each group using box plots. The box plot summarizes usage distribution across all nodes in the cluster and includes:
+  - Min: Minimum usage
+  - Q1: 25th percentile
+  - Median: 50th percentile (middle value)
+  - Q3: 75th percentile
+  - Max: Maximum usage
+  - Limit: The rejection threshold set for the group, shown as a red line
 - Navigate to workload group details or top queries in **Query Insights**.
   - > **Note:** The link is currently unavailable and will be supported starting in OpenSearch Dashboards version 3.3.
 
@@ -44,14 +50,14 @@ Each row in the table shows key metrics for a workload group:
 
 | Column                   | Description                                                                                                                                                            |
 |--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Workload group name**  | Clickable link to view group details.                                                                                                                                  |
+| **Workload group name**  | Link to a detailed, node-level view of the workload group, including real-time metrics and configuration settings.                                                                                                                                  |
 | **CPU usage / Memory usage** | Box plot showing usage distribution across nodes. Threshold shown in red.                                                                                              |
 | **Total completions**    | Total number of completed tasks associated with the workload group. A single query may result in multiple task completions, such as coordinator and shard-level tasks. |
 | **Total rejections**     | Tasks rejected due to resource limits.                                                                                                                                 |
 | **Total cancellations**  | Tasks canceled before completion.                                                                                                                                      |
 | **Top N Queries**        | Link to view most resource-intensive queries in **Query Insights**. *(Coming in version 3.3)*                                                                          |
 
-> **Tip:** Hover over the CPU or memory box plots to view min, Q1, median, Q3, and max values.
+> **Tip:** Hover over the CPU or memory box plots to view exact values for min, Q1, median, Q3, and max.
 
 ![Box Plot Tooltip]({{site.url}}{{site.baseurl}}/images/Workload-Management/BoxplotTooltip.png)
 
