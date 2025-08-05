@@ -16,8 +16,8 @@ This API returns the locks on all the jobs within the Job Scheduler.
 ## Endpoints
 
 ```json
-POST /_example/endpoint/
-POST /_example/endpoint/<path_parameter>
+GET /_plugins/_job_scheduler/api/locks
+GET /_plugins/_job_scheduler/api/<LockID>
 ```
 
 ## Path parameters
@@ -26,36 +26,12 @@ The following table lists the available path parameters. All path parameters are
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `path_parameter` | Type | Example path parameter description. Default is ... |
-
-## Query parameters
-
-The following table lists the available query parameters. All query parameters are optional.
-
-| Parameter |  Data type | Description |
-| :--- | :--- | :--- |
-| `query_parameter` | String | Example query parameter description. Default is ... |
-
-## Request body fields
-
-The following table lists the available request body fields.
-
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `example_object` | Object | Example object description. |
-| `example_object.required_request_field` | Type | Required request field description. Required. |
-| `example_object.optional_request_field` | Type | Optional request field description. Optional. Default is ... |
+| LockID | String | LockID = "index-JobID". Must be delineated by '-'. |
 
 ## Example request
 
 ```json
-POST /_example/endpoint/
-{
-  "example_object": {
-      "required_request_field": "example value",
-      "optional_request_field": "example value"
-  }
-}
+GET /_plugins/_job_scheduler/api/locks
 ```
 {% include copy-curl.html %}
 
@@ -63,10 +39,15 @@ POST /_example/endpoint/
 
 ```json
 {
-  "_nodes" : {
-    "total" : 1,
-    "successful" : 1,
-    "failed" : 0
+  "total_locks": 1,
+  "locks": {
+    ".scheduler_sample_extension-jobid1": {
+      "job_index_name": ".scheduler_sample_extension",
+      "job_id": "jobid1",
+      "lock_time": 1754410412,
+      "lock_duration_seconds": 10,
+      "released": false
+    }
   }
 }
 ```
@@ -77,8 +58,10 @@ The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `response_field` | Type | Response field description. |
-
-## Required permissions
-
-If you use the Security plugin, make sure you have the appropriate permissions: `cluster:example/permission/name`.
+| total_locks | integer | Count of total locks. |
+| locks | map | Contains the lockIDs and corresponding lock information returned by the API. |
+| job_index_name | string | Index where the job is located. |
+| job_id | string | Displays the job ID. |
+| lock_time | epoch second | Time the lock was acquired. |
+| lock_duration_seconds | integer | Maximum lock duration. |
+| released | boolean | Indicates if the lock is currently active. |

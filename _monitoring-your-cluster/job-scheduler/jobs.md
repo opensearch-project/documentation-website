@@ -25,11 +25,7 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter |  Data type | Description |
 | :--- | :--- | :--- |
-| `by_node` | Boolean | ```GET /_plugins/_job_scheduler/api/jobs?by_node ``` Formats the response by returnig the jobs acording to the owning node. Default is false. |
-
-## Request body fields
-
-There are no request body fields.
+| `by_node` | Boolean | ```GET /_plugins/_job_scheduler/api/jobs?by_node ``` Formats the response by returning the jobs according to the owning node. Default is false. |
 
 ## Example request
 
@@ -101,24 +97,24 @@ The following table lists all response body fields.
 | `jobs` | Array | Contains all the jobs reported by the Job Scheduler. |
 | `job_type` | String | Shows the plugin that Scheduled the job. |
 | `job_id` | String | Unique identifier for the job. |
-| `index_name` | String | Identifiest the index where the job information is stored. |
+| `index_name` | String | Identifies the index where the job information is stored. |
 | `name` | String | Name of the job. Not required to be unique. |
 | `descheduled` | Boolean | False if the job is scheduled to be executed. True otherwise. |
-| `enabled` | Boolean | True if the job is scheduled to be executed. Fallse otherwise. |
-| `enabled_time` | String | Shows the time that the job was originaly scheduled. |
+| `enabled` | Boolean | True if the job is scheduled to be executed. False otherwise. |
+| `enabled_time` | String | Shows the time that the job was originally scheduled. |
 | `last_update_time` | String | Time stamp of the last time the job was updated. |
 | `last_execution_time` | String | Time Stamp of actual time of the last execution. |
 | `last_expected_exection_time` | String | Time stamp of expected time of the last execution. |
 | `next_expected_execution_time` | String | Time stamp of next scheduled execution time. |
 | `schedule` | object | Shows the schedule that dictates the execution of the job. There are two types of schedules: Cron and Interval. |
-| `type` | String | Displays the schedule type: Cron or Interval. |
+| `type` | String | Schedule type: Cron or Interval. |
 | `start_time` | String | Time stamp start time associated with the Schedule. Interval schedule type only. |
 | `interval` | Integer | Duration between job executions. Ex. minutes, hours, days. Interval schedule type only. |
-| `unit` | String | Shows interval unit type. Ex. minutes, hours, days. Interval schedule type only. |
-| `delay` | String | Response field description. |
-| `expression` | String | Returns the Cron schedule expression. Cron schedule type only. |
-| `timezone` | String | Time zone associated with the Cron schedule. Cron schedule type only. |
-| `lock_duration` | Integer | Length of the lock during job execution. |
-| `jitter` | Integer | Response field description. |
-| `failures` | Array | Displays nodes that failed to report jobs. |
-| `total_jobs` | Integer | Total number of jobs reported. |
+| `unit` | String | Interval unit type. Ex. minutes, hours, days. Interval schedule type only. |
+| `delay` | string | Fixed offset applied to this specific job execution. |
+| `expression` | string | Cron schedule expression. Cron schedule type only. |
+| `timezone` | string | Time zone associated with the Cron schedule. Cron schedule type only. |
+| `lock_duration` | integer | Length of the lock during job execution. |
+| `jitter` | double | Random delay to job execution times. Helps avoid system overload.|
+| `failures` | array | Displays nodes that failed to report jobs. |
+| `total_jobs` | integer | Total number of jobs reported. |
