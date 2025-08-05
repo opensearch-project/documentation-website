@@ -310,6 +310,33 @@ You should receive the following response:
 { "message": "successfully updated http certs"}
 ```
 
+#### Configuring TLS certificates for gRPC
 
+gRPC supports encryption in transit with only. Trust stores and certificates configured as root CAs in PEM format are used only for the purpose of TLS client auth. Role based access is not available for gRPC endpoints. This feature is a work in progress, please see the associated GitHub issue for updates.
+{: .warning}
 
+TLS may be configured on the optional gRPC transport with `opensearch.yml`. To install and enable the gRPC endpoint see [enabling-the-plugin]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#enabling-the-plugin).
 
+### Pemkey settings (X.509 PEM certificates and PKCS #8 keys)
+
+Name | Description
+:--- | :---
+`plugins.security.ssl.aux.secure-transport-grpc.enabled` | Whether to enable TLS for gRPC. If enabled, only HTTPS is allowed. Optional. Default is `false`.
+`plugins.security.ssl.aux.secure-transport-grpc.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.aux.secure-transport-grpc.pemkey_password` | The key password. Omit this setting if the key has no password. Optional.
+`plugins.security.ssl.aux.secure-transport-grpc.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.aux.secure-transport-grpc.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
+
+### Keystore and trustore
+
+Name | Description
+:--- | :---
+`plugins.security.ssl.aux.secure-transport-grpc.enabled` | Whether to enable TLS for gRPC. If enabled, only HTTPS is allowed. Optional. Default is `false`.
+`plugins.security.ssl.aux.secure-transport-grpc.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
+`plugins.security.ssl.aux.secure-transport-grpc.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.aux.secure-transport-grpc.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
+`plugins.security.ssl.aux.secure-transport-grpc.keystore_password` | The password for the keystore. Default is `changeit`.
+`plugins.security.ssl.aux.secure-transport-grpc.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
+`plugins.security.ssl.aux.secure-transport-grpc.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.aux.secure-transport-grpc.truststore_alias` | The alias name of the truststore. Optional. Default is all certificates.
+`plugins.security.ssl.aux.secure-transport-grpc.truststore_password` | The password for the truststore. Default is `changeit`.
