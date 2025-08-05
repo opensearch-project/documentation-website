@@ -1,6 +1,6 @@
 ---
 layout: default
-title: http
+title: HTTP
 parent: Sources
 grand_parent: Pipelines
 nav_order: 30
@@ -8,7 +8,7 @@ redirect_from:
   - /data-prepper/pipelines/configuration/sources/http-source/
 ---
 
-# http
+# HTTP source
 
 The `http` plugin accepts HTTP requests from clients. The following table describes options you can use to configure the `http` source.
 
@@ -50,7 +50,7 @@ The following cURL command can be used to ingest data:
 ```
 curl "http://localhost:2021/log/ingest" --data '[{"key1": "value1"}, {"key2": "value2"}]'
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Metrics
 
