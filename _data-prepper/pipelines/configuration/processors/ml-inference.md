@@ -8,7 +8,7 @@ nav_order: 210
 
 # ML inference processor
 
-The `ml_inference` processor allows you to use OpenSearch machine learning (ML) functionality within OpenSearch Data Prepper. By integrating ML models into Data Prepper pipelines, you can apply them during data ingestion into Amazon OpenSearch Service in order to power AI-driven search experiences such as vector search, semantic search, or conversational search. To explore OpenSearch AI-powered search types, see [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/).
+The `ml_inference` processor allows you to use OpenSearch machine learning (ML) functionality within OpenSearch Data Prepper. By integrating ML models into Data Prepper pipelines, you can apply them during data ingestion into OpenSearch in order to power AI-driven search experiences such as vector search, semantic search, or conversational search. To explore OpenSearch AI-powered search types, see [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/).
 
 Using the `ml_inference` processor, you can invoke an OpenSearch-hosted ML model within your Data Prepper pipeline in order to process events. The processor supports both real-time invocations and asynchronous (offline) batch job invocations.
 
