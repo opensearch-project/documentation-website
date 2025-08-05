@@ -1,12 +1,12 @@
 ---
 layout: default
-title: opensearch
+title: OpenSearch
 parent: Sources
 grand_parent: Pipelines
 nav_order: 50
 ---
 
-# opensearch
+# OpenSearch source
 
 The `opensearch` source plugin is used to read indexes from an OpenSearch cluster, a legacy Elasticsearch cluster, an Amazon OpenSearch Service domain, or an Amazon OpenSearch Serverless collection.
 

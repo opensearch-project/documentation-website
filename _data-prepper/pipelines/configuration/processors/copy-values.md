@@ -1,12 +1,12 @@
 ---
 layout: default
-title: copy_values 
+title: Copy values 
 parent: Processors
 grand_parent: Pipelines
-nav_order: 48
+nav_order: 60
 ---
 
-# copy_values
+# Copy values processor
 
 The `copy_values` processor copies values within an event and is a [mutate event]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/mutate-event/) processor. 
 
