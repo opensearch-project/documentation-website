@@ -2,7 +2,7 @@
 layout: default
 title: Locks API
 parent: Job Scheduler
-nav_order: 1
+nav_order: 20
 redirect_from:
     - /monitoring-plugins/job-scheduler/api/
 ---
@@ -12,6 +12,7 @@ Introduced 3.2
 {: .label .label-purple }
 
 This API returns the locks on all the jobs within the Job Scheduler.
+In the OpenSearch Job Scheduler, locks are requested through a distributed locking mechanism to ensure only one instance of a job runs at a time across the cluster.
 
 ## Endpoints
 
@@ -26,7 +27,7 @@ The following table lists the available path parameters. All path parameters are
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| LockID | String | LockID = "index-JobID". Must be delineated by '-'. |
+| LockID | String | LockID = "index"-"JobID". Must be delineated by '-'. Example ".scheduler_sample_extension-jobid1" |
 
 ## Example request
 
@@ -58,10 +59,10 @@ The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| total_locks | integer | Count of total locks. |
-| locks | map | Contains the lockIDs and corresponding lock information returned by the API. |
-| job_index_name | string | Index where the job is located. |
-| job_id | string | Displays the job ID. |
-| lock_time | epoch second | Time the lock was acquired. |
-| lock_duration_seconds | integer | Maximum lock duration. |
-| released | boolean | Indicates if the lock is currently active. |
+| total_locks | Integer | Count of total locks. |
+| locks | Map | Contains the lockIDs and corresponding lock information returned by the API. |
+| job_index_name | String | Index where the job is located. |
+| job_id | String | Displays the job ID. |
+| lock_time | EpochSecond | Time the lock was acquired. |
+| lock_duration_seconds | Integer | Maximum lock duration. How long the lock is valid. |
+| released | Boolean | Indicates if the lock is currently active. |
