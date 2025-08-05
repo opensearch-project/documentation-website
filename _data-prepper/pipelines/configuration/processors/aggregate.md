@@ -1,12 +1,12 @@
 ---
 layout: default
-title: aggregate
+title: Aggregate
 parent: Processors
 grand_parent: Pipelines
-nav_order: 41
+nav_order: 20
 ---
 
-# aggregate
+# Aggregate processor
 
 The `aggregate` processor groups events based on the values of `identification_keys`. Then, the processor performs an action on each group, helping reduce unnecessary log volume and creating aggregated logs over time. You can use existing actions or create your own custom aggregations using Java code.
 

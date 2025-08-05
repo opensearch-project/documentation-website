@@ -1,12 +1,12 @@
 ---
 layout: default
-title: user_agent
+title: User agent
 parent: Processors
 grand_parent: Pipelines
-nav_order: 130
+nav_order: 430
 ---
 
-# user_agent
+# User agent processor
 
 The `user_agent` processor parses any user agent (UA) string in an event and then adds the parsing results to the event's write data.
 
