@@ -38,33 +38,29 @@ Transformations:
 
 ### Example transformation
 
-**Source mapping (Elasticsearch with X-Pack):**
+**Source properties (Elasticsearch with X-Pack):**
 ```json
 {
-  "mappings": {
-    "properties": {
-      "labels": {
-        "type": "flattened"
-      },
-      "title": {
-        "type": "text"
-      }
+  "properties": {
+    "labels": {
+      "type": "flattened"
+    },
+    "title": {
+      "type": "text"
     }
   }
 }
 ```
 
-**Target mapping (OpenSearch 2.7+):**
+**Target properties (OpenSearch 2.7+):**
 ```json
 {
-  "mappings": {
-    "properties": {
-      "labels": {
-        "type": "flat_object"
-      },
-      "title": {
-        "type": "text"
-      }
+  "properties": {
+    "labels": {
+      "type": "flat_object"
+    },
+    "title": {
+      "type": "text"
     }
   }
 }

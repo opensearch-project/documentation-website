@@ -74,6 +74,9 @@ The following script demonstrates how to perform common field type conversions, 
 * Converting `flattened` to `flat_object` and removing the `index` property if present.
 
 {: .note }
+For migrations from Elasticsearch 1.x-5.x, the `string` to `text`/`keyword` conversion is handled automatically by the Migration Assistant. See [Field Data Type Deprecation - string]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-string-type-deprecation/) for more details.
+
+{: .note }
 For OpenSearch 2.7+, the `flattened` to `flat_object` conversion is handled automatically by the Migration Assistant. See [Flattened type handling]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-flattened-type/) for more details.
 
 ```javascript
