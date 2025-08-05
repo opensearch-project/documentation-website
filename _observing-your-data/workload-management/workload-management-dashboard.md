@@ -7,179 +7,136 @@ nav_order: 60
 
 # Workload Management dashboards
 
-You can interact with the Workload Management (WLM) feature in OpenSearch Dashboards to monitor and control resource usage across your cluster. The WLM dashboard provides insights into how different workloads impact system performance, allowing you to configure workload groups, set rejection thresholds, and observe real-time statistics.
+Use the **Workload Management (WLM)** dashboard in OpenSearch Dashboards to monitor and control resource usage across your cluster. With WLM, you can:
+
+- View real-time CPU and memory usage by workload group.
+- Identify groups exceeding resource thresholds.
+- Configure workload groups and auto-tagging rules.
+- Set rejection thresholds for resource-based query control.
 
 ## Navigation
 
-After logging in to OpenSearch Dashboards, you can find the **Workload Management** page by navigating to **OpenSearch Plugins** > **Workload management**.
+To open the dashboard, go to **OpenSearch Plugins** > **Workload management** in OpenSearch Dashboards.
 
-The **Workload management dashboard** contains the following pages:
+The dashboard includes the following pages:
 
-- [Overview](#overview): Displays real-time CPU and memory usage across nodes and workload groups.
-- [Workload group details](#workload-group-details): Provides detailed configuration and statistics for individual workload groups.
-- [Create workload group](#create-workload-group): Allows you to define new workload groups and assign auto-tagging rules.
+- **Overview**: Monitor overall resource usage.
+- **Workload group details**: View stats and settings for individual workload groups.
+- **Create workload group**: Define a new workload group and its rules.
 
+---
 
-## Overview
+## Monitor workload usage
 
-The **Overview** page provides a high-level summary of all workload groups in your cluster. It helps you monitor resource consumption and identify groups that may be exceeding defined thresholds.
+Use the **Overview** page to monitor workload resource usage across the cluster.
 
-This page includes the following sections:
+You can:
 
-- **Total workload groups**: Displays the total number of workload groups currently configured.
-- **Total groups exceeding limits**: Shows the number of groups currently exceeding their defined CPU or memory thresholds.
-- **Search bar**: Filter workload groups by name.
-- **Create workload group**: Navigates to the page to define a new workload group.
-- **Refresh button**: Updates statistics to reflect the most recent data.
+- Identify how many workload groups are defined and how many are exceeding thresholds.
+- Filter the table by workload group name.
+- View real-time CPU and memory usage for each group using box plots.
+- Navigate to workload group details or top queries in **Query Insights**.
+  - > **Note:** The link is currently unavailable and will be supported starting in OpenSearch Dashboards version 3.3.
 
-![WLM Overview Interface]({{site.url}}{{site.baseurl}}/images/Workload-Management/Overview.png)
+### Interpreting the table
 
-### Workload group table
+Each row in the table shows key metrics for a workload group:
 
-Below the summary cards, a table lists all workload groups with key metrics:
+| Column                   | Description                                                                                                                                                            |
+|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Workload group name**  | Clickable link to view group details.                                                                                                                                  |
+| **CPU usage / Memory usage** | Box plot showing usage distribution across nodes. Threshold shown in red.                                                                                              |
+| **Total completions**    | Total number of completed tasks associated with the workload group. A single query may result in multiple task completions, such as coordinator and shard-level tasks. |
+| **Total rejections**     | Tasks rejected due to resource limits.                                                                                                                                 |
+| **Total cancellations**  | Tasks canceled before completion.                                                                                                                                      |
+| **Top N Queries**        | Link to view most resource-intensive queries in **Query Insights**. *(Coming in version 3.3)*                                                                          |
 
-| Column                   | Description                                                               |
-|--------------------------|---------------------------------------------------------------------------|
-| **Workload group name**  | Clickable link to view details for each workload group.                   |
-| **CPU usage**            | Current CPU usage percentage for the group, visualized with a box plot.   |
-| **Memory usage**         | Current memory usage percentage, also shown with a box plot.              |
-| **Total completions**    | The number of queries completed within the group.                         |
-| **Total rejections**     | The number of queries rejected due to resource limits.                    |
-| **Total cancellations**  | The number of queries canceled.                                           |
-| **Top N Queries**        | A link to view the top queries for this workload group in Query Insights. |
+> **Tip:** Hover over the CPU or memory box plots to view min, Q1, median, Q3, and max values.
 
-The **CPU usage** and **Memory usage** columns display resource consumption using a box plot, which provides a visual summary of usage across nodes in the cluster. The plot includes:
-
-- **Min**: Minimum usage across all nodes
-- **Q1**: First quartile (25th percentile)
-- **Median**: Middle value of usage
-- **Q3**: Third quartile (75th percentile)
-- **Max**: Maximum usage
-- **Limit**: The rejection threshold for the group (drawn as a red line)
-
-When you hover over the plot, a tooltip appears showing the detailed usage distribution.
 ![Box Plot Tooltip]({{site.url}}{{site.baseurl}}/images/Workload-Management/BoxplotTooltip.png)
 
-You can sort the table by clicking column headers, and control pagination using the navigation arrows and **Rows per page** dropdown.
-
-
-## Workload group details
-
-The **Workload group details** page provides insights into a specific workload group, including real-time usage metrics and configuration settings. You can access this page by selecting the group name from the main **Overview** table.
-
-The details view is divided into two tabs:
-
-- **Resources**: Displays real-time CPU and memory usage across nodes, as well as workload group statistics.
-- **Settings**: Shows the configuration for the group, including its auto-tagging rules and rejection thresholds.
-
-### Summary section
-
-At the top of the page, you’ll find a summary of the workload group:
-
-| Field               | Description                                                                 |
-|---------------------|-----------------------------------------------------------------------------|
-| **Workload group name** | The name of the group.                                                  |
-| **Description**     | Optional explanation of the group’s purpose.                                |
-| **Resiliency mode** | Indicates whether the group operates in `soft` or `enforced` mode.          |
-| **CPU usage limit** | Threshold at which queries may be rejected based on CPU consumption.        |
-| **Memory usage limit** | Threshold at which queries may be rejected based on memory usage.       |
-
 ---
 
-### Resources tab
+## View workload group details
 
-The **Resources** tab displays real-time usage data across nodes for this workload group. The following metrics are shown per node:
+To view statistics and settings for a specific workload group:
 
-| Column        | Description                                                 |
-|---------------|-------------------------------------------------------------|
-| **Node ID**   | The unique identifier of the node.                          |
-| **CPU Usage** | Current CPU consumption for this group on the node.         |
-| **Memory Usage** | Current memory usage for this group on the node.        |
-| **Completions** | Number of queries completed successfully.                |
-| **Rejections**  | Number of queries rejected due to threshold violations.   |
-| **Cancellations** | Number of queries that were cancelled.                 |
+1. From the **Overview** table, select the group name.
 
-You can refresh this data using the **Refresh** button.
+You’ll be taken to the **Workload group details** page, which has two tabs:
 
----
+### 1. **Resources** tab
 
-### Settings tab
+View real-time usage and query stats for the group, broken down by node:
 
-The **Settings** tab allows you to review or update the configuration for the group:
+| Column           | Description                                                                                                                                                                               |
+|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Node ID**      | Unique ID of the node.                                                                                                                                                                    |
+| **CPU Usage**    | Current CPU usage for this group on that node.                                                                                                                                            |
+| **Memory Usage** | Memory usage for this group on that node.                                                                                                                                                 |
+| **Completions**  | Total number of completed tasks associated with the workload group for the given node. A single query may result in multiple task completions, such as coordinator and shard-level tasks. |
+| **Rejections**   | Tasks rejected due to resource limits.                                                                                                                                                    |
+| **Cancellations**| Tasks that were canceled before completing.                                                                                                                                               |
 
-- **Description**: Optional description field.
-> **Note:** The description will only be saved if at least one rule is defined.
-- **Resiliency mode**: Select between `Soft` and `Enforced`.
-  - **Soft**: Queries may exceed thresholds if there are enough node resources.
-  - **Enforced**: Queries are rejected immediately upon passing the defined threshold.
-- **Rules**: Each rule includes an index pattern used for auto-tagging. You can edit the existing pattern or add more using **+ Add another rule**.
+### 2. **Settings** tab
+
+Review or modify the workload group’s configuration:
+
+- **Description**: Optional text to describe the group.
+- **Resiliency mode**:
+  - **Soft**: Queries can exceed thresholds if resources are available.
+  - **Enforced**: Queries are rejected once thresholds are exceeded.
+- **Rules**: Index pattern-based rules for auto-tagging queries. Any query that targets an index whose name starts with one of these patterns will be automatically assigned to this group.
 - **Resource thresholds**:
-  - **Reject queries when CPU usage exceeds**: Set the maximum CPU percentage.
-  - **Reject queries when memory usage exceeds**: Set the maximum memory percentage.
-> **Notes:**
-> - You must specify **at least one** of the two thresholds (CPU or memory).
-> - Once a threshold is set, it **cannot be reset to null** (i.e., removed entirely).
-> - If you initially set a CPU threshold but later want to rely only on a memory limit (or vice versa), you can achieve this by switching the group to **soft** resiliency mode. In soft mode, even if a limit is defined, the system will allow queries to proceed as long as node resources are available.
-> - The **total resource limits across all workload groups** in the cluster must not exceed **100%** for each resource type.
+  - **Reject queries when CPU usage exceeds**: Set a CPU usage limit (%).
+  - **Reject queries when memory usage exceeds**: Set a memory usage limit (%).
 
-Changes can be saved by clicking **Apply Changes**.
+> **Notes:**
+> - At least one threshold (CPU or memory) must be set.
+> - Thresholds cannot be cleared once set. 
+> - If you initially set a CPU threshold but later want to rely only on a memory limit (or vice versa), you can achieve this by switching the group to **soft** resiliency mode. In soft mode, even if a limit is defined, the system will allow queries to proceed as long as node resources are available.
+> - The total across all workload groups must not exceed **100%** for CPU or memory.
+
+Changes take effect after clicking **Apply Changes**.
+
+### Special case: `DEFAULT_WORKLOAD_GROUP`
+
+This group cannot be edited. Its CPU and memory limits are always fixed at 100%. The **Settings** tab will be disabled for this group.
 
 ---
 
-### Special case: DEFAULT_WORKLOAD_GROUP
+## Create a workload group
 
-For the `DEFAULT_WORKLOAD_GROUP`, settings cannot be modified. This group acts as a catch-all and always has the following fixed limits:
+To define a new workload group:
 
-- **CPU usage limit**: `100%`
-- **Memory usage limit**: `100%`
+1. From the **Workload Management** page, click **Create workload group**.
 
-The **Settings** tab will be disabled, and rejection thresholds cannot be adjusted for this group.
+2. In the **Overview** section, enter:
+  - **Name**: A unique and descriptive name.
+  - **Description (Optional)**: Briefly describe the group’s purpose.
+    > **Note:** The description will only be saved if a rule is defined.
+  - **Resiliency mode**:
+    - **Soft**: Queries may exceed limits if resources are available.
+    - **Enforced**: Queries are rejected when usage exceeds the limit.
 
+3. In the **Rules** section:
+  - Add one or more **Index wildcard** patterns to define which queries are auto-tagged to this group.
+  - Any query that targets an index whose name starts with one of these patterns will be automatically assigned to this group.
+  - Separate multiple patterns with commas (e.g., `logs-,metrics-`).
+  - Click **+ Add another rule** to define multiple rules.
+  - Use the trash icon to delete a rule.
 
-## Create workload group
+4. In the **Resource thresholds** section:
+  - **Reject queries when CPU usage exceeds**: Set a CPU usage limit (%).
+  - **Reject queries when memory usage exceeds**: Set a memory usage limit (%).
 
-The **Create workload group** page allows you to define a new workload group to monitor and manage resource usage. You can also configure auto-tagging rules that dynamically assign queries to this group based on index patterns or other attributes. This page is accessible by clicking the **Create workload group** button on the Workload Management Overview page.
+   > **Note:**
+   > - You must configure **at least one** of the two thresholds.
+   > - The **total limits** across all workload groups must not exceed **100%** per resource type.
 
-The interface is divided into the following sections:
-
-### Overview
-
-This section captures basic information about the new workload group:
-
-- **Name**: Enter a unique, descriptive name that is easy to identify.
-- **Description (Optional)**: Optionally describe the purpose or function of the workload group.
-> **Note:** The description will only be saved if at least one rule is defined.
-- **Resiliency mode**: Choose how the system should respond when resource limits are exceeded:
-    - **Soft**: Queries are still allowed to run even if usage exceeds the group's thresholds, as long as there are sufficient node resources available.
-    - **Enforced**: Actively rejects queries when thresholds are exceeded.
-
-### Rules
-
-This section allows you to define **auto-tagging rules**, which determine which queries are automatically associated with the workload group. Each rule supports the following:
-
-- **Index wildcard**: Define the rule using index patterns (e.g., `logs-`, `metrics-`). These patterns determine which queries get auto-tagged into the group. Use commas to separate multiple patterns.
-
-To add more rules, select **+ Add another rule**. You can also remove a rule using the trash icon next to the rule card.
-
-### Resource thresholds
-
-This section defines the rejection criteria for queries tagged to this group:
-
-- **Reject queries when CPU usage exceeds**: Set the CPU usage percentage threshold beyond which queries will be rejected.
-- **Reject queries when memory usage exceeds**: Set the memory usage percentage threshold for query rejection.
-
-> **Note:**
-> - You must configure **at least one** of the two thresholds (CPU or memory).
-> - The **total resource limits across all workload groups** in the cluster must not exceed **100%** for each resource type (CPU or memory). For example, if one group uses a 60% CPU limit, only 40% is available for all other groups combined.
-
-### Actions
-
-At the bottom of the page, the following actions are available:
-
-- **Cancel**: Discards the form and returns to the overview page.
-- **Create workload group**: Submits the form and creates the workload group. This button becomes active once all required fields are completed.
+5. At the bottom of the page:
+  - Click **Create workload group** to save.
+  - Click **Cancel** to return to the previous page without saving.
 
 ![Create Workload Group UI]({{site.url}}{{site.baseurl}}/images/Workload-Management/Create1.png)
 ![Create Workload Group UI]({{site.url}}{{site.baseurl}}/images/Workload-Management/Create2.png)
-
-
