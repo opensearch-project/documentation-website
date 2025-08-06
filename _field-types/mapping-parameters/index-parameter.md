@@ -25,9 +25,9 @@ The following table illustrates the field behavior depending on the combination 
 | `index` parameter value | `doc_values` parameter value | Behavior       | Use case       
 | :--       | :--               | :--            | :--            |
 | `true`   | `true`          | The field is searchable and supports sorting, scripting, and aggregations.    | Use for any field you want to query directly and perform complex operations on.          |
-| `true`   | `false`          | The field is searchable but does not support document to term lookup (thus, sorting, scripting, and aggregations take longer). |  Use for fields you want to query but don’t need for sorting or aggregations, such as `text` fields.          |
+| `true`   | `false`          | The field is searchable but does not support document-to-term lookup (thus, sorting, scripting, and aggregations take longer). |  Use for fields you want to query but don't need for sorting or aggregations, such as `text` fields.          |
 | `false`   | `true`         | The field is searchable (although not as efficiently) and supports sorting, scripting, and aggregations. Note that not all field types support `doc_values` (for example, `text` fields do not support `doc_values`).     | Use for fields that you want to aggregate on but not filter or query.          |
-| `false`  | `false`          | The field is not searchable. Queries that attempt searching the field return an error.    | Use for fields on which you do not want to perform any operations, such as metadata fields.          |
+| `false`  | `false`          | The field is not searchable. Queries that attempt to search the field return an error.    | Use for fields on which you do not want to perform any operations, such as metadata fields.          |
 
 ## Supported data types
 
@@ -42,7 +42,7 @@ The `index` mapping parameter can be applied to the following data types:
 
 ## Enabling indexing on a field
 
-The following request creates an index named `products` with a `description` and `name` fields that are indexed (the default behavior):
+The following request creates an index named `products` with `description` and `name` fields that are indexed (the default behavior):
 
 ```json
 PUT /products
@@ -199,9 +199,9 @@ The following error response indicates that the search query failed because the 
 }
 ```
 
-For `text` fields, setting the `index` parameter to `false` disables searching on the field because `text` fields do not support `doc_values`. To make other fields not searchable, you must additionally set `doc_values` to  `false`.  
+For `text` fields, setting the `index` parameter to `false` disables search on the field because `text` fields do not support `doc_values`. To make other fields not searchable, you must additionally set `doc_values` to `false`.  
 
-Query the `products-no-index` using the `name` field:
+Query `products-no-index` using the `name` field:
 
 ```json
 POST /products-no-index/_search
