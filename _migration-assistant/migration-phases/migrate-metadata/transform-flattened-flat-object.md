@@ -7,7 +7,7 @@ grand_parent: Migration phases
 permalink: /migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/
 ---
 
-# Transform flattened to flat_object
+# Transform flattened to flat_object fields
 
 This guide explains how the Migration Assistant automatically transforms the `flattened` field type during migration to OpenSearch.
 
@@ -17,7 +17,7 @@ The `flattened` field type was introduced in Elasticsearch 7.3 as an X-Pack feat
 
 When migrating to OpenSearch 2.7 or later, the Migration Assistant automatically converts `flattened` field types to OpenSearch's equivalent `flat_object` type. This transformation requires no configuration or user intervention.
 
-To determine if an Elasticsearch cluster uses `flattened` field types, make a call to your source cluster's `GET /_mapping` api. On the Migration Console, this can with the command `console clusters curl source_cluster "/_mapping"`  If you see `"type":"flattened"`, then this transformation is applicable and these fields will be automatically transformed during migration.
+To determine if an Elasticsearch cluster uses `flattened` field types, make a call to your source cluster's `GET /_mapping` api. On the Migration Console, run `console clusters curl source_cluster "/_mapping"`.  If you see `"type":"flattened"`, then this transformation is applicable and these fields will be automatically transformed during migration.
 
 ## Compatibility
 
@@ -83,7 +83,7 @@ If you're migrating to OpenSearch versions before 2.7, indexes containing `flatt
 
 1. **Upgrade target cluster**: Upgrade your target OpenSearch cluster to version 2.7 or later to support the automatic conversion.
 
-2. **Custom transformation**: Use the [field type transformation framework]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) to convert `flattened` to another supported type (e.g. `object` or `nested`)
+2. **Custom transformation**: Use the [field type transformation framework]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) to convert `flattened` to another supported type (for example, `object` or `nested`).
 
 ## Differences between flattened and flat_object
 

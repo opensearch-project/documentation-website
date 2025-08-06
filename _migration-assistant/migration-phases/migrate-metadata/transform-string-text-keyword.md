@@ -7,9 +7,8 @@ grand_parent: Migration phases
 permalink: /migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/
 ---
 
-# Transform string to text/keyword
+# Transform string to text/keyword fields
 
-Convert field data type string to text/keyword based on field data mappings.
 
 This guide explains how the Migration Assistant automatically handles the deprecated `string` field type during migration from older Elasticsearch versions.
 
@@ -19,7 +18,7 @@ The `string` field type was the primary text field type in early versions of Ela
 
 When migrating from Elasticsearch 1.x through 5.x to newer versions, the Migration Assistant automatically converts `string` field types to their modern equivalents: `text` for analyzed fields and `keyword` for non-analyzed fields.
 
-To determine if an Elasticsearch cluster uses `string` field types, make a call to your source cluster's `GET /_mapping` api. On the Migration Console, this can with the command `console clusters curl source_cluster "/_mapping"`  If you see `"type":"string"`, then this transformation is applicable and these fields will be automatically transformed during migration.
+To determine if an Elasticsearch cluster uses `string` field types, make a call to your source cluster's `GET /_mapping` api. On the Migration Console, run `console clusters curl source_cluster "/_mapping"`.  If you see `"type":"string"`, then this transformation is applicable and these fields will be automatically transformed during migration.
 
 ## Compatibility
 
@@ -30,7 +29,7 @@ The `string` to `text`/`keyword` field type transformation applies to:
 
 ## Automatic conversion logic
 
-The Migration Assistant determines whether to convert a `string` field to `text` or `keyword` based on the field's `index` property:
+The Migration Assistant determines whether to convert a `string` field to `text` or `keyword` based on the field's `index` property.
 
 ### Conversion to `keyword`
 Fields are converted to `keyword` when:
@@ -162,8 +161,8 @@ If your source cluster already contains a mix of `string`, `text`, and `keyword`
 
 After migration, be aware of these key differences:
 
-- **Term queries**: Work differently on `text` (analyzed) and `keyword` (exact match) fields
-- **Aggregations**: `text` fields cannot be used for aggregations unless `fielddata` is enabled; `keyword` fields are aggregation-ready
+- **Term queries**: Work differently on `text` (analyzed) and `keyword` (exact match) fields.
+- **Aggregations**: `text` fields cannot be used for aggregations unless `fielddata` is enabled; `keyword` fields are aggregation-ready.
 - **Sorting**: `text` fields cannot be used for sorting by default; `keyword` fields support sorting.
 - **Case sensitivity**: `keyword` fields are case-sensitive; `text` fields depend on the analyzer.
 
