@@ -57,7 +57,7 @@ Transformations:
       Convert field data type dense_vector to OpenSearch knn_vector
 ```
 
-## Transformation Behavior
+## Transformation behavior
 
 <table style="border-collapse: collapse; border: 1px solid #ddd;">
   <thead>

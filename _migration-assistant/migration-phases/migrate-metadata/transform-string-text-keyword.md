@@ -71,7 +71,7 @@ Transformations:
       Convert field type string to text/keyword based on field data mappings
 ```
 
-## Transformation Behavior
+## Transformation behavior
 
 <table style="border-collapse: collapse; border: 1px solid #ddd;">
   <thead>
@@ -154,14 +154,14 @@ The Migration Assistant automatically converts all `string` fields during metada
 
 ### Mixed field types
 
-If your source cluster already contains a mix of `string`, `text`, and `keyword` fields (common in Elasticsearch 5.x with restored Elasticsearch 2.x indices), only the `string` fields will be converted. Existing `text` and `keyword` fields remain unchanged.
+If your source cluster already contains a mix of `string`, `text`, and `keyword` fields (common in Elasticsearch 5.x with restored Elasticsearch 2.x indexes), only the `string` fields will be converted. Existing `text` and `keyword` fields remain unchanged.
 
 ### Query and aggregation impacts
 
 After migration, be aware of these key differences:
 
-- **Term queries**: Work differently on `text` (analyzed) vs `keyword` (exact match) fields
-- **Aggregations**: `text` fields cannot be used for aggregations unless fielddata is enabled; `keyword` fields are aggregation-ready
+- **Term queries**: Work differently on `text` (analyzed) and `keyword` (exact match) fields
+- **Aggregations**: `text` fields cannot be used for aggregations unless `fielddata` is enabled; `keyword` fields are aggregation-ready
 - **Sorting**: `text` fields cannot be used for sorting by default; `keyword` fields support sorting
 - **Case sensitivity**: `keyword` fields are case-sensitive; `text` fields depend on the analyzer
 

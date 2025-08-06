@@ -74,21 +74,15 @@ Transformations:
   </tbody>
 </table>
 
-## Migration scenarios
-
-### Migrating to OpenSearch 2.7+
+## Transformation behavior across versions
 
 The Migration Assistant automatically converts all `flattened` fields to `flat_object`. No additional configuration is required.
-
-### Migrating to OpenSearch versions before 2.7
 
 If you're migrating to OpenSearch versions before 2.7, indexes containing `flattened` field types will fail to migrate. You have several options:
 
 1. **Upgrade target cluster**: Upgrade your target OpenSearch cluster to version 2.7 or later to support the automatic conversion.
 
-2. **Manual transformation**: Before migration, manually update your mappings to use a different field type such as `object` or `nested`.
-
-3. **Custom transformation**: Use the [field type transformation framework]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) to convert `flattened` to another supported type.
+2. **Custom transformation**: Use the [field type transformation framework]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) to convert `flattened` to another supported type (e.g. `object` or `nested`)
 
 ## Differences between flattened and flat_object
 
