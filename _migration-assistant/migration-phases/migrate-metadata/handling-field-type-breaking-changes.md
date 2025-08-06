@@ -7,6 +7,7 @@ grand_parent: Migration phases
 permalink: /migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/
 redirect_from:
   - /migration-assistant/migration-phases/assessment/handling-field-type-breaking-changes/
+  - /migration-assistant/migration-phases/planning-your-migration/handling-field-type-breaking-changes/
 ---
 
 # Transform field types

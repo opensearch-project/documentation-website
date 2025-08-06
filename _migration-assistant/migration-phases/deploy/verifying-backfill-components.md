@@ -7,6 +7,7 @@ parent: Deploy
 permalink: /migration-assistant/migration-phases/deploy/verifying-backfill-components/
 redirect_from:
   - /migration-assistant/migration-phases/verifying-migration-tools/verifying-backfill-components/
+  - /migration-assistant/migration-phases/planning-your-migration/verifying-migration-tools/
 ---
 
 # Verifying backfill components

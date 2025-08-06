@@ -10,6 +10,8 @@ permalink: /migration-assistant/migration-phases/
 redirect_from:
   - /migration-assistant/overview/migration-phases/
   - /migration-phases/
+  - /migration-assistant/migration-phases/planning-your-migration/index/
+  - /migration-assistant/migration-phases/live-traffic-migration/index/
 ---
 
 # Migration phases
