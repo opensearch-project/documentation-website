@@ -165,7 +165,7 @@ After migration, be aware of these key differences:
 - **Term queries**: Work differently on `text` (analyzed) and `keyword` (exact match) fields
 - **Aggregations**: `text` fields cannot be used for aggregations unless `fielddata` is enabled; `keyword` fields are aggregation-ready
 - **Sorting**: `text` fields cannot be used for sorting by default; `keyword` fields support sorting
-- **Case sensitivity**: `keyword` fields are case-sensitive; `text` fields depend on the analyzer
+- **Case sensitivity**: `keyword` fields are case-sensitive; `text` fields depend on the analyzer.
 
 ### Application compatibility
 
