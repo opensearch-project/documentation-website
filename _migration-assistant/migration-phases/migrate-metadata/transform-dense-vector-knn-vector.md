@@ -19,6 +19,8 @@ The `dense_vector` field type was introduced in Elasticsearch 7.x for storing de
 
 This transformation includes mapping the vector configuration parameters and enabling the necessary OpenSearch k-NN plugin settings.
 
+To determine if an Elasticsearch cluster uses `dense_vector` field types, make a call to your source cluster's `GET /_mapping` api. On the Migration Console, this can with the command `console clusters curl source_cluster "/_mapping"`  If you see `"type":"dense_vector"`, then this transformation is applicable and these fields will be automatically transformed during migration.
+
 ## Compatibility
 
 The `dense_vector` to `knn_vector` transformation applies to:

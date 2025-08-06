@@ -19,6 +19,8 @@ The `string` field type was the primary text field type in early versions of Ela
 
 When migrating from Elasticsearch 1.x through 5.x to newer versions, the Migration Assistant automatically converts `string` field types to their modern equivalents: `text` for analyzed fields and `keyword` for non-analyzed fields.
 
+To determine if an Elasticsearch cluster uses `string` field types, make a call to your source cluster's `GET /_mapping` api. On the Migration Console, this can with the command `console clusters curl source_cluster "/_mapping"`  If you see `"type":"string"`, then this transformation is applicable and these fields will be automatically transformed during migration.
+
 ## Compatibility
 
 The `string` to `text`/`keyword` field type transformation applies to:

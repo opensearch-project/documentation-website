@@ -17,6 +17,7 @@ The `flattened` field type was introduced in Elasticsearch 7.3 as an X-Pack feat
 
 When migrating to OpenSearch 2.7 or later, the Migration Assistant automatically converts `flattened` field types to OpenSearch's equivalent `flat_object` type. This transformation requires no configuration or user intervention.
 
+To determine if an Elasticsearch cluster uses `flattened` field types, make a call to your source cluster's `GET /_mapping` api. On the Migration Console, this can with the command `console clusters curl source_cluster "/_mapping"`  If you see `"type":"flattened"`, then this transformation is applicable and these fields will be automatically transformed during migration.
 
 ## Compatibility
 
