@@ -5,6 +5,8 @@ nav_order: 8
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/remove-migration-infrastructure/
+redirect_from:
+  - /migration-assistant/migration-phases/removing-migration-infrastructure/
 ---
 
 # Removing migration infrastructure
