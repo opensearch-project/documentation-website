@@ -7,6 +7,8 @@ grand_parent: Migration Assistant for OpenSearch
 has_children: false
 has_toc: false
 permalink: /migration-assistant/migration-phases/assessment/
+redirect_from:
+  - /migration-assistant/migration-phases/planning-your-migration/assessing-your-cluster-for-migration/
 ---
 
 # Assessment
