@@ -10,6 +10,7 @@ permalink: /migration-assistant/migration-phases/migrate-metadata/
 redirect_from:
   - /migration-assistant/migration-phases/migrating-metadata/
   - /migration-phases/migrating-metadata/
+  - /migration-assistant/deploying-migration-assistant/getting-started-data-migration/
 ---
 
 # Migrate metadata

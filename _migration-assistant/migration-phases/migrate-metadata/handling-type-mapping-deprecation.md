@@ -7,6 +7,7 @@ grand_parent: Migration phases
 permalink: /migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/
 redirect_from:
   - /migration-assistant/migration-phases/assessment/handling-type-mapping-deprecation/
+  - /migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/
 ---
 
 # Transform type mappings

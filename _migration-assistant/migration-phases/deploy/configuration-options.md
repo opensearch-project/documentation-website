@@ -8,6 +8,7 @@ permalink: /migration-assistant/migration-phases/deploy/configuration-options/
 redirect_from:
   - /migration-assistant/migration-phases/deploying-migration-assistant/configuration-options/
   - /deploying-migration-assistant/configuration-options/
+  - /migration-assistant/deploying-migration-assistant/configuration-options/
 ---
 
 # Configuration options
