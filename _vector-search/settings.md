@@ -16,7 +16,7 @@ The following table lists all available cluster-level vector search settings. Fo
 
 Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
-1 (4 on systems with 32+ CPU cores)` | The number of threads used for native library and Lucene library (for OpenSearch version 2.19 and later) index creation. The default is 1 for systems with fewer than 32 CPU cores, and 4 for systems with 32 or more cores. Keeping this value low reduces the CPU impact of the k-NN plugin but also reduces indexing performance.
+`knn.algo_param.index_thread_qty` | Dynamic |  `1` for systems with fewer than 32 CPU cores, `4` for systems with 32 or more cores | The number of threads used for native library and Lucene library (for OpenSearch version 2.19 and later) index creation. Keeping this value low reduces the CPU impact of the k-NN plugin but also reduces indexing performance.
 `knn.cache.item.expiry.enabled` | Dynamic | `false` | Whether to remove native library indexes from memory that have not been accessed in a specified period of time.
 `knn.cache.item.expiry.minutes` | Dynamic | `3h` | If enabled, the amount of idle time before a native library index is removed from memory.
 `knn.circuit_breaker.unset.percentage` | Dynamic | `75` | The native memory usage threshold for the circuit breaker. Memory usage must be lower than this percentage of `knn.memory.circuit_breaker.limit` in order for `knn.circuit_breaker.triggered` to remain `false`.
