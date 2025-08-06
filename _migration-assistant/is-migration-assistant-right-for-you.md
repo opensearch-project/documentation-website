@@ -165,7 +165,6 @@ To use `Reindex-from-Snapshot` (RFS), ensure the following:
   - `compress: false` – Disables metadata compression, which is required for compatibility with RFS.
 - Shards of up to **80 GiB** are supported by default. Larger shard sizes can be configured, **except in AWS GovCloud (US)**, where 80 GiB is the maximum.
 - In OpenSearch 2.9 and later, snapshots of indexes that use the zstd or zstd_no_dict codecs are not supported. If you need to migrate these indexes using `Reindex-from-Snapshot`, you must first reindex them on the source cluster using either `default` or `best_compression` before creating a new snapshot for use with RFS.
-- Default index setting `BloomFilter` on Elasticsearch 8.x or greater is not supported.
 
 ### Capture and Replay
 
