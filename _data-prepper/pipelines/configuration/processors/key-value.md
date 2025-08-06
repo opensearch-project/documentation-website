@@ -1,12 +1,12 @@
 ---
 layout: default
-title: key_value
+title: Key-value
 parent: Processors
 grand_parent: Pipelines
-nav_order: 56
+nav_order: 170
 ---
 
-# key_value
+# Key-value processor
 
 
 You can use the `key_value` processor to parse the specified field into key-value pairs. You can customize the `key_value` processor to parse field information with the following options. The type for each of the following options is `string`.

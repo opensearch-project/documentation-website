@@ -1,8 +1,14 @@
 ---
 layout: default
 title: Configuration options
-nav_order: 15
-parent: Deploying Migration Assistant
+nav_order: 1
+grand_parent: Migration phases
+parent: Deploy
+permalink: /migration-assistant/migration-phases/deploy/configuration-options/
+redirect_from:
+  - /migration-assistant/migration-phases/deploying-migration-assistant/configuration-options/
+  - /deploying-migration-assistant/configuration-options/
+  - /migration-assistant/deploying-migration-assistant/configuration-options/
 ---
 
 # Configuration options
@@ -11,7 +17,7 @@ This page outlines the configuration options for three key migrations scenarios:
 
 1. **Metadata migration**
 2. **Backfill migration with `Reindex-from-Snapshot` (RFS)**
-3. **Live capture migration with Capture and Replay (C&R)**
+3. **Live capture migration with  Capture and Replay  (C&R)**
 
 Each of these migrations depends on either a snapshot or a capture proxy. The following example `cdk.context.json` configurations are used by AWS Cloud Development Kit (AWS CDK) to deploy and configure Migration Assistant for OpenSearch, shown as separate blocks for each migration type. If you are performing a migration applicable to multiple scenarios, these options can be combined.
 

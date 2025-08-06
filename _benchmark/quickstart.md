@@ -12,7 +12,7 @@ This tutorial outlines how to quickly install OpenSearch Benchmark and run your 
 
 To perform the Quickstart steps, you'll need to fulfill the following prerequisites:
 
-- A currently active OpenSearch cluster. For instructions on how to create an OpenSearch cluster, see [Creating a cluster]({{site.url}}{{site.baseurl}}//tuning-your-cluster/index/).
+- A currently active OpenSearch cluster. For instructions on how to create an OpenSearch cluster, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index/).
 - Git 2.3 or greater.
 - Python 3.8 or later
 

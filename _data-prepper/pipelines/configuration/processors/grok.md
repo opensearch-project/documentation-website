@@ -1,12 +1,12 @@
 ---
 layout: default
-title: grok
+title: Grok
 parent: Processors
 grand_parent: Pipelines
-nav_order: 50
+nav_order: 160
 ---
 
-# Grok
+# Grok processor
 
 The Grok processor uses pattern matching to structure and extract important keys from unstructured data.
 

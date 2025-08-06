@@ -1,12 +1,19 @@
 ---
 layout: default
-title: Managing type mapping deprecation
-nav_order: 60
-parent: Planning your migration
+title: Transform type mappings
+nav_order: 1
+parent: Migrate metadata
 grand_parent: Migration phases
+permalink: /migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/
+redirect_from:
+  - /migration-assistant/migration-phases/assessment/handling-type-mapping-deprecation/
+  - /migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/
 ---
 
-# Managing type mapping deprecation
+# Transform type mappings
+
+{: .note }
+These transformations may not apply to your use case, but the framework for creating a transformation is designed to handle mutations, data enrichments, and other modifications when modifying workloads or moving them to a new target.
 
 This guide provides solutions for managing the deprecation of the type mapping functionality when migrating from Elasticsearch 6.x or earlier to OpenSearch.
 
@@ -15,7 +22,7 @@ In versions of Elasticsearch prior to 6.x, an index could contain multiple types
 Newer versions of Elasticsearch and OpenSearch no longer support multiple mapping types. Each index now supports only a single mapping type. During migration, you must define how to transform or restructure data that used multiple types. The following example shows multiple mapping types:
 
 
-```JSON
+```json
 GET /library/_mappings
 {
   "library": {
@@ -75,10 +82,10 @@ The type mapping transformer uses the following configuration options.
 
 The following example JSON configuration provides a transformation schema:
 
-<details>
+<details markdown="block">
 <summary>Example JSON Configuration</summary>
 
-```JSON
+```json
 {
   "TypeMappingSanitizationTransformerProvider": {
     "staticMappings": {
@@ -134,8 +141,8 @@ If you have an index `activity` with types `user` and `post` that you want to sp
     }
   }
 ]
-{% include copy.html %}
 ```
+{% include copy.html %}
 
 This transformer will perform the following:
 
@@ -199,7 +206,7 @@ This configuration only migrates documents of type `user` and ignores other docu
 
 To migrate only specific types and keep the original structure, use the following configuration:
 
-```JSON
+```json
 [
   {
     "TypeMappingSanitizationTransformerProvider": {
@@ -276,7 +283,7 @@ The following example demonstrates how to combine static and regex-based mapping
 
 When the `regexMappings` key is missing from the transformation configuration, `regexMappings` will default to the following:
 
-```JSON
+```json
 {
   "regexMappings": [
     {
@@ -299,7 +306,7 @@ This has the effect of retaining the index name for indexes created in Elasticse
 ## Limitations
 
 When using the transformer, remember the following limitations.
-When using the transformer, remember the following limitations.
+
 ### Traffic Replayer
 
 For the Traffic Replayer, **only a subset** of requests that include types is supported. These requests are listed in the following table.
@@ -314,5 +321,6 @@ For the Traffic Replayer, **only a subset** of requests that include types is su
 | **Bulk Index/Update/Delete** | PUT/POST           | `/{index}/{type}/_bulk` | Perform multiple create/update/delete operations in a single request with default index and type assignment.                                                                                                                                        |
 | **Create/Update Index**      | PUT/POST           | `/{index}`              | Create or update an index. <br/><br/> **Split** behavior is not supported in the Traffic Replayer. See [this GitHub issue](https://github.com/opensearch-project/opensearch-migrations/issues/1305) to provide feedback or to vote on this feature. |
 
-### Reindex-From_Shapshot
+### Reindex-From-Shapshot
+
 For `Reindex-From-Snapshot,` indexes created in Elasticsearch 6.x or later will use `_doc` as the type for all documents, even if a different type was specified in Elasticsearch 6.

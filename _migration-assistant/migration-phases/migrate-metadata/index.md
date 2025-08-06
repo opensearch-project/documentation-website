@@ -1,55 +1,25 @@
 ---
 layout: default
-title: Migrating metadata
-nav_order: 85
+title: Migrate metadata
+nav_order: 5
 parent: Migration phases
+grand_parent: Migration Assistant for OpenSearch
+has_children: true
+has_toc: false
+permalink: /migration-assistant/migration-phases/migrate-metadata/
+redirect_from:
+  - /migration-assistant/migration-phases/migrating-metadata/
+  - /migration-phases/migrating-metadata/
+  - /migration-assistant/deploying-migration-assistant/getting-started-data-migration/
 ---
 
-# Migrating metadata
+# Migrate metadata
 
 Metadata migration involves creating a snapshot of your cluster and then migrating the metadata from the snapshot using the migration console.
 
 This tool gathers information from a source cluster through a snapshot or through HTTP requests against the source cluster. These snapshots are fully compatible with the backfill process for `Reindex-From-Snapshot` (RFS) scenarios.
 
 After collecting information on the source cluster, comparisons are made against the target cluster. If running a migration, any metadata items that do not already exist will be created on the target cluster.
-
-## Creating the snapshot
-
-Creating a snapshot of the source cluster captures all the metadata and documents to be migrated to a new target cluster.
-
-Create the initial snapshot of the source cluster using the following command:
-
-```shell
-console snapshot create
-```
-{% include copy.html %}
-
-To check the progress of the snapshot in real time, use the following command:
-
-```shell
-console snapshot status --deep-check
-```
-{% include copy.html %}
-
-You should receive the following response when the snapshot is created:
-
-```shell
-SUCCESS
-Snapshot is SUCCESS.
-Percent completed: 100.00%
-Data GiB done: 29.211/29.211
-Total shards: 40
-Successful shards: 40
-Failed shards: 0
-Start time: 2024-07-22 18:21:42
-Duration: 0h 13m 4s
-Anticipated duration remaining: 0h 0m 0s
-Throughput: 38.13 MiB/sec
-```
-
-### Managing slow snapshot speeds
-
-Depending on the size of the data in the source cluster and the bandwidth allocated for snapshots, the process can take some time. Adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic. 
 
 ## Command arguments
 
@@ -170,7 +140,7 @@ Results:
 
 ## Metadata verification process
 
-Before moving on to additional migration steps, it is recommended to confirm details of your cluster.  Depending on your configuration, this could be checking the sharding strategy or making sure index mappings are correctly defined by ingesting a test document.
+Before moving on to additional migration steps, we recommend confirming details of your cluster.  Depending on your configuration, this could be checking the sharding strategy or making sure index mappings are correctly defined by ingesting a test document.
 
 ## Troubleshooting
 
