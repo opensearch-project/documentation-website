@@ -131,6 +131,13 @@ The logic used by your job should be defined by a class extended from `Scheduled
 
 For more information, see the Job Scheduler [sample extension](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) directory in the [Job Scheduler GitHub repo](https://github.com/opensearch-project/job-scheduler).
 
+## Job Scheduler APIs
+
+The Job Scheduler plugin supports the following APIs to monitor the jobs running on the cluster:
+
+- [Jobs API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/jobs/)
+- [Locks API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/locks/)
+
 ## Job Scheduler cluster settings
 
 The Job Scheduler plugin supports the following cluster settings. All settings are dynamic. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
@@ -143,10 +150,3 @@ The Job Scheduler plugin supports the following cluster settings. All settings a
 | `plugins.jobscheduler.sweeper.backoff_millis` | Time unit | Used to define the initial wait period of an exponential backoff policy, in milliseconds. Backoff policies determine how long bulk processors will wait before the bulk operation is retried. It is used whenever bulk indexing requests are impacted or rejected because of resource constraints at the time of a request. For the Job Scheduler plugin, this impacts searching registered job indexes. |
 | `plugins.jobscheduler.sweeper.page_size` | Integer | Configures the search request used to find job documents within a registered job index. Defines the number of search hits to return. |
 | `plugins.jobscheduler.sweeper.period` | Time unit | Defines the initial delay period before a background sweep is executed. |
-
-## Job Scheduler APIs
-
-The Job Scheduler plugin REST API allows you to monitor and see all the jobs running on the cluster.
-
-- [Jobs API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/jobs/)
-- [Locks API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/locks/)
