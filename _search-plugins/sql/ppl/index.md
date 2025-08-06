@@ -54,5 +54,5 @@ Developers can find information in the following resources:
 - [Piped Processing Language](https://github.com/opensearch-project/piped-processing-language) specification
 - [OpenSearch PPL Reference Manual](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/index.rst)
 - [Observability](https://github.com/opensearch-project/dashboards-observability/) using [PPL-based visualizations](https://github.com/opensearch-project/dashboards-observability#event-analytics)
-- PPL [Data Types](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/general/datatypes.rst)
+- PPL [Data types](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/general/datatypes.rst)
 - [Cross-cluster search](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/cross_cluster_search.rst#using-cross-cluster-search-in-ppl) in PPL

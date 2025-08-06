@@ -32,7 +32,7 @@ assistant.alertInsight.enabled: true
 
 ### Step 2: Create the agents
 
-To orchestrate alert insights, you'll need to create the necessary [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents). Create a workflow template for creating all necessary agents by sending the following request:
+To orchestrate alert insights, you'll need to create the necessary [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). Create a workflow template for creating all necessary agents by sending the following request:
 
 <details markdown="block">
   <summary>

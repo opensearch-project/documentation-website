@@ -36,7 +36,7 @@ queryEnhancements.queryAssist.summary.enabled: true
 
 ### Step 2: Create a data summary agent
 
-To orchestrate data summarization, create a data summary [agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#agents). To create an agent, send a `POST /_plugins/_flow_framework/workflow?provision=true` request and provide the agent template as a payload:
+To orchestrate data summarization, create a data summary [agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). To create an agent, send a `POST /_plugins/_flow_framework/workflow?provision=true` request and provide the agent template as a payload:
 
 <details markdown="block">
   <summary>

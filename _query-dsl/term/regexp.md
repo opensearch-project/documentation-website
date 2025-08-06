@@ -2,12 +2,12 @@
 layout: default
 title: Regexp
 parent: Term-level queries
-nav_order: 60
+nav_order: 100
 ---
 
 # Regexp query
 
-Use the `regexp` query to search for terms that match a regular expression.
+Use the `regexp` query to search for terms that match a regular expression. For more information about writing regular expressions, see [Regular expression syntax]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/).
 
 The following query searches for any term that starts with any uppercase or lowercase letter followed by `amlet`:
 
@@ -58,7 +58,7 @@ Parameter | Data type | Description
 `value` | String | The regular expression used for matching terms in the field specified in `<field>`.
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
 `case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the regular expression value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).
-`flags` | String | Enables optional operators for Lucene’s regular expression engine.
+`flags` | String | Enables optional operators for Lucene's regular expression engine. For valid values, see [Optional operators]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/#optional-operators).
 `max_determinized_states` | Integer | Lucene converts a regular expression to an automaton with a number of determinized states. This parameter specifies the maximum number of automaton states the query requires. Use this parameter to prevent high resource consumption. To run complex regular expressions, you may need to increase the value of this parameter. Default is 10,000.
 `rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
 

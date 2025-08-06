@@ -1,11 +1,11 @@
 ---
 layout: default
 title: Get task
-parent: Tasks API
+parent: Tasks APIs
 nav_order: 20
 ---
 
-# Get task
+# Get Task API
 **Introduced 1.0**
 {: .label .label-purple }
 

@@ -27,7 +27,7 @@ The following is the syntax for the `kv` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

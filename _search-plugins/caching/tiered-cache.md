@@ -16,7 +16,7 @@ OpenSearch provides an implementation of a `_tiered` spillover `cache_`. This im
 
 ## Installing required plugins
 
-To use tiered caching, install a tiered cache plugin. As of OpenSearch 2.13, the only available cache plugin is the `cache-ehcache` plugin. This plugin provides a disk cache implementation that can be used as a disk tier within a tiered cache. For more information about installing non-bundled plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#additional-plugins).
+To use tiered caching, install the `cache-ehcache` plugin. This plugin provides a disk cache implementation that can be used as a disk tier within a tiered cache. For more information about installing non-bundled plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#additional-plugins).
 
 A tiered cache will fail to initialize if the `cache-ehcache` plugin is not installed or if disk cache properties are not set. 
 {: .warning}
@@ -67,6 +67,8 @@ Setting | Data type | Default | Description
 `indices.requests.cache.ehcache_disk.alias` | String | `ehcacheDiskCache#INDICES_REQUEST_CACHE` | Specifies an alias for the disk cache. Optional.
 `indices.requests.cache.ehcache_disk.segments` | Integer | `16` | Defines the number of segments into which the disk cache is separated. Used for concurrency. Optional.
 `indices.requests.cache.ehcache_disk.concurrency` | Integer | `1` | Defines the number of distinct write queues created for the disk store, where a group of segments shares a write queue. Optional.
+`indices.requests.cache.ehcache_disk.min_threads` | Integer | `2`  | Defines the minimum number of ehcache disk threads for the pool. Optional.
+`indices.requests.cache.ehcache_disk.max_threads` | Integer | The number of CPU cores  | Defines the maximum number of ehcache disk threads for the pool. The maximum allowed value is `10 * num_cpu_cores`. Disk operations are typically I/O bound rather than CPU bound, so you can set this value to a number greater than the number of CPU cores. Optional.
 
 ### Additional settings for the `tiered_spillover` store
 

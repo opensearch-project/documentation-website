@@ -1,13 +1,13 @@
 ---
 layout: default
-title: dissect
+title: Dissect
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 120
 ---
 
-# dissect
-
+# Dissect processor
+ 
 The `dissect` processor extracts values from an event and maps them to individual fields based on user-defined `dissect` patterns. The processor is well suited for field extraction from log messages with a known structure. 
 
 ## Basic usage
@@ -57,6 +57,7 @@ You can configure the `dissect` processor with the following options.
 | :--- | :--- | :--- | :--- |
 | `map` | Yes | Map | Defines the `dissect` patterns for specific keys. For details on how to define fields in the `dissect` pattern, see [Field notations](#field-notations). |
 | `target_types` | No | Map | Specifies the data types for extract fields. Valid options are `integer`, `double`, `string`, and `boolean`. By default, all fields are of the `string` type. |
+| `delete_source` | No | Boolean | Whether to delete the source field after successful parsing. Default is `false`. |
 | `dissect_when` | No | String | Specifies a condition for performing the `dissect` operation using a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/). If specified, the `dissect` operation will only run when the expression evaluates to true. |
 
 ### Field notations

@@ -2,12 +2,12 @@
 layout: default
 title: Index exists
 parent: Index APIs
-nav_order: 50
+nav_order: 70
 redirect_from:
   - /opensearch/rest-api/index-apis/exists/
 ---
 
-# Index exists
+# Index Exists API
 **Introduced 1.0**
 {: .label .label-purple }
 

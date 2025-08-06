@@ -5,7 +5,7 @@ parent: Script APIs
 nav_order: 1
 ---
 
-# Create or update stored script
+# Create Or Update Stored Script API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -45,22 +45,24 @@ All parameters are optional.
 | Field | Data type | Description | 
 :--- | :--- | :---
 | lang | String | Scripting language. Required. |
-| source | String or Object | Required. <br /> <br /> For scripts, a string with the contents of the script. <br /> <br /> For search templates, an object that defines the search template. Supports the same parameters as the [Search]({{site.url}}{{site.baseurl}}/api-reference/search) API request body. Search templates also support Mustache variables. |
+| source | String or Object | Required. <br /> <br /> For scripts, a string with the contents of the script. <br /> <br /> For search templates, an object that defines the search template. Supports the same parameters as the [Search]({{site.url}}{{site.baseurl}}/api-reference/search/) API request body. Search templates also support Mustache variables. |
 
 ## Example request
 
 The following example requests uses an index called `books` with the following documents:
 
-````json
-{"index":{"_id":1}}
+```json
+POST _bulk
+{"index":{"_index":"books","_id":1}}
 {"name":"book1","author":"Faustine","ratings":[4,3,5]}
-{"index":{"_id":2}}
+{"index":{"_index":"books","_id":2}}
 {"name":"book2","author":"Amit","ratings":[5,5,5]}
-{"index":{"_id":3}}
+{"index":{"_index":"books","_id":3}}
 {"name":"book3","author":"Gilroy","ratings":[2,1,5]}
-````
+```
+{% include copy-curl.html %}
 
-### Creating a painless script
+### Creating a Painless script
 
 The following request creates the Painless script `my-first-script`. It sums the ratings for each book and displays the sum in the output.
 
@@ -81,7 +83,7 @@ PUT _scripts/my-first-script
 ````
 {% include copy.html %}
 
-The example above uses the syntax of the Dev Tools console in OpenSearch Dashboards. You can also use a curl request.
+The preceding example uses the syntax of the Dev Tools console in OpenSearch Dashboards. You can also use a curl request.
 {: .note }
 
 The following curl request is equivalent to the previous Dashboards console example:

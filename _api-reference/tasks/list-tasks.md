@@ -1,11 +1,11 @@
 ---
 layout: default
 title: List tasks
-parent: Tasks API
+parent: Tasks APIs
 nav_order: 10
 ---
 
-# List tasks
+# List Tasks API
 **Introduced 1.0**
 {: .label .label-purple }
 

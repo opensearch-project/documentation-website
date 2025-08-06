@@ -2,10 +2,10 @@
 layout: default
 title: Delete index template
 parent: Index APIs
-nav_order: 28
+nav_order: 55
 ---
 
-# Delete index template
+# Delete Index Template API
 
 The Delete Index Template API deletes one or more index templates.
 

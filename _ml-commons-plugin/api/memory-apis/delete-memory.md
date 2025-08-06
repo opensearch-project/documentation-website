@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 30
 ---
 
-# Delete a memory
+# Delete Memory API
 **Introduced 2.12**
 {: .label .label-purple }
 
@@ -29,14 +29,14 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `memory_id` | String | The ID of the memory to be deleted. 
 
-#### Example request
+## Example request
 
 ```json
 DELETE /_plugins/_ml/memory/MzcIJX8BA7mbufL6DOwl
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

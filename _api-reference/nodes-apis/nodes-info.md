@@ -5,11 +5,11 @@ parent: Nodes APIs
 nav_order: 10
 ---
 
-# Nodes info
+# Nodes Info API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The nodes info API represents mostly static information about your cluster's nodes, including but not limited to:
+The Nodes Info API represents mostly static information about your cluster's nodes, including the following:
 
 - Host system information 
 - JVM 

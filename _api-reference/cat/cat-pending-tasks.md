@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT pending tasks
-parent: CAT API
+parent: CAT APIs
 nav_order: 45
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-pending-tasks/
 ---
 
-# CAT pending tasks
+# CAT Pending Tasks API
 **Introduced 1.0**
 {: .label .label-purple }
 

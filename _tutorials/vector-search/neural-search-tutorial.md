@@ -3,7 +3,6 @@ layout: default
 title: Getting started with semantic and hybrid search
 has_children: false
 parent: Vector search
-grand_parent: Tutorials
 nav_order: 3
 redirect_from:
   - /ml-commons-plugin/semantic-search/
@@ -51,7 +50,6 @@ PUT _cluster/settings
 {
   "persistent": {
     "plugins.ml_commons.only_run_on_ml_node": "false",
-    "plugins.ml_commons.model_access_control_enabled": "true",
     "plugins.ml_commons.native_memory_threshold": "99"
   }
 }
@@ -86,7 +84,7 @@ First, you'll need to choose a language model in order to generate vector embedd
 For this tutorial, you'll use the [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) model from Hugging Face. It is one of the pretrained sentence transformer models available in OpenSearch that has shown some of the best results in benchmarking tests (for more information, see [this blog post](https://opensearch.org/blog/semantic-science-benchmarks/)). You'll need the name, version, and dimension of the model to register it. You can find this information in the [pretrained model table]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) by selecting the `config_url` link corresponding to the model's TorchScript artifact:
 
 - The model name is `huggingface/sentence-transformers/msmarco-distilbert-base-tas-b`.
-- The model version is `1.0.1`.
+- The model version is `1.0.3`.
 - The number of dimensions for this model is `768`.
 
 Take note of the dimensionality of the model because you'll need it when you set up a vector index.
@@ -106,13 +104,13 @@ For information about choosing a model, see [Further reading](#further-reading).
 
 ### Step 2: Register and deploy the model 
 
-To register the model, provide the model group ID in the register request:
+To register and deploy the model, provide the model group ID in the register request:
 
 ```json
-POST /_plugins/_ml/models/_register
+POST /_plugins/_ml/models/_register?deploy=true
 {
   "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "model_format": "TORCH_SCRIPT"
 }
 ```
@@ -205,32 +203,7 @@ The response contains the model information. You can see that the `model_state` 
 
 #### Advanced: Registering a custom model
 
-To register a custom model, you must provide a model configuration in the register request. For example, the following is a register request containing the full format for the model used in this tutorial:
-
-```json
-POST /_plugins/_ml/models/_register
-{
-	"name": "sentence-transformers/msmarco-distilbert-base-tas-b",
-	"version": "1.0.1",
-	"description": "This is a port of the DistilBert TAS-B Model to sentence-transformers model: It maps sentences & paragraphs to a 768 dimensional dense vector space and is optimized for the task of semantic search.",
-	"model_task_type": "TEXT_EMBEDDING",
-	"model_format": "ONNX",
-	"model_content_size_in_bytes": 266291330,
-	"model_content_hash_value": "a3c916f24239fbe32c43be6b24043123d49cd2c41b312fc2b29f2fc65e3c424c",
-	"model_config": {
-		"model_type": "distilbert",
-		"embedding_dimension": 768,
-		"framework_type": "huggingface_transformers",
-		"pooling_mode": "CLS",
-		"normalize_result": false,
-		"all_config": "{\"_name_or_path\":\"old_models/msmarco-distilbert-base-tas-b/0_Transformer\",\"activation\":\"gelu\",\"architectures\":[\"DistilBertModel\"],\"attention_dropout\":0.1,\"dim\":768,\"dropout\":0.1,\"hidden_dim\":3072,\"initializer_range\":0.02,\"max_position_embeddings\":512,\"model_type\":\"distilbert\",\"n_heads\":12,\"n_layers\":6,\"pad_token_id\":0,\"qa_dropout\":0.1,\"seq_classif_dropout\":0.2,\"sinusoidal_pos_embds\":false,\"tie_weights_\":true,\"transformers_version\":\"4.7.0\",\"vocab_size\":30522}"
-	},
-	"created_time": 1676074079195,
-	"url": "https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/msmarco-distilbert-base-tas-b/1.0.1/onnx/sentence-transformers_msmarco-distilbert-base-tas-b-1.0.1-onnx.zip"
-}
-```
-
-For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
+To register a custom model, you must provide a model configuration in the register request. For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/).
 
 <details markdown="block">
   <summary>

@@ -13,7 +13,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-A percolator field type specifies to treat this field as a query. Any JSON object field can be marked as a percolator field. Normally, documents are indexed and searches are run against them. When you use a percolator field, you store a search, and later the percolate query matches documents to that search. 
+A `percolator` field type specifies to treat this field as a query. Any JSON object field can be marked as a `percolator` field. Normally, documents are indexed and searches are run against them. When you use a `percolator` field, you store a search, and the `percolate` query later matches documents to that search. For a detailed example, see [Percolate query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/percolate/).
 
 ## Example
 

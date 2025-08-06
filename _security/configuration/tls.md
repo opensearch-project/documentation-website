@@ -157,7 +157,9 @@ In addition, when `resolve_hostname` is enabled, the Security plugin resolves th
 Name | Description
 :--- | :---
 `transport.ssl.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is `true`.
-`transport.ssl.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is also enabled.
+`plugins.security.ssl.transport.enforce_hostname_verification` (Deprecated) | This setting has been deprecated. Use `transport.ssl.enforce_hostname_verification` instead.
+`transport.ssl.resolve_hostname` | Whether to resolve hostnames using DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is enabled.
+`plugins.security.ssl.transport.resolve_hostname` (Deprecated) | This setting has been deprecated. Use `transport.ssl.resolve_hostname` instead.
 
 
 ## (Advanced) Client authentication

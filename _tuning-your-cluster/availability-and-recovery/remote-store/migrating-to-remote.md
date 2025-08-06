@@ -19,7 +19,7 @@ Rolling upgrades, sometimes referred to as *node replacement upgrades*, can be p
 
 ## Preparing to migrate
 
-Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
+Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
 Before migrating to remote-backed storage, upgrade to OpenSearch 2.15 or later.
 

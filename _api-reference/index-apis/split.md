@@ -2,16 +2,19 @@
 layout: default
 title: Split index
 parent: Index APIs
-nav_order: 70
+nav_order: 150
 redirect_from:
   - /opensearch/rest-api/index-apis/split/
 ---
 
-# Split index
+# Split Index API
 **Introduced 1.0**
 {: .label .label-purple }
 
 The split index API operation splits an existing read-only index into a new index, cutting each primary shard into some amount of primary shards in the new index.
+
+To make the index read-only, set the [dynamic index-level index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) `index.blocks.write` to `true`.
+{: .note}
 
 ## Example
 

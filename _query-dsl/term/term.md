@@ -2,7 +2,7 @@
 layout: default
 title: Term
 parent: Term-level queries
-nav_order: 70
+nav_order: 10
 ---
 
 # Term query
@@ -98,4 +98,5 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `value` | String | The term to search for in the field specified in `<field>`. A document is returned in the results only if its field value exactly matches the term, with the correct spacing and capitalization.
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
+`_name` | String | The name of the query for query tagging. Optional.
 `case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).

@@ -5,7 +5,7 @@ parent: Nodes APIs
 nav_order: 50
 ---
 
-# Nodes reload secure settings
+# Nodes Reload Secure Settings API
 **Introduced 1.0**
 {: .label .label-purple }
 

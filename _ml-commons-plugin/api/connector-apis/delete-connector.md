@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 30
 ---
 
-# Delete a connector
+# Delete Connector API
 
 Deletes a standalone connector. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
@@ -16,14 +16,14 @@ Deletes a standalone connector. For more information, see [Connectors]({{site.ur
 DELETE /_plugins/_ml/connectors/<connector_id>
 ```
 
-#### Example request
+## Example request
 
 ```json
 DELETE /_plugins/_ml/connectors/KsAo1YsB0jLkkocY6j4U
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

@@ -73,7 +73,7 @@ OpenSearch responds with an agent ID:
 }
 ```
 
-To create a conversational agent containing a `RAGTool`, see [Conversational agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/#conversational-agents).
+To create a conversational agent containing a `RAGTool`, see [Conversational agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/).
 
 ## Step 2: Run the agent
 

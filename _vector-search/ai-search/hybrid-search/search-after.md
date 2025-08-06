@@ -49,7 +49,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
   },
   "sort":[
      {
-        "_id": {
+        "doc_price": {
           "order": "desc"   
         }
      } 

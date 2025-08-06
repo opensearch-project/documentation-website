@@ -164,3 +164,28 @@ The legacy notebooks feature has been removed from `dashboards-observability`. K
 - You must migrate your notebooks to the new storage system before upgrading to version 3.0.
 
 For more information, see issue [#2350](https://github.com/opensearch-project/dashboards-observability/issues/2350).
+
+### Searchable snapshots node role
+
+Nodes that use searchable snapshots must have the `warm` node role. Key changes include the following:
+
+- The `search` role no longer supports searchable snapshots.
+- Nodes that handle searchable snapshot shards must be assigned the warm role.
+- You must update node role configurations before upgrading to version 3.0 if your cluster uses searchable snapshots.
+
+For more information, see pull request [#17573](https://github.com/opensearch-project/OpenSearch/pull/17573).
+
+### Query groups
+
+Query groups have been renamed to **workload groups**. Key changes include the following:
+
+- The `wlm/query_group` endpoint is now the `wlm/workload_group` endpoint.
+- The API responds with a `workloadGroupID` instead of a `queryGroupID`.
+- All workload management cluster settings are now prepended with `wlm.workload_group`.
+
+For more information, see pull request [#9813](https://github.com/opensearch-project/OpenSearch/pull/17901).
+
+### ML Commons plugin
+
+- The `CatIndexTool` is removed in favor of the `ListIndexTool`.
+

@@ -52,7 +52,7 @@ layout: table_wrappers
     <div id="main-header"></div>
     <div class="side-bar">
       <div class="site-header">
-        <a href="/docs/latest/" id="menu-button" class="site-button">
+        <a href="{{site.latesturl}}/" id="menu-button" class="site-button">
           Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
         </a>
       </div>
@@ -64,7 +64,7 @@ layout: table_wrappers
             <a href="{{site.url}}{{site.baseurl}}/{{ page.section}}/" class="site-category">{{ page.section-name }}</a>
           {% endif %}
           
-          <a href="{{site.url}}/docs/latest/" class="back-link">&#x2190; Back to docs home</a>
+          <a href="{{site.url}}{{site.latesturl}}/" class="back-link">&#x2190; Back to docs home</a>
           
           {% if page.section == "opensearch" %}
             <version-selector selected="{{ site.data.versions.current }}"></version-selector>
@@ -154,8 +154,47 @@ layout: table_wrappers
             <nav aria-label="Breadcrumb" class="breadcrumb-nav">
               <ol class="breadcrumb-nav-list">
                 {% if page.grand_parent %}
-                  <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.grand_parent }}</a></li>
-                  <li class="breadcrumb-nav-list-item"><a href="{{ second_level_url }}">{{ page.parent }}</a></li>
+                  {%- comment -%}Find URLs for 4-level breadcrumb{%- endcomment -%}
+                  {%- assign all_pages = site.pages -%}
+                  {%- if page.section == "migration-assistant" -%}
+                    {%- assign all_pages = all_pages | concat: site.migration-assistant -%}
+                  {%- endif -%}
+                  
+                  {%- assign grandparent_url = "" -%}
+                  {%- assign parent_url = "" -%}
+                  
+                  {%- for p in all_pages -%}
+                    {%- if p.title == page.grand_parent -%}
+                      {%- assign grandparent_url = p.url | absolute_url -%}
+                    {%- elsif p.title == page.parent -%}
+                      {%- assign parent_url = p.url | absolute_url -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  
+                  {%- comment -%}Find great-grandparent by looking at grandparent's parent{%- endcomment -%}
+                  {%- assign great_grandparent_url = "" -%}
+                  {%- assign great_grandparent_title = "" -%}
+                  {%- for p in all_pages -%}
+                    {%- if p.title == page.grand_parent and p.parent -%}
+                      {%- assign great_grandparent_title = p.parent -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  
+                  {%- if great_grandparent_title != "" -%}
+                    {%- for p in all_pages -%}
+                      {%- if p.title == great_grandparent_title -%}
+                        {%- assign great_grandparent_url = p.url | absolute_url -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+                  
+                  {%- if great_grandparent_title != "" and great_grandparent_url != "" -%}
+                    <li class="breadcrumb-nav-list-item"><a href="{{ great_grandparent_url }}">{{ great_grandparent_title }}</a></li>
+                  {%- endif -%}
+                  <li class="breadcrumb-nav-list-item"><a href="{{ grandparent_url }}">{{ page.grand_parent }}</a></li>
+                  <li class="breadcrumb-nav-list-item"><a href="{{ parent_url }}">{{ page.parent }}</a></li>
                 {% else %}
                   <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.parent }}</a></li>
                 {% endif %}

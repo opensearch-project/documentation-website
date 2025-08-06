@@ -3,7 +3,7 @@ layout: default
 title: Neural sparse search using raw vectors
 parent: Neural sparse search
 grand_parent: AI search
-nav_order: 20
+nav_order: 30
 has_children: false
 redirect_from:
   - /search-plugins/neural-sparse-with-raw-vectors/
@@ -11,25 +11,15 @@ redirect_from:
 
 # Neural sparse search using raw vectors
 
-If you're using self-hosted sparse embedding models, you can ingest raw sparse vectors and use neural sparse search. 
+If you're using self-hosted sparse embedding models, you can ingest raw sparse vectors for use in neural sparse search. 
 
-## Tutorial
+## Example
 
-This tutorial consists of the following steps:
+The following example ingests sparse vectors into an OpenSearch index and then uses a sparse vector to search for matching documents.
 
-1. [**Ingest sparse vectors**](#step-1-ingest-sparse-vectors)
-    1. [Create an index](#step-1a-create-an-index)
-    1. [Ingest documents into the index](#step-1b-ingest-documents-into-the-index)
-1. [**Search the data using raw sparse vector**](#step-2-search-the-data-using-a-sparse-vector).
+### Step 1: Create an index
 
-
-## Step 1: Ingest sparse vectors
-
-Once you have generated sparse vector embeddings, you can directly ingest them into OpenSearch.
-
-### Step 1(a): Create an index
-
-In order to ingest documents containing raw sparse vectors, create a rank features index:
+To ingest documents containing raw sparse vectors, create a rank features index:
 
 ```json
 PUT /my-nlp-index
@@ -51,7 +41,7 @@ PUT /my-nlp-index
 ```
 {% include copy-curl.html %}
 
-### Step 1(b): Ingest documents into the index
+### Step 2: Ingest documents into the index
 
 To ingest documents into the index created in the previous step, send the following request:
 
@@ -72,7 +62,7 @@ PUT /my-nlp-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Step 2: Search the data using a sparse vector
+### Step 3: Search the data using a sparse vector
 
 To search the documents using a sparse vector, provide the sparse embeddings in the `neural_sparse` query:
 
