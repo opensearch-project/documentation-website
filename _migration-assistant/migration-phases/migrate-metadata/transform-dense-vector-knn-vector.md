@@ -7,7 +7,7 @@ grand_parent: Migration phases
 permalink: /migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/
 ---
 
-# Transform dense_vector to knn_vector
+# Transform dense_vector to knn_vector fields
 
 Convert field data type dense_vector to OpenSearch knn_vector.
 
