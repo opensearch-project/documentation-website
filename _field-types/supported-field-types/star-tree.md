@@ -141,8 +141,7 @@ The `ordered_dimensions` parameter supports the following field types:
   - All numeric field types, excluding `unsigned_long` and `scaled_float`
   - `keyword` 
   - `object`
-
-Support for other field types, such as `ip`, will be added in future versions. For more information, see [GitHub issue #13875](https://github.com/opensearch-project/OpenSearch/issues/13875).
+  - `ip`
 
 The `ordered_dimensions` parameter supports the following property.
 

@@ -877,6 +877,9 @@ search.concurrent_avg_slice_count	| Integer | The average slice count of all sea
 search.concurrent_query_total	|Integer | The total number of query operations that use concurrent segment search.	
 search.concurrent_query_time_in_millis	| Integer | The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.	
 search.concurrent_query_current	|Integer | The number of currently running query operations that use concurrent segment search.	
+search.startree_query_total | Integer | The total number of query operations that use a star tree for search.	
+search.startree_query_time_in_millis | Integer | The total amount of time taken by all query operations that use a star tree for search, in milliseconds.	
+search.startree_query_current | Integer | The number of currently running query operations that use a star tree for search.	
 search.open_contexts | Integer | The number of open search contexts.
 search.query_total | Integer | The total number of shard query operations.
 search.query_time_in_millis | Integer | The total amount of time for all shard query operations, in milliseconds.

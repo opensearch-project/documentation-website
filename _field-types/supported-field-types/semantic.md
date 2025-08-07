@@ -372,8 +372,6 @@ Note the following limitations of the `semantic` field:
 
 - Remote cluster support: `neural` queries on `semantic` fields are not supported in cross-cluster search. While you can retrieve documents from remote indexes, semantic queries require access to the local model configuration and index mappings. Thus, you must run the query directly against the embedding field using traditional query methods.
 
-- Repeated inference: When a document is updated, OpenSearch reruns inference on the `semantic` field even if the field's content has not changed. There is currently no way to reuse previously generated embeddings, which may lead to unnecessary inference operations.
-
 - Mapping restrictions: The `semantic` field does not support dynamic mappings and must be explicitly defined in the index mapping. Additionally, you cannot use a `semantic` field in the `fields` section of another field, so multi-field configurations are not supported.
 
 ## Next steps

@@ -21,6 +21,8 @@ Option | Description
 
 The `doc_values` parameter is not supported for use in text fields.
 
+For more information on using `doc_values` with the `index` parameter, see [The `index` and `doc_values` parameters compared]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/index-parameter/#the-index-and-doc-values-parameters-compared).
+
 ---
 
 ## Example: Creating an index with `doc_values` enabled and disabled
