@@ -59,6 +59,38 @@ PUT testindex/_doc/1
 ```
 {% include copy-curl.html %}
 
+## Example: Skip list
+
+Use the `skip_list` parameter for better query performance. The `skip_list` parameter is particularly beneficial for fields that are frequently used in `range` queries or aggregations because it allows the query engine to skip over document ranges that don't match the query criteria.
+
+Create a mapping with skip list indexing enabled:
+
+```json
+PUT /testindex_skiplist
+{
+  "mappings" : {
+    "properties" :  {
+      "price" : {
+        "type" : "double",
+        "skip_list" : true
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index a document containing a numeric value:
+
+```json
+PUT testindex_skiplist/_doc/1
+{
+  "price" : 19.99
+}
+```
+{% include copy-curl.html %}
+
+
 ## Scaled float field type
 
 A scaled float field type is a floating-point value that is multiplied by the scale factor and stored as a long value. It takes all optional parameters taken by number field types, plus an additional scaling_factor parameter. The scale factor is required when creating a scaled float. 
@@ -110,6 +142,7 @@ Parameter | Description
 `index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. 
 `meta` | Accepts metadata for this field.
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+`skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, this creates indexed doc values that can improve performance for `range` queries and aggregations by allowing the query engine to skip over irrelevant document ranges. Default is `false`.
 `store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
 
 Scaled float has an additional required parameter: `scaling_factor`.
