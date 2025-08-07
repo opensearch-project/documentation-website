@@ -17,7 +17,7 @@ The `collapse` parameter is compatible with other hybrid query search options, s
 
 When using `collapse` in a hybrid query, note the following considerations:
 
-- Performance may be impacted when working with large result sets.  In OpenSearch 3.2, we introduced a setting `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` that controls how many documents are stored per group per subquery.  The default is the size passed in via the query.  Lowering this setting value prioritizes latency, while increasing this setting value prioritizes recall.
+- Performance may be impacted when working with large result sets.  In OpenSearch 3.2, we introduced an index-level setting `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` that controls how many documents are stored per group per subquery.  The default is the size passed in via the query.  Lowering this setting value prioritizes latency, while increasing this setting value prioritizes recall.  Valid values for this setting are 0 - 1000, but note that 0 represents the default (size of the query) instead of 0.
 - Aggregations run on pre-collapsed results, not the final output.
 - Pagination behavior changes: Because `collapse` reduces the total number of results, it can affect how results are distributed across pages. To retrieve more results, consider increasing the pagination depth.
 - Results may differ from those returned by the [`collapse` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/collapse-processor/), which applies collapse logic after the query is executed.
