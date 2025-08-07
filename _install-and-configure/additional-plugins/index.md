@@ -37,7 +37,7 @@ There are many more plugins available in addition to those provided by the stand
 | `transport-grpc`                                                                                                         | 3.0.0                      |
 | `workload-management` | 2.18.0 |
 
-## Related articles
+## Related documentation
 
 [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 [`ingest-attachment` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/ingest-attachment-plugin/)
