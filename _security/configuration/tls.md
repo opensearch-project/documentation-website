@@ -339,6 +339,6 @@ Name | Description
 `plugins.security.ssl.aux.secure-transport-grpc.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
 `plugins.security.ssl.aux.secure-transport-grpc.keystore_password` | The password for the keystore. Default is `changeit`.
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
-`plugins.security.ssl.aux.secure-transport-grpc.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.aux.secure-transport-grpc.truststore_filepath` | The path to the truststore file, , specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_alias` | The alias name of the truststore. Optional. Default is all certificates.
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_password` | The password for the truststore. Default is `changeit`.
