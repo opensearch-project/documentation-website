@@ -257,7 +257,6 @@ The plan-execute-reflect agent uses the following predefined prompts. You can cu
 
 To create a custom planner prompt template, modify the `planner_prompt_template` parameter.
 
-#### Version 3.0
 **Introduced 3.0**
 {: .label .label-purple }
 
@@ -267,7 +266,6 @@ The following template was used in version 3.0:
 ${parameters.planner_prompt} \n Objective: ${parameters.user_prompt} \n ${parameters.plan_execute_reflect_response_format}
 ```
 
-#### Version 3.2
 **Updated 3.2**
 {: .label .label-purple }
 
@@ -288,7 +286,6 @@ For the given objective, come up with a simple step by step plan. This plan shou
 
 To create a custom planner prompt with a history template, modify the `planner_with_history_template` parameter.
 
-#### Version 3.0
 **Introduced 3.0**
 {: .label .label-purple }
 
@@ -298,7 +295,6 @@ The following template was used in version 3.0:
 ${parameters.planner_prompt} \n Objective: ${parameters.user_prompt} \n\n You have currently executed the following steps: \n[${parameters.completed_steps}] \n\n \n ${parameters.plan_execute_reflect_response_format}
 ```
 
-#### Version 3.2
 **Updated 3.2**
 {: .label .label-purple }
 
@@ -312,7 +308,6 @@ ${parameters.tools_prompt} \n ${parameters.planner_prompt} \n Objective: \`\`\`$
 
 To create a custom reflection prompt template, modify the `reflect_prompt_template` parameter.
 
-#### Version 3.0
 **Introduced 3.0**
 {: .label .label-purple }
 
@@ -322,7 +317,6 @@ The following template was used in version 3.0:
 ${parameters.planner_prompt} \n Objective: ${parameters.user_prompt} \n Original plan:\n [${parameters.steps}] \n You have currently executed the following steps: \n [${parameters.completed_steps}] \n ${parameters.reflect_prompt} \n ${parameters.plan_execute_reflect_response_format}
 ```
 
-#### Version 3.2
 **Updated 3.2**
 {: .label .label-purple }
 
@@ -343,7 +337,6 @@ Update your plan accordingly. If no more steps are needed and you can return to 
 
 To create a custom planner system prompt, modify the `system_prompt` parameter.
 
-#### Version 3.0
 **Introduced 3.0**
 {: .label .label-purple }
 
@@ -360,7 +353,6 @@ You are part of an OpenSearch cluster. When you deliver your final result, inclu
 The final response should be fully self-contained and detailed, allowing a user to understand the full investigation without needing to reference prior messages. Always respond in JSON format.
 ```
 
-#### Version 3.2
 **Updated 3.2**
 {: .label .label-purple }
 
@@ -443,7 +435,6 @@ The final response should be fully self-contained and detailed, allowing a user 
 
 To create a custom executor system prompt, modify the `executor_system_prompt` parameter.
 
-#### Version 3.0
 **Introduced 3.0**
 {: .label .label-purple }
 
@@ -453,7 +444,6 @@ The following is the executor system prompt from version 3.0:
 You are a dedicated helper agent working as part of a plan‑execute‑reflect framework. Your role is to receive a discrete task, execute all necessary internal reasoning or tool calls, and return a single, final response that fully addresses the task. You must never return an empty response. If you are unable to complete the task or retrieve meaningful information, you must respond with a clear explanation of the issue or what was missing. Under no circumstances should you end your reply with a question or ask for more information. If you search any index, always include the raw documents in the final result instead of summarizing the content. This is critical to give visibility into what the query retrieved.
 ```
 
-#### Version 3.2
 **Updated 3.2**
 {: .label .label-purple }
 
