@@ -315,7 +315,7 @@ You should receive the following response:
 gRPC supports encryption in transit only. Trust stores and certificates configured as root CAs in PEM format are used only for the purpose of TLS client authorization. Role-based access is not available for gRPC endpoints. 
 {: .warning}
 
-TLS may be configured on the optional gRPC transport with `opensearch.yml`. To install and enable the gRPC endpoint see [enabling-the-plugin]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#enabling-the-plugin).
+You can configure TLSon the optional gRPC transport in `opensearch.yml`. For more information about using  gRPC plugin, see [Enabling the plugin]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#enabling-the-plugin).
 
 ### Pemkey settings (X.509 PEM certificates and PKCS #8 keys)
 
