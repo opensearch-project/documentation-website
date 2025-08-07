@@ -25,14 +25,14 @@ To monitor workload resource usage across the cluster, on the top menu bar, go t
 
 ![Landing page for workload management]({{site.url}}{{site.baseurl}}/images/Workload-Management/Overview.png)
 
-The **Total workload groups** panel shows the number of workload groups you have defined. The **Total groups exceeing limits** panel shows the number of workload groups exceeding thresholds.
+The **Total workload groups** panel shows the number of defined workload groups. The **Total groups exceeding limits** panel shows the number of workload groups exceeding thresholds.
 
 
 The main panel provides workload information in an overview table containing the following columns.
 
 | Column                   | Description                                                                                                                                                            |
 |--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Workload group name**  | To view workload group details, select the workload group link. For more information, see [Viewing workload group details](#viewing-workload-group-details).                                                                                                                                 |
+| **Workload group name**  | To view node-level workload group details and update configuration settings, select the workload group link. For more information, see [Viewing workload group details](#viewing-workload-group-details).                                                                                                                                 |
 | **CPU usage**, **Memory usage** | Box plots showing real-time CPU and memory usage for each group across nodes. Thresholds appear in red.                                                                                              |
 | **Total completions**    | The total number of completed tasks associated with the workload group. A single query may result in multiple task completions, such as coordinator and shard-level tasks. |
 | **Total rejections**     | The total number of tasks rejected because of resource limits.                                                                                                                                 |
@@ -41,7 +41,7 @@ The main panel provides workload information in an overview table containing the
 Use the search bar to filter the table by workload group name.
 {: .tip}
 
-To view minimum, Q1, median, Q3, and maximu values, hover over the CPU or memory box plots. The information is shown in a tooltip, as shown in the following image.
+To view minimum, Q1, median, Q3, and maximum values, hover over the CPU or memory box plots. The information is shown in a tooltip, as shown in the following image.
 
 ![Box Plot Tooltip]({{site.url}}{{site.baseurl}}/images/Workload-Management/BoxplotTooltip.png){: width="240px" }
 
@@ -50,7 +50,7 @@ To view minimum, Q1, median, Q3, and maximu values, hover over the CPU or memory
 To view details for a specific workload group, perform the following steps:
 
 1. In the overview table, select the group name.
-1. To view the workload group statistics, select the **Resources** tab (selected by default). In this tab, you can view real-time usage and query stats for the workload group, broken down by node. 
+1. To view the workload group statistics, select the **Resources** tab (selected by default). In this tab, you can view real-time usage and query statistics for the workload group, broken down by node. 
 1. To view the workload group settings, select the **Settings** tab.
 
 ## Creating a workload group
@@ -92,7 +92,7 @@ To modify the settings for a specific workload group, perform the following step
 
 The `DEFAULT_WORKLOAD_GROUP` cannot be edited. Its CPU and memory limits are always fixed at 100%. For this group, the **Settings** tab is disabled.
 
-## Related articles
+## Related documentation
 
 - [Workload groups]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/)
 - [Workload group rules]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-group-rules/)

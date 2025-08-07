@@ -87,7 +87,7 @@ curl -X GET "http://localhost:9200/testindex/_search?pretty" \
 ```
 {% include copy.html %}
 
-To eliminate passing the ID in every query, you can create rules to apply the ID automatically. For more information, see [Workload group rules]({{site.url}}{{site.baseurl}}/).
+To avoid passing the ID in every query, you can create rules to apply the ID automatically. For more information, see [Workload group rules]({{site.url}}{{site.baseurl}}/).
 
 ## Operating modes
 
@@ -101,11 +101,11 @@ The `wlm.workload_group.mode` cluster-level setting controls whether workload ma
 
 To change the operating mode, update the [`wlm.workload_group.mode` setting](#mode), as described in the next section.
 
-Additionally, each workload group defines its own `resiliency_mode`. The `resiliency_mode` defines enforcement behavior, but only takes effect when `wlm.workload_group.mode` is `enabled`. For more information about `resiliency_mode`, see [Workload group parameters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/#parameters).
+Additionally, each workload group defines its own `resiliency_mode`. The `resiliency_mode` defines enforcement behavior but only takes effect when `wlm.workload_group.mode` is `enabled`. For more information about `resiliency_mode`, see [Workload group parameters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/#parameters).
 
 ## Workload management settings
 
-You can configure workload management by updating their values using the Cluster Settings API. For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+You can configure workload management by updating its values using the Cluster Settings API. For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
 
 OpenSearch supports the following workload management settings:
 
@@ -132,14 +132,14 @@ When setting rejection and cancellation thresholds, remember that the rejection 
 
 The Workload Management Stats API provides information about the current status of the Workload Management plugin.
 
-To receive stats for all workload groups, use the following request:
+To receive statistics for all workload groups, use the following request:
 
 ```json
 GET _wlm/stats
 ```
 {% include copy-curl.html %}
 
-The response returns workload management metrics for each workload group:
+The response returns workload management statistics for each workload group:
 
 ```json
 {
