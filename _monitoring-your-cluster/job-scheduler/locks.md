@@ -58,10 +58,10 @@ The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `total_locks` | Integer | Total number of active and released locks. |
+| `total_locks` | Integer | The total number of active and released locks. |
 | `locks` | Map | A map of lock IDs and their associated lock information. |
 | `job_index_name` | String | The name of the index in which the job is stored. |
 | `job_id` | String | The job ID. |
-| `lock_time` | Seconds since the epoch | The time when the lock was acquired. |
-| `lock_duration_seconds` | Integer | The maximum amount of time the lock is valid. |
+| `lock_time` | Seconds since the epoch | The time at which the lock was acquired. |
+| `lock_duration_seconds` | Integer | The maximum amount of time for which the lock is valid. |
 | `released` | Boolean | 	Indicates whether the lock has been released (`true`) or is currently active (`false`). |

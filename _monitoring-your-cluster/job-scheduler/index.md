@@ -133,7 +133,7 @@ For more information, see the Job Scheduler [sample extension](https://github.co
 
 ## Job Scheduler APIs
 
-The Job Scheduler plugin supports the following APIs to monitor the jobs running on the cluster:
+The Job Scheduler plugin supports the following APIs used to monitor the jobs running on the cluster:
 
 - [Jobs API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/jobs/)
 - [Locks API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/locks/)

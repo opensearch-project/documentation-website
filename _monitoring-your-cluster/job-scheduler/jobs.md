@@ -101,14 +101,14 @@ The following table lists all response body fields.
 | `name` | String | The job name. The name is not necessarily unique. |
 | `descheduled` | Boolean | Indicates whether the job is scheduled to be executed (`false`) or is not scheduled (`true`) by the Job Scheduler. |
 | `enabled` | Boolean | Indicates whether the job is active (`true`) or inactive (`false`), as defined by the plugin using the Job Scheduler. |
-| `enabled_time` | String | The time when the job was originally scheduled. |
-| `last_update_time` | String | The time the job was last updated. |
-| `last_expected_exection_time` | String | The time when the job was most recently executed. |
-| `next_expected_execution_time` | String | The time when the job is expected to be executed next. |
+| `enabled_time` | String | The time at which the job was originally scheduled. |
+| `last_update_time` | String | The time at which the job was last updated. |
+| `last_expected_exection_time` | String | The time at which the job was most recently executed. |
+| `next_expected_execution_time` | String | The time at which the job is expected to be executed next. |
 | `schedule` | Map | The job's execution schedule. Can define a [Cron](#cron-schedule) or [interval](#interval-schedule) schedule. |
 | `schedule.type` | String | The schedule type. Valid values are `cron` and `interval`. |
-| `lock_duration` | Integer | The maximum amount of time (in seconds) a job can remain locked during execution.|
-| `jitter` | Double | A random delay to job execution times to prevent simultaneous runs across the system.|
+| `lock_duration` | Integer | The maximum amount of time (in seconds) that a job can remain locked during execution.|
+| `jitter` | Double | A random delay applied to job execution times to prevent simultaneous runs across the system.|
 | `failures` | Array | A list of nodes that failed to report jobs. |
 | `total_jobs` | Integer | The total number of jobs reported across all nodes. |
 
