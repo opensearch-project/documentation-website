@@ -10,7 +10,7 @@ has_toc: false
 
 # Judgments
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).
 {: .warning}
 
 A judgment is a relevance rating assigned to a specific document in the context of a particular query. Multiple judgments are grouped together into judgment lists.
@@ -120,10 +120,10 @@ To use AI-assisted judgment generation, ensure that you have configured the foll
 * A query set: Together with the `size` parameter, the query set defines the scope for generating judgments. For each query, the top k documents are retrieved from the specified index, where k is defined in the `size` parameter.
 * A search configuration: A search configuration defines how documents are retrieved for use in query/document pairs.
 
-The AI-assisted judgment process works as follows: 
-- For each query, the top k documents are retrieved using the defined search configuration, which includes the index information. The query and each document from the result list create a query/document pair. 
-- Each query and document pair forms a query/document pair. 
-- The LLM is then called with a predefined prompt (stored as a static variable in the backend) to generate a judgment for each query/document pair. 
+The AI-assisted judgment process works as follows:
+- For each query, the top k documents are retrieved using the defined search configuration, which includes the index information. The query and each document from the result list create a query/document pair.
+- Each query and document pair forms a query/document pair.
+- The LLM is then called with a predefined prompt (stored as a static variable in the backend) to generate a judgment for each query/document pair.
 - All generated judgments are stored in the judgments index for reuse in future experiments.
 
 To create a judgment list, provide the model ID of the LLM, an available query set, and a created search configuration:
@@ -177,6 +177,8 @@ Parameter | Data type | Description
 `clickModel` | String | The model used to calculate implicit judgments. Only `coec` (Clicks Over Expected Clicks) is supported.
 `type` | String | Set to `UBI_JUDGMENT`.
 `maxRank` | Integer | The maximum rank to consider when including events in the judgment calculation.
+`startDate` | Date | The optional date in format `yyyy-MM-dd` from which behavioral data events are being taken into account for implicit judgment generation.
+`endDate` | Date | The optional date in format `yyyy-MM-dd` until which behavioral data events are being taken into account for implicit judgment generation.
 
 ## Managing judgment lists
 
