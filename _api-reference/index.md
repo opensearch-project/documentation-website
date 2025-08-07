@@ -37,6 +37,7 @@ OpenSearch supports the following REST APIs:
 - [Index state management API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/)
 - [ISM error prevention API]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/api/)
 - [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
+- [Job Scheduler APIs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/index/#job-scheduler-apis)
 - [Vector search API]({{site.url}}{{site.baseurl}}/vector-search/api/)
 - [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/) 
 - [Multi-search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)
