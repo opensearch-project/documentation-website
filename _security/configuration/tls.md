@@ -319,6 +319,8 @@ You can configure TLSon the optional gRPC transport in `opensearch.yml`. For mor
 
 ### Pemkey settings (X.509 PEM certificates and PKCS #8 keys)
 
+The following table lists the available gRPC PEM key settings.
+
 Name | Description
 :--- | :---
 `plugins.security.ssl.aux.secure-transport-grpc.enabled` | Whether to enable TLS for gRPC. If enabled, only HTTPS is allowed. Optional. Default is `false`.
