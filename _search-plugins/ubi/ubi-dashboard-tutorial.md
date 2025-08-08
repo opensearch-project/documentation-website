@@ -82,7 +82,7 @@ Examine the `event_attributes.position.ordinal` data field. This field contains 
 
 ![Vertical Bar Chart]({{site.url}}{{site.baseurl}}/images/ubi/histogram.png)
 
-## 6) Filter the displayed data
+## 6. Filter the displayed data
 
 Now you can further filter the displayed data. For example, you can see how the click position changes when a purchase occurs. Select **Add filter** and then select the `action_name:product_purchase` field, as shown in the following image.
 ![Product Purchase]({{site.url}}{{site.baseurl}}/images/ubi/product_purchase.png)
