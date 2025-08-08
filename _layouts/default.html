@@ -156,8 +156,18 @@ layout: table_wrappers
                 {% if page.grand_parent %}
                   {%- comment -%}Find URLs for 4-level breadcrumb{%- endcomment -%}
                   {%- assign all_pages = site.pages -%}
-                  {%- if page.section == "migration-assistant" -%}
+                  
+                  {%- comment -%}Add collection pages based on current page collection{%- endcomment -%}
+                  {%- if page.collection == "migration-assistant" -%}
                     {%- assign all_pages = all_pages | concat: site.migration-assistant -%}
+                  {%- elsif page.collection == "vector-search" -%}
+                    {%- assign all_pages = all_pages | concat: site.vector-search -%}
+                  {%- elsif page.collection == "data-prepper" -%}
+                    {%- assign all_pages = all_pages | concat: site.data-prepper -%}
+                  {%- elsif page.collection == "clients" -%}
+                    {%- assign all_pages = all_pages | concat: site.clients -%}
+                  {%- elsif page.collection == "benchmark" -%}
+                    {%- assign all_pages = all_pages | concat: site.benchmark -%}
                   {%- endif -%}
                   
                   {%- assign grandparent_url = "" -%}
@@ -165,9 +175,9 @@ layout: table_wrappers
                   
                   {%- for p in all_pages -%}
                     {%- if p.title == page.grand_parent -%}
-                      {%- assign grandparent_url = p.url | absolute_url -%}
+                      {%- assign grandparent_url = p.url | relative_url -%}
                     {%- elsif p.title == page.parent -%}
-                      {%- assign parent_url = p.url | absolute_url -%}
+                      {%- assign parent_url = p.url | relative_url -%}
                     {%- endif -%}
                   {%- endfor -%}
                   
@@ -184,7 +194,7 @@ layout: table_wrappers
                   {%- if great_grandparent_title != "" -%}
                     {%- for p in all_pages -%}
                       {%- if p.title == great_grandparent_title -%}
-                        {%- assign great_grandparent_url = p.url | absolute_url -%}
+                        {%- assign great_grandparent_url = p.url | relative_url -%}
                         {%- break -%}
                       {%- endif -%}
                     {%- endfor -%}
@@ -196,7 +206,31 @@ layout: table_wrappers
                   <li class="breadcrumb-nav-list-item"><a href="{{ grandparent_url }}">{{ page.grand_parent }}</a></li>
                   <li class="breadcrumb-nav-list-item"><a href="{{ parent_url }}">{{ page.parent }}</a></li>
                 {% else %}
-                  <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.parent }}</a></li>
+                  {%- comment -%}Find parent URL for 2-level breadcrumb{%- endcomment -%}
+                  {%- assign all_pages = site.pages -%}
+                  
+                  {%- comment -%}Add collection pages based on current page collection{%- endcomment -%}
+                  {%- if page.collection == "migration-assistant" -%}
+                    {%- assign all_pages = all_pages | concat: site.migration-assistant -%}
+                  {%- elsif page.collection == "vector-search" -%}
+                    {%- assign all_pages = all_pages | concat: site.vector-search -%}
+                  {%- elsif page.collection == "data-prepper" -%}
+                    {%- assign all_pages = all_pages | concat: site.data-prepper -%}
+                  {%- elsif page.collection == "clients" -%}
+                    {%- assign all_pages = all_pages | concat: site.clients -%}
+                  {%- elsif page.collection == "benchmark" -%}
+                    {%- assign all_pages = all_pages | concat: site.benchmark -%}
+                  {%- endif -%}
+                  
+                  {%- assign parent_url = "" -%}
+                  {%- for p in all_pages -%}
+                    {%- if p.title == page.parent -%}
+                      {%- assign parent_url = p.url | relative_url -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  
+                  <li class="breadcrumb-nav-list-item"><a href="{{ parent_url }}">{{ page.parent }}</a></li>
                 {% endif %}
                 <li class="breadcrumb-nav-list-item"><span>{{ page.title }}</span></li>
               </ol>
