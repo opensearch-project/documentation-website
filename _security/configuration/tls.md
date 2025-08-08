@@ -331,6 +331,8 @@ Name | Description
 
 ### Keystore and truststore
 
+The following table lists the available gRPC keystore and truststore settings.
+
 Name | Description
 :--- | :---
 `plugins.security.ssl.aux.secure-transport-grpc.enabled` | Whether to enable TLS for gRPC. If enabled, only HTTPS is allowed. Optional. Default is `false`.
