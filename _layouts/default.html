@@ -158,16 +158,11 @@ layout: table_wrappers
                   {%- assign all_pages = site.pages -%}
                   
                   {%- comment -%}Add collection pages based on current page collection{%- endcomment -%}
-                  {%- if page.collection == "migration-assistant" -%}
-                    {%- assign all_pages = all_pages | concat: site.migration-assistant -%}
-                  {%- elsif page.collection == "vector-search" -%}
-                    {%- assign all_pages = all_pages | concat: site.vector-search -%}
-                  {%- elsif page.collection == "data-prepper" -%}
-                    {%- assign all_pages = all_pages | concat: site.data-prepper -%}
-                  {%- elsif page.collection == "clients" -%}
-                    {%- assign all_pages = all_pages | concat: site.clients -%}
-                  {%- elsif page.collection == "benchmark" -%}
-                    {%- assign all_pages = all_pages | concat: site.benchmark -%}
+                  {%- if page.collection -%}
+                    {%- assign current_collection = site[page.collection] -%}
+                    {%- if current_collection -%}
+                      {%- assign all_pages = all_pages | concat: current_collection -%}
+                    {%- endif -%}
                   {%- endif -%}
                   
                   {%- assign grandparent_url = "" -%}
@@ -210,16 +205,11 @@ layout: table_wrappers
                   {%- assign all_pages = site.pages -%}
                   
                   {%- comment -%}Add collection pages based on current page collection{%- endcomment -%}
-                  {%- if page.collection == "migration-assistant" -%}
-                    {%- assign all_pages = all_pages | concat: site.migration-assistant -%}
-                  {%- elsif page.collection == "vector-search" -%}
-                    {%- assign all_pages = all_pages | concat: site.vector-search -%}
-                  {%- elsif page.collection == "data-prepper" -%}
-                    {%- assign all_pages = all_pages | concat: site.data-prepper -%}
-                  {%- elsif page.collection == "clients" -%}
-                    {%- assign all_pages = all_pages | concat: site.clients -%}
-                  {%- elsif page.collection == "benchmark" -%}
-                    {%- assign all_pages = all_pages | concat: site.benchmark -%}
+                  {%- if page.collection -%}
+                    {%- assign current_collection = site[page.collection] -%}
+                    {%- if current_collection -%}
+                      {%- assign all_pages = all_pages | concat: current_collection -%}
+                    {%- endif -%}
                   {%- endif -%}
                   
                   {%- assign parent_url = "" -%}
