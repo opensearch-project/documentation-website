@@ -15,32 +15,32 @@ All four scripts share a mutable object called `state` that is defined by you. T
 
 ## Parameters
 
-The `scripted_metric` aggregation takes the following parameters:
+The `scripted_metric` aggregation takes the following parameters.
 
 | Parameter        | Data type | Required/Optional | Description                                                                                        |
 | ---------------- | --------- | ----------------- | -------------------------------------------------------------------------------------------------- |
-| `init_script`    | String    | Optional          | The script executes once per shard before any documents are processed. Used to set up an initial state. For example, initialize counters or lists in a state object. If not provided, the state starts as an empty object on each shard.       |
-| `map_script`     | String    | Required          | The script executes for each document collected by the aggregation. This script updates the state based on the document’s data. For example, you might check the field's value and then increment a counter or sum a running total in the state.                                                  |
-| `combine_script` | String    | Required          | The script executes once per shard after all documents on that shard have been processed by the `map_script`. This script aggregates the shard’s state into a single result to be sent back to the coordinating node. This script is used to finalize the computation for one shard. For example, summing up counters or totals stored in state. The script should return the consolidated value or structure for its shard.  |
-| `reduce_script`  | String    | Required          | The script executes once on the coordinating node after receiving combined results from all shards. This script receives a special variable states, which is an array containing each shard’s output from the combine script. The `reduce_script` iterates over states and produces the final aggregation output. For example, summing shard sums, or merging maps of counts. The value returned by the reduce script will be the value reported in the aggregation results. |
+| `init_script`    | String    | Optional          | A script that executes once per shard before any documents are processed. Used to set up an initial state (for example, initialize counters or lists in a state object). If not provided, the state starts as an empty object on each shard.       |
+| `map_script`     | String    | Required          | A script that executes for each document collected by the aggregation. This script updates the state based on the document's data. For example, you might check the field's value and then increment a counter or calculate a running sum in the state.                                                  |
+| `combine_script` | String    | Required          | A script that executes once per shard after all documents on that shard have been processed by the `map_script`. This script aggregates the shard's state into a single result to be sent back to the coordinating node. This script is used to finalize the computation for one shard (for example, summing up counters or totals stored in the state). The script should return the consolidated value or structure for its shard.  |
+| `reduce_script`  | String    | Required          | A script that executes once on the coordinating node after receiving combined results from all shards. This script receives a special variable `states`, which is an array containing each shard’s output from the `combine_script`. The `reduce_script` iterates over states and produces the final aggregation output (for example, adding together shard sums or merging maps of counts). The value returned by the `reduce_script` is the value reported in the aggregation results. |
 | `params`         | Object    | Optional          | User-defined parameters accessible from all scripts except `reduce_script`.                        |
 
 ## Allowed return types
 
-Scripts can use any valid operations and objects internally, however the data you store in `state`, or return from any script, must be of permitted types. This restriction exists because the intermediate state needs to be sent between nodes. The allowed types are:
+Scripts can use any valid operation and object internally. However, the data you store in `state` or return from any script must be of one of the allowed types. This restriction exists because the intermediate state needs to be sent between nodes. The following types are allowed:
 
 - Primitive types: `int`, `long`, `float`, `double`, `boolean`
 - String
-- Map (with keys and values only of allowed types: Primitive types, String, Map, Array)
-- Array (containing only allowed types: Primitive types, String, Map, Array)
+- Map (with keys and values only of allowed types: primitive types, string, map, or array)
+- Array (containing only allowed types: primitive types, string, map, or array)
 
-Therefore your `state` can be a number, a string, a map (object) or an array (list), or a combination of these. For example, you can use a map to accumulate multiple counters, an array to collect values, or a single number to keep a running total. If you need to return multiple metrics, you can store them in a map or array. If you return a map as the final value from the reduce script, the aggregation result will contain an object. If you return a single number or string, the result will be a single value.
+The `state` can be a number, a string, a map (object) or an array (list), or a combination of these. For example, you can use a map to accumulate multiple counters, an array to collect values, or a single number to keep a running sum. If you need to return multiple metrics, you can store them in a map or array. If you return a map as the final value from the `reduce_script`, the aggregation result contains an object. If you return a single number or string, the result is a single value.
 
 ## Using parameters in scripts
 
-You can optionally pass custom parameters to your scripts using the `params` field. This is a user-defined object whose contents become variables available in your `init_script`, `map_script`, and `combine_script`. The `reduce_script` does not directly receive `params`, because by the `reduce` phase you all needed data should be in the `states` array. If you need a constant in the `reduce` phase, you can include it as part of each shard’s state or use a stored script. All parameters must be defined inside the global `params` object, this ensures that they are shared across the different script stages. If you do not specify any `params`, it will default to an empty object. 
+You can optionally pass custom parameters to your scripts using the `params` field. This is a user-defined object whose contents become variables available in your `init_script`, `map_script`, and `combine_script`. The `reduce_script` does not directly receive `params`, because by the `reduce` phase all needed data must be in the `states` array. If you need a constant in the `reduce` phase, you can include it as part of each shard’s state or use a stored script. All parameters must be defined inside the global `params` object. This ensures that they are shared across the different script stages. If you do not specify any `params`, the `params` object is empty. 
 
-For example, you can supply a `threshold` or `field` name via `params` and reference `params.threshold` or `params.field` inside your scripts, see following example:
+For example, you can supply a `threshold` or `field` name in `params` and then reference `params.threshold` or `params.field` in your scripts:
 
 ```json
 "scripted_metric": {
@@ -55,13 +55,13 @@ For example, you can supply a `threshold` or `field` name via `params` and refer
 }
 ```
 
-## Example
+## Examples
 
-The following are two separate examples demonstrating different ways to use `scripted_metric`.
+The following examples demonstrate different ways to use `scripted_metric`.
 
 ### Calculating net profit from transactions
 
-The following example demonstrates the use of the `scripted_metric` aggregation to compute a custom metric that is not directly supported by built-in aggregations. The dataset represents financial transactions, where each document is classified as either a sale (income) or a cost (expense) and includes an amount field. The objective is to calculate the total net profit by subtracting the total cost from the total sales across all documents. 
+The following example demonstrates the use of the `scripted_metric` aggregation to compute a custom metric that is not directly supported by built-in aggregations. The dataset represents financial transactions, in which each document is classified as either a `sale` (income) or a `cost` (expense) and includes an `amount` field. The objective is to calculate the total net profit by subtracting the total cost from the total sales across all documents. 
 
 Create an index:
 
@@ -93,14 +93,14 @@ PUT transactions/_bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-In order to run a search with a scripted metric aggregation to calculate the profit, use the following scripts:
+To run a search with a scripted metric aggregation to calculate the profit, use the following scripts:
 
 - The `init_script` sets up an empty list to hold transaction values for each shard. 
-- The `map_script` for each document adds the document’s amount to the `state.transactions` list as a positive number if the type is `sale`, or as a negative number if the type is `cost`. By the end of the map phase, each shard will have a `state.transactions` list representing its income and expenses. 
-- The `combine_script` processes the `state.transactions` list and computes a single `shardProfit` value for the shard. This `shardProfit` number is then returned as the shard's output. 
-- The `reduce_script` runs on the coordinating node, receiving the array `states`, which holds the `shardProfit` value from each shard. It checks for null entries and sums these values to compute the overall profit, and returns the final result.
+- The `map_script` adds each document’s amount to the `state.transactions` list as a positive number if the type is `sale`, or as a negative number if the type is `cost`. By the end of the map phase, each shard has a `state.transactions` list representing its income and expenses. 
+- The `combine_script` processes the `state.transactions` list and computes a single `shardProfit` value for the shard. The `shardProfit` is then returned as the shard's output. 
+- The `reduce_script` runs on the coordinating node, receiving the `states` array, which holds the `shardProfit` value from each shard. It checks for null entries, adds together these values to compute the overall profit, and returns the final result.
 
-See following example:
+The following request contains all described scripts:
 
 ```json
 GET transactions/_search
@@ -120,9 +120,8 @@ GET transactions/_search
 ```
 {% include copy-curl.html %}
 
-Example response
 
-The response returns the `total_profit` as `170`:
+The response returns the `total_profit`:
 
 ```json
 {
@@ -178,15 +177,16 @@ PUT logs/_bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-To run a scripted metric aggregation which counts the categories, using the following scripts:
+The `state` (on each shard) is a map with three counters: `error`, `success`, and `other`. 
 
-Explanation: Here our state (on each shard) is a map with three counters: error, success, and other. 
-- The `init_script` initializes counters for `error`, `success`, and `other` to 0. 
+To run a scripted metric aggregation which counts the categories, use the following scripts:
+
+- The `init_script` initializes counters for `error`, `success`, and `other` to `0`. 
 - The `map_script` examines each document’s response code and increments the relevant counter based on the response code. 
 - The `combine_script` returns the `state.responses` map for that shard.
-- The `reduce_script` takes the array of maps (`states`) from all shards and merges them. In doing so it creates a new combined map and adds up the `error`, `success`, and `other` counts from each shard’s map. This combined map is returned as the final result.
+- The `reduce_script` takes the array of maps (`states`) from all shards and merges them. Thus, it creates a new combined map and adds the `error`, `success`, and `other` counts from each shard’s map. This combined map is returned as the final result.
 
-See the following example:
+The following request contains all described scripts:
 
 ```json
 GET logs/_search
@@ -231,9 +231,8 @@ GET logs/_search
 ```
 {% include copy-curl.html %}
 
-Example response
 
-The response returns three values together under the `value` object. This demonstrates how a scripted metric can return multiple metrics at once by using a map in the state:
+The response returns three values in the `value` object, demonstrating how a scripted metric can return multiple metrics at once by using a map in the state:
 
 ```json
 {
@@ -260,10 +259,10 @@ The response returns three values together under the `value` object. This demons
 
 ## Handling empty buckets (no documents scenario)
 
-When using a `scripted_metric` aggregation as a sub-aggregation within a bucket aggregation (such as terms), it is important to account for buckets that contain no documents on certain shards. In such cases, those shards return a `null` value for the aggregation state. During the `reduce_script` phase, the states array may therefore include `null` entries corresponding to these shards. To ensure reliable execution, the `reduce_script` must be designed to handle `null` values gracefully. A common approach is to include a conditional check, such as `if (state != null)`, before accessing or operating on each state. Failure to implement such checks can result in runtime errors when processing empty buckets across shards.
+When using a `scripted_metric` aggregation as a subaggregation within a bucket aggregation (such as `terms`), it is important to account for buckets that contain no documents on certain shards. In such cases, those shards return a `null` value for the aggregation state. During the `reduce_script` phase, the `states` array may therefore include `null` entries corresponding to these shards. To ensure reliable execution, the `reduce_script` must be designed to handle `null` values gracefully. A common approach is to include a conditional check, such as `if (state != null)`, before accessing or operating on each state. Failure to implement such checks can result in runtime errors when processing empty buckets across shards.
 
 
 ## Performance considerations
 
-Because scripted metrics run custom code for every document and possibly accumulate large in-memory state, they can be slower than built-in aggregations. The intermediate state from each shard has to be serialized to send it to the coordinating node. Therefore if your state is very large, it can consume a lot of memory and network bandwidth. To keep your searches efficient, make your scripts as lightweight as possible and avoid accumulating unnecessary data in the state. Use the combine stage to shrink state data before sending, as demonstrated in [calculating net profit from transactions](#calculating-net-profit-from-transactions) example, and only collect what you truly need to produce the final metric.
+Because scripted metrics run custom code for every document and possibly accumulate large in-memory state, they can be slower than built-in aggregations. The intermediate state from each shard has to be serialized to send it to the coordinating node. Therefore if your `state` is very large, it can consume a lot of memory and network bandwidth. To keep your searches efficient, make your scripts as lightweight as possible and avoid accumulating unnecessary data in the `state`. Use the combine stage to shrink state data before sending, as demonstrated in [Calculating net profit from transactions](#calculating-net-profit-from-transactions), and only collect the values that you truly need to produce the final metric.
 
