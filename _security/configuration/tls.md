@@ -329,7 +329,7 @@ Name | Description
 `plugins.security.ssl.aux.secure-transport-grpc.pemcert_filepath` | The path to the X.509 node certificate chain (in PEM format), specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
 `plugins.security.ssl.aux.secure-transport-grpc.pemtrustedcas_filepath` | The path to the root CAs (in PEM format), specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
 
-### Keystore and trustore
+### Keystore and truststore
 
 Name | Description
 :--- | :---
