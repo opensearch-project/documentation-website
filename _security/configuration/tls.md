@@ -310,7 +310,7 @@ You should receive the following response:
 { "message": "successfully updated http certs"}
 ```
 
-#### Configuring TLS certificates for gRPC
+## Configuring TLS certificates for gRPC
 
 gRPC supports encryption in transit only. Trust stores and certificates configured as root CAs in PEM format are used only for the purpose of TLS client authorization. Role-based access is not available for gRPC endpoints. 
 {: .warning}
