@@ -1,7 +1,6 @@
 ---
 layout: default
 parent: Migration Assistant for OpenSearch
-grand_parent: Migrate or upgrade
 title: Migration console
 nav_order: 50
 nav_exclude: false
