@@ -118,12 +118,14 @@ PUT my-vector-index
 {% include copy-curl.html %}
 
 ## Enhancing search quality with ADC and RR
+**Introduced 3.2**
+{: .label .label-purple }
 
-If the recall is lacking, you can specify asymmetric distance computation (ADC) or random rotation (RR) in the index mapping to apply enhanced search capabilities. These techniques are available in OpenSearch 3.2 and later versions.
+If your search results have low recall, you can enhance search quality by specifying asymmetric distance computation (ADC) or random rotation (RR) in the index mapping.
 
 ADC maintains a full-precision query vector while rescaling it to have meaningful distance computations against binary-quantized document vectors. This asymmetric approach preserves more information about the query vector, boosting search quality without significant memory penalty. ADC is supported for 1-bit quantization only.
 
-Random rotation addresses the issue where binary quantization gives equal weight to each vector dimension during the quantization process. By rotating the distribution, RR can "smooth" variance (information) from high-variance dimensions into low-variance dimensions, preserving more information during the 32x compression process. RR is supported for 1-bit, 2-bit, and 4-bit quantization.
+Random rotation addresses the issue where binary quantization gives equal weight to each vector dimension during the quantization process. By rotating the distribution, RR can redistribute variance (information) from high-variance dimensions into low-variance dimensions, preserving more information during the 32x compression process. RR is supported for 1-bit, 2-bit, and 4-bit quantization.
 
 For optimal performance and recall enhancement, use both ADC and RR together:
 
@@ -162,7 +164,8 @@ PUT vector-index
 ```
 {% include copy-curl.html %}
 
-**Note:** ADC and RR impact search or indexing performance, so they are opt-in features. ADC may introduce a moderate latency increase due to full-precision distance computations, while RR primarily affects indexing latency as vectors must be rotated during the process.
+ADC and RR impact search or indexing performance, so they are disabled by default. ADC may introduce a moderate latency increase because of full-precision distance computations, while RR primarily affects indexing latency because vectors must be rotated during the process.
+{: .note}
 
 ## Search using binary quantized vectors
 
