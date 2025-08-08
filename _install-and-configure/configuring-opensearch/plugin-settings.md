@@ -55,9 +55,7 @@ For information about machine learning settings, see [ML Commons cluster setting
 
 ## Neural Search plugin settings
 
-The Security Analytics plugin supports the following settings:
-
-- `plugins.neural_search.hybrid_search_disabled` (Dynamic, Boolean): Disables hybrid search. Default is `false`.
+For information about Neural Search plugin settings, see [Neural Search plugin settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#neural-search-plugin-settings).
 
 ## Notifications plugin settings
 
