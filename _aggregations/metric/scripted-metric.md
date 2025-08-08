@@ -19,15 +19,15 @@ The `scripted_metric` aggregation takes the following parameters.
 
 | Parameter        | Data type | Required/Optional | Description                                                                                        |
 | ---------------- | --------- | ----------------- | -------------------------------------------------------------------------------------------------- |
-| `init_script`    | String    | Optional          | A script that executes once per shard before any documents are processed. Used to set up an initial state (for example, initialize counters or lists in a state object). If not provided, the state starts as an empty object on each shard.       |
-| `map_script`     | String    | Required          | A script that executes for each document collected by the aggregation. This script updates the state based on the document's data. For example, you might check the field's value and then increment a counter or calculate a running sum in the state.                                                  |
-| `combine_script` | String    | Required          | A script that executes once per shard after all documents on that shard have been processed by the `map_script`. This script aggregates the shard's state into a single result to be sent back to the coordinating node. This script is used to finalize the computation for one shard (for example, summing up counters or totals stored in the state). The script should return the consolidated value or structure for its shard.  |
+| `init_script`    | String    | Optional          | A script that executes once per shard before any documents are processed. Used to set up an initial `state` (for example, initialize counters or lists in a `state` object). If not provided, the `state` starts as an empty object on each shard.       |
+| `map_script`     | String    | Required          | A script that executes for each document collected by the aggregation. This script updates the `state` based on the document's data. For example, you might check the field's value and then increment a counter or calculate a running sum in the `state`.                                                  |
+| `combine_script` | String    | Required          | A script that executes once per shard after all documents on that shard have been processed by the `map_script`. This script aggregates the shard's `state` into a single result to be sent back to the coordinating node. This script is used to finalize the computation for one shard (for example, summing up counters or totals stored in the state). The script should return the consolidated value or structure for its shard.  |
 | `reduce_script`  | String    | Required          | A script that executes once on the coordinating node after receiving combined results from all shards. This script receives a special variable `states`, which is an array containing each shard's output from the `combine_script`. The `reduce_script` iterates over states and produces the final aggregation output (for example, adding shard sums or merging maps of counts). The value returned by the `reduce_script` is the value reported in the aggregation results. |
 | `params`         | Object    | Optional          | User-defined parameters accessible from all scripts except `reduce_script`.                        |
 
 ## Allowed return types
 
-Scripts can use any valid operation and object internally. However, the data you store in `state` or return from any script must be of one of the allowed types. This restriction exists because the intermediate state needs to be sent between nodes. The following types are allowed:
+Scripts can use any valid operation and object internally. However, the data you store in `state` or return from any script must be of one of the allowed types. This restriction exists because the intermediate `state` needs to be sent between nodes. The following types are allowed:
 
 - Primitive types: `int`, `long`, `float`, `double`, `boolean`
 - String
@@ -38,7 +38,7 @@ The `state` can be a number, a string, a map (object) or an array (list), or a c
 
 ## Using parameters in scripts
 
-You can optionally pass custom parameters to your scripts using the `params` field. This is a user-defined object whose contents become variables available in your `init_script`, `map_script`, and `combine_script`. The `reduce_script` does not directly receive `params` because by the `reduce` phase, all needed data must be in the `states` array. If you need a constant in the `reduce` phase, you can include it as part of each shard's state or use a stored script. All parameters must be defined inside the global `params` object. This ensures that they are shared across the different script phases. If you do not specify any `params`, the `params` object is empty. 
+You can optionally pass custom parameters to your scripts using the `params` field. This is a user-defined object whose contents become variables available in your `init_script`, `map_script`, and `combine_script`. The `reduce_script` does not directly receive `params` because by the `reduce` phase, all needed data must be in the `states` array. If you need a constant in the `reduce` phase, you can include it as part of each shard's `state` or use a stored script. All parameters must be defined inside the global `params` object. This ensures that they are shared across the different script phases. If you do not specify any `params`, the `params` object is empty. 
 
 For example, you can supply a `threshold` or `field` name in `params` and then reference `params.threshold` or `params.field` in your scripts:
 
@@ -144,7 +144,7 @@ The response returns the `total_profit`:
 
 ### Categorizing HTTP response codes
 
-The following example demonstrates a more advanced use of the `scripted_metric` aggregation for returning multiple values within a single aggregation. The dataset consists of web server log entries, each containing an HTTP response code. The goal is to classify the responses into three categories: successful responses (2xx status codes), client or server errors (4xx or 5xx status codes), and other responses (1xx or 3xx status codes). This classification is implemented by maintaining counters within a map-based aggregation state. 
+The following example demonstrates a more advanced use of the `scripted_metric` aggregation for returning multiple values within a single aggregation. The dataset consists of web server log entries, each containing an HTTP response code. The goal is to classify the responses into three categories: successful responses (2xx status codes), client or server errors (4xx or 5xx status codes), and other responses (1xx or 3xx status codes). This classification is implemented by maintaining counters within a map-based aggregation `state`. 
 
 Create a sample index:
 
@@ -232,7 +232,7 @@ GET logs/_search
 {% include copy-curl.html %}
 
 
-The response returns three values in the `value` object, demonstrating how a scripted metric can return multiple metrics at once by using a map in the state:
+The response returns three values in the `value` object, demonstrating how a scripted metric can return multiple metrics at once by using a map in the `state`:
 
 ```json
 {
@@ -259,10 +259,10 @@ The response returns three values in the `value` object, demonstrating how a scr
 
 ## Managing empty buckets (no documents)
 
-When using a `scripted_metric` aggregation as a subaggregation within a bucket aggregation (such as `terms`), it is important to account for buckets that contain no documents on certain shards. In such cases, those shards return a `null` value for the aggregation state. During the `reduce_script` phase, the `states` array may therefore include `null` entries corresponding to these shards. To ensure reliable execution, the `reduce_script` must be designed to handle `null` values gracefully. A common approach is to include a conditional check, such as `if (state != null)`, before accessing or operating on each state. Failure to implement such checks can result in runtime errors when processing empty buckets across shards.
+When using a `scripted_metric` aggregation as a subaggregation within a bucket aggregation (such as `terms`), it is important to account for buckets that contain no documents on certain shards. In such cases, those shards return a `null` value for the aggregation `state`. During the `reduce_script` phase, the `states` array may therefore include `null` entries corresponding to these shards. To ensure reliable execution, the `reduce_script` must be designed to handle `null` values gracefully. A common approach is to include a conditional check, such as `if (state != null)`, before accessing or operating on each `state`. Failure to implement such checks can result in runtime errors when processing empty buckets across shards.
 
 
 ## Performance considerations
 
-Because scripted metrics run custom code for every document and therefore potentially accumulate a large in-memory state, they can be slower than built-in aggregations. The intermediate state from each shard must be serialized in order to send it to the coordinating node. Therefore if your `state` is very large, it can consume a lot of memory and network bandwidth. To keep your searches efficient, make your scripts as lightweight as possible and avoid accumulating unnecessary data in the `state`. Use the combine stage to shrink state data before sending, as demonstrated in [Calculating net profit from transactions](#calculating-net-profit-from-transactions), and only collect the values that you truly need to produce the final metric.
+Because scripted metrics run custom code for every document and therefore potentially accumulate a large in-memory `state`, they can be slower than built-in aggregations. The intermediate `state` from each shard must be serialized in order to send it to the coordinating node. Therefore if your `state` is very large, it can consume a lot of memory and network bandwidth. To keep your searches efficient, make your scripts as lightweight as possible and avoid accumulating unnecessary data in the `state`. Use the combine stage to shrink `state` data before sending, as demonstrated in [Calculating net profit from transactions](#calculating-net-profit-from-transactions), and only collect the values that you truly need to produce the final metric.
 
