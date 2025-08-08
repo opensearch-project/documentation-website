@@ -11,7 +11,7 @@ redirect_from:
 
 The `scripted_metric` aggregation is a multi-value metric aggregation that returns metrics calculated from a specified script. A script has four phases, `init`, `map`, `combine`, and `reduce`, which are run in order by each aggregation and allow you to combine results from your documents.
 
-All four scripts share a mutable object called `state` that is defined by you. The `state` is local to each shard during the `init`, `map`, and `combine` phases. The result is passed into the states array for the `reduce` phase. Therefore, each shard's `state` is independent until the shards are combined in the `reduce` step.
+All four scripts share a mutable object called `state` that is defined by you. The `state` is local to each shard during the `init`, `map`, and `combine` phases. The result is passed into the `states` array for the `reduce` phase. Therefore, each shard's `state` is independent until the shards are combined in the `reduce` step.
 
 ## Parameters
 
@@ -21,7 +21,7 @@ The `scripted_metric` aggregation takes the following parameters.
 | ---------------- | --------- | ----------------- | -------------------------------------------------------------------------------------------------- |
 | `init_script`    | String    | Optional          | A script that executes once per shard before any documents are processed. Used to set up an initial `state` (for example, initialize counters or lists in a `state` object). If not provided, the `state` starts as an empty object on each shard.       |
 | `map_script`     | String    | Required          | A script that executes for each document collected by the aggregation. This script updates the `state` based on the document's data. For example, you might check the field's value and then increment a counter or calculate a running sum in the `state`.                                                  |
-| `combine_script` | String    | Required          | A script that executes once per shard after all documents on that shard have been processed by the `map_script`. This script aggregates the shard's `state` into a single result to be sent back to the coordinating node. This script is used to finalize the computation for one shard (for example, summing up counters or totals stored in the state). The script should return the consolidated value or structure for its shard.  |
+| `combine_script` | String    | Required          | A script that executes once per shard after all documents on that shard have been processed by the `map_script`. This script aggregates the shard's `state` into a single result to be sent back to the coordinating node. This script is used to finalize the computation for one shard (for example, summing up counters or totals stored in the `state`). The script should return the consolidated value or structure for its shard.  |
 | `reduce_script`  | String    | Required          | A script that executes once on the coordinating node after receiving combined results from all shards. This script receives a special variable `states`, which is an array containing each shard's output from the `combine_script`. The `reduce_script` iterates over states and produces the final aggregation output (for example, adding shard sums or merging maps of counts). The value returned by the `reduce_script` is the value reported in the aggregation results. |
 | `params`         | Object    | Optional          | User-defined parameters accessible from all scripts except `reduce_script`.                        |
 
