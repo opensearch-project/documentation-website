@@ -326,7 +326,7 @@ Name | Description
 `plugins.security.ssl.aux.secure-transport-grpc.enabled` | Whether to enable TLS for gRPC. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 `plugins.security.ssl.aux.secure-transport-grpc.pemkey_filepath` | The path to the certificate's key file (PKCS #8), specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
 `plugins.security.ssl.aux.secure-transport-grpc.pemkey_password` | The key password. Omit this setting if the key has no password. Optional.
-`plugins.security.ssl.aux.secure-transport-grpc.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.aux.secure-transport-grpc.pemcert_filepath` | The path to the X.509 node certificate chain (in PEM format), specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
 `plugins.security.ssl.aux.secure-transport-grpc.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 
 ### Keystore and trustore
