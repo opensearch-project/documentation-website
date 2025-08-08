@@ -10,7 +10,7 @@ has_toc: false
 
 # Evaluating search quality
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).
 {: .warning}
 
 Search Relevance Workbench can run pointwise experiments to evaluate search configuration quality using provided queries and relevance judgments.
@@ -210,3 +210,5 @@ The results include the original request parameters along with the following met
 - `MAP@k`: The Mean Average Precision, which calculates the average precision across all documents. For more information, see [Average precision](https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Average_precision).
 
 - `NDCG@k`: The Normalized Discounted Cumulative Gain, which compares the actual ranking of results against a perfect ranking, with higher weights given to top results. This measures the quality of result ordering.
+
+To review these results in a visual way, see [exploring experiment results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/explore-experiment-results/).
