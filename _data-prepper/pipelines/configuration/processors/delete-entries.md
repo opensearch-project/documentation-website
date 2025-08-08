@@ -1,12 +1,12 @@
 ---
 layout: default
-title: delete_entries
+title: Delete entries
 parent: Processors
 grand_parent: Pipelines
-nav_order: 43
+nav_order: 110
 ---
-
-# delete_entries
+ 
+# Delete entries processor
 
 The `delete_entries` processor deletes entries, such as key-value pairs, from an event. You can define the keys you want to delete in the `with-keys` field following `delete_entries` in the YAML configuration file. Those keys and their values are deleted. 
 

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: select_entries
+title: Select entries
 parent: Processors
 grand_parent: Pipelines
-nav_order: 59
+nav_order: 320
 ---
 
-# select_entries
+# Select entries processor
 
 The `select_entries` processor selects entries from an OpenSearch Data Prepper event.
 Only the selected entries remain in the processed event and while all other entries are removed. However, the processor does not remove any events from the Data Prepper pipeline.

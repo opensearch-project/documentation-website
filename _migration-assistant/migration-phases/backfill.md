@@ -1,112 +1,27 @@
 ---
 layout: default
 title: Backfill
-nav_order: 90
+nav_order: 6
 parent: Migration phases
+grand_parent: Migration Assistant for OpenSearch
+permalink: /migration-assistant/migration-phases/backfill/
+redirect_from:
+  - /migration-phases/backfill/
 ---
 
-# Backfill
+# Using backfill
 
-After the [metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrating-metadata/) for your cluster has been migrated, you can use capture proxy data replication and snapshots to backfill your data into the next cluster.
+After the [metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/) for your cluster has been migrated, you can use Capture Proxy data replication and snapshots to backfill your data into the next cluster.
 
-## Capture proxy data replication
+## Migrate documents with RFS
 
-If you're interested in capturing live traffic during your migration, Migration Assistant includes an Application Load Balancer for routing traffic to the capture proxy and the target cluster. Upstream client traffic must be routed through the capture proxy in order to replay the requests later. Before using the capture proxy, remember the following:
-
-* The layer upstream from the Application Load Balancer is compatible with the certificate on the Application Load Balancer listener, whether it's for clients or a Network Load Balancer. The `albAcmCertArn` in the `cdk.context.json` may need to be provided to ensure that clients trust the Application Load Balancer certificate.
-* If a Network Load Balancer is used directly upstream of the Application Load Balancer, it must use a TLS listener.
-* Upstream resources and security groups must allow network access to the Migration Assistant Application Load Balancer.
-
-To set up the capture proxy, go to the AWS Management Console and navigate to **EC2 > Load Balancers > Migration Assistant Application Load Balancer**. Copy the Application Load Balancer URL. With the URL copied, you can use one of the following options.
-
-
-### If you are using **Network Load Balancer → Application Load Balancer → Cluster**
-
-1. Ensure that ingress is provided directly to the Application Load Balancer for the capture proxy.
-2. Create a target group for the Migration Assistant Application Load Balancer on port `9200`, and set the health check to `HTTPS`.
-3. Associate this target group with your existing Network Load Balancer on a new listener for testing.
-4. Verify that the health check is successful, and perform smoke testing with some clients through the new listener port.
-5. Once you are ready to migrate all clients, detach the Migration Assistant Application Load Balancer target group from the testing Network Load Balancer listener and modify the existing Network Load Balancer listener to direct traffic to this target group.
-6. Now client requests will be routed through the proxy (once they establish a new connection). Verify the application metrics.
-
-### If you are using **Network Load Balancer → Cluster**
-
-If you do not want to modify application logic, add an Application Load Balancer in front of your cluster and follow the **Network Load Balancer → Application Load Balancer → Cluster** steps. Otherwise:
-
-1. Create a target group for the Application Load Balancer on port `9200` and set the health check to `HTTPS`.
-2. Associate this target group with your existing Network Load Balancer on a new listener.
-3. Verify that the health check is successful, and perform smoke testing with some clients through the new listener port.
-4. Once you are ready to migrate all clients, deploy a change so that clients hit the new listener.
-   
-
-### If you are **not using an Network Load Balancer**
-
-If you're only using backfill as your migration technique, make a client/DNS change to route clients to the Migration Assistant Application Load Balancer on port `9200`.
-
-
-### Kafka connection
-
-After you have routed the client based on your use case, test adding records against HTTP requests using the following steps:
-
-In the migration console, run the following command:
-
-```bash
-console kafka describe-topic-records
-```
-{% include copy.html %}
-   
-Note the records in the logging topic.
-   
-After a short period, execute the same command again and compare the increased number of records against the expected HTTP requests.
-
-## Creating a snapshot
-
-Create a snapshot for your backfill using the following command:
-
-```bash
-console snapshot create
-```
-{% include copy.html %}
-
-To check the progress of your snapshot, use the following command:
-
-```bash
-console snapshot status --deep-check
-```
-{% include copy.html %}
-
-Depending on the size of the data in the source cluster and the bandwidth allocated for snapshots, the process can take some time. Adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic.
-
-## Backfilling documents to the source cluster
-
-From the snapshot you created of your source cluster, you can begin backfilling documents into the target cluster. Once you have started this process, a fleet of workers will spin up to read the snapshot and reindex documents into the target cluster. This fleet of workers can be scaled to increased the speed at which documents are reindexed into the target cluster.
-
-### Checking the starting state of the clusters
-
-You can check the indexes and document counts of the source and target clusters by running the `cat-indices` command. This can be used to monitor the difference between the source and target for any migration scenario. Check the indexes of both clusters using the following command:
-
-```shell
-console clusters cat-indices
-```
-{% include copy.html %}
-
-You should receive the following response:
-
-```shell
-SOURCE CLUSTER
-health status index       uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-green  open   my-index WJPVdHNyQ1KMKol84Cy72Q   1   0          8            0     44.7kb         44.7kb
-
-TARGET CLUSTER
-health status index                        uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-green  open   .opendistro_security         N3uy88FGT9eAO7FTbLqqqA   1   0         10            0     78.3kb         78.3kb
-```
+You can now use RFS to migrate documents from your original cluster:
 
 ### Starting the backfill
 
-Use the following command to start the backfill and deploy the workers:
+To start the migration from RFS, start a `backfill` using the following command:
 
-```shell
+```bash
 console backfill start
 ```
 {% include copy.html %}
@@ -129,6 +44,13 @@ The status will be `Running` even if all the shards have been migrated.
 
 ### Scaling up the fleet
 
+_(Optional)_ To speed up the migration, increase the number of documents processed simultaneously by using the following command:
+
+```bash
+console backfill scale <NUM_WORKERS>
+```
+{% include copy.html %}
+
 To speed up the transfer, you can scale the number of workers. It may take a few minutes for these additional workers to come online. The following command will update the worker fleet to a size of 10:
 
 ```shell
@@ -136,7 +58,46 @@ console backfill scale 5
 ```
 {% include copy.html %}
 
-We recommend slowly scaling up the fleet while monitoring the health metrics of the target cluster to avoid over-saturating it. [Amazon OpenSearch Service domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/monitoring.html) provide a number of metrics and logs that can provide this insight.
+We recommend slowly scaling up the fleet while monitoring the health metrics of the target cluster to avoid oversaturating it. [Amazon OpenSearch Service domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/monitoring.html) provide a number of metrics and logs that can be used for this monitoring.
+
+### Monitoring the backfill
+
+To check the status of the documentation backfill, use the following command:
+
+```bash
+console backfill status
+```
+{% include copy.html %}
+
+Use the following command to perform detailed monitoring of the backfill process:
+
+```bash
+console backfill status --deep-check
+```
+{% include copy.html %}
+
+You should receive the following output:
+
+```json
+BackfillStatus.RUNNING
+Running=9
+Pending=1
+Desired=10
+Shards total: 62
+Shards completed: 46
+Shards incomplete: 16
+Shards in progress: 11
+Shards unclaimed: 5
+```
+
+Logs and metrics are available in Amazon CloudWatch in the `OpenSearchMigrations` log group.
+
+If you need to stop the backfill process, use the following command:
+
+```bash
+console backfill stop
+```
+{% include copy.html %}
 
 ### Pausing the migration
 
@@ -204,3 +165,17 @@ green  open   .kibana_1
 ```
 
 You can run additional queries against the target cluster to mimic your production workflow and closely examine the results.
+
+## Verify that all documents were migrated
+
+Use the following query in CloudWatch Logs Insights to identify failed documents:
+
+```bash
+fields @message
+| filter @message like "Bulk request succeeded, but some operations failed."
+| sort @timestamp desc
+| limit 10000
+```
+{% include copy.html %}
+
+If any failed documents are identified, you can index the failed documents directly as opposed to using RFS.

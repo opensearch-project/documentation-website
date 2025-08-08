@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Install and configure
+title: Install and configure OpenSearch Benchmark
 nav_order: 5
 parent: User guide
 has_children: true

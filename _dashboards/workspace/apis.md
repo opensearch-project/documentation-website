@@ -163,7 +163,7 @@ The following table lists the available path parameters.
 | `attributes` | Object | Required | Defines the workspace attributes. |
 | `permissions` | Object | Optional | Specifies the permissions for the workspace. |
 
-#### Example request
+#### Example request without permissions object
 
 ```json
 PUT api/workspaces/eHVoCJ
@@ -171,6 +171,37 @@ PUT api/workspaces/eHVoCJ
     "attributes": {
         "name": "test4",
         "description": "test update"
+    }
+}
+```
+{% include copy-curl.html %}
+
+The following example response shows a successful API call:
+
+```json
+{
+    "success": true,
+    "result": true
+}
+```
+{% include copy-curl.html %}
+
+#### Example request with permissions object
+
+```json
+PUT api/workspaces/eHVoCJ
+{
+    "attributes": {
+    },
+    "settings": {
+        "permissions": {
+           "library_write": {
+              "groups": ["obs-admins"]
+           },
+           "read": {
+              "groups": ["obs-users"]
+           }
+        }
     }
 }
 ```
