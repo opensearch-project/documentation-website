@@ -1,7 +1,7 @@
 <!-- spec_insert_start
 component: example_code
 rest: GET /_cat/health?pretty=true&human=false
-include_client_setup:
+include_client_setup: true
 -->
 <!-- spec_insert_end -->
 
@@ -37,6 +37,6 @@ body: |
   {"index":{"_index":"test","_id":"1"}}
   {"field1":"value1"}
   {"delete":{"_index":"test","_id":"2"}}
-include_client_setup: 
+include_client_setup: true
 -->
 <!-- spec_insert_end -->

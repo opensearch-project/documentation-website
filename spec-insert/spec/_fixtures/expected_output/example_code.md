@@ -1,7 +1,7 @@
 <!-- spec_insert_start
 component: example_code
 rest: GET /_cat/health?pretty=true&human=false
-include_client_setup: 
+include_client_setup: true
 -->
 {% capture step1_rest %}
 GET /_cat/health?pretty=true&human=false
@@ -115,7 +115,7 @@ body: |
   {"index":{"_index":"test","_id":"1"}}
   {"field1":"value1"}
   {"delete":{"_index":"test","_id":"2"}}
-include_client_setup: 
+include_client_setup: true
 -->
 {% capture step1_rest %}
 POST /_bulk?expand_wildcards=all

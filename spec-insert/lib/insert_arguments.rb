@@ -17,11 +17,37 @@ class InsertArguments
   # @param [Array<String>] lines the lines between "<!-- doc_insert_start" and "<!-- spec_insert_end -->"
   # @return [InsertArguments]
   def self.from_marker(lines)
+    # Extract lines between start and end marker
     end_index = lines.each_with_index.find { |line, _index| line.match?(/^\s*-->/) }&.last&.- 1
-    args = lines[1..end_index].filter { |line| line.include?(':') }.to_h do |line|
-      key, value = line.split(':',2)
-      [key.strip, value.strip]
+    args = {}
+    i = 1
+
+    while i <= end_index
+      line = lines[i]
+      next unless line.include?(':')
+
+      key, value = line.split(':', 2)
+      key = key.strip
+      value = value.strip
+
+      if value == '|'
+        # Multi-line block value
+        multiline_value = []
+        i += 1
+        while i <= end_index
+          line = lines[i]
+          break if line.match?(/^\s*\w+:/) # Stop at new top-level key
+          multiline_value << line.rstrip
+          i += 1
+        end
+        args[key] = multiline_value.join("\n")
+        next
+      else
+        args[key] = value
+      end
+      i += 1
     end
+
     new(args)
   end
 
@@ -52,9 +78,17 @@ class InsertArguments
     parse_array(@raw['columns']) || []
   end
 
+  def skip?
+    parse_boolean(@raw['skip'], default: false)
+  end
+
   # @return [Boolean]
   def pretty
     parse_boolean(@raw['pretty'], default: false)
+  end
+
+  def include_client_setup
+    parse_boolean(@raw['include_client_setup'], default: false)
   end
 
   # @return [Boolean]

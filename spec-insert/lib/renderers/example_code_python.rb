@@ -69,7 +69,7 @@ class ExampleCodePython < BaseMustacheRenderer
     if query_string
       query_pairs = query_string.split('&').map { |s| s.split('=', 2) }
       query_hash = query_pairs.map do |k, v|
-        "\"#{k}\": #{v ? "\"#{v}\"" : "\"false\""}"
+        "\"#{k}\": #{v ? "\"#{v}\"" : "\"true\""}"
       end.join(', ')
       args << "params = { #{query_hash} }" unless query_hash.empty?
     end
@@ -77,12 +77,17 @@ class ExampleCodePython < BaseMustacheRenderer
     body = rest.body
     if expects_body?(http_verb)
       if body
+        raw_body = @args.raw['body']
         begin
-          parsed = JSON.parse(@args.raw['body'])
+          parsed = JSON.parse(raw_body)
           pretty = JSON.pretty_generate(parsed).gsub(/^/, '  ')
           args << "body = #{pretty}"
         rescue JSON::ParserError
-          args << "body = #{JSON.dump(@args.raw['body'])}"
+          if raw_body.include?("\n")
+            args << "body = '''\n#{raw_body.rstrip}\n'''"
+          else
+            args << "body = #{JSON.dump(raw_body)}"
+          end
         end
       else
         args << 'body = { "Insert body here" }'
@@ -100,7 +105,7 @@ class ExampleCodePython < BaseMustacheRenderer
                         )
                       PYTHON
                     end
-    if @args.raw['include_client_setup']
+    if @args.include_client_setup
       client_setup + python_setup
     else
       python_setup
