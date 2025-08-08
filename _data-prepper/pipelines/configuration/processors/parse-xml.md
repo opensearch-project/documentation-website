@@ -1,12 +1,12 @@
 ---
 layout: default
-title: parse_xml
+title: Parse XML
 parent: Processors
 grand_parent: Pipelines
-nav_order: 83
+nav_order: 300
 ---
 
-# parse_xml
+# Parse XML processor
 
 The `parse_xml` processor parses XML data for an event.
 

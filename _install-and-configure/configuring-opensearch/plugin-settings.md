@@ -98,3 +98,7 @@ For information about security analytics settings, see [Security Analytics setti
 ## SQL plugin settings
 
 For information about settings related to SQL and PPL, see [SQL settings]({{site.url}}{{site.baseurl}}/search-plugins/sql/settings/).
+
+## Workload Management plugin settings
+
+For information about workload management settings, see [Workload management settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#workload-management-settings).

@@ -1,8 +1,13 @@
 ---
 layout: default
 title: Command reference
-nav_order: 40
+nav_order: 2
 parent: Migration console
+grand_parent: Migration Assistant for OpenSearch
+permalink: /migration-assistant/migration-console/migration-console-command-reference/
+redirect_from:
+  - /migration-console/migration-console-commands-references/
+  - /migration-assistant/migration-console/migration-console-commands-references/
 ---
 
 # Migration console command reference

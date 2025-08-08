@@ -1,13 +1,13 @@
 ---
 layout: default
-title: dissect
+title: Dissect
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 120
 ---
 
-# dissect
-
+# Dissect processor
+ 
 The `dissect` processor extracts values from an event and maps them to individual fields based on user-defined `dissect` patterns. The processor is well suited for field extraction from log messages with a known structure. 
 
 ## Basic usage

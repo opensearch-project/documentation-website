@@ -49,7 +49,6 @@ const BreakingChangesUI = (function() {
       // Populate dropdowns with all versions
       // Use the global VERSIONS array for compatibility with original code
       const allVersions = VERSIONS;
-      console.log('Available versions:', allVersions);
       this.populateVersionDropdowns(allVersions);
       
       // Set up component checkboxes
@@ -57,7 +56,6 @@ const BreakingChangesUI = (function() {
       
       // Restore original values if they were set (e.g., when navigating back to the page)
       if (originalSourceValue && originalTargetValue) {
-        console.log('Restoring pre-selected values:', originalSourceValue, originalTargetValue);
         elements.sourceSelect.value = originalSourceValue;
         elements.targetSelect.value = originalTargetValue;
       }
@@ -69,7 +67,6 @@ const BreakingChangesUI = (function() {
       // This ensures the DOM has been updated before we check for selected values
       requestAnimationFrame(() => {
         if (elements.sourceSelect.value && elements.targetSelect.value) {
-          console.log('Selected values detected, updating results after DOM update');
           this.updateResults();
         }
       });
@@ -145,12 +142,11 @@ const BreakingChangesUI = (function() {
         targets.forEach(target => allTargetVersions.add(target));
       });
       
-      // Convert Set to Array and sort in reverse order (latest version first)
+      // Convert Set to Array and sort in order (latest version last)
       const targetVersions = Array.from(allTargetVersions).sort((a, b) => {
-        // Use the version index to sort in reverse order
-        return getVersionIndex(b) - getVersionIndex(a);
+        // Use the version index to sort in order
+        return getVersionIndex(a) - getVersionIndex(b);
       });
-      console.log('Filtered target versions (latest first):', targetVersions);
       
       // Populate target dropdown with filtered versions
       this.populateDropdown(elements.targetSelect, targetVersions, 'Select Target');
@@ -166,12 +162,11 @@ const BreakingChangesUI = (function() {
       const selectedSource = elements.sourceSelect.value;
       
       if (selectedSource) {
-        // Get valid targets for this source and sort in reverse order (latest version first)
+        // Get valid targets for this source and sort in order (latest version last)
         const validTargets = (MIGRATION_MAP.sourceToTargets[selectedSource] || []).sort((a, b) => {
-          // Use the version index to sort in reverse order
-          return getVersionIndex(b) - getVersionIndex(a);
+          // Use the version index to sort in order
+          return getVersionIndex(a) - getVersionIndex(b);
         });
-        console.log('Valid targets for', selectedSource, '(latest first):', validTargets);
         this.populateDropdown(elements.targetSelect, validTargets, 'Select Target');
       } else {
         // If no source selected, show all possible targets
@@ -194,7 +189,6 @@ const BreakingChangesUI = (function() {
       if (selectedTarget) {
         // Get valid sources for this target
         const validSources = MIGRATION_MAP.targetToSources[selectedTarget] || [];
-        console.log('Valid sources for', selectedTarget, ':', validSources);
         this.populateDropdown(elements.sourceSelect, validSources, 'Select Source');
       } else {
         // If no target selected, show all possible sources
@@ -214,7 +208,6 @@ const BreakingChangesUI = (function() {
       
       // Get unique components from breaking changes
       const components = this.getUniqueComponents();
-      console.log('Available components:', components);
       
       // Create a checkbox for each component
       components.forEach(component => {
@@ -294,7 +287,6 @@ const BreakingChangesUI = (function() {
       
       // Filter breaking changes directly using the global variables
       const relevantChanges = this.filterBreakingChanges(selectedSource, selectedTarget, selectedComponents);
-      console.log('Filtered breaking changes:', relevantChanges);
       
       // Display results
       this.displayResults(relevantChanges);

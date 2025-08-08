@@ -67,11 +67,10 @@ module Jekyll::LinkChecker
     'openai.com', # 403s on bots
     'mvnrepository.com', # 403s on bots
     'www.intel.com', # 403s on bots
-    'https://wordnet.princeton.edu/', # 403s on bots
-    'https://docs.search-guard.com/latest/offline-tls-tool', # 403s on bots
-    'https://www.deepseek.com/', # 403s on bots
-    'https://docs.opensearch.org/releases.html', # 403s on bots
-    'https://dl.acm.org/doi/abs/10.1145/1645953.1646033', # 403s on bots
+    'wordnet.princeton.edu', # 403s on bots
+    'docs.search-guard.com', # 403s on bots
+    'www.deepseek.com', # 403s on bots
+    'dl.acm.org', # 403s on bots
     'example.issue.link' # a fake example link from the template
   ]
 
