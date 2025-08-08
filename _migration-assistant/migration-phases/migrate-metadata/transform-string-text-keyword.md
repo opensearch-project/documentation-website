@@ -10,26 +10,26 @@ permalink: /migration-assistant/migration-phases/migrate-metadata/transform-stri
 # Transform string to text/keyword fields
 
 
-This guide explains how the Migration Assistant automatically handles the deprecated `string` field type during migration from older Elasticsearch versions.
+This guide explains how Migration Assistant automatically handles the deprecated `string` field type during migration from earlier Elasticsearch versions.
 
 ## Overview
 
 The `string` field type was the primary text field type in early versions of Elasticsearch but was deprecated in Elasticsearch 5.x and completely removed in Elasticsearch 6.0. In Elasticsearch 5.x, it remained available in backward compatibility mode only.
 
-When migrating from Elasticsearch 1.x through 5.x to newer versions, the Migration Assistant automatically converts `string` field types to their modern equivalents: `text` for analyzed fields and `keyword` for non-analyzed fields.
+When migrating from Elasticsearch 1.x through 5.x to later versions, Migration Assistant automatically converts `string` field types to their modern equivalents: `text` for analyzed fields and `keyword` for non-analyzed fields.
 
-To determine if an Elasticsearch cluster uses `string` field types, make a call to your source cluster's `GET /_mapping` api. On the Migration Console, run `console clusters curl source_cluster "/_mapping"`.  If you see `"type":"string"`, then this transformation is applicable and these fields will be automatically transformed during migration.
+To determine whether an Elasticsearch cluster uses `string` field types, make a call to your source cluster's `GET /_mapping` API. In the migration console, run `console clusters curl source_cluster "/_mapping"`. If you see `"type":"string"`, then this transformation is applicable and these fields will be automatically transformed during migration.
 
 ## Compatibility
 
 The `string` to `text`/`keyword` field type transformation applies to:
-- **Source clusters**: Elasticsearch 1.x - 5.x
+- **Source clusters**: Elasticsearch 1.x--5.x
 - **Target clusters**: Elasticsearch 5.x+ or OpenSearch 1.x+
 - **Automatic conversion**: No configuration required during metadata
 
 ## Automatic conversion logic
 
-The Migration Assistant determines whether to convert a `string` field to `text` or `keyword` based on the field's `index` property.
+Migration Assistant determines whether to convert a `string` field to `text` or `keyword` based on the field's `index` property.
 
 ### Conversion to `keyword`
 Fields are converted to `keyword` when:
@@ -39,13 +39,13 @@ Fields are converted to `keyword` when:
 
 ### Conversion to `text`
 Fields are converted to `text` when:
-- `index: "analyzed"` (default behavior)
-- `index` property is not specified
+- `index: "analyzed"` (default behavior).
+- The `index` property is not specified.
 - Any other `index` value
 
 ### Property cleanup
 
-During conversion, the Migration Assistant also cleans up properties that are incompatible with the target field type:
+During conversion, Migration Assistant also cleans up properties that are incompatible with the target field type.
 
 **For `keyword` fields**, the following properties are removed:
 - `analyzer`
@@ -59,8 +59,8 @@ During conversion, the Migration Assistant also cleans up properties that are in
 - `null_value` (if present)
 
 Additionally, legacy `index` values are normalized:
-- `index: "analyzed"` and `index: "not_analyzed"` are removed (ES 5.x default is `true`)
-- `index: "no"` becomes `index: false`
+- `index: "analyzed"` and `index: "not_analyzed"` are removed (Elasticsearch 5.x default is `true`).
+- `index: "no"` becomes `index: false`.
 
 ## Migration output
 
@@ -151,7 +151,7 @@ Transformations:
 
 ## Behavior differences
 
-The Migration Assistant automatically converts all `string` fields during metadata migration. No additional configuration is required.
+Migration Assistant automatically converts all `string` fields during metadata migration. No additional configuration is required.
 
 ### Mixed field types
 
@@ -161,17 +161,17 @@ If your source cluster already contains a mix of `string`, `text`, and `keyword`
 
 After migration, be aware of these key differences:
 
-- **Term queries**: Work differently on `text` (analyzed) and `keyword` (exact match) fields.
-- **Aggregations**: `text` fields cannot be used for aggregations unless `fielddata` is enabled; `keyword` fields are aggregation-ready.
+- **Term queries** work differently on `text` (analyzed) and `keyword` (exact match) fields.
+- **Aggregations**: `text` fields cannot be used for aggregations unless `fielddata` is enabled; `keyword` fields are aggregation ready.
 - **Sorting**: `text` fields cannot be used for sorting by default; `keyword` fields support sorting.
-- **Case sensitivity**: `keyword` fields are case-sensitive; `text` fields depend on the analyzer.
+- **Case sensitivity**: `keyword` fields are case sensitive; `text` fields depend on the analyzer.
 
 ### Application compatibility
 
 Review your application code for:
-- Queries that expect the old `string` field behavior
-- Aggregations or sorting on fields now converted to `text`
-- Case-sensitive searches on fields now using `keyword`
+- Queries that expect the old `string` field behavior.
+- Aggregations or sorting on fields now converted to `text`.
+- Case-sensitive searches on fields now using `keyword`.
 
 For fields requiring both analyzed and exact-match capabilities, consider using multi-fields with both `text` and `keyword` mappings after migration.
 
@@ -179,19 +179,19 @@ For fields requiring both analyzed and exact-match capabilities, consider using 
 
 If you encounter issues with string field conversion:
 
-1. **Verify source version**: Ensure your source cluster is Elasticsearch 1.x through 5.x.
+1. **Verify source version** -- Ensure your source cluster is running Elasticsearch 1.x through 5.x.
 
-2. **Check migration logs**: Review the detailed migration logs for any warnings or errors:
+2. **Check migration logs** -- Review the detailed migration logs for any warnings or errors:
    ```bash
    tail /shared-logs-output/migration-console-default/*/metadata/*.log
    ```
 
-3. **Validate mappings**: After migration, verify that the field types have been correctly converted:
+3. **Validate mappings** -- After migration, verify that the field types have been correctly converted:
    ```bash
    GET /your-index/_mapping
    ```
 
-4. **Review field usage**: Ensure that your application queries are compatible with the new field types. Queries that worked with `string` fields should continue to work with `text` and `keyword` fields, but some advanced features may behave differently.
+4. **Review field usage** -- Ensure that your application queries are compatible with the new field types. Queries that worked with `string` fields should continue to work with `text` and `keyword` fields, but some advanced features may behave differently.
 
 ## Related documentation
 

@@ -107,7 +107,7 @@ Transformations:
 ### HNSW algorithm parameters
 
 The transformation automatically configures the Hierarchical Navigable Small World (HNSW) algorithm with the following options:
-- `engine`: `lucene` (OpenSearch's default)
+- `engine`: `lucene` (OpenSearch default)
 - `encoder`: `sq` (scalar quantization for memory efficiency)
 - `method`: `hnsw` (approximate nearest neighbor search)
 
@@ -131,15 +131,15 @@ When any `dense_vector` fields are converted, the following index setting is aut
 
 ## Behavior differences
 
-The Migration Assistant automatically transforms all `dense_vector` fields during metadata migration. The k-NN plugin must be installed and enabled on the target OpenSearch cluster.
+Migration Assistant automatically transforms all `dense_vector` fields during metadata migration. The k-NN plugin must be installed and enabled on the target OpenSearch cluster.
 
 ### Query compatibility
 
 After migration, vector search queries need to be updated:
-- Elasticsearch uses `script_score` queries with vector functions
-- OpenSearch uses native `knn` query syntax
+- Elasticsearch uses `script_score` queries with vector functions.
+- OpenSearch uses native `knn` query syntax.
 
-**Elasticsearch query example:**
+**Elasticsearch query example**:
 ```json
 {
   "query": {
@@ -154,7 +154,7 @@ After migration, vector search queries need to be updated:
 }
 ```
 
-**OpenSearch query example:**
+**OpenSearch query example**:
 ```json
 {
   "query": {
@@ -172,22 +172,22 @@ After migration, vector search queries need to be updated:
 
 If you encounter issues with `dense_vector` conversion:
 
-1. **Verify k-NN plugin**: Ensure the k-NN plugin is installed and enabled on your target OpenSearch cluster:
+1. **Verify the k-NN plugin** -- Ensure the k-NN plugin is installed and enabled on your target OpenSearch cluster:
    ```bash
    GET /_cat/plugins
    ```
 
-2. **Check migration logs**: Review the detailed migration logs for any warnings or errors:
+2. **Check migration logs** -- Review the detailed migration logs for any warnings or errors:
    ```bash
    tail /shared-logs-output/migration-console-default/*/metadata/*.log
    ```
 
-3. **Validate mappings**: After migration, verify that the field types have been correctly converted:
+3. **Validate mappings** -- After migration, verify that the field types have been correctly converted:
    ```bash
    GET /your-index/_mapping
    ```
 
-4. **Test vector search**: Verify that vector search functionality works with sample queries:
+4. **Test vector search** -- Verify that vector search functionality works with sample queries:
    ```bash
    POST /your-index/_search
    {
@@ -202,7 +202,7 @@ If you encounter issues with `dense_vector` conversion:
    }
    ```
 
-5. **Monitor performance**: Vector search performance may differ between Elasticsearch and OpenSearch. Monitor query performance and adjust HNSW parameters if needed.
+5. **Monitor performance** -- Vector search performance may differ between Elasticsearch and OpenSearch. Monitor query performance and adjust HNSW parameters if needed.
 
 ## Related documentation
 

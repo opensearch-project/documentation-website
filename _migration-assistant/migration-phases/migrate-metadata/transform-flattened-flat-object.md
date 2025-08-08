@@ -9,15 +9,15 @@ permalink: /migration-assistant/migration-phases/migrate-metadata/transform-flat
 
 # Transform flattened to flat_object fields
 
-This guide explains how the Migration Assistant automatically transforms the `flattened` field type during migration to OpenSearch.
+This guide explains how Migration Assistant automatically transforms the `flattened` field type during migration to OpenSearch.
 
 ## Overview
 
 The `flattened` field type was introduced in Elasticsearch 7.3 as an X-Pack feature. It allows you to store an entire JSON object as a single field value, which can be useful for objects with a large or unknown number of unique keys.
 
-When migrating to OpenSearch 2.7 or later, the Migration Assistant automatically converts `flattened` field types to OpenSearch's equivalent `flat_object` type. This transformation requires no configuration or user intervention.
+When migrating to OpenSearch 2.7 or later, Migration Assistant automatically converts `flattened` field types to OpenSearch's equivalent `flat_object` type. This transformation requires no configuration or user intervention.
 
-To determine if an Elasticsearch cluster uses `flattened` field types, make a call to your source cluster's `GET /_mapping` api. On the Migration Console, run `console clusters curl source_cluster "/_mapping"`.  If you see `"type":"flattened"`, then this transformation is applicable and these fields will be automatically transformed during migration.
+To determine whether an Elasticsearch cluster uses `flattened` field types, make a call to your source cluster's `GET /_mapping` API. In the migration console, run `console clusters curl source_cluster "/_mapping"`. If you see `"type":"flattened"`, then this transformation is applicable and these fields will be automatically transformed during migration.
 
 ## Compatibility
 
@@ -28,7 +28,7 @@ The `flattened` to `flat_object` field type transformation applies to:
 
 ## Automatic migration
 
-When migrating to OpenSearch 2.7 or later, the Migration Assistant automatically detects and converts `flattened` field types to `flat_object`. During the migration process, you'll see this transformation in the output:
+When migrating to OpenSearch 2.7 or later, Migration Assistant automatically detects `flattened` field types and converts them to `flat_object` fields. During the migration process, you'll see this transformation in the output:
 
 ```
 Transformations:
@@ -77,9 +77,9 @@ Transformations:
 
 ## Transformation behavior across versions
 
-The Migration Assistant automatically converts all `flattened` fields to `flat_object`. No additional configuration is required.
+Migration Assistant automatically converts all `flattened` fields to `flat_object` fields. No additional configuration is required.
 
-If you're migrating to OpenSearch versions before 2.7, indexes containing `flattened` field types will fail to migrate. You have several options:
+If you're migrating to OpenSearch versions earlier than 2.7, indexes containing `flattened` field types will fail to migrate. You have several options:
 
 1. **Upgrade target cluster**: Upgrade your target OpenSearch cluster to version 2.7 or later to support the automatic conversion.
 
@@ -89,23 +89,23 @@ If you're migrating to OpenSearch versions before 2.7, indexes containing `flatt
 
 While `flat_object` in OpenSearch provides similar functionality to Elasticsearch's `flattened` type, there are some minor differences:
 
-- **Query syntax**: Both support dot notation for accessing nested fields
-- **Performance**: Similar performance characteristics for indexing and searching
-- **Storage**: Both store the entire object as a single Lucene field
-- **Limitations**: Both have similar limitations on aggregations and sorting
+- **Query syntax**: Both support dot notation for accessing nested fields.
+- **Performance**: Similar performance characteristics for indexing and searching.
+- **Storage**: Both store the entire object as a single Lucene field.
+- **Limitations**: Both have similar limitations on aggregations and sorting.
 
 ## Troubleshooting
 
-If you encounter issues with flattened field migration:
+If you encounter issues with `flattened` field migration:
 
-1. **Verify target version**: Ensure your target OpenSearch cluster is version 2.7 or later.
+1. **Verify target version** -- Ensure your target OpenSearch cluster is running version 2.7 or later.
 
-2. **Check migration logs**: Review the detailed migration logs for any warnings or errors:
+2. **Check migration logs** -- Review the detailed migration logs for any warnings or errors:
    ```bash
    cat /shared-logs-output/migration-console-default/*/metadata/*.log
    ```
 
-3. **Validate mappings**: After migration, verify that the field types have been correctly converted:
+3. **Validate mappings** -- After migration, verify that the field types have been correctly converted:
    ```bash
    GET /your-index/_mapping
    ```
