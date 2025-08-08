@@ -23,13 +23,13 @@ Whenever possible, use the Cluster Settings API; `opensearch.yml` is local to ea
 
 Certain operations are static and require you to modify the `opensearch.yml` [configuration file](#configuration-file) and restart the cluster. In general, these settings relate to networking, cluster formation, and the local file system. To learn more, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
-## Specifying settings as environment variables
+## Specifying configuration settings at startup
 
-You can specify environment variables in the following ways.
+You can specify configuration settings in the following ways.
 
-### Arguments at startup
+### Flags at startup
 
-You can specify environment variables as arguments using `-E` when launching OpenSearch:
+You can pass configuration directly to the JVM process at startup using `-E` flag when launching OpenSearch:
 
 ```bash
 ./opensearch -Ecluster.name=opensearch-cluster -Enode.name=opensearch-node1 -Ehttp.host=0.0.0.0 -Ediscovery.type=single-node
