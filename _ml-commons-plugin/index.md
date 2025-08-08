@@ -8,6 +8,10 @@ nav_exclude: true
 permalink: /ml-commons-plugin/
 redirect_from: 
   - /ml-commons-plugin/index/
+demo_cards:
+  - heading: "Explore AI search and RAG demos"
+    description: "Try interactive Hugging Face demos showcasing AI Search, multimodal RAG, and agentic RAG"
+    link: "https://huggingface.co/spaces/opensearch-project/OpenSearch-AI"
 models:
   - heading: "Deploy local models to your cluster"
     link: "/ml-commons-plugin/using-ml-models/"
@@ -46,6 +50,10 @@ algorithms:
 # Machine learning
 
 OpenSearch offers two distinct approaches to machine learning (ML): using ML models for tasks like semantic search and text generation, and running statistical algorithms for data analysis. Choose the approach that best fits your use case.
+
+## Interactive demos
+
+{% include cards.html cards=page.demo_cards %}
 
 ## ML models for search and AI/ML-powered applications
 
