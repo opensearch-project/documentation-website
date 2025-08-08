@@ -18,7 +18,7 @@ tutorial_cards:
     link: "/vector-search/getting-started/auto-generated-embeddings/"
 demo_cards:
   - heading: "Explore AI search and RAG demos"
-    description: "Try interactive Hugging Face demos showcasing AI Search, multimodal RAG, and agentic RAG"
+    description: "Try interactive Hugging Face demos showcasing AI search, multimodal RAG, and agentic RAG"
     link: "https://huggingface.co/spaces/opensearch-project/OpenSearch-AI"
 more_cards:
   - heading: "AI search"

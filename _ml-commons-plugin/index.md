@@ -10,7 +10,7 @@ redirect_from:
   - /ml-commons-plugin/index/
 demo_cards:
   - heading: "Explore AI search and RAG demos"
-    description: "Try interactive Hugging Face demos showcasing AI Search, multimodal RAG, and agentic RAG"
+    description: "Try interactive Hugging Face demos showcasing AI search, multimodal RAG, and agentic RAG"
     link: "https://huggingface.co/spaces/opensearch-project/OpenSearch-AI"
 models:
   - heading: "Deploy local models to your cluster"
