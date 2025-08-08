@@ -34,7 +34,7 @@ Scripts can use any valid operation and object internally. However, the data you
 - Map (with keys and values of only allowed types: primitive types, string, map, or array)
 - Array (containing only allowed types: primitive types, string, map, or array)
 
-The `state` can be a number, a string, a map (object) or an array (list), or a combination of these. For example, you can use a map to accumulate multiple counters, an array to collect values, or a single number to keep a running sum. If you need to return multiple metrics, you can store them in a map or array. If you return a map as the final value from the `reduce_script`, the aggregation result contains an object. If you return a single number or string, the result is a single value.
+The `state` can be a number, a string, a `map` (object) or an array (list), or a combination of these. For example, you can use a `map` to accumulate multiple counters, an array to collect values, or a single number to keep a running sum. If you need to return multiple metrics, you can store them in a `map` or array. If you return a `map` as the final value from the `reduce_script`, the aggregation result contains an object. If you return a single number or string, the result is a single value.
 
 ## Using parameters in scripts
 
@@ -96,7 +96,7 @@ PUT transactions/_bulk?refresh=true
 To run a search with a `scripted_metric` aggregation to calculate the profit, use the following scripts:
 
 - The `init_script` creates an empty list used to store transaction values for each shard. 
-- The `map_script` adds each document's amount to the `state.transactions` list as a positive number if the type is `sale` or as a negative number if the type is `cost`. By the end of the map phase, each shard has a `state.transactions` list representing its income and expenses. 
+- The `map_script` adds each document's amount to the `state.transactions` list as a positive number if the type is `sale` or as a negative number if the type is `cost`. By the end of the `map` phase, each shard has a `state.transactions` list representing its income and expenses. 
 - The `combine_script` processes the `state.transactions` list and computes a single `shardProfit` value for the shard. The `shardProfit` is then returned as the shard's output. 
 - The `reduce_script` runs on the coordinating node, receiving the `states` array, which holds the `shardProfit` value from each shard. It checks for null entries, adds these values to compute the overall profit, and returns the final result.
 
@@ -177,14 +177,14 @@ PUT logs/_bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-The `state` (on each shard) is a map with three counters: `error`, `success`, and `other`. 
+The `state` (on each shard) is a `map` with three counters: `error`, `success`, and `other`. 
 
 To run a scripted metric aggregation that counts the categories, use the following scripts:
 
 - The `init_script` initializes counters for `error`, `success`, and `other` to `0`. 
 - The `map_script` examines each document's response code and increments the relevant counter based on the response code. 
-- The `combine_script` returns the `state.responses` map for that shard.
-- The `reduce_script` merges the array of maps (`states`) from all shards. Thus, it creates a new combined map and adds the `error`, `success`, and `other` counts from each shard's map. This combined map is returned as the final result.
+- The `combine_script` returns the `state.responses map` for that shard.
+- The `reduce_script` merges the array of maps (`states`) from all shards. Thus, it creates a new combined `map` and adds the `error`, `success`, and `other` counts from each shard's `map`. This combined `map` is returned as the final result.
 
 The following request contains all described scripts:
 
@@ -232,7 +232,7 @@ GET logs/_search
 {% include copy-curl.html %}
 
 
-The response returns three values in the `value` object, demonstrating how a scripted metric can return multiple metrics at once by using a map in the `state`:
+The response returns three values in the `value` object, demonstrating how a scripted metric can return multiple metrics at once by using a `map` in the `state`:
 
 ```json
 {
