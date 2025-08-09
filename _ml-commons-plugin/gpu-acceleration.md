@@ -67,6 +67,16 @@ else
 fi
 ```
 
+If you run opensearch natively without docker and you are using the packaged version of opensearch, systemd prevents you from accessing the gpu inside opensearch. The requirements to be able to accelerate a model is a working installation of cuda-toolkit and the ability to access the nvidia card under /dev. To grant OpenSearch access to the GPU, try modify the systemd service definition and add the following configuration: 
+
+```
+systemctl edit opensearch.service
+
+[Service]
+DevicePolicy=auto
+``` 
+
+
 After verifying that `nvidia-uvm` exists under `/dev`, you can start OpenSearch inside your cluster. 
 
 ### Preparing AWS Inferentia ML node
