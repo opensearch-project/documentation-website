@@ -22,6 +22,9 @@ At search time, required substrings from the query pattern are matched against t
 In general, exact match queries (like [`term`]({{site.url}}{{site.baseurl}}/query-dsl/term/term/) or [`terms`]({{site.url}}{{site.baseurl}}/query-dsl/term/term/) queries) perform less effectively on `wildcard` fields than on `keyword` fields, while [`wildcard`]({{site.url}}{{site.baseurl}}/query-dsl/term/wildcard/), [`prefix`]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/), and [`regexp`]({{site.url}}{{site.baseurl}}/query-dsl/term/regexp/) queries perform better on `wildcard` fields.
 {: .tip}
 
+Wildcard fields do not support highlighting.
+{: .note}
+
 ## Example
 
 Create a mapping with a `wildcard` field:
@@ -39,6 +42,9 @@ PUT logs
 }
 ```
 {% include copy-curl.html %}
+
+All queries on wildcard fields have a constant score---usually `1`. You can override the constant score using the `boost` parameter.
+{: .note}
 
 ## Parameters
 
