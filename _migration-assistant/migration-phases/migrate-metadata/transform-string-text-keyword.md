@@ -195,5 +195,6 @@ If you encounter issues with string field conversion:
 
 ## Related documentation
 
-For additional help with field type transformations, see:
-- [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) -- Configure custom field type transformations.
+- [Transform field types documentation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) -- Configure custom field type transformations.
+- [keyword field type documentation]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/) -- Learn about keyword field type.
+- [text field type documentation]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) -- Learn about text field type.
