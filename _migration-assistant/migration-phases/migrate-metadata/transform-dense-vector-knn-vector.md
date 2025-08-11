@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Transform dense_vector to knn_vector
+title: Transform dense_vector fields to knn_vector
 nav_order: 5
 parent: Migrate metadata
 grand_parent: Migration phases
 permalink: /migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/
 ---
 
-# Transform dense_vector to knn_vector fields
+# Transform dense_vector fields to knn_vector
 
 
 This guide explains how Migration Assistant automatically handles the transformation of Elasticsearch's `dense_vector` field type to OpenSearch's `knn_vector` field type during migration.

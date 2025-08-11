@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Transform flattened to flat_object
+title: Transform flattened fields to flat_object
 nav_order: 3
 parent: Migrate metadata
 grand_parent: Migration phases
 permalink: /migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/
 ---
 
-# Transform flattened to flat_object fields
+# Transform flattened fields to flat_object
 
 This guide explains how Migration Assistant automatically transforms the `flattened` field type during migration to OpenSearch.
 
