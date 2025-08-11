@@ -175,6 +175,13 @@ There might be an error about being unable to update an ES 7.10.2 cluster, this 
 
 Metadata migration requires modifying data from the source to the target versions to recreate items. Sometimes these features are no longer supported and have been removed from the target version. Sometimes these features are not available in the target version, which is especially true when downgrading. While this tool is meant to make this process easier, it is not exhaustive in its support. When encountering a compatibility issue or an important feature gap for your migration, [search the issues and comment on the existing issue](https://github.com/opensearch-project/opensearch-migrations/issues) or [create a new](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose) issue if one cannot be found.
 
+For information about handling specific field type compatibility issues, see:
+- [Transform type mappings]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/) -- Handle deprecated mapping types from Elasticsearch 6.x.
+- [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) -- Configure custom field type transformations.
+- [Transform `flattened` to `flat_object` fields]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/) -- Automatically transform `flattened` to `flat_object` fields.
+- [Transform `string` to `text`/`keyword` fields]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/) -- Automatically transform `string` to `text`/`keyword` fields.
+- [Transform `dense_vector` to `knn_vector` fields]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/) -- Automatically transform `dense_vector` to `knn_vector` fields.
+
 #### Deprecation of Mapping Types
 
 In Elasticsearch 6.8 the mapping types feature was discontinued in Elasticsearch 7.0+ which has created complexity in migrating to newer versions of Elasticsearch and OpenSearch, [learn more](https://www.elastic.co/guide/en/elasticsearch/reference/7.17/removal-of-types.html) ↗.
