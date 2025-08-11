@@ -43,7 +43,7 @@ PUT logs
 ```
 {% include copy-curl.html %}
 
-All queries on wildcard fields have a constant score---usually, `1`. You can override the constant score using the `boost` parameter.
+All queries on wildcard fields have a constant score---usually `1`. You can override the constant score using the `boost` parameter.
 {: .note}
 
 ## Parameters
