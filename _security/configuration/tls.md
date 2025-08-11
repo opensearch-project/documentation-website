@@ -317,7 +317,7 @@ gRPC supports encryption in transit only. Trust stores and certificates configur
 
 You can configure TLSon the optional gRPC transport in `opensearch.yml`. For more information about using  gRPC plugin, see [Enabling the plugin]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#enabling-the-plugin).
 
-### Pemkey settings (X.509 PEM certificates and PKCS #8 keys)
+### PEM key settings (X.509 PEM certificates and PKCS #8 keys)
 
 The following table lists the available gRPC PEM key settings.
 
