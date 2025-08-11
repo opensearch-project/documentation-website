@@ -35,7 +35,6 @@ Each tool takes a list of parameters specific to that tool. In the preceding exa
 |[`AgentTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/agent-tool/)	|Runs any agent. |
 |[`ConnectorTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/connector-tool/)	| Uses a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) to call any REST API function. |
 |[`CreateAnomalyDetectorTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/create-anomaly-detector/)	| Enables an LLM to suggest required parameters for creating an anomaly detector. |
-|[`DynamicTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/dynamic-tool/)	| Allows you to run OpenSearch APIs as tools. |
 |[`IndexMappingTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index-mapping-tool/)	|Retrieves index mapping and setting information for an index. |
 |[`ListIndexTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/list-index-tool/)	|Retrieves index information for the OpenSearch cluster. Introduced in OpenSearch version 3.0 as a replacement for the `CatIndexTool`. |
 |[`MLModelTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/ml-model-tool/)	|Runs machine learning models.	|
