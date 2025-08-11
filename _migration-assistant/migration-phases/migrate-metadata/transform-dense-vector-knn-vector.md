@@ -10,15 +10,15 @@ permalink: /migration-assistant/migration-phases/migrate-metadata/transform-dens
 # Transform dense_vector to knn_vector fields
 
 
-This guide explains how the Migration Assistant automatically handles the transformation of Elasticsearch's `dense_vector` field type to OpenSearch's `knn_vector` field type during migration.
+This guide explains how Migration Assistant automatically handles the transformation of Elasticsearch's `dense_vector` field type to OpenSearch's `knn_vector` field type during migration.
 
 ## Overview
 
-The `dense_vector` field type was introduced in Elasticsearch 7.x for storing dense vectors used in machine learning and similarity search applications. When migrating from Elasticsearch 7.x to OpenSearch, the Migration Assistant automatically converts `dense_vector` fields to OpenSearch's equivalent `knn_vector` type.
+The `dense_vector` field type was introduced in Elasticsearch 7.x for storing dense vectors used in machine learning and similarity search applications. When migrating from Elasticsearch 7.x to OpenSearch, Migration Assistant automatically converts `dense_vector` fields to OpenSearch's equivalent `knn_vector` type.
 
 This transformation includes mapping the vector configuration parameters and enabling the necessary OpenSearch k-NN plugin settings.
 
-To determine if an Elasticsearch cluster uses `dense_vector` field types, make a call to your source cluster's `GET /_mapping` api. On the Migration Console, run `console clusters curl source_cluster "/_mapping"`.  If you see `"type":"dense_vector"`, then this transformation is applicable and these fields will be automatically transformed during migration.
+To determine whether an Elasticsearch cluster uses `dense_vector` field types, make a call to your source cluster's `GET /_mapping` API. In the migration console, run `console clusters curl source_cluster "/_mapping"`. If you see `"type":"dense_vector"`, then this transformation is applicable and these fields will be automatically transformed during migration.
 
 ## Compatibility
 
@@ -29,13 +29,13 @@ The `dense_vector` to `knn_vector` transformation applies to:
 
 ## Automatic conversion logic
 
-The Migration Assistant performs the following transformations when converting `dense_vector` to `knn_vector`.
+Migration Assistant performs the following transformations when converting `dense_vector` to `knn_vector` fields.
 
 ### Field type transformation
 - Changes `type: "dense_vector"` to `type: "knn_vector"`
 - Maps `dims` parameter to `dimension`
 - Converts similarity metrics to OpenSearch space types
-- Configures HNSW algorithm with Lucene engine
+- Configures the Hierarchical Navigable Small World (HNSW) algorithm with the Lucene engine
 
 ### Similarity mapping
 The transformation maps Elasticsearch similarity functions to OpenSearch space types:
@@ -44,7 +44,7 @@ The transformation maps Elasticsearch similarity functions to OpenSearch space t
 - `l2` (default) → `l2`
 
 ### Index settings
-When `dense_vector` fields are converted, the Migration Assistant automatically performs the following operations:
+When `dense_vector` fields are converted, Migration Assistant automatically performs the following operations:
 - Enables the k-NN plugin by setting `index.knn: true`
 - Ensures proper index configuration for vector search
 
@@ -106,7 +106,7 @@ Transformations:
 
 ### HNSW algorithm parameters
 
-The transformation automatically configures the Hierarchical Navigable Small World (HNSW) algorithm with the following options:
+The transformation automatically configures the HNSW algorithm with the following options:
 - `engine`: `lucene` (OpenSearch default)
 - `encoder`: `sq` (scalar quantization for memory efficiency)
 - `method`: `hnsw` (approximate nearest neighbor search)
