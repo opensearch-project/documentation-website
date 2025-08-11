@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Transform string to text/keyword
+title: Transform string fields to text/keyword
 nav_order: 4
 parent: Migrate metadata
 grand_parent: Migration phases
 permalink: /migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/
 ---
 
-# Transform string to text/keyword fields
+# Transform string fields to text/keyword
 
 
 This guide explains how Migration Assistant automatically handles the deprecated `string` field type during migration from earlier Elasticsearch versions.
