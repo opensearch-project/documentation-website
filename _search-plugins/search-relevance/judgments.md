@@ -132,7 +132,7 @@ To create a judgment list, provide the model ID of the LLM, an available query s
 ```json
 PUT _plugins/_search_relevance/judgments
 {
-    "name":"COEC",
+    "name":"AI-assisted judgment list",
     "type":"LLM_JUDGMENT",
     "querySetId":"5f0115ad-94b9-403a-912f-3e762870ccf6",
     "searchConfigurationList":["2f90d4fd-bd5e-450f-95bb-eabe4a740bd1"],
