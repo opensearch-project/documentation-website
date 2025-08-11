@@ -131,7 +131,7 @@ When any `dense_vector` fields are converted, the following index setting is aut
 
 ## Behavior differences
 
-Migration Assistant automatically transforms all `dense_vector` fields during metadata migration. The k-NN plugin must be installed and enabled on the target OpenSearch cluster.
+Migration Assistant automatically transforms all `dense_vector` fields during metadata migration. The k-NN plugin must be installed and enabled on the target OpenSearch cluster. Note: Most OpenSearch distributions include the k-NN plugin in which case no action is needed.
 
 ### Query compatibility
 
@@ -206,5 +206,5 @@ If you encounter issues with `dense_vector` conversion:
 
 ## Related documentation
 
-For additional help with field type transformations, see:
-- [Transform field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) -- Configure custom field type transformations.
+- [Transform field types documentation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) -- Configure custom field type transformations.
+- [k-NN documentation]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/approximate-knn/) -- Approximate k-NN search documentation.
