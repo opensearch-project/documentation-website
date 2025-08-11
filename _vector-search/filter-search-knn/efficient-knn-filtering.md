@@ -402,6 +402,15 @@ The response returns the two matching documents:
 
 For more ways to construct a filter, see [Constructing a filter](#constructing-a-filter).
 
+### ACORN filtering optimization
+Introduced 3.1
+{: .label .label-purple }
+The ACORN filtering optimization modifies the baseline algorithm to score and explore only vectors that match the filtering criteria. When filtering increases graph sparsity, the search expands to include neighbors of neighbors. The extent of this additional exploration depends on the percentage of neighbors filtered out, with more restrictive filters resulting in a wider search.
+
+The algorithm bypasses these optimizations entirely when filtering is minimal. By default, this threshold is 60%. Extended neighbor exploration occurs only if fewer than 90% of the current neighbors match the filter. 
+
+When [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/) is enabled, the efficient filter framework continues to apply filtering within HNSW. The ACORN filtering optimization is applied only when the number of filtered documents is 60% or less of the total number of documents in the current search space being considered by the HNSW algorithm.
+
 ## Constructing a filter
 
 There are multiple ways to construct a filter for the same condition. For example, you can use the following constructs to create a filter that returns hotels that provide parking:
