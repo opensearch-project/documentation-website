@@ -2,15 +2,16 @@
 layout: default
 title: Exploring search evaluation results
 nav_order: 65
-parent: Using Search Relevance Workbench
+parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
-has_toc: false
 ---
 
 # Exploring search evaluation results
+Introduced 3.2
+{: .label .label-purple }
 
-In addition to retrieving the experiment results via API, users can explore the results visually. The Search Relevance Workbench comes with dashboards that users can install to review search evaluation and hybrid search optimizatione experiment results.
+In addition to retrieving the experiment results using the API, users can explore the results visually. The Search Relevance Workbench comes with dashboards that users can install to review search evaluation and hybrid search optimization experiment results.
 
 ## Installing the dashboards
 
@@ -18,7 +19,7 @@ Users have two ways to install the dashboards:
 
 * Select a visualization icon in the experiment overview in the "Actions" column.
 
-* Select the Install Dashboards button in the top right corner of the experiment overview.
+* Select the Install Dashboards button in the upper right corner of the experiment overview.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_overview_dashboard_installation_options.png" alt="Experiment overview of the Search Relevance Workbench including dashboard installation options"/>{: .img-fluid }
 
@@ -46,7 +47,7 @@ The **Deep Dive Query Scores** pane shows individual query performance ranked by
 
 The **Deep Dive Score Densities** pane shows how metric values are distributed across your query set. Use this to understand whether poor performance is widespread or concentrated in specific queries. The x-axis shows metric values, while the y-axis shows how frequently those values occur.
 
-The **Deep Dive Score Scatterplot** pane shows an interactive view of the same distribution data above, with each query shown as a separate point. Use this to investigate specific queries at performance extremes. Points are scattered vertically to prevent overlap while maintaining the same x-axis metric values as the distribution view above.
+The **Deep Dive Score Scatter Plot** pane shows an interactive view of the preceding distribution data, with each query shown as a separate point. Use this to investigate specific queries at performance extremes. Points are scattered vertically to prevent overlap while maintaining the same x-axis metric values as the preceding distribution view.
 
 ### Hybrid search evaluation dashboard
 

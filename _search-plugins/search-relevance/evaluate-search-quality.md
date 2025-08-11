@@ -2,10 +2,9 @@
 layout: default
 title: Evaluating search quality
 nav_order: 50
-parent: Using Search Relevance Workbench
+parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
-has_toc: false
 ---
 
 # Evaluating search quality

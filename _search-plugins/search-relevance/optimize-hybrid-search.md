@@ -2,10 +2,9 @@
 layout: default
 title: Optimizing hybrid search
 nav_order: 60
-parent: Using Search Relevance Workbench
+parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
-has_toc: false
 ---
 
 # Optimizing hybrid search

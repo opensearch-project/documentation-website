@@ -2,10 +2,9 @@
 layout: default
 title: Query sets
 nav_order: 3
-parent: Using Search Relevance Workbench
+parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
-has_toc: false
 ---
 
 # Query sets
@@ -73,7 +72,7 @@ PUT _plugins/_search_relevance/query_sets
 }
 ```
 
-## Query Set Formats
+## Query set formats
 
 The Search Relevance Workbench supports two formats for query sets, each designed for different use cases. Both formats are a collection of user queries, but they differ in whether they include an expected answer.
 
