@@ -39,9 +39,8 @@ Fields are converted to `keyword` when:
 
 ### Conversion to `text`
 Fields are converted to `text` when:
-- `index: "analyzed"` (default behavior).
-- The `index` property is not specified.
-- Any other `index` value
+- `index: "analyzed"`
+- `index` is undefined
 
 ### Property cleanup
 
