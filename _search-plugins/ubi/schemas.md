@@ -176,7 +176,7 @@ The following are the predefined, minimal fields in the `ubi_events` index:
 - `client_id`: The client that issues the query. This is typically a web browser used by a unique user.
  The `client_id` in both the **UBI queries** and **UBI events** indexes must be consistent.
 
-- `timestamp`: When the event occurred, using ISO 8601 format such as `2018-11-13T20:20:39+00:00Z`.
+- `timestamp`: The time the event occurred in ISO 8601 format, such as `2018-11-13T20:20:39+00:00Z`.
 
 - `message_type` (size 100): A logical bin for grouping actions (each with an `action_name`). For example, `QUERY` or `CONVERSION`. 
 
