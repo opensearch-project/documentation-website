@@ -499,7 +499,7 @@ Use the same process to specify a [Backend configuration]({{site.url}}{{site.bas
 
 #### Complete Docker Compose example with custom configuration
 
-After creating your own certificates, `internal_users.yml`, `roles.yml`, `roles_mapping.yml`, and the rest of the security configuration files, your `docker-compose.yaml` should appear similar to the following:
+After creating your own certificates, `internal_users.yml`, `roles.yml`, `roles_mapping.yml`, and the rest of the security configuration files, your `docker-compose.yaml` file should appear similar to the following:
 
 ```yaml
 version: '3'
@@ -655,7 +655,7 @@ docker compose up -d
 ```
 {% include copy.html %}
 
-The password for `admin` user provided in the `.env` file is overridden by the password provided in the `internal_users.yml` file.
+The password for the `admin` user provided in the `.env` file is overridden by the password provided in the `internal_users.yml` file.
 {: .note}
 
 ### Working with plugins

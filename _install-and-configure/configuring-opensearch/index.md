@@ -29,7 +29,7 @@ You can specify configuration settings in the following ways.
 
 ### Flags at startup
 
-You can pass configuration directly to the JVM process at startup using `-E` flag when launching OpenSearch:
+You can pass the configuration directly to the JVM process at startup using the `-E` flag when launching OpenSearch:
 
 ```bash
 ./opensearch -Ecluster.name=opensearch-cluster -Enode.name=opensearch-node1 -Ehttp.host=0.0.0.0 -Ediscovery.type=single-node
@@ -148,7 +148,7 @@ The demo configuration includes a number of [settings for the Security plugin]({
 
 ### (Optional) CORS header configuration
 
-If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine. Use [Cross Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so that your application can make calls to the OpenSearch API running locally. Add the following lines in your `custom-opensearch.yml` file:
+If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine. Use [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so that your application can make calls to the OpenSearch API running locally. Add the following lines in your `custom-opensearch.yml` file:
 
 ```yml
 http.host: 0.0.0.0
