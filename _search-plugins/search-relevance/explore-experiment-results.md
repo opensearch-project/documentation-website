@@ -29,7 +29,7 @@ The modal offers to install the dashboards for the user.
 
 ## Using the dashboards
 
-Once installed, selecting the visualization icon in the experiment overview in the "Actions" column takes users to a dashboard view of the experiment results. The view presented depends on the type of experiment the user chose:
+Once installed, selecting the visualization icon in the experiment overview in the "Actions" column takes users to the dashboard of the experiment results. The view presented depends on the type of experiment the user chose:
 
 * The search evaluation dashboard focuses on the individual query level to give the users insights about well-performing queries and queries with open relevance potential.
 
@@ -39,7 +39,7 @@ Once installed, selecting the visualization icon in the experiment overview in t
 
 The search evaluation dashboard aggregates performance metrics across all queries in your selected experiment. Use this to get a high-level view of overall experiment performance and identify which queries need attention.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/search_evaulation_dashboard.png" alt="Modal to install dashboards"/>{: .img-fluid }
+<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/search_evaulation_dashboard.png" alt="Search evaluation dashboard with visualizations"/>{: .img-fluid }
 
 The **Deep Dive Summary** shows the aggregate metrics for NDCG, MAP, Precision and Coverage (see [Evaluating search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/)).
 
@@ -57,10 +57,22 @@ The **Variant Performance Chart** shows your experiment variants arranged visual
 
 **Variant Performance** shows the same variant data in a sortable table format with all metrics visible. Use this to compare specific metric values across variants and customize your analysis by sorting on different performance measures (click any column header to reorder).
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimizer_dashboard.png" alt="Modal to install dashboards"/>{: .img-fluid }
+<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimizer_dashboard.png" alt="Hybrid search optimization evaluation dashboard with visualizations"/>{: .img-fluid }
 
-### Updating Default Dashboards
+### Customizing the dashboards
 
-To update the default dashboards that ship with the Search Relevance Workbench UI, you need to export the raw dashboard JSON and update the file `./public/components/common_utils/dashboards_data.ts` that holds the data.
+These dashboards are installed as "Saved Objects". After installing them you can edit the dashboards or clone and customize them to your specific requirements.
 
-TIP: To escape the export JSON data for embedding in the TypeScript you can escape the quotes using: `sed 's/\\/\\\\/g' input.txt > output.txt`.
+If you want to customize the source files you can review the corresponding [developer guide section on updating the default dashboards](https://github.com/opensearch-project/dashboards-search-relevance/blob/main/DEVELOPER_GUIDE.md#updating-default-dashboards).
+
+### Resetting dashboards
+
+Should it become necessary to reset the dashboards you can follow these steps:
+
+* Select the Install Dashboards button in the upper right corner of the experiment overview.
+
+<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_overview_dashboard_installation_options.png" alt="Experiment overview of the Search Relevance Workbench with the dashboard installation button"/>{: .img-fluid }
+
+* The modal offers to reinstall the dashboards for the user.
+
+<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/reinstall_dashboards_modal.png" alt="Modal to reinstall dashboards"/>{: .img-fluid }
