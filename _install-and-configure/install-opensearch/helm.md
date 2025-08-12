@@ -38,6 +38,7 @@ extraEnvs:
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
     value: <custom-admin-password>
 ```
+{% include copy.html %}
 
 ## Install OpenSearch using Helm
 
@@ -61,6 +62,8 @@ extraEnvs:
    helm search repo opensearch
    ```
    {% include copy.html %}
+
+   The available charts are provided in the response:
 
    ```bash
    NAME                            	CHART VERSION	APP VERSION	DESCRIPTION                           
@@ -139,6 +142,12 @@ To make sure your OpenSearch pod is up and running, run the following command:
 
 ```bash
 $ kubectl get pods
+```
+{% include copy.html %}
+
+The response lists the running containers:
+
+```bash
 NAME                                                  READY   STATUS    RESTARTS   AGE
 opensearch-cluster-master-0                           1/1     Running   0          3m56s
 opensearch-cluster-master-1                           1/1     Running   0          3m56s
@@ -181,6 +190,12 @@ To identify the OpenSearch deployment that you want to delete:
 
 ```bash
 $ helm list
+```
+{% include copy.html %}
+
+The reponse lists the current Helm deployments:
+
+```
 NAME                   	NAMESPACE	REVISION	UPDATED                            	STATUS  	CHART           	APP VERSION
 opensearch-3-1754992026	default  	1       	2025-08-12 10:47:06.02703 +0100 IST	deployed	opensearch-3.1.0	3.1.0      
 ```
