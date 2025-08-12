@@ -16,7 +16,7 @@ tutorial_cards:
   - heading: "Choosing a workload"
     description: "Choose a benchmark workload based on your cluster's use case"
     link: "/benchmark/user-guide/understanding-workloads/choosing-a-workload/"
-more_cards: 
+more_cards:
   - heading: "User guide"
     description: "Learn how to benchmark the performance of your cluster"
     link: "/benchmark/user-guide/index/"
@@ -28,14 +28,17 @@ items:
     description: "Install OpenSearch Benchmark and configure your experience"
     link: "/benchmark/user-guide/install-and-configure/installing-benchmark/"
   - heading: "Run a workload"
-    description: "Run a workload and receive performance metrics." 
+    description: "Run a workload and receive performance metrics."
     link: "/benchmark/user-guide/working-with-workloads/running-workloads/"
   - heading: "Analyze performance metrics"
-    description: "View your benchmark report and analyze your metrics"  
+    description: "View your benchmark report and analyze your metrics"
     link: "/benchmark/user-guide/understanding-results/summary-reports/"
 ---
 
 # OpenSearch Benchmark
+
+OpenSearch Benchmark (OSB) `2.0` is now live 🎉! This documentation reflects the terminology updates seen in OSB `2.X`. `1.15` is the last supported version in the `1.X` series. For more details on what's changed, please see this [documentation]({{site.url}}{{site.baseurl}}/benchmark/change/). For migration assistance, see this page.
+{: .important }
 
 OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Project](https://github.com/opensearch-project). You can use OpenSearch Benchmark to gather performance metrics from an OpenSearch cluster for a variety of purposes, including:
 
@@ -45,24 +48,17 @@ OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Pro
 
 ## Get started
 
-OpenSearch Benchmark can be installed directly on a compatible host running Linux or macOS. You can also run OpenSearch Benchmark in a Docker container. See [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/) for more information.
-{: .info }
-
-{% include cards.html cards=page.tutorial_cards %}
-
 {% include list.html list_items=page.items%}
 
-<span class="centering-container">
-[Get started]({{site.url}}{{site.baseurl}}/benchmark/quickstart/){: .btn-dark-blue}
-</span>
+## Got Questions or Ideas?
 
-## Customize your benchmarks
+If you have any questions or ideas you'd like to share, please post them in any of the following channels:
 
+- [OpenSearch Slack community](https://opensearch.slack.com/archives/C082PLA3VPW)
+- [Community, Triage, and Office Hours](https://www.meetup.com/opensearch/events/309982456/?eventOrigin=group_upcoming_events)
+- [Open up an issue on our Github repository](https://github.com/opensearch-project/opensearch-benchmark/issues)
+
+## Resources
+
+{% include cards.html cards=page.tutorial_cards %}
 {% include cards.html cards=page.more_cards %}
-
-
-
-
-
-
-
