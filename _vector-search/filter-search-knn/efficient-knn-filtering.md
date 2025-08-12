@@ -409,7 +409,7 @@ The ACORN filtering optimization modifies the baseline algorithm to score and ex
 
 The algorithm bypasses these optimizations entirely when filtering is minimal. By default, this threshold is 60%. Extended neighbor exploration occurs only if fewer than 90% of the current neighbors match the filter. 
 
-When [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/) is enabled, the efficient filter framework continues to apply filtering within HNSW. The ACORN filtering optimization is applied only when the number of filtered documents is 60% or less of the total number of documents in the current search space being considered by the HNSW algorithm.
+When [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/) is enabled, the efficient filter framework continues to apply filtering within HNSW. The ACORN filtering optimization is applied only when the number of filtered documents is 60% or fewer of the total number of documents in the current search space being considered by the HNSW algorithm.
 
 ## Constructing a filter
 
