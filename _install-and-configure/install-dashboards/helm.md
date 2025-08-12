@@ -56,7 +56,7 @@ $ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecur
 
 ## Install OpenSearch Dashboards using Helm
 
-1. Clone the [helm repo](https://github.com/opensearch-project/helm-charts/tree/main):
+1. Clone the [Helm repo](https://github.com/opensearch-project/helm-charts/tree/main):
 
    ```bash
    git clone https://github.com/opensearch-project/helm-charts.git
