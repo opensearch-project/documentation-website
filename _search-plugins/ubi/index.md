@@ -61,7 +61,7 @@ Advanced features in OpenSearch, such as the Search Quality Evaluation Framework
                 <li><a href="https://UBISearch.dev">Why UBI?</a></li>
                 <li><a href="https://github.com/opensearch-project/user-behavior-insights">How to install and use the UBI plugin</a><b>do we keep this</b></li>
                 <li>Learn more about this community standard via <a href="https://UBISearch.dev">UBISearch.dev</a>.</li>
-                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-javascript-collector/">UBI.js</a> JavaScript collector</li>
+                <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-javascript-collector/">UBI JavaScript Collector</a>, a client-side JavaScript library for capturing events.</li>
             </ul>
         </td>
         <td>
