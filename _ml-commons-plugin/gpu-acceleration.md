@@ -67,7 +67,9 @@ else
 fi
 ```
 
-If you run opensearch natively without docker and you are using the packaged version of opensearch, systemd prevents you from accessing the gpu inside opensearch. The requirements to be able to accelerate a model is a working installation of cuda-toolkit and the ability to access the nvidia card under /dev. To grant OpenSearch access to the GPU, try modify the systemd service definition and add the following configuration: 
+If you run OpenSearch natively (without Docker) using the packaged version of OpenSearch, `systemd` may block OpenSearch from accessing your GPU. To accelerate models, you need a working [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) installation and access to the NVIDIA device under `/dev`.
+
+To allow OpenSearch to use the GPU, update the `systemd` service by adding the following configuration:
 
 ```
 systemctl edit opensearch.service
