@@ -31,6 +31,15 @@ The instructions here assume you have a Kubernetes cluster with Helm preinstalle
 
 The default Helm chart deploys a three-node cluster. We recommend that you have at least 8 GiB of memory available for this deployment. You can expect the deployment to fail if, say, you have less than 4 GiB of memory available.
 
+For OpenSearch 2.12 or later, you must provide `OPENSEARCH_INITIAL_ADMIN_PASSWORD` to start the cluster. Customize the admin password in `values.yaml` under `extraEnvs`, as shown in the following example:
+
+```yaml
+extraEnvs:
+  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+    value: <custom-admin-password>
+```
+{% include copy.html %}
+
 ## Install OpenSearch using Helm
 
 1. Add `opensearch` [helm-charts](https://github.com/opensearch-project/helm-charts) repository to Helm:
@@ -54,25 +63,47 @@ The default Helm chart deploys a three-node cluster. We recommend that you have 
    ```
    {% include copy.html %}
 
+   The available charts are provided in the response:
+
    ```bash
    NAME                            	CHART VERSION	APP VERSION	DESCRIPTION                           
-   opensearch/opensearch           	1.0.7        	1.0.0      	A Helm chart for OpenSearch           
-   opensearch/opensearch-dashboards	1.0.4        	1.0.0      	A Helm chart for OpenSearch Dashboards
+   opensearch/opensearch                  	3.1.0        	3.1.0      	A Helm chart for OpenSearch                      
+   opensearch/opensearch-dashboards       	3.1.0        	3.1.0      	A Helm chart for OpenSearch Dashboards
    ```
+
+1. Create a minimal `values.yaml` file:
+
+   ```yaml
+   config:
+     opensearch.yml: |-
+       cluster.name: opensearch-cluster
+       network.host: 0.0.0.0
+   extraEnvs:
+     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+       value: <strong_password>
+   ```
+   {% include copy.html %}
 
 1. Deploy OpenSearch:
 
    ```bash
-   helm install my-deployment opensearch/opensearch
+   helm install my-deployment opensearch/opensearch -f values.yaml
    ```
    {% include copy.html %}
 
-You can also build the `opensearch-1.0.0.tgz` file manually:
+You can also build the `opensearch-<VERSION>.tgz` file manually:
 
-1. Change to the `opensearch` directory:
+1. Clone the [helm-charts repo](https://github.com/opensearch-project/helm-charts/tree/main):
 
    ```bash
-   cd charts/opensearch
+   git clone https://github.com/opensearch-project/helm-charts.git
+   ```
+   {% include copy.html %}
+
+1. Navigate to the `opensearch` directory:
+
+   ```bash
+   cd helm-charts/charts/opensearch
    ```
    {% include copy.html %}
 
@@ -86,44 +117,37 @@ You can also build the `opensearch-1.0.0.tgz` file manually:
 1. Deploy OpenSearch:
 
    ```bash
-   helm install --generate-name opensearch-1.0.0.tgz
+   helm install --generate-name opensearch-<VERSION>.tgz -f /path/to/values.yaml
    ```
    {% include copy.html %}
 
    The output shows you the specifications instantiated from the install.
-   To customize the deployment, pass in the values that you want to override with a custom YAML file:
 
-   ```bash
-   helm install --values=customvalues.yaml opensearch-1.0.0.tgz
-   ```
-   {% include copy.html %}
-
-For OpenSearch 2.12 or greater, customize the admin password in `values.yaml` under `extraEnvs`, as shown in the following example:
-
-```yaml
-extraEnvs:
-  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-    value: <custom-admin-password>
-```
 
 #### Sample output
 
   ```yaml
-  NAME: opensearch-1-1629223146
-  LAST DEPLOYED: Tue Aug 17 17:59:07 2021
+  NAME: opensearch-3-1754992026
+  LAST DEPLOYED: Tue Aug 12 10:47:06 2025
   NAMESPACE: default
   STATUS: deployed
   REVISION: 1
   TEST SUITE: None
   NOTES:
   Watch all cluster members come up.
-    $ kubectl get pods --namespace=default -l app=opensearch-cluster-master -w
+  $ kubectl get pods --namespace=default -l app.kubernetes.io/component=opensearch-cluster-master -w
   ```
 
 To make sure your OpenSearch pod is up and running, run the following command:
 
 ```bash
 $ kubectl get pods
+```
+{% include copy.html %}
+
+The response lists the running containers:
+
+```bash
 NAME                                                  READY   STATUS    RESTARTS   AGE
 opensearch-cluster-master-0                           1/1     Running   0          3m56s
 opensearch-cluster-master-1                           1/1     Running   0          3m56s
@@ -140,11 +164,11 @@ $ kubectl exec -it opensearch-cluster-master-0 -- /bin/bash
 You can send requests to the pod to verify that OpenSearch is up and running:
 
 ```json
-$ curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
+$ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
 {
-  "name" : "opensearch-cluster-master-1",
+  "name" : "opensearch-cluster-master-0",
   "cluster_name" : "opensearch-cluster",
-  "cluster_uuid" : "hP2gq5bPS3SLp8Z7wXm8YQ",
+  "cluster_uuid" : "72e_wDs1QdWHmwum_E2feA",
   "version" : {
     "distribution" : "opensearch",
     "number" : <version>,
@@ -153,8 +177,8 @@ $ curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
     "build_date" : <build-date>,
     "build_snapshot" : false,
     "lucene_version" : <lucene-version>,
-    "minimum_wire_compatibility_version" : "6.8.0",
-    "minimum_index_compatibility_version" : "6.0.0-beta1"
+    "minimum_wire_compatibility_version" : "2.19.0",
+    "minimum_index_compatibility_version" : "2.0.0"
   },
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
@@ -166,15 +190,21 @@ To identify the OpenSearch deployment that you want to delete:
 
 ```bash
 $ helm list
-NAME  NAMESPACEREVISIONUPDATED  STATUS  CHART APP VERSION
-opensearch-1-1629223146 default 1 2021-08-17 17:59:07.664498239 +0000 UTCdeployedopensearch-1.0.0    1.0.0       
+```
+{% include copy.html %}
+
+The reponse lists the current Helm deployments:
+
+```
+NAME                   	NAMESPACE	REVISION	UPDATED                            	STATUS  	CHART           	APP VERSION
+opensearch-3-1754992026	default  	1       	2025-08-12 10:47:06.02703 +0100 IST	deployed	opensearch-3.1.0	3.1.0      
 ```
 
 To delete or uninstall a deployment, run the following command:
 
 ```bash
-helm delete opensearch-1-1629223146
+helm delete opensearch-3-1754992026
 ```
 {% include copy.html %}
 
-For steps to install OpenSearch Dashboards, see [Helm to install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/helm/).
+For instructions on how to to install OpenSearch Dashboards, see [Helm to install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/helm/).
