@@ -23,7 +23,7 @@ Users have two ways to install the dashboards:
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_overview_dashboard_installation_options.png" alt="Experiment overview of the Search Relevance Workbench including dashboard installation options"/>{: .img-fluid }
 
-A modal offers the user to install the dashboards.
+The modal offers to install the dashboards for the user.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/install_dashboards_modal.png" alt="Modal to install dashboards"/>{: .img-fluid }
 
