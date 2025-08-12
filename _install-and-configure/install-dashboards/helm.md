@@ -68,24 +68,29 @@ $ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecur
    ```bash
    cd helm-charts/charts/opensearch-dashboards
    ```
+   {% include copy.html %}
 
 1. Package the Helm chart:
 
    ```bash
    helm package .
    ```
+   {% include copy.html %}
 
 1. Deploy OpenSearch Dashboards:
 
    ```bash
    helm install --generate-name opensearch-dashboards-3.1.0.tgz
    ```
+   {% include copy.html %}
+   
    The output shows you the specifications instantiated from the install.
    To customize the deployment, pass in the values that you want to override with a custom YAML file:
 
    ```bash
    helm install --values=customvalues.yaml opensearch-dashboards-3.1.0.tgz
    ```
+   {% include copy.html %}
 
 #### Sample output
 
@@ -108,6 +113,12 @@ To make sure your OpenSearch Dashboards pod is up and running, run the following
 
 ```bash
 $ kubectl get pods
+```
+{% include copy.html %}
+
+The running containers are listed in the response:
+
+```bash
 NAME                                                  READY   STATUS    RESTARTS   AGE
 opensearch-cluster-master-0                           1/1     Running   0          4m35s
 opensearch-cluster-master-1                           1/1     Running   0          4m35s
@@ -120,6 +131,7 @@ To set up port forwarding to access OpenSearch Dashboards, exit the OpenSearch s
 ```bash
 $ k port-forward opensearch-dashboards-1-1629223356-758bd8747f-8www5 5601
 ```
+{% include copy.html %}
 
 You can now access OpenSearch Dashboards from your browser at: http://localhost:5601.
 
@@ -130,6 +142,12 @@ To identify the OpenSearch Dashboards deployment that you want to delete:
 
 ```bash
 $ helm list
+```
+{% include copy.html %}
+
+The existing Helm deployments are listed in the response:
+
+```bash
 NAME                   	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART                      	APP VERSION
 opensearch-dashboards-1-1629223356             	default  	1       	2025-08-12 11:32:42.798313 +0100 IST	deployed	opensearch-dashboards-3.1.0	3.1.0      
 opensearch-3-1754994664	default  	1       	2025-08-12 11:31:04.710386 +0100 IST	deployed	opensearch-3.1.0           	3.1.0      
@@ -140,3 +158,4 @@ To delete or uninstall a deployment, run the following command:
 ```bash
 helm delete opensearch-dashboards-1-1629223356
 ```
+{% include copy.html %}
