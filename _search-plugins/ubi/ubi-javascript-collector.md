@@ -96,6 +96,7 @@ function generateGuid() {
   return id;
 };
 ```
+{% include copy.html %}
 
 ## Tracking the event 
 
