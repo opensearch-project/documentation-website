@@ -108,6 +108,15 @@ console tuples show --in /shared-logs-output/traffic-replayer-default/[NODE_ID]/
 ```
 {% include copy.html %}
 
+## Show version
+
+Displays the version of the currently installed Migration Assistant.
+
+```sh
+console --version
+```
+{% include copy.html %}
+
 ## Help option
 
 All commands and options can be explored within the tool itself by using the `--help` option, either for the entire `console` application or for individual components (for example, `console backfill --help`). For example:
@@ -121,6 +130,7 @@ Options:
   --json
   -v, --verbose       Verbosity level. Default is warn, -v is info, -vv is
                       debug.
+  --version           Show the Migration Assistant version.
   --help              Show this message and exit.
 
 Commands:
