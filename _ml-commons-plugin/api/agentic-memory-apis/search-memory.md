@@ -6,11 +6,11 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Search Memory API
+# Search Memory APIs
 **Introduced 3.2**
 {: .label .label-purple }
 
-Use this API to to search for a memory in a container. This API uses a query to search for matching memories.
+Use these APIs to to search for a memory in a container. These APIs use a query to search for matching memories.
 
 ## Endpoints
 

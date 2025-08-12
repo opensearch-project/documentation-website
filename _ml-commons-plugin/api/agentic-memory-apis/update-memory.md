@@ -12,21 +12,19 @@ nav_order: 10
 
 Use this API to update a memory.
 
-Once a memory container is created, you'll provide its `memory_id` to other APIs.
-
 ## Endpoint
 
 ```json
 PUT /_plugins/_ml/memory_containers/{memory_container_id}/memories/{memory_id}
 ```
 
-## Request body fields
+## Request body field
 
-The following table lists the available request fields.
+The following table lists the available request field.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`text` | String | Required | The list of messages.
+`text` | String | Required | The updated text content.
 
 ## Example request
 

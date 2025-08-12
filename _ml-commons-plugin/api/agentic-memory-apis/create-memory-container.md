@@ -10,7 +10,7 @@ nav_order: 10
 **Introduced 3.2**
 {: .label .label-purple }
 
-Use this API to create a memory container 
+Use this API to create a memory container.
 
 Once a memory container is created, you'll provide its `memory_container_id` to other APIs.
 

@@ -10,9 +10,9 @@ nav_order: 10
 **Introduced 3.2**
 {: .label .label-purple }
 
-Use this API to create a memory.
+Use this API to add a memory into a memory container.
 
-Once a memory container is created, you'll provide its `memory_id` to other APIs.
+Once a memory is created, you'll provide its `memory_id` to other APIs.
 
 ## Endpoint
 
@@ -28,9 +28,9 @@ Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `messages` | List | Required | The list of messages.
 `session_id` | String | Optional | The session ID.
-`agent_id` | String | Optional | The agent ID
-`infer` | Boolean | Optional | The description of the memory container.
-`tags` | Object | Optional | The custom metadata.
+`agent_id` | String | Optional | The agent ID.
+`infer` | Boolean | Optional | Whether to infer context from messages.
+`tags` | Object | Optional | Custom metadata for the memory.
 
 ## Example request
 
