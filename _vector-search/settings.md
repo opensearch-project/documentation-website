@@ -107,8 +107,6 @@ The Neural Search plugin supports the following settings.
 
 The following Neural Search plugin settings apply at the cluster level:
 
-- `plugins.neural_search.hybrid_search_disabled` (Dynamic, Boolean): Disables hybrid search. Default is `false`.
-
 - `plugins.neural_search.stats_enabled` (Dynamic, Boolean): Enables the [Neural Search Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#stats). Default is `false`.
 
 ### Index settings
