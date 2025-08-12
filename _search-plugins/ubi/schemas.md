@@ -16,7 +16,7 @@ The User Behavior Insights (UBI) data collection process involves tracking and r
 
 For UBI to function properly, the connections between the following fields must be consistently maintained within an application that has UBI enabled:
 
-- [`object_id`](#object_id) represents an ID for whatever object the user receives in response to a query. For example, if you search for books, it might be an ISBN number for a book, such as `978-3-16-148410-0`.
+- [`object_id`](#object_id) represents an ID for whatever object the user receives in response to a query. For example, if you search for books, it might be an ISBN for a book, such as `978-3-16-148410-0`.
 - [`query_id`](#query_id) is a unique ID for the raw query executed, while the `object_id` maps to the primary identifier of the _hits_ returned by the user's query. 
 - [`client_id`](#client_id) represents a unique query source. This is typically a web browser used by a unique user.
 - [`object_id_field`](#object_id_field) specifies the name of the field in your index that provides the `object_id`. For example, if you search for books, the value might be `isbn_code`.
