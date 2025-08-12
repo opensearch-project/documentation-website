@@ -71,7 +71,7 @@ If you run OpenSearch natively (without Docker) using the packaged version of Op
 
 To allow OpenSearch to use the GPU, update the `systemd` service by adding the following configuration:
 
-```
+```ini
 systemctl edit opensearch.service
 
 [Service]
