@@ -31,7 +31,7 @@ The instructions here assume you have a Kubernetes cluster with Helm preinstalle
 
 The default Helm chart deploys a three-node cluster. We recommend that you have at least 8 GiB of memory available for this deployment. You can expect the deployment to fail if, say, you have less than 4 GiB of memory available.
 
-For OpenSearch 2.12 or greater you have to provide `OPENSEARCH_INITIAL_ADMIN_PASSWORD` to start the cluster. Customize the admin password in `values.yaml` under `extraEnvs`, as shown in the following example:
+For OpenSearch 2.12 or later, you must provide `OPENSEARCH_INITIAL_ADMIN_PASSWORD` to start the cluster. Customize the admin password in `values.yaml` under `extraEnvs`, as shown in the following example:
 
 ```yaml
 extraEnvs:
@@ -67,7 +67,8 @@ extraEnvs:
    opensearch/opensearch                  	3.1.0        	3.1.0      	A Helm chart for OpenSearch                      
    opensearch/opensearch-dashboards       	3.1.0        	3.1.0      	A Helm chart for OpenSearch Dashboards
    ```
-1. Create minimal values.yaml file:
+
+1. Create a minimal `values.yaml` file:
 
    ```yaml
    config:
