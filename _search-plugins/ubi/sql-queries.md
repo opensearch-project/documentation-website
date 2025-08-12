@@ -10,16 +10,16 @@ nav_order: 20
 
 You can run sample User Behavior Insights (UBI) SQL queries in the OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
 
-To query a demo workbench with synthetic data, see 
+To access a demo query workbench with synthetic data, see 
 [http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench).
 
 ## Queries with zero results
 
-Queries can be executed on events on either the server (`ubi_queries`) or client (`ubi_events`) side.
+Queries can be executed on events on either the queries index (`ubi_queries`) or events index (`ubi_events`).
 
 ### Server-side queries
 
-The UBI-activated search server logs the queries and their results, so in order to find all queries with *no* results, search for empty `query_response_hit_ids`:
+A UBI-enabled search server logs the queries and their results as they are made, so in order to find all queries with *no* results, search for empty `query_response_hit_ids`:
 
 ```sql
 select
