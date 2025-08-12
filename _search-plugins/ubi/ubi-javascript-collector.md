@@ -100,7 +100,7 @@ function generateGuid() {
 
 ## Tracking the event 
 
-Sending the event to the backend is as simple as:
+You can send the event to the backend by calling the `trackEvent` method:
 
 ```js
 ubiClient.trackEvent(event);
