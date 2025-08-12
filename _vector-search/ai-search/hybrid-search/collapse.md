@@ -534,7 +534,7 @@ GET /bakery-items-pagination/_search?search_pipeline=norm-pipeline
 
 You can use the `inner_hits` parameter within the `collapse` parameter to retrieve additional documents from each collapsed group.
 
-The following example uses the `bakery-items` index created earlier. It searches for cake items, collapses (groups) the results by the `item` field, and returns the two cheapest items for each collapsed value:
+The following example uses the `bakery-items` index created previously. It searches for cake items, collapses (groups) the results by the `item` field, and returns the two cheapest items for each collapsed value:
 
 ```json
 GET /bakery-items/_search?search_pipeline=norm-pipeline

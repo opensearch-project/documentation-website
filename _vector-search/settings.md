@@ -117,4 +117,4 @@ The following Neural Search plugin settings apply at the index level:
 
 <p id="hybrid-collapse-docs-per-group"></p>
 
-- `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` (Dynamic, integer): Controls how many documents are stored per group per subquery. By default, the value is set to the `size` parameter specified in the query. Lowering values prioritize latency, while higher values increase recall.  Valid values are `0`--`1000`, inclusive. A value of `0` uses the `size` parameter from the query, not zero documents.
+- `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` (Dynamic, integer): Controls how many documents are stored per group per subquery. By default, the value is set to the `size` parameter specified in the query. Lower values prioritize latency, while higher values increase recall. Valid values are `0`--`1000`, inclusive. A value of `0` uses the `size` parameter from the query, not zero documents.
