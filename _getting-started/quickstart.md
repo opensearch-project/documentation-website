@@ -167,7 +167,7 @@ This configuration enables security using demo certificates and requires additio
     ```
     {% include copy.html %}
 
-1. Set up a custom admin password using `.env` file in the same directory as docker-compose.yml with the following line:
+1. First, create a custom admin password. Create (or edit) a `.env` file in the same directory as your `docker-compose.yml`. This file stores environment variables that Docker Compose automatically reads when starting the containers. Add the following line to define the admin password:
 
     ```bash
     OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
