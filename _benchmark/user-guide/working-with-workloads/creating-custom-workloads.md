@@ -77,7 +77,7 @@ Extracting documents for index [movies]...                    2000/2000 docs [10
 [INFO] Workload movies has been created. Run it with: opensearch-benchmark --workload-path=/Users/hoangia/Desktop/workloads/movies
 
 -------------------------------
-[INFO] SUCCESS (took 2 seconds)
+[INFO] ✅ SUCCESS  (took 2 seconds)
 -------------------------------
 ```
 

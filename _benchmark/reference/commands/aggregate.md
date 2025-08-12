@@ -64,9 +64,9 @@ OpenSearch Benchmark responds with the following:
 
 Aggregate test run ID:  aggregate_results_geonames_9aafcfb8-d3b7-4583-864e-4598b5886c4f
 
--------------------------------
-[INFO] SUCCESS (took 1 seconds)
--------------------------------
+----------------------------------
+[INFO] ✅ SUCCESS (took 1 seconds)
+----------------------------------
 ```
 
 The results will be aggregated into one test run and stored under the ID shown in the output.

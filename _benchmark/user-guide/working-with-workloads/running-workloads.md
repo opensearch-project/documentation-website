@@ -175,9 +175,9 @@ OSB returns the following response once the benchmark completes:
 
 
 
---------------------------------
-[INFO] SUCCESS (took 18 seconds)
---------------------------------
+-----------------------------------
+[INFO] ✅ SUCCESS (took 18 seconds)
+-----------------------------------
 ```
 
 

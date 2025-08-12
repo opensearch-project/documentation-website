@@ -243,9 +243,9 @@ OpenSearch Benchmark returns the following response once the benchmark completes
 
 
 
---------------------------------
-[INFO] SUCCESS (took 18 seconds)
---------------------------------
+-----------------------------------
+[INFO] ✅ SUCCESS (took 18 seconds)
+-----------------------------------
 ```
 
 Each task run by the `percolator` workload represents a specific OpenSearch API operation---such as Bulk or Search---that was performed when the test was run. Each task in the output summary contains the following information:

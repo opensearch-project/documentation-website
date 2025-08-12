@@ -79,9 +79,9 @@ After the test runs, OpenSearch Benchmark responds with a summary of the benchma
 | 99.9th percentile service time |     painless_dynamic |   457.352 |     ms |
 |  100th percentile service time |     painless_dynamic |   459.474 |     ms |
 
-----------------------------------
-[INFO] SUCCESS (took 2634 seconds)
-----------------------------------
+-------------------------------------
+[INFO] ✅ SUCCESS (took 2634 seconds)
+-------------------------------------
 ```
 
 ## Options

@@ -187,9 +187,9 @@ The following example provides results from the train test procedure:
 |                                                     error rate |       prod-queries |           0 |      % |
 
 
----------------------------------
-[INFO] SUCCESS (took 119 seconds)
----------------------------------
+------------------------------------
+[INFO] ✅ SUCCESS (took 119 seconds)
+------------------------------------
 ```
 
 ### Faiss results
@@ -317,9 +317,9 @@ The following sample outputs were generated using the Faiss IVF benchmarking pro
 |                                                  Mean recall@1 |             prod-queries |        0.99 |        |
 
 
----------------------------------
-[INFO] SUCCESS (took 218 seconds)
----------------------------------
+------------------------------------
+[INFO] ✅ SUCCESS (took 218 seconds)
+------------------------------------
 ```
 
 #### Faiss IVF with scalar quantization (100 search queries)
@@ -442,9 +442,9 @@ The following sample outputs were generated using the Faiss IVF benchmarking pro
 |                                                  Mean recall@1 |             prod-queries |        0.98 |        |
 
 
----------------------------------
-[INFO] SUCCESS (took 218 seconds)
----------------------------------
+------------------------------------
+[INFO] ✅ SUCCESS (took 218 seconds)
+------------------------------------
 ```
 
 #### Faiss IVF with product quantization (100 search queries)
@@ -566,7 +566,7 @@ The following sample outputs were generated using the Faiss IVF benchmarking pro
 |                                                  Mean recall@k |             prod-queries |        0.62 |        |
 |                                                  Mean recall@1 |             prod-queries |        0.52 |        |
 
----------------------------------
-[INFO] SUCCESS (took 413 seconds)
----------------------------------
+------------------------------------
+[INFO] ✅ SUCCESS (took 413 seconds)
+------------------------------------
 ```
