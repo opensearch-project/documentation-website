@@ -24,3 +24,4 @@ OpenSearch supports the following machine learning (ML) APIs:
 - [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/)
 - [Stats API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/stats/)
 - [MCP Server APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/)
+- [Agentic Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/)
