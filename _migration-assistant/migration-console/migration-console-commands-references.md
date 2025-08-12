@@ -108,7 +108,9 @@ console tuples show --in /shared-logs-output/traffic-replayer-default/[NODE_ID]/
 {% include copy.html %}
 
 ## Show version
+
 Displays the version of the currently installed Migration Assistant.
+
 ```sh
 console --version
 ```
