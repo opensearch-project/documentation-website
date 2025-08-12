@@ -109,7 +109,7 @@ ubiClient.trackEvent(event);
 
 ## Tracking queries
 
-You have the option of tracking queries using the client (instead of using the UBI plugin for OpenSearch).
+You can optionally track queries using the client (instead of using the UBI plugin for OpenSearch).
 
 This looks very similar to tracking events:
 
