@@ -9,9 +9,6 @@ has_children: false
 
 # Judgments
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).
-{: .warning}
-
 A judgment is a relevance rating assigned to a specific document in the context of a particular query. Multiple judgments are grouped together into judgment lists.
 Typically, judgments are categorized into two types---implicit and explicit:
 
