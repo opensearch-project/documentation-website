@@ -93,7 +93,7 @@ extraEnvs:
 
 You can also build the `opensearch-<VERSION>.tgz` file manually:
 
-1. Clone the [helm repo](https://github.com/opensearch-project/helm-charts/tree/main):
+1. Clone the [helm-charts repo](https://github.com/opensearch-project/helm-charts/tree/main):
 
    ```bash
    git clone https://github.com/opensearch-project/helm-charts.git
@@ -207,4 +207,4 @@ helm delete opensearch-3-1754992026
 ```
 {% include copy.html %}
 
-For steps to install OpenSearch Dashboards, see [Helm to install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/helm/).
+For instructions on how to to install OpenSearch Dashboards, see [Helm to install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/helm/).
