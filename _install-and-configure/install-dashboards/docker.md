@@ -10,7 +10,7 @@ redirect_from:
 
 # Run OpenSearch Dashboards using Docker and Docker Compose
 
-You can use either Docker or Docker Compose to run OpenSearch Dashboards. The Docker Compose method is easier as you can define all your configuration is a single file.
+You can use either Docker or Docker Compose to run OpenSearch Dashboards. The Docker Compose method is easier because you can define the entire configuration is a single file.
 
 ## Run OpenSearch Dashboards using Docker
 
@@ -23,7 +23,7 @@ docker run -d --name opensearch-node -p 9200:9200 -p 9600:9600 --network os-net 
 
 You can start OpenSearch Dashboards using the following steps:
 
-1. Create `opensearch_dashboards.yml` configuration file, see following example:
+1. Create `opensearch_dashboards.yml` configuration file:
 
     ```bash
     server.name: opensearch_dashboards
@@ -64,12 +64,12 @@ Use the following steps to run OpenSearch Dashboards using Docker Compose:
 
 1. Create a [`docker-compose.yml`](https://docs.docker.com/compose/compose-file/) file appropriate for your environment. A sample file that includes OpenSearch Dashboards is available on the OpenSearch [Docker installation page]({{site.url}}{{site.baseurl}}/opensearch/install/docker#sample-docker-composeyml).
 
-   You can pass a custom `opensearch_dashboards.yml` to the container in the Docker Compose file. See [Complete Docker Compose example with custom configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#complete-docker-compose-example-with-custom-configuration) for more details.
+   You can pass a custom `opensearch_dashboards.yml` to the container in the Docker Compose file. For more information, see [Complete Docker Compose example with custom configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#complete-docker-compose-example-with-custom-configuration).
    {: .tip }
 
-1. Create `opensearch_dashboards.yml` file, see following example:
+1. Create an `opensearch_dashboards.yml` file:
   
-    ```
+    ```yaml
     server.name: opensearch_dashboards
     server.host: "0.0.0.0"
     server.customResponseHeaders : { "Access-Control-Allow-Credentials" : "true" }
@@ -88,7 +88,7 @@ Use the following steps to run OpenSearch Dashboards using Docker Compose:
     opensearch_security.readonly_mode.roles: ["kibana_read_only"]
     ```
 
-    The `opensearch.hosts` needs to be configured if you are not passing this as environment variable, as it is done in the [Complete Docker Compose example with custom configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#complete-docker-compose-example-with-custom-configuration).
+    The `opensearch.hosts` setting must be configured if you are not passing it as an environment variable. For an example of configuring this setting, see [Complete Docker Compose example with custom configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#complete-docker-compose-example-with-custom-configuration).
     {: .note}
 
 1. Run `docker compose up`.
