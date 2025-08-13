@@ -59,7 +59,7 @@ console clusters curl <source_cluster|target_cluster> <path> [OPTIONS]
 
 #### Examples
 
-*Get cluster health:*
+*Get cluster health*:
 
 ```sh
 console clusters curl source_cluster /_cluster/health
