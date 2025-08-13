@@ -18,6 +18,19 @@ This is an experimental feature and is not recommended for use in a production e
 
 Agentic Memory APIs provide operations needed to implement OpenSearch's new Agentic Memory feature that transforms how AI agents handle context and knowledge, moving beyond simple chat history to intelligent, persistent memory management. This experimental feature enables agents to learn, remember, and reason over structured information across conversations.
 
+## How to enable
+
+Enable the experimental feature via cluster settings:
+```json
+PUT /_cluster/settings
+{
+    "persistent": {
+        "plugins.ml_commons.agentic_memory_enabled": true
+    }
+}
+```
+{% include copy-curl.html %}
+
 ML Commons supports the following memory container APIs:
 
 - [Create memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/)

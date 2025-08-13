@@ -26,11 +26,16 @@ The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`messages` | List | Required | The list of messages.
+`messages` | List | Required | The list of messages, currently limited to one message per request.
 `session_id` | String | Optional | The session ID.
 `agent_id` | String | Optional | The agent ID.
 `infer` | Boolean | Optional | Whether to infer context from messages.
 `tags` | Object | Optional | Custom metadata for the memory.
+
+### The `infer` parameter behavior
+
+- When `infer=true`: LLM extracts facts, response contains only FACT memories
+- When `infer=false`: No LLM processing, response contains the stored message
 
 ## Example request
 
@@ -39,7 +44,12 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
 {
     "messages": [
         {"role": "assistant", "content": "Machine learning is a subset of artificial intelligence"}
-    ]
+    ],
+    "session_id": "sess_789",
+    "agent_id": "agent_123",
+    "tags": {
+        "topic": "personal info"
+    }
 }
 ```
 {% include copy-curl.html %}
@@ -55,6 +65,6 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
             "event": "ADD"
         }
     ],
-    "session_id": "sess_a99c5a19-cee3-44ce-b64d-6fbdc411c537"
+    "session_id": "sess_789"
 }
 ```
