@@ -47,7 +47,7 @@ console clusters curl <source_cluster|target_cluster> <path> [OPTIONS]
 
 #### Arguments
 
-* `<source_cluster|target_cluster>` — Which cluster to call.
+* `<source_cluster|target_cluster>` — Specify `source_cluster` or `target_cluster` to call.
 * `<path>` — The API path to call on the cluster (e.g., `/_cat/indices`, `/my-index/_search`).
 
 #### Options
