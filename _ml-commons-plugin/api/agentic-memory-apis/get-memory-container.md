@@ -52,3 +52,7 @@ GET /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN
     }
 }
 ```
+
+## Response body fields
+
+For response field descriptions, see [Create Memory Container API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container#request-body-fields).

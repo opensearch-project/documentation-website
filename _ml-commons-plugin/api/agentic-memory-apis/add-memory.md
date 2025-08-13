@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Add Memory
+title: Add Agentic Memory
 parent: Agentic Memory APIs
 grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Add Memory API
+# Add Agentic Memory API
 **Introduced 3.2**
 {: .label .label-purple }
 

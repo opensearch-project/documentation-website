@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Get Memory
+title: Get Agentic Memory
 parent: Agentic Memory APIs
 grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Get Memory API
+# Get Agentic Memory API
 **Introduced 3.2**
 {: .label .label-purple }
 
@@ -38,3 +38,7 @@ GET /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories/T9jtmpgBOh0h20
     "last_updated_time": 1754945934681
 }
 ```
+
+## Response body fields
+
+For response field descriptions, see [Add Agentic Memory API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/add-memory#request-body-fields).

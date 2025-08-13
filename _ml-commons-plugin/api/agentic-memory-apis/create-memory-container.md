@@ -28,7 +28,7 @@ Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `name` | String | Required | The name of the memory container.
 `description` | String | Optional | The description of the memory container.
-`memory_storage_config` | Object | Optional | The memory storage configuration. See [the `memory_storage_config`](#the-memory-storage-config-object) object for more details.
+`memory_storage_config` | Object | Optional | The memory storage configuration. See [the `memory_storage_config` object](#the-memory-storage-config-object) for more details.
 
 ## The `memory_storage_config` object
 

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Delete Memory
+title: Delete Agentic Memory
 parent: Agentic Memory APIs
 grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Delete Memory API
+# Delete Agentic Memory API
 **Introduced 3.2**
 {: .label .label-purple }
 
