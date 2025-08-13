@@ -53,7 +53,7 @@ console clusters curl <source_cluster|target_cluster> <path> [OPTIONS]
 #### Options
 
 * `--json <JSON_DATA>` — Send a JSON body and automatically set `Content-Type: application/json`.
-* `-X, --request <METHOD>` — HTTP method (GET, POST, PUT, DELETE, HEAD). Default: GET.
+* `-X, --request <METHOD>` — The HTTP method (`GET`, `POST`, `PUT`, `DELETE`, or `HEAD`). Default is `GET`.
 * `-H, --header <HEADER>` — Custom header (repeatable). Example: `-H 'Accept: application/json'`.
 * `-d, --data <DATA>` — Raw request body.
 
