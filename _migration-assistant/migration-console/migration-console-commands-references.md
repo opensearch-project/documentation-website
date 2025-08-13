@@ -38,7 +38,7 @@ console clusters cat-indices
 
 ### Execute HTTP requests against clusters
 
-Run OpenSearch/Elasticsearch APIs directly against the configured source or target cluster using a `curl`-like interface. Authentication, TLS, and endpoints are taken from your console configuration.
+To run OpenSearch or Elasticsearch APIs directly against the configured source or target cluster, use a `curl`-like interface. Authentication, TLS, and endpoints are obtained from your console configuration.
 
 ```sh
 console clusters curl <source_cluster|target_cluster> <path> [OPTIONS]
