@@ -66,7 +66,7 @@ console clusters curl source_cluster /_cluster/health
 ```
 {% include copy.html %}
 
-*List indices as JSON:*
+*List indexes as JSON*:
 
 ```sh
 console clusters curl source_cluster "/_cat/indices?format=json&v=true"
