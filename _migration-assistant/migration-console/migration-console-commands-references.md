@@ -73,7 +73,7 @@ console clusters curl source_cluster "/_cat/indices?format=json&v=true"
 ```
 {% include copy.html %}
 
-*Create an index:*
+*Create an index*:
 
 ```sh
 console clusters curl target_cluster /my-new-index --json '{"settings":{"number_of_shards":3,"number_of_replicas":1}}'
