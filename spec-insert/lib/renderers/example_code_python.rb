@@ -69,7 +69,7 @@ class ExampleCodePython < BaseMustacheRenderer
     if query_string
       query_pairs = query_string.split('&').map { |s| s.split('=', 2) }
       query_hash = query_pairs.map do |k, v|
-        "\"#{k}\": #{v ? "\"#{v}\"" : "\"true\""}"
+        "\"#{k}\": \"#{v}\""
       end.join(', ')
       args << "params = { #{query_hash} }" unless query_hash.empty?
     end

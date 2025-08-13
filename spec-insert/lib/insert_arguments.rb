@@ -116,7 +116,7 @@ class InsertArguments
 
     query = (query_string || "").split('&').to_h do |pair|
       k, v = pair.split('=', 2)
-      [k, v || "false"]
+      [k, v || "true"]
     end
 
     body = begin
