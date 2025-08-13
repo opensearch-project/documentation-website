@@ -80,7 +80,7 @@ console clusters curl target_cluster /my-new-index --json '{"settings":{"number_
 ```
 {% include copy.html %}
 
-*Search with a body:*
+*Run a query containing a body*:
 
 ```sh
 console clusters curl source_cluster /_search --json '{"query":{"match_all":{}}}'
