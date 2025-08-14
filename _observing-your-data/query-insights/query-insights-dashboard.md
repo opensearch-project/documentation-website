@@ -224,7 +224,7 @@ The live query table lists the following information for each live query.
 
 | Column  | Description |
 | :--- | :--- |
-| **Timestamp**        | The time when the query started running.                            |
+| **Timestamp**        | The time at which the query started running.                            |
 | **Task ID**          | The unique identifier for the search task.                            |
 | **Index**            | The index or indexes the query is targeting.                          |
 | **Node**             | The node currently running the query.                               |
