@@ -1,16 +1,19 @@
 ---
 layout: default
-title: Update Agentic Memory
+title: Update agentic memory
 parent: Agentic Memory APIs
 grand_parent: ML Commons APIs
-nav_order: 10
+nav_order: 50
 ---
 
 # Update Agentic Memory API
 **Introduced 3.2**
 {: .label .label-purple }
 
-Use this API to update a memory.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+Use this API to update an agentic memory.
 
 ## Endpoint
 
@@ -18,13 +21,13 @@ Use this API to update a memory.
 PUT /_plugins/_ml/memory_containers/{memory_container_id}/memories/{memory_id}
 ```
 
-## Request body field
+## Request body fields
 
-The following table lists the available request field.
+The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`text` | String | Required | The updated text content.
+`text` | String | Required | The updated `text` content.
 
 ## Example request
 

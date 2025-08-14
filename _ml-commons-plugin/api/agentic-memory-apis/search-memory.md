@@ -1,16 +1,19 @@
 ---
 layout: default
-title: Search Agentic Memory
+title: Search agentic memory
 parent: Agentic Memory APIs
 grand_parent: ML Commons APIs
-nav_order: 10
+nav_order: 70
 ---
 
 # Search Agentic Memory APIs
 **Introduced 3.2**
 {: .label .label-purple }
 
-Use these APIs to to search for a memory in a container. These APIs use a query to search for matching memories.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+Use these APIs to to search for an agentic memory in a memory container. These APIs use a query to search for matching memories.
 
 ## Endpoints
 

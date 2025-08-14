@@ -1,16 +1,19 @@
 ---
 layout: default
-title: Delete Agentic Memory
+title: Delete agentic memory
 parent: Agentic Memory APIs
 grand_parent: ML Commons APIs
-nav_order: 10
+nav_order: 80
 ---
 
 # Delete Agentic Memory API
 **Introduced 3.2**
 {: .label .label-purple }
 
-Use this API to delete a memory by its ID.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+Use this API to delete an agentic memory by its ID.
 
 ## Endpoint
 

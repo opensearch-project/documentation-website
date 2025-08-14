@@ -1,16 +1,19 @@
 ---
 layout: default
-title: Get Agentic Memory
+title: Get agentic memory
 parent: Agentic Memory APIs
 grand_parent: ML Commons APIs
-nav_order: 10
+nav_order: 60
 ---
 
 # Get Agentic Memory API
 **Introduced 3.2**
 {: .label .label-purple }
 
-Use this API to retrieve a memory by its ID.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+Use this API to retrieve an agentic memory by its ID.
 
 ## Endpoint
 
@@ -41,4 +44,14 @@ GET /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories/T9jtmpgBOh0h20
 
 ## Response body fields
 
-For response field descriptions, see [Add Agentic Memory API request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/add-memory#request-body-fields).
+The following table lists all response body fields.
+
+| Field               | Data type | Description                                                                              |
+| :------------------ | :-------- | :--------------------------------------------------------------------------------------- |
+| `session_id`        | String    | The unique identifier for the session associated with this memory.                       |
+| `memory`            | String    | If the memory was created with `infer: false`, contains the stored text from the message. If the memory was created with `infer: true`, contains the extracted fact from the message.                                       |
+| `memory_type`       | String    | The type of memory. `RAW_MESSAGE` indicates the unprocessed message text. `FACT` indicates a fact inferred by the large language model. |
+| `user_id`           | String    | The ID of the user associated with this memory.                                          |
+| `role`              | String    | The role of the message author, such as `assistant`.                       |
+| `created_time`      | Integer   | The Unix timestamp, in milliseconds, when the memory entry was created.                  |
+| `last_updated_time` | Integer   | The Unix timestamp, in milliseconds, when the memory entry was last updated.             |

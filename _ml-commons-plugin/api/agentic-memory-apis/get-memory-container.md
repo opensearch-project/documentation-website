@@ -1,14 +1,17 @@
 ---
 layout: default
-title: Get Memory Container
+title: Get memory container
 parent: Agentic Memory APIs
 grand_parent: ML Commons APIs
-nav_order: 10
+nav_order: 20
 ---
 
 # Get Memory Container API
 **Introduced 3.2**
 {: .label .label-purple }
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
 
 Use this API to retrieve a memory container by its ID.
 

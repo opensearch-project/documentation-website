@@ -16,28 +16,31 @@ redirect_from:
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Agentic Memory APIs provide operations needed to implement OpenSearch's new Agentic Memory feature that transforms how AI agents handle context and knowledge, moving beyond simple chat history to intelligent, persistent memory management. This experimental feature enables agents to learn, remember, and reason over structured information across conversations.
+Agentic Memory APIs provide operations provide persistent memory management for AI agents. This enables agents to learn, remember, and reason over structured information across conversations.
 
-## How to enable
+## Enabling Agentic Memory APIs
 
-Enable the experimental feature via cluster settings:
+To enable Agentic Memory APIs, update the following cluster setting:
+
 ```json
 PUT /_cluster/settings
 {
-    "persistent": {
-        "plugins.ml_commons.agentic_memory_enabled": true
-    }
+  "persistent": {
+      "plugins.ml_commons.agentic_memory_enabled": true
+  }
 }
 ```
 {% include copy-curl.html %}
 
-ML Commons supports the following memory container APIs:
+For more information and other ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+
+OpenSearch supports the following memory container APIs:
 
 - [Create memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/)
 - [Get memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/get-memory-container/)
 - [Delete memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/delete-memory-container/)
 
-ML Commons supports the following memory APIs:
+OpenSearch supports the following memory APIs:
 
 - [Add memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/add-memory/)
 - [Get memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/get-memory/)
