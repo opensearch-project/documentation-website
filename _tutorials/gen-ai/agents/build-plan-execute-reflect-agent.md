@@ -93,12 +93,12 @@ PUT /_plugins/_ml/connectors/<connector_id>
   }
 }
 ```
-
-If you have deployed your model or made a predict call you will have to undeploy your model before updating the `client_config` For more information, see [Undeploy Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)
-
-To deploy your model, see [Deploy Model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/)
-
 {% include copy-curl.html %}
+
+If you have deployed your model or made a predict call, you must undeploy your model before updating the `client_config`. For more information, see [Undeploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
+
+For more information about deploying your model, see [Deploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/).
+
 
 ## Step 2: Create an agent
 

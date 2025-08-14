@@ -32,7 +32,7 @@ The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
-`parameters`| Object | Required | The parameters required by the agent. Any agent parameters configured during registration can be overridden here.
+`parameters`| Object | Required | The parameters required by the agent. Any agent parameters configured during registration can be overridden using this field.
 `parameters.verbose`| Boolean | Optional | Provides verbose output. 
 
 ## Example request

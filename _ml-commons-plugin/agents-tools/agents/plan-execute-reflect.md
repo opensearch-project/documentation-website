@@ -26,7 +26,6 @@ The agent automatically selects the most appropriate tool for each step based on
 
 The agent currently supports re-evaluation only after each step. This allows the agent to dynamically adapt the plan based on intermediate results before proceeding to the next step.
 
-For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/3745).
 
 ## Creating a plan-execute-reflect agent
 
