@@ -25,7 +25,7 @@ PUT sample-index1
 ```
 {% include copy-curl.html %}
 
-Disabling the `_source` field can impact the availability of certain features, such as the `update`, `update_by_query`, and `reindex` APIs, as well as the ability to debug queries or aggregations using the original indexed document.
+Disabling the `_source` field can impact the availability of certain features, such as the `update`, `update_by_query`, and `reindex` APIs, as well as the ability to debug queries or aggregations using the original indexed document. To support these features without storing `_source` field explicitly, [Derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source) can be used without compromising on storage constraints.
 {: .warning}
 
 ## Including or excluding fields
@@ -55,7 +55,7 @@ These fields are not stored in the `_source`, but you can still search them beca
 
 ## Derived source
 
-OpenSearch stores each ingested document in the `_source` field and also indexes individual fields for search. The `_source` field can consume significant storage space. To reduce storage use, you can configure OpenSearch to skip storing the `_source` field and instead reconstruct it dynamically when needed, for example, during `fetch`, `reindex`, or `update` operations. 
+OpenSearch stores each ingested document in the `_source` field and also indexes individual fields for search. The `_source` field can consume significant storage space. To reduce storage use, you can configure OpenSearch to skip storing the `_source` field and instead reconstruct it dynamically when needed, for example, during `search`, `get`, `mget`, `reindex`, or `update` operations.
 
 To enable derived source, configure the `derived_source` index-level setting:
 
@@ -76,8 +76,8 @@ PUT sample-index1
 
 While skipping the `_source` field can significantly reduce storage requirements, dynamically deriving the source is generally slower than reading a stored `_source`. To avoid this overhead during search queries, do not request the `_source` field when it's not needed. You can do this by setting the `size` parameter, which controls the number of documents returned.
 
-For real-time reads using the [Get Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [Multi-get Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/), which are served from the translog, performance can be slower when using a derived source. This is because the document must first be ingested temporarily before the source can be reconstructed. You can avoid this additional latency by using an index-level `derived_source.translog` setting that disables generating derived source during translog reads:
- 
+For real-time reads using the [Get Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [Multi-get Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/), which are served from the translog until [`refresh`]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/) happens, performance can be slower when using a derived source. This is because the document must first be ingested temporarily before the source can be reconstructed. You can avoid this additional latency by using an index-level `derived_source.translog` setting that disables generating derived source during translog reads:
+
 ```json
 PUT sample-index1
 {
@@ -112,6 +112,8 @@ Derived source supports the following field types without requiring any changes 
 - [`scaled_float`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/)
 - [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/)
 - [`wildcard`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/)
+
+For [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field, enabling derived source would by default store the field value as a stored field without needing to set the `store` mapping parameter as `true`.
 
 ### Limitations
 

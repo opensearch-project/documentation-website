@@ -166,6 +166,8 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.append_only.enabled` (Boolean): Set to `true` to prevent any updates to documents in the index. Default is `false`.
 
+- `index.derived_source.enabled` (Boolean): Set to `true`, if source should be dynamically generated without explicitly storing the `_source` field for storage optimizations, default behaviour for an index is derived source disabled. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source). 
+
 ### Updating a static index setting
 
 You can update a static index setting only on a closed index. The following example demonstrates updating the index codec setting.
@@ -268,6 +270,8 @@ OpenSearch supports the following dynamic index-level index settings:
 - `index.routing.allocation.total_shards_per_node` (Integer): The maximum combined total number of primary and replica shards from a single index that can be allocated to a single node. Default is `-1` (unlimited). Helps control per-index shard distribution across nodes by limiting the number of shards per node. Use with caution because shards from this index may remain unallocated if nodes reach their configured limits.
 
 - `index.routing.allocation.total_primary_shards_per_node` (Integer): The maximum number of primary shards from a single index that can be allocated to a single node. This setting is applicable only for remote-backed clusters. Default is `-1` (unlimited). Helps control per-index primary shard distribution across nodes by limiting the number of primary shards per node. Use with caution because primary shards from this index may remain unallocated if nodes reach their configured limits.
+
+- `index.derived_source.translog.enabled` (Boolean): This setting controls, how to read documents from translog for derived source enabled index, defaults to `index.derived_source.enabled`. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source).
 
 ### Updating a dynamic index setting
 
