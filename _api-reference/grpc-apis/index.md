@@ -12,23 +12,36 @@ redirect_from:
 **Introduced 3.0**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).    
-{: .warning}
+**Bulk and k-NN search generally available 3.2**
+{: .label .label-green }
 
-The OpenSearch gRPC plugin provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results.
+The gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available starting with OpenSearch 3.2. These use [protobuf version 0.6.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.6.0). However, expect tweaks to the protobuf structure as the feature matures in the next releases. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
+{: .note}
 
-The primary goal of the gRPC plugin is to:
+The OpenSearch gRPC functionality provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results.
 
-* Offer a **binary-encoded** alternative to HTTP/REST-based communication.  
-* **Improve performance** for bulk workloads and large-scale ingestion scenarios.  
+The primary goal of gRPC support is to:
+
+* Offer a **binary-encoded** alternative to HTTP/REST-based communication.
+* **Improve performance** for bulk workloads and large-scale ingestion scenarios.
 * **Enable more efficient client integrations** across languages, like Java, Go, and Python, using native gRPC stubs.
 
-## Enabling the plugin
+## Performance benefits
 
-To enable the gRPC plugin (`transport-grpc`) in OpenSearch: 
-1. Install the `transport-grpc` plugin. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).  
+Using gRPC APIs provides several advantages over HTTP APIs:
 
-1. Add the following settings to `opensearch.yml`:
+- **Reduced latency**: Binary protocol buffers eliminate JSON parsing overhead
+- **Better throughput**: More efficient network utilization for high-frequency queries
+- **Lower CPU usage**: Reduced serialization/deserialization costs
+- **Type safety**: Protocol buffer schemas provide compile-time validation
+- **Smaller payload sizes**: Binary encoding reduces network traffic
+
+## Enabling gRPC APIs
+
+To enable gRPC APIs in OpenSearch:
+
+**OpenSearch 3.2 and later:**
+The `transport-grpc` module is included by default with OpenSearch installations as of 3.2. To enable it, add the following settings to `opensearch.yml`:
     ```yaml
     aux.transport.types: [experimental-transport-grpc]
     aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
@@ -50,29 +63,86 @@ To enable the gRPC plugin (`transport-grpc`) in OpenSearch:
     ```
     {% include copy.html %}
 
+**OpenSearch 3.0 and 3.1:**
+**Note about the module transition:**
+Before OpenSearch 3.2, `transport-grpc` was a core plugin that had to be installed manually rather than installed by default. To enable it, follow the following steps.
+{: .note}
+
+1. Install the `transport-grpc` plugin. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+
+1. Add the following settings to `opensearch.yml`:
+    ```yaml
+    aux.transport.types: [experimental-transport-grpc]
+    aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
+    ```
+    {% include copy.html %}
+
+    Alternatively, configure a secure transport protocol using the following settings:
+    ```yaml
+    aux.transport.types: [experimental-secure-transport-grpc]
+    aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
+    ```
+    {% include copy.html %}
+
 
 ## Advanced gRPC settings
 
-OpenSearch supports the following advanced network settings for gRPC communication:
+OpenSearch supports the following advanced settings for gRPC communication. These settings can be configured in `opensearch.yml`:
 
-- `grpc.host` (Static, list): Sets the address of an OpenSearch node for gRPC communication. The `grpc.host` setting is a combination of `grpc.bind_host` and `grpc.publish_host` if they are the same value. An alternative to `grpc.host` is to configure `grpc.bind_host` and `grpc.publish_host` separately, as needed. 
+| Setting name                                    | Description                                                                                                    | Example value         | Default value        |
+|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------|-----------------------|----------------------|
+| **grpc.publish_port**                           | The external port number that this node uses to publish itself to peers for gRPC transport.                    | `9400`                | `-1` (disabled)      |
+| **grpc.host**                                   | List of addresses the gRPC server will bind to.                                                                | `["0.0.0.0"]`         | `[]`                 |
+| **grpc.bind_host**                              | List of addresses to bind the gRPC server to. Can be distinct from publish hosts.                              | `["0.0.0.0", "::"]`   | Value of `grpc.host` |
+| **grpc.publish_host**                           | List of hostnames or IPs published to peers for client connections.                                            | `["thisnode.example.com"]` | Value of `grpc.host` |
+| **grpc.netty.worker_count**                     | Number of Netty worker threads for the gRPC server. Controls concurrency and parallelism.                      | `2`                   | Number of processors |
+| **grpc.netty.max_concurrent_connection_calls**  | Maximum number of simultaneous in-flight requests allowed per client connection.                               | `200`                 | `100`                |
+| **grpc.netty.max_connection_age**               | Maximum age a connection is allowed before being gracefully closed. Supports time units like `ms`, `s`, `m`.   | `500ms`               | Not set (no limit)   |
+| **grpc.netty.max_connection_idle**              | Maximum duration a connection can be idle before being closed. Supports time units like `ms`, `s`, `m`.        | `2m`                  | Not set (no limit)   |
+| **grpc.netty.keepalive_timeout**                | Time to wait for `keepalive` ping acknowledgment before closing the connection. Supports time units.             | `1s`                  | Not set              |
+| **grpc.netty.max_msg_size**                     | Maximum inbound message size for gRPC requests. Supports units like `b`, `kb`, `mb`, `gb`.                    | `10mb` or `10485760`  | `10mb`               |
 
-- `grpc.bind_host` (Static, list): Specifies an address or addresses to which an OpenSearch node binds to listen for incoming gRPC connections. 
+### Example configuration
 
-- `grpc.publish_host` (Static, list): Specifies an address or addresses that an OpenSearch node publishes to other nodes for gRPC communication.
+Here's an example of a complete gRPC configuration in `opensearch.yml`:
 
-These settings are similar to the [HTTP Network settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#advanced-http-settings).
+```yaml
+# Basic gRPC transport configuration
+aux.transport.types: [transport-grpc]
+aux.transport.transport-grpc.port: '9400-9500'
+
+# Advanced gRPC settings
+grpc.host: ["0.0.0.0"]
+grpc.bind_host: ["0.0.0.0", "::"]
+grpc.publish_host: ["thisnode.example.com"]
+grpc.publish_port: 9400
+grpc.netty.worker_count: 4
+grpc.netty.max_concurrent_connection_calls: 200
+grpc.netty.max_connection_age: 500ms
+grpc.netty.max_connection_idle: 2m
+grpc.netty.keepalive_timeout: 1s
+grpc.netty.max_msg_size: 10mb
+```
+{% include copy.html %}
+
+### Notes
+- For duration-based settings (e.g., `max_connection_age`), you can use units such as `ms` (milliseconds), `s` (seconds), `m` (minutes).
+- For size-based settings (e.g., `max_msg_size`), you can use units such as `b` (bytes), `kb`, `mb`, `gb`.
+- All settings are node-scoped unless otherwise specified.
+
+These settings are similar to the [HTTP Network settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#advanced-http-settings) but specifically apply to gRPC communication. For more details about the `transport-grpc `module implementation, see the [OpenSearch `transport-grpc` module](https://github.com/karenyrx/OpenSearch/tree/protobufs-0.8.0-transport-grpc-fixes/modules/transport-grpc).
 
 ## Using gRPC APIs
 
 To submit gRPC requests, you must have a set of protobufs on the client side. You can obtain the protobufs in the following ways:
 
-- **Raw protobufs**: Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.3.0)](https://github.com/opensearch-project/opensearch-protobufs). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/). 
-- **Java client-side programs only**: Download the `opensearch-protobufs` jar from the [Maven Central repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.3.0).
+- **Raw protobufs**: Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.6.0)](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.6.0). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/).
+- **Java client-side programs only**: Download the `opensearch-protobufs` jar from the [Maven Central repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.6.0).
 
 ## Supported APIs
 
-This feature is currently under development and supports the following APIs:
+The following gRPC APIs are supported:
 
-- [Bulk]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/)
+- [Bulk]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) **Generally available 3.2**
 - [Search]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/) (for select query types)
+- [k-NN]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) (k-NN search queries) **Generally available 3.2**
