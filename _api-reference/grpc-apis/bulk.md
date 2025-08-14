@@ -236,7 +236,7 @@ The following example shows a bulk request with an `update` operation. It will u
 
 The `upsert` operation updates the document if it already exists. Otherwise, it creates a new document using the provided document content.
 
-To upsert a document, provide an `UpdateOperation` but specify `doc_as_upsert` as `true` in the `UpdateAction`. The document to be upserted should be provided in the `doc` field.
+To upsert a document, provide an `UpdateOperation` and specify `doc_as_upsert` as `true` in the `BulkRequestBody`. The document to be upserted should be provided in the `doc` field.
 
 #### Example request
 
@@ -263,7 +263,7 @@ The following example shows a bulk request with an `upsert` operation. It update
 
 Run a stored or inline script to modify a document.
 
-To specify a script, provide an `UpdateOperation` and a `script` field in the `UpdateAction`.
+To specify a script, provide an `UpdateOperation` and a `script` field in the `BulkRequestBody`.
 
 #### Example request
 
