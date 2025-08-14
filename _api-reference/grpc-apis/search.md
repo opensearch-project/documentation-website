@@ -103,7 +103,7 @@ The `SearchRequestBody` message accepts the following fields. All fields are opt
 | `track_total_hits` | [`TrackHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L309)                     | Whether to return the total hit count. |
 | `indices_boost` | `repeated` [`NumberMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L747)          | Per-index boost multipliers in the `<index>: <boost>` format. |
 | `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L893)     | The fields returned using doc values, optionally formatted. |
-| `min_score` | float                                                                                                                                      | The minimum score required in order for a document to be included in the results. |
+| `min_score` | `float`                                                                                                                                      | The minimum score required in order for a document to be included in the results. |
 | `post_filter` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L341)                | Filters hits after aggregations are applied. |
 | `profile` | `bool`                                                                                                                                     | Enables profiling to analyze query performance. |
 | `search_pipeline` | `string`                                                                                                                                   | The name of the search pipeline to apply. |
@@ -113,7 +113,7 @@ The `SearchRequestBody` message accepts the following fields. All fields are opt
 | `script_fields` | `map<string, `[`ScriptField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L511)`>`  | Custom fields whose values are computed by scripts. |
 | `search_after` | `repeated` [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1971)        | Cursor-based pagination using values from the previous page. |
 | `size` | `int32`                                                                                                                                    | The number of results to return. Default is `10`. |
-| `slice` | [`SlicedScroll`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L641)                  | Split scroll context into slices for parallel processing. |
+| `slice` | [`SlicedScroll`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L641)                  | Splits scroll context into slices for parallel processing. |
 | `sort` | `repeated` [`SortCombinations`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L745)   | The sorting rules (for example, by field, score, or custom order). |
 | `source` | [`SourceConfig`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L176)                  | Controls whether to return the full `_source`, no `_source`, or only specific fields from `_source` in the response. |
 | `fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L893)     | Additional fields to return, with formatting options. |
@@ -141,7 +141,7 @@ The [`DerivedField`](https://github.com/opensearch-project/opensearch-protobufs/
 | `prefilter_field` | `string` | The field to use for prefiltering to optimize script execution. Optional. |
 | `properties` | `map<string, `[`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L76)`>` | Additional properties for the derived field. Optional. |
 | `ignore_malformed` | `bool` | Whether to ignore malformed values during field computation. Optional. |
-| `format` | `string` | The format to apply to the field value (e.g., date formatting). Optional. |
+| `format` | `string` | The format to apply to the field value (for example., date formatting). Optional. |
 
 ### QueryContainer fields
 
@@ -334,8 +334,8 @@ The source documents are returned as bytes. Use Base64 decoding to read the `_so
 | `clusters` | [`ClusterStatistics`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L532) | Information about the search on each cluster when searching remote clusters. |
 | `max_score` | `float`                                                                                                                       | The highest returned document score. Optional. |
 | `pit_id` | `string`                                                                                                                      | The Point in Time ID. |
-| `scroll_id` | `string`                                                                                                                      | Identifier for the search and its search context. |
-| `terminated_early` | `bool`                                                                                                                       | If the query was terminated early, this flag will be set to true in the response. |
+| `scroll_id` | `string`                                                                                                                      | The identifier for the search and its search context. |
+| `terminated_early` | `bool`                                                                                                                       | Whether the query was terminated early. |
 
 ### HitsMetadata fields
 

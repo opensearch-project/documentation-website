@@ -15,7 +15,7 @@ redirect_from:
 **Bulk and k-NN search generally available 3.2**
 {: .label .label-green }
 
-The gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available starting with OpenSearch 3.2. These use [protobuf version 0.6.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.6.0). However, expect tweaks to the protobuf structure as the feature matures in the next releases. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
+Starting with OpenSearch version 3.2, the gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available. These use [protobuf version 0.6.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.6.0). However, expect updates to the protobuf structure as the feature matures in the next releases. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
 {: .note}
 
 The OpenSearch gRPC functionality provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results.
@@ -30,18 +30,17 @@ The primary goal of gRPC support is to:
 
 Using gRPC APIs provides several advantages over HTTP APIs:
 
-- **Reduced latency**: Binary protocol buffers eliminate JSON parsing overhead
+- **Reduced latency**: Binary protocol buffers eliminate JSON parsing overhead.
 - **Better throughput**: More efficient network utilization for high-frequency queries
-- **Lower CPU usage**: Reduced serialization/deserialization costs
-- **Type safety**: Protocol buffer schemas provide compile-time validation
-- **Smaller payload sizes**: Binary encoding reduces network traffic
+- **Lower CPU usage**: Reduced serialization and deserialization costs.
+- **Type safety**: Protocol buffer schemas provide compile-time validation.
+- **Smaller payload sizes**: Binary encoding reduces network traffic.
 
 ## Enabling gRPC APIs
 
-To enable gRPC APIs in OpenSearch:
 
 **OpenSearch 3.2 and later:**
-The `transport-grpc` module is included by default with OpenSearch installations as of 3.2. To enable it, add the following settings to `opensearch.yml`:
+The `transport-grpc` module is included by default with OpenSearch installations. To enable it, add the following settings to `opensearch.yml`:
     ```yaml
     aux.transport.types: [experimental-transport-grpc]
     aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
@@ -87,24 +86,24 @@ Before OpenSearch 3.2, `transport-grpc` was a core plugin that had to be install
 
 ## Advanced gRPC settings
 
-OpenSearch supports the following advanced settings for gRPC communication. These settings can be configured in `opensearch.yml`:
+OpenSearch supports the following advanced settings for gRPC communication. These settings can be configured in `opensearch.yml`.
 
 | Setting name                                    | Description                                                                                                    | Example value         | Default value        |
 |-------------------------------------------------|----------------------------------------------------------------------------------------------------------------|-----------------------|----------------------|
 | **grpc.publish_port**                           | The external port number that this node uses to publish itself to peers for gRPC transport.                    | `9400`                | `-1` (disabled)      |
-| **grpc.host**                                   | List of addresses the gRPC server will bind to.                                                                | `["0.0.0.0"]`         | `[]`                 |
-| **grpc.bind_host**                              | List of addresses to bind the gRPC server to. Can be distinct from publish hosts.                              | `["0.0.0.0", "::"]`   | Value of `grpc.host` |
-| **grpc.publish_host**                           | List of hostnames or IPs published to peers for client connections.                                            | `["thisnode.example.com"]` | Value of `grpc.host` |
-| **grpc.netty.worker_count**                     | Number of Netty worker threads for the gRPC server. Controls concurrency and parallelism.                      | `2`                   | Number of processors |
-| **grpc.netty.max_concurrent_connection_calls**  | Maximum number of simultaneous in-flight requests allowed per client connection.                               | `200`                 | `100`                |
-| **grpc.netty.max_connection_age**               | Maximum age a connection is allowed before being gracefully closed. Supports time units like `ms`, `s`, `m`.   | `500ms`               | Not set (no limit)   |
-| **grpc.netty.max_connection_idle**              | Maximum duration a connection can be idle before being closed. Supports time units like `ms`, `s`, `m`.        | `2m`                  | Not set (no limit)   |
-| **grpc.netty.keepalive_timeout**                | Time to wait for `keepalive` ping acknowledgment before closing the connection. Supports time units.             | `1s`                  | Not set              |
-| **grpc.netty.max_msg_size**                     | Maximum inbound message size for gRPC requests. Supports units like `b`, `kb`, `mb`, `gb`.                    | `10mb` or `10485760`  | `10mb`               |
+| **grpc.host**                                   | A list of addresses the gRPC server will bind to.                                                                | `["0.0.0.0"]`         | `[]`                 |
+| **grpc.bind_host**                              | A list of addresses to bind the gRPC server to. Can be distinct from publish hosts.                              | `["0.0.0.0", "::"]`   | Value of `grpc.host` |
+| **grpc.publish_host**                           | A list of hostnames or IPs published to peers for client connections.                                            | `["thisnode.example.com"]` | Value of `grpc.host` |
+| **grpc.netty.worker_count**                     | The number of Netty worker threads for the gRPC server. Controls concurrency and parallelism.                      | `2`                   | Number of processors |
+| **grpc.netty.max_concurrent_connection_calls**  | The maximum number of simultaneous in-flight requests allowed per client connection.                               | `200`                 | `100`                |
+| **grpc.netty.max_connection_age**               | The maximum age a connection can reach before being gracefully closed. Supports time units like `ms`, `s`, `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units).  | `500ms`               | Not set (no limit)   |
+| **grpc.netty.max_connection_idle**              | The maximum duration a connection can be idle before being closed. Supports time units like `ms`, `s`, `m`.  See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units).       | `2m`                  | Not set (no limit)   |
+| **grpc.netty.keepalive_timeout**                | The amount of time to wait for `keepalive` ping acknowledgment before closing the connection. Supports [time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units).              | `1s`                  | Not set              |
+| **grpc.netty.max_msg_size**                     | The maximum inbound message size for gRPC requests. Supports units like `b`, `kb`, `mb`, `gb`.  See [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).                  | `10mb` or `10485760`  | `10mb`               |
 
 ### Example configuration
 
-Here's an example of a complete gRPC configuration in `opensearch.yml`:
+The following is an example of a complete gRPC configuration in `opensearch.yml`:
 
 ```yaml
 # Basic gRPC transport configuration
@@ -125,7 +124,6 @@ grpc.netty.max_msg_size: 10mb
 ```
 {% include copy.html %}
 
-### Notes
 - For duration-based settings (e.g., `max_connection_age`), you can use units such as `ms` (milliseconds), `s` (seconds), `m` (minutes).
 - For size-based settings (e.g., `max_msg_size`), you can use units such as `b` (bytes), `kb`, `mb`, `gb`.
 - All settings are node-scoped unless otherwise specified.

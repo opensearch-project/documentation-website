@@ -9,12 +9,10 @@ nav_order: 30
 **Introduced 3.2**
 {: .label .label-purple }
 
-**Generally available 3.2**
-{: .label .label-green }
 
-The gRPC k-NN API is generally available starting with OpenSearch 3.2. However, expect tweaks to the protobuf structure as the feature matures in the next releases.
+The gRPC k-NN API is generally available starting with OpenSearch 3.2. However, expect updates to the protobuf structure as the feature matures in the next releases.
 
-The gRPC k-NN API provides an efficient, binary-encoded interface for performing k-nearest neighbor searches using protocol buffers over gRPC. k-NN (k-nearest neighbor) is a plugin that offers a specific search query type for vector similarity searches. This API offers superior performance compared to the traditional HTTP-based approach, making it ideal for large-scale machine learning and vector database applications.
+The gRPC k-NN API provides an efficient, binary-encoded interface for performing k-nearest neighbor searches using protocol buffers over gRPC. The k-NN plugin offers a specific search query type for vector similarity searches. This API offers superior performance compared to the traditional HTTP-based approach, making it ideal for large-scale machine learning and vector database applications.
 
 For information about HTTP-based k-NN queries, see [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/).
 
@@ -26,26 +24,26 @@ To submit gRPC requests, you must have a set of protobufs on the client side. Fo
 
 gRPC k-NN APIs reside in the [`SearchService`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/services/search_service.proto#L22), the same service used for general search operations.
 
-You can submit k-NN search requests by invoking the [`Search`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/services/search_service.proto#L23) gRPC method within the `SearchService`, using a [`KnnQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1058) within the search request. The method takes in a [`SearchRequest`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L18) and returns a [`SearchResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L317).
+You can submit k-NN search requests by invoking the [`Search`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/services/search_service.proto#L23) gRPC method within the `SearchService`, using a [`KnnQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1058) within the search request. The method takes a [`SearchRequest`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L18) and returns a [`SearchResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L317).
 
-The gRPC implementation leverages the same underlying k-NN functionality as the HTTP API while providing improved performance characteristics through protocol buffer serialization.
+The gRPC implementation uses the same underlying k-NN functionality as the HTTP API while providing improved performance through protocol buffer serialization.
 
 ## KnnQuery fields
 
-The gRPC k-NN API uses the [`KnnQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1058) message within a [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L341) for k-nearest neighbor searches. The `KnnQuery` message accepts the following fields:
+The gRPC k-NN API uses the [`KnnQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1058) message within a [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L341) for k-NN searches. The `KnnQuery` message accepts the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `field` | `string` | The vector field against which to run the search query. Required. |
-| `vector` | `repeated float` | Query vector. Must have the same number of dimensions as the vector field. Optional. |
+| `vector` | `repeated float` | A query vector. Must have the same number of dimensions as the vector field. Optional. |
 | `k` | `int32` | The number of nearest neighbors to return as top hits. Optional. |
 | `min_score` | `float` | The minimum similarity score for a neighbor to be considered a hit. Optional. |
 | `max_distance` | `float` | The maximum physical distance in vector space for a neighbor to be considered a hit. Optional. |
 | `filter` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L341) | Filters for the k-NN search query. See [Filter limitations](#filter-limitations). Optional. |
-| `boost` | `float` | Boost value to increase or decrease relevance scores. Default is 1.0. Optional. |
-| `underscore_name` | `string` | Query name for query tagging (JSON name: `_name`). Optional. |
-| `method_parameters` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L76) | Algorithm-specific parameters (`ef_search`, `nprobes`). Optional. |
-| `rescore` | [`KnnQueryRescore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1107) | Rescoring configuration for improved accuracy. Available in versions later than 2.17. Optional. |
+| `boost` | `float` | A boost value to increase or decrease relevance scores. Default is 1.0. Optional. |
+| `underscore_name` | `string` | A query name for query tagging (JSON key: `_name`). Optional. |
+| `method_parameters` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L76) | Algorithm-specific parameters (for example, `ef_search` or `nprobes`). Optional. |
+| `rescore` | [`KnnQueryRescore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1107) | A rescoring configuration for improved accuracy. Available in versions later than 2.17. Optional. |
 | `expand_nested_docs` | `bool` | When `true`, retrieves scores for all nested field documents within each parent document. Used with nested queries. Optional. |
 
 ## Example request
@@ -71,7 +69,7 @@ The following example shows a gRPC search request with a k-NN query. It searches
 
 ## Java gRPC client example
 
-Here's a basic example of how to use the gRPC k-NN API (actual implementation depends on your gRPC client setup):
+The following is a basic example of using the gRPC k-NN API (the actual implementation depends on your gRPC client setup):
 
 ```java
 import org.opensearch.protobufs.*;
@@ -119,9 +117,9 @@ public class KnnGrpcClient {
 
 ## Response fields
 
-k-NN search requests return the same [`SearchResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L317) structure as regular search operations. For detailed information about response fields, see [Search (gRPC) response fields]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/#response-fields).
+k-NN search requests return the same [`SearchResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L317) structure as regular search operations. For information about response fields, see [Search (gRPC) response fields]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/#response-fields).
 
-The response includes the standard search metadata (took, timed_out, shards) and a `hits` array containing the k-nearest neighbor documents with their similarity scores.
+The response includes the standard search metadata (`took`, `timed_out`, and `shards`) and a `hits` array containing the k-NN documents with their similarity scores.
 
 ## Filter limitations
 

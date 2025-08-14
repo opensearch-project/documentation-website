@@ -12,7 +12,6 @@ nav_order: 20
 **Generally available 3.2**
 {: .label .label-green }
 
-The gRPC Bulk API is generally available starting with OpenSearch 3.2. For OpenSearch 3.0 and 3.1, this was an experimental feature.
 
 The gRPC Bulk API provides an efficient, binary-encoded alternative to the [HTTP Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) for performing multiple document operations—such as indexing, updating, and deleting—in a single call. This service uses protocol buffers and mirrors the REST API in terms of parameters and structure.
 
@@ -69,14 +68,14 @@ The [`BulkRequestBody`](https://github.com/opensearch-project/opensearch-protobu
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `operation_container` | [`OperationContainer`](#operationcontainer-fields) | The operation to perform (index/create/update/delete). Required. |
+| `operation_container` | [`OperationContainer`](#operationcontainer-fields) | The operation to perform. Valid values are `index`, `create`, `update`, and `delete`. Required. |
 | `update_action` | [`UpdateAction`](#updateaction-fields) | Additional fields for update operations. Optional. |
 | `object` | `bytes` | The full document content used with `create` operations. Optional. |
 
 
 ### OperationContainer fields
 
-The `OperationContainer` message contains exactly one of the following operation types:
+The `OperationContainer` message contains exactly one of the following operation types.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
@@ -88,7 +87,7 @@ The `OperationContainer` message contains exactly one of the following operation
 
 ### UpdateAction fields
 
-The `UpdateAction` message contains additional fields for update operations:
+The `UpdateAction` message contains the following additional fields for `update` operations.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
