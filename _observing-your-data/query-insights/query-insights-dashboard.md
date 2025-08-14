@@ -255,7 +255,7 @@ The **Live queries table** provides direct controls for canceling queries that a
    Once the cancellation succeeds, the query status changes to `Cancelled`.
 
 2. Cancel multiple queries in bulk:
-   - To select multiple queries, use the checkboxes on the left of the table. To select all querires, use the **Select all** checkbox in the table header.
+   - To select multiple queries, use the checkboxes to the left of the table. To select all queries, use the **Select all** checkbox in the table header.
    - Select the **Cancel selected** button above the table. 
    - Confirm the cancellation for all selected queries.
    All selected queries are stopped and their statuses updated.
