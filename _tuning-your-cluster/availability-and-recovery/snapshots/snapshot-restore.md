@@ -3,10 +3,12 @@ layout: default
 title: Take and restore snapshots
 parent: Snapshots
 nav_order: 10
+has_toc: false
 has_children: false
 grand_parent: Availability and recovery
 redirect_from: 
   - /opensearch/snapshots/snapshot-restore/
+  - /upgrade-to/snapshot-migrate/
   - /opensearch/snapshot-restore/
   - /availability-and-recovery/snapshots/snapshot-restore/
 ---

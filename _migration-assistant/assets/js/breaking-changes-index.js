@@ -49,8 +49,6 @@ function initializeBreakingChanges() {
     
     // Initialize UI
     BreakingChangesUI.UIManager.initialize();
-    
-    console.log('Breaking changes functionality initialized successfully');
   } catch (error) {
     console.error('Failed to initialize breaking changes functionality:', error);
   }
@@ -64,7 +62,6 @@ window.addEventListener('pageshow', (event) => {
   // The pageshow event is fired when the page is shown, including when navigating back to the page
   // The persisted property is true if the page is being restored from the bfcache
   if (event.persisted) {
-    console.log('Page restored from back-forward cache, reinitializing breaking changes');
     initializeBreakingChanges();
   }
 });

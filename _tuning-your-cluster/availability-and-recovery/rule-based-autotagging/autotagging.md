@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Rule-based auto-tagging
-nav_order: 20
-parent: Workload management
-grand_parent: Availability and recovery
+nav_order: 80
+parent: Availability and recovery
+has_children: true
 ---
 
 # Rule-based auto-tagging
@@ -44,7 +44,7 @@ The following rule schema includes matching attributes and a feature-specific va
 ```json
 {
   "_id": "fwehf8302582mglfio349==",  
-  "index_patterns": ["logs-prod-*"],  
+  "index_pattern": ["logs-prod-*"],  
   "other_attribute": ["value1", "value2"],
   "workload_group": "production_workload_id",
   "updated_at": 1683256789000
@@ -53,30 +53,7 @@ The following rule schema includes matching attributes and a feature-specific va
 
 ### Managing rules
 
-Use the following API operations to manage rules for workload management.
-
-#### Create or update a rule
-
-```http
-PUT /_rules/workload_group
-{
-  "index_patterns": ["prod-logs-*"],
-  "other_attribute": ["value1"],
-  "workload_group": "production_workload_id"
-}
-```
-
-#### List rules
-
-```http
-GET /_rules/workload_group
-```
-
-#### Delete a rule
-
-```http
-DELETE /_rules/workload_group/{rule_id}
-```
+Use the [Rules API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/rule-based-autotagging/rule-lifecycle-api/) to manage rules.
 
 ## Attribute matching
 
@@ -123,13 +100,13 @@ These examples demonstrate how rule-based auto-tagging works in workload managem
 
 ```json
 {
-  "index_patterns": ["logs-prod-*"],
+  "index_pattern": ["logs-prod-*"],
   "request_type": ["search", "count"],
   "workload_group": "production_search_workload_id"
 }
 
 {
-  "index_patterns": ["logs-prod-*"],
+  "index_pattern": ["logs-prod-*"],
   "workload_group": "production_workload_id"
 }
 ```
@@ -138,12 +115,12 @@ These examples demonstrate how rule-based auto-tagging works in workload managem
 
 ```json
 {
-  "index_patterns": ["logs-*"],
+  "index_pattern": ["logs-*"],
   "workload_group": "general_workload_id"
 }
 
 {
-  "index_patterns": ["logs-prod-service-*"],
+  "index_pattern": ["logs-prod-service-*"],
   "workload_group": "prod_service_workload_id"
 }
 ```
@@ -199,4 +176,4 @@ You can resolve both issues by validating your configuration using one of the fo
 
 - **Test rules with sample requests**: First, create a rule using the REST API, and then send a request that matches the rule's attributes. For example, for a rule with `"index_pattern": ["logs*", "events*"]`, you can send a request to a `logs` or `events` index. Then verify the workload management statistics by querying the [Workload Management Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#workload-management-stats-api).
 
-- **Use the [List rules API](#list-rules)** to confirm rule definitions.
+- **Use the [Get Rule API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/rule-based-autotagging/rule-lifecycle-api/#get-a-rule)** to confirm rule definitions.

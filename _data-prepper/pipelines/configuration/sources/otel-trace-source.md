@@ -1,6 +1,6 @@
 ---
 layout: default
-title: otel_trace_source
+title: OTel trace source
 parent: Sources
 grand_parent: Pipelines
 nav_order: 80
@@ -9,10 +9,13 @@ redirect_from:
 ---
 
 
-# otel_trace_source 
+# OTel trace source 
 
-`otel_trace_source` is a source for the OpenTelemetry Collector. The following table describes options you can use to configure the `otel_trace_source` source.
+The `otel_trace_source` is a source for the OpenTelemetry Collector. The following table describes options you can use to configure the `otel_trace_source` source.
 
+## Configuration
+
+You can configure the `otel_trace_source` source with the following options. 
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
