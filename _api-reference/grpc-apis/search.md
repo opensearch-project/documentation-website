@@ -236,17 +236,10 @@ A `terms` query matches documents in which a specific field contains any value f
  "request_body": {
    "query": {
      "terms": {
-       "terms": {
+       "terms_lookup_field_string_array_map": {
          "line_id": {
-           "field_value_array": {
-             "field_value_array": [
-               {
-                 "string_value": "61809"
-               },
-               {
-                 "string_value": "61810"
-               }
-             ]
+           "string_array": {
+             "string_array": ["61809", "61810"]
            }
          }
        }
@@ -267,9 +260,9 @@ A `terms` query with a `terms` lookup is a specialized form of the `terms` query
     "query": {
       "terms": {
         "boost": 1.0,
-        "terms": {
+        "terms_lookup_field_string_array_map": {
           "student_id": {
-            "lookup": {
+            "terms_lookup_field": {
               "index": "classes",
               "id": "101",
               "path": "enrolled"
@@ -382,18 +375,18 @@ Each `Hit` represents a single document matched by the query and contains the fo
 
 ```json
 {
-  "responseBody": {
-    "took": "64",
-    "timedOut": false,
+  "response_body": {
+    "took": 64,
+    "timed_out": false,
     "shards": {
       "successful": 1,
       "total": 1
     },
     "hits": {
       "total": {
-        "totalHits": {
+        "total_hits": {
           "relation": "TOTAL_HITS_RELATION_EQ",
-          "value": "1"
+          "value": 1
         }
       },
       "hits": [
@@ -401,14 +394,14 @@ Each `Hit` represents a single document matched by the query and contains the fo
           "index": "my_index",
           "id": "3",
           "score": {
-            "floatValue": 1
+            "float_value": 1.0
           },
           "source": "eyAidGl0bGUiOiAiUnVzaCIsICJ5ZWFyIjogMjAxM30=",
-          "metaFields": {}
+          "meta_fields": {}
         }
       ],
-      "maxScore": {
-        "floatValue": 1
+      "max_score": {
+        "float_value": 1.0
       }
     }
   }
@@ -463,10 +456,10 @@ public class SearchClient {
             ResponseBody responseBody = response.getResponseBody();
             HitsMetadata hits = responseBody.getHits();
             System.out.println("Found hits: " + hits.getTotal().getTotalHits().getValue());
-        } else if (response.hasError4xxResponseBody()) {
-            System.out.println("4xx Error: " + response.getError4xxResponseBody().getError());
-        } else if (response.hasError5xxResponse()) {
-            System.out.println("5xx Error: " + response.getError5xxResponse().getMessage());
+        } else if (response.hasError4XxResponse()) {
+            System.out.println("4xx Error: " + response.getError4XxResponse().getError());
+        } else if (response.hasError5XxResponse()) {
+            System.out.println("5xx Error: " + response.getError5XxResponse().getMessage());
         }
 
         channel.shutdown();

@@ -44,7 +44,7 @@ The [`BulkRequest`](https://github.com/opensearch-project/opensearch-protobufs/b
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `request_body` | `repeated `[`BulkRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/document.proto#L53) | The list of bulk operations, each containing an `OperationContainer` with one of the operation types (`index`/`create`/`update`/`delete`). Required. |
+| `request_body` | `repeated `[`BulkRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/document.proto#L53) | The list of bulk operations, each containing one of the operation types (`index`/`create`/`update`/`delete`). Required. |
 | `index` | `string` | The default index for all operations unless overridden in `request_body`. Specifying the `index` in the `BulkRequest` means that you don't need to include it in the [BulkRequestBody](#bulkrequestbody-fields). Optional. |
 | `source` | [`SourceConfigParam`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L154) | Controls whether to return the full `_source`, no `_source`, or only specific fields from `_source` in the response. Optional. |
 | `source_excludes` | `repeated string` | Fields to exclude from `source`. Optional. |
@@ -64,43 +64,25 @@ The [`BulkRequestBody`](https://github.com/opensearch-project/opensearch-protobu
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `operation_container` | [`OperationContainer`](#operationcontainer-fields) | The operation to perform. Valid values are `index`, `create`, `update`, and `delete`. Required. |
-| `update_action` | [`UpdateAction`](#updateaction-fields) | Additional fields for update operations. Optional. |
-| `object` | `bytes` | The full document content used with `create` operations. Optional. |
-
-
-### OperationContainer fields
-
-The `OperationContainer` message contains exactly one of the following operation types.
-
-| Field | Protobuf type | Description |
-| :---- | :---- | :---- |
 | `index` | [`IndexOperation`](#index) | Index a document. Replaces the document if it already exists. |
-| `create` | [`WriteOperation`](#create) | Create a new document. Fails if the document already exists. |
+| `create` | [`CreateOperation`](#create) | Create a new document. Fails if the document already exists. |
 | `update` | [`UpdateOperation`](#update) | Partially update a document or use upsert/script options. |
 | `delete` | [`DeleteOperation`](#delete) | Delete a document by ID. |
-
-
-### UpdateAction fields
-
-The `UpdateAction` message contains the following additional fields for `update` operations.
-
-| Field | Protobuf type | Description |
-| :---- | :---- | :---- |
 | `detect_noop` | `bool` | If `true`, skips the update if the document content hasn't changed. Optional. Default is `true`. |
 | `doc` | `bytes` | Partial or full document data for `update` operations. Optional. |
 | `doc_as_upsert` | `bool` | If `true`, treats the document as the full upsert document if the target document doesn't exist. Only valid for the `update` operation. Optional. |
 | `script` | [`Script`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L27) | A script to apply to the document (used with `update`). Optional. |
 | `scripted_upsert` | `bool` | If `true`, executes the script whether or not the document exists. Optional. |
-| `upsert` | `bytes` | The full document to use if the target does not exist. Used with `script`. Optional. |
 | `source` | [`SourceConfig`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L176) | Controls how the document source is fetched or filtered. Optional. |
+| `upsert` | `bytes` | The full document to use if the target does not exist. Used with `script`. Optional. |
+| `object` | `bytes` | The full document content used with `create` operations. Optional. |
 
 
 ### Create
 
-`WriteOperation` adds a new document only if it doesn't already exist.
+`CreateOperation` adds a new document only if it doesn't already exist.
 
-The document itself must be provided in the `object` field, outside of the `WriteOperation` message.
+The document itself must be provided in the `object` field, outside of the `CreateOperation` message.
 
 The following optional fields can also be provided.
 
@@ -109,6 +91,10 @@ The following optional fields can also be provided.
 | `id` | `string` | The document ID. If omitted, one is auto-generated. Optional. |
 | `index` | `string` | The target index. Required if not set globally in the `BulkRequest`. Optional. |
 | `routing` | `string` | A custom routing value used to control shard placement. Optional. |
+| `if_primary_term` | `int64` | Used for concurrency control. The operation only runs if the document's primary term matches this value. Optional. |
+| `if_seq_no` | `int64` | Used for concurrency control. The operation only runs if the document's sequence number matches this value. Optional. |
+| `version` | `int64` | The explicit document version for concurrency control. Optional. |
+| `version_type` | [`VersionType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/document.proto#L99) | Controls version matching behavior. Optional. |
 | `pipeline` | `string` | The preprocessing ingest pipeline ID. Optional. |
 | `require_alias` | `bool` | Enforces the use of index aliases only. Optional. |
 
@@ -121,11 +107,9 @@ The following example shows a bulk request with a `create` operation. It creates
   "index": "movies",
   "request_body": [
     {
-      "operation_container": {
-        "create": {
-          "index": "movies",
-          "id": "tt1375666"
-        }
+      "create": {
+        "index": "movies",
+        "id": "tt1375666"
       },
       "object": "eyJ0aXRsZSI6ICJJbmNlcHRpb24iLCAieWVhciI6IDIwMTB9"
     }
@@ -156,11 +140,9 @@ The following example shows a bulk request with a `delete` operation. It deletes
   "index": "movies",
   "request_body": [
     {
-      "operation_container": {
-        "delete": {
-          "index": "movies",
-          "id": "tt1392214"
-        }
+      "delete": {
+        "index": "movies",
+        "id": "tt1392214"
       }
     }
   ]
@@ -199,15 +181,11 @@ The following example shows a bulk request with an `index` operation. It indexes
   "index": "movies",
   "request_body": [
     {
-      "operation_container": {
-        "index": {
-          "index": "movies",
-          "id": "tt0468569"
-        }
+      "index": {
+        "index": "movies",
+        "id": "tt0468569"
       },
-      "update_action": {
-        "doc": "eyJ0aXRsZSI6ICJUaGUgRGFyayBLbmlnaHQiLCAieWVhciI6IDIwMDh9"
-      }
+      "doc": "eyJ0aXRsZSI6ICJUaGUgRGFyayBLbmlnaHQiLCAieWVhciI6IDIwMDh9"
     }
   ]
 }
@@ -218,13 +196,13 @@ The following example shows a bulk request with an `index` operation. It indexes
 
 The `UpdateOperation` performs partial document updates.
 
-The document itself is provided in the `doc` field within the `UpdateAction` message.
+The document itself is provided in the `doc` field within the `BulkRequestBody` message.
 
 All `UpdateOperation` fields, listed in the following table, are optional except for `id`.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `id` | `string` |  The ID of the document to update. Required. |
+| `id` | `string` | The ID of the document to update. Required. |
 | `index` | `string` | The target index. Required if not set globally in the `BulkRequest`. Optional. |
 | `routing` | `string` | A custom routing value used to control shard placement. Optional. |
 | `if_primary_term` | `int64` | Used for concurrency control. The operation only runs if the document's primary term matches this value. Optional. |
@@ -242,16 +220,12 @@ The following example shows a bulk request with an `update` operation. It will u
   "index": "movies",
   "request_body": [
     {
-      "operation_container": {
-        "update": {
-          "index": "movies",
-          "id": "tt1375666"
-        }
+      "update": {
+        "index": "movies",
+        "id": "tt1375666"
       },
-      "update_action": {
-        "doc": "eyJ5ZWFyIjogMjAxMX0=",
-        "detect_noop": true
-      }
+      "doc": "eyJ5ZWFyIjogMjAxMX0=",
+      "detect_noop": true
     }
   ]
 }
@@ -273,16 +247,12 @@ The following example shows a bulk request with an `upsert` operation. It update
   "index": "movies",
   "request_body": [
     {
-      "operation_container": {
-        "update": {
-          "index": "movies",
-          "id": "tt1375666"
-        }
+      "update": {
+        "index": "movies",
+        "id": "tt1375666"
       },
-      "update_action": {
-        "doc": "eyJ5ZWFyIjogMjAxMn0=",
-        "doc_as_upsert": true
-      }
+      "doc": "eyJ5ZWFyIjogMjAxMn0=",
+      "doc_as_upsert": true
     }
   ]
 }
@@ -304,16 +274,14 @@ The following example shows a bulk request with a `script` operation. It increme
   "index": "movies",
   "request_body": [
     {
-      "operation_container": {
-        "update": {
-          "index": "movies",
-          "id": "tt1375666"
-        }
+      "update": {
+        "index": "movies",
+        "id": "tt1375666"
       },
-      "update_action": {
-        "script": {
+      "script": {
+        "inline_script": {
           "source": "ctx._source.year += 1",
-          "lang": "painless"
+          "lang": "SCRIPT_LANGUAGE_PAINLESS"
         }
       }
     }
@@ -374,7 +342,7 @@ Each `ResponseItem` corresponds to a single operation in the request. It contain
 
 ```json
 {
-  "bulkResponseBody": {
+  "bulk_response_body": {
     "errors": false,
     "items": [
       {
@@ -384,15 +352,15 @@ Each `ResponseItem` corresponds to a single operation in the request. It contain
           },
           "index": "my_index",
           "status": 201,
-          "primary_term": "1",
+          "primary_term": 1,
           "result": "created",
-          "seq_no": "0",
+          "seq_no": 0,
           "shards": {
             "successful": 1,
             "total": 2
           },
-          "version": "1",
-          "forcedRefresh": true
+          "version": 1,
+          "forced_refresh": true
         }
       },
       {
@@ -402,15 +370,15 @@ Each `ResponseItem` corresponds to a single operation in the request. It contain
           },
           "index": "my_index",
           "status": 201,
-          "primary_term": "1",
+          "primary_term": 1,
           "result": "created",
-          "seq_no": "0",
+          "seq_no": 0,
           "shards": {
             "successful": 1,
             "total": 2
           },
-          "version": "1",
-          "forcedRefresh": true
+          "version": 1,
+          "forced_refresh": true
         }
       },
       {
@@ -420,19 +388,19 @@ Each `ResponseItem` corresponds to a single operation in the request. It contain
           },
           "index": "my_index",
           "status": 200,
-          "primary_term": "1",
+          "primary_term": 1,
           "result": "updated",
-          "seq_no": "1",
+          "seq_no": 1,
           "shards": {
             "successful": 1,
             "total": 2
           },
-          "version": "2",
-          "forcedRefresh": true,
+          "version": 2,
+          "forced_refresh": true,
           "get": {
             "found": true,
-            "seq_no": "1",
-            "primary_term": "1",
+            "seq_no": 1,
+            "primary_term": 1,
             "source": "e30="
           }
         }
@@ -444,20 +412,20 @@ Each `ResponseItem` corresponds to a single operation in the request. It contain
           },
           "index": "my_index",
           "status": 200,
-          "primary_term": "1",
+          "primary_term": 1,
           "result": "deleted",
-          "seq_no": "2",
+          "seq_no": 2,
           "shards": {
             "successful": 1,
             "total": 2
           },
-          "version": "3",
-          "forcedRefresh": true
+          "version": 3,
+          "forced_refresh": true
         }
       }
     ],
-    "took": "87",
-    "ingestTook": "0"
+    "took": 87,
+    "ingest_took": 0
   }
 }
 ```
@@ -482,43 +450,35 @@ public class BulkClient {
 
         DocumentServiceGrpc.DocumentServiceBlockingStub stub = DocumentServiceGrpc.newBlockingStub(channel);
 
+        // Create an index operation
         IndexOperation indexOp = IndexOperation.newBuilder()
-                .setXIndex("my-index")
-                .setXId("1")
-                .build();
-
-        OperationContainer indexContainer = OperationContainer.newBuilder()
-                .setIndex(indexOp)
-                .build();
-
-        UpdateAction indexAction = UpdateAction.newBuilder()
-                .setDoc(ByteString.copyFromUtf8("{\"field\": \"value\"}"))
+                .setIndex("my-index")
+                .setId("1")
                 .build();
 
         BulkRequestBody indexBody = BulkRequestBody.newBuilder()
-                .setOperationContainer(indexContainer)
-                .setUpdateAction(indexAction)
+                .setIndex(indexOp)
+                .setDoc(ByteString.copyFromUtf8("{\"field\": \"value\"}"))
                 .build();
 
+        // Create a delete operation
         DeleteOperation deleteOp = DeleteOperation.newBuilder()
-                .setXIndex("my-index")
-                .setXId("2")
-                .build();
-
-        OperationContainer deleteContainer = OperationContainer.newBuilder()
-                .setDelete(deleteOp)
+                .setIndex("my-index")
+                .setId("2")
                 .build();
 
         BulkRequestBody deleteBody = BulkRequestBody.newBuilder()
-                .setOperationContainer(deleteContainer)
+                .setDelete(deleteOp)
                 .build();
 
+        // Build the bulk request
         BulkRequest request = BulkRequest.newBuilder()
                 .setIndex("my-index")
                 .addRequestBody(indexBody)
                 .addRequestBody(deleteBody)
                 .build();
 
+        // Execute the bulk request
         BulkResponse response = stub.bulk(request);
         System.out.println("Bulk errors: " + response.getBulkResponseBody().getErrors());
 
