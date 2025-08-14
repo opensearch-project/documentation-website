@@ -31,16 +31,14 @@ The primary goal of gRPC support is to:
 Using gRPC APIs provides several advantages over HTTP APIs:
 
 - **Reduced latency**: Binary protocol buffers eliminate JSON parsing overhead.
-- **Better throughput**: More efficient network utilization for high-frequency queries
+- **Higher throughput**: More efficient network utilization for high-frequency queries
 - **Lower CPU usage**: Reduced serialization and deserialization costs.
 - **Type safety**: Protocol buffer schemas provide compile-time validation.
 - **Smaller payload sizes**: Binary encoding reduces network traffic.
 
 ## Enabling gRPC APIs
 
-
-**OpenSearch 3.2 and later:**
-The `transport-grpc` module is included by default with OpenSearch installations. To enable it, add the following settings to `opensearch.yml`:
+The `transport-grpc` module is included by default with OpenSearch installations as of 3.2. To enable it, add the following settings to `opensearch.yml`:
     ```yaml
     aux.transport.types: [experimental-transport-grpc]
     aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
@@ -62,44 +60,22 @@ The `transport-grpc` module is included by default with OpenSearch installations
     ```
     {% include copy.html %}
 
-**OpenSearch 3.0 and 3.1:**
-**Note about the module transition:**
-Before OpenSearch 3.2, `transport-grpc` was a core plugin that had to be installed manually rather than installed by default. To enable it, follow the following steps.
-{: .note}
-
-1. Install the `transport-grpc` plugin. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
-
-1. Add the following settings to `opensearch.yml`:
-    ```yaml
-    aux.transport.types: [experimental-transport-grpc]
-    aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
-    ```
-    {% include copy.html %}
-
-    Alternatively, configure a secure transport protocol using the following settings:
-    ```yaml
-    aux.transport.types: [experimental-secure-transport-grpc]
-    aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
-    ```
-    {% include copy.html %}
-
-
 ## Advanced gRPC settings
 
 OpenSearch supports the following advanced settings for gRPC communication. These settings can be configured in `opensearch.yml`.
 
-| Setting name                                    | Description                                                                                                    | Example value         | Default value        |
-|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------|-----------------------|----------------------|
-| **grpc.publish_port**                           | The external port number that this node uses to publish itself to peers for gRPC transport.                    | `9400`                | `-1` (disabled)      |
-| **grpc.host**                                   | A list of addresses the gRPC server will bind to.                                                                | `["0.0.0.0"]`         | `[]`                 |
-| **grpc.bind_host**                              | A list of addresses to bind the gRPC server to. Can be distinct from publish hosts.                              | `["0.0.0.0", "::"]`   | Value of `grpc.host` |
-| **grpc.publish_host**                           | A list of hostnames or IPs published to peers for client connections.                                            | `["thisnode.example.com"]` | Value of `grpc.host` |
-| **grpc.netty.worker_count**                     | The number of Netty worker threads for the gRPC server. Controls concurrency and parallelism.                      | `2`                   | Number of processors |
-| **grpc.netty.max_concurrent_connection_calls**  | The maximum number of simultaneous in-flight requests allowed per client connection.                               | `200`                 | `100`                |
-| **grpc.netty.max_connection_age**               | The maximum age a connection can reach before being gracefully closed. Supports time units like `ms`, `s`, `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units).  | `500ms`               | Not set (no limit)   |
-| **grpc.netty.max_connection_idle**              | The maximum duration a connection can be idle before being closed. Supports time units like `ms`, `s`, `m`.  See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units).       | `2m`                  | Not set (no limit)   |
-| **grpc.netty.keepalive_timeout**                | The amount of time to wait for `keepalive` ping acknowledgment before closing the connection. Supports [time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units).              | `1s`                  | Not set              |
-| **grpc.netty.max_msg_size**                     | The maximum inbound message size for gRPC requests. Supports units like `b`, `kb`, `mb`, `gb`.  See [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).                  | `10mb` or `10485760`  | `10mb`               |
+| Setting name | Description | Example value | Default value |
+| :---- | :---- | :---- | :---- |
+| `grpc.publish_port` | The external port number that this node uses to publish itself to peers for gRPC transport. | `9400` | `-1` (disabled) |
+| `grpc.host` | A list of addresses the gRPC server will bind to. | `["0.0.0.0"]` | `[]` |
+| `grpc.bind_host` | A list of addresses to bind the gRPC server to. Can be distinct from publish hosts. | `["0.0.0.0", "::"]` | Value of `grpc.host` |
+| `grpc.publish_host` | A list of hostnames or IPs published to peers for client connections. | `["thisnode.example.com"]` | Value of `grpc.host` |
+| `grpc.netty.worker_count` | The number of Netty worker threads for the gRPC server. Controls concurrency and parallelism. | `2` | Number of processors |
+| `grpc.netty.max_concurrent_connection_calls` | The maximum number of simultaneous in-flight requests allowed per client connection. | `200` | `100` |
+| `grpc.netty.max_connection_age` | The maximum age a connection can reach before being gracefully closed. Supports time units like `ms`, `s`, `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `500ms` | Not set (no limit) |
+| `grpc.netty.max_connection_idle` | The maximum duration a connection can be idle before being closed. Supports time units like `ms`, `s`, `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `2m` | Not set (no limit) |
+| `grpc.netty.keepalive_timeout` | The amount of time to wait for `keepalive` ping acknowledgment before closing the connection. Supports [time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `1s` | Not set |
+| `grpc.netty.max_msg_size` | The maximum inbound message size for gRPC requests. Supports units like `b`, `kb`, `mb`, `gb`. See [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). | `10mb` or `10485760` | `10mb` |
 
 ### Example configuration
 
@@ -124,11 +100,7 @@ grpc.netty.max_msg_size: 10mb
 ```
 {% include copy.html %}
 
-- For duration-based settings (e.g., `max_connection_age`), you can use units such as `ms` (milliseconds), `s` (seconds), `m` (minutes).
-- For size-based settings (e.g., `max_msg_size`), you can use units such as `b` (bytes), `kb`, `mb`, `gb`.
-- All settings are node-scoped unless otherwise specified.
-
-These settings are similar to the [HTTP Network settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#advanced-http-settings) but specifically apply to gRPC communication. For more details about the `transport-grpc `module implementation, see the [OpenSearch `transport-grpc` module](https://github.com/karenyrx/OpenSearch/tree/protobufs-0.8.0-transport-grpc-fixes/modules/transport-grpc).
+These settings are similar to the [HTTP Network settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#advanced-http-settings) but specifically apply to gRPC communication.
 
 ## Using gRPC APIs
 

@@ -5,7 +5,7 @@ parent: gRPC APIs
 nav_order: 20
 ---
 
-# Search (gRPC) API
+# Search API (gRPC)
 **Introduced 3.0**
 {: .label .label-purple }
 
@@ -37,8 +37,8 @@ The gRPC Search API supports the following request fields.
 
 The [`SearchRequest`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L18) message accepts the following fields. All fields are optional.
 
-| Field | Protobuf type                                                                                                                         | Description |
-| :---- |:--------------------------------------------------------------------------------------------------------------------------------------| :---- |
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
 | `index` | `repeated string`                                                                                                                     | A list of indexes to search. If not provided, defaults to all indexes. |
 | `source` | [`SourceConfigParam`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L154)        | Controls whether to return the full `_source`, no `_source`, or only specific fields from `_source` in the response. |
 | `source_excludes` | `repeated string`                                                                                                                     | Fields to exclude from `_source`. Ignored if `source` is `false`. |
@@ -93,8 +93,8 @@ The [`SearchRequest`](https://github.com/opensearch-project/opensearch-protobufs
 
 The `SearchRequestBody` message accepts the following fields. All fields are optional.
 
-| Field | Protobuf type                                                                                                                              | Description |
-| :---- |:-------------------------------------------------------------------------------------------------------------------------------------------| :---- |
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
 | `collapse` | [`FieldCollapse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L906)                 | Groups the results by a field. Returns only the top document per group. |
 | `explain` | `bool`                                                                                                                                     | Returns scoring explanations for matched documents. |
 | `ext` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L76)                      | Plugin-specific metadata, for example, for extensions like RAG. |
@@ -152,8 +152,8 @@ The [`DerivedField`](https://github.com/opensearch-project/opensearch-protobufs/
 Note that some query types are currently unsupported. Currently, only [`match_all`](#match-all-query), [`term`](#term-query), [`terms`](#terms-query), and [`match_none`](#match-none-query) are supported.
 {: .note}
 
-| Field | Protobuf type                                                                                                                                         | Description |
-| :---- |:------------------------------------------------------------------------------------------------------------------------------------------------------| :---------- |
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
 | `bool` | [`BoolQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1324)                               | A Boolean query that combines multiple clauses using `AND`/`OR`/`NOT` logic. Must be the only field set. |
 | `boosting` | [`BoostingQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1360)                           | Boosts the results matching a positive query and demotes the results matching a negative query. Must be the only field set. |
 | `constant_score` | [`ConstantScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1377)                      | Wraps a filter and assigns a constant relevance score to all matching documents. Must be the only field set. |
@@ -307,8 +307,8 @@ The gRPC Search API provides the following response fields.
 
 The following table lists the supported fields for the [`SearchResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L317) message.
 
-| Field | Protobuf type                                                                                                             | Description |
-| :---- |:--------------------------------------------------------------------------------------------------------------------------| :---- |
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
 | `response` | `oneof` | Contains one of the following response types: `response_body` (success), `error_4xx_response_body` (4xx error), or `error_5xx_response` (5xx error). |
 | `response_body` | [`ResponseBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L329) | The actual payload of the search response (success case). |
 | `error_4xx_response_body` | [`Error4xxResponseBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L309) | The 4xx error response body. |
@@ -321,8 +321,8 @@ The `ResponseBody` contains the following fields.
 The source documents are returned as bytes. Use Base64 decoding to read the `_source` field in the gRPC response.
 {: .note}
 
-| Field | Protobuf type                                                                                                                | Description |
-| :---- |:-----------------------------------------------------------------------------------------------------------------------------| :---- |
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
 | `took` | `int64`                                                                                                                      | The amount of time taken to process the search request, in milliseconds. |
 | `timed_out` | `bool`                                                                                                                       | Whether the search timed out. |
 | `shards` | [`ShardStatistics`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L268) | The shard-level success/failure/total metadata. |
@@ -341,8 +341,8 @@ The source documents are returned as bytes. Use Base64 decoding to read the `_so
 
 The `HitsMetadata` object contains information about the search results, including the total number of matching documents and an array of individual document matches. It includes the following fields.
 
-| Field | Protobuf type                                                                                                               | Description |
-| :---- |:----------------------------------------------------------------------------------------------------------------------------| :---- |
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
 | `total` | [`HitsMetadataTotal`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L412)      | Metadata about the total number of matching documents (value \+ relation). |
 | `max_score` | [`HitsMetadataMaxScore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L424)       | The highest relevance score of the returned hits (may be `null`). |
 | `hits` | `repeated` [`Hit`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L460) | The actual list of matched documents. Each hit includes core fields like `index`, `id`, `score`, and `source`, along with additional optional fields. |
@@ -351,8 +351,8 @@ The `HitsMetadata` object contains information about the search results, includi
 
 Each `Hit` represents a single document matched by the query and contains the following fields.
 
-| Field | Protobuf type                                                                                                                                 | Description |
-| :---- |:----------------------------------------------------------------------------------------------------------------------------------------------| :---- |
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
 | `type` | `string`                                                                                                                                      | The document type. |
 | `index` | `string`                                                                                                                                      | The name of the index containing the returned document. |
 | `id` | `string`                                                                                                                                      | The unique ID for the document within the index. |

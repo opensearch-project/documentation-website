@@ -5,13 +5,9 @@ parent: gRPC APIs
 nav_order: 20
 ---
 
-# Bulk (gRPC) API
+# Bulk API (gRPC)
 **Introduced 3.0**
 {: .label .label-purple }
-
-**Generally available 3.2**
-{: .label .label-green }
-
 
 The gRPC Bulk API provides an efficient, binary-encoded alternative to the [HTTP Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) for performing multiple document operations—such as indexing, updating, and deleting—in a single call. This service uses protocol buffers and mirrors the REST API in terms of parameters and structure.
 
@@ -109,7 +105,7 @@ The document itself must be provided in the `object` field, outside of the `Writ
 The following optional fields can also be provided.
 
 | Field | Protobuf type | Description |
-| ----- | ----- | ----- |
+| :---- | :---- | :---- |
 | `id` | `string` | The document ID. If omitted, one is auto-generated. Optional. |
 | `index` | `string` | The target index. Required if not set globally in the `BulkRequest`. Optional. |
 | `routing` | `string` | A custom routing value used to control shard placement. Optional. |
@@ -142,7 +138,7 @@ The following example shows a bulk request with a `create` operation. It creates
 The `DeleteOperation` removes a document by ID. It accepts the following fields.
 
 | Field | Protobuf type | Description |
-| ----- | ----- | ----- |
+| :---- | :---- | :---- |
 | `id` | `string` | The ID of the document to delete. Required. |
 | `index` | `string` | The target index. Required if not set globally in the `BulkRequest`. Optional. |
 | `routing` | `string` | A custom routing value used to control shard placement. Optional. |
@@ -181,7 +177,7 @@ The document itself is provided in the `doc` field, outside of the `IndexOperati
 The following optional fields can also be provided.
 
 | Field | Protobuf type | Description |
-| ----- | ----- | ----- |
+| :---- | :---- | :---- |
 | `id` | `string` | The document ID. If omitted, one is auto-generated. Optional. |
 | `index` | `string` | The target index. Required only if not set globally in the `BulkRequest`. |
 | `routing` | `string` | A custom routing value used to control shard placement. Optional. |
@@ -227,7 +223,7 @@ The document itself is provided in the `doc` field within the `UpdateAction` mes
 All `UpdateOperation` fields, listed in the following table, are optional except for `id`.
 
 | Field | Protobuf type | Description |
-| ----- | ----- | ----- |
+| :---- | :---- | :---- |
 | `id` | `string` |  The ID of the document to update. Required. |
 | `index` | `string` | The target index. Required if not set globally in the `BulkRequest`. Optional. |
 | `routing` | `string` | A custom routing value used to control shard placement. Optional. |
@@ -336,7 +332,7 @@ The gRPC Bulk API provides the following response fields.
 The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/document.proto#L211) message wraps either a `BulkResponseBody` for successful requests, or a `BulkErrorResponse` for failed requests. The `BulkResponseBody` provides a summary and per-item result of a bulk operation and contains the following fields.
 
 | Field | Protobuf type | Description |
-| ----- | ----- | ----- |
+| :---- | :---- | :---- |
 | `errors` | `bool` | Indicates whether any of the operations in the bulk request failed. If any operation fails, the response's `errors` field will be `true`. You can iterate over the individual `Item` actions for more detailed information.|
 | `items` | `repeated Item` | The result of all operations in the bulk request, in the order they were submitted. |
 | `took` | `int64` | The amount of time taken to process the bulk request, in milliseconds. |
@@ -348,7 +344,7 @@ The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/
 Each `Item` in the response corresponds to a single operation in the request. For each operation, only one of the following fields is provided.
 
 | Field | Protobuf type | Description |
-| ----- | ----- | ----- |
+| :---- | :---- | :---- |
 | `create` | `ResponseItem` | The result of the `CreateOperation`. |
 | `delete` | `ResponseItem` | The result of the `DeleteOperation`.   |
 | `index` | `ResponseItem` | The result of the `IndexOperation`.  |
@@ -360,7 +356,7 @@ Each `Item` in the response corresponds to a single operation in the request. Fo
 Each `ResponseItem` corresponds to a single operation in the request. It contains the following fields.
 
 | Field | Protobuf type | Description |
-|------------------|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| :---- | :---- | :---- |
 | `type` | `string` | The document type. |
 | `id` | [`ResponseItem.Id`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/document.proto#L254) | The document ID associated with the operation. Can be `null`. |
 | `index` | `string` | The name of the index associated with the operation. If a data stream was targeted, this is the backing index. |
