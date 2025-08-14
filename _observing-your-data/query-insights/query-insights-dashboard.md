@@ -251,7 +251,7 @@ The **Live queries table** provides direct controls for canceling queries that a
 
 1. Cancel an individual query:
    - In the **Actions** column for the query you want to stop, select the trash can icon. 
-   - When prompted, confirm the cancelation. 
+   - When prompted, confirm the cancellation. 
    Once the cancellation succeeds, the query status changes to `Cancelled`.
 
 2. Cancel multiple queries in bulk:
