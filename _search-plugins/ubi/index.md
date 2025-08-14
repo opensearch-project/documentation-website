@@ -63,7 +63,7 @@ Advanced features in OpenSearch, such as the [Search Relevance Workbench]({{site
                 <li>Learn more about this community standard via <a href="https://UBISearch.dev">UBISearch.dev</a> community clearinghouse.</li>
                 <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-javascript-collector/">UBI JavaScript Collector</a>, a client-side JavaScript library for capturing events.</li>
                 <li>Learn more about improving relevance.  Watch <a href="https://youtu.be/0chun264PRQ">Leveraging UBI to enhance Search Relevance</a> talk.</li>
-                <li>Learn how to build on UBI data.  Watch <a href="https://www.youtube.com/watch?v=xi261oUamXc">You’ve Deployed User Behavior Insights. Now What?</a>.
+                <li>Learn how to build on UBI data.  Watch <a href="https://www.youtube.com/watch?v=xi261oUamXc">You’ve Deployed User Behavior Insights. Now What?</a>.</li>
             </ul>
         </td>
         <td>
