@@ -240,30 +240,26 @@ You can use the filter bar to search for queries by text or specific field value
 
 ![Live Queries Table]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries_Table.png)
 
-The Live queries table provides the following real-time monitoring controls:
+The **Live queries** table provides the following real-time monitoring controls:
 - **Auto-refresh toggle** – Enable or disable periodic data refresh.
 - **Refresh interval** – Choose the refresh frequency. This option is available only when **Auto-refresh** is enabled.
 - **Manual refresh** – Select the **Refresh** button to update immediately.
 
-### Cancelling live queries
+### Canceling live queries
 
-The Live queries table also provides direct controls for cancelling queries that are currently running in the cluster. This allows you to immediately stop problematic or resource-intensive searches without waiting for them to finish. Live queries can be cancelled in the following ways:
+The **Live queries table** provides direct controls for canceling queries that are currently running in the cluster. This allows you to immediately stop problematic or resource-intensive searches without waiting for them to finish. You can cancel live queries in the following ways:
 
-1. Cancel an individual query
-   - In the Actions column for the query you want to stop, select the trash can icon. 
-   - Confirm the cancellation when prompted. 
-   - The query status will change to cancelled once the operation succeeds.
+1. Cancel an individual query:
+   - In the **Actions** column for the query you want to stop, select the trash can icon. 
+   - When prompted, confirm the cancelation. 
+   Once the cancellation succeeds, the query status changes to `Cancelled`.
 
-2. Bulk cancel multiple queries
-   - Use the checkboxes on the left of the table to select two or more queries.
-   - Select the Cancel selected button above the table. 
+2. Cancel multiple queries in bulk:
+   - To select multiple queries, use the checkboxes on the left of the table. To select all querires, use the **Select all** checkbox in the table header.
+   - Select the **Cancel selected** button above the table. 
    - Confirm the cancellation for all selected queries.
-   - All targeted queries will be stopped, and their statuses updated.
+   All selected queries are stopped and their statuses updated.
 
-3. Cancel all running queries
-   - To quickly clear all live queries, select the Select all checkbox in the table header. 
-   - Click Cancel selected and confirm. 
-   - This stops every currently visible query in the table.
 
 
 
