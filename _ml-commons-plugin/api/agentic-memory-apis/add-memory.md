@@ -33,10 +33,10 @@ The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`messages` | List | Required | A list of messages. Currently, OpenSearch supports one message per request.
+`messages` | List | Required | A list of messages.
 `session_id` | String | Optional | The session ID associated with the memory.
 `agent_id` | String | Optional | The agent ID associated with the memory.
-`infer` | Boolean | Optional | Controls whether the LLM infers context from messages. When `true`, the LLM extracts factual information from the original text and stores it as the memory. When `false`, the memory contains the unprocessed message.
+`infer` | Boolean | Optional | Controls whether the LLM infers context from messages. Default is `true`. When `true`, the LLM extracts factual information from the original text and stores it as the memory. When `false`, the memory contains the unprocessed message and you must explicitly specify the `role` in each message. 
 `tags` | Object | Optional | Custom metadata for the agentic memory.
 
 ## Example request
@@ -80,5 +80,5 @@ The following table lists all response body fields.
 | `results`       | List      | A list of memory entries returned by the request.                                                 |
 | `results.id`    | String    | The unique identifier for the memory entry.                                                       |
 | `results.text`  | String    | If `infer` is `false`, contains the stored text from the message. If `infer` is `true`, contains the extracted fact from the message.             |
-| `results.event` | String    | The type of event for the memory entry. For the Add Agentic Memory API, `ADD` indicates that the memory was added. |
+| `results.event` | String    | The type of event for the memory entry. For the Add Agentic Memory API, `ADD` indicates that the memory was added. The type of event will always be `ADD`. |
 | `session_id`    | String    | The session ID associated with the memory.                                    |
