@@ -38,7 +38,7 @@ Using gRPC APIs provides several advantages over HTTP APIs:
 
 ## Enabling gRPC APIs
 
-The `transport-grpc` module is included by default with OpenSearch installations as of 3.2. To enable it, add the following settings to `opensearch.yml`:
+The `transport-grpc` module is included by default with OpenSearch installations. To enable it, add the following settings to `opensearch.yml`:
     ```yaml
     aux.transport.types: [experimental-transport-grpc]
     aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
