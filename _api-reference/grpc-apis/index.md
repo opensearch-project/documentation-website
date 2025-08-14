@@ -47,6 +47,7 @@ aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
 {% include copy.html %}
 
 Alternatively, configure a secure transport protocol using the following settings:
+
 ```yaml
 aux.transport.types: [experimental-secure-transport-grpc]
 aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
@@ -54,12 +55,13 @@ aux.transport.experimental-transport-grpc.port: '9400-9500' // optional
 {% include copy.html %}
 
 Configure additional settings if needed (see [Advanced gRPC settings](#advanced-grpc-settings)):
-    ```yaml
-    grpc.host: localhost
-    grpc.publish_host: 10.74.124.163
-    grpc.bind_host: 0.0.0.0
-    ```
-    {% include copy.html %}
+
+```yaml
+grpc.host: localhost
+grpc.publish_host: 10.74.124.163
+grpc.bind_host: 0.0.0.0
+```
+{% include copy.html %}
 
 ## Advanced gRPC settings
 
