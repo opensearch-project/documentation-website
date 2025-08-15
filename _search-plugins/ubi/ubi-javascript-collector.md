@@ -75,7 +75,7 @@ var event = new UbiEvent(
    - `item.title + ' (' + item.id + ')'` - This creates a descriptive label for the event that includes the product title and its unique identifier (ID).
 
 The method `getQueryId()` refers to a helper method to generate a unique query id (and stores it in the session).  
-Here is a sample method:
+The following is a sample method:
 
 ```js
 function generateQueryId(){
