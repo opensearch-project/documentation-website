@@ -111,7 +111,7 @@ ubiClient.trackEvent(event);
 
 You can optionally track queries using the client (instead of using the UBI plugin for OpenSearch).
 
-This looks very similar to tracking events:
+The code is similar to tracking events:
 
 ```js
 const query = new UbiQuery(APPLICATION, client_id, query_id, value, "_id", {});
