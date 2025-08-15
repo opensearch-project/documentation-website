@@ -52,6 +52,6 @@ The following table lists all response body fields.
 | `memory`            | String    | If the memory was created with `infer: false`, contains the stored text from the message. If the memory was created with `infer: true`, contains the extracted fact from the message.                                       |
 | `memory_type`       | String    | The type of memory. `RAW_MESSAGE` indicates the unprocessed message text. `FACT` indicates a fact inferred by the large language model. |
 | `user_id`           | String    | The ID of the user associated with this memory.                                          |
-| `role`              | String    | The role of the message author. Can be any string, such as`assistant` or `user`.                      |
+| `role`              | String    | The role of the message author. Can be any string, such as `assistant` or `user`.                      |
 | `created_time`      | Integer   | The Unix timestamp, in milliseconds, when the memory entry was created.                  |
 | `last_updated_time` | Integer   | The Unix timestamp, in milliseconds, when the memory entry was last updated.             |

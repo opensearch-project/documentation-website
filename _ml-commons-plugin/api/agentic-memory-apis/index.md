@@ -16,7 +16,7 @@ redirect_from:
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Agentic Memory APIs provide operations provide persistent memory management for AI agents. This enables agents to learn, remember, and reason over structured information across conversations.
+Agentic Memory APIs provide persistent memory management for AI agents. This enables agents to learn, remember, and reason over structured information across conversations.
 
 ## Enabling Agentic Memory APIs
 

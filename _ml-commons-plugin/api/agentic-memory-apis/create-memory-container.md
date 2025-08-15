@@ -28,10 +28,10 @@ If you want to use one of the model types to process memories, register the mode
 
 Register either a local or externally hosted embedding model. OpenSearch supports text embedding and sparse encoding models. 
 
-For more information about using models locally, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). For a list of supported models, see[OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#supported-pretrained-models).
+For more information about using models locally, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). For a list of supported models, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#supported-pretrained-models).
 
 
-For more information about using externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). For example, to register an externally hosted Amazon Titan Embedding model, send the following request:
+For more information about using externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). For example, to register an externally hosted Amazon Titan Embeddings model, send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -152,7 +152,7 @@ Field | Data type | Required/Optional | Description
 `dimension` | Integer | Optional | The dimension of the embedding model. Required if `embedding_model_type` is `TEXT_EMBEDDING`.
 `embedding_model_id` | String | Optional | The embedding model ID.
 `embedding_model_type` | String | Optional | The embedding model type. Supported types are `TEXT_EMBEDDING` and `SPARSE_ENCODING`.
-`llm_model_id` | String | Optional | The large language model (LLM) ID.
+`llm_model_id` | String | Optional | The LLM ID.
 `max_infer_size` | Integer | Optional | The maximum number of messages the LLM processes for inference in a single request. Valid values are 1--9, inclusive. Default is 5.
 `memory_index_name` | String | Optional | The name of the index in which to save messages, embeddings, and inferred facts. If not specified, a default index is automatically generated.
 
