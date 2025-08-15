@@ -71,20 +71,20 @@ PUT _plugins/_search_relevance/query_sets
 
 ## Query set formats
 
-The Search Relevance Workbench supports two formats for query sets, each designed for different use cases. Both formats are a collection of user queries, but they differ in whether they include an expected answer.
+Search Relevance Workbench supports two formats for query sets, each designed for different use cases. Both formats are a collection of user queries, but they differ in whether they include an expected answer.
 
-* **Basic query set:** A list of user queries without any additional information. This is useful for general relevance testing where no specific answer is expected.
+* **Basic query set**: A list of user queries without any additional information. This is useful for general relevance testing where no specific answer is expected.
 
-* **Query set with reference answers:** A list of user queries, in which each query is paired with its expected answer. This format is particularly useful for evaluating applications designed to provide a specific answer, such as question-answering systems.
+* **Query set with reference answers**: A list of user queries, in which each query is paired with its expected answer. This format is particularly useful for evaluating applications designed to provide a specific answer, such as question-answering systems.
 
 ### Fields
 
-All query sets are comprised of one or more entries. Each entry is a JSON object containing the following fields.
+All query sets comprise one or more entries. Each entry is a JSON object containing the following fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `queryText` | String | The user query string. Required. |
-| `referenceAnswer` | String | The expected or correct answer to the user query. This field is used for generating judgments, especially with LLMs. Optional. |
+| `referenceAnswer` | String | The expected or correct answer to the user query. This field is used for generating judgments, especially with large language models (LLMs). Optional. |
 
 ### Basic query set example
 
@@ -115,7 +115,7 @@ This format includes the `referenceAnswer` field alongside the `queryText`. It i
 ```
 
 
-The `referenceAnswer` field is particularly useful when using [LLMs (Large Language Models) to generate judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/). The LLM can use the reference answer as a ground truth to compare against the retrieved search results, allowing it to accurately score the relevance of the response.
+The `referenceAnswer` field is particularly useful when using [LLMs to generate judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/). The LLM can use the reference answer as a ground truth to compare against the retrieved search results, allowing it to accurately score the relevance of the response.
 
 ## Managing query sets
 

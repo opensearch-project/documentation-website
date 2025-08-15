@@ -17,9 +17,9 @@ In addition to retrieving the experiment results using the API, you can explore 
 
 You can install the dashboards in one of the following ways:
 
-*  In the **Actions** column, select a visualization icon in the experiment overview.
+* In the **Actions** column, select a visualization icon in the experiment overview.
 
-* Select the **Install Dashboards** button in the upper right corner of the experiment overview.
+* Select the **Install Dashboards** button in the upper-right corner of the experiment overview.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_overview_dashboard_installation_options.png" alt="Experiment overview of the Search Relevance Workbench including dashboard installation options"/>{: .img-fluid }
 
@@ -33,7 +33,7 @@ Once you install the dashboards, in the **Actions** column, select the visualiza
 
 * The search evaluation dashboard focuses on the individual query level and provides insights about well-performing queries and queries with open relevance potential.
 
-* The hybrid search dashboard providesan overview of how the different hybrid search parameter configurations performed and let you identify candidate queries for further exploration and experimentation.
+* The hybrid search dashboard provides an overview of how the different hybrid search parameter configurations performed and lets you identify candidate queries for further exploration and experimentation.
 
 ### Search evaluation dashboard
 
@@ -41,9 +41,9 @@ The search evaluation dashboard, shown in the following image, aggregates perfor
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/search_evaulation_dashboard.png" alt="Search evaluation dashboard with visualizations"/>{: .img-fluid }
 
-The **Deep Dive Summary** panel shows the aggregate metrics for NDCG, MAP, precision and coverage (see [Evaluating search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/)).
+The **Deep Dive Summary** panel shows the aggregate metrics for NDCG, MAP, precision, and coverage (see [Evaluating search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/)).
 
-The **Deep Dive Query Scores** pane shows individual query performance ranked by NDCG score (highest to lowest). Use this pane to identify your best and worst performing queries.
+The **Deep Dive Query Scores** pane shows individual query performance ranked by NDCG score (highest to lowest). Use this pane to identify your best- and worst-performing queries.
 
 The **Deep Dive Score Densities** pane shows how metric values are distributed across your query set. Use this pane to understand whether poor performance is widespread or concentrated in specific queries. The x-axis shows metric values, while the y-axis shows how frequently those values occur.
 
@@ -55,20 +55,20 @@ Use the hybrid search evaluation dashboard, shown in the following image, to com
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/hybrid_search_optimizer_dashboard.png" alt="Hybrid search optimization evaluation dashboard with visualizations"/>{: .img-fluid }
 
-The **Variant Performance Chart** shows your experiment variants arranged visually from best to worst performing (left to right, by decreasing NDCG). Use this chart to quickly identify your top performing queries and view performance patterns across different parameter combinations at a glance.
+The **Variant Performance Chart** shows your experiment variants arranged visually from best to worst performing (left to right, by decreasing NDCG). Use this chart to quickly identify your top-performing queries and view performance patterns across different parameter combinations at a glance.
 
-The **Variant Performance** pane shows the same variant data in a sortable table format with all metrics visible. Use this pane to compare specific metric values across variants and customize your analysis by sorting on different performance measures . To sort by a column, select the column header.
+The **Variant Performance** pane shows the same variant data in a sortable table format with all metrics visible. Use this pane to compare specific metric values across variants and customize your analysis by sorting on different performance measures. To sort by a column, select the column header.
 
 
 ### Customizing the dashboards
 
 The dashboards are installed as saved objects. After installing them, you can edit the dashboards or clone and customize them to your specific requirements.
 
-To learn how to customize the source files, see the [Updating the default dashboards](https://github.com/opensearch-project/dashboards-search-relevance/blob/main/DEVELOPER_GUIDE.md#updating-default-dashboards).
+To learn how to customize the source files, see [Updating the default dashboards](https://github.com/opensearch-project/dashboards-search-relevance/blob/main/DEVELOPER_GUIDE.md#updating-default-dashboards).
 
 ### Resetting dashboards
 
-To reset the dashboards, select the **Install Dashboards** button in the upper right corner of the experiment overview. This will reinstall the dashboards.
+To reset the dashboards, select the **Install Dashboards** button in the upper-right corner of the experiment overview. This will reinstall the dashboards.
 
 
 
