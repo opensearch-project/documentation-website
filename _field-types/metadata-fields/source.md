@@ -25,7 +25,7 @@ PUT sample-index1
 ```
 {% include copy-curl.html %}
 
-Disabling the `_source` field can impact the availability of certain features, such as the `update`, `update_by_query`, and `reindex` APIs, as well as the ability to debug queries or aggregations using the original indexed document. To support these features without storing `_source` field explicitly, [Derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source) can be used without compromising on storage constraints.
+Disabling the `_source` field can impact the availability of certain features, such as the `update`, `update_by_query`, and `reindex` APIs, as well as the ability to debug queries or aggregations using the original indexed document. To support these features without storing the `_source` field explicitly, [Derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source) can be used without compromising storage constraints.
 {: .warning}
 
 ## Including or excluding fields
@@ -76,7 +76,7 @@ PUT sample-index1
 
 While skipping the `_source` field can significantly reduce storage requirements, dynamically deriving the source is generally slower than reading a stored `_source`. To avoid this overhead during search queries, do not request the `_source` field when it's not needed. You can do this by setting the `size` parameter, which controls the number of documents returned.
 
-For real-time reads using the [Get Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [Multi-get Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/), which are served from the translog until [`refresh`]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/) happens, performance can be slower when using a derived source. This is because the document must first be ingested temporarily before the source can be reconstructed. You can avoid this additional latency by using an index-level `derived_source.translog` setting that disables generating derived source during translog reads:
+For real-time reads using the [Get Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [Multi-get Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/), which are served from the translog until [`refresh`]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/) happens, performance can be slower when using a derived source. This is because the document must first be ingested temporarily before the source can be reconstructed. You can avoid this additional latency by using an index-level `derived_source.translog` setting that disables generating a derived source during translog reads:
 
 ```json
 PUT sample-index1
@@ -97,7 +97,7 @@ If this setting is used, you may notice differences in the `_source` content for
 
 ### Supported fields and parameters
 
-Derived `_source` uses [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) and [`stored_fields`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/store/) to reconstruct the document at query time. Because of the implementation of `doc_values`, the dynamically generated `_source` may differ in format or precision from the original ingested document.
+Derived source uses [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) and [`stored_fields`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/store/) to reconstruct the document at query time. Because of the implementation of `doc_values`, the dynamically generated `_source` may differ in format or precision from the original ingested document.
 
 Derived source supports the following field types without requiring any changes to field mappings (with some [limitations](#limitations)):
 
@@ -121,4 +121,4 @@ For a [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/te
 Derived source does not support the following fields:
 
 - Fields containing [`copy_to`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/copy-to/) parameters.
--  [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) and [`wildcard`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/) fields that define either the [`ignore_above`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/ignore-above/) or [`normalizer`]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) parameters.
+- [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) and [`wildcard`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/) fields that define either the [`ignore_above`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/ignore-above/) or [`normalizer`]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) parameters.
