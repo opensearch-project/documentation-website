@@ -26,7 +26,6 @@ The agent automatically selects the most appropriate tool for each step based on
 
 The agent currently supports re-evaluation only after each step. This allows the agent to dynamically adapt the plan based on intermediate results before proceeding to the next step.
 
-
 ## Creating a plan-execute-reflect agent
 
 The following example request creates a plan-execute-reflect agent with three tools:
