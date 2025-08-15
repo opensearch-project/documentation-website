@@ -29,7 +29,7 @@ component: path_parameters
 -->
 ## Path parameters
 
-The following table lists the available path parameters. All path parameters are optional.
+The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
@@ -43,7 +43,7 @@ component: query_parameters
 -->
 ## Query parameters
 
-The following table lists the available query parameters. All query parameters are optional.
+The following table lists the available query parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
