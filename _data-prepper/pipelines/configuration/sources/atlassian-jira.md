@@ -17,7 +17,7 @@ Set up Jira project access credentials by choosing one of the following options:
 - **Basic authentication** (API key authentication): Follow [these instructions](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/).
 - **OAuth2 authentication**: Follow [these instructions](https://developer.atlassian.com/cloud/jira/platform/oauth-2-3lo-apps/#faq-rrt-config).
 
-As an additional optional step, store the credentials in an AWS secret store. If you don't store the credentials in the secret store, then you must provide plain-text credentials directly in the pipeline configuration.
+As an additional optional step, store the credentials in AWS Secrets Manager. If you don't store the credentials in AWS Secrets Manager, then you must provide plain-text credentials directly in the pipeline configuration.
 
 The following example pipeline specifies `jira` as a source. The pipeline ingests data from Jira projects named `project1` and `project2` and applies filters to select tickets from these projects as a source:
 
@@ -133,7 +133,7 @@ Optionally, you can specify filters to select specific content. If no filters ar
 
 ### AWS secrets
 
-You can use the following options in the `aws` secrets configuration if you plan to store the credentials in a secret. Storing secrets in AWS secrets store is optional. If secret store is not used, credentials must be specified in the pipeline YAML itself, in plain text.
+You can use the following options in the `aws` secrets configuration if you plan to store the credentials in AWS Secrets Manager. Storing secrets in AWS Secrets Manager is optional. If AWS Secrets Manager is not used, credentials must be specified in the pipeline YAML itself, in plain text.
 
 If OAuth2 authentication is used in combination with `aws` secrets, this source requires write permissions to the secret to be able to write back the updated (or renewed) access token once the current token expires.
 

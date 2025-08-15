@@ -17,7 +17,7 @@ Set up Confluence project access credentials by choosing one of the following op
 - **Basic authentication** (API key authentication): Follow [these instructions](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/).
 - **OAuth2 authentication**: Follow [these instructions](https://developer.atlassian.com/cloud/jira/platform/oauth-2-3lo-apps/#faq-rrt-config).
 
-As an additional optional step, store the credentials in an AWS secret store. If you don't store the credentials in the secret store, then you must provide plain-text credentials directly in the pipeline configuration.
+As an additional optional step, store the credentials in AWS Secrets Manager. If you don't store the credentials in AWS Secrets Manager, then you must provide plain-text credentials directly in the pipeline configuration.
 
 The following example pipeline specifies `confluence` as a source. The pipeline ingests data from multiple Confluence spaces named `space1` and `space2` and applies filters to select wiki content (pages and blog posts) from these projects as a source:
 
@@ -114,7 +114,7 @@ Either basic or OAuth2 credentials are required to access the Confluence site. I
 
 ### Filter
 
-Optionally, you can specify filters to select specific content. If no filters are specified, all the spaces and content visible for the specified credentials are extracted and sent to the specified sink in the pipeline.
+Optionally, you can specify filters to select specific content. If no filters are specified, all the spaces and content visible for the specified credentials are extracted and sent to the specified sink in the pipeline. The following filter options are available to select specific content from Confluence.
 
 | Option      | Required | Type   | Description                                   |
 |:------------|:---------|:-------|:----------------------------------------------|
@@ -123,9 +123,9 @@ Optionally, you can specify filters to select specific content. If no filters ar
 
 ### AWS secrets
 
-You can use the following options in the `aws` secrets configuration if you plan to store the credentials in a secret. Storing secrets in AWS secrets store is optional. If secret store is not used, credentials must be specified in the pipeline YAML itself, in plain text.
+You can use the following options in the `aws` secrets configuration if you plan to store the credentials in AWS Secrets Manager. Storing secrets in AWS secrets Manager is optional. If AWS Secrets Manager is not used, credentials must be specified in the pipeline YAML itself, in plain text.
 
-If OAuth2 authentication is used in combination with `aws` secrets, this source requires write permissions to the secret to be able to write back the updated (or renewed) access token once the current token expires.
+If OAuth2 authentication is used in combination with `aws` secrets, this source requires write permissions to AWS Secrets Manager to be able to write back the updated (or renewed) access token once the current token expires.
 
 | Option         | Required | Type   | Description                                                                                                                                                                                                                                                                                    |
 |:---------------|:---------|:-------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
