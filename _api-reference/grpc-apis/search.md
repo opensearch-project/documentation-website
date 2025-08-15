@@ -149,7 +149,7 @@ The [`DerivedField`](https://github.com/opensearch-project/opensearch-protobufs/
 
 **Exactly one** of the following fields must be provided in each `QueryContainer` message.
 
-Note that some query types are currently unsupported. Currently, only [`match_all`](#match-all-query), [`term`](#term-query), [`terms`](#terms-query), and [`match_none`](#match-none-query) are supported.
+Note that some query types are currently unsupported. See [Supported queries](#supported-queries) for the current list of implemented query types.
 {: .note}
 
 | Field | Protobuf type | Description |

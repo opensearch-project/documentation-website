@@ -123,10 +123,7 @@ The response includes the standard search metadata (`took`, `timed_out`, and `sh
 
 ## Filter limitations
 
-The gRPC k-NN API has limited support for the `filter` clause compared to the HTTP API:
-
-- **Supported filters**: Basic [`term`]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/#term-query) and [`terms`]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/#terms-query) queries
-- **Unsupported filters**: Complex nested queries, script queries, and some specialized query types
+The gRPC k-NN API has limited support for the `filter` clause compared to the HTTP API. For the current list of supported query types in gRPC, see the [Search API QueryContainer documentation]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/#querycontainer-fields) and [Supported queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/#supported-queries).
 
 For complex filtering requirements, consider using the HTTP k-NN API, simplifying your filter logic, or waiting for the next release of k-NN gRPC.
 
