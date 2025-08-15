@@ -173,8 +173,8 @@ Parameter | Data type | Description
 `clickModel` | String | The model used to calculate implicit judgments. Only `coec` (Clicks Over Expected Clicks) is supported.
 `type` | String | Set to `UBI_JUDGMENT`.
 `maxRank` | Integer | The maximum rank to consider when including events in the judgment calculation.
-`startDate` | Date | The optional date in format `yyyy-MM-dd` from which behavioral data events are being taken into account for implicit judgment generation.
-`endDate` | Date | The optional date in format `yyyy-MM-dd` until which behavioral data events are being taken into account for implicit judgment generation.
+`startDate` | Date | The optional starting date from which behavioral data events are considered for implicit judgment generation. The format is`yyyy-MM-dd`.
+`endDate` | Date | The optional end date until which behavioral data events are considered for implicit judgment generation. The format is`yyyy-MM-dd`.
 
 ## Managing judgment lists
 

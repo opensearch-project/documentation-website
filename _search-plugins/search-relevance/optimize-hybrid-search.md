@@ -111,4 +111,4 @@ POST _plugins/_sql
 ```
 {% include copy-curl.html %}
 
-To review these results in a visual way, see [exploring experiment results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/explore-experiment-results/).
+To review these results in a visual way, see [Exploring search evaluation results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/explore-experiment-results/).
