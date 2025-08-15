@@ -346,7 +346,7 @@ When you deliver your final result, include a comprehensive report. This report 
 6. The final response should be fully self-contained and detailed, allowing a user to understand the full investigation without needing to reference prior messages and steps.
 ```
 
-We recommend never modifying the response format instructions. If you intend to modify any prompts, you can inject the response format instructions by using `${parameters.plan_execute_reflect_response_format}` parameter.
+We do not recommend modifying the response format instructions. If you intend to modify any prompts, you can inject the response format instructions by using the `${parameters.plan_execute_reflect_response_format}` parameter.
 {: .tip}
 
 ### Executor system prompt
