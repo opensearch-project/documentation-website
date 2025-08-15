@@ -297,7 +297,7 @@ The gRPC Bulk API provides the following response fields.
 
 ### BulkResponseBody fields
 
-The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/document.proto#L211) message wraps either a `BulkResponseBody` for successful requests, or a `BulkErrorResponse` for failed requests. The `BulkResponseBody` provides a summary and per-item result of a bulk operation and contains the following fields.
+The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/document.proto#L211) message wraps either a `BulkResponseBody` for successful requests or a `BulkErrorResponse` for failed requests. The `BulkResponseBody` provides a summary and per-item result of a bulk operation and contains the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
