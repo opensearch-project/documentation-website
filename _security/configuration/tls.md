@@ -137,7 +137,7 @@ plugins.security.authcz.admin_dn:
 
 For security reasons, you cannot use wildcards or regular expressions as values for the `admin_dn` setting.
 
-For more information about admin and super admin user roles, see [Admin and super admin roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#admin-and-super-admin-roles). 
+For more information about admin and super admin user roles, see [Admin and super admin roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#admin-and-super-admin-roles).
 
 
 ## (Advanced) Hostname verification and DNS lookup
@@ -266,7 +266,7 @@ plugins.security.ssl_cert_reload_enabled: true
 This setting is `false` by default.
 {: .note }
 
-After enabling reloading, use the Reload Certificates API to replace the expired certificates. The new certificates need to be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
+After enabling reloading, use the Reload Certificates API to replace the expired certificates. The new certificates need to be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file.
 
 By default, the Reload Certificates API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. This behavior can be disabled by adding the following settings in `opensearch.yml`:
 
@@ -283,7 +283,7 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
 #### Reload TLS certificates on the transport layer
 
  The following command reloads TLS certificates on the transport layer using the Reload Certificates API:
-  
+
 ```json
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
 ```
@@ -312,10 +312,10 @@ You should receive the following response:
 
 ## Configuring TLS certificates for gRPC
 
-gRPC supports encryption in transit only. Trust stores and certificates configured as root CAs in PEM format are used only for the purpose of TLS client authorization. Role-based access is not available for gRPC endpoints. 
+gRPC supports encryption in transit only. Trust stores and certificates configured as root CAs in PEM format are used only for the purpose of TLS client authorization. Role-based access is not available for gRPC endpoints.
 {: .warning}
 
-You can configure TLS on the optional gRPC transport in `opensearch.yml`. For more information about using the gRPC plugin, see [Enabling the plugin]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#enabling-the-plugin).
+You can configure TLS on the optional gRPC transport in `opensearch.yml`. For more information about using the gRPC plugin, see [Enabling gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#enabling-grpc-apis).
 
 ### PEM key settings (X.509 PEM certificates and PKCS #8 keys)
 
