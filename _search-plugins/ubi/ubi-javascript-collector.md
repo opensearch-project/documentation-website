@@ -28,6 +28,7 @@ import { UbiClient } from './ubi'
 
 const ubiClient = new  UbiClient('http://localhost:9200');
 ```
+{% include copy.html %}
 
 
 ## Creating an event 
@@ -43,6 +44,7 @@ var event = new UbiEvent(
     item.title + ' (' + item.id + ')'
 );
 ```
+{% include copy.html %}
 
 ### Parameters
 
