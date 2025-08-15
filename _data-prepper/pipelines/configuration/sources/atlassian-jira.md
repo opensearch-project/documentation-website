@@ -85,9 +85,9 @@ The `jira` source supports the following configuration options.
 
 | Option            | Required | Type                              | Description                                                                                                                                                                                                                   |
 |:------------------|:---------|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `hosts`           | Yes      | List                              | The Atlassian Confluence host name. Currently, only one host is supported, so this list is expected to be of size 1.                                                                                                                        |
+| `hosts`           | Yes      | List                              | The Atlassian Confluence hostname. Currently, only one host is supported, so this list is expected to be of size 1.                                                                                                                        |
 | `acknowledgments` | No       | Boolean                           | When set to `true`, enables the `jira` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks. |
-| `authentication`  | Yes      | [authentication](#Authentication) | Configures authentication method to access `jira` source records from the specified host.                                                                                                                                         |
+| `authentication`  | Yes      | [authentication](#Authentication) | Configures the authentication method used to access `jira` source records from the specified host.                                                                                                                                         |
 | `filter`          | No       | [filter](#Filter)                 | Applies specific filter criteria while extracting Jira tickets.                                                                                                                                                     |
 
 ### Authentication
@@ -96,30 +96,30 @@ You can use one the following authentication methods to access the specified jir
 
 | Option   | Required | Type              | Description                                            |
 |:---------|:---------|:------------------|:-------------------------------------------------------|
-| `basic`  | Yes      | [basic](#basic-authentication)   | Basic Authentication credentials to access a Jira host.  |
-| `oauth2` | Yes      | [oauth2](#oauth2-authentication)| OAuth2 Authentication credentials to access a Jira host. |
+| `basic`  | Yes      | [basic](#basic-authentication)   | Basic authentication credentials used to access a Jira host.  |
+| `oauth2` | Yes      | [oauth2](#oauth2-authentication)| OAuth2 authentication credentials used to access a Jira host. |
 
 #### Basic authentication
 
-Either basic or OAuth2 credentials are required to access the Jira site. If you use the `basic` authentication, the following fields are required.
+Either basic or OAuth2 credentials are required to access the Jira site. If you use `basic` authentication, the following fields are required.
 
 | Option     | Required | Type   | Description                                                                                     |
 |:-----------|:---------|:-------|:------------------------------------------------------------------------------------------------|
-| `username` | Yes      | String | A username or reference to secret key storing the username.           |
-| `password` | Yes      | String | A password (API key) or reference to secret key storing the password. |
+| `username` | Yes      | String | A username or reference to the secret key storing the username.           |
+| `password` | Yes      | String | A password (API key) or reference to the secret key storing the password. |
 
 #### OAuth2 authentication
 
 Either basic or OAuth2 credentials are required to access the jira site. If OAuth2 is used, the following fields are mandatory.
 
-Either basic or OAuth2 credentials are required to access the Confluence site. If you use OAuth2 is used, the following fields are required.
+Either basic or OAuth2 credentials are required to access the Confluence site. If you use OAuth2, the following fields are required.
 
 | Option          | Required | Type   | Description                                                                                     |
 |:----------------|:---------|:-------|:------------------------------------------------------------------------------------------------|
-| `client_id`     | Yes      | String | A `client_id` or reference to secret key storing the `client_id`.         |
-| `client_secret` | Yes      | String | A `client_secret` or reference to secret key storing the `client_secret`. |
-| `access_token`  | Yes      | String | An `access_token` or reference to secret key storing the `access_token`.   |
-| `refresh_token` | Yes      | String | A `refresh_token` or reference to secret key storing the `refresh_token`. |
+| `client_id`     | Yes      | String | A `client_id` or reference to the secret key storing the `client_id`.         |
+| `client_secret` | Yes      | String | A `client_secret` or reference to the secret key storing the `client_secret`. |
+| `access_token`  | Yes      | String | An `access_token` or reference to the secret key storing the `access_token`.   |
+| `refresh_token` | Yes      | String | A `refresh_token` or reference to the secret key storing the `refresh_token`. |
 
 ### Filter
 
@@ -129,7 +129,7 @@ Optionally, you can specify filters to select specific content. If no filters ar
 |:-------------|:---------|:-------|:-----------------------------------------------|
 | `project`    | No       | String | A list of project keys to include or exclude.        |
 | `issue_type` | No       | String | A list of issue type filters to include or exclude. |
-| `status`     | No       | String | A list of list of status filters to include or exclude.     |
+| `status`     | No       | String | A list of status filters to include or exclude.     |
 
 ### AWS secrets
 
@@ -141,7 +141,7 @@ If OAuth2 authentication is used in combination with `aws` secrets, this source 
 |:---------------|:---------|:-------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `region`       | Yes      | String | The AWS Region to use for credentials. Defaults to the [standard SDK behavior for determining the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).                                                                                         |
 | `sts_role_arn` | Yes      | String | The AWS Security Token Service (AWS STS) role to assume for requests to Atlassian Jira. Defaults to `null`, which uses the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html). |
-| `secret_id`    | Yes      | Map    | The AWS Secret ARN of the secret that where the credentials are stored.                                                                                                                              
+| `secret_id`    | Yes      | Map    | The Amazon Resource Name (ARN) of the secret where the credentials are stored.                                                                                                                              
 
 ## Metrics
 
