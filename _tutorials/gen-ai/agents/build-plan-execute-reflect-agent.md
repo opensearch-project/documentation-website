@@ -81,21 +81,24 @@ Note the model ID; you'll use it in the following steps.
 
 ### Step 1(c): Configure a retry policy
 
-Because the agent is a long-running agent that executes multiple steps, we strongly recommend configuring a retry policy for your model. For more information, see the `client_config` parameter in [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters). For example, to configure unlimited retries, set `max_retry_times` to `-1`:
+Because the agent is a long-running agent that executes multiple steps, we strongly recommend configuring a retry policy for your connector. For more information, see the `client_config` parameter in [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters). For example, to configure unlimited retries, set `max_retry_times` to `-1`:
 
 ```json
-PUT /_plugins/_ml/models/your_model_id
+PUT /_plugins/_ml/connectors/<connector_id>
 {
-  "connector": {
-    "client_config": {
-      "max_retry_times": -1,
-      "retry_backoff_millis": 300,
-      "retry_backoff_policy": "exponential_full_jitter"
-    }
+  "client_config": {
+    "max_retry_times": -1,
+    "retry_backoff_millis": 300,
+    "retry_backoff_policy": "exponential_full_jitter"
   }
 }
 ```
 {% include copy-curl.html %}
+
+If you have deployed your model or made a predict call, you must undeploy your model before updating the `client_config`. For more information, see [Undeploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
+
+For more information about deploying your model, see [Deploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/).
+
 
 ## Step 2: Create an agent
 
