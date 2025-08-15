@@ -7,20 +7,20 @@ nav_order: 24
 ---
 
 
-# UBI in AWS Managed Services Tutorial
+# UBI in AWS Managed Services tutorial
 
-This tutorial walks you through the steps for collecting queries and events when you are using AWS's Managed Service for OpenSearch.  At the end of this tutorial you will be able to send authenticated events to both S3 for long term storage and OpenSearch using the Curl command line tool.  This sets you up for integrating UBI event collection into your applications.
+This tutorial walks you through the steps for collecting queries and events in the UBI (User Behavior Insights) format when you are using AWS's Managed Service for OpenSearch.  At the end of this tutorial you will be able to send authenticated queries and events to both S3 for long term storage and OpenSearch for immediate processing using the Curl command line tool. At the end of the tutorial you will be ready to start collecting UBI data for your applications.
 
 The tutorial makes the following assumptions:
 
 1. You are using AWS Managed Service OpenSearch version 2.19.
 1. You are not using the UBI Plugin for OpenSearch, which isn't available until OpenSearch 3.1 in Managed Service.
-1. You are writing UBI data to OpenSearch via [OpenSearch Ingestion](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ingestion.html) (managed version of Data Prepper).
+1. You are writing UBI data to OpenSearch using [OpenSearch Ingestion](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ingestion.html), the managed version of Data Prepper.
 
 
-## 1. Set Up UBI OpenSearch Indexes
+## 1. Set up OpenSearch indexes for UBI
 
-Log into Managed Service OpenSearch Dashboard.  We will use the DevTools console to create two indexes for storing data: `ubi_queries` and `ubi_events`.  
+Log into Managed Service OpenSearch Dashboard. We will use the DevTools console to create two indexes for storing data: `ubi_queries` and `ubi_events`.  
 
 Navigate to **Management > Dev Tools**
 
@@ -35,7 +35,7 @@ PUT ubi_events
 
 You will see a syntax warning after typing this in, that's okay.
 
-Then, go to https://github.com/opensearch-project/user-behavior-insights/blob/main/src/main/resources/events-mapping.json and copy the entire JSON text and paste it in after the `"mappings":` line in the Dev Tools console.   You will have something similar to:
+Then, go to (https://github.com/opensearch-project/user-behavior-insights/blob/main/src/main/resources/events-mapping.json)[https://github.com/opensearch-project/user-behavior-insights/blob/main/src/main/resources/events-mapping.json] and copy the entire JSON formatted contents of the file and paste it in after the `"mappings":` line in the Dev Tools console. This will produce a complete command similar to:
 
 ```json
 PUT ubi_events
@@ -64,16 +64,16 @@ PUT ubi_queries
 }
 ```
 
-This time go to https://github.com/opensearch-project/user-behavior-insights/blob/main/src/main/resources/queries-mapping.json and copy the entire JSON text and paste it in after the `"mappings":` line in the Dev Tools console.  Run the command.
+This time go to https://github.com/opensearch-project/user-behavior-insights/blob/main/src/main/resources/queries-mapping.json and copy the entire JSON text and paste it in after the `"mappings":` line in the Dev Tools console. Run the command.
 
-> If you are using OpenSearch 3.1 or newer then the UBI Plugin is already enabled for you.  Instead of manually creating the indexes you can instead use the UBI plugin to create them:
+> If you are using OpenSearch 3.1 or newer then the UBI Plugin is already included. Instead of manually creating the indexes you can instead use the UBI plugin to create them:
 >
 > ```json
 > POST /_plugins/ubi/initialize
 > ```
 {: .note}
 
-You now have the OpenSearch indexes that will recieve UBI data.
+You now have the required OpenSearch indexes to recieve UBI data from applications.
 
 ## 2. Set up S3 Storage
 
