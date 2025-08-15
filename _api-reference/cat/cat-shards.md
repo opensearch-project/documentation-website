@@ -55,24 +55,76 @@ The following table lists the available query parameters.
 
 The following example requests returns information about shards:
 
-```
-GET _cat/shards?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/shards?v
+-->
+{% capture step1_rest %}
+GET /_cat/shards?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.shards(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To see only the information about shards of a specific index, add the index name after your query.
 
-```
-GET _cat/shards/<index>?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/shards/<index>?v
+-->
+{% capture step1_rest %}
+GET /_cat/shards/<index>?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.shards(
+  index = "<index>",
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to get information for more than one index, separate the indexes with commas:
 
-```
-GET _cat/shards/index1,index2,index3
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/shards/index1,index2,index3
+-->
+{% capture step1_rest %}
+GET /_cat/shards/index1,index2,index3
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.shards(
+  index = "index1,index2,index3"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

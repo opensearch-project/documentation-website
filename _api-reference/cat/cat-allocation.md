@@ -65,7 +65,7 @@ GET /_cat/allocation?v
 
 
 response = client.cat.allocation(
-  params = { "v": "false" }
+  params = { "v": "true" }
 )
 
 {% endcapture %}

@@ -20,10 +20,23 @@ Using the CAT API, you can answer questions like which node is the elected clust
 
 To see the available operations in the CAT API, use the following command:
 
-```
-GET _cat
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat
+-->
+{% capture step1_rest %}
+GET /_cat
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.cat.help()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response is an ASCII cat (`=^.^=`) and a list of operations:
 
@@ -82,10 +95,27 @@ You can specify a query parameter to any CAT operation to obtain more specific r
 
 To query aliases and get verbose output that includes all column headings in the response, use the `v` query parameter.
 
-```json
-GET _cat/aliases?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases?v
+-->
+{% capture step1_rest %}
+GET /_cat/aliases?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response provides more details, such as names of each column in the response. 
 
@@ -111,10 +141,27 @@ GET _cat/<operation_name>?help
 
 For example, to see the available headers for the CAT aliases operation, send the following request:
 
-```json
-GET _cat/aliases?help
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases?help
+-->
+{% capture step1_rest %}
+GET /_cat/aliases?help
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  params = { "help": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains the available headers:
 
@@ -137,10 +184,27 @@ GET _cat/<operation_name>?h=<header_name_1>,<header_name_2>&v
 
 For example, to limit aliases to only the alias name and index, send the following request:
 
-```json
-GET _cat/aliases?h=alias,index
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases?h=alias,index
+-->
+{% capture step1_rest %}
+GET /_cat/aliases?h=alias,index
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  params = { "h": "alias,index" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains the requested information:
 
@@ -161,10 +225,27 @@ GET _cat/<operation_name>?s=<header_name_1>,<header_name_2>
 
 For example, to sort aliases by alias and then index, send the following request:
 
-```json
-GET _cat/aliases?s=i,a
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases?s=i,a
+-->
+{% capture step1_rest %}
+GET /_cat/aliases?s=i,a
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  params = { "s": "i,a" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains the requested information:
 
@@ -185,10 +266,27 @@ GET _cat/<operation_name>?format=json
 
 For example, to retrieve aliases in JSON format, send the following request:
 
-```json
-GET _cat/aliases?format=json
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases?format=json
+-->
+{% capture step1_rest %}
+GET /_cat/aliases?format=json
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  params = { "format": "json" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains data in JSON format:
 

@@ -36,10 +36,27 @@ Path parameters are optional.
 
 The following request deletes the `my-first-script` script:
 
-````json
-DELETE _scripts/my-script
-````
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /_scripts/my-script
+-->
+{% capture step1_rest %}
+DELETE /_scripts/my-script
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.delete_script(
+  id = "my-script"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

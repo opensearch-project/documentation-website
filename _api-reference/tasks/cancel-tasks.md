@@ -58,10 +58,27 @@ The following table lists the available query parameters.
 
 The following request cancels any tasks currently running on `opensearch-node1` and `opensearch-node2`:
 
-```
-POST _tasks/_cancel?nodes=opensearch-node1,opensearch-node2
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: POST /_tasks/_cancel?nodes=opensearch-node1,opensearch-node2
+-->
+{% capture step1_rest %}
+POST /_tasks/_cancel?nodes=opensearch-node1,opensearch-node2
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.tasks.cancel(
+  params = { "nodes": "opensearch-node1,opensearch-node2" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

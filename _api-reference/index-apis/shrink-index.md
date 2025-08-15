@@ -81,8 +81,10 @@ For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/
 
 ## Example request
 
-```json
-POST /my-old-index/_shrink/my-new-index
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-old-index/_shrink/my-new-index
+body: |
 {
   "settings": {
     "index.number_of_replicas": 4,
@@ -92,5 +94,40 @@ POST /my-old-index/_shrink/my-new-index
     "new-index-alias": {}
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /my-old-index/_shrink/my-new-index
+{
+  "settings": {
+    "index.number_of_replicas": 4,
+    "index.number_of_shards": 3
+  },
+  "aliases": {
+    "new-index-alias": {}
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.shrink(
+  index = "my-old-index",
+  target = "my-new-index",
+  body =   {
+    "settings": {
+      "index.number_of_replicas": 4,
+      "index.number_of_shards": 3
+    },
+    "aliases": {
+      "new-index-alias": {}
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->

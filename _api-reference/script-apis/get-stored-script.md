@@ -33,10 +33,27 @@ GET _scripts/my-first-script
 
 The following retrieves the `my-first-script` stored script.
 
-````json
-GET _scripts/my-first-script
-````
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_scripts/my-first-script
+-->
+{% capture step1_rest %}
+GET /_scripts/my-first-script
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get_script(
+  id = "my-first-script"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

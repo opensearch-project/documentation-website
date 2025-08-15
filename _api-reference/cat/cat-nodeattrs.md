@@ -52,10 +52,29 @@ The following table lists the available query parameters.
 
 The following example request returns attributes about custom nodes:
 
-```json
-GET _cat/nodeattrs?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/nodeattrs?v
+body: 
+-->
+{% capture step1_rest %}
+GET /_cat/nodeattrs?v
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.nodeattrs(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response
