@@ -89,8 +89,8 @@ You can use one of the following authentication methods to access a Confluence h
 
 | Option   | Required | Type              | Description                                                  |
 |:---------|:---------|:------------------|:-------------------------------------------------------------|
-| `basic`  | Yes      | [basic](#Basic)   | Basic authentication credentials used to access a Confluence host.  |
-| `oauth2` | Yes      | [oauth2](#Oauth2) | OAuth2 authentication credentials used to access a Confluence host. |
+| `basic`  | Yes      | [basic](#basic-authentication)  | Basic authentication credentials used to access a Confluence host.  |
+| `oauth2` | Yes      | [oauth2](#oauth2-authentication) | OAuth2 authentication credentials used to access a Confluence host. |
 
 #### Basic authentication
 
