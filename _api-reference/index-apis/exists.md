@@ -36,10 +36,27 @@ local | Boolean | Whether to return information from only the local node instead
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: HEAD /sample-index
+-->
+{% capture step1_rest %}
 HEAD /sample-index
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.exists(
+  index = "sample-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

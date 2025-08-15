@@ -24,10 +24,23 @@ GET /_plugins/_security/api/securityconfig
 
 ## Example request
 
-```bash
+<!-- spec_insert_start
+component: example_code
+rest: GET /_plugins/_security/api/securityconfig
+-->
+{% capture step1_rest %}
 GET /_plugins/_security/api/securityconfig
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.security.get_configuration()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
@@ -96,20 +109,3 @@ The response body is a JSON object with the following fields.
 </details>
 
 ## Usage notes
-
-The Get Configuration API provides a way to inspect the current security configuration. When using the API, remember the following usage notes:
-
-- **Read-only operation**: This API only retrieves the configuration and does not modify it.
-
-- **Access control**: Access to this API should be restricted to administrators because the configuration contains sensitive information about your security setup.
-
-## Security considerations
-
-The security configuration contains sensitive information about your authentication mechanisms, LDAP settings, and security policies. Consider the following security best practices:
-
-- Be cautious about storing or logging the output from this API, as it may contain sensitive configuration details.
-- Use HTTPS/TLS when interacting with this API to prevent information disclosure.
-
-## Permissions
-
-Any users with roles defined in `plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]` have access to this API.

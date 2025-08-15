@@ -52,26 +52,76 @@ allow_partial_search_results | Boolean | Whether to return partial results if th
 
 The following example request uses an index named `Hamlet` created using a `bulk` request:
 
-```json
-PUT hamlet/_bulk?refresh
+<!-- spec_insert_start
+component: example_code
+rest: PUT /hamlet/_bulk?refresh
+body: |
 {"index":{"_id":1}}
 {"user" : { "id": "hamlet" }, "@timestamp" : "2099-11-15T14:12:12", "message" : "To Search or Not To Search"}
 {"index":{"_id":2}}
 {"user" : { "id": "hamlet" }, "@timestamp" : "2099-11-15T14:12:13", "message" : "My dad says that I'm such a ham."}
-```
-{% include copy.html %}
+-->
+{% capture step1_rest %}
+PUT /hamlet/_bulk?refresh
+{"index":{"_id":1}}
+{"user" : { "id": "hamlet" }, "@timestamp" : "2099-11-15T14:12:12", "message" : "To Search or Not To Search"}
+{"index":{"_id":2}}
+{"user" : { "id": "hamlet" }, "@timestamp" : "2099-11-15T14:12:13", "message" : "My dad says that I'm such a ham."}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.bulk(
+  index = "hamlet",
+  params = { "refresh": "true" },
+  body = '''
+{"index":{"_id":1}}
+{"user" : { "id": "hamlet" }, "@timestamp" : "2099-11-15T14:12:12", "message" : "To Search or Not To Search"}
+{"index":{"_id":2}}
+{"user" : { "id": "hamlet" }, "@timestamp" : "2099-11-15T14:12:13", "message" : "My dad says that I'm such a ham."}
+'''
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 You can then use the Validate Query API to validate an index query, as shown in the following example:
 
-```json
-GET hamlet/_validate/query?q=user.id:hamlet
-```
-{% include copy.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /hamlet/_validate/query?q=user.id:hamlet
+-->
+{% capture step1_rest %}
+GET /hamlet/_validate/query?q=user.id:hamlet
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.validate_query(
+  index = "hamlet",
+  params = { "q": "user.id:hamlet" },
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The query can also be sent as a request body, as shown in the following example:
 
-```json
-GET hamlet/_validate/query
+<!-- spec_insert_start
+component: example_code
+rest: GET /hamlet/_validate/query
+body: |
 {
   "query" : {
     "bool" : {
@@ -86,8 +136,56 @@ GET hamlet/_validate/query
     }
   }
 }
-```
-{% include copy.html %}
+-->
+{% capture step1_rest %}
+GET /hamlet/_validate/query
+{
+  "query": {
+    "bool": {
+      "must": {
+        "query_string": {
+          "query": "*:*"
+        }
+      },
+      "filter": {
+        "term": {
+          "user.id": "hamlet"
+        }
+      }
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.validate_query(
+  index = "hamlet",
+  body =   {
+    "query": {
+      "bool": {
+        "must": {
+          "query_string": {
+            "query": "*:*"
+          }
+        },
+        "filter": {
+          "term": {
+            "user.id": "hamlet"
+          }
+        }
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example responses
@@ -107,8 +205,10 @@ If the query passes validation, then the response indicates that the query is `t
 
 If the query does not pass validation, then OpenSearch responds that the query is `false`. The following example request query includes a dynamic mapping not configured in the `hamlet` index:
 
-```json
-GET hamlet/_validate/query
+<!-- spec_insert_start
+component: example_code
+rest: GET /hamlet/_validate/query
+body: |
 {
   "query": {
     "query_string": {
@@ -117,7 +217,40 @@ GET hamlet/_validate/query
     }
   }
 }
-```
+-->
+{% capture step1_rest %}
+GET /hamlet/_validate/query
+{
+  "query": {
+    "query_string": {
+      "query": "@timestamp:foo",
+      "lenient": false
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.validate_query(
+  index = "hamlet",
+  body =   {
+    "query": {
+      "query_string": {
+        "query": "@timestamp:foo",
+        "lenient": false
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 OpenSearch responds with the following, where the `valid` parameter is `false`:
 

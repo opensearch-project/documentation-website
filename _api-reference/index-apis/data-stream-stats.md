@@ -35,44 +35,136 @@ The following table lists the available query parameters. All query parameters a
 | `pretty` | Boolean | Whether to pretty format the returned JSON response. | `false` |
 | `source` | String | The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests. | N/A |
 
-## Example
+## Example Requests
 
 Create an index template with a matching pattern and data stream enabled:
 
-```json
-PUT /_index_template/template-logs-app
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_index_template/template-logs-app
+body: |
 {
   "index_patterns": ["logs-app*"],
   "data_stream": {}
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /_index_template/template-logs-app
+{
+  "index_patterns": [
+    "logs-app*"
+  ],
+  "data_stream": {}
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_index_template(
+  name = "template-logs-app",
+  body =   {
+    "index_patterns": [
+      "logs-app*"
+    ],
+    "data_stream": {}
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Create the data stream:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_data_stream/logs-app
+-->
+{% capture step1_rest %}
 PUT /_data_stream/logs-app
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.create_data_stream(
+  name = "logs-app",
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Index a document to generate backing indexes:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /logs-app/_doc
+body: |
+{
+  "@timestamp": "2025-06-23T10:00:00Z",
+  "message": "app started"
+}
+-->
+{% capture step1_rest %}
 POST /logs-app/_doc
 {
   "@timestamp": "2025-06-23T10:00:00Z",
   "message": "app started"
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.index(
+  index = "logs-app",
+  body =   {
+    "@timestamp": "2025-06-23T10:00:00Z",
+    "message": "app started"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 Retrieve data stream stats:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_data_stream/logs-app/_stats?human=true
+-->
+{% capture step1_rest %}
 GET /_data_stream/logs-app/_stats?human=true
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.data_streams_stats(
+  name = "logs-app",
+  params = { "human": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

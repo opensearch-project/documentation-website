@@ -33,7 +33,7 @@ include_deprecated: false
 -->
 ## Query parameters
 
-The following table lists the available query parameters. All query parameters are optional.
+The following table lists the available query parameters.
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
@@ -51,10 +51,27 @@ The following table lists the available query parameters. All query parameters a
 
 The following example request lists all snapshot repositories in the cluster:
 
-```json
-GET _cat/repositories?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/repositories?v
+-->
+{% capture step1_rest %}
+GET /_cat/repositories?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.repositories(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

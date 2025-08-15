@@ -45,35 +45,60 @@ The following table lists the available request body fields.
 
 Use the following request to simulate a template without creating it:
 
-```json
-POST /_index_template/_simulate
-{
-  "index_patterns": ["log-*"],
-  "template": {
-    "settings": {
-      "number_of_shards": 1
-    },
-    "mappings": {
-      "properties": {
-        "message": {
-          "type": "text"
-        }
-      }
-    }
-  },
-  "priority": 5
-}
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: POST /_index_template/_simulate_index/logs-sim-1
+-->
+{% capture step1_rest %}
+POST /_index_template/_simulate_index/logs-sim-1
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.simulate_index_template(
+  name = "logs-sim-1",
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example request: Simulate a named template
+<!-- spec_insert_start
+component: example_code
+rest: POST /_index_template/_simulate/template_for_simulation
+-->
+{% capture step1_rest %}
+POST /_index_template/_simulate/template_for_simulation
+{% endcapture %}
 
+{% capture step1_python %}
+
+
+response = client.indices.simulate_template(
+  name = "template_for_simulation",
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 You can simulate a specific template by specifying the name of the template.
 
 First, create a template named `template_for_simulation` using the following request:
 
-```json
-PUT /_index_template/template_for_simulation
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_index_template/template_for_simulation
+body: |
 {
   "index_patterns": ["logs-sim-*"],
   "template": {
@@ -102,25 +127,137 @@ PUT /_index_template/template_for_simulation
     "owner": "Docs Team"
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /_index_template/template_for_simulation
+{
+  "index_patterns": [
+    "logs-sim-*"
+  ],
+  "template": {
+    "settings": {
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    },
+    "mappings": {
+      "properties": {
+        "timestamp": {
+          "type": "date"
+        },
+        "message": {
+          "type": "text"
+        },
+        "level": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "priority": 10,
+  "version": 1,
+  "_meta": {
+    "description": "Template used for simulation example",
+    "owner": "Docs Team"
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_index_template(
+  name = "template_for_simulation",
+  body =   {
+    "index_patterns": [
+      "logs-sim-*"
+    ],
+    "template": {
+      "settings": {
+        "number_of_shards": 1,
+        "number_of_replicas": 1
+      },
+      "mappings": {
+        "properties": {
+          "timestamp": {
+            "type": "date"
+          },
+          "message": {
+            "type": "text"
+          },
+          "level": {
+            "type": "keyword"
+          }
+        }
+      }
+    },
+    "priority": 10,
+    "version": 1,
+    "_meta": {
+      "description": "Template used for simulation example",
+      "owner": "Docs Team"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 You can now simulate the template named `template_for_simulation`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_index_template/_simulate/template_for_simulation
+-->
+{% capture step1_rest %}
 POST /_index_template/_simulate/template_for_simulation
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.simulate_template(
+  name = "template_for_simulation",
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example request: Simulate a template on a specific index
 
 Simulating a template on a specific index name is particularly useful for resolving conflicts or debugging priority issues among templates.
 The following request demonstrates how all applicable templates, with overlapping index patterns, will be applied to an index named `logs-sim-1`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_index_template/_simulate_index/logs-sim-1
+-->
+{% capture step1_rest %}
 POST /_index_template/_simulate_index/logs-sim-1
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.simulate_index_template(
+  name = "logs-sim-1",
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

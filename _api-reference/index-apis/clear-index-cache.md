@@ -52,62 +52,183 @@ The following example requests show multiple clear cache API uses.
 
 The following request clears the fields cache only:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/_cache/clear?fielddata=true
+-->
+{% capture step1_rest %}
 POST /my-index/_cache/clear?fielddata=true
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.clear_cache(
+  index = "my-index",
+  params = { "fielddata": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 <hr />
 
 The following request clears the query cache only:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/_cache/clear?query=true
+-->
+{% capture step1_rest %}
 POST /my-index/_cache/clear?query=true
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.clear_cache(
+  index = "my-index",
+  params = { "query": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 <hr />
 
 The following request clears the request cache only:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/_cache/clear?request=true
+-->
+{% capture step1_rest %}
 POST /my-index/_cache/clear?request=true
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.clear_cache(
+  index = "my-index",
+  params = { "request": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Clear the cache for specific fields
 
 The following request clears the fields caches of `fielda` and `fieldb`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/_cache/clear?fields=fielda,fieldb
+-->
+{% capture step1_rest %}
 POST /my-index/_cache/clear?fields=fielda,fieldb
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.clear_cache(
+  index = "my-index",
+  params = { "fields": "fielda,fieldb" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Clear caches for specific data streams or indexes
 
 The following request clears the cache for two specific indexes:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index,my-index2/_cache/clear
+-->
+{% capture step1_rest %}
 POST /my-index,my-index2/_cache/clear
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.clear_cache(
+  index = "my-index,my-index2"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 #### Clear caches for all data streams and indexes
 
 The following request clears the cache for all data streams and indexes:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_cache/clear
+-->
+{% capture step1_rest %}
 POST /_cache/clear
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.indices.clear_cache()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
 
 ### Clear unused entries from the cache on search-capable nodes
 
-```json
-POST /*/_cache/clear?file=true 
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: POST /*/_cache/clear?file=true
+-->
+{% capture step1_rest %}
+POST /*/_cache/clear?file=true
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.clear_cache(
+  index = "*",
+  params = { "file": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

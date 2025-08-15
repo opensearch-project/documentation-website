@@ -59,19 +59,49 @@ The following examples show how to use the cluster health API.
 
 This request waits 50 seconds for the cluster to reach the yellow status or better:
 
-```
-GET _cluster/health?wait_for_status=yellow&timeout=50s
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/health?wait_for_status=yellow&timeout=50s
+-->
+{% capture step1_rest %}
+GET /_cluster/health?wait_for_status=yellow&timeout=50s
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.health(
+  params = { "wait_for_status": "yellow", "timeout": "50s" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If the cluster health becomes yellow or green before 50 seconds elapse, it returns a response immediately. Otherwise it returns a response as soon as it exceeds the timeout.
 
 The following example request retrieves cluster health for all indexes in the cluster:
 
-```json
-GET _cluster/health
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/health
+-->
+{% capture step1_rest %}
+GET /_cluster/health
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.cluster.health()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
@@ -125,10 +155,27 @@ The following table lists all response fields.
 
 To check cluster health by awareness attribute (for example, zone or rack), specify `awareness_attributes` in the `level` query parameter:
 
-```json
-GET _cluster/health?level=awareness_attributes
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/health?level=awareness_attributes
+-->
+{% capture step1_rest %}
+GET /_cluster/health?level=awareness_attributes
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.health(
+  params = { "level": "awareness_attributes" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains cluster health metrics partitioned by awareness attribute:
 
@@ -210,10 +257,27 @@ The response contains cluster health metrics partitioned by awareness attribute:
 
 If you're interested in a particular awareness attribute, you can include the name of the awareness attribute as a query parameter:
 
-```json
-GET _cluster/health?level=awareness_attributes&awareness_attribute=zone
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/health?level=awareness_attributes&awareness_attribute=zone
+-->
+{% capture step1_rest %}
+GET /_cluster/health?level=awareness_attributes&awareness_attribute=zone
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.health(
+  params = { "level": "awareness_attributes", "awareness_attribute": "zone" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 In response to the preceding request, OpenSearch returns cluster health information only for the `zone` awareness attribute.
 
