@@ -91,6 +91,10 @@ OpenSearch supports the following dynamic cluster-level index settings:
 Before tuning thread pool settings dynamically, note that these are expert-level settings that can potentially destabilize your cluster. Modifying thread pool settings applies the same thread pool size to all nodes, so it's not recommended for clusters with different hardware for the same roles. Similarly, avoid tuning thread pools shared by both data nodes and cluster manager nodes. After making these changes, we recommend monitoring your cluster to ensure that it remains stable and performs as expected.
 {: .warning}
 
+### Updating dynamic cluster settings
+
+To learn how to update dynamic settings, see [Updating cluster settings using the API]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api).
+
 ## Index-level index settings
 
 You can specify index settings at index creation. There are two types of index settings:
@@ -165,6 +169,8 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 - `index.use_compound_file` (Boolean): This setting controls the Apache Lucene `useCompoundFile` index writer settings, which specifies whether newly written segment files will be packed into a compound file. Default is `true`.
 
 - `index.append_only.enabled` (Boolean): Set to `true` to prevent any updates to documents in the index. Default is `false`.
+
+- `index.derived_source.enabled` (Boolean): Set to `true` to dynamically generate the source without explicitly storing the `_source` field, which can optimize storage. Default is `false`. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source). 
 
 ### Updating a static index setting
 
@@ -268,6 +274,8 @@ OpenSearch supports the following dynamic index-level index settings:
 - `index.routing.allocation.total_shards_per_node` (Integer): The maximum combined total number of primary and replica shards from a single index that can be allocated to a single node. Default is `-1` (unlimited). Helps control per-index shard distribution across nodes by limiting the number of shards per node. Use with caution because shards from this index may remain unallocated if nodes reach their configured limits.
 
 - `index.routing.allocation.total_primary_shards_per_node` (Integer): The maximum number of primary shards from a single index that can be allocated to a single node. This setting is applicable only for remote-backed clusters. Default is `-1` (unlimited). Helps control per-index primary shard distribution across nodes by limiting the number of primary shards per node. Use with caution because primary shards from this index may remain unallocated if nodes reach their configured limits.
+
+- `index.derived_source.translog.enabled` (Boolean): Controls how documents are read from the translog for an index with derived source enabled. Defaults to the `index.derived_source.enabled` value. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source).
 
 ### Updating a dynamic index setting
 

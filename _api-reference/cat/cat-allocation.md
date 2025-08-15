@@ -128,7 +128,7 @@ response = client.cat.allocation(
 The following response shows that eight shards are allocated to each of the two nodes available:
 
 ```json
-shards | disk.indices | disk.used | disk.avail | disk.total | disk.percent host | ip          | node
-  8    |   989.4kb    |   25.9gb  |   32.4gb   |   58.4gb   |   44 172.18.0.4   | 172.18.0.4  | odfe-node1
-  8    |   962.4kb    |   25.9gb  |   32.4gb   |   58.4gb   |   44 172.18.0.3   | 172.18.0.3  | odfe-node2
+shards | disk.indices | disk.used | disk.avail | disk.total | disk.percent | host         | ip          | node
+  8    |   989.4kb    |   25.9gb  |   32.4gb   |   58.4gb   |   44         | 172.18.0.4   | 172.18.0.4  | odfe-node1
+  8    |   962.4kb    |   25.9gb  |   32.4gb   |   58.4gb   |   44         | 172.18.0.3   | 172.18.0.3  | odfe-node2
 ```

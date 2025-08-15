@@ -2,23 +2,28 @@
     <div class="card-container">
       {% for card in include.cards %}
         <div class="card">
-          <a href="{{ site.url }}{{ site.baseurl }}{{ card.link }}" class="card-link"></a>
-          <p class="heading">{{ card.heading }}</p>
+          {% if card.link contains 'http://' or card.link contains 'https://' %}
+            <a href="{{ card.link }}" class="card-link"></a>
+          {% else %}
+            <a href="{{ site.url }}{{ site.baseurl }}{{ card.link }}" class="card-link"></a>
+          {% endif %}
+          
+          <p class="heading">{{ card.heading }}</p>        
           {% if card.description %}
             <p class="description">{{ card.description }}</p>
           {% endif %}
           {% if card.list %}
             <ul>
-            {% for item in card.list %}
-              <li class="description">{{ item }}</li>
-            {% endfor %}  
+              {% for item in card.list %}
+                <li class="description">{{ item }}</li>
+              {% endfor %}  
             </ul>
-          {% endif %}
+          {% endif %}          
           {% if include.documentation_link %}
             <p class="last-link">Documentation &#x2192;</p>
           {% endif %}
         </div>
       {% endfor %}
     </div>
-  </div>
+</div>
   
