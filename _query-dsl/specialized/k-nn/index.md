@@ -19,7 +19,7 @@ k-NN queries can be executed using two transport protocols:
 - **HTTP/REST API**: The standard approach documented in this section.
 - **gRPC API** (Generally available 3.2): High-performance binary protocol with the [KNN (gRPC) API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/).
 
-For high-throughput vector search applications, consider using the gRPC KNN API which provides lower latency and higher throughput compared to HTTP-based queries.
+For high-throughput vector search applications, consider using the gRPC KNN API, which provides lower latency and higher throughput compared to HTTP-based queries.
 
 ## Request body fields
 

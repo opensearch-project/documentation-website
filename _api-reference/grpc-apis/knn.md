@@ -10,7 +10,7 @@ nav_order: 30
 {: .label .label-purple }
 
 
-The gRPC k-NN API is generally available starting with OpenSearch 3.2. However, expect updates to the protobuf structure as the feature matures in the next releases.
+The gRPC k-NN API is generally available starting with OpenSearch 3.2. However, expect updates to the protobuf structure as the feature matures in upcoming versions.
 
 The gRPC k-NN API provides an efficient, binary-encoded interface for performing k-nearest neighbor searches using protocol buffers over gRPC. The k-NN plugin offers a specific search query type for vector similarity searches. This API offers superior performance compared to the traditional HTTP-based approach, making it ideal for large-scale machine learning and vector database applications.
 
@@ -37,10 +37,10 @@ The gRPC k-NN API uses the [`KnnQuery`](https://github.com/opensearch-project/op
 | `field` | `string` | The vector field against which to run the search query. Required. |
 | `vector` | `repeated float` | A query vector. Must have the same number of dimensions as the vector field. Optional. |
 | `k` | `int32` | The number of nearest neighbors to return as top hits. Optional. |
-| `min_score` | `float` | The minimum similarity score for a neighbor to be considered a hit. Optional. |
-| `max_distance` | `float` | The maximum physical distance in vector space for a neighbor to be considered a hit. Optional. |
+| `min_score` | `float` | The minimum similarity score required for a neighbor to be considered a hit. Optional. |
+| `max_distance` | `float` | The maximum physical distance in vector space required for a neighbor to be considered a hit. Optional. |
 | `filter` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L341) | Filters for the k-NN search query. See [Filter limitations](#filter-limitations). Optional. |
-| `boost` | `float` | A boost value to increase or decrease relevance scores. Default is 1.0. Optional. |
+| `boost` | `float` | A boost value used to increase or decrease relevance scores. Default is 1.0. Optional. |
 | `underscore_name` | `string` | A query name for query tagging (JSON key: `_name`). Optional. |
 | `method_parameters` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L76) | Algorithm-specific parameters (for example, `ef_search` or `nprobes`). Optional. |
 | `rescore` | [`KnnQueryRescore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1107) | A rescoring configuration for improved accuracy. Available in versions later than 2.17. Optional. |
@@ -125,7 +125,7 @@ The response includes the standard search metadata (`took`, `timed_out`, and `sh
 
 The gRPC k-NN API has limited support for the `filter` clause compared to the HTTP API. For the current list of supported query types in gRPC, see the [Search API QueryContainer documentation]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/#querycontainer-fields) and [Supported queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/#supported-queries).
 
-For complex filtering requirements, consider using the HTTP k-NN API, simplifying your filter logic, or waiting for the next release of k-NN gRPC.
+For complex filtering requirements, consider using the HTTP k-NN API, simplifying your filter logic, or waiting for the next version of k-NN gRPC.
 
 
 
@@ -137,7 +137,7 @@ For complex filtering requirements, consider using the HTTP k-NN API, simplifyin
 
 ## Next steps
 
-- Learn more about [vector search in OpenSearch]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
-- Explore [k-NN index settings]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/)
-- Review [performance tuning for k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/performance-tuning/)
-- Read about [gRPC configuration]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#enabling-grpc-apis)
+- Learn more about [vector search in OpenSearch]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/).
+- Explore [k-NN index settings]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
+- Review [performance tuning for k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/performance-tuning/).
+- Read about [gRPC configuration]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#enabling-grpc-apis).

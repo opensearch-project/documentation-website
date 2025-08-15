@@ -15,7 +15,7 @@ redirect_from:
 **Bulk and k-NN search generally available 3.2**
 {: .label .label-green }
 
-Starting with OpenSearch version 3.2, the gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available. These use [protobuf version 0.6.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.6.0). However, expect updates to the protobuf structure as the feature matures in the next releases. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
+Starting with OpenSearch version 3.2, the gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available. These use [protobuf version 0.6.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.6.0). However, expect updates to the protobuf structure as the feature matures in upcoming versions. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of these features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
 {: .note}
 
 The OpenSearch gRPC functionality provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results.
@@ -31,7 +31,7 @@ The primary goal of gRPC support is to:
 Using gRPC APIs provides several advantages over HTTP APIs:
 
 - **Reduced latency**: Binary protocol buffers eliminate JSON parsing overhead.
-- **Higher throughput**: More efficient network utilization for high-frequency queries
+- **Higher throughput**: More efficient network utilization for high-frequency queries.
 - **Lower CPU usage**: Reduced serialization and deserialization costs.
 - **Type safety**: Protocol buffer schemas provide compile-time validation.
 - **Smaller payload sizes**: Binary encoding reduces network traffic.
@@ -75,10 +75,10 @@ OpenSearch supports the following advanced settings for gRPC communication. Thes
 | `grpc.publish_host` | A list of hostnames or IPs published to peers for client connections. | `["thisnode.example.com"]` | Value of `grpc.host` |
 | `grpc.netty.worker_count` | The number of Netty worker threads for the gRPC server. Controls concurrency and parallelism. | `2` | Number of processors |
 | `grpc.netty.max_concurrent_connection_calls` | The maximum number of simultaneous in-flight requests allowed per client connection. | `200` | `100` |
-| `grpc.netty.max_connection_age` | The maximum age a connection can reach before being gracefully closed. Supports time units like `ms`, `s`, `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `500ms` | Not set (no limit) |
-| `grpc.netty.max_connection_idle` | The maximum duration a connection can be idle before being closed. Supports time units like `ms`, `s`, `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `2m` | Not set (no limit) |
+| `grpc.netty.max_connection_age` | The maximum age a connection can reach before being gracefully closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `500ms` | Not set (no limit) |
+| `grpc.netty.max_connection_idle` | The maximum duration for which a connection can be idle before being closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `2m` | Not set (no limit) |
 | `grpc.netty.keepalive_timeout` | The amount of time to wait for `keepalive` ping acknowledgment before closing the connection. Supports [time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `1s` | Not set |
-| `grpc.netty.max_msg_size` | The maximum inbound message size for gRPC requests. Supports units like `b`, `kb`, `mb`, `gb`. See [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). | `10mb` or `10485760` | `10mb` |
+| `grpc.netty.max_msg_size` | The maximum inbound message size for gRPC requests. Supports units like `b`, `kb`, `mb`, or `gb`. See [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). | `10mb` or `10485760` | `10mb` |
 
 ### Example configuration
 

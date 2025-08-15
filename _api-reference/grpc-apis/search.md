@@ -141,7 +141,7 @@ The [`DerivedField`](https://github.com/opensearch-project/opensearch-protobufs/
 | `prefilter_field` | `string` | The field to use for prefiltering to optimize script execution. Optional. |
 | `properties` | `map<string, `[`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L76)`>` | Additional properties for the derived field. Optional. |
 | `ignore_malformed` | `bool` | Whether to ignore malformed values during field computation. Optional. |
-| `format` | `string` | The format to apply to the field value (for example., date formatting). Optional. |
+| `format` | `string` | The format to apply to the field value (for example, date formatting). Optional. |
 
 ### QueryContainer fields
 
