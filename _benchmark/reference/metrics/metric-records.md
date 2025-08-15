@@ -26,7 +26,7 @@ OpenSearch Benchmark stores metrics in the `benchmark-metrics-*` indexes. A new 
     "environment": "local",
     "workload": "geonames",
     "test_procedure": "append-no-conflicts",
-    "provision-config-instance": "external",
+    "cluster-config-instance": "external",
     "name": "service_time",
     "value": 607.8001195564866,
     "unit": "ms",
@@ -79,7 +79,7 @@ The timestamp of when the sample was taken since the epoch, in milliseconds. For
 ## relative-time-ms
 <!-- vale on -->
 
-The relative time since the start of the benchmark, in milliseconds. This is useful for comparing time-series graphs across multiple tests. For example, you can compare the indexing throughput over time across multiple tests. 
+The relative time since the start of the benchmark, in milliseconds. This is useful for comparing time-series graphs across multiple tests. For example, you can compare the indexing throughput over time across multiple tests.
 
 <!-- vale off -->
 ## test-execution-id
@@ -100,7 +100,7 @@ The timestamp of when the workload was invoked (always in UTC).
 The `environment` describes the origin of a metric record. This is defined when initially [configuring]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) OpenSearch Benchmark. You can use separate environments for different benchmarks but store the metric records in the same index.
 
 <!-- vale off -->
-## workload, test_procedure, provision-config-instance
+## workload, test_procedure, cluster-config-instance
 <!-- vale on -->
 
 The workload, test procedures, and configuration instances for which the metrics are produced.
@@ -127,8 +127,8 @@ The meta information for each metric record, including the following:
 - OS info: The name and version of the operating system.
 - Hostname.
 - Node name: A unique name given to each node when OpenSearch Benchmark provisions the cluster.
-- Source revision: The Git hash of the version of OpenSearch that is benchmarked. 
-- Distribution version: The distribution version of OpenSearch that is benchmarked. 
+- Source revision: The Git hash of the version of OpenSearch that is benchmarked.
+- Distribution version: The distribution version of OpenSearch that is benchmarked.
 - Custom tags: You can define custom tags by using the command line flag `--user-tags`. The tags are prefixed by `tag_` in order to avoid accidental clashes with OpenSearch Benchmark internal tags.
 - Operation specific: An optional substructure of the operation. For bulk requests, this may be the number of documents; for searches, the number of hits.
 

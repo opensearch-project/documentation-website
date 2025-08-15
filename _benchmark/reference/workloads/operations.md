@@ -10,13 +10,13 @@ nav_order: 100
 # operations
 <!-- vale on -->
 
-The `operations` element contains a list of all available operations for specifying a schedule. 
+The `operations` element contains a list of all available operations for specifying a schedule.
 
 <!-- vale off -->
 ## bulk
 <!-- vale on -->
 
-The `bulk` operation type allows you to run [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) requests as a task. 
+The `bulk` operation type allows you to run [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) requests as a task.
 
 ### Usage
 
@@ -54,10 +54,10 @@ Parameter | Required | Type | Description
 `conflicts` | No | String | Defines the type of index `conflicts` to simulate. If not specified, none are simulated. Valid values are ‘sequential’, which replaces a document ID with a sequentially increasing document ID, and ‘random’, which replaces a document ID with a random document ID.
 `conflict-probability` | No | Percentage | Defines how many of the documents are replaced when a conflict exists. Combining `conflicts=sequential` and `conflict-probability=0` makes OpenSearch Benchmark generate the index ID itself instead of using OpenSearch's automatic ID generation. Valid values are numbers between 0 and 100. Default is `25%`.
 `on-conflict` | No | String |  Determines whether OpenSearch should use the action `index` or `update` index for ID conflicts. Default is `index`, which creates a new index during ID conflicts.
-`recency` | No | Number | Uses a number between 0 and 1 to indicate recency. A recency closer to `1` biases conflicting IDs toward more recent IDs. A recency closer to 0 considers all IDs for ID conflicts. 
+`recency` | No | Number | Uses a number between 0 and 1 to indicate recency. A recency closer to `1` biases conflicting IDs toward more recent IDs. A recency closer to 0 considers all IDs for ID conflicts.
 `detailed-results` | No | Boolean | Records more detailed [metadata](#metadata) for bulk requests. As OpenSearch Benchmark analyzes the corresponding bulk response in more detail, additional overhead may be incurred, which can skew measurement results. This property must be set to `true` so that OpenSearch Benchmark logs individual bulk request failures.
 `timeout` | No | Duration | Defines the amount of time (in minutes) that OpenSearch waits per action until completing the processing of the following operations: automatic index creation, dynamic mapping updates, and waiting for active shards. Default is `1m`.
-`refresh` | No | String | Controls OpenSearch refresh behavior for bulk requests that use the `refresh` bulk API query parameter. Valid values are `true`, which refreshes target shards in the background; `wait_for`, which blocks bulk requests until affected shards have been refreshed; and `false`, which uses the default refresh behavior. 
+`refresh` | No | String | Controls OpenSearch refresh behavior for bulk requests that use the `refresh` bulk API query parameter. Valid values are `true`, which refreshes target shards in the background; `wait_for`, which blocks bulk requests until affected shards have been refreshed; and `false`, which uses the default refresh behavior.
 
 ### Metadata
 
@@ -135,7 +135,7 @@ Use the following options when creating all indexes from the `indices` section o
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `settings` | No | Array |  Specifies additional index settings to be merged with the index settings specified in the `indices` section of the workload.
-`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state. 
+`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state.
 
 Use the following options when creating a single index in the operation.
 
@@ -143,7 +143,7 @@ Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `index` | Yes | String | The index name.
 `body` | No | Request body | The request body for the Create Index API. For more information, see [Create Index API](/api-reference/index-apis/create-index/).
-`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state. 
+`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state.
 
 ### Metadata
 
@@ -193,15 +193,15 @@ Use the following options when deleting all indexes indicated in the `indices` s
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
 `only-if-exists` | No | Boolean | Decides whether an existing index should be deleted. Default is `true`.
-`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state. 
+`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state.
 
 Use the following options if you want to delete one or more indexes based on the pattern indicated in the `index` option.
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`index` | Yes | String | The index or indexes that you want to delete. 
+`index` | Yes | String | The index or indexes that you want to delete.
 `only-if-exists` | No | Boolean | Decides whether an index should be deleted when the index exists. Default is `true`.
-`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state. 
+`request-params` | No | List of settings | Contains any request parameters allowed by the Create Index API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state.
 
 ### Metadata
 
@@ -215,7 +215,7 @@ The `delete-index` operation returns the following metadata:
 ## cluster-health
 <!-- vale on -->
 
-The `cluster-health` operation runs the [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/), which checks the cluster health status and returns the expected status according to the parameters set for `request-params`. If an unexpected cluster health status is returned, then the operation reports a failure. You can use the `--on-error` option in the OpenSearch Benchmark `execute-test` command to control how OpenSearch Benchmark behaves when the health check fails.
+The `cluster-health` operation runs the [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/), which checks the cluster health status and returns the expected status according to the parameters set for `request-params`. If an unexpected cluster health status is returned, then the operation reports a failure. You can use the `--on-error` option in the OpenSearch Benchmark `run` command to control how OpenSearch Benchmark behaves when the health check fails.
 
 
 ### Usage
@@ -242,8 +242,8 @@ Use the following options with the `cluster-health` operation.
 
 Parameter | Required | Type | Description
 :--- | :--- | :--- | :---
-`index` | Yes | String | The index or indexes you want to assess. 
-`request-params` | No | List of settings | Contains any request parameters allowed by the Cluster Health API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state. 
+`index` | Yes | String | The index or indexes you want to assess.
+`request-params` | No | List of settings | Contains any request parameters allowed by the Cluster Health API. OpenSearch Benchmark does not attempt to serialize the parameters and passes them in their current state.
 
 ### Metadata
 
