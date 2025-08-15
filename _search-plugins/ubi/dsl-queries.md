@@ -95,4 +95,4 @@ GET ubi_events/_search
 ```
 {% include copy.html %}
 
-You can run the preceding queries in the OpenSearch Dashboards [Dev Tools]({{site.url}}{{site.baseurl}}/dev-tools/index-dev/) console.
+You can run the preceding queries in the OpenSearch Dashboards [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) console.
