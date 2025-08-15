@@ -6,7 +6,7 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-# Atlassian Jira source
+# Atlassian `jira` source
 
 You can use the OpenSearch Data Prepper `jira` source to ingest records from one or more [Atlassian Jira](https://www.atlassian.com/software/jira) projects.
 
