@@ -8,10 +8,7 @@ nav_order: 20
 
 # Sample UBI SQL queries
 
-You can run sample User Behavior Insights (UBI) SQL queries in the OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
-
-To access a demo query workbench with synthetic data, see 
-[http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench](http://chorus-opensearch-edition.dev.o19s.com:5601/app/opensearch-query-workbench).
+You can run sample User Behavior Insights (UBI) SQL queries via the OpenSearch Dashboards [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
 
 ## Queries with zero results
 

@@ -6,7 +6,7 @@ has_children: false
 nav_order: 10
 ---
 
-# UBI JavaScript collector
+# How to use UBI JavaScript collector
 
 UBI comes with a very basic JavaScript client that manages the life cycle of the `query_id` for a specific search and can create UBI Event data structures and store them for specific actions.
 
