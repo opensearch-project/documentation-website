@@ -122,7 +122,8 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-**Note:** The `system_prompt` parameter is required for Claude models
+The `system_prompt` parameter is required for Claude models.
+{: .note}
 
 For more information about using externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
@@ -152,8 +153,8 @@ Field | Data type | Required/Optional | Description
 `embedding_model_id` | String | Optional | The embedding model ID.
 `embedding_model_type` | String | Optional | The embedding model type. Supported types are `TEXT_EMBEDDING` and `SPARSE_ENCODING`.
 `llm_model_id` | String | Optional | The large language model (LLM) ID.
-`max_infer_size` | Integer | Optional | The maximum number of messages the LLM processes for inference in a single request. Maximum infer size cannot exceed 10.
-`memory_index_name` | String | Optional | The name of the index in which to save messages, embeddings, and inferred facts. If not specified, a default index name will be automatically generated.
+`max_infer_size` | Integer | Optional | The maximum number of messages the LLM processes for inference in a single request. Valid values are 1--9, inclusive.
+`memory_index_name` | String | Optional | The name of the index in which to save messages, embeddings, and inferred facts. If not specified, a default index is automatically generated.
 
 ## Example request
 

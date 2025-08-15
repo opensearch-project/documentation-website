@@ -80,5 +80,5 @@ The following table lists all response body fields.
 | `results`       | List      | A list of memory entries returned by the request.                                                 |
 | `results.id`    | String    | The unique identifier for the memory entry.                                                       |
 | `results.text`  | String    | If `infer` is `false`, contains the stored text from the message. If `infer` is `true`, contains the extracted fact from the message.             |
-| `results.event` | String    | The type of event for the memory entry. For the Add Agentic Memory API, `ADD` indicates that the memory was added. The type of event will always be `ADD`. |
+| `results.event` | String    | The type of event for the memory entry. For the Add Agentic Memory API, the event type is always `ADD`, indicating that the memory was added. |
 | `session_id`    | String    | The session ID associated with the memory.                                    |
