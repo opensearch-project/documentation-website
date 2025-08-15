@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Kinesis
+title: Atlassian Confluence
 parent: Sources
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 5
 ---
 
 # Atlassian Confluence source
@@ -11,11 +11,15 @@ nav_order: 45
 You can use the OpenSearch Data Prepper `confluence` source to ingest records from one or more [Atlassian Confluence](https://www.atlassian.com/software/confluence) spaces.
 
 ## Usage
-Setup Confluence project access credentials by choosing one of the following options and as an additional optional step, store those credentials in an aws secret store. If secrets store is not used to store the credentials, then plain text credentials have to provided directly in the pipeline configuration.
-- Basic Authentication (aka API key based authentication) by following the instructions [here](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/)
-- OAuth2 authentication by following the instructions [here](https://developer.atlassian.com/cloud/jira/platform/oauth-2-3lo-apps/#faq-rrt-config)
 
-The following example pipeline specifies Confluence as a source. The pipeline ingests data from multiple Confluence spaces named `space1` and `space` and apply filters to choose interested wiki content (pages and blogs) from these projects as source:
+Set up Confluence project access credentials by choosing one of the following options:
+
+- **Basic authentication** (API key authentication): Follow [these instructions](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/).
+- **OAuth2 authentication**: Follow [these instructions](https://developer.atlassian.com/cloud/jira/platform/oauth-2-3lo-apps/#faq-rrt-config).
+
+As an additional optional step, store the credentials in an AWS secret store. If you don't store the credentials in the secret store, then you must provide plain-text credentials directly in the pipeline configuration.
+
+The following example pipeline specifies `confluence` as a source. The pipeline ingests data from multiple Confluence spaces named `space1` and `space2` and applies filters to select wiki content (pages and blogs) from these projects as a source:
 
 ```yaml
 version: "2"
@@ -35,18 +39,18 @@ atlassian-confluence-pipeline:
         # Provide one of the authentication method to use. Supported methods are 'basic' and 'oauth2'.
         # For basic authentication, password is the API key that you generate using your confluence account
         basic:
-          username: ${{aws_secrets:confluence-account-credentials:username}}
-          password: ${{aws_secrets:confluence-account-credentials:password}}
+          username: {% raw %} ${{aws_secrets:confluence-account-credentials:username}} {% endraw %} 
+          password: {% raw %} ${{aws_secrets:confluence-account-credentials:password}} {% endraw %} 
           # For OAuth2 based authentication, we require the following 4 key values stored in the secret
           # Follow atlassian instructions at the following link to generate these keys
           # https://developer.atlassian.com/cloud/confluence/oauth-2-3lo-apps/
           # If you are using OAuth2 authentication, we also require, write permission to your aws secret to
           # be able to write the renewed tokens back into the secret
           # oauth2:
-          # client_id: ${{aws_secrets:confluence-account-credentials:clientId}}
-          # client_secret: ${{aws_secrets:confluence-account-credentials:clientSecret}}
-          # access_token: ${{aws_secrets:confluence-account-credentials:accessToken}}
-          # refresh_token: ${{aws_secrets:confluence-account-credentials:refreshToken}}
+          # client_id: {% raw %} ${{aws_secrets:confluence-account-credentials:clientId}} {% endraw %} 
+          # client_secret: {% raw %} ${{aws_secrets:confluence-account-credentials:clientSecret}} {% endraw %} 
+          # access_token: {% raw %} ${{aws_secrets:confluence-account-credentials:accessToken}} {% endraw %} 
+          # refresh_token: {% raw %} ${{aws_secrets:confluence-account-credentials:refreshToken}} {% endraw %} 
       filter:
         space:
           key:
@@ -66,74 +70,74 @@ atlassian-confluence-pipeline:
               # exclude:
             # - "attachment"
 ```
+{% include copy.html %}
 
 ## Configuration options
 
-The `Confluence` source supports the following configuration options.
+The `confluence` source supports the following configuration options.
 
 | Option            | Required | Type                              | Description                                                                                                                                                                                                                         |
 |:------------------|:---------|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `hosts`           | Yes      | List                              | Atlassian Confluence host name. As of now, it only supports one host, so list is expected to be of size one.                                                                                                                        |
+| `hosts`           | Yes      | List                              | The Atlassian Confluence host name. Currently, only one host is supported, so this list is expected to be of size 1.                                                                                                                        |
 | `acknowledgments` | No       | Boolean                           | When set to `true`, enables the `confluence` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks. |
-| `authentication`  | Yes      | [authentication](#Authentication) | Configures authentication method to access `confluence` source records from the given host.                                                                                                                                         |
-| `filter`          | No       | [filter](#Filter)                 | Describe specific filter criteria to apply while extracting Confluence content.                                                                                                                                                     |
+| `authentication`  | Yes      | [authentication](#Authentication) | Configures the authentication method to access `confluence` source records from the specified host.                                                                                                                                         |
+| `filter`          | No       | [filter](#Filter)                 | Applies specific filter criteria while extracting Confluence content.                                                                                                                                                     |
 
 ### Authentication
 
-You can use one the following authentication methods to access the given confluence host. Either one of them is required.
+You can use one the following authentication methods to access a Confluence host. You must provide one of the following parameters.
 
 | Option   | Required | Type              | Description                                                  |
 |:---------|:---------|:------------------|:-------------------------------------------------------------|
-| `basic`  | Yes      | [basic](#Basic)   | Basic Authentication credentials to access Confluence host.  |
-| `oauth2` | Yes      | [oauth2](#Oauth2) | OAuth2 Authentication credentials to access Confluence host. |
+| `basic`  | Yes      | [basic](#Basic)   | Basic authentication credentials to access a Confluence host.  |
+| `oauth2` | Yes      | [oauth2](#Oauth2) | OAuth2 authentication credentials to access a Confluence host. |
 
-## Basic
+#### Basic authentication
 
-Either basic or OAuth2 credentials are required to access the confluence site. If Basic is used, the following fields are mandatory.
+Either basic or OAuth2 credentials are required to access the Confluence site. If you use the `basic` authentication, the following fields are required.
 
 | Option     | Required | Type   | Description                                                                                     |
 |:-----------|:---------|:-------|:------------------------------------------------------------------------------------------------|
-| `username` | Yes      | String | It can be a String value of username or reference to secret key storing the username.           |
-| `password` | Yes      | String | It can be a String value of password (API Key) or reference to secret key storing the password. |
+| `username` | Yes      | String | A username or reference to secret key storing the username.           |
+| `password` | Yes      | String | A password (API key) or reference to secret key storing the password. |
 
-### OAuth2
+#### OAuth2 authentication
 
-Either basic or OAuth2 credentials are required to access the confluence site. If OAuth2 is used, the following fields are mandatory.
+Either basic or OAuth2 credentials are required to access the Confluence site. If you use OAuth2 is used, the following fields are required.
 
 | Option          | Required | Type   | Description                                                                                     |
 |:----------------|:---------|:-------|:------------------------------------------------------------------------------------------------|
-| `client_id`     | Yes      | String | It can be a String value of client_id or reference to secret key storing the client_id.         |
-| `client_secret` | Yes      | String | It can be a String value of client_secret or reference to secret key storing the client_secret. |
-| `access_token`  | Yes      | String | It can be a String value of access_token or reference to secret key storing the access_token.   |
-| `refresh_token` | Yes      | String | It can be a String value of refresh_token or reference to secret key storing the refresh_token. |
+| `client_id`     | Yes      | String | A `client_id` or reference to secret key storing the `client_id`.         |
+| `client_secret` | Yes      | String | A `client_secret` or reference to secret key storing the `client_secret`. |
+| `access_token`  | Yes      | String | An `access_token` or reference to secret key storing the `access_token`.   |
+| `refresh_token` | Yes      | String | A `refresh_token` or reference to secret key storing the `refresh_token`. |
 
 ### Filter
 
-Specifying filters is optional. If no filters are given, all the spaces and content visible for the given credentials will be extracted and sent to the given sink in the pipeline.
+Optionally, you can specify filters to select specific content. If no filters are specified, all the spaces and content visible for the specified credentials are extracted and sent to the specified sink in the pipeline.
 
 | Option      | Required | Type   | Description                                   |
 |:------------|:---------|:-------|:----------------------------------------------|
-| `space`     | No       | String | include or exclude list of space key.         |
-| `page_type` | No       | String | include or exclude list of page type filters. |
+| `space`     | No       | String | A list of space keys to include or exclude.         |
+| `page_type` | No       | String | Alist of page type filters to include or exclude. |
 
-### aws secrets
+### AWS secrets
 
-You can use the following options in the `aws` secrets configuration if you plan to store the credentials in a secret. Storing secrets in AWS secrets store is optional. If secret store is not used, credentials have to be given in the pipeline yaml itself, in plain text.
-If OAuth2 authentication is used in combination with aws secrets, this source requires write permission to the secret to be able to write back the updated (or renewed) access token once it is expired.
+You can use the following options in the `aws` secrets configuration if you plan to store the credentials in a secret. Storing secrets in AWS secrets store is optional. If secret store is not used, credentials must be specified in the pipeline YAML itself, in plain text.
+
+If OAuth2 authentication is used in combination with `aws` secrets, this source requires write permissions to the secret to be able to write back the updated (or renewed) access token once the current token expires.
 
 | Option         | Required | Type   | Description                                                                                                                                                                                                                                                                                    |
 |:---------------|:---------|:-------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `region`       | yes      | String | Sets the AWS Region to use for credentials. Defaults to the [standard SDK behavior for determining the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).                                                                                         |
-| `sts_role_arn` | yes      | String | Defines the AWS Security Token Service (AWS STS) role to assume for requests to Amazon Kinesis Data Streams and Amazon DynamoDB. Defaults to `null`, which uses the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html). |
-| `secret_id`    | yes      | Map    | AWS Secret ARN of the secret that where the credentials are stored.                                                                                                                                                                                                                            |
+| `region`       | Yes      | String | The AWS Region to use for credentials. Defaults to the [standard SDK behavior for determining the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).                                                                                         |
+| `sts_role_arn` | Yes      | String | The AWS Security Token Service (AWS STS) role to assume for requests to Atlassian Confluence. Defaults to `null`, which uses the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html). |
+| `secret_id`    | Yes      | Map    | The AWS Secret ARN of the secret that where the credentials are stored.                                                                                                                                                                                                                            |
 
 ## Metrics
 
-The `confluence` source includes the following metrics.
+The `confluence` source includes the following metrics (counters):
 
-### Counters
-
-* `crawlingTime`: The time it took to crawl through all the new changes in the Confluence.
-* `pageFetchLatency`: Page fetching API latency time.
-* `searchCallLatency`: Search API latency time.
-* `searchResultsFound`: Number of pages found in a given search API call.
+* `crawlingTime`: The amount of time taken to crawl through all the new changes in Confluence.
+* `pageFetchLatency`: The page fetch API operation latency.
+* `searchCallLatency`: The search API operation latency.
+* `searchResultsFound`: The number of pages found in a specified search API call.
