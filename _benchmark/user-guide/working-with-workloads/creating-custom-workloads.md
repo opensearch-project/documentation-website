@@ -76,9 +76,9 @@ Extracting documents for index [movies]...                    2000/2000 docs [10
 
 [INFO] Workload movies has been created. Run it with: opensearch-benchmark --workload-path=/Users/hoangia/Desktop/workloads/movies
 
--------------------------------
+-----------------------------------
 [INFO] ✅ SUCCESS  (took 2 seconds)
--------------------------------
+-----------------------------------
 ```
 
 As part of workload creation, OpenSearch Benchmark generates the following files. You can access them in the directory specified by the `--output-path` option.

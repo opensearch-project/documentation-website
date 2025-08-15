@@ -71,7 +71,7 @@ Defines a unique ID for the test run.
 
 Defines a comma-separated list of test procedure tasks to run. By default, all tasks listed in a test procedure array are run.
 
-Tests are executed in the order they are defined in `test-procedure`---not in the order they are defined in the command.
+Tasks are run in the order they are defined in `test-procedure`---not in the order they are defined in the command.
 
 All task filters are case sensitive.
 

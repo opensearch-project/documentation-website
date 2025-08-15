@@ -37,7 +37,7 @@ items:
 
 # OpenSearch Benchmark
 
-OpenSearch Benchmark (OSB) `2.0` is now live 🎉! This documentation reflects the terminology updates seen in OSB `2.X`. `1.15` is the last supported version in the `1.X` series. For more details on what's changed, please see this [documentation]({{site.url}}{{site.baseurl}}/benchmark/change/). For migration assistance, see this page.
+OpenSearch Benchmark (OSB) `2.0` is now live 🎉! This documentation reflects the terminology updates seen in OSB `2.X`. `1.15` is the last supported version in the `1.X` series. For more details on what's changed, please see [the version history page]({{site.url}}{{site.baseurl}}/benchmark/version-history/). For migration assistance, see [the migration assistance page]({{site.url}}{{site.baseurl}}/benchmark/version-history/).
 {: .important }
 
 OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Project](https://github.com/opensearch-project). You can use OpenSearch Benchmark to gather performance metrics from an OpenSearch cluster for a variety of purposes, including:

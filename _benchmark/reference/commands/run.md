@@ -16,7 +16,7 @@ Whether you're using the included [OpenSearch Benchmark workloads](https://githu
 
 ## Usage
 
-The following example executes a test using the `geonames` workload in test mode:
+The following example runs a test using the `geonames` workload in test mode:
 
 ```
 opensearch-benchmark run --workload=geonames --test-mode
