@@ -75,7 +75,7 @@ var event = new UbiEvent(
 The method `getQueryId()` refers to a helper method to generate a unique query id (and stores it in the session).  
 Here is a sample method:
 
-```
+```js
 function generateQueryId(){
   const query_id = generateGuid();
   sessionStorage.setItem('query_id', query_id);
