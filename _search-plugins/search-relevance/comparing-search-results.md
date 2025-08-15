@@ -1,17 +1,13 @@
 ---
 layout: default
 title: Comparing search results
-nav_order: 10
-parent: Using Search Relevance Workbench
+nav_order: 11
+parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: true
-has_toc: false
 ---
 
 # Comparing search results
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).    
-{: .warning}
 
 Comparing search results, also called a _pairwise experiment_, in OpenSearch Dashboards allows you to compare results of multiple search configurations. Using this tool helps assess how results change when applying different search configurations to queries.
 
