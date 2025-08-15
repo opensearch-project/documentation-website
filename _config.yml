@@ -55,9 +55,6 @@ collections:
     output: true
   ml-commons-plugin:
     permalink: /:collection/:path/
-    output: true  
-  tuning-your-cluster:
-    permalink: /:collection/:path/
     output: true
   monitoring-your-cluster:
     permalink: /:collection/:path/

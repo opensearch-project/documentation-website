@@ -29,9 +29,9 @@ OpenSearch supports the following snapshot settings:
 
 For security-related snapshot settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
 
-### File system settings
+### Shared file system
 
-For information about file system settings, see [Shared file system]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
+For information about using a shared file system, see [Shared file system]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
 
 ### Amazon S3 settings
 

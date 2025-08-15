@@ -16,6 +16,10 @@ tutorial_cards:
   - heading: "Generate embeddings automatically"
     description: "Streamline your vector search using OpenSearch's built-in embedding generation"
     link: "/vector-search/getting-started/auto-generated-embeddings/"
+demo_cards:
+  - heading: "Explore AI search and RAG demos"
+    description: "Try interactive Hugging Face demos showcasing AI search, multimodal RAG, and agentic RAG"
+    link: "https://huggingface.co/spaces/opensearch-project/OpenSearch-AI"
 more_cards:
   - heading: "AI search"
     description: "Discover AI search, from <b>semantic</b>, <b>hybrid</b>, and <b>multimodal</b> search to <b>RAG</b>"
@@ -1130,6 +1134,10 @@ DELETE /neural_search_pqa
 {% include copy-curl.html %}
 
 </details>
+
+## Interactive demos
+
+{% include cards.html cards=page.demo_cards %}
 
 ## Getting started
 
