@@ -20,7 +20,7 @@ When computing aggregations on a given field, each Lucene segment assigns a uniq
 
 If the field has the mapping parameter `"eager_global_ordinals": true`, which defaults to `false`, global ordinals are computed and stored at index refresh rather than lazily at query time.
 
-For more information about global ordinals, see [Eager global ordinals]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/eager-global-ordinals).
+For more information about global ordinals, see [Eager global ordinals]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/eager-global-ordinals/).
 
 ## Best practices
 
