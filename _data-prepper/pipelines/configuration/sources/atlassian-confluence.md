@@ -11,7 +11,7 @@ nav_order: 45
 You can use the OpenSearch Data Prepper `confluence` source to ingest records from one or more [Atlassian Confluence](https://www.atlassian.com/software/confluence) spaces.
 
 ## Usage
-Setup Confluence project access credentials by choosing one of the below options and as an additional optional step, store those credentials in an aws secret store. If secrets store is not used to store the credentials, then plain text credentials have to provided directly in the pipeline configuration.
+Setup Confluence project access credentials by choosing one of the following options and as an additional optional step, store those credentials in an aws secret store. If secrets store is not used to store the credentials, then plain text credentials have to provided directly in the pipeline configuration.
 - Basic Authentication (aka API key based authentication) by following the instructions [here](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/)
 - OAuth2 authentication by following the instructions [here](https://developer.atlassian.com/cloud/jira/platform/oauth-2-3lo-apps/#faq-rrt-config)
 
@@ -38,7 +38,7 @@ atlassian-confluence-pipeline:
           username: ${{aws_secrets:confluence-account-credentials:username}}
           password: ${{aws_secrets:confluence-account-credentials:password}}
           # For OAuth2 based authentication, we require the following 4 key values stored in the secret
-          # Follow atlassian instructions at the below link to generate these keys
+          # Follow atlassian instructions at the following link to generate these keys
           # https://developer.atlassian.com/cloud/confluence/oauth-2-3lo-apps/
           # If you are using OAuth2 authentication, we also require, write permission to your aws secret to
           # be able to write the renewed tokens back into the secret
