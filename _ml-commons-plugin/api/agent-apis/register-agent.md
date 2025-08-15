@@ -26,7 +26,6 @@ For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-
 ```json
 POST /_plugins/_ml/agents/_register
 ```
-{% include copy-curl.html %}
 
 ## Request body fields
 
