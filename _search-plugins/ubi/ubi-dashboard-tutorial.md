@@ -11,7 +11,7 @@ nav_order: 25
 
 Whether you've been collecting user events and queries for a while or [you've uploaded some sample events](https://github.com/o19s/chorus-OpenSearch-edition/blob/main/katas/003_import_preexisting_event_data.md), you're now ready to visualize the data collected through User Behavior Insights (UBI) in a dashboard in OpenSearch.
 
-> This tutorial is a nice way to learn how to make custom Dashboards.
+> This tutorial is a nice way to learn how to make custom dashboards.
 
 To quickly view a dashboard without completing the full tutorial, do the following:
 1. Download and save the [sample UBI dashboard]({{site.url}}{{site.baseurl}}/assets/examples/ubi-dashboard.ndjson).
@@ -60,7 +60,7 @@ Save the visualization so that it's added to your new dashboard. Now that you ha
 
 Now you'll add a word cloud for trending searches by creating a new visualization, similarly to the previous step.  
 
-In the **New Visualization** window, select **Tag Cloud**, and then select the index pattern you created in step 2. Choose the tag cloud visualization of the terms in the `message` field where the JavaScript client logs the raw search text. Note: The true query, as processed by OpenSearch with filters, boosting, and so on, resides in the `ubi_queries` index. However, you'll view the `message` field of the `ubi_events` index, where the JavaScript client captures the text that the user actually typed.
+In the **New Visualization** window, select **Tag Cloud**, and then select the index pattern you created in Step 2. Choose the tag cloud visualization of the terms in the `message` field where the JavaScript client logs the raw search text. Note: The true query, as processed by OpenSearch with filters, boosting, and so on, resides in the `ubi_queries` index. However, you'll view the `message` field of the `ubi_events` index, where the JavaScript client captures the text that the user actually typed.
 
 The following image shows the tag cloud visualization on the `message` field.
 ![Word Cloud]({{site.url}}{{site.baseurl}}/images/ubi/tag_cloud1.png)
@@ -78,7 +78,7 @@ There should now be two visualizations (the pie chart and the tag cloud) display
 
 ## 5. Add a histogram of item clicks
 
-Now you'll add a histogram visualization to your dashboard, similarly to the previous step. In the **New Visualization** window, select **Vertical Bar**. Then select the index pattern you created in step 2.
+Now you'll add a histogram visualization to your dashboard, similarly to the previous step. In the **New Visualization** window, select **Vertical Bar**. Then select the index pattern you created in Step 2.
 
 Examine the `event_attributes.position.ordinal` data field. This field contains the position of the item in a list selected by the user. For the histogram visualization, the x-axis represents the ordinal number of the selected item (n). The y-axis represents the number of times that the nth item was clicked, as shown in the following image.
 

@@ -21,12 +21,12 @@ Client applications such as web pages or apps capture user behavior and send UBI
 In principle, queries sent to the server and results returned by the server can be sent to the UBI endpoint from the client. But as an optimization, they can instead be sent directly to the UBI endpoint from the server, without incurring a round-trip to the client. That is the function of the UBI plugin and is not a requirement to adopt UBI.
 
 
-> “how our users are using our product, whether search results were useful for them and whether they clicked on top-n results we gave and all related stuff” - Data Scientist working Search.
+> "how our users are using our product, whether search results were useful for them and whether they clicked on top-n results we gave and all related stuff" -- Data scientist working on search.
 
 UBI includes the following elements:
 * A machine-readable [schema](https://github.com/o19s/ubi) that facilitates interoperability of the UBI specification.
-* [ubi.js](https://github.com/opensearch-project/user-behavior-insights/tree/main/ubi-javascript-collector/ubi.js): a (optional!) clientside JavaScript library for capturing searches and events.
-* An (optional!) OpenSearch [plugin](https://github.com/opensearch-project/user-behavior-insights) that streamlines the recording of query data.
+* [ubi.js](https://github.com/opensearch-project/user-behavior-insights/tree/main/ubi-javascript-collector/ubi.js): An (optional) client-side JavaScript library for capturing searches and events.
+* An (optional) OpenSearch [plugin](https://github.com/opensearch-project/user-behavior-insights) that streamlines the recording of query data.
 
 Advanced features in OpenSearch, such as the [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/) and the [Hybrid Search Optimizer]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/), build on the data collected according to the UBI specification.
 
