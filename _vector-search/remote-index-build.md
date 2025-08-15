@@ -17,7 +17,7 @@ The remote index build service supports [Faiss]({{site.url}}{{site.baseurl}}/fie
 
 Introduced 3.2 
 {: .label .label-purple }
-Since 3.2, the `hnsw` method with [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) supports 16-bit floating-point (`FP16`), byte, and binary vectors.
+As of OpenSearch 3.2, the `hnsw` method with [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) supports 16-bit floating-point (`FP16`), byte, and binary vectors.
 With the `hnsw` method and the [Faiss]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) engine, all compression levels (2×, 8×, 16×, 32×) are supported for remote indexes.
 
 
