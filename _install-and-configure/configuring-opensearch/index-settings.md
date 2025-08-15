@@ -93,7 +93,7 @@ Before tuning thread pool settings dynamically, note that these are expert-level
 
 ### Updating dynamic cluster settings
 
-Updating dynamic settings example is available in [Update cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/#update-cluster-setting).
+To learn how to update dynamic settings, see [Updating cluster settings using the API]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api).
 
 ## Index-level index settings
 
