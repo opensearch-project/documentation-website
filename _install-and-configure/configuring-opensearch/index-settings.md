@@ -91,6 +91,10 @@ OpenSearch supports the following dynamic cluster-level index settings:
 Before tuning thread pool settings dynamically, note that these are expert-level settings that can potentially destabilize your cluster. Modifying thread pool settings applies the same thread pool size to all nodes, so it's not recommended for clusters with different hardware for the same roles. Similarly, avoid tuning thread pools shared by both data nodes and cluster manager nodes. After making these changes, we recommend monitoring your cluster to ensure that it remains stable and performs as expected.
 {: .warning}
 
+### Updating dynamic cluster settings
+
+To learn how to update dynamic settings, see [Updating cluster settings using the API]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api).
+
 ## Index-level index settings
 
 You can specify index settings at index creation. There are two types of index settings:
