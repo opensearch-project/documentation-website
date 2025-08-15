@@ -153,7 +153,7 @@ Field | Data type | Required/Optional | Description
 `embedding_model_id` | String | Optional | The embedding model ID.
 `embedding_model_type` | String | Optional | The embedding model type. Supported types are `TEXT_EMBEDDING` and `SPARSE_ENCODING`.
 `llm_model_id` | String | Optional | The large language model (LLM) ID.
-`max_infer_size` | Integer | Optional | The maximum number of messages the LLM processes for inference in a single request. Valid values are 1--9, inclusive.
+`max_infer_size` | Integer | Optional | The maximum number of messages the LLM processes for inference in a single request. Valid values are 1--9, inclusive. Default is 5.
 `memory_index_name` | String | Optional | The name of the index in which to save messages, embeddings, and inferred facts. If not specified, a default index is automatically generated.
 
 ## Example request
