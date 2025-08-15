@@ -114,7 +114,7 @@ Either basic or OAuth2 credentials are required to access the Confluence site. I
 
 ### Filter
 
-Optionally, you can specify filters to select specific content. If no filters are specified, all the spaces and content visible for the specified credentials are extracted and sent to the specified sink in the pipeline. The following filter options are available to select specific content from Confluence.
+Optionally, you can specify filters to select specific content, shown in the following table. If no filters are specified, all the spaces and content visible for the specified credentials are extracted and sent to the specified sink in the pipeline.
 
 | Option      | Required | Type   | Description                                   |
 |:------------|:---------|:-------|:----------------------------------------------|
@@ -123,7 +123,7 @@ Optionally, you can specify filters to select specific content. If no filters ar
 
 ### AWS secrets
 
-You can use the following options in the `aws` secrets configuration if you plan to store the credentials in AWS Secrets Manager. Storing secrets in AWS secrets Manager is optional. If AWS Secrets Manager is not used, credentials must be specified in the pipeline YAML itself, in plain text.
+You can use the following options in the `aws` secrets configuration if you plan to store the credentials in AWS Secrets Manager. Storing secrets in AWS Secrets Manager is optional. If AWS Secrets Manager is not used, credentials must be specified in the pipeline YAML itself, in plain text.
 
 If OAuth2 authentication is used in combination with `aws` secrets, this source requires write permissions to AWS Secrets Manager to be able to write back the updated (or renewed) access token once the current token expires.
 
