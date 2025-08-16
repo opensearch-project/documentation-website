@@ -3,7 +3,7 @@ layout: default
 title: Installing
 nav_order: 5
 grand_parent: User guide
-parent: Install and configure
+parent: Install and configure OpenSearch Benchmark
 redirect_from:
   - /benchmark/installing-benchmark/
   - /benchmark/user-guide/installing-benchmark/
@@ -138,21 +138,32 @@ docker run opensearchproject/opensearch-benchmark -h
 ```
 {% include copy.html %}
 
-
 ### Establishing volume persistence in a Docker container
 
-To make sure your benchmark data and logs persist after your Docker container stops, specify a Docker volume to mount to the image when you work with OpenSearch Benchmark.
+To ensure that your benchmark data and logs persist after your Docker container stops, you must mount a local directory as a volume when running OpenSearch Benchmark in Docker.
 
 Use the `-v` option to specify a local directory to mount and a directory in the container where the volume is attached.
 
-The following example command creates a volume in a user's home directory, mounts the volume to the OpenSearch Benchmark container at `/opensearch-benchmark/.benchmark`, and then runs a test benchmark using the geonames workload. Some client options are also specified:
+The following example mounts a volume from the user's home directory to the OpenSearch Benchmark container's default benchmark data path at `/opensearch-benchmark/.benchmark` and then runs a test benchmark using the `geonames` workload:
 
 ```bash
 docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark execute-test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
 {% include copy.html %}
 
-See [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) to learn more about the files and subdirectories located in `/opensearch-benchmark/.benchmark`.
+By default, the OpenSearch Benchmark container runs as the `benchmark` user with a home directory of `/opensearch-benchmark`, so `$HOME/.benchmark` resolves to `/opensearch-benchmark/.benchmark`.
+{: .note}
+
+#### Running OpenSearch Benchmark as the root user
+
+If you run the container as the `root` user, then the effective home directory becomes `/root`, and the benchmark path becomes `/root/.benchmark`. In this case, specify the volume mount accordingly:
+
+```bash
+docker run -v $HOME/benchmarks:/root/.benchmark opensearchproject/opensearch-benchmark execute-test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
+```
+{% include copy.html %}
+
+To learn more about the files and subdirectories located in `/opensearch-benchmark/.benchmark`, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
 
 ## Provisioning an OpenSearch cluster with a test
 

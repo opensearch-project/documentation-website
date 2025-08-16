@@ -518,7 +518,7 @@ GET /my-nlp-index/_mapping
 ```
 {% include copy-curl.html %}
 
-An object field named `passage_text_semantic_info` is automatically created. It includes a `ran_features` subfield for storing the embedding, along with additional text fields for capturing model metadata.
+An object field named `passage_text_semantic_info` is automatically created. It includes a `rank_features` subfield for storing the embedding, along with additional text fields for capturing model metadata.
 
 ### Step 3: Ingest documents into the index
 

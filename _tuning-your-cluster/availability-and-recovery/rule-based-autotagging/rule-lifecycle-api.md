@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Rule Lifecycle API
+title: Rules API
 nav_order: 20
-parent: Rule based autotagging
+parent: Rule-based auto-tagging
 grand_parent: Availability and recovery
 ---
 
-# Rule Lifecycle API
+# Rules API
 
-The Rule Lifecycle API allows you to create, update, retrieve, and delete rules. Each rule is associated with a specific feature type and contains a feature value and at least one attribute.
+The Rules API allows you to create, update, retrieve, and delete rules. Each rule is associated with a specific feature type and contains a feature value and at least one attribute.
 These rules are designed to automatically assign feature values to incoming queries based on the specified attributes, helping to categorize and manage queries automatically.
 
 ## Endpoints
@@ -81,7 +81,7 @@ The following table lists the fields available in the request body.
 
 ## Example requests
 
-The following example demonstrates how to use the Rule Lifecycle API to create a rule.
+The following example demonstrates how to use the Rules API to create a rule.
 
 ### Create a rule
 
@@ -114,7 +114,7 @@ PUT _rules/workload_group/0A6RULxkQ9yLqn4r8LPrIg
 You can't change the `feature_type`. Fields that are not updated can be omitted.
 {: .note }
 
-### Get a rule
+### Retrieve a rule
 
 The following request retrieves a rule by ID:
 
@@ -143,7 +143,7 @@ To retrieve the next page, send another request to the same endpoint using the s
 The following example continues the search for all rules of the `workload_group` feature type where the `index_pattern` attribute contains the values `a` or `b`:
 
 ```json
-"GET /_rules/workload_group?index_pattern=a,b&search_after=z1MJApUB0zgMcDmz-UQq"
+GET /_rules/workload_group?index_pattern=a,b&search_after=z1MJApUB0zgMcDmz-UQq
 ```
 {% include copy-curl.html %}
 

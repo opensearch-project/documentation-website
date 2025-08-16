@@ -1,8 +1,8 @@
 title: OpenSearch Documentation
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation for OpenSearch, the Apache 2.0 search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
-baseurl: "/docs/latest" # The subpath of the current version. This is version-specific. For example, for 2.19, the base URL is /docs/2.19.
-latesturl: "/docs/latest" # The subpath of the latest version. Used for non-version-specific documentation, like Data Prepper, etc.
+baseurl: "/latest" # The subpath of the current version. This is version-specific. For example, for 2.19, the base URL is /docs/2.19.
+latesturl: "/latest" # The subpath of the latest version. Used for non-version-specific documentation, like Data Prepper, etc.
 url: "https://docs.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
@@ -55,9 +55,6 @@ collections:
     output: true
   ml-commons-plugin:
     permalink: /:collection/:path/
-    output: true  
-  tuning-your-cluster:
-    permalink: /:collection/:path/
     output: true
   monitoring-your-cluster:
     permalink: /:collection/:path/
@@ -87,6 +84,9 @@ collections:
     permalink: /:collection/:path/
     output: true
   data-prepper: 
+    permalink: /:collection/:path/
+    output: true
+  migrate-or-upgrade:
     permalink: /:collection/:path/
     output: true
   migration-assistant:
@@ -142,7 +142,10 @@ opensearch_collection:
       name: Tutorials
       nav_fold: true
     install-and-configure:
-      name: Install and upgrade
+      name: Install and configure
+      nav_fold: true
+    migrate-or-upgrade:
+      name: Migrate or upgrade
       nav_fold: true
     tuning-your-cluster:
       name: Creating and tuning your cluster
@@ -218,7 +221,7 @@ clients_collection:
 migration_assistant_collection:
   collections:
     migration-assistant:
-        name: Migration Assistant
+        name: Migration Assistant for OpenSearch
         nav_fold: true
 
 benchmark_collection:
@@ -265,7 +268,7 @@ defaults:
       path: "_migration-assistant"
     values:
       section: "migration-assistant"
-      section-name: "Migration Assistant"
+      section-name: "Migration Assistant for OpenSearch"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.

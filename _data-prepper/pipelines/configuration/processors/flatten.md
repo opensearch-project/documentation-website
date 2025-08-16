@@ -1,12 +1,12 @@
 ---
 layout: default
-title: flatten 
+title: Flatten 
 parent: Processors
 grand_parent: Pipelines
-nav_order: 48
+nav_order: 140
 ---
 
-# flatten
+# Flatten processor
 
 The `flatten` processor transforms nested objects inside of events into flattened structures. 
 

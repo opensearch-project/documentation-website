@@ -1,0 +1,33 @@
+{% assign scenarios = include.scenarios %}
+
+{% for scenario in scenarios %}
+<div class="scenario-container" id="scenario-{{ forloop.index }}">
+  <div class="scenario-title">{{ scenario.title }}</div>
+  
+  <ol>
+    {% for step in scenario.steps %}
+      <li>
+        {% if step.url %}
+          <a href="{{ site.url }}{{ site.baseurl }}{{ step.url }}">{{ step.title }}</a>
+        {% else %}
+          {{ step.title }}
+        {% endif %}
+        
+        {% if step.substeps %}
+          <ul>
+            {% for substep in step.substeps %}
+              <li>
+                {% if substep.url %}
+                  <a href="{{ site.url }}{{ site.baseurl }}{{ substep.url }}">{{ substep.title }}</a>
+                {% else %}
+                  {{ substep.title }}
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+</div>
+{% endfor %}

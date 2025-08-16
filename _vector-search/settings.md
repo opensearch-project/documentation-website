@@ -16,7 +16,7 @@ The following table lists all available cluster-level vector search settings. Fo
 
 Setting | Static/Dynamic | Default | Description
 :--- | :--- | :--- | :---
-`knn.algo_param.index_thread_qty` | Dynamic | `1` | The number of threads used for native library and Lucene library (for OpenSearch version 2.19 and later) index creation. Keeping this value low reduces the CPU impact of the k-NN plugin but also reduces indexing performance.
+`knn.algo_param.index_thread_qty` | Dynamic |  `1` for systems with fewer than 32 CPU cores, `4` for systems with 32 or more cores | The number of threads used for native library and Lucene library (for OpenSearch version 2.19 and later) index creation. Keeping this value low reduces the CPU impact of the k-NN plugin but also reduces indexing performance.
 `knn.cache.item.expiry.enabled` | Dynamic | `false` | Whether to remove native library indexes from memory that have not been accessed in a specified period of time.
 `knn.cache.item.expiry.minutes` | Dynamic | `3h` | If enabled, the amount of idle time before a native library index is removed from memory.
 `knn.circuit_breaker.unset.percentage` | Dynamic | `75` | The native memory usage threshold for the circuit breaker. Memory usage must be lower than this percentage of `knn.memory.circuit_breaker.limit` in order for `knn.circuit_breaker.triggered` to remain `false`.
@@ -98,3 +98,23 @@ The remote build service username and password are secure settings that must be 
 {% include copy.html %}
 
 You can reload the secure settings without restarting the node by using the [Nodes Reload Secure Setings API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/).
+
+## Neural Search plugin settings
+
+The Neural Search plugin supports the following settings.
+
+### Cluster settings
+
+The following Neural Search plugin settings apply at the cluster level:
+
+- `plugins.neural_search.stats_enabled` (Dynamic, Boolean): Enables the [Neural Search Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#stats). Default is `false`.
+
+### Index settings
+
+The following Neural Search plugin settings apply at the index level:
+
+- `index.neural_search.semantic_ingest_batch_size` (Dynamic, integer): Specifies the number of documents batched together when generating embeddings for `semantic` fields during ingestion. Default is `10`. 
+
+<p id="hybrid-collapse-docs-per-group"></p>
+
+- `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` (Dynamic, integer): Controls how many documents are stored per group per subquery. By default, the value is set to the `size` parameter specified in the query. Lower values prioritize latency, while higher values increase recall. Valid values are `0`--`1000`, inclusive. A value of `0` uses the `size` parameter from the query, not zero documents.

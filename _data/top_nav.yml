@@ -40,18 +40,18 @@ items:
       - label: Members
         url: https://opensearch.org/authors-list/
   - label: Documentation
-    url: https://docs.opensearch.org/docs/latest/
+    url: https://docs.opensearch.org/latest/
     children:
       - label: OpenSearch and Dashboards
-        url: https://docs.opensearch.org/docs/latest/about/
+        url: https://docs.opensearch.org/latest/about/
       - label: Data Prepper
-        url: https://docs.opensearch.org/docs/latest/data-prepper/
+        url: https://docs.opensearch.org/latest/data-prepper/
       - label: Clients
-        url: https://docs.opensearch.org/docs/latest/clients/
+        url: https://docs.opensearch.org/latest/clients/
       - label: Benchmark
-        url: https://docs.opensearch.org/docs/latest/benchmark/
+        url: https://docs.opensearch.org/latest/benchmark/
       - label: Migration Assistant
-        url: https://docs.opensearch.org/docs/latest/migration-assistant/
+        url: https://docs.opensearch.org/latest/migration-assistant/
   - label: Blog
     url: https://opensearch.org/blog/
   - label: Download
