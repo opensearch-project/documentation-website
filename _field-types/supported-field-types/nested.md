@@ -310,7 +310,7 @@ The following table lists the parameters accepted by object field types. All par
 
 Parameter | Description 
 :--- | :--- 
-[`dynamic`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object#the-dynamic-parameter) | Specifies whether new fields can be dynamically added to the object. Valid values are `true`, `false`, `strict`, and `strict_allow_templates`. Default is `true`.
+[`dynamic`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object#the-dynamic-parameter) | Specifies whether new fields can be dynamically added to the object. Valid values are `true`, `false`, `strict`, `strict_allow_templates`, and `false_allow_templates`. Default is `true`.
 `include_in_parent` | A Boolean value that specifies whether all fields in the child nested object should also be added to the parent document in flattened form. Default is `false`.
 `include_in_root` | A Boolean value that specifies whether all fields in the child nested object should also be added to the root document in flattened form. Default is `false`.
 `properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to `true`.
