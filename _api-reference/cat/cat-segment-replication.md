@@ -34,7 +34,7 @@ include_deprecated: false
 -->
 ## Path parameters
 
-The following table lists the available path parameters. All path parameters are optional.
+The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
@@ -51,7 +51,7 @@ include_deprecated: false
 -->
 ## Query parameters
 
-The following table lists the available query parameters. All query parameters are optional.
+The following table lists the available query parameters.
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
