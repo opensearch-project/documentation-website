@@ -85,9 +85,35 @@ You need to have a bucket alredy created that you can write the queries and even
 
 ### Required Permissions
 
-To complete this tutorial, your user or role must have an attached identity-based policy with the following minimum permissions. These permissions allow you to create a pipeline role and attach a policy (iam:Create* and iam:Attach*), create or modify a domain (es:*), and work with pipelines (osis:*).
+To complete this tutorial, your user or role must have an attached identity-based policy with the following minimum permissions. These permissions allow you to create a pipeline role and attach a policy (`iam:Create*` and `iam:Attach*`), create or modify a domain (`es:*`), and work with pipelines (`osis:*`).
 
 ```json
+{
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "Effect":"Allow",
+         "Resource":"*",
+         "Action":[
+            "osis:*",
+            "iam:Create*",
+            "iam:Attach*",
+            "es:*"
+         ]
+      },
+      {
+         "Resource":[
+            "arn:aws:iam::111122223333:role/OpenSearchIngestion-PipelineRole"
+         ],
+         "Effect":"Allow",
+         "Action":[
+            "iam:CreateRole",
+            "iam:AttachRolePolicy",
+            "iam:PassRole"
+         ]
+      }
+   ]
+}
 ```
 
 We expect your *DataPrepperOpenSearchRole* to have permissions similar to:
