@@ -143,9 +143,9 @@ We expect your *DataPrepperOpenSearchRole* to have permissions similar to:
 }
 ```
 
-### Create a Pipeline
+### Create a Pipeline for Query data
 
-Now you can create a pipeline.   __This is inspired by https://docs.aws.amazon.com/opensearch-service/latest/developerguide/osis-get-started.html__
+Now you can create a pipeline for the UBI Query data.
 
 1. Within the Amazon OpenSearch Service console, choose **Pipelines** from the left navigation pane.
 
@@ -250,6 +250,48 @@ If you are feeling impatient you can force the newly written data to be visible 
 
 ```
 POST ubi_queries/_refresh
+```
+
+### Create a Pipeline for Event data
+
+Repeat the steps above, but this time for UBI Event data. Use the following table to replace query-specific values with their event equivalents:
+
+| Query Pipeline Setting | Event Pipeline Setting |
+|------------------------|------------------------|
+| Path: `/ubi/queries` | Path: `/ubi/events` |
+| Index name: `ubi_queries` | Index name: `ubi_events` |
+| Pipeline name: `ubi-queries-pipeline` | Pipeline name: `ubi-events-pipeline` |
+| S3 path prefix pattern: `ubi_queries/` | S3 path prefix pattern: `ubi_events/` |
+| Dev Tools search: `GET ubi_queries/_search` | Dev Tools search: `GET ubi_events/_search` |
+| Refresh command: `POST ubi_queries/_refresh` | Refresh command: `POST ubi_events/_refresh` |
+
+Here is an example of posting a query using [awscurl](https://github.com/okigan/awscurl):
+
+```
+awscurl --service osis --region us-east-1 \
+    -X POST \
+    -H "Content-Type: application/json" \
+    -d '[
+  {
+    "action_name": "product_hover",
+    "client_id": "CLIENT-9a9968ac-664b-42d7-9a9e-96f412b5ab49",
+    "query_id": "d194b734-70a4-41dc-b103-b26a56a277b5",
+    "page_id": "/",
+    "message_type": "INFO",
+    "message": "Integral 2GB SD Card memory card (undefined)",
+    "timestamp": 1724944081669,
+    "event_attributes": {
+      "object": {
+        "object_id_field": "product",
+        "object_id": "1625640",
+        "description": "Integral 2GB SD Card memory card",
+        "object_detail": null
+      }
+    }
+  }
+]
+' \
+https://ubi-queries-pipeline-il3g3pwe4ve4nov4bwhnzlrm4q.us-east-1.osis.amazonaws.com/ubi/events
 ```
 
 ## Where Next?
