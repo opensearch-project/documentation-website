@@ -1155,15 +1155,6 @@ body {
   margin-right: 4px;
 }
 
-.search-page--sidebar--external-link {
-  margin-top: 1rem;
-
-  a {
-    font-size: 0.9rem;
-    line-height: 1.4
-  }
-}
-
 @mixin body-text($color: #000) {
   color: $color;
   font-family: 'Open Sans';
