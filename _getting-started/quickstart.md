@@ -167,7 +167,14 @@ This configuration enables security using demo certificates and requires additio
     ```
     {% include copy.html %}
 
-1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you downloaded, [set up a custom admin password]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#setting-a-custom-admin-password), and run the following command to create and start the cluster as a background process:
+1. First, create a custom admin password. Create (or edit) a `.env` file in the same directory as your `docker-compose.yml` file. This file stores environment variables that Docker Compose automatically reads when starting the containers. Add the following line to define the admin password:
+
+    ```bash
+    OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
+    ```
+    {% include copy.html %}
+
+1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you downloaded and run the following command to create and start the cluster as a background process:
     
     ```bash
     docker compose up -d
