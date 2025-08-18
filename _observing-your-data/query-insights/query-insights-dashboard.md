@@ -216,11 +216,10 @@ You can toggle between **Donut** and **Bar** chart formats using the chart type 
 
 Only the top 9 items are displayed individually in the chart; additional values are grouped under the **Others** category.
 
-### Live query table
+### Live queries table
 
-The live query table lists the following information for each live query.
+The live queries table lists the following information for each live query.
 
-![Live Queries Table]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries_Table.png)
 
 | Column  | Description |
 | :--- | :--- |
@@ -240,14 +239,14 @@ You can use the filter bar to search for queries by text or specific field value
 
 ![Live Queries Table]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries_Table.png)
 
-The **Live queries** table provides the following real-time monitoring controls:
+The live queries table provides the following real-time monitoring controls:
 - **Auto-refresh toggle** – Enable or disable periodic data refresh.
 - **Refresh interval** – Choose the refresh frequency. This option is available only when **Auto-refresh** is enabled.
 - **Manual refresh** – Select the **Refresh** button to update immediately.
 
 ### Canceling live queries
 
-The **Live queries table** provides direct controls for canceling queries that are currently running in the cluster. This allows you to immediately stop problematic or resource-intensive searches without waiting for them to finish. You can cancel live queries in the following ways:
+The live queries table provides direct controls for canceling queries that are currently running in the cluster. This allows you to immediately stop problematic or resource-intensive searches without waiting for them to finish. You can cancel live queries in the following ways:
 
 1. Cancel an individual query:
    - In the **Actions** column for the query you want to stop, select the trash can icon. 
