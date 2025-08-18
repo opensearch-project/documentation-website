@@ -188,7 +188,7 @@ index_body = {
   }
 }
 
-response = client.indices.create(index_name, body=index_body)
+response = client.indices.create(index=index_name, body=index_body)
 ```
 {% include copy.html %}
 
@@ -219,7 +219,7 @@ You can perform several operations at the same time by using the `bulk()` method
 ```python
 movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
 
-client.bulk(movies)
+client.bulk(body=movies)
 ```
 {% include copy.html %}
 
@@ -309,7 +309,7 @@ index_body = {
   }
 }
 
-response = client.indices.create(index_name, body=index_body)
+response = client.indices.create(index=index_name, body=index_body)
 print('\nCreating index:')
 print(response)
 
@@ -335,7 +335,7 @@ print(response)
 
 movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
 
-client.bulk(movies)
+client.bulk(body=movies)
 
 # Search for the document.
 q = 'miller'
