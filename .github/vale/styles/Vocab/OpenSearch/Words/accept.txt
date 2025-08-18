@@ -44,6 +44,7 @@ Gantt
 [Gg]eospatial
 [Gg]eotile
 gibibyte
+gRPC
 [Hh]ashmap
 [Hh]ostname
 [Hh]yperparameters
