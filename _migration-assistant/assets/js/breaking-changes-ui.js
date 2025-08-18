@@ -360,7 +360,7 @@ const BreakingChangesUI = (function() {
             if (change.transformation) {
               transformationHtml = `
                 <div class="transformation-info">
-                  <strong>Available migration assistant transformation:</strong> 
+                  <strong>Available Migration Assistant transformation:</strong> 
                   <a href="${change.transformation.url}">${change.transformation.title}</a>
                 </div>
               `;
