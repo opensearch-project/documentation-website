@@ -16,6 +16,8 @@ The tutorial makes the following assumptions:
 1. You are using AWS Managed Service OpenSearch version 2.19.
 1. You are not using the UBI Plugin for OpenSearch, which isn't available until OpenSearch 3.1 in Managed Service.
 1. You are writing UBI data to OpenSearch using [OpenSearch Ingestion](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ingestion.html), the managed version of Data Prepper.
+1. You have already established permissions between OpenSearch Ingestion and your Managed Clusters by following the steps in the tutorial [Tutorial: Ingesting data into a domain using Amazon OpenSearch Ingestion
+](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/osis-get-started.html), specifically the *Required Permissions* step.
 
 
 ## 1. Set up OpenSearch indexes for UBI
@@ -77,6 +79,8 @@ You now have the required OpenSearch indexes to recieve UBI data from applicatio
 
 ## 2. Set up S3 Storage
 
+You need to have a bucket alredy created that you can write the queries and events data to.  Use the AWS Console to create the S3 bucket.  
+
 ## 3. Set up OpenSearch Ingestion Pipeline
 
 ### Required Permissions
@@ -86,37 +90,70 @@ To complete this tutorial, your user or role must have an attached identity-base
 ```json
 ```
 
-###  BLAH
+We expect your *DataPrepperOpenSearchRole* to have permissions similar to:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "es:ESHttpPost",
+                "es:ESHttpPut",
+                "es:ESHttpGet",
+                "es:ESHttpHead"
+            ],
+            "Resource": "arn:aws:es:*:<YOUR_AWS_ACCOUNT_NUMBER>:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::<YOUR-BUCKET>/*"
+        }
+    ]
+}
+```
 
 ### Create a Pipeline
 
-Now you can create a pipeline.   This is inspired by https://docs.aws.amazon.com/opensearch-service/latest/developerguide/osis-get-started.html
+Now you can create a pipeline.   __This is inspired by https://docs.aws.amazon.com/opensearch-service/latest/developerguide/osis-get-started.html__
 
-1. Within the Amazon OpenSearch Service console, choose Pipelines from the left navigation pane.
+1. Within the Amazon OpenSearch Service console, choose **Pipelines** from the left navigation pane.
 
-1. Choose Create pipeline.
+1. Choose **Create pipeline**.
 
-1. Select the Blank pipeline, then choose Select blueprint.
+1. Select the **Blank** pipeline, then choose **Select blueprint**.
 
-1. In this tutorial, we'll create a simple pipeline that uses the HTTP source plugin. The plugin accepts log data in a JSON array format. We'll specify a single OpenSearch Service domain as the sink, and ingest all data into the application_logs index.
+1. In this tutorial, we'll create a simple pipeline that uses the HTTP source plugin. The plugin accepts UBI query data in a JSON array format. We'll specify a OpenSearch Service domain as the sink, and ingest all data into the `ubi_queries` index.  We will also log all events to an S3 bucket in `.ndjson` format.
 
-In the Source menu, choose HTTP. For the Path, enter /logs.
+In the **Source**e menu, choose **HTTP**. For the **Path**, enter `/ubi/queries`.
 
-1. For simplicity in this tutorial, we'll configure public access for the pipeline. For Source network options, choose Public access. For information about configuring VPC access, see Configuring VPC access for Amazon OpenSearch Ingestion pipelines.
-
-1. Choose Next.
-
-1. We have no intermediate Processor steps, so on the Processor screen, choose Next.
-
-1. Configure sink details. For OpenSearch resource type, choose Managed cluster. Then choose the OpenSearch Service domain that you created in the previous section.
-
-For Index name, enter ubi_queries. OpenSearch Ingestion automatically creates this index in the domain if it doesn't already exist, so make sure you have already created it using the required schema.
+1. We will configure public access for the pipeline to faciliate posting data from our notional application. For **Source network options**, choose **Public access**. 
 
 1. Choose Next.
 
-1. Name the pipeline ubi-queries-ingestion-pipeline. Leave the capacity settings as their defaults.
+1. We do not require any intermediate Processor steps, so on the Processor screen, choose Next.
 
-1. Do we want the next few steps?
+1. Configure the first sink. For **OpenSearch resource type**, choose **Managed cluster**. Then choose the OpenSearch Service domain that you created in the previous section.
+
+For **Index name**, enter `ubi_queries`. OpenSearch Ingestion automatically creates this index in the domain if it doesn't already exist, so make sure you have already created it using the specific schema required by UBI.
+
+1. Now configure the second sink.  Start by clicking **Add Sink**.
+
+1. Choose **Amazon S3**.
+
+1. For **S3 bucket**, enter the bucket name that you created previosly and the corresponding **S3 Region**. Then choose the OpenSearch Service domain that you created in the previous section.  For **Event Collection Timeout** use `60s` so you can see the data fairly quickly.  There are a number of formats you can save the data as, **NDJSON** is a perfectly good one.
+
+1. Choose **Next**.
+
+1. Name the pipeline `ubi-queries-pipeline`. Leave the capacity settings as their defaults.
+
+1. Choose **Next**.
+
+1. Choose **Create Pipeline**.
 
 
 ## 4. Test with sample events
@@ -125,25 +162,46 @@ When the pipeline status is `Active`, you can start ingesting data into it. You 
 
 First, get the ingestion URL from the Pipeline settings page:
 
-** IMGAGE HERE**
+![Pipeline Settings]({{site.url}}{{site.baseurl}}/images/ubi/opensearch-ingestion-pipeline.png "Pipeline Settings")
 
-Here is an example of posting an event using [awscurl](https://github.com/okigan/awscurl):
+Here is an example of posting a query using [awscurl](https://github.com/okigan/awscurl):
 
 ```
 awscurl --service osis --region us-east-1 \
     -X POST \
     -H "Content-Type: application/json" \
     -d '[{
-      "action_name": "page_exit",
-      "user_id": "1821196507152684",
-      "query_id": "00112233-4455-6677-8899-aabbccddeeff",
-      "session_id": "c3d22be7-6bdc-4250-91e1-fc8a92a9b1f9",
-      "page_id": "/docs/latest/",
-      "timestamp": "2024-05-16T12:34:56.789Z",
-      "message_type": "INFO",
-      "message": "On page /docs/latest/ for 3.35 seconds"
-    }]' \
-    https://YOUR-PIPELINE-ENDPOINT.osis.amazonaws.com/eric-ubi-queries
+    "query_response_id": "117d75fb-ea76-41dc-9d1d-1d7bba548bd8",
+    "user_query": "laptop",
+    "query_id": "d194b734-70a4-41dc-b103-b26a56a277b5",
+    "application": "Chorus",
+    "query_response_hit_ids": [
+      "B076YX2LML",
+      "B07S3T59VP",
+      "B075ZGJSL1",
+      "B07FMGGRGG",
+      "B07KN5JP3H",
+      "B07FM8BNBC",
+      "B007OYLNGA",
+      "B07P75NDMB",
+      "B004HJ1ZB8",
+      "B01M69KU15",
+      "B072ZW6NBL",
+      "B07R7NL612",
+      "B083GH3L2N",
+      "B06XNQDR8J",
+      "B07ZQJQ4HV",
+      "B07YZHH5WY",
+      "B07F822FND",
+      "B004XAVT8K",
+      "B07F5JN761",
+      "B087RNZT41"
+    ],
+    "query_attributes": {},
+    "client_id": "CLIENT-9a9968ac-664b-42d7-9a9e-96f412b5ab49",
+    "timestamp": "2025-01-23T13:18:22.274+0000"
+  }]' \
+https://ubi-queries-pipeline-il3g3pwe4ve4nov4bwhnzlrm4q.us-east-1.osis.amazonaws.com/ubi/queries
 ```
 
 You should see a `200 OK` response.
