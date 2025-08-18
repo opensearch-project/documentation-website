@@ -9,7 +9,7 @@ nav_order: 24
 
 # UBI in AWS Managed Services tutorial
 
-This tutorial walks you through the steps for collecting queries and events in the UBI (User Behavior Insights) format when you are using AWS's Managed Service for OpenSearch.  At the end of this tutorial you will be able to send authenticated queries and events to both S3 for long term storage and OpenSearch for immediate processing using the Curl command line tool. At the end of the tutorial you will be ready to start collecting UBI data for your applications.
+This tutorial walks you through the steps for collecting queries and events in the UBI (User Behavior Insights) format when you are using AWS's OpenSearch Service.  At the end of this tutorial you will be able to send authenticated queries and events to both S3 for long term storage and OpenSearch for immediate processing using the Curl command line tool. At the end of the tutorial you will be ready to start collecting UBI data for your applications.
 
 The tutorial makes the following assumptions:
 
@@ -79,10 +79,56 @@ You now have the required OpenSearch indexes to recieve UBI data from applicatio
 
 ## 3. Set up OpenSearch Ingestion Pipeline
 
+### Required Permissions
+
+To complete this tutorial, your user or role must have an attached identity-based policy with the following minimum permissions. These permissions allow you to create a pipeline role and attach a policy (iam:Create* and iam:Attach*), create or modify a domain (es:*), and work with pipelines (osis:*).
+
+```json
+```
+
+###  BLAH
+
+### Create a Pipeline
+
+Now you can create a pipeline.   This is inspired by https://docs.aws.amazon.com/opensearch-service/latest/developerguide/osis-get-started.html
+
+1. Within the Amazon OpenSearch Service console, choose Pipelines from the left navigation pane.
+
+1. Choose Create pipeline.
+
+1. Select the Blank pipeline, then choose Select blueprint.
+
+1. In this tutorial, we'll create a simple pipeline that uses the HTTP source plugin. The plugin accepts log data in a JSON array format. We'll specify a single OpenSearch Service domain as the sink, and ingest all data into the application_logs index.
+
+In the Source menu, choose HTTP. For the Path, enter /logs.
+
+1. For simplicity in this tutorial, we'll configure public access for the pipeline. For Source network options, choose Public access. For information about configuring VPC access, see Configuring VPC access for Amazon OpenSearch Ingestion pipelines.
+
+1. Choose Next.
+
+1. We have no intermediate Processor steps, so on the Processor screen, choose Next.
+
+1. Configure sink details. For OpenSearch resource type, choose Managed cluster. Then choose the OpenSearch Service domain that you created in the previous section.
+
+For Index name, enter ubi_queries. OpenSearch Ingestion automatically creates this index in the domain if it doesn't already exist, so make sure you have already created it using the required schema.
+
+1. Choose Next.
+
+1. Name the pipeline ubi-queries-ingestion-pipeline. Leave the capacity settings as their defaults.
+
+1. Do we want the next few steps?
+
 
 ## 4. Test with sample events
 
-Here is an example of posting an event.
+When the pipeline status is `Active`, you can start ingesting data into it. You must sign all HTTP requests to the pipeline using [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html). Use an HTTP tool such as [Postman](https://www.getpostman.com/) or [awscurl](https://github.com/okigan/awscurl) to send some data to the pipeline. As with indexing data directly to a domain, ingesting data into a pipeline always requires either an IAM role or an [IAM access key and secret key](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html).
+
+First, get the ingestion URL from the Pipeline settings page:
+
+** IMGAGE HERE**
+
+Here is an example of posting an event using [awscurl](https://github.com/okigan/awscurl):
+
 ```
 awscurl --service osis --region us-east-1 \
     -X POST \
@@ -97,11 +143,12 @@ awscurl --service osis --region us-east-1 \
       "message_type": "INFO",
       "message": "On page /docs/latest/ for 3.35 seconds"
     }]' \
-    https://erictry2-e2tkd7xuvkswcreho56cuylooq.us-east-1.osis.amazonaws.com/eric-ubi-queries
-
+    https://YOUR-PIPELINE-ENDPOINT.osis.amazonaws.com/eric-ubi-queries
 ```
 
-Now you can query for the event data that you posted in the Dev Tools console.  It may take a minute for the data to flow through OpenSearch Ingestion to the `ubi_queries` index.   
+You should see a `200 OK` response.
+
+Now you can query for the event data that you posted via the Dev Tools console.  It may take a minute for the data to flow through OpenSearch Ingestion to the `ubi_queries` index.   
 
 ```
 GET ubi_queries/_search
