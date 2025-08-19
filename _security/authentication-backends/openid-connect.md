@@ -364,6 +364,19 @@ opensearch.requestHeadersAllowlist: ["Authorization", "securitytenant"]
 To include OpenID Connect with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
 {: .note } 
 
+### Additional parameters
+
+Some identity providers require custom parameters to complete the authentication process. You can add custom parameters `opensearch_dashboards.yml` configuration file  under the `opensearch_security.openid.additional_parameters` namespace. You can find these additional parameters by making a GET request to your identity provider. This feature allows for greater flexibility and customization when communicating with various identity providers.
+
+In the following example, two custom parameters, `foo` and `acr_values`, and their values, `bar` and `1`, were found using a GET request to OpenID provider:
+
+```yml
+opensearch_security.openid.additional_parameters.foo: "bar"
+opensearch_security.openid.additional_parameters.acr_values: "1"
+```
+{% include copy.html %}
+
+
 
 #### Session management with additional cookies
 
