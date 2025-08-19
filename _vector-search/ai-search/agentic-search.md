@@ -6,7 +6,7 @@ nav_order: 30
 has_children: false
 ---
 
-# Agentic Search
+# Agentic search
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
@@ -15,12 +15,12 @@ Introduced 3.2
 
 Agentic search lets users ask questions in natural language and have OpenSearch plan and execute the retrieval automatically. A preconfigured **agent** reads the question, plans the search, and returns relevant results.
 
-**PREREQUISITE**<br>
-Before using using agentic search, you must configure an agent with QueryPlanningTool. For more information, see..
+**Prerequisite**<br>
+Before using agentic search, you must configure an agent with QueryPlanningTool. For more information, see..
 
 ## Configuring semantic search
 
-1. [Enable the agentic search feature flag](#step-1-enable-the-agentic-search-feature-flag)
+1. [Enable the agentic search feature flag](#step-1-enable-the-agentic-search-feature-flag).
 2. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
 3. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
 4. [Create a search pipeline](#step-4-create-a-search-pipeline).
@@ -28,7 +28,7 @@ Before using using agentic search, you must configure an agent with QueryPlannin
 
 ### Step 1: Enable the agentic search feature flag
 
-Because this is an experimental feature in 3.2 release, you must enable the feature flag.
+Because this is an experimental feature in version 3.2, you must enable the feature flag:
 
 ```json
 PUT _cluster/settings
@@ -44,7 +44,7 @@ PUT _cluster/settings
 
 ### Step 2: Create an index for ingestion
 
-Let's create an index for ingestion
+Create an index for ingestion
 
 ```json
 PUT /iris-index
@@ -93,7 +93,7 @@ POST _bulk
 
 ### Step 4: Create a search pipeline
 
-Create a search pipeline with agentic query transalator search request processor, and pass the agent id created with QueryPlanningTool.
+Create a search pipeline with an agentic query translator search request processor, and pass the agent ID created with the QueryPlanningTool.
 
 ```json
 PUT _search/pipeline/agentic-pipeline
@@ -111,9 +111,9 @@ PUT _search/pipeline/agentic-pipeline
 
 ### Step 5: Search the index
 
-To perform agentic search, use the agentic query clause with your question.
+To perform agentic search, use the agentic query clause with your narural language question.
 
-The following example request uses a agentic query to search for a natural language question:
+The following example request uses an agentic query to search for a natural language question:
 
 ```json
 GET iris-index/_search?search_pipeline=agentic-pipeline
@@ -128,12 +128,14 @@ GET iris-index/_search?search_pipeline=agentic-pipeline
 ```
 {% include copy-curl.html %}
 
-The request has the below fields:
-1. query_text: The natural language question
-2. query_fields (optional): A list of the fields that the agent should consider when generating the search query.
+The request contains the following fields:
+1. `query_text`: The natural language question.
+2. `query_fields` (optional): A list of fields that the agent should consider when generating the search query.
 
-The agentic search request executes the agent with QueryPlanningTool and sends the natural language question, along with index mapping and a default prompt to an LLM to generate a OpenSearch DSL query. The LLM returned DSL query is then executed as a search request in OpenSearch.
 
+The agentic search request executes the agent with the QueryPlanningTool and sends the natural language question, along with the index mapping and a default prompt, to a large language model (LLM) to generate an OpenSearch DSL (domain-specific language)  query. The returned DSL query is then executed as a search request in OpenSearch:
+
+OpenSearch returns the below:
 ```json
 "hits": {
         "total": {
@@ -172,4 +174,4 @@ The agentic search request executes the agent with QueryPlanningTool and sends t
 
 ## Next steps
 
-This is an experimental feature. Please follow https://github.com/opensearch-project/neural-search/issues/1479 and https://github.com/opensearch-project/ml-commons/issues/4005 for the future enhancements. 
+This is an experimental feature. See [[RFC] Design for Agentic Search #1479](https://github.com/opensearch-project/neural-search/issues/1479) and [[RFC] Agentic Search in OpenSearch #4005](https://github.com/opensearch-project/ml-commons/issues/4005) for information about future enhancements.  
