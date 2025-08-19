@@ -28,7 +28,7 @@ items:
     description: "Install OpenSearch Benchmark and configure your experience"
     link: "/benchmark/user-guide/install-and-configure/installing-benchmark/"
   - heading: "Run a workload"
-    description: "Run a workload and receive performance metrics."
+    description: "Run a workload and receive performance metrics"
     link: "/benchmark/user-guide/working-with-workloads/running-workloads/"
   - heading: "Analyze performance metrics"
     description: "View your benchmark report and analyze your metrics"
