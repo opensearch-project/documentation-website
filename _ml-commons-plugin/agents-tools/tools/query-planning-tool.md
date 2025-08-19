@@ -12,11 +12,15 @@ grand_parent: Agents and tools
 # Query Planning tool
 plugins.ml_commons.agentic_search_enabled: true
 {: .label .label-purple }
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
+
+Introduced in 3.2
+{: .label .label-purple }
 <!-- vale on -->
 
-The `QueryPlanningTool` generates an OpenSearch Query DSL query string from a natural language question.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+The `QueryPlanningTool` generates an OpenSearch Query DSL query from a natural language question.
 
 ## Step 1: Enable the agentic search feature flag
 
@@ -48,27 +52,35 @@ OpenSearch responds with an acknowledgment:
 }
 ```
 
-## Step 2: Create a connector for a model
+## Step 2: Register and deploy a model
 
-The following example request creates a connector for a model hosted on Amazon Bedrock:
+The following request registers a remote model from Amazon Bedrock and deploys it to your cluster. The API call creates the connector and model in one step.
+
+- Replace the `region`, `access_key`, `secret_key`, and `session_token` with your own values.
+- You can use any model that supports the `converse` API, such as [Claude 3.7 Sonnet](https://www.anthropic.com/news/claude-3-7-sonnet).
+- You can also use other model providers by referencing the [supported connector blueprints](https://opensearch.org/docs/latest/ml-commons-plugin/remote-models/connectors/#connector-blueprints).
 
 ```json
-POST /_plugins/_ml/connectors/_create
+POST /_plugins/_ml/models/_register?deploy=true
 {
-    "name": "Amazon Bedrock Claude 3.7-sonnet connector",
-    "description": "connector for base agent with tools",
+  "name": "agentic_search_base_model",
+  "function_name": "remote",
+  "description": "Agentic search base model",
+  "connector": {
+    "name": "Amazon Bedrock Claude 3.7 Sonnet Connector",
+    "description": "Connector for the base agent with tools",
     "version": 1,
     "protocol": "aws_sigv4",
     "parameters": {
-      "region": "us-west-2",
+      "region": "us-east-1",
       "service_name": "bedrock",
-      "model": "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
-      "system_prompt":"please help answer the user question "
+      "model": "anthropic.claude-3-sonnet-20240229-v1:0",
+      "system_prompt": "Please help answer the user question."
     },
     "credential": {
-      "access_key": "<YOUR_ACCESS_KEY>",
-      "secret_key": "<YOUR_SECRET_KEY>",
-      "session_token": "<YOUR_SESSION_TOKEN>"
+      "access_key": "<your-access-key>",
+      "secret_key": "<your-secret-key>",
+      "session_token": "<your-session-token>"
     },
     "actions": [
       {
@@ -78,61 +90,42 @@ POST /_plugins/_ml/connectors/_create
         "headers": {
           "content-type": "application/json"
         },
-        "request_body": "{ \"system\": [{\"text\": \"${parameters.system_prompt}\"}], \"messages\": [${parameters._chat_history:-}{\"role\":\"user\",\"content\":[{\"text\":\"${parameters.user_prompt}\"}]}${parameters._interactions:-}]${parameters.tool_configs:-} }"
+        "request_body": "{ \"system\": [{\"text\": \"${parameters.system_prompt}\"}]\, \"messages\": [${parameters._chat_history:-}{\"role\":\"user\",\"content\":[{\"text\":\"${parameters.user_prompt}\"}]}${parameters._interactions:-}]${parameters.tool_configs:-} }"
       }
     ]
+  }
 }
 ```
 {% include copy-curl.html %}
 
-OpenSearch responds with a connector ID:
+OpenSearch responds with the ID of the model:
 
 ```json
 {
-  "connector_id": "NtjQi5gBOh0h20Y9GBWK"
-}
-```
-
-## Step 3: Register and deploy the model
-
-To register and deploy the model to OpenSearch, send the following request, providing the connector ID from the previous step:
-
-```json
-POST /_plugins/_ml/models/_register?deploy=true
-{
-    "name": "agentic search base model",
-    "function_name" : "remote",
-    "connector_id": "NtjQi5gBOh0h20Y9GBWK"
-}
-```
-{% include copy-curl.html %}
-
-OpenSearch responds with a model ID:
-
-```json
-{
-  "task_id": "O9jQi5gBOh0h20Y9ghVC",
+  "task_id": "_9iSxJgBOh0h20Y9XYTH",
   "status": "CREATED",
-  "model_id": "PNjQi5gBOh0h20Y9ghVY"
+  "model_id": "ANiSxJgBOh0h20Y9XYXl"
 }
 ```
 
-## Step 4: Register a flow agent that will run the QueryPlanningTool
+## Step 3: Register an agent
 
-A flow agent runs a sequence of tools in order and returns the last tool's output. To create a flow agent, send the following register agent request, providing the model ID in the `model_id` parameter:
+You can use any [OpenSearch agent type](https://opensearch.org/docs/latest/ml-commons-plugin/agents-tools/agents/) to run the `QueryPlanningTool`. The following example uses a `flow` agent, which runs a sequence of tools in order and returns the last tool's output.
+
+When registering the agent, you can override parameters set during model registration, such as `system_prompt`.
 
 ```json
 POST /_plugins/_ml/agents/_register
 {
   "name": "Agentic Search with Claude 3.7",
   "type": "flow",
-  "description": "this is a test agent",
+  "description": "A test agent for query planning.",
   "tools": [
     {
       "type": "QueryPlanningTool",
-      "description": "A general tool to answer any question",
+      "description": "A general tool to answer any question.",
       "parameters": {
-        "model_id": "PNjQi5gBOh0h20Y9ghVY",
+        "model_id": "ANiSxJgBOh0h20Y9XYXl",
         "response_filter": "$.output.message.content[0].text"
       }
     }
@@ -151,9 +144,9 @@ OpenSearch responds with an agent ID:
 }
 ```
 
-## Step 5: Run the agent
+## Step 4: Execute the agent
 
-Run the agent by sending the following request:
+Execute the agent by sending the following request:
 
 ```json
 POST /_plugins/_ml/agents/RNjQi5gBOh0h20Y9-RX1/_execute
@@ -205,7 +198,7 @@ There are three layers of parameters to consider:
 
 2.  **Tool Parameters**: The `QueryPlanningTool` uses its own set of parameters, such as `user_prompt` and `system_prompt`, to construct the final string that will be passed to the connector. The tool takes the `user_prompt` string, resolves any variables within it, and the resulting string is then used to fill the appropriate variable (for example, `${parameters.user_prompt}`) in the connector's `request_body`.
 
-3.  **Prompt Variables**: These are the variables inside the `user_prompt`, which have the format `${parameters.your_variable_name}`. These must be provided in the `_execute` API call. For example, if your `user_prompt` is `"Generate a query for: ${parameters.query_text}"`, then you must provide a `query_text` parameter when you run the agent.
+3.  **Prompt Variables**: These are the variables inside the `user_prompt`, which have the format `${parameters.your_variable_name}`. These must be provided in the `_execute` API call. For example, if your `user_prompt` is "Generate a query for: ${parameters.query_text}", then you must provide a `query_text` parameter when you run the agent.
 
 In summary, the required parameters for an `_execute` call are the **Prompt Variables**. The tool's own parameters (like `user_prompt`) can be overridden at execution time to change how the final prompt is constructed.
 
@@ -246,3 +239,10 @@ POST /_plugins/_ml/agents/your_agent_id/_execute
 ```
 
 > **Note:** When passing complex JSON objects like an `index_mapping` as a parameter, ensure that the JSON string is properly escaped to be a valid single-line string within the parent JSON document.
+
+## Next steps
+
+This is an experimental feature. See the following GitHub issues for information about future enhancements:
+
+- [[RFC] Design for Agentic Search #1479](https://github.com/opensearch-project/neural-search/issues/1479)
+- [[RFC] Agentic Search in OpenSearch #4005](https://github.com/opensearch-project/ml-commons/issues/4005)
