@@ -16,7 +16,7 @@ Introduced 3.2
 Agentic search lets users ask questions in natural language and have OpenSearch plan and execute the retrieval automatically. A preconfigured **agent** reads the question, plans the search, and returns relevant results.
 
 **Prerequisite**<br>
-Before using agentic search, you must configure an agent with QueryPlanningTool. For more information, see..
+Before using agentic search, you must configure an agent with the QueryPlanningTool. For more information, see..
 
 ## Configuring semantic search
 
@@ -44,7 +44,7 @@ PUT _cluster/settings
 
 ### Step 2: Create an index for ingestion
 
-Create an index for ingestion
+Create an index for ingestion:
 
 ```json
 PUT /iris-index
@@ -93,7 +93,7 @@ POST _bulk
 
 ### Step 4: Create a search pipeline
 
-Create a search pipeline with an agentic query translator search request processor, and pass the agent ID created with the QueryPlanningTool.
+Create a search pipeline with an agentic query translator search request processor and pass the agent ID created with the QueryPlanningTool:
 
 ```json
 PUT _search/pipeline/agentic-pipeline
@@ -133,9 +133,8 @@ The request contains the following fields:
 2. `query_fields` (optional): A list of fields that the agent should consider when generating the search query.
 
 
-The agentic search request executes the agent with the QueryPlanningTool and sends the natural language question, along with the index mapping and a default prompt, to a large language model (LLM) to generate an OpenSearch DSL (domain-specific language)  query. The returned DSL query is then executed as a search request in OpenSearch:
+The agentic search request executes the agent with the QueryPlanningTool and sends the natural language question, along with the index mapping and a default prompt, to a large language model (LLM) to generate a query domain-specific language (DSL) query. The returned DSL query is then executed as a search request in OpenSearch:
 
-OpenSearch returns the below:
 ```json
 "hits": {
         "total": {
