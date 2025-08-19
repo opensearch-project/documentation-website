@@ -1,0 +1,172 @@
+---
+layout: default
+title: Agentic search
+parent: AI search
+nav_order: 30
+has_children: false
+---
+
+# Agentic Search
+Introduced 3.2
+{: .label .label-purple }
+
+Agentic search lets users ask questions in natural language and have OpenSearch plan and execute the retrieval automatically. A preconfigured **agent** reads the question, plans the search, and returns relevant results.
+
+**PREREQUISITE**<br>
+Before using using agentic search, you must configure an agent with QueryPlanningTool. For more information, see..
+
+## Configuring semantic search
+
+1. [Enable the agentic search feature flag](#step-1-enable-the-agentic-search-feature-flag)
+2. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
+3. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
+4. [Create a search pipeline](#step-4-create-a-search-pipeline).
+5. [Search the index](#step-5-search-the-index).
+
+### Step 1: Enable the agentic search feature flag
+
+Because this is an experimental feature in 3.2 release, you must enable the feature flag.
+
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "plugins.neural_search.agentic_search_enabled": true,
+  }
+}
+```
+{% include copy-curl.html %}
+
+
+
+### Step 2: Create an index for ingestion
+
+Let's create an index for ingestion
+
+```json
+PUT /iris-index
+{
+  "mappings": {
+    "properties": {
+      "petal_length_in_cm": {
+        "type": "float"
+      },
+      "petal_width_in_cm": {
+        "type": "float"
+      },
+      "sepal_length_in_cm": {
+        "type": "float"
+      },
+      "sepal_width_in_cm": {
+        "type": "float"
+      },
+      "species": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Step 3: Ingest documents into the index
+
+To ingest documents into the index created in the previous step, send the following requests:
+
+```json
+POST _bulk
+{ "index": { "_index": "iris-index", "_id": "1" } }
+{ "petal_length_in_cm": 1.4, "petal_width_in_cm": 0.2, "sepal_length_in_cm": 5.1, "sepal_width_in_cm": 3.5, "species": "setosa" }
+{ "index": { "_index": "iris-index", "_id": "2" } }
+{ "petal_length_in_cm": 4.5, "petal_width_in_cm": 1.5, "sepal_length_in_cm": 6.4, "sepal_width_in_cm": 2.9, "species": "versicolor" }
+```
+{% include copy-curl.html %}
+
+### Step 4: Create a search pipeline
+
+Create a search pipeline with agentic query transalator search request processor, and pass the agent id created with QueryPlanningTool.
+
+```json
+PUT _search/pipeline/agentic-pipeline
+{
+     "request_processors": [
+        {
+            "agentic_query_translator": {
+                "agent_id": "-E2Av5gBrRE4_QBCgKwl"
+            }
+        }
+     ]
+}
+```
+{% include copy-curl.html %}
+
+### Step 5: Search the index
+
+To perform agentic search, use the agentic query clause with your question.
+
+The following example request uses a agentic query to search for a natural language question:
+
+```json
+GET iris-index/_search?search_pipeline=agentic-pipeline
+{
+    "query": {
+        "agentic": {
+            "query_text": "List all the flowers present",
+            "query_fields": ["species", "petal_length_in_cm"]
+        }
+    }
+}
+```
+{% include copy-curl.html %}
+
+The request has the below fields:
+1. query_text: The natural language question
+2. query_fields (optional): A list of the fields that the agent should consider when generating the search query.
+
+The agentic search request executes the agent with QueryPlanningTool and sends the natural language question, along with index mapping and a default prompt to an LLM to generate a OpenSearch DSL query. The LLM returned DSL query is then executed as a search request in OpenSearch.
+
+```json
+"hits": {
+        "total": {
+            "value": 2,
+            "relation": "eq"
+        },
+        "max_score": 1.0,
+        "hits": [
+            {
+                "_index": "iris-index",
+                "_id": "1",
+                "_score": 1.0,
+                "_source": {
+                    "petal_length_in_cm": 1.4,
+                    "petal_width_in_cm": 0.2,
+                    "sepal_length_in_cm": 5.1,
+                    "sepal_width_in_cm": 3.5,
+                    "species": "setosa"
+                }
+            },
+            {
+                "_index": "iris-index",
+                "_id": "2",
+                "_score": 1.0,
+                "_source": {
+                    "petal_length_in_cm": 4.5,
+                    "petal_width_in_cm": 1.5,
+                    "sepal_length_in_cm": 6.4,
+                    "sepal_width_in_cm": 2.9,
+                    "species": "versicolor"
+                }
+            }
+        ]
+    }
+```
+
+## Next steps
+
+This is an experimental feature. Please follow https://github.com/opensearch-project/neural-search/issues/1479 and https://github.com/opensearch-project/ml-commons/issues/4005 for the future enhancements. 
