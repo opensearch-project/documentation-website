@@ -52,7 +52,6 @@ OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Pro
 
 
 
-- [Open up an issue on our Github repository](https://github.com/opensearch-project/opensearch-benchmark/issues)
 
 ## Resources
 
