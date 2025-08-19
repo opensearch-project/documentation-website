@@ -62,6 +62,6 @@ The response contains the cache statistics:
 ```
 {% include copy-curl.html %}
 
-You can break down the values by index by providing the parameter `level=indices`. 
+You can aggregate the values by index by providing the parameter `level=indices`. 
 
 You can also use the [Cat Fielddata API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-field-data/) to get a list of field data sizes for each field on each node. 
