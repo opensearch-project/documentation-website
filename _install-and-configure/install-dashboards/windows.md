@@ -28,35 +28,47 @@ Make sure you have a zip utility installed.
    1. Restart your computer.
 
 1. Configure OpenSearch Dashboards.
-  
-    Configuration file `\path\to\opensearch-dashboards-{{site.opensearch_version}}\config\opensearch_dashboards.yml` comes packaged with following basic settings:
-    
-    ```
-    opensearch.hosts: [https://localhost:9200]
-    opensearch.ssl.verificationMode: none
-    opensearch.username: kibanaserver
-    opensearch.password: kibanaserver
-    opensearch.requestHeadersWhitelist: [authorization, securitytenant]
-    
-    opensearch_security.multitenancy.enabled: true
-    opensearch_security.multitenancy.tenants.preferred: [Private, Global]
-    opensearch_security.readonly_mode.roles: [kibana_read_only]
-    # Use this setting if you are running opensearch-dashboards without https
-    opensearch_security.cookie.secure: false
-    ```
-    
-    Any changes to this file require a restart of OpenSearch Dashboards.
+
+    There are two ways to configure OpenSearch Dashboard and this depends on whether the OpenSearch is configured with security enabled or disabled.
+
+    In order for any changes to `opensearch_dashboards.yml` file to take effect, a restart of OpenSearch Dashboards is required.
     {: .note}
 
-    If you are using OpenSearch with security disabled, basic `opensearch_dashboards.yml` file should contain:
-
-    ```
-    opensearch.hosts: [http://localhost:9200]
-    ```
-
-    Note the plain `http` method, instead of `https`.
-    {: .note}
+    1. Option 1: With security enabled:
   
+        Configuration file `\path\to\opensearch-dashboards-{{site.opensearch_version}}\config\opensearch_dashboards.yml` comes packaged with following basic settings:
+        
+        ```
+        opensearch.hosts: [https://localhost:9200]
+        opensearch.ssl.verificationMode: none
+        opensearch.username: kibanaserver
+        opensearch.password: kibanaserver
+        opensearch.requestHeadersWhitelist: [authorization, securitytenant]
+        
+        opensearch_security.multitenancy.enabled: true
+        opensearch_security.multitenancy.tenants.preferred: [Private, Global]
+        opensearch_security.readonly_mode.roles: [kibana_read_only]
+        # Use this setting if you are running opensearch-dashboards without https
+        opensearch_security.cookie.secure: false
+        ```
+    
+    1. Option 2: With OpenSearch security disabled:
+
+        If you are using OpenSearch with security disabled, remove the security plugin from OpenSearch Dashboards using the following command:
+        
+        ```
+        \path\to\opensearch-dashboards-{{site.opensearch_version}}\bin\opensearch-dashboards-plugin.bat remove securityDashboards
+        ```
+        
+        Basic `opensearch_dashboards.yml` file should contain:
+        
+        ```
+        opensearch.hosts: [http://localhost:9200]
+        ```
+         
+        Note the plain `http` method, instead of `https`.
+        {: .note}
+    
 1. Run OpenSearch Dashboards.
 
    There are two ways of running OpenSearch Dashboards:
