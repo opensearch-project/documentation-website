@@ -30,7 +30,7 @@ For information about how to configure OpenSearch Benchmark, see [Configuring Op
 
 Many users use an external metrics datastore to store results and metrics from previous test runs.
 
-We recommend creating new index patterns for the following.
+OpenSearch Benchmark `1.X` stored test details in indexes with the `benchmark-test-executions-*` index pattern. However, in `2.X`, it stores them in indexes with the `benchmark-test-runs-*` index patttern. We recommend adding this new index pattern in your metrics datastore as well as updating dashboards that might be using the old index pattern still.
 
 Old Index Pattern | New Index Pattern |
 :--- | :--- |
