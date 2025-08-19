@@ -8,7 +8,7 @@ nav_order: 101
 
 This page details high-level changes in versions across OpenSearch Benchmark.
 
-## Renamed Components in OSB 2.0
+## Updated Terminology in OSB 2.0
 
 OSB 2.0 introduces updated terminology to enhance user experience and provide more intuitive benchmarking workflows
 
