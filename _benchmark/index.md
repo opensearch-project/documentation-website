@@ -52,7 +52,6 @@ OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Pro
 
 
 
-- [Community, Triage, and Office Hours](https://www.meetup.com/opensearch/events/309982456/?eventOrigin=group_upcoming_events)
 - [Open up an issue on our Github repository](https://github.com/opensearch-project/opensearch-benchmark/issues)
 
 ## Resources
