@@ -51,7 +51,6 @@ OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Pro
 {% include list.html list_items=page.items%}
 
 
-If you have any questions or ideas you'd like to share, please post them in any of the following channels:
 
 - [OpenSearch Slack community](https://opensearch.slack.com/archives/C082PLA3VPW)
 - [Community, Triage, and Office Hours](https://www.meetup.com/opensearch/events/309982456/?eventOrigin=group_upcoming_events)
