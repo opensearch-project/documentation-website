@@ -2,16 +2,12 @@
 layout: default
 title: Optimizing hybrid search
 nav_order: 60
-parent: Using Search Relevance Workbench
+parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
-has_toc: false
 ---
 
 # Optimizing hybrid search
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).    
-{: .warning}
 
 A key challenge of using hybrid search in OpenSearch is combining results from lexical and vector-based search effectively. OpenSearch provides different techniques and various parameters you can experiment with to find the best setup for your application. What works best, however, depends heavily on your data, user behavior, and application domain—there is no one-size-fits-all solution.
 
@@ -114,3 +110,5 @@ POST _plugins/_sql
 }
 ```
 {% include copy-curl.html %}
+
+To review these results visually, see [Exploring search evaluation results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/explore-experiment-results/).
