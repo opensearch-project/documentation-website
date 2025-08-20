@@ -53,7 +53,7 @@ The following example shows a basic benchmark configuration file. This configura
 
 ### Index settings
 
-Your OpenSearch index settings should be optimized for your specific use case. Try to set the number of shards per index to match your production cluster. However, if you're a developer who wants to focus on a single shard's performance and limit the variables impacting performance, use a single primary shard, as shown in the following example `index_settings`: 
+Your OpenSearch index settings should be optimized for your specific use case. Try to set the number of shards per index to match your production cluster. However, if you're a developer who wants to focus on a single shard's performance and limit the variables impacting performance, use a single primary shard, as shown in the following example `index_settings`:
 
 ```json
 {
@@ -87,7 +87,7 @@ opensearch-benchmark run \
 
 ### Monitoring during tests
 
-During test execution, it's essential to monitor various system metrics to ensure that the test is running correctly and to identify any potential bottlenecks. The following commands help you monitor different aspects of system performance:
+During a test run, it's essential to monitor various system metrics to ensure that the test is running correctly and to identify any potential bottlenecks. The following commands help you monitor different aspects of system performance:
 
 ```bash
 # Monitor system resources
@@ -175,7 +175,7 @@ Don't run tests without a warmup period.
 Instead, always include an adequate warmup period in your tests. This allows the system to reach a steady state before measurements begin. In the following example, a `geonames` run is given a warmup period of `300s`:
 
 ```python
-opensearch-benchmark execute-test --workload=geonames --workload-params="warmup_time_period:300"
+opensearch-benchmark run --workload=geonames --workload-params="warmup_time_period:300"
 ```
 
 The appropriate warmup period can vary depending on your specific workload and system configuration. Start with at least 5 minutes (300 seconds) and adjust as needed based on your observations.
@@ -192,7 +192,7 @@ Proper documentation of your test environment is crucial for reproducibility and
 
 Don't omit environment details from your test reports.
 
-Instead, always comprehensively document the details of your test environment. This should include hardware specifications, software versions, and any relevant configuration settings. The following example shows you how to add environment details when running OpenSearch Benchmark with a Python script: 
+Instead, always comprehensively document the details of your test environment. This should include hardware specifications, software versions, and any relevant configuration settings. The following example shows you how to add environment details when running OpenSearch Benchmark with a Python script:
 
 ```python
 # DO: Document environment details
@@ -226,7 +226,7 @@ When encountering issues or unexpected results, OpenSearch Benchmark logs can pr
 
 5. Pay attention to the duration of different phases of the benchmark, including warmup and measurement periods.
 
-By carefully reviewing these logs, you can often identify the root cause of performance issues or unexpected benchmark results. If you encounter a log error that you do not recognize, submit an issue to the [OpenSearch Benchmark repository](https://github.com/opensearch-project/opensearch-benchmark). 
+By carefully reviewing these logs, you can often identify the root cause of performance issues or unexpected benchmark results. If you encounter a log error that you do not recognize, create an issue in the [OpenSearch Benchmark repository](https://github.com/opensearch-project/opensearch-benchmark).
 
 ## Security considerations
 
