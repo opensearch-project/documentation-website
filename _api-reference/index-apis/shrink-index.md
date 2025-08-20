@@ -11,7 +11,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The shrink index API operation moves all of your data in an existing read-only index into a new index with fewer primary shards.
+The shrink index API operation moves all of your data in an existing read-only index into a new index with fewer primary shards. This operation requires that a copy of each shard, either primary or replica, is located on the same node. You can use [Shard allocation filtering]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shard-allocation/) to move shards to the same node.
 
 To make the index read-only, set the [dynamic index-level index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) `index.blocks.write` to `true`.
 {: .note}
