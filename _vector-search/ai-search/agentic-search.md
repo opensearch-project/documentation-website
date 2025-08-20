@@ -16,7 +16,7 @@ Introduced 3.2
 Agentic search lets users ask questions in natural language and have OpenSearch plan and execute the retrieval automatically. A preconfigured **agent** reads the question, plans the search, and returns relevant results.
 
 **Prerequisite**<br>
-Before using agentic search, you must configure an agent with the QueryPlanningTool. For more information, see..
+Before using agentic search, you must configure an agent with the [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/).
 
 ## Configuring semantic search
 
