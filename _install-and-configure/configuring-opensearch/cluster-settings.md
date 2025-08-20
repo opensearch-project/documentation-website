@@ -121,7 +121,7 @@ OpenSearch supports the following cluster-level shard, block, and task settings:
 - `cluster.blocks.read_only_allow_delete` (Boolean): Similar to `cluster.blocks.read_only`, but allows you to delete indexes. 
 
 - `cluster.no_cluster_manager_block` (String): Configures the operations that are rejected when no cluster manager is active. Accepts one of the three option:
-    - `all`: Blocks all reads and writes to the cluster
+    - `all`: Blocks all read and write requests to the cluster
     - `write`: Blocks only write requests. Read requests can still be processed.
     - `metadata_write`: Metadata-related writes, such as updates to mappings or routing tables, are blocked, but normal document indexing can still be performed. Read and write requests are processed using the cluster state that the node last received. Because the node may be cut off from the rest of the cluster, this can lead to serving outdated information or returning only part of the data.
 
