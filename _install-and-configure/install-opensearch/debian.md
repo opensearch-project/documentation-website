@@ -50,10 +50,10 @@ This guide assumes that you are comfortable working from the Linux command line 
    Use the following command for OpenSearch versions 2.11 and earlier:
    ```bash
    # x64
-   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
+   sudo dpkg -i opensearch-<version>-linux-x64.deb
    
    # arm64
-   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
+   sudo dpkg -i opensearch-<version>-linux-arm64.deb
    ```
 
 1. After the installation succeeds, enable OpenSearch as a service.

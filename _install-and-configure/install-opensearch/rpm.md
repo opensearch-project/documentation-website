@@ -65,16 +65,16 @@ This guide assumes that you are comfortable working from the Linux command line 
    # Use the following command for OpenSearch versions 2.11 and earlier:
 
    ## Install the x64 package using yum.
-   sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   sudo yum install opensearch-<version>-linux-x64.rpm
 
    ## Install the x64 package using rpm.
-   sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   sudo rpm -ivh opensearch-<version>-linux-x64.rpm
 
    ## Install the arm64 package using yum.
-   sudo yum install opensearch-{{site.opensearch_version}}-linux-arm64.rpm
+   sudo yum install opensearch-<version>-linux-arm64.rpm
 
    ## Install the arm64 package using rpm.
-   sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-arm64.rpm
+   sudo rpm -ivh opensearch-<version>-linux-arm64.rpm
    ```
 
 1. After the installation succeeds, enable OpenSearch as a service.
