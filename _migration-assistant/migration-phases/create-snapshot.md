@@ -9,24 +9,25 @@ permalink: /migration-assistant/migration-phases/create-snapshot/
 
 # Creating a snapshot
 
-Creating a snapshot of the source cluster captures all the metadata and documents to be migrated to a new target cluster.
+Once you have your change data capture solution in place or have disabled indexing to your source cluster you are ready to create a snapshot. Creating a snapshot of the source cluster captures all the metadata and documents to be migrated to a new target cluster.
 
 ## Create a snapshot
 
 Run the following command to initiate snapshot creation from the source cluster:
 
 ```bash
-console snapshot create [...]
+console snapshot create
 ```
 {% include copy.html %}
 
-**Note**: Migration Assistant will automatically generate a snapshot name and configure the necessary Amazon Simple Storage Service (Amazon S3) repository. You only need to specify `--snapshot-name` if you are using an existing snapshot that you created outside of Migration Assistant.
+**Note**: Migration Assistant will automatically generate a snapshot name and configure the necessary Amazon Simple Storage Service (Amazon S3) repository. Alternatively, you have the option to bring your own snapshot. You only need to specify `--snapshot-name` if you are using an existing snapshot that you created outside of Migration Assistant. 
 
 **For existing snapshots**:
 If you have an existing snapshot, you can specify it during the RFS configuration in your `cdk.context.json` file using the `reindexFromSnapshotExtraArgs` parameter:
 ```json
 "reindexFromSnapshotExtraArgs": "--s3-repo-uri s3://your-bucket/repo --s3-region us-west-2 --snapshot-name your-existing-snapshot"
 ```
+For more details on using an existing snapshot refer to [Bring your own snapshot](/latest/migration-assistant/migration-phases/deploy/configuration-options/#bring-your-own-snapshot) configuraiton.
 
 To check the snapshot creation status, run the following command:
 
@@ -42,14 +43,7 @@ console snapshot status --deep-check
 ```
 {% include copy.html %}
 
-Wait for snapshot creation to complete before proceeding to the next migration phase.
-
-To check the progress of the snapshot in real time, use the following command:
-
-```shell
-console snapshot status --deep-check
-```
-{% include copy.html %}
+Wait for snapshot creation to complete before proceeding to the metadata migration phase.
 
 You should receive the following response when the snapshot is created:
 
@@ -70,3 +64,5 @@ Throughput: 38.13 MiB/sec
 ## Managing slow snapshot speeds
 
 Depending on the size of the data in the source cluster and the bandwidth allocated for snapshots, the process can take some time. Adjust the maximum rate at which the source cluster's nodes create the snapshot using the `--max-snapshot-rate-mb-per-node` option. Increasing the snapshot rate will consume more node resources, which may affect the cluster's ability to handle normal traffic.
+
+{% include migration-phase-navigation.html %}
