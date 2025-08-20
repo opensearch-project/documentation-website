@@ -279,7 +279,7 @@ You can enhance your custom workload's functionality with the following advanced
 
 ### Test mode
 
-If you want run the test in test mode to make sure your workload operates as intended, add the `--test-mode` option to the `run` command. Test mode ingests only the first 1000 documents from each index provided and runs query operations against them.
+If you want to run the test in test mode to make sure your workload operates as intended, add the `--test-mode` option to the `run` command. Test mode ingests only the first 1,000 documents from each index provided and runs query operations against them.
 
 To use test mode, create a `<index>-documents-1k.json` file that contains the first 1000 documents from `<index>-documents.json` using the following command:
 

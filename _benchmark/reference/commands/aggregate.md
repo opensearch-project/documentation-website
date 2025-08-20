@@ -82,7 +82,7 @@ Aggregated results includes the following information:
 
 - **Relative Standard Deviation (RSD)**: For each metric an additional `mean_rsd` value shows the spread of results across test runs.
 - **Overall min/max values**: Instead of averaging minimum and maximum values, the aggregated result include `overall_min` and `overall_max` which reflect the true minimum/maximum across all test runs.
-- **Storage**: Aggregated test results are  stored in a separate `aggregated_results` folder alongside the `test-runs` folder.
+- **Storage**: Aggregated test results are stored in a separate `aggregated_results` folder alongside the `test-runs` folder.
 
 The following example shows aggregated results:
 

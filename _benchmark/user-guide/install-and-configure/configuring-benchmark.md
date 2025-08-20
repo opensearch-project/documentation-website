@@ -111,7 +111,7 @@ This section defines how benchmark metrics are stored.
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
 | `datastore.type` | String | If set to `in-memory` all metrics are kept in memory while running the benchmark. If set to `opensearch` all metrics are instead written to a persistent metrics store and the data is made available for further analysis. Default is `in-memory`. |
-| `sample.queue.size` | Function | The number of metrics samples that can be stored in OpenSearch Benchmark’s in-memory queue. Default is `2^20`. |
+| `sample.queue.size` | Function | The number of metric samples that can be stored in OpenSearch Benchmark's in-memory queue. Default is `2^20`. |
 | metrics.request.downsample.factor | Integer| (default: 1): Determines how many service time and latency samples are saved in the metrics store. By default, all values are saved. If you want to, for example. keep only every 100th sample, specify `100`. This is useful to avoid overwhelming the metrics store in benchmarks with many clients. Default is `1`. |
 | `output.processingtime` | Boolean | If set to `true`, OpenSearch shows the additional metric processing time in the command line report. Default is `false`. |
 

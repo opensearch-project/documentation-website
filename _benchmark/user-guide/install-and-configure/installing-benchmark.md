@@ -73,7 +73,7 @@ Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Pytho
   ```
   {% include copy.html %}
 
-- _Optional_: Check that your installed version of `git` is **Git 1.9 or later** using the following command. `git` is not required for OpenSearch Benchmark installation, but it is required in order to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [Documentation](https://git-scm.com/doc) for help installing Git.
+- _Optional_: Check that your installed version of `git` is **Git 1.9 or later** using the following command. `git` is not required for OpenSearch Benchmark installation, but it is required in order to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [documentation](https://git-scm.com/doc) for help installing Git.
 
   ```bash
   git --version
@@ -212,7 +212,7 @@ After running OpenSearch Benchmark for the first time, you can search through al
 * `benchmark.ini`: Contains any adjustable configurations for tests. For information about how to configure OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
 * `data`: Contains all the data corpora and documents related to OpenSearch Benchmark's [official workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames).
 * `distributions`: Contains all the OpenSearch distributions downloaded from [OpenSearch.org](http://opensearch.org/) and used to provision clusters.
-* `test-runs`: Contains all the test `execution_id`s from previous runs of OpenSearch Benchmark.
+* `test-runs`: Contains every test `execution_id` from previous runs of OpenSearch Benchmark.
 * `workloads`: Contains all files related to workloads, except for the data corpora.
 * `logging.json`: Contains all of the configuration options related to how logging is performed within OpenSearch Benchmark.
 * `logs`: Contains all the logs from OpenSearch Benchmark runs. This can be helpful when you've encountered errors during runs.

@@ -46,7 +46,7 @@ datastore.password = <opensearch basic auth password>
 datastore.number_of_replicas =
 datastore.number_of_shards =
 ```
-When neither `datastore.number_of_replicas` nor `datastore.number_of_shards` is provided, OpenSearch uses the default values: `0` for the number of replicas and `1` for the number of shards. If these settings are changed after the data store cluster is created, the new replica and shard settings will only apply when new results indexes are created at the end of the month.
+When neither `datastore.number_of_replicas` nor `datastore.number_of_shards` is provided, OpenSearch uses the default values: `0` for the number of replicas and `1` for the number of shards. If these settings are changed after the data store cluster is created, the new replica and shard settings will only apply when new result indexes are created at the end of the month.
 
 After you run OpenSearch Benchmark configured to use OpenSearch as a data store, OpenSearch Benchmark creates three indexes:
 

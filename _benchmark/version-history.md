@@ -1,25 +1,25 @@
 ---
 layout: default
-title: Version History
+title: Version history
 nav_order: 101
 ---
 
-# Version History
+# Version history
 
-This page details high-level changes in versions across OpenSearch Benchmark.
+This page details high-level changes across OpenSearch Benchmark versions.
 
-## Updated Terminology in OSB 2.0
+## Updated terminology in OpenSearch Benchmark 2.0
 
-OSB 2.0 introduces updated terminology to enhance user experience and provide more intuitive benchmarking workflows
+OpenSearch Benchmark 2.0 introduces updated terminology to enhance the user experience and provide more intuitive benchmarking workflows.
 
-1.X Term | 2.X Term |
+1.X term | 2.X term |
 :--- | :--- |
 execute-test, test-execution-id, TestExecution | run, test-run, TestRun |
 results_publishing, results_publisher | reporting, publisher |
 provision-configs, provision-config-instances | cluster-configs, cluster-config-instances
 load-worker-coordinator-hosts | worker-ips |
 
-## Version History
+## Version history
 
 OpenSearch Benchmark version | Release highlights | Release date
 :--- | :--- | :---

@@ -6,7 +6,7 @@ nav_order: 2
 
 # OpenSearch Benchmark quickstart
 
-This documentation outlines how to quickly install OpenSearch Benchmark and run your first OpenSearch Benchmark workload.
+This page outlines how to quickly install OpenSearch Benchmark and run your first OpenSearch Benchmark workload.
 
 ## Prerequisites
 
@@ -124,8 +124,7 @@ For additional `run` command flags, see the [run]({{site.url}}{{site.baseurl}}/b
 * `--target-host="<OpenSearch Cluster Endpoint>"`: Indicates the target cluster or host that will be benchmarked. Enter the endpoint of your OpenSearch cluster here.
 * `--client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'"`: The username and password for your OpenSearch cluster.
 * `--test-mode`: Allows a user to run the workload without running it for the entire duration. When this flag is present, Benchmark runs the first thousand operations of each task in the workload. This is only meant for sanity checks---the metrics produced are meaningless.
-
-The `--distribution-version`, which indicates which OpenSearch version Benchmark will use when provisioning. When run, the `run` command will parse the correct distribution version when it connects to the OpenSearch cluster.
+* `--distribution-version`: Indicates which OpenSearch version Benchmark will use when provisioning. When run, the `run` command will parse the correct distribution version when it connects to the OpenSearch cluster.
 
 ### Running the workload
 
@@ -260,7 +259,7 @@ For more details about how the summary report is generated, see [Summary report]
 
 ## Running OpenSearch Benchmark on your own cluster
 
-Now that you're familiar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `run` command, replacing the following settings.
+Now that you're familiar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `run` command but replacing the following settings:
 
   * Replace `https://localhost:9200` with your target cluster endpoint.  This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
   * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.

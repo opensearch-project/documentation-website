@@ -124,7 +124,7 @@ The following option relates to the target cluster of the benchmark.
 
 ### Distributed workload generation
 
-The following options help those who want to use multiple hosts to generate load to the benchmark cluster:
+The following options help users who want to use multiple hosts to generate load to the benchmark cluster:
 
 - `--worker-ips`: Defines a comma-separated list of hosts that coordinate loads. Default is `localhost`.
 - `--enable-worker-coordinator-profiling`: Enables an analysis of the performance of OpenSearch Benchmark's worker coordinator. Default is `false`.

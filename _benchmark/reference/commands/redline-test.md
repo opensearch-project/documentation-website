@@ -106,7 +106,7 @@ Redline test finished. Maximum stable client number reached: 410
 
 ## Configuration tips and test behavior
 
-Use the following optional command flags to better understand and customize redline test run:
+Use the following optional command flags to better understand and customize a redline test run:
 
 - `--redline-scale-step`: Specifies the number of clients to unpause in each scaling iteration.
 - `--redline-scaledown-percentage`: Specifies the percentage of clients to pause when an error occurs.
