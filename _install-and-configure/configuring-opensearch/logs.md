@@ -101,7 +101,7 @@ There are other ways to change log levels:
 
 The following table lists the common core logging categories.
 
-| Logger key prefix             | What it covers/when to use it  | 
+| Logger key prefix             | Description  | 
 | :--------- | :------- 
 | `org.opensearch.action`       | Transport actions, such as `index`, `bulk`, `get`, or `cluster` actions. Useful when tracing request execution across nodes.        |
 | `org.opensearch.cluster`      | Cluster state publication, routing, and metadata updates. Turn on for cluster formation, routing, and allocation issues.     |
