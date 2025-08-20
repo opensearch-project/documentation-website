@@ -20,7 +20,7 @@ Introduced in 3.2
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-The `QueryPlanningTool` generates an OpenSearch Query DSL query from a natural language question.
+The `QueryPlanningTool` generates an OpenSearch query domain-specific language (DSL) query from a natural language question.
 
 ## Step 1: Enable the agentic search feature flag
 
@@ -98,7 +98,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-OpenSearch responds with the ID of the model:
+OpenSearch responds with the model ID:
 
 ```json
 {
@@ -159,7 +159,7 @@ POST /_plugins/_ml/agents/RNjQi5gBOh0h20Y9-RX1/_execute
 ```
 {% include copy-curl.html %}
 
-OpenSearch returns the inference results, which include the generated Query DSL:
+OpenSearch returns the inference results, which include the generated query DSL:
 
 ```json
 {
@@ -182,8 +182,8 @@ The following table lists all tool parameters that are available when registerin
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
-`model_id` | String | Required | The model ID of the large language model (LLM) to use for generating the Query DSL.
-`response_filter` | String | Optional | A JSONPath expression to extract the generated query from the LLM's response.
+`model_id` | String | Required | The model ID of the large language model (LLM) to use for generating the query DSL.
+`response_filter` | String | Optional | A JSONPath expression used to extract the generated query from the LLM's response.
 `generation_type` | String | Optional | The type of query generation. Currently, only `llmGenerated` is supported. Defaults to `llmGenerated`.
 `system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM. Defaults to "You are an OpenSearch Query DSL generation assistant, translating natural language questions to OpenSeach DSL Queries".
 `user_prompt` | String | Optional | A user prompt template for the LLM. It can contain placeholders for execution-time parameters like `${parameters.query_text}`.
@@ -194,13 +194,13 @@ The execution parameters for the `QueryPlanningTool` are flexible and depend on 
 
 There are three layers of parameters to consider:
 
-1.  **Connector Parameters**: When you create a connector, the `request_body` defines the JSON payload sent to the model. This payload can contain variables like `${parameters.prompt}` or `${parameters.user_prompt}`. The names of these variables depend on the specific model's API. The `QueryPlanningTool`'s purpose is to provide values for these variables.
+1.  **Connector parameters**: When you create a connector, the `request_body` defines the JSON payload sent to the model. This payload can contain variables like `${parameters.prompt}` or `${parameters.user_prompt}`. The names of these variables depend on the specific model's API. The `QueryPlanningTool` provides values for these variables.
 
-2.  **Tool Parameters**: The `QueryPlanningTool` uses its own set of parameters, such as `user_prompt` and `system_prompt`, to construct the final string that will be passed to the connector. The tool takes the `user_prompt` string, resolves any variables within it, and the resulting string is then used to fill the appropriate variable (for example, `${parameters.user_prompt}`) in the connector's `request_body`.
+2.  **Tool parameters**: The `QueryPlanningTool` uses its own set of parameters, such as `user_prompt` and `system_prompt`, to construct the final string that will be passed to the connector. The tool takes the `user_prompt` string and resolves any variables within it, and the resulting string is then used to fill the appropriate variable (for example, `${parameters.user_prompt}`) in the connector's `request_body`.
 
-3.  **Prompt Variables**: These are the variables inside the `user_prompt`, which have the format `${parameters.your_variable_name}`. These must be provided in the `_execute` API call. For example, if your `user_prompt` is "Generate a query for: ${parameters.query_text}", then you must provide a `query_text` parameter when you run the agent.
+3.  **Prompt variables**: These are the variables inside the `user_prompt`, which have the format `${parameters.your_variable_name}`. These must be provided in the `_execute` API call. For example, if your `user_prompt` is "Generate a query for: ${parameters.query_text}", then you must provide a `query_text` parameter when you run the agent.
 
-In summary, the required parameters for an `_execute` call are the **Prompt Variables**. The tool's own parameters (like `user_prompt`) can be overridden at execution time to change how the final prompt is constructed.
+In summary, the required parameters for an `_execute` call are the **prompt variables**. The tool's own parameters (like `user_prompt`) can be overridden at execution time to change how the final prompt is constructed.
 
 For example, if you are using the default `user_prompt`, it contains the variable `${parameters.question}`. Therefore, `question` becomes a required execution parameter:
 
@@ -215,11 +215,11 @@ POST /_plugins/_ml/agents/your_agent_id/_execute
 
 ### Improving query accuracy
 
-To help the language model generate more accurate Query DSL, you can provide additional context within the `user_prompt`. This context can include information like:
+To help the language model generate more accurate query DSL, you can provide additional context within the `user_prompt`. This context can include information like:
 
-- Index mappings
-- Relevant field names
-- Sample documents or queries
+- Index mappings.
+- Relevant field names.
+- Sample documents or queries.
 
 You can pass this information by defining variables in your `user_prompt` and providing the corresponding values in the `parameters` of your `_execute` call.
 
@@ -238,7 +238,7 @@ POST /_plugins/_ml/agents/your_agent_id/_execute
 }
 ```
 
-> **Note:** When passing complex JSON objects like an `index_mapping` as a parameter, ensure that the JSON string is properly escaped to be a valid single-line string within the parent JSON document.
+> **Note**: When passing complex JSON objects like an `index_mapping` as a parameter, ensure that the JSON string is properly escaped to be a valid single-line string within the parent JSON document.
 
 ## Next steps
 
