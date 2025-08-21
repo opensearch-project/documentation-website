@@ -322,3 +322,5 @@ The following metrics are also reported:
 ## CloudWatch considerations
 
 Metrics and dashboards pushed to CloudWatch may experience a visibility lag of around 5 minutes. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more information, see [Amazon CloudWatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
+
+{% include migration-phase-navigation.html %}

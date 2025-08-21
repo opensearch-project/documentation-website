@@ -1,0 +1,193 @@
+{%- comment -%}
+This include generates Previous Phase and Next Phase sections for migration phase pages.
+It uses the migration scenarios data to determine the flow and relationships.
+{%- endcomment -%}
+
+{%- assign current_page_url = page.url | remove: '/index' -%}
+{%- assign scenarios = site.data.migration-scenarios.scenarios -%}
+
+{%- comment -%}Find previous phases for each scenario{%- endcomment -%}
+{%- assign prev_phase_info = '' | split: '' -%}
+
+{%- for scenario in scenarios -%}
+  {%- assign found_current = false -%}
+  {%- assign step_number = 0 -%}
+  {%- assign prev_step = null -%}
+  {%- assign prev_step_number = 0 -%}
+  
+  {%- for step in scenario.steps -%}
+    {%- assign step_number = step_number | plus: 1 -%}
+    {%- assign clean_step_url = step.url | replace: '{{site.url}}{{site.baseurl}}', '' -%}
+    
+    {%- if clean_step_url == current_page_url -%}
+      {%- assign found_current = true -%}
+      {%- if prev_step -%}
+        {%- capture prev_phase_data -%}{{ prev_step.url }}|{{ prev_step.title }}|{{ scenario.title }}|{{ prev_step_number }}{%- endcapture -%}
+        {%- assign prev_phase_info = prev_phase_info | push: prev_phase_data -%}
+      {%- endif -%}
+      {%- break -%}
+    {%- endif -%}
+    
+    {%- comment -%}Check substeps too{%- endcomment -%}
+    {%- if step.substeps -%}
+      {%- for substep in step.substeps -%}
+        {%- assign clean_substep_url = substep.url | replace: '{{site.url}}{{site.baseurl}}', '' -%}
+        {%- if clean_substep_url == current_page_url -%}
+          {%- assign found_current = true -%}
+          {%- capture prev_phase_data -%}{{ step.url }}|{{ step.title }}|{{ scenario.title }}|{{ step_number }}{%- endcapture -%}
+          {%- assign prev_phase_info = prev_phase_info | push: prev_phase_data -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if found_current -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endif -%}
+    
+    {%- assign prev_step = step -%}
+    {%- assign prev_step_number = step_number -%}
+  {%- endfor -%}
+{%- endfor -%}
+
+{%- comment -%}Remove duplicates from prev_phase_info{%- endcomment -%}
+{%- assign unique_prev_phases = '' | split: '' -%}
+{%- for phase_data in prev_phase_info -%}
+  {%- assign phase_parts = phase_data | split: '|' -%}
+  {%- assign phase_url = phase_parts[0] -%}
+  {%- assign is_duplicate = false -%}
+  
+  {%- for unique_phase_data in unique_prev_phases -%}
+    {%- assign unique_parts = unique_phase_data | split: '|' -%}
+    {%- if unique_parts[0] == phase_url -%}
+      {%- assign is_duplicate = true -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+  
+  {%- unless is_duplicate -%}
+    {%- assign unique_prev_phases = unique_prev_phases | push: phase_data -%}
+  {%- endunless -%}
+{%- endfor -%}
+
+{%- comment -%}Find next phases for each scenario{%- endcomment -%}
+{%- assign next_phase_info = '' | split: '' -%}
+
+{%- for scenario in scenarios -%}
+  {%- assign step_number = 0 -%}
+  {%- assign current_step_index = -1 -%}
+  
+  {%- comment -%}Find the index of the current step in this scenario{%- endcomment -%}
+  {%- for step in scenario.steps -%}
+    {%- assign step_number = step_number | plus: 1 -%}
+    {%- assign clean_step_url = step.url | replace: '{{site.url}}{{site.baseurl}}', '' -%}
+    
+    {%- comment -%}Check if this step matches the current page{%- endcomment -%}
+    {%- if clean_step_url == current_page_url -%}
+      {%- assign current_step_index = step_number -%}
+    {%- endif -%}
+    
+    {%- comment -%}Also check substeps{%- endcomment -%}
+    {%- if step.substeps -%}
+      {%- for substep in step.substeps -%}
+        {%- assign clean_substep_url = substep.url | replace: '{{site.url}}{{site.baseurl}}', '' -%}
+        {%- if clean_substep_url == current_page_url -%}
+          {%- assign current_step_index = step_number -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endfor -%}
+  
+  {%- comment -%}If we found the current step in this scenario, find the next step{%- endcomment -%}
+  {%- if current_step_index > 0 -%}
+    {%- assign next_step_index = current_step_index | plus: 1 -%}
+    {%- assign step_number = 0 -%}
+    
+    {%- for step in scenario.steps -%}
+      {%- assign step_number = step_number | plus: 1 -%}
+      {%- if step_number == next_step_index -%}
+        {%- capture next_phase_data -%}{{ step.url }}|{{ step.title }}|{{ scenario.title }}|{{ step_number }}{%- endcapture -%}
+        {%- assign next_phase_info = next_phase_info | push: next_phase_data -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- comment -%}Remove duplicates from next_phase_info{%- endcomment -%}
+{%- assign unique_next_phases = '' | split: '' -%}
+{%- for phase_data in next_phase_info -%}
+  {%- assign phase_parts = phase_data | split: '|' -%}
+  {%- assign phase_url = phase_parts[0] -%}
+  {%- assign scenario_title = phase_parts[2] -%}
+  {%- assign is_duplicate = false -%}
+  
+  {%- for unique_phase_data in unique_next_phases -%}
+    {%- assign unique_parts = unique_phase_data | split: '|' -%}
+    {%- if unique_parts[0] == phase_url and unique_parts[2] == scenario_title -%}
+      {%- assign is_duplicate = true -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+  
+  {%- unless is_duplicate -%}
+    {%- assign unique_next_phases = unique_next_phases | push: phase_data -%}
+  {%- endunless -%}
+{%- endfor -%}
+
+
+{%- comment -%}Display Previous Phase section{%- endcomment -%}
+{%- if unique_prev_phases.size > 0 %}
+
+## Previous Phase
+
+{%- if unique_prev_phases.size == 1 -%}
+{%- assign phase_data = unique_prev_phases[0] -%}
+{%- assign phase_parts = phase_data | split: '|' %}
+{%- assign clean_prev_url = phase_parts[0] | replace: '{{site.url}}{{site.baseurl}}', '' %}
+
+The previous phase in the migration process was:
+
+**[{{ phase_parts[1] }}]({{ site.url }}{{ site.baseurl }}{{ clean_prev_url }})**
+
+{%- else %}
+
+The previous phase depends on your migration scenario:
+
+{% for phase_data in unique_prev_phases -%}
+{%- assign phase_parts = phase_data | split: '|' %}
+{%- assign clean_prev_url = phase_parts[0] | replace: '{{site.url}}{{site.baseurl}}', '' -%}
+- **{{ phase_parts[2] }}** (Step {{ phase_parts[3] }}): [{{ phase_parts[1] }}]({{ site.url }}{{ site.baseurl }}{{ clean_prev_url }})
+{% endfor %}
+{%- endif %}
+{%- endif %}
+
+{%- comment -%}Display Next Phase section{%- endcomment -%}
+{%- if unique_next_phases.size > 0 %}
+
+## Next Phase
+
+{%- if unique_next_phases.size == 1 -%}
+{%- assign phase_data = unique_next_phases[0] -%}
+{%- assign phase_parts = phase_data | split: '|' %}
+{%- assign clean_next_url = phase_parts[0] | replace: '{{site.url}}{{site.baseurl}}', '' %}
+
+The next phase in the migration process is:
+
+**[{{ phase_parts[1] }}]({{ site.url }}{{ site.baseurl }}{{ clean_next_url }})**
+
+For a complete overview of all migration phases, see [Migration phases]({{ site.url }}{{ site.baseurl }}/migration-assistant/migration-phases/).
+
+{%- else %}
+
+The next phase depends on your migration scenario:
+
+{% for phase_data in unique_next_phases -%}
+{%- assign phase_parts = phase_data | split: '|' %}
+{%- assign clean_next_url = phase_parts[0] | replace: '{{site.url}}{{site.baseurl}}', '' -%}
+- **{{ phase_parts[2] }}** (Step {{ phase_parts[3] }}): [{{ phase_parts[1] }}]({{ site.url }}{{ site.baseurl }}{{ clean_next_url }})
+{% endfor %}
+
+For a complete overview of all migration phases, see [Migration phases]({{ site.url }}{{ site.baseurl }}/migration-assistant/migration-phases/).
+
+{%- endif %}
+{%- endif %}

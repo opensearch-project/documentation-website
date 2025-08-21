@@ -5,7 +5,7 @@ nav_order: 5
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
 has_children: true
-has_toc: false
+has_toc: true
 permalink: /migration-assistant/migration-phases/migrate-metadata/
 redirect_from:
   - /migration-assistant/migration-phases/migrating-metadata/
@@ -27,11 +27,6 @@ For the following commands, to identify all valid arguments, please run with `--
 
 ```shell
 console metadata evaluate --help
-```
-{% include copy.html %}
-
-```shell
-console metadata migrate --help
 ```
 {% include copy.html %}
 
@@ -57,7 +52,7 @@ INFO:console_link.models.metadata:Migrating metadata with command: /root/metadat
 ```
 
 
-## Using the `evaluate`  command
+## Using the evaluate command
 
 By scanning the contents of the source cluster, applying filtering, and applying modifications a list of all items that will be migrated will be created.  Any items not seen in this output will not be migrated onto the target cluster if the migrate command was to be run.  This is a safety check before making modifications on the target cluster.
 

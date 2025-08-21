@@ -16,18 +16,18 @@ Once you have your change data capture solution in place or have disabled indexi
 Run the following command to initiate snapshot creation from the source cluster:
 
 ```bash
-console snapshot create
+console snapshot create [...]
 ```
 {% include copy.html %}
 
-**Note**: Migration Assistant will automatically generate a snapshot name and configure the necessary Amazon Simple Storage Service (Amazon S3) repository. Alternatively, you have the option to bring your own snapshot. You only need to specify `--snapshot-name` if you are using an existing snapshot that you created outside of Migration Assistant. 
+**Note**: Migration Assistant will automatically generate a snapshot name and configure the necessary Amazon Simple Storage Service (Amazon S3) repository. Alternatively, you have the option to bring your own snapshot. You only need to specify `--snapshot-name` if you are using an existing snapshot that you created outside of Migration Assistant.
 
 **For existing snapshots**:
 If you have an existing snapshot, you can specify it during the RFS configuration in your `cdk.context.json` file using the `reindexFromSnapshotExtraArgs` parameter:
 ```json
 "reindexFromSnapshotExtraArgs": "--s3-repo-uri s3://your-bucket/repo --s3-region us-west-2 --snapshot-name your-existing-snapshot"
 ```
-For more details on using an existing snapshot refer to [Bring your own snapshot](/latest/migration-assistant/migration-phases/deploy/configuration-options/#bring-your-own-snapshot) configuraiton.
+For more details on using an existing snapshot refer to [Bring your own snapshot]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/#bring-your-own-snapshot) configuration.
 
 To check the snapshot creation status, run the following command:
 

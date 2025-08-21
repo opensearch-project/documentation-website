@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Removing Migration Assistant
-nav_order: 8
+nav_order: 9
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/remove-migration-infrastructure/

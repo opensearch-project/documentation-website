@@ -88,3 +88,5 @@ TARGET CLUSTER
 health status index                        uuid                   pri rep docs.count docs.deleted store.size pri.store.size
 green  open   .opendistro_security         N3uy88FGT9eAO7FTbLqqqA   1   0         10            0     78.3kb         78.3kb
 ```
+
+{% include migration-phase-navigation.html %}

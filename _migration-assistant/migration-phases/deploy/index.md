@@ -5,7 +5,7 @@ parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
 nav_order: 2
 has_children: true
-has_toc: false
+has_toc: true
 permalink: /migration-assistant/migration-phases/deploy/
 redirect_from:
   - /migration-assistant/getting-started-with-data-migration/
