@@ -34,7 +34,7 @@ include_deprecated: false
 -->
 ## Path parameters
 
-The following table lists the available path parameters. All path parameters are optional.
+The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
@@ -51,7 +51,7 @@ include_deprecated: false
 -->
 ## Query parameters
 
-The following table lists the available query parameters. All query parameters are optional.
+The following table lists the available query parameters.
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
@@ -69,7 +69,7 @@ The following table lists the available query parameters. All query parameters a
 | `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. | N/A |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `shards` | List | A comma-separated list of shards to display. | N/A |
-| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
 | `timeout` | String | The operation timeout. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 
@@ -97,6 +97,27 @@ Parameter | Data type  | Description
 `s` | String     | Specifies to sort the results. For example, `s=shardId:desc` sorts by shardId in descending order.
 
 ## Example requests
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/segment_replication?v&s=s:desc
+-->
+{% capture step1_rest %}
+GET /_cat/segment_replication?v&s=s:desc
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.segment_replication(
+  params = { "v": "true", "s": "s:desc" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following examples illustrate various segment replication responses.
 
@@ -104,10 +125,27 @@ The following examples illustrate various segment replication responses.
 
 The following query requests segment replication metrics with column headings for all indexes:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/segment_replication?v=true
+-->
+{% capture step1_rest %}
 GET /_cat/segment_replication?v=true
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.segment_replication(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains the metrics for the preceding request:
 
@@ -120,10 +158,28 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 
 The following query requests segment replication metrics with column headings for shards with the ID `0` from indexes `index1` and `index2`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/segment_replication/index1,index2?v=true&shards=0
+-->
+{% capture step1_rest %}
 GET /_cat/segment_replication/index1,index2?v=true&shards=0
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.segment_replication(
+  index = "index1,index2",
+  params = { "v": "true", "shards": "0" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains the metrics for the preceding request. The column headings correspond to the metric names:
 
@@ -137,10 +193,27 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 
 The following query requests detailed segment replication metrics with column headings for all indexes:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/segment_replication?v=true&detailed=true
+-->
+{% capture step1_rest %}
 GET /_cat/segment_replication?v=true&detailed=true
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.segment_replication(
+  params = { "v": "true", "detailed": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains additional metrics about the files and stages of a segment replication event:
 
@@ -154,10 +227,27 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 
 The following query requests segment replication metrics with column headings for all indexes, sorted by shard ID in descending order:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/segment_replication?v&s=shardId:desc
+-->
+{% capture step1_rest %}
 GET /_cat/segment_replication?v&s=shardId:desc
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.segment_replication(
+  params = { "v": "true", "s": "shardId:desc" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains the sorted results:
 
@@ -171,10 +261,27 @@ shardId    target_node  target_host checkpoints_behind bytes_behind current_lag 
 
 In a request, you can either use a metric's full name or one of its aliases. The following query is the same as the preceding query, but it uses the alias `s` instead of `shardID` for sorting:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/segment_replication?v&s=s:desc
+-->
+{% capture step1_rest %}
 GET /_cat/segment_replication?v&s=s:desc
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.segment_replication(
+  params = { "v": "true", "s": "s:desc" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response metrics
 

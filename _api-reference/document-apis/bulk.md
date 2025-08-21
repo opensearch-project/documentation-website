@@ -128,8 +128,10 @@ This operation creates a new document if one with ID `tt0816711` does not exist,
 
 ## Example request
 
-```json
-POST _bulk
+<!-- spec_insert_start
+component: example_code
+rest: POST /_bulk
+body: |
 { "delete": { "_index": "movies", "_id": "tt2229499" } }
 { "index": { "_index": "movies", "_id": "tt1979320" } }
 { "title": "Rush", "year": 2013 }
@@ -137,9 +139,39 @@ POST _bulk
 { "title": "Prisoners", "year": 2013 }
 { "update": { "_index": "movies", "_id": "tt0816711" } }
 { "doc" : { "title": "World War Z" } }
+-->
+{% capture step1_rest %}
+POST /_bulk
+{ "delete": { "_index": "movies", "_id": "tt2229499" } }
+{ "index": { "_index": "movies", "_id": "tt1979320" } }
+{ "title": "Rush", "year": 2013 }
+{ "create": { "_index": "movies", "_id": "tt1392214" } }
+{ "title": "Prisoners", "year": 2013 }
+{ "update": { "_index": "movies", "_id": "tt0816711" } }
+{ "doc" : { "title": "World War Z" } }
+{% endcapture %}
 
-```
-{% include copy-curl.html %}
+{% capture step1_python %}
+
+
+response = client.bulk(
+  body = '''
+{ "delete": { "_index": "movies", "_id": "tt2229499" } }
+{ "index": { "_index": "movies", "_id": "tt1979320" } }
+{ "title": "Rush", "year": 2013 }
+{ "create": { "_index": "movies", "_id": "tt1392214" } }
+{ "title": "Prisoners", "year": 2013 }
+{ "update": { "_index": "movies", "_id": "tt0816711" } }
+{ "doc" : { "title": "World War Z" } }
+'''
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

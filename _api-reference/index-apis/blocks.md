@@ -38,13 +38,53 @@ The following table lists the available query parameters. All query parameters a
 `timeout` | Time | The amount of time to wait for the request to return. Default is `30s`. |
 
 ## Example request
+<!-- spec_insert_start
+component: example_code
+rest: PUT /test-index/_block/write
+-->
+{% capture step1_rest %}
+PUT /test-index/_block/write
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.add_block(
+  block = "write",
+  index = "test-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following example request disables any `write` operations made to the test index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /test-index/_block/write
+-->
+{% capture step1_rest %}
 PUT /test-index/_block/write
-```
-{% include copy.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.add_block(
+  block = "write",
+  index = "test-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

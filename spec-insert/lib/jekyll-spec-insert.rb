@@ -30,6 +30,7 @@ class JekyllSpecInsert < Jekyll::Command
     raise e if fail_on_error
     relative_path = Pathname(file).relative_path_from(Pathname.new(Dir.pwd))
     Jekyll.logger.error "Error processing #{relative_path}: #{e.message}"
+    Jekyll.logger.error "Error backtrace: #{e.backtrace.join("\n")}"
   end
 
   def self.watch(fail_on_error: false)

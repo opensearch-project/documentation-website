@@ -33,7 +33,7 @@ The following table lists the available query parameters. All query parameters a
 | `ignore_unavailable` | Boolean | If `true`, missing or closed indexes are not included in the response. | `false` |
 | `status` | List or String | List of shard health statuses used to limit the request. <br> Valid values are: <br> - `all`: Return all shards, regardless of health status. <br> - `green`: The primary shard and all replica shards are assigned. <br> - `red`: The primary shard is unassigned. <br> - `yellow`: One or more replica shards are unassigned. | `yellow,red` |
 
-## Example
+## Example requests
 
 Create an index with multiple primary shards on a single-node cluster:
 
@@ -56,21 +56,65 @@ PUT /logs-shardstore
 
 Index a document:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /logs-shardstore/_doc
+body: |
+{
+  "timestamp": "2025-06-20T12:00:00Z",
+  "message": "Log message 1"
+}
+-->
+{% capture step1_rest %}
 POST /logs-shardstore/_doc
 {
   "timestamp": "2025-06-20T12:00:00Z",
   "message": "Log message 1"
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.index(
+  index = "logs-shardstore",
+  body =   {
+    "timestamp": "2025-06-20T12:00:00Z",
+    "message": "Log message 1"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Get shard store status for the `logs-shardstore` index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /logs-shardstore/_shard_stores?status=all
+-->
+{% capture step1_rest %}
 GET /logs-shardstore/_shard_stores?status=all
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.shard_stores(
+  index = "logs-shardstore",
+  params = { "status": "all" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

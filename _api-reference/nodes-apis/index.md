@@ -49,17 +49,53 @@ Resolution mechanisms are applied sequentially in the order specified by the cli
 
 To get statistics from the elected cluster manager node only, use the following query :
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/_cluster_manager/stats
+-->
+{% capture step1_rest %}
 GET /_nodes/_cluster_manager/stats
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "stats",
+  node_id = "_cluster_manager"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To get statistics from nodes that are data-only nodes, use the following query:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/data:true/stats
+-->
+{% capture step1_rest %}
 GET /_nodes/data:true/stats
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "stats",
+  node_id = "data:true"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Order of resolution mechanisms
 
@@ -67,14 +103,50 @@ The order of resolution mechanisms is applied sequentially, and each can add or 
 
 To get statistics from all the nodes except the cluster manager node, use the following query:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/_all,cluster_manager:false/stats
+-->
+{% capture step1_rest %}
 GET /_nodes/_all,cluster_manager:false/stats
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "stats",
+  node_id = "_all,cluster_manager:false"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the cluster manager node: 
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/cluster_manager:false,_all/stats
+-->
+{% capture step1_rest %}
 GET /_nodes/cluster_manager:false,_all/stats
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "stats",
+  node_id = "cluster_manager:false,_all"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->

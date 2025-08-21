@@ -84,15 +84,41 @@ Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bu
 The following example `msearch` API request runs queries against multiple indexes:
 
 
-```json
-GET _msearch
+<!-- spec_insert_start
+component: example_code
+rest: GET /_msearch
+body: |
 { "index": "opensearch_dashboards_sample_data_logs"}
 { "query": { "match_all": {} }, "from": 0, "size": 10}
 { "index": "opensearch_dashboards_sample_data_ecommerce", "search_type": "dfs_query_then_fetch"}
 { "query": { "match_all": {} } }
+-->
+{% capture step1_rest %}
+GET /_msearch
+{ "index": "opensearch_dashboards_sample_data_logs"}
+{ "query": { "match_all": {} }, "from": 0, "size": 10}
+{ "index": "opensearch_dashboards_sample_data_ecommerce", "search_type": "dfs_query_then_fetch"}
+{ "query": { "match_all": {} } }
+{% endcapture %}
 
-```
-{% include copy-curl.html %}
+{% capture step1_python %}
+
+
+response = client.msearch(
+  body = '''
+{ "index": "opensearch_dashboards_sample_data_logs"}
+{ "query": { "match_all": {} }, "from": 0, "size": 10}
+{ "index": "opensearch_dashboards_sample_data_ecommerce", "search_type": "dfs_query_then_fetch"}
+{ "query": { "match_all": {} } }
+'''
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

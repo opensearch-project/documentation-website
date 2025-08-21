@@ -54,7 +54,30 @@ As part of your request, you can optionally specify [index settings]({{site.url}
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /sample-index1
+body: |
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 2,
+      "number_of_replicas": 1
+    }
+  },
+  "mappings": {
+    "properties": {
+      "age": {
+        "type": "integer"
+      }
+    }
+  },
+  "aliases": {
+    "sample-alias1": {}
+  }
+}
+-->
+{% capture step1_rest %}
 PUT /sample-index1
 {
   "settings": {
@@ -74,5 +97,36 @@ PUT /sample-index1
     "sample-alias1": {}
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.create(
+  index = "sample-index1",
+  body =   {
+    "settings": {
+      "index": {
+        "number_of_shards": 2,
+        "number_of_replicas": 1
+      }
+    },
+    "mappings": {
+      "properties": {
+        "age": {
+          "type": "integer"
+        }
+      }
+    },
+    "aliases": {
+      "sample-alias1": {}
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->

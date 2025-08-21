@@ -33,10 +33,27 @@ timeout | Time | How long to wait for the response to return. Default is `30s`.
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /sample-index
+-->
+{% capture step1_rest %}
 DELETE /sample-index
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.delete(
+  index = "sample-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

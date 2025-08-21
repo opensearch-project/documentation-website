@@ -53,9 +53,28 @@ Parameter | Data type | Description
 
 #### Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index-1/_search/point_in_time?keep_alive=100m
+-->
+{% capture step1_rest %}
 POST /my-index-1/_search/point_in_time?keep_alive=100m
-```
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.create_pit(
+  index = "my-index-1",
+  params = { "keep_alive": "100m" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 #### Example response
 
@@ -120,9 +139,23 @@ The List All PITs API returns only local PITs or mixed PITs (PITs created in bot
 
 #### Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_search/point_in_time/_all
+-->
+{% capture step1_rest %}
 GET /_search/point_in_time/_all
-```
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.get_all_pits()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 #### Example response
 
@@ -171,9 +204,23 @@ The Delete All PITs API deletes only local PITs or mixed PITs (PITs created in b
 
 #### Example request: Delete all PITs
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /_search/point_in_time/_all
+-->
+{% capture step1_rest %}
 DELETE /_search/point_in_time/_all
-```
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.delete_all_pits()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to delete one or several PITs, specify their PIT IDs in the request body.
 
@@ -185,16 +232,45 @@ Field | Data type | Description
 
 #### Example request: Delete PITs by ID
 
-```json
-DELETE /_search/point_in_time
-
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /_search/point_in_time
+body: |
 {
     "pit_id": [
         "o463QQEPbXktaW5kZXgtMDAwMDAxFkhGN09fMVlPUkVPLXh6MUExZ1hpaEEAFjBGbmVEZHdGU1EtaFhhUFc4ZkR5cWcAAAAAAAAAAAEWaXBPNVJtZEhTZDZXTWFFR05waXdWZwEWSEY3T18xWU9SRU8teHoxQTFnWGloQQAA",
         "o463QQEPbXktaW5kZXgtMDAwMDAxFkhGN09fMVlPUkVPLXh6MUExZ1hpaEEAFjBGbmVEZHdGU1EtaFhhUFc4ZkR5cWcAAAAAAAAAAAIWaXBPNVJtZEhTZDZXTWFFR05waXdWZwEWSEY3T18xWU9SRU8teHoxQTFnWGloQQAA"
     ]
 }
-```
+-->
+{% capture step1_rest %}
+DELETE /_search/point_in_time
+{
+  "pit_id": [
+    "o463QQEPbXktaW5kZXgtMDAwMDAxFkhGN09fMVlPUkVPLXh6MUExZ1hpaEEAFjBGbmVEZHdGU1EtaFhhUFc4ZkR5cWcAAAAAAAAAAAEWaXBPNVJtZEhTZDZXTWFFR05waXdWZwEWSEY3T18xWU9SRU8teHoxQTFnWGloQQAA",
+    "o463QQEPbXktaW5kZXgtMDAwMDAxFkhGN09fMVlPUkVPLXh6MUExZ1hpaEEAFjBGbmVEZHdGU1EtaFhhUFc4ZkR5cWcAAAAAAAAAAAIWaXBPNVJtZEhTZDZXTWFFR05waXdWZwEWSEY3T18xWU9SRU8teHoxQTFnWGloQQAA"
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.delete_pit(
+  body =   {
+    "pit_id": [
+      "o463QQEPbXktaW5kZXgtMDAwMDAxFkhGN09fMVlPUkVPLXh6MUExZ1hpaEEAFjBGbmVEZHdGU1EtaFhhUFc4ZkR5cWcAAAAAAAAAAAEWaXBPNVJtZEhTZDZXTWFFR05waXdWZwEWSEY3T18xWU9SRU8teHoxQTFnWGloQQAA",
+      "o463QQEPbXktaW5kZXgtMDAwMDAxFkhGN09fMVlPUkVPLXh6MUExZ1hpaEEAFjBGbmVEZHdGU1EtaFhhUFc4ZkR5cWcAAAAAAAAAAAIWaXBPNVJtZEhTZDZXTWFFR05waXdWZwEWSEY3T18xWU9SRU8teHoxQTFnWGloQQAA"
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 #### Example response
 

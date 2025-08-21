@@ -54,8 +54,10 @@ search_routing | String | Assigns a custom value to a shard only for search oper
 
 ## Example request
 
-```json
-POST _aliases
+<!-- spec_insert_start
+component: example_code
+rest: POST /_aliases
+body: |
 {
   "actions": [
     {
@@ -72,8 +74,55 @@ POST _aliases
     }
   ]
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /_aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "movies",
+        "alias": "movies-alias1"
+      }
+    },
+    {
+      "remove": {
+        "index": "old-index",
+        "alias": "old-index-alias"
+      }
+    }
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.update_aliases(
+  body =   {
+    "actions": [
+      {
+        "add": {
+          "index": "movies",
+          "alias": "movies-alias1"
+        }
+      },
+      {
+        "remove": {
+          "index": "old-index",
+          "alias": "old-index-alias"
+        }
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
