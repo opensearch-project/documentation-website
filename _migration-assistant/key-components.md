@@ -38,4 +38,4 @@ The metadata migration tool integrated into the Migration CLI can be used indepe
 
 ## Target cluster
 
-The target cluster is the destination cluster for an upgrade or migration, or a cluster on the same version that is reconfigured to meet changing application needs.
+The target cluster is the destination cluster for an upgrade or migration. It may also be a cluster on the same version that has been reconfigured to meet changing application needs.
