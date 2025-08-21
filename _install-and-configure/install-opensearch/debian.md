@@ -145,7 +145,7 @@ APT, the primary package management tool for Debian–based operating systems, a
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch
 
    # Use the following command for OpenSearch versions 2.11 and earlier:
-   sudo apt-get install opensearch
+   sudo apt-get install opensearch=2.11.0
    ```
    {% include copy.html %}
 
@@ -159,7 +159,7 @@ APT, the primary package management tool for Debian–based operating systems, a
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch={{site.opensearch_version}}
 
    # Use the following command for OpenSearch versions 2.11 and earlier:
-   sudo apt-get install opensearch={{site.opensearch_version}}
+   sudo apt-get install opensearch=2.11.0
    ```
 
 1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
