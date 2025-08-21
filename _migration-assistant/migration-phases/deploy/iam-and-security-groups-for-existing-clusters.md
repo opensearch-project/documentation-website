@@ -40,12 +40,10 @@ Use the following steps to grant the required permissions:
 2. Locate the stack that starts with `OSMigrations-<stage>-<region>` (created during CDK deployment).
 3. Go to the **Resources** tab and locate the following IAM roles:
 
-TODO: Update
-
    ```bash
-   arn:aws:iam::****:role/OSMigrations-<stage>-<region>-MigrationServiceTaskRoleC-
-   arn:aws:iam::****:role/OSMigrations-<stage>-<region>-reindexfromsnapshotTaskRo-
-   arn:aws:iam::****:role/OSMigrations-<stage>-<region>-trafficreplayerdefaultTas-
+   arn:aws:iam::****:role/OSMigrations-<stage>-<region>-migration-console-task
+   arn:aws:iam::****:role/OSMigrations-<stage>-<region>-reindex-from-snapshot-task
+   arn:aws:iam::****:role/OSMigrations-<stage>-<region>-traffic-replayer-default-task
    ```
    
 4. In both the source and target clusters, map users to each Amazon Resource Name (ARN) using the following steps:
