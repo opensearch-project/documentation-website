@@ -63,7 +63,6 @@ Note the records in the logging topic.
    
 After a short period, re-execute the same command again and compare the increased number of records against the expected HTTP requests.
 
-TODO: Check if the following sections are located in the backfill page
 ## Backfilling documents to the source cluster
 
 From your source cluster snapshot, you can begin backfilling documents into the target cluster. Once you have started this process, a fleet of workers will spin up to read the snapshot and reindex documents into the target cluster. This fleet of workers can be scaled to increase the speed at which documents are reindexed into the target cluster.
