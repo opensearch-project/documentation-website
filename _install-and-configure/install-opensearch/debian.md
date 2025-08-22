@@ -50,10 +50,10 @@ This guide assumes that you are comfortable working from the Linux command line 
    Use the following command for OpenSearch versions 2.11 and earlier:
    ```bash
    # x64
-   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
+   sudo dpkg -i opensearch-<version>-linux-x64.deb
    
    # arm64
-   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
+   sudo dpkg -i opensearch-<version>-linux-arm64.deb
    ```
 
 1. After the installation succeeds, enable OpenSearch as a service.
@@ -143,9 +143,6 @@ APT, the primary package management tool for Debian–based operating systems, a
    # For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration.
    # Use one of the following commands to define a custom admin password:
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch
-
-   # Use the following command for OpenSearch versions 2.11 and earlier:
-   sudo apt-get install opensearch
    ```
    {% include copy.html %}
 
@@ -159,12 +156,19 @@ APT, the primary package management tool for Debian–based operating systems, a
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch={{site.opensearch_version}}
 
    # Use the following command for OpenSearch versions 2.11 and earlier:
-   sudo apt-get install opensearch={{site.opensearch_version}}
+   sudo apt-get install opensearch=<version>
    ```
 
-1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
+1. If the installation succeeds, it means APT has validated that the repository metadata was signed with a trusted GPG key. To manually confirm that the key you imported matches the official OpenSearch release key, execute the following command:
+
    ```bash
-   Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
+   gpg --no-default-keyring --keyring /etc/apt/trusted.gpg.d/opensearch.gpg --fingerprint
+   ```
+
+   In the output you should see the following snippet:
+   ```bash
+   pub   rsa4096 2021-05-11 [SC]
+      C5B7 4989 65EF D1C2 924B  A9D5 39D3 1987 9310 D3FC
    ```
    {% include copy.html %}
 
@@ -275,8 +279,15 @@ Before modifying any configuration files, it's always a good idea to save a back
    ```
    {% include copy.html %}
 
-1. Add the following lines:
+1. Replace the content with the following lines:
+
    ```bash
+   # Path to directory where to store the data (separate multiple locations by comma):
+   path.data: /var/lib/opensearch
+   
+   # Path to log files:
+   path.logs: /var/log/opensearch
+
    # Bind OpenSearch to the correct network interface. Use 0.0.0.0
    # to include all available interfaces or specify an IP address
    # assigned to a specific interface.
@@ -293,16 +304,20 @@ Before modifying any configuration files, it's always a good idea to save a back
    ```
    {% include copy.html %}
 
+   The [Configure TLS](#configure-tls) section provides guidance on adding the custom TLS configuration.
+
 1. Save your changes and close the file.
 1. Specify initial and maximum JVM heap sizes.
    1.  Open `jvm.options`.
+         
          ```bash
-         vi /etc/opensearch/jvm.options
+         sudo vi /etc/opensearch/jvm.options
          ```
          {% include copy.html %}
 
    1. Modify the values for initial and maximum heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
       -  As an example, if the host machine has 8 GB of memory, then you might want to set the initial and maximum heap sizes to 4 GB:
+         
          ```bash
          -Xms4g
          -Xmx4g
@@ -315,74 +330,80 @@ Before modifying any configuration files, it's always a good idea to save a back
 
 TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/), which are included in the [Security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
 
-1. Navigate to the directory where the certificates will be stored.
-   ```bash
-   cd /etc/opensearch
-   ```
-   {% include copy.html %}
-
 1. Delete the demo certificates.
+   
    ```bash
-   sudo rm -f *pem
+   sudo sh -c 'rm /etc/opensearch/*.pem'
    ```
    {% include copy.html %}
 
 1. Generate a root certificate. This is what you will use to sign your other certificates.
+   
    ```bash
    # Create a private key for the root certificate
-   sudo openssl genrsa -out root-ca-key.pem 2048
+   sudo openssl genrsa -out /etc/opensearch/root-ca-key.pem 2048
    
    # Use the private key to create a self-signed root certificate. Be sure to
    # replace the arguments passed to -subj so they reflect your specific host.
-   sudo openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
+   sudo openssl req -new -x509 -sha256 -key /etc/opensearch/root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out /etc/opensearch/root-ca.pem -days 730
    ```
+
 1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the Security plugin.
+   
    ```bash
    # Create a private key for the admin certificate.
-   sudo openssl genrsa -out admin-key-temp.pem 2048
+   sudo openssl genrsa -out /etc/opensearch/admin-key-temp.pem 2048
 
    # Convert the private key to PKCS#8.
-   sudo openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
+   sudo openssl pkcs8 -inform PEM -outform PEM -in /etc/opensearch/admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out /etc/opensearch/admin-key.pem
    
    # Create the certficiate signing request (CSR). A common name (CN) of "A" is acceptable because this certificate is
    # used for authenticating elevated access and is not tied to a host.
-   sudo openssl req -new -key admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=A" -out admin.csr
+   sudo openssl req -new -key /etc/opensearch/admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=A" -out /etc/opensearch/admin.csr
    
    # Sign the admin certificate with the root certificate and private key you created earlier.
-   sudo openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
+   sudo openssl x509 -req -in /etc/opensearch/admin.csr -CA /etc/opensearch/root-ca.pem -CAkey /etc/opensearch/root-ca-key.pem -CAcreateserial -sha256 -out /etc/opensearch/admin.pem -days 730
    ```
+   {% include copy.html %}
+
 1. Create a certificate for the node being configured.
+   
    ```bash
    # Create a private key for the node certificate.
-   sudo openssl genrsa -out node1-key-temp.pem 2048
+   sudo openssl genrsa -out /etc/opensearch/node1-key-temp.pem 2048
    
    # Convert the private key to PKCS#8.
-   sudo openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
+   sudo openssl pkcs8 -inform PEM -outform PEM -in /etc/opensearch/node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out /etc/opensearch/node1-key.pem
 
    # Create the CSR and replace the arguments passed to -subj so they reflect your specific host.
    # The CN should match a DNS A record for the host-do not use the hostname.
-   sudo openssl req -new -key node1-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record" -out node1.csr
+   sudo openssl req -new -key /etc/opensearch/node1-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record" -out /etc/opensearch/node1.csr
    
    # Create an extension file that defines a SAN DNS name for the host. This
    # should match the DNS A record of the host.
-   sudo sh -c 'echo subjectAltName=DNS:node1.dns.a-record > node1.ext'
+   sudo sh -c 'echo subjectAltName=DNS:node1.dns.a-record > /etc/opensearch/node1.ext'
    
    # Sign the node certificate with the root certificate and private key that you created earlier.
-   sudo openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
+   sudo openssl x509 -req -in /etc/opensearch/node1.csr -CA /etc/opensearch/root-ca.pem -CAkey /etc/opensearch/root-ca-key.pem -CAcreateserial -sha256 -out /etc/opensearch/node1.pem -days 730 -extfile /etc/opensearch/node1.ext
    ```
+   {% include copy.html %}
+
 1. Remove temporary files that are no longer required.
+   
    ```bash
-   sudo rm -f *temp.pem *csr *ext
+   sudo sh -c 'rm -f /etc/opensearch/*temp.pem /etc/opensearch/*.csr /etc/opensearch/*.ext'
    ```
    {% include copy.html %}
 
 1. Make sure the remaining certificates are owned by the opensearch user.
+   
    ```bash
-   sudo chown opensearch:opensearch admin-key.pem admin.pem node1-key.pem node1.pem root-ca-key.pem root-ca.pem root-ca.srl
+   sudo chown opensearch:opensearch /etc/opensearch/admin-key.pem /etc/opensearch/admin.pem /etc/opensearch/node1-key.pem /etc/opensearch/node1.pem /etc/opensearch/root-ca-key.pem /etc/opensearch/root-ca.pem /etc/opensearch/root-ca.srl
    ```
    {% include copy.html %}
 
-1. Add these certificates to `opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). Advanced users might also choose to append the settings using a script:
+1. Add these certificates to `/etc/opensearch/opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). Advanced users might also choose to append the settings using the following script:
+   
    ```bash
    #! /bin/bash
 
@@ -409,19 +430,22 @@ TLS certificates provide additional security for your cluster by allowing client
    {% include copy.html %}
 
 1. (Optional) Add trust for the self-signed root certificate.
+   
    ```bash
    # Copy the root certificate to the correct directory
-   sudo cp /etc/opensearch/root-ca.pem /etc/pki/ca-trust/source/anchors/
+   sudo install -m 0644 /etc/opensearch/root-ca.pem /usr/local/share/ca-certificates/root-ca.crt
    
    # Add trust
-   sudo update-ca-trust
+   sudo update-ca-certificates
    ```
+   {% include copy.html %}
 
 ### Configure a user
 
-Users are defined and authenticated by OpenSearch in a variety of ways. One method that does not require additional backend infrastructure is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to add a new internal user and how to replace the `admin` default password using a script.
+Users are defined and authenticated by OpenSearch in a variety of ways. One method that does not require additional backend infrastructure is manually configuring users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to replace the `admin` default password using a script:
 
 1. Navigate to the Security plugins tools directory.
+   
    ```bash
    cd /usr/share/opensearch/plugins/opensearch-security/tools
    ```
@@ -429,6 +453,7 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
 
 1. Run `hash.sh` to generate a new password.
    - This script will fail if a path to the JDK has not been defined.
+      
       ```bash
       # Example output if a JDK isn't found...
       $ ./hash.sh
@@ -443,6 +468,7 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       {% include copy.html %}
 
    - Declare an environment variable when you invoke the script in order to avoid issues:
+      
       ```bash
       OPENSEARCH_JAVA_HOME=/usr/share/opensearch/jdk ./hash.sh
       ```
@@ -450,12 +476,14 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
 
    - Enter the desired password at the prompt and make a note of the output hash.
 1. Open `internal_users.yml`.
+   
    ```bash
    sudo vi /etc/opensearch/opensearch-security/internal_users.yml
    ```
    {% include copy.html %}
 
-1. Add a new internal user and replace the hash inside `internal_users.yml` with the output provided by `hash.sh` in step 2. The file should look similar to the following example:
+1. Replace the admin password hash in `internal_users.yml` with the output provided by `hash.sh` in step 2. The file should appear similar to the following example:
+   
    ```bash
    ---
    # This is the internal user database
@@ -490,20 +518,25 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
 Now that TLS certificates are installed and demo users were removed or assigned new passwords, the last step is to apply the configuration changes. This last configuration step requires invoking `securityadmin.sh` while OpenSearch is running on the host.
 
 1. OpenSearch must be running for `securityadmin.sh` to apply changes. If you made changes to `opensearch.yml`, restart OpenSearch.
+   
    ```bash
    sudo systemctl restart opensearch
    ```
    {% include copy.html %}
 
-1. Open a separate terminal session with the host and navigate to the directory containing `securityadmin.sh`.
+1. Navigate to the directory containing `securityadmin.sh`.
+   
    ```bash
    # Change to the correct directory
    cd /usr/share/opensearch/plugins/opensearch-security/tools
    ```
+   {% include copy.html %}
+
 1. Invoke the script. See [Apply changes using securityadmin.sh]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/) for definitions of the arguments you must pass.
+   
    ```bash
    # You can omit the environment variable if you declared this in your $PATH.
-   OPENSEARCH_JAVA_HOME=/usr/share/opensearch/jdk ./securityadmin.sh -cd /etc/opensearch/opensearch-security/ -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/admin.pem -key /etc/opensearch/admin-key.pem -icl -nhnv
+   sudo OPENSEARCH_JAVA_HOME=/usr/share/opensearch/jdk ./securityadmin.sh -cd /etc/opensearch/opensearch-security/ -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/admin.pem -key /etc/opensearch/admin-key.pem -icl -nhnv
    ```
    {% include copy.html %}
 
@@ -517,7 +550,12 @@ You should add trust for the root certificate to your client before sending requ
 {:.tip}
 
 ```bash
-$ curl https://your.host.address:9200 -u admin:yournewpassword -k
+$ curl https://localhost:9200 -u admin:<yournewpassword> -k
+```
+
+You should receive the following response:
+
+```
 {
    "name":"hostname",
    "cluster_name":"opensearch",
@@ -546,6 +584,7 @@ OpenSearch instances installed using `dpkg` or `apt-get` can be easily upgraded 
 Download the Debian package for the desired upgrade version directly from the [OpenSearch Project downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 Navigate to the directory containing the distribution and run the following command:
+
 ```bash
 sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
 ```
@@ -554,12 +593,14 @@ sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
 ### APT-GET
 
 To upgrade to the latest version of OpenSearch using `apt-get`:
+
 ```bash
 sudo apt-get upgrade opensearch
 ```
 {% include copy.html %}
 
 You can also upgrade to a specific OpenSearch version:
+
 ```bash
 sudo apt-get upgrade opensearch=<version>
 ```
