@@ -106,12 +106,12 @@ The following table lists the common core logging categories.
 | `org.opensearch.action`       | Transport actions, such as `index`, `bulk`, `get`, or `cluster` actions. Useful when tracing request execution across nodes.        |
 | `org.opensearch.cluster`      | Cluster state publication, routing, and metadata updates. Turn on for cluster formation, routing, and allocation issues.     |
 | `org.opensearch.discovery`    | Node discovery and cluster coordination. Helpful during cluster formation or network partition tests. Sub-packages include cloud discovery.   |
-| `org.opensearch.gateway`      | Gateway and cluster state and recovery from storage. Use for node restarts and shard recovery from on-disk and remote storage.       |
-| `org.opensearch.http`         | Low-level HTTP layer request handling. Use for HTTP transport issues.       |
+| `org.opensearch.gateway`      | Gateway, ClusterState, Recoveries and Allocations. Useful for node restarts, shard allocations and shard recovery from on-disk and remote storage.       |
+| `org.opensearch.http`         | Low-level HTTP layer request handling. Use for issues with HTTP communication and settings.       |
 | `org.opensearch.index`        | Per-index internals, such as engine, translog, or shard operations. Use for shard/engine behavior debugging.     |
 | `org.opensearch.indices`      | Cross-index services, such as recovery, storage, or cluster state services. Enable during shard recovery and indexing pressure analysis.   |
 | `org.opensearch.ingest`       | Ingest pipelines and processors. Turn on when debugging pipeline execution.        |
-| `org.opensearch.node`         | Node lifecycle and bootstrap. Useful for addressing startup issues.   |
+| `org.opensearch.node`         | Node lifecycle and bootstrap. Useful for addressing boot up issues.   |
 | `org.opensearch.repositories` | Snapshot/restore repository interactions, such as with Amazon Simple Storage Service (Amazon S3), Amazon Elastic File System (Amazon EFS), and others. Use for repository errors and snapshot coordination.    |
 | `org.opensearch.rest`         | REST handlers and routing to actions. Helpful for REST API handling details.      |
 | `org.opensearch.script`       | Scripting engine. Use for script compilation and execution debugging.     |
