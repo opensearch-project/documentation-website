@@ -37,4 +37,5 @@ Setting | Default | Description
 `plugins.replication.follower.metadata_sync_interval` | 60s | How often the follower cluster polls the leader cluster for updated index metadata.
 `plugins.replication.translog.retention_lease.pruning.enabled` | true | If enabled, prunes the translog based on retention leases on the leader index.
 `plugins.replication.translog.retention_size` | 512 MB | Controls the size of the translog on the leader index.
+`plugins.replication.replicate.delete_index` | false | If enabled, the follower index is automatically deleted whenever the corresponding leader index is deleted.
 

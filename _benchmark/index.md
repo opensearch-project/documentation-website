@@ -16,7 +16,7 @@ tutorial_cards:
   - heading: "Choosing a workload"
     description: "Choose a benchmark workload based on your cluster's use case"
     link: "/benchmark/user-guide/understanding-workloads/choosing-a-workload/"
-more_cards: 
+more_cards:
   - heading: "User guide"
     description: "Learn how to benchmark the performance of your cluster"
     link: "/benchmark/user-guide/index/"
@@ -28,14 +28,17 @@ items:
     description: "Install OpenSearch Benchmark and configure your experience"
     link: "/benchmark/user-guide/install-and-configure/installing-benchmark/"
   - heading: "Run a workload"
-    description: "Run a workload and receive performance metrics." 
+    description: "Run a workload and receive performance metrics"
     link: "/benchmark/user-guide/working-with-workloads/running-workloads/"
   - heading: "Analyze performance metrics"
-    description: "View your benchmark report and analyze your metrics"  
+    description: "View your benchmark report and analyze your metrics"
     link: "/benchmark/user-guide/understanding-results/summary-reports/"
 ---
 
 # OpenSearch Benchmark
+
+This page reflects the updated terminology in OpenSearch Benchmark `2.X`. `1.15` is the last supported version in the `1.X` series. For more information about what's changed, see the [version history page]({{site.url}}{{site.baseurl}}/benchmark/version-history/). For migration assistance, see the [migration assistance page]({{site.url}}{{site.baseurl}}/benchmark/migration-assistance/).
+{: .important }
 
 OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Project](https://github.com/opensearch-project). You can use OpenSearch Benchmark to gather performance metrics from an OpenSearch cluster for a variety of purposes, including:
 
@@ -45,24 +48,12 @@ OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Pro
 
 ## Get started
 
-OpenSearch Benchmark can be installed directly on a compatible host running Linux or macOS. You can also run OpenSearch Benchmark in a Docker container. See [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/) for more information.
-{: .info }
-
-{% include cards.html cards=page.tutorial_cards %}
-
 {% include list.html list_items=page.items%}
 
-<span class="centering-container">
-[Get started]({{site.url}}{{site.baseurl}}/benchmark/quickstart/){: .btn-dark-blue}
-</span>
 
-## Customize your benchmarks
 
+
+## Resources
+
+{% include cards.html cards=page.tutorial_cards %}
 {% include cards.html cards=page.more_cards %}
-
-
-
-
-
-
-

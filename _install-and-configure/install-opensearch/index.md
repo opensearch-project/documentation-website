@@ -52,7 +52,7 @@ Port number | OpenSearch component
 
 ## Important settings
 
-For production workloads, make sure the [Linux setting](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) `vm.max_map_count` is set to at least 262144. Even if you use the Docker image, set this value on the *host machine*. To check the current value, run this command:
+For production workloads running on Linux, make sure the [Linux setting](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) `vm.max_map_count` is set to at least `262144`. Even if you use the Docker image, set this value on the host machine. To check the current value, run this command:
 
 ```bash
 cat /proc/sys/vm/max_map_count
