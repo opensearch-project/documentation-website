@@ -116,7 +116,7 @@ Derived source supports the following field types, with most of them not requiri
 For a [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field with derived source enabled, the field value is stored as a stored field by default. You do not need to set the `store` mapping parameter to `true`.
 {: .note}
 
-For [`wildcard`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/) field with derived source, it requires mapping parameter [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) to be set as `true`.
+To use the [`wildcard`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/) field with a derived source, the mapping parameter [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) must be set to `true`.
 {: .note}
 
 ### Limitations
