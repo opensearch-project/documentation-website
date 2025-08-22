@@ -29,12 +29,12 @@ Make sure you have a zip utility installed.
 
 1. Configure OpenSearch Dashboards.
 
-    There are two ways to configure OpenSearch Dashboard and this depends on whether the OpenSearch is configured with security enabled or disabled.
+    There are two ways to configure OpenSearch Dashboards, depending on whether OpenSearch is configured with security enabled or disabled.
 
-    In order for any changes to `opensearch_dashboards.yml` file to take effect, a restart of OpenSearch Dashboards is required.
+    In order for any changes to the `opensearch_dashboards.yml` file to take effect, a restart of OpenSearch Dashboards is required.
     {: .note}
 
-    1. Option 1: With security enabled:
+    1. Option 1 -- With security enabled:
   
         Configuration file `\path\to\opensearch-dashboards-{{site.opensearch_version}}\config\opensearch_dashboards.yml` comes packaged with following basic settings:
         
@@ -52,15 +52,15 @@ Make sure you have a zip utility installed.
         opensearch_security.cookie.secure: false
         ```
     
-    1. Option 2: With OpenSearch security disabled:
+    1. Option 2 -- With OpenSearch security disabled:
 
-        If you are using OpenSearch with security disabled, remove the security plugin from OpenSearch Dashboards using the following command:
+        If you are using OpenSearch with security disabled, remove the Security plugin from OpenSearch Dashboards using the following command:
         
         ```
         \path\to\opensearch-dashboards-{{site.opensearch_version}}\bin\opensearch-dashboards-plugin.bat remove securityDashboards
         ```
         
-        Basic `opensearch_dashboards.yml` file should contain:
+        The basic `opensearch_dashboards.yml` file should contain:
         
         ```
         opensearch.hosts: [http://localhost:9200]
