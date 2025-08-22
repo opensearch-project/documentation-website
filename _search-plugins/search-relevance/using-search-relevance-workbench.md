@@ -145,7 +145,7 @@ To run your first experiment, you need a query set and two search configurations
 
 
 ```json
-POST _plugins/_search_relevance/experiments
+PUT _plugins/_search_relevance/experiments
 {
  "querySetId": "1856093f-9245-449c-b54d-9aae7650551a",
  "searchConfigurationList": ["122fbde8-d593-4d71-96d4-cbe3b4977468", "0d687614-df5b-4b6b-8110-9d8c6d407963"],
