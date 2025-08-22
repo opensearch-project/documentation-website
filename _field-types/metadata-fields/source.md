@@ -99,7 +99,7 @@ If this setting is used, you may notice differences in the `_source` content for
 
 Derived source uses [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) and [`stored_fields`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/store/) to reconstruct the document at query time. Because of the implementation of `doc_values`, the dynamically generated `_source` may differ in format or precision from the original ingested document.
 
-Derived source supports the following field types without requiring any changes to field mappings (with some [limitations](#limitations)):
+Derived source supports the following field types, with most of them not requiring any changes to field mappings (with some [limitations](#limitations)):
 
 - [`boolean`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/boolean/)
 - [`byte`, `double`, `float`, `half_float`, `integer`, `long`, `short`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/)
@@ -114,6 +114,9 @@ Derived source supports the following field types without requiring any changes 
 - [`wildcard`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/)
 
 For a [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field with derived source enabled, the field value is stored as a stored field by default. You do not need to set the `store` mapping parameter to `true`.
+{: .note}
+
+To use the [`wildcard`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/) field with a derived source, the mapping parameter [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) must be set to `true`.
 {: .note}
 
 ### Limitations
