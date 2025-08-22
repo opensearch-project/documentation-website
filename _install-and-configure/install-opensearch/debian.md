@@ -304,7 +304,7 @@ Before modifying any configuration files, it's always a good idea to save a back
    ```
    {% include copy.html %}
 
-   The custom TLS configuration will be added in section [Configure TLS](#configure-tls)
+   The [Configure TLS](#configure-tls) section provides guidance on adding the custom TLS configuration.
 
 1. Save your changes and close the file.
 1. Specify initial and maximum JVM heap sizes.
@@ -442,7 +442,7 @@ TLS certificates provide additional security for your cluster by allowing client
 
 ### Configure a user
 
-Users are defined and authenticated by OpenSearch in a variety of ways. One method that does not require additional backend infrastructure is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to replace the `admin` default password using a script.
+Users are defined and authenticated by OpenSearch in a variety of ways. One method that does not require additional backend infrastructure is manually configuring users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to replace the `admin` default password using a script:
 
 1. Navigate to the Security plugins tools directory.
    
@@ -482,7 +482,7 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
    ```
    {% include copy.html %}
 
-1. Replace the admin password hash inside `internal_users.yml` with the output provided by `hash.sh` in step 2. The file should look similar to the following example:
+1. Replace the admin password hash in `internal_users.yml` with the output provided by `hash.sh` in step 2. The file should appear similar to the following example:
    
    ```bash
    ---
