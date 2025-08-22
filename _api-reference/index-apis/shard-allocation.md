@@ -7,7 +7,7 @@ nav_order: 137
 
 # Shard allocation filtering
 
-Shard allocation filtering lets you constrain where shards for an index are placed by matching node attributes. You can use it to pin shards to certain nodes, avoid nodes, or require specific hardware or zones. Shards are only allocated to nodes that satisfy all active filters including index level shard allocation filtering and [Cluster level routing awareness]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-awareness/).
+Shard allocation filtering lets you constrain where shards for an index are placed by matching node attributes. You can use it to pin shards to certain nodes, avoid nodes, or require specific hardware or zones. Shards are only allocated to nodes that satisfy all active filters, including index-level shard allocation filtering and [cluster-level routing awareness]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-awareness/).
 
 ## Endpoints
 
@@ -18,15 +18,15 @@ GET /<index>/_settings
 
 ## Path parameters
 
-The following table lists the available path parameters. All path parameters are optional unless otherwise noted.
+The following table lists the available path parameters. All path parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`<index>` | String | One or more comma-separated indexes to update or read settings from. Use `_all` or `*` to target all indexes. |
+`<index>` | String | One or more comma-separated indexes from which to update or read settings. Use `_all` or `*` to target all indexes. |
 
 ## Built-in and custom attributes
 
-You can filter on built‑in attributes or any custom node attribute you define. For example, custom attribute can be defined by adding `node.attr.zone: zone-a` in `opensearch.yml`. The following built‑in attributes are supported:
+You can filter on built‑in attributes or any custom node attribute you define. For example, custom attribute can be defined by adding `node.attr.zone: zone-a` in `opensearch.yml`. The following built‑in attributes are supported.
 
 Attribute | Description
 :--- | :---
@@ -40,13 +40,13 @@ Attribute | Description
 
 ## Filter types
 
-Use the following index settings:
+Use the following index settings.
 
 Setting | Effect
 :--- | :---
 `index.routing.allocation.include.<attr>` | Allocate shards to nodes that match **any** of the provided values.
-`index.routing.allocation.exclude.<attr>` | **Do not** allocate shards to nodes whose that match **any** of the provided values.
-`index.routing.allocation.require.<attr>` | Allocate shards **only** to nodes that matches **all** of the provided values.
+`index.routing.allocation.exclude.<attr>` | **Do not** allocate shards to nodes that match **any** of the provided values.
+`index.routing.allocation.require.<attr>` | Allocate shards **only** to nodes that match **all** of the provided values.
 
 ## Example requests
 
@@ -76,7 +76,7 @@ PUT /test-index/_settings
 
 ### Exclude an index from the node
 
-The following command excludes index from node `data-node-3`:
+The following command excludes an index from node `data-node-3`:
 
 ```json
 PUT /test-index/_settings
@@ -88,7 +88,7 @@ PUT /test-index/_settings
 
 ### Combine filters
 
-The following command configures required rack, but excludes node `data-node-7`:
+The following command configures required rack but excludes node `data-node-7`:
 
 ```json
 PUT /test-index/_settings
@@ -103,7 +103,7 @@ PUT /test-index/_settings
 
 ### Clear a filter
 
-To remove a filter, set its value to `null` or an empty string `""`:
+To clear a filter, set its value to `null` or an empty string `""`:
 
 ```json
 PUT /test-index/settings
