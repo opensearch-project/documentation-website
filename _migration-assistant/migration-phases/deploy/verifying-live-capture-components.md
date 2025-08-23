@@ -103,21 +103,6 @@ Verify that the source cluster allows traffic ingress from the Capture Proxy sec
 
 Look for failing tasks by navigating to **Traffic Capture Proxy ECS**. Change **Filter desired status** to **Any desired status** in order to see all tasks and navigate to the logs for stopped tasks.
 
-### Snapshot and S3 bucket issues
-
-When using the AWS Cloud Development Kit (AWS CDK) deployment for Migration Assistant, you might encounter the following errors during snapshot creation and deletion.
-
-#### Bucket permissions
-
-To make sure that you can delete snapshots and create them during the CDK deployment process, confirm that the `OSMigrations-dev-<region>-CustomS3AutoDeleteObjects` stack has S3 object deletion rights. Then, verify that `OSMigrations-dev-<region>-default-SnapshotRole` has the following S3 permissions:  
-
-  - List bucket contents  
-  - Read/Write/Delete objects
-
-#### Snapshot conflicts
-
-To prevent snapshot conflicts, use the `console snapshot delete` command from the migration console. If you delete snapshots or snapshot repositories in a location other than the migration console, you might encounter "already exists" errors.
-
 ## Resetting before migration
 
 After all verifications are complete, reset all resources before using Migration Assistant for an actual migration. 

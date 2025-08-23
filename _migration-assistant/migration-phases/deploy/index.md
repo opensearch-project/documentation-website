@@ -5,6 +5,7 @@ parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
 nav_order: 2
 has_children: true
+has_toc: true
 permalink: /migration-assistant/migration-phases/deploy/
 redirect_from:
   - /migration-assistant/getting-started-with-data-migration/
@@ -371,3 +372,5 @@ After completing the deployment, proceed with the migration phases:
 3. **[Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/)**: Migrate documents and monitor the process.
 
 For more information about the complete migration process, see [Migration phases]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/).
+
+{% include migration-phase-navigation.html %}

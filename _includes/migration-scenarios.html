@@ -8,7 +8,8 @@
     {% for step in scenario.steps %}
       <li>
         {% if step.url %}
-          <a href="{{ site.url }}{{ site.baseurl }}{{ step.url }}">{{ step.title }}</a>
+          {% assign clean_step_url = step.url | replace: '{{site.url}}{{site.baseurl}}', '' %}
+          <a href="{{ site.url }}{{ site.baseurl }}{{ clean_step_url }}">{{ step.title }}</a>
         {% else %}
           {{ step.title }}
         {% endif %}
@@ -18,7 +19,8 @@
             {% for substep in step.substeps %}
               <li>
                 {% if substep.url %}
-                  <a href="{{ site.url }}{{ site.baseurl }}{{ substep.url }}">{{ substep.title }}</a>
+                  {% assign clean_substep_url = substep.url | replace: '{{site.url}}{{site.baseurl}}', '' %}
+                  <a href="{{ site.url }}{{ site.baseurl }}{{ clean_substep_url }}">{{ substep.title }}</a>
                 {% else %}
                   {{ substep.title }}
                 {% endif %}

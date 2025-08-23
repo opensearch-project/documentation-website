@@ -26,20 +26,6 @@ console backfill start
 ```
 {% include copy.html %}
 
-You should receive a response similar to the following:
-
-```shell
-BackfillStatus.RUNNING
-Running=1
-Pending=0
-Desired=1
-Shards total: 48
-Shards completed: 48
-Shards incomplete: 0
-Shards in progress: 0
-Shards unclaimed: 0
-```
-
 The status will be `Running` even if all the shards have been migrated.
 
 ### Scaling up the fleet
@@ -179,3 +165,5 @@ fields @message
 {% include copy.html %}
 
 If any failed documents are identified, you can index the failed documents directly as opposed to using RFS.
+
+{% include migration-phase-navigation.html %}
