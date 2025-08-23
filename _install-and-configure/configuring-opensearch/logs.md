@@ -32,13 +32,14 @@ Rather than changing the default log level (`logger.level`), you change the log 
 PUT /_cluster/settings
 {
   "persistent" : {
-    "logger.org.opensearch.index.reindex" : "DEBUG"
+    "logger.org.opensearch.index.reindex" : "DEBUG",
+    "logger.org.opensearch.indices.recovery": "TRACE"
   }
 }
 ```
 {% include copy-curl.html %}
 
-The easiest way to identify modules is not from the logs, which abbreviate the path (for example, `o.o.i.r`), but from the [OpenSearch source code](https://github.com/opensearch-project/opensearch/tree/master/server/src/main/java/org/opensearch).
+Common categories can be found in [Common core logging categories](#common-core-logging-categories) and [Plugin logger categories](#plugin-logger-categories); however, the easiest way to identify modules is not in the logs, which abbreviate the path (for example, `o.o.i.r`), but in the [OpenSearch source code](https://github.com/opensearch-project/opensearch/tree/master/server/src/main/java/org/opensearch).
 {: .tip }
 
 After this sample change, OpenSearch emits much more detailed logs during reindex operations:
@@ -95,6 +96,46 @@ There are other ways to change log levels:
    - `${sys:opensearch.logs.cluster_name}` is the name of the cluster.
    - `${sys:opensearch.logs.node_name}` is the name of the node.
    - `[%node_name]` is the name of the node.
+
+### Common core logging categories
+
+The following table lists the common core logging categories.
+
+| Logger key prefix             | Description  | 
+| :--------- | :------- 
+| `org.opensearch.action`       | Transport actions, such as `index`, `bulk`, `get`, or `cluster` actions. Useful when tracing request execution across nodes.        |
+| `org.opensearch.cluster`      | Cluster state publication, routing, and metadata updates. Turn on for cluster formation, routing, and allocation issues.     |
+| `org.opensearch.discovery`    | Node discovery and cluster coordination. Helpful during cluster formation or network partition tests. Sub-packages include cloud discovery.   |
+| `org.opensearch.gateway`      | Gateway, ClusterState, Recoveries and Allocations. Useful for node restarts, shard allocations and shard recovery from on-disk and remote storage.       |
+| `org.opensearch.http`         | Low-level HTTP layer request handling. Use for issues with HTTP communication and settings.       |
+| `org.opensearch.index`        | Per-index internals, such as engine, translog, or shard operations. Use for shard/engine behavior debugging.     |
+| `org.opensearch.indices`      | Cross-index services, such as recovery, storage, or cluster state services. Enable during shard recovery and indexing pressure analysis.   |
+| `org.opensearch.ingest`       | Ingest pipelines and processors. Turn on when debugging pipeline execution.        |
+| `org.opensearch.node`         | Node lifecycle and bootstrap. Useful for addressing boot up issues.   |
+| `org.opensearch.repositories` | Snapshot/restore repository interactions, such as with Amazon Simple Storage Service (Amazon S3), Amazon Elastic File System (Amazon EFS), and others. Use for repository errors and snapshot coordination.    |
+| `org.opensearch.rest`         | REST handlers and routing to actions. Helpful for REST API handling details.      |
+| `org.opensearch.script`       | Scripting engine. Use for script compilation and execution debugging.     |
+| `org.opensearch.search`       | Search phase, such as `query`, `fetch`, or `rewrite`. Turn on for query execution debugging.      |
+| `org.opensearch.snapshots`    | Snapshot and restore orchestration. Use when diagnosing a snapshot lifecycle.        |
+| `org.opensearch.threadpool`   | Thread pool execution. Helpful for understanding queuing and pool saturation.     |
+| `org.opensearch.transport`    | Inter-node transport TCP layer. Use for node-to-node communication issues.         |
+| `org.opensearch.deprecation`  | Deprecation warnings. Useful during upgrades for finding deprecated APIs and settings.        |
+
+
+### Plugin logger categories
+
+The following table lists the common plugin logger categories.
+
+| Plugin           | Logger prefix example            | Description           |
+| :--------- | :------- | :------ |
+| Security         | `org.opensearch.security`        | Used for debugging authentication, authorization, and TLS within the Security plugin.  |
+| k-NN             | `org.opensearch.knn`             | Used for debugging k-NN index building, search, and memory management.     |
+| ML Commons       | `org.opensearch.ml`              | Used for model registration, inference, and task runners.  |
+| Alerting         | `org.opensearch.alerting`        | Used to monitor execution and notifications.     |
+| Index Management | `org.opensearch.indexmanagement` | Used for Index State Management (ISM) policies, rollups, and transforms.    |
+| Discovery -- Amazon Elastic Compute Cloud (Amazon EC2)  | `org.opensearch.discovery.ec2`   | Cloud discovery information.       |
+
+
 
 ## Search request slow logs
 
@@ -209,7 +250,8 @@ A line from `opensearch_index_indexing_slowlog.log` might look like this:
 node1 | [2019-10-24T19:48:51,012][WARN][i.i.s.index] [node1] [some-index/i86iF5kyTyy-PS8zrdDeAA] took[3.4ms], took_millis[3], type[_doc], id[1], routing[], source[{"title":"Your Name", "Director":"Makoto Shinkai"}]
 ```
 
-Shard slow logs can consume considerable disk space and affect performance if you set low threshold values. Consider enabling them temporarily for troubleshooting or performance tuning. To disable shard slow logs, return all thresholds to `-1`.
+Shard slow logs can consume considerable disk space and affect performance if you set low threshold values. The logs produced are more verbose than [Search request slow logs](#search-request-slow-logs). Consider enabling them temporarily for troubleshooting or performance tuning. To disable shard slow logs, return all thresholds to `-1`.
+{: .important}
 
 ## Task logs
 
