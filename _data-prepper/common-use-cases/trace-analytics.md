@@ -64,12 +64,12 @@ Use the following recommended configurations to scale Data Prepper. We recommend
 
 #### Buffer
 
-The total number of trace requests processed by Data Prepper is equal to the sum of the `buffer_size` values in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests sent to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines).
+The total number of trace requests processed by Data Prepper is equal to the sum of the `buffer_size` values in `otel-trace-pipeline` and `raw-trace-pipeline`. The total number of trace requests sent to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-trace-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines).
 
 
 We recommend the following when making changes to buffer settings:
- * The `buffer_size` value in `otel-trace-pipeline` and `raw-pipeline` should be the same.
- * The `buffer_size` should be greater than or equal to `workers` * `batch_size` in the `raw-pipeline`.
+ * The `buffer_size` value in `otel-trace-pipeline` and `raw-trace-pipeline` should be the same.
+ * The `buffer_size` should be greater than or equal to `workers` * `batch_size` in the `raw-trace-pipeline`.
  
 
 #### Workers 
@@ -120,7 +120,7 @@ Starting with Data Prepper version 2.0, Data Prepper no longer supports the `ote
 entry-pipeline:
   delay: "100"
   source:
-    otel_traces_source:
+    otel_trace_source:
       ssl: false
   buffer:
     bounded_blocking:
@@ -131,7 +131,7 @@ entry-pipeline:
         name: "raw-trace-pipeline"
     - pipeline:
         name: "service-map-pipeline"
-raw-pipeline:
+raw-trace-pipeline:
   source:
     pipeline:
       name: "entry-pipeline"
@@ -176,7 +176,7 @@ The following is an example `otel-trace-source` .yaml file with SSL and basic au
 
 ```yaml
 source:
-  otel_traces_source:
+  otel_trace_source:
     #record_type: event  # Add this when using Data Prepper 1.x. This option is removed in 2.0
     ssl: true
     sslKeyCertChainFile: "/full/path/to/certfile.crt"
@@ -202,7 +202,7 @@ otel-trace-pipeline:
   # default value is 3_000 ms
   delay: "100" 
   source:
-    otel_traces_source:
+    otel_trace_source:
       #record_type: event  # Add this when using Data Prepper 1.x. This option is removed in 2.0
       ssl: false # Change this to enable encryption in transit
       authentication:
@@ -223,10 +223,10 @@ otel-trace-pipeline:
         name: "raw-trace-pipeline"
     - pipeline:
         name: "entry-pipeline"
-raw-pipeline:
+raw-trace-pipeline:
   # Configure same as the otel-trace-pipeline
   workers: 8 
-  # We recommend using the default value for the raw-pipeline.
+  # We recommend using the default value for the raw-trace-pipeline.
   delay: "3000" 
   source:
     pipeline:
@@ -369,9 +369,9 @@ For more information about how to tune and scale Data Prepper for trace analytic
 
 Starting with Data Prepper version 1.4, trace processing uses Data Prepper's event model. This allows pipeline authors to configure other processors to modify spans or traces. To provide a migration path, Data Prepper version 1.4 introduced the following changes:
 
-* `otel_traces_source` has an optional `record_type` parameter that can be set to `event`. When configured, it will output event objects.
+* `otel_trace_source` has an optional `record_type` parameter that can be set to `event`. When configured, it will output event objects.
 * `otel_traces_raw` replaces `otel_traces_raw_prepper` for event-based spans.
 * `otel_traces_group` replaces `otel_traces_group_prepper` for event-based spans.
 
-In Data Prepper version 2.0, `otel_traces_source` will only output events. Data Prepper version 2.0 also removes `otel_traces_raw_prepper` and `otel_traces_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
+In Data Prepper version 2.0, `otel_trace_source` will only output events. Data Prepper version 2.0 also removes `otel_traces_raw_prepper` and `otel_traces_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
  
