@@ -69,3 +69,5 @@ The following is a list of transformations that are included in Migration Assist
 
 - [Managing type mapping deprecation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/)
 - [Handling breaking changes in field types]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/)
+
+{% include migration-phase-navigation.html %}

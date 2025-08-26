@@ -12,7 +12,7 @@ redirect_from:
 
 # Using Traffic Replayer
 
-**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration or can tolerate downtime, you can skip this step.
+**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration, you can skip this step.
 {: .note}
 
 This guide covers how to use Traffic Replayer to replay captured traffic from a source cluster to a target cluster during the migration process. Traffic Replayer allows you to verify that the target cluster can handle requests in the same way as the source cluster and catch up to real-time traffic for a smooth migration.
@@ -322,3 +322,5 @@ The following metrics are also reported:
 ## CloudWatch considerations
 
 Metrics and dashboards pushed to CloudWatch may experience a visibility lag of around 5 minutes. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more information, see [Amazon CloudWatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
+
+{% include migration-phase-navigation.html %}
