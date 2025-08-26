@@ -253,3 +253,5 @@ If the S3 bucket is in a separate AWS account from the Migration Assistant deplo
 ## Network configuration
 
 The migration tooling expects the source cluster, target cluster, and migration resources to exist in the same VPC. If this is not the case, manual networking setup outside of this documentation is likely required.
+
+{% include migration-phase-navigation.html %}
