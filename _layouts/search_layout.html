@@ -54,8 +54,16 @@ layout: table_wrappers
                 <label for="categoryDocumentation">Documentation</label>
                 </div>
                 <div class="search-page--sidebar--category-filter--checkbox-child">
+                <input type="checkbox" id="categoryAnnouncements" name="categoryGroup" value="announcements" class="category-checkbox" checked>
+                <label for="categoryAnnouncements">Announcements</label>
+                </div>
+                <div class="search-page--sidebar--category-filter--checkbox-child">
                 <input type="checkbox" id="categoryBlog" name="categoryGroup" value="blogs" class="category-checkbox" checked>
                 <label for="categoryBlog">Blogs</label>
+                </div>
+                <div class="search-page--sidebar--category-filter--checkbox-child">
+                <input type="checkbox" id="categoryNews" name="categoryGroup" value="news" class="category-checkbox" checked>
+                <label for="categoryNews">News</label>
                 </div>
                 <div class="search-page--sidebar--category-filter--checkbox-child">
                 <input type="checkbox" id="categoryEvent" name="categoryGroup" value="events" class="category-checkbox" checked>
@@ -153,10 +161,12 @@ layout: table_wrappers
         const categoryDocumentation = document.getElementById('categoryDocumentation');
         const categoryBlog = document.getElementById('categoryBlog');
         const categoryEvent = document.getElementById('categoryEvent');
+        const categoryAnnouncements = document.getElementById('categoryAnnouncements');
+        const categoryNews = document.getElementById('categoryNews');
         const searchInput = document.getElementById('searchPageInput');
 
         function updateAllCheckbox() {
-            if (categoryDocumentation.checked && categoryBlog.checked && categoryEvent.checked) {
+            if (categoryDocumentation.checked && categoryBlog.checked && categoryEvent.checked && categoryAnnouncements.checked && categoryNews.checked) {
                 categoryAll.checked = true;
             } else {
                 categoryAll.checked = false;
@@ -168,10 +178,14 @@ layout: table_wrappers
                 categoryDocumentation.checked = true;
                 categoryBlog.checked = true;
                 categoryEvent.checked = true;
+                categoryAnnouncements.checked = true;
+                categoryNews.checked = true;
             } else {
                 categoryDocumentation.checked = false;
                 categoryBlog.checked = false;
                 categoryEvent.checked = false;
+                categoryAnnouncements.checked = false;
+                categoryNews.checked = false;
             }
         }
 
@@ -184,6 +198,14 @@ layout: table_wrappers
             triggerSearch(searchInput.value.trim());
         });
         categoryBlog.addEventListener('change', () => {
+            updateAllCheckbox(); 
+            triggerSearch(searchInput.value.trim());
+        });
+        categoryAnnouncements.addEventListener('change', () => {
+            updateAllCheckbox(); 
+            triggerSearch(searchInput.value.trim());
+        });
+        categoryNews.addEventListener('change', () => {
             updateAllCheckbox(); 
             triggerSearch(searchInput.value.trim());
         });
