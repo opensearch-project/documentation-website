@@ -9,7 +9,7 @@ permalink: /migration-assistant/migration-phases/create-snapshot/
 
 # Creating a snapshot
 
-Once you have your change data capture solution in place or have disabled indexing to your source cluster you are ready to create a snapshot. Creating a snapshot of the source cluster captures all the metadata and documents to be migrated to a new target cluster.
+Once you have your change data capture solution in place or have disabled indexing to your source cluster, you are ready to create a snapshot. Creating a snapshot of the source cluster captures all the metadata and documents to be migrated to a new target cluster.
 
 ## Create a snapshot
 
@@ -22,7 +22,7 @@ console snapshot create [...]
 
 **Note**: Migration Assistant will automatically generate a snapshot name and configure the necessary Amazon Simple Storage Service (Amazon S3) repository. Alternatively, you have the option to bring your own existing snapshot. 
 
-For more details on using an existing snapshot refer to [Bring your own snapshot]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/#bring-your-own-snapshot) configuration.
+For more information about using an existing snapshot, see [Bring your own snapshot]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/#bring-your-own-snapshot) configuration.
 
 To check the snapshot creation status, run the following command:
 

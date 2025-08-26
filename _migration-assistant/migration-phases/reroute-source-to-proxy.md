@@ -9,7 +9,7 @@ permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
 
 # Reroute client traffic to the Traffic Capture Proxy
 
-**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration you can skip this step.
+**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration, you can skip this step.
 {: .note}
 
 ## Capture Proxy data replication

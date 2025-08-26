@@ -9,7 +9,7 @@ permalink: /migration-assistant/migration-phases/reroute-traffic-from-capture-pr
 
 # Switching traffic from the source cluster
 
-**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration you can skip this step.
+**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration, you can skip this step.
 {: .note}
 
 After the source and target clusters are synchronized, traffic needs to be switched to the target cluster so that the source cluster can be taken offline.
