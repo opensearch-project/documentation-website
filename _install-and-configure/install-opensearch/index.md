@@ -41,7 +41,7 @@ export OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk
 
 ## Network requirements
 
-The following ports need to be open for OpenSearch components.
+The following (TCP) ports need to be open for OpenSearch components.
 
 Port number | OpenSearch component
 :--- | :--- 
@@ -50,6 +50,9 @@ Port number | OpenSearch component
 9200 | OpenSearch REST API
 9300 | Node communication and transport (internal), cross cluster search
 9600 | Performance Analyzer
+
+No UDP ports are used.
+{: .note}
 
 ## Important settings
 
