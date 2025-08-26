@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Reroute traffic to the target
-nav_order: 7
+nav_order: 8
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/
@@ -9,7 +9,7 @@ permalink: /migration-assistant/migration-phases/reroute-traffic-from-capture-pr
 
 # Switching traffic from the source cluster
 
-**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration or can tolerate downtime, you can skip this step.
+**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration, you can skip this step.
 {: .note}
 
 After the source and target clusters are synchronized, traffic needs to be switched to the target cluster so that the source cluster can be taken offline.
@@ -55,3 +55,5 @@ Use the following steps to switch traffic from the source cluster to the target 
 ## Fallback
 
 If you need to fall back to the source cluster at any point during the switchover, revert the **Default rule** so that the Application Load Balancer routes to the **SourceProxy Target Group**.
+
+{% include migration-phase-navigation.html %}
