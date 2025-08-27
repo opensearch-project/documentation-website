@@ -18,8 +18,7 @@ Rolling upgrades, sometimes referred to as "node replacement upgrades," can be p
 This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/).
 
 ## Preparing to upgrade
-
-Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
+Before making any changes to your OpenSearch cluster is it highly recommended to back up your configuration files and create a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/) of the cluster state and indexes.
 
 **Important:** OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .important}
@@ -90,7 +89,15 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/ro
      }
    }
    ```
-1. Review your cluster and identify the first node to upgrade. Eligible cluster manager nodes should be upgraded last because OpenSearch nodes can join a cluster with manager nodes running an older version, but they cannot join a cluster with all manager nodes running a newer version.
+1. Review your cluster and identify the first node to upgrade. The nodes should be upgraded in the following order:
+
+    1. Data nodes
+    1. Ingest / ML / Coordinating nodes
+    1. Cluster manager nodes
+
+    Eligible cluster manager nodes should be upgraded last because OpenSearch nodes can join a cluster with cluster manager nodes running an older version, but they cannot join a cluster with all cluster manager nodes running a newer version.
+    {: .important}
+
 1. Query the `_cat/nodes` endpoint to identify which node was promoted to cluster manager. The following command includes additional query parameters that request only the name, version, node.role, and master headers. Note that OpenSearch 1.x versions use the term "master," which has been deprecated and replaced by "cluster_manager" in OpenSearch 2.x and later.
    ```bash
    GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
@@ -103,7 +110,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/ro
    os-node-03  7.10.2   dimr       -
    os-node-02  7.10.2   dimr       *
    ```
-1. Stop the node you are upgrading. Do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. **Deleting the volume will result in data loss**.
+1. Stop the node you are upgrading. If running this in docker, do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. **Deleting the volume will result in data loss**.
 1. Confirm that the associated node has been dismissed from the cluster by querying the `_cat/nodes` API endpoint:
    ```bash
    GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
@@ -116,7 +123,15 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/ro
    os-node-03  7.10.2   dimr       -
    ```
    `os-node-01` is no longer listed because the container has been stopped and deleted.
-1. Deploy a new container running the desired version of OpenSearch and mapped to the same volume as the container you deleted.
+1. Upgrade the node.
+     - If running in docker, deploy a new container running the desired version of OpenSearch, mapped to the same volume as the container you deleted.
+     - If using [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/) or [RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm/) packages, install OpenSearch using `rpm`, `yum` or `dpkg` and start the service. No further configuration is needed as locations and files are preserved.
+     - If using [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/), the following actions are required:
+        - Copy previous `data` directory to the new `data` directory, **otherwise data will be lost**.
+        - Copy previous `opensearch.yml` file to the new `config/opensearch.yml` file.
+        - Copy previous `jvm.options` file to the new `config/jvm.options` file.
+        - Copy TLS certificates listed in `opensearch.yml` file to `./config/` directory.
+        - Start OpenSearch
 1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster:
    ```bash
    GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
