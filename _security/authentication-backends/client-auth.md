@@ -93,15 +93,15 @@ print(response.text)
 
 {% comment %}
 
-### (Advanced) Exclude certain users from client authentication
+### (Advanced) Exclude certain users from client cert authentication
 
-If you are using multiple authentication methods, it can make sense to exclude certain users from the client authentication.
+If you are using multiple authentication methods, it can make sense to exclude certain users from the client cert authentication.
 
 Consider the following scenario for a typical OpenSearch Dashboards setup: OpenSearch Dashboard has basic auth setup and user login from browser. 
 
 However, you also have an OpenSearch Dashboards server user. OpenSearch Dashboards uses this user to manage stored objects and perform monitoring and maintenance tasks. You do not want to use this user certificate to login for a user who submitted basic auth logic from a browser.
 
-In this case, it makes sense to exclude the OpenSearch Dashboards server user from the client authentication so that user who enters login information in browser gets their login validated. You can use the `skip_users` configuration setting to define which users should be skipped. Wildcards and regular expressions are supported:
+In this case, it makes sense to exclude the OpenSearch Dashboards server user from the client cert authentication so that user who enters login information in browser gets their login validated. You can use the `skip_users` configuration setting to define which users should be skipped. Wildcards and regular expressions are supported:
 
 ```yml
 
