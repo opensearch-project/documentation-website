@@ -18,9 +18,9 @@ Rolling upgrades, sometimes referred to as "node replacement upgrades," can be p
 This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/).
 
 ## Preparing to upgrade
-Before making any changes to your OpenSearch cluster is it highly recommended to back up your configuration files and create a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/) of the cluster state and indexes.
+Before making any changes to your OpenSearch cluster, is it highly recommended to back up your configuration files and create a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/) of the cluster state and indexes.
 
-**Important:** OpenSearch nodes **cannot be downgraded**. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure. Rolling upgrade is **only supported between major adjacent versions**, for example from OpenSearch 1.x to 2.x, but not 1.x to 3.x.
+**Important**: OpenSearch nodes **cannot be downgraded**. If you need to revert the upgrade, then you will need to perform a new installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure. Rolling upgrades are **only supported between major adjacent versions**, for example, from OpenSearch 1.x to 2.x but not 1.x to 3.x.
 {: .important}
 
 ## Performing the upgrade
@@ -92,7 +92,7 @@ Before making any changes to your OpenSearch cluster is it highly recommended to
 1. Review your cluster and identify the first node to upgrade. The nodes should be upgraded in the following order:
 
     1. Data nodes
-    1. Ingest/ML/Coordinating nodes
+    1. Ingest/machine learning (ML)/coordinating nodes
     1. Cluster manager nodes
 
     Eligible cluster manager nodes should be upgraded last because OpenSearch nodes can join a cluster with cluster manager nodes running an older version, but they cannot join a cluster with all cluster manager nodes running a newer version.
@@ -123,16 +123,16 @@ Before making any changes to your OpenSearch cluster is it highly recommended to
    os-node-03  7.10.2   dimr       -
    ```
    `os-node-01` is no longer listed because the container has been stopped and deleted.
-1. Upgrade the node.
+1. Upgrade the node:
      - If running in Docker, deploy a new container running the desired version of OpenSearch, mapped to the same volume as the container you deleted.
-     - If upgrading using [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/) or [RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm/) packages, install OpenSearch using `rpm`, `yum` or `dpkg` and start the service. No further configuration is needed as locations and files are preserved.
+     - If upgrading using [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/) or [RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm/) packages, install OpenSearch using `rpm`, `yum`, or `dpkg` and start the service. No further configuration is needed because locations and files are preserved.
      - If upgrading using [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/), the following actions are required:
-        - Back up `jvm.options`, `opensearch.yml`, certificates and `data` folder.
-        - Extract the new Tarball.
-        - Copy previous `data` directory to the new `data` directory, **otherwise data will be lost**.
-        - Copy previous `opensearch.yml` file to the new `config/opensearch.yml` file.
-        - Copy previous `jvm.options` file to the new `config/jvm.options` file.
-        - Copy TLS certificates listed in `opensearch.yml` file to `./config/` directory.
+        - Back up `jvm.options`, `opensearch.yml`, certificates, and the `data` folder.
+        - Extract the new tarball.
+        - Copy the previous `data` directory to the new `data` directory, **otherwise data will be lost**.
+        - Copy the previous `opensearch.yml` file to the new `config/opensearch.yml` file.
+        - Copy the previous `jvm.options` file to the new `config/jvm.options` file.
+        - Copy the TLS certificates listed in the `opensearch.yml` file to the `./config/` directory.
         - Start OpenSearch.
 1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster:
    ```bash
