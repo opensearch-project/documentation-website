@@ -99,7 +99,6 @@ If you are using multiple authentication methods, it can make sense to exclude c
 
 Consider the following scenario for a typical OpenSearch Dashboards setup: OpenSearch Dashboard has basic auth setup and user login from a browser. However, you also have an OpenSearch Dashboards server user. OpenSearch Dashboards uses this user to manage stored objects and perform monitoring and maintenance tasks. You do not want to use this user certificate to log in a user who submitted basic auth logic from a browser.
 
-
 In this case, it makes sense to exclude the OpenSearch Dashboards server user from the client cert authentication so that the user who enters login information in the browser is validated. You can use the `skip_users` configuration setting to define which users should be skipped. Wildcards and regular expressions are supported:
 
 ```yml
