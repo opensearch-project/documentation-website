@@ -33,7 +33,7 @@ The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`messages` | List | Required | A list of messages.
+`messages` | List | Required | A list of messages. Each message requires `content` and may include a `role` (commonly `user` or `assistant`).
 `session_id` | String | Optional | The session ID associated with the memory.
 `agent_id` | String | Optional | The agent ID associated with the memory.
 `infer` | Boolean | Optional | Controls whether the LLM infers context from messages. Default is `true`. When `true`, the LLM extracts factual information from the original text and stores it as the memory. When `false`, the memory contains the unprocessed message and you must explicitly specify the `role` in each message. 
@@ -45,7 +45,7 @@ Field | Data type | Required/Optional | Description
 POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
 {
     "messages": [
-        {"role": "assistant", "content": "Machine learning is a subset of artificial intelligence"}
+        {"role": "user", "content": "Machine learning is a subset of artificial intelligence"}
     ],
     "session_id": "sess_789",
     "agent_id": "agent_123",
