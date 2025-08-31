@@ -253,7 +253,7 @@
 
         const navToResultsPage = () => {
             const query = encodeURIComponent(elInput.value);
-            window.location.href = `/docs/${docsVersion}/search.html?q=${query}`;
+            window.location.href = `/${docsVersion}/search.html?q=${query}`;
         }
 
         const navToResult = () => {
