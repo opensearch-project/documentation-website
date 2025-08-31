@@ -181,10 +181,7 @@
             elSpinner?.classList.remove(CLASSNAME_SPINNING);
         };
 
-        const emptyResults = () => {
-            //ToDo: Replace with `elResults.replaceChildren();` when https://caniuse.com/?search=replaceChildren shows above 90% can use it
-            while (elResults.firstChild) elResults.firstChild.remove();
-        };
+        const emptyResults = () => elResults.replaceChildren();
 
         const sanitizeText = text => {
             return text?.replace?.(/</g, '&lt;');
