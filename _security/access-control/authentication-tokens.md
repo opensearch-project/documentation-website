@@ -36,7 +36,7 @@ config:
 ...
 ```
 
-The default encoding algorithm for signing the JWT is HMAC SHA512. Both the signing key and the encryption key are base64 encoded and stored on the OpenSearch node's file system. The keys should be the same on all hosts. Otherwise, encryption and decryption operations may fail. The keys' deployment is managed by the cluster operator.
+The default encoding algorithm for signing the JWT is HMAC SHA512. Both keys are base64-encoded strings in the Security configuration. After the configuration is applied, the values are stored in the Security system index and used cluster-wide.
 
 ### Token structure
 
