@@ -69,7 +69,7 @@ The following table lists the available query parameters. All query parameters a
 | `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. | N/A |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `shards` | List | A comma-separated list of shards to display. | N/A |
-| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
 | `timeout` | String | The operation timeout. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 
