@@ -13,7 +13,8 @@ module Utils
     'query_parameters' => 'Query Parameters',
     'path_parameters' => 'Path Parameters',
     'request_body_parameters' => 'Request Body Parameters',
-    'response_body_parameters' => 'Response Body Parameters'
+    'response_body_parameters' => 'Response Body Parameters',
+    'example_code' => 'Example Code'
   }.freeze
 
   # @return [Array<String>] list of markdown files to insert the spec components into

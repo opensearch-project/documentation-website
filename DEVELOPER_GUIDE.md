@@ -8,7 +8,8 @@
   - [Query parameters](#query-parameters)
   - [Path parameters](#path-parameters)
   - [Endpoints](#endpoints)
-
+  - [Example_Code](#example_code)
+  
 ## Introduction
 
 The `.md` documents in this repository are rendered into HTML pages using [Jekyll](https://jekyllrb.com/). These HTML pages are hosted on [opensearch.org](https://docs.opensearch.org/latest/).
@@ -87,6 +88,65 @@ All spec insert components accept the following arguments:
 - `api` (String; required): The name of the API to render the component from. This is equivalent to the `x-operation-group` field in the OpenSearch OpenAPI Spec.
 - `component` (String; required): The name of the component to render, such as `query_parameters`, `path_parameters`, or `endpoints`.
 - `omit_header` (Boolean; Default is `false`): If set to `true`, the markdown header of the component will not be rendered.
+
+### Example_Code
+
+- `api` should not be placed for the `component: example_code` tag. `rest` is mapped to the correct API by regex mapping.
+- `rest` (String; required): The HTTP request line (`HTTP method` + `endpoint path`) that is regex mapped to the `opensearch-openapi.yaml`.
+
+The following tags are included to help with additional needs:
+
+- `body` (String; optional): The request body for the API call, using YAML `|` to preserve newlines and indentation.
+- `include_client_setup:` (Boolean; Default is `false`): If set to `true`, the client setup for the language will be rendered.
+- `skip` (Boolean; Default is `false`): If set to `true`, the language conversions will not render/re-render. Use for manual conversions.
+
+To insert multi-language support for the `cat.allocation` API, use the following snippet:
+
+```markdown
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/allocation?v
+-->
+<!-- spec_insert_end -->
+```
+
+To insert multi-language support for the `index` API with a request body, use the following snippet. The `|` is needed for multiline support for the body:
+
+```markdown
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_settings?expand_wildcards=all&analyze_wildcard
+body: |
+  {
+    "index": {
+      "number_of_replicas": 2
+    }
+  }
+-->
+<!-- spec_insert_end -->
+```
+
+To insert multi-language support for the `index` API and include the client setup for each language, use the following snippet:
+
+```markdown
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_settings?expand_wildcards=all&analyze_wildcard
+include_client_setup: true
+-->
+<!-- spec_insert_end -->
+```
+
+To insert multi-language support for the `index` API but need to manually set the multi-language example for the `index` API, use the following snippet:
+
+```markdown
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_settings?expand_wildcards=all&analyze_wildcard
+skip: true
+-->
+<!-- spec_insert_end -->
+```
 
 ### Endpoints
 To insert endpoints for the `search` API, use the following snippet:
