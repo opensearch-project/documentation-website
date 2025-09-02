@@ -11,14 +11,14 @@ For an overview of creating an OpenSearch cluster and examples of configuration 
 
 OpenSearch supports the following system settings:
 
-- `cluster.name` (Static, string): The cluster name. 
+- `cluster.name` (Static, string): The cluster name. Default is `opensearch`.
 
-- `node.name` (Static, string): A descriptive name for the node.
+- `node.name` (Static, string): A descriptive name for the node. Required.
 
-- `node.roles` (Static, list): Defines one or more roles for an OpenSearch node. Valid values are `cluster_manager`, `data`, `ingest`, `search`, `ml`, `remote_cluster_client`, and `coordinating_only`. 
+- `node.roles` (Static, list): Defines one or more roles for an OpenSearch node. Valid values are `cluster_manager`, `data`, `ingest`, `search`, `ml`, `remote_cluster_client`, and `coordinating_only`. Default is `cluster_manager,data,ingest,remote_cluster_client`.
 
-- `path.data` (Static, string): A path to the directory where your data is stored. Separate multiple locations with commas. 
+- `path.data` (Static, string): A path to the directory where your data is stored. Separate multiple locations with commas. Default is `$OPENSEARCH_HOME/data`.
 
-- `path.logs` (Static, string): A path to log files.
+- `path.logs` (Static, string): A path to log files. Default is `$OPENSEARCH_HOME/logs`.
 
-- `bootstrap.memory_lock` (Static, Boolean): Locks the memory at startup. We recommend setting the heap size to about half the memory available on the system and that the owner of the process is allowed to use this limit. OpenSearch doesn't perform well when the system is swapping the memory. 
+- `bootstrap.memory_lock` (Static, Boolean): Locks the memory at startup. We recommend setting the heap size to about half the memory available on the system and that the owner of the process be allowed to use this limit. OpenSearch doesn't perform well when the system is swapping the memory. Default is `false`.
