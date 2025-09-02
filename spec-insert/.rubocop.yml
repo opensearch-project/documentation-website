@@ -31,6 +31,4 @@ Naming/FileName:
 
 # Allow predicate methods without ? for Mustache template compatibility
 Naming/PredicateName:
-  AllowedMethods:
-    - 'optional'
-    - 'any_errors'
+  Enabled: false
