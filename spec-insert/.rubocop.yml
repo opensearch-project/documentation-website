@@ -30,5 +30,5 @@ Naming/FileName:
     - 'lib/jekyll-spec-insert.rb' # For Jekyll to recognize the plugin
 
 # Allow predicate methods without ? for Mustache template compatibility
-Naming/PredicateName:
+Naming/PredicateMethod:
   Enabled: false
