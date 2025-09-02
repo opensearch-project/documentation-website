@@ -271,7 +271,7 @@ Rolls an alias over to a new index when the managed index meets one of the rollo
 
 > **IMPORTANT**
 >
->ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _has exceeded_ the configured limit **when the check is performed**. For example with `min_size` configured to a value of 100GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit (e.g., 105GiB) by the next check, the operation is performed.
+>ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _has exceeded_ the configured limit **when the check is performed**. For example with `min_size` configured to a value of 100GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit (for example, 105GiB) by the next check, the operation is performed.
 {: .important}
 
 If you need to skip the rollover action, you can set the index setting `index.plugins.index_state_management.rollover_skip` to `true`. For example, if you receive the error message "Missing alias or not the write index...", you can set the `index.plugins.index_state_management.rollover_skip` parameter to `true` and retry to skip rollover action.
