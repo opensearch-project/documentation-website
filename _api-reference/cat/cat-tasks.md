@@ -54,10 +54,27 @@ The following table lists the available query parameters.
 
 The following example request lists all tasks in progress:
 
-```
-GET _cat/tasks?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/tasks?v
+-->
+{% capture step1_rest %}
+GET /_cat/tasks?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.tasks(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

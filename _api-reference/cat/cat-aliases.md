@@ -54,24 +54,78 @@ The following table lists the available query parameters.
 
 ## Example requests
 
-```json
-GET _cat/aliases?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases?v
+-->
+{% capture step1_rest %}
+GET /_cat/aliases?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To limit the information to a specific alias, add the alias name after your query:
 
-```json
-GET _cat/aliases/<alias>?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases/<alias>?v
+-->
+{% capture step1_rest %}
+GET /_cat/aliases/<alias>?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  name = "<alias>",
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to get information for more than one alias, separate the alias names with commas:
 
-```json
-GET _cat/aliases/alias1,alias2,alias3
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases/alias1,alias2,alias3
+body: 
+-->
+{% capture step1_rest %}
+GET /_cat/aliases/alias1,alias2,alias3
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  name = "alias1,alias2,alias3"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

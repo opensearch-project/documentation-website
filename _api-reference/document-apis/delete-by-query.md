@@ -81,8 +81,10 @@ To search your index for specific documents, you must include a [query]({{site.u
 
 ## Example request
 
-```json
-POST sample-index1/_delete_by_query
+<!-- spec_insert_start
+component: example_code
+rest: POST /sample-index1/_delete_by_query
+body: |
 {
   "query": {
     "match": {
@@ -90,8 +92,38 @@ POST sample-index1/_delete_by_query
     }
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /sample-index1/_delete_by_query
+{
+  "query": {
+    "match": {
+      "movie-length": "124"
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.delete_by_query(
+  index = "sample-index1",
+  body =   {
+    "query": {
+      "match": {
+        "movie-length": "124"
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

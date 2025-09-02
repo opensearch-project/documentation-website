@@ -57,8 +57,10 @@ Parameter | Type | Description | Required
 
 To see the explain output for all results, set the `explain` flag to `true` either in the URL or in the body of the request:
 
-```json
-POST opensearch_dashboards_sample_data_ecommerce/_search?explain=true
+<!-- spec_insert_start
+component: example_code
+rest: POST /opensearch_dashboards_sample_data_ecommerce/_search?explain=true
+body: |
 {
   "query": {
     "match": {
@@ -66,13 +68,46 @@ POST opensearch_dashboards_sample_data_ecommerce/_search?explain=true
     }
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /opensearch_dashboards_sample_data_ecommerce/_search?explain=true
+{
+  "query": {
+    "match": {
+      "customer_first_name": "Mary"
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search(
+  index = "opensearch_dashboards_sample_data_ecommerce",
+  params = { "explain": "true" },
+  body =   {
+    "query": {
+      "match": {
+        "customer_first_name": "Mary"
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 More often, you want the output for a single document. In that case, specify the document ID in the URL:
 
-```json
-POST opensearch_dashboards_sample_data_ecommerce/_explain/EVz1Q3sBgg5eWQP6RSte
+<!-- spec_insert_start
+component: example_code
+rest: POST /opensearch_dashboards_sample_data_ecommerce/_explain/EVz1Q3sBgg5eWQP6RSte
+body: |
 {
   "query": {
     "match": {
@@ -80,8 +115,39 @@ POST opensearch_dashboards_sample_data_ecommerce/_explain/EVz1Q3sBgg5eWQP6RSte
     }
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /opensearch_dashboards_sample_data_ecommerce/_explain/EVz1Q3sBgg5eWQP6RSte
+{
+  "query": {
+    "match": {
+      "customer_first_name": "Mary"
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.explain(
+  id = "EVz1Q3sBgg5eWQP6RSte",
+  index = "opensearch_dashboards_sample_data_ecommerce",
+  body =   {
+    "query": {
+      "match": {
+        "customer_first_name": "Mary"
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

@@ -114,7 +114,19 @@ version | Boolean | Whether to include the document version in the response.
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /movies/_search
+body: |
+{
+  "query": {
+    "match": {
+      "text_entry": "I am the night"
+    }
+  }
+}
+-->
+{% capture step1_rest %}
 GET /movies/_search
 {
   "query": {
@@ -123,8 +135,28 @@ GET /movies/_search
     }
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search(
+  index = "movies",
+  body =   {
+    "query": {
+      "match": {
+        "text_entry": "I am the night"
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Response body fields

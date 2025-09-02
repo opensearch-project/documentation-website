@@ -54,24 +54,76 @@ The following table lists the available query parameters.
 
 The following example request gives information about thread pools on all nodes:
 
-```json
-GET _cat/thread_pool?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/thread_pool?v
+-->
+{% capture step1_rest %}
+GET /_cat/thread_pool?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.thread_pool(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to get information for more than one thread pool, separate the thread pool names with commas:
 
-```json
-GET _cat/thread_pool/thread_pool_name_1,thread_pool_name_2,thread_pool_name_3
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/thread_pool/thread_pool_name_1,thread_pool_name_2,thread_pool_name_3
+-->
+{% capture step1_rest %}
+GET /_cat/thread_pool/thread_pool_name_1,thread_pool_name_2,thread_pool_name_3
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.thread_pool(
+  thread_pool_patterns = "thread_pool_name_1,thread_pool_name_2,thread_pool_name_3"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to limit the information to a specific thread pool, add the thread pool name after your query:
 
-```json
-GET _cat/thread_pool/<thread_pool_name>?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/thread_pool/<thread_pool_name>?v
+-->
+{% capture step1_rest %}
+GET /_cat/thread_pool/<thread_pool_name>?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.thread_pool(
+  thread_pool_patterns = "<thread_pool_name>",
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

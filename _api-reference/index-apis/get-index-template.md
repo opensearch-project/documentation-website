@@ -29,14 +29,44 @@ Parameter | Type | Description
 
 The following example request gets information about an index template by using a wildcard expression:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_index_template/h*
+-->
+{% capture step1_rest %}
 GET /_index_template/h*
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.get_index_template(
+  name = "h*"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following example request gets information about all index templates:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_index_template
+-->
+{% capture step1_rest %}
 GET /_index_template
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.indices.get_index_template()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->

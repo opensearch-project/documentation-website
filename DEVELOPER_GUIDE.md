@@ -213,6 +213,59 @@ pretty: true
 -->
 <!-- spec_insert_end -->
 ```
+### Inserting new tags
+
+`_script/insert_tags_block.py`
+
+This script scans markdown documentation files in `/_api-reference` for `## Example Request(s)` headings and automatically inserts a blank `spec-insert` block for the `example_code` component. It will be placed immediately beneath the first matching 
+header. It supports scanning individual files, multiple files or the whole `_api-reference` tree.
+
+Update entire _api-reference/ tree:
+```
+python3 _script/insert_tags_block.py
+```
+
+Update a specific folder (recursively):
+```
+python3 _script/insert_tags_block.py _api-reference/cat
+```
+
+Update only the top-level files in a folder (no recursion):
+```
+python3 _script/insert_tags_block.py _api-reference/cat --no-recursive
+```
+
+Update a specific file:
+```
+python3 _script/insert_tags_block.py _api-reference/cat/cat-allocation.md
+```
+
+Update multiple files/folders at once:
+```
+python3 _script/insert_tags_block.py _api-reference/cat _api-reference/indices/create-index.md
+```
+
+`--dry-runs` will show you what files will be modified:
+
+Dry-run on the entire _api-reference/ tree:
+```
+python3 _script/insert_tags_block.py --dry-run
+```
+
+Dry-run on a specific folder (recursively):
+```
+python3 _script/insert_tags_block.py _api-reference/cat --dry-run
+```
+
+Dry-run on a specific file:
+```
+python3 _script/insert_tags_block.py _api-reference/cat/cat-allocation.md --dry-run
+```
+
+Dry-run on multiple files/folders:
+```
+python3 _script/insert_tags_block.py _api-reference/cat _api-reference/indices/create-index.md --dry-run
+```
 
 ### Request and response bodies (Beta)
 
