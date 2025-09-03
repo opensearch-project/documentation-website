@@ -36,7 +36,7 @@ config:
 ...
 ```
 
-The default encoding algorithm for signing the JWT is HMAC SHA512. Both keys are base64-encoded strings in the Security configuration. After the configuration is applied, the values are stored in the Security system index and used cluster-wide.
+The default encoding algorithm for signing the JWT is HMAC SHA512. Both keys are base64-encoded strings in the security configuration. After the configuration is applied, the values are stored in the security system index and used cluster-wide.
 
 ### Token structure
 
