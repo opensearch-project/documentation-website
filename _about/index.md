@@ -51,7 +51,7 @@ getting_started:
     link: "/dashboards/quickstart/"
   - heading: "Get started with vector search"
     description: "Learn about vector search options and build your first vector search application"
-    link: "/search-plugins/"
+    link: "/vector-search/getting-started/"
   - heading: "Get started with OpenSearch security"
     description: "Learn about security in OpenSearch"
     link: "/getting-started/security/"
