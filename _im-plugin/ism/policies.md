@@ -271,7 +271,7 @@ Rolls an alias over to a new index when the managed index meets one of the rollo
 
 > **IMPORTANT**
 >
->ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _has exceeded_ the configured limit **when the check is performed**. For example, with `min_size` configured to a value of 100GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit by the next check (for example, to 105GiB), the operation is performed.
+>ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _has exceeded_ the configured limit **when the check is performed**. For example, with `min_size` configured to a value of 100 GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit by the next check (for example, to 105 GiB), the operation is performed.
 {: .important}
 
 If you need to skip the rollover action, you can set the index setting `index.plugins.index_state_management.rollover_skip` to `true`. For example, if you receive the error message "Missing alias or not the write index...", you can set the `index.plugins.index_state_management.rollover_skip` parameter to `true` and retry to skip rollover action.
@@ -390,7 +390,7 @@ The following `ctx` variable options are available for every policy:
 Parameter | Description | Type
 :--- | :--- |:--- |:--- |
 `index` | The name of the index. | String
-`index_uuid` | The uuid of the index. | String
+`index_uuid` | The UUID of the index. | String
 `policy_id` | The name of the policy. | String
 
 ### snapshot
@@ -471,7 +471,7 @@ Parameter | Description | Type | Required
 :--- | :--- |:--- |:---
 `require` | Allocate the index to a node with a specified attribute. | String | Yes
 `include` | Allocate the index to a node with any of the specified attributes. | String | Yes
-`exclude` | Don’t allocate the index to a node with any of the specified attributes. | String | Yes
+`exclude` | Don't allocate the index to a node with any of the specified attributes. | String | Yes
 `wait_for` | Wait for the policy to execute before allocating the index to a node with a specified attribute. | String | Yes
 
 ```json
@@ -639,7 +639,7 @@ Parameter | Description | Type | Required
 `no_alias` | Controls transition based on alias presence. If `true`, transition occurs only when the index has **no aliases**. If `false`, transition occurs only when at least **one alias exists**. | `boolean` | No
 `cron` | The `cron` job that triggers the transition if no other transition happens first. | `object` | No
 `cron.cron.expression` | The `cron` expression that triggers the transition. | String | Yes
-`cron.cron.timezone` | The timezone that triggers the transition. | String | Yes
+`cron.cron.timezone` | The time zone that triggers the transition. | String | Yes
 
 All time-based values (`min_index_age`, `min_rollover_age`, `min_state_age`) use [standard OpenSearch time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units).
 {: .note}
