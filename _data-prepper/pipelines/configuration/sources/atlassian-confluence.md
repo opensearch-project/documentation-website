@@ -35,6 +35,7 @@ atlassian-confluence-pipeline:
     confluence:
       hosts: ["https://example.atlassian.net/"]
       acknowledgments: true
+      preserve_formatting: true
       authentication:
         # Provide one of the authentication method to use. Supported methods are 'basic' and 'oauth2'.
         # For basic authentication, password is the API key that you generate using your confluence account
@@ -78,10 +79,11 @@ The `confluence` source supports the following configuration options.
 
 | Option            | Required | Type                              | Description                                                                                                                                                                                                                         |
 |:------------------|:---------|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `hosts`           | Yes      | List                              | The Atlassian Confluence hostname. Currently, only one host is supported, so this list is expected to be of size 1.                                                                                                                        |
+| `hosts`           | Yes      | List                              | The Atlassian Confluence hostname. Currently, only one host is supported, so this list is expected to be of size 1.                                                                                                                 |
 | `acknowledgments` | No       | Boolean                           | When set to `true`, enables the `confluence` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks. |
-| `authentication`  | Yes      | [authentication](#Authentication) | Configures the authentication method used to access `confluence` source records from the specified host.                                                                                                                                         |
-| `filter`          | No       | [filter](#Filter)                 | Applies specific filter criteria while extracting Confluence content.                                                                                                                                                     |
+| `preserve_formatting` | No       | Boolean                           | When set to `true`, conflunece content formatting markup tags will be kept as it is. Default is set to `false` which removes markup tags and convert to plain text.                                                                 |
+| `authentication`  | Yes      | [authentication](#Authentication) | Configures the authentication method used to access `confluence` source records from the specified host.                                                                                                                            |
+| `filter`          | No       | [filter](#Filter)                 | Applies specific filter criteria while extracting Confluence content.                                                                                                                                                               |
 
 ### Authentication
 
