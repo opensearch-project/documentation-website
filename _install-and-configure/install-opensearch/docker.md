@@ -96,7 +96,7 @@ To download a specific version of OpenSearch or OpenSearch Dashboards other than
 Before continuing, you should verify that Docker is working correctly by deploying OpenSearch in a single container.
 
 1. Start opensearch in Docker.
-    OpenSearch 2.12 or greater require that you set a custom admin password when starting. The password must be at least 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character that is strong. If it is insufficiently strong, an error is reported in the log and OpenSearch quits.
+    OpenSearch 2.12 or later requires that you set a custom admin password when starting. For more information, see [Setting a custom admin password](#setting-a-custom-admin-password). If the password is insufficiently strong, an error is reported in the log and OpenSearch quits:
     ```bash
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" opensearchproject/opensearch:latest
     ```
