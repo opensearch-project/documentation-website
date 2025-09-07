@@ -46,11 +46,11 @@ include_deprecated: false
 -->
 ## Query parameters
 
-The following table lists the available query parameters.
+The following table lists the available query parameters. All query parameters are optional.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters](https://opensearch.org/docs/latest/api-reference/common-parameters/#time-units). |
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
 
 <!-- spec_insert_end -->
 
