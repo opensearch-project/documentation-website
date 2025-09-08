@@ -45,6 +45,7 @@ explain | Boolean | Whether to return details about how OpenSearch computed the 
 from | Integer | The starting index to search from. Default is 0.
 ignore_throttled | Boolean | Whether to ignore concrete, expanded, or indexes with aliases if indexes are frozen. Default is `true`.
 ignore_unavailable | Boolean | Specifies whether to include missing or closed indexes in the response and ignores unavailable shards during the search request. Default is `false`.
+include_named_queries_score | Boolean | Whether to return scores for named queries. Default is `false`.
 lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is `false`.
 max_concurrent_shard_requests | Integer | How many concurrent shard requests this request should execute on each node. Default is 5.
 phase_took | Boolean | Whether to return phase-level `took` time values in the response. Default is `false`.
@@ -74,7 +75,6 @@ track_scores | Boolean | Whether to return document scores. Default is `false`.
 track_total_hits | Boolean or Integer | Whether to return how many documents matched the query.
 typed_keys | Boolean | Whether returned aggregations and suggested terms should include their types in the response. Default is `true`.
 version | Boolean | Whether to include the document version as a match.
-include_named_queries_score | Boolean | Whether to return scores with named queries. Default is `false`.
 
 ### The `preference` query parameter
 
@@ -101,6 +101,7 @@ docvalue_fields | Array of objects | The fields that OpenSearch should return us
 fields | Array | The fields to search for in the request. Specify a format to return results in a certain format, such as date and time.
 explain | String | Whether to return details about how OpenSearch computed the document's score. Default is `false`.
 from | Integer | The starting index to search from. Default is 0.
+include_named_queries_score | Boolean | Whether to return scores for named queries.
 indices_boost | Array of objects | Values used to boost the score of specified indexes. Specify in the format of &lt;index&gt; : &lt;boost-multiplier&gt;
 min_score | Integer | Specify a score threshold to return only documents above the threshold.
 query | Object | The [DSL query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) to use in the request.
