@@ -36,7 +36,7 @@ include_deprecated: false
 -->
 ## Query parameters
 
-The following table lists the available query parameters.
+The following table lists the available query parameters. All query parameters are optional.
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
@@ -47,7 +47,7 @@ The following table lists the available query parameters.
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
-| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 
 <!-- spec_insert_end -->
