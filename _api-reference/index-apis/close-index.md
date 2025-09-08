@@ -41,10 +41,29 @@ timeout | Time | How long to wait for a response from the cluster. Default is `3
 
 ## Example requests
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /sample-index/_close
+body: 
+-->
+{% capture step1_rest %}
 POST /sample-index/_close
-```
-{% include copy-curl.html %}
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.close(
+  index = "sample-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

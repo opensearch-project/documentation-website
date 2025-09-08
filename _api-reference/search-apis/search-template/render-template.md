@@ -64,16 +64,45 @@ Both of the following request examples use the search template with the template
 
 The following example request validates a search template with the ID `play_search_template`:
 
-```json
-POST _render/template
+<!-- spec_insert_start
+component: example_code
+rest: POST /_render/template
+body: |
 {
   "id": "play_search_template",
   "params": {
     "play_name": "Henry IV"
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /_render/template
+{
+  "id": "play_search_template",
+  "params": {
+    "play_name": "Henry IV"
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.render_search_template(
+  body =   {
+    "id": "play_search_template",
+    "params": {
+      "play_name": "Henry IV"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Render template using `_source`
 

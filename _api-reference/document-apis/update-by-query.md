@@ -92,8 +92,10 @@ To update your indexes and documents by query, you must include a [query]({{site
 
 ## Example requests
 
-```json
-POST test-index1/_update_by_query
+<!-- spec_insert_start
+component: example_code
+rest: POST /test-index1/_update_by_query
+body: |
 {
   "query": {
     "term": {
@@ -108,8 +110,52 @@ POST test-index1/_update_by_query
     }
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /test-index1/_update_by_query
+{
+  "query": {
+    "term": {
+      "oldValue": 10
+    }
+  },
+  "script": {
+    "source": "ctx._source.oldValue += params.newValue",
+    "lang": "painless",
+    "params": {
+      "newValue": 20
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.update_by_query(
+  index = "test-index1",
+  body =   {
+    "query": {
+      "term": {
+        "oldValue": 10
+      }
+    },
+    "script": {
+      "source": "ctx._source.oldValue += params.newValue",
+      "lang": "painless",
+      "params": {
+        "newValue": 20
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 ```json

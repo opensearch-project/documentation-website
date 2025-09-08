@@ -39,10 +39,27 @@ To query indexes and their statistics with a verbose output that includes all co
 
 #### Request
 
-```json
-GET _list/indices?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_list/indices?v
+-->
+{% capture step1_rest %}
+GET /_list/indices?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.list.indices(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 #### Response
 
@@ -67,10 +84,27 @@ GET _list/<operation_name>?help
 
 The following example list indices operation returns all the available headers:
 
-```json
-GET _list/indices?help
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_list/indices?help
+-->
+{% capture step1_rest %}
+GET /_list/indices?help
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.list.indices(
+  params = { "help": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 #### Response
 
@@ -101,10 +135,27 @@ For any operation, you can determine which headers are available by using the `h
 
 The following example limits the indexes in the response to only the index name and health status headers:
 
-```json
-GET _list/indices?h=health,index
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_list/indices?h=health,index
+-->
+{% capture step1_rest %}
+GET /_list/indices?h=health,index
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.list.indices(
+  params = { "h": "health,index" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Response
 
@@ -128,10 +179,27 @@ GET _list/<operation_name>?s=<header_name_1>,<header_name_2>
 
 The following example request sorts indexes by index name:
 
-```json
-GET _list/indices?s=h,i
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_list/indices?s=h,i
+-->
+{% capture step1_rest %}
+GET /_list/indices?s=h,i
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.list.indices(
+  params = { "s": "h,i" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 #### Response
 
@@ -154,16 +222,33 @@ If you use the Security plugin, ensure you have the appropriate permissions.
 #### Request
 
 ```json
-GET _list/<operation_name>?format=json
+GET _list/<operation_name>?help
 ```
 {% include copy-curl.html %}
 
 #### Request
 
-```json
-GET _list/indices?format=json
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_list/indices?format=json
+-->
+{% capture step1_rest %}
+GET /_list/indices?format=json
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.list.indices(
+  params = { "format": "json" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Response
 
