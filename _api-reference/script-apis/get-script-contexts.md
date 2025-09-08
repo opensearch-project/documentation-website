@@ -13,10 +13,23 @@ Retrieves all contexts for stored scripts.
 
 ## Example request
 
-```json
-GET _script_context
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_script_context
+-->
+{% capture step1_rest %}
+GET /_script_context
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.get_script_context()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

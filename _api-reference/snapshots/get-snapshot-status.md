@@ -60,13 +60,36 @@ Using the API to return the state of snapshots that are not currently running ca
 
 The following request returns the status of `my-first-snapshot` in the `my-opensearch-repo` repository. Unavailable snapshots are ignored.
 
-````json
-GET _snapshot/my-opensearch-repo/my-first-snapshot/_status
+<!-- spec_insert_start
+component: example_code
+rest: GET /_snapshot/my-opensearch-repo/my-first-snapshot/_status
+body: |
 {
-   "ignore_unavailable": true 
+   "ignore_unavailable": true
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_snapshot/my-opensearch-repo/my-first-snapshot/_status
+{
+  "ignore_unavailable": true
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.status(
+  repository = "my-opensearch-repo",
+  snapshot = "my-first-snapshot"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
 
 ## Example response
 

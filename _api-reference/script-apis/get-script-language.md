@@ -13,10 +13,23 @@ The get script language API operation retrieves all supported script languages a
 
 ## Example request
 
-```json
-GET _script_language
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_script_language
+-->
+{% capture step1_rest %}
+GET /_script_language
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.get_script_languages()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

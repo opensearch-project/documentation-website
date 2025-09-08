@@ -126,10 +126,28 @@ Internally, when a document is updated in OpenSearch, the original version is ma
 
 The following example request retrieves information about a document named `1`:
 
-```json
-GET sample-index1/_doc/1
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /sample-index1/_doc/1
+-->
+{% capture step1_rest %}
+GET /sample-index1/_doc/1
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get(
+  id = "1",
+  index = "sample-index1"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

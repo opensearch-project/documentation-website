@@ -25,10 +25,23 @@ GET /_plugins/_security/api/_upgrade_check
 
 ## Example request
 
-```bash
+<!-- spec_insert_start
+component: example_code
+rest: GET /_plugins/_security/api/_upgrade_check
+-->
+{% capture step1_rest %}
 GET /_plugins/_security/api/_upgrade_check
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.security.config_upgrade_check()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
