@@ -46,7 +46,7 @@ The following table lists the available query parameters.
 | `help` | Boolean | Returns help information. | `false` |
 | `ignore_unavailable` | Boolean | When `true`, the response does not include information from unavailable snapshots. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
-| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 
 <!-- spec_insert_end -->

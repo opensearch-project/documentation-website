@@ -27,7 +27,7 @@ component: query_parameters
 -->
 ## Query parameters
 
-The following table lists the available query parameters.
+The following table lists the available query parameters. All query parameters are optional.
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
