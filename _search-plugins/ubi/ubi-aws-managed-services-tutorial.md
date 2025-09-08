@@ -9,14 +9,14 @@ nav_order: 30
 
 # Using UBI in Amazon OpenSearch Service
 
-This tutorial shows you how to collect queries and events in the User Behavior Insights (UBI) format when using Amazon OpenSearch Service. After following this tutorial, you’ll be able to send authenticated queries and events to both Amazon S3 for long-term storage and OpenSearch for real-time processing using the `curl` command-line tool. 
+This tutorial shows you how to collect queries and events in the User Behavior Insights (UBI) format when using Amazon OpenSearch Service. After following this tutorial, you'll be able to send authenticated queries and events to both Amazon Simple Storage Service (Amazon S3) for long-term storage and OpenSearch for real-time processing using the `curl` command-line tool. 
 
 This tutorial assumes the following:
 
 1. You are using Amazon OpenSearch Service version 2.19.
 2. You are not using the UBI plugin for OpenSearch, which becomes available in version 3.1 for Amazon OpenSearch Service.
-3. You are writing UBI data to OpenSearch using [OpenSearch Ingestion](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ingestion.html), the managed version of Data Prepper.
-4. You have already configured permissions between OpenSearch Ingestion and your managed clusters by completing the [Tutorial: Ingesting data into a domain using Amazon OpenSearch Ingestion](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/osis-get-started.html), specifically the *Required permissions* step.
+3. You are writing UBI data to OpenSearch using [Amazon OpenSearch Ingestion](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ingestion.html), the managed version of OpenSearch Data Prepper.
+4. You have already configured permissions between OpenSearch Ingestion and your managed clusters by following the instructions found in [Tutorial: Ingesting data into a domain using Amazon OpenSearch Ingestion](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/osis-get-started.html), specifically the *Required permissions* step.
 
 ## Step 1: Set up OpenSearch indexes for UBI
 
@@ -35,7 +35,7 @@ Follow these steps to create the indexes needed for UBI data:
         }
         ```
 
-        A syntax warning will appear at this point. That’s expected; you’ll enter the mappings next.
+        A syntax warning will appear at this point. That's expected; you'll enter the mappings next.
 
         Open the [events-mapping.json](https://github.com/opensearch-project/user-behavior-insights/blob/main/src/main/resources/events-mapping.json) file, copy its contents, and paste them after the `"mappings":` line:
 
@@ -73,9 +73,9 @@ Follow these steps to create the indexes needed for UBI data:
 
 ## Step 2: Set up Amazon S3 storage
 
-For long-term storage of UBI data, use Amazon Simple Storage Service (Amazon S3).  
+For long-term storage of UBI data, use Amazon S3.  
 
-Before proceeding, create an S3 bucket in which the queries and events data will be stored. You can do this in the AWS Management Console. Note the bucket name and the region where it is created; you’ll need this information for the following steps.
+Before proceeding, create an S3 bucket in which the query and event data will be stored. You can do this in the AWS Management Console. Note the bucket name and the AWS Region in which it is created; you'll need this information for the following steps.
 
 ## Step 3: Set up query and event ingest pipelines
 
@@ -152,7 +152,7 @@ Follow these steps to create a pipeline for UBI query data:
 1. Select a **Blank** pipeline, then select **Select blueprint**.
 1. Configure the pipeline to use the **HTTP** source plugin, which accepts UBI query data in JSON array format. Set the OpenSearch Service domain as the sink, directing all data into the `ubi_queries` index. Additionally, log all events to an S3 bucket in `.ndjson` format.
 1. In the **Source** menu, select **HTTP**. For **Path**, enter `/ubi/queries`.
-1. For **Source network options**, select **Public access** to allow posting data from your application.
+1. For **Source network options**, select **Public access** to allow the posting of data from your application.
 1. Select **Next**.
 1. Skip intermediate **Processor** steps by selecting **Next** on the **Processor** screen.
 1. Configure the first sink:
@@ -162,7 +162,7 @@ Follow these steps to create a pipeline for UBI query data:
 1. Configure the second sink:
     * Select **Add Sink**.  
     * Select **Amazon S3**.  
-    * Enter the bucket name and region you created previously.  
+    * Enter the bucket name and AWS Region you created previously.  
     * In **Event Collection Timeout**, enter `60s` to observe data flow quickly.  
     * Select **NDJSON** as the format.
 1. Select **Next**.
@@ -171,7 +171,7 @@ Follow these steps to create a pipeline for UBI query data:
 
 ### Step 3(b): Test the query pipeline
 
-When the pipeline status is `Active`, you can start ingesting data into it. You must sign all HTTP requests to the pipeline using [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html). Use an HTTP tool such as [Postman](https://www.getpostman.com/) or [awscurl](https://github.com/okigan/awscurl) to send some data to the pipeline. As with indexing data directly to a domain, ingesting data into a pipeline always requires either an IAM role or an [IAM access key and secret key](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html).
+When the pipeline status is `Active`, you can start ingesting data into it. You must sign all HTTP requests to the pipeline using [AWS Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html). Use an HTTP tool such as [Postman](https://www.getpostman.com/) or [awscurl](https://github.com/okigan/awscurl) to send some data to the pipeline. As with indexing data directly to a domain, ingesting data into a pipeline always requires either an AWS Identity and Access Management (IAM) role or an [IAM access key and secret key](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html).
 
 To test the pipeline, use these steps:
 
@@ -179,7 +179,7 @@ To test the pipeline, use these steps:
 
     ![Pipeline Settings]({{site.url}}{{site.baseurl}}/images/ubi/opensearch-ingestion-pipeline.png "Pipeline Settings")
 
-1. Post a UBI query to the ingestion pipeline. The following is an example of posting a query using [awscurl](https://github.com/okigan/awscurl):
+1. Post a UBI query to the ingest pipeline. The following is an example of posting a query using [awscurl](https://github.com/okigan/awscurl):
 
     ```bash
     awscurl --service osis --region us-east-1 \
