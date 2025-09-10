@@ -57,8 +57,6 @@ OpenSearch supports the following advanced network settings for HTTP communicati
 
 - `http.compression_level` (Static, integer): Defines the compression level to use for HTTP responses when compression is enabled. Valid values are in the range of 1 (minimum compression) to 9 (maximum compression). Higher values provide better compression but use more CPU resources. Default is `3`.
 
-- `http.cors.max-age` (Static, time unit): Defines how long browsers should cache the results of CORS preflight OPTIONS requests. Browsers send preflight requests to determine CORS settings before making actual cross-origin requests. Default is `1728000` seconds (20 days).
-
 - `http.max_content_length` (Static, byte unit): Sets the maximum content length allowed for HTTP requests. Requests exceeding this limit will be rejected. This setting helps prevent memory issues from extremely large requests. Default is `100mb`.
 
 - `http.max_initial_line_length` (Static, byte unit): Sets the maximum length allowed for HTTP URLs in the initial request line. URLs exceeding this limit will be rejected. Default is `4kB`.
@@ -86,6 +84,8 @@ OpenSearch supports the following Cross-Origin Resource Sharing (CORS) settings 
 - `http.cors.allow-headers` (Static, list): Specifies which HTTP headers are allowed in CORS requests. Default is `X-Requested-With, Content-Type, Content-Length`.
 
 - `http.cors.allow-credentials` (Static, Boolean): Controls whether the `Access-Control-Allow-Credentials` header should be included in CORS responses. This header is only returned when this setting is `true`. Default is `false`.
+
+- `http.cors.max-age` (Static, time unit): Defines how long browsers should cache the results of CORS preflight `OPTIONS` requests. Browsers send preflight requests to determine CORS settings before making actual cross-origin requests. Default is `1728000` seconds (20 days).
 
 ## HTTP error handling settings
 
