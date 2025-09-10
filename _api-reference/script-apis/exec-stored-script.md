@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Execute Painless stored script
+title: Execute stored script
 parent: Script APIs
 nav_order: 2
 ---
