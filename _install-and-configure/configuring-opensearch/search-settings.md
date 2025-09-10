@@ -41,6 +41,14 @@ OpenSearch supports the following search settings:
 
 - `search.keyword_index_or_doc_values_enabled` (Dynamic, Boolean): Determines whether to use the index or doc values when running `multi_term` queries on `keyword` fields. Default value is `false`.
 
+## Scripting settings
+
+OpenSearch supports the following scripting settings:
+
+- `script.max_size_in_bytes` (Dynamic, byte unit): Controls the maximum size allowed for scripts in bytes. This setting helps prevent memory issues by limiting the size of scripts that can be executed. Scripts larger than this limit are rejected. Default is `65536` (64KB).
+
+- `script.cache.max_size` (Static, integer): Sets the maximum number of compiled scripts that can be cached in memory. The script cache stores compiled scripts to avoid recompilation overhead for frequently used scripts. When the cache reaches this limit, the least recently used scripts are evicted to make room for new ones. Increasing this value can improve performance for applications that use many different scripts, but will consume more memory. Default is `100`.
+
 ## Point in Time settings
 
 For information about PIT settings, see [PIT settings]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time/#pit-settings).

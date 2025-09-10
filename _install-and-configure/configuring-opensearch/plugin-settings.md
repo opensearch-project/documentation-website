@@ -100,3 +100,9 @@ For information about settings related to SQL and PPL, see [SQL settings]({{site
 ## Workload Management plugin settings
 
 For information about workload management settings, see [Workload management settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#workload-management-settings).
+
+## General plugin settings
+
+OpenSearch supports the following general plugin configuration settings:
+
+- `plugin.mandatory` (Static, list): Specifies plugins that are required for the node to start successfully. If any of the listed plugins are not available or fail to load, the node will refuse to start. This setting is particularly important for clusters that depend on custom processors or other critical plugin functionality to ensure consistent behavior across all nodes. You can specify multiple plugins as a comma-separated list. Default is `[]` (empty list).
