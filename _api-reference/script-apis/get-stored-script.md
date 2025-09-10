@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Get Stored Script
+title: Get stored script
 parent: Script APIs
 nav_order: 3
 ---
