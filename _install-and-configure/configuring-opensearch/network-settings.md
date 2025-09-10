@@ -71,7 +71,7 @@ OpenSearch supports the following advanced network settings for HTTP communicati
 
 - `http.publish_port` (Static, integer): Specifies the port that HTTP clients should use when communicating with this node. This setting is useful when a cluster node is behind a proxy or firewall and the actual `http.port` is not directly addressable from outside the network. Default is the actual port assigned via `http.port`.
 
-- `http.tcp.no_delay` (Static, Boolean): Controls TCP_NODELAY option for HTTP connections. When enabled, disables Nagle's algorithm which can reduce latency for small messages at the cost of increased network traffic. Default is `true`.
+- `http.tcp.no_delay` (Static, Boolean): Controls the `TCP_NODELAY` option for HTTP connections. When enabled, disables Nagle's algorithm which can reduce latency for small messages at the cost of increased network traffic. Default is `true`.
 
 ## HTTP CORS settings
 
