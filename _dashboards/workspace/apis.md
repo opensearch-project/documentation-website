@@ -319,7 +319,7 @@ You can use the following endpoint to associate saved objects with a workspace:
 ```json
 POST <osd host>:<port>/api/workspaces/_associate
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 The following table lists the available path parameters.
 
