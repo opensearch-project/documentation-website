@@ -105,8 +105,12 @@ The following table provides optional configuration values.
 | `aws_cloud_map_query_parameters`  | Map | Key-value pairs used to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned. |
 | `buffer_size` | Integer | Represents the maximum number of unchecked records the buffer accepts (the number of unchecked records equals the number of records written into the buffer plus the number of records that are still processing and not yet checked by the Checkpointing API). Default is `512`. |
 | `batch_size` |  Integer | Represents the maximum number of records that the buffer returns on read. Default is `48`. |
+| `batch_delay` | Integer | Represents the maximum duration in milliseconds to retrieve `batch_size` records from the peer forwarder buffer. If the `batch_size` has not been reached before this duration is exceeded, a partial batch is used. If this value is set to 0, all available records up to the batch size will be immediately returned. If the buffer is empty, the buffer will block for up to 5 milliseconds to wait for records. Default value is `3000`. |
 |  `aws_region` |  String | Represents the AWS Region that uses `ACM`, `Amazon S3`, or `AWS Cloud Map` and is required when any of the following conditions are met:<br> - The `use_acm_certificate_for_ssl` setting is set to `true`. <br> - Either `ssl_certificate_file` or `ssl_key_file` specifies an Amazon Simple Storage Service (Amazon S3) URI (for example, s3://mybucket/path/to/public.cert).<br> - The `discovery_mode` is set to `aws_cloud_map`. |
 | `drain_timeout`  | Duration | Represents the amount of time that peer forwarder will wait to complete data processing before shutdown. |
+| `forwarding_batch_size` | Integer | Represents the maximum number of records to send in each request to a peer. Default value is `1500`, maximum value is `15000`. |
+| `forwarding_batch_queue_depth` | Integer | Represents the depth of the batching queue. This value is a scalar used to determine the size of the LinkedBlockingQueues used for batching records before they are sent to a peer. The queue size is determined by the formula: `workers` * `forwarding_batch_size` * `forwarding_batch_queue_depth`. Default value is `1`. |
+| `forwarding_batch_timeout` | Duration | Represents the maximum time that can occur between flushing batches to a peer. Default is `3s`. |
 
 ## SSL configuration
 
