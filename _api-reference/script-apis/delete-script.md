@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Delete Script
+title: Delete script
 parent: Script APIs
 nav_order: 4
 ---
