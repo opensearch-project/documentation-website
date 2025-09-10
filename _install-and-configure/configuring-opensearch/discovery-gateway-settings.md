@@ -38,7 +38,7 @@ The following **dynamic** discovery settings can be updated while the cluster is
 
 ### Static cluster coordination settings
 
-The following **static** cluster coordination settings control cluster formation and node joining behavior:
+The following cluster coordination settings control cluster formation and node joining behavior:
 
 - `cluster.join.timeout` (Static, time unit): The amount of time a node waits after sending a request to join a cluster before it considers the request to have failed and retries. This timeout does not apply when `discovery.type` is set to `single-node`. Default is `60s`.
 
@@ -46,7 +46,7 @@ The following **static** cluster coordination settings control cluster formation
 
 ### Cluster election settings
 
-The following **static** settings control cluster manager election behavior:
+The following settings control cluster manager election behavior:
 
 - `cluster.election.back_off_time` (Static, time unit): Sets the amount to increase the upper bound on the wait time before an election on each election failure. This implements linear backoff for election retries. Default is `100ms`. **Warning**: Changing this setting from the default may cause your cluster to fail to elect a cluster manager node.
 
@@ -56,9 +56,9 @@ The following **static** settings control cluster manager election behavior:
 
 - `cluster.election.max_timeout` (Static, time unit): Sets the maximum upper bound on how long a node will wait before attempting an election, preventing excessively sparse elections during long network partitions. This caps the maximum election delay. Default is `10s`. **Warning**: Changing this setting from the default may cause your cluster to fail to elect a cluster manager node.
 
-### Expert-level static discovery settings
+### Expert-level discovery settings
 
-The following **static** discovery settings are for expert-level configuration. **Warning**: Changing these settings from their defaults may cause cluster instability:
+The following discovery settings are for expert-level configuration. **Warning**: Changing these settings from their defaults may cause cluster instability:
 
 - `discovery.cluster_formation_warning_timeout` (Static, time unit): Sets how long a node will try to form a cluster before logging a warning that the cluster did not form. If a cluster has not formed after this timeout has elapsed, the node will log a warning message that starts with the phrase "cluster manager not discovered" which describes the current state of the discovery process. Default is `10s`.
 
@@ -77,25 +77,21 @@ The following **static** discovery settings are for expert-level configuration. 
 
 ## Gateway settings
 
-The local gateway stores on-disk cluster state and shard data that is used when a cluster is restarted. The following local gateway **static** settings are supported:
+The local gateway stores on-disk cluster state and shard data that is used when a cluster is restarted. The following local gateway settings are supported:
 
-* `gateway.recover_after_nodes` (Static, integer): The minimum number of total nodes for any role that must be running after a full cluster restart before recovery can begin.
+- `gateway.recover_after_nodes` (Static, integer): The minimum number of total nodes for any role that must be running after a full cluster restart before recovery can begin.
+  - **Default**: `0` (disabled)—recovery can start as soon as a cluster forms.
+  - **Recommendation**: Set to slightly over half of the number of all expected nodes so that the cluster doesn't start recovering with too few nodes.
 
-  * **Default:** `0` (disabled)—recovery can start as soon as a cluster forms.
-  * **Recommendation:** Set to slightly over half of the number of all expected nodes so that the cluster doesn't start recovering with too few nodes.
+- `gateway.recover_after_data_nodes` (Static, integer): The minimum number of data nodes that must be running after a full cluster restart before recovery can begin.
+  - **Default**: `0`
+  - **Recommendation**: Set to a significant portion of data nodes—approximately 50–70% of the total data nodes—to avoid premature recovery.
 
-* `gateway.recover_after_data_nodes` (Static, integer): The minimum number of data nodes that must be running after a full cluster restart before recovery can begin.
+- `gateway.expected_data_nodes` (Static, integer): The expected number of data nodes in the cluster. When all are present, recovery of local shards can start immediately.
+  - **Default**: `0`
+  - **Recommendation**: Set this to the actual number of data nodes in your cluster so that recovery can start immediately once all data nodes are running.
 
-  * **Default:** `0`
-  * **Recommendation:** Set to a significant portion of data nodes—approximately 50–70% of the total data nodes—to avoid premature recovery.
-
-* `gateway.expected_data_nodes` (Static, integer): The expected number of data nodes in the cluster. When all are present, recovery of local shards can start immediately.
-
-  * **Default:** `0`
-  * **Recommendation:** Set this to the actual number of data nodes in your cluster so that recovery can start immediately once all data nodes are running.
-
-* `gateway.recover_after_time` (Static, time unit): The maximum amount of time to wait until recovery if the expected data node count hasn't been reached. After this time, recovery proceeds.
-
-  * **Default:** `5m` if `expected_data_nodes` or `recover_after_nodes` is set. Otherwise disabled.
-  * **Recommendation:** Set slightly above your typical node join time; larger clusters often need longer to recover and are tuned based on observed startup behavior.
+- `gateway.recover_after_time` (Static, time unit): The maximum amount of time to wait until recovery if the expected data node count hasn't been reached. After this time, recovery proceeds.
+  - **Default**: `5m` if `expected_data_nodes` or `recover_after_nodes` is set. Otherwise disabled.
+  - **Recommendation**: Set slightly above your typical node join time; larger clusters often need longer to recover and are tuned based on observed startup behavior.
 

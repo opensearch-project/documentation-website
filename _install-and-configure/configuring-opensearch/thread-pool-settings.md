@@ -2,7 +2,7 @@
 layout: default
 title: Thread pool settings
 parent: Configuring OpenSearch
-nav_order: 85
+nav_order: 90
 ---
 
 # Thread pool settings

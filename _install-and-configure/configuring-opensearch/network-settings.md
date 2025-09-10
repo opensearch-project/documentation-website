@@ -27,6 +27,20 @@ OpenSearch supports the following advanced network settings:
 
 - `network.publish_host` (Static, list): Specifies an address or addresses that an OpenSearch node publishes to other nodes in the cluster so that they can connect to it.
 
+## General TCP settings
+
+OpenSearch supports the following TCP settings that apply to all network connections, including both HTTP and transport layers:
+
+- `network.tcp.keep_alive` (Static, Boolean): Enables or disables TCP keep-alive for all TCP connections used by OpenSearch, including HTTP and transport layers. When enabled, the operating system will send periodic keep-alive packets to detect dead connections. Default is `true`.
+
+- `network.tcp.no_delay` (Static, Boolean): Enables or disables the `TCP_NODELAY` option for all TCP connections. When enabled, disables Nagle's algorithm, which can reduce latency for small messages at the cost of increased network traffic. This applies to both HTTP and transport connections. Default is `true`.
+
+- `network.tcp.receive_buffer_size` (Static, byte unit): Sets the size of the TCP receive buffer for all TCP connections used by OpenSearch. This affects both HTTP and transport connections. A larger buffer can improve throughput for high-bandwidth connections. By default, this is not explicitly set and uses the operating system default.
+
+- `network.tcp.reuse_address` (Static, Boolean): Controls whether TCP addresses can be reused for all TCP connections. This affects socket binding behavior for both HTTP and transport connections. Default is `true` on non-Windows machines and `false` on Windows.
+
+- `network.tcp.send_buffer_size` (Static, byte unit): Sets the size of the TCP send buffer for all TCP connections used by OpenSearch. This affects both HTTP and transport connections. A larger buffer can improve throughput for high-bandwidth connections. By default, this is not explicitly set and uses the operating system default.
+
 ## Advanced HTTP settings
 
 OpenSearch supports the following advanced network settings for HTTP communication:
@@ -40,10 +54,6 @@ OpenSearch supports the following advanced network settings for HTTP communicati
 - `http.compression` (Static, Boolean): Enables support for compression using `Accept-Encoding` when applicable. When `HTTPS` is enabled, the default is `false`, otherwise, the default is `true`. Disabling compression for HTTPS helps mitigate potential security risks, such as `BREACH` attacks. To enable compression for HTTPS traffic, explicitly set `http.compression` to `true`.
 
 - `http.max_header_size`: (Static, string) The maximum combined size of all HTTP headers allowed in a request. Default is `16KB`.
-
-## Advanced static HTTP settings
-
-OpenSearch supports the following advanced static HTTP settings that require a node restart to update:
 
 - `http.compression_level` (Static, integer): Defines the compression level to use for HTTP responses when compression is enabled. Valid values are in the range of 1 (minimum compression) to 9 (maximum compression). Higher values provide better compression but use more CPU resources. Default is `3`.
 
@@ -137,9 +147,9 @@ Transport profiles allow you to bind to multiple ports on different interfaces f
 
 - `transport.profiles.<profile_name>.tcp.receive_buffer_size` (Dynamic, byte unit): Sets the TCP receive buffer size for connections on this transport profile. Larger buffers can improve throughput for high-bandwidth connections.
 
-## Advanced static transport settings
+## Advanced transport settings
 
-OpenSearch supports the following advanced static transport settings that require a node restart to change:
+OpenSearch supports the following advanced transport settings:
 
 - `transport.compress` (Static, Boolean): Enables `DEFLATE` compression for all inter-node transport communications. When enabled, data transmitted between nodes is compressed to reduce network bandwidth usage, which can be beneficial for clusters connected over slower network links. However, compression adds CPU overhead for compression and decompression operations. Default is `false`.
 
@@ -148,20 +158,6 @@ OpenSearch supports the following advanced static transport settings that requir
 - `transport.ping_schedule` (Static, time unit): Configures the interval for sending application-level ping messages to maintain transport connections between nodes. When set to a positive value, nodes will send periodic ping messages to detect and prevent idle connection timeouts. Setting this to `-1` disables application-level pings. It is generally recommended to use TCP keep-alive settings instead, as they provide more comprehensive connection monitoring for all connection types. Default is `-1` (disabled).
 
 - `transport.publish_port` (Static, integer): Specifies the port that other nodes should use when connecting to this node for transport communication. This setting is particularly useful when nodes are behind proxies, firewalls, or NAT configurations where the actual bind port differs from the externally accessible port. If not specified, other nodes will use the port determined by the `transport.port` setting. Default is the actual port assigned via `transport.port`.
-
-## General TCP settings
-
-OpenSearch supports the following TCP settings that apply to all network connections, including both HTTP and transport layers:
-
-- `network.tcp.keep_alive` (Static, Boolean): Enables or disables TCP keep-alive for all TCP connections used by OpenSearch, including HTTP and transport layers. When enabled, the operating system will send periodic keep-alive packets to detect dead connections. Default is `true`.
-
-- `network.tcp.no_delay` (Static, Boolean): Enables or disables the `TCP_NODELAY` option for all TCP connections. When enabled, disables Nagle's algorithm, which can reduce latency for small messages at the cost of increased network traffic. This applies to both HTTP and transport connections. Default is `true`.
-
-- `network.tcp.receive_buffer_size` (Static, byte unit): Sets the size of the TCP receive buffer for all TCP connections used by OpenSearch. This affects both HTTP and transport connections. A larger buffer can improve throughput for high-bandwidth connections. By default, this is not explicitly set and uses the operating system default.
-
-- `network.tcp.reuse_address` (Static, Boolean): Controls whether TCP addresses can be reused for all TCP connections. This affects socket binding behavior for both HTTP and transport connections. Default is `true` on non-Windows machines and `false` on Windows.
-
-- `network.tcp.send_buffer_size` (Static, byte unit): Sets the size of the TCP send buffer for all TCP connections used by OpenSearch. This affects both HTTP and transport connections. A larger buffer can improve throughput for high-bandwidth connections. By default, this is not explicitly set and uses the operating system default.
 
 ## Selecting the transport
 

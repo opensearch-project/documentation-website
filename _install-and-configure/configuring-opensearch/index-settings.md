@@ -2,7 +2,7 @@
 layout: default
 title: Index settings
 parent: Configuring OpenSearch
-nav_order: 70
+nav_order: 60
 redirect_from:
   - /im-plugin/index-settings/
 ---

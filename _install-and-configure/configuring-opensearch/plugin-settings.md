@@ -2,7 +2,7 @@
 layout: default
 title: Plugin settings
 parent: Configuring OpenSearch
-nav_order: 100
+nav_order: 110
 ---
 
 # Plugin settings

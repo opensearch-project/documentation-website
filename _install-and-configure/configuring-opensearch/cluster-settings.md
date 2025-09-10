@@ -2,7 +2,7 @@
 layout: default
 title: Cluster settings
 parent: Configuring OpenSearch
-nav_order: 60
+nav_order: 50
 ---
 
 # Cluster settings
@@ -94,8 +94,6 @@ OpenSearch supports the following cluster-level routing and shard allocation set
     - `_host` – Match nodes by hostname. 
     - `_id` – Match nodes by node ID. 
     - `_tier` – Match nodes by data tier role.
-
-
 
 - `cluster.routing.allocation.awareness.force.<attribute>.values` (Dynamic, list): See [Forced awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index#forced-awareness).   
 
@@ -217,22 +215,22 @@ OpenSearch supports the following remote cluster settings:
 
 - `cluster.remote.<cluster_alias>.mode` (Dynamic, string): Specifies the connection mode for a specific remote cluster. Valid values are `sniff` (discovers and connects to multiple nodes in the remote cluster) and `proxy` (connects through a single proxy address). Default is `sniff`.
 
+- `node.remote_cluster_client` (Static, Boolean): Controls whether a node can act as a cross-cluster client and connect to remote clusters. Default is `true`. Set to `false` to prevent a node from connecting to remote clusters. Remote cluster requests must be sent to a node on which this setting is enabled.
+
 - `cluster.remote.<cluster_alias>.skip_unavailable` (Dynamic, Boolean): Controls whether cross-cluster operations should continue when this specific remote cluster is unavailable. When set to `true`, the cluster becomes optional and operations will skip it if unreachable. When set to `false`, operations fail if this cluster is unavailable. Default is `false`.
 
 - `cluster.remote.<cluster_alias>.transport.compress` (Dynamic, Boolean): Enables compression for transport communications with a specific remote cluster. When enabled, reduces network bandwidth usage but increases CPU overhead for compression operations. If unset, uses the global `transport.compress` setting as fallback. Default is `false`.
 
 - `cluster.remote.<cluster_alias>.transport.ping_schedule` (Dynamic, time unit): Sets the interval for sending application-level ping messages to maintain connections with a specific remote cluster. Setting to `-1` disables pings for this cluster. If unset, uses the global `transport.ping_schedule` setting. Default is `-1` (disabled).
 
-- `cluster.remote.<cluster_alias>.seeds` (Dynamic, list): Specifies the list of seed nodes used to discover the remote cluster topology. These nodes are contacted initially to retrieve the cluster state and identify gateway nodes for ongoing connections.
+- `cluster.remote.<cluster_alias>.seeds` (Dynamic, list): Applicable to `sniff` mode only. Specifies the list of seed nodes used to discover the remote cluster topology. These nodes are contacted initially to retrieve the cluster state and identify gateway nodes for ongoing connections.
 
-- `cluster.remote.<cluster_alias>.node_connections` (Dynamic, integer): Sets the number of gateway nodes to maintain active connections to in the remote cluster. More connections provide better availability but consume more resources. Default is `3`.
+- `cluster.remote.<cluster_alias>.node_connections` (Dynamic, integer): Applicable to `sniff` mode only. Sets the number of gateway nodes to maintain active connections to in the remote cluster. More connections provide better availability but consume more resources. Default is `3`.
 
-- `cluster.remote.<cluster_alias>.proxy_address` (Dynamic, string): Specifies the proxy server address for connecting to the remote cluster. All remote connections are routed through this single proxy endpoint.
+- `cluster.remote.node.attr` (Static, string): Applicable to `sniff` mode only. Specifies a node attribute to filter nodes that are eligible as gateway nodes in remote clusters. When set, only remote cluster nodes with the specified attribute will be used for connections. For example, if remote cluster nodes have `node.attr.gateway: true` and this setting is set to `gateway`, only those nodes will be connected to for cross-cluster operations.
 
-- `cluster.remote.<cluster_alias>.proxy_socket_connections` (Dynamic, integer): Sets the number of socket connections to open to the proxy server for this remote cluster. More connections can improve throughput but consume more resources. Default is `18`.
+- `cluster.remote.<cluster_alias>.proxy_address` (Dynamic, string): Applicable to `proxy` mode only. Specifies the proxy server address for connecting to the remote cluster. All remote connections are routed through this single proxy endpoint.
 
-- `cluster.remote.<cluster_alias>.server_name` (Dynamic, string): Specifies the hostname sent in the TLS Server Name Indication (SNI) extension when TLS is enabled for the remote cluster connection. This must be a valid hostname according to TLS SNI specifications.
+- `cluster.remote.<cluster_alias>.proxy_socket_connections` (Dynamic, integer): Applicable to `proxy` mode only. Sets the number of socket connections to open to the proxy server for this remote cluster. More connections can improve throughput but consume more resources. Default is `18`.
 
-- `node.remote_cluster_client` (Static, Boolean): Controls whether a node can act as a cross-cluster client and connect to remote clusters. Default is `true`. Set to `false` to prevent a node from connecting to remote clusters. Remote cluster requests must be sent to a node on which this setting is enabled.
-
-- `cluster.remote.node.attr` (Static, string): Specifies a node attribute to filter nodes that are eligible as gateway nodes in remote clusters. When set, only remote cluster nodes with the specified attribute will be used for connections. For example, if remote cluster nodes have `node.attr.gateway: true` and this setting is set to `gateway`, only those nodes will be connected to for cross-cluster operations.
+- `cluster.remote.<cluster_alias>.server_name` (Dynamic, string): Applicable to `proxy` mode only. Specifies the hostname sent in the TLS Server Name Indication (SNI) extension when TLS is enabled for the remote cluster connection. This must be a valid hostname according to TLS SNI specifications.

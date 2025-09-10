@@ -2,7 +2,7 @@
 layout: default
 title: Availability and recovery settings
 parent: Configuring OpenSearch
-nav_order: 90
+nav_order: 80
 ---
 
 # Availability and recovery settings
