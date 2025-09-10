@@ -48,7 +48,7 @@ The following cluster coordination settings control cluster formation and node j
 
 The following settings control cluster manager election behavior:
 
-- `cluster.election.back_off_time` (Static, time unit): Sets the amount to increase the upper bound on the wait time before an election on each election failure. This implements linear backoff for election retries. Default is `100ms`. **Warning**: Changing this setting from the default may cause your cluster to fail to elect a cluster manager node.
+- `cluster.election.back_off_time` (Static, time unit): Sets the incremental delay added to election retry attempts after each failure. Uses linear backoff, in which each failed election increases the wait time by this amount before the next attempt. Default is `100ms`. **Warning**: Changing this setting from the default may cause your cluster to fail to elect a cluster manager node.
 
 - `cluster.election.duration` (Static, time unit): Sets how long each election is allowed to take before a node considers it to have failed and schedules a retry. This controls the maximum duration of the election process. Default is `500ms`. **Warning**: Changing this setting from the default may cause your cluster to fail to elect a cluster manager node.
 
