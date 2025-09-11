@@ -46,7 +46,7 @@ After you assess all these requirements, we recommend you use a benchmark testin
 
 This page demonstrates how to work with the different node types. It assumes that you have a four-node cluster similar to the preceding illustration.
 
-It is a best practice to direct traffic from external sources, such as [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/), [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/), and others, to the nodes in the following order of availability: ingest node, coordinating node, data node. We do not recommended sending traffic directly to cluster manager node.
+It is a best practice to direct traffic from external sources, such as [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/), [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/), and others, to the nodes in the following order of availability: ingest node, coordinating node, data node. We do not recommended sending traffic directly to the cluster manager node.
 {: .note}
 
 ## Prerequisites
