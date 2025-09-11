@@ -19,20 +19,20 @@ The discovery process is used when a cluster is formed. It consists of discoveri
 
 The following **static** discovery settings must be configured before a cluster starts:
 
-- `discovery.seed_hosts` (Static, list): Provides a list of the addresses of the cluster manager-eligible nodes in the cluster. Each address has the format `host:port` or `host`. If a hostname resolves to multiple addresses via DNS, OpenSearch uses all of them. This setting is essential for nodes to find each other during cluster formation. Default is `["127.0.0.1", "[::1]"]`.
+- `discovery.seed_hosts` (Static, list): Provides a list of the addresses of the cluster-manager-eligible nodes in the cluster. Each address has the format `host:port` or `host`. If a hostname resolves to multiple addresses via DNS, OpenSearch uses all of them. This setting is essential in order for nodes to find each other during cluster formation. Default is `["127.0.0.1", "[::1]"]`.
 
-- `discovery.seed_providers` (Static, list): Specifies which types of seed hosts provider to use to obtain the addresses of the seed nodes used to start the discovery process. By default, this uses the settings-based seed hosts provider which obtains seed node addresses from the `discovery.seed_hosts` setting.
+- `discovery.seed_providers` (Static, list): Specifies which types of seed hosts provider to use to obtain the addresses of the seed nodes used to start the discovery process. By default, this uses the settings-based seed hosts provider, which obtains seed node addresses from the `discovery.seed_hosts` setting.
 
 - `discovery.type` (Static, string): Specifies whether OpenSearch should form a multiple-node cluster or operate as a single node. When set to `single-node`, OpenSearch forms a single-node cluster and suppresses certain timeouts. This setting is useful for development and testing environments. Valid values are `multi-node` (default) and `single-node`.
 
-- `cluster.initial_cluster_manager_nodes` (Static, list): Sets the initial set of cluster manager-eligible nodes in a brand-new cluster. This setting is required when bootstrapping a cluster for the first time and should contain the node names (as defined by `node.name`) of the initial cluster manager-eligible nodes. This list should be empty for nodes joining an existing cluster. Default is `[]` (empty list).
+- `cluster.initial_cluster_manager_nodes` (Static, list): Establishes the initial set of cluster-manager-eligible nodes in a new cluster. This setting is required when bootstrapping a cluster for the first time and should contain the node names (as defined by `node.name`) of the initial cluster-manager-eligible nodes. This list should be empty for nodes joining an existing cluster. Default is `[]` (empty list).
 
 
 ### Dynamic discovery settings
 
 The following **dynamic** discovery settings can be updated while the cluster is running:
 
-- `cluster.auto_shrink_voting_configuration` (Dynamic, Boolean): Controls whether the voting configuration automatically shrinks when nodes are removed from the cluster. If `true`, the voting configuration adjusts to maintain optimal cluster manager election behavior by removing nodes that are no longer part of the cluster. If `false`, you must remove the nodes that are no longer part of the cluster using the [Voting configuration exclusion API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-voting-configuration-exclusions/). Default is `true`.
+- `cluster.auto_shrink_voting_configuration` (Dynamic, Boolean): Controls whether the voting configuration automatically shrinks when nodes are removed from the cluster. If `true`, the voting configuration adjusts to maintain optimal cluster manager election behavior by removing nodes that are no longer part of the cluster. If `false`, you must remove the nodes that are no longer part of the cluster using the [Voting Configuration Exclusions API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-voting-configuration-exclusions/). Default is `true`.
 
 - `cluster.max_voting_config_exclusions` (Dynamic, integer): Sets the maximum number of voting configuration exclusions that can be in place simultaneously during cluster manager node operations. This setting is used during node removal and cluster maintenance operations to temporarily exclude nodes from voting. Default is `10`.
 
@@ -52,15 +52,15 @@ The following settings control cluster manager election behavior:
 
 - `cluster.election.duration` (Static, time unit): Sets how long each election is allowed to take before a node considers it to have failed and schedules a retry. This controls the maximum duration of the election process. Default is `500ms`. **Warning**: Changing this setting from the default may cause your cluster to fail to elect a cluster manager node.
 
-- `cluster.election.initial_timeout` (Static, time unit): Sets the upper bound on how long a node will wait initially, or after the elected cluster manager fails, before attempting its first election. This controls the initial election delay. Default is `100ms`. **Warning**: Changing this setting from the default may cause your cluster to fail to elect a cluster manager node.
+- `cluster.election.initial_timeout` (Static, time unit): Sets the upper bound for how long a node will wait initially, or after the elected cluster manager fails, before attempting its first election. This controls the initial election delay. Default is `100ms`. **Warning**: Changing this setting from the default may cause your cluster to fail to elect a cluster manager node.
 
-- `cluster.election.max_timeout` (Static, time unit): Sets the maximum upper bound on how long a node will wait before attempting an election, preventing excessively sparse elections during long network partitions. This caps the maximum election delay. Default is `10s`. **Warning**: Changing this setting from the default may cause your cluster to fail to elect a cluster manager node.
+- `cluster.election.max_timeout` (Static, time unit): Sets the maximum upper bound for how long a node will wait before attempting an election, preventing excessively sparse elections during long network partitions. This caps the maximum election delay. Default is `10s`. **Warning**: Changing this setting from the default may cause your cluster to fail to elect a cluster manager node.
 
 ### Expert-level discovery settings
 
 The following discovery settings are for expert-level configuration. **Warning**: Changing these settings from their defaults may cause cluster instability:
 
-- `discovery.cluster_formation_warning_timeout` (Static, time unit): Sets how long a node will try to form a cluster before logging a warning that the cluster did not form. If a cluster has not formed after this timeout has elapsed, the node will log a warning message that starts with the phrase "cluster manager not discovered" which describes the current state of the discovery process. Default is `10s`.
+- `discovery.cluster_formation_warning_timeout` (Static, time unit): Sets how long a node will try to form a cluster before logging a warning that the cluster did not form. If a cluster has not formed after this timeout has elapsed, the node will log a warning message that starts with the phrase "cluster manager not discovered" and describes the current state of the discovery process. Default is `10s`.
 
 - `discovery.find_peers_interval` (Static, time unit): Sets how long a node will wait before attempting another discovery round. This controls the frequency of peer discovery attempts during cluster formation. Default is `1s`.
 
@@ -85,7 +85,7 @@ The local gateway stores on-disk cluster state and shard data that is used when 
 
 - `gateway.recover_after_data_nodes` (Static, integer): The minimum number of data nodes that must be running after a full cluster restart before recovery can begin.
   - **Default**: `0`
-  - **Recommendation**: Set to a significant portion of data nodes—approximately 50–70% of the total data nodes—to avoid premature recovery.
+  - **Recommendation**: Set to a significant portion of the data nodes—approximately 50–70% of the total data nodes—to avoid premature recovery.
 
 - `gateway.expected_data_nodes` (Static, integer): The expected number of data nodes in the cluster. When all are present, recovery of local shards can start immediately.
   - **Default**: `0`

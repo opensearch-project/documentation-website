@@ -28,7 +28,7 @@ Fixed thread pools maintain a constant number of threads and use a queue for pen
 OpenSearch supports the following fixed thread pools:
 
 - `get`: For document retrieval operations (fixed type)
-- `analyze`: For analyze API requests (fixed type)
+- `analyze`: For Analyze API requests (fixed type)
 - `write`: For indexing, deletion, update, and bulk operations (fixed type)
 - `force_merge`: For force merge operations (fixed type)
 
@@ -48,7 +48,7 @@ OpenSearch supports the following scaling thread pools:
 - `snapshot`: For snapshot and restore operations (scaling type)
 - `warmer`: For index warming operations (scaling type)  
 - `refresh`: For index refresh operations (scaling type)
-- `flush`: For flush and fsync operations (scaling type)
+- `flush`: For `flush` and `fsync` operations (scaling type)
 - `management`: For cluster management operations (scaling type)
 - `fetch_shard_started`: For shard state operations (scaling type)
 - `fetch_shard_store`: For shard store operations (scaling type)

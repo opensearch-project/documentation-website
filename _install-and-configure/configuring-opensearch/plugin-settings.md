@@ -105,4 +105,4 @@ For information about workload management settings, see [Workload management set
 
 OpenSearch supports the following general plugin configuration settings:
 
-- `plugin.mandatory` (Static, list): Specifies plugins that are required for the node to start successfully. If any of the listed plugins are not available or fail to load, the node will refuse to start. This setting is particularly important for clusters that depend on custom processors or other critical plugin functionality to ensure consistent behavior across all nodes. You can specify multiple plugins as a comma-separated list. Default is `[]` (empty list).
+- `plugin.mandatory` (Static, list): Specifies plugins that are required for the node to start successfully. If any of the listed plugins are not available or fail to load, the node will not start. This setting is particularly important for clusters that depend on custom processors or other critical plugin functionality to ensure consistent behavior across all nodes. You can specify multiple plugins as a comma-separated list. Default is `[]` (empty list).

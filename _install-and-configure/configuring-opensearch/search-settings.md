@@ -45,9 +45,9 @@ OpenSearch supports the following search settings:
 
 OpenSearch supports the following scripting settings:
 
-- `script.max_size_in_bytes` (Dynamic, byte unit): Controls the maximum size allowed for scripts in bytes. This setting helps prevent memory issues by limiting the size of scripts that can be executed. Scripts larger than this limit are rejected. Default is `65536` (64KB).
+- `script.max_size_in_bytes` (Dynamic, byte unit): Controls the maximum script byte size allowed. This setting helps prevent memory issues by rejecting scripts larger than this limit. Default is `65536` (64 KB).
 
-- `script.cache.max_size` (Static, integer): Sets the maximum number of compiled scripts that can be cached in memory. The script cache stores compiled scripts to avoid recompilation overhead for frequently used scripts. When the cache reaches this limit, the least recently used scripts are evicted to make room for new ones. Increasing this value can improve performance for applications that use many different scripts, but will consume more memory. Default is `100`.
+- `script.cache.max_size` (Static, integer): Sets the maximum number of compiled scripts that can be cached in memory. The script cache stores compiled scripts to avoid recompilation overhead for frequently used scripts. When the cache reaches this limit, the least recently used scripts are evicted to make room for new ones. Increasing this value can improve performance for applications that use many different scripts but will consume more memory. Default is `100`.
 
 ## Point in Time settings
 
