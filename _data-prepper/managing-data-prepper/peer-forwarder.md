@@ -109,7 +109,7 @@ The following table provides optional configuration values.
 |  `aws_region` |  String | Represents the AWS Region that uses `ACM`, `Amazon S3`, or `AWS Cloud Map` and is required when any of the following conditions are met:<br> - The `use_acm_certificate_for_ssl` setting is set to `true`. <br> - Either `ssl_certificate_file` or `ssl_key_file` specifies an Amazon Simple Storage Service (Amazon S3) URI (for example, s3://mybucket/path/to/public.cert).<br> - The `discovery_mode` is set to `aws_cloud_map`. |
 | `drain_timeout`  | Duration | Represents the amount of time that peer forwarder will wait to complete data processing before shutdown. |
 | `forwarding_batch_size` | Integer | Represents the maximum number of records to send in each request to a peer. Default is `1500`. Maximum is `15000`. |
-| `forwarding_batch_queue_depth` | Integer | Represents the depth of the batching queue. This value is a scalar used to determine the size of the LinkedBlockingQueues used for batching records before they are sent to a peer. The queue size is determined by the formula: `workers` * `forwarding_batch_size` * `forwarding_batch_queue_depth`. Default value is `1`. |
+| `forwarding_batch_queue_depth` | Integer | Represents the depth of the batching queue. This value is a scalar used to determine the size of the linked blocking queues used for batching records before they are sent to a peer. The queue size is determined by the formula `workers * forwarding_batch_size * forwarding_batch_queue_depth`. Default is `1`. |
 | `forwarding_batch_timeout` | Duration | Represents the maximum time that can occur between flushing batches to a peer. Default is `3s`. |
 
 ## SSL configuration
