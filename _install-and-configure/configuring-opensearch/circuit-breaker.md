@@ -2,7 +2,7 @@
 layout: default
 title: Circuit breaker settings
 parent: Configuring OpenSearch
-nav_order: 50
+nav_order: 100
 ---
 
 # Circuit breaker settings

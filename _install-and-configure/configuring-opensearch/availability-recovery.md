@@ -2,13 +2,14 @@
 layout: default
 title: Availability and recovery settings
 parent: Configuring OpenSearch
-nav_order: 90
+nav_order: 80
 ---
 
 # Availability and recovery settings
 
 Availability and recovery settings include settings for the following:
 
+- [General recovery settings](#general-recovery-settings)
 - [Snapshots](#snapshot-settings)
 - [Cluster manager task throttling](#cluster-manager-task-throttling-settings)
 - [Remote-backed storage](#remote-backed-storage-settings)
@@ -18,6 +19,14 @@ Availability and recovery settings include settings for the following:
 - [Cross-cluster replication](#cross-cluster-replication-settings)
 
 To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+
+## General recovery settings
+
+OpenSearch supports the following general recovery settings:
+
+- `indices.recovery.chunk_size` (Dynamic, byte unit): Controls the chunk size used when transferring data during index recovery operations. This setting affects the amount of data transferred in each network request during shard recovery. Larger chunk sizes can improve recovery speed but may increase memory usage. Default is `512kb`.
+
+- `indices.recovery.recovery_activity_timeout` (Dynamic, time unit): Sets the timeout for individual recovery activities during shard recovery operations. If a recovery activity (such as transferring a file chunk) takes longer than this timeout, the recovery operation is considered failed and will be retried. Default is `30s`.
 
 ## Snapshot settings
 
@@ -46,8 +55,6 @@ For information about cluster manager task throttling settings, see [Setting thr
 OpenSearch supports the following cluster-level remote-backed storage settings:
 
 - `cluster.remote_store.translog.buffer_interval` (Dynamic, time unit): The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present. 
-
-- `remote_store.moving_average_window_size` (Dynamic, integer): The moving average window size used to calculate the rolling statistic values exposed through the [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/). Default is `20`. Minimum enforced is `5`. 
 
 For more remote-backed storage settings, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/) and [Configuring remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#configuring-remote-backed-storage).
 
