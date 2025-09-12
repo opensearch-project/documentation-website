@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index aliases
-nav_order: 11
+nav_order: 5
 redirect_from:
   - /opensearch/index-alias/
 ---

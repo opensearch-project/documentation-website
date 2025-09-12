@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Reindex data
-nav_order: 15
+nav_order: 30
 redirect_from:
   - /opensearch/reindex-data/
 ---
