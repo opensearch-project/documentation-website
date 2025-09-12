@@ -115,7 +115,7 @@ GET /events/_search
 ```
 {% include copy-curl.html %}
 
-OpenSearch recognizes that the segment documents are already sorted and only examines the first 10 documents per segment, while still collecting remaining documents for total count and aggregations.
+OpenSearch recognizes that the segment documents are already sorted and only examines the first 10 documents per segment while still collecting remaining documents for total count and aggregations.
 
 If you don't need the total hit count, disable hit tracking for maximum performance:
 
@@ -142,4 +142,4 @@ Index sorting can improve the performance of conjunction queries (AND operations
 
 This technique works best with low-cardinality fields that are frequently used in filters. Sort priority should favor fields with both low cardinality and high filter frequency. The sort direction (ascending or descending) doesn't matter for this optimization.
 
-For example, when indexing vehicle listings, you might sort by fuel type, body style, manufacturer, year, and finally mileage to optimize common filter combinations.
+For example, when indexing vehicle listings, you might sort by fuel type, body style, manufacturer, year, and, finally, mileage to optimize common filter combinations.
