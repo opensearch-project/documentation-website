@@ -13,7 +13,7 @@ OpenSearch is a distributed search and analytics engine that supports various us
 
 ## Overview
 
-Watch this video to learn the key OpenSearch concepts and understand how OpenSearch organizes data and ranks search results.
+Watch this video to learn key OpenSearch concepts and understand how OpenSearch organizes data and ranks search results.
 
 {% include youtube-player.html id='GbkRaxj-bJw' %}
 
