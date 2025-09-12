@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index sorting
-nav_order: 2
+nav_order: 25
 ---
 
 # Index sorting
