@@ -48,10 +48,10 @@ The following table lists the parameters accepted by date field types. All param
 
 Parameter | Description 
 :--- | :--- 
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
+`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updateable.
 `doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
 `format` | The format for parsing dates. Default is `strict_date_time_no_millis||strict_date_optional_time||epoch_millis`.
-`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`.
+`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`. Dynamically updateable.
 `index` | A Boolean value that specifies whether the field should be searchable. Default is `true`.
 `locale` | A region- and language-specific way of representing the date. Default is [`ROOT`](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT) (a region- and language-neutral locale).
 `meta` | Accepts metadata for this field.
