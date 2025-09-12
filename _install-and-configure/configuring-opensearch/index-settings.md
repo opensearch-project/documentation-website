@@ -160,9 +160,15 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.soft_deletes.retention_lease.period` (Time unit): The maximum amount of time to retain a shard's history of operations. Default is `12h`.
 
+<p id="index-sort-settings"></p>
+
 - `index.sort.field` (String): Specifies the field used to sort documents at index time. The default sort order is `asc` (ascending). To change the order, set the `index.sort.order` parameter.
 
 - `index.sort.order` (String): Specifies the document sort order at index time. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. This setting requires `index.sort.field` to also be set.
+
+- `index.sort.mode` (String): Controls how multi-valued fields are handled during sorting. Valid values are `min` (uses the lowest value) and `max` (uses the highest value).
+
+- `index.sort.missing` (String): Determines how documents missing the sort field are handled. Valid values are `_last` (places documents without the field at the end) and `_first` (places documents without the field at the beginning).
 
 - `index.load_fixed_bitset_filters_eagerly` (Boolean): Whether OpenSearch should preload cached filters. Available options are `true` and `false`. Default is `true`.
 
