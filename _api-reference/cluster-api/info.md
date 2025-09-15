@@ -62,11 +62,11 @@ cluster_uuid | String | Universally unique identifier of the cluster.
 tagline | String | The tagline string.
 version | Object | The object containing version and build metadata.
 version.distribution | String | The distribution identifier, typically `opensearch`.
-version.number | String | The openSearch version number, for example, `3.2.0`.
+version.number | String | The OpenSearch version number, for example, `3.2.0`.
 version.build_type | String | The distribution type.
 version.build_hash | String | The commit hash the build was created from.
 version.build_date | String | The build timestamp in ISO 8601 format.
 version.build_snapshot | Boolean | Whether the build is a snapshot build.
-version.lucene_version | String | The lucene version used by this build.
+version.lucene_version | String | The Lucene version used by this build.
 version.minimum_wire_compatibility_version | String | The minimum compatible transport protocol version.
 version.minimum_index_compatibility_version | String | The minimum index version that can be read.
