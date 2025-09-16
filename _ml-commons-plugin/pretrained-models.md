@@ -52,9 +52,7 @@ We recommend the following combinations for optimal performance:
 - Use the `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-gte` model during ingestion and the
 `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` tokenizer during search.
 
-Both `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill` and
-`amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-gte` are pruned with a 0.1 max value ratio, offering a better
-tradeoff between retrieval performance and index size.
+Both `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill` and `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-gte` are pruned with a maximum value ratio of 0.1, providing an improved trade-off between retrieval performance and index size.
 
 For more information about the preceding options for running neural sparse search, see [Generating sparse vector embeddings automatically]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-with-pipelines/).
 
