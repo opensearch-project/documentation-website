@@ -2,13 +2,13 @@
 layout: default
 title: Reindex document
 parent: Document APIs
-nav_order: 17
+nav_order: 60
 redirect_from: 
   - /opensearch/reindex-data/
   - /opensearch/rest-api/document-apis/reindex/
 ---
 
-# Reindex Document API
+# Reindex Documents API
 **Introduced 1.0**
 {: .label .label-purple}
 

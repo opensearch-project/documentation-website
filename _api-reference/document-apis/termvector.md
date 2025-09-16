@@ -2,7 +2,7 @@
 layout: default
 title: Term vectors
 parent: Document APIs
-nav_order: 32
+nav_order: 70
 ---
 
 # Term Vectors API
