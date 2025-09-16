@@ -28,8 +28,8 @@ Document APIs are separated into two categories: single document operations and 
 - [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/)
 - [Streaming bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk-streaming/)
 - [Multi-get documents]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/)
-- [Delete by query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/)
 - [Update by query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/)
+- [Delete by query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/)
 - [Reindex documents]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/)
 
 ## Term vector operations

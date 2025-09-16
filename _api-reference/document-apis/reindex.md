@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Reindex document
+title: Reindex documents
 parent: Document APIs
 nav_order: 60
 redirect_from: 
