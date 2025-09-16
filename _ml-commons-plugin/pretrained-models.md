@@ -286,9 +286,9 @@ The response contains text embeddings for the provided sentence:
 }
 ```
 
-### Sparse encoding model
+### Sparse encoding model or sparse tokenizer
 
-For a sparse encoding model, send the following request:
+For a sparse encoding model or sparse tokenizer, send the following request:
 
 ```json
 POST /_plugins/_ml/_predict/sparse_encoding/cleMb4kBJ1eYAeTMFFg4
@@ -298,7 +298,7 @@ POST /_plugins/_ml/_predict/sparse_encoding/cleMb4kBJ1eYAeTMFFg4
 ```
 {% include copy-curl.html %}
 
-The response contains the tokens and weights:
+The response contains the extracted tokens and their corresponding weights:
 
 ```json
 {
@@ -320,6 +320,42 @@ The response contains the tokens and weights:
           }
         }
     }
+}
+```
+
+The preceding example uses the default `lexical` output format, which returns strings as keys. You can control the output key format by setting `parameters.sparse_embedding_format` to `lexical` (returns string tokens) or `token_id` (returns integer token IDs). The following example sets the `sparse_embedding_format` to `token_id`:
+
+```json
+POST /_plugins/_ml/_predict/sparse_encoding/cleMb4kBJ1eYAeTMFFg4
+{
+  "text_docs": ["hello world"],
+  "parameters": {
+    "sparse_embedding_format": "token_id"
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the token IDs and their corresponding token weights:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "dataAsMap": {
+            "response": [
+              {
+                "2088": 3.4208686,
+                "7592": 6.9377565
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
 }
 ```
 
