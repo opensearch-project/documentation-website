@@ -3,7 +3,7 @@ layout: default
 title: Pull-based ingestion
 parent: Document APIs
 has_children: true
-nav_order: 60
+nav_order: 90
 ---
 
 # Pull-based Ingestion API
