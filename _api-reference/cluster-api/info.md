@@ -57,7 +57,7 @@ Field | Type | Description
 :--- | :--- | :---
 `name` | String | The name of the node that served the request.
 `cluster_name` | String | The name of the cluster.
-`cluster_uuid` | String | Universally unique identifier of the cluster.
+`cluster_uuid` | String | The universally unique identifier of the cluster.
 `tagline` | String | The tagline string.
 `version` | Object | The object containing version and build metadata.
 `version.distribution` | String | The distribution identifier, typically `opensearch`.
