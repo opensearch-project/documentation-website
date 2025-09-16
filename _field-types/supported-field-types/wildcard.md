@@ -53,6 +53,6 @@ The following table lists all parameters available for `wildcard` fields.
 Parameter | Description
 :--- | :---
 `doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
-`ignore_above` | Any string longer than this integer value should not be indexed. Default is `2147483647`. Dynamically updateable.
+`ignore_above` | Any string longer than this integer value should not be indexed. Default is `2147483647`. Dynamically updatable.
 `normalizer` | The normalizer used to preprocess values for indexing and search. By default, no normalization occurs and the original value is used. You may use the `lowercase` normalizer to perform case-insentive matching on the field.
 `null_value` | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, then the field is treated as missing when its value is `null`. Default is `null`.
