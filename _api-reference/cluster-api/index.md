@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 15
 redirect_from:
   - /opensearch/api-reference/cluster-api/
+  - /api-reference/cluster-api/
 ---
 
 # Cluster APIs

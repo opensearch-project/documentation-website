@@ -7,6 +7,7 @@ nav_order: 30
 redirect_from:
   - /opensearch/rest-api/index-apis/index/
   - /opensearch/rest-api/index-apis/
+  - /api-reference/index-apis/
 ---
 
 # Index APIs

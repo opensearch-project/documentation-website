@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /opensearch/catapis/
   - /opensearch/rest-api/cat/index/
+  - /api-reference/cat/
 ---
 
 # CAT APIs

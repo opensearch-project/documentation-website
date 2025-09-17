@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 25
 redirect_from:
   - /opensearch/rest-api/document-apis/index/
+  - /api-reference/document-apis/
 ---
 
 # Document APIs

@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 70
 redirect_from:
   - /opensearch/rest-api/script-apis/
+  - /api-reference/script-apis/
 ---
 
 # Script APIs

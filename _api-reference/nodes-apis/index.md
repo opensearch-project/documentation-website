@@ -4,6 +4,8 @@ title: Nodes APIs
 has_children: true
 has_toc: false
 nav_order: 50
+redirect_from:
+  - /api-reference/nodes-apis/
 ---
 
 # Nodes APIs
