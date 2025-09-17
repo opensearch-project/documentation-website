@@ -2,7 +2,7 @@
 layout: default
 title: Index settings
 parent: Configuring OpenSearch
-nav_order: 70
+nav_order: 60
 redirect_from:
   - /im-plugin/index-settings/
 ---
@@ -27,6 +27,18 @@ OpenSearch supports the following static cluster-level index settings:
 - `indices.cache.cleanup_interval` (Time unit): Schedules a recurring background task that cleans up expired entries from the cache at the specified interval. Default is `1m` (1 minute). For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
 
 - `indices.requests.cache.size` (String): The cache size as a percentage of the heap size (for example, to use 1% of the heap, specify `1%`). Default is `1%`. For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
+
+- `indices.analysis.hunspell.dictionary.ignore_case` (Static, Boolean): Controls whether Hunspell dictionary matching ignores case globally for all locales. When enabled, dictionary matching becomes case insensitive. This setting can also be configured per locale using `indices.analysis.hunspell.dictionary.<locale>.ignore_case`. Default varies by implementation.
+
+- `indices.analysis.hunspell.dictionary.lazy` (Static, Boolean): Controls when Hunspell dictionaries are loaded. If `true`, dictionary loading is deferred until a dictionary is actually used, reducing startup time but potentially increasing latency on first use. If `false`, the dictionary directory is checked and all dictionaries are automatically loaded when the node starts. Default is `false`.
+
+- `indices.memory.index_buffer_size` (Static, string): Controls the amount of heap memory allocated for indexing operations across all shards on a node. Accepts either a percentage (like `10%`) or a byte size value (like `512mb`). This buffer is shared across all shards and is used to batch indexing operations before writing to disk. Default is `10%` of the total heap.
+
+- `indices.memory.min_index_buffer_size` (Static, byte unit): Sets the absolute minimum size for the indexing buffer when `indices.memory.index_buffer_size` is specified as a percentage. This ensures the indexing buffer never becomes too small on nodes with limited heap memory. Default is `48mb`.
+
+- `indices.memory.max_index_buffer_size` (Static, byte unit): Sets the absolute maximum size for the indexing buffer when `indices.memory.index_buffer_size` is specified as a percentage. This prevents the indexing buffer from consuming too much memory on nodes with large heaps. Default is unbounded (no limit).
+
+- `indices.queries.cache.size` (Static, string): Controls the memory size allocated for the query cache (filter cache) on each data node. The query cache stores the results of frequently used filters to improve search performance. Accepts either a percentage value (like `5%`) or an exact byte value (like `512mb`). Default is `10%` of heap memory.
 
 ### Dynamic cluster-level index settings
 
@@ -148,9 +160,15 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.soft_deletes.retention_lease.period` (Time unit): The maximum amount of time to retain a shard's history of operations. Default is `12h`.
 
+<p id="index-sort-settings"></p>
+
 - `index.sort.field` (String): Specifies the field used to sort documents at index time. The default sort order is `asc` (ascending). To change the order, set the `index.sort.order` parameter.
 
 - `index.sort.order` (String): Specifies the document sort order at index time. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. This setting requires `index.sort.field` to also be set.
+
+- `index.sort.mode` (String): Controls how multi-valued fields are handled during sorting. Valid values are `min` (uses the lowest value) and `max` (uses the highest value).
+
+- `index.sort.missing` (String): Determines how documents missing the sort field are handled. Valid values are `_last` (places documents without the field at the end) and `_first` (places documents without the field at the beginning).
 
 - `index.load_fixed_bitset_filters_eagerly` (Boolean): Whether OpenSearch should preload cached filters. Available options are `true` and `false`. Default is `true`.
 

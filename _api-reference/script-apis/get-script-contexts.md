@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Get Stored Script Contexts
+title: Get stored script contexts
 parent: Script APIs
 nav_order: 5
 ---

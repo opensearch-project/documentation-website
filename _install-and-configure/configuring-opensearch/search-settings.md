@@ -2,7 +2,7 @@
 layout: default
 title: Search settings
 parent: Configuring OpenSearch
-nav_order: 80
+nav_order: 70
 ---
 
 # Search settings
@@ -40,6 +40,14 @@ OpenSearch supports the following search settings:
 - `search.dynamic_pruning.cardinality_aggregation.max_allowed_cardinality` (Dynamic, integer): Determines the threshold for applying dynamic pruning in cardinality aggregation. If a field’s cardinality exceeds this threshold, the aggregation reverts to the default method. This is an experimental feature and may change or be removed in future versions.
 
 - `search.keyword_index_or_doc_values_enabled` (Dynamic, Boolean): Determines whether to use the index or doc values when running `multi_term` queries on `keyword` fields. Default value is `false`.
+
+## Scripting settings
+
+OpenSearch supports the following scripting settings:
+
+- `script.max_size_in_bytes` (Dynamic, byte unit): Controls the maximum script byte size allowed. This setting helps prevent memory issues by rejecting scripts larger than this limit. Default is `65536` (64 KB).
+
+- `script.cache.max_size` (Static, integer): Sets the maximum number of compiled scripts that can be cached in memory. The script cache stores compiled scripts to avoid recompilation overhead for frequently used scripts. When the cache reaches this limit, the least recently used scripts are evicted to make room for new ones. Increasing this value can improve performance for applications that use many different scripts but will consume more memory. Default is `100`.
 
 ## Point in Time settings
 

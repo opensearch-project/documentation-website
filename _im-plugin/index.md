@@ -281,7 +281,6 @@ DELETE movies/_doc/1
 
 The DELETE operation increments the `_version` field. If you add the document back to the same ID, the `_version` field increments again. This behavior occurs because OpenSearch deletes the document `_source`, but retains its metadata.
 
-
 ## Next steps
 
 - The Index Management (IM) plugin lets you automate recurring index management activities and reduce storage costs. For more information, see [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index).

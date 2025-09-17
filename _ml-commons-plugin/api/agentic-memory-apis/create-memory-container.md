@@ -80,7 +80,9 @@ POST /_plugins/_ml/models/_register
 
 ### LLM 
 
-OpenSearch supports the Anthropic Claude model for LLM capabilities. To register a Claude model, send the following request:
+Currently, agentic memory supports only the Anthropic Claude model for LLM capabilities. Starting with OpenSearch 3.3, this feature will be generally available and will include support for additional LLM providers, such as OpenAI.
+
+To register an Anthropic Claude model, send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register

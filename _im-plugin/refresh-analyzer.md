@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Refresh search analyzer
-nav_order: 50
+nav_order: 35
 has_toc: false
 redirect_from: 
   - /query-dsl/analyzers/refresh-analyzer/

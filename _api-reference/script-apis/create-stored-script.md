@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Create or Update Stored Script
+title: Create or update stored script
 parent: Script APIs
 nav_order: 1
 ---

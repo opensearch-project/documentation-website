@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Get Script Language
+title: Get script language
 parent: Script APIs
 nav_order: 6
 ---
