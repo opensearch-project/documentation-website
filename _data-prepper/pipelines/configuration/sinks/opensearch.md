@@ -135,6 +135,42 @@ If you specify `max_retries` and a pipeline has a [dead-letter queue (DLQ)]({{si
 
 If you don't specify `max_retries`, only data that is rejected by sinks is written to the DLQ. Pipelines continue to try to write all other data to the sinks.
 
+### Error Handling with Acknowledgments
+
+When pipelines have [End to End Acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/#end-to-end-acknowledgments) enabled, error handling is controlled by two key configurations:
+* [Dead-letter queue (DLQ)]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/dlq/)
+* [max_retries](#configure-max_retries)
+
+#### DLQ Configuration (Strongly Recommended)
+
+The OpenSearch sink acknowledges events only when:
+* Successfully sent to OpenSearch
+* Successfully sent to DLQ
+
+Without a DLQ configured:
+* Failed events remain unacknowledged
+* Source must handle retries
+* Risk of infinite reprocessing for non-retryable errors
+
+#### Example: S3 Source with Acknowledgments
+
+Consider an [S3 source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/) with acknowledgments enabled:
+
+**Without DLQ:**
+* A single failed event prevents acknowledgment of an entire S3 object
+* The entire S3 object requires reprocessing
+* Non-retryable errors can cause infinite reprocessing ("poison pill")
+
+**With max_retries but no DLQ:**
+* Reaching max_retries still prevents acknowledgment
+* Results in unnecessary reprocessing of entire S3 objects
+
+**Best Practice:**
+Always configure a DLQ when using acknowledgments to:
+* Prevent infinite reprocessing
+* Handle non-retryable errors gracefully
+* Minimize unnecessary reprocessing
+
 ## OpenSearch cluster security
 
 In order to send data to an OpenSearch cluster using the `opensearch` sink plugin, you must specify your username and password within the pipeline configuration. The following example `pipelines.yaml` file demonstrates how to specify admin security credentials:
