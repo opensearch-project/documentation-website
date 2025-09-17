@@ -2,6 +2,7 @@
 layout: default
 title: Nodes APIs
 has_children: true
+has_toc: false
 nav_order: 50
 ---
 
@@ -126,7 +127,7 @@ response = client.nodes.info(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the cluster manager node: 
+However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the cluster manager node:
 
 <!-- spec_insert_start
 component: example_code
@@ -150,3 +151,13 @@ response = client.nodes.info(
     rest=step1_rest
     python=step1_python %}
 <!-- spec_insert_end -->
+
+## Nodes API operations
+
+The following nodes API operations are available:
+
+- [Nodes hot threads]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-hot-threads/)
+- [Nodes info]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-info/)
+- [Nodes reload secure settings]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/)
+- [Nodes stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)
+- [Nodes usage]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-usage/)

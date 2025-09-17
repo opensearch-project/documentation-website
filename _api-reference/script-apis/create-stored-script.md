@@ -2,14 +2,14 @@
 layout: default
 title: Create or update stored script
 parent: Script APIs
-nav_order: 1
+nav_order: 10
 ---
 
-# Create Or Update Stored Script API
+# Create or Update Stored Script API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Creates or updates a stored script or search template.
+Creates or updates a stored script or search template in the cluster state. Stored scripts are compiled once and can be reused across multiple requests for better performance.
 
 For additional information about Painless scripting, see:
 

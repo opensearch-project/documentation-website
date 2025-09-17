@@ -3,6 +3,7 @@ layout: default
 title: CAT APIs
 nav_order: 10
 has_children: true
+has_toc: false
 redirect_from:
   - /opensearch/catapis/
   - /opensearch/rest-api/cat/index/
@@ -298,6 +299,37 @@ The response contains data in JSON format:
 ```
 
 Other supported formats are [YAML](https://yaml.org/), [CBOR](https://cbor.io/), and [Smile](https://github.com/FasterXML/smile-format-specification).
+
+## CAT API operations
+
+The following CAT API operations are available:
+
+### Cluster and node information
+- [CAT aliases]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-aliases/)
+- [CAT allocation]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-allocation/)
+- [CAT cluster manager]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-cluster_manager/)
+- [CAT health]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-health/)
+- [CAT nodes]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-nodes/)
+- [CAT node attributes]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-nodeattrs/)
+- [CAT pending tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
+- [CAT plugins]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/)
+- [CAT repositories]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-repositories/)
+- [CAT tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
+- [CAT templates]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-templates/)
+- [CAT thread pool]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-thread-pool/)
+
+### Index and document information
+- [CAT count]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-count/)
+- [CAT field data]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-field-data/)
+- [CAT indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/)
+- [CAT PIT segments]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pit-segments/)
+- [CAT recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
+- [CAT segment replication]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-segment-replication/)
+- [CAT segments]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-segments/)
+- [CAT shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
+
+### Snapshot information
+- [CAT snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
 
 If you use the Security plugin, make sure you have the appropriate permissions.
 {: .note }
