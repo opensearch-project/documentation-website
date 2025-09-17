@@ -58,7 +58,7 @@ Parameter | Description
 `index_phrases` | A Boolean value that specifies to index 2-grams separately. 2-grams are combinations of two consecutive words in this field's string. Leads to faster exact phrase queries with no slop but a larger index. Works best when stopwords are not removed. Default is `false`.
 `index_prefixes` | A JSON object that specifies to index term prefixes separately. The number of characters in the prefix is between `min_chars` and `max_chars`, inclusive. Leads to faster prefix searches but a larger index. Optional parameters: `min_chars`, `max_chars`. Default `min_chars` is 2, `max_chars` is 5.
 `meta` | Accepts metadata for this field.
-`norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. Default is `false`.
+`norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. Default is `true`.
 `position_increment_gap` | When text fields are analyzed, they are assigned positions. If a field contained an array of strings, and these positions were consecutive, this would lead to potentially matching across different array elements. To prevent this, an artificial gap is inserted between consecutive array elements. You can change this gap by specifying an integer `position_increment_gap`. Note: If `slop` is greater than `position_element_gap`, matching across different array elements may occur. Default is 100. Dynamically updatable.
 `similarity` | The ranking algorithm for calculating relevance scores. Default is `BM25`. 
 [`term_vector`](#term-vector-parameter) | A Boolean value that specifies whether a term vector for this field should be stored. Default is `no`.
