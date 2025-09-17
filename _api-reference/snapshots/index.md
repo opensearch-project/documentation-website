@@ -18,7 +18,7 @@ The snapshot APIs allow you to manage snapshots and snapshot repositories.
 
 ## Snapshot API operations
 
-The following snapshot API operations are available:
+The following snapshot API operations are available.
 
 ### Repository management
 - [Create repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/)

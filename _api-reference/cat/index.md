@@ -303,7 +303,7 @@ Other supported formats are [YAML](https://yaml.org/), [CBOR](https://cbor.io/),
 
 ## CAT API operations
 
-The following CAT API operations are available:
+The following CAT API operations are available.
 
 ### Cluster and node information
 - [CAT aliases]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-aliases/)

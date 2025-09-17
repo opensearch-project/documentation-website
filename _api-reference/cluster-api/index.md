@@ -17,7 +17,7 @@ The cluster APIs allow you to manage your cluster. You can use them to check clu
 
 ## Cluster API operations
 
-The following cluster API operations are available:
+The following cluster API operations are available.
 
 ### Cluster information and status
 - [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/)

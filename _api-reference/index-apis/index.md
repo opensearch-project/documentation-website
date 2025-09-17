@@ -18,7 +18,7 @@ The index API operations let you interact with indexes in your cluster. Using th
 
 ## Index API operations
 
-The following index API operations are available:
+The following index API operations are available.
 
 ### Index management
 - [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/)
