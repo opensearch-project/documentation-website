@@ -5,7 +5,7 @@ nav_order: 75
 has_children: true
 has_toc: false
 redirect_from:
-  - /api-reference/script-apis/
+  - /api-reference/search-apis/
 ---
 
 # Search APIs
