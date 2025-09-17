@@ -115,8 +115,8 @@ The following table lists the parameters accepted by token count field types. Th
 
 Parameter | Description 
 :--- | :--- 
-`analyzer` | The analyzer to be used for this field. Specify an analyzer without token filters for optimal performance. Required.
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
+`analyzer` | The analyzer to be used for this field. Specify an analyzer without token filters for optimal performance. Required. Dynamically updatable.
+`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable.
 `doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
 `enable_position_increments` | A Boolean value that specifies whether position increments should be counted. To avoid removing stopwords, set this field to `false`. Default is `true`.
 `index` | A Boolean value that specifies whether the field should be searchable. Default is `true`.
