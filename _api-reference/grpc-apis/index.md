@@ -117,5 +117,5 @@ To submit gRPC requests, you must have a set of protobufs on the client side. Yo
 The following gRPC APIs are supported:
 
 - [Bulk]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) **Generally available 3.2**
+- [k-NN]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) **Generally available 3.2**
 - [Search]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/) (for select query types)
-- [k-NN]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) (k-NN search queries) **Generally available 3.2**

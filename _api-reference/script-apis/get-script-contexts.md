@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Get stored script contexts
+title: Get script contexts
 parent: Script APIs
-nav_order: 5
+nav_order: 70
 ---
 
-# Get Stored Script Contexts API
+# Get Script Contexts API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Retrieves all contexts for stored scripts.
+Retrieves all available contexts where scripts can be used, such as search, update, or aggregation contexts.
 
 ## Example request
 
