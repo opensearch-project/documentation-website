@@ -885,3 +885,10 @@ response = client.delete_script(
     rest=step1_rest
     python=step1_python %}
 <!-- spec_insert_end -->
+
+## Search template API operations
+
+The following search template API operations are available:
+
+- [Multi-search template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/msearch-template/)
+- [Render template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/render-template/)
