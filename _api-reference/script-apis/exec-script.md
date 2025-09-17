@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Execute script
+title: Execute inline script
 parent: Script APIs
 nav_order: 7
 ---
 
-# Execute Painless Script API
+# Execute Inline Script API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Execute Painless script API allows you to run a script that is not stored.
+The Execute Inline Script API allows you to run a script directly without storing it in the cluster state. The script is compiled and executed each time the API is called.
 
 ## Endpoints
 

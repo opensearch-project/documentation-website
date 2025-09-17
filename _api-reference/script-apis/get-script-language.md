@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Get script language
+title: Get script languages
 parent: Script APIs
-nav_order: 6
+nav_order: 60
 ---
 
-# Get Script Language API
+# Get Script Languages API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The get script language API operation retrieves all supported script languages and the contexts in which they may be used.
+The Get Script Languages API retrieves all supported script languages (such as Painless) and the contexts in which they can be used.
 
 ## Example request
 
