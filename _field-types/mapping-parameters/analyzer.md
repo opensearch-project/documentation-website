@@ -34,7 +34,7 @@ For effective phrase query handling with stop words, configure three analyzer se
 
 The following example demonstrates how to use the `search_quote_analyzer` to handle stop words differently in phrase queries versus term queries.
 
-First, create an index with all three analyzer types. The `index_analyzer` preserves all terms during indexing, including stop words like "the" and "a". The `search_analyzer` removes stop words from regular term queries. The `search_quote_analyzer` uses the same analyzer as indexing for phrase queries, ensuring exact phrase matching works correctly:
+First, create an index with all three analyzer types. The `index_analyzer` preserves all terms during indexing, including stop words like "the" and "a". The `search_analyzer` removes stop words from regular term queries. The `search_quote_analyzer` uses the same analyzer that was used during document indexing, ensuring exact phrase matching works correctly:
 
 ```json
 PUT /product_catalog
