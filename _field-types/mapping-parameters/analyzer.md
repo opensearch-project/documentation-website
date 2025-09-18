@@ -160,7 +160,7 @@ GET /product_catalog/_search
 ```
 {% include copy-curl.html %}
 
-Because the query is not enclosed in quotation marks, it is a term query. Term queries use the `search_analyzer`, which tokenizes the text and removes stop words. As a result, the query the smart watch is analyzed into the tokens `[smart, watch]` and matches both documents:
+Because the query is not enclosed in quotation marks, it is a term-level query. Term-level queries use the `search_analyzer`, which tokenizes the text and removes stop words. As a result, the query is analyzed into the tokens `[smart, watch]` and matches both documents:
 
 ```json
 {
