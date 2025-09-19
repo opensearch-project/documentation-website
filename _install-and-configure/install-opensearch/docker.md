@@ -514,7 +514,7 @@ services:
       - discovery.seed_hosts=opensearch-node1,opensearch-node2,opensearch-node3
       - cluster.initial_master_nodes=opensearch-node1,opensearch-node2,opensearch-node3
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
     ulimits:
       memlock:
         soft: -1
@@ -554,7 +554,7 @@ services:
       - discovery.seed_hosts=opensearch-node1,opensearch-node2,opensearch-node3
       - cluster.initial_master_nodes=opensearch-node1,opensearch-node2,opensearch-node3
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
     ulimits:
       memlock:
         soft: -1
@@ -593,8 +593,7 @@ services:
       - discovery.seed_hosts=opensearch-node1,opensearch-node2,opensearch-node3
       - cluster.initial_master_nodes=opensearch-node1,opensearch-node2,opensearch-node3
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
-      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=admin3
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
     ulimits:
       memlock:
         soft: -1
