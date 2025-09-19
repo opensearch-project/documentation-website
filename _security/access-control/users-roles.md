@@ -195,18 +195,18 @@ The following table lists built-in roles that are always provided:
 
 | **Role** | **Description** |
 | :--- | :--- |
-| `all_access`| Superuser-style role, full cluster access, all cluster operations, write to all indices, and all tenants. |
-| `kibana_server` | Role used by the OpenSearch Dashboards server user to read/write its internal saved objects and system indices. Don’t assign to human users. |
-| `kibana_user` | Lets a user sign in and use Dashboards. This includes cluster read and search, index monitoring, and writes to OpenSearch Dashboards indices. Pair with read permissions to your data. |
+| `all_access`| Superuser-style role, full cluster access, all cluster operations, write to all indexes, and all tenants. |
+| `kibana_server` | Role used by the OpenSearch Dashboards server user to read/write its internal saved objects and system indexes. Don’t assign to human users. |
+| `kibana_user` | Lets a user sign in and use Dashboards. This includes cluster read and search, index monitoring, and writes to OpenSearch Dashboards indexes. Pair with read permissions to your data. |
 | `logstash`| Grants Logstash the permissions it needs to interact with OpenSearch |
 | `manage_snapshots`| Manage snapshot repositories and run snapshot/restore operations. |
 | `own_index` | Per-user index role which gives a user full access to an index named for the user. Useful for personal workspaces or multi-tenant setups. |
-| `readall` | Cluster-wide read/search across all indices, for example `_search`, `_msearch`. |
+| `readall` | Cluster-wide read/search across all indexes, for example `_search`, `_msearch`. |
 | `readall_and_monitor` | Same as `readall`, plus cluster monitoring privileges, such as health and stats. |                                                                                           |
 
 ### Demo roles
 
-The following table lists the demo roles that are created by default if the `roles.yml` file is not provided when initializing security plugin.
+The following table lists the demo roles that are created by default if the `roles.yml` file is not provided when initializing Security plugin.
 
 | **Role** | **Description** |
 | :--- | :--- |
