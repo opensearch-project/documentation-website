@@ -23,9 +23,9 @@ The boost parameter only applies to [term-level queries]({{site.url}}{{site.base
 
 While you can set boost values in field mappings (index-time boosting), this is not recommended. Instead, use query-time boosting, which offers several advantages:
 
-- **Flexibility**: Query-time boost allows you to adjust boost values without reindexing documents.
+- **Flexibility**: Query-time boosting allows you to adjust boost values without reindexing documents.
 
-- **Precision**: Index-time boosts are stored as part of the [`norms`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/norms/), which uses only one byte. This can reduce the resolution of field length normalization.
+- **Precision**: Index-time boosts are stored as part of the [`norms`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/norms/), which uses only 1 byte. This can reduce the resolution of field length normalization.
 
 - **Dynamic control**: Query-time boosting gives you the ability to experiment with different boost values for different use cases.
 
@@ -33,7 +33,7 @@ While you can set boost values in field mappings (index-time boosting), this is 
 
 Use the `boost` parameter to give more weight to certain fields. For instance, boosting the `title` field more than the `description` field can improve results if the title is a stronger indicator of relevance.
 
-In this example, the `title` field has a boost of `2`, so it contributes twice as much to the  relevance score than the `description` field (which has a default boost of `1`). 
+In this example, the `title` field has a boost of `2`, so it contributes twice as much to the relevance score than the `description` field (which has a default boost of `1`). 
 
 ### Index-time boosting (not recommended)
 
@@ -77,7 +77,7 @@ PUT /article_index/_doc/2
 ```
 {% include copy-curl.html %}
 
-Search across both fields using index-time boost:
+Search across both fields using index-time boosting:
 
 ```json
 POST /article_index/_search
@@ -92,7 +92,7 @@ POST /article_index/_search
 ```
 {% include copy-curl.html %}
 
-Document 1 is scored higher because "machine learning" appears in the boosted `title` field. Document 2 is scored lower because "machine learning" appears in the unboosted `description` field. Both documents contain "algorithms" which contributes to their scores:
+Document 1 is scored higher because "machine learning" appears in the boosted `title` field. Document 2 is scored lower because "machine learning" appears in the unboosted `description` field. Both documents contain "algorithms", which contributes to their scores:
 
 <p id="index-time-response"></p>
 
@@ -138,7 +138,7 @@ Document 1 is scored higher because "machine learning" appears in the boosted `t
 
 ### Query-time boosting (recommended)
 
-Instead of index-time boosting, use query-time boost for better control and flexibility. Query-time boosting doesn't require any special field mappings to be configured.
+Instead of index-time boosting, use query-time boosting for better control and flexibility. Query-time boosting doesn't require any special field mappings to be configured.
 
 Add some sample documents to the index:
 
@@ -160,7 +160,7 @@ PUT /article_index_2/_doc/2
 ```
 {% include copy-curl.html %}
 
-First, search the `title` field without boost:
+First, search the `title` field without boosting:
 
 ```json
 POST /article_index_2/_search
@@ -209,7 +209,7 @@ The matching document has a score of 0.59:
 }
 ```
 
-Next, seach the same field with a boost:
+Next, search the same field with boosting:
 
 ```json
 POST /article_index_2/_search
@@ -316,7 +316,7 @@ Document 2 is scored higher than Document 1:
 }
 ```
 
-To compare index-time boosting with query-time boosting, search multiple fields with query-time boost:
+To compare index-time boosting with query-time boosting, search multiple fields with query-time boosting:
 
 ```json
 POST /article_index_2/_search
