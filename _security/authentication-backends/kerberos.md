@@ -16,7 +16,7 @@ In order to use Kerberos authentication, you must set the following settings in 
 In `opensearch.yml`, define the following settings:
 
 ```yml
-plugins.security.kerberos.krb5_filepath: '/etc/krb5.conf'
+plugins.security.kerberos.krb5_filepath: 'krb5.conf'
 plugins.security.kerberos.acceptor_keytab_filepath: 'opensearch_keytab.tab'
 plugins.security.kerberos.acceptor_principal: 'HTTP/localhost'
 ```
@@ -27,7 +27,7 @@ Name | Description
 `acceptor_keytab_filepath` | The path to the `keytab` file, which contains the principal that the Security plugin uses to issue requests through Kerberos.
 `acceptor_principal` | The principal that the Security plugin uses to issue requests through Kerberos. This value must be present in the `keytab` file.
 
-Due to security restrictions, the `keytab` file must be placed in `config` or a subdirectory, and the path in `opensearch.yml` must be relative, not absolute.
+Because of security restrictions, the `keytab` and `krb5.conf` files must be placed in the `config` directory or its subdirectory and their paths in `opensearch.yml` must be relative, not absolute.
 {: .note }
 
 ## Cluster security configuration
