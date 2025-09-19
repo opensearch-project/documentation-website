@@ -39,7 +39,7 @@ cancel_after_time_interval | Time | The time after which the search request will
 ccs_minimize_roundtrips | Boolean | Whether to minimize round trips between a node and remote clusters. Default is `true`. Example: `GET test-index/_search?ccs_minimize_roundtrips=true&size=0` |
 default_operator | String | Indicates whether the default operator for a string query should be `AND` or `OR`. Default is `OR`. Requires `q=` or `query_string`. Example: `GET test-index/_search?q=title:test one&default_operator=AND&size=0` |
 df | String | The default field in case a field prefix is not provided in the query string. Requires `q=`  or `query_string`. Example: `GET test-index/_search?q=test&df=title&size=0` |
-docvalue_fields | String | The fields that OpenSearch should return using their docvalue forms. Example: `GET test-index/_search?docvalue_fields=ts,views&size=0` |
+docvalue_fields | String | The fields that OpenSearch should return using their `docvalue` forms. Example: `GET test-index/_search?docvalue_fields=ts,views&size=0` |
 expand_wildcards | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are all (match any index), open (match open, non-hidden indexes), closed (match closed, non-hidden indexes), hidden (match hidden indexes), and none (deny wildcard expressions). Default is open. Example: `GET test-index-*/_search?expand_wildcards=open&size=0` |
 explain | Boolean | Whether to return details about how OpenSearch computed the document’s score. Default is `false`. Requires `hits` to see details. Example: `GET test-index/_search?explain=true&size=1&q=title:test` |
 from | Integer | The starting index to search from. Default is `0`. Example: `GET test-index/_search?from=5&size=5` |
