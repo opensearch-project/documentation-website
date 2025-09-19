@@ -36,7 +36,8 @@ Advanced features in OpenSearch, such as the [Search Relevance Workbench]({{site
   <tr style="vertical-align: top;">
     <td>
       <h2>Tutorials</h2>
-      <ul>                                        
+      <ul>    
+        <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-aws-managed-services-tutorial/">Learn to use AWS OpenSearch Ingestion</a> pipelines for gathering UBI query and event data.</li>        
         <li><a href="{{site.url}}{{site.baseurl}}/search-plugins/ubi/ubi-dashboard-tutorial/">Learn to create custom dashboards</a> for visualizing UBI data.</li>    
         <li> Based on <a href="https://github.com/o19s/chorus-opensearch-edition">Chorus for OpenSearch</a> demo:
           <ul>
