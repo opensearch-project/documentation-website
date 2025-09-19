@@ -17,6 +17,18 @@ This section provides information about how to install OpenSearch on your host, 
 
 For operating system compatibility, see [Compatible operating systems]({{site.url}}{{site.baseurl}}/install-and-configure/os-comp/).
 
+## Installation steps
+
+The installation steps depend on the deployment method, see the following for more details:
+
+- [Docker]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/)
+- [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/)
+- [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/)
+- [RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm/)
+- [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/)
+- [Ansible playbook]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/ansible/)
+- [Windows]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/windows/)
+
 
 ## File system recommendations
 
