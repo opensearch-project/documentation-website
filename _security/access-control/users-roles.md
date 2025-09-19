@@ -189,39 +189,590 @@ If a user requires permissions in addition to those included in the `read_only` 
 
 The Security plugin includes several predefined roles that serve as useful defaults.
 
+### Built-in roles
+
+The following table lists built-in roles that are always provided:
+
 | **Role** | **Description** |
 | :--- | :--- |
-| `alerting_ack_alerts` | Grants permissions to view and acknowledge alerts, but not to modify destinations or monitors. |
+| `all_access`| Superuser-style role, full cluster access, all cluster operations, write to all indices, and all tenants. |
+| `kibana_server` | Role used by the OpenSearch Dashboards server user to read/write its internal saved objects and system indices. Don’t assign to human users. |
+| `kibana_user` | Lets a user sign in and use Dashboards. This includes cluster read and search, index monitoring, and writes to OpenSearch Dashboards indices. Pair with read permissions to your data. |
+| `logstash`| Grants Logstash the permissions it needs to interact with OpenSearch |
+| `manage_snapshots`| Manage snapshot repositories and run snapshot/restore operations. |
+| `own_index` | Per-user index role which gives a user full access to an index named for the user. Useful for personal workspaces or multi-tenant setups. |
+| `readall` | Cluster-wide read/search across all indices, for example `_search`, `_msearch`. |
+| `readall_and_monitor` | Same as `readall`, plus cluster monitoring privileges, such as health and stats. |                                                                                           |
+
+### Demo roles
+
+The following table lists the demo roles that are created by default if the `roles.yml` file is not provided when initializing security plugin.
+
+| **Role** | **Description** |
+| :--- | :--- |
+| `alerting_ack_alerts`| Grants permissions to view and acknowledge alerts, but not to modify destinations or monitors. |
 | `alerting_full_access` | Grants full permissions to perform all alerting actions. |
 | `alerting_read_access` | Grants permissions to view alerts, destinations, and monitors, but not to acknowledge alerts or modify destinations or monitors. |
-| `all_access` | Grants full access to the cluster, including all cluster-wide operations, permissions to write to all cluster indexes, and permissions to write to all tenants. For more information about access using the REST API, see [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api). |
-| `anomaly_full_access` | Grants full permissions to perform all anomaly detection actions. |
-| `anomaly_read_access` | Grants permissions to view detectors, but not to create, modify, or delete detectors. |
-| `asynchronous_search_full_access` | Grants full permissions to perform all asynchronous search actions. |
-| `asynchronous_search_read_access` | Grants permissions to view asynchronous searches but not to submit, modify, or delete them. |
+| `anomaly_full_access`| Grants full permissions to perform all anomaly detection actions. |
+| `anomaly_read_access`| Grants permissions to view detectors, but not to create, modify, or delete detectors. |
+| `asynchronous_search_full_access`| Grants full permissions to perform all asynchronous search actions. |
+| `asynchronous_search_read_access`| Grants permissions to view asynchronous searches but not to submit, modify, or delete them. |
 | `cross_cluster_replication_follower_full_access` | Grants full access to perform cross-cluster replication actions on the follower cluster. |
-| `cross_cluster_replication_leader_full_access`   | Grants full access to perform cross-cluster replication actions on the leader cluster. |
-| `index_management_full_access` | Grants full permissions to perform all index management actions, including Index State Management (ISM), transforms, and rollups. |
-| `index_management_read_access` | Same as `readall` but with added cluster permissions for monitoring. |
-| `ml_full_access` | Grants full permissions to perform all machine learning (ML) features, including starting new ML tasks and reading or deleting models. |
-| `ml_read_access` | Grants permissions to view ML features and results but not to modify them. |
-| `notifications_full_access` | Grants full permissions to perform all notification actions. |
-| `notifications_read_access` | Grants permissions to view notifications and their configurations but not to modify them. |
-| `opensearch_dashboards_read_only` | Grants read-only access to OpenSearch Dashboards. |
-| `opensearch_dashboards_user` | Grants basic user access to OpenSearch Dashboards. |
-| `point_in_time_full_access`  | Grants full permissions to perform all Point in Time operations. |
-| `readall` | Grants permissions for cluster-wide searches like `msearch` and search permissions for all indexes. |
-| `reports_instances_read_access` | Grants permissions to generate on-demand reports and download existing reports but not to view or create report definitions. |
-| `security_analytics_ack_alerts` | Grants permissions to view and acknowledge alerts. |
+| `cross_cluster_replication_leader_full_access` | Grants full access to perform cross-cluster replication actions on the leader cluster. |
+| `index_management_full_access` | Grants full permissions to perform all index management actions, including ISM, transforms, and rollups. |
+| `ml_full_access` | Grants full permissions to use all machine learning (ML) features, including starting tasks and managing models. |
+| `ml_read_access` | Grants permissions to view ML configuration, stats, models, and tasks without modifying them. |
+| `notifications_full_access`| Grants full permissions to perform all Notifications actions. |
+| `notifications_read_access`| Grants permissions to view Notifications configuration/channels and features but not modify them. |
+| `point_in_time_full_access`| Grants full permissions to perform all Point-in-Time operations.|
+| `reports_instances_read_access`| Grants permissions to generate on-demand reports and download existing report instances, but not to view/create report definitions. |
+| `security_analytics_ack_alerts`| Grants permissions to view and acknowledge Security Analytics alerts. |
 | `security_analytics_full_access` | Grants full permissions to use all Security Analytics functionality. |
-| `security_analytics_read_access`  | Grants permissions to view Security Analytics components, such as detectors, alerts, and findings. Also includes permissions that allow users to search for detectors and rules. This role does not allow a user to perform actions such as modifying or deleting a detector. |
-| `security_manager` | Grants permissions to manage security-related features and configurations.  |
-| `snapshot_management_full_access` | Grants full permissions to perform all snapshot management actions.  |
-| `snapshot_management_read_access`  | Grants permissions to view snapshot management actions and configurations but not to modify them. |
+| `security_analytics_read_access` | Grants permissions to view Security Analytics detectors, alerts, findings, mappings, and rules. |
+| `snapshot_management_full_access`| Grants full permissions to perform all snapshot management actions (including repositories and snapshots).|
+| `snapshot_management_read_access`| Grants permissions to view snapshot management policies, repositories, and snapshots without modifying them. |
 
+### Detailed permissions breakdown
 
-For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/).
+The following is a detailed list of permissions assigned to each demo role:
 
+```json
+# Restrict users so they can only view visualization and dashboard on OpenSearchDashboards
+kibana_read_only:
+  reserved: true
+
+# The security REST API access role is used to assign specific users access to change the security settings through the REST API.
+security_rest_api_access:
+  reserved: true
+
+security_rest_api_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'restapi:admin/actiongroups'
+    - 'restapi:admin/allowlist'
+    - 'restapi:admin/config/update'
+    - 'restapi:admin/internalusers'
+    - 'restapi:admin/nodesdn'
+    - 'restapi:admin/roles'
+    - 'restapi:admin/rolesmapping'
+    - 'restapi:admin/ssl/certs/info'
+    - 'restapi:admin/ssl/certs/reload'
+    - 'restapi:admin/tenants'
+
+# Allows users to view monitors, destinations and alerts
+alerting_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opendistro/alerting/alerts/get'
+    - 'cluster:admin/opendistro/alerting/destination/get'
+    - 'cluster:admin/opendistro/alerting/monitor/get'
+    - 'cluster:admin/opendistro/alerting/monitor/search'
+    - 'cluster:admin/opensearch/alerting/comments/search'
+    - 'cluster:admin/opensearch/alerting/findings/get'
+    - 'cluster:admin/opensearch/alerting/remote/indexes/get'
+    - 'cluster:admin/opensearch/alerting/workflow/get'
+    - 'cluster:admin/opensearch/alerting/workflow_alerts/get'
+
+# Allows users to view and acknowledge alerts
+alerting_ack_alerts:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opendistro/alerting/alerts/*'
+    - 'cluster:admin/opendistro/alerting/chained_alerts/*'
+    - 'cluster:admin/opendistro/alerting/workflow_alerts/*'
+    - 'cluster:admin/opensearch/alerting/comments/*'
+
+# Allows users to use all alerting functionality
+alerting_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opendistro/alerting/*'
+    - 'cluster:admin/opensearch/alerting/*'
+    - 'cluster:admin/opensearch/notifications/feature/publish'
+    - 'cluster_monitor'
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'indices:admin/aliases/get'
+        - 'indices:admin/mappings/get'
+        - 'indices_monitor'
+
+# Allow users to read Anomaly Detection detectors and results
+anomaly_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opendistro/ad/detector/info'
+    - 'cluster:admin/opendistro/ad/detector/search'
+    - 'cluster:admin/opendistro/ad/detector/validate'
+    - 'cluster:admin/opendistro/ad/detectors/get'
+    - 'cluster:admin/opendistro/ad/result/search'
+    - 'cluster:admin/opendistro/ad/result/topAnomalies'
+    - 'cluster:admin/opendistro/ad/tasks/search'
+
+# Allows users to use all Anomaly Detection functionality
+anomaly_full_access:
+  reserved: true
+  cluster_permissions:
+    - "cluster:admin/ingest/pipeline/delete"
+    - "cluster:admin/ingest/pipeline/put"
+    - 'cluster:admin/opendistro/ad/*'
+    - 'cluster_monitor'
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'indices:admin/aliases/get'
+        - 'indices:admin/mappings/fields/get'
+        - 'indices:admin/mappings/fields/get*'
+        - 'indices:admin/mappings/get'
+        - 'indices:admin/resolve/index'
+        - 'indices:admin/setting/put'
+        - 'indices:data/read/field_caps*'
+        - 'indices:data/read/search'
+        - 'indices_monitor'
+
+# Allow users to execute read only k-NN actions
+knn_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/knn_get_model_action'
+    - 'cluster:admin/knn_search_model_action'
+    - 'cluster:admin/knn_stats_action'
+
+# Allow users to use all k-NN functionality
+knn_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/knn_delete_model_action'
+    - 'cluster:admin/knn_get_model_action'
+    - 'cluster:admin/knn_remove_model_from_cache_action'
+    - 'cluster:admin/knn_search_model_action'
+    - 'cluster:admin/knn_stats_action'
+    - 'cluster:admin/knn_training_job_route_decision_info_action'
+    - 'cluster:admin/knn_training_job_router_action'
+    - 'cluster:admin/knn_training_model_action'
+    - 'cluster:admin/knn_update_model_graveyard_action'
+    - 'cluster:admin/knn_warmup_action'
+
+# Allow users to execute read only ip2geo datasource action
+ip2geo_datasource_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/geospatial/datasource/get'
+
+# Allow users to use all ip2geo datasource action
+ip2geo_datasource_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/geospatial/datasource/*'
+
+# Allows users to read Notebooks
+notebooks_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opendistro/notebooks/get'
+    - 'cluster:admin/opendistro/notebooks/list'
+
+# Allows users to all Notebooks functionality
+notebooks_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opendistro/notebooks/create'
+    - 'cluster:admin/opendistro/notebooks/delete'
+    - 'cluster:admin/opendistro/notebooks/get'
+    - 'cluster:admin/opendistro/notebooks/list'
+    - 'cluster:admin/opendistro/notebooks/update'
+
+# Allows users to read observability objects
+observability_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/observability/get'
+
+# Allows users to all Observability functionality
+observability_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/observability/create'
+    - 'cluster:admin/opensearch/observability/delete'
+    - 'cluster:admin/opensearch/observability/get'
+    - 'cluster:admin/opensearch/observability/update'
+
+# Allows users to all PPL functionality
+ppl_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/ppl'
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'indices:admin/mappings/get'
+        - 'indices:data/read/search*'
+        - 'indices:monitor/settings/get'
+
+# Allows users to read and download Reports
+reports_instances_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opendistro/reports/instance/get'
+    - 'cluster:admin/opendistro/reports/instance/list'
+    - 'cluster:admin/opendistro/reports/menu/download'
+
+# Allows users to read and download Reports and Report-definitions
+reports_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opendistro/reports/definition/get'
+    - 'cluster:admin/opendistro/reports/definition/list'
+    - 'cluster:admin/opendistro/reports/instance/get'
+    - 'cluster:admin/opendistro/reports/instance/list'
+    - 'cluster:admin/opendistro/reports/menu/download'
+
+# Allows users to all Reports functionality
+reports_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opendistro/reports/definition/create'
+    - 'cluster:admin/opendistro/reports/definition/delete'
+    - 'cluster:admin/opendistro/reports/definition/get'
+    - 'cluster:admin/opendistro/reports/definition/list'
+    - 'cluster:admin/opendistro/reports/definition/on_demand'
+    - 'cluster:admin/opendistro/reports/definition/update'
+    - 'cluster:admin/opendistro/reports/instance/get'
+    - 'cluster:admin/opendistro/reports/instance/list'
+    - 'cluster:admin/opendistro/reports/menu/download'
+
+# Allows users to use all asynchronous-search functionality
+asynchronous_search_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opendistro/asynchronous_search/*'
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'indices:data/read/search*'
+
+# Allows users to read stored asynchronous-search results
+asynchronous_search_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opendistro/asynchronous_search/get'
+
+# Allows user to use all index_management actions - ism policies, rollups, transforms
+index_management_full_access:
+  reserved: true
+  cluster_permissions:
+    - "cluster:admin/opendistro/ism/*"
+    - "cluster:admin/opendistro/rollup/*"
+    - "cluster:admin/opendistro/transform/*"
+    - "cluster:admin/opensearch/controlcenter/lron/*"
+    - "cluster:admin/opensearch/notifications/channels/get"
+    - "cluster:admin/opensearch/notifications/feature/publish"
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'indices:admin/opensearch/ism/*'
+        - 'indices:internal/plugins/replication/index/stop'
+
+# Allows users to use all cross cluster replication functionality at leader cluster
+cross_cluster_replication_leader_full_access:
+  reserved: true
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - "indices:admin/plugins/replication/index/setup/validate"
+        - "indices:data/read/plugins/replication/changes"
+        - "indices:data/read/plugins/replication/file_chunk"
+
+# Allows users to use all cross cluster replication functionality at follower cluster
+cross_cluster_replication_follower_full_access:
+  reserved: true
+  cluster_permissions:
+    - "cluster:admin/plugins/replication/autofollow/update"
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - "indices:admin/plugins/replication/index/pause"
+        - "indices:admin/plugins/replication/index/resume"
+        - "indices:admin/plugins/replication/index/setup/validate"
+        - "indices:admin/plugins/replication/index/start"
+        - "indices:admin/plugins/replication/index/status_check"
+        - "indices:admin/plugins/replication/index/stop"
+        - "indices:admin/plugins/replication/index/update"
+        - "indices:data/write/plugins/replication/changes"
+
+# Allows users to use all cross cluster search functionality at remote cluster
+cross_cluster_search_remote_full_access:
+  reserved: true
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'indices:admin/shards/search_shards'
+        - 'indices:data/read/search'
+
+# Allow users to operate query assistant
+query_assistant_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/ml/config/get'
+    - 'cluster:admin/opensearch/ml/execute'
+    - 'cluster:admin/opensearch/ml/predict'
+    - 'cluster:admin/opensearch/ppl'
+
+# Allow users to read ML stats/models/tasks
+ml_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/ml/config/get'
+    - 'cluster:admin/opensearch/ml/connectors/get'
+    - 'cluster:admin/opensearch/ml/connectors/search'
+    - 'cluster:admin/opensearch/ml/controllers/get'
+    - 'cluster:admin/opensearch/ml/memory/conversation/get'
+    - 'cluster:admin/opensearch/ml/memory/conversation/interaction/search'
+    - 'cluster:admin/opensearch/ml/memory/conversation/list'
+    - 'cluster:admin/opensearch/ml/memory/conversation/search'
+    - 'cluster:admin/opensearch/ml/memory/interaction/get'
+    - 'cluster:admin/opensearch/ml/memory/interaction/list'
+    - 'cluster:admin/opensearch/ml/memory/trace/get'
+    - 'cluster:admin/opensearch/ml/model_groups/get'
+    - 'cluster:admin/opensearch/ml/model_groups/search'
+    - 'cluster:admin/opensearch/ml/models/get'
+    - 'cluster:admin/opensearch/ml/models/search'
+    - 'cluster:admin/opensearch/ml/profile/nodes'
+    - 'cluster:admin/opensearch/ml/stats/nodes'
+    - 'cluster:admin/opensearch/ml/tasks/get'
+    - 'cluster:admin/opensearch/ml/tasks/search'
+    - 'cluster:admin/opensearch/ml/tools/get'
+    - 'cluster:admin/opensearch/ml/tools/list'
+
+# Allows users to use all ML functionality
+ml_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/ml/*'
+    - 'cluster_monitor'
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'indices_monitor'
+
+# Allows users to use all Notifications functionality
+notifications_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/notifications/*'
+
+# Allows users to read Notifications config/channels
+notifications_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/notifications/channels/get'
+    - 'cluster:admin/opensearch/notifications/configs/get'
+    - 'cluster:admin/opensearch/notifications/features'
+
+# Allows users to use all snapshot management functionality
+snapshot_management_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/notifications/feature/publish'
+    - 'cluster:admin/opensearch/snapshot_management/*'
+    - 'cluster:admin/repository/*'
+    - 'cluster:admin/snapshot/*'
+
+# Allows users to see snapshots, repositories, and snapshot management policies
+snapshot_management_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/snapshot_management/policy/explain'
+    - 'cluster:admin/opensearch/snapshot_management/policy/get'
+    - 'cluster:admin/opensearch/snapshot_management/policy/search'
+    - 'cluster:admin/repository/get'
+    - 'cluster:admin/snapshot/get'
+
+# Allows user to use point in time functionality
+point_in_time_full_access:
+  reserved: true
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'manage_point_in_time'
+
+# Allows users to see security analytics detectors and others
+security_analytics_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/securityanalytics/alerts/get'
+    - 'cluster:admin/opensearch/securityanalytics/correlationAlerts/get'
+    - 'cluster:admin/opensearch/securityanalytics/correlations/findings'
+    - 'cluster:admin/opensearch/securityanalytics/correlations/list'
+    - 'cluster:admin/opensearch/securityanalytics/detector/get'
+    - 'cluster:admin/opensearch/securityanalytics/detector/search'
+    - 'cluster:admin/opensearch/securityanalytics/findings/get'
+    - 'cluster:admin/opensearch/securityanalytics/logtype/search'
+    - 'cluster:admin/opensearch/securityanalytics/mapping/get'
+    - 'cluster:admin/opensearch/securityanalytics/mapping/view/get'
+    - 'cluster:admin/opensearch/securityanalytics/rule/get'
+    - 'cluster:admin/opensearch/securityanalytics/rule/search'
+    - 'cluster:admin/opensearch/securityanalytics/threatintel/alerts/get'
+    - 'cluster:admin/opensearch/securityanalytics/threatintel/iocs/findings/get'
+    - 'cluster:admin/opensearch/securityanalytics/threatintel/iocs/list'
+    - 'cluster:admin/opensearch/securityanalytics/threatintel/monitors/search'
+    - 'cluster:admin/opensearch/securityanalytics/threatintel/sources/get'
+    - 'cluster:admin/opensearch/securityanalytics/threatintel/sources/search'
+
+# Allows users to use all security analytics functionality
+security_analytics_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/securityanalytics/alerts/*'
+    - 'cluster:admin/opensearch/securityanalytics/connections/*'
+    - 'cluster:admin/opensearch/securityanalytics/correlationAlerts/*'
+    - 'cluster:admin/opensearch/securityanalytics/correlations/*'
+    - 'cluster:admin/opensearch/securityanalytics/detector/*'
+    - 'cluster:admin/opensearch/securityanalytics/findings/*'
+    - 'cluster:admin/opensearch/securityanalytics/logtype/*'
+    - 'cluster:admin/opensearch/securityanalytics/mapping/*'
+    - 'cluster:admin/opensearch/securityanalytics/rule/*'
+    - 'cluster:admin/opensearch/securityanalytics/threatintel/*'
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'indices:admin/mapping/put'
+        - 'indices:admin/mappings/get'
+
+# Allows users to view and acknowledge alerts
+security_analytics_ack_alerts:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/securityanalytics/alerts/*'
+    - 'cluster:admin/opensearch/securityanalytics/correlationAlerts/*'
+    - 'cluster:admin/opensearch/securityanalytics/threatintel/alerts/*'
+
+# Allows users to use all Flow Framework functionality
+flow_framework_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/flow_framework/*'
+    - 'cluster_monitor'
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'indices:admin/aliases/get'
+        - 'indices:admin/mappings/get'
+        - 'indices_monitor'
+
+# Allow users to read flow framework's workflows and their state
+flow_framework_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/flow_framework/workflow/get'
+    - 'cluster:admin/opensearch/flow_framework/workflow/search'
+    - 'cluster:admin/opensearch/flow_framework/workflow_state/get'
+    - 'cluster:admin/opensearch/flow_framework/workflow_state/search'
+    - 'cluster:admin/opensearch/flow_framework/workflow_step/get'
+
+# Allows users to use all query insights APIs
+query_insights_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/insights/live_queries/*'
+    - 'cluster:admin/opensearch/insights/top_queries/*'
+  index_permissions:
+    - index_patterns:
+        - 'top_queries-*'
+      allowed_actions:
+        - "indices_all"
+
+# Allow users to execute read only LTR actions
+ltr_read_access:
+  reserved: true
+  cluster_permissions:
+    - cluster:admin/ltr/caches/stats
+    - cluster:admin/ltr/featurestore/list
+    - cluster:admin/ltr/stats
+
+# Allow users to execute all LTR actions
+ltr_full_access:
+  reserved: true
+  cluster_permissions:
+    - cluster:admin/ltr/*
+
+# Allow users to use all Search Relevance functionalities
+search_relevance_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/search_relevance/*'
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'indices:admin/mappings/get'
+        - 'indices:data/read/search*'
+
+# Allow users to read Search Relevance resources
+search_relevance_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/opensearch/search_relevance/experiment/get'
+    - 'cluster:admin/opensearch/search_relevance/judgment/get'
+    - 'cluster:admin/opensearch/search_relevance/queryset/get'
+    - 'cluster:admin/opensearch/search_relevance/search_configuration/get'
+
+# Allow users to read Forecast resources
+forecast_read_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/plugin/forecast/forecaster/info'
+    - 'cluster:admin/plugin/forecast/forecaster/stats'
+    - 'cluster:admin/plugin/forecast/forecaster/suggest'
+    - 'cluster:admin/plugin/forecast/forecaster/validate'
+    - 'cluster:admin/plugin/forecast/forecasters/get'
+    - 'cluster:admin/plugin/forecast/forecasters/info'
+    - 'cluster:admin/plugin/forecast/forecasters/search'
+    - 'cluster:admin/plugin/forecast/result/topForecasts'
+    - 'cluster:admin/plugin/forecast/tasks/search'
+  index_permissions:
+    - index_patterns:
+        - 'opensearch-forecast-result*'
+      allowed_actions:
+        - 'indices:admin/mappings/fields/get*'
+        - 'indices:admin/resolve/index'
+        - 'indices:data/read*'
+
+# Allows users to use all Forecasting functionality
+forecast_full_access:
+  reserved: true
+  cluster_permissions:
+    - 'cluster:admin/plugin/forecast/*'
+    - 'cluster:admin/settings/update'
+    - 'cluster_monitor'
+  index_permissions:
+    - index_patterns:
+        - '*'
+      allowed_actions:
+        - 'indices:admin/aliases/get'
+        - 'indices:admin/mapping/get'
+        - 'indices:admin/mapping/put'
+        - 'indices:admin/mappings/fields/get*'
+        - 'indices:admin/mappings/get'
+        - 'indices:admin/resolve/index'
+        - 'indices:data/read*'
+        - 'indices:data/read/field_caps*'
+        - 'indices:data/read/search'
+        - 'indices:data/write*'
+        - 'indices_monitor'
+```
 
 ## Example 
 
