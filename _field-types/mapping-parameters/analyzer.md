@@ -113,7 +113,20 @@ GET /product_catalog/_search
 ```
 {% include copy-curl.html %}
 
-Because the query is enclosed in quotation marks, it becomes a phrase query. Phrase queries use the `search_quote_analyzer`, which preserves stop words. As a result, the query "the smart watch" matches only documents containing that exact phrase, so the response includes only the first document:
+Because the query is enclosed in quotation marks, it becomes a phrase query, which is equivalent to the following query:
+
+```json
+GET /product_catalog/_search
+{
+  "query": {
+    "match_phrase": {
+      "product_name": "the smart watch"
+    }
+  }
+}
+```
+
+Phrase queries use the `search_quote_analyzer`, which preserves stop words. As a result, the query "the smart watch" matches only documents containing that exact phrase, so the response includes only the first document:
 
 ```json
 {
@@ -160,7 +173,20 @@ GET /product_catalog/_search
 ```
 {% include copy-curl.html %}
 
-Because the query is not enclosed in quotation marks, it is a term-level query. Term-level queries use the `search_analyzer`, which tokenizes the text and removes stop words. As a result, the query is analyzed into the tokens `[smart, watch]` and matches both documents:
+Because the query is not enclosed in quotation marks, it is a term-level query, which is equivalent to the following query:
+
+```json
+GET /product_catalog/_search
+{
+  "query": {
+    "match": {
+      "product_name": "the smart watch"
+    }
+  }
+}
+```
+
+Term-level queries use the `search_analyzer`, which tokenizes the text and removes stop words. As a result, the query is analyzed into the tokens `[smart, watch]` and matches both documents:
 
 ```json
 {
