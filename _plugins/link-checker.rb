@@ -71,6 +71,8 @@ module Jekyll::LinkChecker
     'docs.search-guard.com', # 403s on bots
     'www.deepseek.com', # 403s on bots
     'dl.acm.org', # 403s on bots
+    'www.npmjs.com', # 403s on bots
+    'www.base64decode.org', # 403s on bots
     'example.issue.link' # a fake example link from the template
   ]
 
