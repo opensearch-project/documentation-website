@@ -157,3 +157,48 @@ The script returns the value of `a` as `true`, `key` returns the value of `a` as
   }
 }
 ```
+
+## Derived source
+
+Derived source may sort values when using multi-value field. For example:
+```json
+PUT sample-index1/_doc/1
+{
+  "boolean": [false, "true", "false", true, ""]
+}
+```
+Will become:
+```json
+{
+  "boolean": [false, false, false, true, true]
+}
+```
+If `null_value` is configured in field mapping parameter, ingested `null` value will be replaced with `null_value` in derived source
+```json
+PUT sample-index2
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "boolean":  {"type": "boolean", "null_value": true}
+    }
+  }
+}
+
+PUT sample-index2/_doc/1
+{
+  "keyword": [null, true, "false"]
+}
+```
+Will become:
+```json
+{
+  "keyword": [false, true, true]
+}
+```

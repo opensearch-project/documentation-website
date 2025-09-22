@@ -150,3 +150,64 @@ Scaled float has an additional required parameter: `scaling_factor`.
 Parameter | Description 
 :--- | :--- 
 `scaling_factor` | A double value that is multiplied by the field value and rounded to the nearest long. Required. 
+
+## Derived source
+
+Derived source may sort values when using multi-value field. For example:
+```json
+PUT sample-index1/_doc/1
+{
+  "integer": [1, 0, -1, 0]
+}
+```
+Will become:
+```json
+{
+  "integer": [-1, 0, 0, 1]
+}
+```
+
+When using `half_float`, precision loss may be observed based on stored precision.
+```json
+PUT sample-index2/_doc/1
+{
+  "half_float": 1234.56
+}
+```
+Will become
+```json
+{
+  "half_float": 1235.0
+}
+```
+
+When using `scaled_float`, storing and retrieving the field value may result in precision loss due to `scaling_factor`.
+```json
+PUT sample-index3
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "scaled_float":  {"type": "scaled_float", "scaling_factor": 100}
+    }
+  }
+}
+
+PUT sample-index3/_doc/1
+{
+  "scaled_float": 12.345
+}
+```
+Will become:
+```json
+{
+  "scaled_float": 12.34
+}
+```
+

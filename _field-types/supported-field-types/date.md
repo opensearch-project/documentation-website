@@ -359,3 +359,38 @@ The response contains both documents:
   }
 }
 ```
+
+## Derived source
+
+Derived source may sort values when using multi-value field, when configuring multiple date formats separated by `||` under `format` mapping parameter, derived source will return results in first provided format. For example:
+```json
+PUT sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "date":  {
+        "type": "date", 
+        "format": "strict_date_time_no_millis||strict_date_optional_time||epoch_millis"
+      }
+    }
+  }
+}
+
+PUT sample-index1/_doc/1
+{
+  "date": [1758504860, "2025-09-22T00:34", "2025-09-22T01:34:20Z"]
+}
+```
+Will become:
+```json
+{
+  "date": ["2025-09-22T00:34:00.000Z", "2025-09-22T01:34:00.000Z", "2025-09-22T01:34:00.000Z"]
+}
+```

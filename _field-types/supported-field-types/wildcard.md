@@ -56,3 +56,20 @@ Parameter | Description
 `ignore_above` | Any string longer than this integer value should not be indexed. Default is `2147483647`. Dynamically updatable.
 `normalizer` | The normalizer used to preprocess values for indexing and search. By default, no normalization occurs and the original value is used. You may use the `lowercase` normalizer to perform case-insentive matching on the field.
 `null_value` | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, then the field is treated as missing when its value is `null`. Default is `null`.
+
+## Derived source
+`doc_values` must be enabled for `wildcard` field type to be supported for derived source.
+
+Derived source may sort and remove duplicates when using multi-value field. For example:
+```json
+PUT sample-index1/_doc/1
+{
+  "wildcard": ["ba", "ab", "ac", "ba"]
+}
+```
+Will become:
+```json
+{
+  "wildcard": ["ab", "ac", "ba"]
+}
+```
