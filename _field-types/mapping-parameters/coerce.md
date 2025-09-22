@@ -2,7 +2,6 @@
 layout: default
 title: Coerce
 parent: Mapping parameters
-
 nav_order: 15
 has_children: false
 has_toc: false
@@ -58,7 +57,7 @@ PUT /data_quality_demo/_doc/1
 ```
 {% include copy-curl.html %}
 
-The `price_with_coercion` field will contain the integer `10` because the string `"10"` is coerced to match the integer field type.
+To match the integer field type, the string `"10"` is is successfully converted to the integer `10`.
 
 Attempt to index a document with coercion disabled:
 
@@ -70,7 +69,7 @@ PUT /data_quality_demo/_doc/2
 ```
 {% include copy-curl.html %}
 
-This document will be rejected because coercion is disabled and the string `"10"` doesn't match the expected integer type.
+This document is rejected because coercion is disabled and the string `"10"` doesn't match the expected integer type.
 
 ### Index-level coercion setting
 
@@ -119,4 +118,4 @@ PUT /strict_data_index/_doc/2
 ```
 {% include copy-curl.html %}
 
-This document will be rejected because the `strict_field` inherits the index-level coercion setting (`false`), and the string `"10"` cannot be stored in an integer field without coercion.
+This document is rejected because the `strict_field` inherits the index-level coercion setting (`false`), and the string `"10"` cannot be stored in an integer field without coercion.
