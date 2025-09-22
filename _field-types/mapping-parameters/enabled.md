@@ -10,7 +10,7 @@ has_toc: false
 
 # Enabled
 
-OpenSearch tries to index all fields you provide, but sometimes you may want to store a field without making it searchable. For example, if you use OpenSearch as a web session store, you might index the session ID and last update time but store the session data itself without indexing it, since you don’t need to search or aggregate  this data.
+OpenSearch tries to index all fields you provide, but sometimes you may want to store a field without making it searchable. For example, if you use OpenSearch as a web session store, you might index the session ID and last update time but store the session data itself without indexing it, since you don't need to search or aggregate this data.
 
 Setting the `enabled` parameter to `false` causes OpenSearch to skip parsing of the field contents entirely. OpenSearch still stores the field's value in the `_source` field but does not index or parse its contents, so the field is not searchable. This parameter can be applied only to the top-level mapping definition and to object fields. 
 
@@ -26,7 +26,7 @@ The `enabled` parameter for existing fields and the top-level mapping definition
 
 ## Disabling object fields
 
-Create an index with a disabled `session_data` object field. OpenSearch stores its contents in the `_source` field but does not index or parse them:
+Create an index with a disabled `session_data` object field. OpenSearch stores its contents in the `_source` field but does not index or parse it:
 
 ```json
 PUT /session_store
@@ -75,7 +75,7 @@ PUT /session_store/_doc/session_2
 ```
 {% include copy-curl.html %}
 
-The `session_data` field accepts any arbitrary data because OpenSearch completely skips parsing its contents. Both object and non-object data are accepted.
+The `session_data` field accepts any arbitrary data because OpenSearch completely skips parsing its contents. Both object and non-object data is accepted.
 
 ## Disabling entire mappings
 
