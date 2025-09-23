@@ -102,8 +102,6 @@ To configure a ForkJoin thread pool, update the configuration file as follows:
 thread_pool:
   fork_join:
     parallelism: 8
-    async_mode: true
-    queue_size: 1000
 ```
 {% include copy.html %}
 
