@@ -63,7 +63,7 @@ PUT /user_profiles/_doc/1
 ```
 {% include copy-curl.html %}
 
-Search using the combined field (requires both terms to match):
+The `first_name` and `last_name` fields can still be queried individually, but the `full_name` field allows you to search for both names together. To search using the combined field, send the following request. The `and` operator requires both terms to match:
 
 ```json
 GET /user_profiles/_search
@@ -80,11 +80,42 @@ GET /user_profiles/_search
 ```
 {% include copy-curl.html %}
 
-The `first_name` and `last_name` fields can still be queried individually, but the `full_name` field allows you to search for both names together.
+The response contains the matching document:
+
+```json
+{
+  "took": 7,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.26152915,
+    "hits": [
+      {
+        "_index": "user_profiles",
+        "_id": "1",
+        "_score": 0.26152915,
+        "_source": {
+          "first_name": "Jane",
+          "last_name": "Doe"
+        }
+      }
+    ]
+  }
+}
+```
 
 ### Copying to multiple target fields
 
-Create an index that copies the `title` field into both `searchable_content` and `display_text` fields:
+Create an index that copies the `title` field into both `searchable_content` and `display_text` fields. The `body` field is copied only to `searchable_content`:
 
 ```json
 PUT /content_library
@@ -122,7 +153,7 @@ PUT /content_library/_doc/1
 ```
 {% include copy-curl.html %}
 
-Search the combined `searchable_content` field:
+You can search both title and body content using the `searchable_content` field:
 
 ```json
 GET /content_library/_search
@@ -136,9 +167,35 @@ GET /content_library/_search
 ```
 {% include copy-curl.html %}
 
-In this configuration:
-- The `title` field is copied to both `searchable_content` and `display_text`
-- The `body` field is copied only to `searchable_content`
-- You can search both title and body content through the `searchable_content` field
-- The original `_source` still contains only the `title` and `body` fields
+The response contains the matching document. The document's original `_source` field still contains only the `title` and `body` fields:
 
+```json
+{
+  "took": 21,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.44133043,
+    "hits": [
+      {
+        "_index": "content_library",
+        "_id": "1",
+        "_score": 0.44133043,
+        "_source": {
+          "title": "OpenSearch Documentation Guide",
+          "body": "This comprehensive guide covers mapping parameters and their usage in OpenSearch."
+        }
+      }
+    ]
+  }
+}
+```
