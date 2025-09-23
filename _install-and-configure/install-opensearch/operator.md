@@ -3,6 +3,9 @@ layout: default
 title: OpenSearch Kubernetes Operator
 parent: Installing OpenSearch
 nav_order: 55
+redirect_from:
+  - /clients/k8s-operator/
+  - /tools/k8s-operator/
 ---
 
 # OpenSearch Kubernetes Operator
