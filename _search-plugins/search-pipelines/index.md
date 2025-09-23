@@ -20,6 +20,7 @@ The following is a list of search pipeline terminology:
 * [_Search response processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-response-processors): A component that intercepts a search response and search request (the query, results, and metadata passed in the request), performs an operation with or on the search response, and returns the search response.
 * [_Search phase results processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-phase-results-processors): A component that runs between search phases at the coordinating node level. A search phase results processor intercepts the results retrieved from one search phase and transforms them before passing them to the next search phase.
 * [_Processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/): Either a search request processor or a search response processor.
+* [_System Generated Processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/system-generated-search-processors/): System generated search processors.
 * _Search pipeline_: An ordered list of processors that is integrated into OpenSearch. The pipeline intercepts a query, performs processing on the query, sends it to OpenSearch, intercepts the results, performs processing on the results, and returns them to the calling application, as shown in the following diagram. 
 
 ![Search processor diagram]({{site.url}}{{site.baseurl}}/images/search-pipelines.png)
