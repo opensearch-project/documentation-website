@@ -65,7 +65,7 @@ minikube ssh 'sudo sysctl -w vm.max_map_count=262144'
 
 Then install the OpenSearch Kubernetes Operator using the following steps:
 
-You will need to have `go` installed locally in order to install OpenSearch Kubernetes Operator locally
+You must have `go` installed locally in order to install OpenSearch Kubernetes Operator on your local machine.
 {: .note}
 
 1. In your preferred directory, clone the [OpenSearch Kubernetes Operator repo](https://github.com/Opster/opensearch-k8s-operator). Navigate into repo's directory using `cd`.
@@ -111,16 +111,16 @@ You will need to have `go` installed locally in order to install OpenSearch Kube
 5. Enter `make install` to create the CustomResourceDefinition that runs in your Kubernetes cluster. 
 6. Start the OpenSearch Kubernetes Operator. Enter `make run`. 
 
-## Verify Operator deployment
+## Verify operator deployment
 
-If the Operator was installed using [local installation](#use-a-local-installation), the Operator is not deployed in a pod, however you can examine the available CRDs using the following command:
+If the operator was installed using [local installation](#use-a-local-installation), the operator is not deployed in a pod. However, you can examine the available Custom Resource Definitions (CRDs) using the following command:
 
 ```bash
 kubectl get crds | grep opensearch
 ```
 {% include copy.html %}
 
-If the Operator was deployed using [Helm charts](#use-a-helm-chart) ensure that Kubernetes recognizes the OpenSearch Kubernetes Operator as a namespace, enter `k get ns | grep opensearch`. Both `opensearch` and `opensearch-operator-system` should appear as `Active`.
+If you deployed the operator using [Helm charts](#use-a-helm-chart), to ensure that Kubernetes recognizes the OpenSearch Kubernetes Operator as a namespace, enter `k get ns | grep opensearch`. Both `opensearch` and `opensearch-operator-system` should appear as `Active`.
 
 With the operator active, use `k get pod -n opensearch-operator-system` to make sure that the operator's pods are running. 
 
