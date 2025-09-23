@@ -18,7 +18,7 @@ Coercion attempts to transform these inconsistencies to fit the field's data typ
 - **Strings are coerced to numbers**: `"10"` becomes `10`.
 - **Floating-point numbers are coerced to integers by truncating**: `10.0` becomes `10`.
 
-The `coerce` setting can be updated on existing fields using the update mapping API.
+The `coerce` parameter can be updated on existing fields using the Update Mapping API.
 {: .tip}
 
 ## Examples
