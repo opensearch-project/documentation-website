@@ -56,7 +56,7 @@ If this is your first time running Kubernetes and you intend to run through thes
 
 Before running through the installation steps, make sure that you have a Kubernetes environment running locally. When using minikube, open a new terminal window and enter `minikube start`. Kubernetes will now use a containerized minikube cluster with a namespace called `default`.
 
-Execute the following command to enable OpenSearch to start:
+To enable OpenSearch to start, run the following command:
 
 ```bash
 minikube ssh 'sudo sysctl -w vm.max_map_count=262144'
