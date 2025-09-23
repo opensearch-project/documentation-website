@@ -16,6 +16,7 @@ This section provides documentation for OpenSearch-supported tools, including:
 
 - [Agents and ingestion tools](#agents-and-ingestion-tools)
 - [OpenSearch CLI](#opensearch-cli)
+- [OpenSearch Kubernetes operator]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/)
 - [OpenSearch upgrade, migration, and comparison tools](#opensearch-upgrade-migration-and-comparison-tools)
 - [Sycamore](#sycamore) for AI-powered extract, transform, load (ETL) on complex documents for vector and hybrid search
 
@@ -113,6 +114,10 @@ For recommendations about log and metrics collection tools, see the [Frequently 
 ## OpenSearch CLI
 
 The OpenSearch CLI command line interface (opensearch-cli) lets you manage your OpenSearch cluster from the command line and automate tasks. For more information about OpenSearch CLI, see [OpenSearch CLI]({{site.url}}{{site.baseurl}}/tools/cli/).
+
+## OpenSearch Kubernetes operator
+
+The OpenSearch Kubernetes Operator is an open-source Kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information about how to use the operator, see [OpenSearch Kubernetes Operator]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/).
 
 ## OpenSearch upgrade, migration, and comparison tools
 

@@ -8,6 +8,8 @@ nav_exclude: true
 permalink: /install-and-configure/
 redirect_from:
   - /install-and-configure/index/
+  - /clients/k8s-operator/
+  - /tools/k8s-operator/
 ---
 
 # Install and upgrade OpenSearch
