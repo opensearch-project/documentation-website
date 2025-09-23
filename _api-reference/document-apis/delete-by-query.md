@@ -2,7 +2,7 @@
 layout: default
 title: Delete by query
 parent: Document APIs
-nav_order: 40
+nav_order: 50
 redirect_from:
  - /opensearch/rest-api/document-apis/delete-by-query/
 ---

@@ -2,14 +2,14 @@
 layout: default
 title: Execute stored script
 parent: Script APIs
-nav_order: 2
+nav_order: 20
 ---
 
-# Execute Painless Stored Script API
+# Execute Stored Script API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Runs a stored script written in the Painless language. 
+Runs a stored script that was previously saved to the cluster state using the Create Stored Script API. 
 
 OpenSearch provides several ways to run a script; the following sections show how to run a script by passing script information in the request body of a `GET <index>/_search` request.
 

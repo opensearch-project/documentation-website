@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Delete script
+title: Delete stored script
 parent: Script APIs
-nav_order: 4
+nav_order: 40
 ---
 
-# Delete Script API
+# Delete Stored Script API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Deletes a stored script.
+Deletes a stored script from the cluster state.
 
 ## Endpoints
 
