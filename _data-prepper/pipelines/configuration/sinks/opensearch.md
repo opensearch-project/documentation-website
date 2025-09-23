@@ -135,13 +135,13 @@ If you specify `max_retries` and a pipeline has a [dead-letter queue (DLQ)]({{si
 
 If you don't specify `max_retries`, only data that is rejected by sinks is written to the DLQ. Pipelines continue to try to write all other data to the sinks.
 
-### Error Handling with Acknowledgments
+### Error handling with acknowledgments
 
-When pipelines have [End to End Acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/#end-to-end-acknowledgments) enabled, error handling is controlled by two key configurations:
+When pipelines have [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/#end-to-end-acknowledgments) enabled, error handling is controlled by two key configurations:
 * [Dead-letter queue (DLQ)]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/dlq/)
-* [max_retries](#configure-max_retries)
+* [`max_retries`](#configure-max_retries)
 
-#### DLQ Configuration (Strongly Recommended)
+#### DLQ configuration (strongly recommended)
 
 The OpenSearch sink acknowledges events only when:
 * Successfully sent to OpenSearch
@@ -152,7 +152,7 @@ Without a DLQ configured:
 * Source must handle retries
 * Risk of infinite reprocessing for non-retryable errors
 
-#### Example: S3 Source with Acknowledgments
+#### Example: S3 source with acknowledgments
 
 Consider an [S3 source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/) with acknowledgments enabled:
 
@@ -161,12 +161,11 @@ Consider an [S3 source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/conf
 * The entire S3 object requires reprocessing
 * Non-retryable errors can cause infinite reprocessing ("poison pill")
 
-**With max_retries but no DLQ:**
-* Reaching max_retries still prevents acknowledgment
+**With `max_retries` but no DLQ:**
+* Reaching `max_retries` still prevents acknowledgment
 * Results in unnecessary reprocessing of entire S3 objects
 
-**Best Practice:**
-Always configure a DLQ when using acknowledgments to:
+**Best practice**: Always configure a DLQ when using acknowledgments to:
 * Prevent infinite reprocessing
 * Handle non-retryable errors gracefully
 * Minimize unnecessary reprocessing
