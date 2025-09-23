@@ -19,7 +19,7 @@ For operating system compatibility, see [Compatible operating systems]({{site.ur
 
 ## Installation steps
 
-The installation steps depend on the deployment method, see the following for more details:
+Installation steps vary depending on the deployment method. For steps specific to your deployment, see the following installation guides:
 
 - [Docker]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/)
 - [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/)
