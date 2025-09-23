@@ -1,11 +1,11 @@
 ---
 layout: default
 title: OpenSearch Kubernetes Operator
-nav_order: 80
-has_children: false
-redirect_from:
-  - /clients/k8s-operator/
+parent: Installing OpenSearch
+nav_order: 55
 ---
+
+# OpenSearch Kubernetes Operator
 
 The OpenSearch Kubernetes Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. The operator can manage multiple OpenSearch clusters that can be scaled up and down depending on your needs. 
 
@@ -56,11 +56,21 @@ If this is your first time running Kubernetes and you intend to run through thes
 
 Before running through the installation steps, make sure that you have a Kubernetes environment running locally. When using minikube, open a new terminal window and enter `minikube start`. Kubernetes will now use a containerized minikube cluster with a namespace called `default`.
 
+Execute the following command to enable OpenSearch to start:
+
+```bash
+minikube ssh 'sudo sysctl -w vm.max_map_count=262144'
+```
+{% include copy.html %}
+
 Then install the OpenSearch Kubernetes Operator using the following steps:
+
+You will need to have `go` installed locally in order to install OpenSearch Kubernetes Operator locally
+{: .note}
 
 1. In your preferred directory, clone the [OpenSearch Kubernetes Operator repo](https://github.com/Opster/opensearch-k8s-operator). Navigate into repo's directory using `cd`.
 2. Go to the `opensearch-operator` folder.
-3. Enter `make build manifests`.
+3. Enter `GOTOOLCHAIN=go1.24.4 make build manifests`.
 4. Start a Kubernetes cluster. When using minikube, open a new terminal window and enter `minikube start`. Kubernetes will now use a containerized minikube cluster with a namespace called `default`. Make sure that `~/.kube/config` points to the cluster.
 
   ```yml
@@ -101,9 +111,16 @@ Then install the OpenSearch Kubernetes Operator using the following steps:
 5. Enter `make install` to create the CustomResourceDefinition that runs in your Kubernetes cluster. 
 6. Start the OpenSearch Kubernetes Operator. Enter `make run`. 
 
-## Verify Kubernetes deployment
+## Verify Operator deployment
 
-To ensure that Kubernetes recognizes the OpenSearch Kubernetes Operator as a namespace, enter `k get ns | grep opensearch`. Both `opensearch` and `opensearch-operator-system` should appear as `Active`.
+If the Operator was installed using [local installation](#use-a-local-installation), the Operator is not deployed in a pod, however you can examine the available CRDs using the following command:
+
+```bash
+kubectl get crds | grep opensearch
+```
+{% include copy.html %}
+
+If the Operator was deployed using [Helm charts](#use-a-helm-chart) ensure that Kubernetes recognizes the OpenSearch Kubernetes Operator as a namespace, enter `k get ns | grep opensearch`. Both `opensearch` and `opensearch-operator-system` should appear as `Active`.
 
 With the operator active, use `k get pod -n opensearch-operator-system` to make sure that the operator's pods are running. 
 

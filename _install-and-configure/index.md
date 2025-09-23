@@ -25,6 +25,7 @@ OpenSearch and OpenSearch Dashboards are available on any compatible host that s
 | [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/) | [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/debian/) |
 | [Ansible playbook]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/ansible/) | |
 | [Windows]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/windows/) | [Windows]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/windows/) |
+| [OpenSearch Kubernetes Operator]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/) | |
 
 After you've installed OpenSearch, learn about [configuring]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/) it for your deployment.
 
