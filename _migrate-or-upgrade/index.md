@@ -114,6 +114,20 @@ Learn more in the [Reindex API documentation]({{site.url}}{{site.baseurl}}/api-r
 
 ---
 
+### Parallel (blue-green) upgrade
+
+Stand up a new target cluster, backfill data, keep it in sync with the source, then switch client traffic. Retain the source for fast rollback.
+
+**Pros**
+- Minimal or zero downtime.
+- Clear, fast rollback by repointing traffic.
+
+**Cons**
+- Temporary extra infrastructure cost.
+- Operational complexity (double-writes / CDC, permission and plugin parity).
+
+---
+
 ## Additional considerations
 
 Before proceeding with your chosen migration or upgrade method, review the following compatibility requirements.
