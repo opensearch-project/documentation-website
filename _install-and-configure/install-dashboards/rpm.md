@@ -83,7 +83,7 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
    ```
 1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
    ```bash
-   Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
+   Fingerprint: A8B2 D9E0 4CD5 1FEF 6AA2 DB53 BA81 D999 8119 1457
    ```
     - If correct, enter `yes` or `y`. The OpenSearch installation continues.
 1. Once complete, you can run OpenSearch Dashboards.
