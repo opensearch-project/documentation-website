@@ -45,24 +45,71 @@ The following example requests show you how to use the Segment API.
 
 ### Specific data stream or index
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /index1/_segments
+-->
+{% capture step1_rest %}
 GET /index1/_segments
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.segments(
+  index = "index1"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Several data streams and indexes
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /index1,index2/_segments
+-->
+{% capture step1_rest %}
 GET /index1,index2/_segments
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.segments(
+  index = "index1,index2"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### All data streams and indexes in a cluster
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_segments
+-->
+{% capture step1_rest %}
 GET /_segments
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.indices.segments()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

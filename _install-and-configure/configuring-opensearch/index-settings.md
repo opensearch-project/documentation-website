@@ -2,7 +2,7 @@
 layout: default
 title: Index settings
 parent: Configuring OpenSearch
-nav_order: 70
+nav_order: 60
 redirect_from:
   - /im-plugin/index-settings/
 ---
@@ -28,6 +28,18 @@ OpenSearch supports the following static cluster-level index settings:
 
 - `indices.requests.cache.size` (String): The cache size as a percentage of the heap size (for example, to use 1% of the heap, specify `1%`). Default is `1%`. For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
 
+- `indices.analysis.hunspell.dictionary.ignore_case` (Static, Boolean): Controls whether Hunspell dictionary matching ignores case globally for all locales. When enabled, dictionary matching becomes case insensitive. This setting can also be configured per locale using `indices.analysis.hunspell.dictionary.<locale>.ignore_case`. Default varies by implementation.
+
+- `indices.analysis.hunspell.dictionary.lazy` (Static, Boolean): Controls when Hunspell dictionaries are loaded. If `true`, dictionary loading is deferred until a dictionary is actually used, reducing startup time but potentially increasing latency on first use. If `false`, the dictionary directory is checked and all dictionaries are automatically loaded when the node starts. Default is `false`.
+
+- `indices.memory.index_buffer_size` (Static, string): Controls the amount of heap memory allocated for indexing operations across all shards on a node. Accepts either a percentage (like `10%`) or a byte size value (like `512mb`). This buffer is shared across all shards and is used to batch indexing operations before writing to disk. Default is `10%` of the total heap.
+
+- `indices.memory.min_index_buffer_size` (Static, byte unit): Sets the absolute minimum size for the indexing buffer when `indices.memory.index_buffer_size` is specified as a percentage. This ensures the indexing buffer never becomes too small on nodes with limited heap memory. Default is `48mb`.
+
+- `indices.memory.max_index_buffer_size` (Static, byte unit): Sets the absolute maximum size for the indexing buffer when `indices.memory.index_buffer_size` is specified as a percentage. This prevents the indexing buffer from consuming too much memory on nodes with large heaps. Default is unbounded (no limit).
+
+- `indices.queries.cache.size` (Static, string): Controls the memory size allocated for the query cache (filter cache) on each data node. The query cache stores the results of frequently used filters to improve search performance. Accepts either a percentage value (like `5%`) or an exact byte value (like `512mb`). Default is `10%` of heap memory.
+
 ### Dynamic cluster-level index settings
 
 OpenSearch supports the following dynamic cluster-level index settings:
@@ -52,7 +64,7 @@ OpenSearch supports the following dynamic cluster-level index settings:
 
 - `indices.replication.max_bytes_per_sec` (String): Limits the total inbound and outbound replication traffic for each node. If a value is not specified in the configured value the `indices.recovery.max_bytes_per_sec` setting is used, which defaults to 40 mb. If you set the replication traffic value to less than or equal to 0 mb, rate limiting is disabled, which causes replication data to be transferred at the highest possible rate.
 
-- `indices.fielddata.cache.size` (String): The maximum size of the field data cache. May be specified as an absolute value (for example, `8GB`) or a percentage of the node heap (for example, `50%`). This value is static so you must specify it in the `opensearch.yml` file. If you don't specify this setting, the maximum size is unlimited. This value should be smaller than the `indices.breaker.fielddata.limit`. For more information, see [Field data circuit breaker]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/circuit-breaker/#field-data-circuit-breaker-settings).
+- `indices.fielddata.cache.size` (String): The maximum size of the field data cache. May be specified as an absolute value (for example, `8GB`) or a percentage of the node heap (for example, `50%`). This setting is dynamic. If you don't specify this setting, the maximum size is `35%`. This value should be smaller than the `indices.breaker.fielddata.limit`. For more information, see [Field data circuit breaker]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/circuit-breaker/#field-data-circuit-breaker-settings).
 
 - `indices.query.bool.max_clause_count` (Integer): Defines the maximum product of fields and terms that are queryable simultaneously. Before OpenSearch 2.16, a cluster restart was required in order to apply this static setting. Now dynamic, existing search thread pools may use the old static value initially, causing `TooManyClauses` exceptions. New thread pools use the updated value. Default is `1024`.
 
@@ -90,6 +102,10 @@ OpenSearch supports the following dynamic cluster-level index settings:
 
 Before tuning thread pool settings dynamically, note that these are expert-level settings that can potentially destabilize your cluster. Modifying thread pool settings applies the same thread pool size to all nodes, so it's not recommended for clusters with different hardware for the same roles. Similarly, avoid tuning thread pools shared by both data nodes and cluster manager nodes. After making these changes, we recommend monitoring your cluster to ensure that it remains stable and performs as expected.
 {: .warning}
+
+### Updating dynamic cluster settings
+
+To learn how to update dynamic settings, see [Updating cluster settings using the API]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#updating-cluster-settings-using-the-api).
 
 ## Index-level index settings
 
@@ -144,9 +160,15 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.soft_deletes.retention_lease.period` (Time unit): The maximum amount of time to retain a shard's history of operations. Default is `12h`.
 
+<p id="index-sort-settings"></p>
+
 - `index.sort.field` (String): Specifies the field used to sort documents at index time. The default sort order is `asc` (ascending). To change the order, set the `index.sort.order` parameter.
 
 - `index.sort.order` (String): Specifies the document sort order at index time. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. This setting requires `index.sort.field` to also be set.
+
+- `index.sort.mode` (String): Controls how multi-valued fields are handled during sorting. Valid values are `min` (uses the lowest value) and `max` (uses the highest value).
+
+- `index.sort.missing` (String): Determines how documents missing the sort field are handled. Valid values are `_last` (places documents without the field at the end) and `_first` (places documents without the field at the beginning).
 
 - `index.load_fixed_bitset_filters_eagerly` (Boolean): Whether OpenSearch should preload cached filters. Available options are `true` and `false`. Default is `true`.
 
@@ -165,6 +187,8 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 - `index.use_compound_file` (Boolean): This setting controls the Apache Lucene `useCompoundFile` index writer settings, which specifies whether newly written segment files will be packed into a compound file. Default is `true`.
 
 - `index.append_only.enabled` (Boolean): Set to `true` to prevent any updates to documents in the index. Default is `false`.
+
+- `index.derived_source.enabled` (Boolean): Set to `true` to dynamically generate the source without explicitly storing the `_source` field, which can optimize storage. Default is `false`. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source). 
 
 ### Updating a static index setting
 
@@ -268,6 +292,8 @@ OpenSearch supports the following dynamic index-level index settings:
 - `index.routing.allocation.total_shards_per_node` (Integer): The maximum combined total number of primary and replica shards from a single index that can be allocated to a single node. Default is `-1` (unlimited). Helps control per-index shard distribution across nodes by limiting the number of shards per node. Use with caution because shards from this index may remain unallocated if nodes reach their configured limits.
 
 - `index.routing.allocation.total_primary_shards_per_node` (Integer): The maximum number of primary shards from a single index that can be allocated to a single node. This setting is applicable only for remote-backed clusters. Default is `-1` (unlimited). Helps control per-index primary shard distribution across nodes by limiting the number of primary shards per node. Use with caution because primary shards from this index may remain unallocated if nodes reach their configured limits.
+
+- `index.derived_source.translog.enabled` (Boolean): Controls how documents are read from the translog for an index with derived source enabled. Defaults to the `index.derived_source.enabled` value. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source).
 
 ### Updating a dynamic index setting
 

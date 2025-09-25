@@ -18,7 +18,7 @@ When the `--redline-test` flag is used, OpenSearch Benchmark performs the follow
    - **Workers** create and share client state maps with the WorkerCoordinatorActor.
    - The **WorkerCoordinatorActor** aggregates client state and forwards it to the FeedbackActor.
    - The **FeedbackActor** increases the number of clients until it detects request errors, then pauses clients, waits 30 seconds, and resumes testing.
-  
+
 The following images provides a visual overview of the redline testing architecture.
 
 <img src="{{site.url}}{{site.baseurl}}/images/benchmark/osb-actor-system.png" alt="Redline Overview" width="600">
@@ -26,7 +26,7 @@ The following images provides a visual overview of the redline testing architect
 
 ## Usage
 
-To perform a redline test, use the `execute-test` command with the `--redline-test` flag and a timed test procedure.
+To perform a redline test, use the `run` command with the `--redline-test` flag and a timed test procedure.
 
 This test procedure defines a timed workload using the keyword-terms operation. It runs in two phases:
 
@@ -54,7 +54,7 @@ The following example timed test procedure is used as input to a redline test, w
 Run the following command to start a redline test using a timed test procedure against your OpenSearch cluster:
 
 ```bash
-opensearch-benchmark execute-test \
+opensearch-benchmark run \
   --pipeline=benchmark-only \
   --target-hosts=<your-opensearch-cluster> \
   --workload=<workload> \
@@ -78,7 +78,7 @@ To use CPU-based feedback during redline testing, your setup must meet the follo
 - A metrics store must be configured. Using an in-memory store results in the following error:
 
   ```bash
-  [ERROR] Cannot execute-test. Error in worker_coordinator (CPU-based feedback requires a metrics store. You are using an in-memory metrics store)
+  [ERROR] Cannot run. Error in worker_coordinator (CPU-based feedback requires a metrics store. You are using an in-memory metrics store)
   ```
 
 - The `--redline-cpu-max-usage flag` is required. This flag sets the maximum allowed CPU usage (as a percentage) per node during testing.
@@ -106,7 +106,7 @@ Redline test finished. Maximum stable client number reached: 410
 
 ## Configuration tips and test behavior
 
-Use the following optional command flags to better understand and customize redline test execution:
+Use the following optional command flags to better understand and customize a redline test run:
 
 - `--redline-scale-step`: Specifies the number of clients to unpause in each scaling iteration.
 - `--redline-scaledown-percentage`: Specifies the percentage of clients to pause when an error occurs.

@@ -163,7 +163,7 @@ Complete the following fields, keeping all other fields at their default values:
 
 If you already have a SageMaker inference endpoint, you can configure a model using that endpoint, as shown in the following image.  
 
-![Using an existing SageMaker inference endpoint]({{site.url}}{{site.baseurl}}/images/semantic_search/semantic_search_remote_model_Integration_3.png)
+![Using an existing SageMaker inference endpoint]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/semantic_search_remote_model_Integration_3.png)
 
 Complete the following fields, keeping all others at their default values:  
 

@@ -57,24 +57,76 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example requests
 
-```json
-GET _cat/indices?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/indices?v
+-->
+{% capture step1_rest %}
+GET /_cat/indices?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.indices(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To limit the information to a specific index, add the index name after your query.
 
-```json
-GET _cat/indices/<index>?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/indices/<index>?v
+-->
+{% capture step1_rest %}
+GET /_cat/indices/<index>?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.indices(
+  index = "<index>",
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to get information for more than one index, separate the indexes with commas:
 
-```json
-GET _cat/indices/index1,index2,index3
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/indices/index1,index2,index3
+-->
+{% capture step1_rest %}
+GET /_cat/indices/index1,index2,index3
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.indices(
+  index = "index1,index2,index3"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

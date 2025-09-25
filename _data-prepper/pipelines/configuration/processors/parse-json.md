@@ -1,12 +1,12 @@
 ---
 layout: default
-title: parse_json 
+title: Parse JSON
 parent: Processors
 grand_parent: Pipelines
-nav_order: 80
+nav_order: 290
 ---
 
-# parse_json
+# Parse JSON processor
 
 The `parse_json` processor parses JSON-formatted strings within an event, including nested fields. It can optionally use a JSON pointer to extract a specific part of the source JSON and add the extracted data to the event.
 

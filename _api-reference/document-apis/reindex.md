@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Reindex document
+title: Reindex documents
 parent: Document APIs
-nav_order: 17
+nav_order: 60
 redirect_from: 
   - /opensearch/reindex-data/
   - /opensearch/rest-api/document-apis/reindex/
 ---
 
-# Reindex Document API
+# Reindex Documents API
 **Introduced 1.0**
 {: .label .label-purple}
 
@@ -69,8 +69,10 @@ lang | The scripting language. Valid options are `painless`, `expression`, `must
 
 ## Example request
 
-```json
-POST /_reindex
+<!-- spec_insert_start
+component: example_code
+rest: POST /_reindex
+body: |
 {
    "source":{
       "index":"my-source-index"
@@ -79,8 +81,39 @@ POST /_reindex
       "index":"my-destination-index"
    }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /_reindex
+{
+  "source": {
+    "index": "my-source-index"
+  },
+  "dest": {
+    "index": "my-destination-index"
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.reindex(
+  body =   {
+    "source": {
+      "index": "my-source-index"
+    },
+    "dest": {
+      "index": "my-destination-index"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 ```json

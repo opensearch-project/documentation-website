@@ -7,6 +7,7 @@ grand_parent: Migration phases
 permalink: /migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/
 redirect_from:
   - /migration-assistant/migration-phases/assessment/handling-field-type-breaking-changes/
+  - /migration-assistant/migration-phases/planning-your-migration/handling-field-type-breaking-changes/
 ---
 
 # Transform field types
@@ -72,6 +73,7 @@ The following script demonstrates how to perform common field type conversions, 
 
 * Replacing the deprecated `string` type with `text`.
 * Converting `flattened` to `flat_object` and removing the `index` property if present.
+
 
 ```javascript
 function main(context) {

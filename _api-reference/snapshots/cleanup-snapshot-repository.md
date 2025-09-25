@@ -37,10 +37,27 @@ The following table lists the available query parameters. All query parameters a
 
 The following request removes all stale data from the repository `my_backup`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_snapshot/my_backup/_cleanup
+-->
+{% capture step1_rest %}
 POST /_snapshot/my_backup/_cleanup
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.cleanup_repository(
+  repository = "my_backup"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

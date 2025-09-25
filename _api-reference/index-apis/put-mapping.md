@@ -92,9 +92,10 @@ You can make the document structure match the structure of the index mapping by 
 
 The following request creates a new mapping for the `sample-index` index:
 
-```json
-PUT /sample-index/_mapping
-
+<!-- spec_insert_start
+component: example_code
+rest: PUT /sample-index/_mapping
+body: |
 {
   "properties": {
     "age": {
@@ -105,8 +106,44 @@ PUT /sample-index/_mapping
     }
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /sample-index/_mapping
+{
+  "properties": {
+    "age": {
+      "type": "integer"
+    },
+    "occupation": {
+      "type": "text"
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_mapping(
+  index = "sample-index",
+  body =   {
+    "properties": {
+      "age": {
+        "type": "integer"
+      },
+      "occupation": {
+        "type": "text"
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

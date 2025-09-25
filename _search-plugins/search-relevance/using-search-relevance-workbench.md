@@ -4,15 +4,11 @@ title: Search Relevance Workbench
 nav_order: 10
 parent: Search relevance
 has_children: true
-has_toc: false
 ---
 
 # Search Relevance Workbench
 Introduced 3.1
 {: .label .label-purple }
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/17735).    
-{: .warning}
 
 In search applications, tuning relevance is a constant, iterative exercise intended to provide the right search results to your end users. The tooling in Search Relevance Workbench helps search relevance engineers and business users create the best search experience possible for application users. It does this without hiding internal information, enabling engineers to experiment and investigate details as necessary.
 
@@ -149,7 +145,7 @@ To run your first experiment, you need a query set and two search configurations
 
 
 ```json
-POST _plugins/_search_relevance/experiments
+PUT _plugins/_search_relevance/experiments
 {
  "querySetId": "1856093f-9245-449c-b54d-9aae7650551a",
  "searchConfigurationList": ["122fbde8-d593-4d71-96d4-cbe3b4977468", "0d687614-df5b-4b6b-8110-9d8c6d407963"],

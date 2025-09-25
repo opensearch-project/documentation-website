@@ -1,12 +1,12 @@
 ---
 layout: default
-title: convert_entry_type
+title: Convert entry type
 parent: Processors
 grand_parent: Pipelines
-nav_order: 47
+nav_order: 50
 ---
 
-# convert_entry_type
+# Convert entry type processor
 
 The `convert_entry_type` processor converts a value type associated with the specified key in a event to the specified type. It is a casting processor that changes the types of some fields in events. Some data must be converted to a different type, such as an integer to a double, or a string to an integer, so that it will pass the events through condition-based processors or perform conditional routing. 
 

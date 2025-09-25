@@ -51,6 +51,7 @@ The following table lists all available models for use in doc-only mode. Each mo
 | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill`  | `bert-uncased`  | 0.504          | N/A              | 67M              |
 | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-mini`     | `bert-uncased`  | 0.497          | N/A              | 23M              |
 | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill`  | `bert-uncased`  | 0.517          | N/A              | 67M              |
+| `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-gte`       | `bert-uncased`  | 0.546          | N/A              | 133M             |
 | `amazon/neural-sparse/opensearch-neural-sparse-encoding-multilingual-v1` | `mbert-uncased` | 0.500          | 0.629            | 168M             |
 
 ## Example: Using the default doc-only mode with an analyzer
@@ -518,7 +519,7 @@ GET /my-nlp-index/_mapping
 ```
 {% include copy-curl.html %}
 
-An object field named `passage_text_semantic_info` is automatically created. It includes a `ran_features` subfield for storing the embedding, along with additional text fields for capturing model metadata.
+An object field named `passage_text_semantic_info` is automatically created. It includes a `rank_features` subfield for storing the embedding, along with additional text fields for capturing model metadata.
 
 ### Step 3: Ingest documents into the index
 

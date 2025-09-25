@@ -79,14 +79,45 @@ Field | Data type | Description
 
 When you pass an array of strings to the `text` field, it is analyzed as a multi-value field.
 
-````json
-GET /_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /_analyze
+body: |
 {
   "analyzer" : "standard",
   "text" : ["first array element", "second array element"]
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_analyze
+{
+  "analyzer": "standard",
+  "text": [
+    "first array element",
+    "second array element"
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  body =   {
+    "analyzer": "standard",
+    "text": [
+      "first array element",
+      "second array element"
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 
@@ -145,14 +176,39 @@ If you omit the `index` path parameter, you can apply any of the built-in analyz
 
 The following request analyzes text using the `standard` built-in analyzer:
 
-````json
-GET /_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /_analyze
+body: |
 {
   "analyzer" : "standard",
   "text" : "OpenSearch text analysis"
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_analyze
+{
+  "analyzer": "standard",
+  "text": "OpenSearch text analysis"
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  body =   {
+    "analyzer": "standard",
+    "text": "OpenSearch text analysis"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 
@@ -192,14 +248,40 @@ In this scenario, a custom analyzer `lowercase_ascii_folding` has been created a
 
 The following request applies the custom analyzer to the provided text:
 
-````json
-GET /books2/_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /books2/_analyze
+body: |
 {
   "analyzer": "lowercase_ascii_folding",
   "text" : "Le garçon m'a SUIVI."
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /books2/_analyze
+{
+  "analyzer": "lowercase_ascii_folding",
+  "text": "Le garçon m'a SUIVI."
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  index = "books2",
+  body =   {
+    "analyzer": "lowercase_ascii_folding",
+    "text": "Le garçon m'a SUIVI."
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 
@@ -244,15 +326,46 @@ You can build a custom transient analyzer from tokenizers, token filters, or cha
 
 The following request uses the `uppercase` character filter to convert the text to uppercase:
 
-````json
-GET /_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /_analyze
+body: |
 {
   "tokenizer" : "keyword",
   "filter" : ["uppercase"],
   "text" : "OpenSearch filter"
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_analyze
+{
+  "tokenizer": "keyword",
+  "filter": [
+    "uppercase"
+  ],
+  "text": "OpenSearch filter"
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  body =   {
+    "tokenizer": "keyword",
+    "filter": [
+      "uppercase"
+    ],
+    "text": "OpenSearch filter"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 
@@ -273,16 +386,53 @@ The previous request returns the following fields:
 
 The following request uses the `html_strip` filter to remove HTML characters from the text:
 
-````json
-GET /_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /_analyze
+body: |
 {
   "tokenizer" : "keyword",
   "filter" : ["lowercase"],
   "char_filter" : ["html_strip"],
   "text" : "<b>Leave</b> right now!"
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_analyze
+{
+  "tokenizer": "keyword",
+  "filter": [
+    "lowercase"
+  ],
+  "char_filter": [
+    "html_strip"
+  ],
+  "text": "<b>Leave</b> right now!"
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  body =   {
+    "tokenizer": "keyword",
+    "filter": [
+      "lowercase"
+    ],
+    "char_filter": [
+      "html_strip"
+    ],
+    "text": "<b>Leave</b> right now!"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 
@@ -306,15 +456,60 @@ You can combine filters using an array.
 
 The following request combines a `lowercase` translation with a `stop` filter that removes the words in the `stopwords` array:
 
-````json
-GET /_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /_analyze
+body: |
 {
   "tokenizer" : "whitespace",
   "filter" : ["lowercase", {"type": "stop", "stopwords": [ "to", "in"]}],
   "text" : "how to train your dog in five steps"
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_analyze
+{
+  "tokenizer": "whitespace",
+  "filter": [
+    "lowercase",
+    {
+      "type": "stop",
+      "stopwords": [
+        "to",
+        "in"
+      ]
+    }
+  ],
+  "text": "how to train your dog in five steps"
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  body =   {
+    "tokenizer": "whitespace",
+    "filter": [
+      "lowercase",
+      {
+        "type": "stop",
+        "stopwords": [
+          "to",
+          "in"
+        ]
+      }
+    ],
+    "text": "how to train your dog in five steps"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 
@@ -373,13 +568,37 @@ You can analyze text using an index's default analyzer, or you can specify a dif
 
 The following request analyzes the provided text using the default analyzer associated with the `books` index:
 
-````json
-GET /books/_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /books/_analyze
+body: |
 {
   "text" : "OpenSearch analyze test"
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /books/_analyze
+{
+  "text": "OpenSearch analyze test"
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  index = "books",
+  body =   {
+    "text": "OpenSearch analyze test"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 
@@ -415,14 +634,40 @@ The previous request returns the following fields:
 
 The following request analyzes the provided text using the `keyword` analyzer, which returns the entire text value as a single token:
 
-````json
-GET /books/_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /books/_analyze
+body: |
 {
   "analyzer" : "keyword",
   "text" : "OpenSearch analyze test"
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /books/_analyze
+{
+  "analyzer": "keyword",
+  "text": "OpenSearch analyze test"
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  index = "books",
+  body =   {
+    "analyzer": "keyword",
+    "text": "OpenSearch analyze test"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 
@@ -448,14 +693,40 @@ If the mapping does not exist, the API uses the standard analyzer, which convert
 
 The following request causes the analysis to be based on the mapping for `name`:
 
-````json
-GET /books2/_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /books2/_analyze
+body: |
 {
   "field" : "name",
   "text" : "OpenSearch analyze test"
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /books2/_analyze
+{
+  "field": "name",
+  "text": "OpenSearch analyze test"
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  index = "books2",
+  body =   {
+    "field": "name",
+    "text": "OpenSearch analyze test"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 
@@ -495,14 +766,40 @@ In this example, the `books2` index includes a normalizer called `to_lower_fold_
 
 The following request applies `to_lower_fold_ascii` to the text:
 
-````json
-GET /books2/_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /books2/_analyze
+body: |
 {
   "normalizer" : "to_lower_fold_ascii",
   "text" : "C'est le garçon qui m'a suivi."
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /books2/_analyze
+{
+  "normalizer": "to_lower_fold_ascii",
+  "text": "C'est le garçon qui m'a suivi."
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  index = "books2",
+  body =   {
+    "normalizer": "to_lower_fold_ascii",
+    "text": "C'est le garçon qui m'a suivi."
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 
@@ -526,14 +823,43 @@ You can create a custom transient normalizer with token and character filters.
 
 The following request uses the `uppercase` character filter to convert the given text to all uppercase:
 
-````json
-GET /_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /_analyze
+body: |
 {
   "filter" : ["uppercase"],
   "text" : "That is the boy who followed me."
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_analyze
+{
+  "filter": [
+    "uppercase"
+  ],
+  "text": "That is the boy who followed me."
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  body =   {
+    "filter": [
+      "uppercase"
+    ],
+    "text": "That is the boy who followed me."
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 
@@ -557,17 +883,56 @@ You can obtain additional details for all tokens by setting the `explain` attrib
 
 The following request provides detailed token information for the `reverse` filter used with the `standard` tokenizer:
 
-````json
-GET /_analyze
+<!-- spec_insert_start
+component: example_code
+rest: GET /_analyze
+body: |
 {
   "tokenizer" : "standard",
   "filter" : ["reverse"],
   "text" : "OpenSearch analyze test",
   "explain" : true,
-  "attributes" : ["keyword"] 
+  "attributes" : ["keyword"]
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_analyze
+{
+  "tokenizer": "standard",
+  "filter": [
+    "reverse"
+  ],
+  "text": "OpenSearch analyze test",
+  "explain": true,
+  "attributes": [
+    "keyword"
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.analyze(
+  body =   {
+    "tokenizer": "standard",
+    "filter": [
+      "reverse"
+    ],
+    "text": "OpenSearch analyze test",
+    "explain": true,
+    "attributes": [
+      "keyword"
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The previous request returns the following fields:
 

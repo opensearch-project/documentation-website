@@ -43,10 +43,27 @@ task_execution_timeout | Time | The explicit task execution timeout. Only useful
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /sample-index/_open
+-->
+{% capture step1_rest %}
 POST /sample-index/_open
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.open(
+  index = "sample-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

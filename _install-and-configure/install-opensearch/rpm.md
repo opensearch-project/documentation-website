@@ -65,16 +65,16 @@ This guide assumes that you are comfortable working from the Linux command line 
    # Use the following command for OpenSearch versions 2.11 and earlier:
 
    ## Install the x64 package using yum.
-   sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   sudo yum install opensearch-<version>-linux-x64.rpm
 
    ## Install the x64 package using rpm.
-   sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   sudo rpm -ivh opensearch-<version>-linux-x64.rpm
 
    ## Install the arm64 package using yum.
-   sudo yum install opensearch-{{site.opensearch_version}}-linux-arm64.rpm
+   sudo yum install opensearch-<version>-linux-arm64.rpm
 
    ## Install the arm64 package using rpm.
-   sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-arm64.rpm
+   sudo rpm -ivh opensearch-<version>-linux-arm64.rpm
    ```
 
 1. After the installation succeeds, enable OpenSearch as a service.
@@ -147,13 +147,13 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install 'opensearch-{{site.opensearch_version}}'
 
    # Use the following command for OpenSearch versions 2.11 and earlier:
-   sudo yum install 'opensearch-{{site.opensearch_version}}'
+   sudo yum install 'opensearch-2.11.0'
    ```
    {% include copy.html %}
 
 1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
    ```bash
-   Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
+   Fingerprint: A8B2 D9E0 4CD5 1FEF 6AA2 DB53 BA81 D999 8119 1457
    ```
    {% include copy.html %}
 

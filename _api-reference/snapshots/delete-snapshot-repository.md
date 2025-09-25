@@ -31,10 +31,27 @@ repository | String | Repository to delete. |
 
 The following request deletes the `my-opensearch-repo` repository:
 
-````json
-DELETE _snapshot/my-opensearch-repo
-````
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /_snapshot/my-opensearch-repo
+-->
+{% capture step1_rest %}
+DELETE /_snapshot/my-opensearch-repo
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.delete_repository(
+  repository = "my-opensearch-repo"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

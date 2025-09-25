@@ -1,12 +1,12 @@
 ---
 layout: default
-title: date
+title: Date
 parent: Processors
 grand_parent: Pipelines
-nav_order: 50
+nav_order: 80
 ---
 
-# date
+# Date processor
 
 
 The `date` processor adds a default timestamp to an event, parses timestamp fields, and converts timestamp information to the International Organization for Standardization (ISO) 8601 format. This timestamp information can be used as an event timestamp.

@@ -65,13 +65,38 @@ Field | Type | Description
 
 The following example request adds a sample alias with a custom routing value:
 
-```json
-POST sample-index/_alias/sample-alias
+<!-- spec_insert_start
+component: example_code
+rest: POST /sample-index/_alias/sample-alias
+body: |
 {
   "routing":"test"
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /sample-index/_alias/sample-alias
+{
+  "routing": "test"
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_alias(
+  name = "sample-alias",
+  index = "sample-index",
+  body =   {
+    "routing": "test"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Removing Migration Assistant
-nav_order: 8
+nav_order: 9
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/remove-migration-infrastructure/
+redirect_from:
+  - /migration-assistant/migration-phases/removing-migration-infrastructure/
 ---
 
 # Removing migration infrastructure
@@ -28,3 +30,5 @@ You can also use the AWS Management Console to remove Migration Assistant resour
 You can uninstall Migration Assistant for OpenSearch Service from the AWS Management Console or by using the AWS Command Line Interface (AWS CLI). Manually remove the contents of the Amazon Simple Storage Service (Amazon S3) bucket that matches the syntax `cdk-<unique id>-assets-<account id>-<region>`, the bucket created by Migration Assistant. Migration Assistant for OpenSearch does not automatically delete S3 buckets. 
 
 To delete the stored data and the AWS CloudFormation stacks created by Migration Assistant, see [Uninstall the solution](https://docs.aws.amazon.com/solutions/latest/migration-assistant-for-amazon-opensearch-service/uninstall-the-solution.html) in the Amazon OpenSearch Service documentation.
+
+{% include migration-phase-navigation.html %}

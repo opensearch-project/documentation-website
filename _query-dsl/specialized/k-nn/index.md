@@ -10,7 +10,16 @@ redirect_from:
 
 # k-NN query
 
-Use the `knn` query for running nearest neighbor searches on vector fields. 
+Use the `knn` query for running nearest neighbor searches on vector fields.
+
+## Transport protocols
+
+k-NN queries can be executed using two transport protocols:
+
+- **HTTP/REST API**: The standard approach documented in this section.
+- **gRPC API** (Generally available 3.2): High-performance binary protocol with the [KNN (gRPC) API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/).
+
+For high-throughput vector search applications, consider using the gRPC KNN API, which provides lower latency and higher throughput compared to HTTP-based queries.
 
 ## Request body fields
 
@@ -162,7 +171,7 @@ Engine | Radial query support | Notes
 :--- | :--- | :---
 `nmslib` (Deprecated) | No | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
 `faiss` | Yes | If `ef_search` is present in a query, it overrides the `index.knn.algo_param.ef_search` index setting.
-`lucene` | No | When creating a search query, you must specify `k`. If you provide both `k` and `ef_search`, then the larger value is passed to the engine. If `ef_search` is larger than `k`, you can provide the `size` parameter to limit the final number of results to `k`. 
+`lucene` | No | When creating a search query, you must specify `k`. If you provide both `k` and `ef_search`, then the larger value is passed to the engine. If `ef_search` is larger than `k`, you can provide the `size` parameter to limit the final number of results to `k`.
 
 <!-- vale off -->
 ### nprobes
@@ -173,14 +182,14 @@ You can provide the `nprobes` parameter when searching an index created using th
 The following table provides information about the `nprobes` parameter for the supported engines.
 
 Engine | Notes
-:--- | :--- 
+:--- | :---
 `faiss` | If `nprobes` is present in a query, it overrides the value provided when creating the index.
 
 ## Rescoring results
 
 You can fine-tune search by providing the `ef_search` and `oversample_factor` parameters.
 
-The `oversample_factor` parameter controls the factor by which the search oversamples the candidate vectors before ranking them. Using a higher oversample factor means that more candidates will be considered before ranking, improving accuracy but also increasing search time. When selecting the `oversample_factor` value, consider the trade-off between accuracy and efficiency. For example, setting the `oversample_factor` to `2.0` will double the number of candidates considered during the ranking phase, which may help achieve better results. 
+The `oversample_factor` parameter controls the factor by which the search oversamples the candidate vectors before ranking them. Using a higher oversample factor means that more candidates will be considered before ranking, improving accuracy but also increasing search time. When selecting the `oversample_factor` value, consider the trade-off between accuracy and efficiency. For example, setting the `oversample_factor` to `2.0` will double the number of candidates considered during the ranking phase, which may help achieve better results.
 
 The following request specifies the `ef_search` and `oversample_factor` parameters:
 

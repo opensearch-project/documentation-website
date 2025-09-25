@@ -88,7 +88,6 @@ Use this checklist to determine whether Migration Assistant is the right fit for
 - Are you upgrading but want the ability to safely back out, reducing the risk of data loss or service disruption?
 - Do you need to maintain high service availability with minimal or zero downtime?
 - Do you need to validate a new OpenSearch cluster before switching over—with rollback capabilities?
-- Is your environment self-managed or running on Amazon OpenSearch Service?
 - Are you looking for tooling to migrate index settings and other metadata?
 - Do you need to reconfigure your target cluster—for example, by changing the sharding strategy and reindexing?
 - Are you migrating across Regions, from on premises, or from another cloud provider?
@@ -173,3 +172,4 @@ Capture and Replay has the following requirements:
 - The Traffic Capture Proxy must be deployed to intercept client traffic.
 - Live capture is recommended only for workloads with **< 4 TB/day** of incoming traffic to the source cluster.
 - Automatically generated document IDs are **not preserved** during replay. Clients must explicitly provide document IDs for `index` and `update` operations.
+- Migration Assistant does not guarantee zero-downtime migration through live traffic Capture and Replay for migration paths starting from Elasticsearch 1.x and Elasticsearch 2.x.
