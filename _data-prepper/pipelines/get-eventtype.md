@@ -69,14 +69,14 @@ Process events differently based on their type:
 ```yaml
 processor:
   - add_entries:
-      when: 'getEventType() == "LOG"'
       entries:
         - key: "log_processed"
           value: true
+          add_when: 'getEventType() == "LOG"'
   - add_entries:
-      when: 'getEventType() == "METRIC"'
       entries:
         - key: "metric_type"
           value: "otel"
+          add_when: 'getEventType() == "METRIC"'
 ```
 {% include copy.html %}
