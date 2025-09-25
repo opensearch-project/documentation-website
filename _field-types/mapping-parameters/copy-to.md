@@ -115,7 +115,7 @@ The response contains the matching document:
 
 ### Copying to multiple target fields
 
-Create an index that copies the `title` field into both `searchable_content` and `display_text` fields. The `body` field is copied only to `searchable_content`:
+To copy the field contents to multiple target fields, create an index that copies the `title` field into both `searchable_content` and `display_text` fields. The `body` field is copied only to `searchable_content`:
 
 ```json
 PUT /content_library
