@@ -7,7 +7,7 @@ permalink: /migrate-or-upgrade/parallel-upgrade/
 
 # Parallel (blue‑green) upgrade (forking model)
 
-Standing up a new target cluster in parallel, copying older indices, continuously syncing data, and switching client traffic is a robust way to upgrade OpenSearch with minimal downtime and a quick rollback path. This pattern is commonly called a **blue‑green** or **forking** upgrade.
+Standing up a new target cluster in parallel, copying older indexes, continuously syncing data, and switching client traffic is a robust way to upgrade OpenSearch with minimal downtime and a quick rollback path. This pattern is commonly called a **blue‑green** or **forking** upgrade.
 
 This method is useful when you want a predictable cutover window, need to jump multiple versions, or plan to change cluster topology or security configuration during the upgrade.
 
@@ -37,7 +37,7 @@ GET "/_cluster/health?pretty"
 
 A status of `green` indicates that all primary and replica shards are allocated.
 
-## Step 2: Backfill the indices
+## Step 2: Backfill the indexes
 
 ###  Snapshot and restore
 
