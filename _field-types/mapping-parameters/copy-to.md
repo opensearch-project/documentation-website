@@ -28,7 +28,7 @@ The following examples demonstrate using the `copy_to` parameter.
 
 ### Basic copy_to usage
 
-Create an index that copies first and last names into a full name field:
+Create an index that copies first and last names into a `full_name` field:
 
 ```json
 PUT /user_profiles
@@ -115,7 +115,7 @@ The response contains the matching document:
 
 ### Copying to multiple target fields
 
-To copy the field contents to multiple target fields, create an index that copies the `title` field into both `searchable_content` and `display_text` fields. The `body` field is copied only to `searchable_content`:
+To copy the field contents to multiple target fields, create an index that copies the `title` field into both the `searchable_content` and `display_text` fields. The `body` field is copied only to `searchable_content`:
 
 ```json
 PUT /content_library
