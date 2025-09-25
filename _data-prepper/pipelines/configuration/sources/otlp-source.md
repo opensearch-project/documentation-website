@@ -23,7 +23,7 @@ You can configure the `otlp` source with the following options.
 | `logs_path` | String | The path for sending unframed HTTP requests for logs. Must start with `/` and have a minimum length of 1. Default value is `/opentelemetry.proto.collector.logs.v1.LogsService/Export`. |
 | `metrics_path` | String | The path for sending unframed HTTP requests for metrics. Must start with `/` and have a minimum length of 1. Default value is `/opentelemetry.proto.collector.metrics.v1.MetricsService/Export`. |
 | `traces_path` | String | The path for sending unframed HTTP requests for traces. Must start with `/` and have a minimum length of 1. Default value is `/opentelemetry.proto.collector.trace.v1.TraceService/Export`. |
-| `request_timeout` | Integer | The request timeout duration in milliseconds. Default value is `10000`. |
+| `request_timeout` | Duration | The request timeout duration. Default value is `10s`. |
 | `health_check_service` | Boolean | Enables a gRPC health check service under `grpc.health.v1.Health/Check`. When `unframed_requests` is also `true`, enables HTTP health check at `/health`. Default value is `false`. |
 | `proto_reflection_service` | Boolean | Enables a reflection service for Protobuf services (see [ProtoReflectionService](https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/ProtoReflectionService.html) and [gRPC reflection](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md)). Default value is `false`. |
 | `unframed_requests` | Boolean | Enables requests not framed using the gRPC wire protocol. Default value is `false`. |
@@ -46,11 +46,12 @@ You can configure SSL/TLS in the `otlp` source with the following options.
 | Option | Type | Description |
 | :--- | :--- | :--- |
 | `ssl` | Boolean | Enables TLS/SSL. Default value is `true`. |
-| `sslKeyCertChainFile` | String | Represents the SSL certificate chain file path or Amazon S3 path. For example, see the Amazon S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`. |
-| `sslKeyFile` | String | Represents the SSL key file path or Amazon S3 path. For example, see the Amazon S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`. |
-| `useAcmCertForSSL` | Boolean | Enables TLS/SSL using a certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
-| `acmCertificateArn` | String | Represents the ACM certificate Amazon Resource Name (ARN). ACM certificates take precedence over Amazon S3 or local file system certificates. Required if `useAcmCertForSSL` is set to `true`. |
-| `awsRegion` | String | Represents the AWS Region used by ACM or Amazon S3. Required if `useAcmCertForSSL` is set to `true` or if `sslKeyCertChainFile` and `sslKeyFile` are Amazon S3 paths. |
+| `ssl_certificate_file` | String | Represents the SSL certificate chain file path or Amazon S3 path. For example, see the Amazon S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`. |
+| `ssl_key_file` | String | Represents the SSL key file path or Amazon S3 path. For example, see the Amazon S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`. |
+| `use_acm_cert_for_ssl` | Boolean | Enables TLS/SSL using a certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
+| `acm_certificate_arn` | String | Represents the ACM certificate Amazon Resource Name (ARN). ACM certificates take precedence over Amazon S3 or local file system certificates. Required if `use_acm_cert_for_ssl` is set to `true`. |
+| `acm_private_key_password` | String | Represents the ACM private key password that decrypts the private key. If not provided, Data Prepper uses the private key unencrypted. |
+| `aws_region` | String | Represents the AWS Region used by ACM or Amazon S3. Required if `use_acm_cert_for_ssl` is set to `true` or if `ssl_certificate_file` and `ssl_key_file` are Amazon S3 paths. |
 
 ### Authentication configuration
 
@@ -116,57 +117,64 @@ pipeline:
 One of the key features of the OTLP source is the ability to route different telemetry signals (logs, metrics, traces) to different processors or sinks based on specific needs. The routing uses metadata-based routing with the `getEventType()` function.
 
 ```yaml
-otel-telemetry-pipeline:
+version: "2"
+otel-telemetry:
   source:
     otlp:
       ssl: false
   route:
-    - logs: 'getEventType() == "LOG"'
     - traces: 'getEventType() == "TRACE"'
+    - logs: 'getEventType() == "LOG"'
     - metrics: 'getEventType() == "METRIC"'
   sink:
-    - pipeline:
-        name: "logs-pipeline"
+    - opensearch:
         routes:
-          - "logs"
+          - logs
+        hosts: [ "https://opensearch:9200" ]
+        index: logs-%{yyyy.MM.dd}
+        username: admin
+        password: yourStrongPassword123!
+        insecure: true
     - pipeline:
-        name: "traces-pipeline"
+        name: traces-raw
         routes:
-          - "traces"
+          - traces
     - pipeline:
-        name: "metrics-pipeline"
+        name: otel-metrics
         routes:
-          - "metrics"
+          - metrics
 
-logs-pipeline:
+traces-raw:
   source:
     pipeline:
-      name: "otel-telemetry-pipeline"
+      name: otel-telemetry
   processor:
-    # Add logs-specific processors here
+    - otel_trace_raw:
   sink:
     - opensearch:
-        index: "logs-index"
+        hosts: [ "https://opensearch:9200" ]
+        index_type: trace-analytics-raw
+        username: admin
+        password: yourStrongPassword123!
+        insecure: true
 
-traces-pipeline:
+otel-metrics:
   source:
     pipeline:
-      name: "otel-telemetry-pipeline"
+      name: otel-telemetry
   processor:
-    # Add traces-specific processors here
+    - otel_metrics:
+        calculate_histogram_buckets: true
+        calculate_exponential_histogram_buckets: true
+        exponential_histogram_max_allowed_scale: 10
+        flatten_attributes: false
   sink:
     - opensearch:
-        index: "traces-index"
-
-metrics-pipeline:
-  source:
-    pipeline:
-      name: "otel-telemetry-pipeline"
-  processor:
-    # Add metrics-specific processors here
-  sink:
-    - opensearch:
-        index: "metrics-index"
+        hosts: [ "https://opensearch:9200" ]
+        index: metrics-otel-%{yyyy.MM.dd}
+        username: admin
+        password: yourStrongPassword123!
+        insecure: true
 ```
 {% include copy.html %}
 
@@ -200,8 +208,8 @@ To enable SSL/TLS with local certificates:
 source:
   otlp:
     ssl: true
-    sslKeyCertChainFile: "/path/to/certificate.crt"
-    sslKeyFile: "/path/to/private-key.key"
+    ssl_certificate_file: "/path/to/certificate.crt"
+    ssl_key_file: "/path/to/private-key.key"
 ```
 {% include copy.html %}
 
@@ -211,9 +219,9 @@ To use AWS Certificate Manager:
 source:
   otlp:
     ssl: true
-    useAcmCertForSSL: true
-    acmCertificateArn: "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
-    awsRegion: "us-east-1"
+    use_acm_cert_for_ssl: true
+    acm_certificate_arn: "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
+    aws_region: "us-east-1"
 ```
 {% include copy.html %}
 
