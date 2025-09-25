@@ -39,7 +39,7 @@ A status of `green` indicates that all primary and replica shards are allocated.
 
 ## Step 2: Backfill the indexes
 
-You can use one of the two options to backfill the indices. Using [snapshot and restore](#snapshot-and-restore) or [reindex from remote](#remote-reindex) cluster.
+You can use one of the two options to backfill the indexes. Using [snapshot and restore](#snapshot-and-restore) or [reindex from remote](#remote-reindex) cluster.
 
 ###  Snapshot and restore
 
