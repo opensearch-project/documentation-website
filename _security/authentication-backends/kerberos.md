@@ -27,7 +27,7 @@ Name | Description
 `acceptor_keytab_filepath` | The path to the `keytab` file, which contains the principal that the Security plugin uses to issue requests through Kerberos.
 `acceptor_principal` | The principal that the Security plugin uses to issue requests through Kerberos. This value must be present in the `keytab` file.
 
-Because of security restrictions, the `keytab` and `krb5.conf` files must be placed in the `config` directory or its subdirectory and their paths in `opensearch.yml` must be relative, not absolute.
+Because of security restrictions, the `keytab` and `krb5.conf` files must be placed in the `config` directory or its subdirectory, and their paths in `opensearch.yml` must be relative, not absolute.
 {: .note }
 
 ## Cluster security configuration
