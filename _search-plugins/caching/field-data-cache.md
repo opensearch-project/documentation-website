@@ -33,7 +33,7 @@ If you want to enable sorting or aggregation directly on the text field, set `"f
 Setting | Data type  | Default | Level | Static/Dynamic | Description
 :--- |:-----------|:--------| :--- | :--- | :---
 `indices.breaker.fielddata.limit` | Percentage  | `40%`  | Cluster | Dynamic | Sets the field data cache size limit, beyond which incoming requests that would require more entries in the cache will be stopped by the circuit breaker. 
-`indices.fielddata.cache.size` | Byte size or percentage of total heap size | -1 | Cluster | Static | Sets the maximum field data cache size, beyond which evictions will occur. Must be smaller than the circuit breaker limit. With the default value of -1, this limit does not apply and only the circuit breaker limit will be relevant.
+`indices.fielddata.cache.size` | Byte size or percentage of total heap size | `35%` | Cluster | Static | Sets the maximum field data cache size, beyond which evictions will occur. Must be smaller than the circuit breaker limit. With a value of -1, this limit does not apply and only the circuit breaker limit will be relevant.
 
 ## Monitoring the field data cache 
 
@@ -53,7 +53,8 @@ The response contains the cache statistics:
       "indices" : {
         "fielddata" : {
           "memory_size_in_bytes" : 0,
-          "evictions" : 0
+          "evictions" : 0,
+          "item_count" : 0
         }
       }
     }
