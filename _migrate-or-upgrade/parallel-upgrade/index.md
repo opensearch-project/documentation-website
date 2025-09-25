@@ -7,7 +7,7 @@ permalink: /migrate-or-upgrade/parallel-upgrade/
 
 # Parallel (blue‑green) upgrade (forking model)
 
-Standing up a new target cluster in parallel, backfilling and continuously syncing data, and then switching client traffic is a robust way to upgrade OpenSearch with minimal downtime and a quick rollback path. This pattern is commonly called a **blue‑green** or **forking** upgrade.
+Standing up a new target cluster in parallel, copying older indices, continuously syncing data, and switching client traffic is a robust way to upgrade OpenSearch with minimal downtime and a quick rollback path. This pattern is commonly called a **blue‑green** or **forking** upgrade.
 
 This method is useful when you want a predictable cutover window, need to jump multiple versions, or plan to change cluster topology or security configuration during the upgrade.
 
@@ -37,11 +37,13 @@ GET "/_cluster/health?pretty"
 
 A status of `green` indicates that all primary and replica shards are allocated.
 
-## Step 2A: Backfill with snapshot and restore
+## Step 2: Backfill the indices
+
+###  Snapshot and restore
 
 You can use snapshot and restore method by pointing to the same snapshot repo, we recommend to register the snapshot repo on the new cluster as `readonly: true`. See [Snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/index/) for further details.
 
-### 1. Register a snapshot repository on the **source**
+#### 1. Register a snapshot repository on the **source**
 
 The following example registers an FS repository. Adjust the type and settings for your environment.
 
@@ -55,8 +57,9 @@ PUT /_snapshot/os-fs-repo
   }
 }
 ```
+{% include copy.html %}
 
-### 2. Create a point‑in‑time snapshot on the **source**
+#### 2. Create a point‑in‑time snapshot on the **source**
 
 Include only the indexes you want to migrate. Use `wait_for_completion` for a blocking operation during backfill.
 
@@ -67,8 +70,9 @@ PUT _snapshot/os-fs-repo/snap-001?wait_for_completion=true
   "include_global_state": false
 }
 ```
+{% include copy.html %}
 
-### 3. Register the same repository on the **target** as readonly and restore
+#### 3. Register the same repository on the **target** as `readonly` and restore
 
 ```json
 PUT /_snapshot/os-fs-repo
@@ -81,6 +85,7 @@ PUT /_snapshot/os-fs-repo
   }
 }
 ```
+{% include copy.html %}
 
 Restore the snapshot to the target. You can rename indexes during restore if desired.
 
@@ -92,21 +97,21 @@ POST /_snapshot/os-fs-repo/snap-001/_restore
   "index_settings": { "index.number_of_replicas": 0 }
 }
 ```
+{% include copy.html %}
 
 Wait for the restore to complete and the cluster to become green again.
 
-## Step 2B: Backfill with remote reindex (flexible, supports filtering/transform)
+### Remote reindex
 
-If you prefer to backfill over HTTP, configure a **remote** source and reindex to the target. For full details see [Reindex from a remote cluster]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/#reindex-from-a-remote-cluster).
+You can also backfill using reindex method which is flexible and supports filtering and transform. In order to do this configure a **remote** source and reindex to the target. For full details see [Reindex from a remote cluster]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/#reindex-from-a-remote-cluster).
 
-
-## Step 3: Keep the target in sync (CDC)
+## Step 3: Keep the target in sync
 
 Choose one of the following methods to keep the new cluster up to date.
 
-### Cross‑Cluster Replication (CCR)
+### Cross‑cluster replication
 
-You can use Cross-Cluster Replication to replicate any changes to the indices from the source cluster. See [Cross-cluster replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/index/) for further details.
+You can use Cross-Cluster Replication to replicate any changes to the indexes from the source cluster. See [Cross-cluster replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/index/) for further details.
 
 For time‑based indexes, use an `auto-follow` pattern. See [Auto-follow for cross-cluster replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/auto-follow/) for further details.
 
@@ -133,6 +138,7 @@ PUT "/logs-*/_settings?pretty"
   "index.blocks.write": true
 }
 ```
+{% include copy.html %}
 
 2. If using CCR, stop replication on the target indexes:
 

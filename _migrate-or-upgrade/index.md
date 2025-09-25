@@ -124,7 +124,7 @@ Stand up a new target cluster, backfill data, keep it in sync with the source, t
 
 **Cons**
 - Temporary extra infrastructure cost.
-- Operational complexity (double-writes / CDC, permission and plugin parity).
+- Operational complexity (double-writes/CDC, permission and plugin parity).
 
 ---
 
