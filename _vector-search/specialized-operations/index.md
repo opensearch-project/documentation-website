@@ -13,6 +13,9 @@ cards:
   - heading: "Radial search"
     description: "Search all points in a vector space that reside within a specified maximum distance or minimum score threshold from a query point"
     link: "/vector-search/specialized-operations/radial-search-knn/"
+  - heading: "Vector search with MMR"
+    description: "Use vector search with maximal marginal relevance(mmr) re-rank."
+    link: "/vector-search/specialized-operations/vector-search-mmr/"
 ---
 
 # Specialized vector search
