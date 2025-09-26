@@ -21,7 +21,7 @@ The tool uses machine learning clustering algorithms and statistical methods to 
 
 The tool automatically selects the appropriate analysis mode based on the provided parameters:
 
-- **Log Sequence Analysis**: When both `traceFieldName` and baseline time range are provided, analyzes trace-correlated log sequences to identify exceptional execution paths.
+- **Log Sequence Analysis**: When both traceFieldName and baseline time range are provided, analyzes trace-correlated log sequences to identify exceptional execution paths.
 - **Log Pattern Difference Analysis**: When baseline time range is provided without trace field, compares log patterns between baseline and selection periods to detect anomalous patterns.
 - **Log Insights Analysis**: When only selection time range is provided, performs error keyword-based pattern analysis to identify critical issues.
 
@@ -92,10 +92,10 @@ POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
     "index": "opensearch_dashboards_sample_data_logs",
     "timeField": "@timestamp",
     "logFieldName": "message",
-    "baseTimeRangeStart": "2018-07-22T00:00:00",
-    "baseTimeRangeEnd": "2018-07-22T12:00:00",
-    "selectionTimeRangeStart": "2018-07-22T12:00:00",
-    "selectionTimeRangeEnd": "2018-07-22T23:59:59"
+    "baseTimeRangeStart": "2018-07-22 00:00:00",
+    "baseTimeRangeEnd": "2018-07-22 12:00:00",
+    "selectionTimeRangeStart": "2018-07-22 12:00:00",
+    "selectionTimeRangeEnd": "2018-07-22 23:59:59"
   }
 }
 ```
@@ -112,8 +112,8 @@ POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
     "index": "application_logs",
     "timeField": "@timestamp",
     "logFieldName": "message",
-    "selectionTimeRangeStart": "2025-01-15T10:00:00",
-    "selectionTimeRangeEnd": "2025-01-15T11:00:00"
+    "selectionTimeRangeStart": "2025-01-15 10:00:00",
+    "selectionTimeRangeEnd": "2025-01-15 11:00:00"
   }
 }
 ```

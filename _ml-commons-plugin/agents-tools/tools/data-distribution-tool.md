@@ -154,7 +154,7 @@ OpenSearch returns field-by-field comparison showing distribution changes betwee
       "output": [
         {
           "name": "response",
-          "result": "{\"comparisonAnalysis\": [{\"field\": \"status\", \"divergence\": 0.2, \"topChanges\": [{\"value\": \"error\", \"selectionPercentage\": 0.3, \"baselinePercentage\": 0.1}, {\"value\": \"success\", \"selectionPercentage\": 0.7, \"baselinePercentage\": 0.9}]}, {\"field\": \"response_time\", \"divergence\": 0.15, \"topChanges\": [{\"value\": \"100.0-200.0\", \"selectionPercentage\": 0.25, \"baselinePercentage\": 0.1}]}]}"
+          "result": "{\"comparisonAnalysis\": [{\"field\": \"status\", \"divergence\": 0.2, \"topChanges\": [{\"value\": \"error\", \"selectionPercentage\": 0.3, \"baselinePercentage\": 0.1}, {\"value\": \"success\", \"selectionPercentage\": 0.7, \"baselinePercentage\": 0.9}]}]}"
         }
       ]
     }
@@ -173,7 +173,7 @@ OpenSearch returns distribution patterns for the analyzed dataset:
       "output": [
         {
           "name": "response",
-          "result": "{\"singleAnalysis\": [{\"field\": \"status\", \"divergence\": 0.4, \"topChanges\": [{\"value\": \"success\", \"selectionPercentage\": 0.7, \"baselinePercentage\": 0.0}, {\"value\": \"error\", \"selectionPercentage\": 0.2, \"baselinePercentage\": 0.0}, {\"value\": \"warning\", \"selectionPercentage\": 0.1, \"baselinePercentage\": 0.0}]}, {\"field\": \"level\", \"divergence\": 0.3, \"topChanges\": [{\"value\": \"INFO\", \"selectionPercentage\": 0.6, \"baselinePercentage\": 0.0}]}]}"
+          "result": "{\"singleAnalysis\": [{\"field\": \"status\", \"divergence\": 0.7, \"topChanges\": [{\"value\": \"error\", \"selectionPercentage\": 0.3, \"baselinePercentage\": 0.0}, {\"value\": \"success\", \"selectionPercentage\": 0.7, \"baselinePercentage\": 0.0}]}]}"
         }
       ]
     }
