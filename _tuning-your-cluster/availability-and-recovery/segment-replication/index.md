@@ -9,6 +9,7 @@ redirect_from:
   - /opensearch/segment-replication/
   - /opensearch/segment-replication/index/
   - /tuning-your-cluster/segment-replication/
+  - /tuning-your-cluster/availability-and-recovery/segment-replication/
 ---
 
 # Segment replication

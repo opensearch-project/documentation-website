@@ -4,6 +4,8 @@ title: Caching
 parent: Improving search performance
 has_children: true
 nav_order: 100
+redirect_from:
+  - /search-plugins/caching/
 ---
 
 # Caching

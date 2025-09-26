@@ -4,6 +4,8 @@ title: OpenSearch Assistant for OpenSearch Dashboards
 nav_order: 3
 has_children: true
 has_toc: false
+redirect_from:
+  - /dashboards/dashboards-assistant/
 ---
 
 Note that machine learning models are probabilistic and that some may perform better than others, so the OpenSearch Assistant may occasionally produce inaccurate information. We recommend evaluating outputs for accuracy as appropriate to your use case, including reviewing the output or combining it with other verification factors.
