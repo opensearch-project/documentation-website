@@ -9,6 +9,7 @@ redirect_from:
   - /query-dsl/aggregations/metric-agg/
   - /aggregations/metric-agg/
   - /query-dsl/aggregations/metric/
+  - /aggregations/metric/
 ---
 
 # Metric aggregations

@@ -7,6 +7,7 @@ has_toc: true
 redirect_from:
   - /clients/logstash/
   - /clients/logstash/index/
+  - /tools/logstash/
 ---
 
 # Logstash

@@ -4,9 +4,10 @@ title: Snapshots
 nav_order: 5
 has_children: true
 parent: Availability and recovery
-redirect_from: 
+redirect_from:
   - /opensearch/snapshots/
   - /opensearch/snapshots/index/
+  - /tuning-your-cluster/availability-and-recovery/snapshots/
 has_toc: false
 ---
 

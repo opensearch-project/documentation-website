@@ -9,6 +9,7 @@ redirect_from:
   - /opensearch/install/important-settings/
   - /install-and-configure/index/
   - /opensearch/install/index/
+  - /install-and-configure/install-opensearch/
 ---
 
 # Installing OpenSearch

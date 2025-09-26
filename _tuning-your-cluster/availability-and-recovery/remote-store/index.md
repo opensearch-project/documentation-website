@@ -4,9 +4,10 @@ title: Remote-backed storage
 nav_order: 40
 has_children: true
 parent: Availability and recovery
-redirect_from: 
+redirect_from:
   - /opensearch/remote/
   - /tuning-your-cluster/availability-and-recovery/remote/
+  - /tuning-your-cluster/availability-and-recovery/remote-store/
 ---
 
 # Remote-backed storage

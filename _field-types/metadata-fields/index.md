@@ -4,6 +4,8 @@ title: Metadata fields
 nav_order: 90
 has_children: true
 has_toc: false
+redirect_from:
+  - /field-types/metadata-fields/
 ---
 
 # Metadata fields

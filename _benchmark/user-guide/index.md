@@ -23,6 +23,8 @@ more_cards:
   - heading: "Optimizing benchmarks"
     description: "Optimize your benchmark experience through randomization and best practices"
     link: "/benchmark/user-guide/optimizing-benchmarks/index/" 
+redirect_from:
+  - /benchmark/user-guide/
 ---
 
 # OpenSearch Benchmark User Guide
