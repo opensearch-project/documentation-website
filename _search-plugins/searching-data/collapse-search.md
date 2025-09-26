@@ -162,6 +162,33 @@ The `collapse` parameter affects only the top search results and does not change
 
 ---
 
+## Collapse with search_after
+
+You can paginate collapsed search results using the `search_after` parameter. The collapse field and sort field must be the same, and only one sort field can be specified.
+
+The following example shows how to use collapse with `search_after`:
+
+```json
+GET /bakery-items/_search
+{
+  "query": {
+    "match": {
+      "category": "cakes"
+    }
+  },
+  "collapse": {
+    "field": "item"
+  },
+  "sort": [
+    {
+      "item": "asc"
+    }
+  ],
+  "search_after": ["Chocolate Cake"]
+}
+
+```
+
 ## Expanding collapsed results
 
 You can expand each collapsed top hit with the `inner_hits` property. 
