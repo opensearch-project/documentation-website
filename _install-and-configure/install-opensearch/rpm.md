@@ -44,12 +44,11 @@ This guide assumes that you are comfortable working from the Linux command line 
     ```
     {% include copy.html %}
    
-1. From the CLI, you can install the package with `rpm` or `yum`:
+1. From the CLI, you can install the package with `rpm` or `yum`
+   
+   For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration. Use one of the following commands to define a custom admin password, following the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements):
 
    ```bash
-   # For new installations of OpenSearch 2.12 and later, you must define a custom admin password in order to set up a demo security configuration.
-   # Use one of the following commands to define a custom admin password:
-
    ## Install the x64 package using yum.
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
    
@@ -61,9 +60,11 @@ This guide assumes that you are comfortable working from the Linux command line 
    
    ## Install the arm64 package using rpm.
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> rpm -ivh opensearch-{{site.opensearch_version}}-linux-arm64.rpm
+   ```
    
-   # Use the following command for OpenSearch versions 2.11 and earlier:
-
+   Use the following command for OpenSearch versions 2.11 and earlier:
+   
+   ```bash
    ## Install the x64 package using yum.
    sudo yum install opensearch-<version>-linux-x64.rpm
 
