@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /monitoring-plugins/pa/
   - /monitoring-plugins/pa/index/
+  - /monitoring-your-cluster/pa/
 ---
 
 # Performance Analyzer

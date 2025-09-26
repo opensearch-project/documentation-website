@@ -5,6 +5,8 @@ parent: ML Commons APIs
 has_children: true
 has_toc: false
 nav_order: 25
+redirect_from:
+  - /ml-commons-plugin/api/connector-apis/
 ---
 
 # Connector APIs

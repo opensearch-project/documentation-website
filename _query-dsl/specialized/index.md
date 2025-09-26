@@ -4,6 +4,8 @@ title: Specialized queries
 has_children: true
 nav_order: 65
 has_toc: false
+redirect_from:
+  - /query-dsl/specialized/
 ---
 
 # Specialized queries
