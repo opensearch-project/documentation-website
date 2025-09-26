@@ -5,8 +5,8 @@ nav_order: 125
 has_children: true
 has_toc: false
 redirect_from:
-  - /security/audit-logs/index/
   - /security-plugin/audit-logs/index/
+  - /security/audit-logs/
 ---
 
 # Audit logs

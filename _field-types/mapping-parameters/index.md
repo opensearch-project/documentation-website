@@ -4,6 +4,8 @@ title: Mapping parameters
 nav_order: 75
 has_children: true
 has_toc: false
+redirect_from:
+  - /field-types/mapping-parameters/
 ---
 
 # Mapping parameters

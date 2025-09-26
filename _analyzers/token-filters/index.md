@@ -5,7 +5,7 @@ nav_order: 70
 has_children: true
 has_toc: false
 redirect_from:
-    - /analyzers/token-filters/index/
+  - /analyzers/token-filters/
 ---
 
 # Token filters
