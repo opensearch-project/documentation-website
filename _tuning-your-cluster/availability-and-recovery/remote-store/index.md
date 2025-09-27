@@ -61,7 +61,7 @@ During the bootstrapping process, the remote-backed repositories listed in `open
 
 ## Related cluster settings
 
-You can use the following [cluster settings]({{site.url}}{{site.baseurl}}//api-reference/cluster-api/cluster-settings/) to tune how remote-backed clusters handle each workload.
+You can use the following [cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) to tune how remote-backed clusters handle each workload.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
