@@ -28,6 +28,7 @@ Processor | Description | Earliest available version
 [`neural_sparse_two_phase_processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/) | Accelerates the neural sparse query. | 2.15
 [`oversample`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/oversample-processor/) | Increases the search request `size` parameter, storing the original value in the pipeline state.  | 2.12
 [`script`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/script-processor/) | Adds a script that is run on newly indexed documents. | 2.8
+[`agentic_query_translator`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/) | Executes agent for agentic query | 3.2
 
 ## Search response processors
 
@@ -47,6 +48,7 @@ Processor | Description | Earliest available version
 [`sort`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/sort-processor/)| Sorts an array of items in either ascending or descending order. | 2.16
 [`split`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/split-processor/)| Splits a string field into an array of substrings based on a specified delimiter. | 2.17
 [`truncate_hits`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/truncate-hits-processor/)| Discards search hits after a specified target count is reached. Can undo the effect of the `oversample` request processor.  | 2.12
+[`agentic_context`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-context-processor/)| Used for agentic query to return agent summary, generated query and memory id | 3.3
 
 
 ## Search phase results processors
