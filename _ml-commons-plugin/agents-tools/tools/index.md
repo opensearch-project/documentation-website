@@ -35,8 +35,10 @@ Each tool takes a list of parameters specific to that tool. In the preceding exa
 |[`AgentTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/agent-tool/)	|Runs any agent. |
 |[`ConnectorTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/connector-tool/)	| Uses a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/) to call any REST API function. |
 |[`CreateAnomalyDetectorTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/create-anomaly-detector/)	| Enables an LLM to suggest required parameters for creating an anomaly detector. |
+|[`DataDistributionTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/data-distribution-tool/)	| Analyzes data distribution patterns within datasets and compares distributions between different time periods. |
 |[`IndexMappingTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index-mapping-tool/)	|Retrieves index mapping and setting information for an index. |
 |[`ListIndexTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/list-index-tool/)	|Retrieves index information for the OpenSearch cluster. Introduced in OpenSearch version 3.0 as a replacement for the `CatIndexTool`. |
+|[`LogPatternAnalysisTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/log-pattern-analysis-tool/)	|Performs advanced log analysis by detecting exceptional log patterns and sequences through comparative analysis. |
 |[`MLModelTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/ml-model-tool/)	|Runs machine learning models.	|
 |[`NeuralSparseSearchTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/neural-sparse-tool/)	| Performs sparse vector retrieval. |
 |[`PPLTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/ppl-tool/)	|Translates natural language into a Piped Processing Language (PPL) query.	|
