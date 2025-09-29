@@ -11,7 +11,7 @@ grand_parent: Search pipelines
 **Introduced 3.3**
 {: .label .label-purple }
 
-The `agentic_context` search response processor adds agent execution context information to search response extensions. This processor works in conjunction with the [agentic query translator]({{site.url}}{{site.baseurl}}/search-plugins/agentic-query-translator/) to expose the agent's query translation process and maintain conversation continuity:
+The `agentic_context` search response processor adds agent execution context information to search response extensions. This processor works in conjunction with the [agentic query translator]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/) to expose the agent's query translation process and maintain conversation continuity:
 
 1. The processor retrieves agent context information from the pipeline processing context.
 2. Based on the processor configuration, it selectively includes agent steps summary and DSL query in the response.
