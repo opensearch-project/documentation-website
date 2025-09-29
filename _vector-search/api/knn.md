@@ -4,6 +4,8 @@ title: k-NN API
 parent: Vector search API
 nav_order: 10
 has_children: false
+redirect_from:
+  - /search-plugins/knn/jni-libraries/
 ---
 
 # k-NN API
