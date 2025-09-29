@@ -14,7 +14,7 @@ OpenSearch supports the following specialized queries:
 
 - [`agentic`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/agentic/): Uses natural language questions that are automatically planned and executed by an agent with a large language model.
 
-- `distance_feature`: Calculates document scores based on the dynamically calculated distance between the origin and a document's `date`, `date_nanos`, or `geo_point` fields. This query can skip non-competitive hits.
+- [`distance_feature`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/distance-feature/): Calculates document scores based on the dynamically calculated distance between the origin and a document's `date`, `date_nanos`, or `geo_point` fields. This query can skip non-competitive hits.
 
 - [`knn`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/): Used for searching raw vectors during [vector search]({{site.url}}{{site.baseurl}}/vector-search/).
 
@@ -32,6 +32,6 @@ OpenSearch supports the following specialized queries:
 
 - [`script_score`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/): Calculates a custom score for matching documents using a script.
 
-- `template`: Allows you to use mustache templating in queries.
+- [`template`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/template/): Allows you to use mustache templating in queries.
 
 - [`wrapper`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/wrapper/): Accepts other queries as JSON or YAML strings.
