@@ -197,7 +197,7 @@ Whether to use an IAM role or user depends on your test cluster's access managem
 
 ### OpenSearch Benchmark version 1.15.0 and later
 
-Starting with OpenSearch Benchmark version 1.15.0, you can use session-based authentication that automatically handles temporary credential generation and refresh. This method eliminates the need to manually export AWS credentials.
+Starting with OpenSearch Benchmark version 1.15.0, you can use session-based authentication that automatically handles temporary credential generation and refresh. This method eliminates the need to manually export AWS credentials:
 
 1. Create an IAM role or user in the AWS Management Console that has the necessary permissions to access your OpenSearch cluster. Ensure that the role or user has the required policies attached for OpenSearch access.
 
@@ -209,8 +209,6 @@ Starting with OpenSearch Benchmark version 1.15.0, you can use session-based aut
    --pipeline=benchmark-only \
    --workload=geonames \
    --client-options=timeout:120,amazon_aws_log_in:session,region:<region>,service:<service>
-   ```
-   {% include copy.html %}
    ```
    {% include copy.html %}
 
