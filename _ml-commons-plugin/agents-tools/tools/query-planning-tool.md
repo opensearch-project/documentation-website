@@ -295,7 +295,7 @@ Parameter	| Type | Required/Optional | Description
 `generation_type` | String | Optional | The type of query generation. Currently, only `llmGenerated` and `user_templates` are supported. Defaults to `llmGenerated`.
 `query_planner_system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM. Defaults to "You are an OpenSearch Query DSL generation assistant, translating natural language questions to OpenSeach DSL Queries".
 `query_planner_user_prompt` | String | Optional | A user prompt template for the LLM. It can contain placeholders for execution-time parameters like `${parameters.query_text}`.
-`search_templates` | Array | Optional | A list of search template IDs and descriptions which an LLM will use as context to create an OpenSearch DSL query. Each entry within the `search_templates` array must include a `template_id` and a `template_description` which provides the LLM with additional context on the contents of the search template
+`search_templates` | Array | Optional | Applicable only for `user_templates` generation_type. A list of search template IDs and descriptions which an LLM will use as context to create an OpenSearch DSL query. Each entry within the `search_templates` array must include a `template_id` and a `template_description` which provides the LLM with additional context on the contents of the search template
 
 ## Execute parameters
 
