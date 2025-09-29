@@ -26,7 +26,7 @@ Before using pull-based ingestion, ensure that the following prerequisites are m
 
 ## Creating an index for pull-based ingestion
 
-To ingest data from a streaming source, first create an index with pull-based ingestion settings. The following request creates an index that pulls data from a Kafka topic in segment replication mode. See [ingestion modes](#ingestion-modes) for other available modes.
+To ingest data from a streaming source, first create an index with pull-based ingestion settings. The following request creates an index that pulls data from a Kafka topic in segment replication mode. For other available modes, see [Ingestion modes](#ingestion-modes).
 
 ```json
 PUT /my-index
