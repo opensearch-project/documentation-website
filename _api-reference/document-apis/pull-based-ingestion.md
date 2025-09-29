@@ -80,7 +80,7 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 
 ### Ingestion modes
 
-Pull-based ingestion supports the following modes:
+Pull-based ingestion supports the following modes.
 
 #### Segment replication mode
 
