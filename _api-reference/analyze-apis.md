@@ -6,6 +6,7 @@ redirect_from:
   - /api-reference/analyze-apis/perform-text-analysis/
   - /opensearch/rest-api/analyze-apis/
   - /api-reference/analyze-apis/terminology/
+  - /api-reference/analyze-apis/index/
 ---
 
 # Analyze API
