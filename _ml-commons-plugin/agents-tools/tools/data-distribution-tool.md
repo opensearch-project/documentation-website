@@ -185,10 +185,10 @@ The following table lists the available tool parameters for running the agent.
 |:----------|:-----|:------------------|:------------|
 | `index` | String | Required | The name of the OpenSearch index containing the data to analyze. |
 | `timeField` | String | Optional | A date/time field for time-based filtering. Default is `@timestamp`. |
-| `selectionTimeRangeStart` | String | Required | The start time for the analysis period in UTC date string format (for example, `2025-01-15 10:00:00`). |
-| `selectionTimeRangeEnd` | String | Required | The end time for the analysis period in UTC date string format (for example, `2025-01-15 11:00:00`). |
-| `baselineTimeRangeStart` | String | Optional | The start time for baseline comparison period. Required for comparative analysis mode. |
-| `baselineTimeRangeEnd` | String | Optional | The end time for baseline comparison period. Required for comparative analysis mode. |
+| `selectionTimeRangeStart` | String | Required | The start time for the analysis period, in UTC date string format (for example, `2025-01-15 10:00:00`). |
+| `selectionTimeRangeEnd` | String | Required | The end time for the analysis period, in UTC date string format (for example, `2025-01-15 11:00:00`). |
+| `baselineTimeRangeStart` | String | Optional | The start time for the baseline comparison period, in UTC date string format (for example, `2025-01-15 10:00:00`). Required for the comparative analysis mode. |
+| `baselineTimeRangeEnd` | String | Optional | The end time for the baseline comparison period, in UTC date string format (for example, `2025-01-15 11:00:00`). Required for the comparative analysis mode. |
 | `size` | Integer | Optional | The maximum number of documents to analyze. Default is `1000`. Maximum is `10000`. |
 | `queryType` | String | Optional | The query type. Valid values are `ppl` and `dsl`. Default is `dsl`. |
 | `filter` | Array | Optional | Additional DSL query conditions for filtering, specified as JSON strings (for example, `["{\"term\": {\"status\": \"error\"}}", "{\"range\": {\"level\": {\"gte\": 3}}}"]`). |
