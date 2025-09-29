@@ -26,7 +26,7 @@ Before using pull-based ingestion, ensure that the following prerequisites are m
 
 ## Creating an index for pull-based ingestion
 
-To ingest data from a streaming source, first create an index with pull-based ingestion settings. The following request creates an index that pulls data from a Kafka topic in segment replication mode. For other available modes, see [Ingestion modes](#ingestion-modes).
+To ingest data from a streaming source, first create an index with pull-based ingestion settings. The following request creates an index that pulls data from a Kafka topic in the default ingestion mode. For other available modes, see [Ingestion modes](#ingestion-modes).
 
 ```json
 PUT /my-index
@@ -82,16 +82,16 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 
 Pull-based ingestion supports the following modes.
 
-#### Segment replication mode
+#### Default mode
 
-Pull-based ingestion can be used in the [segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/) mode.
-In this mode, the primary shards ingest events from a streaming source and index the documents. Segments are then copied over to the replica shards.
-It is recommended to use this mode with a [remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
+In the default mode, the primary shards ingest events from a streaming source and index the documents. The pull-based index is configured to use [segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/) to copy over the segment files from primary to replica shards.
+We recommend using this mode with a [remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 
 #### All-active mode
 
-All-active mode is the document replication equivalent in pull-based ingestion. Primary and replica shards ingest events from the streaming source and index documents independently.
-There is no replication or coordination between the primary and replica shards. Replica shards however may depend on the primary shard during bootstrapping to copy the segment files if a local copy is unavailable.
+Enabling all-active mode allows both primary and replica shards to independently ingest and index events from the streaming source.
+There is no replication or coordination between the shards, although replica shards may fetch segment files from the primary shard during bootstrapping if a local copy is unavailable.
+This mode is currently not supported along with segment replication.
 
 ### Stream position
 
