@@ -9,6 +9,7 @@ redirect_from:
   - /opensearch/install/important-settings/
   - /install-and-configure/index/
   - /opensearch/install/index/
+  - /install-and-configure/install-opensearch/
 ---
 
 # Installing OpenSearch
@@ -16,6 +17,18 @@ redirect_from:
 This section provides information about how to install OpenSearch on your host, including which [ports to open](#network-requirements) and which [important settings](#important-settings) to configure on your host.
 
 For operating system compatibility, see [Compatible operating systems]({{site.url}}{{site.baseurl}}/install-and-configure/os-comp/).
+
+## Installation steps
+
+Installation steps vary depending on the deployment method. For steps specific to your deployment, see the following installation guides:
+
+- [Docker]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/)
+- [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/)
+- [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/)
+- [RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm/)
+- [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/)
+- [Ansible playbook]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/ansible/)
+- [Windows]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/windows/)
 
 
 ## File system recommendations

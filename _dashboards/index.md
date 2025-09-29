@@ -55,7 +55,7 @@ By default, the query language in the Discover search toolbar is DQL. To switch 
 
 | Concept | Description | 
 |---------|-------------|
-| [Observability in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}//observing-your-data/index/) | Observe, monitor, and secure data and improve performance across tools and workflows. |
+| [Observability in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/observing-your-data/index/) | Observe, monitor, and secure data and improve performance across tools and workflows. |
 
 
 ## Dashboards Management

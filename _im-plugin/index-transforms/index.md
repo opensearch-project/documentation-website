@@ -3,7 +3,8 @@ layout: default
 title: Index transforms
 nav_order: 50
 has_children: true
-redirect_from: /im-plugin/index-transforms/
+redirect_from:
+  - /im-plugin/index-transforms/
 has_toc: false
 ---
 

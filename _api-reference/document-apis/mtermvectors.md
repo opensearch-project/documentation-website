@@ -2,7 +2,7 @@
 layout: default
 title: Multi term vectors
 parent: Document APIs
-nav_order: 33
+nav_order: 80
 ---
 
 # Multi Term Vectors API

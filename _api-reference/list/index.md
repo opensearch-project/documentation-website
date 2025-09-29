@@ -3,6 +3,8 @@ layout: default
 title: List API
 nav_order: 45
 has_children: true
+redirect_from:
+  - /api-reference/list/
 ---
 
 # List APIs

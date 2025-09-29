@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Multi-get document
+title: Multi-get documents
 parent: Document APIs
 nav_order: 30
 redirect_from: 

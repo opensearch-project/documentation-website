@@ -2,7 +2,7 @@
 layout: default
 title: Update by query
 parent: Document APIs
-nav_order: 50
+nav_order: 40
 redirect_from: 
  - /opensearch/rest-api/document-apis/update-by-query/
 ---

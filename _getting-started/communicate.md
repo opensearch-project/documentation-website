@@ -16,7 +16,12 @@ You can send HTTP requests in your terminal or in the [Dev Tools console]({{site
 
 ### Sending requests in a terminal
 
-When sending cURL requests in a terminal, the request format varies depending on whether you're using the Security plugin. As an example, consider a request to the Cluster Health API. 
+When sending cURL requests in a terminal, the request format varies depending on whether you're using the Security plugin:
+
+- **Without Security plugin**: Use `http://` URLs and no authentication.
+- **With Security plugin**: Use `https://` URLs and provide username/password credentials.
+
+As an example, consider a request to the Cluster Health API. 
 
 If you're not using the Security plugin, send the following request:
 
@@ -25,28 +30,31 @@ curl -X GET "http://localhost:9200/_cluster/health"
 ```
 {% include copy.html %}
 
-If you're using the Security plugin, provide the username and password in the request:
+If you're using the Security plugin, provide the username and password in the request. The default username is `admin`, and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting:
 
 ```bash
 curl -X GET "https://localhost:9200/_cluster/health" -ku admin:<custom-admin-password>
 ```
 {% include copy.html %}
 
-The default username is `admin`, and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+#### Pretty format
+
 
 OpenSearch generally returns responses in a flat JSON format by default. For a human-readable response body, provide the `pretty` query parameter:
 
 ```bash
-curl -X GET "https://localhost:9200/_cluster/health?pretty"
+curl -X GET "http://localhost:9200/_cluster/health?pretty"
 ```
 {% include copy.html %}
 
 For more information about `pretty` and other useful query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
 
+#### Request body
+
 For requests that contain a body, specify the `Content-Type` header and provide the request payload in the `-d` (data) option:
 
 ```json
-curl -X GET "https://localhost:9200/students/_search?pretty" -H 'Content-Type: application/json' -d'
+curl -X GET "http://localhost:9200/students/_search?pretty" -H 'Content-Type: application/json' -d'
 {
   "query": {
     "match_all": {}
@@ -59,7 +67,7 @@ curl -X GET "https://localhost:9200/students/_search?pretty" -H 'Content-Type: a
 
 The Dev Tools console in OpenSearch Dashboards uses a simpler syntax to format REST requests as compared to the cURL command. To send requests in Dev Tools, use the following steps:
 
-1. Access OpenSearch Dashboards by opening `https://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin`, and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. If you're using the Security plugin, access OpenSearch Dashboards by opening `https://localhost:5601/`. The default username is `admin`, and the password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
 1. On the top menu bar, go to **Management > Dev Tools**.
 1. In the left pane of the console, enter the following request:
     ```json
@@ -75,10 +83,10 @@ In the following sections, and in most of the OpenSearch documentation, requests
 To add a JSON document to an OpenSearch index (that is, to _index_ a document), you send an HTTP request with the following header:
 
 ```json
-PUT https://<host>:<port>/<index-name>/_doc/<document-id>
+PUT /<index-name>/_doc/<document-id>
 ```
 
-For example, to index a document representing a student, you can send the following request:
+For example, to index a document representing a student, send the following request:
 
 ```json
 PUT /students/_doc/1
@@ -90,7 +98,7 @@ PUT /students/_doc/1
 ```
 {% include copy-curl.html %}
 
-Once you send the preceding request, OpenSearch creates an index called `students` and stores the ingested document in the index. If you don't provide an ID for your document, OpenSearch generates a document ID. In the preceding request, the document ID is specified as the student ID (`1`). 
+Once you send the preceding request, OpenSearch creates an index called `students` and stores the ingested document in the index. If you don't provide an ID for your document, OpenSearch generates a document ID. In the preceding request, the document ID is specified as the student ID (`1`).
 
 To learn more about indexing, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/).
 

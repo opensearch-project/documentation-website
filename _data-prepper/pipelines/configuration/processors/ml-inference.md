@@ -56,12 +56,12 @@ The following example shows an example `map_to_list` processor configuration:
 
 ## Usage
 
-The processor supports `batch_predict` operations, which invoke the [Batch Predict API]({{site.url}}{{site.baseurl}}ml-commons-plugin/api/model-apis/batch-predict/) for offline batch processing.
+The processor supports `batch_predict` operations, which invoke the [Batch Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/batch-predict/) for offline batch processing.
 
 
 ## Behavior
 
-For `batch_predict` operations, the `ml_inference` processor works best with the [S3 source]({{site.url}}{{site.baseurl}}data-prepper/pipelines/configuration/sources/s3/). To configure S3 to process metadata only, configure the S3 scan block as follows:
+For `batch_predict` operations, the `ml_inference` processor works best with the [S3 source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/). To configure S3 to process metadata only, configure the S3 scan block as follows:
 
 ```yaml
 scan:
