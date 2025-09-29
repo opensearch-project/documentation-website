@@ -3,22 +3,22 @@ layout: default
 title: getEventType()
 parent: Functions
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 12
 ---
 
 # getEventType()
 
-The `getEventType()` function returns the internal event type of the current event. This function is particularly useful when working with unified sources like the OTLP source that can receive multiple types of telemetry data.
+The `getEventType()` function returns the internal event type of the current event. This function is particularly useful when working with unified sources that can receive multiple types of telemetry data, such as the [OTLP source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otlp-source/).
 
 ## Syntax
 
-```
+```java
 getEventType()
 ```
 
 ## Return value
 
-The function returns a string representing the event type. The supported event types are: `LOG`, `TRACE`, `METRIC`, `DOCUMENT` 
+The function returns a string representing the event type. The supported event types are: `LOG`, `TRACE`, `METRIC`, and `DOCUMENT`.
 
 ## Usage
 
@@ -35,7 +35,7 @@ getEventType() == "TRACE"
 
 ### Routing example with OTLP source
 
-Route different telemetry signals to different pipelines based on event type:
+To route different telemetry signals to different pipelines based on event type, use the `getEventType()` function to determine each event's type and route the different event types to different pipelines:
 
 ```yaml
 otel-telemetry-pipeline:
@@ -64,7 +64,7 @@ otel-telemetry-pipeline:
 
 ### Conditional processing example
 
-Process events differently based on their type:
+To process events differently based on their type, use the `add_when` expression to conditionally add fields to each event:
 
 ```yaml
 processor:
@@ -80,3 +80,7 @@ processor:
           add_when: 'getEventType() == "METRIC"'
 ```
 {% include copy.html %}
+
+## Related articles
+
+- [OTLP source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otlp-source/)
