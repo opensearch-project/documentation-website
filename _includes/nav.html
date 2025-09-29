@@ -1,13 +1,4 @@
-<ul 
-  role="tree" 
-  aria-expanded="{{ include.expanded | default: 'false' }}"
-  class="nav-list"
-{%- if include.owned_tree_id -%}id="{{ include.owned_tree_id }}"{%- endif  -%}
->
-  {%- assign titled_pages = include.pages
-        | where_exp:"item", "item.title != nil" -%}
-
-  {%- comment -%}
+{%- comment -%}
     The values of `title` and `nav_order` can be numbers or strings.
     Jekyll gives build failures when sorting on mixtures of different types,
     so numbers and strings need to be sorted separately.
@@ -17,74 +8,63 @@
     (except that a numerical `title` value is treated as a string).
 
     The case-sensitivity of string sorting is determined by `site.nav_sort`.
-  {%- endcomment -%}
+{%- endcomment -%}
 
-  {%- assign string_ordered_pages = titled_pages
-        | where_exp:"item", "item.nav_order == nil" -%}
-  {%- assign nav_ordered_pages = titled_pages
-        | where_exp:"item", "item.nav_order != nil"  -%}
+{%- comment -%}Pre-compute and cache page lists to avoid repeated filtering{%- endcomment -%}
+{%- assign titled_pages = include.pages | where_exp:"item", "item.title != nil" -%}
 
-  {%- comment -%}
-    The nav_ordered_pages have to be added to number_ordered_pages and
-    string_ordered_pages, depending on the nav_order value.
-    The first character of the jsonify result is `"` only for strings.
-  {%- endcomment -%}
-  {%- assign nav_ordered_groups = nav_ordered_pages
-        | group_by_exp:"item", "item.nav_order | jsonify | slice: 0" -%}
-  {%- assign number_ordered_pages = "" | split:"X" -%}
-  {%- for group in nav_ordered_groups -%}
-    {%- if group.name == '"' -%}
-      {%- assign string_ordered_pages = string_ordered_pages | concat: group.items -%}
-    {%- else -%}
-      {%- assign number_ordered_pages = number_ordered_pages | concat: group.items -%}
-    {%- endif -%}
-  {%- endfor -%}
+{%- comment -%}Separate pages by nav_order type for efficient sorting{%- endcomment -%}
+{%- assign string_ordered_pages = titled_pages | where_exp:"item", "item.nav_order == nil" -%}
+{%- assign nav_ordered_pages = titled_pages | where_exp:"item", "item.nav_order != nil" -%}
 
-  {%- assign sorted_number_ordered_pages = number_ordered_pages | sort:"nav_order" -%}
-
-  {%- comment -%}
-    The string_ordered_pages have to be sorted by nav_order, and otherwise title
-    (where appending the empty string to a numeric title converts it to a string).
-    After grouping them by those values, the groups are sorted, then the items
-    of each group are concatenated.
-  {%- endcomment -%}
-  {%- assign string_ordered_groups = string_ordered_pages
-        | group_by_exp:"item", "item.nav_order | default: item.title | append:''" -%}
-  {%- if site.nav_sort == 'case_insensitive' -%}
-    {%- assign sorted_string_ordered_groups = string_ordered_groups | sort_natural:"name" -%}
+{%- comment -%}Group nav_ordered_pages by type (number vs string){%- endcomment -%}
+{%- assign nav_ordered_groups = nav_ordered_pages | group_by_exp:"item", "item.nav_order | jsonify | slice: 0" -%}
+{%- assign number_ordered_pages = "" | split:"X" -%}
+{%- for group in nav_ordered_groups -%}
+  {%- if group.name == '"' -%}
+    {%- assign string_ordered_pages = string_ordered_pages | concat: group.items -%}
   {%- else -%}
-    {%- assign sorted_string_ordered_groups = string_ordered_groups | sort:"name" -%}
+    {%- assign number_ordered_pages = number_ordered_pages | concat: group.items -%}
   {%- endif -%}
-  {%- assign sorted_string_ordered_pages = "" | split:"X" -%}
-  {%- for group in sorted_string_ordered_groups -%}
-    {%- assign sorted_string_ordered_pages = sorted_string_ordered_pages | concat: group.items -%}
-  {%- endfor -%}
+{%- endfor -%}
 
-  {%- assign pages_list = sorted_number_ordered_pages | concat: sorted_string_ordered_pages -%}
-  
+{%- assign sorted_number_ordered_pages = number_ordered_pages | sort:"nav_order" -%}
+
+{%- comment -%}Sort string pages{%- endcomment -%}
+{%- assign string_ordered_groups = string_ordered_pages | group_by_exp:"item", "item.nav_order | default: item.title | append:''" -%}
+{%- if site.nav_sort == 'case_insensitive' -%}
+  {%- assign sorted_string_ordered_groups = string_ordered_groups | sort_natural:"name" -%}
+{%- else -%}
+  {%- assign sorted_string_ordered_groups = string_ordered_groups | sort:"name" -%}
+{%- endif -%}
+{%- assign sorted_string_ordered_pages = "" | split:"X" -%}
+{%- for group in sorted_string_ordered_groups -%}
+  {%- assign sorted_string_ordered_pages = sorted_string_ordered_pages | concat: group.items -%}
+{%- endfor -%}
+
+{%- assign pages_list = sorted_number_ordered_pages | concat: sorted_string_ordered_pages -%}
+
+{%- comment -%}Pre-compute current page context for faster lookups{%- endcomment -%}
+{%- assign current_collection = page.collection -%}
+{%- assign current_url = page.url -%}
+{%- assign current_parent = page.parent -%}
+{%- assign current_grand_parent = page.grand_parent -%}
+
+<ul 
+  role="tree" 
+  aria-expanded="{{ include.expanded | default: 'false' }}"
+  class="nav-list"
+{%- if include.owned_tree_id -%}id="{{ include.owned_tree_id }}"{%- endif  -%}
+>
   {%- for node in pages_list -%}
-    {%- if node.parent == nil -%}
-      {%- unless node.nav_exclude -%}
-      {% assign nested_owned_tree_id = include.owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: node.title | append: "_navitems" | replace: " ", "_" %}
-      {%- comment -%}Check if current page is a descendant of this node{%- endcomment -%}
+    {%- unless node.parent or node.nav_exclude -%}
+      {%- assign nested_owned_tree_id = include.owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: node.title | append: "_navitems" | replace: " ", "_" -%}
+      
+      {%- comment -%}Optimized ancestor checking{%- endcomment -%}
       {%- assign is_ancestor = false -%}
-      {%- if page.collection == include.key -%}
-        {%- if page.url == node.url or page.parent == node.title or page.grand_parent == node.title -%}
+      {%- if current_collection == include.key -%}
+        {%- if current_url == node.url or current_parent == node.title or current_grand_parent == node.title -%}
           {%- assign is_ancestor = true -%}
-        {%- else -%}
-          {%- comment -%}Check for 4-level deep pages{%- endcomment -%}
-          {%- for child in pages_list -%}
-            {%- if child.parent == node.title -%}
-              {%- for grand_child in pages_list -%}
-                {%- if grand_child.parent == child.title and grand_child.grand_parent == node.title -%}
-                  {%- if page.parent == grand_child.title -%}
-                    {%- assign is_ancestor = true -%}
-                    {%- break -%}
-                  {%- endif -%}
-                {%- endif -%}
-              {%- endfor -%}
-            {%- endif -%}
-          {%- endfor -%}
         {%- endif -%}
       {%- endif -%}
       <li role="none" class="nav-list-item{% if is_ancestor %} active{% endif %}">
@@ -92,7 +72,7 @@
           <a
             role="treeitem"
             aria-owns="{{ nested_owned_tree_id }}"
-            {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
+            {%- if current_url == node.url -%}aria-current="page"{%- endif -%}
             href="#" 
             class="nav-list-expander"
           ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
@@ -101,37 +81,27 @@
         <a
           role="treeitem"
           {%- if node.has_children -%}aria-owns="{{ nested_owned_tree_id }}"{%- endif -%}
-          {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
+          {%- if current_url == node.url -%}aria-current="page"{%- endif -%}
           href="{{ node.url | absolute_url }}" 
-          class="nav-list-link{% if page.url == node.url %} active{% endif %}"
+          class="nav-list-link{% if current_url == node.url %} active{% endif %}"
         >{{ node.title }}</a>
         {%- if node.has_children -%}
+          {%- comment -%}Pre-filter children to avoid repeated filtering{%- endcomment -%}
           {%- assign children_list = pages_list | where: "parent", node.title -%}
           <ul role="tree" class="nav-list" id="{{ nested_owned_tree_id }}">
           {%- for child in children_list -%}
             {%- unless child.nav_exclude -%}
-            {%- comment -%}Check if current page is a descendant of this child{%- endcomment -%}
             {%- assign child_is_ancestor = false -%}
-            {%- if page.url == child.url or page.parent == child.title -%}
+            {%- if current_url == child.url or current_parent == child.title -%}
               {%- assign child_is_ancestor = true -%}
-            {%- else -%}
-              {%- comment -%}Check for 4-level deep pages{%- endcomment -%}
-              {%- for grand_child in pages_list -%}
-                {%- if grand_child.parent == child.title and grand_child.grand_parent == node.title -%}
-                  {%- if page.parent == grand_child.title -%}
-                    {%- assign child_is_ancestor = true -%}
-                    {%- break -%}
-                  {%- endif -%}
-                {%- endif -%}
-              {%- endfor -%}
             {%- endif -%}
             <li role="none" class="nav-list-item{% if child_is_ancestor %} active{% endif %}">
               {%- if child.has_children -%}
-                {% assign nested_nested_owned_tree_id = nested_owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: child.title | append: "_navitems" | replace: " ", "_" %}
+                {%- assign nested_nested_owned_tree_id = nested_owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: child.title | append: "_navitems" | replace: " ", "_" -%}
                 <a
                   role="treeitem"
                   aria-owns="{{ nested_nested_owned_tree_id }}"
-                  {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
+                  {%- if current_url == child.url -%}aria-current="page"{%- endif -%}
                   href="#" 
                   class="nav-list-expander"
                 ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
@@ -139,27 +109,25 @@
               <a
                 role="treeitem"
                 {%- if child.has_children -%}aria-owns="{{ nested_nested_owned_tree_id }}"{%- endif -%}
-                {%- if page.url == node.url -%}aria-current="page"{%- endif -%}
+                {%- if current_url == child.url -%}aria-current="page"{%- endif -%}
                 href="{{ child.url | absolute_url }}" 
-                class="nav-list-link{% if page.url == child.url %} active{% endif %}"
+                class="nav-list-link{% if current_url == child.url %} active{% endif %}"
               >{{ child.title }}</a>
               {%- if child.has_children -%}
                 {%- assign grand_children_list = pages_list | where: "parent", child.title | where: "grand_parent", node.title -%}
                 <ul role="tree" class="nav-list" id="{{ nested_nested_owned_tree_id }}">
                 {%- for grand_child in grand_children_list -%}
                   {%- unless grand_child.nav_exclude -%}
-                  {%- comment -%}Check if current page is a descendant of this grand_child{%- endcomment -%}
                   {%- assign grand_child_is_ancestor = false -%}
-                  {%- if page.url == grand_child.url or page.parent == grand_child.title -%}
+                  {%- if current_url == grand_child.url or current_parent == grand_child.title -%}
                     {%- assign grand_child_is_ancestor = true -%}
                   {%- endif -%}
                   <li role="none" class="nav-list-item{% if grand_child_is_ancestor %} active{% endif %}">
                     {%- if grand_child.has_children -%}
-                      {% assign nested_nested_nested_owned_tree_id = nested_nested_owned_tree_id | append: "_" | append: forloop.index | append: "_" | append: grand_child.title | append: "_navitems" | replace: " ", "_" %}
                       <a
                         role="treeitem"
                         aria-owns="{{ nested_nested_nested_owned_tree_id }}"
-                        {%- if page.url == grand_child.url -%}aria-current="page"{%- endif -%}
+                        {%- if current_url == grand_child.url -%}aria-current="page"{%- endif -%}
                         href="#" 
                         class="nav-list-expander"
                       ><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
@@ -167,21 +135,21 @@
                     <a
                       role="treeitem"
                       {%- if grand_child.has_children -%}aria-owns="{{ nested_nested_nested_owned_tree_id }}"{%- endif -%}
-                      {%- if page.url == grand_child.url -%}aria-current="page"{%- endif -%}
+                      {%- if current_url == grand_child.url -%}aria-current="page"{%- endif -%}
                       href="{{ grand_child.url | absolute_url }}" 
-                      class="nav-list-link{% if page.url == grand_child.url %} active{% endif %}"
+                      class="nav-list-link{% if current_url == grand_child.url %} active{% endif %}"
                     >{{ grand_child.title }}</a>
                     {%- if grand_child.has_children -%}
                       {%- assign great_grand_children_list = pages_list | where: "parent", grand_child.title -%}
                       <ul role="tree" class="nav-list" id="{{ nested_nested_nested_owned_tree_id }}">
                       {%- for great_grand_child in great_grand_children_list -%}
                         {%- unless great_grand_child.nav_exclude -%}
-                        <li role="none" class="nav-list-item {% if page.url == great_grand_child.url %} active{% endif %}">
+                        <li role="none" class="nav-list-item {% if current_url == great_grand_child.url %} active{% endif %}">
                           <a
                             role="treeitem"
-                            {%- if page.url == great_grand_child.url -%}aria-current="page"{%- endif -%}
+                            {%- if current_url == great_grand_child.url -%}aria-current="page"{%- endif -%}
                             href="{{ great_grand_child.url | absolute_url }}" 
-                            class="nav-list-link{% if page.url == great_grand_child.url %} active{% endif %}"
+                            class="nav-list-link{% if current_url == great_grand_child.url %} active{% endif %}"
                           >{{ great_grand_child.title }}</a>
                         </li>
                         {%- endunless -%}
@@ -199,32 +167,35 @@
           </ul>
         {%- endif -%}
       </li>
-      {%- endunless -%}
-    {%- endif -%}
+    {%- endunless -%}
   {%- endfor -%}
 </ul>
 
-{%- if page.collection == include.key -%}
-
+{%- comment -%}
+Compute breadcrumb URLs and TOC only when needed
+{%- endcomment -%}
+{%- if current_collection == include.key -%}
+  {%- comment -%}Pre-compute breadcrumb URLs efficiently{%- endcomment -%}
   {%- for node in pages_list -%}
-    {%- if node.parent == nil -%}
-      {%- if page.parent == node.title or page.grand_parent == node.title -%}
+    {%- unless node.parent -%}
+      {%- if current_parent == node.title or current_grand_parent == node.title -%}
         {%- assign first_level_url = node.url | absolute_url -%}
       {%- endif -%}
       {%- if node.has_children -%}
         {%- assign children_list = pages_list | where: "parent", node.title -%}
         {%- for child in children_list -%}
           {%- if child.has_children -%}
-            {%- if page.url == child.url or page.parent == child.title and page.grand_parent == child.parent -%}
+            {%- if current_url == child.url or current_parent == child.title and current_grand_parent == child.parent -%}
               {%- assign second_level_url = child.url | absolute_url -%}
             {%- endif -%}
           {%- endif -%}
         {%- endfor -%}
       {%- endif -%}
-    {%- endif -%}
+    {%- endunless -%}
   {%- endfor -%}
-
-  {% if page.has_children == true and page.has_toc != false %}
+  
+  {%- comment -%}Compute TOC only if needed{%- endcomment -%}
+  {%- if page.has_children == true and page.has_toc != false -%}
     {%- assign toc_list = pages_list | where: "parent", page.title | where: "grand_parent", page.parent -%}
   {%- endif -%}
 

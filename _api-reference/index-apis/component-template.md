@@ -89,8 +89,10 @@ The following example requests show how to use the Component Template API.
 
 The following example request creates a component template including index aliases:
 
-```json
-PUT _component_template/alias_template
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_component_template/alias_template
+body: |
 {
   "template": {
     "settings" : {
@@ -104,19 +106,76 @@ PUT _component_template/alias_template
             },
             "routing" : "shard-1"
         },
-        "{index}-alias" : {} 
+        "{index}-alias" : {}
     }
   }
 }
-```
+-->
+{% capture step1_rest %}
+PUT /_component_template/alias_template
+{
+  "template": {
+    "settings": {
+      "number_of_shards": 1
+    },
+    "aliases": {
+      "alias1": {},
+      "alias2": {
+        "filter": {
+          "term": {
+            "user.id": "hamlet"
+          }
+        },
+        "routing": "shard-1"
+      },
+      "{index}-alias": {}
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.put_component_template(
+  name = "alias_template",
+  body =   {
+    "template": {
+      "settings": {
+        "number_of_shards": 1
+      },
+      "aliases": {
+        "alias1": {},
+        "alias2": {
+          "filter": {
+            "term": {
+              "user.id": "hamlet"
+            }
+          },
+          "routing": "shard-1"
+        },
+        "{index}-alias": {}
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Adding component versioning
 
 
 The following example adds a `version` number to a component template which simplifies template management for external systems:
 
-```json
-PUT /_component_template/version_template
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_component_template/version_template
+body: |
 {
   "template": {
     "settings" : {
@@ -125,15 +184,49 @@ PUT /_component_template/version_template
   },
   "version": 3
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /_component_template/version_template
+{
+  "template": {
+    "settings": {
+      "number_of_shards": 1
+    }
+  },
+  "version": 3
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.put_component_template(
+  name = "version_template",
+  body =   {
+    "template": {
+      "settings": {
+        "number_of_shards": 1
+      }
+    },
+    "version": 3
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Adding template metadata
 
 The following example request uses the `meta` parameter to add metadata to the index template. All metadata is stored in the cluster state.
 
-```json
-PUT /_component_template/meta_template
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_component_template/meta_template
+body: |
 {
   "template": {
     "settings" : {
@@ -148,7 +241,52 @@ PUT /_component_template/meta_template
     }
   }
 }
-```
+-->
+{% capture step1_rest %}
+PUT /_component_template/meta_template
+{
+  "template": {
+    "settings": {
+      "number_of_shards": 1
+    }
+  },
+  "_meta": {
+    "description": "Where art thou",
+    "serialization": {
+      "class": "MyIndexTemplate",
+      "id": 12
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.put_component_template(
+  name = "meta_template",
+  body =   {
+    "template": {
+      "settings": {
+        "number_of_shards": 1
+      }
+    },
+    "_meta": {
+      "description": "Where art thou",
+      "serialization": {
+        "class": "MyIndexTemplate",
+        "id": 12
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 

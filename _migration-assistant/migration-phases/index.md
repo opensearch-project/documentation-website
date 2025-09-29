@@ -16,6 +16,6 @@ redirect_from:
 
 # Migration phases
 
-This page outlines the core phases of migrating with Migration Assistant. There are three migration scenarios, each consisting of a sequence of common steps.
+This page outlines the phases of migrating with Migration Assistant. There are three migration scenarios, each consisting of a sequence of common steps.
 
 {% include migration-scenarios.html scenarios=site.data.migration-scenarios.scenarios %}

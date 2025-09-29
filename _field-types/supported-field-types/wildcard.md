@@ -22,6 +22,9 @@ At search time, required substrings from the query pattern are matched against t
 In general, exact match queries (like [`term`]({{site.url}}{{site.baseurl}}/query-dsl/term/term/) or [`terms`]({{site.url}}{{site.baseurl}}/query-dsl/term/term/) queries) perform less effectively on `wildcard` fields than on `keyword` fields, while [`wildcard`]({{site.url}}{{site.baseurl}}/query-dsl/term/wildcard/), [`prefix`]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/), and [`regexp`]({{site.url}}{{site.baseurl}}/query-dsl/term/regexp/) queries perform better on `wildcard` fields.
 {: .tip}
 
+Wildcard fields do not support highlighting.
+{: .note}
+
 ## Example
 
 Create a mapping with a `wildcard` field:
@@ -40,6 +43,9 @@ PUT logs
 ```
 {% include copy-curl.html %}
 
+All queries on wildcard fields have a constant score---usually `1`. You can override the constant score using the `boost` parameter.
+{: .note}
+
 ## Parameters
 
 The following table lists all parameters available for `wildcard` fields.
@@ -47,6 +53,6 @@ The following table lists all parameters available for `wildcard` fields.
 Parameter | Description
 :--- | :---
 `doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
-`ignore_above` | Any string longer than this integer value should not be indexed. Default is `2147483647`.
+`ignore_above` | Any string longer than this integer value should not be indexed. Default is `2147483647`. Dynamically updatable.
 `normalizer` | The normalizer used to preprocess values for indexing and search. By default, no normalization occurs and the original value is used. You may use the `lowercase` normalizer to perform case-insentive matching on the field.
 `null_value` | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, then the field is treated as missing when its value is `null`. Default is `null`.

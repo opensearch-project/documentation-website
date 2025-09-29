@@ -11,7 +11,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The shrink index API operation moves all of your data in an existing read-only index into a new index with fewer primary shards.
+The shrink index API operation moves all of your data in an existing read-only index into a new index with fewer primary shards. This operation requires that a copy of each shard, either primary or replica, is located on the same node. You can use [shard allocation filtering]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shard-allocation/) to move shards to the same node.
 
 To make the index read-only, set the [dynamic index-level index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) `index.blocks.write` to `true`.
 {: .note}
@@ -81,8 +81,10 @@ For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/
 
 ## Example request
 
-```json
-POST /my-old-index/_shrink/my-new-index
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-old-index/_shrink/my-new-index
+body: |
 {
   "settings": {
     "index.number_of_replicas": 4,
@@ -92,5 +94,40 @@ POST /my-old-index/_shrink/my-new-index
     "new-index-alias": {}
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /my-old-index/_shrink/my-new-index
+{
+  "settings": {
+    "index.number_of_replicas": 4,
+    "index.number_of_shards": 3
+  },
+  "aliases": {
+    "new-index-alias": {}
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.shrink(
+  index = "my-old-index",
+  target = "my-new-index",
+  body =   {
+    "settings": {
+      "index.number_of_replicas": 4,
+      "index.number_of_shards": 3
+    },
+    "aliases": {
+      "new-index-alias": {}
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->

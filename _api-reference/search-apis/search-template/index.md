@@ -30,8 +30,10 @@ You can code your application to ask your user what they want to search for and 
 
 This command defines a search template to find a play by its name. The `{% raw %}{{play_name}}{% endraw %}` in the query is replaced by the value `Henry IV`:
 
-```json
-GET _search/template
+<!-- spec_insert_start
+component: example_code
+rest: GET /_search/template
+body: |
 {
   "source": {
     "query": {
@@ -44,20 +46,79 @@ GET _search/template
     "play_name": "Henry IV"
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_search/template
+{
+  "source": {
+    "query": {
+      "match": {
+        "play_name": "{% raw %}{{play_name}}{% endraw %}"
+      }
+    }
+  },
+  "params": {
+    "play_name": "Henry IV"
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search_template(
+  body =   {
+    "source": {
+      "query": {
+        "match": {
+          "play_name": "{% raw %}{{play_name}}{% endraw %}"
+        }
+      }
+    },
+    "params": {
+      "play_name": "Henry IV"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 This template runs the search on your entire cluster. To run this search on a specific index, add the index name to the request:
 
-```json
-GET shakespeare/_search/template
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /shakespeare/_search/template
+-->
+{% capture step1_rest %}
+GET /shakespeare/_search/template
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search_template(
+  index = "shakespeare",
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Specify the `from` and `size` parameters:
 
-```json
-GET _search/template
+<!-- spec_insert_start
+component: example_code
+rest: GET /_search/template
+body: |
 {
   "source": {
     "from": "{% raw %}{{from}}{% endraw %}",
@@ -74,8 +135,55 @@ GET _search/template
     "size": 10
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_search/template
+{
+  "source": {
+    "from": "{% raw %}{{from}}{% endraw %}",
+    "size": "{% raw %}{{size}}{% endraw %}",
+    "query": {
+      "match": {
+        "play_name": "{% raw %}{{play_name}}{% endraw %}"
+      }
+    }
+  },
+  "params": {
+    "play_name": "Henry IV",
+    "from": 10,
+    "size": 10
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search_template(
+  body =   {
+    "source": {
+      "from": "{% raw %}{{from}}{% endraw %}",
+      "size": "{% raw %}{{size}}{% endraw %}",
+      "query": {
+        "match": {
+          "play_name": "{% raw %}{{play_name}}{% endraw %}"
+        }
+      }
+    },
+    "params": {
+      "play_name": "Henry IV",
+      "from": 10,
+      "size": 10
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To improve the search experience, you can define defaults so the user doesn’t have to specify every possible parameter. If the parameter is not defined in the `params` section, OpenSearch uses the default value.
 
@@ -88,8 +196,10 @@ The syntax for defining the default value for a variable `var` is as follows:
 
 This command sets the defaults for `from` as 10 and `size` as 10:
 
-```json
-GET _search/template
+<!-- spec_insert_start
+component: example_code
+rest: GET /_search/template
+body: |
 {
   "source": {
     "from": "{% raw %}{{from}}{{^from}}10{{/from}}{% endraw %}",
@@ -104,8 +214,51 @@ GET _search/template
     "play_name": "Henry IV"
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_search/template
+{
+  "source": {
+    "from": "{% raw %}{{from}}{{^from}}10{{/from}}{% endraw %}",
+    "size": "{% raw %}{{size}}{{^size}}10{{/size}}{% endraw %}",
+    "query": {
+      "match": {
+        "play_name": "{% raw %}{{play_name}}{% endraw %}"
+      }
+    }
+  },
+  "params": {
+    "play_name": "Henry IV"
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search_template(
+  body =   {
+    "source": {
+      "from": "{% raw %}{{from}}{{^from}}10{{/from}}{% endraw %}",
+      "size": "{% raw %}{{size}}{{^size}}10{{/size}}{% endraw %}",
+      "query": {
+        "match": {
+          "play_name": "{% raw %}{{play_name}}{% endraw %}"
+        }
+      }
+    },
+    "params": {
+      "play_name": "Henry IV"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Save and execute search templates
@@ -137,8 +290,10 @@ POST _scripts/play_search_template
 
 Now you can reuse the template by referring to its `id` parameter. You can reuse this source template for different input values:
 
-```json
-GET _search/template
+<!-- spec_insert_start
+component: example_code
+rest: GET /_search/template
+body: |
 {
   "id": "play_search_template",
   "params": {
@@ -147,8 +302,39 @@ GET _search/template
     "size": 1
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_search/template
+{
+  "id": "play_search_template",
+  "params": {
+    "play_name": "Henry IV",
+    "from": 0,
+    "size": 1
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search_template(
+  body =   {
+    "id": "play_search_template",
+    "params": {
+      "play_name": "Henry IV",
+      "from": 0,
+      "size": 1
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
@@ -191,16 +377,45 @@ GET _search/template
 
 If you have a stored template and want to validate it, use the `render` operation:
 
-```json
-POST _render/template
+<!-- spec_insert_start
+component: example_code
+rest: POST /_render/template
+body: |
 {
   "id": "play_search_template",
   "params": {
     "play_name": "Henry IV"
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /_render/template
+{
+  "id": "play_search_template",
+  "params": {
+    "play_name": "Henry IV"
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.render_search_template(
+  body =   {
+    "id": "play_search_template",
+    "params": {
+      "play_name": "Henry IV"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 For more information, see [Render Template API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/render-template/).
 
@@ -225,8 +440,10 @@ Using section tags would make your JSON invalid, so you must write your query in
 This command includes the `size` parameter in the query only when the `limit` parameter is set to `true`.
 In the following example, the `limit` parameter is `true`, so the `size` parameter is activated. As a result, you would get back only two documents.
 
-```json
-GET _search/template
+<!-- spec_insert_start
+component: example_code
+rest: POST /_render/template
+body: |
 {
   "source": "{% raw %}{ {{#limit}} \"size\": \"{{size}}\", {{/limit}}  \"query\":{\"match\":{\"play_name\": \"{{play_name}}\"}}}{% endraw %}",
   "params": {
@@ -235,13 +452,46 @@ GET _search/template
     "size": 2
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /_render/template
+{
+  "source": "{% raw %}{ {{#limit}} \"size\": \"{{size}}\", {{/limit}}  \"query\":{\"match\":{\"play_name\": \"{{play_name}}\"}}}{% endraw %}",
+  "params": {
+    "play_name": "Henry IV",
+    "limit": true,
+    "size": 2
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.render_search_template(
+  body =   {
+    "source": "{% raw %}{ {{#limit}} \"size\": \"{{size}}\", {{/limit}}  \"query\":{\"match\":{\"play_name\": \"{{play_name}}\"}}}{% endraw %}",
+    "params": {
+      "play_name": "Henry IV",
+      "limit": true,
+      "size": 2
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 You can also design an `if-else` condition. This command sets `size` to `2` if `limit` is `true`. Otherwise, it sets `size` to `10`:
 
-```json
-GET _search/template
+<!-- spec_insert_start
+component: example_code
+rest: GET /_search/template
+body: |
 {
   "source": "{% raw %}{ {{#limit}} \"size\": \"2\", {{/limit}} {{^limit}} \"size\": \"10\", {{/limit}} \"query\":{\"match\":{\"play_name\": \"{{play_name}}\"}}}{% endraw %}",
   "params": {
@@ -249,8 +499,37 @@ GET _search/template
     "limit": true
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_search/template
+{
+  "source": "{% raw %}{ {{#limit}} \"size\": \"2\", {{/limit}} {{^limit}} \"size\": \"10\", {{/limit}} \"query\":{\"match\":{\"play_name\": \"{{play_name}}\"}}}{% endraw %}",
+  "params": {
+    "play_name": "Henry IV",
+    "limit": true
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search_template(
+  body =   {
+    "source": "{% raw %}{ {{#limit}} \"size\": \"2\", {{/limit}} {{^limit}} \"size\": \"10\", {{/limit}} \"query\":{\"match\":{\"play_name\": \"{{play_name}}\"}}}{% endraw %}",
+    "params": {
+      "play_name": "Henry IV",
+      "limit": true
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Loops
 
@@ -263,8 +542,10 @@ You can also use the section tag to implement a for-each loop:
 
 When `var` is an array, the search template iterates through it and creates a `terms` query.
 
-```json
-GET _search/template
+<!-- spec_insert_start
+component: example_code
+rest: GET /_search/template
+body: |
 {
   "source": "{% raw %}{\"query\":{\"terms\":{\"play_name\":[\"{{#play_name}}\",\"{{.}}\",\"{{/play_name}}\"]}}}{% endraw %}",
   "params": {
@@ -274,8 +555,41 @@ GET _search/template
     ]
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_search/template
+{
+  "source": "{% raw %}{\"query\":{\"terms\":{\"play_name\":[\"{{#play_name}}\",\"{{.}}\",\"{{/play_name}}\"]}}}{% endraw %}",
+  "params": {
+    "play_name": [
+      "Henry IV",
+      "Othello"
+    ]
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search_template(
+  body =   {
+    "source": "{% raw %}{\"query\":{\"terms\":{\"play_name\":[\"{{#play_name}}\",\"{{.}}\",\"{{/play_name}}\"]}}}{% endraw %}",
+    "params": {
+      "play_name": [
+        "Henry IV",
+        "Othello"
+      ]
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 This template is rendered as:
 
@@ -299,8 +613,10 @@ GET _search/template
 
 You can use the `join` tag to concatenate values of an array (separated by commas):
 
-```json
-GET _search/template
+<!-- spec_insert_start
+component: example_code
+rest: GET /_search/template
+body: |
 {
   "source": {
     "query": {
@@ -316,8 +632,53 @@ GET _search/template
     ]
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_search/template
+{
+  "source": {
+    "query": {
+      "match": {
+        "text_entry": "{% raw %}{{#join}}{{text_entry}}{{/join}}{% endraw %}"
+      }
+    }
+  },
+  "params": {
+    "text_entry": [
+      "To be",
+      "or not to be"
+    ]
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search_template(
+  body =   {
+    "source": {
+      "query": {
+        "match": {
+          "text_entry": "{% raw %}{{#join}}{{text_entry}}{{/join}}{% endraw %}"
+        }
+      }
+    },
+    "params": {
+      "text_entry": [
+        "To be",
+        "or not to be"
+      ]
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Renders as:
 
@@ -338,8 +699,10 @@ GET _search/template
 
 You can use the `toJson` tag to convert parameters to their JSON representation:
 
-```json
-GET _search/template
+<!-- spec_insert_start
+component: example_code
+rest: GET /_search/template
+body: |
 {
   "source": "{\"query\":{\"bool\":{\"must\":[{\"terms\": {\"text_entries\": {% raw %}{{#toJson}}text_entries{{/toJson}}{% endraw %} }}] }}}",
   "params": {
@@ -349,8 +712,57 @@ GET _search/template
     ]
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_search/template
+{
+  "source": "{\"query\":{\"bool\":{\"must\":[{\"terms\": {\"text_entries\": {% raw %}{{#toJson}}text_entries{{/toJson}}{% endraw %} }}] }}}",
+  "params": {
+    "text_entries": [
+      {
+        "term": {
+          "text_entry": "love"
+        }
+      },
+      {
+        "term": {
+          "text_entry": "soldier"
+        }
+      }
+    ]
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search_template(
+  body =   {
+    "source": "{\"query\":{\"bool\":{\"must\":[{\"terms\": {\"text_entries\": {% raw %}{{#toJson}}text_entries{{/toJson}}{% endraw %} }}] }}}",
+    "params": {
+      "text_entries": [
+        {
+          "term": {
+            "text_entry": "love"
+          }
+        },
+        {
+          "term": {
+            "text_entry": "soldier"
+          }
+        }
+      ]
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Renders as:
 
@@ -403,21 +815,80 @@ For more information, see [Multi-search Template API]({{site.url}}{{site.baseurl
 
 To list all scripts, run the following command:
 
-```json
-GET _cluster/state/metadata?pretty&filter_path=**.stored_scripts
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/state/metadata?pretty&filter_path=**.stored_scripts
+-->
+{% capture step1_rest %}
+GET /_cluster/state/metadata?pretty&filter_path=**.stored_scripts
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.state(
+  metric = "metadata",
+  params = { "pretty": "true", "filter_path": "**.stored_scripts" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To retrieve a specific search template, run the following command:
 
-```json
-GET _scripts/<name_of_search_template>
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_scripts/<name_of_search_template>
+-->
+{% capture step1_rest %}
+GET /_scripts/<name_of_search_template>
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get_script(
+  id = "<name_of_search_template>"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To delete a search template, run the following command:
 
-```json
-DELETE _scripts/<name_of_search_template>
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /_scripts/<name_of_search_template>
+-->
+{% capture step1_rest %}
+DELETE /_scripts/<name_of_search_template>
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.delete_script(
+  id = "<name_of_search_template>"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+## Search template API operations
+
+The following search template API operations are available:
+
+- [Multi-search template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/msearch-template/)
+- [Render template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/render-template/)

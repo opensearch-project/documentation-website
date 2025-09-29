@@ -9,6 +9,7 @@ redirect_from:
   - /opensearch/install/important-settings/
   - /install-and-configure/index/
   - /opensearch/install/index/
+  - /install-and-configure/install-opensearch/
 ---
 
 # Installing OpenSearch
@@ -16,6 +17,18 @@ redirect_from:
 This section provides information about how to install OpenSearch on your host, including which [ports to open](#network-requirements) and which [important settings](#important-settings) to configure on your host.
 
 For operating system compatibility, see [Compatible operating systems]({{site.url}}{{site.baseurl}}/install-and-configure/os-comp/).
+
+## Installation steps
+
+Installation steps vary depending on the deployment method. For steps specific to your deployment, see the following installation guides:
+
+- [Docker]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/)
+- [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/)
+- [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/)
+- [RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm/)
+- [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/)
+- [Ansible playbook]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/ansible/)
+- [Windows]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/windows/)
 
 
 ## File system recommendations
@@ -32,6 +45,7 @@ OpenSearch Version | Compatible Java Versions | Bundled Java Version
 1.3.x          | 8, 11, 14  | 11.0.25+9
 2.0.0--2.11.x    | 11, 17     | 17.0.2+8
 2.12.0+        | 11, 17, 21 | 21.0.5+11
+3.2.0+        | 11, 17, 21 | 24.0.2+12
 
 To use a different Java installation, set the `OPENSEARCH_JAVA_HOME` or `JAVA_HOME` environment variable to the Java install location. For example:
 ```bash
@@ -40,7 +54,7 @@ export OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk
 
 ## Network requirements
 
-The following ports need to be open for OpenSearch components.
+The following TCP ports need to be open for OpenSearch components.
 
 Port number | OpenSearch component
 :--- | :--- 
@@ -50,9 +64,12 @@ Port number | OpenSearch component
 9300 | Node communication and transport (internal), cross cluster search
 9600 | Performance Analyzer
 
+No UDP ports are used.
+{: .note}
+
 ## Important settings
 
-For production workloads, make sure the [Linux setting](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) `vm.max_map_count` is set to at least 262144. Even if you use the Docker image, set this value on the *host machine*. To check the current value, run this command:
+For production workloads running on Linux, make sure the [Linux setting](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) `vm.max_map_count` is set to at least `262144`. Even if you use the Docker image, set this value on the host machine. To check the current value, run this command:
 
 ```bash
 cat /proc/sys/vm/max_map_count

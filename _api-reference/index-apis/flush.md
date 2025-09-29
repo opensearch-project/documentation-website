@@ -51,20 +51,54 @@ All parameters are optional.
 
 The following example flushes an index named `shakespeare`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /shakespeare/_flush
+body: 
+-->
+{% capture step1_rest %}
 POST /shakespeare/_flush
-```
-{% include copy-curl.html %}
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.flush(
+  index = "shakespeare"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ### Flush all indexes
 
 The following example flushes all indexes in a cluster:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_flush
+body: 
+-->
+{% capture step1_rest %}
 POST /_flush
-```
-{% include copy-curl.html %}
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.indices.flush()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

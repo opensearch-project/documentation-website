@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /monitoring-plugins/ad/
   - /monitoring-plugins/ad/index/
+  - /observing-your-data/ad/
 ---
 
 # Anomaly detection

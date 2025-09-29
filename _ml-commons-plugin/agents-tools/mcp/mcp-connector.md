@@ -23,7 +23,7 @@ Before using MCP tools, you must complete the following prerequisites.
 
 ### Enable MCP and configure trusted connector endpoints
 
-- Enable the MCP protocol by configuring the `plugins.ml_commons.mcp_feature_enabled` setting.
+- Enable the MCP protocol by configuring the `plugins.ml_commons.mcp_connector_enabled` setting.
 - Configure trusted connector endpoints in the `plugins.ml_commons.trusted_connector_endpoints_regex` setting. For security purposes, this setting uses regex patterns to define which MCP server URLs are allowed.
 
 To configure both settings, send the following request:
@@ -35,7 +35,7 @@ POST /_cluster/settings/
     "plugins.ml_commons.trusted_connector_endpoints_regex": [
       "<mcp server url>"
     ],
-    "plugins.ml_commons.mcp_feature_enabled": "true"
+    "plugins.ml_commons.mcp_connector_enabled": "true"
   }
 }
 ```

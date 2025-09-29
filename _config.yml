@@ -6,10 +6,10 @@ latesturl: "/latest" # The subpath of the latest version. Used for non-version-s
 url: "https://docs.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '3.1.0'
-opensearch_dashboards_version: '3.1.0'
-opensearch_major_minor_version: '3.1'
-lucene_version: '10_2_1'
+opensearch_version: '3.2.0'
+opensearch_dashboards_version: '3.2.0'
+opensearch_major_minor_version: '3.2'
+lucene_version: '10_2_2'
 
 # Build settings
 markdown: kramdown
@@ -54,9 +54,6 @@ collections:
     permalink: /:collection/:path/
     output: true
   ml-commons-plugin:
-    permalink: /:collection/:path/
-    output: true  
-  tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
   monitoring-your-cluster:

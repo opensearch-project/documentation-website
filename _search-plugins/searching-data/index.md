@@ -4,7 +4,9 @@ title: Search options
 nav_order: 5
 has_children: true
 has_toc: false
-redirect_from: /opensearch/ux/
+redirect_from:
+  - /opensearch/ux/
+  - /search-plugins/searching-data/
 ---
 
 # Search options

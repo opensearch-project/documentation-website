@@ -70,17 +70,53 @@ storage_type | `local` indicates that all snapshot metadata and index data will 
 
 The following request restores the `opendistro-reports-definitions` index from `my-first-snapshot`. The `rename_pattern` and `rename_replacement` combination causes the index to be renamed to `opendistro-reports-definitions_restored` because duplicate open index names in a cluster are not allowed.
 
-````json
-POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
+<!-- spec_insert_start
+component: example_code
+rest: POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
+body: |
 {
   "indices": "opendistro-reports-definitions",
   "ignore_unavailable": true,
-  "include_global_state": false,              
+  "include_global_state": false,
   "rename_pattern": "(.+)",
   "rename_replacement": "$1_restored",
   "include_aliases": false
 }
-````
+-->
+{% capture step1_rest %}
+POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
+{
+  "indices": "opendistro-reports-definitions",
+  "ignore_unavailable": true,
+  "include_global_state": false,
+  "rename_pattern": "(.+)",
+  "rename_replacement": "$1_restored",
+  "include_aliases": false
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.restore(
+  repository = "my-opensearch-repo",
+  snapshot = "my-first-snapshot",
+  body =   {
+    "indices": "opendistro-reports-definitions",
+    "ignore_unavailable": true,
+    "include_global_state": false,
+    "rename_pattern": "(.+)",
+    "rename_replacement": "$1_restored",
+    "include_aliases": false
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

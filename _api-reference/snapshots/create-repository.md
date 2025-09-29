@@ -43,7 +43,7 @@ The following table lists parameters that can be used with both the `fs` and `s3
 Request field | Description
 :--- | :---
 `prefix_mode_verification` | When enabled, adds a hashed value of a random seed to the prefix for repository verification. For remote-store-enabled clusters, you can add the `setting.prefix_mode_verification` setting to the node attributes for the supplied repository. This field works with both new and existing repositories. Optional.
-`shard_path_type` | Controls the path structure of shard-level blobs. Supported values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`. For more information about each value, see [shard_path_type values](#shard_path_type-values)/. Default is `FIXED`. Optional.
+`shard_path_type` | Controls the path structure of shard-level blobs. Supported values are `FIXED`, `HASHED_PREFIX`, and `HASHED_INFIX`. For more information about each value, see [shard_path_type values](#shard_path_type-values)/. Default is `HASHED_PREFIX`. Optional.
 
 #### shard_path_type values
 
@@ -103,7 +103,18 @@ The `server_side_encryption` setting is removed as of OpenSearch 3.1.0. S3 appli
 
 The following example registers an `fs` repository using the local directory `/mnt/snapshots` as `location`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_snapshot/my-fs-repository
+body: |
+{
+  "type": "fs",
+  "settings": {
+    "location": "/mnt/snapshots"
+  }
+}
+-->
+{% capture step1_rest %}
 PUT /_snapshot/my-fs-repository
 {
   "type": "fs",
@@ -111,15 +122,46 @@ PUT /_snapshot/my-fs-repository
     "location": "/mnt/snapshots"
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.create_repository(
+  repository = "my-fs-repository",
+  body =   {
+    "type": "fs",
+    "settings": {
+      "location": "/mnt/snapshots"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### `s3`
 
 
 The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_snapshot/my-opensearch-repo
+body: |
+{
+  "type": "s3",
+  "settings": {
+    "bucket": "my-open-search-bucket",
+    "base_path": "my/snapshot/directory"
+  }
+}
+-->
+{% capture step1_rest %}
 PUT /_snapshot/my-opensearch-repo
 {
   "type": "s3",
@@ -128,13 +170,49 @@ PUT /_snapshot/my-opensearch-repo
     "base_path": "my/snapshot/directory"
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.create_repository(
+  repository = "my-opensearch-repo",
+  body =   {
+    "type": "s3",
+    "settings": {
+      "bucket": "my-open-search-bucket",
+      "base_path": "my/snapshot/directory"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`. Additionally, this repository is configured to use [SSE-KMS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html#encryption-context), and the expected bucket owner AWS account ID is `123456789000`.
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_snapshot/my-opensearch-repo
+body: |
+{
+  "type": "s3",
+  "settings": {
+    "bucket": "my-open-search-bucket",
+    "base_path": "my/snapshot/directory",
+    "server_side_encryption_type": "aws:kms",
+    "server_side_encryption_kms_key_id": "arn:aws:kms:us-east-1:123456789000:key/kms-key-id",
+    "server_side_encryption_encryption_context": "{\"additional-enc-ctx\": \"sample-context\"}",
+    "expected_bucket_owner": "123456789000",
+  }
+}
+-->
+{% capture step1_rest %}
 PUT /_snapshot/my-opensearch-repo
 {
   "type": "s3",
@@ -147,9 +225,34 @@ PUT /_snapshot/my-opensearch-repo
     "expected_bucket_owner": "123456789000",
   }
 }
-'
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.create_repository(
+  repository = "my-opensearch-repo",
+  body = '''
+{
+  "type": "s3",
+  "settings": {
+    "bucket": "my-open-search-bucket",
+    "base_path": "my/snapshot/directory",
+    "server_side_encryption_type": "aws:kms",
+    "server_side_encryption_kms_key_id": "arn:aws:kms:us-east-1:123456789000:key/kms-key-id",
+    "server_side_encryption_encryption_context": "{\"additional-enc-ctx\": \"sample-context\"}",
+    "expected_bucket_owner": "123456789000",
+  }
+}
+'''
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

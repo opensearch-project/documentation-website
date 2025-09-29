@@ -98,3 +98,23 @@ The remote build service username and password are secure settings that must be 
 {% include copy.html %}
 
 You can reload the secure settings without restarting the node by using the [Nodes Reload Secure Setings API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/).
+
+## Neural Search plugin settings
+
+The Neural Search plugin supports the following settings.
+
+### Cluster settings
+
+The following Neural Search plugin settings apply at the cluster level:
+
+- `plugins.neural_search.stats_enabled` (Dynamic, Boolean): Enables the [Neural Search Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#stats). Default is `false`.
+
+### Index settings
+
+The following Neural Search plugin settings apply at the index level:
+
+- `index.neural_search.semantic_ingest_batch_size` (Dynamic, integer): Specifies the number of documents batched together when generating embeddings for `semantic` fields during ingestion. Default is `10`. 
+
+<p id="hybrid-collapse-docs-per-group"></p>
+
+- `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` (Dynamic, integer): Controls how many documents are stored per group per subquery. By default, the value is set to the `size` parameter specified in the query. Lower values prioritize latency, while higher values increase recall. Valid values are `0`--`1000`, inclusive. A value of `0` uses the `size` parameter from the query, not zero documents.

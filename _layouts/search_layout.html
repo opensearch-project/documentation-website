@@ -40,35 +40,36 @@ layout: table_wrappers
     
         <div class="search-page">
             <aside class="search-page--sidebar">
-            <!--
             <h3>Filter results</h3>
-            -->
             <div class="version-selector-wrapper" id="version-panel">
                 <version-selector selected="{{ site.data.versions.current }}"></version-selector>
             </div>
             <form class="search-page--sidebar--category-filter">
                 <div class="search-page--sidebar--category-filter--checkbox">
-                <input type="checkbox" id="categoryAll" name="categoryGroup" value="All" class="category-checkbox" checked disabled>
+                <input type="checkbox" id="categoryAll" name="categoryGroup" value="All" class="category-checkbox" checked>
                 <label for="categoryAll">All</label>
                 </div>
                 <div class="search-page--sidebar--category-filter--checkbox-child">
-                <input type="checkbox" id="categoryDocumentation" name="categoryGroup" value="docs" class="category-checkbox" checked disabled>
+                <input type="checkbox" id="categoryDocumentation" name="categoryGroup" value="docs" class="category-checkbox" checked>
                 <label for="categoryDocumentation">Documentation</label>
                 </div>
-                <!---
+                <div class="search-page--sidebar--category-filter--checkbox-child">
+                <input type="checkbox" id="categoryAnnouncements" name="categoryGroup" value="announcements" class="category-checkbox" checked>
+                <label for="categoryAnnouncements">Announcements</label>
+                </div>
                 <div class="search-page--sidebar--category-filter--checkbox-child">
                 <input type="checkbox" id="categoryBlog" name="categoryGroup" value="blogs" class="category-checkbox" checked>
                 <label for="categoryBlog">Blogs</label>
                 </div>
                 <div class="search-page--sidebar--category-filter--checkbox-child">
+                <input type="checkbox" id="categoryNews" name="categoryGroup" value="news" class="category-checkbox" checked>
+                <label for="categoryNews">News</label>
+                </div>
+                <div class="search-page--sidebar--category-filter--checkbox-child">
                 <input type="checkbox" id="categoryEvent" name="categoryGroup" value="events" class="category-checkbox" checked>
                 <label for="categoryEvent">Events</label>
                 </div>
-            -->
             </form>
-
-            <div class="search-page--sidebar--external-link"><a href="https://opensearch.org/" target="_blank" >Search for blogs and events</a></div>
-
             </aside>
     
             <!-- Search Results Section -->
@@ -154,17 +155,18 @@ layout: table_wrappers
     });
       
 </script>
-<!--
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const categoryAll = document.getElementById('categoryAll');
         const categoryDocumentation = document.getElementById('categoryDocumentation');
         const categoryBlog = document.getElementById('categoryBlog');
         const categoryEvent = document.getElementById('categoryEvent');
+        const categoryAnnouncements = document.getElementById('categoryAnnouncements');
+        const categoryNews = document.getElementById('categoryNews');
         const searchInput = document.getElementById('searchPageInput');
 
         function updateAllCheckbox() {
-            if (categoryDocumentation.checked && categoryBlog.checked && categoryEvent.checked) {
+            if (categoryDocumentation.checked && categoryBlog.checked && categoryEvent.checked && categoryAnnouncements.checked && categoryNews.checked) {
                 categoryAll.checked = true;
             } else {
                 categoryAll.checked = false;
@@ -176,10 +178,14 @@ layout: table_wrappers
                 categoryDocumentation.checked = true;
                 categoryBlog.checked = true;
                 categoryEvent.checked = true;
+                categoryAnnouncements.checked = true;
+                categoryNews.checked = true;
             } else {
                 categoryDocumentation.checked = false;
                 categoryBlog.checked = false;
                 categoryEvent.checked = false;
+                categoryAnnouncements.checked = false;
+                categoryNews.checked = false;
             }
         }
 
@@ -195,13 +201,20 @@ layout: table_wrappers
             updateAllCheckbox(); 
             triggerSearch(searchInput.value.trim());
         });
+        categoryAnnouncements.addEventListener('change', () => {
+            updateAllCheckbox(); 
+            triggerSearch(searchInput.value.trim());
+        });
+        categoryNews.addEventListener('change', () => {
+            updateAllCheckbox(); 
+            triggerSearch(searchInput.value.trim());
+        });
         categoryEvent.addEventListener('change', () => {
             updateAllCheckbox(); 
             triggerSearch(searchInput.value.trim());
         });
     });
 </script>
--->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
       const searchInput = document.getElementById('searchPageInput');

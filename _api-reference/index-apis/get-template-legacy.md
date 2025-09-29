@@ -39,10 +39,27 @@ The following table lists the available query parameters. All parameters are opt
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_template/sample-template
+-->
+{% capture step1_rest %}
 GET /_template/sample-template
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.get_template(
+  name = "sample-template"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

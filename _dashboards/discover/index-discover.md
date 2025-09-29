@@ -3,8 +3,6 @@ layout: default
 title: Analyzing data
 nav_order: 20
 has_children: true
-redirect_from: 
-  - /dashboards/discover/index-discover/
 ---
 
 # Analyzing data

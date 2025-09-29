@@ -69,6 +69,8 @@ paths:
         url: https://docs.opensearch.org/latest/api-reference/index-apis/update-settings/
       requestBody:
         $ref: '#/components/requestBodies/indices.put_settings'
+      parameters:
+        - $ref: '#/components/parameters/cat.health___query.expand_wildcard'
       responses:
         '200':
           $ref: '#/components/responses/indices.put_settings___200'
@@ -81,6 +83,8 @@ paths:
       description: Allows to perform multiple index/update/delete operations in a single request.
       externalDocs:
         url: https://docs.opensearch.org/latest/api-reference/document-apis/bulk/
+      parameters:
+        - $ref: '#/components/parameters/cat.health___query.expand_wildcard'
       requestBody:
         $ref: '#/components/requestBodies/bulk'
 components:

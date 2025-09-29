@@ -181,10 +181,7 @@
             elSpinner?.classList.remove(CLASSNAME_SPINNING);
         };
 
-        const emptyResults = () => {
-            //ToDo: Replace with `elResults.replaceChildren();` when https://caniuse.com/?search=replaceChildren shows above 90% can use it
-            while (elResults.firstChild) elResults.firstChild.remove();
-        };
+        const emptyResults = () => elResults.replaceChildren();
 
         const sanitizeText = text => {
             return text?.replace?.(/</g, '&lt;');
@@ -256,7 +253,7 @@
 
         const navToResultsPage = () => {
             const query = encodeURIComponent(elInput.value);
-            window.location.href = `/docs/${docsVersion}/search.html?q=${query}`;
+            window.location.href = `/${docsVersion}/search.html?q=${query}`;
         }
 
         const navToResult = () => {
@@ -284,9 +281,18 @@ window.doResultsPageSearch = async (query, type, version) => {
     const searchResultsContainer = document.getElementById('searchPageResultsContainer');
 
     try {
-        const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${version}&t=DOCS`);
-        const data = await response.json();
         // Clear any previous search results
+        searchResultsContainer.innerHTML = '';
+
+        // Display a loading message while fetching results
+        const loadingElement = document.createElement('div');
+        loadingElement.textContent = 'Loading...';
+        searchResultsContainer.appendChild(loadingElement);
+
+        const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${version}&t=${type}`);
+        const data = await response.json();
+
+        // Clear the loading message
         searchResultsContainer.innerHTML = '';
 
         if (data.results && data.results.length > 0) {

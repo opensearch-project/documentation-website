@@ -95,18 +95,19 @@ To download a specific version of OpenSearch or OpenSearch Dashboards other than
 
 Before continuing, you should verify that Docker is working correctly by deploying OpenSearch in a single container.
 
-1. Run the following command:
+1. Start OpenSearch in Docker.
+    OpenSearch 2.12 or later requires that you set a custom admin password when starting. For more information, see [Setting a custom admin password](#setting-a-custom-admin-password). If the password is insufficiently strong, an error is reported in the log and OpenSearch quits:
+    ```bash
+    docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" opensearchproject/opensearch:latest
+    ```
+    Older versions do not include a password when starting:
     ```bash
     # This command maps ports 9200 and 9600, sets the discovery type to "single-node" and requests the newest image of OpenSearch
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
     ```
-   For OpenSearch 2.12 or greater, set a new custom admin password before installation using the following command:
-   ```bash
-    docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" opensearchproject/opensearch:latest
-    ```
-1. Send a request to port 9200. The default username and password are `admin`.
+1. After waiting a few minutes for OpenSearch to start, send a request to port `9200`. For versions earlier than 2.12, the default username and password are `admin`.
     ```bash
-    curl https://localhost:9200 -ku admin:<custom-admin-password>
+    curl https://localhost:9200 -ku admin:"<custom-admin-password>"
     ```
     {% include copy.html %}
 
@@ -497,11 +498,165 @@ For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/securit
 
 Use the same process to specify a [Backend configuration]({{site.url}}{{site.baseurl}}/security/configuration/configuration/) in `/usr/share/opensearch/config/opensearch-security/config.yml` as well as new internal users, roles, mappings, action groups, and tenants in their respective [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/).
 
-After replacing the certificates and creating your own internal users, roles, mappings, action groups, and tenants, use Docker Compose to start the cluster:
+#### Complete Docker Compose example with custom configuration
+
+After creating your own certificates, `internal_users.yml`, `roles.yml`, `roles_mapping.yml`, and the rest of the security configuration files, your `docker-compose.yaml` file should appear similar to the following:
+
+```yaml
+version: '3'
+services:
+  opensearch-node1:
+    image: opensearchproject/opensearch:${OS_VER}
+    container_name: opensearch-node1_${OS_VER}
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node1
+      - discovery.seed_hosts=opensearch-node1,opensearch-node2,opensearch-node3
+      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2,opensearch-node3
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - ./opensearch.yml:/usr/share/opensearch/config/opensearch.yml
+      - ./esnode.pem:/usr/share/opensearch/config/esnode.pem
+      - ./esnode-key.pem:/usr/share/opensearch/config/esnode-key.pem
+      - ./root-ca.pem:/usr/share/opensearch/config/root-ca.pem
+      - ./kirk-key.pem:/usr/share/opensearch/config/kirk-key.pem
+      - ./kirk.pem:/usr/share/opensearch/config/kirk.pem
+      - ./config.yml:/usr/share/opensearch/config/opensearch-security/config.yml
+      - ./roles_mapping.yml:/usr/share/opensearch/config/opensearch-security/roles_mapping.yml
+      - ./roles.yml:/usr/share/opensearch/config/opensearch-security/roles.yml
+      - ./action_groups.yml:/usr/share/opensearch/config/opensearch-security/action_groups.yml
+      - ./allowlist.yml:/usr/share/opensearch/config/opensearch-security/allowlist.yml
+      - ./audit.yml:/usr/share/opensearch/config/opensearch-security/audit.yml
+      - ./internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml
+      - ./nodes_dn.yml:/usr/share/opensearch/config/opensearch-security/nodes_dn.yml
+      - ./tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml
+      - ./whitelist.yml:/usr/share/opensearch/config/opensearch-security/whitelist.yml
+    ports:
+      - 9201:9200
+      - 9600:9600
+    networks:
+      - opensearch-net
+
+  opensearch-node2:
+    image: opensearchproject/opensearch:${OS_VER}
+    container_name: opensearch-node2_${OS_VER}
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node2
+      - discovery.seed_hosts=opensearch-node1,opensearch-node2,opensearch-node3
+      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2,opensearch-node3
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - ./opensearch.yml:/usr/share/opensearch/config/opensearch.yml
+      - ./esnode.pem:/usr/share/opensearch/config/esnode.pem
+      - ./esnode-key.pem:/usr/share/opensearch/config/esnode-key.pem
+      - ./root-ca.pem:/usr/share/opensearch/config/root-ca.pem
+      - ./kirk-key.pem:/usr/share/opensearch/config/kirk-key.pem
+      - ./kirk.pem:/usr/share/opensearch/config/kirk.pem
+      - ./config.yml:/usr/share/opensearch/config/opensearch-security/config.yml
+      - ./roles_mapping.yml:/usr/share/opensearch/config/opensearch-security/roles_mapping.yml
+      - ./roles.yml:/usr/share/opensearch/config/opensearch-security/roles.yml
+      - ./action_groups.yml:/usr/share/opensearch/config/opensearch-security/action_groups.yml
+      - ./allowlist.yml:/usr/share/opensearch/config/opensearch-security/allowlist.yml
+      - ./audit.yml:/usr/share/opensearch/config/opensearch-security/audit.yml
+      - ./internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml
+      - ./nodes_dn.yml:/usr/share/opensearch/config/opensearch-security/nodes_dn.yml
+      - ./tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml
+      - ./whitelist.yml:/usr/share/opensearch/config/opensearch-security/whitelist.yml
+    ports:
+      - 9200:9200
+    networks:
+      - opensearch-net
+
+  opensearch-node3:
+    image: opensearchproject/opensearch:${OS_VER}
+    container_name: opensearch-node3_${OS_VER}
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node3
+      - discovery.seed_hosts=opensearch-node1,opensearch-node2,opensearch-node3
+      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2,opensearch-node3
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - ./opensearch.yml:/usr/share/opensearch/config/opensearch.yml
+      - ./esnode.pem:/usr/share/opensearch/config/esnode.pem
+      - ./esnode-key.pem:/usr/share/opensearch/config/esnode-key.pem
+      - ./root-ca.pem:/usr/share/opensearch/config/root-ca.pem
+      - ./kirk-key.pem:/usr/share/opensearch/config/kirk-key.pem
+      - ./kirk.pem:/usr/share/opensearch/config/kirk.pem
+      - ./config.yml:/usr/share/opensearch/config/opensearch-security/config.yml
+      - ./roles_mapping.yml:/usr/share/opensearch/config/opensearch-security/roles_mapping.yml
+      - ./roles.yml:/usr/share/opensearch/config/opensearch-security/roles.yml
+      - ./action_groups.yml:/usr/share/opensearch/config/opensearch-security/action_groups.yml
+      - ./allowlist.yml:/usr/share/opensearch/config/opensearch-security/allowlist.yml
+      - ./audit.yml:/usr/share/opensearch/config/opensearch-security/audit.yml
+      - ./internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml
+      - ./nodes_dn.yml:/usr/share/opensearch/config/opensearch-security/nodes_dn.yml
+      - ./tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml
+      - ./whitelist.yml:/usr/share/opensearch/config/opensearch-security/whitelist.yml
+    ports:
+      - 9202:9200
+    networks:
+      - opensearch-net
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:${OSD_VER}
+    container_name: opensearch-dashboards_${OSD_VER}
+    volumes:
+      - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
+      - ./opensearch_dashboards.crt:/usr/share/opensearch-dashboards/config/opensearch_dashboards.crt
+      - ./opensearch_dashboards.key:/usr/share/opensearch-dashboards/config/opensearch_dashboards.key
+    ports:
+      - 5601:5601
+    expose:
+      - "5601"
+    environment:
+      OPENSEARCH_HOSTS: '["https://opensearch-node1:9200", "https://opensearch-node2:9200", "https://opensearch-node3:9200" ]'
+    networks:
+      - opensearch-net
+    depends_on:
+      - opensearch-node1
+      - opensearch-node2
+      - opensearch-node3
+
+networks:
+  opensearch-net:
+
+```
+{% include copy.html %}
+
+Use Docker Compose to start the cluster:
 ```bash
 docker compose up -d
 ```
 {% include copy.html %}
+
+The password for the `admin` user provided in the `.env` file is overridden by the password provided in the `internal_users.yml` file.
+{: .note}
 
 ### Working with plugins
 

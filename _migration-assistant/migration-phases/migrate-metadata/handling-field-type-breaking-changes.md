@@ -74,6 +74,7 @@ The following script demonstrates how to perform common field type conversions, 
 * Replacing the deprecated `string` type with `text`.
 * Converting `flattened` to `flat_object` and removing the `index` property if present.
 
+
 ```javascript
 function main(context) {
   const rules = [

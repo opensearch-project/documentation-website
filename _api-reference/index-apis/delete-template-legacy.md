@@ -39,10 +39,27 @@ The following table lists the available query parameters. All parameters are opt
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /_template/logging_template
+-->
+{% capture step1_rest %}
 DELETE /_template/logging_template
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.delete_template(
+  name = "logging_template"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

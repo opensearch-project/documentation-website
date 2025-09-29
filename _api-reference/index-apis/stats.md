@@ -79,55 +79,160 @@ The following example requests show how to use the Index Stats API.
 
 The following example returns index stats for a single index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /testindex/_stats
+-->
+{% capture step1_rest %}
 GET /testindex/_stats
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.stats(
+  index = "testindex"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Comma-separated list of indexes
 
 The following example returns stats for multiple indexes:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /testindex1,testindex2/_stats
+-->
+{% capture step1_rest %}
 GET /testindex1,testindex2/_stats
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.stats(
+  index = "testindex1,testindex2"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Wildcard expression
 
 The following example returns starts about any index that starts with `testindex`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /testindex*/_stats
+-->
+{% capture step1_rest %}
 GET /testindex*/_stats
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.stats(
+  index = "testindex*"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Specific stats
 
 The following example returns index stats related to the index and flush operations:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /testindex/_stats/refresh,flush
+-->
+{% capture step1_rest %}
 GET /testindex/_stats/refresh,flush
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.stats(
+  metric = "refresh,flush",
+  index = "testindex"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Expand wildcards
 
 The following example expands all wildcards related to index stats:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /testindex*/_stats?expand_wildcards=open,hidden
+-->
+{% capture step1_rest %}
 GET /testindex*/_stats?expand_wildcards=open,hidden
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.stats(
+  index = "testindex*",
+  params = { "expand_wildcards": "open,hidden" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Shard-level statistics
 
 The following example returns shard level stats about a test index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /testindex/_stats?level=shards
+-->
+{% capture step1_rest %}
 GET /testindex/_stats?level=shards
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.stats(
+  index = "testindex",
+  params = { "level": "shards" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
@@ -235,7 +340,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
       },
       "fielddata": {
         "memory_size_in_bytes": 0,
-        "evictions": 0
+        "evictions": 0,
+        "item_count": 0
       },
       "completion": {
         "size_in_bytes": 0
@@ -402,7 +508,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
       },
       "fielddata": {
         "memory_size_in_bytes": 0,
-        "evictions": 0
+        "evictions": 0,
+        "item_count": 0
       },
       "completion": {
         "size_in_bytes": 0
@@ -573,7 +680,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         },
         "fielddata": {
           "memory_size_in_bytes": 0,
-          "evictions": 0
+          "evictions": 0,
+          "item_count": 0
         },
         "completion": {
           "size_in_bytes": 0
@@ -740,7 +848,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         },
         "fielddata": {
           "memory_size_in_bytes": 0,
-          "evictions": 0
+          "evictions": 0,
+          "item_count": 0
         },
         "completion": {
           "size_in_bytes": 0

@@ -63,7 +63,50 @@ The request body is **required**. It is a JSON object with the following fields.
 
 The following example updates the security configuration to configure basic authentication and an internal user database:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_plugins/_security/api/securityconfig/config
+body: |
+{
+  "dynamic": {
+    "filtered_alias_mode": "warn",
+    "disable_rest_auth": false,
+    "disable_intertransport_auth": false,
+    "respect_request_indices_options": false,
+    "opensearch-dashboards": {
+      "multitenancy_enabled": true,
+      "server_username": "kibanaserver",
+      "index": ".opensearch-dashboards"
+    },
+    "http": {
+      "anonymous_auth_enabled": false
+    },
+    "authc": {
+      "basic_internal_auth_domain": {
+        "http_enabled": true,
+        "transport_enabled": true,
+        "order": 0,
+        "http_authenticator": {
+          "challenge": true,
+          "type": "basic",
+          "config": {}
+        },
+        "authentication_backend": {
+          "type": "intern",
+          "config": {}
+        },
+        "description": "Authenticate via HTTP Basic against internal users database"
+      }
+    },
+    "auth_failure_listeners": {},
+    "do_not_fail_on_forbidden": false,
+    "multi_rolespan_enabled": true,
+    "hosts_resolver_mode": "ip-only",
+    "do_not_fail_on_forbidden_empty": false
+  }
+}
+-->
+{% capture step1_rest %}
 PUT /_plugins/_security/api/securityconfig/config
 {
   "dynamic": {
@@ -103,8 +146,58 @@ PUT /_plugins/_security/api/securityconfig/config
     "do_not_fail_on_forbidden_empty": false
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.security.update_configuration(
+  body =   {
+    "dynamic": {
+      "filtered_alias_mode": "warn",
+      "disable_rest_auth": false,
+      "disable_intertransport_auth": false,
+      "respect_request_indices_options": false,
+      "opensearch-dashboards": {
+        "multitenancy_enabled": true,
+        "server_username": "kibanaserver",
+        "index": ".opensearch-dashboards"
+      },
+      "http": {
+        "anonymous_auth_enabled": false
+      },
+      "authc": {
+        "basic_internal_auth_domain": {
+          "http_enabled": true,
+          "transport_enabled": true,
+          "order": 0,
+          "http_authenticator": {
+            "challenge": true,
+            "type": "basic",
+            "config": {}
+          },
+          "authentication_backend": {
+            "type": "intern",
+            "config": {}
+          },
+          "description": "Authenticate via HTTP Basic against internal users database"
+        }
+      },
+      "auth_failure_listeners": {},
+      "do_not_fail_on_forbidden": false,
+      "multi_rolespan_enabled": true,
+      "hosts_resolver_mode": "ip-only",
+      "do_not_fail_on_forbidden_empty": false
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
@@ -143,9 +236,3 @@ The Update Configuration API allows you to directly modify the Security plugin's
 ## Enabling this API
 
 By default, this API is disabled for security reasons. To enable it, you need to:
-
-1. Update the Security plugin's `config.yml` file.
-2. Add the setting `plugins.security.restapi.endpoints_disabled.securityconfig: "false"`.  
-3. Restart your OpenSearch cluster.
-
-Due to the potential security implications, enabling this API is generally not recommended for production environments.

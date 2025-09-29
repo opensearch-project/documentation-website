@@ -3,7 +3,7 @@ layout: default
 title: Pull-based ingestion
 parent: Document APIs
 has_children: true
-nav_order: 60
+nav_order: 90
 ---
 
 # Pull-based Ingestion API
@@ -109,13 +109,37 @@ You can use the [Update Settings API]({{site.url}}{{site.baseurl}}/api-reference
 
 The following example demonstrates how to update the error policy:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /my-index/_settings
+body: |
+{
+  "index.ingestion_source.error_strategy": "DROP"
+}
+-->
+{% capture step1_rest %}
 PUT /my-index/_settings
 {
   "index.ingestion_source.error_strategy": "DROP"
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_settings(
+  index = "my-index",
+  body =   {
+    "index.ingestion_source.error_strategy": "DROP"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Message format
 
@@ -158,10 +182,29 @@ The following table lists the available `polling_ingest_stats` metrics.
 
 To retrieve shard-level pull-based ingestion metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/):
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/stats/indices?level=shards&pretty
+-->
+{% capture step1_rest %}
 GET /_nodes/stats/indices?level=shards&pretty
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "indices",
+  node_id = "stats",
+  params = { "level": "shards", "pretty": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Limitations
