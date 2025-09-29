@@ -100,7 +100,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```
    {% include copy.html %}
 
-   For OpenSearch 2.12 or greater, set a new custom admin password before installation using the following command, following the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements):
+   For OpenSearch 2.12 or later, set a new custom admin password before installation using the following command, following the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements):
    ```bash
    $ export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
    ```
