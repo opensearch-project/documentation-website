@@ -85,7 +85,7 @@ For OpenSearch 2.12 or later, set a new custom admin password before installatio
 
 ### Helm
 
-For Helm charts, the demo configuration is automatically installed during the OpenSearch installation. For OpenSearch 2.12 or later, customize the admin password in `values.yaml` under `extraEnvs`:
+For Helm charts, the demo configuration is automatically installed during the OpenSearch installation. For OpenSearch 2.12 or later, customize the admin password in `values.yaml` under `extraEnvs`, following the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements):
 
 ```yaml
 extraEnvs:
