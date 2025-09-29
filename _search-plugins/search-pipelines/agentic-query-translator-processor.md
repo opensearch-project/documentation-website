@@ -1,22 +1,28 @@
 ---
 layout: default
 title: Agentic query translator
-nav_order: 60
+nav_order: 5
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
 # Agentic query translator processor
-Introduced 3.2
+**Introduced 3.2**
 {: .label .label-purple }
 
-The `agentic_query_translator` search request processor enables natural language search by translating user queries into OpenSearch DSL queries using machine learning agents. This processor works with [agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search) to provide conversational search capabilities.
+The `agentic_query_translator` search request processor enables natural language search by translating user queries into OpenSearch DSL queries using machine learning agents. It works with [agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search) to provide conversational search capabilities:
+
+1. The processor sends the user’s natural language query to the specified ML agent.
+2. The agent translates the query into OpenSearch DSL.
+3. The original query is replaced with the generated DSL query.
+
+This processor only works with the `agentic` query type as the top-level query.
+{: .note}
 
 ## Prerequisites
 
-- A configured ML agent (conversational or flow type) must be available
-- The processor only works with `agentic` query type as the top-level query
+Before using the agentic query translator processor, you must have either a conversational or flow agent configured. For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/).
 
 ## Request body fields
 
@@ -45,9 +51,9 @@ PUT /_search/pipeline/agentic_search_pipeline
 ```
 {% include copy-curl.html %}
 
-## Usage with agentic search query
+## Usage
 
-To use the processor, send a search request with an `agentic` query:
+To use the processor, run an `agentic` query:
 
 ```json
 POST /your-index/_search?search_pipeline=agentic_search_pipeline
@@ -59,8 +65,9 @@ POST /your-index/_search?search_pipeline=agentic_search_pipeline
     }
 }
 ```
+{% include copy-curl.html %}
 
-returns
+The response contains the matching documents:
 
 ```json
 {
@@ -118,8 +125,8 @@ returns
 }
 ```
 
-## How it works
+## Related articles
 
-1. The processor calls the specified ML agent with the natural language query
-2. The agent translates the query into proper OpenSearch DSL
-3. The original query is replaced with the generated DSL query
+- [Agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search)
+- [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/)
+- [Agentic context processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-context-processor/)

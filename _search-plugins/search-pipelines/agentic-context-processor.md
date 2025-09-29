@@ -1,17 +1,23 @@
 ---
 layout: default
 title: Agentic context
-nav_order: 70
+nav_order: 2
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
 ---
 
 # Agentic context processor
-Introduced 3.3
+**Introduced 3.3**
 {: .label .label-purple }
 
-The `agentic_context` search response processor adds agent execution context information to search response extensions. This processor works in conjunction with the [agentic query translator]({{site.url}}{{site.baseurl}}/search-plugins/agentic-query-translator/) to provide transparency into the agent's query translation process and maintain conversation continuity.
+The `agentic_context` search response processor adds agent execution context information to search response extensions. This processor works in conjunction with the [agentic query translator]({{site.url}}{{site.baseurl}}/search-plugins/agentic-query-translator/) to expose the agent's query translation process and maintain conversation continuity:
+
+1. The processor retrieves agent context information from the pipeline processing context.
+2. Based on the processor configuration, it selectively includes agent steps summary and DSL query in the response.
+3. The memory ID is always included when available for conversation continuity.
+4. The context information is added to the search response extensions.
+5. Type validation ensures that all context attributes are strings.
 
 ## Request body fields
 
@@ -24,12 +30,12 @@ Field | Data type | Description
 
 ## Response fields
 
-When enabled, the processor adds the following fields to the search response extensions:
+When enabled, the processor adds the following fields to the search response extensions.
 
 Field | Description
 :--- | :---
-`agent_steps_summary` | A summary of the steps the agent took to translate the natural language query (included when `agent_steps_summary` is `true`)
-`dsl_query` | The generated DSL query that was executed (included when `dsl_query` is `true`)
+`agent_steps_summary` | A summary of the steps that the agent took to translate the natural language query (included when `agent_steps_summary` is `true`).
+`dsl_query` | The generated DSL query that was executed (included when `dsl_query` is `true`).
 
 ## Example
 
@@ -57,9 +63,7 @@ PUT /_search/pipeline/agentic_pipeline
 ```
 {% include copy-curl.html %}
 
-## Usage
-
-When you perform a search with the configured pipeline, the response will include agent context information:
+Perform a search using the configured pipeline:
 
 ```json
 POST /your-index/_search?search_pipeline=agentic_search_pipeline
@@ -74,7 +78,7 @@ POST /your-index/_search?search_pipeline=agentic_search_pipeline
 ```
 {% include copy-curl.html %}
 
-### Example response
+The response contains the steps taken by the agent to translate the query, the memory ID, and the rewritten DSL query:
 
 ```json
 {
@@ -91,10 +95,8 @@ POST /your-index/_search?search_pipeline=agentic_search_pipeline
 }
 ```
 
-## How it works
+## Related articles
 
-1. The processor retrieves agent context information from the pipeline processing context
-2. Based on configuration, it selectively includes agent steps summary and DSL query
-3. Memory ID is always included when available for conversation continuity
-4. The context information is added to the search response extensions
-5. Type validation ensures all context attributes are strings
+- [Agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search)
+- [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/)
+- [Agentic query translator processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/)
