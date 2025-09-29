@@ -7,6 +7,7 @@ parent: OpenSearch Benchmark Reference
 redirect_from:
   - /benchmark/commands/index/
   - /benchmark/reference/commands/
+  - /benchmark/commands/execute-test/
 ---
 
 # OpenSearch Benchmark command reference
