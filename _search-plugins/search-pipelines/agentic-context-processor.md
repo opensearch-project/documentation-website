@@ -35,6 +35,7 @@ When enabled, the processor adds the following fields to the search response ext
 Field | Description
 :--- | :---
 `agent_steps_summary` | A summary of the steps that the agent took to translate the natural language query (included when `agent_steps_summary` is `true`).
+`memory_id` | The conversation memory ID for maintaining context across queries. Only provide this in the agentic query if you want to continue the previous conversation.
 `dsl_query` | The generated DSL query that was executed (included when `dsl_query` is `true`).
 
 ## Example
