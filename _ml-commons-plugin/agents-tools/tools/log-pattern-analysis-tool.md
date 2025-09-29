@@ -14,16 +14,21 @@ grand_parent: Agents and tools
 {: .label .label-purple }
 <!-- vale on -->
 
-The `LogPatternAnalysisTool` performs advanced log analysis by detecting exceptional log patterns and sequences through comparative analysis between baseline and selection time ranges. It supports three analysis modes: log sequence analysis (with trace correlation), log pattern difference analysis, and log insights analysis for error detection.
+The `LogPatternAnalysisTool` performs an advanced log analysis by detecting anomalous log patterns and sequences through comparative analysis between baseline and selection time ranges. It supports the following analysis modes: 
+
+- Log sequence analysis (with trace correlation)
+- Log pattern difference analysis
+- Log insights analysis for error detection
+
 The tool uses machine learning clustering algorithms and statistical methods to identify anomalous patterns that appear significantly more frequently in the selection period compared to the baseline period, helping detect system issues and performance anomalies.
 
-## Analysis Modes
+## Analysis modes
 
 The tool automatically selects the appropriate analysis mode based on the provided parameters:
 
-- **Log Sequence Analysis**: When both traceFieldName and baseline time range are provided, analyzes trace-correlated log sequences to identify exceptional execution paths.
-- **Log Pattern Difference Analysis**: When baseline time range is provided without trace field, compares log patterns between baseline and selection periods to detect anomalous patterns.
-- **Log Insights Analysis**: When only selection time range is provided, performs error keyword-based pattern analysis to identify critical issues.
+- **Log sequence analysis**: When both a trace field and a baseline time range are provided, the tool analyzes trace-correlated log sequences to identify anomalous execution paths.
+- **Log pattern difference analysis**: When a baseline time range is provided without a trace field, the tool compares log patterns between baseline and selection periods to detect anomalous patterns.
+- **Log insights analysis**: When only a selection time range is provided, the tool performs pattern analysis based on error keywords in order to identify critical issues.
 
 ## Step 1: Register a flow agent that will run the LogPatternAnalysisTool
 
@@ -48,7 +53,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-For parameter descriptions, see [Register parameters](#register-parameters).
+No parameters are required to register the tool. The tool uses dynamic parameter validation at execution time. 
 
 OpenSearch responds with an agent ID:
 
@@ -60,9 +65,11 @@ OpenSearch responds with an agent ID:
 
 ## Step 2: Run the agent
 
-### Log Sequence Analysis Example
+Run the agent to perform various analysis types.
 
-Run the agent for trace-based sequence analysis by sending the following request:
+### Log sequence analysis 
+
+To perform a trace-based sequence analysis, provide a `traceFieldName`, `baseTimeRangeStart` and `baseTimeRangeEnd`:
 
 ```json
 POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
@@ -81,48 +88,6 @@ POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
 ```
 {% include copy-curl.html %}
 
-### Log Pattern Difference Analysis Example
-
-Run the agent for pattern comparison analysis:
-
-```json
-POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
-{
-  "parameters": {
-    "index": "opensearch_dashboards_sample_data_logs",
-    "timeField": "@timestamp",
-    "logFieldName": "message",
-    "baseTimeRangeStart": "2018-07-22 00:00:00",
-    "baseTimeRangeEnd": "2018-07-22 12:00:00",
-    "selectionTimeRangeStart": "2018-07-22 12:00:00",
-    "selectionTimeRangeEnd": "2018-07-22 23:59:59"
-  }
-}
-```
-{% include copy-curl.html %}
-
-### Log Insights Analysis Example
-
-Run the agent for error pattern detection:
-
-```json
-POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
-{
-  "parameters": {
-    "index": "application_logs",
-    "timeField": "@timestamp",
-    "logFieldName": "message",
-    "selectionTimeRangeStart": "2025-01-15 10:00:00",
-    "selectionTimeRangeEnd": "2025-01-15 11:00:00"
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Response Examples
-
-### Log Sequence Analysis Response
-
 OpenSearch returns exceptional trace sequences that differ significantly from baseline patterns:
 
 ```json
@@ -140,7 +105,25 @@ OpenSearch returns exceptional trace sequences that differ significantly from ba
 }
 ```
 
-### Log Pattern Difference Analysis Response
+### Log pattern difference analysis
+
+To perform a pattern comparison analysis, provide a `baseTimeRangeStart` and `baseTimeRangeEnd`:
+
+```json
+POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
+{
+  "parameters": {
+    "index": "opensearch_dashboards_sample_data_logs",
+    "timeField": "@timestamp",
+    "logFieldName": "message",
+    "baseTimeRangeStart": "2018-07-22 00:00:00",
+    "baseTimeRangeEnd": "2018-07-22 12:00:00",
+    "selectionTimeRangeStart": "2018-07-22 12:00:00",
+    "selectionTimeRangeEnd": "2018-07-22 23:59:59"
+  }
+}
+```
+{% include copy-curl.html %}
 
 OpenSearch returns patterns with significant frequency changes between time periods:
 
@@ -159,7 +142,23 @@ OpenSearch returns patterns with significant frequency changes between time peri
 }
 ```
 
-### Log Insights Analysis Response
+### Log insights analysis
+
+To perform an error pattern detection, provide only a selection time range:
+
+```json
+POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
+{
+  "parameters": {
+    "index": "application_logs",
+    "timeField": "@timestamp",
+    "logFieldName": "message",
+    "selectionTimeRangeStart": "2025-01-15 10:00:00",
+    "selectionTimeRangeEnd": "2025-01-15 11:00:00"
+  }
+}
+```
+{% include copy-curl.html %}
 
 OpenSearch returns error patterns with sample logs:
 
@@ -178,25 +177,17 @@ OpenSearch returns error patterns with sample logs:
 }
 ```
 
-## Register parameters
-
-The following table lists the available tool parameters for agent registration.
-
-| Parameter | Type | Required/Optional | Description |
-|:----------|:-----|:------------------|:------------|
-| No parameters required for registration | | | The tool uses dynamic parameter validation at execution time. |
-
 ## Execute parameters
 
 The following table lists the available tool parameters for running the agent.
 
 | Parameter | Type | Required/Optional | Description |
 |:----------|:-----|:------------------|:------------|
-| `index` | String | Required | Target OpenSearch index name containing log data (e.g., 'ss4o_logs-otel-2025.06.24'). |
-| `timeField` | String | Optional | Date/time field in the index mapping used for time-based filtering. Default is `@timestamp`. |
-| `logFieldName` | String | Required | Field containing raw log messages to analyze (e.g., 'body', 'message', 'log'). |
-| `traceFieldName` | String | Optional | Field for trace/correlation ID to enable sequence analysis (e.g., 'traceId', 'correlationId'). Required for log sequence analysis mode. |
-| `baseTimeRangeStart` | String | Optional | Start time for baseline comparison period (UTC date string, e.g., '2025-06-24 07:33:05'). Required for sequence and pattern difference analysis modes. |
-| `baseTimeRangeEnd` | String | Optional | End time for baseline comparison period (UTC date string, e.g., '2025-06-24 07:51:27'). Required for sequence and pattern difference analysis modes. |
-| `selectionTimeRangeStart` | String | Required | Start time for analysis target period (UTC date string, e.g., '2025-06-24 07:50:26'). |
-| `selectionTimeRangeEnd` | String | Required | End time for analysis target period (UTC date string, e.g., '2025-06-24 07:55:56'). |
+| `index` | String | Required | The name of the OpenSearch index containing log data (for example, `ss4o_logs-otel-2025.06.24`). |
+| `timeField` | String | Optional | A date/time field in the index mapping used for time-based filtering. Default is `@timestamp`. |
+| `logFieldName` | String | Required | The field containing raw log messages to analyze (for example, `body`, `message`, or `log`). |
+| `traceFieldName` | String | Optional | The field containing a trace ID or correlation ID to enable sequence analysis (for example, `traceId` or `correlationId`). Required for the log sequence analysis mode. |
+| `baseTimeRangeStart` | String | Optional | The start time for the baseline comparison period, in UTC date string format (for example, `2025-06-24 07:33:05`). Required for the sequence and pattern difference analysis modes. |
+| `baseTimeRangeEnd` | String | Optional | The end time for the baseline comparison period , in UTC date string format (for example, `2025-06-24 07:51:27`). Required for the sequence and pattern difference analysis modes. |
+| `selectionTimeRangeStart` | String | Required | The start time for the analysis target period , in UTC date string format (for example, `2025-06-24 07:50:26`). |
+| `selectionTimeRangeEnd` | String | Required | End time for analysis target period, in UTC date string format (for example, `2025-06-24 07:55:56`). |

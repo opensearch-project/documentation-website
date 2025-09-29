@@ -3,7 +3,7 @@ layout: default
 title: Data Distribution tool
 has_children: false
 has_toc: false
-nav_order: 39
+nav_order: 25
 parent: Tools
 grand_parent: Agents and tools
 ---
@@ -18,14 +18,14 @@ The `DataDistributionTool` analyzes data distribution patterns within datasets a
 
 The tool supports both [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/) and [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries for flexible data retrieval and filtering.
 
-## Analysis Modes
+## Analysis modes
 
 The tool automatically selects the appropriate analysis mode based on the provided parameters:
 
-- **Comparative Analysis**: When both baseline and selection time ranges are provided, compares field distributions between the two periods to identify significant changes and divergences.
-- **Single Dataset Analysis**: When only selection time range is provided, analyzes distribution patterns within the dataset to provide insights into field value frequencies and characteristics.
+- **Comparative analysis**: When both baseline and selection time ranges are provided, the tool compares field distributions between the two periods to identify significant changes and divergences.
+- **Single dataset analysis**: When only a selection time range is provided, the tool analyzes distribution patterns within the dataset to provide insights into field value frequencies and characteristics.
 
-## Step 1: Register a flow agent that will run the DataDistributionTool
+## Step 1: Register a flow agent that runs the DataDistributionTool
 
 A flow agent runs a sequence of tools in order, returning the last tool's output. To create a flow agent, send the following register agent request:
 
@@ -48,7 +48,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-For parameter descriptions, see [Register parameters](#register-parameters).
+No parameters are required to register the tool. The tool uses dynamic parameter validation at execution time. 
 
 OpenSearch responds with an agent ID:
 
@@ -60,9 +60,11 @@ OpenSearch responds with an agent ID:
 
 ## Step 2: Run the agent
 
-### Comparative Analysis Example
+Run the agent to perform either a comparative distribution analysis or a single dataset distribution analysis.
 
-Run the agent for comparative distribution analysis between two time periods:
+### Comparative analysis
+
+To perform a comparative distribution analysis between two time periods, provide both a baseline and selection time ranges:
 
 ```json
 POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
@@ -82,9 +84,26 @@ POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
 ```
 {% include copy-curl.html %}
 
-### Single Dataset Analysis Example
+OpenSearch returns field-by-field comparison showing distribution changes between time periods:
 
-Run the agent for single dataset distribution analysis:
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": "{\"comparisonAnalysis\": [{\"field\": \"status\", \"divergence\": 0.2, \"topChanges\": [{\"value\": \"error\", \"selectionPercentage\": 0.3, \"baselinePercentage\": 0.1}, {\"value\": \"success\", \"selectionPercentage\": 0.7, \"baselinePercentage\": 0.9}]}]}"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Single dataset analysis
+
+To perform a single dataset distribution analysis, provide only a selection time range:
 
 ```json
 POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
@@ -101,7 +120,24 @@ POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
 ```
 {% include copy-curl.html %}
 
-### PPL Query Example
+OpenSearch returns distribution patterns for the analyzed dataset:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": "{\"singleAnalysis\": [{\"field\": \"status\", \"divergence\": 0.7, \"topChanges\": [{\"value\": \"error\", \"selectionPercentage\": 0.3, \"baselinePercentage\": 0.0}, {\"value\": \"success\", \"selectionPercentage\": 0.7, \"baselinePercentage\": 0.0}]}]}"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Using a PPL query
 
 Run the agent using PPL for data retrieval:
 
@@ -121,7 +157,7 @@ POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
 ```
 {% include copy-curl.html %}
 
-### Custom DSL Query Example
+## Using a custom DSL query
 
 Run the agent with a complete custom DSL query:
 
@@ -141,68 +177,20 @@ POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
 ```
 {% include copy-curl.html %}
 
-## Response Examples
-
-### Comparative Analysis Response
-
-OpenSearch returns field-by-field comparison showing distribution changes between time periods:
-
-```json
-{
-  "inference_results": [
-    {
-      "output": [
-        {
-          "name": "response",
-          "result": "{\"comparisonAnalysis\": [{\"field\": \"status\", \"divergence\": 0.2, \"topChanges\": [{\"value\": \"error\", \"selectionPercentage\": 0.3, \"baselinePercentage\": 0.1}, {\"value\": \"success\", \"selectionPercentage\": 0.7, \"baselinePercentage\": 0.9}]}]}"
-        }
-      ]
-    }
-  ]
-}
-```
-
-### Single Dataset Analysis Response
-
-OpenSearch returns distribution patterns for the analyzed dataset:
-
-```json
-{
-  "inference_results": [
-    {
-      "output": [
-        {
-          "name": "response",
-          "result": "{\"singleAnalysis\": [{\"field\": \"status\", \"divergence\": 0.7, \"topChanges\": [{\"value\": \"error\", \"selectionPercentage\": 0.3, \"baselinePercentage\": 0.0}, {\"value\": \"success\", \"selectionPercentage\": 0.7, \"baselinePercentage\": 0.0}]}]}"
-        }
-      ]
-    }
-  ]
-}
-```
-
-## Register parameters
-
-The following table lists the available tool parameters for agent registration.
-
-| Parameter | Type | Required/Optional | Description |
-|:----------|:-----|:------------------|:------------|
-| No parameters required for registration | | | The tool uses dynamic parameter validation at execution time. |
-
 ## Execute parameters
 
 The following table lists the available tool parameters for running the agent.
 
 | Parameter | Type | Required/Optional | Description |
 |:----------|:-----|:------------------|:------------|
-| `index` | String | Required | Target OpenSearch index name containing the data to analyze. |
-| `timeField` | String | Optional | Date/time field for time-based filtering. Default is `@timestamp`. |
-| `selectionTimeRangeStart` | String | Required | Start time for the analysis period (UTC date string, e.g., '2025-01-15 10:00:00'). |
-| `selectionTimeRangeEnd` | String | Required | End time for the analysis period (UTC date string, e.g., '2025-01-15 11:00:00'). |
-| `baselineTimeRangeStart` | String | Optional | Start time for baseline comparison period. Required for comparative analysis mode. |
-| `baselineTimeRangeEnd` | String | Optional | End time for baseline comparison period. Required for comparative analysis mode. |
-| `size` | Integer | Optional | Maximum number of documents to analyze. Default is `1000`, maximum is `10000`. |
-| `queryType` | String | Optional | Query type: 'ppl' or 'dsl'. Default is 'dsl'. |
-| `filter` | Array | Optional | Additional DSL query conditions as JSON strings for filtering (e.g., `["{\"term\": {\"status\": \"error\"}}", "{\"range\": {\"level\": {\"gte\": 3}}}"]`). |
-| `dsl` | String | Optional | Complete raw DSL query as JSON string. Takes precedence over filter parameter when provided. |
-| `ppl` | String | Optional | Complete PPL statement without time information. Used when queryType is 'ppl'. |
+| `index` | String | Required | The name of the OpenSearch index containing the data to analyze. |
+| `timeField` | String | Optional | A date/time field for time-based filtering. Default is `@timestamp`. |
+| `selectionTimeRangeStart` | String | Required | The start time for the analysis period in UTC date string format (for example, `2025-01-15 10:00:00`). |
+| `selectionTimeRangeEnd` | String | Required | The end time for the analysis period in UTC date string format (for example, `2025-01-15 11:00:00`). |
+| `baselineTimeRangeStart` | String | Optional | The start time for baseline comparison period. Required for comparative analysis mode. |
+| `baselineTimeRangeEnd` | String | Optional | The end time for baseline comparison period. Required for comparative analysis mode. |
+| `size` | Integer | Optional | The maximum number of documents to analyze. Default is `1000`. Maximum is `10000`. |
+| `queryType` | String | Optional | The query type. Valid values are `ppl` and `dsl`. Default is `dsl`. |
+| `filter` | Array | Optional | Additional DSL query conditions for filtering, specified as JSON strings (for example, `["{\"term\": {\"status\": \"error\"}}", "{\"range\": {\"level\": {\"gte\": 3}}}"]`). |
+| `dsl` | String | Optional | A complete raw DSL query as a JSON string. If provided, takes precedence over the `filter` parameter. |
+| `ppl` | String | Optional | A complete PPL statement without time information. Used when `queryType` is `ppl`. |
