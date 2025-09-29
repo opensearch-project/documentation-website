@@ -208,7 +208,7 @@ Starting with OpenSearch Benchmark version 1.15.0, you can use session-based aut
    --target-hosts=<CLUSTER ENDPOINT> \
    --pipeline=benchmark-only \
    --workload=geonames \
-   --client-options=timeout:120,amazon_aws_log_in:session,region:<region>,service:<service>
+   --client-options=timeout:120,amazon_aws_log_in:session,region:<region>,service:<aoss for serverless, es for managed service>
    ```
    {% include copy.html %}
 
