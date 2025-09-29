@@ -190,7 +190,7 @@ Parameter | Type | Description
 `snapshot_config.include_global_state` | Boolean | Do you want to include cluster state? Optional. Default is `true` because of [Security plugin considerations]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore#security-considerations).
 `snapshot_config.partial` | Boolean | Do you want to allow partial snapshots? Optional. Default is `false`.
 `snapshot_config.metadata` | Object | Metadata in the form of key/value pairs. Optional.
-`creation` | Object | Configuration for snapshot creation. Optional. (This parameter is optional only for OpenSearch 3.3 and later; it should not be left unset until all nodes are upgraded to 3.3 or later.)
+`creation` | Object | Configuration for snapshot creation. Optional in OpenSearch 3.3 and later. **Important**: Do not leave this unset until all nodes are upgraded to OpenSearch 3.3 or later.
 `creation.schedule` | String | The cron schedule used to create snapshots. Required.
 `creation.time_limit` | String | Sets the maximum time to wait for snapshot creation to finish. If time_limit is longer than the scheduled time interval for taking snapshots, no scheduled snapshots are taken until time_limit elapses. For example, if time_limit is set to 35 minutes and snapshots are taken every 30 minutes starting at midnight, the snapshots at 00:00 and 01:00 are taken, but the snapshot at 00:30 is skipped. Optional. 
 `deletion` | Object | Configuration for snapshot deletion. Optional. Default is to retain all snapshots.
