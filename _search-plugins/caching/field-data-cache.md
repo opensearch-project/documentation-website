@@ -53,7 +53,8 @@ The response contains the cache statistics:
       "indices" : {
         "fielddata" : {
           "memory_size_in_bytes" : 0,
-          "evictions" : 0
+          "evictions" : 0,
+          "item_count" : 0
         }
       }
     }

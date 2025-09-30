@@ -20,7 +20,7 @@ By default, the Neural Search Stats API is disabled through a cluster setting. T
 PUT /_cluster/settings
 {
   "persistent": {
-    "plugins.neural_search.stats_enabled": "true"
+    "plugins.neural_search.stats_enabled": true
   }
 }
 ```
