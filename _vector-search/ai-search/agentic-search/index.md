@@ -7,7 +7,7 @@ has_children: true
 ---
 
 # Agentic search
-Introduced 3.2
+**Introduced 3.2**
 {: .label .label-purple }
 
 Agentic search lets users ask questions in natural language and have OpenSearch plan and execute the retrieval automatically. A preconfigured **agent** reads the question, plans the search, and returns relevant results.
