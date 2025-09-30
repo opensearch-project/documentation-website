@@ -267,6 +267,65 @@ If you're using separate `otel_logs_source`, `otel_metrics_source`, or `otel_tra
 2. Use [routing configuration](#routing-telemetry-signals) to direct different signal types to their appropriate pipelines.
 3. Change the port numbers if needed (the OTLP source uses port `21893` by default).
 
+### Before: Using individual OTel sources
+
+#### Pipeline using OTel logs source
+```yaml
+logs-pipeline:
+  source:
+    otel_logs_source:
+      port: 21892
+  sink:
+    - opensearch:
+        index: logs
+```
+#### Pipeline using OTel metrics source
+```yaml
+metrics-pipeline:
+  source:
+    otel_metrics_source:
+      port: 21891
+  sink:
+    - opensearch:
+        index: metrics
+```
+#### Pipeline using OTel trace source
+```yaml
+traces-pipeline:
+  source:
+    otel_trace_source:
+      port: 21890
+  sink:
+    - opensearch:
+        index: traces
+```
+
+### After: Using unified OTLP source
+
+```yaml
+otlp-pipeline:
+  source:
+    otlp:
+      port: 21893
+  route:
+    - logs: 'getEventType() == "LOG"'
+    - metrics: 'getEventType() == "METRIC"'
+    - traces: 'getEventType() == "TRACE"'
+  sink:
+    - opensearch:
+        routes: 
+          - logs
+        index: logs
+    - opensearch:
+        routes:
+          - metrics
+        index: metrics
+    - opensearch:
+        routes:
+          - traces
+        index: traces
+```
+
 ## Related articles
 
 - [OTel logs source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-logs-source/)
