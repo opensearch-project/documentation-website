@@ -157,7 +157,7 @@ POST /_scripts/store_sum_skus
             "m": {
               "bucket_script": {
                 "buckets_path": { "x": "i>f>q" },
-                "script": { "source": "params.x >= {{min}}{{^min}}10{{/min}} ? 1 : 0" }
+                "script": { "source": "{% raw %}params.x >= {{min}}{{^min}}10{{/min}} ? 1 : 0{% endraw %}" }
               }
             }
           }
@@ -170,14 +170,12 @@ POST /_scripts/store_sum_skus
 ```
 {% include copy-curl.html %}
 
-### Step 5: Register Query Planner Tool with Search Templates
+### Step 5: Register Agent with Query Planner Tool (with Search Templates)
 
 Refer to these to register query planner model and the agent model:
 
 - [Create a model for Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-3-create-a-model-for-query-planning-tool)
 - [Create a Model for Conversational Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-4-create-a-model-for-conversational-agent)
-- [Create an Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-5-create-an-agent)
-- [Create a search pipeline]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-6-create-a-search-pipeline)
 
 ```json
 {
@@ -296,16 +294,7 @@ POST /stores/_search?search_pipeline=my_pipeline
 }
 ```
 
-This error demonstrates that the LLM struggled to generate a valid query for this complex scenario. The failure occurred because:
-
-- The query involves nested aggregations with multiple SKUs
-- Complex filtering logic across inventory arrays
-- Script-based calculations with type handling
-
-LLMs often encounter issues with:
-- Incorrect `_source` iteration patterns
-- Misuse of `doc` values in scripts
-- Type mismatches causing runtime `script_exception` errors
+This error demonstrates that the LLM struggled to generate a valid query for this complex scenario. The failure occurred because the query involves advanced features like scripts and complex aggregations that are difficult for LLMs to generate correctly.
 
 Let's now demonstrate how search templates solve this problem:
 

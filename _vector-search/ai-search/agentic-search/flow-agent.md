@@ -98,7 +98,7 @@ GET products-index/_search?search_pipeline=agentic-pipeline
 **Key differences for flow agents:**
 - **Must specify index name**: Unlike conversational agents, you must include the index name in the URL path
 - **No memory_id**: Flow agents don't support conversation memory, so you cannot use `memory_id` parameter
-- **Simplified response**: No `agent_steps_summary` or detailed reasoning in the response
+- **Limited response details**: No `agent_steps_summary` or detailed reasoning in the response
 
 **Example response:**
 ```json

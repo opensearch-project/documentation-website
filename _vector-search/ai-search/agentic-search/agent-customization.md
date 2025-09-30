@@ -118,19 +118,17 @@ POST /_plugins/_ml/connectors/_create
 
 ## Tool orchestration
 
-### Essential tools for intelligent search
-
-#### QueryPlanningTool (Required)
+### QueryPlanningTool (Required)
 
 The [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/) is mandatory for agentic search functionality. It translates natural language queries into OpenSearch DSL.
 
-#### Additional tools
+### Additional tools
 
 You can add any tools from the [ML Commons Tools documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/) to enhance your agent's capabilities. 
 
 The conversational agent will automatically select and orchestrate the appropriate tools based on the query context.
 
-**Complete agent configuration:** {#complete-agent-configuration}
+#### Complete agent configuration
 
 ```json
 POST /_plugins/_ml/agents/_register

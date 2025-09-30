@@ -48,10 +48,10 @@ When executed, the agentic search request performs the following steps:
 3. The generated DSL query is executed as a search request in OpenSearch.
 4. Returns the search results based on the generated query.
 
-For a complete example, see [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/).
+For a complete example, see [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/).
 
 ## Next steps
 
-- Learn how to set up agentic search in [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/).
+- Learn how to set up agentic search in [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/).
 - Learn about configuring agents in [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 - Learn about the [QueryPlanningTool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/).

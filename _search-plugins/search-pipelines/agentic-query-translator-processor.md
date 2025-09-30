@@ -127,6 +127,6 @@ The response contains the matching documents:
 
 ## Related pages
 
-- [Agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search)
+- [Agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/)
 - [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/)
 - [Agentic context processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-context-processor/)

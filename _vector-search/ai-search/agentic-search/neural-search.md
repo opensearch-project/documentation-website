@@ -141,8 +141,8 @@ POST /_bulk
 
 Register two models as described in the [Agentic Search setup]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/):
 
-1. **[Register a model for the Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-a-model-for-conversational-agent)**
-2. **[Register a model for Query Planning Tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-query-planning-tool)**
+1. **[Register a model for the Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-4-create-a-model-for-conversational-agent)**
+2. **[Register a model for Query Planning Tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-3-create-a-model-for-query-planning-tool)**
 
 ### Step 6: Create Agent with Embedding Model ID
 

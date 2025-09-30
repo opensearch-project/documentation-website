@@ -98,6 +98,6 @@ The response contains the steps taken by the agent to translate the query, the m
 
 ## Related pages
 
-- [Agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search)
+- [Agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/)
 - [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/)
 - [Agentic query translator processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/)
