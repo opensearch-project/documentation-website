@@ -9,7 +9,7 @@ nav_order: 2
 **Introduced 3.2**
 {: .label .label-purple }
 
-Use the `agentic` query to ask questions in natural language and have OpenSearch automatically plan and execute the retrieval. The `agentic` query works in conjunction with a preconfigured agent that reads the question, plans the search, and returns relevant results. For more information about agentic search, see [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/).
+Use the `agentic` query to ask questions in natural language and have OpenSearch automatically plan and execute the retrieval. The `agentic` query works in conjunction with a preconfigured agent that reads the question, plans the search, and returns relevant results. For more information about agentic search, see [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/).
 
 **Prerequisite**<br>
 Before using an `agentic` query, you must configure an agent with the [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/) and create a search pipeline with an `agentic_query_translator` search request processor.

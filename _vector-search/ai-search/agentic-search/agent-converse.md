@@ -13,7 +13,7 @@ Enable monitoring and conversation continuation using the `agentic_context` resp
 
 ## Prerequisites
 
-- An agent is registered and configured as in Agent customization
+- An agent is registered and configured as descrived in [Agent customization]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#complete-agent-configuration)
 - The agent includes the QueryPlanningTool
 
 ## Setup: Create Search Pipeline
@@ -91,8 +91,8 @@ GET /_search?search_pipeline=agentic-pipeline
 
 ### Prerequisites: Register Models
 
-1. **Register a model for the Agent** - This model will be used by the conversational agent for reasoning and tool orchestration
-2. **Register a model for Query Planning Tool** - This model will be used specifically by the QueryPlanningTool to generate OpenSearch DSL queries
+1. **[Register a model for the Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-a-model-for-conversational-agent)** - This model will be used by the conversational agent for reasoning and tool orchestration
+2. **[Register a model for Query Planning Tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-query-planning-tool)** - This model will be used specifically by the QueryPlanningTool to generate OpenSearch DSL queries
 
 ### 1. Create product index
 

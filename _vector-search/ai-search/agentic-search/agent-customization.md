@@ -130,7 +130,7 @@ You can add any tools from the [ML Commons Tools documentation]({{site.url}}{{si
 
 The conversational agent will automatically select and orchestrate the appropriate tools based on the query context.
 
-**Complete agent configuration:**
+**Complete agent configuration:** {#complete-agent-configuration}
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -141,8 +141,7 @@ POST /_plugins/_ml/agents/_register
     "llm": {
         "model_id": "your-conversational-model-id",
         "parameters": {
-            "max_iteration": 15,
-            "embedding_model_id": "your-embedding-model-id"
+            "max_iteration": 15
         }
     },
     "memory": {
@@ -198,6 +197,7 @@ GET /_search?search_pipeline=agentic-pipeline
 {% include copy-curl.html %}
 
 The agent will automatically discover product indices, analyze their structure, and generate appropriate queries.
+
 **Performance consideration**: When you don't specify an index in your search query, the search runs against all shards in the cluster, which can be expensive. For better performance, specify the target index when possible.
 
 ## Prompt engineering and customization

@@ -34,7 +34,7 @@ Before using a flow agent, you need to:
 
 3. **Register a model for Query Planner Tool (QPT)**
    
-   See [Step 3: Create a model for Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-query-planning-tool) for detailed instructions.
+   See [Step 3: Create a model for Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-3-create-a-model-for-query-planning-tool) for detailed instructions.
 
 4. **Register a flow agent**
      ```json

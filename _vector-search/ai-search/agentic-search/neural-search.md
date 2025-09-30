@@ -9,7 +9,7 @@ has_children: false
 
 # Neural Search
 
-Neural is a type of DSL query that requires a `model_id` to perform semantic search on KNN indices. You can provide the embedding model ID during the registration of the agent, and the Query Planner Tool reads this embedding model ID and produces a neural query when the question requires it. This example demonstrates how agentic search can intelligently generate neural DSL queries by providing the embedding model ID in multiple ways - during agent registration, or even directly in your question.
+`neural` is a type of DSL claude that requires a `model_id` to perform semantic search on KNN indices (when not model id is not directly associated with the index). To make Agentic Search generate neural queries with `model_id` field, you can provide the embedding model ID during the registration of the agent, and the Query Planner Tool reads this embedding model ID and produces a neural query when the question requires it. This example demonstrates how agentic search can intelligently generate neural DSL queries by providing the embedding model ID in multiple ways - during agent registration, or even directly in your `query_text`.
 
 ## Complete Example: Neural DSL Generation with Agentic Search
 
@@ -141,8 +141,8 @@ POST /_bulk
 
 Register two models as described in the [Agentic Search setup]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/):
 
-1. **[Register a model for the Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-4-create-a-model-for-conversational-agent)** - Step 4
-2. **[Register a model for Query Planning Tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-3-create-a-model-for-query-planning-tool)** - Step 3
+1. **[Register a model for the Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-a-model-for-conversational-agent)**
+2. **[Register a model for Query Planning Tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-query-planning-tool)**
 
 ### Step 6: Create Agent with Embedding Model ID
 
