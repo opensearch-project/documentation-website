@@ -17,7 +17,7 @@ This is an experimental UI feature. For updates on the progress of the feature o
 Agentic search lets you ask questions in natural language and have OpenSearch agents plan and execute the retrieval automatically. The AI Search Flows plugin offers an intuitive user interface for configuring agents, equipping agents with different tools, and executing agentic searches.
 
 **Prerequisite: Provision ML resources**<br>
-If you'd like to configure new agents, be sure to first provision appropriate models. For working examples, see [here]({{site.url}}{{site.baseurl}}/TODO/).
+If you'd like to configure new agents, be sure to first provision appropriate models. For working examples, see [Model configurations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configurations).
 
 **Prerequisite: Ingest data**<br>
 Ensure you have a sufficient number of documents in your cluster to reasonably evaluate your agentic searches.
@@ -46,7 +46,7 @@ The workflow editor is organized into two main components:
 
 ## Example: Product search with GPT-5
 
-This example is using a deployed OpenAI GPT-5 model as specified [here]({{site.url}}{{site.baseurl}}/TODO/).
+This example is using a deployed OpenAI GPT-5 model as specified [here]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#gpt-5-recommended).
 {: .note}
 
 1. On the **Workflows** page, select the **New workflow** tab, as shown in the following image.
