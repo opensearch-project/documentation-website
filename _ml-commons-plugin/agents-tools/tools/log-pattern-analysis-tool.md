@@ -169,7 +169,7 @@ OpenSearch returns error patterns with sample logs:
       "output": [
         {
           "name": "response",
-          "result": "{\"logInsights\": [{\"pattern\": \"<*> FATAL <*> OutOfMemoryError\", \"count\": 45, \"sampleLogs\": [\"2025-01-15 10:30:15 FATAL JVM OutOfMemoryError: Java heap space\"]}]}"
+          "result": "{\"logInsights\": [{\"pattern\": \"<*> ERROR User <*> authentication failed\", \"count\": 23, \"sampleLogs\": [\"2025-01-15 10:30:15 ERROR User user123 authentication failed\", \"2025-01-15 10:32:08 ERROR User admin456 authentication failed\"]}]}"
         }
       ]
     }
