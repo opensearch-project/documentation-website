@@ -194,3 +194,16 @@ The following table lists the available tool parameters for running the agent.
 | `filter` | Array | Optional | Additional DSL query conditions for filtering, specified as JSON strings (for example, `["{\"term\": {\"status\": \"error\"}}", "{\"range\": {\"level\": {\"gte\": 3}}}"]`). |
 | `dsl` | String | Optional | A complete raw DSL query as a JSON string. If provided, takes precedence over the `filter` parameter. |
 | `ppl` | String | Optional | A complete PPL statement without time information. Used when `queryType` is `ppl`. |
+
+## Limitations
+
+The Data Distribution tool has the following limitations:
+
+- **Maximum document volume**: The tool has a default limit of 1,000 documents per execution, with a maximum configurable limit of 10,000 documents (`MAX_SIZE_LIMIT = 10000`).
+- **Field cardinality limits**: High-cardinality fields are automatically filtered to ensure meaningful analysis results:
+  - ID fields: Maximum 30 unique values.
+  - Data fields: Maximum 10 unique values (or dataset size ÷ 2, whichever is larger).
+- **Result limits**: 
+  - Comparative analysis: Returns top 10 field differences.
+  - Single dataset analysis: Returns top 30 field distributions.
+  - Top changes per field: Limited to 10 items.

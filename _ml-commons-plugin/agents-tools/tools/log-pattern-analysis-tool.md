@@ -191,3 +191,12 @@ The following table lists the available tool parameters for running the agent.
 | `baseTimeRangeEnd` | String | Optional | The end time for the baseline comparison period , in UTC date string format (for example, `2025-06-24 07:51:27`). Required for the sequence and pattern difference analysis modes. |
 | `selectionTimeRangeStart` | String | Required | The start time for the analysis target period , in UTC date string format (for example, `2025-06-24 07:50:26`). |
 | `selectionTimeRangeEnd` | String | Required | End time for analysis target period, in UTC date string format (for example, `2025-06-24 07:55:56`). |
+
+## Limitations
+
+The Log Pattern Analysis tool has the following limitations:
+
+- **Log volume**: The tool processes logs through PPL queries with a maximum limit of 10,000 documents per query. For optimal performance, limit analysis to specific time ranges.
+- **Result limits**:
+  - Pattern difference analysis: Returns top 10 significant patterns.
+  - Log insights analysis: Returns top 5 error patterns with up to 2 sample logs each.
