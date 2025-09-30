@@ -59,7 +59,7 @@ This ensures optimal performance across different data scales while maintaining 
 Sparse ANN offers several advantages over traditional neural sparse search approaches:
 
 - **Significant query performance improvement**: Achieves astonishing query speed improvement compared to two-phase queries under ≥90% recall conditions
-- **Scalability**: Maintains consistent query performance even as datasets scale to 50 Million vectors in a single node
+- **Scalability**: Maintains consistent query performance even as datasets scale to 50 million vectors in a single node
 - **Memory efficiency**: Uses optimized caching strategies and quantization to manage memory usage
 - **Hybrid approach**: Automatically selects the optimal indexing strategy based on segment size
 - **High search flexibility**: Users can smoothly tune the trade-off between high recall and low latency with the help of `top_n` & `heap_factor` these two parameters
@@ -79,7 +79,7 @@ Sparse ANN provides several parameters to optimize performance for different use
 - **summary_prune_ratio**: Ratio of token weights to keep in cluster summary vectors (default: 0.4)
 - **approximate_threshold**: Document count threshold that triggers sparse ANN algorithm on a segment (default: 1,000,000)
 
-More details can be seen in [sparse ANN index setting]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/)
+More details can be seen in [sparse vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/sparse-vector/)
 
 ### Query parameters
 
@@ -88,7 +88,7 @@ More details can be seen in [sparse ANN index setting]({{site.url}}{{site.baseur
 - **heap_factor**: Tuning parameter for recall vs. QPS trade-off (default: 1.0)
 - **filter**: Optional boolean filter for pre-filtering or post-filtering
 
-More details can be seen in [sparse ANN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/)
+More details can be seen in [sparse ANN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/#sparse-ann-query)
 
 ## Performance characteristics
 
@@ -108,8 +108,8 @@ Sparse ANN supports both pre-filtering and post-filtering approaches. See [Filte
 Sparse ANN implements sophisticated memory management strategies:
 
 - **Flexible caching**: Configurable strategies allowing users to balance query performance against memory usage
-- **Circuit breakers**: Prevent memory exhaustion and service degradation
-- **Quantization support**: Multiple quantization levels to reduce memory footprint
+- **Circuit breaker**: Prevent memory exhaustion and service degradation
+- **Quantization support**: Byte quantization to reduce memory footprint
 
 ## When to use sparse ANN
 

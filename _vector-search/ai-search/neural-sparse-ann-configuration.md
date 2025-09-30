@@ -59,7 +59,7 @@ PUT /sparse-ann-documents
 
 ## Step 2: Ingest data
 
-After a sparse ANN index is successfully created, you can ingest sparse embeddings with tokens in the form of Integers into it
+After a sparse ANN index is successfully created, you can ingest sparse embeddings with tokens in the form of integers into it
 
 ```json
 POST _bulk
@@ -70,7 +70,7 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-You can also use [ingestion pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) which automatically adjusts the output format of tokens into Integer
+You can also use [ingestion pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) which automatically adjusts the output format of tokens into integer.
 
 ## Step 3: Conduct a query
 
@@ -97,7 +97,7 @@ GET /sparse-ann-documents/_search
 {% include copy-curl.html %}
 
 ### Raw vector query
-In addition, you can also prepare sparse vectors in advance so that you can send a raw vector as a query. Please note that you should use tokens in a form of Integer here instead of raw text.
+In addition, you can also prepare sparse vectors in advance so that you can send a raw vector as a query. Please note that you should use tokens in a form of integer here instead of raw text.
 ```json
 GET /sparse-ann-documents/_search
 {
@@ -152,7 +152,7 @@ A higher circuit breaker limit will allow more memory space to use, which preven
 
 ### Monitor sparse ANN
 
-Use stats API to monitor memory usage and query stats. More details can be seen in [Neural Search API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/)
+Use stats API to monitor memory usage and query stats. More details can be seen in [Neural Search API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#stats)
 
 ## Performance tuning
 Sparse ANN provides users with an opportunity to balance the trade-off between how accurate search results are and how fast search process can be. In short, you can tune balance between recall and latency with following parameter settings. Check guidance in [sparse ANN performance tuning]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-sparse/)

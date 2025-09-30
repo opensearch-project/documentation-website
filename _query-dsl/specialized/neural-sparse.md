@@ -162,4 +162,4 @@ GET my-nlp-index/_search
 ## Next steps
 
 - For more information about neural sparse search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/).
-- For more information about sparse ANN search, see [Sparse Approximate Search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-seismic/)
+- For more information about sparse ANN search, see [Sparse ANN Search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/)
