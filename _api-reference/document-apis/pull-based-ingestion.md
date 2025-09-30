@@ -26,7 +26,7 @@ Before using pull-based ingestion, ensure that the following prerequisites are m
 
 ## Creating an index for pull-based ingestion
 
-To ingest data from a streaming source, first create an index with pull-based ingestion settings. The following request creates an index that pulls data from a Kafka topic in the default ingestion mode. For other available modes, see [Ingestion modes](#ingestion-modes).
+To ingest data from a streaming source, first create an index with pull-based ingestion settings. The following request creates an index that pulls data from a Kafka topic in the segment replication mode. For other available modes, see [Ingestion modes](#ingestion-modes).
 
 ```json
 PUT /my-index
@@ -82,9 +82,9 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 
 Pull-based ingestion supports the following modes.
 
-#### Default mode
+#### Segment replication mode
 
-In the default mode, the primary shards ingest events from a streaming source and index the documents. The pull-based index is configured to use [segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/) to copy over the segment files from primary to replica shards.
+The primary shards ingest events from a streaming source and index the documents. The pull-based index is configured to use [segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/) to copy over the segment files from primary to replica shards.
 We recommend using this mode with a [remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
 
 #### All-active mode
