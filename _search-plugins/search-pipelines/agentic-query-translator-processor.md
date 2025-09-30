@@ -11,9 +11,9 @@ grand_parent: Search pipelines
 **Introduced 3.2**
 {: .label .label-purple }
 
-The `agentic_query_translator` search request processor enables natural language search by translating user queries into OpenSearch DSL queries using machine learning agents. It works with [agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search) to provide conversational search capabilities:
+The `agentic_query_translator` search request processor enables natural language search by translating user queries into OpenSearch query domain-specific language (DSL) queries using machine learning (ML) agents. It works with [agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search) to provide conversational search capabilities:
 
-1. The processor sends the user’s natural language query to the specified ML agent.
+1. The processor sends the user's natural language query to the specified ML agent.
 2. The agent translates the query into OpenSearch DSL.
 3. The original query is replaced with the generated DSL query.
 
@@ -22,7 +22,7 @@ This processor only works with the `agentic` query type as the top-level query.
 
 ## Prerequisites
 
-Before using the agentic query translator processor, you must have either a conversational or flow agent configured. For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/).
+Before using the `agentic_query_translator` processor, you must have either a conversational or flow agent configured. For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/).
 
 ## Request body fields
 
@@ -125,7 +125,7 @@ The response contains the matching documents:
 }
 ```
 
-## Related articles
+## Related pages
 
 - [Agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search)
 - [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/)

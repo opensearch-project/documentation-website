@@ -14,8 +14,8 @@ grand_parent: Search pipelines
 The `agentic_context` search response processor adds agent execution context information to search response extensions. This processor works in conjunction with the [agentic query translator]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/) to expose the agent's query translation process and maintain conversation continuity:
 
 1. The processor retrieves agent context information from the pipeline processing context.
-2. Based on the processor configuration, it selectively includes agent steps summary and DSL query in the response.
-3. The memory ID is always included when available for conversation continuity.
+2. Based on the processor configuration, it selectively includes the agent steps summary and the query domain-specific language (DSL) query in the response.
+3. The memory ID is always included, when available, for conversation continuity.
 4. The context information is added to the search response extensions.
 5. Type validation ensures that all context attributes are strings.
 
@@ -35,7 +35,7 @@ When enabled, the processor adds the following fields to the search response ext
 Field | Description
 :--- | :---
 `agent_steps_summary` | A summary of the steps that the agent took to translate the natural language query (included when `agent_steps_summary` is `true`).
-`memory_id` | The conversation memory ID for maintaining context across queries. Only provide this in the agentic query if you want to continue the previous conversation.
+`memory_id` | The conversation memory ID for maintaining context across queries. Only provide this in the `agentic` query if you want to continue the previous conversation.
 `dsl_query` | The generated DSL query that was executed (included when `dsl_query` is `true`).
 
 ## Example
@@ -96,7 +96,7 @@ The response contains the steps taken by the agent to translate the query, the m
 }
 ```
 
-## Related articles
+## Related pages
 
 - [Agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search)
 - [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/)

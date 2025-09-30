@@ -32,6 +32,6 @@ OpenSearch supports the following specialized queries:
 
 - [`script_score`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/): Calculates a custom score for matching documents using a script.
 
-- [`template`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/template/): Allows you to use mustache templating in queries.
+- [`template`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/template/): Allows you to use Mustache templating in queries.
 
 - [`wrapper`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/wrapper/): Accepts other queries as JSON or YAML strings.
