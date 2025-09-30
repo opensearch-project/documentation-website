@@ -184,7 +184,7 @@ The following table lists the available tool parameters for running the agent.
 | Parameter | Type | Required/Optional | Description |
 |:----------|:-----|:------------------|:------------|
 | `index` | String | Required | The name of the OpenSearch index containing the data to analyze. |
-| `timeField` | String | Optional | A date/time field for time-based filtering. Default is `@timestamp`. |
+| `timeField` | String | Required | A date/time field for time-based filtering. |
 | `selectionTimeRangeStart` | String | Required | The start time for the analysis period, in UTC date string format (for example, `2025-01-15 10:00:00`). |
 | `selectionTimeRangeEnd` | String | Required | The end time for the analysis period, in UTC date string format (for example, `2025-01-15 11:00:00`). |
 | `baselineTimeRangeStart` | String | Optional | The start time for the baseline comparison period, in UTC date string format (for example, `2025-01-15 10:00:00`). Required for the comparative analysis mode. |
