@@ -49,6 +49,7 @@ PUT /hotels-index
         "method": {
           "name": "seismic",
           "parameters": {
+            "quantization_ceiling_ingest": 16,
             "n_postings": 4000,
             "cluster_ratio": 0.1,
             "summary_prune_ratio": 0.4,
@@ -135,68 +136,68 @@ POST /hotels-index/_search
 The response returns the three hotels that are nearest to the search point and have met the filter criteria:
 ```json
 {
-    "took": 2,
-    "timed_out": false,
-    "_shards": {
-        "total": 1,
-        "successful": 1,
-        "skipped": 0,
-        "failed": 0
+  "took": 5,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 3,
+      "relation": "eq"
     },
-    "hits": {
-        "total": {
-            "value": 4,
-            "relation": "eq"
-        },
-        "max_score": 70.08806,
-        "hits": [
-            {
-                "_index": "hotels-index",
-                "_id": "8",
-                "_score": 70.08806,
-                "_source": {
-                    "parking": true,
-                    "name": "Crystal Beach Resort",
-                    "rating": 9,
-                    "name_embedding": {
-                        "6121": 6.5081306,
-                        "7001": 6.25483,
-                        "3509": 5.5722017
-                    }
-                }
-            },
-            {
-                "_index": "hotels-index",
-                "_id": "9",
-                "_score": 30.995373,
-                "_source": {
-                    "parking": true,
-                    "name": "Azure Beach Hotel",
-                    "rating": 10,
-                    "name_embedding": {
-                        "24296": 8.380939,
-                        "3509": 5.5722017,
-                        "3309": 5.575121
-                    }
-                }
-            },
-            {
-                "_index": "hotels-index",
-                "_id": "1",
-                "_score": 0.0,
-                "_source": {
-                    "parking": true,
-                    "name": "Grand Plaza Hotel",
-                    "rating": 10,
-                    "name_embedding": {
-                        "8232": 7.7817574,
-                        "2882": 5.847375,
-                        "3309": 5.575121
-                    }
-                }
-            }
-        ]
-    }
+    "max_score": 70.08806,
+    "hits": [
+      {
+        "_index": "hotels-index",
+        "_id": "8",
+        "_score": 70.08806,
+        "_source": {
+          "parking": true,
+          "name": "Crystal Beach Resort",
+          "rating": 9,
+          "name_embedding": {
+            "3509": 5.5722017,
+            "6121": 6.5081306,
+            "7001": 6.25483
+          }
+        }
+      },
+      {
+        "_index": "hotels-index",
+        "_id": "1",
+        "_score": 0,
+        "_source": {
+          "parking": true,
+          "name": "Grand Plaza Hotel",
+          "rating": 10,
+          "name_embedding": {
+            "2882": 5.847375,
+            "3309": 5.575121,
+            "8232": 7.7817574
+          }
+        }
+      },
+      {
+        "_index": "hotels-index",
+        "_id": "10",
+        "_score": 0,
+        "_source": {
+          "parking": true,
+          "name": "Garden Court Hotel",
+          "rating": 9,
+          "name_embedding": {
+            "2457": 4.862541,
+            "3309": 5.575121,
+            "3871": 5.785374
+          }
+        }
+      }
+    ]
+  }
 }
 ```
 
@@ -253,68 +254,38 @@ POST /hotels-index/_search
 The response includes documents containing the matching hotels:
 ```json
 {
-    "took": 15,
-    "timed_out": false,
-    "_shards": {
-        "total": 1,
-        "successful": 1,
-        "skipped": 0,
-        "failed": 0
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
     },
-    "hits": {
-        "total": {
-            "value": 6643,
-            "relation": "eq"
-        },
-        "max_score": 70.08806,
-        "hits": [
-            {
-                "_index": "hotels-index",
-                "_id": "17018",
-                "_score": 70.08806,
-                "_source": {
-                    "parking": true,
-                    "name": "Paradise Beach Resort",
-                    "rating": 8,
-                    "name_embedding": {
-                        "7001": 6.25483,
-                        "3509": 5.5722017,
-                        "9097": 7.695345
-                    }
-                }
-            },
-            {
-                "_index": "hotels-index",
-                "_id": "17028",
-                "_score": 70.08806,
-                "_source": {
-                    "parking": true,
-                    "name": "Crystal Beach Resort",
-                    "rating": 8,
-                    "name_embedding": {
-                        "6121": 6.5081306,
-                        "7001": 6.25483,
-                        "3509": 5.5722017
-                    }
-                }
-            },
-            {
-                "_index": "hotels-index",
-                "_id": "17071",
-                "_score": 70.08806,
-                "_source": {
-                    "parking": true,
-                    "name": "Tropical Beach Resort",
-                    "rating": 10,
-                    "name_embedding": {
-                        "7001": 6.25483,
-                        "5133": 6.2035937,
-                        "3509": 5.5722017
-                    }
-                }
-            }
-        ]
-    }
+    "max_score": 70.08806,
+    "hits": [
+      {
+        "_index": "hotels-index",
+        "_id": "8",
+        "_score": 70.08806,
+        "_source": {
+          "parking": true,
+          "name": "Crystal Beach Resort",
+          "rating": 9,
+          "name_embedding": {
+            "3509": 5.5722017,
+            "6121": 6.5081306,
+            "7001": 6.25483
+          }
+        }
+      }
+    ]
+  }
 }
 ```
 
