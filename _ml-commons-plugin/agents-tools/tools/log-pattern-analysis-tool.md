@@ -184,7 +184,7 @@ The following table lists the available tool parameters for running the agent.
 | Parameter | Type | Required/Optional | Description |
 |:----------|:-----|:------------------|:------------|
 | `index` | String | Required | The name of the OpenSearch index containing log data (for example, `ss4o_logs-otel-2025.06.24`). |
-| `timeField` | String | Optional | A date/time field in the index mapping used for time-based filtering. Default is `@timestamp`. |
+| `timeField` | String | Required | A date/time field in the index mapping used for time-based filtering. |
 | `logFieldName` | String | Required | The field containing raw log messages to analyze (for example, `body`, `message`, or `log`). |
 | `traceFieldName` | String | Optional | The field containing a trace ID or correlation ID to enable sequence analysis (for example, `traceId` or `correlationId`). Required for the log sequence analysis mode. |
 | `baseTimeRangeStart` | String | Optional | The start time for the baseline comparison period, in UTC date string format (for example, `2025-06-24 07:33:05`). Required for the sequence and pattern difference analysis modes. |
