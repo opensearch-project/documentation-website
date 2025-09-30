@@ -18,7 +18,7 @@ The `.md` documents in this repository are rendered into HTML pages using [Jekyl
 
 You can run the Jekyll server locally to view the rendered HTML pages using the following steps:
 
-1. Install [Ruby](https://www.ruby-lang.org/en/documentation/installation/) 3.1.0 or later for your operating system.
+1. Install [Ruby](https://www.ruby-lang.org/en/documentation/installation/) 3.4.5 or later for your operating system.
 2. Install the required gems by running `bundle install`.
 3. Run `bundle exec jekyll serve` to start the Jekyll server locally (this can take several minutes to complete).
 4. Open your browser and navigate to `http://localhost:4000` to view the rendered HTML pages.
@@ -27,7 +27,7 @@ You can run the Jekyll server locally to view the rendered HTML pages using the 
 
 The `spec-insert` Jekyll plugin is used to insert API components into Markdown files. The plugin downloads the [latest OpenSearch specification](https://github.com/opensearch-project/opensearch-api-specification) and renders the API components from the spec. This aims to reduce the manual effort required to keep the documentation up to date.
 
-To use this plugin, make sure that you have installed Ruby 3.1.0 or later and the required gems by running `bundle install`.
+To use this plugin, make sure that you have installed Ruby 3.4.5 or later and the required gems by running `bundle install`.
 
 Edit your Markdown file and insert the following snippet where you want render an API component:
 

@@ -64,7 +64,7 @@ OpenSearch supports the following dynamic cluster-level index settings:
 
 - `indices.replication.max_bytes_per_sec` (String): Limits the total inbound and outbound replication traffic for each node. If a value is not specified in the configured value the `indices.recovery.max_bytes_per_sec` setting is used, which defaults to 40 mb. If you set the replication traffic value to less than or equal to 0 mb, rate limiting is disabled, which causes replication data to be transferred at the highest possible rate.
 
-- `indices.fielddata.cache.size` (String): The maximum size of the field data cache. May be specified as an absolute value (for example, `8GB`) or a percentage of the node heap (for example, `50%`). This value is static so you must specify it in the `opensearch.yml` file. If you don't specify this setting, the maximum size is unlimited. This value should be smaller than the `indices.breaker.fielddata.limit`. For more information, see [Field data circuit breaker]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/circuit-breaker/#field-data-circuit-breaker-settings).
+- `indices.fielddata.cache.size` (String): The maximum size of the field data cache. May be specified as an absolute value (for example, `8GB`) or a percentage of the node heap (for example, `50%`). This setting is dynamic. If you don't specify this setting, the maximum size is `35%`. This value should be smaller than the `indices.breaker.fielddata.limit`. For more information, see [Field data circuit breaker]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/circuit-breaker/#field-data-circuit-breaker-settings).
 
 - `indices.query.bool.max_clause_count` (Integer): Defines the maximum product of fields and terms that are queryable simultaneously. Before OpenSearch 2.16, a cluster restart was required in order to apply this static setting. Now dynamic, existing search thread pools may use the old static value initially, causing `TooManyClauses` exceptions. New thread pools use the updated value. Default is `1024`.
 
@@ -160,9 +160,15 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.soft_deletes.retention_lease.period` (Time unit): The maximum amount of time to retain a shard's history of operations. Default is `12h`.
 
+<p id="index-sort-settings"></p>
+
 - `index.sort.field` (String): Specifies the field used to sort documents at index time. The default sort order is `asc` (ascending). To change the order, set the `index.sort.order` parameter.
 
 - `index.sort.order` (String): Specifies the document sort order at index time. Valid values are `asc` (ascending) and `desc` (descending). Default is `asc`. This setting requires `index.sort.field` to also be set.
+
+- `index.sort.mode` (String): Controls how multi-valued fields are handled during sorting. Valid values are `min` (uses the lowest value) and `max` (uses the highest value).
+
+- `index.sort.missing` (String): Determines how documents missing the sort field are handled. Valid values are `_last` (places documents without the field at the end) and `_first` (places documents without the field at the beginning).
 
 - `index.load_fixed_bitset_filters_eagerly` (Boolean): Whether OpenSearch should preload cached filters. Available options are `true` and `false`. Default is `true`.
 

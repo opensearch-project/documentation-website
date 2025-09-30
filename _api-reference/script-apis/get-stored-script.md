@@ -2,14 +2,14 @@
 layout: default
 title: Get stored script
 parent: Script APIs
-nav_order: 3
+nav_order: 30
 ---
 
 # Get Stored Script API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Retrieves a stored script.
+Retrieves a stored script from the cluster state.
 
 ## Endpoints
 

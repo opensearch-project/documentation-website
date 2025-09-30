@@ -60,7 +60,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
          {% include copy.html %}
 
       1. Run the batch script.
-         For OpenSearch 2.12 or later, use the following command to specify a custom admin password:
+         For OpenSearch 2.12 or later, use the following command to specify a custom admin password, following the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements):
          ```bat
          > set OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
          ```

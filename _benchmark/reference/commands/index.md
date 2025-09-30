@@ -4,7 +4,10 @@ title: Command reference
 nav_order: 50
 has_children: true
 parent: OpenSearch Benchmark Reference
-redirect_from: /benchmark/commands/index/
+redirect_from:
+  - /benchmark/commands/index/
+  - /benchmark/reference/commands/
+  - /benchmark/commands/execute-test/
 ---
 
 # OpenSearch Benchmark command reference

@@ -5,6 +5,7 @@ nav_order: 10
 redirect_from:
   - /opensearch/rest-api/ingest-apis/create-update-ingest/
   - /api-reference/ingest-apis/create-ingest/
+  - /api-reference/ingest-apis/create-update-ingest/
 ---
 
 # Create pipeline

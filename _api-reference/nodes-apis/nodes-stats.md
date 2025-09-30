@@ -333,7 +333,8 @@ Select the arrow to view the example response.
         },
         "fielddata" : {
           "memory_size_in_bytes" : 356,
-          "evictions" : 0
+          "evictions" : 0,
+          "item_count": 1
         },
         "completion" : {
           "size_in_bytes" : 0,
@@ -1008,6 +1009,7 @@ query_cache.evictions | Integer | The number of evictions from the query cache.
 fielddata | Object | Statistics about the field data cache for all shards in the node.
 fielddata.memory_size_in_bytes | Integer | The total amount of memory used for the field data cache for all shards in the node.
 fielddata.evictions | Integer | The number of evictions in the field data cache.
+fielddata.item_count | Integer | The number of items in the field data cache.
 fielddata.fields | Object | Contains all field data fields.
 completion | Object | Statistics about completions for all shards in the node.
 completion.size_in_bytes | Integer | The total amount of memory used for completion for all shards in the node, in bytes.

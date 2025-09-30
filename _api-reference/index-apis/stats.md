@@ -340,7 +340,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
       },
       "fielddata": {
         "memory_size_in_bytes": 0,
-        "evictions": 0
+        "evictions": 0,
+        "item_count": 0
       },
       "completion": {
         "size_in_bytes": 0
@@ -507,7 +508,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
       },
       "fielddata": {
         "memory_size_in_bytes": 0,
-        "evictions": 0
+        "evictions": 0,
+        "item_count": 0
       },
       "completion": {
         "size_in_bytes": 0
@@ -678,7 +680,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         },
         "fielddata": {
           "memory_size_in_bytes": 0,
-          "evictions": 0
+          "evictions": 0,
+          "item_count": 0
         },
         "completion": {
           "size_in_bytes": 0
@@ -845,7 +848,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         },
         "fielddata": {
           "memory_size_in_bytes": 0,
-          "evictions": 0
+          "evictions": 0,
+          "item_count": 0
         },
         "completion": {
           "size_in_bytes": 0

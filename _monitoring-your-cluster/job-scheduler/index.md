@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /job-scheduler-plugin/index/
+  - /monitoring-your-cluster/job-scheduler/
 ---
 
 # Job Scheduler

@@ -180,7 +180,8 @@ response = client.cluster.stats(
         },
         "fielddata": {
             "memory_size_in_bytes": 664,
-            "evictions": 0
+            "evictions": 0,
+            "item_count": 1
         },
         "query_cache": {
             "memory_size_in_bytes": 0,
