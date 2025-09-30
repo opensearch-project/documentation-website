@@ -137,7 +137,14 @@ To configure the `bind_dn` and `password` that the Security plugin uses when iss
 ```yml
 config:
   bind_dn: cn=admin,dc=example,dc=com
+  # Deprecated - use password_secure in the keystore instead
   password: password
+```
+
+For increased security, you should use the opensearch keystore and add a corresponding entry for your authn / authz setting via the `password_secure` property:
+
+```bash
+./bin/opensearch-keystore add authc.ldap.authentication_backend.config.pasword_secure
 ```
 
 If your server supports anonymous authentication, both `bind_dn` and `password` can be set to `null`.
@@ -211,6 +218,7 @@ If you use TLS client authentication, the Security plugin sends the PEM certific
 ```yml
 config:
   pemkey_filepath: /full/path/to/private.key.pem
+  # Deprecated - use pemkey_password_secure in the keystore instead
   pemkey_password: private_key_password
   pemcert_filepath: /full/path/to/certificate.pem
 ```
@@ -240,7 +248,8 @@ Name | Description
 :--- | :---
 `pemkey_filepath` | Absolute path to the file containing the private key of your certificate.
 `pemkey_content` | The content of the private key of your certificate. Cannot be used when `pemkey_filepath` is set.
-`pemkey_password` | The password of your private key, if any.
+`pemkey_password` | The password of your private key, if any (**deprecated** - use `pemkey_password_secure` instead).
+`pemkey_password_secure` | The password of your private key, if any (stored in the secure keystore).
 `pemcert_filepath` | Absolute path to the client certificate.
 `pemcert_content` | The content of the client certificate. Cannot be used when `pemcert_filepath` is set.
 
