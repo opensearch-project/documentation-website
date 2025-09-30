@@ -129,7 +129,7 @@ OpenSearch returns distribution patterns for the analyzed dataset:
       "output": [
         {
           "name": "response",
-          "result": "{\"singleAnalysis\": [{\"field\": \"status\", \"divergence\": 0.7, \"topChanges\": [{\"value\": \"error\", \"selectionPercentage\": 0.3, \"baselinePercentage\": 0.0}, {\"value\": \"success\", \"selectionPercentage\": 0.7, \"baselinePercentage\": 0.0}]}]}"
+          "result": "{\"singleAnalysis\": [{\"field\": \"status\", \"divergence\": 0.7, \"topChanges\": [{\"value\": \"error\", \"selectionPercentage\": 0.3}, {\"value\": \"success\", \"selectionPercentage\": 0.7}]}]}"
         }
       ]
     }
