@@ -316,7 +316,7 @@ The JWKS endpoint should return a JSON object containing an array of public keys
 JWKS responses are cached to optimize performance:
 
 - **Initial cache**: When JWKS is enabled, the system caches the JWKS endpoint response.
-- **Cache refresh triggers**: 
+- **Cache refresh triggers in the following situations**: 
   - When a JWT contains a `kid` not found in the cache.
   - When cache entries expire based on HTTP cache headers.
   - During background refresh cycles.
