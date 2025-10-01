@@ -64,7 +64,7 @@ Run the agent to perform either a comparative distribution analysis or a single 
 
 ### Comparative analysis
 
-To perform a comparative distribution analysis between two time periods, provide both a baseline and selection time ranges:
+To perform a comparative distribution analysis between two time periods, provide both the baseline and selection time ranges:
 
 ```json
 POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
@@ -84,7 +84,7 @@ POST /_plugins/_ml/agents/OQutgJYBAc35E4_KvI1q/_execute
 ```
 {% include copy-curl.html %}
 
-OpenSearch returns field-by-field comparison showing distribution changes between time periods:
+OpenSearch returns a field-by-field comparison showing distribution changes between time periods:
 
 ```json
 {
@@ -201,9 +201,9 @@ The Data Distribution tool has the following limitations:
 
 - **Maximum document volume**: The tool has a default limit of 1,000 documents per execution, with a maximum configurable limit of 10,000 documents (`MAX_SIZE_LIMIT = 10000`).
 - **Field cardinality limits**: High-cardinality fields are automatically filtered to ensure meaningful analysis results:
-  - ID fields: Maximum 30 unique values.
-  - Data fields: Maximum 10 unique values (or dataset size ÷ 2, whichever is larger).
+  - ID fields: Maximum of 30 unique values.
+  - Data fields: Maximum of 10 unique values (or dataset size ÷ 2, whichever is larger).
 - **Result limits**: 
-  - Comparative analysis: Returns top 10 field differences.
-  - Single dataset analysis: Returns top 30 field distributions.
+  - Comparative analysis: Returns the top 10 field differences.
+  - Single dataset analysis: Returns the top 30 field distributions.
   - Top changes per field: Limited to 10 items.
