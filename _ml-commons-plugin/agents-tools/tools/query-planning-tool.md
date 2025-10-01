@@ -10,7 +10,7 @@ grand_parent: Agents and tools
 
 <!-- vale off -->
 # Query Planning tool
-Introduced 3.3
+**Introduced 3.3**
 {: .label .label-purple }
 <!-- vale on -->
 
