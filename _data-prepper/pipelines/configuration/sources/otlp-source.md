@@ -10,7 +10,7 @@ nav_order: 85
 
 The `otlp` source is a unified OpenTelemetry source that follows the [OpenTelemetry Protocol (OTLP) specification](https://opentelemetry.io/docs/specs/otlp/) and can receive logs, metrics, and traces through a single endpoint. This source consolidates the functionality of the individual `otel_logs_source`, `otel_metrics_source`, and `otel_trace_source` sources, providing a streamlined approach to ingesting all OpenTelemetry telemetry signals.
 
-The OTLP source supports both the `OTLP/gRPC` and `OTLP/HTTP` protocols. For `OTLP/HTTP`, only Protobuf encoding is supported. This makes it compatible with a wide range of OpenTelemetry collectors and instrumentation libraries.
+The `otlp` source supports both the `OTLP/gRPC` and `OTLP/HTTP` protocols. For `OTLP/HTTP`, only Protobuf encoding is supported. This makes it compatible with a wide range of OpenTelemetry collectors and instrumentation libraries.
 {: .note}
 
 ## Configuration
@@ -19,7 +19,7 @@ You can configure the `otlp` source with the following options.
 
 | Option | Type | Description |
 | :--- | :--- | :--- |
-| `port` | Integer | The port on which the OTLP source listens. Default is `21893`. |
+| `port` | Integer | The port on which the `otlp` source listens. Default is `21893`. |
 | `logs_path` | String | The path for sending unframed HTTP requests for logs. Must start with `/` and have a minimum length of 1. Default is `/opentelemetry.proto.collector.logs.v1.LogsService/Export`. |
 | `metrics_path` | String | The path for sending unframed HTTP requests for metrics. Must start with `/` and have a minimum length of 1. Default is `/opentelemetry.proto.collector.metrics.v1.MetricsService/Export`. |
 | `traces_path` | String | The path for sending unframed HTTP requests for traces. Must start with `/` and have a minimum length of 1. Default is `/opentelemetry.proto.collector.trace.v1.TraceService/Export`. |
@@ -31,7 +31,7 @@ You can configure the `otlp` source with the following options.
 | `thread_count` | Integer | The number of threads to keep in the scheduled thread pool. Default is `200`. |
 | `max_connection_count` | Integer | The maximum allowed number of open connections. Default is `500`. |
 | `max_request_length` | String | The maximum number of bytes allowed in the payload of a single gRPC or HTTP request. Default is `10mb`. |
-| `compression` | String | The compression type applied on the client request payload. Valid values are `none` (no compression) or `gzip` (apply `gzip` decompression). Default is `none`. |
+| `compression` | String | The compression type applied to the client request payload. Valid values are `none` (no compression) or `gzip` (apply `gzip` decompression). Default is `none`. |
 | `output_format` | String | Specifies the decoded output format for all signals (logs, metrics, and traces) if individual output format options are not set. Valid values are `otel` (OpenTelemetry format) and `opensearch` (OpenSearch format). Default is `otel`. |
 | `logs_output_format` | String | Specifies the decoded output format specifically for logs. Takes precedence over `output_format` for logs. Valid values are `otel` and `opensearch`. Default is `otel`. |
 | `metrics_output_format` | String | Specifies the decoded output format specifically for metrics. Takes precedence over `output_format` for metrics. Valid values are `otel` and `opensearch`. Default is `otel`. |
@@ -46,17 +46,17 @@ You can configure SSL/TLS in the `otlp` source with the following options.
 
 | Option | Type | Description |
 | :--- | :--- | :--- |
-| `ssl` | Boolean | Enables TLS/SSL. Default is `true`. |
-| `ssl_certificate_file` | String | The SSL certificate chain file path or Amazon S3 path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true`. |
+| `ssl` | Boolean | Enables SSL/TLS. Default is `true`. |
+| `ssl_certificate_file` | String | The SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true`. |
 | `ssl_key_file` | String | The SSL key file path or Amazon S3 path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true`. |
-| `use_acm_cert_for_ssl` | Boolean | Enables TLS/SSL using a certificate and private key from AWS Certificate Manager (ACM). Default is `false`. |
+| `use_acm_cert_for_ssl` | Boolean | Enables SSL/TLS using a certificate and private key from AWS Certificate Manager (ACM). Default is `false`. |
 | `acm_certificate_arn` | String | The ACM certificate Amazon Resource Name (ARN). ACM certificates take precedence over Amazon S3 or local file system certificates. Required if `use_acm_cert_for_ssl` is set to `true`. |
-| `acm_private_key_password` | String | The ACM private key password that decrypts the private key. If not provided, Data Prepper uses the private key unencrypted. |
+| `acm_private_key_password` | String | The ACM private key password that decrypts the private key. If not provided, OpenSearch Data Prepper uses the private key unencrypted. |
 | `aws_region` | String | The AWS Region used by ACM or Amazon S3. Required if `use_acm_cert_for_ssl` is set to `true` or if `ssl_certificate_file` and `ssl_key_file` are Amazon S3 paths. |
 
 ### Authentication configuration
 
-By default, the OTLP source runs without authentication. You can configure authentication using the following options.
+By default, the `otlp` source runs without authentication. You can configure authentication using the following options.
 
 To explicitly disable authentication, specify the following settings:
 
@@ -97,7 +97,7 @@ source:
 
 ## Usage
 
-The following examples demonstrate how to configure and use the OTLP source in various scenarios.
+The following examples demonstrate how to configure and use the `otlp` source in various scenarios.
 
 ### Basic configuration
 
@@ -115,7 +115,7 @@ pipeline:
 
 ### Routing telemetry signals
 
-One of the key features of the OTLP source is the ability to route different telemetry signals (logs, metrics, and traces) to different processors or sinks based on your specific needs. Routing is determined by metadata using the getEventType() function:
+One of the key features of the `otlp` source is its ability to route different telemetry signals (logs, metrics, and traces) to different processors or sinks based on your specific needs. Routing is determined by metadata using the `getEventType()` function:
 
 ```yaml
 version: "2"
@@ -214,7 +214,7 @@ source:
 ```
 {% include copy.html %}
 
-To use the AWS Certificate Manager, specify the following settings:
+To use the ACM, specify the following settings:
 
 ```yaml
 source:
@@ -228,48 +228,48 @@ source:
 
 ## Metrics
 
-The `otlp` source includes the following metrics to monitor its performance and health.
+The `otlp` source includes the following metrics for monitoring its performance and health.
 
 ### Counters
 
-The following counters track request activity and errors in the OTLP source.
+The following counters track request activity and errors in the `otlp` source.
 
 | Metric | Description |
 | :--- | :--- |
 | `requestTimeouts` | The total number of requests that timed out. |
-| `requestsReceived` | The total number of requests received by the OTLP source. |
-| `successRequests` | The total number of requests successfully processed by the OTLP source. |
-| `badRequests` | The total number of requests with invalid format processed by the OTLP source. |
+| `requestsReceived` | The total number of requests received by the `otlp` source. |
+| `successRequests` | The total number of requests successfully processed by the `otlp` source. |
+| `badRequests` | The total number of requests with an invalid format processed by the `otlp` source. |
 | `requestsTooLarge` | The total number of requests that exceed the maximum allowed size. |
-| `internalServerError` | The total number of requests processed by the OTLP source with custom exception types. |
+| `internalServerError` | The total number of requests processed by the `otlp` source with custom exception types. |
 
 ### Timers
 
-The following timers track request activity and errors in the OTLP source.
+The following timers track request activity and errors in the `otlp` source.
 
 | Metric | Description |
 | :--- | :--- |
-| `requestProcessDuration` | The latency of requests processed by the OTLP source, in seconds. |
+| `requestProcessDuration` | The latency of requests processed by the `otlp` source, in seconds. |
 
 ### Distribution summaries
 
-The following distribution summaries track request activity and errors in the OTLP source.
+The following distribution summaries track request activity and errors in the `otlp` source.
 
 | Metric | Description |
 | :--- | :--- |
 | `payloadSize` | The distribution of incoming request payload sizes, in bytes. |
 
-## Migrating from individual OTel sources
+## Migrating from individual OpenTelemetry sources
 
-If you're using separate `otel_logs_source`, `otel_metrics_source`, or `otel_trace_source` sources, you can migrate to the unified OTLP source by following these steps:
+If you're using separate `otel_logs_source`, `otel_metrics_source`, or `otel_trace_source` sources, you can migrate to the unified `otlp` source by following these steps:
 
 1. Replace all three sources with a single `otlp` source.
 2. Use [routing configuration](#routing-telemetry-signals) to direct different signal types to their appropriate pipelines.
-3. Change the port numbers if needed (the OTLP source uses port `21893` by default).
+3. Change the port numbers if needed (the `otlp` source uses port `21893` by default).
 
 ### Migration example
 
-The following example demonstrates how to consolidate separate OTel logs, metrics, and traces sources into a single OTLP source.
+The following example demonstrates how to consolidate separate OpenTelemetry log, metric, and trace sources into a single `otlp` source.
 
 Consider a setup where logs, metrics, and traces are configured separately:
 
@@ -301,7 +301,7 @@ traces-pipeline:
         index: traces
 ```
 
-You can consolidate logs, metrics, and traces into a single OTLP source as follows:
+You can consolidate logs, metrics, and traces into a single `otlp` source as follows:
 
 ```yaml
 otlp-pipeline:
@@ -328,7 +328,7 @@ otlp-pipeline:
 ```
 {% include copy.html %}
 
-## Related articles
+## Related pages
 
 - [OTel logs source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-logs-source/)
 - [OTel metrics source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-metrics-source/)

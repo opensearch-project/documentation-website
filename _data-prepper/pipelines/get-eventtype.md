@@ -18,7 +18,7 @@ getEventType()
 
 ## Return value
 
-The function returns a string representing the event type. The supported event types are: `LOG`, `TRACE`, `METRIC`, and `DOCUMENT`.
+The function returns a string representing the event type. The supported event types are `LOG`, `TRACE`, `METRIC`, and `DOCUMENT`.
 
 ## Usage
 
@@ -26,7 +26,7 @@ Use this function to check the event type before performing conditional processi
 
 ### Basic example
 
-Check if an event is a trace event:
+Check whether an event is a trace event:
 
 ```json
 getEventType() == "TRACE"
@@ -81,6 +81,6 @@ processor:
 ```
 {% include copy.html %}
 
-## Related articles
+## Related pages
 
 - [OTLP source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otlp-source/)
