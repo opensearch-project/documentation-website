@@ -136,7 +136,8 @@ GET /_plugins/_neural/stats/
 			}
 		},
 		"semantic_highlighting": {
-			"semantic_highlighting_request_count": 0
+			"semantic_highlighting_request_count": 0,
+			"semantic_highlighting_batch_request_count": 0
 		},
 		"processors": {
 			"search": {
@@ -190,7 +191,8 @@ GET /_plugins/_neural/stats/
 				}
 			},
 			"semantic_highlighting": {
-				"semantic_highlighting_request_count": 0
+				"semantic_highlighting_request_count": 0,
+				"semantic_highlighting_batch_request_count": 0
 			},
 			"processors": {
 				"search": {
@@ -351,7 +353,8 @@ The following table lists the available statistics. For statistics with paths pr
 
 | Statistic name | Category | Statistic path within category | Description |
 | :--- | :--- | :--- | :--- |
-| `semantic_highlighting_request_count` | `nodes`, `all_nodes` | `semantic_highlighting.semantic_highlighting_request_count` | The number of `semantic` highlighting requests. |
+| `semantic_highlighting_request_count` | `nodes`, `all_nodes` | `semantic_highlighting.semantic_highlighting_request_count` | The number of single inference `semantic` highlighting requests (one inference call per document). |
+| `semantic_highlighting_batch_request_count` | `nodes`, `all_nodes` | `semantic_highlighting.semantic_highlighting_batch_request_count` | **Introduced 3.3** The number of batch inference `semantic` highlighting requests (multiple documents processed in a single inference call). |
 
 #### Available metadata
 
