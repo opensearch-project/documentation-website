@@ -287,6 +287,7 @@ When using JWKS, your JWT header must include a Key ID (`kid`) that identifies t
   "kid": "V-diposfUJIk5jDBFi_QRouiVinG5PowskcSWy5EuCo"
 }
 ```
+{% include copy.html %}
 
 The `kid` parameter is required when using JWKS endpoints and must match a key identifier in the JWKS response.
 
