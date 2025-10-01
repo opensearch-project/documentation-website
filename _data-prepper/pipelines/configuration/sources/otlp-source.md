@@ -269,7 +269,7 @@ If you're using separate `otel_logs_source`, `otel_metrics_source`, or `otel_tra
 
 ### Migration example
 
-The following example demonstrates how to consolidate separate OTel logs, metrics, and traces sources into a single OTLP source with routing.
+The following example demonstrates how to consolidate separate OTel logs, metrics, and traces sources into a single OTLP source.
 
 Consider a setup where logs, metrics, and traces are configured separately:
 
