@@ -320,7 +320,7 @@ JWKS responses are cached to optimize performance:
   - When a JWT contains a `kid` not found in the cache.
   - When cache entries expire based on HTTP cache headers.
   - During background refresh cycles.
-- **Rate limiting**: Prevents excessive requests to the JWKS endpoint (10 requests per 10-second window by default)
+- **Rate limiting**: Prevents excessive requests to the JWKS endpoint (by default, 10 requests per 10-second window).
 
 ### Backward compatibility
 
