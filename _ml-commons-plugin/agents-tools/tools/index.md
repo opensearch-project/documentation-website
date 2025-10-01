@@ -52,6 +52,7 @@ Each tool takes a list of parameters specific to that tool. In the preceding exa
 |[`VectorDBTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/vector-db-tool/)	|Performs dense vector retrieval.	|
 |[`VisualizationTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/visualization-tool/)	|Finds visualizations in OpenSearch Dashboards.	|
 |[`WebSearchTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/web-search-tool/)	|Answers a user's question using a web search.	|
+|[`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/)	|Creates and executes an OpenSearch DSL query based on a user's natural language question.	|
 
 ## Developer information
 
