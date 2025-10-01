@@ -9,7 +9,7 @@ has_children: false
 
 # Flow agent
 
-The Conversational agent provides great flexibility and supports many use cases. However, you might not need all that functionality for every scenario. You can directly invoke the Query Planner Tool using a flow agent, which reduces the number of LLM calls made, thereby reducing both cost and latency.
+The Conversational agent provides great flexibility and supports many use cases. However, if you do need all the advanced functionalities, you can directly invoke the Query Planner Tool using a flow agent, which reduces the number of LLM calls made, thereby reducing both cost and latency.
 
 While flow agents are super fast, the flexibility and query quality might not be as high as conversational agents, but they're good enough for most use cases. If latency is important, we highly recommend using the flow agent instead of the Conversational Agent.
 
@@ -160,6 +160,7 @@ GET products-index/_search?search_pipeline=agentic-pipeline
 - No conversation memory needed
 
 **Use Conversational Agent when:**
+- Intelligent Search is needed
 - Multiple tools are needed
 - Conversation context is important
 - Maximum query quality is desired 

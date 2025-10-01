@@ -17,6 +17,12 @@ Before using agentic search, you must configure an agent with the [`QueryPlannin
 
 ## Configuring Agentic Search
 
+**UI Configuration**<br>
+You can configure Agents and execute Agentic Search through the UI using AI Search Flows. For detailed instructions, see [Building Agentic Search Flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/).
+
+**API Configuration**<br>
+To configure Agentic Search via APIs, follow these steps:
+
 1. [Create an index for ingestion](#step-1-create-an-index-for-ingestion).
 2. [Ingest documents into the index](#step-2-ingest-documents-into-the-index).
 3. [Create a model for Query Planning tool](#step-3-create-a-model-for-query-planning-tool).

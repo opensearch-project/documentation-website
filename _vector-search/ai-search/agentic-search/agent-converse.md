@@ -9,7 +9,7 @@ has_children: false
 
 # Converse and Monitor Agentic Search
 
-Enable monitoring and conversation continuation using the `agentic_context` response processor. This processor provides full visibility into the agent's decision-making process through `agent_steps_summary` and generated OpenSearch DSL queries, while also providing `memory_id` which can be used to continue the conversation.
+Enable monitoring and conversation continuation using the `agentic_context` response processor. This processor provides full visibility into the agent's decision-making process through `agent_steps_summary` and generated OpenSearch DSL queries through `dsl_query`, while also providing `memory_id` which can be used to continue the conversation.
 
 ## Prerequisites
 
@@ -98,7 +98,11 @@ GET /_search?search_pipeline=agentic-pipeline
 
 ```json
 PUT /products-index
-{
+{   
+    "settings": {
+        "number_of_shards": "4",
+        "number_of_replicas": "2"
+    },
     "mappings": {
         "properties": {
             "product_name": { "type": "text" },
