@@ -274,7 +274,7 @@ Name | Description | Default
 `jwks_queued_thread_timeout_ms` | The maximum amount of time a request can wait in the queue before being processed, in milliseconds. | `2500`
 `max_jwks_response_size_bytes` | The maximum size of JWKS endpoint responses, in bytes. | `1048576` (1 MB)
 `refresh_rate_limit_count` | The maximum number of JWKS refresh requests allowed within the time window. | `10`
-`refresh_rate_limit_time_window_ms` | Time window in milliseconds for rate limiting JWKS refresh requests. | `10000` (10 seconds)
+`refresh_rate_limit_time_window_ms` | The time window for rate limiting JWKS refresh requests, in milliseconds. | `10000` (10 seconds)
 
 ### JWT header with Key ID
 
