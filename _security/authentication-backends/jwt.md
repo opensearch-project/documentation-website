@@ -321,7 +321,7 @@ JWKS responses are cached to optimize performance:
 
 ### Backward compatibility
 
-The JWKS feature maintains full backward compatibility:
+JWT authentication supports direct JWKS endpoint configuration starting with OpenSearch 3.3. The feature maintains full backward compatibility:
 
 - When `jwks_uri` is not specified or set to `null`, the system uses the existing static `signing_key` mechanism
 - Existing JWT configurations continue to work without modification
