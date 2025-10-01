@@ -221,7 +221,7 @@ POST /neural-search-index/_search
 ```
 {% include copy-curl.html %}
 
-The response includes a `highlight` object for each hit, indicating the most semantically relevant sentence by emphasizing it with <em> tags. Note that model IDs are placeholders:
+The response includes a `highlight` object for each hit, indicating the most semantically relevant sentence by emphasizing it with <em> tags:
 
 ```json
 {
