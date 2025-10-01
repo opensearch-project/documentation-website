@@ -278,7 +278,7 @@ Name | Description | Default
 
 ### JWT header with Key ID
 
-When using JWKS, your JWT header must include a Key ID (`kid`) that identifies which specific key to use for verification:
+When using JWKS, your JWT header must include a Key ID (`kid`) that identifies the specific key to use for verification:
 
 ```json
 {
