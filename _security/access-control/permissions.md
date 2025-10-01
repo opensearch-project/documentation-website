@@ -59,6 +59,27 @@ GET _cat/shards?v
 }
 ```
 
+While the above approach executes actual operations to test permissions, you can now use `perform_permission_check=true` query parameter to verify access rights without performing the actual operation. This simulation returns whether the user has sufficient permissions and identifies any missing privileges, making it particularly valuable for testing non GET operations like POST, PUT and DELETE operations safely.
+```json
+PUT /my_index/_doc/1?perform_permission_check=true
+{
+   "title": "Test Document"
+}
+```
+Response when access is allowed:
+```json
+{
+   "accessAllowed": true,
+   "missingPrivileges": []
+}
+```
+Response when access is denied:
+```json
+{
+   "accessAllowed": false,
+   "missingPrivileges": ["indices:data/write/index"]
+}
+```
 [Create a user and a role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/), map the role to the user, and start sending signed requests using curl, Postman, or any other client. Then gradually add permissions to the role as you encounter errors. Even after you resolve one permissions error, the same request might generate new errors; the plugin only returns the first error it encounters, so keep trying until the request succeeds.
 
 Rather than individual permissions, you can often achieve your desired security posture using a combination of the default action groups. See [Default action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/) for descriptions of the permissions that each group grants.
