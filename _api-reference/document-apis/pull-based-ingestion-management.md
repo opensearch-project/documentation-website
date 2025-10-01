@@ -315,7 +315,11 @@ response = client.ingestion.get_state(
         "shard": 0,
         "poller_state": "POLLING",
         "error_policy": "DROP",
-        "poller_paused": false
+        "poller_paused": false,
+        "write_block_enabled" : false,
+        "batch_start_pointer" : "KafkaOffset{offset=2}",
+        "is_primary" : true,
+        "node" : "node_name"
       }
     ]
   }
