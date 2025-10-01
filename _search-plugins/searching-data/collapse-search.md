@@ -166,7 +166,7 @@ The `collapse` parameter affects only the top search results and does not change
 
 You can paginate collapsed search results using the `search_after` parameter. The collapsed field and sort field must be the same, and only one sort field can be specified.
 
-The following example shows how to use collapse with `search_after`:
+The following example shows how to use `collapse` with `search_after`:
 
 ```json
 GET /bakery-items/_search
