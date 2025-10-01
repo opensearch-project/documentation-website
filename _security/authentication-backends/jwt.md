@@ -231,7 +231,7 @@ For more information about the content and format of JSON Web Keys, see [JSON We
 
 ### Configuring JWKS endpoints for JWT authentication
 
-You can now configure JWKS endpoints directly in the JWT authentication domain. This approach provides enhanced security through automated key rotation and dynamic key management.
+You can configure JWKS endpoints directly in the JWT authentication domain. This approach provides enhanced security through automated key rotation and dynamic key management:
 
 ```yml
 jwt_auth_domain:
