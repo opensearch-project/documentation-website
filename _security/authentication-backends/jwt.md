@@ -256,7 +256,7 @@ jwt_auth_domain:
 
 ### JWKS configuration parameters
 
-The following table describes the JWKS-specific configuration parameters:
+The following table describes the JWKS-specific configuration parameters.
 
 Name | Description | Default
 :--- | :--- | :---
