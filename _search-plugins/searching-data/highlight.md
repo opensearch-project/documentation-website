@@ -188,7 +188,7 @@ For production environments, we recommend using externally hosted models with ba
 Before using the `semantic` highlighter, you must configure and deploy a sentence highlighting model. For more information about using ML models in OpenSearch, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/). For information about OpenSearch-provided sentence highlighting models, see [Semantic sentence highlighting models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#semantic-sentence-highlighting-models). 
 {: .note}
 
-### Basic usage (single inference mode)
+#### Basic usage (single inference mode)
 
 To use the `semantic` highlighter, set the `type` to `semantic` in the `fields` object and provide the `model_id` of the deployed sentence transformer or question-answering model within the global `highlight.options` object. The following example uses a `neural` query to find documents related to "treatments for neurodegenerative diseases" and then applies semantic highlighting using the specified `sentence_model_id`:
 
@@ -253,7 +253,7 @@ The response includes a `highlight` object for each hit, indicating the most sem
 
 For a step-by-step guide, see the [semantic highlighting tutorial]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-highlighting-tutorial/).
 
-### Batch inference mode
+#### Batch inference mode
 **Introduced 3.3**
 {: .label .label-purple }
 

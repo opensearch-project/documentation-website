@@ -353,8 +353,8 @@ The following table lists the available statistics. For statistics with paths pr
 
 | Statistic name | Category | Statistic path within category | Description |
 | :--- | :--- | :--- | :--- |
-| `semantic_highlighting_request_count` | `nodes`, `all_nodes` | `semantic_highlighting.semantic_highlighting_request_count` | The number of single inference `semantic` highlighting requests (one inference call per document). |
-| `semantic_highlighting_batch_request_count` | `nodes`, `all_nodes` | `semantic_highlighting.semantic_highlighting_batch_request_count` | **Introduced 3.3** The number of batch inference `semantic` highlighting requests (multiple documents processed in a single inference call). |
+| `semantic_highlighting_request_count` | `nodes`, `all_nodes` | `semantic_highlighting.semantic_highlighting_request_count` | The number of single inference `semantic` highlighting requests (one inference call per document). See [Single inference mode]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/#basic-usage-single-inference-mode). |
+| `semantic_highlighting_batch_request_count` | `nodes`, `all_nodes` | `semantic_highlighting.semantic_highlighting_batch_request_count` | The number of batch inference `semantic` highlighting requests (multiple documents processed in a single inference call). See [Batch inference mode]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/#batch-inference-mode). |
 
 #### Available metadata
 
