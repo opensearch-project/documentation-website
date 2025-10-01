@@ -323,7 +323,7 @@ JWKS responses are cached to optimize performance:
 
 JWT authentication supports direct JWKS endpoint configuration starting with OpenSearch 3.3. The feature maintains full backward compatibility:
 
-- When `jwks_uri` is not specified or set to `null`, the system uses the existing static `signing_key` mechanism
+- When `jwks_uri` is not specified or set to `null`, the system uses the existing static `signing_key` mechanism.
 - Existing JWT configurations continue to work without modification
 - You can switch between static keys and JWKS by updating the configuration
 - When both `jwks_uri` and `signing_key` are configured, `jwks_uri` takes precedence and `signing_key` is ignored
