@@ -227,7 +227,7 @@ Validating the signature of the signed JWT is the last step in granting user acc
 
 Rather than store the cryptographic key used for validation in the local `config.yml` file's `authc` section, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the key from its location on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates.
 
-Starting with OpenSearch 3.3, JWT authentication now supports JWKS endpoints directly.
+For more information about the content and format of JSON Web Keys, see [JSON Web Key (JWK) format](https://datatracker.ietf.org/doc/html/rfc7517#section-4).
 
 ### Direct JWKS support with JWT authentication
 
