@@ -29,7 +29,7 @@ Rule-based auto-tagging provides a flexible framework for implementing feature-s
 Before reviewing the rule configuration and behavior, it's important to understand the following key components of rule-based auto-tagging:
 
 * **Rule**: Defines matching criteria (attributes) and the value to assign.
-* **Attributes**: Key-value pairs used to match rules (such as index patterns, user roles, or request types).
+* **Attributes**: Key-value pairs used to match rules (such as index patterns, username, user roles, or request types).
 * **Feature-specific value**: The value assigned when a rule matches.
 * **Pattern matching**: The matching behavior (exact or pattern based) for attribute values.
 
@@ -44,7 +44,11 @@ The following rule schema includes matching attributes and a feature-specific va
 ```json
 {
   "_id": "fwehf8302582mglfio349==",  
-  "index_pattern": ["logs-prod-*"],  
+  "index_pattern": ["logs-prod-*"],
+  "principal": {
+    "username": ["admin"],
+    "role": ["all_access"]
+  },
   "other_attribute": ["value1", "value2"],
   "workload_group": "production_workload_id",
   "updated_at": 1683256789000
@@ -91,6 +95,31 @@ OpenSearch evaluates incoming requests using the following process:
 2. The system evaluates request attributes against defined rules.
 3. The most specific matching rule's value is assigned.
 4. If no rules match, no value is assigned.
+
+### Demonstrations
+Below are some examples demonstrating the match and break tie procedure.
+For this demonstration, `username` has higher priority than `index_pattern` (the priority ordering is determined by the feature and feature type):
+
+1. A request matches the following 3 rules:
+   - Rule 1 has index pattern `log`
+   - Rule 2 has username `admin`
+   - Rule 3 has index pattern `log123`
+
+    The final match will be Rule 2 because it contains the username attribute, which has higher priority.
+
+
+2. A request matches the following 2 rules:
+    - Rule 1 has index pattern `logs-prod-*`
+    - Rule 2 has index pattern `logs-*`
+
+    The final match will be Rule 1 because `logs-prod-*` is more specific than `logs-*`.
+
+
+3. A request matches the following 2 rules:
+   - Rule 1 has index pattern `log` and username `admin`
+   - Rule 2 has username `admin`
+
+   The final match will be Rule 1, as it includes attributes for both the index pattern and the username, making it a more specific match.
 
 ## Examples
 
@@ -167,7 +196,7 @@ When creating rules, the following issues can occur:
 
 * **Unexpected value**: This can happen when multiple rules are defined with overlapping or conflicting conditions.  
   For example, consider the following rules:
-  1. `{ "username": ["dev*"], "index_pattern": ["logs*"] }`
+  1. `{ principal: {"username": ["dev*"]}, "index_pattern": ["logs*"] }`
   2. `{ "index_pattern": ["logs*", "events*"] }`
 
   If a user with the username `dev_john` sends a search request to `logs_q1_25`, it will match the first rule based on the `username` and `index_pattern` attributes. The request will not match the second rule, even though the `index_pattern` also qualifies.
