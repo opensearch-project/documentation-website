@@ -132,7 +132,7 @@ GET my-logs/_search
 
 ## Example: Limit the range strictly
 
-`hard_bounds` constrains the histogram strictly to the min/max timeframe, no buckets are created outside these limits even if data exists there.
+`hard_bounds` constrains the histogram strictly to the min/max time frame, no buckets are created outside these limits even if data exists there.
 
 Retrieve 30 minute buckets for period between `2025-09-01T00:00:00Z` and `2025-09-01T06:00:00Z`:
 
@@ -255,7 +255,7 @@ GET my-logs/_search
 
 ## Example: Scripted value source
 
-You can use painless script to manipulate the values in multiple ways. For example, use the following request to emit the bucket value in epoch milliseconds. This behaves the same as field: "timestamp", but shows the correct return type for scripts:
+You can use Painless script to manipulate the values in multiple ways. For example, use the following request to emit the bucket value in epoch milliseconds. This behaves the same as field: "timestamp", but shows the correct return type for scripts:
 
 ```json
 GET my-logs/_search
@@ -278,21 +278,21 @@ GET my-logs/_search
 
 ## Parameters
 
-`date_histogram` supports the following parameters.
+The `date_histogram` supports the following parameters.
 
-| Parameter | Type | Description |
-|:--|:--|:--|
-| `field` | string | The date/datetime field to bucket on. One of the following is required: `field` or `script`. |
-| `calendar_interval` | string | The calendar-aware interval (e.g., `"day"`, `"1M"`, `"year"`). Only singular calendar units are supported. One of the following is required: `calendar_interval`, `fixed_interval` or legacy `interval`. |
-| `fixed_interval` | string | The exact-duration interval (e.g., `"5m"`, `"12h"`, `"30d"`). Not for calendar units like months or quarters. One of the following is required: `calendar_interval`, `fixed_interval` or legacy `interval`. |
-| `time_zone` | string | The time zone used for bucketing and formatting. Accepts IANA IDs (`"Europe/Dublin"`) or UTC offsets (`"-07:00"`). |
-| `format` | string | The output date format used for `key_as_string` (for example, `"yyyy-MM-dd"`). If omitted, mapping defaults apply. |
-| `offset` | string | Shifts bucket boundaries by a positive or negative duration (for example, `"+6h"`, `"-30m"`). Calculated after `time_zone` is applied. |
-| `min_doc_count` | integer | The minimum number of docs required to return a bucket (default `1`). Set to `0` to include empty buckets. |
-| `extended_bounds` | object | Extends the range of buckets beyond your data: `{"min": "<date>", "max": "<date>"}`. Often used with `min_doc_count: 0`. |
-| `hard_bounds` | object | Strictly limits buckets to a range: `{"min": "<date>", "max": "<date>"}`. Buckets outside the range are never created. |
-| `missing` | date string | Treat docs missing the field as if they had this date value. |
-| `keyed` | boolean | When `true`, returns buckets as an object keyed by the formatted date string. |
-| `order` | object | Sort buckets by `_key` or `_count`, ascending or descending. |
-| `script` | object | Optional script to compute the value to bucket on. Use with care; scripts add overhead. |
+| Parameter | Required | Type | Description |
+|:--|:--|:--|:--|
+| `field` | One of the following is required: `field` or `script` | String | The date/datetime field to bucket on. |
+| `calendar_interval` | One of the following is required: `calendar_interval`, `fixed_interval` or legacy `interval` | String | The calendar-aware interval (e.g., `"day"`, `"1M"`, `"year"`). Only singular calendar units are supported. |
+| `fixed_interval` | One of the following is required: `calendar_interval`, `fixed_interval` or legacy `interval` | String | The exact-duration interval, for example: `"5m"`, `"12h"`, `"30d"`. Not for calendar units like months or quarters. |
+| `time_zone` | Optional | String | The time zone used for bucketing and formatting. Accepts timezone, such as `"Europe/Dublin"` or UTC offsets, such as `"-07:00"`. |
+| `format` | Optional | String | The output date format used for `key_as_string`, for example, `"yyyy-MM-dd"`. If omitted, mapping defaults apply. |
+| `offset` | Optional | String | Shifts bucket boundaries by a positive or negative duration, for example, `"+6h"`, `"-30m"`. Calculated after `time_zone` is applied. |
+| `min_doc_count` | Optional | Integer | The minimum number of docs required to return a bucket. Default is `1`. Set to `0` to include empty buckets. |
+| `extended_bounds` | Optional | Object | Extends the range of buckets beyond your data: `{"min": "<date>", "max": "<date>"}`. Often used with `min_doc_count: 0`. |
+| `hard_bounds` | Optional | Object | Strictly limits buckets to a range: `{"min": "<date>", "max": "<date>"}`. Buckets outside the range are never created. |
+| `missing` | Optional | Date string | Treat docs missing the field as if they had this date value. |
+| `keyed` | Optional | Boolean | When `true`, returns buckets as an object keyed by the formatted date string. |
+| `order` | Optional | Object | Sort buckets by `_key` or `_count`, ascending or descending. |
+| `script` | One of the following is required: `field` or `script` | Object | Optional script to compute the value to bucket on. Use with care; scripts add overhead. |
 
