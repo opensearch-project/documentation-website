@@ -10,10 +10,14 @@ nav_order: 40
 **Introduced 3.2**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
 
-Use this API to add an agentic memory to a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container). You can create a memory in one of the following modes (controlled by the `infer` parameter):
+Use this API to add an agentic memory to a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container). You can create memories in two types:
+
+- **Conversation memory** -- Stores conversational messages between users and assistants. Can be processed (when `infer` is `true`) to extract facts or stored as raw messages.
+
+- **Data memory** -- Stores structured, non-conversational data such as agent state, checkpoints, or reference information.
+
+Memory processing modes (controlled by the `infer` parameter):
 
 - Fact memory -- A processed representation of the message. The large language model (LLM) associated with the memory container extracts and stores key factual information or knowledge from the original text.
 
@@ -33,41 +37,113 @@ The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`messages` | List | Required | A list of messages. Each message requires `content` and may include a `role` (commonly, `user` or `assistant`) when `infer` is set to `true`.
-`session_id` | String | Optional | The session ID associated with the memory.
-`agent_id` | String | Optional | The agent ID associated with the memory.
-`infer` | Boolean | Optional | Controls whether the LLM infers context from messages. Default is `true`. When `true`, the LLM extracts factual information from the original text and stores it as the memory. When `false`, the memory contains the unprocessed message and you must explicitly specify the `role` in each message. 
+`messages` | List | Conditional | A list of messages for conversation memory. Each message requires `content` and may include a `role` (commonly, `user` or `assistant`) when `infer` is set to `true`. Required for `memory_type` of `conversation`.
+`structured_data` | Object | Conditional | Structured data content for data memory. Required for `memory_type` of `data`.
+`memory_type` | String | Required | The type of memory: `conversation` or `data`.
+`namespace` | Object | Optional | Namespace context for organizing memories (e.g., `user_id`, `session_id`, `agent_id`).
+`session_id` | String | Optional | The session ID associated with the memory. Deprecated in favor of using `namespace.session_id`.
+`agent_id` | String | Optional | The agent ID associated with the memory. Deprecated in favor of using `namespace.agent_id`.
+`infer` | Boolean | Optional | Controls whether the LLM infers context from messages. Default is `true` for conversation memory, `false` for data memory. When `true`, the LLM extracts factual information from the original text and stores it as the memory. When `false`, the memory contains the unprocessed message and you must explicitly specify the `role` in each message. 
 `tags` | Object | Optional | Custom metadata for the agentic memory.
 
-## Example request
+## Example requests
+
+### Conversation memory
 
 ```json
 POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
 {
-    "messages": [
-        {"role": "user", "content": "Machine learning is a subset of artificial intelligence"}
-    ],
-    "session_id": "sess_789",
-    "agent_id": "agent_123",
-    "tags": {
-        "topic": "personal info"
+  "messages": [
+    {
+      "role": "user",
+      "content": "I'm Bob, I really like swimming."
+    },
+    {
+      "role": "assistant",
+      "content": "Cool, nice. Hope you enjoy your life."
     }
+  ],
+  "namespace": {
+    "user_id": "bob"
+  },
+  "tags": {
+    "topic": "personal info"
+  },
+  "infer": true,
+  "memory_type": "conversation"
+}
+```
+
+### Data memory
+
+```json
+POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
+{
+  "structured_data": {
+    "time_range": {
+      "start": "2025-09-11",
+      "end": "2025-09-15"
+    }
+  },
+  "namespace": {
+    "agent_id": "testAgent1"
+  },
+  "tags": {
+    "topic": "agent_state"
+  },
+  "infer": false,
+  "memory_type": "data"
+}
+```
+
+### Trace data memory
+
+```json
+POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
+{
+  "structured_data": {
+    "tool_invocations": [
+      {
+        "tool_name": "ListIndexTool",
+        "tool_input": {
+          "filter": "*,-.plugins*"
+        },
+        "tool_output": "green  open security-auditlog-2025.09.17..."
+      }
+    ]
+  },
+  "namespace": {
+    "user_id": "bob",
+    "agent_id": "testAgent1",
+    "session_id": "123"
+  },
+  "tags": {
+    "topic": "personal info",
+    "parent_memory_id": "o4-WWJkBFT7urc7Ed9hM",
+    "data_type": "trace"
+  },
+  "infer": false,
+  "memory_type": "conversation"
 }
 ```
 {% include copy-curl.html %}
 
-## Example response
+## Example responses
+
+### Conversation memory response
 
 ```json
 {
-    "results": [
-        {
-            "id": "T9jtmpgBOh0h20Y91WtZ",
-            "text": "Machine learning is a subset of artificial intelligence",
-            "event": "ADD"
-        }
-    ],
-    "session_id": "sess_789"
+  "session_id": "XSEuiJkBeh2gPPwzjYVh",
+  "working_memory_id": "XyEuiJkBeh2gPPwzjYWM"
+}
+```
+
+### Data memory response
+
+```json
+{
+  "working_memory_id": "Z8xeTpkBvwXRq366l0iA"
 }
 ```
 
@@ -77,8 +153,5 @@ The following table lists all response body fields.
 
 | Field           | Data type | Description                                                                                       |
 | :-------------- | :-------- | :------------------------------------------------------------------------------------------------ |
-| `results`       | List      | A list of memory entries returned by the request.                                                 |
-| `results.id`    | String    | The unique identifier for the memory entry.                                                       |
-| `results.text`  | String    | If `infer` is `false`, contains the stored text from the message. If `infer` is `true`, contains the extracted fact from the message.             |
-| `results.event` | String    | The type of event for the memory entry. For the Add Agentic Memory API, the event type is always `ADD`, indicating that the memory was added. |
-| `session_id`    | String    | The session ID associated with the memory.                                    |
+| `session_id`    | String    | The session ID associated with the memory (returned for conversation memory when a session is created or used). |
+| `working_memory_id` | String | The unique identifier for the created working memory entry. |
