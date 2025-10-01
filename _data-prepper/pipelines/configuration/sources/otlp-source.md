@@ -326,6 +326,7 @@ otlp-pipeline:
           - traces
         index: traces
 ```
+{% include copy.html %}
 
 ## Related articles
 
