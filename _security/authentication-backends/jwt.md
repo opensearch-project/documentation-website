@@ -270,7 +270,7 @@ To protect against denial-of-service (DoS) attacks and ensure secure JWKS operat
 Name | Description | Default
 :--- | :--- | :---
 `max_jwks_keys` | The maximum number of keys to process from the JWKS response. Set to `-1` for unlimited. | `-1`
-`jwks_request_timeout_ms` | Maximum time in milliseconds allowed for a single HTTP request to the JWKS endpoint. | `5000`
+`jwks_request_timeout_ms` | The maximum amount of time allowed for a single HTTP request to the JWKS endpointz, in milliseconds. | `5000`
 `jwks_queued_thread_timeout_ms` | Maximum time in milliseconds a request can wait in the queue before processing. | `2500`
 `max_jwks_response_size_bytes` | Maximum size in bytes for JWKS endpoint responses. | `1048576` (1MB)
 `refresh_rate_limit_count` | Maximum number of JWKS refresh requests allowed within the time window. | `10`
