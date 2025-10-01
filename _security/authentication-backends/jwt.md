@@ -291,7 +291,7 @@ When using JWKS, your JWT header must include a Key ID (`kid`) that identifies t
 
 The `kid` parameter is required when using JWKS endpoints and must match a key identifier in the JWKS response.
 
-### Sample JWKS response
+### Example JWKS response
 
 The JWKS endpoint should return a JSON object containing an array of public keys. Each key must include metadata such as the key type (`kty`), usage (`use`), key ID (`kid`), and algorithm (`alg`):
 
