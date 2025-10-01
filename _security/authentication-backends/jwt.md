@@ -229,7 +229,7 @@ Rather than store the cryptographic key used for validation in the local `config
 
 For more information about the content and format of JSON Web Keys, see [JSON Web Key (JWK) format](https://datatracker.ietf.org/doc/html/rfc7517#section-4).
 
-### Direct JWKS support with JWT authentication
+### Configuring JWKS endpoints for JWT authentication
 
 You can now configure JWKS endpoints directly in the JWT authentication domain. This approach provides enhanced security through automated key rotation and dynamic key management.
 
