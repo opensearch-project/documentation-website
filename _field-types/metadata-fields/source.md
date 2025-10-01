@@ -74,7 +74,7 @@ PUT sample-index1
 ```
 {% include copy-curl.html %}
 
-While skipping the `_source` field can significantly reduce storage requirements, dynamically deriving the source is generally slower than reading a stored `_source`. To avoid this overhead during search queries, do not request the `_source` field when it's not needed. You can do this by setting the `_source` parameter to `false` in the search query. See following example:
+While skipping the `_source` field can significantly reduce storage requirements, dynamically deriving the source is generally slower than reading a stored `_source`. To avoid this overhead during search queries, do not request the `_source` field when it's not needed. You can do this in the search query by setting the `_source` parameter to `false` or with a list of `include` and `exclude` fields. See following example:
 
 ```json
 GET sample-index1/_search
