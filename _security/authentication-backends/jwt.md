@@ -253,6 +253,7 @@ jwt_auth_domain:
   authentication_backend:
     type: noop
 ```
+{% include copy.html %}
 
 ### JWKS configuration parameters
 
