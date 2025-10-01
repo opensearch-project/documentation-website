@@ -293,7 +293,7 @@ The `kid` parameter is required when using JWKS endpoints and must match a key i
 
 ### Example JWKS response
 
-The JWKS endpoint should return a JSON object containing an array of public keys. Each key must include metadata such as the key type (`kty`), usage (`use`), key ID (`kid`), and algorithm (`alg`):
+The JWKS endpoint must return a JSON object containing an array of public keys. Each key must include metadata such as the key type (`kty`), usage (`use`), key ID (`kid`), and algorithm (`alg`):
 
 ```json
 {
