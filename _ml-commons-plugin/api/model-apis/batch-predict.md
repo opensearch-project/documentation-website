@@ -3,7 +3,7 @@ layout: default
 title:  Batch predict
 parent: Model APIs
 grand_parent: ML Commons APIs
-nav_order: 65
+nav_order: 70
 ---
 
 # Batch Predict API
