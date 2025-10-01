@@ -74,7 +74,16 @@ PUT sample-index1
 ```
 {% include copy-curl.html %}
 
-While skipping the `_source` field can significantly reduce storage requirements, dynamically deriving the source is generally slower than reading a stored `_source`. To avoid this overhead during search queries, do not request the `_source` field when it's not needed. You can do this by setting the `size` parameter, which controls the number of documents returned.
+While skipping the `_source` field can significantly reduce storage requirements, dynamically deriving the source is generally slower than reading a stored `_source`. To avoid this overhead during search queries, do not request the `_source` field when it's not needed. You can do this in the search query by setting the `_source` parameter to `false` (demonstrated in the following example) or providing a list of `include` and `exclude` fields:
+
+```json
+GET sample-index1/_search
+{
+  "_source": false,
+  "query": { "match_all": {} }
+}
+```
+{% include copy-curl.html %}
 
 For real-time reads using the [Get Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [Multi-get Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/), which are served from the translog until [`refresh`]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/) happens, performance can be slower when using a derived source. This is because the document must first be ingested temporarily before the source can be reconstructed. You can avoid this additional latency by using an index-level `derived_source.translog` setting that disables generating a derived source during translog reads:
 
