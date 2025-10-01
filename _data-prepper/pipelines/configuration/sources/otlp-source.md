@@ -267,9 +267,12 @@ If you're using separate `otel_logs_source`, `otel_metrics_source`, or `otel_tra
 2. Use [routing configuration](#routing-telemetry-signals) to direct different signal types to their appropriate pipelines.
 3. Change the port numbers if needed (the OTLP source uses port `21893` by default).
 
-### Before: Using individual OTel sources
+### Migration example
 
-#### Pipeline using OTel logs source
+The following example demonstrates how to consolidate separate OTel logs, metrics, and traces sources into a single OTLP source with routing.
+
+Consider a setup where logs, metrics, and traces are configured separately:
+
 ```yaml
 logs-pipeline:
   source:
@@ -279,7 +282,6 @@ logs-pipeline:
     - opensearch:
         index: logs
 ```
-#### Pipeline using OTel metrics source
 ```yaml
 metrics-pipeline:
   source:
@@ -289,7 +291,6 @@ metrics-pipeline:
     - opensearch:
         index: metrics
 ```
-#### Pipeline using OTel trace source
 ```yaml
 traces-pipeline:
   source:
@@ -300,7 +301,7 @@ traces-pipeline:
         index: traces
 ```
 
-### After: Using unified OTLP source
+You can consolidate logs, metrics, and traces into a single OTLP source as follows:
 
 ```yaml
 otlp-pipeline:
