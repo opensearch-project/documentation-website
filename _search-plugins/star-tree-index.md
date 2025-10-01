@@ -498,7 +498,7 @@ You can combine multiple supported bucket aggregations (such as `terms` and `ran
 
 #### Multi-terms aggregations
 
-Tthe star-tree index will optimize `multi_terms` aggregations if the specified fields are part of star-tree index dimensions. For more information about multi-terms aggregations, see [Multi-terms aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/multi-terms/).
+The star-tree index will optimize `multi_terms` aggregations if the specified fields are part of star-tree index dimensions. For more information about multi-terms aggregations, see [Multi-terms aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/multi-terms/).
 
 ## Next steps
 
