@@ -119,7 +119,7 @@ You can use any [OpenSearch agent type]({{site.url}}{{site.baseurl}}/ml-commons-
 
 ### Using LLM knowledge only
 
-To use prompts only, don't specify the `generation_type` so it defaults to `llmGenerated`:
+To use prompts only, don't specify the `generation_type`, so it defaults to `llmGenerated`:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -276,7 +276,7 @@ Parameter	| Type | Required/Optional | Description
 `generation_type` | String | Optional | The type of query generation. Valid values are `llmGenerated` (use LLM knowledge only) and `user_templates` (provide search templates as additional context). Default is `llmGenerated`.
 `query_planner_system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM. Default is `You are an OpenSearch Query DSL generation assistant, translating natural language questions to OpenSeach DSL Queries`.
 `query_planner_user_prompt` | String | Optional | A user prompt template for the LLM. Can contain placeholders for execution-time parameters like `${parameters.question}`.
-`search_templates` | Array | Optional | Applicable only when `generation_type` is set to `user_templates` . A list of search templates for an LLM to use as context when generating an OpenSearch DSL query. Each entry within the `search_templates` array must include a `template_id` and a `template_description` (provides the LLM with additional context about the template contents).
+`search_templates` | Array | Optional | Applicable only when `generation_type` is set to `user_templates`. A list of search templates for an LLM to use as context when generating an OpenSearch DSL query. Each entry within the `search_templates` array must include a `template_id` and a `template_description` (provides the LLM with additional context about the template contents).
 
 ## Execute parameters
 
@@ -333,6 +333,6 @@ POST /_plugins/_ml/agents/your_agent_id/_execute
 When passing complex JSON objects like an `index_mapping` as a parameter, ensure that the JSON string is properly escaped to be a valid single-line string within the parent JSON document.
 {: .note}
 
-## Related articles
+## Related pages
 
 - [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/)
