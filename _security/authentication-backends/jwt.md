@@ -120,7 +120,7 @@ Name | Description
 `signing_key` | The signing key(s) used to verify the token. If you use a symmetric key algorithm, this is the Base64-encoded shared secret. If you use an asymmetric algorithm, the algorithm contains the public key. To pass multiple keys, use a comma-separated list or enumerate the keys.
 `jwt_header` | The HTTP header in which the token is transmitted. This is typically the `Authorization` header with the `Bearer` schema,`Authorization: Bearer <token>`. Default is `Authorization`. Replacing this field with a value other than `Authorization` prevents the audit log from properly redacting the JWT header from audit messages. It is recommended that users only use  `Authorization` when using JWTs with audit logging. 
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header but rather as an URL parameter, define the name of the parameter here.
-`subject_key` | The key in the JSON payload that stores the username. If not set, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used.
+`subject_key` | The key in the JSON payload that stores the username. If not set, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used. To extract a username from nested JWT claims, you can configure `subject_key` as a list.
 `roles_key` | The key in the JSON payload that stores the user's roles. The value must be a comma-separated list of roles. You can configure `roles_key` as a list to extract roles from nested JWT claims.
 `required_audience` | The name of the audience that the JWT must specify. You can set a single value (for example, `project1`) or multiple comma-separated values (for example, `project1,admin`). If you set multiple values, the JWT must have at least one required audience. This parameter corresponds to the [`aud` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3).
 `required_issuer` | The target issuer of JWT stored in the JSON payload. This corresponds to the [`iss` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
@@ -227,25 +227,110 @@ Validating the signature of the signed JWT is the last step in granting user acc
 
 Rather than store the cryptographic key used for validation in the local `config.yml` file's `authc` section, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the key from its location on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates.
 
-In OpenSearch, this method of validation makes use of the [OpenID Connect authentication domain configuration]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/#configure-openid-connect-integration). To specify the JWKS endpoint, replace the `openid_connect_url` setting in the configuration with the `jwks_uri` setting and add the URL to the setting as its value. This is shown in the following example:
+For more information about the content and format of JSON Web Keys, see [JSON Web Key (JWK) format](https://datatracker.ietf.org/doc/html/rfc7517#section-4).
+
+### Configuring JWKS endpoints for JWT authentication
+
+You can configure JWKS endpoints directly in the JWT authentication domain. This approach provides enhanced security through automated key rotation and dynamic key management:
 
 ```yml
-openid_auth_domain:
+jwt_auth_domain:
+  description: "Authenticate via JSON Web Token"
   http_enabled: true
   transport_enabled: true
   order: 0
   http_authenticator:
-    type: openid # use the OpenID Connect domain, since JWT is part of this authentication.
+    type: jwt
     challenge: false
     config:
-      subject_key: preferred_username
-      roles_key: roles
-      jwks_uri: https://keycloak.example.com:8080/auth/realms/master/.well-known/jwks-keys.json
+      jwks_uri: "https://example.com/.well-known/jwks.json"
+      signing_key: null  # Not used when jwks_uri is specified
+      jwt_header: "Authorization"
+      jwt_url_parameter: null
+      jwt_clock_skew_tolerance_seconds: 30
+      roles_key: "roles"
+      subject_key: "sub"
   authentication_backend:
     type: noop
 ```
+{% include copy.html %}
 
-The endpoint should be documented by the JWT issuer. You can use it to retrieve the keys needed to validate the signed JWT. For more information about the content and format of JSON Web Keys, see [JSON Web Key (JWK) format](https://datatracker.ietf.org/doc/html/rfc7517#section-4).
+### JWKS configuration parameters
+
+The following table describes the JWKS-specific configuration parameters.
+
+Name | Description | Default
+:--- | :--- | :---
+`jwks_uri` | The JWKS endpoint URL. When specified, `signing_key` is ignored and keys are retrieved from this endpoint. | `null`
+
+### (Advanced) Security protection
+
+To protect against denial-of-service (DoS) attacks and ensure secure JWKS operations, the Security plugin provides several protective measures, including request limits, timeouts, and response size restrictions. The following table describes the available settings for securing JWKS operations.
+
+Name | Description | Default
+:--- | :--- | :---
+`max_jwks_keys` | The maximum number of keys to process from the JWKS response. Set to `-1` for unlimited. | `-1`
+`jwks_request_timeout_ms` | The maximum amount of time allowed for a single HTTP request to the JWKS endpoint, in milliseconds. | `5000`
+`jwks_queued_thread_timeout_ms` | The maximum amount of time a request can wait in the queue before being processed, in milliseconds. | `2500`
+`max_jwks_response_size_bytes` | The maximum size of JWKS endpoint responses, in bytes. | `1048576` (1 MB)
+`refresh_rate_limit_count` | The maximum number of JWKS refresh requests allowed within the time window. | `10`
+`refresh_rate_limit_time_window_ms` | The time window for rate limiting JWKS refresh requests, in milliseconds. | `10000` (10 seconds)
+
+### JWT header with Key ID
+
+When using JWKS, your JWT header must include a key ID (`kid`) that identifies the specific key to use for verification:
+
+```json
+{
+  "alg": "RS256",
+  "typ": "JWT",
+  "kid": "V-diposfUJIk5jDBFi_QRouiVinG5PowskcSWy5EuCo"
+}
+```
+{% include copy.html %}
+
+The `kid` parameter is required when using JWKS endpoints and must match a key identifier in the JWKS response.
+
+### Example JWKS response
+
+The JWKS endpoint must return a JSON object containing an array of public keys. Each key must include metadata such as the key type (`kty`), usage (`use`), key ID (`kid`), and algorithm (`alg`):
+
+```json
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "use": "sig",
+      "kid": "V-diposfUJIk5jDBFi_QRouiVinG5PowskcSWy5EuCo",
+      "alg": "RS256",
+      "n": "nCJ9ve8zRv_4pdSja5i_8GgozoVZrUocD6UnMyQmh6fRBZWspoIRSGdTjcKktevnKWXlg7mqe7FIx6CdVqR5rVfM0o61_7cgxJqdNdnCXsFR8_S_98qMIJ-gxmlwE2a1X1VrCSmYh60APUGoGypm0sAsjvYTzU04LTN7K0Gip3H5qpkFD-Mxlev75WeC8WrvsfUFl6XN1h55HZW2wlYJGmbFVQx5839d8o6BxDVvQrGdN8MzLRFTMG8wiPhVDQL5NHt3vKgDnD6zT0c_S5Kz42i4bcktRRoAbR3LjDn5YbAatmfKzwOuL0XsbEnn-kgnt2aJ5GCaggukY3mMc-Bhew",
+      "e": "AQAB"
+    }
+  ]
+}
+```
+{% include copy.html %}
+
+### Caching and performance
+
+JWKS responses are cached to optimize performance:
+
+- **Initial cache**: When JWKS is enabled, the system caches the JWKS endpoint response.
+- **Cache refresh triggers in the following situations**: 
+  - When a JWT contains a `kid` not found in the cache
+  - When cache entries expire based on HTTP cache headers
+  - During background refresh cycles
+- **Rate limiting**: Prevents excessive requests to the JWKS endpoint (by default, 10 requests per 10-second window).
+
+### Backward compatibility
+
+JWT authentication supports direct JWKS endpoint configuration starting with OpenSearch 3.3. The feature maintains full backward compatibility:
+
+- When `jwks_uri` is not specified or set to `null`, the system uses the existing static `signing_key` mechanism.
+- Existing JWT configurations continue to work without modification.
+- You can switch between static keys and JWKS by updating the configuration.
+- When both `jwks_uri` and `signing_key` are configured, `jwks_uri` takes precedence and `signing_key` is ignored.
+
 
 
 ## Troubleshooting common issues
