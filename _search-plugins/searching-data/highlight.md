@@ -172,7 +172,6 @@ The `fvh` highlighter is based on the Lucene Fast Vector Highlighter. To use thi
 The `plain` highlighter is based on the standard Lucene highlighter. It requires the highlighted fields to be stored either individually or in the `_source` field. The `plain` highlighter mirrors the query matching logic, in particular word importance and positions in phrase queries. It works for most use cases but may be slow for large fields because it has to reanalyze the text to be highlighted. 
 
 ### The `semantic` highlighter
-
 **Introduced 3.0**
 {: .label .label-purple }
 
@@ -180,18 +179,134 @@ The `semantic` highlighter uses machine learning (ML) models to identify and hig
 
 The `semantic` highlighter supports two processing modes:
 
-- **Single inference mode (default)**: Processes each document individually with one ML inference call per document. Use this when `batch_inference` is `false` or not specified. Supports both local and remote models.
-- **Batch inference mode** (introduced 3.3): Processes all documents in a single ML inference call, significantly improving performance for multi-document results. Requires a remote model with batch processing capabilities, the system processor factory enabled, and `batch_inference` set to `true`. Local models do not support batch inference.
+- **Single inference mode (default)**: Processes each document individually using one ML inference call per document. Supports both local and externally hosted models.
+- [**Batch inference mode**](#batch-inference-mode): Processes all documents in a single ML inference call, significantly improving performance for multi-document results. 
 
-For production environments, we recommend using remote models with batch inference enabled for optimal performance and scalability.
+For production environments, we recommend using externally hosted models with batch inference enabled for optimal performance and scalability.
 {: .tip}
 
-Before using the `semantic` highlighter, you must configure and deploy a sentence highlighting model. For more information about using ML models in OpenSearch, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/). For information about OpenSearch-provided sentence highlighting models, see [Semantic sentence highlighting models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#semantic-sentence-highlighting-models). For information about remote models, see [Remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/overview/).
+Before using the `semantic` highlighter, you must configure and deploy a sentence highlighting model. For more information about using ML models in OpenSearch, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/). For information about OpenSearch-provided sentence highlighting models, see [Semantic sentence highlighting models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#semantic-sentence-highlighting-models). 
 {: .note}
 
-To use the `semantic` highlighter, you must specify a `model_id` in the `highlight.options` object. The model determines which parts of the text are semantically similar to the query.
+## Basic usage (single inference mode)
+
+To use the `semantic` highlighter, set the `type` to `semantic` in the `fields` object and provide the `model_id` of the deployed sentence transformer or question-answering model within the global `highlight.options` object. The following example uses a `neural` query to find documents related to "treatments for neurodegenerative diseases" and then applies semantic highlighting using the specified `sentence_model_id`:
+
+```json
+POST /neural-search-index/_search
+{
+  "_source": {
+    "excludes": ["text_embedding"]
+  },
+  "query": {
+    "neural": {
+      "text_embedding": {
+        "query_text": "treatments for neurodegenerative diseases",
+        "model_id": "your-text-embedding-model-id",
+        "k": 5
+      }
+    }
+  },
+  "highlight": {
+    "fields": {
+      "text": {
+        "type": "semantic"
+      }
+    },
+    "options": {
+      "model_id": "your-sentence-model-id"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response includes a `highlight` object for each hit, indicating the most semantically relevant sentence by emphasizing it with <em> tags. Note that model IDs are placeholders:
+
+```json
+{
+  "took": 628,
+  "timed_out": false,
+  "_shards": { ... },
+  "hits": {
+    "total": { "value": 5, "relation": "eq" },
+    "max_score": 0.4841726,
+    "hits": [
+      {
+        "_index": "neural-search-index",
+        "_id": "srL7G5YBmDiZSe-G2pDc",
+        "_score": 0.4841726,
+        "_source": {
+          "text": "Alzheimer's disease is a progressive neurodegenerative disorder characterized by accumulation of amyloid-beta plaques and neurofibrillary tangles in the brain. Early symptoms include short-term memory impairment, followed by language difficulties, disorientation, and behavioral changes. While traditional treatments such as cholinesterase inhibitors and memantine provide modest symptomatic relief, they do not alter disease progression. Recent clinical trials investigating monoclonal antibodies targeting amyloid-beta, including aducanumab, lecanemab, and donanemab, have shown promise in reducing plaque burden and slowing cognitive decline. Early diagnosis using biomarkers such as cerebrospinal fluid analysis and PET imaging may facilitate timely intervention and improved outcomes."
+        },
+        "highlight": {
+          "text": [
+            "Alzheimer's disease is a progressive neurodegenerative disorder ... <em>Recent clinical trials investigating monoclonal antibodies targeting amyloid-beta, including aducanumab, lecanemab, and donanemab, have shown promise in reducing plaque burden and slowing cognitive decline.</em> Early diagnosis using biomarkers ..."
+          ]
+        }
+      },
+      // ... other hits with highlighted sentences ...
+    ]
+  }
+}
+```
 
 For a step-by-step guide, see the [semantic highlighting tutorial]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-highlighting-tutorial/).
+
+### Batch inference mode
+**Introduced 3.3**
+{: .label .label-purple }
+
+To improve performance when highlighting multiple documents, enable batch inference mode. Batch inference mode processes all matching documents in a single ML model inference call, reducing latency and improving throughput compared to single inference mode (which makes one call per document).
+
+Batch inference mode requires an externally hosted model with batch processing capabilities. Local models do not support batch inference. For information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/).
+{: .note}
+
+First, configure the cluster setting (one-time setup):
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "search.pipeline.enabled_system_generated_factories": ["semantic-highlighter"]
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then set `batch_inference` to `true` in `highlight.options`:
+
+```json
+POST /neural-search-index/_search
+{
+  "_source": {
+    "excludes": ["text_embedding"]
+  },
+  "query": {
+    "neural": {
+      "text_embedding": {
+        "query_text": "treatments for neurodegenerative diseases",
+        "model_id": "your-text-embedding-model-id",
+        "k": 5
+      }
+    }
+  },
+  "highlight": {
+    "fields": {
+      "text": {
+        "type": "semantic"
+      }
+    },
+    "options": {
+      "model_id": "your-remote-sentence-model-id",
+      "batch_inference": true
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Batch inference provides responses in the same format as single inference.
 
 ## Highlighting options
 
@@ -222,9 +337,9 @@ number_of_fragments| The maximum number of returned fragments. If `number_of_fra
 `phrase_limit` | The number of matching phrases in a document that are considered. Limits the number of phrases to be analyzed by the `fvh` highlighter in order to avoid consuming a lot of memory. If `matched_fields` are used, `phrase_limit` specifies the number of phrases for each matched field. A higher `phrase_limit` leads to increased query time and more memory consumption. Valid only for the `fvh` highlighter. Default is 256.
 `max_analyzer_offset` | Specifies the maximum number of characters to be analyzed by a highlight request. The remaining text will not be processed. If the text to be highlighted exceeds this offset, then an empty highlight is returned. The maximum number of characters that will be analyzed for a highlight request is defined by `index.highlight.max_analyzed_offset`. When this limit is reached, an error is returned. Set the `max_analyzer_offset` to a lower value than `index.highlight.max_analyzed_offset` to avoid the error.
 `options` | A global object containing highlighter-specific options.
-`options.model_id` | The ID of the deployed ML model to use for highlighting. Required for the `semantic` highlighter. For batch inference mode, must be a remote model with batch processing capabilities.
-`options.batch_inference` | (Introduced 3.3) When set to `true`, enables batch inference mode for semantic highlighting, processing all documents in a single ML inference call instead of one call per document. Requires a remote model with batch processing capabilities (local models are not supported) and the system processor factory to be enabled via cluster setting: `search.pipeline.enabled_system_generated_factories: ["semantic-highlighter"]`. Default is `false`. Valid only for the `semantic` highlighter.
-`options.max_inference_batch_size` | (Introduced 3.3) Specifies the maximum number of documents to include in each inference request to the model server when using batch inference mode. If the number of documents to process exceeds this value, they will be processed iteratively in batches of this size. Default is `100`. Valid only for the `semantic` highlighter with `batch_inference` enabled.
+`options.batch_inference` | When set to `true`, enables batch inference mode for semantic highlighting, processing all documents in a single ML inference call instead of one call per document. Requires an externally hosted model with batch processing capabilities (local models are not supported) and the system processor factory to be enabled via cluster setting: `search.pipeline.enabled_system_generated_factories: ["semantic-highlighter"]`. Default is `false`. Valid only for the `semantic` highlighter.
+`options.max_inference_batch_size` | Specifies the maximum number of documents to include in each inference request to the model server when using batch inference mode. If the number of documents to process exceeds this value, the documents will be processed iteratively in batches of this size. Default is `100`. Valid only for the `semantic` highlighter with `batch_inference` enabled.
+`options.model_id` | The ID of the deployed ML model to use for highlighting. Required for the `semantic` highlighter. When `options.batch_inference` is set to `true`, the model must be an externally hosted model with batch processing capabilities.
 
 The unified highlighter's sentence scanner splits sentences larger than `fragment_size` at the first word boundary after `fragment_size` is reached. To return whole sentences without splitting them, set `fragment_size` to 0.
 {: .note}
@@ -986,140 +1101,10 @@ The response lists documents that contain the word "bragging" first:
 }
 ```
 
-## Using the `semantic` highlighter
-
-The `semantic` highlighter uses the specified ML model to find passages in text that are semantically relevant to the search query, even if there are no exact keyword matches. Highlighting occurs at the sentence level.
-
-To use the `semantic` highlighter, set the `type` to `semantic` in the `fields` object and provide the `model_id` of the deployed sentence transformer or question-answering model within the global `highlight.options` object.
-
-The following example uses a `neural` query to find documents related to "treatments for neurodegenerative diseases" and then applies semantic highlighting using the specified `sentence_model_id`:
-
-```json
-POST neural-search-index/_search
-{
-  "_source": {
-    "excludes": ["text_embedding"]
-  },
-  "query": {
-    "neural": {
-      "text_embedding": {
-        "query_text": "treatments for neurodegenerative diseases",
-        "model_id": "your-text-embedding-model-id",
-        "k": 5
-      }
-    }
-  },
-  "highlight": {
-    "fields": {
-      "text": {
-        "type": "semantic"
-      }
-    },
-    "options": {
-      "model_id": "your-sentence-model-id"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The response includes a `highlight` object for each hit, indicating the most semantically relevant sentence by emphasizing it with <em> tags. Note that model IDs are placeholders:
-
-```json
-{
-  "took": 628,
-  "timed_out": false,
-  "_shards": { ... },
-  "hits": {
-    "total": { "value": 5, "relation": "eq" },
-    "max_score": 0.4841726,
-    "hits": [
-      {
-        "_index": "neural-search-index",
-        "_id": "srL7G5YBmDiZSe-G2pDc",
-        "_score": 0.4841726,
-        "_source": {
-          "text": "Alzheimer's disease is a progressive neurodegenerative disorder characterized by accumulation of amyloid-beta plaques and neurofibrillary tangles in the brain. Early symptoms include short-term memory impairment, followed by language difficulties, disorientation, and behavioral changes. While traditional treatments such as cholinesterase inhibitors and memantine provide modest symptomatic relief, they do not alter disease progression. Recent clinical trials investigating monoclonal antibodies targeting amyloid-beta, including aducanumab, lecanemab, and donanemab, have shown promise in reducing plaque burden and slowing cognitive decline. Early diagnosis using biomarkers such as cerebrospinal fluid analysis and PET imaging may facilitate timely intervention and improved outcomes."
-        },
-        "highlight": {
-          "text": [
-            "Alzheimer's disease is a progressive neurodegenerative disorder ... <em>Recent clinical trials investigating monoclonal antibodies targeting amyloid-beta, including aducanumab, lecanemab, and donanemab, have shown promise in reducing plaque burden and slowing cognitive decline.</em> Early diagnosis using biomarkers ..."
-          ]
-        }
-      },
-      // ... other hits with highlighted sentences ...
-    ]
-  }
-}
-```
-
-The highlighted fragments in the example response have been truncated for brevity. The `semantic` highlighter returns the full sentence containing the most relevant passage.
-
-### Batch inference mode for improved performance
-
-**Introduced 3.3**
-{: .label .label-purple }
-
-To improve performance when highlighting multiple documents, enable batch inference mode. This feature requires a remote model with batch processing capabilities. Local models do not support batch inference.
-
-First, configure the cluster setting (one-time setup):
-
-```json
-PUT _cluster/settings
-{
-  "persistent": {
-    "search.pipeline.enabled_system_generated_factories": ["semantic-highlighter"]
-  }
-}
-```
-{% include copy-curl.html %}
-
-Then add `"batch_inference": true` to your highlight options with a remote model:
-
-```json
-POST neural-search-index/_search
-{
-  "_source": {
-    "excludes": ["text_embedding"]
-  },
-  "query": {
-    "neural": {
-      "text_embedding": {
-        "query_text": "treatments for neurodegenerative diseases",
-        "model_id": "your-text-embedding-model-id",
-        "k": 5
-      }
-    }
-  },
-  "highlight": {
-    "fields": {
-      "text": {
-        "type": "semantic"
-      }
-    },
-    "options": {
-      "model_id": "your-remote-sentence-model-id",
-      "batch_inference": true
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-Batch inference mode processes all matching documents in a single ML model inference call, reducing latency and improving throughput compared to single inference mode (which makes one call per document). The response format remains the same.
-
-**Batch inference requirements:**
-- Remote model with batch processing capabilities (local models not supported)
-- System processor factory enabled in cluster settings
-- OpenSearch 3.3 or later
-
-For production environments, using batch inference with remote models is the recommended best practice.
-{: .tip}
-
 ## Query limitations
 
 Note the following limitations:
 
 - When extracting terms to highlight, highlighters don't reflect the Boolean logic of a query. Therefore, for some complex Boolean queries, such as nested Boolean queries and queries using `minimum_should_match`, OpenSearch may highlight terms that don't correspond to query matches.
 - The `fvh` highlighter does not support span queries.
-- The `semantic` highlighter requires a deployed ML model specified by `model_id` in the `highlight.options`. It does not use traditional offset methods (postings, term vectors) and relies solely on model inference. For batch inference mode (`batch_inference: true`), you must use a remote model with batch processing capabilities (available in OpenSearch 3.3+), as local models do not support batch inference. The system processor factory must also be enabled via cluster settings.
+- The `semantic` highlighter requires a deployed ML model specified by `model_id` in the `highlight.options`. It does not use traditional offset methods (postings, term vectors) and relies solely on model inference. For batch inference mode (`batch_inference: true`), you must use an externally hosted model with batch processing capabilities.
