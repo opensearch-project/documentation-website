@@ -10,9 +10,9 @@ nav_order: 260
 
 The `otel_trace` processor completes trace-group-related fields in all incoming OpenSearch Data Prepper span records by state caching the root span information for each `traceId`. 
 
-## Parameters
+## Usage
 
-This processor includes the following parameters.
+This processor adds the following fields to span events:
 
 * `traceGroup`: Root span name
 * `endTime`: End time of the entire trace in International Organization for Standardization (ISO) 8601 format

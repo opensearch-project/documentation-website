@@ -5,6 +5,7 @@ nav_order: 80
 has_children: true
 redirect_from:
   - /dashboards/admin-ui-index/
+  - /dashboards/im-dashboards/
 ---
 
 # Index Management
