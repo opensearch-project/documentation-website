@@ -264,7 +264,7 @@ Name | Description | Default
 
 ### (Advanced) Security protection
 
-To help protect against denial-of-service (DoS) attacks and ensure secure JWKS operations, the Security plugin provides several protective measures including request limits, timeouts, and response size restrictions.
+To protect against denial-of-service (DoS) attacks and ensure secure JWKS operations, the Security plugin provides several protective measures including request limits, timeouts, and response size restrictions. The following table describes the available settings for securing JWKS operations.
 
 Name | Description | Default
 :--- | :--- | :---
