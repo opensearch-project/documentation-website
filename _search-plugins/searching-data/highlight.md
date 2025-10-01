@@ -298,7 +298,7 @@ POST /neural-search-index/_search
       }
     },
     "options": {
-      "model_id": "your-remote-sentence-model-id",
+      "model_id": "your-remote-semantic-highlighing-model-id",
       "batch_inference": true
     }
   }
