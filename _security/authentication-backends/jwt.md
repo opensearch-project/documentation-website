@@ -309,6 +309,7 @@ The JWKS endpoint should return a JSON object containing an array of public keys
   ]
 }
 ```
+{% include copy.html %}
 
 ### Caching and performance
 
