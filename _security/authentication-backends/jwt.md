@@ -265,7 +265,7 @@ Name | Description | Default
 
 ### (Advanced) Security protection
 
-To protect against denial-of-service (DoS) attacks and ensure secure JWKS operations, the Security plugin provides several protective measures including request limits, timeouts, and response size restrictions. The following table describes the available settings for securing JWKS operations.
+To protect against denial-of-service (DoS) attacks and ensure secure JWKS operations, the Security plugin provides several protective measures, including request limits, timeouts, and response size restrictions. The following table describes the available settings for securing JWKS operations.
 
 Name | Description | Default
 :--- | :--- | :---
@@ -278,7 +278,7 @@ Name | Description | Default
 
 ### JWT header with Key ID
 
-When using JWKS, your JWT header must include a Key ID (`kid`) that identifies the specific key to use for verification:
+When using JWKS, your JWT header must include a key ID (`kid`) that identifies the specific key to use for verification:
 
 ```json
 {
@@ -317,9 +317,9 @@ JWKS responses are cached to optimize performance:
 
 - **Initial cache**: When JWKS is enabled, the system caches the JWKS endpoint response.
 - **Cache refresh triggers in the following situations**: 
-  - When a JWT contains a `kid` not found in the cache.
-  - When cache entries expire based on HTTP cache headers.
-  - During background refresh cycles.
+  - When a JWT contains a `kid` not found in the cache
+  - When cache entries expire based on HTTP cache headers
+  - During background refresh cycles
 - **Rate limiting**: Prevents excessive requests to the JWKS endpoint (by default, 10 requests per 10-second window).
 
 ### Backward compatibility
