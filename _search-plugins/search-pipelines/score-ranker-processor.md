@@ -2,7 +2,7 @@
 layout: default
 title: Score ranker
 has_children: false
-parent: Search processors
+parent: User-defined search processors
 grand_parent: Search pipelines
 nav_order: 117
 ---

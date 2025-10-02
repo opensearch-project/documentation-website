@@ -3,7 +3,7 @@ layout: default
 title: Oversample
 nav_order: 80
 has_children: false
-parent: Search processors
+parent: User-defined search processors
 grand_parent: Search pipelines
 ---
 
