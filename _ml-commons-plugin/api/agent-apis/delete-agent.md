@@ -3,7 +3,7 @@ layout: default
 title: Delete agent
 parent: Agent APIs
 grand_parent: ML Commons APIs
-nav_order: 50
+nav_order: 40
 ---
 
 # Delete Agent API
