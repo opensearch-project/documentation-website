@@ -939,7 +939,7 @@ search.open_contexts | Integer | The number of open search contexts.
 search.query_total | Integer | The total number of shard query operations.
 search.query_time_in_millis | Integer | The total amount of time for all shard query operations, in milliseconds.
 search.query_current | Integer | The number of shard query operations that are currently running.
-search.query_failed | Integer The total number of failed shard query operations.
+search.query_failed | Integer | The total number of failed shard query operations.
 search.fetch_total | Integer | The total number of shard fetch operations.
 search.fetch_time_in_millis | Integer | The total amount of time for all shard fetch operations, in milliseconds.
 search.fetch_current | Integer | The number of shard fetch operations that are currently running.
