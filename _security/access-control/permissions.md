@@ -60,6 +60,7 @@ GET _cat/shards?v
 ```
 
 The preceding request runs the actual operation to test permissions. To simulate the check without executing the operation, set the `perform_permission_check` query parameter to `true`:
+
 ```json
 PUT /my_index/_doc/1?perform_permission_check=true
 {
