@@ -17,10 +17,11 @@ Memory-optimized search affects only search operations. Indexing behavior remain
 ## Limitations
 
 The following limitations apply to memory-optimized search in OpenSearch:
-- **For indexes created before 2.19, the engine loads data into memory regardless of whether memory-optimized mode is enabled**.
-- Supported only for the [Faiss engine]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) with the [HNSW method]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#hnsw-parameters-1) 
-- Does not support [IVF]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#ivf-parameters) or [product quantization (PQ)]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-product-quantization)
-- Requires an index restart to enable or disable
+
+- **For indexes created before OpenSearch 2.19, the engine loads data into memory regardless of whether memory-optimized mode is enabled**.
+- Memory-optimized search is supported only for the [Faiss engine]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) with the [HNSW method]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#hnsw-parameters-1). 
+- Memory-optimized search does not support [IVF]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#ivf-parameters) or [product quantization (PQ)]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-product-quantization).
+- An index restart is required to enable or disable memory-optimized search.
 
 If you use IVF or PQ, the engine loads data into memory regardless of whether memory-optimized mode is enabled.
 {: .important }
