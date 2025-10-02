@@ -72,6 +72,7 @@ You can specify data types for your fields when creating a mapping. The followin
 | [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)                 | Indexes a vector for k-NN search.                                                                                                         |
 | [`semantic`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/semantic/)                     | Wraps a text or binary field to simplify semantic search setup.                                                                           |
 | [`star_tree`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/)                   | Precomputes aggregations for faster performance using a [star-tree index](https://docs.pinot.apache.org/basics/indexing/star-tree-index). |
+| [`sparse_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/sparse-vector/)               | Indexes a sparse vector for ANN search [`sparse ANN`]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann) |
 
 ## Arrays
 

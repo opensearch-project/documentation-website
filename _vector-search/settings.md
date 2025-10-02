@@ -97,7 +97,7 @@ The remote build service username and password are secure settings that must be 
 ```
 {% include copy.html %}
 
-You can reload the secure settings without restarting the node by using the [Nodes Reload Secure Setings API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/).
+You can reload the secure settings without restarting the node by using the [Nodes Reload Secure Settings API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/).
 
 ## Neural Search plugin settings
 
@@ -108,6 +108,9 @@ The Neural Search plugin supports the following settings.
 The following Neural Search plugin settings apply at the cluster level:
 
 - `plugins.neural_search.stats_enabled` (Dynamic, Boolean): Enables the [Neural Search Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#stats). Default is `false`.
+- `plugins.neural_search.circuit_breaker.limit` (Dynamic, Percentage): Specifies the JVM memory limit for the neural search circuit breaker. Default is `10%` of the JVM heap.
+- `plugins.neural_search.circuit_breaker.overhead` (Dynamic, Float): A constant by which the sparse data estimation is multiplied to determine the final estimation. Default is `1.0`.
+- `plugins.neural_search.sparse.algo_param.index_thread_qty` (Dynamic, Integer): The number of threads used for [sparse ANN]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann) index build. Increasing this value allocates more CPUs to the index build job and boosts the indexing performance. Default is `1`.
 
 ### Index settings
 
