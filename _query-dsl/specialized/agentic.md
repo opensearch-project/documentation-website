@@ -9,10 +9,16 @@ nav_order: 2
 **Introduced 3.2**
 {: .label .label-purple }
 
-Use the `agentic` query to ask questions in natural language and have OpenSearch automatically plan and execute the retrieval. The `agentic` query works in conjunction with a preconfigured agent that reads the question, plans the search, and returns relevant results. For more information about agentic search, see [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/).
+Use the `agentic` query to ask questions in natural language and have OpenSearch automatically plan and execute the retrieval. The `agentic` query works in conjunction with a preconfigured agent that reads the question, plans the search, and returns relevant results. For more information about agentic search, see [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/).
 
 **Prerequisite**<br>
-Before using an `agentic` query, you must configure an agent with the [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/) and create a search pipeline with an `agentic_query_translator` search request processor.
+Before using an `agentic` query, you must:
+
+1. Configure an agent with the [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/). The QueryPlanningTool is required for generating DSL queries from natural language questions.
+2. Optionally configure the agent with additional tools for enhanced functionality.
+3. Create a search pipeline with an `agentic_query_translator` search request processor.
+
+For detailed setup instructions, see [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/).
 {: .note}
 
 ## Request body fields
@@ -48,10 +54,10 @@ When executed, the agentic search request performs the following steps:
 3. The generated DSL query is executed as a search request in OpenSearch.
 4. Returns the search results based on the generated query.
 
-For a complete example, see [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/).
+For a complete example, see [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/).
 
 ## Next steps
 
-- Learn how to set up agentic search in [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/).
+- Learn how to set up agentic search in [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/).
 - Learn about configuring agents in [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 - Learn about the [QueryPlanningTool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/).
