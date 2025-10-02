@@ -119,4 +119,18 @@ Parameter | Description
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
 `store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
 
+## Derived source
 
+Derived source may sort values and remove duplicates when using multi-value field. For example:
+```json
+PUT sample-index1/_doc/1
+{
+  "ip": ["10.16.0.1", "192.168.0.1", "10.16.0.1", "2001:0db8:85a3:0000:0000:8a2e:0370:7334"]
+}
+```
+Will become:
+```json
+{
+  "ip": ["10.16.0.1", "192.168.0.1", "2001:0db8:85a3:0000:0000:8a2e:0370:7334"]
+}
+```
