@@ -110,7 +110,19 @@ The metrics framework feature supports the following metric types:
 Introduced 3.1
 {: .label .label-purple }
 
-OpenSearch provides enhanced observability for [machine learning (ML)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/) workflows. Metrics related to ML operations are pushed directly to the core metrics registry, giving you improved visibility into model usage and performance. Additionally, every 5 minutes, a periodic job collects and exports state data, helping you monitor the health and activity of your ML workloads over time. 
+OpenSearch provides enhanced observability for [machine learning (ML)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/) workflows. Metrics related to ML operations are pushed directly to the core metrics registry, giving you improved visibility into model usage and performance. Additionally, every 5 minutes, a periodic job collects and exports state data, helping you monitor the health and activity of your ML workloads over time.
+
+The static collector job captures details about different types of models and agents created:
+
+1. **Models** - Including deployment type (remote, pre-trained, custom), service provider (bedrock, sagemaker, azure, etc.), algorithm, model name, and model type (llm, embedding, image_generation, speech_audio).
+2. **Agents** - Including LLM interface, model deployment, service provider, model type, memory type, and model identifier.
+
+Additional metrics will be added in future releases.
+
+Example agent metrics captured:
+```
+{_llm_interface=bedrock/converse/claude, model_deployment=remote, is_hidden=false, model_service_provider=bedrock, model_type=llm, memory_type=conversation_index, model=us.anthropic.claude-3-7-sonnet-20250219-v1:0, type=CONVERSATIONAL}
+```
 
 To enable ML observability, specify the following settings in `opensearch.yml`:
 
