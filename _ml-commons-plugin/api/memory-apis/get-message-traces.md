@@ -32,6 +32,24 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `message_id` | String | The ID of the message to trace.
 
+## Response body fields
+
+The following table lists the available response fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `memory_id` | String | The memory ID. |
+| `message_id` | String | The message ID. |
+| `create_time` | String | The time at which the message was created. |
+| `updated_time` | String | The time at which the message was last updated. |
+| `input` | String | The question (human input) in the message. |
+| `prompt_template` | String | The prompt template that was used for the message. |
+| `response` | String | The answer (generative AI output) to the question. |
+| `origin` | String | The name of the AI or other system that generated the response. |
+| `additional_info` | Object | Any other information that was sent to the `origin`. |
+| `parent_message_id` | String | The ID of the parent message (for trace messages). |
+| `trace_number` | Integer | The trace number (for trace messages). |
+
 ## Example request
 
 ```json
@@ -48,6 +66,7 @@ GET /_plugins/_ml/memory/message/TAuCZY0BT2tRrkdmCPqZ/traces
       "memory_id": "7Qt4ZY0BT2tRrkdmSPlo",
       "message_id": "TQuCZY0BT2tRrkdmEvpp",
       "create_time": "2024-02-01T16:30:39.719968032Z",
+      "updated_time": "2024-02-01T16:30:39.719968032Z",
       "input": "Which index has most documents",
       "prompt_template": null,
       "response": "Let me check the document counts of each index",
@@ -60,6 +79,7 @@ GET /_plugins/_ml/memory/message/TAuCZY0BT2tRrkdmCPqZ/traces
       "memory_id": "7Qt4ZY0BT2tRrkdmSPlo",
       "message_id": "TguCZY0BT2tRrkdmEvp7",
       "create_time": "2024-02-01T16:30:39.732979687Z",
+      "updated_time": "2024-02-01T16:30:39.732979687Z",
       "input": "",
       "prompt_template": null,
       "response": """health    status    index    uuid    pri    rep    docs.count    docs.deleted    store.size    pri.store.size
@@ -101,6 +121,7 @@ green    open    .opendistro-job-scheduler-lock    XjgmXAVKQ4e8Y-ac54VBzg    1  
       "memory_id": "7Qt4ZY0BT2tRrkdmSPlo",
       "message_id": "UwuCZY0BT2tRrkdmHPos",
       "create_time": "2024-02-01T16:30:42.217897656Z",
+      "updated_time": "2024-02-01T16:30:42.217897656Z",
       "input": "Which index has most documents",
       "prompt_template": null,
       "response": "Based on the cluster health information provided, the index with the most documents is .plugins-ml-model with 191 documents",
@@ -113,6 +134,7 @@ green    open    .opendistro-job-scheduler-lock    XjgmXAVKQ4e8Y-ac54VBzg    1  
       "memory_id": "7Qt4ZY0BT2tRrkdmSPlo",
       "message_id": "UQuCZY0BT2tRrkdmHPos",
       "create_time": "2024-02-01T16:30:42.218120716Z",
+      "updated_time": "2024-02-01T16:30:42.218120716Z",
       "input": "Which index has most documents",
       "prompt_template": null,
       "response": "The index with the most documents is the .plugins-ml-model index, which contains 191 documents based on the cluster health information provided.",
@@ -125,6 +147,7 @@ green    open    .opendistro-job-scheduler-lock    XjgmXAVKQ4e8Y-ac54VBzg    1  
       "memory_id": "7Qt4ZY0BT2tRrkdmSPlo",
       "message_id": "UguCZY0BT2tRrkdmHPos",
       "create_time": "2024-02-01T16:30:42.218240713Z",
+      "updated_time": "2024-02-01T16:30:42.218240713Z",
       "input": "Which index has most documents",
       "prompt_template": null,
       "response": "The index with the most documents is the .plugins-ml-model index, which contains 191 documents based on the cluster health information provided.",
@@ -136,7 +159,3 @@ green    open    .opendistro-job-scheduler-lock    XjgmXAVKQ4e8Y-ac54VBzg    1  
   ]
 }
 ```
-
-## Response body fields
-
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).
