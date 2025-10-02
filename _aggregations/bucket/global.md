@@ -55,4 +55,4 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-You can see that the average value for the `taxful_total_price` field is 75.05 and not the 38.36 as seen in the `filter` example when the query matched.
+You can see that the average value for the `taxful_total_price` field is 75.05 and not the 38.36 as seen in the [`filter` example]({{site.url}}{{site.baseurl}}/aggregations/bucket/filter/#example-response) when the query matched.
