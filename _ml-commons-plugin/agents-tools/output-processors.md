@@ -23,30 +23,6 @@ Output processors provide a powerful way to:
 
 Each tool can have multiple output processors that execute in the order they are defined. The output of one processor becomes the input for the next processor in the chain.
 
-## Configuration
-
-Add output processors to any tool by including an `output_processors` array in the tool's `parameters` section during agent registeration:
-
-Example:
-```json
-{
-  "type": "ToolName",
-  "parameters": {
-    "output_processors": [
-      {
-        "type": "processor_type",
-        "parameter1": "value1",
-        "parameter2": "value2"
-      },
-      {
-        "type": "another_processor_type",
-        "parameter": "value"
-      }
-    ]
-  }
-}
-```
-
 ### Sequential execution
 
 Output processors execute in the order they appear in the array. Each processor receives the output from the previous processor (or the original tool output for the first processor):
@@ -55,7 +31,195 @@ Output processors execute in the order they appear in the array. Each processor 
 Tool Output → Processor 1 → Processor 2 → Processor 3 → Final Output
 ```
 
-### Complete example
+## Configuration
+
+Add output processors to any tool by including an `output_processors` array in the tool's `parameters` section during agent registeration. 
+
+For a complete example, see [Example usage with agents](#example-usage-with-agents).
+
+## Supported Output Processor Types
+
+### to_string
+
+Converts the input to a JSON string representation.
+
+**Parameters:**
+- `escape_json` (boolean, optional): Whether to escape JSON characters. Default: `false`
+
+**Example Configuration:**
+```json
+{
+  "type": "to_string",
+  "escape_json": true
+}
+```
+
+**Example Input/Output:**
+```
+Input: {"name": "test", "value": 123}
+Output: "{\"name\":\"test\",\"value\":123}"
+```
+
+### regex_replace
+
+Replaces text using regular expression patterns. For regex syntax details, see [OpenSearch regex syntax](https://docs.opensearch.org/latest/query-dsl/regex-syntax/).
+
+**Parameters:**
+- `pattern` (string, required): Regular expression pattern to match
+- `replacement` (string, optional): Replacement text. Default: `""`
+- `replace_all` (boolean, optional): Whether to replace all matches or just the first. Default: `true`
+
+**Example Configuration:**
+```json
+{
+  "type": "regex_replace",
+  "pattern": "^.*?\n",
+  "replacement": ""
+}
+```
+
+**Example Input/Output:**
+```
+Input: "row,health,status,index\n1,green,open,.plugins-ml-model\n2,red,closed,test-index"
+Output: "1,green,open,.plugins-ml-model\n2,red,closed,test-index"
+```
+
+### regex_capture
+
+Captures specific groups from regex matches. For regex syntax details, see [OpenSearch regex syntax](https://docs.opensearch.org/latest/query-dsl/regex-syntax/).
+
+**Parameters:**
+- `pattern` (string, required): Regular expression pattern with capture groups
+- `groups` (string or array, optional): Group numbers to capture. Can be a single number like `"1"` or array like `"[1, 2, 4]"`. Default: `"1"`
+
+**Example Configuration:**
+```json
+{
+  "type": "regex_capture",
+  "pattern": "(\\d+),(\\w+),(\\w+),([^,]+)",
+  "groups": "[1, 4]"
+}
+```
+
+**Example Input/Output:**
+```
+Input: "1,green,open,.plugins-ml-model-group,DCJHJc7pQ6Gid02PaSeXBQ,1,0"
+Output: ["1", ".plugins-ml-model-group"]
+```
+
+### jsonpath_filter
+
+Extracts data using JSONPath expressions.
+
+**Parameters:**
+- `path` (string, required): JSONPath expression to extract data
+- `default` (any, optional): Default value if path is not found
+
+**Example Configuration:**
+```json
+{
+  "type": "jsonpath_filter",
+  "path": "$.data.items[*].name",
+  "default": []
+}
+```
+
+**Example Input/Output:**
+```
+Input: {"data": {"items": [{"name": "item1"}, {"name": "item2"}]}}
+Output: ["item1", "item2"]
+```
+
+### extract_json
+
+Extracts JSON objects or arrays from text strings.
+
+**Parameters:**
+- `extract_type` (string, optional): Type of JSON to extract - `"object"`, `"array"`, or `"auto"`. Default: `"auto"`
+- `default` (any, optional): Default value if JSON extraction fails
+
+**Example Configuration:**
+```json
+{
+  "type": "extract_json",
+  "extract_type": "object",
+  "default": {}
+}
+```
+
+**Example Input/Output:**
+```
+Input: "The result is: {\"status\": \"success\", \"count\": 5} - processing complete"
+Output: {"status": "success", "count": 5}
+```
+
+### remove_jsonpath
+
+Removes fields from JSON objects using JSONPath.
+
+**Parameters:**
+- `path` (string, required): JSONPath expression identifying fields to remove
+
+**Example Configuration:**
+```json
+{
+  "type": "remove_jsonpath",
+  "path": "$.sensitive_data"
+}
+```
+
+**Example Input/Output:**
+```
+Input: {"name": "user1", "sensitive_data": "secret", "public_info": "visible"}
+Output: {"name": "user1", "public_info": "visible"}
+```
+
+### conditional
+
+Applies different processor chains based on conditions.
+
+**Parameters:**
+- `path` (string, optional): JSONPath to extract value for condition evaluation
+- `routes` (array, required): Array of condition-processor mappings
+- `default` (array, optional): Default processors if no conditions match
+
+**Supported conditions:**
+- Exact value match: `"value"`
+- Numeric comparisons: `">10"`, `"<5"`, `">=", `"<="`, `"==5"`
+- Existence checks: `"exists"`, `"null"`, `"not_exists"`
+- Regex matching: `"regex:pattern"`
+- Contains text: `"contains:substring"`
+
+**Example Configuration:**
+```json
+{
+  "type": "conditional",
+  "path": "$.status",
+  "routes": [
+    {
+      "green": [
+        {"type": "regex_replace", "pattern": "status", "replacement": "healthy"}
+      ]
+    },
+    {
+      "red": [
+        {"type": "regex_replace", "pattern": "status", "replacement": "unhealthy"}
+      ]
+    }
+  ],
+  "default": [
+    {"type": "regex_replace", "pattern": "status", "replacement": "unknown"}
+  ]
+}
+```
+
+**Example Input/Output:**
+```
+Input: {"index": "test-index", "status": "green", "docs": 100}
+Output: {"index": "test-index", "healthy": "green", "docs": 100}
+```
+
+### Example usage with agents
 
 **Step 1: Register a flow agent with output processors**
 
@@ -117,186 +281,3 @@ row,health,status,index,uuid,pri,rep,docs.count,docs.deleted,store.size,pri.stor
 The output processors transform the verbose CSV output into a clean, readable format by:
 1. **`regex_replace`**: Removing the CSV header row
 2. **`regex_capture`**: Extracting only essential information (row number, health, status, and index name)
-
-## Supported Output Processor Types
-
-### to_string
-
-Converts the input to a JSON string representation.
-
-**Parameters:**
-- `escape_json` (boolean, optional): Whether to escape JSON characters. Default: `false`
-
-**Configuration:**
-```json
-{
-  "type": "to_string",
-  "escape_json": true
-}
-```
-
-**Input/Output Example:**
-```
-Input: {"name": "test", "value": 123}
-Output: "{\"name\":\"test\",\"value\":123}"
-```
-
-### regex_replace
-
-Replaces text using regular expression patterns.
-
-**Parameters:**
-- `pattern` (string, required): Regular expression pattern to match
-- `replacement` (string, optional): Replacement text. Default: `""`
-- `replace_all` (boolean, optional): Whether to replace all matches or just the first. Default: `true`
-
-**Configuration:**
-```json
-{
-  "type": "regex_replace",
-  "pattern": "ERROR",
-  "replacement": "WARNING",
-  "replace_all": true
-}
-```
-
-**Input/Output Example:**
-```
-Input: "ERROR: Connection failed. ERROR: Timeout occurred."
-Output: "WARNING: Connection failed. WARNING: Timeout occurred."
-```
-
-### jsonpath_filter
-
-Extracts data using JSONPath expressions.
-
-**Parameters:**
-- `path` (string, required): JSONPath expression to extract data
-- `default` (any, optional): Default value if path is not found
-
-**Configuration:**
-```json
-{
-  "type": "jsonpath_filter",
-  "path": "$.data.items[*].name",
-  "default": []
-}
-```
-
-**Input/Output Example:**
-```
-Input: {"data": {"items": [{"name": "item1"}, {"name": "item2"}]}}
-Output: ["item1", "item2"]
-```
-
-### extract_json
-
-Extracts JSON objects or arrays from text strings.
-
-**Parameters:**
-- `extract_type` (string, optional): Type of JSON to extract - `"object"`, `"array"`, or `"auto"`. Default: `"auto"`
-- `default` (any, optional): Default value if JSON extraction fails
-
-**Configuration:**
-```json
-{
-  "type": "extract_json",
-  "extract_type": "object",
-  "default": {}
-}
-```
-
-**Input/Output Example:**
-```
-Input: "The result is: {\"status\": \"success\", \"count\": 5} - processing complete"
-Output: {"status": "success", "count": 5}
-```
-
-### regex_capture
-
-Captures specific groups from regex matches.
-
-**Parameters:**
-- `pattern` (string, required): Regular expression pattern with capture groups
-- `groups` (string or array, optional): Group numbers to capture. Can be a single number like `"1"` or array like `"[1, 2, 4]"`. Default: `"1"`
-
-**Configuration:**
-```json
-{
-  "type": "regex_capture",
-  "pattern": "(\\d+),(\\w+),(\\w+),([^,]+)",
-  "groups": "[1, 4]"
-}
-```
-
-**Input/Output Example:**
-```
-Input: "1,green,open,.plugins-ml-model-group,DCJHJc7pQ6Gid02PaSeXBQ,1,0"
-Output: ["1", ".plugins-ml-model-group"]
-```
-
-### remove_jsonpath
-
-Removes fields from JSON objects using JSONPath.
-
-**Parameters:**
-- `path` (string, required): JSONPath expression identifying fields to remove
-
-**Configuration:**
-```json
-{
-  "type": "remove_jsonpath",
-  "path": "$.sensitive_data"
-}
-```
-
-**Input/Output Example:**
-```
-Input: {"name": "user1", "sensitive_data": "secret", "public_info": "visible"}
-Output: {"name": "user1", "public_info": "visible"}
-```
-
-### conditional
-
-Applies different processor chains based on conditions.
-
-**Parameters:**
-- `path` (string, optional): JSONPath to extract value for condition evaluation
-- `routes` (array, required): Array of condition-processor mappings
-- `default` (array, optional): Default processors if no conditions match
-
-**Supported conditions:**
-- Exact value match: `"value"`
-- Numeric comparisons: `">10"`, `"<5"`, `">=", `"<="`, `"==5"`
-- Existence checks: `"exists"`, `"null"`, `"not_exists"`
-- Regex matching: `"regex:pattern"`
-- Contains text: `"contains:substring"`
-
-**Configuration:**
-```json
-{
-  "type": "conditional",
-  "path": "$.status",
-  "routes": [
-    {
-      "green": [
-        {"type": "regex_replace", "pattern": "status", "replacement": "healthy"}
-      ]
-    },
-    {
-      "red": [
-        {"type": "regex_replace", "pattern": "status", "replacement": "unhealthy"}
-      ]
-    }
-  ],
-  "default": [
-    {"type": "regex_replace", "pattern": "status", "replacement": "unknown"}
-  ]
-}
-```
-
-**Input/Output Example:**
-```
-Input: {"index": "test-index", "status": "green", "docs": 100}
-Output: {"index": "test-index", "healthy": "green", "docs": 100}
-```
