@@ -71,18 +71,9 @@ The following example query retrieves documents in which the `urlPath.keyword` f
 ```
 {% include copy-curl.html %}
 
-#### Setting the detector interval   
+#### Setting timestamp
 
 In the **Timestamp** pane, select a field from the **Timestamp field** dropdown menu. 
-
-Then, in the **Operation settings** pane, use the following best practices to define the **Detector interval**, which is the interval at which the detector collects data:
-
-- The detector aggregates the data at this interval and then feeds the aggregated result into the anomaly detection model. The shorter the interval, the fewer data points the detector aggregates. The anomaly detection model uses a shingling process, a technique that uses consecutive data points to create a sample for the model. This process requires a certain number of aggregated data points from contiguous intervals.
-- You should set the detector interval based on your actual data. If the detector interval is too long, then it might delay the results. If the detector interval is too short, then it might miss some data. The detector interval also will not have a sufficient number of consecutive data points for the shingle process.
-- (Optional) To add extra processing time for data collection, specify a **Window delay** value.
-  - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
-  - For example, the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49--1:59, so the detector accounts for all 10 minutes of the detector interval time.
-  - To avoid missing any data, set the **Window delay** to the upper limit of the expected ingestion delay. This ensures that the detector captures all data during its interval, reducing the risk of missing relevant information. While a longer window delay helps capture all data, too long of a window delay can hinder real-time anomaly detection because the detector will look further back in time. Find a balance that maintains both data accuracy and timely detection.
 
 #### Specifying a custom results index
 
@@ -225,6 +216,29 @@ If the actual total number of unique entities is higher than the number that you
 This formula serves as a starting point. Make sure to test it with a representative workload. See the OpenSearch blog post [Improving Anomaly Detection: One million entities in one minute](https://opensearch.org/blog/one-million-enitities-in-one-minute/) for more information.
 {: .note }
 
+#### Operational settings
+
+The **Suggest parameters** button in OpenSearch Dashboards initiates a review of recent history to recommend sensible defaults. You can override these defaults by adjusting the following parameters:
+
+* **Detector interval** – Specifies the aggregation bucket (for example, 10 minutes). You should set the detector interval based on your actual data. Longer intervals smooth out noise and reduce compute costs, but they delay detection. Shorter intervals detect changes sooner but increase resource usage and can introduce noise. The interval must be large enough that you rarely miss data. The model uses shingling (consecutive, contiguous buckets) and missing buckets degrade data quality and shingle formation.
+* (Optional) **Frequency** - How often the job queries, scores, and writes results. Shorter values provide more real-time updates at higher cost, longer ones reduce load but slow updates. Frequency must be a multiple of interval and defaults to the same value. If you’re unsure, leave this field blank—the job will use the interval by default. Two common reasons to use a larger frequency than the interval:
+  - Batching Short Buckets for Efficiency: In some scenarios, you may query less often than the data interval to improve resource efficiency. This can be beneficial for high-frequency or high-volume log streams where ultra-fast alerting isn’t necessary. For example, if your job uses a 1–2 minute data interval to capture fine-grained log trends, processing data every 1–2 minutes can be heavy. Instead, setting the frequency to, say, 5 minutes means the detector will fetch and process multiple intervals' worth of data in one go (e.g. five 1-minute buckets at once). Less frequent processing lightens the load on the cluster (since there is overhead each time a query runs and a model rebuilds cache to process data). The anomaly model will still evaluate each minute bucket internally, but doing it in batches reduces scheduling overhead and can make better use of resources (especially when running many jobs or working with very busy clusters). The downside is an increase in detection delay – an anomaly that occurs in one of those minute buckets might only be reported when the 5-minute query runs. In practice, this trade-off is acceptable for use cases like trend analysis or offline log analytics where near-real-time alerting isn’t required.
+  - Aligning with Infrequent or Batch Log Ingestion: Logs may arrive irregularly or in batches (for example, once per day from S3, or IoT devices that upload in bursts). In such a case, running the detector every minute would mostly yield empty results and wasted cycles. You’d configure the frequency closer to the data arrival rate (e.g. one day) so that each search is more likely to find new data. This reduces pointless queries and CPU overhead and avoids the anomaly detector producing spurious interim results when the bucket is only partially filled. In fact, when timestamps are irregular and low-volume (as is common with sporadic logs), interim results tend to be harmful to accuracy as our RCF model is stateful and assumes strict ascending order of timestamps. By using a less frequent schedule, you effectively let the job wait for complete data rather than repeatedly checking an empty index. The impact is improved efficiency and more accurate results – anomalies will be evaluated once the batch of logs arrives, with minimal risk of false interim anomalies. This approach is useful for batch jobs. Overall, adjusting the frequency upward in line with actual log ingestion patterns ensures the anomaly job focuses on meaningful data, conserving resources while still catching anomalies when they do occur.
+* (Optional) **Window delay** – To add extra processing time for data collection, specify a **Window delay** value.
+  - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
+  - For example, the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49--1:59, so the detector accounts for all 10 minutes of the detector interval time.
+  - To avoid missing any data, set the **Window delay** to the upper limit of the expected ingestion delay. This ensures that the detector captures all data during its interval, reducing the risk of missing relevant information. While a longer window delay helps capture all data, too long of a window delay can hinder real-time anomaly detection because the detector will look further back in time. Find a balance that maintains both data accuracy and timely detection.
+* (Optional) **History** – Sets the number of historical data points used to train the initial (cold-start) model. The maximum is 10,000. More history improves initial model accuracy up to that limit.
+
+**Choosing between frequency and window delay.** Both frequency and window delay address ingestion delay but shine in different patterns: window delay for streaming (continuous trickle), frequency for batch (periodic drops). With a 1-day delay, set window delay = 1 day to process Day-1 minute buckets during Day-2 as they arrive (low per-bucket latency, continuous compute). If data lands once per day, set frequency = 1 day to process all of Day-1 in a single run (lower query/inference overhead).
+
+Graph guide: The timeline shows Day-1 ingestion (top), Day-2 processing with window delay = 1 day (middle, continuous band), and a single daily run when frequency = 1 day (bottom, vertical bar). Depending on the timing of starting the detector (the job reruns each day near the time you started it), a daily frequency can fire just after Day-1 ends (best case, minimal extra delay) or much later (worst case, up to ~+1 day).
+
+<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/window-delay-vs-frequency.png"
+     alt="Timeline showing Day-1 ingestion (top), Day-2 processing with window delay (middle), and a single daily run when frequency = 1 day (bottom)"
+     width="1200" height="350">
+
+
 ### Setting a shingle size
 
 In the **Advanced settings** pane, you can set the number of data stream aggregation intervals to include in the detection window. Choose this value based on your actual data to find the optimal setting for your use case. To set the shingle size, select **Show** in the **Advanced settings** pane. Enter the desired size in the **intervals** field.
@@ -308,7 +322,7 @@ For example, if you have a detector with the category fields `ip` and `endpoint`
 
 ## Step 6: Set up alerts
 
-Under **Real-time results**, choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
+Under **Real-time results**, choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Managing anomalies]({{site.url}}{{site.baseurl}}/observing-your-data/ad/managing-anomalies/).
 
 If you stop or delete a detector, make sure to delete any monitors associated with it.
 
