@@ -29,7 +29,7 @@ Rule-based auto-tagging provides a flexible framework for implementing feature-s
 Before reviewing the rule configuration and behavior, it's important to understand the following key components of rule-based auto-tagging:
 
 * **Rule**: Defines matching criteria (attributes) and the value to assign.
-* **Attributes**: Key-value pairs used to match rules (such as index patterns, user roles, or request types).
+* **Attributes**: Key-value pairs used to match rules (such as index patterns, username, user roles, or request types).
 * **Feature-specific value**: The value assigned when a rule matches.
 * **Pattern matching**: The matching behavior (exact or pattern based) for attribute values.
 
@@ -44,7 +44,11 @@ The following rule schema includes matching attributes and a feature-specific va
 ```json
 {
   "_id": "fwehf8302582mglfio349==",  
-  "index_pattern": ["logs-prod-*"],  
+  "index_pattern": ["logs-prod-*"],
+  "principal": {
+    "username": ["admin"],
+    "role": ["all_access"]
+  },
   "other_attribute": ["value1", "value2"],
   "workload_group": "production_workload_id",
   "updated_at": 1683256789000
@@ -167,7 +171,7 @@ When creating rules, the following issues can occur:
 
 * **Unexpected value**: This can happen when multiple rules are defined with overlapping or conflicting conditions.  
   For example, consider the following rules:
-  1. `{ "username": ["dev*"], "index_pattern": ["logs*"] }`
+  1. `{ principal: {"username": ["dev*"]}, "index_pattern": ["logs*"] }`
   2. `{ "index_pattern": ["logs*", "events*"] }`
 
   If a user with the username `dev_john` sends a search request to `logs_q1_25`, it will match the first rule based on the `username` and `index_pattern` attributes. The request will not match the second rule, even though the `index_pattern` also qualifies.
