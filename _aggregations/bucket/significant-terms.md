@@ -12,21 +12,21 @@ redirect_from:
 `significant_terms` helps you surface terms that are unusually frequent in a subset of documents (foreground set) compared to a broader reference set (background set). It’s the right choice when a plain `terms` aggregation shows you the *most common* values, but you want the *most over‑represented* values.
 
 - Foreground set: the documents matched by your query.
-- Background set: by default, all documents in the target indices. You can narrow it with `background_filter`.
+- Background set: by default, all documents in the target indexes. You can narrow it with `background_filter`.
 
 Each result bucket includes:
 
 - `key`: the term value.
 - `doc_count`: the number of foreground docs containing the term.
 - `bg_count`: the number of background docs containing the term.
-- `score`: how strongly the term stands out in the foreground relative to the background, see [Heuristics & scoring](#heuristics-and-scoring) for further details.
+- `score`: how strongly the term stands out in the foreground relative to the background, see [Heuristics and scoring](#heuristics-and-scoring) for further details.
 
 If the aggregation returns no buckets, you likely didn’t filter the foreground, for example using `match_all`, or the foreground has the same distribution of terms as the background.
 {: .note}
 
 ## Basic example: Find out what's distinctive about high‑value returns
 
-You can use the following query to ask, among orders that were *returned and cost over 500*, which `payment_method` values are unusually common versus the whole index?
+You can use the following query to ask, among orders that were *returned and cost over 500*, which `payment_method` values are unusually common compared to the whole index?
 
 ```json
 GET retail_orders/_search
@@ -170,9 +170,9 @@ JLH ≈ `(0.08 − 0.026666…) * (0.08 / 0.026666…) ≈ 0.053333… * 3 ≈ 0
 
 This positive score means searched term is notably more prevalent in high‑value returns than overall. Scores are relative, therefore use them to rank terms, not as absolute probabilities.
 
-### Mutual information (MI)
+### Mutual information
 
-Prefers frequent terms, it can pick up popular but still distinctive terms. Set `include_negatives: false` to ignore terms that are less common in the foreground than the background. If your background is not a superset of the foreground, set `background_is_superset: false`. See following example:
+Mutual information (MI) prefers frequent terms, it can pick up popular but still distinctive terms. Set `include_negatives: false` to ignore terms that are less common in the foreground than the background. If your background is not a superset of the foreground, set `background_is_superset: false`. See following example:
 
 ```json
 "significant_terms": {
@@ -195,9 +195,9 @@ Similar to [MI](#mutual-information-mi). Also supports `include_negatives` and `
 }
 ```
 
-### Google Normalized Distance (GND)
+### Google Normalized Distance
 
-Favors strong co‑occurrence. Useful for synonym discovery or items that tend to appear together.
+Google Normalized Distance (GND) favors strong co‑occurrence. Useful for synonym discovery or items that tend to appear together.
 
 ```json
 "significant_terms": {
