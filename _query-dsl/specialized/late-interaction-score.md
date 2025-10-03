@@ -7,7 +7,9 @@ nav_order: 70
 
 # Late interaction score
 
-The `lateInteractionScore` function is a Painless script scoring function that calculates late interaction scores between query vectors and document vectors. This implements a ColBERT-style late interaction pattern for token-level matching, where for each query vector, the function finds the maximum similarity with any document vector and sums these maxima.
+The `lateInteractionScore` function is a Painless script scoring function that calculates document relevance using token-level vector matching. It compares each query vector against all document vectors, finds the maximum similarity for each query vector, and sums these maximum scores to produce the final document score.
+
+This approach enables fine-grained semantic matching between queries and documents, making it particularly effective for reranking search results.
 
 ## Syntax
 
@@ -30,16 +32,41 @@ GET index_name/_search
 
 ## Parameters
 
-| Parameter | Data type | Description |
+| Parameter | Data type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `query_vectors` | Array of arrays | Yes | Query vectors for similarity matching |
+| `vector_field` | String | Yes | Name of the document field containing vectors |
+| `doc` | Map | Yes | Document source (use `params._source`) |
+| `space_type` | String | No | Similarity metric. Default: `"l2"` |
+
+## How it works
+
+The function performs the following steps:
+
+1. **Compare each query vector** against all document vectors
+2. **Find the maximum similarity** for each query vector
+3. **Sum all maximum similarities** to get the final score
+
+**Example calculation:**
+- Query vectors: `[[0.8, 0.1], [0.2, 0.9]]`
+- Document vectors: `[[0.7, 0.2], [0.1, 0.8], [0.3, 0.4]]`
+- Query vector 1 → finds best match among document vectors → score A
+- Query vector 2 → finds best match among document vectors → score B
+- Final score = A + B
+
+### Similarity metrics
+
+The `space_type` parameter determines how similarity is calculated:
+
+| Space type | Description | Higher score means |
 | :--- | :--- | :--- |
-| `query_vectors` | List of lists of numbers | List of query vectors for scoring |
-| `vector_field` | String | The name of the field in the document containing vectors |
-| `doc` | Map | Document source as a map (use `params._source`) |
-| `space_type` | String (optional) | Space type for similarity calculation. Default is "l2". Supported: "innerproduct", "cosinesimil", "l2" |
+| `innerproduct` | Dot product | More similar vectors |
+| `cosinesimil` | Cosine similarity | More similar direction |
+| `l2` (default) | Euclidean distance | Closer vectors (inverted) |
 
 ## Examples
 
-### Basic usage with default similarity (L2)
+### Basic usage
 
 ```json
 GET my_index/_search
@@ -58,7 +85,7 @@ GET my_index/_search
 }
 ```
 
-### Using specific similarity metric
+### Using cosine similarity
 
 ```json
 GET my_index/_search
@@ -70,7 +97,7 @@ GET my_index/_search
         "source": "lateInteractionScore(params.query_vectors, 'my_vector', params._source, params.space_type)",
         "params": {
           "query_vectors": [[[1.0, 0.0]], [[0.0, 1.0]]],
-          "space_type": "innerproduct"
+          "space_type": "cosinesimil"
         }
       }
     }
@@ -78,16 +105,11 @@ GET my_index/_search
 }
 ```
 
-## Supported space types
+## Index mapping requirements
 
-- `innerproduct`: Inner product similarity
-- `cosinesimil`: Cosine similarity  
-- `l2`: L2 (Euclidean) distance (default)
+The vector field must be mapped as either `object` or `float` type:
 
-## Index mapping
-
-The document field should be stored as an object type with `enabled: false` to preserve the nested vector structure:
-
+### Object field (recommended)
 ```json
 {
   "mappings": {
@@ -100,3 +122,18 @@ The document field should be stored as an object type with `enabled: false` to p
   }
 }
 ```
+
+### Float field
+```json
+{
+  "mappings": {
+    "properties": {
+      "my_vector": {
+        "type": "float"
+      }
+    }
+  }
+}
+```
+
+**Note:** Object type with `"enabled": false` is recommended as it stores raw vectors without parsing, improving performance.
