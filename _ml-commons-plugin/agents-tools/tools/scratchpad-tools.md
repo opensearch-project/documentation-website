@@ -148,6 +148,7 @@ Parameter | Type | Required/Optional | Description
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `notes` | String | Required (at execution) | The content to write to the scratchpad
+`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation
 
 ## Execute parameters
 
