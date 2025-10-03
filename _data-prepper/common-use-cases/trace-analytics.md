@@ -203,12 +203,20 @@ otel-trace-pipeline:
   delay: "100"
   source:
     otel_trace_source:
+      #record_type: event  # Add this when using Data Prepper 1.x. This option is removed in 2.0
       ssl: false
       authentication:
         unauthenticated:
   buffer:
     bounded_blocking:
+      # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memeory. 
+      # We recommend to keep the same buffer_size for all pipelines. 
+      # Make sure you configure sufficient heap
+      # default value is 512
       buffer_size: 512
+      # This is the maximum number of request each worker thread will process within the delay.
+      # Default is 8.
+      # Make sure buffer_size >= workers * batch_size
       batch_size: 8
   sink:
     - pipeline: { name: "raw-trace-pipeline" }
@@ -272,7 +280,6 @@ service-map-pipeline:
         # The default is 3 minutes, this means we can detect relationships between services from spans reported in last 3 minutes.
         # Set higher value if your applications have higher latency. 
         window_duration: 180 
-        window_duration: 180
   buffer:
     bounded_blocking:
       # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memeory. 
@@ -317,7 +324,7 @@ For other configurations available for OpenSearch sinks, see [Data Prepper OpenS
 
 You need to run OpenTelemetry Collector in your service environment. Follow [Getting Started](https://opentelemetry.io/docs/collector/getting-started/#getting-started) to install an OpenTelemetry collector. Ensure that you configure the collector with an exporter configured for your Data Prepper instance. The following example `otel-collector-config.yaml` file receives data from various instrumentations and exports it to Data Prepper.
 
-### Example setup using docker-compose
+### Example setup using Docker compose
 
 The following is an example configuration for OpenSearch, OpenSearch Dashboards, Data Prepper and  OpenTelemetry Collector using Docker containers.
 
