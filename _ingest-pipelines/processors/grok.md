@@ -21,6 +21,8 @@ For a list of available predefined patterns, see [Grok patterns](https://github.
 
 The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE) and supports all the patterns from that library. You can use the [Grok Debugger](https://grokdebugger.com/) tool to test and debug your grok expressions.
 
+Note that patterns are *not anchored* - for performance and reliability it is advisable to include at least a start-of-line anchor (`^`)
+
 ## Syntax
 
 The following is the basic syntax for the `grok` processor: 
