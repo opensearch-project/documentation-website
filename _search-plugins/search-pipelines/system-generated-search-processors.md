@@ -36,7 +36,7 @@ OpenSearch supports the following types of system-generated processors:
 * [Search request processors](#system-generated-search-request-processors)
 * [Search response processors](#system-generated-search-response-processors)
 
-The execution stage determines whether a system-generated processor runs before or after user-defined processors of the same type.
+Each system-generated processor runs at a fixed execution stage, either before or after user-defined processors of the same type.
 {: .note}
 
 ### System-generated search request processors
@@ -45,7 +45,7 @@ The following table lists the available system-generated search request processo
 
 | Processor name    | Processor factory name    | Execution stage     | Trigger condition                                          | Description                                                                                                                                         |
 | ----------------- | ------------------------- | ------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mmr_over_sample` | `mmr_over_sample_factory` | Runs after any user-defined request processors. | Triggered when a search request includes the `mmr` parameter in the `ext` object. See [Vector search with MMR reranking]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/vector-search-mmr/). | Adjusts the query size and `k` value of the `knn` query to oversample candidates for maximal marginal relevance (MMR) reranking. |
+| `mmr_over_sample` | `mmr_over_sample_factory` | Runs after any user-defined request processors. | Triggered when a search request includes the `mmr` parameter in the `ext` object. See [Vector search with MMR reranking]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/vector-search-mmr/). | Adjusts the query size and `k` value of the `knn` or `neural` query to oversample candidates for maximal marginal relevance (MMR) reranking. |
 
 ### System-generated search response processors
 
@@ -59,7 +59,7 @@ The following table lists the available system-generated search response process
 
 The following limitations apply to system-generated processors:
 
-- OpenSearch supports only **one system-generated processor per type and execution stage** for a given search request. For example, only one search request processor can run before any user-defined request processors and only one search response processor can run after any user-defined response processors.
+- OpenSearch supports only **one system-generated processor per processor type and execution stage** for a given search request. Since each processor type (request and response) can run at two execution stages (before or after user-defined processors), a single search request can include multiple system-generated processors, as long as they are of different types or run at different execution stages. This limitation ensures deterministic execution order and predictable behavior.
 
 ## Related articles
 
