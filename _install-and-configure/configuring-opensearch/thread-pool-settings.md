@@ -69,7 +69,7 @@ Fork-join thread pools support the following settings:
 
 - `thread_pool.<pool_name>.parallelism` (Static, integer): Sets the target parallelism level (number of worker threads) for the pool. Typically, this value matches the number of available processors but can be tuned for specific workloads.
 - `thread_pool.<pool_name>.async_mode` (Static, Boolean): If set to `true`, uses the asynchronous mode for fork-join pool scheduling.
-- `thread_pool.<pool_name>.queue_size` (Static, integer): Sets the size of the submission queue for tasks. Can be set to `-1` for unbounded.
+- `thread_pool.<pool_name>.queue_size` (Static, integer): Sets the size of the submission queue for tasks. Set this value to `-1` for unbounded queue size.
 
 ForkJoin thread pools are currently used in features leveraging parallel computation, such as jVector.
 
