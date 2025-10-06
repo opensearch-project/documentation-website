@@ -65,7 +65,7 @@ Scaling thread pools support the following settings:
 
 Fork-join thread pools use the Java `ForkJoinPool` to provide efficient parallelism for workloads that benefit from work stealing and task splitting. This is useful for compute-intensive operations. In OpenSearch, fork-join thread pools support features that rely on parallel computation, such as the [OpenSearch jVector plugin](https://github.com/opensearch-project/opensearch-jvector), which accelerates index builds.
 
-ForkJoin thread pools support the following settings:
+Fork-join thread pools support the following settings:
 
 - `thread_pool.<pool_name>.parallelism` (Static, integer): Sets the target parallelism level (number of worker threads) for the pool. This typically matches the number of available processors but can be tuned for specific workloads.
 - `thread_pool.<pool_name>.async_mode` (Static, boolean): If set to `true`, uses async mode for ForkJoinPool scheduling.
