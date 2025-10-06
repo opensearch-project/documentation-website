@@ -6,24 +6,23 @@ grand_parent: ML Commons APIs
 nav_order: 50
 ---
 
-# MCP Streamable HTTP Server
+# MCP Streamable HTTP Server API
 **Introduced 3.3**
 {: .label .label-purple }
 
-The MCP server is exposed via the `/_plugins/_ml/mcp` endpoint and implements the Streamable HTTP transport defined by the Model Context Protocol (MCP). It allows agents/clients to connect to OpenSearch and discover and call available tools.
+The MCP server is exposed via the `/_plugins/_ml/mcp` endpoint and implements the Streamable HTTP transport defined by the Model Context Protocol (MCP). It allows agents or clients to connect to OpenSearch and discover or invoke available tools.
 
 This server does not open a persistent SSE connection with the client; all communication happens over stateless HTTP calls.
-If a client sends a GET request (typically to establish an SSE connection), the server returns a 405 Method Not Allowed response, allowing the client to continue with POST-based communication.
+If a client sends a `GET` request (typically, to establish an SSE connection), the server returns a `405 Method Not Allowed` response, allowing the client to continue using `POST` communication.
 
 
-To learn more about the transport, see the [official MCP documentation](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports)
+To learn more about the transport, see the [official MCP documentation](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports).
 {: .note }
 
 ## Prerequisites
-- Enable the MCP server setting.
-- Optionally register tools so you can see and call them via the MCP server.
 
-### Enable the MCP server
+Before you can connect to the MCP server endpoint, enable the MCP server functionality in your cluster:
+
 ```json
 PUT /_cluster/settings
 {
@@ -34,13 +33,14 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-### (Optional) Register tools
-Register tools so clients can discover and call them. See [Register MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/).
+Optionally, you can register tools so clients can discover and call them. See [Register MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/).
 
-## Usage
-You can connect to the MCP server using any client that supports the Streamable HTTP transport. Below are two approaches:
+## Connecting to the MCP server
 
-### Using an MCP client
+You can connect to the MCP server using any client that supports the Streamable HTTP transport. 
+
+### Connecting using an MCP client
+
 The following example uses `fastmcp` to initialize a connection, list tools, and call a tool:
 
 ```python
@@ -57,12 +57,15 @@ async def main():
 
 asyncio.run(main())
 ```
+{% include copy.html %}
 
-### Manual invocation (for debugging)
-While not required for normal usage, you can manually invoke the MCP server using JSON-RPC calls over HTTP. The sequence below mirrors typical MCP client behavior.
+### Invoking the MCP server manually (for debugging)
 
-#### 1. Initialize connection
-Example request:
+While not required for normal usage, you can manually invoke the MCP server using JSON-RPC calls over HTTP. The following example presents typical MCP client behavior.
+
+#### Step 1: Initialize a connection
+
+Send an `initialize` method with your client information and capabilities. Note the `protocolVersion` must match the MCP specification version:
 
 ```json
 POST /_plugins/_ml/mcp
@@ -87,7 +90,7 @@ POST /_plugins/_ml/mcp
 ```
 {% include copy-curl.html %}
 
-Example response:
+The server responds with its capabilities and server information. The `tools.listChanged` indicates that the server supports dynamic tool discovery:
 
 ```json
 200 OK
@@ -118,8 +121,9 @@ Example response:
 }
 ```
 
-#### 2. Send initialization complete notification
-Example request:
+#### Step 2: Send an initialization complete notification
+
+Send a notification to indicate that initialization is complete. This notification does not expect a response payload:
 
 ```json
 POST /_plugins/_ml/mcp
@@ -131,16 +135,15 @@ POST /_plugins/_ml/mcp
 ```
 {% include copy-curl.html %}
 
-Example response:
+The server acknowledges the notification with a `202 Accepted` status:
 
 ```json
 202 Accepted
 ```
 
-#### 3. List available tools
-Use this to discover tools. See also [List MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/list-mcp-tools/).
+#### Step 3: List available tools
 
-Example request:
+Use the `tools/list` method to discover available tools:
 
 ```json
 POST /_plugins/_ml/mcp
@@ -153,7 +156,9 @@ POST /_plugins/_ml/mcp
 ```
 {% include copy-curl.html %}
 
-Example response:
+For a dedicated API, see [List MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/list-mcp-tools/).
+
+The server returns an array of available tools with their names, descriptions, and input schemas. Notice how each tool includes a detailed `inputSchema` that describes the expected parameters:
 
 ```json
 200 OK
@@ -184,8 +189,9 @@ Example response:
 }
 ```
 
-#### 4. Call a tool
-Example request:
+#### Step 4: Call a tool
+
+Use the `tools/call` method to invoke a specific tool. Provide the tool name and arguments that match the tool's input schema:
 
 ```json
 POST /_plugins/_ml/mcp
@@ -203,7 +209,7 @@ POST /_plugins/_ml/mcp
 ```
 {% include copy-curl.html %}
 
-Example response:
+The server executes the tool and returns the result in the `content` array. The `isError` field indicates whether the tool execution was successful:
 
 ```json
 200 OK

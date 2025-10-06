@@ -7,11 +7,12 @@ has_toc: false
 nav_order: 40
 redirect_from: 
   - /ml-commons-plugin/api/mcp-server-apis/
+  - /ml-commons-plugin/api/mcp-server-apis/sse-message/
+  - /ml-commons-plugin/api/mcp-server-apis/sse-session/
 ---
 
 # MCP server APIs
 **Introduced 3.0**
-
 
 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) defines how an agent can discover and execute tools. The MCP server in OpenSearch allows agents to connect and use available [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/).
 
@@ -25,3 +26,10 @@ ML Commons supports the following MCP APIs:
 - [List MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/list-mcp-tools/)
 - [Remove MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/remove-mcp-tools/)
 - [MCP Streamable HTTP Server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/mcp-server/)
+
+## Removed APIs
+
+The following experimental APIs were removed in OpenSearch 3.3 in favor of the Streamable HTTP transport:
+
+- MCP SSE Message API
+- MCP SSE Session API
