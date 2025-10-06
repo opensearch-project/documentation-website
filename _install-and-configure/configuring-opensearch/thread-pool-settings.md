@@ -95,7 +95,7 @@ thread_pool:
 ```
 {% include copy.html %}
 
-To configure a ForkJoin thread pool, update the configuration file as follows:
+To configure a fork-join thread pool, update the configuration file as follows:
 
 ```yaml
 thread_pool:
