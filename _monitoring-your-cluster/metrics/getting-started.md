@@ -114,10 +114,15 @@ OpenSearch provides enhanced observability for [machine learning (ML)]({{site.ur
 
 The static collector job captures details about different types of models and agents created:
 
-1. **Models** - Including deployment type (remote, pre-trained, custom), service provider (bedrock, sagemaker, azure, etc.), algorithm, model name, and model type (llm, embedding, image_generation, speech_audio).
+1. **Models** - Including deployment type (remote, pretrained, custom), service provider, algorithm, model name, and model type.
 2. **Agents** - Including LLM interface, model deployment, service provider, model type, memory type, and model identifier.
 
 Additional metrics will be added in future releases.
+
+Example model metrics captured:
+```
+{is_hidden=false, service_provider=openai, model=gpt-3.5-turbo, type=llm, deployment=remote, algorithm=REMOTE}
+```
 
 Example agent metrics captured:
 ```
