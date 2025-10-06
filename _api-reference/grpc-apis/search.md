@@ -185,12 +185,15 @@ Note that some query types are currently unsupported. See [Supported queries](#s
 ## Supported queries
 
 The gRPC Search API supports the following query types:
-* Term-level: Exists, IDs, Prefix, Range, Regexp, Terms set, Wildcard
-* Full-text: Match, Match Boolean Prefix, Match Phrase, Multi-match
-* Compound queries: Boolean
-* Geographic: GeoBoundingBox, GeoDistance
-* Joining queries: Nested
-* Specialized queries: Script query
+* Term-level: `exists`, `ids`, `prefix`, `range`, `regexp`, `terms_set`, `wildcard`
+* Full-text: `match`, `match_bool_prefix`, `match_phrase`, `multi_match`
+* Compound queries: `bool`
+* Geographic: `geo_bounding_box`, `geo_distance`
+* Joining queries: `nested`
+* Specialized queries: `script`
+
+For more information about these query types, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
+
 
 All of the following examples show valid request payloads that can be sent to the `SearchService/Search` gRPC method.
 

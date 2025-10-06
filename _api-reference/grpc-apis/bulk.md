@@ -65,7 +65,7 @@ The [`BulkRequestBody`](https://github.com/opensearch-project/opensearch-protobu
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `operation_container` | [`OperationContainer`](#operationcontainer-fields) | The operation to perform (index, create, update, or delete). Required. |
+| `operation_container` | [`OperationContainer`](#operationcontainer-fields) | The operation to perform (`index`, `create`, `update`, or `delete`). Required. |
 | `update_action` | [`UpdateAction`](#updateaction-fields) | Additional update-specific options. Optional. |
 | `object` | `bytes` | The full document content used with `create` and `index` operations. Optional. |
 
