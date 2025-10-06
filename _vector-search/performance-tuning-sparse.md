@@ -2,74 +2,78 @@
 layout: default
 title: Sparse performance tuning
 nav_order: 30
-parent: Performance tuning
+parent: Neural sparse ANN search performance tuning
 has_math: true
 ---
 
-# Sparse ANN performance tuning
+# Neural sparse ANN search performance tuning
 
-This page provides comprehensive performance tuning guidance for the [sparse ANN]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) algorithm in OpenSearch sparse ANN search. Sparse ANN offers multiple parameters that allow you to balance the trade-off between query recall (accuracy) and query efficiency (latency).
+[Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) offers several parameters that allow you to balance the trade-off between query recall (accuracy) and query efficiency (latency). You can change these parameters dynamically, without the need to delete and recreate an index for them to take effect. 
 
-Our sparse ANN feature supports real-time trade-off controlling when users conduct a query by those search-time parameters. This means that users do not have to delete and recreate an index if they want to change the balance between search accuracy and query performance. In total, sparse ANN employs six key parameters that affect different aspects of the algorithm:
+## Indexing performance tuning
 
-## Index performance tuning
+These parameters control index construction and memory usage:
 
-These parameters affect index construction and memory usage:
+- `n_postings`: The maximum number of documents to retain in each posting list.
 
-- **`n_postings`**: Maximum documents per posting list
+    A smaller `n_postings` value applies more aggressive pruning, meaning fewer document identifiers are kept in each posting list. Lower values speed up index building and query execution but reduce recall and memory consumption. If not specified, the algorithm calculates the value as $$0.0005 \times \text{document count}$$ at the segment level.
 
-If a small `n_postings` is set, more aggressive pruning will be applied to the posting list, which means that fewer document identifiers are kept in one posting list. Reducing this parameter will accelerate index building time and query time but also reduce query recall and memory consumption. If you do not specify this parameter, sparse ANN algorithm will decide this value based on $$0.0005 \times \text{document count}$$. Please note that this document count is for segment level.
+- `cluster_ratio`: The fraction of documents in each posting list to determine cluster count.
 
-- **`cluster_ratio`**: Ratio to determine cluster count
+    After pruning, each posting list contains `cluster_ratio × posting_document_count`. Increasing `cluster_ratio` results in more clusters, which improves recall but increases index build time, query latency, and memory usage.
 
-After pruning, there will be `cluster_ratio` $$*$$ `posting_document_count` in each posting list. A higher `cluster_ratio` will lead to more clusters, higher query recall, longer index building time, and higher query latency. Also, more clusters will lead to higher memory consumption.
+- `summary_prune_ratio`: The fraction of tokens to keep in cluster summary vectors for approximate matching.
 
-- **`summary_prune_ratio`**: Ratio for pruning summary vectors
+    This parameter controls how many tokens are retained in the `summary` of each cluster. The `summary` helps decide whether to examine a cluster during a query. If embeddings vary widely in token counts, adjust this parameter accordingly. Higher values keep more tokens in the `summary`.
 
-This parameter controls how many tokens will be kept in `summary` of each cluster, where `summary` is used to determine whether a cluster should be examined during query. If you are using different embedding models whose number of tokens greatly vary, you can consider change this parameter. Higher `summary_prune_ratio` will keep more tokens inside `summary`.
+- `approximate_threshold`: The minimum number of documents in a segment required to activate neural sparse ANN search.
 
-- **`approximate_threshold`**: Document threshold for sparse ANN activation
+    This parameter controls whether to activate the neural sparse ANN algorithm activates in a segment once the segment's document count reaches the specified threshold. As the total number of documents increases, individual segments contain more documents. In this case, you can set `approximate_threshold` to a higher value in order to avoid rebuilding clusters repeatedly when segments with fewer documents are merged together. This parameter is especially important if you do not use force merge operations to combine all segments into one, because segments with fewer documents than the threshold fall back to the `rank_features` (regular neural sparse search) mode. Note that if you set this value too high, neural sparse ANN search may never activate.
 
-This parameter will control whether to activate sparse ANN algorithm in a segment when it's total number of documents reaches the threshold. When you have more documents in total, the number of documents in one segment will tend to increase. In this scenario, you may set this threashold larger to prevent repeating cluster building when segments with fewer documents merge together. This parameter matters especially when you do not `force_merge` all segments into one, as those segments with documents less than the threshold will fall back to rank features mode. Please note that you may not see sparse ANN activated if you set this value very high.
 
 ## Query performance tuning
 
 These parameters affect search performance and recall:
 
-- **`top_n`**: Query token pruning limit
+- `top_n`: The number of query tokens with the highest weights to retain for approximate sparse queries.
 
-In sparse ANN algorithm, a query's tokens will be pruned to only keep `top_n` ones based on their weights. This parameter will dramatically affect the balance between search efficiency (latency) and query accuracy (recall). Higher `top_n` will bring with higher accuracy and latency.
+    In the neural sparse ANN search algorithm, only the top `top_n` tokens in a query are retained based on their weights. This parameter controls the balance between search efficiency (latency) and accuracy (recall). A higher value improves accuracy but increases latency, while a lower value reduces latency at the cost of accuracy.
 
-- **`heap_factor`**: Recall vs performance tuning multiplier
+- `heap_factor`: Controls the trade-off between recall and performance.
 
-Every time when sparse ANN determines whether to examine a cluster, it compares potential cluster's score with current queue top's score dividing by `heap_factor`. Larger `heap_factor` will push sparse ANN algorithm to examine more clusters, resulting in higher accuracy but slower query speed. This parameter is more fine-grained compared with `top_n`, which help you slightly tune the trade-off between accuracy and latency.
+    During neural sparse ANN search, the algorithm decides whether to examine a cluster by comparing the cluster's score with the top score in the result queue divided by `heap_factor`. A larger `heap_factor` lowers the threshold that clusters must meed in order to be exained, causing the algorithm to examine more clusters and improving accuracy at the cost of slowing query speed. Conversely, a smaller `heap_factor` raises the threshold, making the algorithm more selective about which clusters to examine. This parameter provides finer control than `top_n`, allowing you to slightly adjust the trade-off between accuracy and latency.
 
-## Optimize beyond parameters
+
+## Other optimization strategies
+
+In addition to tuning the preceding parameters, you can employ the following optimization strategies.
 
 ### Building clusters
 
-Index building can benefit from multiple thread working, you can adjust the number of threads (`index_thread_qty`) during building clusters. The default value of `index_thread_qty` is 1, and you can change this setting according to [Neural-Search cluster settings]({{site.url}}{{site.baseurl}}/_vector-search/settings.md/). Higher `index_thread_qty` will reduce `force_merge` time when sparse ANN is activated, while consuming more resources at the same time.
+Index building can benefit from using multiple threads. You can adjust the number of threads used for cluster building by specifying the `knn.algo_param.index_thread_qty` setting (by default, `1`). For information about updating this setting, see [Vector search settings]({{site.url}}{{site.baseurl}}/vector-search/settings/). Using a higher `knn.algo_param.index_thread_qty` can reduce force merge time when neural sparse ANN search is enabled, though it also consumes more system resources.
 
-### Query after cold start
+### Querying after cold start
 
-If you just reboot OpenSearch service, there are no data in cache, so first hundreds of query requests could suffer from empty cache which leads to high query latency. To mitigate this "cold start" issue, you can call `warmup` API according to [Neural Search API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/). This API will automatically load data from disk to cache, making sure the following query can have best performance. Meanwhile, you can also call `clear_cache` API to free memory usage.
+After rebooting OpenSearch, the cache is empty, so the first several hundred queries may experience high latency. To address this "cold start" issue, you can use the [Warmup API]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#warmup-operation). This API loads data from disk into cache, ensuring optimal performance for subsequent queries. You can also use the [Clear Cache API]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#k-nn-clear-cache) to free up memory when needed.
 
-### Force merge into one segment
+### Force-merging segments into one
 
-Although sparse ANN will automatically build clustered posting lists once a segment's document count exceeds `approximate_threshold`, you should expect reduced query latency after merging all your segments into one. In addition, you can set `approximate_threshold` to a high value which will not be touched for each segment but be exceeded after merging together. This kind of setting can avoid repeated cluster building during the whole process.
+Neural sparse ANN search automatically builds clustered posting lists once a segment's document count exceeds `approximate_threshold`. However, you can often achieve lower query latency by merging all segments into a single segment:
 
 ```json
 POST /sparse-ann-documents/_forcemerge?max_num_segments=1
 ```
 {% include copy-curl.html %}
 
+You can also set `approximate_threshold` to a high value so that individual segments do not trigger clustering but the merged segment does. This approach helps avoid repeated cluster building during indexing.
+
 ## Best practices
 
-- Start with default parameters and tune based on your specific dataset
-- Monitor memory usage and adjust cache settings accordingly
-- Consider the trade-off between indexing time and query performance
-- Do not combine sparse ANN field and two-phase pipeline together
+- Start with default parameters and tune based on your specific dataset.
+- Monitor memory usage and adjust cache settings accordingly.
+- Consider the trade-off between indexing time and query performance.
+- Do not combine neural sparse ANN search fields with a pipeline that includes a [two-phase processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-sparse-query-two-phase-processor/).
 
 ## Next steps
 
-- [Sparse ANN configuration reference]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann-configuration/)
+- [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/)

@@ -1,30 +1,34 @@
 ---
 layout: default
-title: Filtering in Sparse ANN Search
+title: Filtering in neural sparse ANN search
 parent: Filtering data
 nav_order: 40
 ---
 
-# Filtering in Sparse ANN Search
+# Filtering in neural sparse ANN search
 
-You can run [`sparse ANN query`]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann-configuration/#sparse-ann-query) query with filtering. Currently, an efficient filtering and post-filtering are supported.
+You can run neural sparse ANN search queries with filtering: efficient filtering and post-filtering are supported.
 
-## Efficient Sparse ANN Filtering
-When you specify a filter for a sparse ANN search, ANN algorithm decides whether to perform an exact search with pre-filtering or an approximate search with modified post-filtering. The algorithm uses the following variables:
+## Efficient neural sparse ANN search filtering
+
+When you specify a filter for a neural sparse ANN search, the ANN algorithm decides whether to perform an exact search with pre-filtering or an approximate search with modified post-filtering. The algorithm uses the following variables:
 
 - N: The number of documents in the index.
 - P: The number of documents in the document subset after the filter is applied (P <= N).
 - k: The maximum number of vectors to return in the response.
 
-First, we apply filter to N documents and get P documents. If P is less than k, we proceed with an exact search. If P is greater than k, we run sparse ANN algorithm on N documents and apply filter on results.
+First, the filter is applied to N documents, resulting in P matching documents. If P is less than k, an exact search is performed. If P is greater than k, the neural sparse ANN search algorithm runs on the N documents, and the filter is applied to the results.
 
-## Using a sparse ANN filter
+## Using a neural sparse ANN search filter
+
 In this example, you will create an index and search for the three hotels with high ratings and parking with name matching your search criteria.
 
 ### Step 1: Create a new index
-Before you can run a sparse ANN search with a filter, you need to create an index with a `sparse_vector` field.
+
+Before you can run a neural sparse ANN search with a filter, you need to create an index with a `sparse_vector` field.
 
 The following request creates a new index called `hotels-index`:
+
 ```json
 PUT /hotels-index
 {
@@ -61,11 +65,14 @@ PUT /hotels-index
   }
 }
 ```
+{% include copy-curl.html %}
+
 ### Step 2: Add data to your index
 
 Next, add data to your index.
 
 The following request adds 10 documents that contain hotel name embeddings, rating, and parking information:  
+
 ```json
 POST /_bulk
 { "index": { "_index": "hotels-index", "_id": "1" } }
@@ -93,9 +100,10 @@ POST /_bulk
 
 ### Step 3: Search your data with a filter
 
-Now you can create a sparse ANN search with filters. In the neural_sparse query clause, inside method_parameters field, include the point of interest that is used to search for nearest neighbors, the number of nearest neighbors to return (`k`), and a filter with the restriction criteria. Depending on how restrictive you want your filter to be, you can add multiple query clauses to a single request.
+Now you can create a neural sparse ANN search with filters. In the `method_parameters` field of the `neural_sparse` query clause, include the point of interest that is used to search for nearest neighbors, the number of nearest neighbors to return (`k`), and a filter with the restriction criteria. Depending on how restrictive you want your filter to be, you can add multiple query clauses to a single request.
 
-The following request creates a sparse ANN query that searches for the top three hotels with name "beach resort" that are rated between 8 and 10, inclusive, and provide parking:
+The following request creates a neural sparse ANN search query that searches for the top three hotels whose names match the text "beach resort" that are rated between 8 and 10, inclusive, and provide parking:
+
 ```json
 POST /hotels-index/_search
 {
@@ -133,7 +141,8 @@ POST /hotels-index/_search
 ```
 {% include copy-curl.html %}
 
-The response returns the three hotels that are nearest to the search point and have met the filter criteria:
+The response returns the three hotels that are nearest to the search point and meet the filter criteria:
+
 ```json
 {
   "took": 5,
@@ -202,10 +211,13 @@ The response returns the three hotels that are nearest to the search point and h
 ```
 
 ## Post-filtering
-You can achieve post-filtering with a [Boolean filter](#boolean-filter-with-sparse-ann-search). One thing to note is that since the filtering is applied on the results of the sparse ANN's top k results, the final results could be significantly fewer than k.
 
-### Boolean filter with sparse ANN search
-A Boolean filter consists of a Boolean query that contains a sparse ANN query and a filter. For example, the following query searches for hotels which names match "beach resort" and then filters the results to return hotels with a rating between 8 and 10, inclusive, that provide parking:
+You can apply post-filtering using a [Boolean filter](#boolean-filter-with-neural-sparse-ann-search). Note that because filtering occurs after the neural sparse ANN search retrieves its top k results, the final number of returned results may be significantly smaller than k.
+
+### Using a Boolean filter with neural sparse ANN search
+
+A Boolean filter consists of a `bool` query that contains a `neural_sparse` query and a filter. For example, the following query searches for hotels whose names match the text "beach resort" and then filters the results to return hotels with a rating between 8 and 10, inclusive, that provide parking:
+
 ```json
 POST /hotels-index/_search
 {
@@ -252,6 +264,7 @@ POST /hotels-index/_search
 {% include copy-curl.html %}
 
 The response includes documents containing the matching hotels:
+
 ```json
 {
   "took": 4,
@@ -289,5 +302,6 @@ The response includes documents containing the matching hotels:
 }
 ```
 
-## Next Steps
-- For more information about sparse ANN search, see [Sparse Approximate Search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-seismic/)
+## Next steps
+
+- For more information about neural sparse ANN search, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/)

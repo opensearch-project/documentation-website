@@ -33,7 +33,7 @@ Efficient k-NN filtering | During search (a hybrid of pre- and post-filtering) |
 Boolean filter | After search (post-filtering) | Approximate | - `lucene` <br> - `faiss` <br> - `nmslib` (deprecated)  | Outside the k-NN query clause. Must be a leaf clause.
 The `post_filter` parameter | After search (post-filtering) | Approximate | - `lucene`<br> - `faiss` <br> - `nmslib` (deprecated) | Outside the k-NN query clause. 
 Scoring script filter | Before search (pre-filtering) | Exact | N/A | Inside the script score query clause.
-Filtering in sparse vector search | After search (post-filtering) | Approximate | N/A | Inside the "method_parameters" of "neural_sparse" query.
+Filtering in neural sparse vector search | After search (post-filtering) | Approximate | N/A | In the `method_parameters` field of the `neural_sparse` query.
 
 ## Filtered search optimization
 

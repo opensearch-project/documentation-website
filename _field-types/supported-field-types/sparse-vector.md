@@ -1,47 +1,47 @@
 ---
 layout: default
-title: Sparse Vector
-nav_order: 61
+title: Sparse vector
+nav_order: 22
 has_children: false
 parent: Supported field types
 ---
 
-# Sparse Vector
+# Sparse vector
 **Introduced 3.3**
 {: .label .label-purple }
 
-The `sparse_vector` field supports the sparse ANN (Approximate Nearest Neighbor) algorithm. This significantly boosts the search efficiency while maintaining high search relevance. The `sparse_vector` field is represented as a map, where the keys denote the token with positive [float]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values indicating the token weight.
-
-For more information, see [sparse ANN]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-seismic).
+The `sparse_vector` field supports [neural sparse approximate nearest neighbor (ANN) search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/), which improves search efficiency while preserving relevance. A `sparse_vector` is stored as a map, in which each key represents the token and each value is a positive [`float`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) value indicating the token's weight.
     
 ## Parameters
 
 The `sparse_vector` field type supports the following parameters.
 
-| Parameter               | Type    | Required | Description                                   | Default               | Range       | Example   |
-|-------------------------|---------|----------|-----------------------------------------------|-----------------------|-------------|-----------|
-| `name`                  | String  | Yes | Algorithm name                                | -                     | -           | `seismic` |
-| `n_postings`            | Integer | No | Maximum documents per posting list            | `0.0005 * doc_count`¹ | (0, +∞) | `4000`    |
-| `cluster_ratio`         | Float   | No | Ratio to determine cluster count              | `0.1`                 | (0, 1)      | `0.15`    |
-| `summary_prune_ratio`   | Float   | No | Ratio for pruning cluster summary vectors     | `0.4`                 | (0, 1]      | `0.3`     |
-| `approximate_threshold` | Integer | No | Document threshold for SEISMIC activation     | `1,000,000`           | [0, +∞) | `500000`  |
-| `quantization_ceiling_search`  | Float   | No | Ceiling float value to consider during search | `16`                  | (0, +∞) | `3`       |
-| `quantization_ceiling_ingest` | Float | No | Ceiling float value to consider during ingest | `3`                   | (0, +∞)     | `2.5`     |
+| Parameter               | Type    | Required | Description                                   | Default               | Range       | 
+|-------------------------|---------|----------|-----------------------------------------------|-----------------------|-------------|
+| `name`                  | String  | Yes | The neural sparse ANN search algorithm. Valid value is `seismic`.                              | -                     | -           | 
+| `n_postings`            | Integer | No | The maximum number of documents to retain in each posting list.            | `0.0005 * doc_count`¹ | (0, ∞) | 
+| `cluster_ratio`         | Float   | No | The fraction of documents in each posting list to determine cluster count.             | `0.1`                 | (0, 1)      | 
+| `summary_prune_ratio`   | Float   | No | The fraction of tokens to keep in cluster summary vectors for approximate matching.     | `0.4`                 | (0, 1]      | 
+| `approximate_threshold` | Integer | No | The minimum number of documents in a segment required to activate neural sparse ANN search.     | `1000000`           | [0, ∞) | 
+| `quantization_ceiling_search`  | Float   | No | The maximum token weight used for quantization during search. | `16`                  | (0, ∞) | 
+| `quantization_ceiling_ingest` | Float | No | The maximum token weight used for quantization during ingestion. | `3`                   | (0, ∞)     | 
 
 
 ¹`doc_count` represents the number of documents within the segment.
 
-For parameter configuration, you can refer to [`sparse ANN configuration`]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann-configuration)  
+For parameter configuration, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann)  
 {: .note }
 
-To increase search efficiency and reduce memory consumption, the `sparse_vector` field automatically performs quantization on the token weight. You can adjust the parameter `quantization_ceiling_search` and `quantization_ceiling_ingest` according to different token weight distribution. For doc-only queries, we recommend the default value (`16`). If you're querying with bi-encoder mode alone, we recommend setting `quantization_ceiling_search` to `3`. For doc-only and bi-encoder mode, you can refer to [`generating sparse vector embeddings automatically`]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-with-pipelines/) for more details. 
-{: .note }
+To increase search efficiency and reduce memory consumption, the `sparse_vector` field automatically performs quantization of the token weight. You can adjust the `quantization_ceiling_search` and `quantization_ceiling_ingest` parameters according to different token weight distributions. For doc-only queries, we recommend the default value (`16`). For bi-encoder queries, we recommend setting `quantization_ceiling_search` to `3`. For more information about doc-only and bi-encoder query modes, see [Generating sparse vector embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-with-pipelines/).
+{: .note}
 
 ## Example
 
-### Step 1: Index creation
+The following example demonstrates using a `sparse_vector` field type.
 
-Create a sparse index where the index mapping contains a sparse vector field.
+### Step 1: Create an index
+
+Create a sparse index by setting `index.sparse` to `true` and define a `sparse_vector` field in the index mapping:
 
 ```json
 PUT sparse-vector-index
@@ -71,12 +71,10 @@ PUT sparse-vector-index
 ```
 {% include copy-curl.html %}
 
-To use the `sparse_vector` field, you need to specify the index setting `index.sparse` to be `true`
-{: .note }
 
-### Step 2: Data ingestion
+### Step 2: Ingest data into the index
 
-Index three documents with a `sparse_vector` field:
+Ingest three documents containing `sparse_vector` fields into your index:
 
 ```json
 PUT sparse-vector-index/_doc/1
@@ -108,11 +106,13 @@ PUT sparse-vector-index/_doc/3
 ```
 {% include copy-curl.html %}
 
-### Step 3: Query
+### Step 3: Search the index
 
-Using a `neural_sparse` query, you can query the sparse index with either raw vectors or natural language.
+You can query the sparse index by providing either raw vectors or natural language using a [`neural_sparse` query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/).
 
-#### Query with raw vector
+#### Query using a raw vector
+
+To query using a raw vector, provide the `query_tokens` parameter:
 
 ```json
 GET sparse-vector-index/_search
@@ -135,7 +135,9 @@ GET sparse-vector-index/_search
 ```
 {% include copy-curl.html %}
 
-#### Query with natural language
+#### Query using natural language
+
+To query using natural language, provide the `query_text` and `model_id` parameters:
 
 ```json
 GET sparse-vector-index/_search
@@ -157,6 +159,8 @@ GET sparse-vector-index/_search
 ```
 {% include copy-curl.html %}
 
-For more details on query, you can refer to [`sparse ANN query`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/#sparse-ann-query) and [`sparse ANN configuration`]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann-configuration).
-{: .note }
+## Related articles
 
+- [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/)
+- [Neural sparse query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/)
+- [Neural sparse ANN search performance tuning]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-sparse/)

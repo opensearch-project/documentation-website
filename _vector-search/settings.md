@@ -42,7 +42,7 @@ Setting | Static/Dynamic | Default | Description
 `index.knn.advanced.approximate_threshold` | Dynamic | `0` | The number of vectors that a segment must have before creating specialized data structures for ANN search. Set to `-1` to disable building vector data structures and to `0` to always build them.
 `index.knn.advanced.filtered_exact_search_threshold`| Dynamic | None    | The filtered ID threshold value used to switch to exact search during filtered ANN search. If the number of filtered IDs in a segment is lower than this setting's value, then exact search will be performed on the filtered IDs.
 `index.knn.derived_source.enabled` | Static | `true` | Prevents vectors from being stored in `_source`, reducing disk usage for vector indexes.
-| `index.knn.memory_optimized_search`    | Dynamic | `false` | Enables memory-optimized search on an index. |
+`index.knn.memory_optimized_search` | Dynamic | `false` | Enables memory-optimized search on an index.
 
 An index created in OpenSearch version 2.11 or earlier will still use the previous `ef_construction` and `ef_search` values (`512`).
 {: .note}
@@ -108,9 +108,9 @@ The Neural Search plugin supports the following settings.
 The following Neural Search plugin settings apply at the cluster level:
 
 - `plugins.neural_search.stats_enabled` (Dynamic, Boolean): Enables the [Neural Search Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#stats). Default is `false`.
-- `plugins.neural_search.circuit_breaker.limit` (Dynamic, Percentage): Specifies the JVM memory limit for the neural search circuit breaker. Default is `10%` of the JVM heap.
-- `plugins.neural_search.circuit_breaker.overhead` (Dynamic, Float): A constant by which the sparse data estimation is multiplied to determine the final estimation. Default is `1.0`.
-- `plugins.neural_search.sparse.algo_param.index_thread_qty` (Dynamic, Integer): The number of threads used for [sparse ANN]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann) index build. Increasing this value allocates more CPUs to the index build job and boosts the indexing performance. Default is `1`.
+- `plugins.neural_search.circuit_breaker.limit` (Dynamic, percentage): Specifies the JVM memory limit for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) circuit breaker. Default is `10%` of the JVM heap. For more information, see [Memory and caching settings]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#memory-and-caching-settings).
+- `plugins.neural_search.circuit_breaker.overhead` (Dynamic, float): A multiplier used to adjust memory usage estimates for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/). Higher values provide more conservative memory estimates. Default is `1.0`. 
+- `plugins.neural_search.sparse.algo_param.index_thread_qty` (Dynamic, integer): The number of threads used for building indexes for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/). Increasing this value allocates more CPUs to the index build job and boosts the indexing performance. Default is `1`. For more information, see [Thread pool configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#thread-pool-configuration).
 
 ### Index settings
 
