@@ -12,7 +12,7 @@ nav_order: 10
 
 OpenSearch supports agentic workflows using [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). While OpenSearch provides built-in tools for running complex queries, [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) enables integration with external tools and data sources. MCP is an open protocol standard that provides a standardized way for AI models to connect to external data sources and tools, acting as a "universal adapter" for remote MCP server tools.
 
-Currently, OpenSearch only supports MCP servers that use the Server-Sent Events (SSE) protocol. Standard Input/Output (`stdio`) protocol is not supported.
+OpenSearch supports MCP servers that use either the Server-Sent Events (SSE) protocol or the Streamable HTTP protocol. Standard Input/Output (`stdio`) protocol is not supported.
 {: .note}
 
 The following example demonstrates using MCP tools in agentic workflows.
@@ -47,7 +47,9 @@ Ensure you have a running MCP server that is accessible from your OpenSearch clu
 
 ## Step 1: Create an MCP connector
 
-An MCP connector stores connection details and credentials for your MCP server. To create an MCP connector, send the following request:
+An MCP connector stores connection details and credentials for your MCP server. You can connect using either SSE or Streamable HTTP.
+
+To create an MCP connector using SSE, send the following request:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -70,15 +72,39 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
+To create an MCP connector using Streamable HTTP, set `protocol` to `mcp_streamable_http`. Optionally, set `parameters.endpoint` to override the default endpoint (`/_plugins/_ml/mcp`). No SSE-specific endpoint is required:
+
+```json
+POST /_plugins/_ml/connectors/_create
+{
+  "name":        "My MCP Connector (Streamable HTTP)",
+  "description": "Connects to the external MCP server using Streamable HTTP",
+  "version":     1,
+  "protocol":    "mcp_streamable_http",
+  "url":         "https://my-mcp-server.domain.com",
+  "credential": {
+    "mcp_server_key": "THE_MCP_SERVER_API_KEY"
+  },
+  "parameters": {
+    "endpoint": "/_plugins/_ml/mcp"
+  },
+  "headers": {
+    "Authorization": "Bearer ${credential.mcp_server_key}"
+  }
+}
+```
+{% include copy-curl.html %}
+
 The following table describes the connector parameters. For more information about standard connector parameters, see [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
 
 | Parameter | Data type | Required | Description |
 |:----------|:---------|:------------|
-| `protocol` | String | Yes | Specify `mcp_sse` to use the SSE protocol (the only supported protocol type for MCP).  |
+| `protocol` | String | Yes | Specify `mcp_sse` for SSE or `mcp_streamable_http` for Streamable HTTP. |
 | `url` | String | Yes | The complete base URL of the MCP server, including protocol, hostname, and port, if not using the default port (for example, `https://my-mcp-server.com:8443`). |
 | `credential` | Object | Yes | Contains sensitive authentication information such as API keys or tokens. Values stored in this object can be securely referenced in the `headers` section using the `${credential.*}` syntax. |
 | `parameters` | Object | No | Contains configuration parameters for the MCP connector. |
-| `parameters.sse_endpoint` | String | No | The SSE endpoint path for the MCP server. Default is `/sse`. |
+| `parameters.sse_endpoint` | String | No | Applicable for SSE only. The SSE endpoint path for the MCP server. Default is `/sse`. |
+| `parameters.endpoint` | String | No | Applicable for Streamable HTTP only. The MCP server endpoint path. Default is `/mcp`. |
 | `headers` | Object | No | The HTTP headers to include with requests to the MCP server. For authentication headers, use the `${credential.*}` syntax to reference values from the `credential` object (for example, `"Authorization": "Bearer ${credential.mcp_server_key}"`).  |
 
 The response contains the connector ID:
