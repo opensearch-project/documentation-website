@@ -32,7 +32,7 @@ To configure Agentic Search using APIs, follow these steps:
 
 1. [Create an index for ingestion](#step-1-create-an-index-for-ingestion).
 2. [Ingest documents into the index](#step-2-ingest-documents-into-the-index).
-3. [Create a model for Query Planning tool](#step-3-create-a-model-for-query-planning-tool).
+3. [Create a model for the Query Planning tool](#step-3-create-a-model-for-the-query-planning-tool).
 4. [Create a model for Conversational Agent](#step-4-create-a-model-for-conversational-agent).
 5. [Create an agent](#step-5-create-an-agent).
 6. [Create a search pipeline](#step-6-create-a-search-pipeline).
