@@ -37,7 +37,9 @@ Add output processors to any tool by including an `output_processors` array in t
 
 For a complete example, see [Example usage with agents](#example-usage-with-agents).
 
-## Supported Output Processor Types
+## Supported output processor types
+
+The following processors are available for transforming tool outputs:
 
 ### to_string
 
@@ -217,6 +219,83 @@ Applies different processor chains based on conditions.
 ```
 Input: {"index": "test-index", "status": "green", "docs": 100}
 Output: {"index": "test-index", "healthy": "green", "docs": 100}
+```
+
+### process_and_set
+
+Applies a chain of processors to the input and sets the result at a specified JSONPath location.
+
+**Parameters:**
+- `path` (string, required): JSONPath expression specifying where to set the processed result
+- `processors` (array, required): List of processor configurations to apply sequentially
+
+**Path behavior:**
+- If the path exists, it will be updated with the processed value
+- If the path doesn't exist, attempts to create it (works for simple nested fields)
+- Parent path must exist for new field creation to succeed
+
+**Example Configuration:**
+```json
+{
+  "type": "process_and_set",
+  "path": "$.summary.clean_name",
+  "processors": [
+    {
+      "type": "to_string"
+    },
+    {
+      "type": "regex_replace",
+      "pattern": "[^a-zA-Z0-9]",
+      "replacement": "_"
+    }
+  ]
+}
+```
+
+**Example Input/Output:**
+```
+Input: {"name": "Test Index!", "status": "active"}
+Output: {"name": "Test Index!", "status": "active", "summary": {"clean_name": "Test_Index_"}}
+```
+
+### set_field
+
+Sets a field to a specified static value or copies a value from another field.
+
+**Parameters:**
+- `path` (string, required): JSONPath expression specifying where to set the value
+- `value` (any, conditionally required): Static value to set. Either `value` or `source_path` must be provided
+- `source_path` (string, conditionally required): JSONPath to copy value from. Either `value` or `source_path` must be provided
+- `default` (any, optional): Default value when `source_path` doesn't exist. Only used with `source_path`
+
+**Path behavior:**
+- If the path exists, it will be updated with the new value
+- If the path doesn't exist, attempts to create it (works for simple nested fields)
+- Parent path must exist for new field creation to succeed
+
+**Example Configuration (static value):**
+```json
+{
+  "type": "set_field",
+  "path": "$.metadata.processed_at",
+  "value": "2024-03-15T10:30:00Z"
+}
+```
+
+**Example Configuration (copy field):**
+```json
+{
+  "type": "set_field",
+  "path": "$.userId",
+  "source_path": "$.user.id",
+  "default": "unknown"
+}
+```
+
+**Example Input/Output:**
+```
+Input: {"user": {"id": 123}, "name": "John"}
+Output: {"user": {"id": 123}, "name": "John", "userId": 123, "metadata": {"processed_at": "2024-03-15T10:30:00Z"}}
 ```
 
 ### Example usage with agents
