@@ -424,7 +424,7 @@ Sparse indexes support [neural sparse ANN search]({{site.url}}{{site.baseurl}}/v
 
 To avoid high latency during initial searches, you can run random queries during a warmup period. After the warmup period, sparse data is stored in JVM memory, and you can start production workloads. However, this approach is indirect and requires additional effort.
 
-As an alternative, you can use the warm up API operation to avoid latency during initial searches. This operation loads all sparse data for the primary and replica shards of the specified indexes into JVM memory.
+As an alternative, you can use the warm up API operation to avoid latency during initial searches. This operation loads all sparse data for the primary and replica shards of the specified indexes into JVM memory. The warm up API operation is idempotent: if a segment's sparse data is already loaded into memory, this operation has no effect. It only loads files not currently stored in memory.
 
 This API operation only works with sparse indexes (indexes created with `index.sparse` set to `true`).
 {: .note}
