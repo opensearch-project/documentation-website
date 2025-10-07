@@ -16,7 +16,7 @@ To inspect agent behavior and continue conversations, use the `agentic_context` 
 Before you start, ensure that you have registered and configured an agent. To configure an agent, you must first register two models using these steps:
 
 1. **Follow [Step 4: Create a model for conversational agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-a-model-for-conversational-agent)** -- This model is used by the conversational agent for reasoning and tool orchestration.
-2. **Follow [Step 3: Create a model for Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-query-planning-tool)** -- This model is used by the `QueryPlanningTool` to generate OpenSearch DSL queries.
+2. **Follow [Step 3: Create a model for the Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-the-query-planning-tool)** -- This model is used by the `QueryPlanningTool` to generate OpenSearch DSL queries.
 
 Then register and configure an agent using [Step 5: Create an agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-5-create-an-agent) or see [Customizing agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) for advanced configurations. The agent must include a `QueryPlanningTool`.
 

@@ -374,4 +374,4 @@ The default user prompt template passes the natural language question and availa
 
 ## Next steps
 
-For a complete walkthrough of using customized agents in practice, see the [Converse and Monitor Agentic Search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/#end-to-end-example) end-to-end example. 
+For a complete walkthrough of using customized agents in practice, see [Inspecting agentic search and continuing conversations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/). 

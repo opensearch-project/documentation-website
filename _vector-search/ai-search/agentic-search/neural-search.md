@@ -142,7 +142,7 @@ POST /_bulk
 Register two models as described in the [Agentic Search setup]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/):
 
 1. **[Register a model for the Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-a-model-for-conversational-agent)**
-2. **[Register a model for Query Planning Tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-query-planning-tool)**
+2. **[Register a model for Query Planning Tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-the-query-planning-tool)**
 
 ### Step 6: Create Agent with Embedding Model ID
 
@@ -182,7 +182,7 @@ POST /_plugins/_ml/agents/_register
 
 ### Step 7: Create Search Pipeline
 
-Create the search pipeline as described in the [end-to-end example]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/#4-configure-search-pipeline):
+Create the search pipeline as described in the [end-to-end example]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/#step-4-configure-a-search-pipeline):
 
 
 ## Phase 3: Neural Search Examples

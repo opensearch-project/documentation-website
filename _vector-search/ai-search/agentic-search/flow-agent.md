@@ -26,15 +26,15 @@ Before using a flow agent, you need to:
 
 1. **Create an index for ingestion**
    
-   See [Create product index]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/#1-create-product-index) in the end-to-end example.
+   See [Create product index]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/#step-1-create-a-product-index) in the end-to-end example.
 
 2. **Ingest documents into the index**
    
-   See [Insert sample data]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/#2-insert-sample-data) in the end-to-end example.
+   See [Insert sample data]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/#step-2-ingest-sample-data) in the end-to-end example.
 
 3. **Register a model for Query Planner Tool (QPT)**
    
-   See [Step 3: Create a model for Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-query-planning-tool) for detailed instructions.
+   See [Step 3: Create a model for the Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-the-query-planning-tool) for detailed instructions.
 
 4. **Register a flow agent**
      ```json

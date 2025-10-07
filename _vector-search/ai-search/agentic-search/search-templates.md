@@ -174,7 +174,7 @@ POST /_scripts/store_sum_skus
 
 Refer to these to register query planner model and the agent model:
 
-- [Create a model for Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-query-planning-tool)
+- [Create a model for the Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-the-query-planning-tool)
 - [Create a Model for Conversational Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-a-model-for-conversational-agent)
 
 ```json
