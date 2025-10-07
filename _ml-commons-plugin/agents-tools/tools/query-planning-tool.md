@@ -20,7 +20,7 @@ The `QueryPlanningTool` supports two approaches for generating DSL queries from 
 
 - **Using LLM knowledge only (default)**: The large language model (LLM) generates queries using only its training knowledge and any system/user prompts you provide. This approach relies entirely on the model's understanding of DSL syntax and your specific prompting instructions.
 
-- **Using search templates**: The LLM uses predefined search templates as additional context when generating queries. You provide a collection of search templates with descriptions, and the LLM uses these as examples and guidance to create more accurate queries. If the LLM determines that none of the provided templates are suitable for the user's question, it falls back to a default `match_all` query.
+- **Using search templates**: The LLM uses predefined search templates as additional context when generating queries. You provide a collection of search templates with descriptions, and the LLM uses these as examples and guidance to create more accurate queries. If the LLM determines that none of the provided templates are suitable for the user's question, it tries to generate the query on its own.
 
 The `user_templates` approach is particularly useful when you have established query patterns for your specific use case or domain: it helps the LLM to generate queries that follow your preferred structure and to use appropriate field names from your index mappings.
 
@@ -77,7 +77,7 @@ POST _bulk
 
 The following request registers a remote model from Amazon Bedrock and deploys it to your cluster. The API call creates the connector and model in one step. Replace the `region`, `access_key`, `secret_key`, and `session_token` with your own values. You can use any model that supports the `converse` API, such as [Anthropic Claude 4](https://www.anthropic.com/news/claude-4) or [GPT 5](https://openai.com/index/introducing-gpt-5). You can use other model providers by creating a connector to this model (see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#connector-blueprints)).
 
-**Important**: When creating connectors for the QueryPlanningTool, the request body must include parameters named `query_planner_system_prompt` and `query_planner_user_prompt`. These parameter names are required for the tool to properly inject the system and user prompts into the model's request. The examples below demonstrate the correct parameter naming conventions.
+**Important**: When creating connectors for the QueryPlanningTool, the request body must include parameters `system_prompt` and `user_prompt`. These parameter names are required for the tool to properly inject the system and user prompts into the model's request. The examples below demonstrate the correct parameter naming conventions.
 
 The following example registers and deploys the Anthropic Claude 4 model:
 
@@ -95,8 +95,7 @@ POST /_plugins/_ml/models/_register?deploy=true
     "parameters": {
       "region": "us-east-1",
       "service_name": "bedrock",
-      "model": "us.anthropic.claude-sonnet-4-20250514-v1:0",
-       "response_filter": "$.output.message.content[0].text"
+      "model": "us.anthropic.claude-sonnet-4-20250514-v1:0"
     },
     "credential": {
       "access_key": "your-aws-access-key",
@@ -111,7 +110,7 @@ POST /_plugins/_ml/models/_register?deploy=true
         "headers": {
           "content-type": "application/json"
         },
-        "request_body": """{ "system": [{"text": "${parameters.query_planner_system_prompt}"}], "messages": [{"role":"user","content":[{"text":"${parameters.query_planner_user_prompt}"}]}]}"""
+        "request_body": "{ \"system\": [{\"text\": \"${parameters.system_prompt}\"}], \"messages\": [${parameters._chat_history:-}{\"role\":\"user\",\"content\":[{\"text\":\"${parameters.user_prompt}\"}]}${parameters._interactions:-}]${parameters.tool_configs:-} }"
       }
     ]
   }
@@ -122,35 +121,34 @@ POST /_plugins/_ml/models/_register?deploy=true
 The following example registers and deploys the OpenAI GPT 5 model:
 
 ```json
-POST /_plugins/_ml/models/_register?deploy=true
+POST /_plugins/_ml/models/_register
 {
-  "name": "My OpenAI model: gpt-5",
-  "function_name": "remote",
-  "description": "test model",
-  "connector": {
-    "name": "My openai connector: gpt-5",
-    "description": "The connector to openai chat model",
-    "version": 1,
-    "protocol": "http",
-    "parameters": {
-      "model": "gpt-5",
-      "response_filter": "$.choices[0].message.content"
-    },
-    "credential": {
-      "openAI_key": "OPENAI KEY"
-    },
-    "actions": [
-      {
-        "action_type": "predict",
-        "method": "POST",
-        "url": "https://api.openai.com/v1/chat/completions",
-        "headers": {
-          "Authorization": "Bearer ${credential.openAI_key}"
+    "name": "My OpenAI model: gpt-5",
+    "function_name": "remote",
+    "description": "test model",
+    "connector": {
+        "name": "My openai connector: gpt-5",
+        "description": "The connector to openai chat model",
+        "version": 1,
+        "protocol": "http",
+        "parameters": {
+            "model": "gpt-5"
         },
-        "request_body": """{ "model": "${parameters.model}", "messages": [{"role":"system","content":"${parameters.query_planner_system_prompt}"},{"role":"user","content":"${parameters.query_planner_user_prompt}"}], "reasoning_effort":"minimal"}"""
-      }
-    ]
-  }
+        "credential": {
+            "openAI_key": "your-openai-api-key"
+        },
+        "actions": [
+            {
+                "action_type": "predict",
+                "method": "POST",
+                "url": "https://api.openai.com/v1/chat/completions",
+                "headers": {
+                    "Authorization": "Bearer ${credential.openAI_key}"
+                },
+                "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\":\"developer\",\"content\":\"${parameters.system_prompt}\"},${parameters._chat_history:-}{\"role\":\"user\",\"content\":\"${parameters.user_prompt}\"}${parameters._interactions:-}], \"reasoning_effort\":\"low\"${parameters.tool_configs:-}}"
+            }
+        ]
+    }
 }
 ```
 {% include copy-curl.html %}
@@ -191,7 +189,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-When registering the agent, you can override parameters that you specified during model registration, such as `query_planner_system_prompt` and `query_planner_user_prompt`. 
+When registering the agent, you can override parameters that you specified during model registration, such as `system_prompt` and `user_prompt`. 
 
 
 ### Using search templates
@@ -324,11 +322,12 @@ The following table lists all tool parameters that are available when registerin
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
-`model_id` | String | Required | The model ID of the large language model (LLM) to use for generating the query DSL.
+`model_id` | String | Required | The model ID of the large language model (LLM) to use for generating the query DSL. When used within a conversational agent, if this value is not provided, the agent's own `llm.model_id` is used automatically.
 `response_filter` | String | Optional | A JSONPath expression used to extract the generated query from the LLM's response.
 `generation_type` | String | Optional | The type of query generation. Valid values are `llmGenerated` (use LLM knowledge only) and `user_templates` (provide search templates as additional context). Default is `llmGenerated`.
-`query_planner_system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM. Default is `You are an OpenSearch Query DSL generation assistant, translating natural language questions to OpenSeach DSL Queries`.
-`query_planner_user_prompt` | String | Optional | A user prompt template for the LLM. Can contain placeholders for execution-time parameters like `${parameters.question}`.
+`query_planner_system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM.
+`query_planner_user_prompt` | String | Optional | A user prompt template for the LLM  which asks the question. 
+`generation_type` | String | Optional | Overrides the registered setting for this execution. Valid values: `llmGenerated` (use LLM knowledge only) or `user_templates` (use registered search templates as guidance). Default value is `llmGenerated`.
 `search_templates` | Array | Optional | Applicable only when `generation_type` is set to `user_templates`. A list of search templates for an LLM to use as context when generating an OpenSearch DSL query. Each entry within the `search_templates` array must include a `template_id` and a `template_description` (provides the LLM with additional context about the template contents).
 
 ## Execute parameters

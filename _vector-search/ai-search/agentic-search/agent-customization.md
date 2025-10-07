@@ -19,6 +19,39 @@ You can customize agentic search agents by configuring their models, tools, and 
 
 Select the appropriate language model based on your performance requirements and use case.
 
+You can also configure different models for the conversational agent and the `QueryPlanningTool`. Set the agent's model using `llm.model_id`, and set the query planner model by specifying `parameters.model_id` inside the `QueryPlanningTool`:
+
+```json
+{
+  "name": "Agentic Search Agent",
+  "type": "conversational",
+  "description": "Agent using separate models for conversation and query planning",
+  "llm": {
+    "model_id": "your-conversational-model-id",
+    "parameters": {
+      "max_iteration": 15
+    }
+  },
+  "memory": {
+    "type": "conversation_index"
+  },
+  "parameters": {
+    "_llm_interface": "<llm_interface>"  
+  },
+  "tools": [
+    {
+      "type": "QueryPlanningTool",
+      "parameters": {
+        "model_id": "your-query-planner-model-id"
+      }
+    }
+  ],
+  "app_type": "os_chat"
+}
+```
+
+Set `<llm_interface>` to the interface for your provider (for example, `openai/v1/chat/completions`), then choose a specific model from the options below.
+
 ### OpenAI GPT models
 
 The following OpenAI GPT models are supported.
@@ -32,12 +65,12 @@ GPT-5 provides advanced reasoning capabilities and is recommended for production
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "OpenAI GPT-5 Agent Model",
+    "name": "My OpenAI model: gpt-5",
     "function_name": "remote",
-    "description": "GPT-5 model for agentic search with advanced reasoning",
+    "description": "test model",
     "connector": {
-        "name": "OpenAI GPT-5 Connector",
-        "description": "Connector to OpenAI GPT-5 chat completions",
+        "name": "My openai connector: gpt-5",
+        "description": "The connector to openai chat model",
         "version": 1,
         "protocol": "http",
         "parameters": {
@@ -54,7 +87,7 @@ POST /_plugins/_ml/models/_register
                 "headers": {
                     "Authorization": "Bearer ${credential.openAI_key}"
                 },
-                "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\":\"developer\",\"content\":\"${parameters.system_prompt}\"},${parameters._chat_history:-}{\"role\":\"user\",\"content\":\"${parameters.user_prompt}\"}${parameters._interactions:-}], \"reasoning_effort\":\"minimal\", \"tools\": [${parameters._tools:-}],\"parallel_tool_calls\":${parameters.parallel_tool_calls},\"tool_choice\": \"${parameters.tool_choice}\"}"
+                "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\":\"developer\",\"content\":\"${parameters.system_prompt}\"},${parameters._chat_history:-}{\"role\":\"user\",\"content\":\"${parameters.user_prompt}\"}${parameters._interactions:-}], \"reasoning_effort\":\"low\"${parameters.tool_configs:-}}"
             }
         ]
     }
@@ -64,8 +97,8 @@ POST /_plugins/_ml/models/_register
 
 **Reasoning modes:**
 
-- `minimal` (recommended): Fastest response time, suitable for most use cases
-- `low`: Slightly more reasoning, better for complex queries
+- `minimal`: Fastest response time, suitable for simple use cases
+- `low`(recommended): Slightly more reasoning, suitable for most queries
 - `medium`: Enhanced reasoning for sophisticated tasks
 - `high`: Maximum reasoning power for the most complex scenarios
 
@@ -211,6 +244,8 @@ If you don't specify an index in your search query, the search runs against all 
 ## Prompt engineering and customization
 
 Configure your agent's behavior and output format using custom prompts that guide the model's reasoning process.
+
+For Query Planner tool Prompt customization, see the [QueryPlanningTool documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/).
 
 ### System prompt optimization
 

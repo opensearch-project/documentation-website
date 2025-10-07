@@ -34,9 +34,14 @@ Before using a flow agent, you need to:
 
 3. **Register a model for Query Planner Tool (QPT)**
    
-   See [Step 3: Create a model for the Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-the-query-planning-tool) for detailed instructions.
+   See [Step 3: Create a model for the agent and Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-3-create-a-model-for-the-agent-and-query-planning-tool) for detailed instructions.
 
 4. **Register a flow agent**
+   Response filter is required. Always specify a `response_filter` in the `QueryPlanningTool` parameters so the agent extracts the generated DSL correctly from your model provider's response.
+
+   Examples:
+   - OpenAI: `"response_filter": "$.choices[0].message.content"`
+   - Claude (Bedrock Converse): `"response_filter": "$.output.message.content[0].text"`
      ```json
      POST /_plugins/_ml/agents/_register
      {
@@ -47,7 +52,8 @@ Before using a flow agent, you need to:
              {
                  "type": "QueryPlanningTool",
                  "parameters": {
-                     "model_id": "your_model_id_from_step3"
+                     "model_id": "your_model_id_from_step3",
+                     "response_filter": <Response-filter-based-on-type-of-model>
                  }
              }
          ]

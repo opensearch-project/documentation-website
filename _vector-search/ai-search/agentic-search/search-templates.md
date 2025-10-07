@@ -9,7 +9,7 @@ has_children: false
 
 # Search Templates to improve determinism
 
-The Query Planner Tool can accept a list of user-defined search templates during its registration. The Query Planner Tool generates DSL queries based on context and uses the attached search templates to generate the appropriate query.
+The Query Planner Tool can accept a list of user-defined search templates during its registration. The Query Planner Tool generates DSL queries based on context and uses the attached search templates to generate the appropriate query. For general information about OpenSearch search templates, see [Search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/).
 
 ## Why use Search Templates?
 
@@ -131,7 +131,7 @@ POST /_scripts/store_sum_skus
 ### Step 4: Register Template 2
 Count stores in a city that have at least min units of a single SKU
 ```json
-POST /_scripts/store_sum_skus
+POST /_scripts/stores_with_give_sku
 {
   "script": {
     "lang": "mustache",
@@ -174,8 +174,8 @@ POST /_scripts/store_sum_skus
 
 Refer to these to register query planner model and the agent model:
 
-- [Create a model for the Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-the-query-planning-tool)
-- [Create a Model for Conversational Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-a-model-for-conversational-agent)
+- [Step 3: Create a model for the agent and Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-3-create-a-model-for-the-agent-and-query-planning-tool)
+- [Step 4: Create an agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-4-create-an-agent)
 
 ```json
 {
@@ -223,7 +223,7 @@ Refer to these to register query planner model and the agent model:
 
 Register the search pipeline before performing the query:
 
-- [Create a search pipeline]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-6-create-a-search-pipeline)
+- [Create a search pipeline]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-5-create-a-search-pipeline)
 
 **Agentic Search Query:** 
 ```json

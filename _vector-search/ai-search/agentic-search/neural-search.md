@@ -137,12 +137,12 @@ POST /_bulk
 
 ## Phase 2: Agentic Search Setup
 
-### Step 5: Register Models for Agentic Search
+### Step 5: Register model and agent for Agentic Search
 
-Register two models as described in the [Agentic Search setup]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/):
+Follow the Quick start guide to set up the model and agent:
 
-1. **[Register a model for the Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-a-model-for-conversational-agent)**
-2. **[Register a model for Query Planning Tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-the-query-planning-tool)**
+- **[Step 3: Create a model for the agent and Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-3-create-a-model-for-the-agent-and-query-planning-tool)**
+- **[Step 4: Create an agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-4-create-an-agent)**
 
 ### Step 6: Create Agent with Embedding Model ID
 
