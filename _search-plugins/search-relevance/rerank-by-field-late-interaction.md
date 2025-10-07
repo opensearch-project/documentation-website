@@ -102,7 +102,7 @@ POST /_plugins/_ml/models/_register?deploy=true
             {
                 "action_type": "predict",
                 "method": "POST",
-                "url": "https://runtime.sagemaker.us-east-1.amazonaws.com/endpoints/colpali-endpoint/invocations",
+                "url": "<YOUR_SAGEMAKER_ENDPOINT>",
                 "headers": {
                     "content-type": "application/json"
                 },
