@@ -1,31 +1,31 @@
 ---
 layout: default
-title: Agent customization
+title: Customizing agents
 parent: Agentic search
 grand_parent: AI search
 nav_order: 60
 has_children: false
 ---
 
-# Agent customization
+# Customizing agentic search agents
 
-Transform your agentic search experience by customizing models, tools, and configurations. This guide shows you how to unlock advanced capabilities and tailor your agent to specific use cases.
+You can customize agentic search agents by configuring their models, tools, and prompts:
 
-## Overview
-
-Agentic search agents can be customized in several ways to enhance their capabilities:
-
-- **Model configurations**: Choose from different LLMs optimized for various tasks
-- **Tool orchestration**: Combine multiple tools for intelligent automation
-- **Prompt engineering**: Fine-tune agent behavior with custom prompts
+- [Model configurations](#model-configurations): Choose different LLMs optimized for various tasks.
+- [Tool orchestration](#tool-orchestration): Combine multiple tools for automated workflows.
+- [Prompt engineering](#prompt-engineering-and-customization): Finetune agent behavior using custom prompts.
 
 ## Model configurations
 
+Select the appropriate language model based on your performance requirements and use case.
+
 ### OpenAI GPT models
+
+The following OpenAI GPT models are supported.
 
 #### GPT-5 (Recommended)
 
-GPT-5 offers superior reasoning capabilities and is recommended for production use cases.
+GPT-5 provides advanced reasoning capabilities and is recommended for production use cases.
 
 **Model registration:**
 
@@ -70,10 +70,11 @@ POST /_plugins/_ml/models/_register
 - `high`: Maximum reasoning power for the most complex scenarios
 
 As you select higher reasoning modes, overall latency increases. Choose the lowest mode that meets your accuracy needs.
+{: .tip}
 
 ### Anthropic Claude models
 
-Claude models provide excellent performance through Amazon Bedrock integration.
+Anthropic Claude models are available through Amazon Bedrock integration and provide analytical capabilities for complex search scenarios.
 
 #### Claude 4 Sonnet
 
@@ -111,24 +112,32 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-**Agent interface configuration:**
+### Agent interface configuration
 
-- Claude models: `"_llm_interface": "bedrock/converse/claude"`
-- OpenAI models: `"_llm_interface": "openai/v1/chat/completions"`
+When registering agents, configure the `_llm_interface` parameter to specify how the agent parses LLM output when using function calling. Choose the interface that matches your model type:
+
+- `"bedrock/converse/claude"`: Anthropic Claude models hosted on Amazon Bedrock
+- `"openai/v1/chat/completions"`: OpenAI chat completion models
+
+Each interface defines a default response schema and function call parser optimized for that model family.
 
 ## Tool orchestration
 
-### QueryPlanningTool (Required)
+You must configure a QueryPlanningTool for agentic search. You can configure additional tools to extend your agent's functionality.
 
-The [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/) is mandatory for agentic search functionality. It translates natural language queries into OpenSearch DSL.
+### QueryPlanningTool
+
+The [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/) is required for agentic search functionality. It translates natural language queries into OpenSearch DSL.
 
 ### Additional tools
 
-You can add any tools from the [ML Commons Tools documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/) to enhance your agent's capabilities. 
+You can configure additional [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/) to extend your agent's functionality.
 
-The conversational agent will automatically select and orchestrate the appropriate tools based on the query context.
+The conversational agent automatically selects and orchestrates the appropriate tools based on the query context.
 
 #### Complete agent configuration
+
+The following example shows how to register an agent with multiple tools:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -178,9 +187,9 @@ POST /_plugins/_ml/agents/_register
 
 ### Intelligent index selection
 
-With `ListIndexTool`, `IndexMappingTool`, and other relevant tools, your agent can automatically choose the right index and generate queries for that index.
+When you include a `ListIndexTool`, `IndexMappingTool`, or other relevant tools, your agent can automatically choose the correct index and generate queries for that index.
 
-**Search without index specification:**
+To search without specifying an index, send the following request:
 
 ```json
 GET /_search?search_pipeline=agentic-pipeline
@@ -194,17 +203,22 @@ GET /_search?search_pipeline=agentic-pipeline
 ```
 {% include copy-curl.html %}
 
-The agent will automatically discover product indices, analyze their structure, and generate appropriate queries.
+The agent automatically discovers product indexes, analyzes their structure, and generates appropriate queries.
 
-**Performance consideration**: When you don't specify an index in your search query, the search runs against all shards in the cluster, which can be expensive. For better performance, specify the target index when possible.
+If you don't specify an index in your search query, the search runs against all shards in the cluster, which can be expensive. For better performance, specify the target index when possible.
+{: .tip}
 
 ## Prompt engineering and customization
+
+Configure your agent's behavior and output format using custom prompts that guide the model's reasoning process.
 
 ### System prompt optimization
 
 Customize your agent's behavior with tailored system prompts that fit for your specific use case.
 
-**Default output format:**
+### Agent output format
+
+The agent must have the following output format:
 
 ```json
 {
@@ -212,12 +226,13 @@ Customize your agent's behavior with tailored system prompts that fit for your s
     "agent_steps_summary": "<chronological steps taken by the agent>"
 }
 ```
+{% include copy.html %}
 
 **Custom prompt configuration:**
 
-When customizing prompts, ensure your system and user prompts guide the model to always return results in the JSON format above. Proper prompt engineering is crucial for consistent output formatting.
+When customizing prompts, ensure that both your system and user prompts guide the model to always return results in the preceding agent output format. Proper prompt engineering is crucial for consistent output formatting.
 
-Provide your custom prompts during agent registration like this:
+Provide your custom prompts during agent registration as follows:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -254,12 +269,23 @@ POST /_plugins/_ml/agents/_register
 
 ### Prompt best practices
 
-- **Be specific**: Clearly define the expected JSON output format with `dsl_query` and `agent_steps_summary` fields
-- **Include examples**: Provide sample queries and expected responses in the correct JSON format
-- **Set constraints**: Specify field names, data types, and query limits
-- **Optimize for JSON**: Ensure prompts guide the model to produce valid JSON with the required structure
+Follow these guidelines to create effective prompts that produce consistent, accurate results:
 
-### Default System Prompt:
+- **Be specific**: Clearly define the expected agent output format with `dsl_query` and `agent_steps_summary` fields.
+- **Include examples**: Provide sample queries and expected responses in the correct agent output format.
+- **Set constraints**: Specify field names, data types, and query limits.
+- **Optimize for JSON**: Ensure that your prompts guide the model to produce valid JSON with the required agent output structure.
+
+### Default system prompt
+
+The following system prompt is used by default. You can customize this to modify your agent's behavior:
+
+<details open markdown="block">
+  <summary>
+    Prompt
+  </summary>
+  {: .text-delta}
+
 ```json
 ==== PURPOSE ====
 Produce correct OpenSearch DSL by orchestrating tools. You MUST call the Query Planner Tool (query_planner_tool, "qpt") to author the DSL.
@@ -334,14 +360,18 @@ Final response JSON:
   "dsl_query": {\"query\":{\"bool\":{\"must\":[{\"match\":{\"category\":\"shoes\"}}],\"filter\":[{\"range\":{\"price\":{\"lte\":500}}}]}}}},
   "agent_steps_summary": "I have these tools available: [ListIndexTool, IndexMappingTool, query_planner_tool]\nFirst I used: ListIndexTool — input: \"\"; context gained: \"Of the available indices, products index seems promising\"\nSecond I used: IndexMappingTool — input: \"products\"; context gained: \"index contains relevant fields\"\nThird I used: query_planner_tool — qpt.question: \"Find shoes under 500 dollars.\"; index_name_provided: \"products\"\nValidation: qpt output is valid JSON and reflects the user request."
 }
-
 ```
 
-### Default User Prompt:
+</details>
+
+### Default user prompt
+
+The default user prompt template passes the natural language question and available parameters to the agent:
+
 ```json
 "NLQ is: ${parameters.question} and index_name is: ${parameters.index_name:-}, model ID for neural search is: ${parameters.embedding_model_id:-}"
 ```
 
-## End to End Example:
+## Next steps
 
-Find end to end example here: [Converse and Monitor Agentic Search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/#end-to-end-example) 
+For a complete walkthrough of using customized agents in practice, see the [Converse and Monitor Agentic Search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/#end-to-end-example) end-to-end example. 

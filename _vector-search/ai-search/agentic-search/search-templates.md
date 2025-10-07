@@ -89,12 +89,12 @@ POST /_scripts/store_sum_skus
     "lang": "mustache",
     "source": {
       "size": 0,
-      "query": { "term": { "address.city": "{{city}}" } },
+      "query": { "term": { "address.city": "{% raw %}{{city}}{% endraw %}" } },
       "aggs": {
         "by_store": {
           "terms": {
             "field": "store_id",
-            "size": "{{bucket_size}}{{^bucket_size}}200{{/bucket_size}}",
+            "size": "{% raw %}{{bucket_size}}{{^bucket_size}}200{{/bucket_size}}{% endraw %}",
             "order": { "inv>skus>q": "desc" }
           },
           "aggs": {
@@ -102,7 +102,7 @@ POST /_scripts/store_sum_skus
               "nested": { "path": "inventory" },
               "aggs": {
                 "skus": {
-                  "filter": { "terms": { "inventory.sku": ["{{sku1}}","{{sku2}}","{{sku3}}"] } },
+                  "filter": { "terms": { "inventory.sku": ["{% raw %}{{sku1}}{% endraw %}","{% raw %}{{sku2}}{% endraw %}","{% raw %}{{sku3}}{% endraw %}"] } },
                   "aggs": { "q": { "sum": { "field": "inventory.qty" } } }
                 }
               }
@@ -110,7 +110,7 @@ POST /_scripts/store_sum_skus
             "keep": {
               "bucket_selector": {
                 "buckets_path": { "t": "inv>skus>q" },
-                "script": { "source": "params.t >= {{min_total}}{{^min_total}}30{{/min_total}}" }
+                "script": { "source": "params.t >= {% raw %}{{min_total}}{{^min_total}}30{{/min_total}}{% endraw %}" }
               }
             },
             "store": {
@@ -137,19 +137,19 @@ POST /_scripts/store_sum_skus
     "lang": "mustache",
     "source": {
       "size": 0,
-      "query": { "term": { "address.city": "{{city}}" } },
+      "query": { "term": { "address.city": "{% raw %}{{city}}{% endraw %}" } },
       "aggs": {
         "s": {
           "terms": {
             "field": "store_id",
-            "size": "{{bs}}{{^bs}}200{{/bs}}"
+            "size": "{% raw %}{{bs}}{{^bs}}200{{/bs}}{% endraw %}"
           },
           "aggs": {
             "i": {
               "nested": { "path": "inventory" },
               "aggs": {
                 "f": {
-                  "filter": { "term": { "inventory.sku": "{{sku}}" } },
+                  "filter": { "term": { "inventory.sku": "{% raw %}{{sku}}{% endraw %}" } },
                   "aggs": { "q": { "sum": { "field": "inventory.qty" } } }
                 }
               }
@@ -174,8 +174,8 @@ POST /_scripts/store_sum_skus
 
 Refer to these to register query planner model and the agent model:
 
-- [Create a model for Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-3-create-a-model-for-query-planning-tool)
-- [Create a Model for Conversational Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-4-create-a-model-for-conversational-agent)
+- [Create a model for Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-query-planning-tool)
+- [Create a Model for Conversational Agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-a-model-for-conversational-agent)
 
 ```json
 {
@@ -183,7 +183,7 @@ Refer to these to register query planner model and the agent model:
     "type": "conversational",
     "description": "Use this for Agentic Search",
     "llm": {
-        "model_id": "{{llm_model_id}}",
+        "model_id": "{% raw %}{{llm_model_id}}{% endraw %}",
         "parameters": {
             "max_iteration": 15
         }
@@ -199,7 +199,7 @@ Refer to these to register query planner model and the agent model:
         {
             "type": "QueryPlanningTool",
             "parameters": {
-                "model_id": "{{query_planner_model_id}}",
+                "model_id": "{% raw %}{{query_planner_model_id}}{% endraw %}",
                 "generation_type": "user_templates",
                 "search_templates": [
                     {
@@ -223,7 +223,7 @@ Refer to these to register query planner model and the agent model:
 
 Register the search pipeline before performing the query:
 
-- [Create a search pipeline]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-6-create-a-search-pipeline)
+- [Create a search pipeline]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-6-create-a-search-pipeline)
 
 **Agentic Search Query:** 
 ```json
