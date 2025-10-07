@@ -104,7 +104,7 @@ The following table describes the connector parameters. For more information abo
 | `credential` | Object | Yes | Contains sensitive authentication information such as API keys or tokens. Values stored in this object can be securely referenced in the `headers` section using the `${credential.*}` syntax. |
 | `parameters` | Object | No | Contains configuration parameters for the MCP connector. |
 | `parameters.sse_endpoint` | String | No | Applicable for SSE only. The SSE endpoint path for the MCP server. Default is `/sse`. |
-| `parameters.endpoint` | String | No | Applicable for Streamable HTTPonly. The MCP server endpoint path. Default is `/mcp`. |
+| `parameters.endpoint` | String | No | Applicable for Streamable HTTP only. The MCP server endpoint path. Default is `/mcp`. |
 | `headers` | Object | No | The HTTP headers to include with requests to the MCP server. For authentication headers, use the `${credential.*}` syntax to reference values from the `credential` object (for example, `"Authorization": "Bearer ${credential.mcp_server_key}"`).  |
 
 The response contains the connector ID:
