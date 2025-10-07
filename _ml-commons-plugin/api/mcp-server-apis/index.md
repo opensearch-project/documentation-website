@@ -16,7 +16,7 @@ redirect_from:
 
 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) defines how an agent can discover and execute tools. The MCP server in OpenSearch allows agents to connect and use available [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/).
 
-The MCP server in ML Commons uses the Streamable HTTP transport protocol to communicate with the clients. For details about the transport, see the [official MCP documentation](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports)
+The MCP server in ML Commons uses the Streamable HTTP transport protocol to communicate with the clients. For details about the transport, see the [official MCP documentation](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports).
 {: .note }
 
 ML Commons supports the following MCP APIs:

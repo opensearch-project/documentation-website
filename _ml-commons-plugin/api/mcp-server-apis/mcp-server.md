@@ -21,7 +21,7 @@ To learn more about the transport, see the [official MCP documentation](https://
 
 ## Prerequisites
 
-Before you can connect to the MCP server endpoint, enable the MCP server functionality in your cluster:
+Before you can connect to the MCP server endpoint, you need to enable the MCP server functionality in your cluster:
 
 ```json
 PUT /_cluster/settings
@@ -65,7 +65,7 @@ While not required for normal usage, you can manually invoke the MCP server usin
 
 #### Step 1: Initialize a connection
 
-Send an `initialize` method with your client information and capabilities. Note the `protocolVersion` must match the MCP specification version:
+Send an `initialize` method with your client information and capabilities. Note that the `protocolVersion` must match the MCP specification version:
 
 ```json
 POST /_plugins/_ml/mcp
