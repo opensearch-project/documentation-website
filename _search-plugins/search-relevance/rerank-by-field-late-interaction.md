@@ -289,7 +289,7 @@ Late interaction reranking provides several advantages:
 - **Fine-grained matching**: Token-level comparisons capture detailed semantic relationships
 - **Multimodal support**: Works with text, images, and other content types
 - **Efficient retrieval**: Combines fast KNN search with precise reranking
-- **Improved relevance**: Better handles complex queries with multiple concepts
+- **Improved relevance**: Handles complex queries with multiple concepts
 
 This approach is particularly effective for multimodal search scenarios where documents contain rich visual or structured content that benefits from detailed semantic analysis.
 ## Debugging and testing
