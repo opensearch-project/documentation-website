@@ -1,20 +1,29 @@
 ---
 layout: default
-title: Managing anomalies
+title: Configuring anomaly alerting
 nav_order: 60
 parent: Anomaly detection
 has_children: false
 ---
 
-## Alert on anomalies
+# Configuring anomaly alerting
 
-You can create an [Alerting monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) using either the Anomaly detector editor or the Extraction query editor. When you want to monitor an individual anomaly detector's results and notification condition thresholds on anomaly grade and confidence, use the Anomaly detector editor. Otherwise, use the Extraction query editor to monitor multiple detectors' results or write complex queries/trigger conditions.
+Once you've created an [anomaly detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/), you can configure alerting to be notified when anomalies occur. To configure alerting, create an [alert monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/), shown in the following image. For steps to create an alert monitor, see [Creating an alert monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/#creating-an-alert-monitor).
 
 <img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/alerting_editor.png" alt="Alerting editor" width="800" height="800">
 
-### Example alert monitor
+For anomaly alerting, in **Monitor type**, select **Per query monitor**  (this is the only type that supports anomaly detection). Then, in **Monitor defining method**, choose one of these methods to define your monitor:
 
-For example, the following is a monitor for a high-cardinality detector. You can modify the schedule, query, and aggregation to match your use case:
+- **Anomaly detector**: Use when monitoring an individual detector's results with thresholds on anomaly grade and confidence. 
+- **Extraction query editor**: Use when monitoring multiple detectors, writing complex queries, or creating advanced trigger conditions.
+
+For detailed steps and more information about these options, see [Creating a per query or per bucket monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/#creating-a-per-query-or-per-bucket-monitor).
+
+The following sections provide examples and guidance specific to anomaly alerting.
+
+## Example alert monitor
+
+The following monitor is designed for a high-cardinality detector. You can modify the schedule, query, and aggregation to match your specific use case:
 
 {% raw %}
 ```json
@@ -152,29 +161,32 @@ For example, the following is a monitor for a high-cardinality detector. You can
 }
 ```
 {% endraw %}
-{% include copy-curl.html %}
+{% include copy.html %}
 
-### Monitor design
+Note the following key configuration in the example alert monitor:
 
-The following table explains each design choice used in the example alert monitor and why it matters.
+- **`"size": 1`** in the search input: Retrieves a single document so you can reference `ctx.results.0.hits.hits.0` in the notification to identify which entity (such as `host` or `service`) triggered the alert.
 
-| Design choice | Rationale |
-|---------------|-----------|
-| `size: 1` in the search input | Retrieves a single document so you can reference `ctx.results.0.hits.hits.0` in the notification to identify which entity (such as `host` or `service`) triggered the alert. |
-| `execution_end_time` range `"now-2m"` → `now` | Filters on the result creation timestamp, which reflects when the forecast was generated. This avoids delays caused by ingestion lag. Avoid filtering on `data_end_time` if your index includes late-arriving data (such as backfilled logs). |
-| `max(anomaly_grade)` as the metric | Detects the most severe anomaly. You can use any field in the anomaly result index for aggregation. For additional fields, see the [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping/ |
-| Index pattern `.opendistro-anomaly-results*` | Matches the default result index pattern. Update this pattern if you route results to a custom index, such as `opensearch-ad-plugin-result-abc*`. |
-| Optional term filter on `detector_id` | Use this filter to target a specific detector and avoid matching unrelated anomalies. |
-| Monitor every 2 min, query window 2 min | Evaluate results every two minutes to detect anomalies quickly. The 2-minute lookback increases resilience to timing delays. Combined with a 2-minute alert throttle, this avoids duplicate notifications for the same event. |
-| Mustache block prints all entity dimensions | Displays both single-dimension (`host=server_3`) and multi-dimension (`host=server_3`, `service=auth`) entity values. You can also include a link to a pre-filtered dashboard for faster triage. |
-| Trigger when `max_anomaly_grade > 0.7` and `confidence > 0.7` | Use Alerting's trigger to determine an appropriate threshold that reliably indicates anomalies. |
+- **`execution_end_time` range `"{{period_end}}||-2m"` → `"{{period_end}}"`**: Filters on the result creation timestamp, which reflects when the forecast was generated. This avoids delays caused by ingestion lag. Avoid filtering on `data_end_time` if your index includes late-arriving data (such as backfilled logs).
+
+- **`"indices": [".opendistro-anomaly-results*"]`**: Matches the default result index pattern. Update this pattern if you route results to a custom index, such as `opensearch-ad-plugin-result-abc*`.
+
+- **`"detector_id": {"value": "oJzeoZkB8KmRTvydzJDF"}`** (optional): Use this filter to target a specific detector and avoid matching unrelated anomalies from other detectors.
+
+- **`"max_anomaly_grade"` aggregation**: Detects the most severe anomaly in the time window. You can use any field in the anomaly result index for aggregation. For additional fields, see the [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping/).
+
+- **Monitor schedule every 2 minutes with 2-minute query window**: Evaluates results every two minutes to detect anomalies quickly. The 2-minute lookback increases resilience to timing delays. Combined with a 2-minute alert throttle, this avoids duplicate notifications for the same event.
+
+- **Trigger condition `max_anomaly_grade.value > 0.7 && confidence > 0.7`**: Sets appropriate thresholds that reliably indicate anomalies. Adjust these values based on your tolerance for false positives and negatives.
+
+- **Mustache template with entity block**: Displays both single-dimension (`host=server_3`) and multi-dimension (`host=server_3`, `service=auth`) entity values in the notification. You can also include a link to a pre-filtered dashboard for faster triage.
 
 
-### Example alert
+## Example alert notification
 
-The following example shows a sample alert email generated by a monitor that detects when an anomaly breaches a defined threshold. In this case, the monitor is tracking a high-cardinality detector and has triggered an alert for a specific entity (`host = server_3`):
+The following example shows a sample alert email generated by the monitor when an anomaly breaches the defined threshold. In this case, the monitor is tracking a high-cardinality detector and has triggered an alert for a specific entity (`host = server_3`):
 
-```
+```md
 Monitor **ad-monitor** entered **ALERT** state — please investigate.
 
 Trigger    : ad-trigger
