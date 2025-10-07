@@ -174,3 +174,48 @@ When you run the same term query on the configured index, the query takes longer
   }
 }
 ```
+
+## Derived source
+
+Derived source may sort and remove duplicates when using multi-value field. For example:
+```json
+PUT sample-index1/_doc/1
+{
+  "keyword": ["ba", "ab", "ac", "ba"]
+}
+```
+Will become:
+```json
+{
+  "keyword": ["ab", "ac", "ba"]
+}
+```
+If `null_value` is configured in field mapping parameter, ingested `null` value will be replaced with `null_value` in derived source
+```json
+PUT sample-index2
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "keyword":  {"type": "keyword", "null_value": "foo"}
+    }
+  }
+}
+
+PUT sample-index2/_doc/1
+{
+  "keyword": [null, "ba", "ab"]
+}
+```
+Will become:
+```json
+{
+  "keyword": ["ab", "ba", "foo"]
+}
+```

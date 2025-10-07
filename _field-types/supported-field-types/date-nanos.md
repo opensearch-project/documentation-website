@@ -290,3 +290,38 @@ The response contains only the nanosecond parts of the fields:
   }
 }
 ```
+
+## Derived source
+
+Derived source may sort values when using multi-value field, when configuring multiple date formats separated by `||` under `format` mapping parameter, derived source will return results in first provided format. For example:
+```json
+PUT sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "date_nanos":  {
+        "type": "date_nanos", 
+        "format": "strict_date_optional_time_nanos||strict_date_optional_time||epoch_millis"
+      }
+    }
+  }
+}
+
+PUT sample-index1/_doc/1
+{
+  "date_nanos": [1758504860, "2025-09-22T00:34", "2025-09-22T01:34:20Z"]
+}
+```
+Will become:
+```json
+{
+  "date_nanos": ["2025-09-22T00:34:00.000000000Z", "2025-09-22T01:34:00.000000000Z", "2025-09-22T01:34:00.000000000Z"]
+}
+```
