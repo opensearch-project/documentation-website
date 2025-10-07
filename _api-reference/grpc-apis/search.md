@@ -23,9 +23,9 @@ To submit gRPC requests, you must have a set of protobufs on the client side. Fo
 
 gRPC Document APIs reside in the [`SearchService`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/services/search_service.proto#L22).
 
-You can submit search requests by invoking the [`Search`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/services/search_service.proto#L23) gRPC method within the `SearchService`. The method takes in a [`SearchRequest`](#searchrequest-fields) and returns a [`SearchResponse`](#searchresponse-fields).
+You can submit search requests by invoking the [`Search`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/services/search_service.proto#L23) gRPC method within the `SearchService`. The method takes a [`SearchRequest`](#searchrequest-fields) and returns a [`SearchResponse`](#searchresponse-fields).
 
-See [Supported Queries](#supported-queries) on currently supported search queries. Additional query types will be supported in future versions.
+See [Supported Queries](#supported-queries) for currently supported search queries. Additional query types will be supported in future versions.
 {: .note}
 
 ## Request fields
