@@ -18,7 +18,7 @@ Neural sparse ANN search provides the following advantages over traditional neur
 - **Query performance improvement**: Achieves significant query speed improvements compared to two-phase queries under ≥90% recall conditions with better than linear performance scaling as dataset size increases.
 - **Scalability**: Maintains consistent query performance as datasets scale to 50 million vectors on a single node.
 - **Memory efficiency**: Uses optimized caching strategies, byte quantization, and circuit breakers to manage memory usage and prevent resource exhaustion.
-- **Hybrid approach**: Automatically selects the optimal indexing strategy based on segment size with minimal impact on indexing performance.
+- **Hybrid approach**: Automatically selects the optimal indexing strategy based on segment size, with minimal impact on indexing performance.
 - **Search flexibility**: Provides tunable trade-offs between high recall and low latency using query parameters.
 
 Consider neural sparse ANN search when you need the efficiency of sparse retrieval but require better performance than traditional neural sparse search methods can provide at scale:
@@ -36,9 +36,9 @@ During the indexing phase, neural sparse ANN search implements several key optim
 
 1. **Posting list clustering**: For each term in the inverted index, the algorithm performs the following actions:
    - Sorts documents by their token weights in descending order.
-   - Retains only the top `n_postings` documents with highest weights.
+   - Retains only the top `n_postings` documents with the highest weights.
    - Applies a clustering algorithm to group similar documents into one cluster.
-   - Generates summary sparse vectors for each cluster, keeping only the highest weighted tokens.
+   - Generates summary sparse vectors for each cluster, keeping only the highest-weighted tokens.
 
 2. **Forward index maintenance**: Neural sparse ANN search maintains both the clustered inverted index and a forward index that stores complete sparse vectors organized by document ID for efficient access during query processing. 
 
@@ -46,7 +46,7 @@ During the indexing phase, neural sparse ANN search implements several key optim
 
 During query execution, neural sparse ANN search employs an efficient retrieval process:
 
-1. **Token-level pruning**: For a given query, all tokens are sorted based on their weights. Only the `top_n` tokens with the highest weights are kept, so that fewer posting lists are visited.
+1. **Token-level pruning**: For a given query, all tokens are sorted based on their weights. Only the `top_n` tokens with the highest weights are kept so that fewer posting lists are visited.
 
 2. **Cluster-level pruning**: The algorithm first computes dot product scores between the query vector and cluster summary vectors. Only clusters with scores above a dynamic threshold are selected for detailed examination.
 
@@ -56,7 +56,7 @@ This approach dramatically reduces the number of documents that need to be score
 
 ### Hybrid indexing behavior
 
-Neural sparse ANN search a hybrid indexing approach that depends on the document count in each segment to balance indexing and query performance:
+Neural sparse ANN search is a hybrid indexing approach that depends on the document count in each segment to balance indexing and query performance:
 
 - Segments with fewer documents than `approximate_threshold`: Indexed as plain neural sparse (`rank_features`) segments and queried using the standard neural sparse query.
 
@@ -157,7 +157,7 @@ GET /my-sparse-ann-index/_search
 
 ### Query using raw vectors
 
-Query using pre-computed sparse vectors, where tokens are specified as integers with their corresponding weights:
+Query using precomputed sparse vectors, where tokens are specified as integers with their corresponding weights:
 
 ```json
 GET /my-sparse-ann-index/_search
@@ -185,10 +185,10 @@ GET /my-sparse-ann-index/_search
 
 | Parameter | Description |
 |:--- |:--- |
-| `k` | Number of top nearest results to return |
-| `top_n` | Number of query tokens with highest weights to retain |
+| `k` | The number of top nearest results to return |
+| `top_n` | The number of query tokens with the highest weights to retain |
 | `heap_factor` | Controls recall vs. performance trade-off |
-| `filter` | Optional boolean filter for pre-filtering or post-filtering |
+| `filter` | Optional Boolean filter for pre-filtering or post-filtering |
 
 ## Filtering support
 
@@ -240,7 +240,7 @@ Monitor memory usage and query statistics using the [Neural Search Stats API]({{
 
 ## Performance tuning
 
-Neural sparse ANN search provides multiple parameters to balance search accuracy and query speed. For comprehensive tuning guidance, see [Neural sparse ANN search performance tuning]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-sparse/).
+Neural sparse ANN search provides multiple parameters for balancing search accuracy and query speed. For comprehensive tuning guidance, see [Neural sparse ANN search performance tuning]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-sparse/).
 
 ## Next steps
 

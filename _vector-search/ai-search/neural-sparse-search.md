@@ -66,7 +66,7 @@ For information about splitting large documents into smaller passages before gen
 **Introduced 3.3**
 {: .label .label-purple }
 
-You can run neural sparse approximate nearest neighbor (ANN) search to achieve better query performance with high query recall (>0.9). For more information, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/)
+You can run neural sparse approximate nearest neighbor (ANN) search to achieve better query performance with high query recall (>0.9). For more information, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/).
 
 ## Further reading
 

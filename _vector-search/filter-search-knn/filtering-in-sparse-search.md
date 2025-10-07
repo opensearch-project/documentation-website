@@ -7,7 +7,7 @@ nav_order: 40
 
 # Filtering in neural sparse ANN search
 
-You can run neural sparse ANN search queries with filtering: efficient filtering and post-filtering are supported.
+You can run neural sparse approximate nearest neighbor (ANN) search queries with filtering: efficient filtering and post-filtering are supported.
 
 ## Efficient neural sparse ANN search filtering
 
@@ -21,7 +21,7 @@ First, the filter is applied to N documents, resulting in P matching documents. 
 
 ## Using a neural sparse ANN search filter
 
-In this example, you will create an index and search for the three hotels with high ratings and parking with name matching your search criteria.
+In this example, you will create an index and search for the three hotels with high ratings, parking, and a name matching your search criteria.
 
 ### Step 1: Create a new index
 
@@ -71,7 +71,7 @@ PUT /hotels-index
 
 Next, add data to your index.
 
-The following request adds 10 documents that contain hotel name embeddings, rating, and parking information:  
+The following request adds 10 documents that contain hotel name embeddings, ratings, and parking information:  
 
 ```json
 POST /_bulk
@@ -102,7 +102,7 @@ POST /_bulk
 
 Now you can create a neural sparse ANN search with filters. In the `method_parameters` field of the `neural_sparse` query clause, include the point of interest that is used to search for nearest neighbors, the number of nearest neighbors to return (`k`), and a filter with the restriction criteria. Depending on how restrictive you want your filter to be, you can add multiple query clauses to a single request.
 
-The following request creates a neural sparse ANN search query that searches for the top three hotels whose names match the text "beach resort" that are rated between 8 and 10, inclusive, and provide parking:
+The following request creates a neural sparse ANN search query that searches for the top three hotels with names matching the text "beach resort", that are rated between 8 and 10, inclusive, and that provide parking:
 
 ```json
 POST /hotels-index/_search
@@ -216,7 +216,7 @@ You can apply post-filtering using a [Boolean filter](#boolean-filter-with-neura
 
 ### Using a Boolean filter with neural sparse ANN search
 
-A Boolean filter consists of a `bool` query that contains a `neural_sparse` query and a filter. For example, the following query searches for hotels whose names match the text "beach resort" and then filters the results to return hotels with a rating between 8 and 10, inclusive, that provide parking:
+A Boolean filter consists of a `bool` query that contains a `neural_sparse` query and a filter. For example, the following query searches for hotels with names matching the text "beach resort" and then filters the results to return hotels with a rating between 8 and 10, inclusive, and that provide parking:
 
 ```json
 POST /hotels-index/_search
@@ -304,4 +304,4 @@ The response includes documents containing the matching hotels:
 
 ## Next steps
 
-- For more information about neural sparse ANN search, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/)
+- For more information about neural sparse ANN search, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/).

@@ -360,7 +360,7 @@ The following table lists the available statistics. For statistics with paths pr
 | `neural_query_against_semantic_dense_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_semantic_dense_requests` | The number of `neural` query requests against semantic dense fields.                                                                       |
 | `neural_query_against_knn_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_knn_requests` | The number of `neural` query requests against k-NN fields.                                                                                 |
 | `neural_sparse_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.neural_sparse_query_requests` | The number of `neural_sparse` query requests against `rank_features` fields (traditional neural sparse search).                                                                                              |
-| `seismic_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.seismic_query_requests` | The number of `neural_sparse` query requests against `sparse_vector` fields (neural sparse ANN search using SEISMIC algorithm). |
+| `seismic_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.seismic_query_requests` | The number of `neural_sparse` query requests against `sparse_vector` fields (neural sparse ANN search using the SEISMIC algorithm). |
 
 **Node-level statistics: Memory**
 
@@ -369,7 +369,7 @@ The following table lists the available statistics. For statistics with paths pr
 | `sparse_memory_usage_percentage` | `nodes`              | `memory.sparse.sparse_memory_usage_percentage`                  | The percentage of JVM heap memory used to store sparse data on the node relative to the maximum JVM memory. |
 | `sparse_memory_usage` | `nodes`, `all_nodes` | `memory.sparse.sparse_memory_usage`                             | The amount of JVM heap memory used to store sparse data on the node, in kilobytes.                           |
 | `clustered_posting_usage` | `nodes`, `all_nodes` | `memory.sparse.clustered_posting_usage`                         | The amount of JVM heap memory used to store clustered posting on the node, in kilobytes.                     |
-| `forward_index_usage` | `nodes`, `all_nodes` | `memory.sparse.forward_index_usage`                            | The amount of JVM heap memory used to store forward index on the node, in kilobytes.                         |
+| `forward_index_usage` | `nodes`, `all_nodes` | `memory.sparse.forward_index_usage`                            | The amount of JVM heap memory used to store the forward index on the node, in kilobytes.                         |
 
 **Node-level statistics: Semantic highlighting**
 
@@ -421,27 +421,27 @@ The `timestamped_event_counter` object contains the following metadata fields.
 Introduced 3.3
 {: .label .label-purple }
 
-The sparse indices support sparse ANN (Approximate Nearest Neighbor) search. To maximize search efficiency, the neural plugin caches sparse data in JVM memory.
+The sparse indexes support sparse approximate nearest neighbor (ANN) search. To maximize search efficiency, the Neural plugin caches sparse data in JVM memory.
 
-If the plugin has not loaded sparse data into JVM memory, then it loads data when it receives a search request. Loading time can cause high latency during initial queries. To avoid this, users often run random queries during a warmup period. After this warmup period, sparse data are loaded into JVM memory, and their production workloads can launch. This loading process is indirect and requires extra effort.
+If the plugin has not loaded sparse data into JVM memory, then it loads data when it receives a search request. Loading time can cause high latency during initial queries. To avoid this, users often run random queries during a warmup period. After this warmup period, sparse data is loaded into JVM memory, and its production workloads can launch. This loading process is indirect and requires extra effort.
 
-As an alternative, you can avoid this latency issue by running the neural plugin warmup API operation on the indices you want to search. This operation loads all the sparse data for all the shards (primaries and replicas) of all the indices specified in the request into JVM memory.
+As an alternative, you can avoid this latency issue by running the neural plugin warmup API operation on the indexes you want to search. This operation loads all the sparse data for all the shards (primaries and replicas) of all the indexes specified in the request sent to JVM memory.
 
-After the process is finished, you can search against the indices without initial latency penalties. The warmup API operation is idempotent, so if a segment's sparse data are already loaded into memory, this operation has no effect. It only loads files not currently stored in memory.
+After the process is finished, you can search against the indexes without initial latency penalties. The warmup API operation is idempotent, so if a segment's sparse data is already loaded into memory, this operation has no effect. It only loads files not currently stored in memory.
 
-This API operation only works with indices created with `index.sparse` setting to be `true`.
+This API operation only works with indexes created with `index.sparse` set to `true`.
 {: .note}
 
 #### Example request
 
-The following request performs a warmup operation on three indices:
+The following request performs a warmup operation on three indexes:
 
 ```json
 POST /_plugins/_neural/warmup/index1,index2,index3?pretty
 ```
 {% include copy-curl.html %}
 
-You may receive response as the following:
+You should receive a response similar to the following:
 
 ```json
 {
@@ -453,9 +453,9 @@ You may receive response as the following:
 }
 ```
 
-The `total` value indicates the number of shards that the neural plugin attempted to warm up. The response also includes the number of shards that the plugin successfully warmed up and failed to warm up.
+The `total` value indicates the number of shards that the Neural plugin attempted to warm up. The response also includes the number of shards that the plugin successfully warmed up and failed to warm up.
 
-The warmup API can be used with index patterns to clear one or more indices that match the given pattern from the cache, as shown in the following example:
+The warmup API operation can be used with index patterns to clear one or more indexes that match the given pattern from the cache, as shown in the following example:
 
 ```json
 POST /_plugins/_neural/warm_up/index*?pretty
@@ -473,34 +473,34 @@ After the operation has finished, use the [neural stats API operation](#stats) t
 
 ### Best practices
 
-To make the warmup operation work properly, follow these best practices:
+So that the warmup operation work properly, follow these best practices:
 
-* Do not run merge operations on indices that you want to warm up. During a merge operation, the neural plugin creates new segments, and old segments are sometimes deleted. For example, you could encounter a situation in which the warmup API operation loads sparse indices A and B into native memory but segment C is created from segments A and B being merged. Sparse indices A and B would no longer be in memory, and sparse index C would also not be in memory. In this case, the initial penalty for loading sparse index C still exists.
+* Do not run merge operations on indexes that you want to warm up. During a merge operation, the Neural plugin creates new segments, and old segments are sometimes deleted. For example, you could encounter a situation in which the warmup API operation loads sparse indexes A and B into native memory but segment C is created by segments A and B being merged. Sparse indexes A and B would no longer be in memory, and sparse index C would also not be in memory. In this case, the initial penalty for loading sparse index C still exists.
 
-* Confirm that all sparse indices you want to warm up can fit into JVM memory. For more information about the JVM memory limit, see the [neural_search.circuit_breaker.limit]({{site.url}}{{site.baseurl}}/vector-search/settings#neural-search-plugin-settings).
+* Confirm that all sparse indexes you want to warm up can fit into JVM memory. For more information about the JVM memory limit, see [neural_search.circuit_breaker.limit]({{site.url}}{{site.baseurl}}/vector-search/settings#neural-search-plugin-settings).
 
 ## Clear cache operation
 
 Introduced 3.3
 {: .label .label-purple }
 
-During sparse ANN search or warmup operations, the sparse data are loaded into JVM memory. You can evict an index from the memory by deleting it. Even if you decrease the neural search circuit breaker limit, you cannot immediately evict the cached sparse data. To solve this problem, you can use the neural search clear cache API operation, which clears the in-memory sparse data of a given set of indices from the cache.
+During sparse ANN search or warmup operations, the sparse data is loaded into JVM memory. You can evict an index from the memory by deleting it. Even if you decrease the neural search circuit breaker limit, you cannot immediately evict the cached sparse data. To solve this problem, you can use the neural search clear cache API operation, which clears the in-memory sparse data of a given set of indexes from the cache.
 
-The neural search clear cache API evicts all sparse data for all shards (primaries and replicas) of all indices specified in the request. Similarly to how the [warmup operation](#warmup-operation) behaves, the neural search clear cache API is idempotent, meaning that if you try to clear the cache for an index that has already been evicted from the cache, it does not have any additional effect.
+The neural search clear cache API operation evicts all sparse data for all shards (primaries and replicas) of all indexes specified in the request. Similarly to how the [warmup operation](#warmup-operation) behaves, the neural search clear cache API operation is idempotent, meaning that if you try to clear the cache for an index that has already been evicted from the cache, it does not have any additional effect.
 
-This API operation only works with indices created with `index.sparse` setting to be `true`.
+This API operation only works with indexes created with `index.sparse` set to `true`.
 {: .note}
 
 #### Example request
 
-The following request evicts the sparse data of three indices from the JVM memory:
+The following request evicts the sparse data of three indexes from the JVM memory:
 
 ```json
 POST /_plugins/_neural/clear_cache/index1,index2,index3?pretty
 ```
 {% include copy-curl.html %}
 
-You may receive response as the following:
+You should receive a response similar to the following:
 
 ```json
 {
@@ -514,7 +514,7 @@ You may receive response as the following:
 
 The `total` parameter indicates the number of shards that the API attempted to clear from the cache. The response includes both the number of cleared shards and the number of shards that the plugin failed to clear.
 
-The neural search clear cache API can be used with index patterns to clear one or more indices that match the given pattern from the cache, as shown in the following example:
+The neural search clear cache API operation can be used with index patterns to clear one or more indexes that match the given pattern from the cache, as shown in the following example:
 
 ```json
 POST /_plugins/_neural/clear_cache/index*?pretty

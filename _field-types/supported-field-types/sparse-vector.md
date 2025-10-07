@@ -20,7 +20,7 @@ The `sparse_vector` field type supports the following parameters.
 |-------------------------|---------|----------|-----------------------------------------------|-----------------------|-------------|
 | `name`                  | String  | Yes | The neural sparse ANN search algorithm. Valid value is `seismic`.                              | -                     | -           | 
 | `n_postings`            | Integer | No | The maximum number of documents to retain in each posting list.            | `0.0005 * doc_count`¹ | (0, ∞) | 
-| `cluster_ratio`         | Float   | No | The fraction of documents in each posting list to determine cluster count.             | `0.1`                 | (0, 1)      | 
+| `cluster_ratio`         | Float   | No | The fraction of documents in each posting list used to determine the cluster count.             | `0.1`                 | (0, 1)      | 
 | `summary_prune_ratio`   | Float   | No | The fraction of tokens to keep in cluster summary vectors for approximate matching.     | `0.4`                 | (0, 1]      | 
 | `approximate_threshold` | Integer | No | The minimum number of documents in a segment required to activate neural sparse ANN search.     | `1000000`           | [0, ∞) | 
 | `quantization_ceiling_search`  | Float   | No | The maximum token weight used for quantization during search. | `16`                  | (0, ∞) | 
@@ -29,7 +29,7 @@ The `sparse_vector` field type supports the following parameters.
 
 ¹`doc_count` represents the number of documents within the segment.
 
-For parameter configuration, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann)  
+For parameter configuration, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann).  
 {: .note }
 
 To increase search efficiency and reduce memory consumption, the `sparse_vector` field automatically performs quantization of the token weight. You can adjust the `quantization_ceiling_search` and `quantization_ceiling_ingest` parameters according to different token weight distributions. For doc-only queries, we recommend the default value (`16`). For bi-encoder queries, we recommend setting `quantization_ceiling_search` to `3`. For more information about doc-only and bi-encoder query modes, see [Generating sparse vector embeddings automatically]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-with-pipelines/).
@@ -159,7 +159,7 @@ GET sparse-vector-index/_search
 ```
 {% include copy-curl.html %}
 
-## Related articles
+## Related pages
 
 - [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/)
 - [Neural sparse query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/)

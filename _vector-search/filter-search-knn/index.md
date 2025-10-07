@@ -23,7 +23,7 @@ To refine vector search results, you can filter a vector search using one of the
 
 - [Scoring script filter]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/scoring-script-filter/): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It may have high latency and does not scale when filtered subsets are large. 
 
-- [Filtering in sparse vector search]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/filtering-in-sparse-search/): This approach is about applying filtering on approximate sparse vector search.
+- [Filtering in sparse vector search]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/filtering-in-sparse-search/): This approach applies filtering to approximate sparse vector search.
 
 The following table summarizes the preceding filtering use cases.
 
