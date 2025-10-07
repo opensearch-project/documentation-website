@@ -360,7 +360,7 @@ The following table lists the available statistics. For statistics with paths pr
 | `neural_query_against_semantic_dense_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_semantic_dense_requests` | The number of `neural` query requests against semantic dense fields.                                                                       |
 | `neural_query_against_knn_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_knn_requests` | The number of `neural` query requests against k-NN fields.                                                                                 |
 | `neural_sparse_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.neural_sparse_query_requests` | The number of `neural_sparse` query requests against `rank_features` fields (traditional neural sparse search).                                                                                              |
-| `seismic_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.seismic_query_requests` | The number of `neural_sparse` query requests against `sparse_vector` fields (neural sparse ANN search using the SEISMIC algorithm). |
+| `seismic_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.seismic_query_requests` | The number of `neural_sparse` query requests against `sparse_vector` fields (neural sparse approximate nearest neighbor (ANN) search using the SEISMIC algorithm). |
 
 **Node-level statistics: Memory**
 
@@ -416,32 +416,52 @@ The `timestamped_event_counter` object contains the following metadata fields.
 | `trailing_interval_value` | Integer | The number of events that occurred in the past 5 minutes. |
 | `minutes_since_last_event` | Integer | The amount of time (in minutes) since the last recorded event. |
 
-## Warmup operation
-
-Introduced 3.3
+## Warm up
+**Introduced 3.3**
 {: .label .label-purple }
 
-The sparse indexes support sparse approximate nearest neighbor (ANN) search. To maximize search efficiency, the Neural plugin caches sparse data in JVM memory.
+Sparse indexes support [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/). To maximize search efficiency, OpenSearch caches sparse data in JVM memory.
 
-If the plugin has not loaded sparse data into JVM memory, then it loads data when it receives a search request. Loading time can cause high latency during initial queries. To avoid this, users often run random queries during a warmup period. After this warmup period, sparse data is loaded into JVM memory, and its production workloads can launch. This loading process is indirect and requires extra effort.
+To avoid high latency during initial searches, you can run random queries during a warmup period. After the warmup period, sparse data is stored in JVM memory, and you can start production workloads. However, this approach is indirect and requires additional effort.
 
-As an alternative, you can avoid this latency issue by running the neural plugin warmup API operation on the indexes you want to search. This operation loads all the sparse data for all the shards (primaries and replicas) of all the indexes specified in the request sent to JVM memory.
+As an alternative, you can use the warm up API operation to avoid latency during initial searches. This operation loads all sparse data for the primary and replica shards of the specified indexes into JVM memory.
 
-After the process is finished, you can search against the indexes without initial latency penalties. The warmup API operation is idempotent, so if a segment's sparse data is already loaded into memory, this operation has no effect. It only loads files not currently stored in memory.
-
-This API operation only works with indexes created with `index.sparse` set to `true`.
+This API operation only works with sparse indexes (indexes created with `index.sparse` set to `true`).
 {: .note}
+
+### Endpoints
+
+```json
+POST /_plugins/_neural/warmup/<index>
+```
+
+### Path parameters
+
+The following table lists the available path parameters. All path parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `<index>` | String | An index name or names (comma-separated) to warm up. Supports wildcards (`*`). |
 
 #### Example request
 
-The following request performs a warmup operation on three indexes:
+The following request performs a warm up operation on three indexes:
 
 ```json
-POST /_plugins/_neural/warmup/index1,index2,index3?pretty
+POST /_plugins/_neural/warmup/index1,index2,index3
 ```
 {% include copy-curl.html %}
 
-You should receive a response similar to the following:
+You can use the warm up API operation with index patterns to clear one or more indexes that match a specified pattern from the cache:
+
+```json
+POST /_plugins/_neural/warm_up/index*
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+The API call returns results only after the warm up operation finishes or the request times out:
 
 ```json
 {
@@ -453,54 +473,83 @@ You should receive a response similar to the following:
 }
 ```
 
-The `total` value indicates the number of shards that the Neural plugin attempted to warm up. The response also includes the number of shards that the plugin successfully warmed up and failed to warm up.
+If the request times out, then the operation continues on the cluster. 
 
-The warmup API operation can be used with index patterns to clear one or more indexes that match the given pattern from the cache, as shown in the following example:
-
-```json
-POST /_plugins/_neural/warm_up/index*?pretty
-```
-{% include copy-curl.html %}
-
-The call does not return results until the warmup operation finishes or the request times out. If the request times out, then the operation continues on the cluster. To monitor the warmup operation, use the OpenSearch `_tasks` API:
+To monitor the warm up operation, use the OpenSearch Tasks API:
 
 ```json
 GET /_tasks
 ```
 {% include copy-curl.html %}
 
-After the operation has finished, use the [neural stats API operation](#stats) to see the updated memory usage.
+After the operation has finished, use the [neural stats API operation](#stats) to monitor the updated memory usage.
+
+### Response body fields
+
+The following table lists all response body fields.
+
+| Field                | Data type | Description                                                      |
+| :------------------- | :-------- | :--------------------------------------------------------------- |
+| `_shards.total`      | Integer   | The total number of shards that OpenSearch attempted to warm up. |
+| `_shards.successful` | Integer   | The number of shards that were successfully warmed up.           |
+| `_shards.failed`     | Integer   | The number of shards that failed to warm up.                     |
 
 ### Best practices
 
-So that the warmup operation work properly, follow these best practices:
+To ensure that the warm up operation works properly, follow these best practices:
 
-* Do not run merge operations on indexes that you want to warm up. During a merge operation, the Neural plugin creates new segments, and old segments are sometimes deleted. For example, you could encounter a situation in which the warmup API operation loads sparse indexes A and B into native memory but segment C is created by segments A and B being merged. Sparse indexes A and B would no longer be in memory, and sparse index C would also not be in memory. In this case, the initial penalty for loading sparse index C still exists.
+* Avoid running merge operations on indexes you plan to warm up: During a merge operation, OpenSearch creates new segments and may delete old ones. For example, if the warm up API operation loads sparse indexes A and B into native memory, but a merge creates a new segment C from A and B, then A and B are removed from memory but C is not yet loaded. In this case, the initial loading delay for sparse index C still occurs.
 
-* Confirm that all sparse indexes you want to warm up can fit into JVM memory. For more information about the JVM memory limit, see [neural_search.circuit_breaker.limit]({{site.url}}{{site.baseurl}}/vector-search/settings#neural-search-plugin-settings).
+* Verify that all sparse indexes you plan to warm up can fit into JVM memory. For more information about memory limits, see [neural_search.circuit_breaker.limit]({{site.url}}{{site.baseurl}}/vector-search/settings#neural-search-plugin-settings).
 
-## Clear cache operation
-
-Introduced 3.3
+## Clear cache
+**Introduced 3.3**
 {: .label .label-purple }
 
-During sparse ANN search or warmup operations, the sparse data is loaded into JVM memory. You can evict an index from the memory by deleting it. Even if you decrease the neural search circuit breaker limit, you cannot immediately evict the cached sparse data. To solve this problem, you can use the neural search clear cache API operation, which clears the in-memory sparse data of a given set of indexes from the cache.
+During [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) or warm up operations, sparse data is loaded into JVM memory. You can remove this data by deleting the corresponding index.
 
-The neural search clear cache API operation evicts all sparse data for all shards (primaries and replicas) of all indexes specified in the request. Similarly to how the [warmup operation](#warmup-operation) behaves, the neural search clear cache API operation is idempotent, meaning that if you try to clear the cache for an index that has already been evicted from the cache, it does not have any additional effect.
+In contrast, decreasing the [neural search circuit breaker limit]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann#memory-and-caching-settings) does not immediately evict cached sparse data. To manually clear cached data, use the neural search clear cache API operation. This operation removes all in-memory sparse data for all shards (primaries and replicas) of the indexes specified in the request.
 
-This API operation only works with indexes created with `index.sparse` set to `true`.
+Similar to the [warm up operation](#warm-up-operation), the clear cache operation is idempotent: if you attempt to clear the cache for an index that has already been evicted, the operation has no additional effect.
+
+This API operation only works with sparse indexes (indexes created with `index.sparse` set to `true`).
 {: .note}
+
+### Endpoints
+
+```json
+POST /_plugins/_neural/clear_cache/<index>
+```
+
+### Path parameters
+
+The following table lists the available path parameters. All path parameters are optional.
+
+| Parameter | Data type | Description                                                                                  |
+| :-------- | :-------- | :------------------------------------------------------------------------------------------- |
+| `<index>` | String    | An index name or names (comma-separated) for which to clear cache. Supports wildcards (`*`). |
 
 #### Example request
 
-The following request evicts the sparse data of three indexes from the JVM memory:
+The following request clears the sparse data of three specified indexes from JVM memory:
 
 ```json
-POST /_plugins/_neural/clear_cache/index1,index2,index3?pretty
+POST /_plugins/_neural/clear_cache/index1,index2,index3
 ```
+
 {% include copy-curl.html %}
 
-You should receive a response similar to the following:
+You can also use index patterns to clear one or more indexes that match a pattern:
+
+```json
+POST /_plugins/_neural/clear_cache/index*
+```
+
+{% include copy-curl.html %}
+
+#### Example response
+
+The API call returns results only after the clear cache operation finishes or the request times out:
 
 ```json
 {
@@ -512,20 +561,24 @@ You should receive a response similar to the following:
 }
 ```
 
-The `total` parameter indicates the number of shards that the API attempted to clear from the cache. The response includes both the number of cleared shards and the number of shards that the plugin failed to clear.
+If the request times out, the operation continues running in the cluster.
 
-The neural search clear cache API operation can be used with index patterns to clear one or more indexes that match the given pattern from the cache, as shown in the following example:
-
-```json
-POST /_plugins/_neural/clear_cache/index*?pretty
-```
-{% include copy-curl.html %}
-
-The API call does not return results until the operation finishes or the request times out. If the request times out, then the operation continues on the cluster. To monitor the clear cache request, use the `_tasks` API, as shown in the following example:
+To monitor the progress of the clear cache operation, use the OpenSearch Tasks API:
 
 ```json
 GET /_tasks
 ```
+
 {% include copy-curl.html %}
 
-After the operation has finished, use the [neural stats API operation](#stats) to see the updated memory usage.
+After the operation finishes, use the [neural stats API operation](#stats) to check updated memory usage.
+
+### Response body fields
+
+The following table lists all response body fields.
+
+| Field                | Data type | Description                                                      |
+| :------------------- | :-------- | :--------------------------------------------------------------- |
+| `_shards.total`      | Integer   | The total number of shards for which OpenSearch attempted to clear cache. |
+| `_shards.successful` | Integer   | The number of shards for which cache was successfully cleared.           |
+| `_shards.failed`     | Integer   | The number of shards for which cache failed to clear.                     |
