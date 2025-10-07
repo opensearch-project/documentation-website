@@ -212,7 +212,7 @@ The response returns the three hotels that are nearest to the search point and m
 
 ## Post-filtering
 
-You can apply post-filtering using a [Boolean filter](#boolean-filter-with-neural-sparse-ann-search). Note that because filtering occurs after the neural sparse ANN search retrieves its top k results, the final number of returned results may be significantly smaller than k.
+You can apply post-filtering using a [Boolean filter](#using-a-boolean-filter-with-neural-sparse-ann-search). Note that because filtering occurs after the neural sparse ANN search retrieves its top k results, the final number of returned results may be significantly smaller than k.
 
 ### Using a Boolean filter with neural sparse ANN search
 

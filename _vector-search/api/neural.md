@@ -510,7 +510,7 @@ During [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-
 
 In contrast, decreasing the [neural search circuit breaker limit]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann#memory-and-caching-settings) does not immediately evict cached sparse data. To manually clear cached data, use the neural search clear cache API operation. This operation removes all in-memory sparse data for all shards (primaries and replicas) of the indexes specified in the request.
 
-Similar to the [warm up operation](#warm-up-operation), the clear cache operation is idempotent: if you attempt to clear the cache for an index that has already been evicted, the operation has no additional effect.
+Similar to the [warm up operation](#warm-up), the clear cache operation is idempotent: if you attempt to clear the cache for an index that has already been evicted, the operation has no additional effect.
 
 This API operation only works with sparse indexes (indexes created with `index.sparse` set to `true`).
 {: .note}
