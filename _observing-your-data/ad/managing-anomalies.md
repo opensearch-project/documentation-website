@@ -167,7 +167,7 @@ Note the following key configuration in the example alert monitor:
 
 - **`"size": 1`** in the search input: Retrieves a single document so you can reference `ctx.results.0.hits.hits.0` in the notification to identify which entity (such as `host` or `service`) triggered the alert.
 
-- **`execution_end_time` range `"{{period_end}}||-2m"` → `"{{period_end}}"`**: Filter on result write time (execution_end_time) — the moment the detector finishes and indexes the result. OpenSearch is near-real-time (not immediate): indexing queuing and refresh introduce a delay before a document becomes searchable. Include a small overlap (e.g., -2m) to cover this write-to-search latency; tune it to your worst-case. Avoid data_end_time (the bucket’s logical end), which can miss results that surface later.
+- **`execution_end_time` range `"{{period_end}}||-2m"` → `"{{period_end}}"`**: Filters results based on detector `execution_end_time`---the time the detector finishes running and indexes the result. Because OpenSearch operates in near-real-time (results are not immediate), indexing and refresh operations introduce a delay before a document becomes searchable. To account for this write-to-search latency, this example includes a small overlap (`-2m`). Specify the overlap based on your system's worst-case delay. Avoid using `data_end_time` (the bucket’s logical end), which can miss results that arrive later.
 
 - **`"indices": [".opendistro-anomaly-results*"]`**: Matches the default result index pattern. Update this pattern if you route results to a custom index, such as `opensearch-ad-plugin-result-abc*`.
 
