@@ -17,7 +17,7 @@ This guide demonstrates how to configure conversational agents with multiple too
 
 Before you start, ensure that you have registered and configured an agent. To configure an agent, follow these steps:
 
-1. Follow [Step 3: Create a model for the agent and Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-3-create-a-model-for-the-agent-and-query-planning-tool). This model is used by both the conversational agent and the `QueryPlanningTool`.
+1. Follow [Step 3: Create a model for the agent and Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-the-agent-and-query-planning-tool). This model is used by both the conversational agent and the `QueryPlanningTool`.
 2. Review [model configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration) and choose a model to use.
 3. Register and configure an agent using [Step 4: Create an agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-an-agent) or see [Customizing agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) for advanced configurations. The agent must include a `QueryPlanningTool`.
 
