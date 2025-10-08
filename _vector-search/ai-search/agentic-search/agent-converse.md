@@ -236,7 +236,7 @@ The response includes matching products and detailed agent information in the `e
     ]
   },
   "ext": {
-    "agent_steps_summary": "I have these tools available: [ListIndexTool, IndexMappingTool, query_planner_tool]\nFirst I used: query_planner_tool — qpt.question: \"Find white shoes priced under 150 dollars.\"; index_name_provided: \"products-index\"\nValidation: qpt output is valid JSON and aligns with the request for white shoes under 150 dollars in the products-index.",
+    "agent_steps_summary": "I have these tools available: [ListIndexTool, IndexMappingTool, query_planner_tool]\nFirst I used: ListIndexTool — input: \"[]\"; context gained: \"Found indices; 'products-index' appears most relevant for product queries\"\nSecond I used: query_planner_tool — qpt.question: \"Find white shoes under 150 dollars.\"; index_name_provided: \"products-index\"\nThird I used: query_planner_tool — qpt.question: \"Find white shoes priced under 150 dollars.\"; index_name_provided: \"products-index\"\nValidation: qpt output is valid JSON and aligns with the request for white shoes under 150 dollars in the products-index.",
     "memory_id": "XRzFl5kB-5P992SCeeqO",
     "dsl_query": "{\"size\":10.0,\"query\":{\"bool\":{\"filter\":[{\"term\":{\"category\":\"shoes\"}},{\"term\":{\"color\":\"white\"}},{\"range\":{\"price\":{\"lte\":150.0}}}]}},\"sort\":[{\"price\":{\"order\":\"asc\"}},{\"_score\":{\"order\":\"desc\"}}]}"
   }
