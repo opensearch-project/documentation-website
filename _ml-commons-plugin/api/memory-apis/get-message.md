@@ -93,9 +93,9 @@ The following table lists the available response fields.
 | `message_id` | String | The message ID. |
 | `create_time` | String | The time at which the message was created. |
 | `updated_time` | String | The time at which the message was last updated. |
-| `input` | String | The question (human input) in the message. |
+| `input` | String | The question in the message (human input).  |
 | `prompt_template` | String | The prompt template that was used for the message. |
-| `response` | String | The answer (generative AI output) to the question. |
+| `response` | String | The answer to the question (generative AI output). |
 | `origin` | String | The name of the AI or other system that generated the response. |
 | `additional_info` | Object | Any other information that was sent to the `origin`. |
 | `parent_message_id` | String | The ID of the parent message (for trace messages). |
