@@ -39,7 +39,19 @@ For a complete example, see [Example usage with agents](#example-usage-with-agen
 
 ## Supported output processor types
 
-The following processors are available for transforming tool outputs:
+The following table lists all supported output processors.
+
+Processor | Description
+:--- | :---
+[`to_string`](#to_string) | Converts the input to a JSON string representation.
+[`regex_replace`](#regex_replace) | Replaces text using regular expression patterns.
+[`regex_capture`](#regex_capture) | Captures specific groups from regex matches.
+[`jsonpath_filter`](#jsonpath_filter) | Extracts data using JSONPath expressions.
+[`extract_json`](#extract_json) | Extracts JSON objects or arrays from text strings.
+[`remove_jsonpath`](#remove_jsonpath) | Removes fields from JSON objects using JSONPath.
+[`conditional`](#conditional) | Applies different processor chains based on conditions.
+[`process_and_set`](#process_and_set) | Applies a chain of processors to the input and sets the result at a specified JSONPath location.
+[`set_field`](#set_field) | Sets a field to a specified static value or copies a value from another field.
 
 ### to_string
 
