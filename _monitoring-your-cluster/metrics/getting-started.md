@@ -112,10 +112,10 @@ Introduced 3.1
 
 OpenSearch provides enhanced observability for [machine learning (ML)]({{site.url}}{{site.baseurl}}/ml-commons-plugin/) workflows. Metrics related to ML operations are pushed directly to the core metrics registry, giving you improved visibility into model usage and performance. Additionally, every 5 minutes, a periodic job collects and exports state data, helping you monitor the health and activity of your ML workloads over time.
 
-The static collector job captures the following metrics about different types of models and agents created:
+The static collector job captures the following metrics about different types of created models and agents:
 
-- **Models**: Deployment type (remote, pretrained, or custom), service provider, algorithm, model name, and model type.
-- **Agents**: LLM interface, model deployment type, service provider, model type, memory type, and model identifier.
+- **Models**: Deployment type (remote, pretrained, or custom), service provider, algorithm, model name, and model type
+- **Agents**: LLM interface, model deployment type, service provider, model type, memory type, and model identifier
 
 
 The following is an example of captured model metrics:
