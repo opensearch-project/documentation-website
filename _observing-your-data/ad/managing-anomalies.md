@@ -12,14 +12,12 @@ Once you've created an [anomaly detector]({{site.url}}{{site.baseurl}}/observing
 
 <img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/alerting_editor.png" alt="Alerting editor" width="800" height="800">
 
-For anomaly alerting, in **Monitor type**, select **Per query monitor**  (this is the only type that supports anomaly detection). Then, in **Monitor defining method**, choose one of these methods to define your monitor:
+In **Monitor defining method**, choose one of these methods to define your monitor:
 
 - **Anomaly detector**: Use when monitoring an individual detector's results with thresholds on anomaly grade and confidence. 
 - **Extraction query editor**: Use when monitoring multiple detectors, writing complex queries, or creating advanced trigger conditions.
 
-For detailed steps and more information about these options, see [Creating a per query or per bucket monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/per-query-bucket-monitors/#creating-a-per-query-or-per-bucket-monitor).
 
-The following sections provide examples and guidance specific to anomaly alerting.
 
 ## Example alert monitor
 
