@@ -33,7 +33,7 @@ Tool Output → Processor 1 → Processor 2 → Processor 3 → Final Output
 
 ## Configuration
 
-Add output processors to any tool by including an `output_processors` array in the tool's `parameters` section during agent registeration. 
+Add output processors to any tool by including an `output_processors` array in the tool's `parameters` section during agent registration. 
 
 For a complete example, see [Example usage with agents](#example-usage-with-agents).
 
@@ -58,7 +58,7 @@ Processor | Description
 Converts the input to a JSON string representation.
 
 **Parameters:**
-- `escape_json` (boolean, optional): Whether to escape JSON characters. Default: `false`
+- `escape_json` (Boolean, optional): Whether to escape JSON characters. Default: `false`
 
 **Example Configuration:**
 ```json
@@ -76,12 +76,12 @@ Output: "{\"name\":\"test\",\"value\":123}"
 
 ### regex_replace
 
-Replaces text using regular expression patterns. For regex syntax details, see [OpenSearch regex syntax](https://docs.opensearch.org/latest/query-dsl/regex-syntax/).
+Replaces text using regular expression patterns. For regex syntax details, see [OpenSearch regex syntax]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/).
 
 **Parameters:**
 - `pattern` (string, required): Regular expression pattern to match
 - `replacement` (string, optional): Replacement text. Default: `""`
-- `replace_all` (boolean, optional): Whether to replace all matches or just the first. Default: `true`
+- `replace_all` (Boolean, optional): Whether to replace all matches or only the first. Default: `true`
 
 **Example Configuration:**
 ```json
@@ -100,7 +100,7 @@ Output: "1,green,open,.plugins-ml-model\n2,red,closed,test-index"
 
 ### regex_capture
 
-Captures specific groups from regex matches. For regex syntax details, see [OpenSearch regex syntax](https://docs.opensearch.org/latest/query-dsl/regex-syntax/).
+Captures specific groups from regex matches. For regex syntax details, see [OpenSearch regex syntax]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/).
 
 **Parameters:**
 - `pattern` (string, required): Regular expression pattern with capture groups
