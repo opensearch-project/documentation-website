@@ -166,7 +166,7 @@ POST /_plugins/_ml/agents/_register
 
 ## Step 5: Create a search pipeline
 
-Create a search pipeline with an agentic query translator search request processor and pass the agent ID created in step 5:
+Create a search pipeline with an agentic query translator search request processor and pass the agent ID created in step 4:
 
 ```json
 PUT _search/pipeline/agentic-pipeline
