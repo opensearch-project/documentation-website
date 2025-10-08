@@ -229,11 +229,11 @@ If you're unsure, leave this field blank---the job will use the interval value b
 
 **Common scenarios for using a larger frequency than the interval include:**
 
-1. **Batching short buckets for efficiency**: In high-frequency or high-volume log streams where ultra-fast alerting isn't necessary. For example, if your job uses a 1–2 minute data interval to capture fine-grained log trends, processing every 1–2 minutes can be resource-intensive. Setting the frequency to 5 minutes allows the detector to fetch and process multiple intervals' worth of data in one batch (for example, five 1-minute buckets at once).
+1. **Batching short buckets for efficiency**: In high-frequency or high-volume log streams where ultra-fast alerting isn’t necessary. For workloads with heavy joins or high-cardinality features, or for compliance-driven nightly rollups that require an **immutable daily anomaly ledger** for reviews/audits, running every 1–2 minutes can be wasteful. Instead, schedule the detector to run less frequently so it batches many short intervals in one pass (e.g., **6 hours** *as an example*, which would process ~**360** 1-minute buckets at once). Pick an frequency that fits your alerting latency and cost goals (e.g., 30 min, 1 hr, 3 hrs, 6 hrs, 12 hrs).
 
-   - **Benefits**: Reduced scheduling overhead and better resource utilization, especially when running many jobs or working with busy clusters
-   - **Trade-offs**: Increased detection delay: an anomaly that occurs in a 1-minute bucket might only be reported when the 5-minute query runs
-   - **Best for**: Trend analysis or offline log analytics where near-real-time alerting isn't required
+  - **Benefits**: Reduced scheduling overhead and better resource utilization, especially when running many jobs or working with busy clusters
+  - **Trade-offs**: Increased detection delay—an anomaly in a 1-minute bucket may only be reported when the batch run executes
+  - **Best for**: Cost & load control and compliance & audit, etc.
 
 2. **Aligning with infrequent or batch log ingestion**: When logs arrive irregularly or in batches (for example, once per day from S3, or IoT devices that upload in bursts). Running the detector every minute would mostly yield empty results and wasted cycles. Configure the frequency closer to the data arrival rate (for example, one day) so each search is more likely to find new data. When timestamps are irregular and low-volume (as is common with sporadic logs), interim results tend to be harmful to accuracy as our RCF model is stateful and assumes strict ascending order of timestamps. By using a less frequent schedule, you effectively let the job wait for complete data rather than repeatedly checking an empty index.
 
@@ -264,16 +264,37 @@ Sets the number of historical data points used to train the initial (cold-start)
 
 ##### Choosing between frequency and window delay
 
-Both frequency and window delay address ingestion delay but work better for different data patterns:
+Both **frequency** and **window delay** address ingestion delay but work better for different data patterns:
 
-- **Window delay**: Best for streaming data (continuous trickle)
-- **Frequency**: Best for batch data (periodic drops)
+- **Window delay**: Best for streaming data (continuous trickle).
+- **Frequency**: Best for batch data (periodic drops).
 
 **Example scenarios:**
-- **1-day delay with streaming data**: Set window delay = 1 day to process Day-1 minute buckets during Day-2 as they arrive (low per-bucket latency, continuous compute)
-- **Daily batch ingestion**: Set frequency = 1 day to process all of Day-1 in a single run (lower query/inference overhead)
 
-The following diagram illustrates the timing differences between using window delay compared to using frequency to handle a 1-day ingestion delay. The timeline shows Day-1 ingestion (top), Day-2 processing with window delay = 1 day (middle, continuous band), and a single daily run when frequency = 1 day (bottom, vertical bar). Depending on when you start the detector, a daily frequency can fire just after Day-1 ends (best case, minimal extra delay) or much later (worst case, up to ~+1 day). The job runs every day at approximately the time you first started it.
+**Example A — Data arrives every minute, but always 1 day late → use window delay.**
+- **Pattern**: Day-1’s `00:01, 00:02, …, 23:59` arrive steadily, but only on **Day-2** at the matching minutes.
+- **Config**: `interval = 1 min`, `window_delay = 1 day`, **frequency = 1 min**.
+- **Effect**:
+  - Day-2 00:01 run processes **Day-1 00:01**.
+  - Day-2 00:02 run processes **Day-1 00:02**.
+  - …
+  - Day-2 23:59 run processes **Day-1 23:59**.
+- **Why this fits**: Each minute arrives on a predictable 24-hour delay; a window delay neatly aligns processing with the intended timestamp while keeping the workload incremental.
+
+---
+
+**Example B — All of Day-1’s data lands at Day-2 00:00 → use daily frequency.**
+- **Pattern**: No data during Day-1; a single batch with **all 1,440 minutes** appears at **Day-2 00:00**.
+- **Config**: `interval = 1 min`, **`frequency = 1 day`** (batch the whole day at once).
+  *(Tip: add a small `window_delay`—e.g., 1–5 minutes—for indexing/refresh lag.)*
+- **Effect** (daily run occurs ~at the time you first started the detector):
+  - **Best case**: Start time ≈ **00:00** → the **Day-2 00:00** run processes all of **Day-1** immediately after the drop.
+  - **Worst case**: Start time ≈ **23:59** → that day’s run happens long after the drop; you wait until **Day-2 23:59** (≈ **+23h59m** after the drop).
+  - **General rule**: With a midnight drop, *extra wait after the drop = your daily start time* (time-of-day).
+- **Why this fits**: The dataset is complete at midnight; a single daily run is far more efficient than minute-by-minute reprocessing.
+
+
+The following diagram illustrates the timing differences between using window delay versus using frequency to handle a 1-day ingestion delay. The timeline shows Day-1 ingestion (top), Day-2 processing with `window_delay = 1 day` (middle, continuous band), and a single daily run when `frequency = 1 day` (bottom, vertical bar). Depending on when you start the detector, a daily frequency can fire just after Day-1 ends (best case, minimal extra delay) or much later (worst case, up to ~+1 day). The job runs every day at approximately the time you first started it.
 
 <img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/window-delay-vs-frequency.png"
      alt="Timeline showing Day-1 ingestion (top), Day-2 processing with window delay (middle), and a single daily run when frequency = 1 day (bottom)"
