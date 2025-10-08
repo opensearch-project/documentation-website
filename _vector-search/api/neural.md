@@ -455,7 +455,7 @@ POST /_plugins/_neural/warmup/index1,index2,index3
 You can use the warm up API operation with index patterns to clear one or more indexes that match a specified pattern from the cache:
 
 ```json
-POST /_plugins/_neural/warm_up/index*
+POST /_plugins/_neural/warmup/index*
 ```
 {% include copy-curl.html %}
 
