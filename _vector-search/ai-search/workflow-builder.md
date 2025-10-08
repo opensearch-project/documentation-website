@@ -13,7 +13,11 @@ redirect_from:
 
 # Building AI search workflows in OpenSearch Dashboards
 
-In OpenSearch Dashboards, you can iteratively build and test workflows containing ingest and search pipelines using AI Search Flows. Using a UI editor to build workflows simplifies the creation of artificial intelligence and machine learning (AI/ML) use cases that include ML inference processors, such as vector search and retrieval-augmented generation (RAG). For example configurations of available AI search types (including semantic search, hybrid search, RAG, and multimodal search), see [Configuring AI search types]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-flows/). For examples of configuring agentic search flows, see [Configuring agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/)
+In OpenSearch Dashboards, you can iteratively build and test workflows containing ingest and search pipelines using AI Search Flows. Using a UI editor to build workflows simplifies the creation of artificial intelligence and machine learning (AI/ML) use cases that include ML inference processors, such as vector search and retrieval-augmented generation (RAG). 
+
+For example configurations of available AI search types (including semantic search, hybrid search, RAG, and multimodal search), see [Configuring AI search types]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-flows/). 
+
+For examples of configuring agentic search flows, see [Configuring agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/).
 
 Once your workflow is finalized, you can export it as a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/) to recreate identical resources across multiple clusters.
 
@@ -136,3 +140,5 @@ In **Outputs**, you can configure the values passed _from_ the model. There are 
 - For models and model interfaces recommended for use with AI Search Flows, see [Models](https://github.com/opensearch-project/dashboards-flow-framework/blob/main/documentation/models.md).
 
 - For example configurations for different AI/ML use cases, see [Configuring AI search types]({{site.url}}{{site.baseurl}}/tutorials/ai-search-flows/building-flows/).
+
+- For examples of configuring agentic search flows, see [Configuring agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/).

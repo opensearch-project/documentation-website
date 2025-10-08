@@ -1,37 +1,34 @@
 ---
 layout: default
-title: Search Templates to improve determinism
+title: Adding search templates
 parent: Agentic search
 grand_parent: AI search
 nav_order: 100
 has_children: false
 ---
 
-# Search Templates to improve determinism
+# Adding search templates
 
-The Query Planner Tool can accept a list of user-defined search templates during its registration. The Query Planner Tool generates DSL queries based on context and uses the attached search templates to generate the appropriate query. For general information about OpenSearch search templates, see [Search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/).
+The Query Planning tool can accept a list of [search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/) during its registration. During search, the Query Planning tool chooses an appropriate search template based on the user's question and template descriptions, and the large language model (LLM) generates a query based on the selected search template. 
 
-## Why use Search Templates?
+This approach allows you to solve complex use cases that would otherwise be challenging for the LLM alone:
 
-Search templates provide several key benefits:
+- Enhances query response consistency in agentic search. The major portion of the DSL query is provided by the search template, with only minor parts or placeholders filled by the LLM.
+- Handles complex use cases, in which the LLM struggles to generate correct queries.
+- Ensures predictable query structure and naming conventions.
 
-- **Improve determinism**: Enhance query response consistency in Agentic Search. The major portion of the DSL query is provided by the search template, with only minor parts or placeholders filled by the LLM
-- **Handle complex use cases**: Solve scenarios where the LLM struggles to generate correct queries
-- **Consistent output**: Ensure predictable query structure and naming conventions
+## Best practices
 
-## How Search Templates work
+When creating search templates for agentic search, follow these guidelines:
 
-1. **Template Definition**: Users provide a list of search templates alongside descriptions for each template
-2. **Template Selection**: The Query Planner Tool chooses an appropriate search template based on the user's question and template descriptions
-3. **Query Generation**: The LLM generates a query based on the selected search template
+- Write detailed descriptions for each template to help the LLM choose correctly.
+- Use descriptive placeholder names that clearly indicate what should be filled.
+- Create templates for different query patterns you commonly use.
+- Validate that templates work correctly with various inputs before deployment.
 
-This approach allows you to solve really complicated use cases that would otherwise be challenging for the LLM alone.
+## Step 1: Create an index
 
-
-
-## How to Use Search Templates: Example Use Case
-
-### Step 1: Create Index
+Create a stores index with nested inventory data to demonstrate complex aggregation scenarios:
 
 ```json
 PUT /stores
@@ -39,15 +36,14 @@ PUT /stores
   "mappings": {
     "properties": {
       "store_id": { "type": "keyword" },
-      "name":     { "type": "text", "fields": { "keyword": { "type": "keyword", "ignore_above": 256 } } },
+      "name": { "type": "text", "fields": { "keyword": { "type": "keyword", "ignore_above": 256 } } },
       "address": {
         "properties": {
-          "city":  { "type": "keyword" },
+          "city": { "type": "keyword" },
           "state": { "type": "keyword" }
         }
       },
       "location": { "type": "geo_point" },
-
       "inventory": {
         "type": "nested",
         "properties": {
@@ -61,7 +57,9 @@ PUT /stores
 ```
 {% include copy-curl.html %}
 
-### Step 2: Ingest Documents
+## Step 2: Ingest documents
+
+Add sample store documents containing inventory data for different cities and products:
 
 ```json
 POST /_bulk
@@ -79,9 +77,10 @@ POST /_bulk
 ```
 {% include copy-curl.html %}
 
-### Step 3: Register Template 1
+## Step 3: Register search templates
 
-Return stores in a city whose combined inventory across three SKUs is ≥ min_total.
+Register a search template that returns stores in a city whose combined inventory across three SKUs meets a minimum threshold:
+
 ```json
 POST /_scripts/store_sum_skus
 {
@@ -128,8 +127,8 @@ POST /_scripts/store_sum_skus
 ```
 {% include copy-curl.html %}
 
-### Step 4: Register Template 2
-Count stores in a city that have at least min units of a single SKU
+Register a search template that counts stores in a city having at least a minimum quantity of a specific SKU:
+
 ```json
 POST /_scripts/stores_with_give_sku
 {
@@ -170,273 +169,301 @@ POST /_scripts/stores_with_give_sku
 ```
 {% include copy-curl.html %}
 
-### Step 5: Register Agent with Query Planner Tool (with Search Templates)
+## Step 4: Register an agent with the Query Planning tool
 
-Refer to these to register query planner model and the agent model:
+Next, register an agent with the Query Planning tool, and configure the tool to use your search templates.
 
-- [Step 3: Create a model for the agent and Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-3-create-a-model-for-the-agent-and-query-planning-tool)
-- [Step 4: Create an agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-4-create-an-agent)
+### Step 4(a): Create a model for the agent and Query Planning tool
+
+Register a model for both the conversational agent and the Query Planning tool:
 
 ```json
+POST /_plugins/_ml/models/_register
 {
-    "name": "GPT 5 Agent for Agentic Search",
-    "type": "conversational",
-    "description": "Use this for Agentic Search",
-    "llm": {
-        "model_id": "{% raw %}{{llm_model_id}}{% endraw %}",
-        "parameters": {
-            "max_iteration": 15
-        }
-    },
-    "memory": {
-        "type": "conversation_index"
-    },
+  "name": "My OpenAI model: gpt-5",
+  "function_name": "remote",
+  "description": "Model for agentic search with templates",
+  "connector": {
+    "name": "My openai connector: gpt-5",
+    "description": "The connector to openai chat model",
+    "version": 1,
+    "protocol": "http",
     "parameters": {
-        "_llm_interface": "openai/v1/chat/completions"
+      "model": "gpt-5"
     },
-    "tools": [
- 
-        {
-            "type": "QueryPlanningTool",
-            "parameters": {
-                "model_id": "{% raw %}{{query_planner_model_id}}{% endraw %}",
-                "generation_type": "user_templates",
-                "search_templates": [
-                    {
-                        "template_id": "store_sum_skus",
-                        "template_description": "Return stores in a given city where the combined quantity across a list of SKUs meets or exceeds a threshold."
-                    },
-                    {
-                        "template_id": "stores_with_give_sku",
-                        "template_description": "List stores in a given city that have at least min_qty units of a specific SKU."
-                    }
-                ]
-            }
-        }
-    ],
-    "app_type": "os_chat"
-}
-```
-{% include copy-curl.html %}
-
-### Step 6: Hard Question Without Search Templates (Failing)
-
-Register the search pipeline before performing the query:
-
-- [Create a search pipeline]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-5-create-a-search-pipeline)
-
-**Agentic Search Query:** 
-```json
-POST /stores/_search?search_pipeline=my_pipeline
-{
-    "query": {
-        "agentic": {
-            "query_text": "List all stores in Seattle that have at least 30 combined units across these SKUs: iphone_17_air, iphone_17, and vision_pro."
-        }
-    }
-}
-```
-{% include copy-curl.html %}
-
-**LLM Response:** 
-```json
-{
-    "error": {
-        "root_cause": [
-            {
-                "type": "script_exception",
-                "reason": "runtime error",
-                "script_stack": [
-                    "for (item in params._source.inventory) { ",
-                    "                           ^---- HERE"
-                ],
-                "script": "int total = 0; for (item in params._source.inventory) { if (params.skus.contains(item.sku)) { if (item.qty instanceof Integer || item.qty instanceof Long) { total += (int)item.qty; } else if (item.qty instanceof String) { try { total += Integer.parseInt(it ...",
-                "lang": "painless",
-                "position": {
-                    "offset": 42,
-                    "start": 15,
-                    "end": 56
-                }
-            }
-        ],
-        "type": "search_phase_execution_exception",
-        "reason": "all shards failed",
-        "phase": "query",
-        "grouped": true,
-        "failed_shards": [
-            {
-                "shard": 0,
-                "index": "stores",
-                "node": "u3NEXA8PS8W8EJcT_9suGg",
-                "reason": {
-                    "type": "script_exception",
-                    "reason": "runtime error",
-                    "script_stack": [
-                        "for (item in params._source.inventory) { ",
-                        "                           ^---- HERE"
-                    ],
-                    "script": "int total = 0; for (item in params._source.inventory) { if (params.skus.contains(item.sku)) { if (item.qty instanceof Integer || item.qty instanceof Long) { total += (int)item.qty; } else if (item.qty instanceof String) { try { total += Integer.parseInt(it ...",
-                    "lang": "painless",
-                    "position": {
-                        "offset": 42,
-                        "start": 15,
-                        "end": 56
-                    },
-                    "caused_by": {
-                        "type": "null_pointer_exception",
-                        "reason": "Cannot invoke \"Object.getClass()\" because \"callArgs[0]\" is null"
-                    }
-                }
-            }
-        ]
+    "credential": {
+      "openAI_key": "<OPEN AI KEY>"
     },
-    "status": 400
-}
-```
-
-This error demonstrates that the LLM struggled to generate a valid query for this complex scenario. The failure occurred because the query involves advanced features like scripts and complex aggregations that are difficult for LLMs to generate correctly.
-
-Let's now demonstrate how search templates solve this problem:
-
-### Hard Question With Search Templates (Succeeding)
-
-**Agentic Search Query:** 
-```json
-POST /stores/_search?search_pipeline=my_pipeline
-{
-    "query": {
-        "agentic": {
-            "query_text": "List all stores in Seattle that have at least 30 combined units across these SKUs: iphone_17_air, iphone_17, and vision_pro."
-        }
-    }
-}
-```
-{% include copy-curl.html %}
-
-**Generated Query:**
-```json
-{
-    "took": 21658,
-    "timed_out": false,
-    "terminated_early": true,
-    "_shards": {
-        "total": 1,
-        "successful": 1,
-        "skipped": 0,
-        "failed": 0
-    },
-    "hits": {
-        "total": {
-            "value": 4,
-            "relation": "eq"
+    "actions": [
+      {
+        "action_type": "predict",
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "headers": {
+          "Authorization": "Bearer ${credential.openAI_key}"
         },
-        "max_score": null,
-        "hits": []
-    },
-    "aggregations": {
-        "by_store": {
-            "doc_count_error_upper_bound": 0,
-            "sum_other_doc_count": 0,
-            "buckets": [
-                {
-                    "key": "S-SEA-002",
-                    "doc_count": 1,
-                    "inv": {
-                        "doc_count": 3,
-                        "skus": {
-                            "doc_count": 3,
-                            "sum_qty": {
-                                "value": 34.0
-                            }
-                        }
-                    },
-                    "store": {
-                        "hits": {
-                            "total": {
-                                "value": 1,
-                                "relation": "eq"
-                            },
-                            "max_score": 1.0,
-                            "hits": [
-                                {
-                                    "_index": "stores",
-                                    "_id": "S-SEA-002",
-                                    "_score": 1.0,
-                                    "_source": {
-                                        "store_id": "S-SEA-002",
-                                        "address": {
-                                            "city": "Seattle"
-                                        },
-                                        "name": "Capitol Hill"
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "key": "S-SEA-003",
-                    "doc_count": 1,
-                    "inv": {
-                        "doc_count": 3,
-                        "skus": {
-                            "doc_count": 3,
-                            "sum_qty": {
-                                "value": 35.0
-                            }
-                        }
-                    },
-                    "store": {
-                        "hits": {
-                            "total": {
-                                "value": 1,
-                                "relation": "eq"
-                            },
-                            "max_score": 1.0,
-                            "hits": [
-                                {
-                                    "_index": "stores",
-                                    "_id": "S-SEA-003",
-                                    "_score": 1.0,
-                                    "_source": {
-                                        "store_id": "S-SEA-003",
-                                        "address": {
-                                            "city": "Seattle"
-                                        },
-                                        "name": "South Lake Union"
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            ]
-        }
-    },
-    "ext": {
-        "agent_steps_summary": "I have these tools available: [ListIndexTool, IndexMappingTool, query_planner_tool]\nFirst I used: query_planner_tool — qpt.question: \"List all stores in Seattle that have at least a combined total of 30 units across the following SKUs: \\\"iphone_17_air\\\", \\\"iphone_17\\\", and \\\"vision_pro\\\". The location must be Seattle. Sum the inventory counts for only these three SKUs per store and return stores where the sum is greater than or equal to 30.\"; index_name_provided: \"stores\"\nValidation: qpt output is valid JSON; adjusted numeric literals to integers and sizes to integers.",
-        "memory_id": "-BxpmJkB-5P992SCQ-qU",
-        "dsl_query":"{\"size\":0.0,\"query\":{\"term\":{\"address.city\":\"Seattle\"}},\"aggs\":{\"by_store\":{\"terms\":{\"field\":\"store_id\",\"size\":200.0},\"aggs\":{\"inv\":{\"nested\":{\"path\":\"inventory\"},\"aggs\":{\"skus\":{\"filter\":{\"terms\":{\"inventory.sku\":[\"iphone_17_air\",\"iphone_17\",\"vision_pro\"]}},\"aggs\":{\"sum_qty\":{\"sum\":{\"field\":\"inventory.qty\"}}}}}},\"keep\":{\"bucket_selector\":{\"buckets_path\":{\"total\":\"inv\>skus\>sum_qty\"},\"script\":{\"source\":\"params.total \>\= 30\"}}},\"store\":{\"top_hits\":{\"size\":1.0,\"_source\":{\"includes\":[\"store_id\",\"name\",\"address.city\"]}}}}}}}"
+        "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\":\"developer\",\"content\":\"${parameters.system_prompt}\"},${parameters._chat_history:-}{\"role\":\"user\",\"content\":\"${parameters.user_prompt}\"}${parameters._interactions:-}], \"reasoning_effort\":\"low\"${parameters.tool_configs:-}}"
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Step 4(b): Register an agent with search templates
+
+Register an agent with the Query Planning tool configured to use your search templates:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "Store Search Agent with Templates",
+  "type": "conversational",
+  "description": "Agent for store inventory searches using templates",
+  "llm": {
+    "model_id": "your-model-id-from-step-4a",
+    "parameters": {
+      "max_iteration": 15
     }
+  },
+  "memory": {
+    "type": "conversation_index"
+  },
+  "parameters": {
+    "_llm_interface": "openai/v1/chat/completions"
+  },
+  "tools": [
+    {
+      "type": "QueryPlanningTool",
+      "parameters": {
+        "model_id": "your-model-id-from-step-4a",
+        "generation_type": "user_templates",
+        "search_templates": [
+          {
+            "template_id": "store_sum_skus",
+            "template_description": "Return stores in a given city where the combined quantity across a list of SKUs meets or exceeds a threshold."
+          },
+          {
+            "template_id": "stores_with_give_sku",
+            "template_description": "List stores in a given city that have at least min_qty units of a specific SKU."
+          }
+        ]
+      }
+    }
+  ],
+  "app_type": "os_chat"
+}
+```
+{% include copy-curl.html %}
+
+## Step 5: Create a search pipeline
+
+Create a search pipeline that uses your agent with search templates:
+
+```json
+PUT _search/pipeline/agentic-pipeline
+{
+  "request_processors": [
+    {
+      "agentic_query_translator": {
+        "agent_id": "your-agent-id-from-step-4b"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+## Step 6: Test a complex question
+
+Send a complex query that requires advanced aggregations:
+
+```json
+POST /stores/_search?search_pipeline=agentic-pipeline
+{
+  "query": {
+    "agentic": {
+      "query_text": "List all stores in Seattle that have at least 30 combined units across these SKUs: iphone_17_air, iphone_17, and vision_pro."
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Without search templates, complex queries involving advanced aggregations and scripts often fail because LLMs struggle to generate the correct syntax. For example, if you did not add search templates when creating an agent in Step 4(b), the preceding request would return a script execution error similar to the following:
+
+<details markdown="block">
+  <summary>
+    Error response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "script_exception",
+        "reason": "runtime error",
+        "script_stack": [
+          "for (item in params._source.inventory) { ",
+          "                           ^---- HERE"
+        ],
+        "script": "int total = 0; for (item in params._source.inventory) { if (params.skus.contains(item.sku)) { if (item.qty instanceof Integer || item.qty instanceof Long) { total += (int)item.qty; } else if (item.qty instanceof String) { try { total += Integer.parseInt(it ...",
+        "lang": "painless",
+        "position": {
+          "offset": 42,
+          "start": 15,
+          "end": 56
+        }
+      }
+    ],
+    "type": "search_phase_execution_exception",
+    "reason": "all shards failed",
+    "phase": "query",
+    "grouped": true,
+    "failed_shards": [
+      {
+        "shard": 0,
+        "index": "stores",
+        "node": "u3NEXA8PS8W8EJcT_9suGg",
+        "reason": {
+          "type": "script_exception",
+          "reason": "runtime error",
+          "script_stack": [
+            "for (item in params._source.inventory) { ",
+            "                           ^---- HERE"
+          ],
+          "script": "int total = 0; for (item in params._source.inventory) { if (params.skus.contains(item.sku)) { if (item.qty instanceof Integer || item.qty instanceof Long) { total += (int)item.qty; } else if (item.qty instanceof String) { try { total += Integer.parseInt(it ...",
+          "lang": "painless",
+          "position": {
+            "offset": 42,
+            "start": 15,
+            "end": 56
+          },
+          "caused_by": {
+            "type": "null_pointer_exception",
+            "reason": "Cannot invoke \"Object.getClass()\" because \"callArgs[0]\" is null"
+          }
+        }
+      }
+    ]
+  },
+  "status": 400
 }
 ```
 
-**Analysis of the successful response:**
+</details>
 
-The query executed successfully and returned the expected results. Key observations:
+However, with search templates, the agent can handle sophisticated queries by selecting the appropriate template and filling in the parameters. The LLM correctly identifies and uses the `store_sum_skus` template, fills the template parameters (such as `city: "Seattle"` and `sku1: "iphone_17_air"`), and generates a valid query with nested aggregations and bucket selectors. The response contains stores (`S-SEA-002` and `S-SEA-003`) with combined inventory ≥ 30 units:
 
-- **Template Selection**: The LLM correctly identified and used the `store_sum_skus` template
-- **Parameter Filling**: Properly filled template parameters (`city: "Seattle"`, `sku1: "iphone_17_air"`, etc.)
-- **Query Execution**: Generated a valid DSL query with nested aggregations and bucket selectors
-- **Results**: Successfully returned stores (S-SEA-002 and S-SEA-003) with combined inventory ≥ 30 units
+```json
+{
+  "took": 21658,
+  "timed_out": false,
+  "terminated_early": true,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 4,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "by_store": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "S-SEA-002",
+          "doc_count": 1,
+          "inv": {
+            "doc_count": 3,
+            "skus": {
+              "doc_count": 3,
+              "sum_qty": {
+                "value": 34.0
+              }
+            }
+          },
+          "store": {
+            "hits": {
+              "total": {
+                "value": 1,
+                "relation": "eq"
+              },
+              "max_score": 1.0,
+              "hits": [
+                {
+                  "_index": "stores",
+                  "_id": "S-SEA-002",
+                  "_score": 1.0,
+                  "_source": {
+                    "store_id": "S-SEA-002",
+                    "address": {
+                      "city": "Seattle"
+                    },
+                    "name": "Capitol Hill"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "key": "S-SEA-003",
+          "doc_count": 1,
+          "inv": {
+            "doc_count": 3,
+            "skus": {
+              "doc_count": 3,
+              "sum_qty": {
+                "value": 35.0
+              }
+            }
+          },
+          "store": {
+            "hits": {
+              "total": {
+                "value": 1,
+                "relation": "eq"
+              },
+              "max_score": 1.0,
+              "hits": [
+                {
+                  "_index": "stores",
+                  "_id": "S-SEA-003",
+                  "_score": 1.0,
+                  "_source": {
+                    "store_id": "S-SEA-003",
+                    "address": {
+                      "city": "Seattle"
+                    },
+                    "name": "South Lake Union"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "ext": {
+    "agent_steps_summary": "I have these tools available: [ListIndexTool, IndexMappingTool, query_planner_tool]\nFirst I used: query_planner_tool — qpt.question: \"List all stores in Seattle that have at least a combined total of 30 units across the following SKUs: \\\"iphone_17_air\\\", \\\"iphone_17\\\", and \\\"vision_pro\\\". The location must be Seattle. Sum the inventory counts for only these three SKUs per store and return stores where the sum is greater than or equal to 30.\"; index_name_provided: \"stores\"\nValidation: qpt output is valid JSON; adjusted numeric literals to integers and sizes to integers.",
+    "memory_id": "-BxpmJkB-5P992SCQ-qU",
+    "dsl_query":"{\"size\":0.0,\"query\":{\"term\":{\"address.city\":\"Seattle\"}},\"aggs\":{\"by_store\":{\"terms\":{\"field\":\"store_id\",\"size\":200.0},\"aggs\":{\"inv\":{\"nested\":{\"path\":\"inventory\"},\"aggs\":{\"skus\":{\"filter\":{\"terms\":{\"inventory.sku\":[\"iphone_17_air\",\"iphone_17\",\"vision_pro\"]}},\"aggs\":{\"sum_qty\":{\"sum\":{\"field\":\"inventory.qty\"}}}}}},\"keep\":{\"bucket_selector\":{\"buckets_path\":{\"total\":\"inv\>skus\>sum_qty\"},\"script\":{\"source\":\"params.total \>\= 30\"}}},\"store\":{\"top_hits\":{\"size\":1.0,\"_source\":{\"includes\":[\"store_id\",\"name\",\"address.city\"]}}}}}}}"
+  }
+}
+```
 
-The search template approach eliminated the script errors and provided deterministic, reliable query generation for this complex use case.
+## Related articles
 
-## Best Practices
-
-- **Clear descriptions**: Write detailed descriptions for each template to help the LLM choose correctly
-- **Meaningful placeholders**: Use descriptive placeholder names that clearly indicate what should be filled
-- **Template variety**: Create templates for different query patterns you commonly use
-- **Test thoroughly**: Validate that templates work correctly with various inputs
-
-
+- [Search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/)

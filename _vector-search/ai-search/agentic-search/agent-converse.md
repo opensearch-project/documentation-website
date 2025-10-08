@@ -1,23 +1,25 @@
 ---
 layout: default
-title: Inspecting agentic search and continuing conversations
+title: Using conversational agents
 parent: Agentic search
 grand_parent: AI search
 nav_order: 70
 has_children: false
 ---
 
-# Inspecting agentic search and continuing conversations
+# Using conversational agents for agentic search
 
-To inspect agent behavior and continue conversations, use the `agentic_context` response processor in addition to the `agentic_query_translator` request processor. The `agentic_query_translator` processor invokes the agent to translate natural language queries into DSL, while the `agentic_context` processor records the agent's execution context. It provides the agent's reasoning steps in `agent_steps_summary`, the generated DSL query in `dsl_query`, and a `memory_id` that enables conversation continuation.
+Conversational agents provide advanced agentic search capabilities with detailed reasoning traces and conversation memory. Unlike flow agents that only return the generated DSL query, conversational agents provide additional context through the `agentic_context` response processor, including step-by-step reasoning summaries and memory IDs for continuing conversations across multiple queries.
+
+This guide demonstrates how to configure conversational agents with multiple tools and use their advanced features for complex search scenarios. 
 
 ## Prerequisites
 
 Before you start, ensure that you have registered and configured an agent. To configure an agent, follow these steps:
 
-1. **Follow [Step 3: Create a model for the agent and Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-3-create-a-model-for-the-agent-and-query-planning-tool)** -- This model is used by both the conversational agent and the `QueryPlanningTool`.
-2. **Review [Model configurations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configurations)** -- Choose the specific model to use.
-3. Then register and configure an agent using [Step 4: Create an agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-4-create-an-agent) or see [Customizing agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) for advanced configurations. The agent must include a `QueryPlanningTool`.
+1. Follow [Step 3: Create a model for the agent and Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/quick-start-guide/#step-3-create-a-model-for-the-agent-and-query-planning-tool). This model is used by both the conversational agent and the `QueryPlanningTool`.
+2. Review [model configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration) and choose a model to use.
+3. Register and configure an agent using [Step 4: Create an agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-an-agent) or see [Customizing agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) for advanced configurations. The agent must include a `QueryPlanningTool`.
 
 ## Step 1: Create a product index
 
@@ -350,6 +352,6 @@ The first query will likely generate a more complex DSL with sorting and aggrega
 
 ## Next steps
 
-- [Agentic query translator processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/) - Learn more about the request processor that translates natural language queries into OpenSearch DSL.
-- [Agentic context processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-context-processor/) - Learn more about the response processor that adds agent execution context information for monitoring and conversation continuity.
-- [Customizing agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) - Configure advanced agent behaviors with different models, tools, and prompts.
+- [Agentic query translator processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/) -- Learn more about the request processor that translates natural language queries into OpenSearch DSL.
+- [Agentic context processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-context-processor/) -- Learn more about the response processor that adds agent execution context information for monitoring and conversation continuity.
+- [Customizing agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) -- Configure advanced agent behaviors with different models, tools, and prompts.

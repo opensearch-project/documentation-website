@@ -3,7 +3,7 @@ layout: default
 title: Customizing agents
 parent: Agentic search
 grand_parent: AI search
-nav_order: 60
+nav_order: 10
 has_children: false
 ---
 
@@ -11,15 +11,15 @@ has_children: false
 
 You can customize agentic search agents by configuring their models, tools, and prompts:
 
-- [Model configurations](#model-configurations): Choose different LLMs optimized for various tasks.
+- [Model configuration](#model-configuration): Choose different large language models (LLMs) optimized for various tasks.
 - [Tool orchestration](#tool-orchestration): Combine multiple tools for automated workflows.
 - [Prompt engineering](#prompt-engineering-and-customization): Finetune agent behavior using custom prompts.
 
-## Model configurations
+## Model configuration
 
 Select the appropriate language model based on your performance requirements and use case.
 
-You can also configure different models for the conversational agent and the `QueryPlanningTool`. Set the agent's model using `llm.model_id`, and set the query planner model by specifying `parameters.model_id` inside the `QueryPlanningTool`:
+You can also configure different models for the conversational agent and the `QueryPlanningTool`. Set the agent's model by specifying the `llm.model_id`, and set the query planner model by specifying `parameters.model_id` in the `QueryPlanningTool`:
 
 ```json
 {
@@ -49,8 +49,9 @@ You can also configure different models for the conversational agent and the `Qu
   "app_type": "os_chat"
 }
 ```
+{% include copy.html %}
 
-Set `<llm_interface>` to the interface for your provider (for example, `openai/v1/chat/completions`), then choose a specific model from the options below.
+Set the `<llm_interface>` to the interface for your provider (for example, `openai/v1/chat/completions`), then choose a specific model from the following options.
 
 ### OpenAI GPT models
 
@@ -245,7 +246,7 @@ If you don't specify an index in your search query, the search runs against all 
 
 Configure your agent's behavior and output format using custom prompts that guide the model's reasoning process.
 
-For Query Planner tool Prompt customization, see the [QueryPlanningTool documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/).
+To customize the Query Planning tool prompt, see [Query Planning tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/).
 
 ### System prompt optimization
 
@@ -409,4 +410,4 @@ The default user prompt template passes the natural language question and availa
 
 ## Next steps
 
-For a complete walkthrough of using customized agents in practice, see [Inspecting agentic search and continuing conversations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/). 
+- For a comprehensive example of using customized agents in practice, see [Inspecting agentic search and continuing conversations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/). 

@@ -20,13 +20,13 @@ The `QueryPlanningTool` supports two approaches for generating DSL queries from 
 
 - **Using LLM knowledge only (default)**: The large language model (LLM) generates queries using only its training knowledge and any system/user prompts you provide. This approach relies entirely on the model's understanding of DSL syntax and your specific prompting instructions.
 
-- **Using search templates**: The LLM uses predefined search templates as additional context when generating queries. You provide a collection of search templates with descriptions, and the LLM uses these as examples and guidance to create more accurate queries. If the LLM determines that none of the provided templates are suitable for the user's question, it tries to generate the query on its own.
+- **Using search templates**: The LLM uses predefined search templates as additional context when generating queries. You provide a collection of search templates with descriptions, and the LLM uses these as examples and guidance to create more accurate queries. If the LLM determines that none of the provided templates are suitable for the user's question, the LLM attempts to generate the query independently.
 
 The `user_templates` approach is particularly useful when you have established query patterns for your specific use case or domain: it helps the LLM to generate queries that follow your preferred structure and to use appropriate field names from your index mappings.
 
 ## Step 1: Create an index and ingest sample data
 
-First, create an index for the iris dataset:
+First, create an index for the `iris` dataset:
 
 ```json
 PUT /iris-index
@@ -77,7 +77,7 @@ POST _bulk
 
 The following request registers a remote model from Amazon Bedrock and deploys it to your cluster. The API call creates the connector and model in one step. Replace the `region`, `access_key`, `secret_key`, and `session_token` with your own values. You can use any model that supports the `converse` API, such as [Anthropic Claude 4](https://www.anthropic.com/news/claude-4) or [GPT 5](https://openai.com/index/introducing-gpt-5). You can use other model providers by creating a connector to this model (see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#connector-blueprints)).
 
-**Important**: When creating connectors for the QueryPlanningTool, the request body must include parameters `system_prompt` and `user_prompt`. These parameter names are required for the tool to properly inject the system and user prompts into the model's request. The examples below demonstrate the correct parameter naming conventions.
+**Important**: When creating connectors for the `QueryPlanningTool`, the request body must include the `system_prompt` and `user_prompt` parameters. These parameters are required for the tool to properly inject the system and user prompts into the model's request. 
 
 The following example registers and deploys the Anthropic Claude 4 model:
 
@@ -322,33 +322,41 @@ The following table lists all tool parameters that are available when registerin
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
-`model_id` | String | Required | The model ID of the large language model (LLM) to use for generating the query DSL. When used within a conversational agent, if this value is not provided, the agent's own `llm.model_id` is used automatically.
+`model_id` | String | Required | The model ID of the large language model (LLM) used to generate the query DSL. When used within a `conversational` agent, if this value is not provided, the agent's own `llm.model_id` is used by default.
 `response_filter` | String | Optional | A JSONPath expression used to extract the generated query from the LLM's response.
-`generation_type` | String | Optional | The type of query generation. Valid values are `llmGenerated` (use LLM knowledge only) and `user_templates` (provide search templates as additional context). Default is `llmGenerated`.
+`generation_type` | String | Optional | Determines how queries are generated. Use `llmGenerated` to rely solely on the LLM's built-in knowledge, or `user_templates` to provide predefined search templates that guide query generation for consistent results. Default is `llmGenerated`
 `query_planner_system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM.
-`query_planner_user_prompt` | String | Optional | A user prompt template for the LLM  which asks the question. 
-`generation_type` | String | Optional | Overrides the registered setting for this execution. Valid values: `llmGenerated` (use LLM knowledge only) or `user_templates` (use registered search templates as guidance). Default value is `llmGenerated`.
-`search_templates` | Array | Optional | Applicable only when `generation_type` is set to `user_templates`. A list of search templates for an LLM to use as context when generating an OpenSearch DSL query. Each entry within the `search_templates` array must include a `template_id` and a `template_description` (provides the LLM with additional context about the template contents).
+`query_planner_user_prompt` | String | Optional | A user prompt template that defines how the natural language question and context are presented to the LLM for query generation.
+`search_templates` | Array | Optional | Applicable only when `generation_type` is `user_templates`. A list of search templates that provide the LLM with predefined query patterns for generating query DSL. Each template must include a `template_id` (unique identifier) and `template_description` (explains the template's purpose and use case to help the LLM choose appropriately).
+
+All parameters that were configured either in the connector or in the agent registration can be overridden during agent execution.
+{: .note}
 
 ## Execute parameters
 
-The `QueryPlanningTool` accepts the following execution parameters:
+The `QueryPlanningTool` accepts the following execution parameters.
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`question` | String | Required | Complete natural language query with all necessary context to generate OpenSearch DSL. Include the question, any specific requirements, filters, or constraints. Examples: 'Find all products with price greater than 100 dollars', 'Show me documents about machine learning published in 2023', 'Search for users with status active and age between 25 and 35'
-`index_name` | String | Required | The name of the index against which the query needs to be generated.
-`embedding_model_id` | String | Optional | The model ID to perform neural search.
+`question` | String | Required | A complete natural language query with all necessary context to generate OpenSearch DSL. Include the question, any specific requirements, filters, or constraints. Examples: `Find all products with price greater than 100 dollars`, `Show me documents about machine learning published in 2023`, `Search for users with status active and age between 25 and 35`.
+`index_name` | String | Required | The name of the index for which the query needs to be generated.
+`embedding_model_id` | String | Optional | The model ID to perform semantic search.
 
-**Note**: During execution, other parameters that were configured either in the connector or in the agent registration can be overridden during the agent execute call.
-
-## Customize the prompts
+## Customizing the prompts
 
 You can provide your own `query_planner_system_prompt` and `query_planner_user_prompt` to customize how the LLM generates OpenSearch DSL queries.
 
-**Important**: When creating custom prompts, ensure they include clear output formatting rules to work properly with agentic search. The system prompt should specify that the LLM must return only a valid JSON object without any additional text, code fences, or explanations.
+When creating custom prompts, ensure that they include clear output formatting rules to work properly with agentic search. The system prompt should specify that the LLM must return only a valid JSON object without any additional text, code fences, or explanations.
+{: .important}
 
-Defalt system prompt:
+The following is the default system prompt:
+
+<details open markdown="block">
+  <summary>
+    Prompt
+  </summary>
+  {: .text-delta}
+
 ```json
 ==== PURPOSE ====
 You are an OpenSearch DSL expert. Convert a natural-language question into a strict JSON OpenSearch query body.
@@ -474,7 +482,10 @@ Use this search template provided by the user as reference to generate the query
 Note that this template might contain terms that are not relevant to the question at hand; in that case ignore the template.
 ```
 
-Default User Prompt:
+</details>
+
+The following is the default user prompt:
+
 ```json
 Question: ${parameters.question}
 Mapping: ${parameters.index_mapping:-}
@@ -487,8 +498,6 @@ Embedding Model ID for Neural Search: ${parameters.embedding_model_id:- not prov
 GIVE THE OUTPUT PART ONLY IN YOUR RESPONSE (a single JSON object)
 Output:
 ```
-
-
 
 ## Related pages
 
