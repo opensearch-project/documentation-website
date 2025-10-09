@@ -9,7 +9,7 @@ has_children: false
 
 # Using conversational agents for agentic search
 
-Conversational agents provide advanced agentic search capabilities with detailed reasoning traces and conversation memory. Unlike flow agents that only return the generated DSL query, conversational agents provide additional context through the `agentic_context` response processor, including step-by-step reasoning summaries and memory IDs for continuing conversations across multiple queries.
+Conversational agents provide advanced agentic search capabilities with detailed reasoning traces and conversation memory. Unlike flow agents that only return the generated DSL query, conversational agents provide additional context through the `agentic_context` response processor, including a step-by-step reasoning summary and a memory ID for continuing conversations across multiple queries.
 
 This guide demonstrates how to configure conversational agents with multiple tools and use their advanced features for complex search scenarios. 
 
