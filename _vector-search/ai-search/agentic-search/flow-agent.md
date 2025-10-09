@@ -160,7 +160,7 @@ PUT _search/pipeline/agentic-pipeline
 
 ## Step 6: Run an agentic search
 
-To run an agentic search, use the `agentic` query clause. Flow agents require the index name, so you must include it in your search request. Flow agents don't support conversation memory, so you cannot include the `memory_id` parameter:
+To run an agentic search, use the `agentic` query clause. Flow agents *require the index name*, so you must include it in your search request. Flow agents don't support conversation memory, so you cannot include the `memory_id` parameter:
 
 ```json
 GET products-index/_search?search_pipeline=agentic-pipeline

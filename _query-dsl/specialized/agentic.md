@@ -27,7 +27,7 @@ The `agentic` query accepts the following fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `query_text` | String | Required | The natural language question for the agent to answer.
-`query_fields` | Array | Optional | A list of fields that the agent should consider when generating the search query. If omitted, the agent infers the applicable fields based on the index mappings and content.
+`query_fields` | Array | Optional | A list of fields of the index that the agent should consider when generating the search query. If omitted, the agent infers the applicable fields based on the index mappings and content.
 `memory_id` | String | Optional | Applicable for `conversational` agents only. Provides a memory ID from a previous response to continue the conversation with prior context. See [Using conversational agents for agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/). |
 
 ## Example

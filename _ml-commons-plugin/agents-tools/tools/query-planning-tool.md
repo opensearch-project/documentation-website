@@ -349,6 +349,29 @@ You can provide your own `query_planner_system_prompt` and `query_planner_user_p
 When creating custom prompts, ensure that they include clear output formatting rules to work properly with agentic search. The system prompt should specify that the LLM must return only a valid JSON object without any additional text, code fences, or explanations.
 {: .important}
 
+**Custom prompt configuration:**
+Provide your custom prompts during tool registration in agents as follows:
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "Flow Agent for Agentic Search",
+  "type": "flow",
+  "description": "Flow agent for agentic search",
+  "tools": [
+    {
+      "type": "QueryPlanningTool",
+      "parameters": {
+        "model_id": "your_model_id",
+        "response_filter": "<response-filter-based-on-model-type>",
+        "query_planner_system_prompt": "<YOUR CUSTOM SYSTEM PROMPT>",
+        "query_planner_user_prompt": "<YOUR CUSTOM USER PROMPT>"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
 The following is the default system prompt:
 
 <details open markdown="block">

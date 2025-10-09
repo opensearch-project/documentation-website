@@ -9,17 +9,9 @@ has_children: false
 
 # Using conversational agents for agentic search
 
-Conversational agents provide advanced agentic search capabilities with detailed reasoning traces and conversation memory. Unlike flow agents that only return the generated DSL query, conversational agents provide additional context through the `agentic_context` response processor, including a step-by-step reasoning summary and a memory ID for continuing conversations across multiple queries.
+Conversational agents provide advanced agentic search capabilities with detailed reasoning traces and conversation memory. Unlike flow agents runs tools sequentially and that only return the generated DSL query, conversational agents provide additional context through the `agentic_context` response processor, including a step-by-step reasoning summary and a memory ID for continuing conversations across multiple queries.
 
 This guide demonstrates how to configure conversational agents with multiple tools and use their advanced features for complex search scenarios. 
-
-## Prerequisites
-
-Before you start, ensure that you have registered and configured an agent. To configure an agent, follow these steps:
-
-1. Follow [Step 3: Create a model for the agent and Query Planning tool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-the-agent-and-query-planning-tool). This model is used by both the conversational agent and the `QueryPlanningTool`.
-2. Review [model configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration) and choose a model to use.
-3. Register and configure an agent using [Step 4: Create an agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-an-agent) or see [Customizing agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) for advanced configurations. The agent must include a `QueryPlanningTool`.
 
 ## Step 1: Create a product index
 
@@ -69,9 +61,49 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-## Step 3: Register an agent
+## Step 3: Create a model
+
+Review [model configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration) and choose a model to use.
+
+Here we register a GPT model that will be used by both the conversational agent and the `QueryPlanningTool`:
+
+```json
+POST /_plugins/_ml/models/_register
+{
+    "name": "My OpenAI model: gpt-5",
+    "function_name": "remote",
+    "description": "test model",
+    "connector": {
+        "name": "My openai connector: gpt-5",
+        "description": "The connector to openai chat model",
+        "version": 1,
+        "protocol": "http",
+        "parameters": {
+            "model": "gpt-5"
+        },
+        "credential": {
+            "openAI_key": "your-openai-api-key"
+        },
+        "actions": [
+            {
+                "action_type": "predict",
+                "method": "POST",
+                "url": "https://api.openai.com/v1/chat/completions",
+                "headers": {
+                    "Authorization": "Bearer ${credential.openAI_key}"
+                },
+                "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\":\"developer\",\"content\":\"${parameters.system_prompt}\"},${parameters._chat_history:-}{\"role\":\"user\",\"content\":\"${parameters.user_prompt}\"}${parameters._interactions:-}], \"reasoning_effort\":\"low\"${parameters.tool_configs:-}}"
+            }
+        ]
+    }
+}
+```
+
+## Step 4: Register an agent
 
 Register a conversational agent with multiple tools---`ListIndexTool` to discover available indexes, `IndexMappingTool` to understand index structure, `WebSearchTool` for external data access, and the required `QueryPlanningTool` to generate OpenSearch DSL:
+
+See [Customizing agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) for advanced configurations. The agent must include a `QueryPlanningTool`.
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -107,10 +139,7 @@ POST /_plugins/_ml/agents/_register
       }
     },
     {
-      "type": "QueryPlanningTool",
-      "parameters": {
-        "model_id": "<query planner Model Id>"
-      }
+      "type": "QueryPlanningTool"
     }
   ],
   "app_type": "os_chat"
@@ -118,7 +147,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-## Step 4: Configure a search pipeline
+## Step 5: Configure a search pipeline
 
 Create a search pipeline with both request and response processors. The [`agentic_query_translator` request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/) translates natural language queries into OpenSearch DSL, while the [`agentic_context` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-context-processor/) adds agent execution context information for monitoring and conversation continuity:
 
@@ -144,7 +173,7 @@ PUT _search/pipeline/agentic-pipeline
 ```
 {% include copy-curl.html %}
 
-## Step 5: Run an agentic search
+## Step 6: Run an agentic search
 
 To run a search, send a natural language search query. The agent analyzes the request, discovers appropriate indexes, and generates an optimized DSL query:
 
@@ -243,7 +272,7 @@ The response includes matching products and detailed agent information in the `e
 }
 ```
 
-## Step 6: Run an agentic search with a memory ID
+## Step 7: Run an agentic search with a memory ID
 
 Send a follow-up query using the `memory_id` from the previous response:
 
