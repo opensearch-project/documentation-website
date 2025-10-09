@@ -510,3 +510,58 @@ public class BulkClient {
 }
 ```
 {% include copy.html %}
+
+## Python gRPC client example
+
+The following example shows how to send the same request using a Python client application.
+
+First, install the `opensearch-protobufs` package using `pip`:
+
+```bash
+pip install opensearch-protobufs==0.19.0
+```
+{% include copy.html %}
+
+Use the following code to send the request:
+
+```python
+import grpc
+
+from opensearch.protobufs.schemas import document_pb2
+from opensearch.protobufs.schemas import common_pb2
+from opensearch.protobufs.services.document_service_pb2_grpc import DocumentServiceStub
+
+channel = grpc.insecure_channel(
+    target="localhost:9400",
+)
+
+document_stub = DocumentServiceStub(channel)
+
+# Add documents to a request body
+requestBody = document_pb2.BulkRequestBody(
+    operation_container=document_pb2.OperationContainer(index=document_pb2.IndexOperation())
+)
+requestBody.object = "{\"field\": \"value\"}".encode('utf-8')
+
+# Append to a bulk request
+request = document_pb2.BulkRequest()
+request.index = "my-index"
+request.request_body.append(requestBody)
+
+# Send request and handle response
+try:
+    response = document_stub.Bulk(request=request)
+    if response.items:
+        print("Received {} response items".format(len(response.items)))
+        print(response.items)
+except grpc.RpcError as e:
+    if e.code() == StatusCode.UNAVAILABLE:
+        print("Failed to reach server: {}".format(e))
+    elif e.code() == StatusCode.PERMISSION_DENIED:
+        print("Permission denied: {}".format(e))
+    elif e.code() == StatusCode.INVALID_ARGUMENT:
+        print("Invalid argument: {}".format(e))
+finally:
+    channel.close()
+```
+{% include copy.html %}

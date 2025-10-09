@@ -461,3 +461,65 @@ public class SearchClient {
 }
 ```
 {% include copy.html %}
+
+## Python gRPC client example
+
+The following example shows how to send the same request using a Python client application. 
+
+First, install the `opensearch-protobufs` package using `pip`:
+
+```bash
+pip install opensearch-protobufs==0.19.0
+```
+{% include copy.html %}
+
+Use the following code to send the request:
+
+```python
+import grpc
+
+from opensearch.protobufs.schemas import search_pb2
+from opensearch.protobufs.schemas import common_pb2
+from opensearch.protobufs.services.search_service_pb2_grpc import SearchServiceStub
+
+channel = grpc.insecure_channel(
+    target="localhost:9400",
+)
+
+search_stub = SearchServiceStub(channel)
+
+# Create a term query
+term_query = common_pb2.TermQuery(
+    field="field",
+    value=common_pb2.FieldValue(string="value")
+)
+query_container = common_pb2.QueryContainer(term=term_query)
+
+# Create a search request
+request = search_pb2.SearchRequest(
+    request_body=search_pb2.SearchRequestBody(query=query_container),
+    index=["my-index"],
+    size=5
+)
+
+# Send request and handle response
+try:
+    response = search_stub.Search(request=request)
+    if response.hits:
+        print("Found {} hits".format(response.hits.total))
+        print(response.hits)
+    elif response.timed_out or response.terminated_early:
+        print("Request timed out or terminated early")
+    elif response.x_shards.failed:
+        print("Some shards failed to execute the search")
+        print(response.x_shards.failures)
+except grpc.RpcError as e:
+    if e.code() == StatusCode.UNAVAILABLE:
+        print("Failed to reach server: {}".format(e))
+    elif e.code() == StatusCode.PERMISSION_DENIED:
+        print("Permission denied: {}".format(e))
+    elif e.code() == StatusCode.INVALID_ARGUMENT:
+        print("Invalid argument: {}".format(e))
+finally:
+    channel.close()
+```

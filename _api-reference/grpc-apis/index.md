@@ -112,7 +112,7 @@ To submit gRPC requests, you must have a set of protobufs on the client side. Yo
 
 - **Raw protobufs**: Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.19.0)](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.19.0). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/).
 - **Java client-side programs only**: Download the `opensearch-protobufs` jar from the [Maven Central repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.19.0).
-- **Python client-side programs only**: Download the `opensearch-protobufs` package from the [PyPI repository](https://pypi.org/project/opensearch-protobufs/).
+- **Python client-side programs only**: Download the `opensearch-protobufs` package from the [PyPI repository](https://pypi.org/project/opensearch-protobufs/0.19.0/).
 
 ## Supported APIs
 
