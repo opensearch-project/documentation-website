@@ -67,12 +67,12 @@ After deployment, find your endpoint name in the Amazon SageMaker console under 
 
 To implement late interaction reranking, follow these steps:
 
-1. [Register the model](#step-1-register-the-model)
-1. [Create an index with appropriate mappings](#step-2-create-an-index)
-1. [Create an ingest pipeline](#step-3-create-an-ingest-pipeline)
-1. [Ingest documents](#step-4-ingest-documents)
-1. [Create a search pipeline](#step-5-create-a-search-pipeline)
-1. [Search using late interaction reranking](#step-6-search-using-late-interaction-reranking)
+1. [Register the model](#step-1-register-the-model).
+1. [Create an index with appropriate mappings](#step-2-create-an-index).
+1. [Create an ingest pipeline](#step-3-create-an-ingest-pipeline).
+1. [Ingest documents](#step-4-ingest-documents).
+1. [Create a search pipeline](#step-5-create-a-search-pipeline).
+1. [Search using late interaction reranking](#step-6-search-using-late-interaction-reranking).
 
 ## Step 1: Register the model
 
@@ -118,7 +118,7 @@ Note the `model_id` from the response; you'll use it in subsequent steps.
 
 ## Step 2: Create an index
 
-Create an index with mappings optimized for storing both multi-vectors and single k-NN vectors. The `colbert_vectors` field is stored as an `object` with `enabled: false` for optimal performance. The `knn_vector` field is configured for the `hnsw` algorithm with the number of dimensions matching the model's number of dimensions. The `image` field stores Base64-encoded image data as a `keyword`:
+Create an index with mappings optimized for storing both multi-vectors and single k-NN vectors. The `colbert_vectors` field is stored as an `object` with `enabled: false` for optimal performance. The `knn_vector` field is configured for the `hnsw` algorithm, with the number of dimensions matching the model's number of dimensions. The `image` field stores Base64-encoded image data as a `keyword`:
 
 
 ```json
@@ -294,12 +294,12 @@ The following is the `query_template` from the preceding search pipeline, format
 Note the following components of the query template:
 
 - Template variables:
-   - `${query_knn_vector}`: Mean-pooled vector for fast KNN retrieval
+   - `${query_knn_vector}`: Mean-pooled vector for fast k-NN retrieval
    - `${query_colbert_vectors}`: Multi-vectors for precise late interaction scoring
 - Rewritten query structure:
-   - `knn` query: Uses `query_knn_vector` to find top 100 candidates quickly
-   - `rescore_query`: Uses `query_colbert_vectors` with `lateInteractionScore` function for precise reranking
-   - `_source` filtering: Excludes vector fields from response to reduce payload size
+   - `knn` query: Uses `query_knn_vector` to find the top 100 candidates quickly
+   - `rescore_query`: Uses `query_colbert_vectors` with the `lateInteractionScore` function for precise reranking
+   - `_source` filtering: Excludes vector fields from the response to reduce payload size
 
 ## Step 6: Search using late interaction reranking
 
@@ -533,7 +533,7 @@ The response provides a complete view of the query transformation process captur
 }
 ```
 
-## Related articles
+## Related documentation
 
 - [Late interaction score function]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/#late-interaction-score-function)
 

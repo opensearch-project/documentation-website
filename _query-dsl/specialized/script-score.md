@@ -388,9 +388,9 @@ This approach enables fine-grained semantic matching between queries and documen
 
 #### Index mapping requirements
 
-The vector field must be mapped as either `object` (recommended) or `float` type.
+The vector field must be mapped as either an `object` (recommended) or `float` type.
 
-We recommend mapping the vector field as an `object` with `"enabled": false`, because it stores raw vectors without parsing, improving performance:
+We recommend mapping the vector field as an `object` with `"enabled": false` because it stores raw vectors without parsing, improving performance:
 
 ```json
 {
