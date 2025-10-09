@@ -65,7 +65,11 @@ Rebuild the Docker images used by the Migration Assistant:
 
 ## Step 5: Redeploy the Migration Assistant
 
-Redeploy the Migration Assistant to replace existing container images with the freshly built versions.
+Redeploy the Migration Assistant to replace existing container images with the freshly built versions:
+
+```shell
+cd deployment/cdk/opensearch-service-migration
+./deploy.sh <contextId>
 
 > **Warning:** Redeployment will interrupt any running migration tasks (e.g., Capture Proxy, Replayer, or Reindex-from-Snapshot).
 > Do **not** redeploy while actively migrating, as this can cause data loss or inconsistent state.
