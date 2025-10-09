@@ -197,9 +197,9 @@ Ingest sample documents containing Base64-encoded images and descriptive content
 ```json
 PUT /multimodal_docs/_doc/1?pipeline=colpali_pipeline
 {
-    "title": "Data Visualization Chart",
-    "description": "A comprehensive bar chart showing quarterly sales performance with multiple data series and trend analysis",
-    "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q=="
+  "title": "Data Visualization Chart",
+  "description": "A comprehensive bar chart showing quarterly sales performance with multiple data series and trend analysis",
+  "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q=="
 }
 ```
 {% include copy-curl.html %}
@@ -207,9 +207,9 @@ PUT /multimodal_docs/_doc/1?pipeline=colpali_pipeline
 ```json
 PUT /multimodal_docs/_doc/2?pipeline=colpali_pipeline
 {
-    "title": "Technical Architecture Diagram",
-    "description": "System architecture diagram showing microservices, databases, and API connections with detailed component relationships",
-    "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q=="
+  "title": "Technical Architecture Diagram",
+  "description": "System architecture diagram showing microservices, databases, and API connections with detailed component relationships",
+  "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q=="
 }
 ```
 {% include copy-curl.html %}
@@ -217,9 +217,9 @@ PUT /multimodal_docs/_doc/2?pipeline=colpali_pipeline
 ```json
 PUT /multimodal_docs/_doc/3?pipeline=colpali_pipeline
 {
-    "title": "Financial Report Summary",
-    "description": "Quarterly financial report with revenue charts, expense breakdowns, and profit margin analysis across different business units",
-    "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q=="
+  "title": "Financial Report Summary",
+  "description": "Quarterly financial report with revenue charts, expense breakdowns, and profit margin analysis across different business units",
+  "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q=="
 }
 ```
 {% include copy-curl.html %}
@@ -255,39 +255,39 @@ PUT /_search/pipeline/colpali_search_pipeline
 ```
 {% include copy-curl.html %}
 
-The `query_template` in the search pipeline (formatted for clarity) defines how the original search query is rewritten:
+The following is the `query_template` from the preceding search pipeline, formatted for clarity. The template defines how the original search query is rewritten:
 
 ```json
 {
-    "query": {
-        "knn": {
-            "knn_vector": {
-                "vector": ${query_knn_vector},
-                "k": 100
-            }
-        }
-    },
-    "rescore": {
-        "query": {
-            "rescore_query": {
-                "script_score": {
-                    "query": {
-                        "match_all": {}
-                    }, 
-                    "script": {
-                        "source": "lateInteractionScore(params.query_vector, 'colbert_vectors', params._source)",
-                        "params": {
-                            "query_vector": ${query_colbert_vectors}
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "size": 10,
-    "_source": {
-        "excludes": ["knn_vector","colbert_vectors"]
+  "query": {
+    "knn": {
+      "knn_vector": {
+        "vector": ${query_knn_vector},
+        "k": 100
+      }
     }
+  },
+  "rescore": {
+    "query": {
+      "rescore_query": {
+        "script_score": {
+          "query": {
+            "match_all": {}
+          },
+          "script": {
+            "source": "lateInteractionScore(params.query_vector, 'colbert_vectors', params._source)",
+            "params": {
+              "query_vector": ${query_colbert_vectors}
+            }
+          }
+        }
+      }
+    }
+  },
+  "size": 10,
+  "_source": {
+    "excludes": [ "knn_vector", "colbert_vectors" ]
+  }
 }
 ```
 
@@ -365,48 +365,48 @@ The response shows how the document will be processed and includes the generated
 
 ```json
 {
-    "docs": [
+  "docs": [
+    {
+      "processor_results": [
         {
-            "processor_results": [
-                {
-                    "processor_type": "ml_inference",
-                    "status": "success",
-                    "description": "Generate multi-vectors and mean pooling vector for multimodal content",
-                    "tag": "ml_inference",
-                    "doc": {
-                        "_index": "multimodal_docs",
-                        "_id": "test_1",
-                        "_source": {
-                            "title": "Test Chart",
-                            "description": "Sample chart for testing pipeline",
-                            "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q==",
-                            "colbert_vectors": [
-                                [
-                                    -0.0653999000787735,
-                                    0.1100006103515625,
-                                    0.2052547186613083
-                                ],
-                                [
-                                    0.0234567890123456,
-                                    -0.0987654321098765,
-                                    0.1357924680135792
-                                ]
-                            ],
-                            "knn_vector": [
-                                0.025610961,
-                                0.045123789,
-                                0.067891234
-                            ]
-                        },
-                        "_ingest": {
-                            "pipeline": "colpali_pipeline",
-                            "timestamp": "2025-10-02T23:17:01.615598095Z"
-                        }
-                    }
-                }
-            ]
+          "processor_type": "ml_inference",
+          "status": "success",
+          "description": "Generate multi-vectors and mean pooling vector for multimodal content",
+          "tag": "ml_inference",
+          "doc": {
+            "_index": "multimodal_docs",
+            "_id": "test_1",
+            "_source": {
+              "title": "Test Chart",
+              "description": "Sample chart for testing pipeline",
+              "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q==",
+              "colbert_vectors": [
+                [
+                  -0.0653999000787735,
+                  0.1100006103515625,
+                  0.2052547186613083
+                ],
+                [
+                  0.0234567890123456,
+                  -0.0987654321098765,
+                  0.1357924680135792
+                ]
+              ],
+              "knn_vector": [
+                0.025610961,
+                0.045123789,
+                0.067891234
+              ]
+            },
+            "_ingest": {
+              "pipeline": "colpali_pipeline",
+              "timestamp": "2025-10-02T23:17:01.615598095Z"
+            }
+          }
         }
-    ]
+      ]
+    }
+  ]
 }
 ```
 
@@ -432,104 +432,104 @@ The response provides a complete view of the query transformation process captur
 
 ```json
 {
-    "took": 1835,
-    "timed_out": false,
-    "_shards": {
-        "total": 1,
-        "successful": 1,
-        "skipped": 0,
-        "failed": 0
+  "took": 1835,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
     },
-    "hits": {
-        "total": {
-            "value": 2,
-            "relation": "eq"
-        },
-        "max_score": 8.247408,
-        "hits": [
-            {
-                "_index": "multimodal_docs",
-                "_id": "3",
-                "_score": 8.247408,
-                "_source": {
-                    "title": "Financial Report Summary",
-                    "description": "Quarterly financial report with revenue charts, expense breakdowns, and profit margin analysis across different business units"
-                }
-            }
-        ]
-    },
-    "processor_results": [
-        {
-            "processor_name": "ml_inference",
-            "duration_millis": 1200,
-            "status": "success",
-            "input_data": {
-                "query": {
-                    "term": {
-                        "search_text": {
-                            "boost": 1.0,
-                            "value": "financial data charts"
-                        }
-                    }
-                }
-            },
-            "output_data": {
-                "size": 10,
-                "query": {
-                    "knn": {
-                        "knn_vector": {
-                            "vector": [
-                                -0.06357764,
-                                0.021222984,
-                                0.06605018,
-                                0.07643713
-                            ],
-                            "boost": 1.0,
-                            "k": 100
-                        }
-                    }
-                },
-                "_source": {
-                    "excludes": [
-                        "knn_vector",
-                        "colbert_vectors"
-                    ]
-                },
-                "rescore": [
-                    {
-                        "query": {
-                            "rescore_query": {
-                                "script_score": {
-                                    "query": {
-                                        "match_all": {
-                                            "boost": 1.0
-                                        }
-                                    },
-                                    "script": {
-                                        "source": "lateInteractionScore(params.query_vector, 'colbert_vectors', params._source)",
-                                        "params": {
-                                            "query_vector": [
-                                                [
-                                                    -0.0024404169525951147,
-                                                    0.14708828926086426,
-                                                    0.15877428650856018
-                                                ],
-                                                [
-                                                    0.089234567890123456,
-                                                    -0.034567890123456789,
-                                                    0.201234567890123456
-                                                ]
-                                            ]
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                ]
-            }
+    "max_score": 8.247408,
+    "hits": [
+      {
+        "_index": "multimodal_docs",
+        "_id": "3",
+        "_score": 8.247408,
+        "_source": {
+          "title": "Financial Report Summary",
+          "description": "Quarterly financial report with revenue charts, expense breakdowns, and profit margin analysis across different business units"
         }
+      }
     ]
+  },
+  "processor_results": [
+    {
+      "processor_name": "ml_inference",
+      "duration_millis": 1200,
+      "status": "success",
+      "input_data": {
+        "query": {
+          "term": {
+            "search_text": {
+              "boost": 1,
+              "value": "financial data charts"
+            }
+          }
+        }
+      },
+      "output_data": {
+        "size": 10,
+        "query": {
+          "knn": {
+            "knn_vector": {
+              "vector": [
+                -0.06357764,
+                0.021222984,
+                0.06605018,
+                0.07643713
+              ],
+              "boost": 1,
+              "k": 100
+            }
+          }
+        },
+        "_source": {
+          "excludes": [
+            "knn_vector",
+            "colbert_vectors"
+          ]
+        },
+        "rescore": [
+          {
+            "query": {
+              "rescore_query": {
+                "script_score": {
+                  "query": {
+                    "match_all": {
+                      "boost": 1
+                    }
+                  },
+                  "script": {
+                    "source": "lateInteractionScore(params.query_vector, 'colbert_vectors', params._source)",
+                    "params": {
+                      "query_vector": [
+                        [
+                          -0.0024404169525951147,
+                          0.14708828926086426,
+                          0.15877428650856018
+                        ],
+                        [
+                          0.08923456789012346,
+                          -0.03456789012345679,
+                          0.20123456789012345
+                        ]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
 }
 ```
 
