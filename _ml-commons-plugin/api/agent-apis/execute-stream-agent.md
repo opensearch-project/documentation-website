@@ -13,7 +13,7 @@ nav_order: 25
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-The Execute Stream Agent API provides the same functionality as the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/), with the key difference being that it returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
+The Execute Stream Agent API provides the same functionality as the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/) but returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
 
 This API currently supports conversational agents with the following remote model types:
 - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
@@ -27,15 +27,18 @@ POST /_plugins/_ml/agents/<agent_id>/_execute/stream
 
 ## Prerequisites
 
-### Cluster setup
+Before using this API, ensure that you have fulfilled the following prerequisites.
 
-#### Step 1: Verify required plugins (Optional)
+### Set up your cluster
 
-The Execute Stream Agent API depends on the following plugins, which should be included in the default OpenSearch distribution:
-- `transport-reactor-netty4`
-- `arrow-flight-rpc`
+Follow these steps to set up your cluster.
 
-#### Step 2: Configure OpenSearch settings
+> The Execute Stream Agent API depends on the following plugins, which are included in the default OpenSearch distribution:
+> - `transport-reactor-netty4`
+> - `arrow-flight-rpc`
+{: .note}
+
+#### Step 1: Configure OpenSearch settings
 
 Add these settings to your `opensearch.yml` file or Docker Compose configuration:
 
@@ -55,8 +58,11 @@ arrow.flight.bind_host: <ip>
 transport.stream.type.default: FLIGHT-SECURE
 flight.ssl.enable: true
 ```
+{% include copy.html %}
 
-#### Step 3: Configure JVM options
+For more information about enabling experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+
+#### Step 2: Configure JVM options
 
 Add these settings to your `jvm.options` file:
 
@@ -67,10 +73,15 @@ Add these settings to your `jvm.options` file:
 -Dio.netty.tryReflectionSetAccessible=true
 --add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED
 ```
+{% include copy.html %}
 
-### API configuration
+### Configure the necessary APIs
+
+Configure the API using the following steps.
 
 #### Step 1: Enable the streaming feature flag
+
+To enable the streaming feature flag, update the cluster settings as follows:
 
 ```json
 PUT _cluster/settings
@@ -82,9 +93,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-#### Step 2: Register a compatible remote model
+#### Step 2: Register a compatible externally hosted model
 
-**OpenAI Chat Completion**
+To register an OpenAI Chat Completion model, send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -120,7 +131,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-**Amazon Bedrock Converse Stream**
+To register an Amazon Bedrock Converse Stream model, send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -164,6 +175,8 @@ POST /_plugins/_ml/models/_register
 When registering your agent, you must include the `_llm_interface` parameter that matches your model type from Step 2:
 - OpenAI Chat Completion: `openai/v1/chat/completions`
 - Amazon Bedrock Converse Stream: `bedrock/converse/claude`
+
+To register your agent, send the following request:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -250,3 +263,13 @@ data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzH
 
 data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzHrriq5hXbN"},{"name":"parent_interaction_id","result":"L_U1iJkBCzHrriq5hXbs"},{"name":"response","dataAsMap":{"content":"","is_last":true}}]}]}
 ```
+
+## Response body fields
+
+<!-- fill in this table -->
+
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+|  |  | |
