@@ -62,7 +62,6 @@ Rebuild the Docker images used by the Migration Assistant:
 ```
 {% include copy.html %}
 
----
 
 ## 5) Redeploy the Migration Assistant
 
