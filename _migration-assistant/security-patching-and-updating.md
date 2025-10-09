@@ -75,7 +75,6 @@ cd deployment/cdk/opensearch-service-migration
 > **Do not** redeploy while actively migrating, as this can cause data loss or inconsistent state.
 {: .warning}
 
-```shell
 cd deployment/cdk/opensearch-service-migration
 ./deploy.sh <contextId>
 ```
