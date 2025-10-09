@@ -8,7 +8,7 @@ permalink: /migration-assistant/security-patching-and-updating/
 
 # Security patching and updating
 
-This page describes how to safely update the **bootstrap box** (the EC2 instance you use to build and run Migration Assistant components), clean Docker caches, and rebuild the Migration Assistant container images.
+This page describes how to safely update the **bootstrap box** (the Amazon Elastic Compute Cloud [Amazon EC2] instance you use to build and run Migration Assistant components), clean Docker caches, and rebuild the Migration Assistant container images.
 
 > **Recommended cadence:** Perform these steps only when the Migration Assistant is not actively running.
 
