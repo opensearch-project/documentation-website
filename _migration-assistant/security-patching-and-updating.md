@@ -6,7 +6,7 @@ parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/security-patching-and-updating/
 ---
 
-# Security patching & updating
+# Security patching and updating
 
 This page describes how to safely update the **bootstrap box** (the EC2 instance you use to build and run Migration Assistant components), clean Docker caches, and rebuild the Migration Assistant container images.
 
