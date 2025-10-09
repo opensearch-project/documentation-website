@@ -263,13 +263,21 @@ Create a search pipeline that uses your agent with search templates:
 ```json
 PUT _search/pipeline/agentic-pipeline
 {
-  "request_processors": [
-    {
-      "agentic_query_translator": {
-        "agent_id": "your-agent-id-from-step-4b"
-      }
-    }
-  ]
+    "request_processors": [
+        {
+            "agentic_query_translator": {
+                "agent_id": "your-agent-id-from-step-4b"
+            }
+        }
+    ],
+    "response_processors": [
+        {
+            "agentic_context": {
+                "agent_steps_summary": true,
+                "dsl_query": true
+            }
+        }
+    ]
 }
 ```
 {% include copy-curl.html %}
