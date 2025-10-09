@@ -19,7 +19,7 @@ To submit gRPC requests, you must have a set of protobufs on the client side. Fo
 
 gRPC Document APIs reside in the [DocumentService](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/services/document_service.proto#L22).
 
-You can submit bulk requests by invoking the [`Bulk`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/services/document_service.proto#L24) gRPC method within the `DocumentService`. The method takes a [`BulkRequest`](#bulkrequest-fields) and returns a [`BulkResponse`](#bulkresponsebody-fields).
+You can submit bulk requests by invoking the [`Bulk`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/services/document_service.proto#L24) gRPC method within the `DocumentService`. The method takes a [`BulkRequest`](#bulkrequest-fields) and returns a [`BulkResponse`](#bulkresponse-fields).
 
 ## Document format
 
@@ -318,9 +318,9 @@ The following example shows a bulk request with a `script` operation. It increme
 
 The gRPC Bulk API provides the following response fields.
 
-### BulkResponseBody fields
+### BulkResponse fields
 
-The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L188) message wraps either a `BulkResponseBody` for successful requests or a `BulkErrorResponse` for failed requests. The `BulkResponseBody` provides a summary and per-item result of a bulk operation and contains the following fields.
+The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L186) message is returned directly from the Bulk gRPC method and provides a summary and per-item result of a bulk operation. It contains the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
@@ -506,18 +506,22 @@ public class BulkClient {
             BulkResponse response = stub.bulk(request);
 
             // Handle the response
-            if (response.hasBulkResponseBody()) {
-                BulkResponseBody responseBody = response.getBulkResponseBody();
-                System.out.println("Bulk errors: " + responseBody.getErrors());
-                System.out.println("Bulk took: " + responseBody.getTook() + " ms");
+            System.out.println("Bulk errors: " + response.getErrors());
+            System.out.println("Bulk took: " + response.getTook() + " ms");
+            if (response.hasIngestTook()) {
+                System.out.println("Ingest took: " + response.getIngestTook() + " ms");
+            }
 
-                // Process individual items
-                for (Item item : responseBody.getItemsList()) {
-                    if (item.hasIndex()) {
-                        System.out.println("Index operation: " + item.getIndex().getStatus());
-                    } else if (item.hasDelete()) {
-                        System.out.println("Delete operation: " + item.getDelete().getStatus());
-                    }
+            // Process individual items
+            for (Item item : response.getItemsList()) {
+                if (item.hasIndex()) {
+                    System.out.println("Index operation: " + item.getIndex().getStatus());
+                } else if (item.hasDelete()) {
+                    System.out.println("Delete operation: " + item.getDelete().getStatus());
+                } else if (item.hasCreate()) {
+                    System.out.println("Create operation: " + item.getCreate().getStatus());
+                } else if (item.hasUpdate()) {
+                    System.out.println("Update operation: " + item.getUpdate().getStatus());
                 }
             }
         } catch (io.grpc.StatusRuntimeException e) {
