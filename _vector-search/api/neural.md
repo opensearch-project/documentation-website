@@ -58,9 +58,6 @@ The following table lists the available query parameters. All query parameters a
 | `include_all_nodes` | Boolean | When `true`, includes aggregated statistics across all nodes in the `all_nodes` category. When `false`, excludes the `all_nodes` category from the response. Default is `true`. |
 | `include_info` | Boolean | When `true`, includes cluster-wide information in the `info` category. When `false`, excludes the `info` category from the response. Default is `true`. |
 
-#### Parameter interactions
-
-
 #### Example request
 
 ```json
@@ -132,7 +129,8 @@ GET /_plugins/_neural/stats/
 				"neural_query_against_knn_requests": 0
 			},
 			"neural_sparse": {
-				"neural_sparse_query_requests": 0
+				"neural_sparse_query_requests": 0,
+                "seismic_query_requests": 0
 			}
 		},
 		"semantic_highlighting": {
@@ -169,7 +167,14 @@ GET /_plugins/_neural/stats/
 				"text_chunking_delimiter_executions": 0,
 				"text_image_embedding_executions": 0
 			}
-		}
+		},
+        "memory": {
+            "sparse": {
+                "sparse_memory_usage": 0.13,
+                "clustered_posting_usage": 0.06,
+                "forward_index_usage": 0.06
+            }
+        }
 	},
 	"nodes": {
 		"_cONimhxS6KdedymRZr6xg": {
@@ -187,8 +192,17 @@ GET /_plugins/_neural/stats/
 					"neural_query_against_knn_requests": 0
 				},
 				"neural_sparse": {
-					"neural_sparse_query_requests": 0
-				}
+					"neural_sparse_query_requests": 0,
+                    "seismic_query_requests": 0
+				},
+                "memory": {
+                    "sparse": {
+                        "sparse_memory_usage_percentage": 0,
+                        "sparse_memory_usage": 0.13,
+                        "clustered_posting_usage": 0.06,
+                        "forward_index_usage": 0.06
+                    }
+                }
 			},
 			"semantic_highlighting": {
 				"semantic_highlighting_request_count": 0,
@@ -337,17 +351,27 @@ The following table lists the available statistics. For statistics with paths pr
 
 **Node-level statistics: Query**
 
-| Statistic name | Category | Statistic path within category | Description |
-| :--- | :--- | :--- | :--- |
-| `hybrid_query_with_pagination_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_pagination_requests` | The number of `hybrid` query requests with pagination. |
-| `hybrid_query_with_filter_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_filter_requests` | The number of `hybrid` query requests with filters. |
-| `hybrid_query_with_inner_hits_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_inner_hits_requests` | The number of `hybrid` query requests with inner hits. |
-| `hybrid_query_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_requests` | The total number of `hybrid` query requests. |
-| `neural_query_against_semantic_sparse_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_semantic_sparse_requests` | The number of `neural` query requests against semantic sparse fields. |
-| `neural_query_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_requests` | The total number of `neural` query requests. |
-| `neural_query_against_semantic_dense_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_semantic_dense_requests` | The number of `neural` query requests against semantic dense fields. |
-| `neural_query_against_knn_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_knn_requests` | The number of `neural` query requests against k-NN fields. |
-| `neural_sparse_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.neural_sparse_query_requests` | The number of `neural_sparse` query requests. |
+| Statistic name | Category | Statistic path within category | Description                                                                                                                                |
+| :--- | :--- | :--- |:-------------------------------------------------------------------------------------------------------------------------------------------|
+| `hybrid_query_with_pagination_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_pagination_requests` | The number of `hybrid` query requests with pagination.                                                                                     |
+| `hybrid_query_with_filter_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_filter_requests` | The number of `hybrid` query requests with filters.                                                                                        |
+| `hybrid_query_with_inner_hits_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_with_inner_hits_requests` | The number of `hybrid` query requests with inner hits.                                                                                     |
+| `hybrid_query_requests` | `nodes`, `all_nodes` | `query.hybrid.hybrid_query_requests` | The total number of `hybrid` query requests.                                                                                               |
+| `neural_query_against_semantic_sparse_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_semantic_sparse_requests` | The number of `neural` query requests against semantic sparse fields.                                                                      |
+| `neural_query_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_requests` | The total number of `neural` query requests.                                                                                               |
+| `neural_query_against_semantic_dense_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_semantic_dense_requests` | The number of `neural` query requests against semantic dense fields.                                                                       |
+| `neural_query_against_knn_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_knn_requests` | The number of `neural` query requests against k-NN fields.                                                                                 |
+| `neural_sparse_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.neural_sparse_query_requests` | The number of `neural_sparse` query requests against `rank_features` fields (traditional neural sparse search).                                                                                              |
+| `seismic_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.seismic_query_requests` | The number of `neural_sparse` query requests against `sparse_vector` fields (neural sparse approximate nearest neighbor (ANN) search using the SEISMIC algorithm). |
+
+**Node-level statistics: Memory**
+
+| Statistic name | Category             | Statistic path within category                                  | Description                                                                                                 |
+| :--- |:---------------------|:----------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
+| `sparse_memory_usage_percentage` | `nodes`              | `memory.sparse.sparse_memory_usage_percentage`                  | The percentage of JVM heap memory used to store sparse data on the node relative to the maximum JVM memory. |
+| `sparse_memory_usage` | `nodes`, `all_nodes` | `memory.sparse.sparse_memory_usage`                             | The amount of JVM heap memory used to store sparse data on the node, in kilobytes.                           |
+| `clustered_posting_usage` | `nodes`, `all_nodes` | `memory.sparse.clustered_posting_usage`                         | The amount of JVM heap memory used to store clustered posting on the node, in kilobytes.                     |
+| `forward_index_usage` | `nodes`, `all_nodes` | `memory.sparse.forward_index_usage`                            | The amount of JVM heap memory used to store the forward index on the node, in kilobytes.                         |
 
 **Node-level statistics: Semantic highlighting**
 
@@ -394,3 +418,170 @@ The `timestamped_event_counter` object contains the following metadata fields.
 | `stat_type` | String | Always set to `timestamped_event_counter`. |
 | `trailing_interval_value` | Integer | The number of events that occurred in the past 5 minutes. |
 | `minutes_since_last_event` | Integer | The amount of time (in minutes) since the last recorded event. |
+
+## Warm up
+**Introduced 3.3**
+{: .label .label-purple }
+
+Sparse indexes support [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/). To maximize search efficiency, OpenSearch caches sparse data in JVM memory.
+
+To avoid high latency during initial searches, you can run random queries during a warmup period. After the warmup period, sparse data is stored in JVM memory, and you can start production workloads. However, this approach is indirect and requires additional effort.
+
+As an alternative, you can use the warm up API operation to avoid latency during initial searches. This operation loads all sparse data for the primary and replica shards of the specified indexes into JVM memory. The warm up API operation is idempotent: if a segment's sparse data is already loaded into memory, this operation has no effect. It only loads files not currently stored in memory.
+
+This API operation only works with sparse indexes (indexes created with `index.sparse` set to `true`).
+{: .note}
+
+### Endpoints
+
+```json
+POST /_plugins/_neural/warmup/<index>
+```
+
+### Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `<index>` | String | An index name or names (comma-separated) to warm up. Supports wildcards (`*`). Required. |
+
+#### Example request
+
+The following request performs a warm up operation on three indexes:
+
+```json
+POST /_plugins/_neural/warmup/index1,index2,index3
+```
+{% include copy-curl.html %}
+
+You can use the warm up API operation with index patterns to clear one or more indexes that match a specified pattern from the cache:
+
+```json
+POST /_plugins/_neural/warmup/index*
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+The API call returns results only after the warm up operation finishes or the request times out:
+
+```json
+{
+  "_shards" : {
+    "total" : 6,
+    "successful" : 6,
+    "failed" : 0
+  }
+}
+```
+
+If the request times out, then the operation continues on the cluster. 
+
+To monitor the warm up operation, use the OpenSearch Tasks API:
+
+```json
+GET /_tasks
+```
+{% include copy-curl.html %}
+
+After the operation has finished, use the [neural stats API operation](#stats) to monitor the updated memory usage.
+
+### Response body fields
+
+The following table lists all response body fields.
+
+| Field                | Data type | Description                                                      |
+| :------------------- | :-------- | :--------------------------------------------------------------- |
+| `_shards.total`      | Integer   | The total number of shards that OpenSearch attempted to warm up. |
+| `_shards.successful` | Integer   | The number of shards that were successfully warmed up.           |
+| `_shards.failed`     | Integer   | The number of shards that failed to warm up.                     |
+
+### Best practices
+
+To ensure that the warm up operation works properly, follow these best practices:
+
+* Avoid running merge operations on indexes you plan to warm up: During a merge operation, OpenSearch creates new segments and may delete old ones. For example, if the warm up API operation loads sparse indexes A and B into native memory, but a merge creates a new segment C from A and B, then A and B are removed from memory but C is not yet loaded. In this case, the initial loading delay for sparse index C still occurs.
+
+* Verify that all sparse indexes you plan to warm up can fit into JVM memory. For more information about memory limits, see [neural_search.circuit_breaker.limit]({{site.url}}{{site.baseurl}}/vector-search/settings#neural-search-plugin-settings).
+
+## Clear cache
+**Introduced 3.3**
+{: .label .label-purple }
+
+During [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) or warm up operations, sparse data is loaded into JVM memory. You can remove this data by deleting the corresponding index.
+
+In contrast, decreasing the [neural search circuit breaker limit]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann#memory-and-caching-settings) does not immediately evict cached sparse data. To manually clear cached data, use the neural search clear cache API operation. This operation removes all in-memory sparse data for all shards (primaries and replicas) of the indexes specified in the request.
+
+Similar to the [warm up operation](#warm-up), the clear cache operation is idempotent: if you attempt to clear the cache for an index that has already been evicted, the operation has no additional effect.
+
+This API operation only works with sparse indexes (indexes created with `index.sparse` set to `true`).
+{: .note}
+
+### Endpoints
+
+```json
+POST /_plugins/_neural/clear_cache/<index>
+```
+
+### Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description                                                                                  |
+| :-------- | :-------- | :------------------------------------------------------------------------------------------- |
+| `<index>` | String    | An index name or names (comma-separated) for which to clear cache. Supports wildcards (`*`). Required. |
+
+#### Example request
+
+The following request clears the sparse data of three specified indexes from JVM memory:
+
+```json
+POST /_plugins/_neural/clear_cache/index1,index2,index3
+```
+
+{% include copy-curl.html %}
+
+You can also use index patterns to clear one or more indexes that match a pattern:
+
+```json
+POST /_plugins/_neural/clear_cache/index*
+```
+
+{% include copy-curl.html %}
+
+#### Example response
+
+The API call returns results only after the clear cache operation finishes or the request times out:
+
+```json
+{
+  "_shards" : {
+    "total" : 6,
+    "successful" : 6,
+    "failed" : 0
+  }
+}
+```
+
+If the request times out, the operation continues running in the cluster.
+
+To monitor the progress of the clear cache operation, use the OpenSearch Tasks API:
+
+```json
+GET /_tasks
+```
+
+{% include copy-curl.html %}
+
+After the operation finishes, use the [neural stats API operation](#stats) to check updated memory usage.
+
+### Response body fields
+
+The following table lists all response body fields.
+
+| Field                | Data type | Description                                                      |
+| :------------------- | :-------- | :--------------------------------------------------------------- |
+| `_shards.total`      | Integer   | The total number of shards for which OpenSearch attempted to clear cache. |
+| `_shards.successful` | Integer   | The number of shards for which cache was successfully cleared.           |
+| `_shards.failed`     | Integer   | The number of shards for which cache failed to clear.                     |
