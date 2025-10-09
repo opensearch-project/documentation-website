@@ -85,5 +85,5 @@ cd deployment/cdk/opensearch-service-migration
 * **Cannot pull base images**:
   Ensure that the instance has internet egress (NAT/IGW) and access to Docker Hub/ECR as required.
 
-* **Gradle cache corruption**
+* **Gradle cache corruption**:
   If problems persist after `./gradlew clean`, also remove `~/.gradle/caches` and retry.
