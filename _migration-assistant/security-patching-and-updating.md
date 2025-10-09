@@ -53,7 +53,7 @@ From the repository root, run the following command to clean prior Gradle output
 {% include copy.html %}
 
 
-## 4) Rebuild Migration Assistant images
+## Step 4: Rebuild Migration Assistant images
 
 Rebuild the Docker images used by the Migration Assistant:
 
