@@ -32,7 +32,6 @@ sudo reboot
 
 After the box comes back up, reconnect and continue.
 
----
 
 ## 2) Clear Docker build and download caches
 
