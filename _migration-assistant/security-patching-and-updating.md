@@ -42,7 +42,6 @@ docker system prune -a --volumes
 ```
 {% include copy.html %}
 
----
 
 ## 3) Clean prior Gradle outputs
 
