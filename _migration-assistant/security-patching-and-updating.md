@@ -75,7 +75,6 @@ Redeploy the Migration Assistant to replace existing container images with the f
 {: .warning}
 
 cd deployment/cdk/opensearch-service-migration
-./deploy.sh <contextId>
 ```
 {% include copy.html %}
 
