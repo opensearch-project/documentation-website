@@ -8,20 +8,20 @@ nav_order: 40
 ---
 
 # Reranking by a field using an externally hosted late interaction model
-Introduced 3.3
+**Introduced 3.3**
 {: .label .label-purple }
 
 In this tutorial, you'll learn how to use a late interaction model (such as ColBERT or ColPali) hosted on Amazon SageMaker to rerank search results and improve search relevance for multimodal content.
 
-Late interaction models provide a balance between speed and accuracy by generating multiple vectors per document and query, then performing fine-grained token-level matching during search. This approach is particularly effective for multimodal content like images with text, technical diagrams, and complex documents.
+Late interaction models balance speed and accuracy by generating multiple vectors per document and query, then performing fine-grained token-level matching during search. This approach is particularly effective for multimodal content (such as images with text, technical diagrams, and complex documents), for which detailed semantic analysis improves relevance. By combining fast k-NN retrieval with token-level reranking, late interaction models efficiently handle complex queries and capture nuanced semantic relationships across text and other content types.
 
 To implement late interaction reranking, you'll configure both ingest and search pipelines:
-- **Ingest pipeline**: Generates multi-vectors and single KNN vectors during document indexing using the [`ml_inference` ingest processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/)
-- **Search pipeline**: Processes queries at search time, generating query vectors for both KNN retrieval and late interaction reranking using the [`ml_inference` search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/) and the [`lateInteractionScore`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/late-interaction-score/) function
+- **Ingest pipeline**: Generates multi-vectors and single k-NN vectors during document indexing using the [`ml_inference` ingest processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/).
+- **Search pipeline**: Processes queries at search time, generating query vectors for both k-NN retrieval and late interaction reranking using the [`ml_inference` search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/) and the [`lateInteractionScore`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/late-interaction-score/) function.
 
 ## Prerequisite: Deploy a ColPali model on Amazon SageMaker
 
-Deploy the `vidore/colpali-v1.3-hf` model from Hugging Face to a SageMaker endpoint. Run the following Python code in a SageMaker Notebook:
+To deploy the `vidore/colpali-v1.3-hf` model from Hugging Face to a SageMaker endpoint, run the following Python code in a SageMaker notebook:
 
 ```python
 import sagemaker
@@ -118,7 +118,8 @@ Note the `model_id` from the response; you'll use it in subsequent steps.
 
 ## Step 2: Create an index
 
-Create an index with mappings optimized for storing both multi-vectors and single KNN vectors:
+Create an index with mappings optimized for storing both multi-vectors and single k-NN vectors. The `colbert_vectors` field is stored as an `object` with `enabled: false` for optimal performance. The `knn_vector` field is configured for the `hnsw` algorithm with the number of dimensions matching the model's number of dimensions. The `image` field stores Base64-encoded image data as a `keyword`:
+
 
 ```json
 PUT /multimodal_docs
@@ -156,14 +157,9 @@ PUT /multimodal_docs
 ```
 {% include copy-curl.html %}
 
-**Key mapping considerations:**
-- `colbert_vectors`: Stored as `object` with `enabled: false` for optimal performance
-- `knn_vector`: Configured for HNSW algorithm with appropriate dimensions
-- `image`: Base64-encoded image data stored as keyword
-
 ## Step 3: Create an ingest pipeline
 
-Create an ingest pipeline that generates both multi-vectors for late interaction and single vectors for KNN search:
+Create an ingest pipeline that generates both multi-vectors for late interaction and single vectors for k-NN search:
 
 ```json
 PUT /_ingest/pipeline/colpali_pipeline
@@ -196,7 +192,7 @@ PUT /_ingest/pipeline/colpali_pipeline
 
 ## Step 4: Ingest documents
 
-Ingest sample documents with base64-encoded images and descriptive content:
+Ingest sample documents containing Base64-encoded images and descriptive content:
 
 ```json
 PUT /multimodal_docs/_doc/1?pipeline=colpali_pipeline
@@ -205,14 +201,20 @@ PUT /multimodal_docs/_doc/1?pipeline=colpali_pipeline
     "description": "A comprehensive bar chart showing quarterly sales performance with multiple data series and trend analysis",
     "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q=="
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT /multimodal_docs/_doc/2?pipeline=colpali_pipeline
 {
     "title": "Technical Architecture Diagram",
     "description": "System architecture diagram showing microservices, databases, and API connections with detailed component relationships",
     "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoADwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q=="
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT /multimodal_docs/_doc/3?pipeline=colpali_pipeline
 {
     "title": "Financial Report Summary",
@@ -224,7 +226,7 @@ PUT /multimodal_docs/_doc/3?pipeline=colpali_pipeline
 
 ## Step 5: Create a search pipeline
 
-Create a search pipeline that generates query vectors and performs both KNN retrieval and late interaction reranking:
+Create a search pipeline that generates query vectors and performs both k-NN retrieval and late interaction reranking:
 
 ```json
 PUT /_search/pipeline/colpali_search_pipeline
@@ -253,9 +255,55 @@ PUT /_search/pipeline/colpali_search_pipeline
 ```
 {% include copy-curl.html %}
 
+The `query_template` in the search pipeline (formatted for clarity) defines how the original search query is rewritten:
+
+```json
+{
+    "query": {
+        "knn": {
+            "knn_vector": {
+                "vector": ${query_knn_vector},
+                "k": 100
+            }
+        }
+    },
+    "rescore": {
+        "query": {
+            "rescore_query": {
+                "script_score": {
+                    "query": {
+                        "match_all": {}
+                    }, 
+                    "script": {
+                        "source": "lateInteractionScore(params.query_vector, 'colbert_vectors', params._source)",
+                        "params": {
+                            "query_vector": ${query_colbert_vectors}
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "size": 10,
+    "_source": {
+        "excludes": ["knn_vector","colbert_vectors"]
+    }
+}
+```
+
+Note the following components of the query template:
+
+- Template variables:
+   - `${query_knn_vector}`: Mean-pooled vector for fast KNN retrieval
+   - `${query_colbert_vectors}`: Multi-vectors for precise late interaction scoring
+- Rewritten query structure:
+   - `knn` query: Uses `query_knn_vector` to find top 100 candidates quickly
+   - `rescore_query`: Uses `query_colbert_vectors` with `lateInteractionScore` function for precise reranking
+   - `_source` filtering: Excludes vector fields from response to reduce payload size
+
 ## Step 6: Search using late interaction reranking
 
-Now you can search for documents using both KNN retrieval and late interaction reranking:
+Now you can search for documents using k-NN retrieval and late interaction reranking:
 
 ```json
 GET /multimodal_docs/_search?search_pipeline=colpali_search_pipeline
@@ -271,30 +319,27 @@ GET /multimodal_docs/_search?search_pipeline=colpali_search_pipeline
 ```
 {% include copy-curl.html %}
 
-### How the search works
 
-The search pipeline performs the following steps:
 
-1. **Query Processing**: The search text is sent to the ColPali model to generate query vectors
-2. **KNN Retrieval**: The mean-pooled query vector performs initial retrieval using KNN search (top 100 candidates)
-3. **Late Interaction Reranking**: The multi-vector query representation is used with the `lateInteractionScore` function to rerank results based on fine-grained token-level matching
-4. **Final Results**: Documents are returned ranked by their late interaction scores
+When you run this search request, OpenSearch executes the following steps:
 
-The response will show documents reranked based on their semantic similarity to the query, with the late interaction model providing more nuanced relevance scoring than traditional vector search alone.
+1. **Query processing**: The search text (`"financial data charts"`) is sent to the ColPali model, which generates query vectors.
 
-## Key benefits
+1. **k-NN retrieval**: The mean-pooled query vector (`query_knn_vector`) performs approximate k-NN search to retrieve the top 100 candidate documents. This step prioritizes speed.
 
-Late interaction reranking provides several advantages:
+1. **Late interaction reranking**: Multi-vectors (`query_colbert_vectors`) are used with the `lateInteractionScore` function to rerank results based on fine-grained token-level matching. This step prioritizes accuracy.
 
-- **Fine-grained matching**: Token-level comparisons capture detailed semantic relationships
-- **Multimodal support**: Works with text, images, and other content types
-- **Efficient retrieval**: Combines fast KNN search with precise reranking
-- **Improved relevance**: Handles complex queries with multiple concepts
+1. **Final results**: The top 10 documents are returned, ranked by their late interaction scores.
 
-This approach is particularly effective for multimodal search scenarios where documents contain rich visual or structured content that benefits from detailed semantic analysis.
+This hybrid approach balances speed and accuracy, making it suitable for production search systems. The response contains documents reranked based on their semantic similarity to the query, with late interaction scoring providing more nuanced relevance than traditional vector search alone:
+
+<!-- include response -->
+
 ## Debugging and testing
 
-### Simulate the ingest pipeline
+You can perform the following actions to debug and test the search.
+
+### Simulating the ingest pipeline
 
 Before ingesting documents, test the ingest pipeline to verify it processes documents correctly:
 
@@ -316,9 +361,8 @@ POST /_ingest/pipeline/colpali_pipeline/_simulate?verbose=true
 ```
 {% include copy-curl.html %}
 
-The response shows how the document will be processed, including the generated `colbert_vectors` and `knn_vector` fields.
+The response shows how the document will be processed and includes the generated `colbert_vectors` and `knn_vector` fields:
 
-**Expected response:**
 ```json
 {
     "docs": [
@@ -366,7 +410,7 @@ The response shows how the document will be processed, including the generated `
 }
 ```
 
-### Debug the search pipeline
+### Debugging the search pipeline
 
 Test the search pipeline with verbose output to see how queries are rewritten:
 
@@ -384,16 +428,8 @@ GET /multimodal_docs/_search?search_pipeline=colpali_search_pipeline&verbose_pip
 ```
 {% include copy-curl.html %}
 
-The `verbose_pipeline=true` parameter shows the complete query transformation process, including:
+The response provides a complete view of the query transformation process captured in the `processor_results` section. It shows the original query text ("financial data charts") submitted as input, the generated query vectors (both multi-vectors and mean-pooled vector), and the rewritten query structure using k-NN search with late interaction rescoring. Processing times for each step are also included, providing detailed information for debugging and performance optimization:
 
-- How the original query text is processed by the ColPali model
-- The generated query vectors (both multi-vectors and mean-pooled vector)
-- The rewritten query structure with KNN search and late interaction rescoring
-- Processing times for each step
-
-This debugging information helps troubleshoot issues and optimize performance.
-
-**Expected response:**
 ```json
 {
     "took": 1835,
@@ -497,68 +533,7 @@ This debugging information helps troubleshoot issues and optimize performance.
 }
 ```
 
-### Understanding the response
+## Related articles
 
-The `processor_results` section shows:
-- **Input transformation**: How "financial data charts" becomes the query input
-- **Vector generation**: The ColPali model generates both multi-vectors and mean-pooled vectors
-- **Query rewriting**: The original query becomes a KNN query with late interaction rescoring
-- **Performance metrics**: Processing time (1200ms) for optimization
+- [Late interaction score function]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/#late-interaction-score-function)
 
-## Understanding the query template
-
-The `query_template` in the search pipeline defines how the original search query gets rewritten. Let's break down each part:
-
-```json
-{
-    "query": {
-        "knn": {
-            "knn_vector": {
-                "vector": ${query_knn_vector},
-                "k": 100
-            }
-        }
-    },
-    "rescore": {
-        "query": {
-            "rescore_query": {
-                "script_score": {
-                    "query": {
-                        "match_all": {}
-                    }, 
-                    "script": {
-                        "source": "lateInteractionScore(params.query_vector, 'colbert_vectors', params._source)",
-                        "params": {
-                            "query_vector": ${query_colbert_vectors}
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "size": 10,
-    "_source": {
-        "excludes": ["knn_vector","colbert_vectors"]
-    }
-}
-```
-
-### Query transformation process
-
-1. **Original query**: `"financial data charts"` (text input)
-2. **ML inference**: ColPali model generates vectors from the text
-3. **Template variables**:
-   - `${query_knn_vector}`: Mean-pooled vector for fast KNN retrieval
-   - `${query_colbert_vectors}`: Multi-vectors for precise late interaction scoring
-
-4. **Rewritten query structure**:
-   - **KNN query**: Uses `query_knn_vector` to find top 100 candidates quickly
-   - **Rescore query**: Uses `query_colbert_vectors` with `lateInteractionScore` function for precise reranking
-   - **Source filtering**: Excludes vector fields from response to reduce payload size
-
-### Two-stage execution
-
-1. **Stage 1 - KNN Retrieval**: Fast approximate search using the mean-pooled vector finds the top 100 most similar documents
-2. **Stage 2 - Late Interaction Reranking**: Precise token-level matching using multi-vectors reorders the candidates for better relevance
-
-This hybrid approach balances speed and accuracy, making it suitable for production search systems.
