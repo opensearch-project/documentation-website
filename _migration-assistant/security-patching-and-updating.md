@@ -43,7 +43,7 @@ docker system prune -a --volumes
 {% include copy.html %}
 
 
-## 3) Clean prior Gradle outputs
+## Step 3: Clean prior Gradle outputs
 
 From the repository root:
 
