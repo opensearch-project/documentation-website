@@ -14,7 +14,7 @@ This page describes how to safely update the **bootstrap box** (the EC2 instance
 
 ---
 
-## 1) Patch the OS on the bootstrap box
+## Step 1: Patch the OS on the bootstrap box
 
 ```shell
 sudo dnf upgrade --refresh -y
