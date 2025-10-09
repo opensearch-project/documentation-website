@@ -45,7 +45,7 @@ docker system prune -a --volumes
 
 ## Step 3: Clean prior Gradle outputs
 
-From the repository root:
+From the repository root, run the following command to clean prior Gradle outputs:
 
 ```shell
 ./gradlew clean
