@@ -96,32 +96,38 @@ OpenSearch evaluates incoming requests using the following process:
 3. The most specific matching rule's value is assigned.
 4. If no rules match, no value is assigned.
 
-### Demonstrations
-Below are some examples demonstrating the match and break tie procedure.
-For this demonstration, `username` has higher priority than `index_pattern` (the priority ordering is determined by the feature and feature type):
+### Rule matching examples
 
-1. A request matches the following 3 rules:
-   - Rule 1 has index pattern `log`
-   - Rule 2 has username `admin`
-   - Rule 3 has index pattern `log123`
+The following examples demonstrate how OpenSearch matches attributes and resolves ties between rules.
 
-    The final match will be Rule 2 because it contains the username attribute, which has higher priority.
+In these examples, the `username` attribute has higher priority than the `index_pattern` attribute (priority order depends on the feature and feature type).
 
+1. **Example 1**
+   A request matches three rules:
 
-2. A request matches the following 2 rules:
-    - Rule 1 has index pattern `logs-prod-*`
-    - Rule 2 has index pattern `logs-*`
+   * Rule 1: `index_pattern = log`
+   * Rule 2: `username = admin`
+   * Rule 3: `index_pattern = log123`
 
-    The final match will be Rule 1 because `logs-prod-*` is more specific than `logs-*`.
+   **Result:** Rule 2 applies because the `username` attribute has higher priority.
 
+2. **Example 2**
+   A request matches two rules:
 
-3. A request matches the following 2 rules:
-   - Rule 1 has index pattern `log` and username `admin`
-   - Rule 2 has username `admin`
+   * Rule 1: `index_pattern = logs-prod-*`
+   * Rule 2: `index_pattern = logs-*`
 
-   The final match will be Rule 1, as it includes attributes for both the index pattern and the username, making it a more specific match.
+   **Result:** Rule 1 applies because `logs-prod-*` is more specific than `logs-*`.
 
-## Examples
+3. **Example 3**
+   A request matches two rules:
+
+   * Rule 1: `index_pattern = log` and `username = admin`
+   * Rule 2: `username = admin`
+
+   **Result:** Rule 1 applies because it includes both the `index_pattern` and `username` attributes, making it a more specific match.
+
+## Workload management examples
 
 These examples demonstrate how rule-based auto-tagging works in workload management, which uses index patterns as its primary attribute.
 

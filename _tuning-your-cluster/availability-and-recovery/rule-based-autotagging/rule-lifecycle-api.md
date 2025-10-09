@@ -138,7 +138,7 @@ GET /_rules/{feature_type}
 ```
 {% include copy-curl.html %}
 
-The following request returns all rules of the feature type `workload_group` that contain the attribute `index_pattern` with values `a` or `b` and `principal.username` with value admin:
+The following request returns all rules of the `workload_group` feature type that contain an `index_pattern` attribute with values `a` or `b` and `principal.username` set to `admin`:
 
 ```json
 GET /_rules/workload_group?index_pattern=a,b&principal.username=admin
