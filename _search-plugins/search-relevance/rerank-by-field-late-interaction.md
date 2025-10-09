@@ -312,7 +312,7 @@ GET /multimodal_docs/_search?search_pipeline=colpali_search_pipeline
   "query": {
     "term": {
       "search_text": {
-        "value": "financial data charts"
+        "value": "financial report"
       }
     }
   }
