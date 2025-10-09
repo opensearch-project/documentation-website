@@ -1,22 +1,20 @@
 ---
 layout: default
-title: Search processors
+title: User-defined search processors
 nav_order: 40
 has_children: true
 parent: Search pipelines
 ---
 
-# Search processors
+# User-defined search processors
 
-Search processors can be of the following types:
+**User-defined search processors** are processors that you manually configure in search pipelines to customize search behavior. You define these processors in your pipeline configuration and control their parameters, execution order, and conditions.
 
-- [Search request processors](#search-request-processors)
-- [Search response processors](#search-response-processors)
-- [Search phase results processors](#search-phase-results-processors)
+The following sections list all user-defined search processors available in OpenSearch. OpenSearch can also create processors automatically based on search request parameters. For more information, see [System-generated search processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/system-generated-search-processors/).
 
 ## Search request processors
 
-A search request processor intercepts a search request (the query and the metadata passed in the request), performs an operation with or on the search request, and submits the search request to the index.
+A _search request processor_ intercepts a search request (the query and the metadata passed in the request), performs an operation with or on the search request, and submits the search request to the index.
 
 The following table lists all supported search request processors.
 
@@ -32,7 +30,7 @@ Processor | Description | Earliest available version
 
 ## Search response processors
 
-A search response processor intercepts a search response and search request (the query, results, and metadata passed in the request), performs an operation with or on the search response, and returns the search response.
+A _search response processor_ intercepts a search response and search request (the query, results, and metadata passed in the request), performs an operation with or on the search response, and returns the search response.
 
 The following table lists all supported search response processors.
 
@@ -52,7 +50,7 @@ Processor | Description | Earliest available version
 
 ## Search phase results processors
 
-A search phase results processor runs between search phases at the coordinating node level. It intercepts the results retrieved from one search phase and transforms them before passing them to the next search phase.
+A _search phase results processor_ runs between search phases at the coordinating node level. It intercepts the results retrieved from one search phase and transforms them before passing them to the next search phase.
 
 The following table lists all supported search phase results processors.
 

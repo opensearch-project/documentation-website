@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Boolean
-nav_order: 20
+nav_order: 24
 has_children: false
 parent: Supported field types
 redirect_from:

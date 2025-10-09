@@ -31,7 +31,7 @@ A _detector_ is an individual anomaly detection task. You can define multiple de
 1. On the **Anomaly detection** page, select the **Create detector** button.
 2. On the **Define detector** page, add the detector details. Enter a name and a brief description. The name must be unique and descriptive enough to help you identify the detector's purpose.
 
-3. In the **Select data** pane, specify the data source by choosing one or more sources from the **Index** dropdown menu. You can select indexes, index patterns, or aliases.
+3. In the **Select data** pane, specify the data source by selecting one or more sources from the **Index** dropdown menu. You can select indexes, index patterns, or aliases.
 
    - Detectors can use remote indexes, which you can access using the `cluster-name:index-name` pattern. For more information, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/). Starting in OpenSearch Dashboards 2.17, you can also select clusters and indexes directly. If the Security plugin is enabled, see [Selecting remote indexes with fine-grained access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/#selecting-remote-indexes-with-fine-grained-access-control) in the [Anomaly detection security]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/) documentation.
 
@@ -71,27 +71,14 @@ The following example query retrieves documents in which the `urlPath.keyword` f
 ```
 {% include copy-curl.html %}
 
-#### Setting the detector interval   
+5. In the **Timestamp** pane, select a field from the **Timestamp field** dropdown list.
 
-In the **Timestamp** pane, select a field from the **Timestamp field** dropdown menu. 
-
-Then, in the **Operation settings** pane, use the following best practices to define the **Detector interval**, which is the interval at which the detector collects data:
-
-- The detector aggregates the data at this interval and then feeds the aggregated result into the anomaly detection model. The shorter the interval, the fewer data points the detector aggregates. The anomaly detection model uses a shingling process, a technique that uses consecutive data points to create a sample for the model. This process requires a certain number of aggregated data points from contiguous intervals.
-- You should set the detector interval based on your actual data. If the detector interval is too long, then it might delay the results. If the detector interval is too short, then it might miss some data. The detector interval also will not have a sufficient number of consecutive data points for the shingle process.
-- (Optional) To add extra processing time for data collection, specify a **Window delay** value.
-  - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
-  - For example, the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49--1:59, so the detector accounts for all 10 minutes of the detector interval time.
-  - To avoid missing any data, set the **Window delay** to the upper limit of the expected ingestion delay. This ensures that the detector captures all data during its interval, reducing the risk of missing relevant information. While a longer window delay helps capture all data, too long of a window delay can hinder real-time anomaly detection because the detector will look further back in time. Find a balance that maintains both data accuracy and timely detection.
-
-#### Specifying a custom results index
-
-The Anomaly Detection plugin allows you to store anomaly detection results in a custom index of your choice. Select **Enable custom results index** and provide a name for your index, for example, `abc`. The plugin then creates an alias prefixed with `opensearch-ad-plugin-result-` followed by your chosen name, for example, `opensearch-ad-plugin-result-abc`. This alias points to an actual index with a name containing the date and a sequence number, such as `opensearch-ad-plugin-result-abc-history-2024.06.12-000002`, where your results are stored.
+6. (Optional) To store anomaly detection results in a custom index, select **Enable custom results index** and provide a name for your index (for example, `abc`). The plugin creates an alias prefixed with `opensearch-ad-plugin-result-` followed by your chosen name (for example, `opensearch-ad-plugin-result-abc`). This alias points to an actual index with a name containing the date and a sequence number, such as `opensearch-ad-plugin-result-abc-history-2024.06.12-000002`, where your results are stored.
 
 You can use `-` to separate the namespace to manage custom results index permissions. For example, if you use `opensearch-ad-plugin-result-financial-us-group1` as the results index, you can create a permission role based on the pattern `opensearch-ad-plugin-result-financial-us-*` to represent the `financial` department at a granular level for the `us` group.
 {: .note }
 
-##### Permissions
+#### Permissions
 
 When the Security plugin (fine-grained access control) is enabled, the default results index becomes a system index and is no longer accessible through the standard Index or Search APIs. To access its content, you must use the Anomaly Detection RESTful API or the dashboard. As a result, you cannot build customized dashboards using the default results index if the Security plugin is enabled. However, you can create a custom results index in order to build customized dashboards.
 
@@ -107,7 +94,7 @@ To use the custom results index option, you must have the following permissions:
 - `indices:data/write/delete` -- The detector may generate many anomaly results. The `delete` permission is required in order to delete old data and save disk space.
 - `indices:data/write/bulk*` -- The `bulk*` permission is required because the plugin uses the Bulk API to write results into the custom index.
 
-##### Flattening nested fields
+#### Flattening nested fields
 
 Custom results index mappings with nested fields pose aggregation and visualization challenges. The **Enable flattened custom result index** option flattens the nested fields in the custom results index. When selecting this option, the plugin creates a separate index prefixed with the custom results index name and detector name. For example, if the detector `Test` uses the custom results index `abc`, a separate index with the alias `opensearch-ad-plugin-result-abc-flattened-test` will store the anomaly detection results with nested fields flattened. 
 
@@ -129,11 +116,7 @@ Parameter | Description | Type | Unit | Example | Required
 `result_index_min_age` |  The minimum index age required for the rollover, calculated from its creation time to the current time. | `integer` |`day` | `7` | No
 `result_index_ttl` | The minimum age required in order to delete rolled-over indexes. | `integer` | `day` | `60` | No
 
-#### Next step
-
-After defining you detector settings, choose **Next**.   
-
-After you define the detector, the next step is to configure the model.
+After defining your detector settings, select **Next** to configure the model.
 
 ## Step 2: Configure the model
 
@@ -204,7 +187,7 @@ For acceptable JSON query syntax, see [OpenSearch Query DSL]({{site.url}}{{site.
 
 You can categorize anomalies based on a keyword or IP field type. You can enable the **Categorical fields** option to categorize, or "slice," the source time series using a dimension, such as an IP address, a product ID, or a country code. This gives you a granular view of anomalies within each entity of the category field to help isolate and debug issues.
 
-To set a category field, choose **Enable categorical fields** and select a field. You cannot change the category fields after you create the detector.
+To set a category field, select **Enable categorical fields** and select a field. You cannot change the category fields after you create the detector.
 
 Only a certain number of unique entities are supported in the category field. Use the following equation to calculate the recommended total number of entities supported in a cluster:
 
@@ -224,6 +207,96 @@ If the actual total number of unique entities is higher than the number that you
 
 This formula serves as a starting point. Make sure to test it with a representative workload. See the OpenSearch blog post [Improving Anomaly Detection: One million entities in one minute](https://opensearch.org/blog/one-million-enitities-in-one-minute/) for more information.
 {: .note }
+
+#### Operational settings
+
+The **Suggest parameters** button in OpenSearch Dashboards initiates a review of recent history in order to recommend sensible defaults. You can override these defaults by adjusting the following parameters.
+
+##### Detector interval
+
+Specifies the aggregation bucket size (for example, 10 minutes). You should set the detector interval based on your actual data characteristics:
+
+- **Longer intervals**: Smooth out noise and reduce compute costs but delay detection.
+- **Shorter intervals**: Detect changes sooner but increase resource usage and can introduce noise.
+
+The interval must be large enough that you rarely miss data. The model uses shingling (consecutive, contiguous buckets), and missing buckets degrade data quality and shingle formation.
+
+##### Frequency (Optional)
+
+Specifies how often the job queries, scores, and writes results. Shorter values provide more real-time updates at a higher cost, while longer values reduce load but slow down updates. Frequency must be a multiple of the interval and defaults to the interval value.
+
+If you're unsure, leave this field blank---the job will use the interval value by default.
+
+**Common scenarios for using a larger frequency than the interval include:**
+
+1. **Batching short buckets for efficiency**: In high-frequency or high-volume log streams where ultra-fast alerting is unnecessary. For workloads with heavy joins or high-cardinality features, or for compliance-driven nightly rollups that require an **immutable daily anomaly ledger** for reviews or audits, running the detector every 1--2 minutes can be wasteful. Instead, schedule the detector to run less frequently so it batches many short intervals in one pass (for example, **6 hours**, which processes ~**360** 1-minute buckets at once). Choose a frequency that fits your alerting latency and cost goals (for example, 30 minutes, 1 hour, 3 hours, 6 hours, or 12 hours).
+
+  - **Benefits**: Reduced scheduling overhead and better resource utilization, especially when running many jobs or working with busy clusters.
+  - **Trade-offs**: Increased detection delay---an anomaly in a 1-minute bucket may only be reported when the batch run is executed.
+  - **Best for**: Cost and load control, compliance and audit.
+
+2. **Aligning with infrequent or batch log ingestion**: When logs arrive irregularly or in batches (for example, once per day from S3, or IoT devices that upload in bursts). Running the detector every minute would mostly yield empty results and wasted cycles. Configure the frequency closer to the data arrival rate (for example, 1 day) so each search is more likely to find new data. When timestamps are irregular and low in volume (as is common with sporadic logs), interim results tend to be harmful to accuracy, as the RCF model is stateful and assumes strict ascending order of timestamps. By using a less frequent schedule, you effectively let the job wait for complete data rather than repeatedly checking an empty index.
+
+   - **Benefits**: Reduced pointless queries and CPU overhead; improved efficiency and more accurate results—anomalies will be evaluated once the batch of logs arrives, with minimal risk of false interim anomalies.
+   - **Trade-offs**: Less frequent anomaly evaluation.
+   - **Best for**: Batch jobs and sporadic log ingestion patterns.
+
+##### Window delay (Optional)
+
+To add extra processing time for data collection, specify a **Window delay** value. This signals to the detector that data is not ingested into OpenSearch in real time but with a certain delay.
+
+**How it works**:
+
+Set the window delay to shift the detector interval to account for ingestion delay. For example:
+- Detector interval: 10 minutes
+- Data ingestion delay: 1 minute
+- Detector runs at: 2:00 PM
+
+Without a window delay, the detector attempts to get data from 1:50–2:00 PM but only gets 9 minutes of data, missing data from 1:59–2:00 PM. Setting the window delay to 1 minute shifts the interval window to 1:49–1:59 PM, ensuring the detector captures all 10 minutes of data.
+
+**Best practices**:
+- Set **Window delay** to the upper limit of expected ingestion delay to avoid missing data.
+- Balance data accuracy with timely detection—too long of a delay hinders real-time anomaly detection.
+
+##### History (Optional)
+
+Sets the number of historical data points used to train the initial (cold-start) model. The maximum is 10,000 data points. More history improves initial model accuracy up to that limit.
+
+##### Choosing between frequency and window delay
+
+Both **frequency** and **window delay** address ingestion delay but work better for different data patterns:
+
+- **Window delay**: Best for streaming data (continuous trickle)
+- **Frequency**: Best for batch data (periodic drops)
+
+**Example scenarios**:
+
+- **Example A -- Data arrives every minute, but always 1 day late → use window delay**:
+   - **Pattern**: Data for `Day-1 00:01, 00:02, ..., 23:59` arrives steadily, but only on `Day-2` at the same minute marks.
+   - **Configuration**: `interval = 1 min`, `window_delay = 1 day`, `frequency = 1 min`.
+   - **Effect**:
+      - The `Day-2 00:01` run processes `Day-1 00:01` data.
+      - The `Day-2 00:02` run processes `Day-1 00:02` data.
+      - ...
+      - The `Day-2 23:59` run processes `Day-1 23:59` data.
+   - **Why this fits**: Each minute's data arrives with a predictable 24-hour delay. Setting a 1-day window delay ensures each record is processed at its intended timestamp while keeping the workload incremental.
+
+- **Example B -- All of `Day-1`'s data arrives at `Day-2 00:00` → use a daily frequency**:
+   - **Pattern**: No data appears during `Day-1`; instead, a single batch containing all 1,440 minutes of data arrives at `Day-2 00:00`.
+   - **Configuration**: `interval = 1 min`, `frequency = 1 day` (process the full day at once).
+   *(Tip: Add a small `window_delay`—for example, 1–5 minutes—to account for indexing or refresh lag.)*
+   - **Effect**:
+      - **Best case**: If the detector starts around `00:00`, the `Day-2 00:00` run processes all of `Day-1`'s data right after it arrives.
+      - **Worst case**: If the detector starts around `23:59`, the daily run won't occur until `Day-2 23:59`, roughly `24 hours` after the drop.
+      - **General rule**: For a midnight data drop, the extra wait equals your detector's daily start time.
+   - **Why this works**: Because the entire day's data becomes available at once, a single daily run is much more efficient than processing data minute by minute.
+
+The following diagram illustrates the timing differences between using window delay and using frequency to handle a 1-day ingestion delay. The timeline shows Day-1 ingestion (top), Day-2 processing with `window_delay = 1 day` (middle, continuous band), and a single daily run when `frequency = 1 day` (bottom, vertical bar). Depending on when you start the detector, a daily frequency can fire just after Day-1 ends (best case, minimal extra delay) or much later (worst case, up to ~+1 day). The job runs every day at approximately the time you first started it.
+
+<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/window-delay-vs-frequency.png"
+     alt="Timeline showing Day-1 ingestion (top), Day-2 processing with window delay (middle), and a single daily run when frequency = 1 day (bottom)"
+     width="1200" height="350">
+
 
 ### Setting a shingle size
 
@@ -250,11 +323,11 @@ Be cautious when imputing extensively missing data, as excessive gaps can compro
 
 You can preview anomalies based on sample feature input and adjust the feature settings as needed. The Anomaly Detection plugin selects a small number of data samples---for example, 1 data point every 30 minutes---and uses interpolation to estimate the remaining data points to approximate the actual feature data. The sample dataset is loaded into the detector, which then uses the sample dataset to generate a preview of the anomalies.
 
-1. Choose **Preview sample anomalies**.
+1. Select **Preview sample anomalies**.
     - If sample anomaly results are not displayed, check the detector interval to verify that 400 or more data points are set for the entities during the preview date range.
 2. Select the **Next** button.
 
-## Step 3: Setting up detector jobs
+## Step 3: Set up detector jobs
 
 To start a detector to find anomalies in your data in near real time, select **Start real-time detector automatically (recommended)**.
 
@@ -264,16 +337,16 @@ Analyzing historical data can help to familiarize you with the Anomaly Detection
 
 You can experiment with historical analysis by using different feature sets and checking the precision before using real-time detectors.
 
-## Step 4: Reviewing detector settings 
+## Step 4: Review detector settings 
 
 Review your detector settings and model configurations to confirm that they are valid and then select **Create detector**.
 
 If a validation error occurs, edit the settings to correct the error and return to the detector page.
 {: .note }
 
-## Step 5: Observing the results
+## Step 5: Observe the results
 
-Choose either the **Real-time results** or **Historical analysis** tab. For real-time results, it will take some time to display the anomaly results. For example, if the detector interval is 10 minutes, then the detector may take an hour to initiate because it is waiting for sufficient data to be able to generate anomalies. 
+Select either the **Real-time results** or **Historical analysis** tab. For real-time results, it will take some time to display the anomaly results. For example, if the detector interval is 10 minutes, then the detector may take an hour to initiate because it is waiting for sufficient data to be able to generate anomalies. 
 
 A shorter interval results in the model passing the shingle process more quickly and generating anomaly results sooner. You can use the [profile detector]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#profile-detector) operation to ensure that you have enough data points.
 
@@ -308,21 +381,22 @@ For example, if you have a detector with the category fields `ip` and `endpoint`
 
 ## Step 6: Set up alerts
 
-Under **Real-time results**, choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
+Under **Real-time results**, select **Set up alerts** and configure a monitor to notify you when anomalies are detected. For instructions on how to create a monitor and set up notifications based on your anomaly detector, see [Configuring anomaly alerting]({{site.url}}{{site.baseurl}}/observing-your-data/ad/managing-anomalies/).
 
 If you stop or delete a detector, make sure to delete any monitors associated with it.
 
-## Step 7: Adjust the model
+## Viewing and updating the detector configuration
 
-To see all the configuration settings for a detector, choose the **Detector configuration** tab.
+To view all the configuration settings for a detector, select the **Detector configuration** tab.
 
-1. To make any changes to the detector configuration, or fine tune the time interval to minimize any false positives, go to the **Detector configuration** section and choose **Edit**.
-- You need to stop real-time and historical analysis to change its configuration. Confirm that you want to stop the detector and proceed.
-2. To enable or disable features, in the **Features** section, choose **Edit** and adjust the feature settings as needed. After you make your changes, choose **Save and start detector**.
+1. To make any changes to the detector configuration or fine-tune the time interval to minimize any false positives, go to the **Detector configuration** section and select **Edit**.
+   You must stop real-time and historical analysis to change the detector's configuration. Confirm that you want to stop the detector and proceed.
+   {: .important}
+2. To enable or disable features, in the **Features** section, select **Edit** and adjust the feature settings as needed. After you make your changes, select **Save and start detector**.
 
-## Step 8: Manage your detectors
+## Managing your detectors
 
 To start, stop, or delete a detector, go to the **Detectors** page.
 
-1. Choose the detector name.
-2. Choose **Actions** and select **Start real-time detectors**, **Stop real-time detectors**, or **Delete detectors**.
+1. Select the detector name.
+2. Select **Actions** and then select **Start real-time detectors**, **Stop real-time detectors**, or **Delete detectors**.
