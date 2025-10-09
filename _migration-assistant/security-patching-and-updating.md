@@ -81,7 +81,7 @@ cd deployment/cdk/opensearch-service-migration
 ## Troubleshooting
 
 * **`toomanyrequests: Rate exceeded`**:
-  Retry the last build command. Some downstream container images are rate-limited and may change over time.
+  Retry the last build command. Some downstream container images are rate limited and may change over time.
 
 * **Cannot pull base images**:
   Ensure that the instance has internet egress (NAT/IGW) and access to Docker Hub/ECR as required.
