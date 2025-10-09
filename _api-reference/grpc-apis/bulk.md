@@ -532,14 +532,11 @@ channel = grpc.insecure_channel(
 
 document_stub = DocumentServiceStub(channel)
 
-# Create index operation
-index_op = document_pb2.OperationContainer()
-index_op.index.CopyFrom(document_pb2.IndexOperation())
-
 # Add documents to a request body
-requestBody = document_pb2.BulkRequestBody()
+requestBody = document_pb2.BulkRequestBody(
+    operation_container=document_pb2.OperationContainer(index=document_pb2.IndexOperation())
+)
 requestBody.object = "{\"field\": \"value\"}".encode('utf-8')
-requestBody.operation_container.CopyFrom(index_op)
 
 # Append to a bulk request
 request = document_pb2.BulkRequest()
