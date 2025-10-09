@@ -437,11 +437,11 @@ POST /_plugins/_neural/warmup/<index>
 
 ### Path parameters
 
-The following table lists the available path parameters. All path parameters are optional.
+The following table lists the available path parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `<index>` | String | An index name or names (comma-separated) to warm up. Supports wildcards (`*`). |
+| `<index>` | String | An index name or names (comma-separated) to warm up. Supports wildcards (`*`). Required. |
 
 #### Example request
 
@@ -523,11 +523,11 @@ POST /_plugins/_neural/clear_cache/<index>
 
 ### Path parameters
 
-The following table lists the available path parameters. All path parameters are optional.
+The following table lists the available path parameters.
 
 | Parameter | Data type | Description                                                                                  |
 | :-------- | :-------- | :------------------------------------------------------------------------------------------- |
-| `<index>` | String    | An index name or names (comma-separated) for which to clear cache. Supports wildcards (`*`). |
+| `<index>` | String    | An index name or names (comma-separated) for which to clear cache. Supports wildcards (`*`). Required. |
 
 #### Example request
 
