@@ -55,7 +55,7 @@ From the repository root, run the following command to clean prior Gradle output
 
 ## Step 4: Rebuild Migration Assistant images
 
-Rebuild the Docker images used by the Migration Assistant:
+Rebuild the Docker images used by Migration Assistant:
 
 ```shell
 ./gradlew :buildDockerImages -x test
