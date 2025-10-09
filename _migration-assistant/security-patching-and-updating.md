@@ -33,7 +33,7 @@ sudo reboot
 After the box comes back up, reconnect and continue.
 
 
-## 2) Clear Docker build and download caches
+## Step 2: Clear Docker build and download caches
 
 This removes **all** unused images, containers, networks, and volumes to free disk space and ensure clean rebuilds.
 
