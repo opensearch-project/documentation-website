@@ -32,11 +32,11 @@ metricTags | No | Map | A map of key‑value pairs as common metric tags to metr
 authentication | No | Object | Authentication configuration for the server APIs. Valid option: `http_basic` with `username` and `password`. If not defined, the server does **not** perform authentication.
 processorShutdownTimeout | No | Duration | Time given to processors to clear in‑flight data and shut down gracefully. Default: `30s`.
 sinkShutdownTimeout | No | Duration | Time given to sinks to clear in‑flight data and shut down gracefully. Default: `30s`.
-peer_forwarder | No | Object | Peer forwarder configuration. See [Peer forwarder options](#peer-forwarder-options).
+peer_forwarder | No | Object | Peer Forwarder configuration. See [Peer Forwarder options](#peer-forwarder-options).
 circuit_breakers | No | [circuit_breakers](#circuit-breakers) | Configure circuit breaker(s) on incoming data.
 extensions | No | Object | Extension plugin configuration shared by pipelines. See [Extension plugins](#extension-plugins).
 
-### Peer forwarder options
+### Peer Forwarder options
 
 The following section details various configuration options for peer forwarding.
 
@@ -45,10 +45,10 @@ The following section details various configuration options for peer forwarding.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 port | No | Integer | Peer forwarding server port (`0`–`65535`). Default: `4994`.
-request_timeout | No | Integer | Peer forwarder HTTP server request timeout in **milliseconds**. Default: `10000`.
-server_thread_count | No | Integer | Number of threads used by the peer forwarder **server**. Default: `200`.
-client_thread_count | No | Integer | Number of threads used by the peer forwarder **client**. Default: `200`.
-max_connection_count | No | Integer | Maximum number of open connections for the peer forwarder server. Default: `500`.
+request_timeout | No | Integer | Peer Forwarder HTTP server request timeout in **milliseconds**. Default: `10000`.
+server_thread_count | No | Integer | Number of threads used by the Peer Forwarder **server**. Default: `200`.
+client_thread_count | No | Integer | Number of threads used by the Peer Forwarder **client**. Default: `200`.
+max_connection_count | No | Integer | Maximum number of open connections for the Peer Forwarder server. Default: `500`.
 max_pending_requests | No | Integer | Maximum number of allowed tasks in the ScheduledThreadPool work queue. Default: `1024`.
 discovery_mode | No | String | Peer discovery mode. One of `local_node`, `static`, `dns`, or `aws_cloud_map`. Default: `local_node` (process locally).
 static_endpoints | Conditionally | List | Endpoints for all Data Prepper instances. **Required** if `discovery_mode: static`.
@@ -59,9 +59,9 @@ aws_cloud_map_query_parameters | No | Map | Key‑value filters applied to Cloud
 buffer_size | No | Integer | Maximum number of **unchecked** records the buffer accepts (written + in‑flight not yet checkpointed). Default: `512`.
 batch_size | No | Integer | Maximum number of records returned on read. Default: `48`.
 aws_region | Conditionally | String | AWS region to use with ACM, S3, or AWS Cloud Map. **Required** if `use_acm_certificate_for_ssl: true`, or `ssl_certificate_file` / `ssl_key_file` is an S3 path, or `discovery_mode: aws_cloud_map`.
-drain_timeout | No | Duration | Wait time for the peer forwarder to complete processing before shutdown. Default: `10s`.
+drain_timeout | No | Duration | Wait time for the Peer Forwarder to complete processing before shutdown. Default: `10s`.
 
-#### TLS/SSL options for peer forwarder
+#### TLS/SSL options for Peer Forwarder
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -76,7 +76,7 @@ acm_private_key_password | No | String | Password to decrypt the ACM private key
 acm_certificate_timeout_millis | No | Integer | Timeout (ms) for retrieving ACM certificates. Default: `120000`.
 aws_region | Conditionally | String | AWS region used with ACM, S3, or AWS Cloud Map. **Required** if `use_acm_certificate_for_ssl: true`, `ssl_certificate_file` / `ssl_key_file` is an S3 path, or `discovery_mode: aws_cloud_map`.
 
-#### Authentication options for peer forwarder
+#### Authentication options for Peer Forwarder
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -141,7 +141,7 @@ Reference secrets from `pipelines.yaml` under `extensions > aws`:
 
 Option | Required | Type | Description
 :--- |:---|:---| :---
-secrets | No  | Object | AWS Secrets Manager configuration. See [Secrets](#secrets) below.
+secrets | No  | Object | AWS Secrets Manager configuration. See [Secrets](#secrets) for more details.
 
 ### Secrets
 
@@ -217,11 +217,11 @@ Component | Setting | Why it matters | Low‑latency starting point | Trade‑of
 **Pipeline loop** | `workers` in each pipeline | More parallelism reduces queueing in CPU/IO bound pipelines. | Number of CPU cores, increase if sinks are I/O bound. | Higher CPU, more concurrent requests to sinks.
 **Pipeline loop** | `delay` | Sleep between buffer reads. | `0`–`10ms` to pull as soon as possible. | Lower delays increase polling overhead, increasing context switches and CPU wakeups. Tune to balance latency and CPU.
 **Bounded blocking buffer** | `batch_size` | Smaller batches flush sooner. | 64–256 | Smaller batches decrease throughput and increase request rate.
-**Peer forwarder** | `batch_size`, `request_timeout` | Batch sizing and timeouts affect hop‑to‑hop delay. | Keep `batch_size` modest for example 48–128. | Too small `batch_size` reduces throughput. `request_timeout` too low increases retries/timeouts under load.
-**Peer forwarder** | `forwarder` [configuration]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/#configuration) | Caps queueing before forwarding. | Use low timeouts for example 50–200ms. | Shorter timeouts can increase in-flight requests/connections, adding CPU, memory, TLS handshakes, and context-switch overhead. Too long causes queue build-up and higher tail latency.
+**Peer Forwarder** | `batch_size`, `request_timeout` | Batch sizing and timeouts affect hop‑to‑hop delay. | Keep `batch_size` modest for example 48–128. | Too small `batch_size` reduces throughput. `request_timeout` too low increases retries/timeouts under load.
+**Peer Forwarder** | `forwarder` [configuration]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/#configuration) | Caps queueing before forwarding. | Use low timeouts for example 50–200 ms. | Shorter timeouts can increase in-flight requests/connections, adding CPU, memory, TLS handshakes, and context-switch overhead. Too long causes queue build-up and higher tail latency.
 **Aggregate processors** | `group_duration` | Events wait for the window to close. | Prefer removing aggregation. If required, keep the window minimal, for example `5s`. | Smaller windows may break grouping semantics.
 **OpenSearch sink** | `bulk_size` (MiB) | Smaller bulks flush sooner. | 1–5 MiB | Very small `bulk_size` leads to more bulk requests for the same data, extra HTTP/TLS overhead, more threadpool contention, smaller Lucene batches, lower throughput. Very large leads to longer time to fill a batch, bigger retries, and memory spikes,and higher p95/p99.
-**OpenSearch side** | `index.refresh_interval` | Controls when data becomes searchable. | 1s (default). | Lower refresh increases segment churn and indexing cost.
+**OpenSearch side** | `index.refresh_interval` | Controls when data becomes searchable. | `1s` (default). | Lower refresh increases segment churn and indexing cost.
 
 The Delay processor adds latency by design. Avoid it in low‑latency pipelines.
 {: note}
