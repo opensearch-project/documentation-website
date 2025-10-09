@@ -31,7 +31,7 @@ POST /_plugins/_ml/agents/<agent_id>/_execute/stream
 
 #### Step 1: Verify required plugins (Optional)
 
-The Predict Stream API depends on the following plugins, which should be included in the default OpenSearch distribution:
+The Execute Stream Agent API depends on the following plugins, which should be included in the default OpenSearch distribution:
 - `transport-reactor-netty4`
 - `arrow-flight-rpc`
 
