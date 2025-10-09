@@ -61,7 +61,9 @@ Scaling thread pools support the following settings:
 
 - `thread_pool.<pool_name>.keep_alive` (Static, time unit): Determines how long idle threads are kept in the pool before being terminated. Threads above the core size are terminated after this period of inactivity.
 
-### ForkJoin thread pool (New in OpenSearch 3.2)
+### Fork-join thread pool
+**Introduced 3.2**
+{: .label .label-purple }
 
 Fork-join thread pools use the Java `ForkJoinPool` to provide efficient parallelism for workloads that benefit from work stealing and task splitting. This is useful for compute-intensive operations. In OpenSearch, fork-join thread pools support features that rely on parallel computation, such as the [OpenSearch jVector plugin](https://github.com/opensearch-project/opensearch-jvector), which accelerates index builds.
 
