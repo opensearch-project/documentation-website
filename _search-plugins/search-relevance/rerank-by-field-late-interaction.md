@@ -17,7 +17,7 @@ Late interaction models balance speed and accuracy by generating multiple vector
 
 To implement late interaction reranking, you'll configure both ingest and search pipelines:
 - **Ingest pipeline**: Generates multi-vectors and single k-NN vectors during document indexing using the [`ml_inference` ingest processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/).
-- **Search pipeline**: Processes queries at search time, generating query vectors for both k-NN retrieval and late interaction reranking using the [`ml_inference` search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/) and the [`lateInteractionScore`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/late-interaction-score/) function.
+- **Search pipeline**: Processes queries at search time, generating query vectors for both k-NN retrieval and late interaction reranking using the [`ml_inference` search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/) and the [`lateInteractionScore`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/#late-interaction-score) function.
 
 ## Prerequisite: Deploy a ColPali model on Amazon SageMaker
 
@@ -535,5 +535,5 @@ The response provides a complete view of the query transformation process captur
 
 ## Related documentation
 
-- [Late interaction score function]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/#late-interaction-score-function)
+- [Late interaction score function]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/#late-interaction-score)
 
