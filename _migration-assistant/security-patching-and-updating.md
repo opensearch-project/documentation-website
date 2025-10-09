@@ -35,7 +35,7 @@ After the box comes back up, reconnect and continue.
 
 ## Step 2: Clear Docker build and download caches
 
-This removes **all** unused images, containers, networks, and volumes to free disk space and ensure clean rebuilds.
+Clearing the Docker build and downloaded caches removes **all** unused images, containers, networks, and volumes to free disk space and ensure clean rebuilds:
 
 ```shell
 docker system prune -a --volumes
