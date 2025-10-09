@@ -34,7 +34,7 @@ The following gRPC APIs are currently supported:
 | Language | Distribution method | Instructions |
 | :------- | :------------------ | :----------- |
 | Java | Maven Central repository | Download the `opensearch-protobufs` jar from the [Maven Central repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.19.0). |
-| Python | PyPI repository | Download the `opensearch-protobufs` package from the [PyPI repository](https://pypi.org/project/opensearch-protobufs/). |
+| Python | PyPI repository | Download the `opensearch-protobufs` package from the [PyPI repository](https://pypi.org/project/opensearch-protobufs/0.19.0). |
 | Other languages | GitHub repository (raw protobufs) | Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.19.0)](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.19.0). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/). |
 
 
