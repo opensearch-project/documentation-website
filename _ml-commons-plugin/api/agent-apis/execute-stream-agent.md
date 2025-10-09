@@ -29,11 +29,15 @@ POST /_plugins/_ml/agents/<agent_id>/_execute/stream
 
 ### Cluster setup
 
-#### Step 1: Verify required plugins (Optional)
+#### Step 1: Install required plugins
 
-The Execute Stream Agent API depends on the following plugins, which should be included in the default OpenSearch distribution:
-- `transport-reactor-netty4`
-- `arrow-flight-rpc`
+The Execute Stream Agent API depends on the following plugins, which are included in the OpenSearch distribution but must be explicitly installed:
+For more information to install a plugin, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+
+```bash
+bin/opensearch-plugin install transport-reactor-netty4
+bin/opensearch-plugin install arrow-flight-rpc
+```
 
 #### Step 2: Configure OpenSearch settings
 
