@@ -513,7 +513,7 @@ public class BulkClient {
 
 ## Python gRPC client example
 
-The following example gives the same request for a python client side application. The opensearch-protobufs package is available for download with pip.
+The following example gives the same request for a Python client side application. The opensearch-protobufs package is available for download with pip.
 
 ```
 pip install opensearch-protobufs==0.19.0
