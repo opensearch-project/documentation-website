@@ -510,3 +510,50 @@ public class BulkClient {
 }
 ```
 {% include copy.html %}
+
+## Python gRPC client example
+
+The following example gives the same request for a python client side application. The opensearch-protobufs package is available for download with pip.
+
+```
+pip install opensearch-protobufs==0.19.0
+```
+
+```python
+import grpc
+
+from opensearch.protobufs.schemas import document_pb2
+from opensearch.protobufs.schemas import common_pb2
+from opensearch.protobufs.services.document_service_pb2_grpc import DocumentServiceStub
+
+channel = grpc.insecure_channel(
+    target="localhost:9400",
+)
+
+document_stub = DocumentServiceStub(channel)
+
+# Create index operation
+index_op = document_pb2.OperationContainer()
+index_op.index.CopyFrom(document_pb2.IndexOperation())
+
+# Add documents to a request body
+requestBody = document_pb2.BulkRequestBody()
+requestBody.object = "{\"field\": \"value\"}".encode('utf-8')
+requestBody.operation_container.CopyFrom(index_op)
+
+# Append to a bulk request
+request = document_pb2.BulkRequest()
+request.index = "my-index"
+request.request_body.append(requestBody)
+
+# Send request
+response = document_stub.Bulk(request)
+channel.close()
+
+# Handle the response
+if response.errors:
+    print("Response items contain errors.")
+for item in response.items:
+    print(item)
+
+```

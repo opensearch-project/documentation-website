@@ -461,3 +461,54 @@ public class SearchClient {
 }
 ```
 {% include copy.html %}
+
+## Python gRPC client example
+
+The following example gives the same request for a python client side application. The opensearch-protobufs package is available for download with pip.
+
+```
+pip install opensearch-protobufs==0.19.0
+```
+
+```python
+import grpc
+
+from opensearch.protobufs.schemas import search_pb2
+from opensearch.protobufs.schemas import common_pb2
+from opensearch.protobufs.services.search_service_pb2_grpc import SearchServiceStub
+
+channel = grpc.insecure_channel(
+    target="localhost:9400",
+)
+
+search_stub = SearchServiceStub(channel)
+
+# Create a term query
+term_query = common_pb2.TermQuery(
+    field="field",
+    value=common_pb2.FieldValue(string="value")
+)
+query_container = common_pb2.QueryContainer(term=term_query)
+
+# Create a search request
+request = search_pb2.SearchRequest(
+    request_body=search_pb2.SearchRequestBody(query=query_container),
+    index=["my-index"],
+    size=5
+)
+
+# Send request
+response = search_stub.Search(request)
+
+# Handle the response
+if response.hits:
+    print("Found {} hits".format(response.hits.total))
+    print(response.hits)
+elif response.timed_out or response.terminated_early:
+    print("Request timed out or terminated early")
+elif response.x_shards.failed:
+    print("Some shards failed to execute the search")
+    print(response.x_shards.failures)
+
+channel.close()
+```
