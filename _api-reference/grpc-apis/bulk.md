@@ -475,23 +475,23 @@ public class BulkClient {
 
         // Create an index operation
         IndexOperation indexOp = IndexOperation.newBuilder()
-                .setIndex("my-index")
-                .setId("1")
+                .setXIndex("my-index")
+                .setXId("1")
                 .build();
 
         BulkRequestBody indexBody = BulkRequestBody.newBuilder()
-                .setIndex(indexOp)
-                .setDoc(ByteString.copyFromUtf8("{\"field\": \"value\"}"))
+                .setOperationContainer(OperationContainer.newBuilder().setIndex(indexOp).build())
+                .setObject(ByteString.copyFromUtf8("{\"field\": \"value\"}"))
                 .build();
 
         // Create a delete operation
         DeleteOperation deleteOp = DeleteOperation.newBuilder()
-                .setIndex("my-index")
-                .setId("2")
+                .setXIndex("my-index")
+                .setXId("2")
                 .build();
 
         BulkRequestBody deleteBody = BulkRequestBody.newBuilder()
-                .setDelete(deleteOp)
+                .setOperationContainer(OperationContainer.newBuilder().setDelete(deleteOp).build())
                 .build();
 
         // Build the bulk request

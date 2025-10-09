@@ -452,7 +452,7 @@ public class SearchClient {
 
             HitsMetadata hits = response.getHits();
             if (hits.hasTotal()) {
-                System.out.println("Total hits: " + hits.getTotal().getValue());
+                System.out.println("Total hits: " + hits.getTotal().getTotalHits().getValue());
             }
 
             // Process individual hits

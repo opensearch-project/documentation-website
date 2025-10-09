@@ -113,7 +113,7 @@ public class KnnGrpcClient {
 
             HitsMetadata hits = response.getHits();
             if (hits.hasTotal()) {
-                System.out.println("Found " + hits.getTotal().getValue() + " results");
+                System.out.println("Found " + hits.getTotal().getTotalHits().getValue() + " results");
             }
 
             // Process k-NN results with similarity scores
