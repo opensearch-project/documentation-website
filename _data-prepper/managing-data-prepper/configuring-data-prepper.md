@@ -10,115 +10,119 @@ redirect_from:
 
 # Configuring OpenSearch Data Prepper
 
-You can customize your OpenSearch Data Prepper configuration by editing the `data-prepper-config.yaml` file in your Data Prepper installation. The following configuration options are independent from pipeline configuration options. 
+You can customize your OpenSearch Data Prepper configuration by editing the `data-prepper-config.yaml` file in your Data Prepper installation. The following configuration options are independent from pipeline configuration options.
 
+> **New in this version:** A practical **latency tuning guide** with ready‑to‑paste YAML, plus links between global settings and the knobs that most affect end‑to‑end delay.
+
+---
 
 ## Data Prepper configuration
 
 Use the following options to customize your Data Prepper configuration.
 
-Option | Required | Type | Description 
+Option | Required | Type | Description
 :--- | :--- |:--- | :---
-ssl | No | Boolean | Indicates whether TLS should be used for server APIs. Defaults to true.
-keyStoreFilePath | No | String | The path to a .jks or .p12 keystore file. Required if `ssl` is true.
+ssl | No | Boolean | Indicates whether TLS should be used for server APIs. Defaults to `true`.
+keyStoreFilePath | No | String | The path to a `.jks` or `.p12` keystore file. Required if `ssl` is `true`.
 keyStorePassword | No | String | The password for keystore. Optional, defaults to empty string.
 privateKeyPassword | No | String | The password for a private key within keystore. Optional, defaults to empty string.
-serverPort | No | Integer | The port number to use for server APIs. Defaults to 4900.
-metricRegistries | No | List | The metrics registries for publishing the generated metrics. Currently supports Prometheus and Amazon CloudWatch. Defaults to Prometheus.
-metricTags | No | Map | A map of key-value pairs as common metric tags to metric registries. The maximum number of pairs is three. Note that `serviceName` is a reserved tag key with `DataPrepper` as the default tag value. Alternatively, administrators can set this value through the environment variable `DATAPREPPER_SERVICE_NAME`. If `serviceName` is defined in `metricTags`, that value overwrites those set through the above methods.
-authentication | No | Object | The authentication configuration. Valid option is `http_basic` with `username` and `password` properties. If not defined, the server does not perform authentication.
-processorShutdownTimeout | No | Duration | The time given to processors to clear any in-flight data and gracefully shut down. Default is 30s.
-sinkShutdownTimeout | No | Duration | The time given to sinks to clear any in-flight data and gracefully shut down. Default is 30s.
-peer_forwarder | No | Object | Peer forwarder configurations. See [Peer forwarder options](#peer-forwarder-options) for more details.
-circuit_breakers | No | [circuit_breakers](#circuit-breakers) | Configures a circuit breaker on incoming data.
-extensions | No | Object | The pipeline extension plugin configurations. See [Extension plugins](#extension-plugins) for more details.
+serverPort | No | Integer | The port number to use for server APIs. Defaults to `4900`.
+metricRegistries | No | List | The metrics registries for publishing generated metrics. Currently supports **Prometheus** and **Amazon CloudWatch**. Defaults to **Prometheus**.
+metricTags | No | Map | A map of key‑value pairs as common metric tags to metric registries (max 3). `serviceName` is reserved and defaults to `DataPrepper`. You can also set it with `DATAPREPPER_SERVICE_NAME`. If `serviceName` is defined in `metricTags`, that value wins.
+authentication | No | Object | Authentication configuration for the server APIs. Valid option: `http_basic` with `username` and `password`. If not defined, the server does **not** perform authentication.
+processorShutdownTimeout | No | Duration | Time given to processors to clear in‑flight data and shut down gracefully. Default: `30s`.
+sinkShutdownTimeout | No | Duration | Time given to sinks to clear in‑flight data and shut down gracefully. Default: `30s`.
+peer_forwarder | No | Object | Peer forwarder configuration. See [Peer forwarder options](#peer-forwarder-options).
+circuit_breakers | No | [circuit_breakers](#circuit-breakers) | Configure circuit breaker(s) on incoming data.
+extensions | No | Object | Extension plugin configuration shared by pipelines. See [Extension plugins](#extension-plugins).
 
 ### Peer forwarder options
 
-The following section details various configuration options for peer forwarder.
+The following section details various configuration options for peer forwarding.
 
 #### General options for peer forwarding
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-port | No | Integer | The peer forwarding server port. Valid options are between 0 and 65535. Defaults is 4994.
-request_timeout | No | Integer | The request timeout for the peer forwarder HTTP server in milliseconds. Default is 10000.
-server_thread_count | No | Integer | The number of threads used by the peer forwarder server. Default is 200.
-client_thread_count | No | Integer | The number of threads used by the peer forwarder client. Default is 200.
-max_connection_count | No | Integer | The maximum number of open connections for the peer forwarder server. Default is 500.
-max_pending_requests | No | Integer | The maximum number of allowed tasks in ScheduledThreadPool work queue. Default is 1024.
-discovery_mode | No | String | The peer discovery mode to use. Valid options are `local_node`, `static`, `dns`, or `aws_cloud_map`. Defaults to `local_node`, which processes events locally.
-static_endpoints | Conditionally | List | A list containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to static.
-domain_name | Conditionally | String | A single domain name to query DNS against. Typically, used by creating multiple DNS A Records for the same domain. Required if `discovery_mode` is set to dns.
-aws_cloud_map_namespace_name | Conditionally | String | Cloud Map namespace when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
-aws_cloud_map_service_name | Conditionally | String | The Cloud Map service name when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
-aws_cloud_map_query_parameters | No | Map | A map of key-value pairs to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned.
-buffer_size | No | Integer | The maximum number of unchecked records the buffer accepts. Number of unchecked records is the sum of the number of records written into the buffer and the num of in-flight records not yet checked by the Checkpointing API. Default is 512.
-batch_size | No | Integer | The maximum number of records the buffer returns on read. Default is 48.
-aws_region | Conditionally | String | The AWS region to use with ACM, S3 or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path or `discovery_mode` is set to `aws_cloud_map`.
-drain_timeout | No | Duration | The wait time for the peer forwarder to complete processing data before shutdown. Default is `10s`.
+port | No | Integer | Peer forwarding server port (`0`–`65535`). Default: `4994`.
+request_timeout | No | Integer | Peer forwarder HTTP server request timeout in **milliseconds**. Default: `10000`.
+server_thread_count | No | Integer | Number of threads used by the peer forwarder **server**. Default: `200`.
+client_thread_count | No | Integer | Number of threads used by the peer forwarder **client**. Default: `200`.
+max_connection_count | No | Integer | Maximum number of open connections for the peer forwarder server. Default: `500`.
+max_pending_requests | No | Integer | Maximum number of allowed tasks in the ScheduledThreadPool work queue. Default: `1024`.
+discovery_mode | No | String | Peer discovery mode. One of `local_node`, `static`, `dns`, or `aws_cloud_map`. Default: `local_node` (process locally).
+static_endpoints | Conditionally | List | Endpoints for all Data Prepper instances. **Required** if `discovery_mode: static`.
+domain_name | Conditionally | String | Domain name to query for DNS‑based discovery (multiple A records). **Required** if `discovery_mode: dns`.
+aws_cloud_map_namespace_name | Conditionally | String | Cloud Map namespace. **Required** if `discovery_mode: aws_cloud_map`.
+aws_cloud_map_service_name | Conditionally | String | Cloud Map service name. **Required** if `discovery_mode: aws_cloud_map`.
+aws_cloud_map_query_parameters | No | Map | Key‑value filters applied to Cloud Map instance attributes.
+buffer_size | No | Integer | Maximum number of **unchecked** records the buffer accepts (written + in‑flight not yet checkpointed). Default: `512`.
+batch_size | No | Integer | Maximum number of records returned on read. Default: `48`.
+aws_region | Conditionally | String | AWS region to use with ACM, S3, or AWS Cloud Map. **Required** if `use_acm_certificate_for_ssl: true`, or `ssl_certificate_file` / `ssl_key_file` is an S3 path, or `discovery_mode: aws_cloud_map`.
+drain_timeout | No | Duration | Wait time for the peer forwarder to complete processing before shutdown. Default: `10s`.
 
 #### TLS/SSL options for peer forwarder
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-ssl | No | Boolean | Enables TLS/SSL. Default is `true`.
-ssl_certificate_file | Conditionally | String | The SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false. Defaults to `config/default_certificate.pem` which is the default certificate file. Read more about how the certificate file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
-ssl_key_file | Conditionally | String | The SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false. Defaults to `config/default_private_key.pem` which is the default private key file. Read more about how the default private key file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
-ssl_insecure_disable_verification | No | Boolean | Disables the verification of server's TLS certificate chain. Default is `false`.
-ssl_fingerprint_verification_only | No | Boolean | Disables the verification of server's TLS certificate chain and instead verifies only the certificate fingerprint. Default is `false`.
-use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
-acm_certificate_arn | Conditionally | String | The ACM certificate ARN. The ACM certificate takes preference over S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
-acm_private_key_password | No | String | The ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
-acm_certificate_timeout_millis | No | Integer | The timeout in milliseconds for ACM to get certificates. Default is 120000.
-aws_region | Conditionally | String | The AWS region to use ACM, S3 or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path or `discovery_mode` is set to `aws_cloud_map`.
+ssl | No | Boolean | Enables TLS/SSL. Default: `true`.
+ssl_certificate_file | Conditionally | String | SSL certificate chain file path or S3 path (`s3://<bucket>/<path>`). **Required** if `ssl: true` and `use_acm_certificate_for_ssl: false`. Default: `config/default_certificate.pem`. See the certificate examples in the Data Prepper repo.
+ssl_key_file | Conditionally | String | SSL private key file path or S3 path. **Required** if `ssl: true` and `use_acm_certificate_for_ssl: false`. Default: `config/default_private_key.pem`.
+ssl_insecure_disable_verification | No | Boolean | Disables verification of the server TLS certificate chain. Default: `false`.
+ssl_fingerprint_verification_only | No | Boolean | Verifies only the certificate fingerprint (disables chain verification). Default: `false`.
+use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using certificate and private key from **AWS Certificate Manager (ACM)**. Default: `false`.
+acm_certificate_arn | Conditionally | String | ACM certificate ARN. Required if `use_acm_certificate_for_ssl: true`.
+acm_private_key_password | No | String | Password to decrypt the ACM private key. If not provided, Data Prepper generates a random password.
+acm_certificate_timeout_millis | No | Integer | Timeout (ms) for retrieving ACM certificates. Default: `120000`.
+aws_region | Conditionally | String | AWS region used with ACM, S3, or AWS Cloud Map. **Required** if `use_acm_certificate_for_ssl: true`, `ssl_certificate_file` / `ssl_key_file` is an S3 path, or `discovery_mode: aws_cloud_map`.
 
 #### Authentication options for peer forwarder
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-authentication | No | Map | The authentication method to use. Valid options are `mutual_tls` (use mTLS) or `unauthenticated` (no authentication). Default is `unauthenticated`.
+authentication | No | Map | Authentication method. One of `mutual_tls` (mTLS) or `unauthenticated` (no authentication). Default: `unauthenticated`.
 
-### Circuit breakers
+---
 
-Data Prepper provides a circuit breaker to help prevent exhausting Java memory. And is useful when pipelines have stateful processors as these can retain memory usage outside of the buffers.
+## Circuit breakers
 
-When a circuit breaker is tripped, Data Prepper rejects incoming data routing into buffers.
+Data Prepper provides a circuit breaker to help prevent exhausting Java heap memory. This is useful when pipelines have **stateful** processors which retain memory outside of buffers.
 
+When a circuit breaker trips, Data Prepper rejects incoming data routed into buffers until the breaker resets.
 
 Option | Required | Type | Description
 :--- | :--- |:---| :---
-heap | No | [heap](#heap-circuit-breaker) | Enables a heap circuit breaker. By default, this is not enabled.
+heap | No | [heap](#heap-circuit-breaker) | Enables a heap circuit breaker. Disabled by default.
 
+### Heap circuit breaker
 
-#### Heap circuit breaker
-
-Configures Data Prepper to trip a circuit breaker when JVM heap reaches a specified usage threshold.
+Configure Data Prepper to trip a circuit breaker when JVM heap reaches a specified usage threshold.
 
 Option | Required | Type | Description
 :--- |:---|:---| :---
-usage | Yes | Bytes | Specifies the JVM heap usage at which to trip a circuit breaker. If the current Java heap usage exceeds this value then the circuit breaker will be open. This can be a value such as `6.5gb`.
-reset | No  | Duration | After tripping the circuit breaker, no new checks are made until after this time has passed. This effectively sets the minimum time for a breaker to remain open to allow for clearing memory. Defaults to `1s`.
-check_interval | No | Duration | Specifies the time between checks of the heap size. Defaults to `500ms`.
+usage | Yes | Bytes | JVM heap usage at which to trip the circuit breaker (e.g., `6.5gb`). If current usage exceeds this value, the breaker opens.
+reset | No  | Duration | Minimum time the breaker remains open before new checks. Default: `1s`.
+check_interval | No | Duration | Time between heap‑size checks. Default: `500ms`.
 
-### Extension plugins
+---
 
-Data Prepper provides support for user-configurable extension plugins. Extension plugins are common configurations shared across pipeline plugins, such as [sources, buffers, processors, and sinks]({{site.url}}{{site.baseurl}}/data-prepper/index/#key-concepts-and-fundamentals).
+## Extension plugins
+
+Data Prepper supports user‑configurable **extension plugins**. Extension plugins provide reusable configuration shared across pipeline plugins (sources, buffers, processors, sinks).
 
 ### AWS extension plugins
 
-To use the AWS extension plugin, add the following setting to your `data-prepper-config.yaml` under `aws`.
+Add the following to `data-prepper-config.yaml` under `extensions.aws`:
 
 Option | Required | Type | Description
 :--- |:---|:---| :---
-aws | No  | Object | The AWS extension plugins configuration. 
+aws | No  | Object | AWS extension plugins configuration.
 
 #### AWS secrets extension plugin
 
-The AWS secrets extension plugin configures the [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) to be 
-referenced in pipeline plugin configurations, as shown in the following example:
+Configure [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) for referencing secret values in pipeline plugins:
 
-```json
+```yaml
 extensions:
   aws:
     secrets:
@@ -129,52 +133,40 @@ extensions:
         refresh_interval: <YOUR_REFRESH_INTERVAL>
         disable_refresh: false
       <YOUR_SECRET_CONFIG_ID_2>:
-        ...
+        # ...
 ```
+{% include copy-curl.html %}
 
-To use the secrets extension plugin, add the following setting to your `pipeline.yaml` under `extensions` > `aws`. 
+Reference secrets from `pipelines.yaml` under `extensions > aws`:
 
 Option | Required | Type | Description
 :--- |:---|:---| :---
-secrets | No  | Object | The AWS Secrets Manager extension plugin configuration. See [Secrets](#secrets) for more details.
+secrets | No  | Object | AWS Secrets Manager configuration. See [Secrets](#secrets) below.
 
 ### Secrets
 
-Use the following settings under the `secrets` extension setting.
-
+Use the following settings under the `secrets` extension:
 
 Option | Required | Type | Description
 :--- |:---|:---| :---
-secret_id  | Yes | String | The AWS secret name or ARN.                                                                                                                                                                                              |
-region | No | String   | The AWS region of the secret. Defaults to `us-east-1`.                                                                                                                                                                            
-sts_role_arn | No | String   | The AWS Security Token Service (AWS STS) role to assume for requests to the AWS Secrets Manager. Defaults to `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html). 
-refresh_interval | No | Duration | The refreshment interval for the AWS Secrets extension plugin to poll new secret values. Defaults to `PT1H`. For more information, see [Automatically refreshing secrets](#automatically-refreshing-secrets).
-disable_refresh | No | Boolean | Disables regular polling on the latest secret values inside the AWS secrets extension plugin. Defaults to `false`. When set to `true`, `refresh_interval` will not be used.
+secret_id  | Yes | String | AWS secret name or ARN.
+region | No | String | AWS region of the secret. Default: `us-east-1`.
+sts_role_arn | No | String | AWS STS role to assume for Secrets Manager requests. Default: `null` (standard SDK behavior for credentials).
+refresh_interval | No | Duration | Poll interval for refreshing secret values. Default: `PT1H`. See [Automatically refreshing secrets](#automatically-refreshing-secrets).
+disable_refresh | No | Boolean | Disable regular polling for the latest secret values. Default: `false`. When `true`, `refresh_interval` is ignored.
 
 #### Reference secrets
-ß
-In `pipelines.yaml`, secret values can be referenced within the pipeline plugins using the following formats:
 
-* plaintext: `{% raw %}${{aws_secrets:<YOUR_SECRET_CONFIG_ID>}}{% endraw %}`.
-* JSON (key-value pairs): `{% raw %}${{aws_secrets:<YOUR_SECRET_CONFIG_ID>:<YOUR_KEY>}}{% endraw %}`
+In `pipelines.yaml`, reference secret values in plugin settings using:
 
- 
-Replace `<YOUR_SECRET_CONFIG_ID>` with the corresponding secret config ID under `/extensions/aws/secrets`. Replace `<YOUR_KEY>` with the desired key in the secret JSON value. The secret value reference string format can be interpreted for the following plugin setting data types:
+* Plaintext: `{% raw %}${{aws_secrets:<YOUR_SECRET_CONFIG_ID>}}{% endraw %}`
+* JSON key: `{% raw %}${{aws_secrets:<YOUR_SECRET_CONFIG_ID>:<YOUR_KEY>}}{% endraw %}`
 
-* String
-* Number
-* Long
-* Short
-* Integer
-* Double
-* Float
-* Boolean
-* Character
+Supported plugin setting types for secret substitution: String, Number, Long, Short, Integer, Double, Float, Boolean, Character.
 
-The following example section of `data-prepper-config.yaml` names two secret config IDs, `host-secret-config` and `credential-secret-config`:
+Example `data-prepper-config.yaml` with two secret config IDs (`host-secret-config`, `credential-secret-config`):
 
-
-```json
+```yaml
 extensions:
   aws:
     secrets:
@@ -189,21 +181,159 @@ extensions:
         sts_role_arn: <YOUR_STS_ROLE_ARN_2>
         refresh_interval: <YOUR_REFRESH_INTERVAL_2>
 ```
+{% include copy-curl.html %}
 
-After `<YOUR_SECRET_CONFIG_ID>` is configured, you can reference the IDs in your `pipelines.yaml`:
+You can then reference these secrets from `pipelines.yaml`:
 
-```
+```yaml
 sink:
-    - opensearch:
-        hosts: [ {% raw %}"${{aws_secrets:host-secret-config}}"{% endraw %} ]
-        username: {% raw %}"${{aws_secrets:credential-secret-config:username}}"{% endraw %}
-        password: {% raw %}"${{aws_secrets:credential-secret-config:password}}"{% endraw %}
-        index: "test-migration"
+  - opensearch:
+      hosts: [ {% raw %}"${{aws_secrets:host-secret-config}}"{% endraw %} ]
+      username: {% raw %}"${{aws_secrets:credential-secret-config:username}}"{% endraw %}
+      password: {% raw %}"${{aws_secrets:credential-secret-config:password}}"{% endraw %}
+      index: "test-migration"
 ```
-
+{% include copy-curl.html %}
 
 #### Automatically refreshing secrets
 
-For each individual secret configuration, the latest secret value is polled on a regular interval to support refreshing secrets in AWS Secrets Manager. The refreshed secret values are utilized by certain pipeline plugins to refresh their components, such as connection and authentication to the backend service. 
+For each secret configuration, Data Prepper polls the latest value on a regular interval to support rotating secrets in AWS Secrets Manager. Refreshed values are utilized by plugins that can refresh their connections/authentication (for example, sinks). For multiple secret configurations, jitter within `60s` is applied across all configurations during the initial polling.
 
-For multiple secret configurations, jitter within `60s` will be applied across all configurations during the initial secrets polling.
+## Pipeline latency tuning guide
+
+This section collects the most impactful configuration for reducing end‑to‑end latency and provides copy‑paste examples. 
+
+“Latency” can mean:
+
+- **Ingest latency**: The time it takes from the source receiving data until the sink sends it to OpenSearch, or another destination.
+- **Searchable latency**: The time it takes until data becomes visible in OpenSearch search results. This is capped by the index’s `refresh_interval`.
+
+### Low Latency configuration
+
+The following table lists configuration that can be tweaked to improve latency.
+
+Component | Setting | Why it matters | Low‑latency starting point | Trade‑offs
+:--- | :--- | :--- | :--- | :---
+**Pipeline loop** | `workers` in each pipeline | More parallelism reduces queueing in CPU/IO bound pipelines. | Number of CPU cores, increase if sinks are I/O bound. | Higher CPU, more concurrent requests to sinks.
+**Pipeline loop** | `delay` | Sleep between buffer reads. | `0`–`10ms` to pull as soon as possible. | Lower delays increase polling overhead, increasing context switches and CPU wakeups. Tune to balance latency and CPU.
+**Bounded blocking buffer** | `batch_size` | Smaller batches flush sooner. | 64–256 | Smaller batches decrease throughput and increase request rate.
+**Peer forwarder** | `batch_size`, `request_timeout` | Batch sizing and timeouts affect hop‑to‑hop delay. | Keep `batch_size` modest for example 48–128. | Too small `batch_size` reduces throughput. `request_timeout` too low increases retries/timeouts under load.
+**Peer forwarder** | `forwarder` [configuration]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/#configuration) | Caps queueing before forwarding. | Use low timeouts for example 50–200ms. | Shorter timeouts can increase in-flight requests/connections, adding CPU, memory, TLS handshakes, and context-switch overhead. Too long causes queue build-up and higher tail latency.
+**Aggregate processors** | `group_duration` | Events wait for the window to close. | Prefer removing aggregation. If required, keep the window minimal, for example `5s`. | Smaller windows may break grouping semantics.
+**OpenSearch sink** | `bulk_size` (MiB) | Smaller bulks flush sooner. | 1–5 MiB | Very small `bulk_size` leads to more bulk requests for the same data, extra HTTP/TLS overhead, more threadpool contention, smaller Lucene batches, lower throughput. Very large leads to longer time to fill a batch, bigger retries, and memory spikes,and higher p95/p99.
+**OpenSearch side** | `index.refresh_interval` | Controls when data becomes searchable. | 1s (default). | Lower refresh increases segment churn and indexing cost.
+
+The Delay processor adds latency by design. Avoid it in low‑latency pipelines.
+{: note}
+
+### Low‑latency configuration examples
+
+#### Logs: prioritize sub‑second ingest
+
+```yaml
+logs-low-latency:
+  workers: 4
+  delay: 0
+  source:
+    http:
+      port: 2021
+      path: /logs
+      ssl: true
+      sslKeyCertChainFile: "certs/dp.crt"
+      sslKeyFile: "certs/dp.key"
+  buffer:
+    bounded_blocking:
+      buffer_size: 4096
+      batch_size: 128
+  processor: []   # keep light, avoid heavy aggregation
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        index_type: log-analytics
+        bulk_size: 1         # MiB; smaller -> lower latency, lower throughput
+        max_retries: 8
+```
+{% include copy-curl.html %}
+
+#### Traces with peer forwarding minimizing cross‑node wait
+
+Create the following `data-prepper-config.yaml` file:
+
+```yaml
+
+ssl: true
+serverPort: 4900
+keyStoreFilePath: "certs/dp1-admin.p12"   # or .jks
+keyStorePassword: "changeit"
+privateKeyPassword: "changeit"
+
+# Or disable ssl on top-level admin/metrics server
+#ssl: false
+#serverPort: 4900
+
+authentication:
+  http_basic:
+    username: "myuser"
+    password: "mys3cr3t"
+  # or disable http_basic authentication
+  #unauthenticated:
+  
+peer_forwarder:
+
+  ssl: true
+  ssl_certificate_file: "certs/dp1-peer.crt"
+  ssl_key_file: "certs/dp1-peer.key"
+  authentication:
+    mutual_tls: {}
+  port: 4994    # Default
+  # choose one discovery mode
+  # Discovery mode: dns
+  discovery_mode: dns
+  domain_name: "data-prepper.your-domain.local"
+
+  # discovery_mode: static
+  #port: 4994
+  #static_endpoints: ["dp1", "dp2"]
+
+  # lower batching/wait
+  batch_size: 96
+  request_timeout: 1000   # ms
+```
+{% include copy-curl.html %}
+
+Create `pipelines.yml` as follows:
+
+```yaml
+traces-low-latency:
+  workers: 4
+  delay: 0
+  source:
+    otel_trace_source:
+      port: 21890
+      ssl: true
+      sslKeyCertChainFile: "certs/dp.crt"
+      sslKeyFile: "certs/dp.key"
+  buffer:
+    bounded_blocking:
+      buffer_size: 4096
+      batch_size: 96
+  processor:
+    - trace_peer_forwarder: {}
+  sink:
+    - pipeline:
+        name: "raw-trace-pipeline"   # <— feed the next pipeline
+
+raw-trace-pipeline:
+  source:
+    pipeline:
+      name: "traces-low-latency"     # <— consumes from above
+  processor:
+    - otel_traces:
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: "admin_password"
+        index_type: trace-analytics-raw
+```
