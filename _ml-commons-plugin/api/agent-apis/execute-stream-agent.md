@@ -272,8 +272,6 @@ data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzH
 
 ## Response body fields
 
-<!-- fill in this table -->
-
 The following table lists all response body fields.
 
 | Field | Data type | Description                                                                                                 |
