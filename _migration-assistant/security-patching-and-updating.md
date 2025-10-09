@@ -63,7 +63,7 @@ Rebuild the Docker images used by Migration Assistant:
 {% include copy.html %}
 
 
-## Step 5: Redeploy the Migration Assistant
+## Step 5: Redeploy Migration Assistant
 
 Redeploy the Migration Assistant to replace existing container images with the freshly built versions:
 
