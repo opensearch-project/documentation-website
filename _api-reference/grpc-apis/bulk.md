@@ -13,7 +13,7 @@ The gRPC Bulk API provides an efficient, binary-encoded alternative to the [HTTP
 
 ## Prerequisite
 
-To submit gRPC requests, you must have a set of protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#using-grpc-apis).
+To submit gRPC requests, you must have a set of protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#how-to-use-grpc-apis).
 
 ## gRPC service and method
 

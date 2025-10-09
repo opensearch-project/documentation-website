@@ -38,7 +38,7 @@ The following gRPC APIs are currently supported:
 | Other languages | GitHub repository (raw protobufs) | Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.19.0)](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.19.0). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/). |
 
 
-## gRPC settings
+## gRPC Settings
 
 The `transport-grpc` module is included by default with OpenSearch installations. To enable it, add the following settings to `opensearch.yml`:
 
@@ -109,7 +109,7 @@ grpc.netty.max_msg_size: 10mb
 These settings are similar to the [HTTP Network settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#advanced-http-settings) but specifically apply to gRPC communication.
 
 
-## gRPC Performance benefits
+## gRPC performance benefits
 
 Using gRPC APIs provides several advantages over HTTP APIs:
 
@@ -119,5 +119,5 @@ Using gRPC APIs provides several advantages over HTTP APIs:
 - **Type safety**: Protocol buffer schemas provide compile-time validation.
 - **Smaller payload sizes**: Binary encoding reduces network traffic.
 
-### Additional Performance tip
+### Additional performance tip
 Indexing documents as supported binary formats, such as SMILE, will usually incur lower latency than indexing/searching for them as JSON. Both indexing and searching latency should be reduced.
