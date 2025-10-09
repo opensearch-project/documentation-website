@@ -222,4 +222,4 @@ Ensure that you have the appropriate permissions for the operations you want to 
 | Roll back configuration | `restapi:admin/rollback_version` |
 
 These permissions are included in the default `security_manager` and `all_access` roles.
-These APIs use the same [access control]({{site.url}}{{site.baseurl}}/access-control/api/#access-control-for-the-api) as all other Security APIs.
+These APIs use the same [access control]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api) as all other Security APIs.
