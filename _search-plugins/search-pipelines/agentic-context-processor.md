@@ -19,14 +19,16 @@ The `agentic_context` search response processor adds agent execution context inf
 4. The context information is added to the search response extensions.
 5. Type validation ensures that all context attributes are strings.
 
+This processor works with both conversational and flow agents, but the available context information differs by agent type. Flow agents provide `dsl_query` (the generated DSL) only, while conversational agents provide `dsl_query`, `memory_id`, and `agent_steps_summary`. For more information, see [Agent types]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#agent-types).
+
 ## Request body fields
 
 The following table lists all available request fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`agent_steps_summary` | Boolean | Whether to include the agent's execution steps summary in the response. Default is `false`. Optional.
-`dsl_query` | Boolean | Whether to include the generated DSL query in the response. Default is `false`. Optional.
+`agent_steps_summary` | Boolean | Whether to include the agent's execution step summary in the response. Available for conversational agents only. Optional. Default is `false`. 
+`dsl_query` | Boolean | Whether to include the generated DSL query in the response. Available for both conversational and flow agents. Optional. Default is `false`. 
 
 ## Response fields
 
@@ -34,9 +36,9 @@ When enabled, the processor adds the following fields to the search response ext
 
 Field | Description
 :--- | :---
-`agent_steps_summary` | A summary of the steps that the agent took to translate the natural language query (included when `agent_steps_summary` is `true`).
-`memory_id` | The conversation memory ID for maintaining context across queries. Only provide this in the `agentic` query if you want to continue the previous conversation.
-`dsl_query` | The generated DSL query that was executed (included when `dsl_query` is `true`).
+`agent_steps_summary` | A summary of the steps that the agent took to translate the natural language query (included when `agent_steps_summary` is `true`). Available for conversational agents only.
+`memory_id` | The conversation memory ID for maintaining context across queries. Available for conversational agents only. Only provide this in the `agentic` query if you want to continue the previous conversation.
+`dsl_query` | The generated DSL query that was executed (included when `dsl_query` is `true`). Available for both conversational and flow agents.
 
 ## Example
 
@@ -98,6 +100,6 @@ The response contains the steps taken by the agent to translate the query, the m
 
 ## Related pages
 
-- [Agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search)
-- [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/)
+- [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/)
+- [Agentic query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/agentic/)
 - [Agentic query translator processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/)
