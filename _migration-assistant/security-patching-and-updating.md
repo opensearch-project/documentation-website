@@ -23,7 +23,7 @@ sudo dnf upgrade --refresh -y
 
 > **Note:** If the kernel or core libraries are updated, a reboot is often required.
 
-### Reboot if required
+Reboot if required:
 
 ```shell
 sudo reboot
