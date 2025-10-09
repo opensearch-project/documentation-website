@@ -27,7 +27,50 @@ POST /_plugins/_ml/models/<model_id>/_predict/stream
 
 ## Prerequisites
 
-### Step 1: Enable the streaming feature flag
+### Cluster setup 
+
+#### Step 1: Verify required plugins (Optional)
+
+The Predict Stream API depends on the following plugins, which should be included in the default OpenSearch distribution:
+- `transport-reactor-netty4`
+- `arrow-flight-rpc`
+
+#### Step 2: Configure OpenSearch settings
+
+Add these settings to your `opensearch.yml` file or Docker Compose configuration:
+
+```yaml
+opensearch.experimental.feature.transport.stream.enabled: true
+
+# Choose one based on your security settings
+http.type: reactor-netty4        # security disabled
+http.type: reactor-netty4-secure # security enabled
+
+# Multi-node cluster settings (if applicable)
+# Use network.host IP for opensearch.yml or node name for Docker
+arrow.flight.publish_host: <ip>
+arrow.flight.bind_host: <ip>
+
+# Security-enabled cluster settings (if applicable)
+transport.stream.type.default: FLIGHT-SECURE
+flight.ssl.enable: true
+```
+
+#### Step 3: Configure JVM options
+
+Add these settings to your `jvm.options` file:
+
+```yaml
+-Dio.netty.allocator.numDirectArenas=1
+-Dio.netty.noUnsafe=false
+-Dio.netty.tryUnsafe=true
+-Dio.netty.tryReflectionSetAccessible=true
+--add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED
+```
+
+### API configuration
+
+#### Step 1: Enable the streaming feature flag
 
 ```json
 PUT _cluster/settings
@@ -39,7 +82,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-### Step 2: Register a compatible remote model
+#### Step 2: Register a compatible remote model
 
 **OpenAI Chat Completion**
 
