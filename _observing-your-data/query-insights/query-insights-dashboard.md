@@ -251,7 +251,7 @@ The live queries table provides the following real-time monitoring controls:
 
 ### Workload group selector
 
-The **Workload Group selector** lets you filter and analyze active queries by workload group:
+The **workload group selector** lets you filter and analyze active queries by workload group:
 
 - By default, the selector is set to **All Workload Groups**, showing queries across the cluster.
 - When **WLM is disabled**, only the `DEFAULT_WORKLOAD_GROUP` option is available.
