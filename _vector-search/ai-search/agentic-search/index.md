@@ -15,7 +15,7 @@ redirect_from:
 
 Agentic search lets you ask questions in natural language and have OpenSearch plan and execute the retrieval automatically. A preconfigured agent reads the question, plans the search, and returns relevant results.
 
-You can configure agentic search through the Agentic Search API or the OpenSearch Dashboards UI. This guide describes configuring agentic search using the API. To learn how to configure it in OpenSearch Dashboards, see [Building Agentic Search Flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/).
+You can configure agentic search using the API or the OpenSearch Dashboards UI. This guide describes configuring agentic search using the API. To learn how to configure it in OpenSearch Dashboards, see [Building Agentic Search Flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/).
 
 ## Agent types
 
@@ -25,19 +25,19 @@ Agentic search supports two types of agents, each optimized for different use ca
 
 Conversational agents provide the most flexible and powerful agentic search experience. They support multiple tools, conversation memory, and detailed reasoning traces. Use conversational agents when you need:
 
-- **Multi-tool workflows** - Automatic index discovery, schema analysis, and external data integration
-- **Conversation memory** - Ability to continue conversations across multiple queries using memory IDs
-- **Complex reasoning** - Detailed step-by-step reasoning traces and tool orchestration
-- **Highest query quality** - Maximum flexibility for handling complex or ambiguous queries
+- **Multi-tool workflows**: Automatic index discovery, schema analysis, and external data integration.
+- **Conversation memory**: The ability to continue conversations across multiple queries using memory IDs.
+- **Complex reasoning**: Detailed step-by-step reasoning traces and tool orchestration.
+- **Highest query quality**: Maximum flexibility for handling complex or ambiguous queries.
 
 ### Flow agents
 
-Flow agents offer a streamlined alternative focused solely on query planning. They provide faster response times and lower costs by using only the Query Planning tool. Use flow agents when you need:
+Flow agents offer a streamlined alternative focused solely on query planning. They provide faster response times and lower costs by using only the `QueryPlanningTool`. Use flow agents when you need:
 
-- **Low latency** - Faster query processing with fewer LLM calls
-- **Cost efficiency** - Reduced computational overhead and API costs
-- **Simple queries** - Straightforward search requirements without complex reasoning
-- **Known indexes** - When you can specify target indexes directly in requests
+- **Low latency**: Faster query processing with fewer large language model (LLM) calls.
+- **Cost efficiency**: Reduced computational overhead and API costs.
+- **Simple queries**: Straightforward search requirements without complex reasoning.
+- **Known indexes**: When you can specify target indexes directly in requests.
 
 The following tutorial uses a conversational agent. To learn about flow agents, see [Using flow agents for agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/flow-agent/).
 
@@ -94,9 +94,9 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-## Step 3: Create a model for the agent and Query Planning tool
+## Step 3: Create a model for the agent and QueryPlanningTool
 
-Register a single model that will be used by both the conversational agent and the `QueryPlanningTool`. This model analyzes natural language questions, coordinates tool usage, and generates the OpenSearch DSL. For available model options, see [Model configurations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration):
+Register a single model that will be used by both the conversational agent and the `QueryPlanningTool`. This model analyzes natural language questions, coordinates tool usage, and generates the OpenSearch query domain-specific language (DSL). For available model options, see [Model configurations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration):
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -166,7 +166,7 @@ POST /_plugins/_ml/agents/_register
 
 ## Step 5: Create a search pipeline
 
-Create a search pipeline with an agentic query translator search request processor and pass the agent ID created in step 4:
+Create a search pipeline with an agentic query translator search request processor and pass the agent ID created in the previous step:
 
 ```json
 PUT _search/pipeline/agentic-pipeline
@@ -199,7 +199,7 @@ GET iris-index/_search?search_pipeline=agentic-pipeline
 ```
 {% include copy-curl.html %}
 
-The agentic search request executes the agent with the `QueryPlanningTool` and sends the natural language question, along with the index mapping and a default prompt, to a large language model (LLM) to generate a query domain-specific language (DSL) query. The returned DSL query is then executed as a search request in OpenSearch:
+The agentic search request executes the agent with the `QueryPlanningTool` and sends the natural language question, along with the index mapping and a default prompt, to an LLM to generate a DSL query. The returned DSL query is then executed as a search request in OpenSearch:
 
 ```json
 "hits": {

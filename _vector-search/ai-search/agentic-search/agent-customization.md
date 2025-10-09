@@ -13,7 +13,7 @@ You can customize agentic search agents by configuring their models, tools, and 
 
 - [Model configuration](#model-configuration): Choose different large language models (LLMs) optimized for various tasks.
 - [Tool orchestration](#tool-orchestration): Combine multiple tools for automated workflows.
-- [Prompt engineering](#prompt-engineering-and-customization): Finetune agent behavior using custom prompts.
+- [Prompt engineering](#prompt-engineering-and-customization): Fine-tune agent behavior using custom prompts.
 
 ## Model configuration
 
@@ -61,7 +61,7 @@ The following OpenAI GPT models are supported.
 
 GPT-5 provides advanced reasoning capabilities and is recommended for production use cases.
 
-**Model registration:**
+**Model registration**:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -96,7 +96,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-**Reasoning modes:**
+**Reasoning modes**:
 
 - `minimal`: Fastest response time, suitable for simple use cases
 - `low`(recommended): Slightly more reasoning, suitable for most queries
@@ -112,7 +112,7 @@ Anthropic Claude models are available through Amazon Bedrock integration and pro
 
 #### Claude 4 Sonnet
 
-**Bedrock connector setup:**
+**Amazon Bedrock connector setup**:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -157,11 +157,11 @@ Each interface defines a default response schema and function call parser optimi
 
 ## Tool orchestration
 
-You must configure a QueryPlanningTool for agentic search. You can configure additional tools to extend your agent's functionality.
+You must configure a `QueryPlanningTool` for agentic search. You can configure additional tools to extend your agent's functionality.
 
 ### QueryPlanningTool
 
-The [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/) is required for agentic search functionality. It translates natural language queries into OpenSearch DSL.
+The [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/) is required for agentic search functionality. It translates natural language queries into OpenSearch query domain-specific language (DSL).
 
 ### Additional tools
 
@@ -246,7 +246,7 @@ If you don't specify an index in your search query, the search runs against all 
 
 Configure your agent's behavior and output format using custom prompts that guide the model's reasoning process.
 
-To customize the Query Planning tool prompt, see [Query Planning tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/).
+To customize the `QueryPlanningTool` prompt, see [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/query-planning-tool/).
 
 ### System prompt optimization
 
@@ -264,7 +264,7 @@ The agent must have the following output format:
 ```
 {% include copy.html %}
 
-**Custom prompt configuration:**
+**Custom prompt configuration**:
 
 When customizing prompts, ensure that both your system and user prompts guide the model to always return results in the preceding agent output format. Proper prompt engineering is crucial for consistent output formatting.
 

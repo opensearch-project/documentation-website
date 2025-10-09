@@ -27,7 +27,7 @@ The following table lists all available request fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`agent_steps_summary` | Boolean | Whether to include the agent's execution steps summary in the response. Available for conversational agents only. Optional. Default is `false`. 
+`agent_steps_summary` | Boolean | Whether to include the agent's execution step summary in the response. Available for conversational agents only. Optional. Default is `false`. 
 `dsl_query` | Boolean | Whether to include the generated DSL query in the response. Available for both conversational and flow agents. Optional. Default is `false`. 
 
 ## Response fields

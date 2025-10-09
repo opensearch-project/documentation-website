@@ -271,7 +271,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-The LLM uses the `template_description` as the only context to help it choose the best template to use when generating an OpenSearch DSL query based on the user-provided `question`. Make sure to provide a good description of the templates to help LLM make right choices. Note that the LLM doesn't directly populate template variables or render the template; instead, it analyzes the template's query structure and uses it as a guide to generate a new, contextually appropriate OpenSearch DSL query.
+The LLM uses the `template_description` as the only context to help it choose the best template to use when generating an OpenSearch DSL query based on the user-provided `question`. Make sure to provide a good description of the templates to help the LLM make appropriate choices. Note that the LLM doesn't directly populate template variables or render the template; instead, it analyzes the template's query structure and uses it as a guide to generate a new, contextually appropriate OpenSearch DSL query.
 
 For parameter descriptions, see [Register parameters](#register-parameters).
 
@@ -322,9 +322,9 @@ The following table lists all tool parameters that are available when registerin
 
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
-`model_id` | String | Required | The model ID of the large language model (LLM) used to generate the query DSL. When used within a `conversational` agent, if this value is not provided, the agent's own `llm.model_id` is used by default.
+`model_id` | String | Required | The model ID of the LLM used to generate the query DSL. When used within a `conversational` agent, if this value is not provided, the agent's own `llm.model_id` is used by default.
 `response_filter` | String | Optional | A JSONPath expression used to extract the generated query from the LLM's response.
-`generation_type` | String | Optional | Determines how queries are generated. Use `llmGenerated` to rely solely on the LLM's built-in knowledge, or `user_templates` to provide predefined search templates that guide query generation for consistent results. Default is `llmGenerated`
+`generation_type` | String | Optional | Determines how queries are generated. Use `llmGenerated` to rely solely on the LLM's built-in knowledge or `user_templates` to provide predefined search templates that guide query generation for consistent results. Default is `llmGenerated`.
 `query_planner_system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM.
 `query_planner_user_prompt` | String | Optional | A user prompt template that defines how the natural language question and context are presented to the LLM for query generation.
 `search_templates` | Array | Optional | Applicable only when `generation_type` is `user_templates`. A list of search templates that provide the LLM with predefined query patterns for generating query DSL. Each template must include a `template_id` (unique identifier) and `template_description` (explains the template's purpose and use case to help the LLM choose appropriately).
@@ -340,16 +340,16 @@ Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `question` | String | Required | A complete natural language query with all necessary context to generate OpenSearch DSL. Include the question, any specific requirements, filters, or constraints. Examples: `Find all products with price greater than 100 dollars`, `Show me documents about machine learning published in 2023`, `Search for users with status active and age between 25 and 35`.
 `index_name` | String | Required | The name of the index for which the query needs to be generated.
-`embedding_model_id` | String | Optional | The model ID to perform semantic search.
+`embedding_model_id` | String | Optional | The model ID used to perform semantic search.
 
 ## Customizing the prompts
 
 You can provide your own `query_planner_system_prompt` and `query_planner_user_prompt` to customize how the LLM generates OpenSearch DSL queries.
 
-When creating custom prompts, ensure that they include clear output formatting rules to work properly with agentic search. The system prompt should specify that the LLM must return only a valid JSON object without any additional text, code fences, or explanations.
+When creating custom prompts, ensure that they include clear output formatting rules so that they work properly with agentic search. The system prompt should specify that the LLM must return only a valid JSON object without any additional text, code fences, or explanations.
 {: .important}
 
-**Custom prompt configuration:**
+**Custom prompt configuration**:
 Provide your custom prompts during tool registration in agents as follows:
 ```json
 POST /_plugins/_ml/agents/_register

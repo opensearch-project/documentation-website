@@ -9,16 +9,16 @@ has_children: false
 
 # Using flow agents for agentic search
 
-Flow agents provide a streamlined alternative to conversational agents. While conversational agents use multiple tools for flexible, context-aware search, flow agents focus solely on query planning. This reduces LLM calls, improves response times, and lowers costs.
+Flow agents provide a streamlined alternative to conversational agents. While conversational agents use multiple tools for flexible, context-aware search, flow agents focus solely on query planning. This reduces large language model (LLM) calls, improves response times, and lowers costs.
 
-Flow agents are sufficient for most use cases. Use flow agents when low latency and cost efficiency are priorities, queries are simple, and conversation memory isn’t required. Use conversational agents for complex searches, multi-tool workflows, persistent context, or the highest query quality.
+Flow agents are sufficient for most use cases. Use flow agents when low latency and cost efficiency are priorities, queries are simple, and conversation memory isn't required. Use conversational agents for complex searches, multi-tool workflows, persistent context, or the highest query quality.
 
 Flow agents differ from conversational agents in the following ways:
 
-- Flow agents use only one tool---the Query Planning tool
-- You must explicitly specify the target index name in the search request
-- Flow agents don't provide agent step summaries or reasoning traces (only the generated DSL query is available when using the `agentic_context` response processor)
-- Flow agents don't have conversational memory and cannot maintain context across multiple interactions
+- Flow agents use only one tool---the `QueryPlanningTool`.
+- You must explicitly specify the target index name in the search request.
+- Flow agents don't provide agent step summaries or reasoning traces (only the generated query domain-specific language [DSL] query is available when using the `agentic_context` response processor).
+- Flow agents don't have conversation memory and cannot maintain context across multiple interactions.
 
 ## Step 1: Create a product index
 
@@ -68,7 +68,7 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-## Step 3: Create a model for the agent and Query Planning tool
+## Step 3: Create a model for the agent and QueryPlanningTool
 
 Register a single model that will be used by both the conversational agent and the `QueryPlanningTool`. This model analyzes natural language questions, coordinates tool usage, and generates the OpenSearch DSL. For available model options, see [Model configurations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration):
 
@@ -107,7 +107,7 @@ POST /_plugins/_ml/models/_register
 
 ## Step 4: Register a flow agent
 
-Next, register a flow agent. You must include a `response_filter` in the `QueryPlanningTool` parameters so the agent extracts the generated DSL correctly from your model provider's response.
+Next, register a flow agent. You must include a `response_filter` in the `QueryPlanningTool` parameters so the agent extracts the generated DSL correctly from your model provider's response:
 
 ```json
 POST /_plugins/_ml/agents/_register

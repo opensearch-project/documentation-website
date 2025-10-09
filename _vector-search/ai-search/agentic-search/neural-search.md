@@ -148,7 +148,7 @@ Next, configure agentic search.
 
 ### Step 2(a): Create a model for agentic search
 
-Register a model that will be used by both the conversational agent and the Query Planning tool:
+Register a model that will be used by both the conversational agent and the `QueryPlanningTool`:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -257,7 +257,7 @@ POST /research_papers/_search?search_pipeline=my_pipeline
 ```
 {% include copy-curl.html %}
 
-The agent successfully identifies that semantic search is needed. The `ext` object demonstrates that the Query Planner tool successfully generated a `neural` query using the embedding model ID. The response includes matching research papers ranked by semantic similarity:
+The agent successfully identifies that semantic search is needed. The `ext` object demonstrates that the `QueryPlanningTool` successfully generated a `neural` query using the embedding model ID. The response includes matching research papers ranked by semantic similarity:
 
 ```json
 {

@@ -9,7 +9,7 @@ has_children: false
 
 # Using conversational agents for agentic search
 
-Conversational agents provide advanced agentic search capabilities with detailed reasoning traces and conversation memory. Unlike flow agents runs tools sequentially and that only return the generated DSL query, conversational agents provide additional context through the `agentic_context` response processor, including a step-by-step reasoning summary and a memory ID for continuing conversations across multiple queries.
+Conversational agents provide advanced agentic search capabilities with detailed reasoning traces and conversation memory. Unlike flow agents, which run tools sequentially and only return the generated query domain-specific language (DSL) query, conversational agents provide additional context through the `agentic_context` response processor, including a step-by-step reasoning summary and a memory ID for continuing conversations across multiple queries.
 
 This guide demonstrates how to configure conversational agents with multiple tools and use their advanced features for complex search scenarios. 
 
@@ -63,7 +63,7 @@ POST _bulk
 
 ## Step 3: Create a model
 
-Review [model configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration) and choose a model to use.
+Review the [model configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration) and choose a model to use.
 
 Here we register a GPT model that will be used by both the conversational agent and the `QueryPlanningTool`:
 
@@ -101,9 +101,9 @@ POST /_plugins/_ml/models/_register
 
 ## Step 4: Register an agent
 
-Register a conversational agent with multiple tools---`ListIndexTool` to discover available indexes, `IndexMappingTool` to understand index structure, `WebSearchTool` for external data access, and the required `QueryPlanningTool` to generate OpenSearch DSL:
+Register a conversational agent with multiple tools---`ListIndexTool` to discover available indexes, `IndexMappingTool` to understand index structure, `WebSearchTool` for external data access, and the required `QueryPlanningTool` to generate OpenSearch DSL.
 
-See [Customizing agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) for advanced configurations. The agent must include a `QueryPlanningTool`.
+See [Customizing agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) for advanced configurations. The agent must include a `QueryPlanningTool`:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -377,7 +377,7 @@ GET /_search?search_pipeline=agentic-pipeline
 ```
 {% include copy-curl.html %}
 
-The first query will likely generate a more complex DSL with sorting and aggregations, while the second will be simpler. Use specific terms like "sort by", "aggregate", "filter by", "group by", etc. to guide the agent's query generation.
+The first query will likely generate more complex DSL with sorting and aggregations, while the second will be simpler. Use specific terms like "sort by", "aggregate", "filter by", "group by", etc. to guide the agent's query generation.
 
 ## Next steps
 

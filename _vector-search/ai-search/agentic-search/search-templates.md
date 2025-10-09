@@ -9,19 +9,19 @@ has_children: false
 
 # Adding search templates
 
-The Query Planning tool can accept a list of [search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/) during its registration. During search, the Query Planning tool chooses an appropriate search template based on the user's question and template descriptions, and the large language model (LLM) generates a query based on the selected search template. 
+The `QueryPlanningTool` can accept a list of [search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/) during its registration. During search, the `QueryPlanningTool` chooses an appropriate search template based on the user's question and template descriptions, and the large language model (LLM) generates a query based on the selected search template. 
 
 This approach allows you to solve complex use cases that would otherwise be challenging for the LLM alone:
 
-- Enhances query response consistency in agentic search. The major portion of the DSL query is provided by the search template, with only minor parts or placeholders filled by the LLM.
-- Handles complex use cases, in which the LLM struggles to generate correct queries.
+- Enhances query response consistency in agentic search. Most of the query domain-specific language (DSL) query is provided by the search template, with only minor portions or placeholders provided by the LLM.
+- Handles complex use cases in which the LLM struggles to generate correct queries.
 - Ensures predictable query structure and naming conventions.
 
 ## Best practices
 
 When creating search templates for agentic search, follow these guidelines:
 
-- Write detailed descriptions for each template to help the LLM choose correctly.
+- Write detailed descriptions for each template to help the LLM choose appropriately.
 - Use descriptive placeholder names that clearly indicate what should be filled.
 - Create templates for different query patterns you commonly use.
 - Validate that templates work correctly with various inputs before deployment.
@@ -127,7 +127,7 @@ POST /_scripts/store_sum_skus
 ```
 {% include copy-curl.html %}
 
-Register a search template that counts stores in a city having at least a minimum quantity of a specific SKU:
+Register a search template that counts stores in a city that have at least a minimum quantity of a specific SKU:
 
 ```json
 POST /_scripts/stores_with_give_sku
@@ -169,13 +169,13 @@ POST /_scripts/stores_with_give_sku
 ```
 {% include copy-curl.html %}
 
-## Step 4: Register an agent with the Query Planning tool
+## Step 4: Register an agent with the QueryPlanningTool
 
-Next, register an agent with the Query Planning tool, and configure the tool to use your search templates.
+Next, register an agent with the `QueryPlanningTool`, and configure the tool to use your search templates.
 
-### Step 4(a): Create a model for the agent and Query Planning tool
+### Step 4(a): Create a model for the agent and QueryPlanningTool
 
-Register a model for both the conversational agent and the Query Planning tool:
+Register a model for both the conversational agent and the `QueryPlanningTool`:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -212,7 +212,7 @@ POST /_plugins/_ml/models/_register
 
 ### Step 4(b): Register an agent with search templates
 
-Register an agent with the Query Planning tool configured to use your search templates:
+Register an agent with the `QueryPlanningTool` configured to use your search templates:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -363,7 +363,7 @@ Without search templates, complex queries involving advanced aggregations and sc
 
 </details>
 
-However, with search templates, the agent can handle sophisticated queries by selecting the appropriate template and filling in the parameters. The LLM correctly identifies and uses the `store_sum_skus` template, fills the template parameters (such as `city: "Seattle"` and `sku1: "iphone_17_air"`), and generates a valid query with nested aggregations and bucket selectors. The response contains stores (`S-SEA-002` and `S-SEA-003`) with combined inventory ≥ 30 units:
+However, with search templates, the agent can handle sophisticated queries by selecting the appropriate template and filling in the parameters. The LLM correctly identifies and uses the `store_sum_skus` template, fills the template parameters (such as `city: "Seattle"` and `sku1: "iphone_17_air"`), and generates a valid query with nested aggregations and bucket selectors. The response contains stores (`S-SEA-002` and `S-SEA-003`) with a combined inventory of ≥ 30 units:
 
 ```json
 {
@@ -472,6 +472,6 @@ However, with search templates, the agent can handle sophisticated queries by se
 }
 ```
 
-## Related articles
+## Related documentation
 
 - [Search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/)
