@@ -8,7 +8,7 @@ has_children: false
 
 # Configuring anomaly alerting
 
-Once you've created an [anomaly detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/), you can configure alerting to be notified when anomalies occur. To configure alerting, create an [alert monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/), shown in the following image. For steps to create an alert monitor, see [Creating an alert monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/#creating-an-alert-monitor).
+Once you've created an [anomaly detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/), you can configure alerting to be notified when anomalies occur. To configure alerting, create an [alert monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/), shown in the following image. For instructions on how to to create an alert monitor, see [Creating an alert monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/#creating-an-alert-monitor).
 
 <img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/alerting_editor.png" alt="Alerting editor" width="800" height="800">
 
@@ -165,7 +165,7 @@ Note the following key configuration in the example alert monitor:
 
 - **`"size": 1`** in the search input: Retrieves a single document so you can reference `ctx.results.0.hits.hits.0` in the notification to identify which entity (such as `host` or `service`) triggered the alert.
 
-- **`execution_end_time` range `"{{period_end}}||-2m"` → `"{{period_end}}"`**: Filters results based on detector `execution_end_time`---the time the detector finishes running and indexes the result. Because OpenSearch operates in near-real-time (results are not immediate), indexing and refresh operations introduce a delay before a document becomes searchable. To account for this write-to-search latency, this example includes a small overlap (`-2m`). Specify the overlap based on your system's worst-case delay. Avoid using `data_end_time` (the bucket’s logical end), which can miss results that arrive later.
+- **`execution_end_time` range `"{{period_end}}||-2m"` → `"{{period_end}}"`**: Filters results based on detector `execution_end_time`---the time the detector finishes running and indexes the result. Because OpenSearch operates in near real time (results are not immediate), indexing and refresh operations introduce a delay before a document becomes searchable. To account for this write-to-search latency, this example includes a small overlap (`-2m`). Specify the overlap based on your system's worst-case delay. Avoid using `data_end_time` (the bucket's logical end), which can miss results that arrive later.
 
 - **`"indices": [".opendistro-anomaly-results*"]`**: Matches the default result index pattern. Update this pattern if you route results to a custom index, such as `opensearch-ad-plugin-result-abc*`.
 
@@ -173,7 +173,7 @@ Note the following key configuration in the example alert monitor:
 
 - **`"max_anomaly_grade"` aggregation**: Detects the most severe anomaly in the time window. You can use any field in the anomaly result index for aggregation. For additional fields, see the [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping/).
 
-- **Monitor schedule every 2 minutes**: Evaluates results every two minutes to detect anomalies quickly. Combined with a 2-minute alert throttle, this avoids duplicate notifications for the same event.
+- **Monitor schedule every 2 minutes**: Evaluates results every 2 minutes to detect anomalies quickly. Combined with a 2-minute alert throttle, this avoids duplicate notifications for the same event.
 
 - **Trigger condition `max_anomaly_grade.value > 0.7 && confidence > 0.7`**: Sets appropriate thresholds that reliably indicate anomalies. Adjust these values based on your tolerance for false positives and negatives.
 

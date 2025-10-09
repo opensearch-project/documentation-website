@@ -23,7 +23,7 @@ Before getting started, you must have:
 
 ## General requirements for anomaly detection visualizations
 
-Anomaly detection visualizations are displayed as time-series charts that give you a snapshot of when anomalies have occurred from different anomaly detectors you have configured for the visualization. You can display up to 10 metrics on your chart, and each series can be shown as a line on the chart. Note that only real-time anomalies will be visible on the chart. For more information about real-time and historical anomaly detection, see [Anomaly detection, Step 3: Set up detector jobs]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/#step-3-set-up-detector-jobs).
+Anomaly detection visualizations are displayed as time-series charts that give you a snapshot of when anomalies have occurred. You can display up to 10 metrics on your chart, and each series can be shown as a line on the chart. Note that only real-time anomalies will be visible on the chart. For more information about real-time and historical anomaly detection, see [Anomaly detection, Step 3: Set up detector jobs]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/#step-3-set-up-detector-jobs).
 
 Keep in mind the following requirements when setting up or creating anomaly detection visualizations. The visualization:
 

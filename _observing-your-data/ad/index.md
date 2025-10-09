@@ -223,7 +223,7 @@ The interval must be large enough that you rarely miss data. The model uses shin
 
 ##### Frequency (Optional)
 
-Specifies how often the job queries, scores, and writes results. Shorter values provide more real-time updates at higher cost, while longer values reduce load but slow updates. Frequency must be a multiple of the interval and defaults to the interval value.
+Specifies how often the job queries, scores, and writes results. Shorter values provide more real-time updates at a higher cost, while longer values reduce load but slow down updates. Frequency must be a multiple of the interval and defaults to the interval value.
 
 If you're unsure, leave this field blank---the job will use the interval value by default.
 
@@ -235,28 +235,28 @@ If you're unsure, leave this field blank---the job will use the interval value b
   - **Trade-offs**: Increased detection delay---an anomaly in a 1-minute bucket may only be reported when the batch run is executed.
   - **Best for**: Cost and load control, compliance and audit.
 
-2. **Aligning with infrequent or batch log ingestion**: When logs arrive irregularly or in batches (for example, once per day from S3, or IoT devices that upload in bursts). Running the detector every minute would mostly yield empty results and wasted cycles. Configure the frequency closer to the data arrival rate (for example, one day) so each search is more likely to find new data. When timestamps are irregular and low-volume (as is common with sporadic logs), interim results tend to be harmful to accuracy as our RCF model is stateful and assumes strict ascending order of timestamps. By using a less frequent schedule, you effectively let the job wait for complete data rather than repeatedly checking an empty index.
+2. **Aligning with infrequent or batch log ingestion**: When logs arrive irregularly or in batches (for example, once per day from S3, or IoT devices that upload in bursts). Running the detector every minute would mostly yield empty results and wasted cycles. Configure the frequency closer to the data arrival rate (for example, 1 day) so each search is more likely to find new data. When timestamps are irregular and low in volume (as is common with sporadic logs), interim results tend to be harmful to accuracy, as the RCF model is stateful and assumes strict ascending order of timestamps. By using a less frequent schedule, you effectively let the job wait for complete data rather than repeatedly checking an empty index.
 
-   - **Benefits**: Reduced pointless queries and CPU overhead; improved efficiency and more accurate results—anomalies will be evaluated once the batch of logs arrives, with minimal risk of false interim anomalies
-   - **Trade-offs**: Less frequent anomaly evaluation
-   - **Best for**: Batch jobs and sporadic log ingestion patterns
+   - **Benefits**: Reduced pointless queries and CPU overhead; improved efficiency and more accurate results—anomalies will be evaluated once the batch of logs arrives, with minimal risk of false interim anomalies.
+   - **Trade-offs**: Less frequent anomaly evaluation.
+   - **Best for**: Batch jobs and sporadic log ingestion patterns.
 
 ##### Window delay (Optional)
 
 To add extra processing time for data collection, specify a **Window delay** value. This signals to the detector that data is not ingested into OpenSearch in real time but with a certain delay.
 
-**How it works:**
+**How it works**:
 
 Set the window delay to shift the detector interval to account for ingestion delay. For example:
 - Detector interval: 10 minutes
 - Data ingestion delay: 1 minute
 - Detector runs at: 2:00 PM
 
-Without window delay, the detector attempts to get data from 1:50–2:00 PM but only gets 9 minutes of data, missing data from 1:59–2:00 PM. Setting window delay to 1 minute shifts the interval window to 1:49–1:59 PM, ensuring the detector captures all 10 minutes of data.
+Without a window delay, the detector attempts to get data from 1:50–2:00 PM but only gets 9 minutes of data, missing data from 1:59–2:00 PM. Setting the window delay to 1 minute shifts the interval window to 1:49–1:59 PM, ensuring the detector captures all 10 minutes of data.
 
-**Best practices:**
-- Set **Window delay** to the upper limit of expected ingestion delay to avoid missing data
-- Balance data accuracy with timely detection—too long of a delay hinders real-time anomaly detection
+**Best practices**:
+- Set **Window delay** to the upper limit of expected ingestion delay to avoid missing data.
+- Balance data accuracy with timely detection—too long of a delay hinders real-time anomaly detection.
 
 ##### History (Optional)
 
@@ -266,8 +266,8 @@ Sets the number of historical data points used to train the initial (cold-start)
 
 Both **frequency** and **window delay** address ingestion delay but work better for different data patterns:
 
-- **Window delay**: Best for streaming data (continuous trickle).
-- **Frequency**: Best for batch data (periodic drops).
+- **Window delay**: Best for streaming data (continuous trickle)
+- **Frequency**: Best for batch data (periodic drops)
 
 **Example scenarios**:
 
@@ -279,17 +279,17 @@ Both **frequency** and **window delay** address ingestion delay but work better 
       - The `Day-2 00:02` run processes `Day-1 00:02` data.
       - ...
       - The `Day-2 23:59` run processes `Day-1 23:59` data.
-   - **Why this fits**: Each minute's data arrives with a predictable 24-hour delay. Setting a one-day window delay ensures each record is processed at its intended timestamp while keeping the workload incremental.
+   - **Why this fits**: Each minute's data arrives with a predictable 24-hour delay. Setting a 1-day window delay ensures each record is processed at its intended timestamp while keeping the workload incremental.
 
 - **Example B -- All of `Day-1`'s data arrives at `Day-2 00:00` → use a daily frequency**:
-   - **Pattern:** No data appears during `Day-1`; instead, a single batch containing all 1,440 minutes of data arrives at `Day-2 00:00`.
-   - **Configuration:** `interval = 1 min`, `frequency = 1 day` (process the full day at once).
+   - **Pattern**: No data appears during `Day-1`; instead, a single batch containing all 1,440 minutes of data arrives at `Day-2 00:00`.
+   - **Configuration**: `interval = 1 min`, `frequency = 1 day` (process the full day at once).
    *(Tip: Add a small `window_delay`—for example, 1–5 minutes—to account for indexing or refresh lag.)*
-   - **Effect:**
-      - **Best case:** If the detector starts around `00:00`, the `Day-2 00:00` run processes all of `Day-1`'s data right after it arrives.
-      - **Worst case:** If the detector starts around `23:59`, the daily run won't occur until `Day-2 23:59`, roughly `24 hours` after the drop.
-      - **General rule:** For a midnight data drop, the extra wait equals your detector's daily start time.
-   - **Why this works:** Because the entire day's data becomes available at once, a single daily run is much more efficient than processing data minute by minute.
+   - **Effect**:
+      - **Best case**: If the detector starts around `00:00`, the `Day-2 00:00` run processes all of `Day-1`'s data right after it arrives.
+      - **Worst case**: If the detector starts around `23:59`, the daily run won't occur until `Day-2 23:59`, roughly `24 hours` after the drop.
+      - **General rule**: For a midnight data drop, the extra wait equals your detector's daily start time.
+   - **Why this works**: Because the entire day's data becomes available at once, a single daily run is much more efficient than processing data minute by minute.
 
 The following diagram illustrates the timing differences between using window delay and using frequency to handle a 1-day ingestion delay. The timeline shows Day-1 ingestion (top), Day-2 processing with `window_delay = 1 day` (middle, continuous band), and a single daily run when `frequency = 1 day` (bottom, vertical bar). Depending on when you start the detector, a daily frequency can fire just after Day-1 ends (best case, minimal extra delay) or much later (worst case, up to ~+1 day). The job runs every day at approximately the time you first started it.
 
@@ -381,15 +381,15 @@ For example, if you have a detector with the category fields `ip` and `endpoint`
 
 ## Step 6: Set up alerts
 
-Under **Real-time results**, select **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Configuring anomaly alerting]({{site.url}}{{site.baseurl}}/observing-your-data/ad/managing-anomalies/).
+Under **Real-time results**, select **Set up alerts** and configure a monitor to notify you when anomalies are detected. For instructions on how to create a monitor and set up notifications based on your anomaly detector, see [Configuring anomaly alerting]({{site.url}}{{site.baseurl}}/observing-your-data/ad/managing-anomalies/).
 
 If you stop or delete a detector, make sure to delete any monitors associated with it.
 
-## Viewing and updating detector configuration
+## Viewing and updating the detector configuration
 
 To view all the configuration settings for a detector, select the **Detector configuration** tab.
 
-1. To make any changes to the detector configuration, or finetune the time interval to minimize any false positives, go to the **Detector configuration** section and select **Edit**.
+1. To make any changes to the detector configuration or fine-tune the time interval to minimize any false positives, go to the **Detector configuration** section and select **Edit**.
    You must stop real-time and historical analysis to change the detector's configuration. Confirm that you want to stop the detector and proceed.
    {: .important}
 2. To enable or disable features, in the **Features** section, select **Edit** and adjust the feature settings as needed. After you make your changes, select **Save and start detector**.
