@@ -83,7 +83,7 @@ cd deployment/cdk/opensearch-service-migration
   Retry the last build command. Some downstream container images are rate-limited and may change over time.
 
 * **Cannot pull base images**
-  Ensure the instance has internet egress (NAT/IGW) and access to Docker Hub/ECR as required.
+  Ensure that the instance has internet egress (NAT/IGW) and access to Docker Hub/ECR as required.
 
 * **Gradle cache corruption**
   If problems persist after `./gradlew clean`, also remove `~/.gradle/caches` and retry.
