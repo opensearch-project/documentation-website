@@ -33,12 +33,18 @@ Before using this API, ensure that you have fulfilled the following prerequisite
 
 Follow these steps to set up your cluster.
 
-> The Predict Stream Agent API depends on the following plugins, which are included in the default OpenSearch distribution:
-> - `transport-reactor-netty4`
-> - `arrow-flight-rpc`
-{: .note}
+#### Step 1: Install the required plugins
 
-#### Step 1: Configure OpenSearch settings
+The Execute Stream Agent API depends on the following plugins, which are included in the OpenSearch distribution but must be explicitly installed as follows:
+
+```bash
+bin/opensearch-plugin install transport-reactor-netty4
+bin/opensearch-plugin install arrow-flight-rpc
+```
+
+For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+
+#### Step 2: Configure OpenSearch settings
 
 Add these settings to your `opensearch.yml` file or Docker Compose configuration:
 
@@ -62,7 +68,7 @@ flight.ssl.enable: true
 
 For more information about enabling experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
-#### Step 2: Configure JVM options
+#### Step 3: Configure JVM options
 
 Add these settings to your `jvm.options` file:
 
