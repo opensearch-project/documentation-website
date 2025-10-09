@@ -35,7 +35,7 @@ Optionally, you can control the number of retained versions by specifying the fo
 plugins.security.config_version.retention_count: 10
 ```
 
-The default retention count is <!-- add default number of versions --> versions, with a valid range of <!-- add the range for the number of versions --> versions. When the retention limit is reached, <!-- what happens? For example, "the oldest versions are automatically removed to make space for new ones." -->
+The default retention count is 10 versions, with a valid range of v1 to vN versions. When the retention limit is reached, the oldest version is automatically removed to make space for new one version
 
 After modifying `opensearch.yml`, restart your OpenSearch cluster for the changes to take effect. For more information, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
@@ -75,9 +75,17 @@ GET /_plugins/_security/api/version/v2
 
 ### Example response
 
-<!-- add example response -->
-
 ```json
+{
+  "versions": [
+    {
+      "version_id": "v2",
+      "timestamp": "2025-05-23T06:56:20.081933886Z",
+      "modified_by": "admin",
+      "security_configs": {...}
+    }
+  ]
+}
 ```
 
 ### Response body fields
@@ -86,9 +94,13 @@ The following table lists all response body fields for viewing a specific versio
 
 <!-- fill in the table -->
 
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| | | |
+| Field            | Data type | Description                                                                               |
+|:-----------------|:----------|:------------------------------------------------------------------------------------------|
+| versions         | Array     | Array of security configuration versions                                                  |
+| version_id       | String    | Version of security configuration                                                         |
+| timestamp        | Datetime  | Timestamp of security configuration change                                                |
+| modified_by      | String    | User who modified security configuration                                                  |
+| security_configs | String    | Security configuration for a particular version. It holds all the security configurations |
 
 ## View all versions
 
@@ -109,9 +121,23 @@ GET /_plugins/_security/api/versions
 
 ### Example response
 
-<!-- add example response -->
-
 ```json
+{
+  "versions": [
+    {
+      "version_id": "v1",
+      "timestamp": "2025-05-22T08:46:11.887620466Z",
+      "modified_by": "admin",
+      "security_configs": {...}
+    },
+    {
+      "version_id": "v2",
+      "timestamp": "2025-05-23T06:56:20.081933886Z",
+      "modified_by": "admin",
+      "security_configs": {...}
+    }
+  ]
+}
 ```
 
 ### Response body fields
@@ -122,19 +148,15 @@ The following table lists all response body fields for viewing all versions.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| | | |
+| versions         | Array     | Array of security configuration versions                                                  |
+| version_id       | String    | Version of security configuration                                                         |
+| timestamp        | Datetime  | Timestamp of security configuration change                                                |
+| modified_by      | String    | User who modified security configuration                                                  |
+| security_configs | String    | Security configuration for a particular version. It holds all the security configurations |
 
 ## Roll back to previous version
 
 Use this endpoint to restore the security configuration to the immediately preceding version.
-
-<!-- add a warning if necessary 
-
-
-**Warning**: Rolling back security configurations affects cluster-wide security settings. Ensure you understand the implications before proceeding.
-{: .warning }
-
--->
 
 ### Endpoint
 
@@ -151,32 +173,27 @@ POST /_plugins/_security/api/version/rollback
 
 ### Example response
 
-<!-- add example response -->
+Assuming there are 5 versions and v4 is the preceding version
 
 ```json
+{
+  "status" : "OK",
+  "message" : "config rolled back to version v4"
+}
 ```
 
 ### Response body fields
 
 The following table lists all response body fields for rollback operations.
 
-<!-- fill in the table -->
-
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| | | |
+| status  | String    | Rollback status                   |
+| message | String    | Description of rollback operation |
 
 ## Roll back to a specific version
 
 Use this endpoint to restore the security configuration to a specified version.
-
-<!-- add a warning if necessary 
-
-
-**Warning**: Rolling back security configurations affects cluster-wide security settings. Ensure you understand the implications before proceeding.
-{: .warning }
-
--->
 
 ### Endpoint
 
@@ -187,42 +204,36 @@ POST /_plugins/_security/api/version/rollback/<version_id>
 ### Example request
 
 ```json
-POST /_plugins/_security/api/version/rollback/v1
+POST /_plugins/_security/api/version/rollback/v2
 ```
 {% include copy-curl.html %}
 
 ### Example response
 
-<!-- add example response -->
-
 ```json
+{
+  "status" : "OK",
+  "message" : "config rolled back to version v2"
+}
 ```
 
 ### Response body fields
 
 The following table lists all response body fields for rollback operations.
 
-<!-- fill in the table -->
-
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| | | |
+| Field   | Data type | Description                       |
+|:--------|:----------|:----------------------------------|
+| status  | String    | Rollback status                   |
+| message | String    | Description of rollback operation |
 
 ## Required permissions
 
 Ensure that you have the appropriate permissions for the operations you want to perform.
 
-<!-- specify the permissions needed for each operation, for example:
-
 | Operation | Required Permission |
 | :--- | :--- |
-| View versions | `cluster:admin/...` |
-| Roll back configuration | `cluster:admin/...` |
+| View versions | `restapi:admin/view_version` |
+| Rollback configuration | `restapi:admin/rollback_version` |
 
 These permissions are included in the default `security_manager` and `all_access` roles.
-
--->
-
-## Limitations
-
-<!-- any limitations? For example, does rolling back affect audit logs or other historical data? -->
+These API follow same [access control]({{site.url}}{{site.baseurl}}/access-control/api/#access-control-for-the-api) like any other security API.
