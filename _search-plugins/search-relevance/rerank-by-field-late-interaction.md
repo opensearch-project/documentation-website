@@ -320,7 +320,17 @@ GET /multimodal_docs/_search?search_pipeline=colpali_search_pipeline
 ```
 {% include copy-curl.html %}
 
-You will get the sample response as following:
+When you run this search request, OpenSearch executes the following steps:
+
+1. **Query processing**: The search text (`"financial data charts"`) is sent to the ColPali model, which generates query vectors.
+
+1. **k-NN retrieval**: The mean-pooled query vector (`query_knn_vector`) performs approximate k-NN search to retrieve the top 100 candidate documents. This step prioritizes speed.
+
+1. **Late interaction reranking**: Multi-vectors (`query_colbert_vectors`) are used with the `lateInteractionScore` function to rerank results based on fine-grained token-level matching. This step prioritizes accuracy.
+
+1. **Final results**: The top 10 documents are returned, ranked by their late interaction scores.
+
+This hybrid approach balances speed and accuracy, making it suitable for production search systems. The response contains documents reranked based on their semantic similarity to the query, with late interaction scoring providing more nuanced relevance than traditional vector search alone:
 
 ```json
 {
@@ -374,21 +384,6 @@ You will get the sample response as following:
 }
 
 ```
-
-
-When you run this search request, OpenSearch executes the following steps:
-
-1. **Query processing**: The search text (`"financial data charts"`) is sent to the ColPali model, which generates query vectors.
-
-1. **k-NN retrieval**: The mean-pooled query vector (`query_knn_vector`) performs approximate k-NN search to retrieve the top 100 candidate documents. This step prioritizes speed.
-
-1. **Late interaction reranking**: Multi-vectors (`query_colbert_vectors`) are used with the `lateInteractionScore` function to rerank results based on fine-grained token-level matching. This step prioritizes accuracy.
-
-1. **Final results**: The top 10 documents are returned, ranked by their late interaction scores.
-
-This hybrid approach balances speed and accuracy, making it suitable for production search systems. The response contains documents reranked based on their semantic similarity to the query, with late interaction scoring providing more nuanced relevance than traditional vector search alone:
-
-<!-- include response -->
 
 ## Debugging and testing
 
