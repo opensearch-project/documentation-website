@@ -502,8 +502,28 @@ public class BulkClient {
                 .build();
 
         // Execute the bulk request
-        BulkResponse response = stub.bulk(request);
-        System.out.println("Bulk errors: " + response.getBulkResponseBody().getErrors());
+        try {
+            BulkResponse response = stub.bulk(request);
+
+            // Handle the response
+            if (response.hasBulkResponseBody()) {
+                BulkResponseBody responseBody = response.getBulkResponseBody();
+                System.out.println("Bulk errors: " + responseBody.getErrors());
+                System.out.println("Bulk took: " + responseBody.getTook() + " ms");
+
+                // Process individual items
+                for (Item item : responseBody.getItemsList()) {
+                    if (item.hasIndex()) {
+                        System.out.println("Index operation: " + item.getIndex().getStatus());
+                    } else if (item.hasDelete()) {
+                        System.out.println("Delete operation: " + item.getDelete().getStatus());
+                    }
+                }
+            }
+        } catch (io.grpc.StatusRuntimeException e) {
+            System.err.println("gRPC request failed with status: " + e.getStatus());
+            System.err.println("Error message: " + e.getMessage());
+        }
 
         channel.shutdown();
     }

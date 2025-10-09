@@ -105,9 +105,28 @@ public class KnnGrpcClient {
             .build();
 
         // Execute the search
-        SearchResponse response = searchStub.search(request);
+        try {
+            SearchResponse response = searchStub.search(request);
 
-        System.out.println("Found " + response.getResponseBody().getHits().getHitsCount() + " results");
+            // Handle the response
+            System.out.println("Search took: " + response.getTook() + " ms");
+
+            HitsMetadata hits = response.getHits();
+            if (hits.hasTotal()) {
+                System.out.println("Found " + hits.getTotal().getValue() + " results");
+            }
+
+            // Process k-NN results with similarity scores
+            for (HitsMetadataHitsInner hit : hits.getHitsList()) {
+                System.out.println("Document ID: " + hit.getXId());
+                if (hit.hasXScore()) {
+                    System.out.println("Similarity score: " + hit.getXScore().getDouble());
+                }
+            }
+        } catch (io.grpc.StatusRuntimeException e) {
+            System.err.println("gRPC k-NN search request failed with status: " + e.getStatus());
+            System.err.println("Error message: " + e.getMessage());
+        }
 
         channel.shutdown();
     }
