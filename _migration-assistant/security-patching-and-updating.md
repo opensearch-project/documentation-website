@@ -76,7 +76,6 @@ Redeploy the Migration Assistant to replace existing container images with the f
 
 cd deployment/cdk/opensearch-service-migration
 
----
 
 ## Troubleshooting
 
