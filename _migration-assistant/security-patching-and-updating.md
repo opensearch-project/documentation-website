@@ -52,7 +52,6 @@ From the repository root, run the following command to clean prior Gradle output
 ```
 {% include copy.html %}
 
----
 
 ## 4) Rebuild Migration Assistant images
 
