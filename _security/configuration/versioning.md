@@ -38,7 +38,7 @@ Optionally, you can control the number of retained versions by specifying the fo
 plugins.security.config_version.retention_count: 10
 ```
 
-The default retention count is `10` versions. When the retention limit is reached, the oldest version is automatically removed to make space for new one version
+The default retention count is `10` versions. When the retention limit is reached, the oldest version is automatically removed to make space for one new version.
 
 After modifying `opensearch.yml`, restart your OpenSearch cluster for the changes to take effect. For more information, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
@@ -145,7 +145,7 @@ GET /_plugins/_security/api/versions
 
 See [View a specific version response body fields](#response-body-fields).
 
-## Roll back to previous version
+## Roll back to the preceding version
 
 Use this endpoint to restore the security configuration to the immediately preceding version.
 
@@ -222,4 +222,4 @@ Ensure that you have the appropriate permissions for the operations you want to 
 | Roll back configuration | `restapi:admin/rollback_version` |
 
 These permissions are included in the default `security_manager` and `all_access` roles.
-These API follow same [access control]({{site.url}}{{site.baseurl}}/access-control/api/#access-control-for-the-api) as all other Security APIs.
+These APIs use the same [access control]({{site.url}}{{site.baseurl}}/access-control/api/#access-control-for-the-api) as all other Security APIs.
