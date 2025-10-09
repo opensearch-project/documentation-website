@@ -14,7 +14,7 @@ System-generated search processors are processors that OpenSearch creates automa
 
 ## Enabling system-generated search processors
 
-To enable system-generated search processor creation, set the `cluster.search.enabled_system_generated_factories` cluster setting to `*` (all factories) or explicitly list the factories you want to enable. The following example enables `mmr_over_sample_factory` and `mmr_rerank_factory`:
+To enable system-generated search processor creation, set the `cluster.search.enabled_system_generated_factories` cluster setting to `*` (all factories) or explicitly list the factories you want to enable. The following example enables `mmr_over_sample_factory`, `mmr_rerank_factory`, and `semantic-highlighter`:
 
 ```json
 PUT _cluster/settings
@@ -22,7 +22,8 @@ PUT _cluster/settings
   "persistent": {
     "cluster.search.enabled_system_generated_factories": [
       "mmr_over_sample_factory",
-      "mmr_rerank_factory"
+      "mmr_rerank_factory",
+      "semantic-highlighter"
     ]
   }
 }
@@ -54,6 +55,7 @@ The following table lists the available system-generated search response process
 | Processor name | Processor factory name | Execution stage    | Trigger condition                                          | Description                                                                                                                               |
 | -------------- | ---------------------- | ------------------ | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `mmr_rerank`   | `mmr_rerank_factory`   | Runs before any user-defined response processors. | Triggered when a search request includes the `mmr` parameter in the `ext` object. See [Vector search with MMR reranking]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/vector-search-mmr/). | Reranks the oversampled results using MMR and reduces them to the original query size.  |
+| `semantic-highlighter` | `semantic-highlighter` | Runs after any user-defined response processors. | Triggered when a search request contains `semantic` type highlight with `options.batch_inference` set to `true`. See [Using semantic highlighting]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-highlighting-tutorial/). | Performs batch inference processing for semantic highlighting. |
 
 ## Limitations
 
