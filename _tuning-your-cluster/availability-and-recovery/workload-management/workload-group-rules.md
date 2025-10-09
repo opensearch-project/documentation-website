@@ -46,7 +46,7 @@ The response contains the rule ID:
 
 ## Attributes
 
-The `workload_group` feature type contains the following attributes. Each rule must contain as least one of these attributes.
+The `workload_group` feature type contains the following attributes. Each rule must contain at least one of these attributes.
 
 The table lists the attributes in order of priority, from highest to lowest. This priority is predefined and cannot be changed by the user. When multiple rules match a request, the rule containing the highest-priority attribute is applied.
 
@@ -62,7 +62,7 @@ The `workload_group` feature type contains the following parameters.
 
 | Parameter        | Data type | Description                                                                                             |
 |:-----------------|:----------|:--------------------------------------------------------------------------------------------------------|
-| attribute        | Object    | A rule must contain at least one attribute (`index_pattern`, `principal.username`, or `principal.role`) |
+| attribute        | Object    | A rule must contain at least one attribute (`index_pattern`, `principal.username`, or `principal.role`). |
 | `description`    | String    | A description of the rule.                                                                              |
 | `workload_group` | String    | The workload group ID to apply to the requests matching this rule.                                      |
 

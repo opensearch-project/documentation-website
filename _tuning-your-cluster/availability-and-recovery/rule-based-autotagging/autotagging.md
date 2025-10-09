@@ -109,7 +109,7 @@ In these examples, the `username` attribute has higher priority than the `index_
    * Rule 2: `username = admin`
    * Rule 3: `index_pattern = log123`
 
-   **Result:** Rule 2 applies because the `username` attribute has higher priority.
+   **Result**: Rule 2 applies because the `username` attribute has higher priority.
 
 2. **Example 2**
    A request matches two rules:
@@ -117,7 +117,7 @@ In these examples, the `username` attribute has higher priority than the `index_
    * Rule 1: `index_pattern = logs-prod-*`
    * Rule 2: `index_pattern = logs-*`
 
-   **Result:** Rule 1 applies because `logs-prod-*` is more specific than `logs-*`.
+   **Result**: Rule 1 applies because `logs-prod-*` is more specific than `logs-*`.
 
 3. **Example 3**
    A request matches two rules:
@@ -125,7 +125,7 @@ In these examples, the `username` attribute has higher priority than the `index_
    * Rule 1: `index_pattern = log` and `username = admin`
    * Rule 2: `username = admin`
 
-   **Result:** Rule 1 applies because it includes both the `index_pattern` and `username` attributes, making it a more specific match.
+   **Result**: Rule 1 applies because it includes both the `index_pattern` and `username` attributes, making it a more specific match.
 
 ## Workload management examples
 
