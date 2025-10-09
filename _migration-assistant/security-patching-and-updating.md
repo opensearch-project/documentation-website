@@ -21,7 +21,7 @@ sudo dnf upgrade --refresh -y
 ```
 {% include copy.html %}
 
-> **Note:** If the kernel or core libraries are updated, a reboot is often required.
+> **Note**: If the kernel or core libraries are updated, a reboot is often required.
 
 Reboot if required:
 
