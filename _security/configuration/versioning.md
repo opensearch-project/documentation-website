@@ -9,6 +9,9 @@ nav_order: 27
 **Introduced 3.3**
 {: .label .label-purple }
 
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
 The Security Configuration Versioning and Rollback API provides version control for OpenSearch security configurations, enabling administrators to track changes, maintain audit trails, and restore previous configurations when needed.
 
 This API automatically creates versions when security configurations change, allowing you to track the complete history of security configuration modifications, view detailed information about any previous version, and roll back to any previous configuration version, thus maintaining operational safety.
@@ -35,7 +38,7 @@ Optionally, you can control the number of retained versions by specifying the fo
 plugins.security.config_version.retention_count: 10
 ```
 
-The default retention count is 10 versions, with a valid range of v1 to vN versions. When the retention limit is reached, the oldest version is automatically removed to make space for new one version
+The default retention count is `10` versions. When the retention limit is reached, the oldest version is automatically removed to make space for new one version
 
 After modifying `opensearch.yml`, restart your OpenSearch cluster for the changes to take effect. For more information, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
@@ -92,15 +95,13 @@ GET /_plugins/_security/api/version/v2
 
 The following table lists all response body fields for viewing a specific version.
 
-<!-- fill in the table -->
-
 | Field            | Data type | Description                                                                               |
 |:-----------------|:----------|:------------------------------------------------------------------------------------------|
-| versions         | Array     | Array of security configuration versions                                                  |
-| version_id       | String    | Version of security configuration                                                         |
-| timestamp        | Datetime  | Timestamp of security configuration change                                                |
-| modified_by      | String    | User who modified security configuration                                                  |
-| security_configs | String    | Security configuration for a particular version. It holds all the security configurations |
+| `versions`         | Array     | A list of security configuration versions.                                                  |
+| `version_id`       | String    | The ID of the security configuration version.                                                        |
+| `timestamp`        | Datetime  | The timestamp of the security configuration change.                                                |
+| `modified_by`      | String    | The user who modified the security configuration.                                                  |
+| `security_configs` | String    | The security configuration for a particular version that contains all security configurations. |
 
 ## View all versions
 
@@ -142,17 +143,7 @@ GET /_plugins/_security/api/versions
 
 ### Response body fields
 
-The following table lists all response body fields for viewing all versions.
-
-<!-- fill in the table -->
-
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| versions         | Array     | Array of security configuration versions                                                  |
-| version_id       | String    | Version of security configuration                                                         |
-| timestamp        | Datetime  | Timestamp of security configuration change                                                |
-| modified_by      | String    | User who modified security configuration                                                  |
-| security_configs | String    | Security configuration for a particular version. It holds all the security configurations |
+See [View a specific version response body fields](#response-body-fields).
 
 ## Roll back to previous version
 
@@ -173,7 +164,7 @@ POST /_plugins/_security/api/version/rollback
 
 ### Example response
 
-Assuming there are 5 versions and v4 is the preceding version
+OpenSearch sends the following response when rolling back to the `v4` version from the `v5` version:
 
 ```json
 {
@@ -188,8 +179,8 @@ The following table lists all response body fields for rollback operations.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| status  | String    | Rollback status                   |
-| message | String    | Description of rollback operation |
+| `status`  | String    | The rollback status.                   |
+| message | String    | The rollback operation description. |
 
 ## Roll back to a specific version
 
@@ -219,21 +210,16 @@ POST /_plugins/_security/api/version/rollback/v2
 
 ### Response body fields
 
-The following table lists all response body fields for rollback operations.
-
-| Field   | Data type | Description                       |
-|:--------|:----------|:----------------------------------|
-| status  | String    | Rollback status                   |
-| message | String    | Description of rollback operation |
+See [Roll back to a specific version response body fields](#response-body-fields-2).
 
 ## Required permissions
 
 Ensure that you have the appropriate permissions for the operations you want to perform.
 
-| Operation | Required Permission |
+| Operation | Required permission |
 | :--- | :--- |
 | View versions | `restapi:admin/view_version` |
-| Rollback configuration | `restapi:admin/rollback_version` |
+| Roll back configuration | `restapi:admin/rollback_version` |
 
 These permissions are included in the default `security_manager` and `all_access` roles.
-These API follow same [access control]({{site.url}}{{site.baseurl}}/access-control/api/#access-control-for-the-api) like any other security API.
+These API follow same [access control]({{site.url}}{{site.baseurl}}/access-control/api/#access-control-for-the-api) as all other Security APIs.
