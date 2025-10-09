@@ -546,15 +546,20 @@ request = document_pb2.BulkRequest()
 request.index = "my-index"
 request.request_body.append(requestBody)
 
-# Send request
-response = document_stub.Bulk(request)
-channel.close()
-
-# Handle the response
-if response.errors:
-    print("Response items contain errors.")
-for item in response.items:
-    print(item)
-
+# Send request and handle response
+try:
+    response = document_stub.Bulk(request=request)
+    if response.items:
+        print("Received {} response items".format(len(response.items)))
+        print(response.items)
+except grpc.RpcError as e:
+    if e.code() == StatusCode.UNAVAILABLE:
+        print("Failed to reach server: {}".format(e))
+    elif e.code() == StatusCode.PERMISSION_DENIED:
+        print("Permission denied: {}".format(e))
+    elif e.code() == StatusCode.INVALID_ARGUMENT:
+        print("Invalid argument: {}".format(e))
+finally:
+    channel.close()
 ```
 {% include copy.html %}

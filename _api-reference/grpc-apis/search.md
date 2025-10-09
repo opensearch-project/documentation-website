@@ -497,18 +497,24 @@ request = search_pb2.SearchRequest(
     size=5
 )
 
-# Send request
-response = search_stub.Search(request)
-
-# Handle the response
-if response.hits:
-    print("Found {} hits".format(response.hits.total))
-    print(response.hits)
-elif response.timed_out or response.terminated_early:
-    print("Request timed out or terminated early")
-elif response.x_shards.failed:
-    print("Some shards failed to execute the search")
-    print(response.x_shards.failures)
-
-channel.close()
+# Send request and handle response
+try:
+    response = search_stub.Search(request=request)
+    if response.hits:
+        print("Found {} hits".format(response.hits.total))
+        print(response.hits)
+    elif response.timed_out or response.terminated_early:
+        print("Request timed out or terminated early")
+    elif response.x_shards.failed:
+        print("Some shards failed to execute the search")
+        print(response.x_shards.failures)
+except grpc.RpcError as e:
+    if e.code() == StatusCode.UNAVAILABLE:
+        print("Failed to reach server: {}".format(e))
+    elif e.code() == StatusCode.PERMISSION_DENIED:
+        print("Permission denied: {}".format(e))
+    elif e.code() == StatusCode.INVALID_ARGUMENT:
+        print("Invalid argument: {}".format(e))
+finally:
+    channel.close()
 ```
