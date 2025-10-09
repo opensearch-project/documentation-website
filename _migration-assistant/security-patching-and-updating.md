@@ -71,7 +71,7 @@ Redeploy the Migration Assistant to replace existing container images with the f
 cd deployment/cdk/opensearch-service-migration
 ./deploy.sh <contextId>
 
-> **Warning:** Redeployment will interrupt any running migration tasks (e.g., Capture Proxy, Replayer, or Reindex-from-Snapshot).
+> **Warning:** Redeployment will interrupt any running migration tasks (for example, Capture Proxy, Replayer, or Reindex-from-Snapshot).
 > Do **not** redeploy while actively migrating, as this can cause data loss or inconsistent state.
 
 ```shell
