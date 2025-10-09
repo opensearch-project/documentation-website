@@ -197,13 +197,13 @@ The top panel in the live queries view displays the following key real-time metr
 
 | Panel                    | Description                                                                 |
 | :---                     |:----------------------------------------------------------------------------|
-| **Active queries**        | The total number of queries currently executing in the cluster.             |
+| **Active queries**        | The total number of queries currently running in the cluster.             |
 | **Avg. elapsed time**     | The average execution time across all active queries.                       |
-| **Longest running query** | The query ID and elapsed time of the longest currently executing query.     |
+| **Longest running query** | The query ID and elapsed time of the longest currently running query.     |
 | **Total CPU time**        | The cumulative CPU time consumed by all active queries.                     |
 | **Total memory usage**    | The total memory consumed by all active queries.                            |
 | **Total completions**     | The number of queries that have successfully completed.                     |
-| **Total cancellations**   | The number of queries that were cancelled.           |
+| **Total cancellations**   | The number of queries canceled.           |
 | **Total rejections**      | The number of queries rejected. |
 
 
@@ -230,15 +230,15 @@ The live queries table lists the following information for each live query.
 | **Timestamp**        | The time at which the query started running.                                                                                                                              |
 | **Task ID**          | The unique identifier for the query task.                                                                                                                                 |
 | **Index**            | The index or indexes targeted by the query.                                                                                                                               |
-| **Node**             | The node currently executing the query.                                                                                                                                   |
-| **Time elapsed**     | The execution time for the query so far, in seconds.                                                                                                                      |
+| **Node**             | The node currently running the query.                                                                                                                                   |
+| **Time elapsed**     | The current execution time for the query, in seconds.                                                                                                                      |
 | **CPU usage**        | The cumulative CPU time consumed by the query.                                                                                                                            |
 | **Memory usage**     | The amount of memory consumed by the query during execution.                                                                                                              |
 | **Search type**      | The search execution method, such as `query_then_fetch`.                                                                                                                  |
 | **Coordinator node** | The node that coordinated the query execution.                                                                                                                            |
-| **WLM Group**        | The workload group associated with the query. Displayed as plain text if WLM is disabled, or as a clickable link to the **WLM Group Details** page associated with that query when WLM is enabled. |
-| **Status**           | The current status of the query. Can be `running` or `cancelled`.                                                                                                         |
-| **Actions**          | The available controls for the query, such as cancelling execution.                                                                                                       |
+| **WLM Group**        | The workload group associated with the query. Displayed as plain text if workload management (WLM) is disabled or as a clickable link to the **WLM Group Details** page associated with that query when WLM is enabled. |
+| **Status**           | The current status of the query. Values are `running` or `cancelled`.                                                                                                         |
+| **Actions**          | The available actions for the query, such as canceling execution.                                                                                                       |
 
 You can use the filter bar to search for queries by text or specific field values---such as node ID, index name, or task ID---and paginate the table to better analyze specific queries. The following image shows the live queries table view.
 
@@ -257,7 +257,7 @@ The **Workload Group selector** lets you filter and analyze active queries by wo
 - When **WLM is disabled**, only the `DEFAULT_WORKLOAD_GROUP` option is available.
 - When **WLM is enabled**, the dropdown lists all available workload groups.
 - Selecting a specific group filters the dashboard to show only queries running under that workload group.
-- The metrics panels (active queries, average elapsed time, CPU usage, memory usage, completions, cancellations, rejections) and the charts also update to reflect only the selected workload group.
+- The [metrics](#metrics-overview) panels and charts update to display only the selected workload group.
 
 ### Canceling live queries
 
