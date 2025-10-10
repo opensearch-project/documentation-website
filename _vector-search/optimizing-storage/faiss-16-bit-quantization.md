@@ -19,7 +19,7 @@ SIMD optimization is not supported on Windows. Using Faiss scalar quantization o
 
 ## Using Faiss scalar quantization
 
-To use Faiss scalar quantization, set the k-NN vector field's `method.parameters.encoder.name` to `fp16` when creating a vector index:
+To use Faiss scalar quantization, set the k-NN vector field's `method.parameters.encoder.name` to `sq` when creating a vector index:
 
 ```json
 PUT /test-index
@@ -41,7 +41,7 @@ PUT /test-index
           "engine": "faiss",
           "parameters": {
             "encoder": {
-              "name": "fp16"
+              "name": "sq"
             },
             "ef_construction": 256,
             "m": 8
