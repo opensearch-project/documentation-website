@@ -27,14 +27,28 @@ The scratchpad tools consist of `WriteToScratchPadTool` and `ReadFromScratchPadT
 
 ## Tool parameters
 
+The scratchpad tools have different parameter requirements depending on whether you're registering them with an agent or executing them directly.
+
 ### ReadFromScratchPadTool
+
+**Registration parameters** (when adding to an agent):
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `persistent_notes` | String | Optional | Initial notes or instructions to store in the scratchpad when first created
 
+**Execution parameters** (when calling the tool directly):
 
-You can directly use the tools API to execute ReadFromScratchPadTool and test the tool response before registering it with your agents.
+Parameter | Type | Required/Optional | Description
+:--- | :--- | :--- | :---
+`persistent_notes` | String | Optional | Initial notes or instructions to store in the scratchpad
+
+
+## Testing the tools
+
+You can directly use the tools API to execute both scratchpad tools and test their responses before registering them with your agents.
+
+### Testing ReadFromScratchPadTool
 
 ```json
 POST /_plugins/_ml/tools/_execute/ReadFromScratchPadTool
@@ -93,18 +107,20 @@ You will get a response about empty scratchpad.
 
 ### WriteToScratchPadTool
 
+**Registration parameters** (when adding to an agent):
+
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`notes` | String | Required (at execution) | The content to write to the scratchpad
 `return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation
 
-## Execute parameters
-
-When executing the scratchpad tools, provide the following parameters:
+**Execution parameters** (when calling the tool directly):
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`notes` | String | Optional | Specific notes to write to the scratchpad (when using WriteToScratchPadTool directly)
+`notes` | String | Required | The content to write to the scratchpad
+`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation
+
+### Testing WriteToScratchPadTool
 
 You can directly use the tools API to execute WriteToScratchPadTool and test the tool response before registering it with your agents.
 
