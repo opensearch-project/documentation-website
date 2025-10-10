@@ -49,4 +49,4 @@ cidr-allowlist-pipeline:
         index_type: custom
         index: "logs-%{yyyy.MM.dd}"
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
