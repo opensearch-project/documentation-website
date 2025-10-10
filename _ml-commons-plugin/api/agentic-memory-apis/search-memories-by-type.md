@@ -7,7 +7,7 @@ nav_order: 54
 ---
 
 # Search memories by type
-**Introduced 3.2**
+**Introduced 3.3**
 {: .label .label-purple }
 
 Use this API to search for memories of a specific type within a memory container. This unified API supports searching session, working, long-term, and history memory data.
@@ -27,14 +27,7 @@ GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/_searc
 
 ## Request fields
 
-The request body supports standard OpenSearch query DSL. Common fields include:
-
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `query` | Object | The search query using OpenSearch query DSL. Optional. |
-| `sort` | Array | Sort criteria for the results. Optional. |
-| `size` | Integer | Maximum number of results to return. Optional. |
-| `from` | Integer | Starting index for pagination. Optional. |
+The request body supports standard OpenSearch query DSL. 
 
 ## Example requests
 
