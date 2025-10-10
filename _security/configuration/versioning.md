@@ -57,7 +57,7 @@ The following table lists the available path parameters. All path parameters are
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `version_id` | String | The version identifier to view or roll back to (for example, `v1`, `v2`). Required for specific version operations. |
+| `version_id` | String | The version identifier to view or roll back to. Must start with `v` followed by a number (for example, `v1` or `v2`). Required for specific version operations. |
 
 ## View a specific version
 
