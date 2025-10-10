@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Processor Chain
-parent: Machine learning
-nav_order: 30
+has_children: false
+nav_order: 65
 ---
 
 # Processor Chain
