@@ -7,7 +7,7 @@ nav_order: 53
 ---
 
 # Delete memory by type and ID
-**Introduced 3.2**
+**Introduced 3.3**
 {: .label .label-purple }
 
 Use this API to delete a specific memory by its type and ID. This unified API supports deleting all memory types: session, working, long-term, and history memory data.
@@ -20,11 +20,11 @@ DELETE /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id
 
 ## Path parameters
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `memory_container_id` | String | The ID of the memory container. Required. |
-| `type` | String | The type of memory: "sessions", "working", "long-term", or "history". Required. |
-| `id` | String | The ID of the memory to delete. Required. |
+| Parameter | Data type | Required/Optional | Description |
+| :--- | :--- | :--- | :--- |
+| `memory_container_id` | String | Required | The ID of the memory container. |
+| `type` | String | Required | The type of memory: "sessions", "working", "long-term", or "history". |
+| `id` | String | Required | The ID of the memory to delete. |
 
 ## Example requests
 

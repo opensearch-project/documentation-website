@@ -7,7 +7,7 @@ nav_order: 51
 ---
 
 # Get memory by type and ID
-**Introduced 3.2**
+**Introduced 3.3**
 {: .label .label-purple }
 
 Use this API to retrieve a specific memory by its type and ID. This unified API supports four types of memory data: session, working, long-term, and history.
@@ -77,10 +77,7 @@ GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMxnTp
   },
   "metadata": {
     "status": "checkpoint",
-    "branch": {
-      "branch_name": "high",
-      "root_event_id": "228nadfs879mtgk"
-    }
+    "branch": "{\"root_event_id\":\"228nadfs879mtgk\",\"branch_name\":\"high\"}"
   },
   "infer": true,
   "tags": {
