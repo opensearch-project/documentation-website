@@ -29,8 +29,6 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-For more information and other ways to enable experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
-
 OpenSearch supports the following memory container APIs:
 
 - [Create memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/)
