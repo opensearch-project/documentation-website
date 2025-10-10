@@ -5,7 +5,7 @@ has_children: false
 nav_order: 65
 ---
 
-# Processor Chain
+# Processor chain
 **Introduced 3.3**
 {: .label .label-purple }
 
@@ -29,7 +29,7 @@ Processors execute in the order they appear in the array. Each processor receive
 Processors can be configured in different contexts:
 
 - **Tool outputs**: Add an `output_processors` array in the tool's `parameters` section
-- **Model ouputs**: Add an `ouput_processors` array in the model's `parameters` section during a `_predict` call
+- **Model outputs**: Add an `ouput_processors` array in the model's `parameters` section during a `_predict` call
 - **Model inputs**: Add an `input_processors` array in the model's `parameters` section of a `_predict` call
 
 For complete examples, see [Example usage with agents](#example-usage-with-agents) and [Example usage with models](#example-usage-with-models).
@@ -49,6 +49,7 @@ Processor | Description
 [`conditional`](#conditional) | Applies different processor chains based on conditions.
 [`process_and_set`](#process_and_set) | Applies a chain of processors to the input and sets the result at a specified JSONPath location.
 [`set_field`](#set_field) | Sets a field to a specified static value or copies a value from another field.
+[`for_each`](#for_each) | Iterates through array elements and applies a chain of processors to each element.
 
 ### to_string
 
@@ -73,7 +74,7 @@ Output: "{\"name\":\"test\",\"value\":123}"
 
 ### regex_replace
 
-Replaces text using regular expression patterns. For regex syntax details, see [OpenSearch regex syntax]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/).
+Replaces text using regular expression patterns. For regex syntax details, see [Java regex syntax](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
 **Parameters:**
 - `pattern` (string, required): Regular expression pattern to match
@@ -97,7 +98,7 @@ Output: "1,green,open,.plugins-ml-model\n2,red,closed,test-index"
 
 ### regex_capture
 
-Captures specific groups from regex matches. For regex syntax details, see [OpenSearch regex syntax]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/).
+Captures specific groups from regex matches. For regex syntax details, see [Java regex syntax](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
 **Parameters:**
 - `pattern` (string, required): Regular expression pattern with capture groups
@@ -169,13 +170,13 @@ Output: {"status": "success", "count": 5}
 Removes fields from JSON objects using JSONPath.
 
 **Parameters:**
-- `path` (string, required): JSONPath expression identifying fields to remove
+- `paths` (array, required): Array of JSONPath expressions identifying fields to remove
 
 **Example Configuration:**
 ```json
 {
   "type": "remove_jsonpath",
-  "path": "$.sensitive_data"
+  "paths": "[$.sensitive_data]"
 }
 ```
 
@@ -305,6 +306,51 @@ Sets a field to a specified static value or copies a value from another field.
 ```
 Input: {"user": {"id": 123}, "name": "John"}
 Output: {"user": {"id": 123}, "name": "John", "userId": 123, "metadata": {"processed_at": "2024-03-15T10:30:00Z"}}
+```
+
+### for_each
+
+Iterates through array elements and applies a chain of processors to each element. Useful for transforming array elements uniformly, such as adding missing fields, filtering content, or normalizing data structures.
+
+**Parameters:**
+- `path` (string, required): JSONPath expression pointing to the array to iterate over. Must use `[*]` notation for array elements
+- `processors` (array, required): List of processor configurations to apply to each array element
+
+**Behavior:**
+- Each element is processed independently with the configured processor chain
+- The output of the processor chain replaces the original element
+- If the path doesn't exist or doesn't point to an array, returns input unchanged
+- If processing an element fails, the original element is kept
+
+**Example Configuration:**
+```json
+{
+  "type": "for_each",
+  "path": "$.items[*]",
+  "processors": [
+    {
+      "type": "set_field",
+      "path": "$.processed",
+      "value": true
+    }
+  ]
+}
+```
+
+**Example Input/Output:**
+```
+Input: {
+  "items": [
+    {"name": "item1", "value": 10},
+    {"name": "item2", "value": 20}
+  ]
+}
+Output: {
+  "items": [
+    {"name": "item1", "value": 10, "processed": true},
+    {"name": "item2", "value": 20, "processed": true}
+  ]
+}
 ```
 
 ### Example usage with agents
