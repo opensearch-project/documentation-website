@@ -245,9 +245,9 @@ The following table lists all response body fields.
 
 | Field | Data type | Description                                                                                                 |
 | :--- | :--- |:------------------------------------------------------------------------------------------------------------|
-| `inference_results` | Array | Contains the streaming response data from the model.                                                        |
-| `inference_results.output` | Array | Contains the output objects for each inference result.                                                      |
-| `inference_results.output.name` | String | The name of the output field, typically `response`.                                                         |
-| `inference_results.output.dataAsMap` | Object | Contains the actual response data and metadata.                                                             |
+| `inference_results` | Array | Contains the streaming response data returned by the model.                                                        |
+| `inference_results.output` | Array | Contains output objects for each inference result.                                                      |
+| `inference_results.output.name` | String | The name of the output field (typically, `response`).                                                         |
+| `inference_results.output.dataAsMap` | Object | Contains the response content and metadata.                                                             |
 | `inference_results.output.dataAsMap.content` | String | The text content chunk from the model's response.                                                           |
-| `inference_results.output.dataAsMap.is_last` | Boolean | Indicates whether this is the final chunk in the stream. `true` for the last chunk, `false` for all others. |
+| `inference_results.output.dataAsMap.is_last` | Boolean | Indicates whether this is the final chunk in the stream: `true` for the last chunk, `false` if there are more chunks. |

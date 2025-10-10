@@ -276,10 +276,10 @@ The following table lists all response body fields.
 
 | Field | Data type | Description                                                                                                 |
 | :--- | :--- |:------------------------------------------------------------------------------------------------------------|
-| `inference_results` | Array | Contains the streaming response data from the agent.                                                        |
-| `inference_results.output` | Array | Contains the output objects for each inference result.                                                      |
+| `inference_results` | Array | Contains the streaming response data returned by the agent.                                                       |
+| `inference_results.output` | Array | Contains output objects for each inference result.                                                      |
 | `inference_results.output.name` | String | The name of the output field. Can be `memory_id`, `parent_interaction_id`, or `response`.                   |
-| `inference_results.output.result` | String | The result value for `memory_id` and `parent_interaction_id` fields.                                        |
-| `inference_results.output.dataAsMap` | Object | Contains the response data and metadata (only present for `response` output).                               |
-| `inference_results.output.dataAsMap.content` | String | The content from the agent's response, which can include tool calls, tool results, or final text response.  |
-| `inference_results.output.dataAsMap.is_last` | Boolean | Indicates whether this is the final chunk in the stream. `true` for the last chunk, `false` for all others. |
+| `inference_results.output.result` | String | The values of the `memory_id` and `parent_interaction_id` fields.                                        |
+| `inference_results.output.dataAsMap` | Object | Contains the response content and metadata (present only for a `response` output).                               |
+| `inference_results.output.dataAsMap.content` | String | The agent's response content, which can include tool calls, tool results, or final text output.  |
+| `inference_results.output.dataAsMap.is_last` | Boolean | Indicates whether this is the final chunk in the stream: `true` for the last chunk, `false` if there are more chunks. |
