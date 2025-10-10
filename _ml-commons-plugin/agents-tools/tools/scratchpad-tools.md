@@ -27,8 +27,6 @@ The scratchpad tools consist of `WriteToScratchPadTool` and `ReadFromScratchPadT
 
 ## Tool parameters
 
-The scratchpad tools have different parameter requirements depending on whether you're registering them with an agent or executing them directly.
-
 ### ReadFromScratchPadTool
 
 **Registration parameters** (when adding to an agent):
@@ -40,8 +38,8 @@ Parameter | Type | Required/Optional | Description
 **Execution parameters** (when calling the tool directly):
 
 Parameter | Type | Required/Optional | Description
-:--- | :--- | :--- | :---
-`persistent_notes` | String | Optional | Initial notes or instructions to store in the scratchpad
+:--- | :--- |:------------------| :---
+`persistent_notes` | String | Required          | Initial notes or instructions to store in the scratchpad
 
 
 ## Testing the tools
