@@ -151,4 +151,4 @@ Scaled float has an additional required parameter: `scaling_factor`.
 Parameter | Description 
 :--- | :--- 
 `scaling_factor` | A double value that is multiplied by the field value and rounded to the nearest long. Required.
-`skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, this creates indexed doc values that can improve performance for `range` queries by allowing the query engine to skip over irrelevant document ranges. Default is `false`. 
+`skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, OpenSearch creates indexed doc values that can improve performance for `range` queries by allowing the query engine to skip irrelevant document ranges. Default is `false`. 
