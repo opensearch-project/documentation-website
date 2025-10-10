@@ -67,7 +67,7 @@ transport.ssl.enforce_hostname_verification: false
 ```
 {% include copy.html %}
 
-If you're using the security demo certificates, update the setting from `plugins.security.ssl.transport.enforce_hostname_verification: false` to `transport.ssl.enforce_hostname_verification: false` in your `opensearch.yml` file.
+If you're using the security demo certificates, change `plugins.security.ssl.transport.enforce_hostname_verification: false` to `transport.ssl.enforce_hostname_verification: false` in your `opensearch.yml` file.
 {: .note}
 
 For more information about enabling experimental features, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
