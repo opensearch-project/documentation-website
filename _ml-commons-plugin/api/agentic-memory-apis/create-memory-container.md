@@ -15,6 +15,8 @@ Use this API to create a memory container to hold agentic memories. The containe
 - A text embedding model for vectorizing the message so it can be searched. Use a text embedding model for dense vector embeddings or a sparse encoding model for sparse vector formats. If no embedding model is specified, messages are stored but cannot be used for vector-based searches.
 - A large language model (LLM) for reasoning over the message to produce factual or processed content. If no LLM is specified, messages are stored directly, without applying inference.
 
+**Note**: LLM connectors must support `system_prompt` and `user_prompt` parameters for agentic memory processing. The default `llm_result_path` is configured for Bedrock Converse API format (`"$.output.message.content[0].text"`).
+
 Once a memory container is created, you'll provide its `memory_container_id` to other APIs.
 
 ## Prerequisites
@@ -171,13 +173,13 @@ Field | Data type | Required/Optional | Description
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`llm_result_path` | String | Optional | JSONPath to extract LLM results (e.g., `"$.output.message.content[0].text"`).
+`llm_result_path` | String | Optional | JSONPath to extract LLM results. Default is `"$.output.message.content[0].text"` for Bedrock Converse API format.
 
 ### The parameters object
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`llm_result_path` | String | Optional | Global JSONPath for extracting LLM results from responses.
+`llm_result_path` | String | Optional | Global JSONPath for extracting LLM results from responses. Default is `"$.output.message.content[0].text"` for Bedrock Converse API format.
 
 ## Example requests
 
