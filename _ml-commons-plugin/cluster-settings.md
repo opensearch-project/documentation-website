@@ -494,6 +494,51 @@ plugins.ml_commons.memory_feature_enabled: true
 - Default value: `true`
 - Valid values: `false`, `true`
 
+## Enable agentic memory
+
+When set to `true`, this setting enables agentic memory functionality, which provides advanced memory management for AI agents including session memory, working memory, long-term memory, and memory history with namespace-based organization.
+
+### Setting
+
+```yaml
+plugins.ml_commons.agentic_memory_enabled: true
+```
+
+### Values
+
+- Default value: `true`
+- Valid values: `false`, `true`
+
+## Set maximum memory containers per user
+
+Controls the maximum number of memory containers that can be created per user. When set to `0`, no memory containers can be created.
+
+### Setting
+
+```yaml
+plugins.ml_commons.max_memory_containers_per_user: 100
+```
+
+### Values
+
+- Default value: `100`
+- Value range: [0, 10,000]
+
+## Set maximum memories per container
+
+Controls the maximum number of memories that can be stored in a single memory container. When set to `0`, no memories can be added to any container.
+
+### Setting
+
+```yaml
+plugins.ml_commons.max_memories_per_container: 10000
+```
+
+### Values
+
+- Default value: `10,000`
+- Value range: [0, 1,000,000]
+
 
 ## Enable RAG pipeline
 

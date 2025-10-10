@@ -7,7 +7,7 @@ nav_order: 52
 ---
 
 # Update memory by type and ID
-**Introduced 3.2**
+**Introduced 3.3**
 {: .label .label-purple }
 
 Use this API to update a specific memory by its type and ID. This unified API supports updating session, working, and long-term memory data. History memory does not support updates.

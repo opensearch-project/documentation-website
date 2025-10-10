@@ -7,7 +7,7 @@ nav_order: 25
 ---
 
 # Search memory containers
-**Introduced 3.2**
+**Introduced 3.3**
 {: .label .label-purple }
 
 Use this API to search for memory containers using OpenSearch query DSL.
@@ -21,14 +21,7 @@ POST /_plugins/_ml/memory_containers/_search
 
 ## Request fields
 
-The request body supports standard OpenSearch query DSL. Common fields include:
-
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `query` | Object | The search query using OpenSearch query DSL. Optional. |
-| `sort` | Array | Sort criteria for the results. Optional. |
-| `size` | Integer | Maximum number of results to return. Optional. |
-| `from` | Integer | Starting index for pagination. Optional. |
+The request body supports standard OpenSearch query DSL. 
 
 ## Example request
 

@@ -99,7 +99,7 @@ GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMxnTp
     "conversation": "true"
   },
   "namespace": {
-    "agent_id": "soap-user"
+    "agent_id": "chat-agent"
   },
   "namespace_size": 1,
   "created_time": 1760052801773,
@@ -135,7 +135,7 @@ GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMxnTp
     "memory": "A comprehensive security investigation was performed across multiple data sources including 55 OpenSearch indices, 50 CloudTrail events, 22 VPC Flow logs, 38 WAF events, 74 CloudWatch log groups, active CloudWatch alarms, and OpenSearch cluster security configuration."
   },
   "namespace": {
-    "agent_id": "soap-user"
+    "agent_id": "chat-agent"
   },
   "namespace_size": 1,
   "tags": {

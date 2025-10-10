@@ -7,7 +7,7 @@ nav_order: 15
 ---
 
 # Update memory container
-**Introduced 3.2**
+**Introduced 3.3**
 {: .label .label-purple }
 
 Use this API to update an existing memory container's properties such as name and description.
