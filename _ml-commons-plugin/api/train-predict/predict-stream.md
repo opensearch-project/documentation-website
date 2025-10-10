@@ -13,7 +13,7 @@ nav_order: 65
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-The Predict Stream API provides the same functionality as the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/), but returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
+The Predict Stream API provides the same functionality as the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) but returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
 
 This API currently supports the following remote model types:
 - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
@@ -221,7 +221,7 @@ POST /_plugins/_ml/models/<model_id>/_predict/stream
 
 ## Example response
 
-The streaming format uses Server-Sent Events (SSE) with each chunk containing a portion of the model's response and an `is_last` flag to indicate completion.
+The streaming format uses Server-Sent Events (SSE), with each chunk containing a portion of the model's response, and an `is_last` flag to indicate completion.
 
 ```json
 data: {"inference_results":[{"output":[{"name":"response","dataAsMap":{"content":"Sure","is_last":false}}]}]}

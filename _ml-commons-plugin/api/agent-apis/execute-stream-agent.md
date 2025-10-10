@@ -178,7 +178,7 @@ POST /_plugins/_ml/models/_register
 
 #### Step 3: Register a conversational agent
 
-When registering your agent, you must include the `_llm_interface` parameter that matches your model type from Step 2:
+When registering your agent, you must include the `_llm_interface` parameter that corresponds to your model type:
 - OpenAI Chat Completion: `openai/v1/chat/completions`
 - Amazon Bedrock Converse Stream: `bedrock/converse/claude`
 
