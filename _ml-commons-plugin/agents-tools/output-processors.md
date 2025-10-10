@@ -1,45 +1,42 @@
 ---
 layout: default
-title: Output processors
-parent: Agents and tools
-grand_parent: ML Commons APIs
+title: Processor Chain
+parent: Machine learning
 nav_order: 30
 ---
 
-# Output processors
+# Processor Chain
 **Introduced 3.3**
 {: .label .label-purple }
 
-Output processors allow you to modify and transform the output of any tool before it's returned to the agent or user. You can chain multiple output processors together to create complex data transformation pipelines that execute sequentially.
+Processor chains enable flexible data transformation pipelines that can process both input and output data. Chain multiple processors together to create sequential transformations where each processor's output becomes the next processor's input.
 
 ## Overview
 
-Output processors provide a powerful way to:
+Processors provide a powerful way to:
 
 - **Transform data formats**: Convert between different data structures (strings, JSON, arrays)
 - **Extract specific information**: Use JSONPath or regex patterns to pull out relevant data
 - **Clean and filter content**: Remove unwanted fields or apply formatting rules
-- **Standardize outputs**: Ensure consistent data formats across different tools
-
-Each tool can have multiple output processors that execute in the order they are defined. The output of one processor becomes the input for the next processor in the chain.
+- **Standardize data**: Ensure consistent data formats across different components
 
 ### Sequential execution
 
-Output processors execute in the order they appear in the array. Each processor receives the output from the previous processor (or the original tool output for the first processor):
-
-```
-Tool Output → Processor 1 → Processor 2 → Processor 3 → Final Output
-```
+Processors execute in the order they appear in the array. Each processor receives the output from the previous processor.
 
 ## Configuration
 
-Add output processors to any tool by including an `output_processors` array in the tool's `parameters` section during agent registration. 
+Processors can be configured in different contexts:
 
-For a complete example, see [Example usage with agents](#example-usage-with-agents).
+- **Tool outputs**: Add an `output_processors` array in the tool's `parameters` section
+- **Model ouputs**: Add an `ouput_processors` array in the model's `parameters` section during a `_predict` call
+- **Model inputs**: Add an `input_processors` array in the model's `parameters` section of a `_predict` call
 
-## Supported output processor types
+For complete examples, see [Example usage with agents](#example-usage-with-agents) and [Example usage with models](#example-usage-with-models).
 
-The following table lists all supported output processors.
+## Supported processor types
+
+The following table lists all supported processors.
 
 Processor | Description
 :--- | :---
@@ -372,3 +369,151 @@ row,health,status,index,uuid,pri,rep,docs.count,docs.deleted,store.size,pri.stor
 The output processors transform the verbose CSV output into a clean, readable format by:
 1. **`regex_replace`**: Removing the CSV header row
 2. **`regex_capture`**: Extracting only essential information (row number, health, status, and index name)
+
+## Example usage with models
+
+The following examples demonstrate how to use processor chains with models during prediction calls.
+
+### Input processors example
+
+This example shows how to modify model input using `input_processors` to replace text before processing:
+
+```json
+POST _plugins/_ml/models/{model_id}/_predict
+{
+  "parameters": {
+    "system_prompt": "You are a helpful assistant.",
+    "prompt": "Can you summarize Prince Hamlet of William Shakespeare in around 100 words?",
+    "input_processors": [
+      {
+        "type": "regex_replace",
+        "pattern": "100",
+        "replacement": "20"
+      }
+    ]
+  }
+}
+```
+
+In this example, the `regex_replace` processor modifies the prompt before it's sent to the model, changing "100 words" to "20 words".
+
+### Output processors example
+
+This example shows how to process model output using `output_processors` to extract and format JSON data:
+
+```json
+POST _plugins/_ml/models/{model_id}/_predict
+{
+  "parameters": {
+    "messages": [
+      {
+        "role": "system",
+        "content": [
+          {
+            "type": "text",
+            "text": "${parameters.system_prompt}"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Can you convert this into a json object: user name is Bob, he likes swimming"
+          }
+        ]
+      }
+    ],
+    "system_prompt": "You are a helpful assistant",
+    "output_processors": [
+      {
+        "type": "jsonpath_filter",
+        "path": "$.choices[0].message.content"
+      },
+      {
+        "type": "extract_json",
+        "extract_type": "auto"
+      }
+    ]
+  }
+}
+```
+
+In this example, the output processors:
+1. Extract the content from the model response using JSONPath
+2. Parse and extract the JSON object from the text response
+
+**Without output processors, the raw response would be:**
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "dataAsMap": {
+            "id": "test-id",
+            "object": "chat.completion",
+            "created": 1.759580469E9,
+            "model": "gpt-4o-mini-2024-07-18",
+            "choices": [
+              {
+                "index": 0.0,
+                "message": {
+                  "role": "assistant",
+                  "content": "Sure! Here is the information you provided converted into a JSON object:\n\n```json\n{\n  \"user\": {\n    \"name\": \"Bob\",\n    \"likes\": \"swimming\"\n  }\n}\n```",
+                  "refusal": null,
+                  "annotations": []
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 33.0,
+              "completion_tokens": 42.0,
+              "total_tokens": 75.0,
+              "prompt_tokens_details": {
+                "cached_tokens": 0.0,
+                "audio_tokens": 0.0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0.0,
+                "audio_tokens": 0.0,
+                "accepted_prediction_tokens": 0.0,
+                "rejected_prediction_tokens": 0.0
+              }
+            },
+            "service_tier": "default",
+            "system_fingerprint": "test-fingerprint"
+          }
+        }
+      ],
+      "status_code": 200
+    }
+  ]
+}
+```
+
+**With output processors, the response becomes:**
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "dataAsMap": {
+            "user": {
+              "name": "Bob",
+              "likes": "swimming"
+            }
+          }
+        }
+      ],
+      "status_code": 200
+    }
+  ]
+}
+```
