@@ -25,9 +25,9 @@ This function returns `true` if the IP address matches any of the specified CIDR
 
 ## Example
 
-The following pipeline drop any documents that are not part of the specified CIDR blocks:
+The following pipeline drops any documents that are not part of the specified CIDR blocks:
 
-```
+```yaml
 cidr-allowlist-pipeline:
   source:
     http:
@@ -49,3 +49,4 @@ cidr-allowlist-pipeline:
         index_type: custom
         index: "logs-%{yyyy.MM.dd}"
 ```
+{% include copy-curl.html %}
