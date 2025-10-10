@@ -496,6 +496,10 @@ POST /sales/_search
 
 You can combine multiple supported bucket aggregations (such as `terms` and `range`) in a nested structure, and the star-tree index will optimize these nested aggregations. For more information about nested aggregations, see [Nested aggregations]({{site.url}}{{site.baseurl}}/aggregations/#nested-aggregations).
 
+#### Multi-terms aggregations
+
+A star-tree index optimizes `multi_terms` aggregations when the aggregation fields are defined as dimensions in the star-tree configuration. For more information about multi-terms aggregations, see [Multi-terms aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/multi-terms/).
+
 ## Next steps
 
 - [Star-tree field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/)
