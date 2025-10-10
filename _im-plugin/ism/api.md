@@ -363,6 +363,134 @@ GET _plugins/_ism/policies/policy_1
 
 ---
 
+## Get policies
+Introduced 1.0
+{: .label .label-purple }
+
+Gets list of policies. This REST call also supports the search parameters `size`, `from`, `sortField`, `sortOrder`, and `queryString`.
+
+#### Example request
+
+```json
+GET _plugins/_ism/policies
+```
+
+
+#### Example response
+
+```json
+{
+  "policies": [
+    {
+      "_id": "policy_1",
+      "_version": 2,
+      "_seq_no": 10,
+      "_primary_term": 1,
+      "policy": {
+        "policy_id": "policy_1",
+        "description": "ingesting logs",
+        "last_updated_time": 1577990934044,
+        "schema_version": 1,
+        "error_notification": null,
+        "default_state": "ingest",
+        "states": [
+          {
+            "name": "ingest",
+            "actions": [
+              {
+                "rollover": {
+                  "min_doc_count": 5
+                }
+              }
+            ],
+            "transitions": [
+              {
+                "state_name": "search"
+              }
+            ]
+          },
+          {
+            "name": "search",
+            "actions": [],
+            "transitions": [
+              {
+                "state_name": "delete",
+                "conditions": {
+                  "min_index_age": "5m"
+                }
+              }
+            ]
+          },
+          {
+            "name": "delete",
+            "actions": [
+              {
+                "delete": {}
+              }
+            ],
+            "transitions": []
+          }
+        ]
+      }
+    },
+    {
+      "_id": "policy_2",
+      "_version": 3,
+      "_seq_no": 11,
+      "_primary_term": 1,
+      "policy": {
+        "policy_id": "policy_2",
+        "description": "ingesting logs",
+        "last_updated_time": 1577990934042,
+        "schema_version": 1,
+        "error_notification": null,
+        "default_state": "ingest",
+        "states": [
+          {
+            "name": "ingest",
+            "actions": [
+              {
+                "rollover": {
+                  "min_doc_count": 5
+                }
+              }
+            ],
+            "transitions": [
+              {
+                "state_name": "search"
+              }
+            ]
+          },
+          {
+            "name": "search",
+            "actions": [],
+            "transitions": [
+              {
+                "state_name": "delete",
+                "conditions": {
+                  "min_index_age": "5m"
+                }
+              }
+            ]
+          },
+          {
+            "name": "delete",
+            "actions": [
+              {
+                "delete": {}
+              }
+            ],
+            "transitions": []
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+---
+
 ## Remove policy from index
 Introduced 1.0
 {: .label .label-purple }
