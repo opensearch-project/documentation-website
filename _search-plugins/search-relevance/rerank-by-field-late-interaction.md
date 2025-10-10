@@ -332,6 +332,12 @@ When you run this search request, OpenSearch executes the following steps:
 
 This hybrid approach balances speed and accuracy, making it suitable for production search systems. The response contains documents reranked based on their semantic similarity to the query, with late interaction scoring providing more nuanced relevance than traditional vector search alone:
 
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
 ```json
 {
   "took": 2135,
@@ -382,8 +388,9 @@ This hybrid approach balances speed and accuracy, making it suitable for product
     ]
   }
 }
-
 ```
+
+</details>
 
 ## Debugging and testing
 
