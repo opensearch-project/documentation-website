@@ -16,6 +16,8 @@ You can rerank results in the following ways:
 
 - [Using a cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-cross-encoder/)
 - [By a document field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/)
+- [By a field using a cross-encoder]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/)
+- [By a field using a late interaction model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-late-interaction/)
 
 ## Using rerank and normalization processors together
 
@@ -32,8 +34,3 @@ This processing order has the following implications:
 - Score modification: The rerank processor modifies the scores that were initially adjusted by the normalization processor, potentially leading to different ranking results than initially expected.
 - Hybrid queries: In the context of hybrid queries, where multiple types of queries and scoring mechanisms are combined, this behavior is particularly noteworthy. The combined scores from the initial query are normalized first and then reranked, resulting in a two-phase scoring modification.
 
-## Next steps
-
-- See a complete example of [reranking using a cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-cross-encoder/).
-- See a complete example of [reranking by a document field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/).
-- Learn more about the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/).
