@@ -11,17 +11,15 @@ nav_order: 40
 {: .label .label-purple }
 
 
-Use this API to add an agentic memory to a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container). You can create memories in two types:
+Use this API to add an agentic memory to a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container). You can provide memory payload in two types:
 
-- **Conversation memory** -- Stores conversational messages between users and assistants. Can be processed (when `infer` is `true`) to extract facts or stored as raw messages.
+- **conversational** -- Stores conversational messages between users and assistants.
 
-- **Data memory** -- Stores structured, non-conversational data such as agent state, checkpoints, or reference information.
+- **data** -- Stores extra messages, structured, non-conversational data such as agent state, checkpoints, or reference information.
 
-Memory processing modes (controlled by the `infer` parameter):
+- **infer=true** -- Use large language model (LLM) to extract key information or knowledge from the messages.
 
-- Fact memory -- A processed representation of the message. The large language model (LLM) associated with the memory container extracts and stores key factual information or knowledge from the original text.
-
-- Raw message memory -- The unprocessed message content.
+- **infer=false**  -- Only store raw messages and data in working memory.
 
 Once an agentic memory is created, you'll provide its `memory_id` to other APIs.
 
@@ -37,19 +35,18 @@ The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`messages` | List | Conditional | A list of messages for conversation memory. Each message requires `content` and may include a `role` (commonly, `user` or `assistant`) when `infer` is set to `true`. Required for `memory_type` of `conversation`.
-`structured_data` | Object | Conditional | Structured data content for data memory. Required for `memory_type` of `data`.
-`memory_type` | String | Required | The type of memory: `conversation` or `data`.
-`namespace` | Object | Optional | Namespace context for organizing memories (e.g., `user_id`, `session_id`, `agent_id`).
-`metadata` | Object | Optional | Additional metadata for the memory (e.g., `status`, `branch`, custom fields).
-`session_id` | String | Optional | The session ID associated with the memory. Deprecated in favor of using `namespace.session_id`.
-`agent_id` | String | Optional | The agent ID associated with the memory. Deprecated in favor of using `namespace.agent_id`.
-`infer` | Boolean | Optional | Controls whether the LLM infers context from messages. Default is `true` for conversation memory, `false` for data memory. When `true`, the LLM extracts factual information from the original text and stores it as the memory. When `false`, the memory contains the unprocessed message and you must explicitly specify the `role` in each message. 
-`tags` | Object | Optional | Custom metadata for the agentic memory.
+`messages` | List | Conditional | A list of messages for conversational payload. Each message requires `content` and may include a `role` (commonly, `user` or `assistant`) when `infer` is set to `true`. Required for `payload_type` of `conversational`.
+`structured_data` | Map<String, Object> | Conditional | Structured data content for data memory. Required for `memory_type` of `data`.
+`binary_data` | String | Optional | Binary data content encoded as base64 string for binary payloads.
+`payload_type` | String | Required | The type of payload: `conversational` or `data`.
+`namespace` | List<String> | Optional | Namespace context for organizing memories (e.g., `user_id`, `session_id`, `agent_id`). If `session_id` not exists in `namespace` will create a new session and use the new session's id.
+`metadata` | Map<String, String> | Optional | Additional metadata for the memory (e.g., `status`, `branch`, custom fields).
+`tags` | List<String> | Optional | Tags for categorizing and organizing memories.
+`infer` | Boolean | Optional | Controls whether use LLM to extract key information from messages. Default is `false`. When `true`, the LLM extracts key information from the original text and stores it as the memory.
 
 ## Example requests
 
-### Conversation memory
+### Conversational payload
 
 ```json
 POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
@@ -78,11 +75,13 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
     "topic": "personal info"
   },
   "infer": true,
-  "memory_type": "conversation"
+  "payload_type": "conversational"
 }
 ```
 
-### Data memory
+### Data payload
+
+Store agent state in working memory:
 
 ```json
 POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
@@ -104,11 +103,13 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
     "topic": "agent_state"
   },
   "infer": false,
-  "memory_type": "data"
+  "payload_type": "data"
 }
 ```
 
 ### Trace data memory
+
+Store agent trace data in working memory:
 
 ```json
 POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
@@ -143,7 +144,7 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
     "data_type": "trace"
   },
   "infer": false,
-  "memory_type": "conversation"
+  "payload_type": "conversational"
 }
 ```
 {% include copy-curl.html %}

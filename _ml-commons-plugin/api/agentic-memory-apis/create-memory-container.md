@@ -154,7 +154,7 @@ Field | Data type | Required/Optional | Description
 `embedding_model_id` | String | Optional | The embedding model ID.
 `embedding_dimension` | Integer | Optional | The dimension of the embedding model. Required if `embedding_model_type` is `TEXT_EMBEDDING`.
 `llm_id` | String | Optional | The LLM model ID for processing and inference.
-`index_prefix` | String | Optional | Custom prefix for the memory indices. If not specified, a default prefix is used.
+`index_prefix` | String | Optional | Custom prefix for the memory indices. If not specified, a default prefix is used: if `use_system_index` is `true`, use `default` as index prefix; if `use_system_index` is `false`, use 8 bit random UUID as index prefix.
 `use_system_index` | Boolean | Optional | Whether to use system indices. Default is `true`.
 `strategies` | Array | Optional | Array of memory processing strategies. See [the `strategies` array](#the-strategies-array).
 `parameters` | Object | Optional | Global parameters for the memory container. See [the `parameters` object](#the-parameters-object).
@@ -166,14 +166,16 @@ Each strategy in the `strategies` array supports the following fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `type` | String | Required | The strategy type: `SEMANTIC`, `USER_PREFERENCE`, or `SUMMARY`.
-`namespace` | Array | Required | Array of namespace dimensions for organizing memories (e.g., `["user_id"]`, `["agent_id"]`).
-`configuration` | Object | Optional | Strategy-specific configuration. See [the strategy `configuration` object](#the-strategy-configuration-object).
+`namespace` | Array | Required | Array of namespace dimensions for organizing memories (e.g., `["user_id"]`, `["agent_id", "session_id"]`).
+`configuration` | Map<String, Object> | Optional | Strategy-specific configuration. See [the strategy `configuration` object](#the-strategy-configuration-object).
 
 ### The strategy configuration object
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `llm_result_path` | String | Optional | JSONPath to extract LLM results. Default is `"$.output.message.content[0].text"` for Bedrock Converse API format.
+`system_prompt` | String | Optional | Custom system prompt to override the default strategy prompt.
+`llm_id` | String | Optional | LLM model ID for this specific strategy, overrides the global LLM setting.
 
 ### The parameters object
 
@@ -224,7 +226,9 @@ POST /_plugins/_ml/memory_containers/_create
         "type": "SEMANTIC",
         "namespace": ["agent_id"],
         "configuration": {
-          "llm_result_path": "$.output.message.content[0].text"
+          "llm_result_path": "$.output.message.content[0].text",
+          "system_prompt": "Extract semantic information from user conversations",
+          "llm_id": "{{custom_llm_id}}"
         }
       },
       {
