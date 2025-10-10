@@ -22,3 +22,30 @@ cidrContains('/client.ip', '192.168.0.0/16', '10.0.0.0/8')
 {% include copy.html %}
 
 This function returns `true` if the IP address matches any of the specified CIDR blocks or `false` if it does not.
+
+## Example
+
+The following pipeline drop any documents that are not part of the specified CIDR blocks:
+
+```
+cidr-allowlist-pipeline:
+  source:
+    http:
+      port: 2021
+      path: /events
+      ssl: true
+      sslKeyCertChainFile: "certs/dp.crt"
+      sslKeyFile: "certs/dp.key"
+  processor:
+    - drop_events:
+        # Drop events whose client IP is NOT in specific CIDR allowlist
+        drop_when: 'not cidrContains(/client/ip, "10.0.0.0/8", "192.168.0.0/16", "fd00::/8")'
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: "admin_pass"
+        index_type: custom
+        index: "logs-%{yyyy.MM.dd}"
+```
