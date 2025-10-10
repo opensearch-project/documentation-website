@@ -41,26 +41,9 @@ OpenSearch supports the following memory container APIs:
 
 OpenSearch supports the following memory APIs:
 
-## Working memory APIs
+## Memory APIs (Unified)
 
-- [Add working memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/add-memory/)
-- [Get working memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/get-memory/)
-- [Search working memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/search-memory/)
-- [Delete working memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/delete-memory/)
-
-## Long-term memory APIs
-
-- [Search long-term memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/search-long-term-memory/)
-- [Update long-term memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/update-long-term-memory/)
-- [Delete long-term memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/delete-long-term-memory/)
-
-## Memory history APIs
-
-- [Search memory history]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/search-memory-history/)
-- [Delete memory history]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/delete-memory-history/)
-
-## General memory APIs
-
+- [Add memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/add-memory/)
 - [Get memory by type and ID]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/get-memory-by-type/)
 - [Update memory by type and ID]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/update-memory-by-type/)
 - [Delete memory by type and ID]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/delete-memory-by-type/)

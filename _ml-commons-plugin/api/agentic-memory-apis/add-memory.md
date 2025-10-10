@@ -41,6 +41,7 @@ Field | Data type | Required/Optional | Description
 `structured_data` | Object | Conditional | Structured data content for data memory. Required for `memory_type` of `data`.
 `memory_type` | String | Required | The type of memory: `conversation` or `data`.
 `namespace` | Object | Optional | Namespace context for organizing memories (e.g., `user_id`, `session_id`, `agent_id`).
+`metadata` | Object | Optional | Additional metadata for the memory (e.g., `status`, `branch`, custom fields).
 `session_id` | String | Optional | The session ID associated with the memory. Deprecated in favor of using `namespace.session_id`.
 `agent_id` | String | Optional | The agent ID associated with the memory. Deprecated in favor of using `namespace.agent_id`.
 `infer` | Boolean | Optional | Controls whether the LLM infers context from messages. Default is `true` for conversation memory, `false` for data memory. When `true`, the LLM extracts factual information from the original text and stores it as the memory. When `false`, the memory contains the unprocessed message and you must explicitly specify the `role` in each message. 
@@ -66,6 +67,13 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
   "namespace": {
     "user_id": "bob"
   },
+  "metadata": {
+    "status": "checkpoint",
+    "branch": {
+      "branch_name": "high",
+      "root_event_id": "228nadfs879mtgk"
+    }
+  },
   "tags": {
     "topic": "personal info"
   },
@@ -87,6 +95,10 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
   },
   "namespace": {
     "agent_id": "testAgent1"
+  },
+  "metadata": {
+    "status": "checkpoint",
+    "anyobject": "abc"
   },
   "tags": {
     "topic": "agent_state"
@@ -116,6 +128,14 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
     "user_id": "bob",
     "agent_id": "testAgent1",
     "session_id": "123"
+  },
+  "metadata": {
+    "status": "checkpoint",
+    "branch": {
+      "branch_name": "high",
+      "root_event_id": "228nadfs879mtgk"
+    },
+    "anyobject": "abc"
   },
   "tags": {
     "topic": "personal info",

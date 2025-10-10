@@ -10,7 +10,7 @@ nav_order: 53
 **Introduced 3.2**
 {: .label .label-purple }
 
-Use this API to delete a specific memory by its type and ID. This unified API supports deleting session, working, long-term, and history memory data.
+Use this API to delete a specific memory by its type and ID. This unified API supports deleting all memory types: session, working, long-term, and history memory data.
 
 ## Path and HTTP methods
 
@@ -23,13 +23,33 @@ DELETE /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `memory_container_id` | String | The ID of the memory container. Required. |
-| `type` | String | The type of memory: "session", "working", "long-term", or "history". Required. |
+| `type` | String | The type of memory: "sessions", "working", "long-term", or "history". Required. |
 | `id` | String | The ID of the memory to delete. Required. |
 
-## Example request
+## Example requests
+
+### Delete working memory
 
 ```json
 DELETE /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/working/XyEuiJkBeh2gPPwzjYWM
+```
+
+### Delete long-term memory
+
+```json
+DELETE /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/DcxjTpkBvwXRq366C1Zz
+```
+
+### Delete session
+
+```json
+DELETE /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/sessions/CcxjTpkBvwXRq366A1aE
+```
+
+### Delete memory history
+
+```json
+DELETE /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMxnTpkBvwXRq366hmAU
 ```
 {% include copy-curl.html %}
 

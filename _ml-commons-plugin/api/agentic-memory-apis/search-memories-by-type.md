@@ -23,7 +23,7 @@ GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/_searc
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `memory_container_id` | String | The ID of the memory container. Required. |
-| `type` | String | The type of memory: "session", "working", "long-term", or "history". Required. |
+| `type` | String | The type of memory: "sessions", "working", "long-term", or "history". Required. |
 
 ## Request fields
 
@@ -38,10 +38,54 @@ The request body supports standard OpenSearch query DSL. Common fields include:
 
 ## Example requests
 
-### Search session memories
+### Search sessions
 
 ```json
-GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/session/_search
+GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/sessions/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "sort": [
+    {
+      "created_time": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+```
+
+### Search long-term memories
+
+```json
+GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "namespace.user_id": "bob"
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "created_time": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+```
+
+### Search memory history
+
+```json
+GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/_search
 {
   "query": {
     "match_all": {}
@@ -150,8 +194,6 @@ GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/working/_searc
 
 ## Response fields
 
-The response fields vary depending on the memory type being searched. See the individual memory type documentation for specific field descriptions:
+The response fields vary depending on the memory type being searched. See the unified memory API documentation for specific field descriptions:
 
-- [Working memory fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/get-memory/)
-- [Long-term memory fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/search-long-term-memory/)
-- [Memory history fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/search-memory-history/)
+- [Get memory by type and ID]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/get-memory-by-type/)
