@@ -23,7 +23,7 @@ PUT /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id>
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `memory_container_id` | String | The ID of the memory container. Required. |
-| `type` | String | The type of memory: "session", "working", or "long-term". Required. |
+| `type` | String | The type of memory: "sessions", "working", or "long-term". Required. Note: History memory cannot be updated. |
 | `id` | String | The ID of the memory to update. Required. |
 
 ## Request fields
@@ -53,14 +53,41 @@ The request fields vary depending on the memory type being updated:
 | `tags` | Object | Updated tags for categorization. Optional. |
 | `additional_info` | Object | Additional metadata. Optional. |
 
-## Example request
+## Example requests
+
+### Update session
 
 ```json
-PUT /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/session/N2CDipkB2Mtr6INFFcX8
+PUT /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/sessions/N2CDipkB2Mtr6INFFcX8
 {
   "additional_info": {
     "key1": "value1",
     "last_activity": "2025-09-15T17:30:00Z"
+  }
+}
+```
+
+### Update working memory
+
+```json
+PUT /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/working/XyEuiJkBeh2gPPwzjYWM
+{
+  "tags": {
+    "topic": "updated_topic",
+    "priority": "high"
+  }
+}
+```
+
+### Update long-term memory
+
+```json
+PUT /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/DcxjTpkBvwXRq366C1Zz
+{
+  "memory": "User's name is Bob Smith",
+  "tags": {
+    "topic": "personal info",
+    "updated": "true"
   }
 }
 ```
