@@ -20,11 +20,11 @@ DELETE /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id
 
 ## Path parameters
 
-| Parameter | Data type | Required/Optional | Description |
-| :--- | :--- | :--- | :--- |
+| Field                 | Data type | Required/Optional | Description |
+|:----------------------| :--- | :--- | :--- |
 | `memory_container_id` | String | Required | The ID of the memory container. |
-| `type` | String | Required | The type of memory: "sessions", "working", "long-term", or "history". |
-| `id` | String | Required | The ID of the memory to delete. |
+| `type`                | String | Required | The type of memory: "sessions", "working", "long-term", or "history". |
+| `id`                  | String | Required | The ID of the memory to delete. |
 
 ## Example requests
 
