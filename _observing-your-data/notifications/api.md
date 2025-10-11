@@ -41,7 +41,8 @@ GET /_plugins/_notifications/features
     "sns",
     "ses_account",
     "smtp_account",
-    "email_group"
+    "email_group",
+    "microsoft_teams"
   ],
   "plugin_features" : {
     "tooltip_support" : "true"
@@ -148,7 +149,7 @@ sort_field | Field to sort results with.
 last_updated_time_ms | The Unix time in milliseconds of when the channel was last updated.
 created_time_ms | The Unix time in milliseconds of when the channel was created.
 is_enabled | Indicates whether the channel is enabled.
-config_type | The channel type. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, and `email`.
+config_type | The channel type. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email` and `microsoft_teams`.
 name | The channel name.
 description	| The channel description.
 email.email_account_id | The sender email addresses the channel uses.
@@ -167,6 +168,7 @@ sns.role_arn | The Amazon SNS topic's role ARN.
 ses_account.region | The Amazon Simple Email Service (SES) account's AWS Region.
 ses_account.role_arn | The Amazon SES account's role ARN.
 ses_account.from_address | The Amazon SES account's sender email address.
+microsoft_teams.url | The Microsoft Teams webhook URL.
 
 ## Create channel configuration
 
@@ -199,7 +201,7 @@ config_id | String | The configuration's custom ID. | No
 config | Object |	Contains all relevant information, such as channel name, configuration type, and plugin source. |	Yes
 name | String |	Name of the channel. | Yes
 description |	String | The channel's description. | No
-config_type |	String | The destination of your notification. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, and `email`. | Yes
+config_type |	String | The destination of your notification. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email`, and `microsoft_teams`. | Yes
 is_enabled | Boolean | Indicates whether the channel is enabled for sending and receiving notifications. Default is `true`.	| No
 
 The create channel operation accepts multiple `config_types` as possible notification destinations, so follow the format for your preferred `config_type`.
@@ -210,13 +212,16 @@ The create channel operation accepts multiple `config_types` as possible notific
   "role_arn": "<arn>" //optional
 }
 "slack": {
-  "url": "https://sample-chime-webhoook"
+  "url": "https://sample-slack-webhoook"
 }
 "chime": {
   "url": "https://sample-amazon-chime-webhoook"
 }
 "webhook": {
-      "url": "https://custom-webhook-test-url.com:8888/test-path?params1=value1&params2=value2"
+  "url": "https://custom-webhook-test-url.com:8888/test-path?params1=value1&params2=value2"
+}
+"microsoft_teams": {
+  "url": "https://sample-teams-webhoook"
 }
 "smtp_account": {
   "host": "test-host.com",
