@@ -20,11 +20,11 @@ GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id>
 
 ## Path parameters
 
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `memory_container_id` | String | The ID of the memory container. Required. |
-| `type` | String | The type of memory: "sessions", "working", "long-term", or "history". Required. |
-| `id` | String | The ID of the memory to retrieve. Required. |
+| Parameter | Data type | Required/Optional | Description |
+| :--- | :--- | :--- | :--- |
+| `memory_container_id` | String | Required | The ID of the memory container. |
+| `type` | String | Required | The type of memory: "sessions", "working", "long-term", or "history". |
+| `id` | String | Required | The ID of the memory to retrieve. |
 
 ## Example requests
 

@@ -139,10 +139,10 @@ POST /_plugins/_ml/memory_containers/_create
 The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
-:--- | :--- | :--- | :---
-`name` | String | Required | The name of the memory container.
-`description` | String | Optional | The description of the memory container.
-`configuration` | Object | Required | The memory container configuration. See [the `configuration` object](#the-configuration-object).
+:--- | :--- |:------------------| :---
+`name` | String | Required          | The name of the memory container.
+`description` | String | Optional          | The description of the memory container.
+`configuration` | Object | Optional          | The memory container configuration. See [the `configuration` object](#the-configuration-object).
 
 ### The configuration object
 
@@ -156,8 +156,43 @@ Field | Data type | Required/Optional | Description
 `llm_id` | String | Optional | The LLM model ID for processing and inference.
 `index_prefix` | String | Optional | Custom prefix for the memory indices. If not specified, a default prefix is used: if `use_system_index` is `true`, use `default` as index prefix; if `use_system_index` is `false`, use 8 bit random UUID as index prefix.
 `use_system_index` | Boolean | Optional | Whether to use system indices. Default is `true`.
+`disable_history`  | Boolean | Optional | if disabled no history will be persisted. Default is `false`, so history will be persisted by default.
+`disable_session`  | Boolean | Optional | if disabled no session will be persisted. Default is `true`, so session will not be persisted by default.
+`max_infer_size`   | int     | Optional | `max_infer_size` Controls the topK number of similar existing memories retrieved during memory consolidation to make ADD/UPDATE/DELETE decisions.
+`index_settings`   | Map<String, Map<String, Object> | Optional | Customer can also provide the index settings. See [the `index settings` array](#the-index-settings).
 `strategies` | Array | Optional | Array of memory processing strategies. See [the `strategies` array](#the-strategies-array).
 `parameters` | Object | Optional | Global parameters for the memory container. See [the `parameters` object](#the-parameters-object).
+
+### The index settings
+
+Example of index settings
+
+    "index_settings": {
+      "session_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      },
+      "short_term_memory_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      },
+      "long_term_memory_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      },
+      "long_term_memory_history_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      }
+    }
 
 ### The strategies array
 
@@ -168,6 +203,7 @@ Field | Data type | Required/Optional | Description
 `type` | String | Required | The strategy type: `SEMANTIC`, `USER_PREFERENCE`, or `SUMMARY`.
 `namespace` | Array | Required | Array of namespace dimensions for organizing memories (e.g., `["user_id"]`, `["agent_id", "session_id"]`).
 `configuration` | Map<String, Object> | Optional | Strategy-specific configuration. See [the strategy `configuration` object](#the-strategy-configuration-object).
+`enabled`       | boolean             | Optional | To enable the Strategy in the memory container. Default is True.
 
 ### The strategy configuration object
 
