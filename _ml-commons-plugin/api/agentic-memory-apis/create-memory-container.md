@@ -10,13 +10,12 @@ nav_order: 10
 **Introduced 3.2**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
-
 Use this API to create a memory container to hold agentic memories. The container can have two model types associated with it:
 
 - A text embedding model for vectorizing the message so it can be searched. Use a text embedding model for dense vector embeddings or a sparse encoding model for sparse vector formats. If no embedding model is specified, messages are stored but cannot be used for vector-based searches.
 - A large language model (LLM) for reasoning over the message to produce factual or processed content. If no LLM is specified, messages are stored directly, without applying inference.
+
+**Note**: LLM connectors must support `system_prompt` and `user_prompt` parameters for agentic memory processing. The default `llm_result_path` is configured for Bedrock Converse API format (`"$.output.message.content[0].text"`).
 
 Once a memory container is created, you'll provide its `memory_container_id` to other APIs.
 
@@ -140,36 +139,153 @@ POST /_plugins/_ml/memory_containers/_create
 The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
-:--- | :--- | :--- | :---
-`name` | String | Required | The name of the memory container.
-`description` | String | Optional | The description of the memory container.
-`memory_storage_config` | Object | Optional | The memory storage configuration. See [the `memory_storage_config` object](#the-memory_storage_config-object).
+:--- | :--- |:------------------| :---
+`name` | String | Required          | The name of the memory container.
+`description` | String | Optional          | The description of the memory container.
+`configuration` | Object | Optional          | The memory container configuration. See [the `configuration` object](#the-configuration-object).
 
-### The memory_storage_config object
+### The configuration object
 
-The `memory_storage_config` object supports the following fields.
+The `configuration` object supports the following fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`dimension` | Integer | Optional | The dimension of the embedding model. Required if `embedding_model_type` is `TEXT_EMBEDDING`.
-`embedding_model_id` | String | Optional | The embedding model ID.
 `embedding_model_type` | String | Optional | The embedding model type. Supported types are `TEXT_EMBEDDING` and `SPARSE_ENCODING`.
-`llm_model_id` | String | Optional | The LLM ID.
-`max_infer_size` | Integer | Optional | The maximum number of messages the LLM processes for inference in a single request. Valid values are 1--9, inclusive. Default is 5.
-`memory_index_name` | String | Optional | The name of the index in which to save messages, embeddings, and inferred facts. If not specified, a default index is automatically generated.
+`embedding_model_id` | String | Optional | The embedding model ID.
+`embedding_dimension` | Integer | Optional | The dimension of the embedding model. Required if `embedding_model_type` is `TEXT_EMBEDDING`.
+`llm_id` | String | Optional | The LLM model ID for processing and inference.
+`index_prefix` | String | Optional | Custom prefix for the memory indices. If not specified, a default prefix is used: if `use_system_index` is `true`, use `default` as index prefix; if `use_system_index` is `false`, use 8 bit random UUID as index prefix.
+`use_system_index` | Boolean | Optional | Whether to use system indices. Default is `true`.
+`disable_history`  | Boolean | Optional | if disabled no history will be persisted. Default is `false`, so history will be persisted by default.
+`disable_session`  | Boolean | Optional | if disabled no session will be persisted. Default is `true`, so session will not be persisted by default.
+`max_infer_size`   | int     | Optional | `max_infer_size` Controls the topK number of similar existing memories retrieved during memory consolidation to make ADD/UPDATE/DELETE decisions.
+`index_settings`   | Map<String, Map<String, Object> | Optional | Customer can also provide the index settings. See [the `index settings` array](#the-index-settings).
+`strategies` | Array | Optional | Array of memory processing strategies. See [the `strategies` array](#the-strategies-array).
+`parameters` | Object | Optional | Global parameters for the memory container. See [the `parameters` object](#the-parameters-object).
 
-## Example request
+### The index settings
+
+Example of index settings
+
+    "index_settings": {
+      "session_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      },
+      "short_term_memory_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      },
+      "long_term_memory_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      },
+      "long_term_memory_history_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      }
+    }
+
+### The strategies array
+
+Each strategy in the `strategies` array supports the following fields.
+
+Field | Data type | Required/Optional | Description
+:--- | :--- | :--- | :---
+`type` | String | Required | The strategy type: `SEMANTIC`, `USER_PREFERENCE`, or `SUMMARY`.
+`namespace` | Array | Required | Array of namespace dimensions for organizing memories (e.g., `["user_id"]`, `["agent_id", "session_id"]`).
+`configuration` | Map<String, Object> | Optional | Strategy-specific configuration. See [the strategy `configuration` object](#the-strategy-configuration-object).
+`enabled`       | boolean             | Optional | To enable the Strategy in the memory container. Default is True.
+
+### The strategy configuration object
+
+Field | Data type | Required/Optional | Description
+:--- | :--- | :--- | :---
+`llm_result_path` | String | Optional | JSONPath to extract LLM results. Default is `"$.output.message.content[0].text"` for Bedrock Converse API format.
+`system_prompt` | String | Optional | Custom system prompt to override the default strategy prompt.
+`llm_id` | String | Optional | LLM model ID for this specific strategy, overrides the global LLM setting.
+
+### The parameters object
+
+Field | Data type | Required/Optional | Description
+:--- | :--- | :--- | :---
+`llm_result_path` | String | Optional | Global JSONPath for extracting LLM results from responses. Default is `"$.output.message.content[0].text"` for Bedrock Converse API format.
+
+## Example requests
+
+### Basic memory container
 
 ```json
 POST /_plugins/_ml/memory_containers/_create
 {
-    "name": "Sparse memory container",
-    "description": "Store sparse conversations with semantic search",
-    "memory_storage_config": {
-        "llm_model_id": "bbphdJgB9L0Qb_M6ipnn",
-        "embedding_model_type": "SPARSE_ENCODING",
-        "embedding_model_id": "RodoX5gBfObQ5OgTHf1X"
+  "name": "agentic memory test",
+  "description": "Store conversations with semantic search and summarization",
+  "configuration": {
+    "embedding_model_type": "TEXT_EMBEDDING",
+    "embedding_model_id": "{{embedding_model_id}}",
+    "embedding_dimension": 1024,
+    "llm_id": "{{llm_id}}",
+    "strategies": [
+      {
+        "type": "SEMANTIC",
+        "namespace": ["user_id"]
+      }
+    ]
+  }
+}
+```
+
+### Advanced memory container with multiple strategies
+
+```json
+POST /_plugins/_ml/memory_containers/_create
+{
+  "name": "agentic memory test",
+  "description": "Store conversations with semantic search and summarization",
+  "configuration": {
+    "embedding_model_type": "TEXT_EMBEDDING",
+    "embedding_model_id": "{{embedding_model_id}}",
+    "embedding_dimension": 1024,
+    "llm_id": "{{llm_id}}",
+    "index_prefix": "my_custom_prefix",
+    "use_system_index": false,
+    "strategies": [
+      {
+        "type": "SEMANTIC",
+        "namespace": ["agent_id"],
+        "configuration": {
+          "llm_result_path": "$.output.message.content[0].text",
+          "system_prompt": "Extract semantic information from user conversations",
+          "llm_id": "{{custom_llm_id}}"
+        }
+      },
+      {
+        "type": "USER_PREFERENCE",
+        "namespace": ["agent_id"],
+        "configuration": {
+          "llm_result_path": "$.output.message.content[0].text"
+        }
+      },
+      {
+        "type": "SUMMARY",
+        "namespace": ["agent_id"],
+        "configuration": {
+          "llm_result_path": "$.output.message.content[0].text"
+        }
+      }
+    ],
+    "parameters": {
+      "llm_result_path": "$.output.message.content[0].text"
     }
+  }
 }
 ```
 {% include copy-curl.html %}

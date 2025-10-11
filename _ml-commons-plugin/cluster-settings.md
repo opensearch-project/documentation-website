@@ -494,6 +494,20 @@ plugins.ml_commons.memory_feature_enabled: true
 - Default value: `true`
 - Valid values: `false`, `true`
 
+## Enable agentic memory
+
+When set to `true`, this setting enables agentic memory functionality, which provides advanced memory management for AI agents including session memory, working memory, long-term memory, and memory history with namespace-based organization.
+
+### Setting
+
+```yaml
+plugins.ml_commons.agentic_memory_enabled: true
+```
+
+### Values
+
+- Default value: `true`
+- Valid values: `false`, `true`
 
 ## Enable RAG pipeline
 
