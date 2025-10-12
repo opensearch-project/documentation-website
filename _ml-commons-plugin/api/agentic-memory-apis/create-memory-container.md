@@ -13,7 +13,7 @@ nav_order: 10
 Use this API to create a memory container to hold agentic memories. The container can have two model types associated with it:
 
 - A text embedding model for vectorizing the message so it can be searched. Use a text embedding model for dense vector embeddings or a sparse encoding model for sparse vector formats. If no embedding model is specified, messages are stored but cannot be used for vector-based searches.
-- A large language model (LLM) for reasoning over the message to produce factual or processed content. If no LLM is specified, messages are stored directly, without applying inference.
+- A large language model (LLM) for reasoning over the message to produce factual or processed content. If no LLM is specified, messages are stored directly, without applying inference. Long term memory requires both an LLM model and embedding model to be configured.
 
 **Note**: LLM connectors must support `system_prompt` and `user_prompt` parameters for agentic memory processing. The default `llm_result_path` is configured for Bedrock Converse API format (`"$.output.message.content[0].text"`).
 
@@ -79,7 +79,6 @@ POST /_plugins/_ml/models/_register
 
 ### LLM 
 
-Currently, agentic memory supports only the Anthropic Claude model for LLM capabilities. Starting with OpenSearch 3.3, this feature will be generally available and will include support for additional LLM providers, such as OpenAI.
 
 To register an Anthropic Claude model, send the following request:
 
@@ -90,7 +89,7 @@ POST /_plugins/_ml/models/_register
     "function_name": "remote",
     "description": "test model",
     "connector": {
-        "name": "Amazon Bedrock Connector: embedding",
+        "name": "Amazon Bedrock Connector: Chat",
         "description": "The connector to bedrock Claude 3.7 sonnet model",
         "version": 1,
         "protocol": "aws_sigv4",
@@ -114,8 +113,8 @@ POST /_plugins/_ml/models/_register
             "headers": {
                 "content-type": "application/json"
             },
-            "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/invoke",
-            "request_body": """{ "system": "${parameters.system_prompt}", "anthropic_version": "${parameters.anthropic_version}", "max_tokens": ${parameters.max_tokens}, "temperature": ${parameters.temperature}, "messages": ${parameters.messages} }"""
+            "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/converse",
+            "request_body": "{  \"anthropic_version\": \"${parameters.anthropic_version}\", \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature}, \"system\": [{\"text\": \"${parameters.system_prompt}\"}], \"messages\": [ { \"role\": \"user\", \"content\": [ {\"text\": \"${parameters.user_prompt}\" }] }]}"
             }
         ]
     }
