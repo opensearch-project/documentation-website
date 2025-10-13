@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Processor Chain
+title: Processor chain
 has_children: false
 nav_order: 65
 ---
@@ -15,22 +15,22 @@ Processor chains enable flexible data transformation pipelines that can process 
 
 Processors provide a powerful way to:
 
-- **Transform data formats**: Convert between different data structures (strings, JSON, arrays)
-- **Extract specific information**: Use JSONPath or regex patterns to pull out relevant data
-- **Clean and filter content**: Remove unwanted fields or apply formatting rules
-- **Standardize data**: Ensure consistent data formats across different components
+- **Transform data formats**: Convert between different data structures (strings, JSON, arrays).
+- **Extract specific information**: Use JSONPath or regex patterns to extract relevant data.
+- **Clean and filter content**: Remove unwanted fields or apply formatting rules.
+- **Standardize data**: Ensure consistent data formats across different components.
 
 ### Sequential execution
 
-Processors execute in the order they appear in the array. Each processor receives the output from the previous processor.
+Processors execute in the order in which they appear in the array. Each processor receives the output from the previous processor.
 
 ## Configuration
 
 Processors can be configured in different contexts:
 
-- **Tool outputs**: Add an `output_processors` array in the tool's `parameters` section
-- **Model outputs**: Add an `ouput_processors` array in the model's `parameters` section during a `_predict` call
-- **Model inputs**: Add an `input_processors` array in the model's `parameters` section of a `_predict` call
+- **Tool outputs**: Add an `output_processors` array in the tool's `parameters` section.
+- **Model outputs**: Add an `ouput_processors` array in the model's `parameters` section during a `_predict` call.
+- **Model inputs**: Add an `input_processors` array in the model's `parameters` section of a `_predict` call.
 
 For complete examples, see [Example usage with agents](#example-usage-with-agents) and [Example usage with models](#example-usage-with-models).
 
@@ -55,10 +55,10 @@ Processor | Description
 
 Converts the input to a JSON string representation.
 
-**Parameters:**
-- `escape_json` (Boolean, optional): Whether to escape JSON characters. Default: `false`
+**Parameters**:
+- `escape_json` (Boolean, optional): Whether to escape JSON characters. Default is `false`.
 
-**Example Configuration:**
+**Example configuration**:
 ```json
 {
   "type": "to_string",
@@ -66,7 +66,7 @@ Converts the input to a JSON string representation.
 }
 ```
 
-**Example Input/Output:**
+**Example input/output**:
 ```
 Input: {"name": "test", "value": 123}
 Output: "{\"name\":\"test\",\"value\":123}"
@@ -76,12 +76,12 @@ Output: "{\"name\":\"test\",\"value\":123}"
 
 Replaces text using regular expression patterns. For regex syntax details, see [Java regex syntax](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
-**Parameters:**
-- `pattern` (string, required): Regular expression pattern to match
-- `replacement` (string, optional): Replacement text. Default: `""`
-- `replace_all` (Boolean, optional): Whether to replace all matches or only the first. Default: `true`
+**Parameters**:
+- `pattern` (string, required): A regular expression pattern to match.
+- `replacement` (string, optional): Replacement text. Default is `""`.
+- `replace_all` (Boolean, optional): Whether to replace all matches or only the first. Default is `true`.
 
-**Example Configuration:**
+**Example configuration**:
 ```json
 {
   "type": "regex_replace",
@@ -90,7 +90,7 @@ Replaces text using regular expression patterns. For regex syntax details, see [
 }
 ```
 
-**Example Input/Output:**
+**Example input/output**:
 ```
 Input: "row,health,status,index\n1,green,open,.plugins-ml-model\n2,red,closed,test-index"
 Output: "1,green,open,.plugins-ml-model\n2,red,closed,test-index"
@@ -100,11 +100,11 @@ Output: "1,green,open,.plugins-ml-model\n2,red,closed,test-index"
 
 Captures specific groups from regex matches. For regex syntax details, see [Java regex syntax](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
-**Parameters:**
-- `pattern` (string, required): Regular expression pattern with capture groups
-- `groups` (string or array, optional): Group numbers to capture. Can be a single number like `"1"` or array like `"[1, 2, 4]"`. Default: `"1"`
+**Parameters**:
+- `pattern` (string, required): A regular expression pattern with capture groups.
+- `groups` (string or array, optional): Group numbers to capture. Can be a single number like `"1"` or array like `"[1, 2, 4]"`. Default is `"1"`.
 
-**Example Configuration:**
+**Example configuration**:
 ```json
 {
   "type": "regex_capture",
@@ -113,7 +113,7 @@ Captures specific groups from regex matches. For regex syntax details, see [Java
 }
 ```
 
-**Example Input/Output:**
+**Example input/output**:
 ```
 Input: "1,green,open,.plugins-ml-model-group,DCJHJc7pQ6Gid02PaSeXBQ,1,0"
 Output: ["1", ".plugins-ml-model-group"]
@@ -123,11 +123,11 @@ Output: ["1", ".plugins-ml-model-group"]
 
 Extracts data using JSONPath expressions.
 
-**Parameters:**
-- `path` (string, required): JSONPath expression to extract data
-- `default` (any, optional): Default value if path is not found
+**Parameters**:
+- `path` (string, required): The JSONPath expression used to extract data.
+- `default` (any, optional): The default value if the path is not found.
 
-**Example Configuration:**
+**Example configuration**:
 ```json
 {
   "type": "jsonpath_filter",
@@ -136,7 +136,7 @@ Extracts data using JSONPath expressions.
 }
 ```
 
-**Example Input/Output:**
+**Example input/output**:
 ```
 Input: {"data": {"items": [{"name": "item1"}, {"name": "item2"}]}}
 Output: ["item1", "item2"]
@@ -146,11 +146,11 @@ Output: ["item1", "item2"]
 
 Extracts JSON objects or arrays from text strings.
 
-**Parameters:**
-- `extract_type` (string, optional): Type of JSON to extract - `"object"`, `"array"`, or `"auto"`. Default: `"auto"`
-- `default` (any, optional): Default value if JSON extraction fails
+**Parameters**:
+- `extract_type` (string, optional): The type of JSON to extract: `"object"`, `"array"`, or `"auto"`. Default is `"auto"`.
+- `default` (any, optional): The default value if JSON extraction fails.
 
-**Example Configuration:**
+**Example configuration**:
 ```json
 {
   "type": "extract_json",
@@ -159,7 +159,7 @@ Extracts JSON objects or arrays from text strings.
 }
 ```
 
-**Example Input/Output:**
+**Example input/output**:
 ```
 Input: "The result is: {\"status\": \"success\", \"count\": 5} - processing complete"
 Output: {"status": "success", "count": 5}
@@ -169,10 +169,10 @@ Output: {"status": "success", "count": 5}
 
 Removes fields from JSON objects using JSONPath.
 
-**Parameters:**
-- `paths` (array, required): Array of JSONPath expressions identifying fields to remove
+**Parameters**:
+- `paths` (array, required): An array of JSONPath expressions identifying fields to remove.
 
-**Example Configuration:**
+**Example configuration**:
 ```json
 {
   "type": "remove_jsonpath",
@@ -180,7 +180,7 @@ Removes fields from JSON objects using JSONPath.
 }
 ```
 
-**Example Input/Output:**
+**Example input/output**:
 ```
 Input: {"name": "user1", "sensitive_data": "secret", "public_info": "visible"}
 Output: {"name": "user1", "public_info": "visible"}
@@ -190,19 +190,19 @@ Output: {"name": "user1", "public_info": "visible"}
 
 Applies different processor chains based on conditions.
 
-**Parameters:**
-- `path` (string, optional): JSONPath to extract value for condition evaluation
-- `routes` (array, required): Array of condition-processor mappings
-- `default` (array, optional): Default processors if no conditions match
+**Parameters**:
+- `path` (string, optional): The JSONPath expression used to extract the value for condition evaluation.
+- `routes` (array, required): An array of condition-processor mappings.
+- `default` (array, optional): The default processors if no conditions match.
 
-**Supported conditions:**
+**Supported conditions**:
 - Exact value match: `"value"`
-- Numeric comparisons: `">10"`, `"<5"`, `">=", `"<="`, `"==5"`
+- Numeric comparisons: `">10"`, `"<5"`, `">="`, `"<="`, `"==5"`
 - Existence checks: `"exists"`, `"null"`, `"not_exists"`
 - Regex matching: `"regex:pattern"`
 - Contains text: `"contains:substring"`
 
-**Example Configuration:**
+**Example configuration**:
 ```json
 {
   "type": "conditional",
@@ -225,7 +225,7 @@ Applies different processor chains based on conditions.
 }
 ```
 
-**Example Input/Output:**
+**Example input/output**:
 ```
 Input: {"index": "test-index", "status": "green", "docs": 100}
 Output: {"index": "test-index", "healthy": "green", "docs": 100}
@@ -235,16 +235,16 @@ Output: {"index": "test-index", "healthy": "green", "docs": 100}
 
 Applies a chain of processors to the input and sets the result at a specified JSONPath location.
 
-**Parameters:**
-- `path` (string, required): JSONPath expression specifying where to set the processed result
-- `processors` (array, required): List of processor configurations to apply sequentially
+**Parameters**:
+- `path` (string, required): The JSONPath expression specifying where to set the processed result.
+- `processors` (array, required): A list of processor configurations to apply sequentially.
 
-**Path behavior:**
-- If the path exists, it will be updated with the processed value
-- If the path doesn't exist, attempts to create it (works for simple nested fields)
-- Parent path must exist for new field creation to succeed
+**Path behavior**:
+- If the path exists, it will be updated with the processed value.
+- If the path doesn't exist, attempts to create it (works for simple nested fields).
+- A parent path must exist for new field creation to succeed.
 
-**Example Configuration:**
+**Example configuration**:
 ```json
 {
   "type": "process_and_set",
@@ -262,7 +262,7 @@ Applies a chain of processors to the input and sets the result at a specified JS
 }
 ```
 
-**Example Input/Output:**
+**Example input/output**:
 ```
 Input: {"name": "Test Index!", "status": "active"}
 Output: {"name": "Test Index!", "status": "active", "summary": {"clean_name": "Test_Index_"}}
@@ -272,18 +272,18 @@ Output: {"name": "Test Index!", "status": "active", "summary": {"clean_name": "T
 
 Sets a field to a specified static value or copies a value from another field.
 
-**Parameters:**
-- `path` (string, required): JSONPath expression specifying where to set the value
-- `value` (any, conditionally required): Static value to set. Either `value` or `source_path` must be provided
-- `source_path` (string, conditionally required): JSONPath to copy value from. Either `value` or `source_path` must be provided
-- `default` (any, optional): Default value when `source_path` doesn't exist. Only used with `source_path`
+**Parameters**:
+- `path` (string, required): The JSONPath expression specifying where to set the value.
+- `value` (any, conditionally required): The static value to set. Either `value` or `source_path` must be provided.
+- `source_path` (string, conditionally required): The JSONPath expression to copy the value from. Either `value` or `source_path` must be provided.
+- `default` (any, optional): The default value when `source_path` doesn't exist. Only used with `source_path`.
 
 **Path behavior:**
-- If the path exists, it will be updated with the new value
-- If the path doesn't exist, attempts to create it (works for simple nested fields)
-- Parent path must exist for new field creation to succeed
+- If the path exists, it will be updated with the new value.
+- If the path doesn't exist, attempts to create it (works for simple nested fields).
+- A parent path must exist for new field creation to succeed.
 
-**Example Configuration (static value):**
+**Example configuration (static value)**:
 ```json
 {
   "type": "set_field",
@@ -292,7 +292,7 @@ Sets a field to a specified static value or copies a value from another field.
 }
 ```
 
-**Example Configuration (copy field):**
+**Example configuration (copy field)**:
 ```json
 {
   "type": "set_field",
@@ -302,7 +302,7 @@ Sets a field to a specified static value or copies a value from another field.
 }
 ```
 
-**Example Input/Output:**
+**Example input/output**:
 ```
 Input: {"user": {"id": 123}, "name": "John"}
 Output: {"user": {"id": 123}, "name": "John", "userId": 123, "metadata": {"processed_at": "2024-03-15T10:30:00Z"}}
@@ -310,19 +310,19 @@ Output: {"user": {"id": 123}, "name": "John", "userId": 123, "metadata": {"proce
 
 ### for_each
 
-Iterates through array elements and applies a chain of processors to each element. Useful for transforming array elements uniformly, such as adding missing fields, filtering content, or normalizing data structures.
+Iterates through array elements and applies a chain of processors to each element. Useful for transforming array elements uniformly, such as when adding missing fields, filtering content, or normalizing data structures.
 
-**Parameters:**
-- `path` (string, required): JSONPath expression pointing to the array to iterate over. Must use `[*]` notation for array elements
-- `processors` (array, required): List of processor configurations to apply to each array element
+**Parameters**:
+- `path` (string, required): The JSONPath expression pointing to the array to iterate over. Must use `[*]` notation for array elements.
+- `processors` (array, required): A list of processor configurations to apply to each array element.
 
-**Behavior:**
-- Each element is processed independently with the configured processor chain
-- The output of the processor chain replaces the original element
-- If the path doesn't exist or doesn't point to an array, returns input unchanged
-- If processing an element fails, the original element is kept
+**Behavior**:
+- Each element is processed independently using the configured processor chain.
+- The output of the processor chain replaces the original element.
+- If the path doesn't exist or doesn't point to an array, the input is returned unchanged.
+- If the processing of an element fails, the original element is kept.
 
-**Example Configuration:**
+**Example configuration**:
 ```json
 {
   "type": "for_each",
@@ -337,7 +337,7 @@ Iterates through array elements and applies a chain of processors to each elemen
 }
 ```
 
-**Example Input/Output:**
+**Example input/output**:
 ```
 Input: {
   "items": [
@@ -397,7 +397,7 @@ POST /_plugins/_ml/agents/{agent_id}/_execute
 }
 ```
 
-**Without output processors, the raw ListIndexTool would return:**
+Without output processors, the raw `ListIndexTool` would return the following:
 ```
 row,health,status,index,uuid,pri,rep,docs.count,docs.deleted,store.size,pri.store.size
 1,green,open,.plugins-ml-model-group,DCJHJc7pQ6Gid02PaSeXBQ,1,0,1,0,12.7kb,12.7kb
@@ -405,7 +405,7 @@ row,health,status,index,uuid,pri,rep,docs.count,docs.deleted,store.size,pri.stor
 3,green,open,.plugins-ml-memory-meta,LqP3QMaURNKYDZ9p8dTq3Q,1,0,2,0,44.8kb,44.8kb
 ```
 
-**With output processors, the agent returns:**
+With output processors, the agent returns the following:
 ```
 1,green,open,.plugins-ml-model-group
 2,green,open,.plugins-ml-memory-message
@@ -413,16 +413,16 @@ row,health,status,index,uuid,pri,rep,docs.count,docs.deleted,store.size,pri.stor
 ```
 
 The output processors transform the verbose CSV output into a clean, readable format by:
-1. **`regex_replace`**: Removing the CSV header row
-2. **`regex_capture`**: Extracting only essential information (row number, health, status, and index name)
+1. **`regex_replace`**: Removing the CSV header row.
+2. **`regex_capture`**: Extracting only essential information (row number, health, status, and index name).
 
 ## Example usage with models
 
 The following examples demonstrate how to use processor chains with models during prediction calls.
 
-### Input processors example
+### Example: Input processors
 
-This example shows how to modify model input using `input_processors` to replace text before processing:
+This example shows you how to modify model input using `input_processors` to replace text before processing:
 
 ```json
 POST _plugins/_ml/models/{model_id}/_predict
@@ -443,9 +443,9 @@ POST _plugins/_ml/models/{model_id}/_predict
 
 In this example, the `regex_replace` processor modifies the prompt before it's sent to the model, changing "100 words" to "20 words".
 
-### Output processors example
+### Example: Output processors
 
-This example shows how to process model output using `output_processors` to extract and format JSON data:
+This example shows you how to process model output using `output_processors` to extract and format JSON data:
 
 ```json
 POST _plugins/_ml/models/{model_id}/_predict
@@ -487,10 +487,10 @@ POST _plugins/_ml/models/{model_id}/_predict
 ```
 
 In this example, the output processors:
-1. Extract the content from the model response using JSONPath
-2. Parse and extract the JSON object from the text response
+1. Extract the content from the model response using JSONPath.
+2. Parse and extract the JSON object from the text response.
 
-**Without output processors, the raw response would be:**
+Without output processors, the raw response would be the following:
 ```json
 {
   "inference_results": [
@@ -542,7 +542,7 @@ In this example, the output processors:
 }
 ```
 
-**With output processors, the response becomes:**
+With output processors, the response becomes the following:
 ```json
 {
   "inference_results": [
