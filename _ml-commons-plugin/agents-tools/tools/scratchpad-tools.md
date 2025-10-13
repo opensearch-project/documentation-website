@@ -47,7 +47,7 @@ Each call to the agent's `_execute` API creates a fresh scratchpad, ensuring exe
 
 Use the following steps to build a research agent with scratchpad tools.
 
-## Step 1: Register and deploy a model
+### Step 1: Register and deploy a model
 
 Register a conversational model that supports the agent framework. The following example uses Anthropic Claude:
 
@@ -88,7 +88,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-## Step 2: Register an agent with scratchpad tools
+### Step 2: Register an agent with scratchpad tools
 
 Register a conversational agent that includes both scratchpad tools and other research tools:
 
@@ -139,7 +139,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-## Step 3: Execute the agent
+### Step 3: Execute the agent
 
 Execute the agent with a research question:
 
@@ -160,7 +160,7 @@ The agent will:
 3. Execute searches and update the scratchpad with findings.
 4. Provide a comprehensive answer based on accumulated research.
 
-When using the `agents/<your-agent-id>/_execute` API, you will get a `parent_interaction_id` and `memory_id` in the response. Note the `parent_interaction_id` for later tracing steps.
+When using the `agents/<your-agent-id>/_execute` API, you will get a `parent_interaction_id` and `memory_id` in the response. Note the `parent_interaction_id` for later tracing steps. For more information, see [Viewing scratchpad activity](#viewing-scratchpad-activity).
 
 ## Tool parameters
 
@@ -240,6 +240,7 @@ POST /_plugins/_ml/tools/_execute/ReadFromScratchPadTool
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response indicates that the scratchpad is empty:
 
