@@ -36,8 +36,6 @@ The request fields vary depending on the memory type being updated. All request 
 
 The following table lists all session memory request body fields. 
 
-| Field | Data type | Description |
-| :--- | :--- | :--- |
 | Field      | Data type             | Description |
 |:-----------|:----------------------| :--- |
 | `summary`  | String                | The summary of the session.
