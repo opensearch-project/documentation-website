@@ -9,7 +9,7 @@ nav_order: 30
 **Introduced 3.3**
 {: .label .label-purple }
 
-Agentic memory enables AI agents to learn, remember, and reason over structured information across conversations. Unlike simple conversational memory that only stores message history, agentic memory provides persistent, intelligent storage that helps agents maintain context, learn user preferences, and improve their responses over time.
+Agentic memory enables AI agents to learn, remember, and reason over structured information across conversations. Unlike simple conversation memory that only stores message history, agentic memory provides persistent, intelligent storage that helps agents maintain context, learn user preferences, and improve their responses over time.
 
 Using agentic memory, you can build AI agents that can do the following:
 
@@ -65,7 +65,7 @@ Each memory container can store four distinct types of memory:
 
 - `working` -- Stores active conversation data and structured information that agents use during ongoing interactions. This includes recent messages, current context, agent state, execution traces, and temporary data needed for immediate processing.
 
-- `long-term` -- Contains processed knowledge and facts extracted from conversations over time. When inference is enabled, large language models extract key insights, user preferences, and important information from working memory and store them as persistent knowledge.
+- `long-term` -- Contains processed knowledge and facts extracted from conversations over time. When inference is enabled, LLMs extract key insights, user preferences, and important information from working memory and store them as persistent knowledge.
 
 - `history` -- Maintains an audit trail of all memory operations (add, update, delete) across the memory container. This provides a comprehensive log of how memories have evolved and changed over time.
 
@@ -76,7 +76,7 @@ When adding memories, you can specify different payload types:
 - `conversational` -- Stores conversational messages between users and assistants.
 - `data` -- Stores structured, non-conversational data such as agent state, checkpoints, or reference information.
 
-To add a conversational memory with inference, send the following request:
+To add a conversation memory with inference, send the following request:
 
 ```json
 POST /_plugins/_ml/memory_containers/<container_id>/memories
@@ -125,8 +125,8 @@ POST /_plugins/_ml/memory_containers/<container_id>/memories
 
 You can control how OpenSearch processes memories using the `infer` parameter:
 
-- `false` (default) -- Stores raw messages and data in `working` memory without LLM processing
-- `true` -- Uses the configured large language model (LLM) to extract key information and knowledge from the content
+- `false` (default) -- Stores raw messages and data in `working` memory without LLM processing.
+- `true` -- Uses the configured LLM to extract key information and knowledge from the content.
 
 ## Memory processing strategies
 
@@ -170,25 +170,25 @@ The following examples demonstrate how you can use agentic memory.
 
 Create a memory container that learns user preferences over time:
 
-- Store conversations in `working` memory with inference enabled
-- Extract user preferences into `long-term` memory using the `USER_PREFERENCE` strategy
-- Use namespaces to separate different users' memories
+- Store conversations in `working` memory with inference enabled.
+- Extract user preferences into `long-term` memory using the `USER_PREFERENCE` strategy.
+- Use namespaces to separate different users' memories.
 
 ### Research assistant agent
 
 Build an agent that accumulates knowledge from research sessions:
 
-- Store research queries and results in `working` memory
-- Use the `SEMANTIC` strategy to group related research topics
-- Maintain `history` to track how knowledge evolved over time
+- Store research queries and results in `working` memory.
+- Use the `SEMANTIC` strategy to group related research topics.
+- Maintain `history` to track how knowledge evolved over time.
 
 ### Customer service agent
 
 Develop an agent that remembers customer interactions:
 
-- Store customer conversations with inference to extract key issues
-- Use `SUMMARY` strategy to create concise interaction summaries
-- Organize by customer ID using namespaces
+- Store customer conversations with inference to extract key issues.
+- Use `SUMMARY` strategy to create concise interaction summaries.
+- Organize by customer ID using namespaces.
 
 ## Getting started
 
@@ -203,6 +203,6 @@ For detailed API documentation, see [Agentic Memory APIs]({{site.url}}{{site.bas
 
 ## Next steps
 
-- Learn about [agent types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/) and how to integrate agentic memory
-- Explore [memory container configuration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/) options
-- Review the complete [Agentic Memory API reference]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/)
+- Learn about [agent types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/) and how to integrate agentic memory.
+- Explore [memory container configuration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/) options.
+- Review the complete [Agentic Memory API reference]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/).

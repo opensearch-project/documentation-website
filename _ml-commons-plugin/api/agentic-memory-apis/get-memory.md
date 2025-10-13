@@ -164,8 +164,8 @@ The following table lists all working memory response body fields.
 | `metadata`            | Object | Additional metadata associated with the memory.         |
 | `tags`                | Object | Associated tags for categorization.                     |
 | `infer`               | Boolean | Whether inference was enabled for this memory.          |
-| `created_time`        | Long | The timestamp when the memory was created.                  |
-| `last_updated_time`   | Long | The timestamp when the memory was last updated.             |
+| `created_time`        | Long | The timestamp of when the memory was created.                  |
+| `last_updated_time`   | Long | The timestamp of when the memory was last updated.             |
 
 ### Long-term memory response fields
 
@@ -192,8 +192,8 @@ The following table lists all session response body fields.
 | :--- | :--- | :--- |
 | `memory_container_id` | String | The ID of the memory container. |
 | `namespace` | Object | The namespace context for this session. |
-| `created_time` | String | The timestamp when the session was created. |
-| `last_updated_time` | String | The timestamp when the session was last updated. |
+| `created_time` | String | The timestamp of when the session was created. |
+| `last_updated_time` | String | The timestamp of when the session was last updated. |
 
 ### History response fields
 
@@ -210,4 +210,4 @@ The following table lists all history response body fields.
 | `namespace` | Object | The namespace context for this memory. |
 | `namespace_size` | Integer | The namespace size. |
 | `tags` | Object | Associated tags for categorization. |
-| `created_time` | Long | The timestamp when the operation occurred. |
+| `created_time` | Long | The timestamp of when the operation occurred. |

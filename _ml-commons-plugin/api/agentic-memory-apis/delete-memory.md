@@ -149,7 +149,7 @@ POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/working/_dele
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `took` | Integer | The time, in milliseconds, it took to execute the request. |
+| `took` | Integer | The time, in milliseconds, taken to execute the request. |
 | `timed_out` | Boolean | Whether the request timed out. |
 | `total` | Integer | The total number of documents processed. |
 | `deleted` | Integer | The number of documents deleted. |
@@ -157,7 +157,7 @@ POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/working/_dele
 | `version_conflicts` | Integer | The number of version conflicts encountered. |
 | `noops` | Integer | The number of no-operation updates. |
 | `retries` | Object | Information about bulk and search retries. |
-| `throttled_millis` | Integer | The time, in milliseconds, the request was throttled. |
+| `throttled_millis` | Integer | The time, in milliseconds, that the request was throttled. |
 | `requests_per_second` | Float | The number of requests processed per second. |
 | `throttled_until_millis` | Integer | The time, in milliseconds, until throttling is lifted. |
 | `failures` | Array | Any failures that occurred during the operation. |

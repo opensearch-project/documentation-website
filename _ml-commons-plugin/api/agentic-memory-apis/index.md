@@ -13,11 +13,11 @@ redirect_from:
 **Introduced 3.3**
 {: .label .label-purple }
 
-Agentic Memory APIs provide persistent memory management for AI agents. For an overview of concepts, use cases, and getting started information, see [Agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agentic-memory/).
+Agentic memory APIs provide persistent memory management for AI agents. For an overview of concepts, use cases, and getting started information, see [Agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agentic-memory/).
 
-## Disabling Agentic Memory APIs
+## Disabling agentic memory APIs
 
-Agentic Memory APIs are enabled by default. To disable Agentic Memory APIs, update the following cluster setting:
+Agentic memory APIs are enabled by default. To disable agentic memory APIs, update the following cluster setting:
 
 ```json
 PUT /_cluster/settings

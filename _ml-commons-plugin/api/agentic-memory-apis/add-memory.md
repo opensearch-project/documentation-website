@@ -42,7 +42,7 @@ Field | Data type | Required/Optional | Description
 `namespace` | Object | Optional | The [namespace]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#namespaces) context for organizing memories (for example, `user_id`, `session_id`, or `agent_id`). If `session_id` is not specified in the `namespace` field, a new session with a new session ID is created.
 `metadata` | Object | Optional | Additional metadata for the memory (for example, `status`, `branch`, or custom fields).
 `tags` | Object | Optional | Tags for categorizing and organizing memories.
-`infer` | Boolean | Optional | Whether to use an LLM to extract key information from messages. Default is `false`. When `true`, the LLM extracts key information from the original text and stores it as a memory. See [Inference mode](#inference-mode).
+`infer` | Boolean | Optional | Whether to use a large language model (LLM) to extract key information from messages. Default is `false`. When `true`, the LLM extracts key information from the original text and stores it as a memory. See [Inference mode](#inference-mode).
 
 ## Example request: Conversational payload
 

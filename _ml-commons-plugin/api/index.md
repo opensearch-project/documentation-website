@@ -30,6 +30,6 @@ OpenSearch supports the following machine learning (ML) APIs:
 
 OpenSearch provides two different memory systems:
 
-- **[Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/index/)** - Simple conversation history storage for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). Stores question/answer pairs chronologically without processing or learning.
+- **[Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/index/)** -- Simple conversation history storage for [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). Stores question/answer pairs chronologically without processing or learning.
 
-- **[Agentic Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/)** - Intelligent memory system for AI agents. Uses LLMs to extract knowledge, learn user preferences, and maintain context across sessions. For conceptual information, see [Agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agentic-memory/).
+- **[Agentic Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/)** -- Intelligent memory system for AI agents. Uses large language models (LLMs) to extract knowledge, learn user preferences, and maintain context across sessions. For conceptual information, see [Agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agentic-memory/).

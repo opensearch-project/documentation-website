@@ -528,7 +528,7 @@ plugins.ml_commons.memory_feature_enabled: true
 
 ## Enable agentic memory
 
-When set to `true`, this setting enables [agentic memory]({{site.url}}{{site.baseurl}}/agents-tools/agentic-memory/), which provides advanced memory management for AI agents including session memory, working memory, long-term memory, and memory history with namespace-based organization.
+When set to `true`, this setting enables [agentic memory]({{site.url}}{{site.baseurl}}/agents-tools/agentic-memory/), which provides advanced memory management for AI agents, including session memory, working memory, long-term memory, and memory history with namespace-based organization.
 
 ### Setting
 

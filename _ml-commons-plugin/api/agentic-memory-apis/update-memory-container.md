@@ -10,7 +10,7 @@ nav_order: 15
 **Introduced 3.3**
 {: .label .label-purple }
 
-Use this API to update an existing memory container's properties such as name, description, configuration, and access permissions.
+Use this API to update an existing memory container's properties, such as name, description, configuration, and access permissions.
 
 ## Endpoints
 
@@ -30,16 +30,16 @@ PUT /_plugins/_ml/memory_containers/<memory_container_id>
 | :--- | :--- | :--- | :--- |
 | `name` | String | Optional | The updated name of the memory container. |
 | `description` | String | Optional | The updated description of the memory container. |
-| `configuration` | Object | Optional | Configuration object containing strategies and embedding settings. See [The configuration object](#the-configuration-object). |
+| `configuration` | Object | Optional | The configuration object containing strategies and embedding settings. See [The configuration object](#the-configuration-object). |
 
 ### The configuration object
 
-The `configuration` objects supports the following fields.
+The `configuration` object supports the following fields.
 
 | Field | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
-| `llm_id` | String | Optional | The large language model ID to use to extract facts. |
-| `strategies` | Array | Optional | Array of strategy objects for memory processing. |
+| `llm_id` | String | Optional | The large language model (LLM) ID to use to extract facts. |
+| `strategies` | Array | Optional | An array of strategy objects for memory processing. |
 | `embedding_model_id` | String | Optional | The embedding model ID. Can only be updated if no long-term memory index exists. |
 | `embedding_model_type` | String | Optional | The embedding model type. Can only be updated if no long-term memory index exists. |
 | `embedding_dimension` | Integer | Optional | The embedding dimension. Can only be updated if no long-term memory index exists. |
@@ -50,13 +50,13 @@ Note the following update behavior.
 
 ### Strategy updates
 
--  To update a specific strategy, specify the strategy `id`.
+- To update a specific strategy, specify the strategy `id`.
 - To create a new strategy, specify a strategy without an `id`.
 
 ### Backend roles updates
 
 - Adding new `backend_roles` grants new users read or write access with those roles.
-- The new `backend_roles` field overwrites the existing field, so include original roles if you want to keep them.
+- The new `backend_roles` field overwrites the existing field, so include the original roles if you want to keep them.
 
 ### Namespace updates
 

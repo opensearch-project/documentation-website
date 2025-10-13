@@ -10,7 +10,7 @@ nav_order: 25
 **Introduced 3.3**
 {: .label .label-purple }
 
-Use this API to search for memory containers using OpenSearch query DSL.
+Use this API to search for memory containers using OpenSearch query domain-specific language (DSL).
 
 ## Endpoints
 
@@ -91,5 +91,5 @@ The following table lists all response body fields.
 | `name` | String | The name of the memory container. |
 | `description` | String | The description of the memory container. |
 | `configuration` | Object | The memory container configuration, including models and strategies. |
-| `created_time` | Long | The timestamp when the container was created. |
-| `last_updated_time` | Long | The timestamp when the container was last updated. |
+| `created_time` | Long | The timestamp of when the container was created. |
+| `last_updated_time` | Long | The timestamp of when the container was last updated. |

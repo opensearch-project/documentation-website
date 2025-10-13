@@ -29,7 +29,7 @@ The following table lists the available path parameters.
 
 ## Request fields
 
-The request body supports standard OpenSearch query DSL. For more information, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
+The request body supports standard OpenSearch query domain-specific language (DSL). For more information, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 
 ## Example request: Search sessions
 
