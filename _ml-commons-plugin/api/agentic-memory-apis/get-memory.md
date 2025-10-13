@@ -10,7 +10,7 @@ nav_order: 51
 **Introduced 3.3**
 {: .label .label-purple }
 
-Use this API to retrieve a specific memory by its type and ID. This unified API supports the four [memory types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#memory-types): `sessions`, `working`, `long-term`, and `history`.
+Use this API to retrieve a specific memory by its type and ID. This unified API supports the four [memory types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-types): `sessions`, `working`, `long-term`, and `history`.
 
 ## Endpoints
 
@@ -176,7 +176,7 @@ The following table lists all long-term memory response body fields.
 | `memory` | String | The extracted long-term memory fact. |
 | `strategy_type` | String | The type of memory strategy used (for example, `SEMANTIC`, `SUMMARY`, or `USER_PREFERENCE`). |
 | `namespace` | Object | The namespace context for this memory. |
-| `namespace_size` | Integer | The namespace size. |
+| `namespace_size` | Integer | The number of namespaces. |
 | `tags` | Object | Associated tags for categorization. |
 | `created_time` | Long | The timestamp when the memory was created. |
 | `last_updated_time` | Long | The timestamp when the memory was last updated. |
@@ -208,6 +208,6 @@ The following table lists all history response body fields.
 | `after` | Object | The memory content after the operation. |
 | `before` | Object | The memory content before the operation (for `UPDATE` operations). |
 | `namespace` | Object | The namespace context for this memory. |
-| `namespace_size` | Integer | The namespace size. |
+| `namespace_size` | Integer | The number of namespaces. |
 | `tags` | Object | Associated tags for categorization. |
 | `created_time` | Long | The timestamp of when the operation occurred. |

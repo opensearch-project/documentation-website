@@ -20,5 +20,5 @@ A _tool_ performs a set of specific tasks. Some examples of tools are the [`Vect
 
 ## Agentic memory
 
-Agents can use [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agentic-memory/) to learn, remember, and reason over structured information across conversations. This enables agents to maintain context, learn user preferences, and improve their responses over time.
+Agents can use [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/) to learn, remember, and reason over structured information across conversations. This enables agents to maintain context, learn user preferences, and improve their responses over time.
 

@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Agentic memory
-parent: Agents and tools
-nav_order: 30
+nav_order: 60
 ---
 
 # Agentic memory
@@ -20,6 +19,9 @@ Using agentic memory, you can build AI agents that can do the following:
 - Track agent execution traces for debugging and analysis
 - Organize information across different users, sessions, or agent instances
 
+Currently, agentic memory is designed for integration with external agent frameworks like LangChain and LangGraph. OpenSearch's internal [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/) cannot interact with agentic memory.
+{: .note}
+
 ## Memory containers
 
 Agentic memory is organized into _memory containers_ that hold all memory types for a specific use case, such as a chatbot, research assistant, or customer service agent.
@@ -28,8 +30,8 @@ Each container can be configured with the following components:
 
 - Text embedding models: For semantic search capabilities.
 - Large language models (LLMs): For inference and knowledge extraction.
-- [Memory processing strategies](#memory-processing-strategies): For automatic content organization.
-- [Namespaces](#namespaces): For organizing memories within containers.
+- [Memory processing strategies](#memory-processing-strategies): For defining how memories are processed or extracted.
+- [Namespaces](#namespaces): For partitioning and isolating memories by context, user, agent, or session.
 
 For example, to create a memory container with two strategies, send the following request:
 
@@ -203,6 +205,5 @@ For detailed API documentation, see [Agentic Memory APIs]({{site.url}}{{site.bas
 
 ## Next steps
 
-- Learn about [agent types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/) and how to integrate agentic memory.
 - Explore [memory container configuration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/) options.
 - Review the complete [Agentic Memory API reference]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/).

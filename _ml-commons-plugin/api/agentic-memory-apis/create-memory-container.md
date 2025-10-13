@@ -10,12 +10,10 @@ nav_order: 10
 **Introduced 3.3**
 {: .label .label-purple }
 
-Use this API to create a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#memory-containers) to hold agentic memories. The container can have two model types associated with it:
+Use this API to create a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-containers) to hold agentic memories. The container can have two model types associated with it:
 
 - A text embedding model for vectorizing the message so it can be searched. Use a text embedding model for dense vector embeddings or a sparse encoding model for sparse vector formats. If no embedding model is specified, messages are stored but cannot be used for vector-based searches.
 - A large language model (LLM) for reasoning over the message to produce factual or processed content. If no LLM is specified, messages are stored directly, without applying inference. Long-term memory requires both an LLM model and embedding model to be configured.
-
-**Note**: LLM connectors must support `system_prompt` and `user_prompt` parameters for agentic memory processing. The default `llm_result_path` is configured for Amazon Bedrock Converse API format (`"$.output.message.content[0].text"`).
 
 For more information, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 
@@ -164,7 +162,7 @@ Field | Data type | Required/Optional | Description
 `disable_session`  | Boolean | Optional | If disabled, no session will be persisted. Default is `true`, so the session will not be persisted by default.
 `max_infer_size`   | int     | Optional | Controls the top k number of similar existing memories retrieved during memory consolidation to make ADD/UPDATE/DELETE decisions.
 `index_settings`   | Object | Optional | Custom OpenSearch index settings for the memory storage indexes that will be created for this container. Each memory type (`sessions`, `working`, `long_term`, and `history`) uses its own index. See [Index settings](#index-settings).
-`strategies` | Array | Optional | An array of [memory processing strategies]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#memory-processing-strategies). See [The `strategies` array](#the-strategies-array).
+`strategies` | Array | Optional | An array of [memory processing strategies]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-processing-strategies). See [The `strategies` array](#the-strategies-array).
 `parameters` | Object | Optional | Global parameters for the memory container. See [The `parameters` object](#the-parameters-object).
 
 ### Index settings
@@ -216,7 +214,7 @@ Each strategy in the `strategies` array supports the following fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `type` | String | Required | The strategy type. Valid values are `SEMANTIC`, `USER_PREFERENCE`, and `SUMMARY`.
-`namespace` | Array | Required | An array of [namespace]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#namespaces) dimensions for organizing memories (for example, `["user_id"]` or `["agent_id", "session_id"]`).
+`namespace` | Array | Required | An array of [namespace]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#namespaces) dimensions for organizing memories (for example, `["user_id"]` or `["agent_id", "session_id"]`).
 `configuration` | Object | Optional | Strategy-specific configuration. See [The strategy `configuration` object](#the-strategy-configuration-object).
 `enabled`       | Boolean             | Optional | Whether to enable the strategy in the memory container. Default is `true`.
 

@@ -10,11 +10,11 @@ nav_order: 53
 **Introduced 3.3**
 {: .label .label-purple }
 
-Use this API to delete a specific memory by its type and ID or to delete memories matching a query. This unified API supports deleting memories of any [memory type]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#memory-types): `sessions`, `working`, `long-term`, or `history`.
+Use this API to delete a specific memory by its type and ID or to delete memories matching a query. This unified API supports deleting memories of any [memory type]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-types): `sessions`, `working`, `long-term`, or `history`.
 
-## Delete a memory by type or ID
+## Delete a memory by type and ID
 
-Use this API to delete a memory by type or ID.
+Use this API to delete a memory by type and ID.
 
 ### Endpoints
 

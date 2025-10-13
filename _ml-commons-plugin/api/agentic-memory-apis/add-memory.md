@@ -11,7 +11,7 @@ nav_order: 40
 {: .label .label-purple }
 
 
-Use this API to add an agentic memory to a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container). You can specify different [payload types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#payload-types) and control [inference mode]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#inference-mode) for how OpenSearch processes the memory.
+Use this API to add an agentic memory to a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container). You can specify different [payload types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#payload-types) and control [inference mode]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#inference-mode) for how OpenSearch processes the memory.
 
 Once an agentic memory is created, provide its `memory_id` to other APIs.
 
@@ -38,11 +38,11 @@ Field | Data type | Required/Optional | Description
 `messages` | Array | Conditional | A list of messages for a `conversational` payload. Each message requires a `content` field and may include a `role` (commonly, `user` or `assistant`) when `infer` is set to `true`. Required when `payload_type` is `conversational`.
 `structured_data` | Object | Conditional | Structured data content for data memory. Required when `payload_type` is `data`.
 `binary_data` | String | Optional | Binary data content encoded as a Base64 string for binary payloads.
-`payload_type` | String | Required | The type of payload. Valid values are `conversational` or `data`. See [Payload types](#payload-types).
-`namespace` | Object | Optional | The [namespace]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#namespaces) context for organizing memories (for example, `user_id`, `session_id`, or `agent_id`). If `session_id` is not specified in the `namespace` field, a new session with a new session ID is created.
+`payload_type` | String | Required | The type of payload. Valid values are `conversational` or `data`. See [Payload types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#payload-types).
+`namespace` | Object | Optional | The [namespace]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#namespaces) context for organizing memories (for example, `user_id`, `session_id`, or `agent_id`). If `session_id` is not specified in the `namespace` field, a new session with a new session ID is created.
 `metadata` | Object | Optional | Additional metadata for the memory (for example, `status`, `branch`, or custom fields).
 `tags` | Object | Optional | Tags for categorizing and organizing memories.
-`infer` | Boolean | Optional | Whether to use a large language model (LLM) to extract key information from messages. Default is `false`. When `true`, the LLM extracts key information from the original text and stores it as a memory. See [Inference mode](#inference-mode).
+`infer` | Boolean | Optional | Whether to use a large language model (LLM) to extract key information from messages. Default is `false`. When `true`, the LLM extracts key information from the original text and stores it as a memory. See [Inference mode]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#inference-mode).
 
 ## Example request: Conversational payload
 
@@ -161,7 +161,7 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
     "data_type": "trace"
   },
   "infer": false,
-  "payload_type": "conversational"
+  "payload_type": "data"
 }
 ```
 {% include copy-curl.html %}

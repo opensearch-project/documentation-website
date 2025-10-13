@@ -10,7 +10,7 @@ nav_order: 54
 **Introduced 3.3**
 {: .label .label-purple }
 
-Use this API to search for memories of a specific type within a memory container. This unified API supports searching `sessions`, `working`, `long-term`, and `history` [memory types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#memory-types).
+Use this API to search for memories of a specific type within a memory container. This unified API supports searching `sessions`, `working`, `long-term`, and `history` [memory types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-types).
 
 ## Endpoints
 

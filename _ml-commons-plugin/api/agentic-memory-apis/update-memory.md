@@ -10,7 +10,7 @@ nav_order: 52
 **Introduced 3.3**
 {: .label .label-purple }
 
-Use this API to update a specific memory by its type and ID. This unified API supports updating `sessions`, `working`, and `long-term` [memory types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#memory-types). `history` memory does not support updates.
+Use this API to update a specific memory by its type and ID. This unified API supports updating `sessions`, `working`, and `long-term` [memory types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-types). `history` memory does not support updates.
 
 ## Endpoints
 
