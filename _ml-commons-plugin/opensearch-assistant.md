@@ -3,7 +3,7 @@ layout: default
 title: OpenSearch Assistant Toolkit
 has_children: false
 has_toc: false
-nav_order: 28
+nav_order: 70
 ---
 
 # OpenSearch Assistant Toolkit

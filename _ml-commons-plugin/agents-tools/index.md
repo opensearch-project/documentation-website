@@ -18,7 +18,4 @@ An _agent_ orchestrates and runs ML models and tools. For a list of supported ag
 
 A _tool_ performs a set of specific tasks. Some examples of tools are the [`VectorDBTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/vector-db-tool/), which supports vector search, and the [`ListIndexTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/list-index-tool/), which executes the List Indices API. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
-## Agentic memory
-
-Agents can use [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/) to learn, remember, and reason over structured information across conversations. This enables agents to maintain context, learn user preferences, and improve their responses over time.
-
+You can modify and transform tool outputs using a [processor chain]({{site.url}}{{site.baseurl}}/ml-commons-plugin/processor-chain/).
