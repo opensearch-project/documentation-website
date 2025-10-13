@@ -180,6 +180,21 @@ Parameter | Type | Required/Optional | Description
 :--- | :--- |:------------------| :---
 `persistent_notes` | String | Required          | Initial notes or instructions to store in the scratchpad.
 
+### WriteToScratchPadTool
+
+The following **registration parameters** are used when adding to an agent.
+
+Parameter | Type | Required/Optional | Description
+:--- | :--- | :--- | :---
+`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation.
+
+The following **execution parameters**  are used when calling the tool directly.
+
+Parameter | Type | Required/Optional | Description
+:--- | :--- | :--- | :---
+`notes` | String | Required | The content to write to the scratchpad.
+`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation.
+
 
 ## Testing the tools
 
@@ -242,21 +257,6 @@ The response indicates that the scratchpad is empty:
   ]
 }
 ```
-
-### WriteToScratchPadTool
-
-The following **registration parameters** are used when adding to an agent.
-
-Parameter | Type | Required/Optional | Description
-:--- | :--- | :--- | :---
-`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation.
-
-The following **execution parameters**  are used when calling the tool directly.
-
-Parameter | Type | Required/Optional | Description
-:--- | :--- | :--- | :---
-`notes` | String | Required | The content to write to the scratchpad.
-`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation.
 
 ### Testing the WriteToScratchPadTool
 
