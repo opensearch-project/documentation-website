@@ -269,7 +269,7 @@ To use HDFS as a snapshot repository, follow these steps:
 
 1. Restart all nodes in the OpenSearch cluster.
 
-1. Register the repository using the REST API:
+1. Register the repository using the OpenSearch Snapshot API:
 
     ```json
     PUT _snapshot/searchable_snapshots
