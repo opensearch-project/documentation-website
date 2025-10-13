@@ -239,6 +239,51 @@ You will most likely not need to specify any parameters except for `location`. F
 
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
+### Hadoop Distributed File System (HDFS)
+
+To use HDFS as a snapshot repository, follow these steps:
+
+1. Create an HDFS directory for snapshots and ensure that the OpenSearch user has read and write permissions to it (ex: `/opensearch/repositories/searchable_snapshots`).
+
+1. Install the `repository-hdfs` plugin on all nodes:
+
+   ```bash
+   sudo ./bin/opensearch-plugin install repository-hdfs
+   ```
+
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins}). Your `Dockerfile` should look something like this:
+
+   ```
+   FROM opensearchproject/opensearch:{{site.opensearch_version}}
+
+   RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-hdfs
+   ```
+
+1. If you have authentication enabled on your HDFS cluster, distribute the Kerberos keytab file to all nodes and ensure that the OpenSearch user has read access to it. And add the following settings to the `opensearch.yml` file on all nodes in the OpenSearch cluster:
+
+   ```yml
+   hdfs.client.default.authentication: simple # or kerberos
+   hdfs.client.default.kerberos.keytab.file: /path/to/keytab/file # only if using kerberos authentication
+   hdfs.client.default.kerberos.principal: principal_name # only if using kerberos authentication
+   ```
+
+1. Restart all nodes in the OpenSearch cluster.
+
+1. Register the repository using the REST API:
+
+    ```json
+    PUT _snapshot/searchable_snapshots
+    {
+      "type": "hdfs",
+      "settings": {
+        // If using kerberos authentication, uncomment and replace YOURREALM with your realm name
+        //    "security.principal": "opensearch@YOURREALM"
+        "uri": "hdfs://namenode:8020/",
+        "path": "/opensearch/repositories/searchable_snapshots"
+      }
+    }
+    ```
+   {% include copy-curl.html %}
 
 ### Registering a Microsoft Azure storage account using Helm 
 
