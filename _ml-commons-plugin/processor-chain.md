@@ -241,7 +241,7 @@ Applies a chain of processors to the input and sets the result at a specified JS
 
 **Path behavior**:
 - If the path exists, it will be updated with the processed value.
-- If the path doesn't exist, attempts to create it (works for simple nested fields).
+- If the path doesn't exist, the processor chain attempts to create it (works for simple nested fields).
 - A parent path must exist for new field creation to succeed.
 
 **Example configuration**:
@@ -280,7 +280,7 @@ Sets a field to a specified static value or copies a value from another field.
 
 **Path behavior:**
 - If the path exists, it will be updated with the new value.
-- If the path doesn't exist, attempts to create it (works for simple nested fields).
+- If the path doesn't exist, the processor chain attempts to create it (works for simple nested fields).
 - A parent path must exist for new field creation to succeed.
 
 **Example configuration (static value)**:
