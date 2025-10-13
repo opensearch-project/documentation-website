@@ -31,7 +31,7 @@ For more information regarding the list of available tools, see [Tools]({{site.u
 POST /_plugins/_ml/tools/_execute/<tool_name>
 ```
 
-The <tool_name> parameter refers to the predefined tool type name (such as PPLTool, SearchIndexTool, VectorDBTool, etc.), not a custom tool name that you define.
+The `<tool_name>` parameter refers to the predefined tool type name, such as `PPLTool`, `SearchIndexTool`, or `VectorDBTool`,---not a custom tool name that you define.
 {: .note}
 
 ## Request body field
@@ -50,10 +50,11 @@ To determine the required parameters for a specific tool, refer to the individua
 
 | Component                | Description                                    |
 |:-------------------------|:-----------------------------------------------|
-| Tool register parameters | Parameters specified during tool registration. |
-| Tool execute parameters  | Parameters specified during tool execution.    |
+| Tool registration parameters | Parameters specified during tool registration. |
+| Tool execution parameters  | Parameters specified during tool execution.    |
 
 ## Example requests
+The following are examples of both simple and complex tool execution.
 
 ### Example 1: Simple tool execution
 
