@@ -47,11 +47,15 @@ To include Grok performance metadata when the event is sent to the sink inside t
 
 
 ```yaml
-processor:
+  processor:
     - grok:
         performance_metadata: true
         match:
-          log: "%{COMMONAPACHELOG}"
+          log: ["%{COMMONAPACHELOG}"]
+        break_on_match: true
+        named_captures_only: true
+        target_key: "parsed"
+
     - add_entries:
         entries:
           - add_when: 'getMetadata("_total_grok_patterns_attempted") != null'
