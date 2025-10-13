@@ -117,7 +117,7 @@ The following table lists all tool parameters that are available when registerin
 
 Parameter | Type | Description
 :--- | :--- | :---
-`input`| String | The index name and the query to use for search, in JSON format. The `index` parameter contains the name of the index and the `query` parameter contains the query formatted in Query DSL. For example, `"{\"index\": \"opensearch_dashboards_sample_data_ecommerce\", \"query\": {\"size\": 22,  \"_source\": \"category\"}}"`. The `input` parameter and the `index` and `query` parameters it contains are required.
+`input`| String | The index name and the query to use for search, in JSON format. The `index` parameter contains the name of the index, and the `query` parameter contains the query formatted in Query DSL. For example, `"{\"index\": \"opensearch_dashboards_sample_data_ecommerce\", \"query\": {\"size\": 22,  \"_source\": \"category\"}}"`. The `input` parameter and the `index` and `query` parameters it contains are required.
 
 ## Testing the tool
 
