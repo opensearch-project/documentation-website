@@ -21,19 +21,100 @@ Option | Required | Type | Description
 
 ## Usage
 
-The following example shows the `decompress` processor used in `pipelines.yaml`:
+This example demonstrates a complete pipeline that receives compressed log data, decompresses it, and stores it in OpenSearch:
 
 ```yaml
-processor:
-  - decompress:
-      decompress_when: '/some_key == null'
-      keys: [ "base_64_gzip_key" ]
-      type: gzip
+decompress-logs-pipeline:
+  source:
+    http:
+      port: 2021
+      path: /events
+      ssl: false
+
+  processor:
+    - decompress:
+        keys: ["compressed_log", "compressed_metadata"]
+        type: gzip
+        tags_on_failure: ["decompression_failed", "gzip_error"]
+    
+    - parse_json:
+        source: "compressed_log"
+        destination: "parsed_log"
+
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: "admin_pass"
+        index_type: custom
+        index: "decompressed-logs-%{yyyy.MM.dd}"
+```
+
+You can test the pipeline using the following command:
+
+```bash
+COMPRESSED_LOG=$(echo '{"message": "Application error occurred", "level": "ERROR", "service": "payment-api"}' | gzip | base64 -w 0)
+COMPRESSED_METADATA=$(echo '{"source_ip": "192.168.1.100", "user_agent": "Mozilla/5.0", "response_time_ms": 245}' | gzip | base64 -w 0)
+
+curl -sS -X POST "http://localhost:2021/events" \
+  -H "Content-Type: application/json" \
+  -d '[
+        {
+          "compressed_log": "'$COMPRESSED_LOG'",
+          "compressed_metadata": "'$COMPRESSED_METADATA'",
+          "host": "web-server-01",
+          "timestamp": "2023-10-13T14:30:45Z"
+        }
+      ]'
+```
+{% include copy.html %}
+
+The indexed document contains the decompressed values:
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "decompressed-logs-2025.10.13",
+        "_id": "yMdB3ZkBSaZZzfE_KprI",
+        "_score": 1,
+        "_source": {
+          "compressed_log": """{"message": "Application error occurred", "level": "ERROR", "service": "payment-api"}
+""",
+          "compressed_metadata": """{"source_ip": "192.168.1.100", "user_agent": "Mozilla/5.0", "response_time_ms": 245}
+""",
+          "host": "web-server-01",
+          "timestamp": "2023-10-13T14:30:45Z",
+          "parsed_log": {
+            "level": "ERROR",
+            "service": "payment-api",
+            "message": "Application error occurred"
+          }
+        }
+      }
+    ]
+  }
+}
 ```
 
 ## Metrics 
 
-The following table describes common [abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics.
+Data Prepper serves metrics from the `/metrics/prometheus` endpoint on port `4900` by default. You can access all the metrics by running the following command:
+
+```bash
+curl http://localhost:4900/metrics/prometheus
+```
+{% include copy.html %}
+
+The following table describes common [abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics. 
 
 | Metric name | Type | Description |
 | ------------- | ---- | -----------|
