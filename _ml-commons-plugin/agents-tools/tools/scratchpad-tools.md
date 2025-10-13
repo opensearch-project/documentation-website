@@ -16,7 +16,8 @@ grand_parent: Agents and tools
 
 The scratchpad tools consist of `WriteToScratchPadTool` and `ReadFromScratchPadTool`, which enable agents to store and retrieve intermediate thoughts and results during runtime. These tools serve as temporary memory for a single agent execution session, allowing agents to take notes and store important findings during tool executions.
 
-**Important**: The scratchpad acts as runtime memory that persists only during a single agent execution. When you call the agent's `_execute` API, a new scratchpad is created for that session. All notes and data, except `persistent_notes`, are cleared when the execution completes, ensuring each execution starts with a fresh scratchpad.
+The scratchpad acts as runtime memory that persists only during a single agent execution. When you call the agent's `_execute` API, a new scratchpad is created for that session. All notes and data, except `persistent_notes`, are cleared when the execution completes, ensuring each execution starts with a fresh scratchpad.
+{: .important}
 
 ## Use cases
 
@@ -25,161 +26,25 @@ The scratchpad tools consist of `WriteToScratchPadTool` and `ReadFromScratchPadT
 - **Multi-step workflows**: Save key findings after searches to build comprehensive responses in complex tasks.
 - **Execution planning**: Store and reference step-by-step plans during complex operations.
 
-## Tool parameters
-The following are the parameters for the scratchpad tools.
+## Scratchpad lifecycle
 
-### ReadFromScratchPadTool
+The scratchpad follows a simple lifecycle:
 
-The following are the **registration parameters** used when adding to an agent.
+1. **Creation**: A new, empty scratchpad is created when an agent execution begins.
+2. **Usage**: During execution, the agent can read from and write to the scratchpad multiple times.
+3. **Cleanup**: The scratchpad is automatically cleared when execution completes.
 
-Parameter | Type | Required/Optional | Description
-:--- | :--- | :--- | :---
-`persistent_notes` | String | Optional | Initial notes or instructions to store in the scratchpad when first created.
+Each call to the agent's `_execute` API creates a fresh scratchpad, ensuring executions are isolated from each other.
 
-The following are the **execution parameters** used when calling the tool directly.
+## Best practices
 
-Parameter | Type | Required/Optional | Description
-:--- | :--- |:------------------| :---
-`persistent_notes` | String | Required          | Initial notes or instructions to store in the scratchpad.
-
-
-## Testing the tools
-
-You can use the Tools API directly to execute both scratchpad tools and test their responses before registering them with your agents.
-
-### Testing the ReadFromScratchPadTool
-
-```json
-POST /_plugins/_ml/tools/_execute/ReadFromScratchPadTool
-{
-  "parameters": {
-    "persistent_notes": "You are a helpful researcher to conduct searches in OpenSearch cluster. Before making the search, please remember to use the listIndexTool to figure out what are the available indices first. When using listIndexTool, remember the index name has to be in an array format. Please write down important notes after tool used."
-  }
-}
-```
-{% include copy-curl.html %}
-
-When provided `persistent_notes`, the tool will attempt to show the persistent notes in the response:
-
-```json
-{
-    "inference_results": [
-        {
-            "output": [
-                {
-                    "name": "response",
-                    "result": "Notes from scratchpad:\n- You are a helpful researcher to conduct searches in OpenSearch cluster. Before making the search, please remember to use the listIndexTool to figure out what are the available indices first. When using listIndexTool, remember the index name has to be in an array format. Please write down important notes after tool used."
-                }
-            ]
-        }
-    ]
-}
-```
-
-You can also test with an empty `persistent_notes` field:
-
-```json 
-POST /_plugins/_ml/tools/_execute/ReadFromScratchPadTool
-{
-  "parameters": {
-    "persistent_notes": ""
-  }
-}
-```
-
-The response will indicate that the scratchpad is empty:
-
-```json
-{
-    "inference_results": [
-        {
-            "output": [
-                {
-                    "name": "response",
-                    "result": "Scratchpad is empty."
-                }
-            ]
-        }
-    ]
-}
-```
-
-### WriteToScratchPadTool
-
-The following **registration parameters** are used when adding to an agent.
-
-Parameter | Type | Required/Optional | Description
-:--- | :--- | :--- | :---
-`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation.
-
-The following **execution parameters**  are used when calling the tool directly.
-
-Parameter | Type | Required/Optional | Description
-:--- | :--- | :--- | :---
-`notes` | String | Required | The content to write to the scratchpad.
-`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation.
-
-### Testing the WriteToScratchPadTool
-
-You can use the Tools API directly to execute the `WriteToScratchPadTool` and test the tool response before registering it with your agents.
-
-```json
-POST /_plugins/_ml/tools/_execute/WriteToScratchPadTool
-{
-  "parameters": {
-    "notes": "Research Plan for OpenSearch History and ML Evolution:\\n\\n1. OpenSearch version history, major releases after v2.0\\n2. For each major release:\\n    a. Key architectural upgrades\\n    b. New machine learning capabilities, especially ML Commons Agent framework \\n    c. Descriptions of major Agent tools added\\n    d. GitHub issue IDs tied to Agent framework features\\n3. Look for official OpenSearch documentation, release notes, blogs\\n4. Search code repositories for more technical details on ML changes\\n"
-  }
-}
-```
-{% include copy-curl.html %}
-
-The following is the example response from the tool output:
-```json
-{
-  "inference_results": [
-    {
-      "output": [
-        {
-          "name": "response",
-          "result": "Wrote to scratchpad: Research Plan for OpenSearch History and ML Evolution:\\n\\n1. OpenSearch version history, major releases after v2.0\\n2. For each major release:\\n    a. Key architectural upgrades\\n    b. New machine learning capabilities, especially ML Commons Agent framework \\n    c. Descriptions of major Agent tools added\\n    d. GitHub issue IDs tied to Agent framework features\\n3. Look for official OpenSearch documentation, release notes, blogs\\n4. Search code repositories for more technical details on ML changes\\n"
-        }
-      ]
-    }
-  ]
-}
-```
-You can opt to set the `return_history` parameter to `true` to get the full scratchpad content after writing:
-
-```json
-POST /_plugins/_ml/tools/_execute/WriteToScratchPadTool
-{
-  "parameters": {
-    "notes": "Research Plan for OpenSearch History and ML Evolution:\\n\\n1. OpenSearch version history, major releases after v2.0\\n2. For each major release:\\n    a. Key architectural upgrades\\n    b. New machine learning capabilities, especially ML Commons Agent framework \\n    c. Descriptions of major Agent tools added\\n    d. GitHub issue IDs tied to Agent framework features\\n3. Look for official OpenSearch documentation, release notes, blogs\\n4. Search code repositories for more technical details on ML changes\\n",
-    "return_history": true
-  }
-}
-```
-{% include copy-curl.html %}
-
-You can see the full content in the response:
-
-```json
-{
-    "inference_results": [
-        {
-            "output": [
-                {
-                    "name": "response",
-                    "result": "Scratchpad updated. Full content:\n- Research Plan for OpenSearch History and ML Evolution:\\n\\n1. OpenSearch version history, major releases after v2.0\\n2. For each major release:\\n    a. Key architectural upgrades\\n    b. New machine learning capabilities, especially ML Commons Agent framework \\n    c. Descriptions of major Agent tools added\\n    d. GitHub issue IDs tied to Agent framework features\\n3. Look for official OpenSearch documentation, release notes, blogs\\n4. Search code repositories for more technical details on ML changes\\n"
-                }
-            ]
-        }
-    ]
-}
-```
-{% include copy-curl.html %}
+- **Structured notes**: Encourage agents to maintain organized, structured notes in the scratchpad.
+- **Regular updates**: Have agents update the scratchpad after each significant step or finding.
+- **Session awareness**: Remember that scratchpad content is temporary and specific to the current execution
+- **Efficient usage**: Use the scratchpad for intermediate results that need to be referenced multiple times during execution
 
 ## Example: Building a research agent with scratchpad tools
+
 Use the following steps to build a research agent with scratchpad tools.
 
 ## Step 1: Register and deploy a model
@@ -297,6 +162,164 @@ The agent will:
 
 When using the `agents/<your-agent-id>/_execute` API, you will get a `parent_interaction_id` and `memory_id` in the response. Note the `parent_interaction_id` for later tracing steps.
 
+## Tool parameters
+
+The following are the parameters for the scratchpad tools.
+
+### ReadFromScratchPadTool
+
+The following are the **registration parameters** used when adding to an agent.
+
+Parameter | Type | Required/Optional | Description
+:--- | :--- | :--- | :---
+`persistent_notes` | String | Optional | Initial notes or instructions to store in the scratchpad when first created.
+
+The following are the **execution parameters** used when calling the tool directly.
+
+Parameter | Type | Required/Optional | Description
+:--- | :--- |:------------------| :---
+`persistent_notes` | String | Required          | Initial notes or instructions to store in the scratchpad.
+
+
+## Testing the tools
+
+You can use the Tools API directly to execute both scratchpad tools and test their responses before registering them with your agents.
+
+### Testing the ReadFromScratchPadTool
+
+```json
+POST /_plugins/_ml/tools/_execute/ReadFromScratchPadTool
+{
+  "parameters": {
+    "persistent_notes": "You are a helpful researcher to conduct searches in OpenSearch cluster. Before making the search, please remember to use the listIndexTool to figure out what are the available indices first. When using listIndexTool, remember the index name has to be in an array format. Please write down important notes after tool used."
+  }
+}
+```
+{% include copy-curl.html %}
+
+When provided `persistent_notes`, the tool attempts to show the persistent notes in the response:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": """Notes from scratchpad:
+- You are a helpful researcher to conduct searches in OpenSearch cluster. Before making the search, please remember to use the listIndexTool to figure out what are the available indices first. When using listIndexTool, remember the index name has to be in an array format. Please write down important notes after tool used."""
+        }
+      ]
+    }
+  ]
+}
+```
+
+You can also test with an empty `persistent_notes` field:
+
+```json 
+POST /_plugins/_ml/tools/_execute/ReadFromScratchPadTool
+{
+  "parameters": {
+    "persistent_notes": ""
+  }
+}
+```
+
+The response indicates that the scratchpad is empty:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": "Scratchpad is empty."
+        }
+      ]
+    }
+  ]
+}
+```
+
+### WriteToScratchPadTool
+
+The following **registration parameters** are used when adding to an agent.
+
+Parameter | Type | Required/Optional | Description
+:--- | :--- | :--- | :---
+`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation.
+
+The following **execution parameters**  are used when calling the tool directly.
+
+Parameter | Type | Required/Optional | Description
+:--- | :--- | :--- | :---
+`notes` | String | Required | The content to write to the scratchpad.
+`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation.
+
+### Testing the WriteToScratchPadTool
+
+You can use the Tools API directly to execute the `WriteToScratchPadTool` and test the tool response before registering it with your agents.
+
+```json
+POST /_plugins/_ml/tools/_execute/WriteToScratchPadTool
+{
+  "parameters": {
+    "notes": "Research Plan for OpenSearch History and ML Evolution:\\n\\n1. OpenSearch version history, major releases after v2.0\\n2. For each major release:\\n    a. Key architectural upgrades\\n    b. New machine learning capabilities, especially ML Commons Agent framework \\n    c. Descriptions of major Agent tools added\\n    d. GitHub issue IDs tied to Agent framework features\\n3. Look for official OpenSearch documentation, release notes, blogs\\n4. Search code repositories for more technical details on ML changes\\n"
+  }
+}
+```
+{% include copy-curl.html %}
+
+The following is the example response from the tool output:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": "Wrote to scratchpad: Research Plan for OpenSearch History and ML Evolution:\\n\\n1. OpenSearch version history, major releases after v2.0\\n2. For each major release:\\n    a. Key architectural upgrades\\n    b. New machine learning capabilities, especially ML Commons Agent framework \\n    c. Descriptions of major Agent tools added\\n    d. GitHub issue IDs tied to Agent framework features\\n3. Look for official OpenSearch documentation, release notes, blogs\\n4. Search code repositories for more technical details on ML changes\\n"
+        }
+      ]
+    }
+  ]
+}
+```
+
+You can set the `return_history` parameter to `true` to get the full scratchpad content after writing:
+
+```json
+POST /_plugins/_ml/tools/_execute/WriteToScratchPadTool
+{
+  "parameters": {
+    "notes": "Research Plan for OpenSearch History and ML Evolution:\\n\\n1. OpenSearch version history, major releases after v2.0\\n2. For each major release:\\n    a. Key architectural upgrades\\n    b. New machine learning capabilities, especially ML Commons Agent framework \\n    c. Descriptions of major Agent tools added\\n    d. GitHub issue IDs tied to Agent framework features\\n3. Look for official OpenSearch documentation, release notes, blogs\\n4. Search code repositories for more technical details on ML changes\\n",
+    "return_history": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the full scratchpad content:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": """Scratchpad updated. Full content:
+- Research Plan for OpenSearch History and ML Evolution:\n\n1. OpenSearch version history, major releases after v2.0\n2. For each major release:\n    a. Key architectural upgrades\n    b. New machine learning capabilities, especially ML Commons Agent framework \n    c. Descriptions of major Agent tools added\n    d. GitHub issue IDs tied to Agent framework features\n3. Look for official OpenSearch documentation, release notes, blogs\n4. Search code repositories for more technical details on ML changes\n"""
+        }
+      ]
+    }
+  ]
+}
+```
+
 ## Viewing scratchpad activity
 
 You can monitor how the agent uses the scratchpad by examining the execution traces:
@@ -306,24 +329,7 @@ GET /_plugins/_ml/memory/message/<parent_interaction_id>/traces?next_token=0
 ```
 {% include copy-curl.html %}
 
-The traces will show the sequence of scratchpad reads and writes, demonstrating how the agent accumulates knowledge during the execution session.
-
-## Scratchpad lifecycle
-
-The scratchpad follows a simple lifecycle:
-
-1. **Creation**: A new, empty scratchpad is created when an agent execution begins.
-2. **Usage**: During execution, the agent can read from and write to the scratchpad multiple times.
-3. **Cleanup**: The scratchpad is automatically cleared when execution completes.
-
-Each call to the agent's `_execute` API creates a fresh scratchpad, ensuring executions are isolated from each other.
-
-## Best practices
-
-- **Structured notes**: Encourage agents to maintain organized, structured notes in the scratchpad.
-- **Regular updates**: Have agents update the scratchpad after each significant step or finding.
-- **Session awareness**: Remember that scratchpad content is temporary and specific to the current execution
-- **Efficient usage**: Use the scratchpad for intermediate results that need to be referenced multiple times during execution
+The traces show the sequence of scratchpad reads and writes, demonstrating how the agent accumulates knowledge during the execution session.
 
 ## Related documentation
 
