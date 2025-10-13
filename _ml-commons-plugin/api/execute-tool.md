@@ -99,7 +99,7 @@ POST /_plugins/_ml/tools/_execute/PPLTool
   "parameters": {
     "question": "what's the population of Seattle in 2021?",
     "index": "test-population",
-    "model_id": "1TuQQ5gBMJhRgCqgSV79" // Remote model
+    "model_id": "1TuQQ5gBMJhRgCqgSV79"
   }
 }
 
