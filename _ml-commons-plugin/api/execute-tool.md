@@ -31,6 +31,9 @@ For more information regarding the list of available tools, see [Tools]({{site.u
 POST /_plugins/_ml/tools/_execute/<tool_name>
 ```
 
+The <tool_name> parameter refers to the predefined tool type name (such as PPLTool, SearchIndexTool, VectorDBTool, etc.), not a custom tool name that you define.
+{: .note}
+
 ## Request body field
 
 The following table lists all request body field.
@@ -50,7 +53,38 @@ To determine the required parameters for a specific tool, refer to the individua
 | Tool register parameters | Parameters specified during tool registration. |
 | Tool execute parameters  | Parameters specified during tool execution.    |
 
-## Example request
+## Example requests
+
+### Example 1: Simple tool execution
+
+```json
+POST /_plugins/_ml/tools/_execute/ListIndexTool
+{
+  "parameters": {
+    "question": "How many indices do I have?"
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Example response
+
+```json
+{
+    "inference_results": [
+        {
+            "output": [
+                {
+                    "name": "response",
+                    "result": "row,health,status,index,uuid,pri(number of primary shards),rep(number of replica shards),docs.count(number of available documents),docs.deleted(number of deleted documents),store.size(store size of primary and replica shards),pri.store.size(store size of primary shards)\n1,yellow,open,movies,kKcJKu2aT0C9uwJIPP4hxw,2,1,2,0,7.8kb,7.8kb\n2,green,open,.plugins-ml-config,h8ovp_KFTq6_zvcBEn2kvg,1,0,1,0,4kb,4kb\n3,green,open,.plugins-ml-agent,1oGlUBCIRAGXLbLv27Qg8w,1,0,1,0,8kb,8kb\n"
+                }
+            ]
+        }
+    ]
+}
+```
+
+### Example 2: Complex tool execution
 
 ```json
 POST /_plugins/_ml/tools/_execute/PPLTool
@@ -65,7 +99,7 @@ POST /_plugins/_ml/tools/_execute/PPLTool
 ```
 {% include copy-curl.html %}
 
-## Example response
+### Example response
 
 ```json
 {
