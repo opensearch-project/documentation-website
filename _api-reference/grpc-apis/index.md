@@ -18,18 +18,21 @@ redirect_from:
 Starting with OpenSearch version 3.2, the gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available. These use [protobuf version 0.19.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.19.0). However, expect updates to the protobuf structure as the feature matures in upcoming versions. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of these features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
 {: .note}
 
-The OpenSearch gRPC functionality provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results. See [Performance Benefits](#grpc-performance-benefits) for more info.
+The OpenSearch gRPC functionality provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results. For more information, see [Performance Benefits](#grpc-performance-benefits).
 
 ## Supported APIs
+
 The following gRPC APIs are currently supported:
 - [Bulk]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) **Generally available 3.2**
 - [k-NN]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) **Generally available 3.2**
 - [Search]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/) (for select query types)
 
 ## How to use gRPC APIs
-1. First, enable gRPC transport following [gRPC settings](#grpc-settings).
 
-2. To submit gRPC requests, you must have a set of protobufs on the client side. You can obtain the protobufs in the following ways:
+To use gRPC APIs, follow these steps:
+1. Enable gRPC transport by configuring the necessary [gRPC settings](#grpc-settings).
+
+2. To submit gRPC requests, you must have a set of protobufs on the client side. You can obtain the protobufs in the following ways.
 
 | Language | Distribution method | Instructions |
 | :------- | :------------------ | :----------- |
@@ -38,7 +41,7 @@ The following gRPC APIs are currently supported:
 | Other languages | GitHub repository (raw protobufs) | Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.19.0)](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.19.0). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/). |
 
 
-## gRPC Settings
+## gRPC settings
 
 The `transport-grpc` module is included by default with OpenSearch installations. To enable it, add the following settings to `opensearch.yml`:
 

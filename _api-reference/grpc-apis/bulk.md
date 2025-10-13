@@ -320,7 +320,7 @@ The gRPC Bulk API provides the following response fields.
 
 ### BulkResponse fields
 
-The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L186) message is returned directly from the Bulk gRPC method and provides a summary and per-item result of a bulk operation. It contains the following fields.
+The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L186) message is returned directly from the `Bulk` gRPC method and provides a summary and per-item result of a bulk operation. It contains the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
