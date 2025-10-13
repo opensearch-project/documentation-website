@@ -59,6 +59,7 @@ curl -sS -X POST "http://localhost:2021/events" \
         {"level": "WARN", "message": "Cache miss detected", "service": "user-service", "timestamp": "2023-10-13T14:33:00Z"}
       ]'
 ```
+{% include copy.html %}
 
 Only three documents get indexed in OpenSearch:
 
@@ -155,6 +156,7 @@ curl -sS -X POST "http://localhost:2022/events" \
         {"level": "INFO", "message": "Another valid request", "status_code": 201, "user_id": "user456", "timestamp": "2023-10-13T14:37:00Z"}
       ]'
 ```
+{% include copy.html %}
 
 Only two documents reach OpenSearch:
 
@@ -245,6 +247,7 @@ curl -sS -X POST "http://localhost:2023/events" \
         {"request_id": 1000, "sampling_rate": 0.9, "source_ip": "10.0.0.2", "message": "Another sampled request", "timestamp": "2023-10-13T14:40:00Z"}
       ]'
 ```
+{% include copy.html %}
 
 Three documents are indexed in OpenSearch:
 
