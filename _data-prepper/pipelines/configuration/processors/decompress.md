@@ -50,6 +50,7 @@ decompress-logs-pipeline:
         index_type: custom
         index: "decompressed-logs-%{yyyy.MM.dd}"
 ```
+{% include copy.html %}
 
 You can test the pipeline using the following command:
 
