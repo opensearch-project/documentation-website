@@ -16,37 +16,38 @@ grand_parent: Agents and tools
 
 The scratchpad tools consist of `WriteToScratchPadTool` and `ReadFromScratchPadTool`, which enable agents to store and retrieve intermediate thoughts and results during runtime. These tools serve as temporary memory for a single agent execution session, allowing agents to take notes and store important findings during tool executions.
 
-**Important**: The scratchpad acts as runtime memory that persists only during a single agent execution. When you call the agent's `_execute` API, a new scratchpad is created for that session. All notes and data, except persistent_notes, are cleared when the execution completes, ensuring each execution starts with a fresh scratchpad.
+**Important**: The scratchpad acts as runtime memory that persists only during a single agent execution. When you call the agent's `_execute` API, a new scratchpad is created for that session. All notes and data, except `persistent_notes`, are cleared when the execution completes, ensuring each execution starts with a fresh scratchpad.
 
 ## Use cases
 
-- **Task decomposition**: Store research plans, intermediate findings, and progress notes during multi-step operations within a single execution
-- **Temporary state management**: Maintain context and accumulated knowledge during the current agent execution session
-- **Multi-step workflows**: Save key findings after searches to build comprehensive responses in complex tasks
-- **Execution planning**: Store and reference step-by-step plans during complex operations
+- **Task decomposition**: Store research plans, intermediate findings, and progress notes during multi-step operations within a single execution.
+- **Temporary state management**: Maintain context and accumulated knowledge during the current agent execution session.
+- **Multi-step workflows**: Save key findings after searches to build comprehensive responses in complex tasks.
+- **Execution planning**: Store and reference step-by-step plans during complex operations.
 
 ## Tool parameters
+The following are the parameters for the scratchpad tools.
 
 ### ReadFromScratchPadTool
 
-**Registration parameters** (when adding to an agent):
+The following are the **registration parameters** used when adding to an agent.
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`persistent_notes` | String | Optional | Initial notes or instructions to store in the scratchpad when first created
+`persistent_notes` | String | Optional | Initial notes or instructions to store in the scratchpad when first created.
 
-**Execution parameters** (when calling the tool directly):
+The following are the **execution parameters** used when calling the tool directly.
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- |:------------------| :---
-`persistent_notes` | String | Required          | Initial notes or instructions to store in the scratchpad
+`persistent_notes` | String | Required          | Initial notes or instructions to store in the scratchpad.
 
 
 ## Testing the tools
 
-You can directly use the tools API to execute both scratchpad tools and test their responses before registering them with your agents.
+You can use the Tools API directly to execute both scratchpad tools and test their responses before registering them with your agents.
 
-### Testing ReadFromScratchPadTool
+### Testing the ReadFromScratchPadTool
 
 ```json
 POST /_plugins/_ml/tools/_execute/ReadFromScratchPadTool
@@ -58,7 +59,7 @@ POST /_plugins/_ml/tools/_execute/ReadFromScratchPadTool
 ```
 {% include copy-curl.html %}
 
-When giving persistent_notes, you will see when tool response, it will try to show the persistent notes given in the response.
+When provided `persistent_notes`, the tool will attempt to show the persistent notes in the response:
 
 ```json
 {
@@ -75,7 +76,7 @@ When giving persistent_notes, you will see when tool response, it will try to sh
 }
 ```
 
-You can also test with empty persistent notes.
+You can also test with an empty `persistent_notes` field:
 
 ```json 
 POST /_plugins/_ml/tools/_execute/ReadFromScratchPadTool
@@ -86,7 +87,7 @@ POST /_plugins/_ml/tools/_execute/ReadFromScratchPadTool
 }
 ```
 
-You will get a response about empty scratchpad.
+The response will indicate that the scratchpad is empty:
 
 ```json
 {
@@ -105,22 +106,22 @@ You will get a response about empty scratchpad.
 
 ### WriteToScratchPadTool
 
-**Registration parameters** (when adding to an agent):
+The following **registration parameters** are used when adding to an agent.
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation
+`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation.
 
-**Execution parameters** (when calling the tool directly):
+The following **execution parameters**  are used when calling the tool directly.
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`notes` | String | Required | The content to write to the scratchpad
-`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation
+`notes` | String | Required | The content to write to the scratchpad.
+`return_history` | Boolean | Optional | When set to `true`, returns the full scratchpad content after writing. When `false` or omitted (default), returns the newly added note with confirmation.
 
-### Testing WriteToScratchPadTool
+### Testing the WriteToScratchPadTool
 
-You can directly use the tools API to execute WriteToScratchPadTool and test the tool response before registering it with your agents.
+You can use the Tools API directly to execute the `WriteToScratchPadTool` and test the tool response before registering it with your agents.
 
 ```json
 POST /_plugins/_ml/tools/_execute/WriteToScratchPadTool
@@ -132,7 +133,7 @@ POST /_plugins/_ml/tools/_execute/WriteToScratchPadTool
 ```
 {% include copy-curl.html %}
 
-You can see the sample response from the tool output as follows:
+The following is the example response from the tool output:
 ```json
 {
   "inference_results": [
@@ -147,7 +148,7 @@ You can see the sample response from the tool output as follows:
   ]
 }
 ```
-you can opt to set `return_history` parameter to `true` to get the full scratchpad content after writing.
+You can opt to set the `return_history` parameter to `true` to get the full scratchpad content after writing:
 
 ```json
 POST /_plugins/_ml/tools/_execute/WriteToScratchPadTool
@@ -179,6 +180,7 @@ You can see the full content in the response:
 {% include copy-curl.html %}
 
 ## Example: Building a research agent with scratchpad tools
+Use the following steps to build a research agent with scratchpad tools.
 
 ## Step 1: Register and deploy a model
 
@@ -223,7 +225,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 
 ## Step 2: Register an agent with scratchpad tools
 
-Register a conversational agent that includes both scratchpad tools along with other research tools:
+Register a conversational agent that includes both scratchpad tools and other research tools:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -288,10 +290,10 @@ POST /_plugins/_ml/agents/<your-agent-id>/_execute?async=true
 
 
 The agent will:
-1. Read from its scratchpad to check for existing relevant information (starts empty for new executions)
-2. Create and save a research plan to the scratchpad
-3. Execute searches and update the scratchpad with findings
-4. Provide a comprehensive answer based on accumulated research
+1. Read from its scratchpad to check for existing relevant information (starts empty for new executions).
+2. Create and save a research plan to the scratchpad.
+3. Execute searches and update the scratchpad with findings.
+4. Provide a comprehensive answer based on accumulated research.
 
 When using the `agents/<your-agent-id>/_execute` API, you will get a `parent_interaction_id` and `memory_id` in the response. Note the `parent_interaction_id` for later tracing steps.
 
@@ -304,26 +306,26 @@ GET /_plugins/_ml/memory/message/<parent_interaction_id>/traces?next_token=0
 ```
 {% include copy-curl.html %}
 
-The traces will show the sequence of scratchpad reads and writes, demonstrating how the agent builds up its knowledge during the execution session.
+The traces will show the sequence of scratchpad reads and writes, demonstrating how the agent accumulates knowledge during the execution session.
 
 ## Scratchpad lifecycle
 
 The scratchpad follows a simple lifecycle:
 
-1. **Creation**: A new, empty scratchpad is created when an agent execution begins
-2. **Usage**: During execution, the agent can read from and write to the scratchpad multiple times
-3. **Cleanup**: The scratchpad is automatically cleared when the execution completes
+1. **Creation**: A new, empty scratchpad is created when an agent execution begins.
+2. **Usage**: During execution, the agent can read from and write to the scratchpad multiple times.
+3. **Cleanup**: The scratchpad is automatically cleared when execution completes.
 
 Each call to the agent's `_execute` API creates a fresh scratchpad, ensuring executions are isolated from each other.
 
 ## Best practices
 
-- **Structured notes**: Encourage agents to maintain organized, structured notes in the scratchpad
-- **Regular updates**: Have agents update the scratchpad after each significant step or finding
+- **Structured notes**: Encourage agents to maintain organized, structured notes in the scratchpad.
+- **Regular updates**: Have agents update the scratchpad after each significant step or finding.
 - **Session awareness**: Remember that scratchpad content is temporary and specific to the current execution
 - **Efficient usage**: Use the scratchpad for intermediate results that need to be referenced multiple times during execution
 
-## Related pages
+## Related documentation
 
 - [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/)
 - [Conversational agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/)
