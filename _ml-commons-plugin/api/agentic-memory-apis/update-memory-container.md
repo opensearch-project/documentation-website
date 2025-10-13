@@ -10,11 +10,7 @@ nav_order: 15
 **Introduced 3.3**
 {: .label .label-purple }
 
-<<<<<<< HEAD
-Use this API to update an existing memory container's properties such as name and description.
-=======
 Use this API to update an existing memory container's properties such as name, description, configuration, and access permissions.
->>>>>>> b18236c7b4a8f389df07932f44a8818366485dd4
 
 ## Endpoints
 
@@ -24,15 +20,9 @@ PUT /_plugins/_ml/memory_containers/<memory_container_id>
 
 ## Path parameters
 
-<<<<<<< HEAD
-| Parameter | Data type | Description |
-| :--- | :--- | :--- |
-| `memory_container_id` | String | The ID of the memory container to update. Required. |
-=======
 | Parameter | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
 | `memory_container_id` | String | Required | The ID of the memory container to update. |
->>>>>>> b18236c7b4a8f389df07932f44a8818366485dd4
 
 ## Request fields
 
@@ -40,9 +30,11 @@ PUT /_plugins/_ml/memory_containers/<memory_container_id>
 | :--- | :--- | :--- | :--- |
 | `name` | String | Optional | The updated name of the memory container. |
 | `description` | String | Optional | The updated description of the memory container. |
-| `configuration` | Object | Optional | Configuration object containing strategies and embedding settings. |
+| `configuration` | Object | Optional | Configuration object containing strategies and embedding settings. See [The configuration object](#the-configuration-object). |
 
-### Configuration object fields
+### The configuration object
+
+The `configuration` objects supports the following fields.
 
 | Field | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
@@ -54,31 +46,31 @@ PUT /_plugins/_ml/memory_containers/<memory_container_id>
 
 ## Update behavior
 
+Note the following update behavior.
+
 ### Strategy updates
-- **Update existing strategy**: Include the strategy `id` to update that specific strategy.
-- **Create new strategy**: Specify a strategy without an `id` to create a new strategy.
+
+-  To update a specific strategy, specify the strategy `id`.
+- To create a new strategy, specify a strategy without an `id`.
 
 ### Backend roles updates
+
 - Adding new `backend_roles` grants new users read or write access with those roles.
-- The `backend_roles` field is updated by overwriting, so include original roles if you want to keep them.
+- The new `backend_roles` field overwrites the existing field, so include original roles if you want to keep them.
 
 ### Namespace updates
-- The `namespace` field inside strategies is updated by overwriting.
-- Include the original namespace if you want to keep it.
+
+- The `namespace` field in the `strategies` object is updated by overwriting. Include the original namespace if you want to keep it.
 
 ### Embedding model restrictions
-- The `embedding_model_id`, `embedding_model_type`, and `embedding_dimension` fields can only be updated if no long-term memory index has been created for this memory container.
-- Once a long-term memory index with the specified `index_prefix` is created, these embedding fields cannot be updated.
 
+- The `embedding_model_id`, `embedding_model_type`, and `embedding_dimension` fields can only be updated if no long-term memory index has been created for this memory container. Once a long-term memory index with the specified `index_prefix` is created, these embedding fields cannot be updated.
 
 ## Example request
 
 ```json
 PUT /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU
 {
-<<<<<<< HEAD
-  "name": "opensearch-agents-memory"
-=======
   "name": "opensearch-agents-memory",
   "description": "Updated memory container for OpenSearch agents",
   "backend_roles": ["admin", "ml_user"],
@@ -97,7 +89,6 @@ PUT /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU
     "embedding_model_type": "dense",
     "embedding_dimension": 768
   }
->>>>>>> b18236c7b4a8f389df07932f44a8818366485dd4
 }
 ```
 {% include copy-curl.html %}

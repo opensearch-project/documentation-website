@@ -163,40 +163,51 @@ Field | Data type | Required/Optional | Description
 `disable_history`  | Boolean | Optional | if disabled no history will be persisted. Default is `false`, so history will be persisted by default.
 `disable_session`  | Boolean | Optional | if disabled no session will be persisted. Default is `true`, so session will not be persisted by default.
 `max_infer_size`   | int     | Optional | `max_infer_size` Controls the topK number of similar existing memories retrieved during memory consolidation to make ADD/UPDATE/DELETE decisions.
-`index_settings`   | Map<String, Map<String, Object> | Optional | Customer can also provide the index settings. See [the `index settings` array](#the-index-settings).
+`index_settings`   | Object | Optional | Custom OpenSearch index settings for the memory storage indexes that will be created for this container. Each memory type (`sessions`, `working`, `long_term`, and `history`) uses its own index. See [Index settings](#index-settings).
 `strategies` | Array | Optional | An array of [memory processing strategies]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#memory-processing-strategies). See [The `strategies` array](#the-strategies-array).
 `parameters` | Object | Optional | Global parameters for the memory container. See [The `parameters` object](#the-parameters-object).
 
-### The index settings
+### Index settings
 
-Example of index settings
+You can customize the OpenSearch index settings for the storage indexes that will be created to store memory data. Each memory type uses a dedicated index, and you can configure settings like the number of shards and replicas for performance optimization.
 
+The following example shows how to specify custom index settings in the `configuration` object:
+
+```json
+{
+  "name": "my-memory-container",
+  "configuration": {
+    "embedding_model_id": "your-model-id",
     "index_settings": {
-      "session_index" : {
+      "session_index": {
         "index": {
           "number_of_shards": "2",
           "number_of_replicas": "2"
         }
       },
-      "short_term_memory_index" : {
+      "short_term_memory_index": {
         "index": {
           "number_of_shards": "2",
           "number_of_replicas": "2"
         }
       },
-      "long_term_memory_index" : {
+      "long_term_memory_index": {
         "index": {
           "number_of_shards": "2",
           "number_of_replicas": "2"
         }
       },
-      "long_term_memory_history_index" : {
+      "long_term_memory_history_index": {
         "index": {
           "number_of_shards": "2",
           "number_of_replicas": "2"
         }
       }
     }
+  }
+}
+```
+{% include copy.html %}
 
 ### The strategies array
 
@@ -205,7 +216,7 @@ Each strategy in the `strategies` array supports the following fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `type` | String | Required | The strategy type. Valid values are `SEMANTIC`, `USER_PREFERENCE`, and `SUMMARY`.
-`namespace` | Array | Required | An array of namespace dimensions for organizing memories (for example, `["user_id"]` or `["agent_id", "session_id"]`).
+`namespace` | Array | Required | An array of [namespace]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#namespaces) dimensions for organizing memories (for example, `["user_id"]` or `["agent_id", "session_id"]`).
 `configuration` | Object | Optional | Strategy-specific configuration. See [The strategy `configuration` object](#the-strategy-configuration-object).
 `enabled`       | Boolean             | Optional | Whether to enable the strategy in the memory container. Default is `true`.
 
@@ -248,7 +259,7 @@ POST /_plugins/_ml/memory_containers/_create
 ```
 {% include copy-curl.html %}
 
-### Example request: Advanced memory container with multiple strategies
+## Example request: Advanced memory container with multiple strategies
 
 ```json
 POST /_plugins/_ml/memory_containers/_create

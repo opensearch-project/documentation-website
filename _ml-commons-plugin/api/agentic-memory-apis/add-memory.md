@@ -39,7 +39,7 @@ Field | Data type | Required/Optional | Description
 `structured_data` | Object | Conditional | Structured data content for data memory. Required when `payload_type` is `data`.
 `binary_data` | String | Optional | Binary data content encoded as a Base64 string for binary payloads.
 `payload_type` | String | Required | The type of payload. Valid values are `conversational` or `data`. See [Payload types](#payload-types).
-`namespace` | Object | Optional | The namespace context for organizing memories (for example, `user_id`, `session_id`, or `agent_id`). If `session_id` is not specified in the `namespace` field, a new session with a new session ID is created.
+`namespace` | Object | Optional | The [namespace]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#namespaces) context for organizing memories (for example, `user_id`, `session_id`, or `agent_id`). If `session_id` is not specified in the `namespace` field, a new session with a new session ID is created.
 `metadata` | Object | Optional | Additional metadata for the memory (for example, `status`, `branch`, or custom fields).
 `tags` | Object | Optional | Tags for categorizing and organizing memories.
 `infer` | Boolean | Optional | Whether to use an LLM to extract key information from messages. Default is `false`. When `true`, the LLM extracts key information from the original text and stores it as a memory. See [Inference mode](#inference-mode).
@@ -124,7 +124,7 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
 }
 ```
 
-### Trace data memory
+## Example request: Storing trace data
 
 To store agent trace data in working memory, send the following request:
 
@@ -166,7 +166,7 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
 ```
 {% include copy-curl.html %}
 
-## Example response: Trace memory
+## Example response: Trace data
 
 ```json
 {

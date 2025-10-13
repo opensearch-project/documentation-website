@@ -10,10 +10,6 @@ nav_order: 30
 **Introduced 3.3**
 {: .label .label-purple }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 Use this API to delete a memory container by its ID.
 
 ## Endpoints

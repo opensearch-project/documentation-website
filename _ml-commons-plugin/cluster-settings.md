@@ -18,6 +18,7 @@ By default, ML tasks and models only run on ML nodes. When configured without th
 ```yml
 node.roles: [ ml ]
 ```
+{% include copy.html %}
 
 ### Setting up a cluster with a dedicated ML node
 
@@ -38,6 +39,7 @@ We recommend setting `plugins.ml_commons.only_run_on_ml_node` to `true` on produ
 ```yaml
 plugins.ml_commons.only_run_on_ml_node: true
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -54,6 +56,7 @@ plugins.ml_commons.only_run_on_ml_node: true
 ```yaml
 plugins.ml_commons.task_dispatch_policy: round_robin
 ```
+{% include copy.html %}
 
 
 ### Values
@@ -70,6 +73,7 @@ Sets the number of ML tasks that can run on each ML node. When set to `0`, no ML
 ```yaml
 plugins.ml_commons.max_ml_task_per_node: 10
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -85,6 +89,7 @@ Sets the number of ML models that can be deployed to each ML node. When set to `
 ```yaml
 plugins.ml_commons.max_model_on_node: 10
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -101,6 +106,7 @@ When returning runtime information with the [Profile API]({{site.url}}{{site.bas
 ```yaml
 plugins.ml_commons.sync_up_job_interval_in_seconds: 3
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -116,6 +122,7 @@ Controls how many predict requests are monitored on one node. If set to `0`, Ope
 ```yaml
 plugins.ml_commons.monitoring_request_count: 100
 ```
+{% include copy.html %}
 
 ### Value range
 
@@ -131,6 +138,7 @@ Controls how many register model tasks can run in parallel on one node. If set t
 ```yaml
 plugins.ml_commons.max_register_model_tasks_per_node: 10
 ```
+{% include copy.html %}
 
 
 ### Values 
@@ -148,6 +156,7 @@ Controls how many deploy model tasks can run in parallel on one node. If set to 
 ```yaml
 plugins.ml_commons.max_deploy_model_tasks_per_node: 10
 ```
+{% include copy.html %}
 
 ### Values 
 
@@ -163,6 +172,7 @@ This setting gives you the ability to register models using a URL. By default, M
 ```yaml
 plugins.ml_commons.allow_registering_model_via_url: false
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -178,6 +188,7 @@ This setting gives you the ability to register a model using a local file. By de
 ```yaml
 plugins.ml_commons.allow_registering_model_via_local_file: false
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -198,6 +209,7 @@ The default URL value for this trusted URL setting is not secure. For security, 
 ```yaml
 plugins.ml_commons.trusted_url_regex: <model-repository-url>
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -213,6 +225,7 @@ Assigns how long in seconds an ML task will live. After the timeout, the task wi
 ```yaml
 plugins.ml_commons.ml_task_timeout_in_seconds: 600
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -232,6 +245,7 @@ Starting with OpenSearch 2.5, ML Commons runs a native memory circuit breaker to
 ```yaml
 plugins.ml_commons.native_memory_threshold: 90
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -249,6 +263,7 @@ Values are based on the percentage of JVM heap memory available. When set to `0`
 ```yaml
 plugins.ml_commons.jvm_heap_memory_threshold: 85
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -266,6 +281,7 @@ Valid values are in byte units. To disable the circuit breaker, set this value t
 ```yaml
 plugins.ml_commons.disk_free_space_threshold: 5G
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -281,6 +297,7 @@ Use this setting to specify the names of nodes on which you don't want to run ML
 ```yaml
 plugins.ml_commons.exclude_nodes._name: node1, node2
 ```
+{% include copy.html %}
 
 ## Allow custom deployment plans
 
@@ -291,6 +308,7 @@ When enabled, this setting grants users the ability to deploy models to specific
 ```yaml
 plugins.ml_commons.allow_custom_deployment_plan: false
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -306,6 +324,7 @@ This setting is applicable when you send a prediction request for an externally 
 ```yaml
 plugins.ml_commons.model_auto_deploy.enable: false
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -319,8 +338,9 @@ This setting automatically redeploys deployed or partially deployed models upon 
 ### Setting
 
 ```yaml
-plugins.ml_commons.model_auto_redeploy.enable: true 
+plugins.ml_commons.model_auto_redeploy.enable: true
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -336,6 +356,7 @@ This setting sets the limit for the number of times a deployed or partially depl
 ```yaml
 plugins.ml_commons.model_auto_redeploy.lifetime_retry_times: 3
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -351,6 +372,7 @@ This setting sets the ratio of success for the auto-redeployment of a model base
 ```yaml
 plugins.ml_commons.model_auto_redeploy_success_ratio: 0.8
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -366,6 +388,8 @@ When set to `true`, this setting enables the ability to run Python-based models 
 ```yaml
 plugins.ml_commons.enable_inhouse_python_model: false
 ```
+{% include copy.html %}
+
 
 ### Values
 
@@ -383,6 +407,7 @@ When set to `true`, this setting enables a safety feature that checks for downst
 ```yaml
 plugins.ml_commons.safe_delete_model: true
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -399,6 +424,7 @@ When set to `true`, the setting allows admins to control access and permissions 
 ```yaml
 plugins.ml_commons.connector_access_control_enabled: true
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -414,6 +440,7 @@ This setting allows a cluster admin to enable running local models on the cluste
 ```yaml
 plugins.ml_commons.local_model.enabled: true
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -429,6 +456,7 @@ This setting allows a cluster admin to control the types of nodes on which exter
 ```yaml
 plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -444,6 +472,7 @@ This setting allows a cluster admin to control the types of nodes on which local
 ```yaml
 plugins.ml_commons.task_dispatcher.eligible_node_role.remote_model: ["ml"]
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -458,6 +487,7 @@ This setting allows a cluster admin to enable remote inference on the cluster. I
 ```yaml
 plugins.ml_commons.remote_inference.enabled: true
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -473,6 +503,7 @@ When set to `true`, this setting enables the agent framework (including agents a
 ```yaml
 plugins.ml_commons.agent_framework_enabled: true
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -488,6 +519,7 @@ When set to `true`, this setting enables conversational memory, which stores all
 ```yaml
 plugins.ml_commons.memory_feature_enabled: true
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -496,13 +528,14 @@ plugins.ml_commons.memory_feature_enabled: true
 
 ## Enable agentic memory
 
-When set to `true`, this setting enables agentic memory functionality, which provides advanced memory management for AI agents including session memory, working memory, long-term memory, and memory history with namespace-based organization.
+When set to `true`, this setting enables [agentic memory]({{site.url}}{{site.baseurl}}/agents-tools/agentic-memory/), which provides advanced memory management for AI agents including session memory, working memory, long-term memory, and memory history with namespace-based organization.
 
 ### Setting
 
 ```yaml
 plugins.ml_commons.agentic_memory_enabled: true
 ```
+{% include copy.html %}
 
 ### Values
 
@@ -518,6 +551,7 @@ When set to `true`, this setting enables the search processors for retrieval-aug
 ```yaml
 plugins.ml_commons.rag_pipeline_feature_enabled: true
 ```
+{% include copy.html %}
 
 ### Values
 
