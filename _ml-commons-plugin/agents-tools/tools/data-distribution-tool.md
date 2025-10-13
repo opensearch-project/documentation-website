@@ -195,6 +195,10 @@ The following table lists the available tool parameters for running the agent.
 | `dsl` | String | Optional | A complete raw DSL query as a JSON string. If provided, takes precedence over the `filter` parameter. |
 | `ppl` | String | Optional | A complete PPL statement without time information. Used when `queryType` is `ppl`. |
 
+## Testing the tool
+
+You can run this tool either as part of an agent workflow or independently using the [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/). The Execute Tool API is useful for testing individual tools or performing standalone operations.
+
 ## Limitations
 
 The Data Distribution tool has the following limitations:
