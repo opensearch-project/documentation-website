@@ -297,7 +297,7 @@ curl -sS -X POST "http://localhost:2021/events" \
         {"app":"api","env":"stage","message":"hi","level":"warn","metric":{"name":"mem","value":2048},"tags":"pretag"}
       ]'
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 Once these documents are processed, the index `example-2025.10.10` will contain the following documents:
 
