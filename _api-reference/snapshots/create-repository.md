@@ -11,11 +11,13 @@ nav_order: 1
 
 You can register a new repository in which to store snapshots or update information for an existing repository by using the snapshots API.
 
-There are two types of snapshot repositories:
+There are three types of snapshot repositories:
 
 * File system (`fs`): For instructions on creating an `fs` repository, see [Register repository shared file system]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
 
 * Amazon Simple Storage Service (Amazon S3) bucket (`s3`): For instructions on creating an `s3` repository, see [Register repository Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
+
+* Hadoop Distributed File System (HDFS) (`hdfs`): For instructions on creating an `hdfs` repository, see [Register repository HDFS]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#hdfs).
 
 For instructions on creating a repository, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
 
@@ -34,7 +36,10 @@ Parameter | Data type | Description
 
 ## Request parameters
 
-Request parameters depend on the type of repository: `fs` or `s3`.
+Request parameters depend on the type of repository:
+  - `fs`
+  - `s3`
+  - `hdfs`
 
 ### Common parameters
 
@@ -96,6 +101,16 @@ For the `base_path` parameter, do not enter the `s3://` prefix when entering you
 
 The `server_side_encryption` setting is removed as of OpenSearch 3.1.0. S3 applies server-side encryption as the base level of encryption for all S3 buckets. Because this cannot be disabled, this value repository setting had no effect. For more information, see [Protecting data with server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html).
 {: .note}
+
+### hdfs repository
+
+ Request field                     | Description
+:----------------------------------| :---
+| `uri`                             | The HDFS URI of the form `hdfs://<HOST>:<PORT>/path/to/backup`. Required.|
+| `path`                            | The path within HDFS in which you want to store snapshots (for example, `/my/snapshot/directory`). Required.|
+| `security.principal`              | The Kerberos principal to use when connecting to HDFS. Optional.|
+
+
 
 ## Example requests
 
@@ -253,6 +268,51 @@ response = client.snapshot.create_repository(
     rest=step1_rest
     python=step1_python %}
 <!-- spec_insert_end -->
+
+### `hdfs`
+
+The following request registers a new HDFS repository using the HDFS URI `hdfs://namenode:8020` and the HDFS filesystem path `/opensearch/snapshots`:
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_snapshot/my-hdfs-repository
+body: |
+{
+  "type": "hdfs",
+  "settings": {
+    "uri": "hdfs://namenode:8020",
+    "path": "/opensearch/snapshots"
+  }
+}
+-->
+{% capture step1_rest %}
+PUT /_snapshot/my-hdfs-repository
+{
+"type": "hdfs",
+"settings": {
+"uri": "hdfs://namenode:8020",
+"path": "/opensearch/snapshots"
+}
+}
+{% endcapture %}
+
+{% capture step1_python %}  
+response = client.snapshot.create_repository(
+repository = "my-hdfs-repository",
+body =   {
+"type": "hdfs",
+"settings": {
+"uri": "hdfs://namenode:8020",
+"path": "/opensearch/snapshots"
+}
+}
+)
+
+{% endcapture %}
+
+{% include code-block.html
+rest=step1_rest
+python=step1_python %}
+
 
 ## Example response
 
