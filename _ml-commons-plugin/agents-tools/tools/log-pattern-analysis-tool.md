@@ -14,7 +14,7 @@ grand_parent: Agents and tools
 {: .label .label-purple }
 <!-- vale on -->
 
-The `LogPatternAnalysisTool` performs an advanced log analysis by detecting anomalous log patterns and sequences through comparative analysis between baseline and selection time ranges. It supports the following analysis modes: 
+The `LogPatternAnalysisTool` performs an advanced log analysis by detecting anomalous log patterns and sequences through comparative analysis between baseline and selection time ranges. It supports the following analysis modes:
 
 - Log sequence analysis (with trace correlation)
 - Log pattern difference analysis
@@ -191,6 +191,10 @@ The following table lists the available tool parameters for running the agent.
 | `baseTimeRangeEnd` | String | Optional | The end time for the baseline comparison period, in UTC date string format (for example, `2025-06-24 07:51:27`). Required for the sequence and pattern difference analysis modes. |
 | `selectionTimeRangeStart` | String | Required | The start time for the analysis target period, in UTC date string format (for example, `2025-06-24 07:50:26`). |
 | `selectionTimeRangeEnd` | String | Required | The end time for the analysis target period, in UTC date string format (for example, `2025-06-24 07:55:56`). |
+
+## Testing the tool
+
+You can run this tool either as part of an agent workflow or independently using the [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/). The Execute Tool API is useful for testing individual tools or performing standalone operations.
 
 ## Limitations
 

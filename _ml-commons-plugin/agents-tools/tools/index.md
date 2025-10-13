@@ -31,6 +31,8 @@ Specify a tool by providing its `type`, `parameters`, and, optionally, a `descri
 
 Each tool takes a list of parameters specific to that tool. In the preceding example, the `AgentTool` takes an `agent_id` of the agent it will run. For a list of parameters, see each tool's documentation.
 
+You can also run tools directly without creating an agent using the [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/), which is useful for testing individual tools or performing standalone operations.
+
 |Tool	| Description	|
 |:---	|:---	|
 |[`AgentTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/agent-tool/)	|Runs any agent. |

@@ -6,7 +6,7 @@ nav_order: 100
 ---
 
 # Execute Tool API
-**Introduced 3.2**
+**Introduced 3.3**
 {: .label .label-purple }
 
 The Execute Tool API allows you to run individual tools directly without creating an agent first. This API is particularly beneficial for applications requiring quick, single-tool operations where the overhead of agent creation and management is unnecessary.
@@ -14,6 +14,7 @@ The Execute Tool API allows you to run individual tools directly without creatin
 ## Use cases
 
 The Execute Tool API is ideal for:
+
 - **Direct tool execution**: Run specific tools like search, data analysis, or retrieval operations without agent setup.
 - **Testing and debugging**: Quickly test tool functionality during development.
 - **Lightweight integrations**: Integrate specific OpenSearch capabilities into applications without full agent workflows.
@@ -34,9 +35,9 @@ POST /_plugins/_ml/tools/_execute/<tool_name>
 The `<tool_name>` parameter refers to the predefined tool type name, such as `PPLTool`, `SearchIndexTool`, or `VectorDBTool`,---not a custom tool name that you define.
 {: .note}
 
-## Request body field
+## Request body fields
 
-The following table lists all request body field.
+The following table lists all request body fields.
 
 | Field | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
@@ -54,6 +55,7 @@ To determine the required parameters for a specific tool, refer to the individua
 | Tool execution parameters  | Parameters specified during tool execution.    |
 
 ## Example requests
+
 The following are examples of both simple and complex tool execution.
 
 ### Example 1: Simple tool execution
@@ -72,16 +74,20 @@ POST /_plugins/_ml/tools/_execute/ListIndexTool
 
 ```json
 {
-    "inference_results": [
+  "inference_results": [
+    {
+      "output": [
         {
-            "output": [
-                {
-                    "name": "response",
-                    "result": "row,health,status,index,uuid,pri(number of primary shards),rep(number of replica shards),docs.count(number of available documents),docs.deleted(number of deleted documents),store.size(store size of primary and replica shards),pri.store.size(store size of primary shards)\n1,yellow,open,movies,kKcJKu2aT0C9uwJIPP4hxw,2,1,2,0,7.8kb,7.8kb\n2,green,open,.plugins-ml-config,h8ovp_KFTq6_zvcBEn2kvg,1,0,1,0,4kb,4kb\n3,green,open,.plugins-ml-agent,1oGlUBCIRAGXLbLv27Qg8w,1,0,1,0,8kb,8kb\n"
-                }
-            ]
+          "name": "response",
+          "result": """row,health,status,index,uuid,pri(number of primary shards),rep(number of replica shards),docs.count(number of available documents),docs.deleted(number of deleted documents),store.size(store size of primary and replica shards),pri.store.size(store size of primary shards)
+1,yellow,open,movies,kKcJKu2aT0C9uwJIPP4hxw,2,1,2,0,7.8kb,7.8kb
+2,green,open,.plugins-ml-config,h8ovp_KFTq6_zvcBEn2kvg,1,0,1,0,4kb,4kb
+3,green,open,.plugins-ml-agent,1oGlUBCIRAGXLbLv27Qg8w,1,0,1,0,8kb,8kb
+"""
         }
-    ]
+      ]
+    }
+  ]
 }
 ```
 
