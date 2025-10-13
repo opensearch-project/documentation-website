@@ -40,8 +40,8 @@ Each call to the agent's `_execute` API creates a fresh scratchpad, ensuring exe
 
 - **Structured notes**: Encourage agents to maintain organized, structured notes in the scratchpad.
 - **Regular updates**: Have agents update the scratchpad after each significant step or finding.
-- **Session awareness**: Remember that scratchpad content is temporary and specific to the current execution
-- **Efficient usage**: Use the scratchpad for intermediate results that need to be referenced multiple times during execution
+- **Session awareness**: Remember that scratchpad content is temporary and specific to the current execution.
+- **Efficient usage**: Use the scratchpad for intermediate results that need to be referenced multiple times during execution.
 
 ## Example: Building a research agent with scratchpad tools
 
