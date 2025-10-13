@@ -17,7 +17,7 @@ The gRPC Search API provides a performant, binary interface for running [queries
 
 ## Prerequisite
 
-To submit gRPC requests, you must have a set of protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#using-grpc-apis).
+To submit gRPC requests, you must have a set of protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#how-to-use-grpc-apis).
 
 ## gRPC service and method
 
@@ -443,17 +443,29 @@ public class SearchClient {
             .setRequestBody(requestBody)
             .build();
 
-        SearchResponse response = stub.search(request);
+        try {
+            SearchResponse response = stub.search(request);
 
-        // Handle the response
-        if (response.hasResponseBody()) {
-            ResponseBody responseBody = response.getResponseBody();
-            HitsMetadata hits = responseBody.getHits();
-            System.out.println("Found hits: " + hits.getTotal().getTotalHits().getValue());
-        } else if (response.hasError4XxResponse()) {
-            System.out.println("4xx Error: " + response.getError4XxResponse().getError());
-        } else if (response.hasError5XxResponse()) {
-            System.out.println("5xx Error: " + response.getError5XxResponse().getMessage());
+            // Handle the response
+            System.out.println("Search took: " + response.getTook() + " ms");
+            System.out.println("Timed out: " + response.getTimedOut());
+
+            HitsMetadata hits = response.getHits();
+            if (hits.hasTotal()) {
+                System.out.println("Total hits: " + hits.getTotal().getTotalHits().getValue());
+            }
+
+            // Process individual hits
+            for (HitsMetadataHitsInner hit : hits.getHitsList()) {
+                System.out.println("Hit ID: " + hit.getXId());
+                System.out.println("Hit Index: " + hit.getXIndex());
+                if (hit.hasXScore()) {
+                    System.out.println("Score: " + hit.getXScore().getDouble());
+                }
+            }
+        } catch (io.grpc.StatusRuntimeException e) {
+            System.err.println("gRPC search request failed with status: " + e.getStatus());
+            System.err.println("Error message: " + e.getMessage());
         }
 
         channel.shutdown();
