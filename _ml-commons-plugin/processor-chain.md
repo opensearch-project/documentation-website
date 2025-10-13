@@ -584,7 +584,7 @@ POST _plugins/_ml/models/{model_id}/_predict
 ```
 {% include copy-curl.html %}
 
-Without output processors, the raw response contains the full model output with extensive metadata and nested structure:
+Without output processors, the raw response contains the full model output with extensive metadata and a nested structure:
 
 ```json
 {
