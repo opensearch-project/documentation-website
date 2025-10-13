@@ -10,7 +10,7 @@ nav_order: 10
 **Introduced 3.3**
 {: .label .label-purple }
 
-Use this API to create a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-containers) to hold agentic memories. The container can have two model types associated with it:
+Use this API to create a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-containers) to store agentic memories. The container can have two model types associated with it:
 
 - A text embedding model for vectorizing the message so it can be searched. Use a text embedding model for dense vector embeddings or a sparse encoding model for sparse vector formats. If no embedding model is specified, messages are stored but cannot be used for vector-based searches.
 - A large language model (LLM) for reasoning over the message to produce factual or processed content. If no LLM is specified, messages are stored directly, without applying inference. Long-term memory requires both an LLM model and embedding model to be configured.
