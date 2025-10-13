@@ -13,7 +13,9 @@ nav_order: 10
 Use this API to create a memory container to hold agentic memories. The container can have two model types associated with it:
 
 - A text embedding model for vectorizing the message so it can be searched. Use a text embedding model for dense vector embeddings or a sparse encoding model for sparse vector formats. If no embedding model is specified, messages are stored but cannot be used for vector-based searches.
-- A large language model (LLM) for reasoning over the message to produce factual or processed content. If no LLM is specified, messages are stored directly, without applying inference.
+- A large language model (LLM) for reasoning over the message to produce factual or processed content. If no LLM is specified, messages are stored directly, without applying inference. Long term memory requires both an LLM model and embedding model to be configured.
+
+**Note**: LLM connectors must support `system_prompt` and `user_prompt` parameters for agentic memory processing. The default `llm_result_path` is configured for Bedrock Converse API format (`"$.output.message.content[0].text"`).
 
 **Note**: LLM connectors must support `system_prompt` and `user_prompt` parameters for agentic memory processing. The default `llm_result_path` is configured for Bedrock Converse API format (`"$.output.message.content[0].text"`).
 
@@ -79,7 +81,6 @@ POST /_plugins/_ml/models/_register
 
 ### LLM 
 
-Currently, agentic memory supports only the Anthropic Claude model for LLM capabilities. Starting with OpenSearch 3.3, this feature will be generally available and will include support for additional LLM providers, such as OpenAI.
 
 To register an Anthropic Claude model, send the following request:
 
@@ -90,7 +91,7 @@ POST /_plugins/_ml/models/_register
     "function_name": "remote",
     "description": "test model",
     "connector": {
-        "name": "Amazon Bedrock Connector: embedding",
+        "name": "Amazon Bedrock Connector: Chat",
         "description": "The connector to bedrock Claude 3.7 sonnet model",
         "version": 1,
         "protocol": "aws_sigv4",
@@ -114,8 +115,8 @@ POST /_plugins/_ml/models/_register
             "headers": {
                 "content-type": "application/json"
             },
-            "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/invoke",
-            "request_body": """{ "system": "${parameters.system_prompt}", "anthropic_version": "${parameters.anthropic_version}", "max_tokens": ${parameters.max_tokens}, "temperature": ${parameters.temperature}, "messages": ${parameters.messages} }"""
+            "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/converse",
+            "request_body": "{  \"anthropic_version\": \"${parameters.anthropic_version}\", \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature}, \"system\": [{\"text\": \"${parameters.system_prompt}\"}], \"messages\": [ { \"role\": \"user\", \"content\": [ {\"text\": \"${parameters.user_prompt}\" }] }]}"
             }
         ]
     }
@@ -139,10 +140,10 @@ POST /_plugins/_ml/memory_containers/_create
 The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
-:--- | :--- | :--- | :---
-`name` | String | Required | The name of the memory container.
-`description` | String | Optional | The description of the memory container.
-`configuration` | Object | Required | The memory container configuration. See [the `configuration` object](#the-configuration-object).
+:--- | :--- |:------------------| :---
+`name` | String | Required          | The name of the memory container.
+`description` | String | Optional          | The description of the memory container.
+`configuration` | Object | Optional          | The memory container configuration. See [the `configuration` object](#the-configuration-object).
 
 ### The configuration object
 
@@ -156,8 +157,43 @@ Field | Data type | Required/Optional | Description
 `llm_id` | String | Optional | The LLM model ID for processing and inference.
 `index_prefix` | String | Optional | Custom prefix for the memory indices. If not specified, a default prefix is used: if `use_system_index` is `true`, use `default` as index prefix; if `use_system_index` is `false`, use 8 bit random UUID as index prefix.
 `use_system_index` | Boolean | Optional | Whether to use system indices. Default is `true`.
+`disable_history`  | Boolean | Optional | if disabled no history will be persisted. Default is `false`, so history will be persisted by default.
+`disable_session`  | Boolean | Optional | if disabled no session will be persisted. Default is `true`, so session will not be persisted by default.
+`max_infer_size`   | int     | Optional | `max_infer_size` Controls the topK number of similar existing memories retrieved during memory consolidation to make ADD/UPDATE/DELETE decisions.
+`index_settings`   | Map<String, Map<String, Object> | Optional | Customer can also provide the index settings. See [the `index settings` array](#the-index-settings).
 `strategies` | Array | Optional | Array of memory processing strategies. See [the `strategies` array](#the-strategies-array).
 `parameters` | Object | Optional | Global parameters for the memory container. See [the `parameters` object](#the-parameters-object).
+
+### The index settings
+
+Example of index settings
+
+    "index_settings": {
+      "session_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      },
+      "short_term_memory_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      },
+      "long_term_memory_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      },
+      "long_term_memory_history_index" : {
+        "index": {
+          "number_of_shards": "2",
+          "number_of_replicas": "2"
+        }
+      }
+    }
 
 ### The strategies array
 
@@ -168,6 +204,7 @@ Field | Data type | Required/Optional | Description
 `type` | String | Required | The strategy type: `SEMANTIC`, `USER_PREFERENCE`, or `SUMMARY`.
 `namespace` | Array | Required | Array of namespace dimensions for organizing memories (e.g., `["user_id"]`, `["agent_id", "session_id"]`).
 `configuration` | Map<String, Object> | Optional | Strategy-specific configuration. See [the strategy `configuration` object](#the-strategy-configuration-object).
+`enabled`       | boolean             | Optional | To enable the Strategy in the memory container. Default is True.
 
 ### The strategy configuration object
 

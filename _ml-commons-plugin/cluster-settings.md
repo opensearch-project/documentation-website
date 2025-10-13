@@ -509,37 +509,6 @@ plugins.ml_commons.agentic_memory_enabled: true
 - Default value: `true`
 - Valid values: `false`, `true`
 
-## Set maximum memory containers per user
-
-Controls the maximum number of memory containers that can be created per user. When set to `0`, no memory containers can be created.
-
-### Setting
-
-```yaml
-plugins.ml_commons.max_memory_containers_per_user: 100
-```
-
-### Values
-
-- Default value: `100`
-- Value range: [0, 10,000]
-
-## Set maximum memories per container
-
-Controls the maximum number of memories that can be stored in a single memory container. When set to `0`, no memories can be added to any container.
-
-### Setting
-
-```yaml
-plugins.ml_commons.max_memories_per_container: 10000
-```
-
-### Values
-
-- Default value: `10,000`
-- Value range: [0, 1,000,000]
-
-
 ## Enable RAG pipeline
 
 When set to `true`, this setting enables the search processors for retrieval-augmented generation (RAG). RAG enhances query results by generating responses using relevant information from memory and previous conversations.

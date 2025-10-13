@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Get memory by type and ID
-parent: Agentic Memory APIs
+title: Get memory
+parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 51
 ---
 
-# Get memory by type and ID
+# Get Memory API
 **Introduced 3.3**
 {: .label .label-purple }
 
-Use this API to retrieve a specific memory by its type and ID. This unified API supports four types of memory data: session, working, long-term, and history.
+Use this API to retrieve a specific memory by its type and ID. This unified API supports the four [memory types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#memory-types): `sessions`, `working`, `long-term`, and `history`.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id>
@@ -20,42 +20,22 @@ GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id>
 
 ## Path parameters
 
+The following table lists the available path parameters.
+
 | Parameter | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
-| `memory_container_id` | String | Required | The ID of the memory container. |
-| `type` | String | Required | The type of memory: "sessions", "working", "long-term", or "history". |
+| `memory_container_id` | String | Required | The ID of the memory container from which to retrieve the memory. |
+| `type` | String | Required | The memory type. Valid values are `sessions`, `working`, `long-term`, and `history`. |
 | `id` | String | Required | The ID of the memory to retrieve. |
 
-## Example requests
-
-### Get working memory
+## Example request: Get a working memory
 
 ```json
 GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/working/XyEuiJkBeh2gPPwzjYWM
 ```
-
-### Get long-term memory
-
-```json
-GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/DcxjTpkBvwXRq366C1Zz
-```
-
-### Get session
-
-```json
-GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/sessions/CcxjTpkBvwXRq366A1aE
-```
-
-### Get memory history
-
-```json
-GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMxnTpkBvwXRq366hmAU
-```
 {% include copy-curl.html %}
 
-## Example responses
-
-### Working memory response
+## Example response: Working memory
 
 ```json
 {
@@ -88,7 +68,14 @@ GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMxnTp
 }
 ```
 
-### Long-term memory response
+## Example request: Get a long-term memory
+
+```json
+GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/DcxjTpkBvwXRq366C1Zz
+```
+{% include copy-curl.html %}
+
+## Example response: Long-term memory 
 
 ```json
 {
@@ -110,7 +97,14 @@ GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMxnTp
 }
 ```
 
-### Session response
+## Example request: Get a session
+
+```json
+GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/sessions/CcxjTpkBvwXRq366A1aE
+```
+{% include copy-curl.html %}
+
+## Example response: Session
 
 ```json
 {
@@ -123,7 +117,14 @@ GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMxnTp
 }
 ```
 
-### History response
+## Example request: Get a history memory
+
+```json
+GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMxnTpkBvwXRq366hmAU
+```
+{% include copy-curl.html %}
+
+## Example response: History 
 
 ```json
 {
@@ -148,57 +149,65 @@ GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMxnTp
 
 ## Response fields
 
-The response fields vary depending on the memory type:
+The response fields vary depending on the memory type.
 
 ### Working memory response fields
+
+The following table lists all working memory response body fields.
 
 | Field                 | Data type | Description                                             |
 |:----------------------| :--- |:--------------------------------------------------------|
 | `memory_container_id` | String | The ID of the memory container.                         |
-| `payload_type`        | String | The type of payload: "conversation" or "data".          |
-| `messages`            | Array | Array of conversation messages (for conversation type). | 
+| `payload_type`        | String | The type of payload. Valid values are `conversation` and `data`.          |
+| `messages`            | Array | Array of conversation messages (applicable only to the `conversation` memory type). | 
 | `namespace`           | Object | The namespace context for this memory.                  |
 | `metadata`            | Object | Additional metadata associated with the memory.         |
 | `tags`                | Object | Associated tags for categorization.                     |
 | `infer`               | Boolean | Whether inference was enabled for this memory.          |
-| `created_time`        | Long | Timestamp when the memory was created.                  |
-| `last_updated_time`   | Long | Timestamp when the memory was last updated.             |
+| `created_time`        | Long | The timestamp when the memory was created.                  |
+| `last_updated_time`   | Long | The timestamp when the memory was last updated.             |
 
 ### Long-term memory response fields
+
+The following table lists all long-term memory response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `memory` | String | The extracted long-term memory fact. |
-| `strategy_type` | String | The type of memory strategy used (e.g., "SEMANTIC", "SUMMARY", "USER_PREFERENCE"). |
+| `strategy_type` | String | The type of memory strategy used (for example, `SEMANTIC`, `SUMMARY`, or `USER_PREFERENCE`). |
 | `namespace` | Object | The namespace context for this memory. |
-| `namespace_size` | Integer | The size of the namespace. |
+| `namespace_size` | Integer | The namespace size. |
 | `tags` | Object | Associated tags for categorization. |
-| `created_time` | Long | Timestamp when the memory was created. |
-| `last_updated_time` | Long | Timestamp when the memory was last updated. |
-| `memory_embedding` | Array | Vector embedding of the memory content (truncated in display). |
-| `owner_id` | String | The owner of the memory. |
+| `created_time` | Long | The timestamp when the memory was created. |
+| `last_updated_time` | Long | The timestamp when the memory was last updated. |
+| `memory_embedding` | Array | The vector embedding of the memory content (truncated in display). |
+| `owner_id` | String | The ID of the memory owner. |
 | `strategy_id` | String | The unique identifier for the strategy instance. |
 
 ### Session response fields
+
+The following table lists all session response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `memory_container_id` | String | The ID of the memory container. |
 | `namespace` | Object | The namespace context for this session. |
-| `created_time` | String | ISO timestamp when the session was created. |
-| `last_updated_time` | String | ISO timestamp when the session was last updated. |
+| `created_time` | String | The timestamp when the session was created. |
+| `last_updated_time` | String | The timestamp when the session was last updated. |
 
 ### History response fields
 
+The following table lists all history response body fields.
+
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `owner_id` | String | The owner of the memory. |
+| `owner_id` | String | The ID of the memory owner. |
 | `memory_container_id` | String | The ID of the memory container. |
 | `memory_id` | String | The ID of the affected memory. |
-| `action` | String | The type of operation: "ADD", "UPDATE", or "DELETE". |
+| `action` | String | The type of operation: `ADD`, `UPDATE`, or `DELETE`. |
 | `after` | Object | The memory content after the operation. |
-| `before` | Object | The memory content before the operation (for UPDATE operations). |
+| `before` | Object | The memory content before the operation (for `UPDATE` operations). |
 | `namespace` | Object | The namespace context for this memory. |
-| `namespace_size` | Integer | The size of the namespace. |
+| `namespace_size` | Integer | The namespace size. |
 | `tags` | Object | Associated tags for categorization. |
-| `created_time` | Long | Timestamp when the operation occurred. |
+| `created_time` | Long | The timestamp when the operation occurred. |
