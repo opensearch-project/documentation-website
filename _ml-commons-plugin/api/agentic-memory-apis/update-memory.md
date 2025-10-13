@@ -30,15 +30,20 @@ The following table lists the available path parameters.
 
 ## Request fields
 
-The request fields vary depending on the memory type being updated.
+The request fields vary depending on the memory type being updated. All request fields are optional.
 
 ### Session memory request fields
 
-The following table lists all session memory request body fields.
+The following table lists all session memory request body fields. 
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `additional_info` | Object | Additional metadata to associate with the session. Optional. |
+| Field      | Data type             | Description |
+|:-----------|:----------------------| :--- |
+| `summary`  | String                | The summary of the session.
+| `metadata` | Object   | Additional metadata for the memory (for example, `status`, `branch`, or custom fields). |
+| `agents`   | Object   | Additional information about the agents. |
+| `additional_info` | Object | Additional metadata to associate with the session. |
 
 ### Working memory request fields
 
@@ -47,9 +52,10 @@ The following table lists all working memory request body fields.
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `messages` | Array | Updated conversation messages (for conversation type). Optional. |
-| `structured_data` | Object | Updated structured data content (for data type). Optional. |
-| `tags` | Object | Updated tags for categorization. Optional. |
-| `additional_info` | Object | Additional metadata. Optional. |
+| `structured_data` | Object | Updated structured data content (for `data` memory payloads). |
+| `binary_data` | Object | Updated binary data content (for `data` memory payloads). Optional.           |
+| `tags` | Object | Updated tags for categorization.                       |
+| `metadata` | Object  | Additional metadata for the memory (for example, `status`, `branch`, or custom fields).
 
 ### Long-term memory request fields
 
@@ -59,7 +65,6 @@ The following table lists all long-term memory request body fields.
 | :--- | :--- | :--- |
 | `memory` | String | The updated memory content. Optional. |
 | `tags` | Object | Updated tags for categorization. Optional. |
-| `additional_info` | Object | Additional metadata. Optional. |
 
 ## Example request: Update a session
 

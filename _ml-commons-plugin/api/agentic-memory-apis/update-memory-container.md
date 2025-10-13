@@ -1,12 +1,12 @@
 ---
 layout: default
 title: Update memory container
-parent: Agentic Memory APIs
+parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 15
 ---
 
-# Update memory container
+# Update Memory Container API
 **Introduced 3.3**
 {: .label .label-purple }
 
@@ -16,7 +16,7 @@ Use this API to update an existing memory container's properties such as name an
 Use this API to update an existing memory container's properties such as name, description, configuration, and access permissions.
 >>>>>>> b18236c7b4a8f389df07932f44a8818366485dd4
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 PUT /_plugins/_ml/memory_containers/<memory_container_id>
@@ -118,6 +118,8 @@ PUT /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU
 ```
 
 ## Response fields
+
+The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |

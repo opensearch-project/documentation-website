@@ -1,21 +1,25 @@
 ---
 layout: default
 title: Delete memory container
-parent: Agentic Memory APIs
+parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 30
 ---
 
 # Delete Memory Container API
-**Introduced 3.2**
+**Introduced 3.3**
 {: .label .label-purple }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 Use this API to delete a memory container by its ID.
 
-## Endpoint
+## Endpoints
 
 ```json
-DELETE /_plugins/_ml/memory_containers/{memory_container_id}
+DELETE /_plugins/_ml/memory_containers/<memory_container_id>
 ```
 
 ## Example request
@@ -43,3 +47,16 @@ DELETE /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN
     "_primary_term": 1
 }
 ```
+
+## Response fields
+
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `result` | String | The result of the delete operation. |
+| `_id` | String | The ID of the deleted memory container. |
+| `_version` | Integer | The version number after deletion. |
+| `_shards` | Object | Information about the shards involved in the operation. |
+| `_seq_no` | Long | The sequence number assigned to the delete operation. |
+| `_primary_term` | Long | The primary term of the index. |

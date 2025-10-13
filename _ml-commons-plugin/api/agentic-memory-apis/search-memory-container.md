@@ -1,18 +1,18 @@
 ---
 layout: default
 title: Search memory containers
-parent: Agentic Memory APIs
+parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 25
 ---
 
-# Search memory containers
+# Search Memory Containers API
 **Introduced 3.3**
 {: .label .label-purple }
 
 Use this API to search for memory containers using OpenSearch query DSL.
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
 GET /_plugins/_ml/memory_containers/_search
@@ -21,7 +21,7 @@ POST /_plugins/_ml/memory_containers/_search
 
 ## Request fields
 
-The request body supports standard OpenSearch query DSL. 
+The request body supports standard OpenSearch query DSL. For more information, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 
 ## Example request
 
@@ -84,10 +84,12 @@ GET /_plugins/_ml/memory_containers/_search
 
 ## Response fields
 
+The following table lists all response body fields.
+
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `name` | String | The name of the memory container. |
 | `description` | String | The description of the memory container. |
-| `configuration` | Object | The memory container configuration including models and strategies. |
-| `created_time` | Long | Timestamp when the container was created. |
-| `last_updated_time` | Long | Timestamp when the container was last updated. |
+| `configuration` | Object | The memory container configuration, including models and strategies. |
+| `created_time` | Long | The timestamp when the container was created. |
+| `last_updated_time` | Long | The timestamp when the container was last updated. |

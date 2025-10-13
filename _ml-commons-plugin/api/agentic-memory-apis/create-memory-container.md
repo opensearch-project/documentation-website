@@ -1,31 +1,34 @@
 ---
 layout: default
 title: Create memory container
-parent: Agentic Memory APIs
+parent: Agentic memory APIs
 grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
 # Create Memory Container API
-**Introduced 3.2**
+**Introduced 3.3**
 {: .label .label-purple }
 
-Use this API to create a memory container to hold agentic memories. The container can have two model types associated with it:
+Use this API to create a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#memory-containers) to hold agentic memories. The container can have two model types associated with it:
 
 - A text embedding model for vectorizing the message so it can be searched. Use a text embedding model for dense vector embeddings or a sparse encoding model for sparse vector formats. If no embedding model is specified, messages are stored but cannot be used for vector-based searches.
 - A large language model (LLM) for reasoning over the message to produce factual or processed content. If no LLM is specified, messages are stored directly, without applying inference. Long term memory requires both an LLM model and embedding model to be configured.
 
 **Note**: LLM connectors must support `system_prompt` and `user_prompt` parameters for agentic memory processing. The default `llm_result_path` is configured for Bedrock Converse API format (`"$.output.message.content[0].text"`).
 
-**Note**: LLM connectors must support `system_prompt` and `user_prompt` parameters for agentic memory processing. The default `llm_result_path` is configured for Bedrock Converse API format (`"$.output.message.content[0].text"`).
+For more information, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 
-Once a memory container is created, you'll provide its `memory_container_id` to other APIs.
+LLM connectors must support `system_prompt` and `user_prompt` parameters for agentic memory processing. The default `llm_result_path` is the Amazon Bedrock Converse API response path (`"$.output.message.content[0].text"`).
+{: .note}
+
+Once a memory container is created, provide its `memory_container_id` to other APIs.
 
 ## Prerequisites
 
 If you want to use one of the model types to process memories, register the models in OpenSearch.
 
-### Embedding model 
+### Embedding model
 
 Register either a local or externally hosted embedding model. OpenSearch supports text embedding and sparse encoding models. 
 
@@ -79,7 +82,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-### LLM 
+### LLM
 
 
 To register an Anthropic Claude model, send the following request:
@@ -129,7 +132,7 @@ The `system_prompt` parameter is required for Claude models.
 
 For more information about using externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
-## Endpoint
+## Endpoints
 
 ```json
 POST /_plugins/_ml/memory_containers/_create
@@ -140,10 +143,10 @@ POST /_plugins/_ml/memory_containers/_create
 The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
-:--- | :--- |:------------------| :---
-`name` | String | Required          | The name of the memory container.
-`description` | String | Optional          | The description of the memory container.
-`configuration` | Object | Optional          | The memory container configuration. See [the `configuration` object](#the-configuration-object).
+:--- | :--- | :--- | :---
+`name` | String | Required | The name of the memory container.
+`description` | String | Optional | The description of the memory container.
+`configuration` | Object | Required | The memory container configuration. See [The `configuration` object](#the-configuration-object).
 
 ### The configuration object
 
@@ -155,14 +158,14 @@ Field | Data type | Required/Optional | Description
 `embedding_model_id` | String | Optional | The embedding model ID.
 `embedding_dimension` | Integer | Optional | The dimension of the embedding model. Required if `embedding_model_type` is `TEXT_EMBEDDING`.
 `llm_id` | String | Optional | The LLM model ID for processing and inference.
-`index_prefix` | String | Optional | Custom prefix for the memory indices. If not specified, a default prefix is used: if `use_system_index` is `true`, use `default` as index prefix; if `use_system_index` is `false`, use 8 bit random UUID as index prefix.
-`use_system_index` | Boolean | Optional | Whether to use system indices. Default is `true`.
+`index_prefix` | String | Optional | A custom prefix for memory indexes. If not specified, a default prefix is used: `default` when `use_system_index` is `true`, or an 8-character random UUID when `use_system_index` is `false`.
+`use_system_index` | Boolean | Optional | Whether to use system indexes. Default is `true`.
 `disable_history`  | Boolean | Optional | if disabled no history will be persisted. Default is `false`, so history will be persisted by default.
 `disable_session`  | Boolean | Optional | if disabled no session will be persisted. Default is `true`, so session will not be persisted by default.
 `max_infer_size`   | int     | Optional | `max_infer_size` Controls the topK number of similar existing memories retrieved during memory consolidation to make ADD/UPDATE/DELETE decisions.
 `index_settings`   | Map<String, Map<String, Object> | Optional | Customer can also provide the index settings. See [the `index settings` array](#the-index-settings).
-`strategies` | Array | Optional | Array of memory processing strategies. See [the `strategies` array](#the-strategies-array).
-`parameters` | Object | Optional | Global parameters for the memory container. See [the `parameters` object](#the-parameters-object).
+`strategies` | Array | Optional | An array of [memory processing strategies]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/#memory-processing-strategies). See [The `strategies` array](#the-strategies-array).
+`parameters` | Object | Optional | Global parameters for the memory container. See [The `parameters` object](#the-parameters-object).
 
 ### The index settings
 
@@ -201,28 +204,28 @@ Each strategy in the `strategies` array supports the following fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`type` | String | Required | The strategy type: `SEMANTIC`, `USER_PREFERENCE`, or `SUMMARY`.
-`namespace` | Array | Required | Array of namespace dimensions for organizing memories (e.g., `["user_id"]`, `["agent_id", "session_id"]`).
-`configuration` | Map<String, Object> | Optional | Strategy-specific configuration. See [the strategy `configuration` object](#the-strategy-configuration-object).
-`enabled`       | boolean             | Optional | To enable the Strategy in the memory container. Default is True.
+`type` | String | Required | The strategy type. Valid values are `SEMANTIC`, `USER_PREFERENCE`, and `SUMMARY`.
+`namespace` | Array | Required | An array of namespace dimensions for organizing memories (for example, `["user_id"]` or `["agent_id", "session_id"]`).
+`configuration` | Object | Optional | Strategy-specific configuration. See [The strategy `configuration` object](#the-strategy-configuration-object).
+`enabled`       | Boolean             | Optional | Whether to enable the strategy in the memory container. Default is `true`.
 
 ### The strategy configuration object
 
+The strategy `configuration` object supports the following fields.
+
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`llm_result_path` | String | Optional | JSONPath to extract LLM results. Default is `"$.output.message.content[0].text"` for Bedrock Converse API format.
-`system_prompt` | String | Optional | Custom system prompt to override the default strategy prompt.
-`llm_id` | String | Optional | LLM model ID for this specific strategy, overrides the global LLM setting.
+`llm_result_path` | String | Optional | A JSONPath for extracting LLM results from responses. Default is the Amazon Bedrock Converse API response path (`"$.output.message.content[0].text"`).
+`system_prompt` | String | Optional | A custom system prompt to override the default strategy prompt.
+`llm_id` | String | Optional | The LLM model ID for this strategy. Overrides the global LLM setting.
 
 ### The parameters object
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`llm_result_path` | String | Optional | Global JSONPath for extracting LLM results from responses. Default is `"$.output.message.content[0].text"` for Bedrock Converse API format.
+`llm_result_path` | String | Optional | A global JSONPath for extracting LLM results from responses. Default is the Amazon Bedrock Converse API response path (`"$.output.message.content[0].text"`).
 
-## Example requests
-
-### Basic memory container
+## Example request: Basic memory container
 
 ```json
 POST /_plugins/_ml/memory_containers/_create
@@ -243,8 +246,9 @@ POST /_plugins/_ml/memory_containers/_create
   }
 }
 ```
+{% include copy-curl.html %}
 
-### Advanced memory container with multiple strategies
+### Example request: Advanced memory container with multiple strategies
 
 ```json
 POST /_plugins/_ml/memory_containers/_create
