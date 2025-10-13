@@ -64,7 +64,7 @@ The following table contains common DateTime patterns.
 
 | Pattern                        | Example                       | Description                   |
 | ------------------------------ | ----------------------------- | ----------------------------- |
-| `yyyy-MM-dd'T'HH:mm:ss.SSSXXX` | 2023-03-15T14:30:45.123-05:00 | ISO 8601 format with timezone |
+| `yyyy-MM-dd'T'HH:mm:ss.SSSXXX` | 2023-03-15T14:30:45.123-05:00 | ISO 8601 format with time zone |
 | `dd/MMM/yyyy:HH:mm:ss Z`       | 15/Mar/2023:14:30:45 -0500    | Apache Common Log Format      |
 | `MMM dd HH:mm:ss`              | Mar 15 14:30:45               | Syslog format                 |
 | `yyyy-MM-dd HH:mm:ss`          | 2023-03-15 14:30:45           | Standard SQL format           |
@@ -74,7 +74,7 @@ The following table contains common DateTime patterns.
 
 Table of epoch patterns.
 
-| Pattern        | Description                                        | Example Value       |
+| Pattern        | Description                                        | Example value       |
 | -------------- | -------------------------------------------------- | ------------------- |
 | `epoch_second` | Seconds since Unix epoch (1970-01-01 00:00:00 UTC) | 1678902000          |
 | `epoch_milli`  | Milliseconds since Unix epoch                      | 1678902000123       |
@@ -84,7 +84,7 @@ Table of epoch patterns.
 Only one epoch pattern is allowed per pattern list. If you need to support multiple epoch formats, use separate date processors.
 {: .note}
 
-## Configuration Examples
+## Examples
 
 The following are examples of different configurations.
 
