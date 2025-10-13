@@ -17,7 +17,7 @@ Use this API to create a [memory container]({{site.url}}{{site.baseurl}}/ml-comm
 
 For more information, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 
-LLM connectors must support `system_prompt` and `user_prompt` parameters for agentic memory processing. The default `llm_result_path` is the Amazon Bedrock Converse API response path (`"$.output.message.content[0].text"`).
+LLM connectors must support `system_prompt` and `user_prompt` parameters for agentic memory processing. The default `llm_result_path` is the Amazon Bedrock Converse API response path (`"$.output.message.content[0].text"`). If user use OpenAI GPT model, should configure llm_result_path as `$.choices[0].message.content`
 {: .note}
 
 Once a memory container is created, provide its `memory_container_id` to other APIs.

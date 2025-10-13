@@ -78,7 +78,7 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
 ```
 {% include copy-curl.html %}
 
-## Example response: Conversation memory
+## Example response: Conversation payload
 
 ```json
 {
@@ -116,7 +116,7 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
 ```
 {% include copy-curl.html %}
 
-## Example response: Data memory
+## Example response: Data payload
 
 ```json
 {
@@ -124,7 +124,7 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
 }
 ```
 
-## Example request: Storing trace data
+## Example request: Storing tool invocation data
 
 To store agent trace data in working memory, send the following request:
 
