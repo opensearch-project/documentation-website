@@ -31,7 +31,6 @@ The following pipeline drops any documents that are not part of the specified CI
 cidr-allowlist-pipeline:
   source:
     http:
-      port: 2021
       path: /events
       ssl: true
       sslKeyCertChainFile: "certs/dp.crt"
