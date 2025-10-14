@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/supported-field-types/
   - /opensearch/supported-field-types/index/
   - /field-types/supported-field-types/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/index/
 ---
 
 # Supported field types

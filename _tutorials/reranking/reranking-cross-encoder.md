@@ -6,6 +6,7 @@ nav_order: 110
 redirect_from:
   - /ml-commons-plugin/tutorials/reranking-cross-encoder/
   - /vector-search/tutorials/reranking/reranking-cross-encoder/
+canonical_url: https://docs.opensearch.org/latest/tutorials/reranking/reranking-cross-encoder/
 ---
 
 # Reranking search results using a cross-encoder in Amazon SageMaker

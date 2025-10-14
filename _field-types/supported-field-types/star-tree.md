@@ -3,6 +3,7 @@ layout: default
 title: Star-tree
 nav_order: 61
 parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/star-tree/
 ---
 
 # Star-tree field type

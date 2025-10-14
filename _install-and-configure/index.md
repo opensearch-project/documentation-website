@@ -8,6 +8,7 @@ nav_exclude: true
 permalink: /install-and-configure/
 redirect_from:
   - /install-and-configure/index/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/
 ---
 
 # Install and upgrade OpenSearch

@@ -5,6 +5,7 @@ parent: Access control
 nav_order: 110
 redirect_from:
   - /security-plugin/access-control/permissions/
+canonical_url: https://docs.opensearch.org/latest/security/access-control/permissions/
 ---
 
 # Permissions

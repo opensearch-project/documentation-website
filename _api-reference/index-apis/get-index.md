@@ -5,6 +5,7 @@ parent: Index APIs
 nav_order: 90
 redirect_from:
   - /opensearch/rest-api/index-apis/get-index/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/get-index/
 ---
 
 # Get Index API

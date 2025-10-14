@@ -3,6 +3,7 @@ layout: default
 title: Using semantic highlighting
 parent: Vector search
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/semantic-highlighting-tutorial/
 ---
 
 # Using semantic highlighting

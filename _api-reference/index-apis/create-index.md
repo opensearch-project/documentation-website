@@ -6,6 +6,7 @@ nav_order: 40
 redirect_from:
   - /opensearch/rest-api/index-apis/create-index/
   - /opensearch/rest-api/create-index/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/create-index/
 ---
 
 # Create Index API

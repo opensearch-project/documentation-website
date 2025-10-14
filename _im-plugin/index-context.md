@@ -4,6 +4,7 @@ title: Index context
 nav_order: 14
 redirect_from:
   - /opensearch/index-context/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-context/
 ---
 
 # Index context

@@ -12,6 +12,7 @@ redirect_from:
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
 nav_exclude: true
+canonical_url: https://docs.opensearch.org/latest/upgrade-or-migrate/
 ---
 # Migrate or upgrade OpenSearch
 

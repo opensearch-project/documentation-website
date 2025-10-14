@@ -7,6 +7,7 @@ redirect_from:
   - /opensearch/rest-api/document-apis/
   - /opensearch/rest-api/snapshots/
   - /api-reference/snapshots/
+canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/index/
 ---
 
 # Snapshot APIs

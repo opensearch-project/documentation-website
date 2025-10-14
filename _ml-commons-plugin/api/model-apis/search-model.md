@@ -4,6 +4,7 @@ title: Search model
 parent: Model APIs
 grand_parent: ML Commons APIs
 nav_order: 35
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-apis/search-model/
 ---
 
 # Search Model API

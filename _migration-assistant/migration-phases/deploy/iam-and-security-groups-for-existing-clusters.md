@@ -8,6 +8,7 @@ permalink: /migration-assistant/migration-phases/deploy/iam-and-security-groups-
 redirect_from:
   - /migration-assistant/deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
   - /deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/deploy/iam-and-security-groups-for-existing-clusters/
 ---
 
 # IAM and security groups for existing clusters

@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/snapshots/
   - /opensearch/snapshots/index/
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/index/
 ---
 
 # Snapshots

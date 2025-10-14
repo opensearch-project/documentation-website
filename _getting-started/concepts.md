@@ -2,6 +2,7 @@
 layout: default
 title: Concepts
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/getting-started/concepts/
 ---
 
 # Concepts  

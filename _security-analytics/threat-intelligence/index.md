@@ -3,6 +3,7 @@ layout: default
 title: Threat intelligence
 nav_order: 40
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/security-analytics/threat-intelligence/index/
 ---
 
 # Threat intelligence

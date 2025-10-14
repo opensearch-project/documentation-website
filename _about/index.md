@@ -55,6 +55,7 @@ getting_started:
   - heading: "Get started with OpenSearch security"
     description: "Learn about security in OpenSearch"
     link: "/getting-started/security/"
+canonical_url: https://docs.opensearch.org/latest/about/
 ---
 
 {%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}

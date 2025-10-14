@@ -7,6 +7,7 @@ redirect_from:
   - /opensearch/rest-api/index-apis/put-mapping/
   - /opensearch/rest-api/index-apis/update-mapping/
   - /opensearch/rest-api/update-mapping/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/put-mapping/
 ---
 
 # Create Or Update Mappings API

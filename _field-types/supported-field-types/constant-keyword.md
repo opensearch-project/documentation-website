@@ -5,6 +5,7 @@ nav_order: 71
 has_children: false
 parent: String field types
 grand_parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/constant-keyword/
 ---
 
 # Constant keyword field type

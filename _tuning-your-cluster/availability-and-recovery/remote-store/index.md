@@ -7,6 +7,7 @@ parent: Availability and recovery
 redirect_from: 
   - /opensearch/remote/
   - /tuning-your-cluster/availability-and-recovery/remote/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/remote-store/index/
 ---
 
 # Remote-backed storage

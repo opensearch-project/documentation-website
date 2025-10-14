@@ -4,6 +4,7 @@ title: Change Password API
 grand_parent: Security APIs
 parent: Authentication APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/authentication/change-password/
 ---
 
 # Change Password API

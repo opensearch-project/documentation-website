@@ -3,6 +3,7 @@ layout: default
 title: Shard stores 
 parent: Cluster APIs 
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/shard-stores/
 ---
 
 # Shard Stores API

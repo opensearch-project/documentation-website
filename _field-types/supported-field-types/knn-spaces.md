@@ -5,6 +5,7 @@ parent: k-NN vector
 grand_parent: Supported field types
 nav_order: 10
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/knn-spaces/
 ---
 
 # Spaces

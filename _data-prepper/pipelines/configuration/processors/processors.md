@@ -7,6 +7,7 @@ nav_order: 35
 redirect_from:
   - /data-prepper/pipelines/configuration/processors/mutate-event/
   - /data-prepper/pipelines/configuration/processors/mutate-string/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/processors/
 ---
 
 # Processors

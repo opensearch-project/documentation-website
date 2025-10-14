@@ -4,6 +4,7 @@ title: Thai
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 320
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/thai/
 ---
 
 # Thai analyzer
