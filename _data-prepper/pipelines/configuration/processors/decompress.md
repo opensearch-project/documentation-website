@@ -27,7 +27,6 @@ This example demonstrates a complete pipeline that receives compressed log data,
 decompress-logs-pipeline:
   source:
     http:
-      port: 2021
       path: /events
       ssl: false
 
