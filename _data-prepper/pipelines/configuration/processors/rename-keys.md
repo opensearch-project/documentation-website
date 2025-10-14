@@ -26,18 +26,29 @@ You can configure the `rename_keys` processor with the following options.
 To get started, create the following `pipeline.yaml` file:
 
 ```yaml
-pipeline:
+rename-keys-nested-pipeline:
   source:
-    file:
-      path: "/full/path/to/logs_json.log"
-      record_type: "event"
-      format: "json"
+    http:
+      port: 2021
+      path: /logs
+      ssl: false
   processor:
     - rename_keys:
         entries:
-        - from_key: "message"
-          to_key: "newMessage"
-          overwrite_if_to_key_exists: true
+          # Top-level rename
+          - from_key: "message"
+            to_key: "msg"
+          # Level-2 (nested) renames — use slash paths
+          - from_key: "user/name"
+            to_key: "user/username"
+          - from_key: "user/id"
+            to_key: "user/user_id"
+          - from_key: "http/response/code"
+            to_key: "http/status_code"
+          # If a target exists already, overwrite it
+          - from_key: "env"
+            to_key: "metadata/environment"
+            overwrite_if_to_key_exists: true
   sink:
     - stdout:
 ```
@@ -49,13 +60,32 @@ Next, create a log file named `logs_json.log` and replace the `path` in the file
 For example, before you run the `rename_keys` processor, if the `logs_json.log` file contains the following event record:
 
 ```json
-{"message": "hello"}
+{
+  "message": "hello",
+  "user": { "id": 123, "name": "alice" },
+  "http": { "response": { "code": 200 } },
+  "env": "prod",
+  "metadata": { "environment": "staging" }
+}
 ```
 
-When you run the `rename_keys` processor, it parses the message into the following "newMessage" output:
+When you run the `rename_keys` processor, it parses the message as follows:
 
 ```json
-{"newMessage": "hello"}
+{
+  "user":{
+    "username":"alice",
+    "user_id":123
+  },
+  "http":{
+    "response":{},
+    "status_code":200
+  },
+  "metadata":{
+    "environment":"prod"
+  },
+  "msg":"hello"
+}
 ```
 
 > If `newMessage` already exists, its existing value is overwritten with `value`.
