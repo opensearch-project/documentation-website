@@ -5,6 +5,7 @@ parent: Index APIs
 nav_order: 20
 redirect_from:
   - /opensearch/rest-api/index-apis/clone/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/clone/
 ---
 
 # Clone Index API

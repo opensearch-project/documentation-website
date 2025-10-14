@@ -3,6 +3,7 @@ layout: default
 title: Serial differencing
 parent: Pipeline aggregations
 nav_order: 180
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/serial-diff/
 ---
 
 # Serial differencing aggregations

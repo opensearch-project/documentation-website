@@ -3,6 +3,7 @@ layout: default
 title: Plugin settings
 parent: Configuring OpenSearch
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/plugin-settings/
 ---
 
 # Plugin settings

@@ -15,6 +15,7 @@ items:
   - heading: "Common operations"
     description: "Familiarize yourself with common operations"
     link: "/benchmark/user-guide/understanding-workloads/common-operations/"
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/understanding-workloads/index/
 ---
 
 # Understanding workloads

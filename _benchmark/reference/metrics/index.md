@@ -5,6 +5,7 @@ nav_order: 25
 has_children: true
 parent: OpenSearch Benchmark Reference
 redirect_from: /benchmark/metrics/index/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/metrics/index/
 ---
 
 # Metrics

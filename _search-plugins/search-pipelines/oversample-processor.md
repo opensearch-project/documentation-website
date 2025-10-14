@@ -5,6 +5,7 @@ nav_order: 80
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/oversample-processor/
 ---
 
 # Oversample processor

@@ -4,6 +4,7 @@ title: Authentication APIs
 parent: Security APIs
 has_children: true
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/authentication/index/
 ---
 
 # Authentication APIs

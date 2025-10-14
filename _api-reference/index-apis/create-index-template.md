@@ -3,6 +3,7 @@ layout: default
 title: Create or update index template
 parent: Index APIs
 nav_order: 35
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/create-index-template/
 ---
 
 # Create Or Update Index Template API

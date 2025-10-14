@@ -4,6 +4,7 @@ title: Authentication Information API
 grand_parent: Security APIs
 parent: Authentication APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/authentication/auth-info/
 ---
 
 # Authentication Information API

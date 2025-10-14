@@ -4,6 +4,7 @@ title: Cluster pending tasks
 nav_order: 45
 parent: Cluster APIs
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-pending-tasks/
 ---
 
 # Cluster Pending Tasks API

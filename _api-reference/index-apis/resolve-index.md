@@ -3,6 +3,7 @@ layout: default
 title: Resolve index
 parent: Index APIs
 nav_order: 120
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/resolve-index/
 ---
 
 # Resolve Index API

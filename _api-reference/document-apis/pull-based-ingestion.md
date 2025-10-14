@@ -4,6 +4,7 @@ title: Pull-based ingestion
 parent: Document APIs
 has_children: true
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/pull-based-ingestion/
 ---
 
 # Pull-based Ingestion API

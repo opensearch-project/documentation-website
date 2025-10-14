@@ -8,6 +8,7 @@ grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/geo-shape/
   - /field-types/geo-shape/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/geo-shape/
 ---
 
 # Geoshape field type

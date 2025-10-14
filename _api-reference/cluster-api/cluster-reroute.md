@@ -4,6 +4,7 @@ title: Cluster reroute
 nav_order: 46
 parent: Cluster APIs
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-reroute/
 ---
 
 # Cluster Reroute API

@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /query-insights/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/query-insights/index/
 ---
 
 # Query insights

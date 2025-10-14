@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /monitoring-plugins/ad/
   - /monitoring-plugins/ad/index/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/index/
 ---
 
 # Anomaly detection

@@ -4,6 +4,7 @@ title: Register MCP tools
 parent: MCP server APIs
 grand_parent: ML Commons APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/
 ---
 
 # Register MCP Tools API

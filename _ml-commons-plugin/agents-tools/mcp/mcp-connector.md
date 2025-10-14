@@ -4,6 +4,7 @@ title: Connecting to an external MCP server
 parent: Using MCP tools
 grand_parent: Agents and tools
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/agents-tools/mcp/mcp-connector/
 ---
 
 # Connecting to an external MCP server 

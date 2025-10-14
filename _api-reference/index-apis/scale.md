@@ -3,6 +3,7 @@ layout: default
 title: Scale
 parent: Index APIs
 nav_order: 130
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/scale/
 ---
 
 # Scale API

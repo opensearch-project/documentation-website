@@ -3,6 +3,7 @@ layout: default
 title: Nodes reload secure settings
 parent: Nodes APIs
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/api-reference/nodes-apis/nodes-reload-secure/
 ---
 
 # Nodes Reload Secure Settings API

@@ -28,6 +28,7 @@ cards:
   - heading: "Faceted search"
     description: "Build filterable search experiences for applications like e-commerce or location search" 
     link: "/tutorials/faceted-search/"
+canonical_url: https://docs.opensearch.org/latest/tutorials/
 ---
 
 # Tutorials

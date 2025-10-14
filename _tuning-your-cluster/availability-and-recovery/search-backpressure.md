@@ -6,6 +6,7 @@ has_children: false
 parent: Availability and recovery
 redirect_from: 
   - /opensearch/search-backpressure/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/search-backpressure/
 ---
 
 # Search backpressure

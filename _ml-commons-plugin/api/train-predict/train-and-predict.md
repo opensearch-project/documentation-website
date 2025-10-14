@@ -4,6 +4,7 @@ title: Train and predict
 parent: Model APIs
 grand_parent: ML Commons APIs
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/train-predict/train-and-predict/
 ---
 
 ## Train and predict

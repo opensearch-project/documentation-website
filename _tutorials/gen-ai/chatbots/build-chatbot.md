@@ -10,6 +10,7 @@ redirect_from:
   - /ml-commons-plugin/tutorials/build-chatbot/
   - /vector-search/tutorials/chatbots/build-chatbot/
   - /tutorials/gen-ai/chatbots/build-chatbot/ 
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/chatbots/build-chatbot/
 ---
 
 # Build your own chatbot
