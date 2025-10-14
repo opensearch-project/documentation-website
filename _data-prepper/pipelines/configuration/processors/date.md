@@ -96,7 +96,6 @@ The following `date` processor configuration can be used to add a default timest
 date-ingestion-pipeline:
   source:
     http:
-      port: 2021
       path: /log/ingest
       ssl: false
 
@@ -193,7 +192,6 @@ The following example demonstrates how the `date` processor can sequentially par
 date-multi-format-pipeline:
   source:
     http:
-      port: 2022
       path: /events
       ssl: false
 
@@ -259,7 +257,7 @@ date-multi-format-pipeline:
 You can test this pipeline using the following command:
 
 ```bash
-curl -sS -X POST "http://localhost:2022/events" \
+curl -sS -X POST "http://localhost:2021/events" \
   -H "Content-Type: application/json" \
   -d '[
         {"app":"payment-service","event_time":"1678902000123","transaction_id":"txn_001","amount":99.99,"currency":"USD"},
@@ -348,7 +346,6 @@ The following example demonstrates how the `date` processor handles variable sys
 date-syslog-pipeline:
   source:
     http:
-      port: 2023
       path: /events
       ssl: false
 
@@ -379,7 +376,7 @@ date-syslog-pipeline:
 You can test the pipeline using the following command:
 
 ```bash
-curl -sS -X POST "http://localhost:2023/events" \
+curl -sS -X POST "http://localhost:2021/events" \
   -H "Content-Type: application/json" \
   -d '[
         {"host":"web-server-01","syslog_timestamp":"Mar 15 14:30:45","facility":"daemon","severity":"info","message":"sshd[1234]: Accepted publickey for user1"},
