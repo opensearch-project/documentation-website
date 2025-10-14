@@ -49,3 +49,55 @@ cidr-allowlist-pipeline:
         index: "logs-%{yyyy.MM.dd}"
 ```
 {% include copy.html %}
+
+You can test this pipeline using the following command:
+
+```bash
+curl -ksS -X POST "https://localhost:2021/events" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {"client":{"ip":"10.23.45.6"},"msg":"allowed 10/8"},
+    {"client":{"ip":"8.8.8.8"},"msg":"should be dropped"},
+    {"client":{"ip":"fd00::1234"},"msg":"allowed ULA IPv6"}
+  ]'
+```
+{% include copy.html %}
+
+Only two documents are indexed:
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "logs-2025.10.14",
+        "_id": "Ng1i4pkBLPEKXekW48BU",
+        "_score": 1,
+        "_source": {
+          "client": {
+            "ip": "10.23.45.6"
+          },
+          "msg": "allowed 10/8"
+        }
+      },
+      {
+        "_index": "logs-2025.10.14",
+        "_id": "Nw1i4pkBLPEKXekW48BU",
+        "_score": 1,
+        "_source": {
+          "client": {
+            "ip": "fd00::1234"
+          },
+          "msg": "allowed ULA IPv6"
+        }
+      }
+    ]
+  }
+}
+```
