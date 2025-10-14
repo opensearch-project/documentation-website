@@ -100,7 +100,7 @@ if __name__ == "__main__":
 
 ## Step 4: Create an MCP connector
 
-Register an MCP connector to connect your agentic search agent to the external MCP server. The MCP connector uses the `mcp_streamable_http` protocol to communicate with your external MCP server. Replace `<Your MCP Server URL>` with the actual URL where your MCP server is running, and `<Your API Key>` with the appropriate authentication key:
+Register an MCP connector to connect your agentic search agent to the external MCP server. The MCP connector uses the `mcp_streamable_http` protocol to communicate with your external MCP server. Replace `<Your MCP Server URL>` with the actual URL where your MCP server is running and `<Your API Key>` with the appropriate authentication key:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -257,8 +257,8 @@ The agent processes this query by:
 
 1. **Using external MCP tools**: Calling `brand_collection_tool` with the `favorites` category to get the list of favorite brands.
 2. **Discovering indexes**: Using the `ListIndexTool` to find relevant indexes.
-3. **Analyzing schema**: Using the `IndexMappingTool` to understand the index structure.
-4. **Planning the query**: Using the `QueryPlanningTool` to generate the final DSL query.
+3. **Analyzing the schema**: Using the `IndexMappingTool` to understand the index structure.
+4. **Planning the query**: Using the `QueryPlanningTool` to generate the final query domain-specific language (DSL) query.
 
 The response includes matching products and detailed agent execution information. The `agent_steps_summary` shows how the agent orchestrated multiple tools, including the external MCP tool (`brand_collection_tool`), to understand the user's request and generate an appropriate search query:
 
@@ -337,6 +337,6 @@ The response includes matching products and detailed agent execution information
 
 ## Next steps
 
-- [MCP connector configuration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/) -- Learn more about configuring MCP connectors for external tool integration
-- [Configuring agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) -- Configure agent behaviors with different models and tools
-- [Using conversational agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/) -- Learn more about conversational agents and their advanced features
+- [MCP connector configuration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/) -- Learn more about configuring MCP connectors for external tool integration.
+- [Configuring agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) -- Configure agent behaviors with different models and tools.
+- [Using conversational agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/) -- Learn more about conversational agents and their advanced features.
