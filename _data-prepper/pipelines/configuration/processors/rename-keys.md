@@ -29,7 +29,6 @@ To get started, create the following `pipeline.yaml` file:
 rename-keys-nested-pipeline:
   source:
     http:
-      port: 2021
       path: /logs
       ssl: false
   processor:
