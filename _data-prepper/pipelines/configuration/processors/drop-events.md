@@ -13,7 +13,7 @@ The `drop_events` processor drops all the events that are passed into it. The fo
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 drop_when | Yes | String | Accepts an OpenSearch Data Prepper expression string following the [expression syntax]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/). Configuring `drop_events` with `drop_when: true` drops all the events received.
-handle_failed_events | No | Enum | Specifies how exceptions are handled when an exception occurs while evaluating an event. Default value is `drop`, which drops the event so that it is not sent to OpenSearch. Available options are: <br> - `drop`: The event will be dropped and a warning will be logged.<br> - `drop_silently`: The event will be dropped without warning. <br> - `skip`: The event will not be dropped and a warning will be logged. <br> - `skip_silently`: The event will not be dropped and no warning will be logged.<br>For more information, see [handle_failed_events](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/drop-events-processor#handle_failed_events).
+handle_failed_events | No | Enum | Specifies how exceptions are handled when an exception occurs while evaluating an event. Default value is `drop`, which drops the event so that it is not sent to any sinks or further processors. Available options are: <br> - `drop`: The event will be dropped and a warning will be logged.<br> - `drop_silently`: The event will be dropped without warning. <br> - `skip`: The event will not be dropped and a warning will be logged. <br> - `skip_silently`: The event will not be dropped and no warning will be logged.<br>For more information, see [handle_failed_events](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/drop-events-processor#handle_failed_events).
 
 ## Examples
 
@@ -27,7 +27,6 @@ This example configuration demonstrates filtering out `DEBUG` level logs to redu
 filter-debug-logs-pipeline:
   source:
     http:
-      port: 2021
       path: /events
       ssl: false
 
@@ -119,7 +118,6 @@ The following example shows how to drop events based on multiple criteria, such 
 multi-condition-filter-pipeline:
   source:
     http:
-      port: 2022
       path: /events
       ssl: false
 
@@ -146,7 +144,7 @@ multi-condition-filter-pipeline:
 You can test this pipeline using the following command:
 
 ```bash
-curl -sS -X POST "http://localhost:2022/events" \
+curl -sS -X POST "http://localhost:2021/events" \
   -H "Content-Type: application/json" \
   -d '[
         {"level": "DEBUG", "message": "Cache hit", "status_code": 200, "user_id": "user123", "timestamp": "2023-10-13T14:33:00Z"},
@@ -209,7 +207,6 @@ The following example demonstrates how to implement sampling strategies that dro
 sampling-pipeline:
   source:
     http:
-      port: 2023
       path: /events
       ssl: false
 
@@ -237,7 +234,7 @@ sampling-pipeline:
 You can test this pipeline using the following command:
 
 ```bash
-curl -sS -X POST "http://localhost:2023/events" \
+curl -sS -X POST "http://localhost:2021/events" \
   -H "Content-Type: application/json" \
   -d '[
         {"request_id": 12345, "sampling_rate": 0.9, "source_ip": "10.0.0.1", "message": "High volume request - dropped", "timestamp": "2023-10-13T14:37:00Z"},
