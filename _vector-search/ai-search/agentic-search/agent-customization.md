@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Customizing agents
+title: Configuring agents
 parent: Agentic search
 grand_parent: AI search
 nav_order: 10
 has_children: false
 ---
 
-# Customizing agentic search agents
+# Configuring agentic search agents
 
-You can customize agentic search agents by configuring their models, tools, and prompts:
+You can configure agentic search agents by customizing their models, tools, and prompts:
 
 - [Model configuration](#model-configuration): Choose different large language models (LLMs) optimized for various tasks.
 - [Tool orchestration](#tool-orchestration): Combine multiple tools for automated workflows.
@@ -250,7 +250,7 @@ To customize the `QueryPlanningTool` prompt, see [`QueryPlanningTool`]({{site.ur
 
 ### System prompt optimization
 
-Customize your agent's behavior with tailored system prompts that fit for your specific use case.
+Configure your agent's behavior with tailored system prompts that fit for your specific use case.
 
 ### Agent output format
 
