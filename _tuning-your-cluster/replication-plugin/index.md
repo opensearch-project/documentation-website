@@ -7,6 +7,7 @@ redirect_from:
   - /replication-plugin/
   - /replication-plugin/index/
   - /tuning-your-cluster/replication-plugin/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replication-plugin/index/
 ---
 
 # Cross-cluster replication

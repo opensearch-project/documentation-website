@@ -28,6 +28,7 @@ redirect_from:
   - /benchmark/configuring-benchmark/
   - /benchmark/creating-custom-workloads/
   - /benchmark/installing-benchmark/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/index/
 ---
 
 # OpenSearch Benchmark User Guide

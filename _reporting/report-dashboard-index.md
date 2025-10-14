@@ -4,6 +4,7 @@ title: Reporting using OpenSearch Dashboards
 nav_order: 5
 redirect_from:
   - /dashboards/reporting/
+canonical_url: https://docs.opensearch.org/latest/reporting/report-dashboard-index/
 ---
 
 

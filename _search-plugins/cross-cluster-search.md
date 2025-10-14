@@ -5,6 +5,7 @@ nav_order: 65
 redirect_from:
  - /security/access-control/cross-cluster-search/
  - /security-plugin/access-control/cross-cluster-search/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/cross-cluster-search/
 ---
 
 # Cross-cluster search

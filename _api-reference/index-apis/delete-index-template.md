@@ -3,6 +3,7 @@ layout: default
 title: Delete index template
 parent: Index APIs
 nav_order: 55
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/delete-index-template/
 ---
 
 # Delete Index Template API

@@ -3,6 +3,7 @@ layout: default
 title: Optimizing query performance using OpenSearch indexing
 parent: Data sources
 nav_order: 17
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/accelerate-external-data/
 ---
 
 # Optimizing query performance using OpenSearch indexing

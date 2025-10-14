@@ -5,6 +5,7 @@ nav_order: 3
 parent: Migration phases
 grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/reroute-source-to-proxy/
 ---
 
 # Reroute client traffic to the Traffic Capture Proxy

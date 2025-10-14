@@ -7,6 +7,7 @@ grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-console/accessing-the-migration-console/
 redirect_from:
   - /migration-console/accessing-the-migration-console/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-console/accessing-the-migration-console/
 ---
 
 # Accessing the migration console

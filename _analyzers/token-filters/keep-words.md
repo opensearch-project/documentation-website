@@ -3,6 +3,7 @@ layout: default
 title: Keep words
 parent: Token filters
 nav_order: 190
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/keep-words/
 ---
 
 # Keep words token filter

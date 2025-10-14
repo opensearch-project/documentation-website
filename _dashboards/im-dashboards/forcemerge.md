@@ -5,6 +5,7 @@ parent: Index Management
 nav_order: 30
 redirect_from:
   - /dashboards/admin-ui-index/forcemerge/
+canonical_url: https://docs.opensearch.org/latest/dashboards/im-dashboards/forcemerge/
 ---
 
 # Force merge

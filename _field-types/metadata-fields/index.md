@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /field-types/metadata-fields/
+canonical_url: https://docs.opensearch.org/latest/field-types/metadata-fields/index/
 ---
 
 # Metadata fields

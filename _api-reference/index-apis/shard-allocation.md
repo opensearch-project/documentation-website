@@ -3,6 +3,7 @@ layout: default
 title: Shard allocation
 parent: Index APIs
 nav_order: 137
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/shard-allocation/
 ---
 
 # Shard allocation filtering

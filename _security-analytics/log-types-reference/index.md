@@ -6,6 +6,7 @@ nav_order: 16
 redirect_from:
   - /security-analytics/sec-analytics-config/log-types/
   - /security-analytics/log-types-reference/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/log-types-reference/index/
 ---
 
 # Supported log types

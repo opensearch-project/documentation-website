@@ -2,6 +2,7 @@
 layout: default
 title: Migrating from Kibana OSS to OpenSearch Dashboards
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/upgrade-to/dashboards-upgrade-to/
 ---
 
 # Migrating from Kibana OSS to OpenSearch Dashboards

@@ -3,6 +3,7 @@ layout: default
 title: Thread pool settings
 parent: Configuring OpenSearch
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/thread-pool-settings/
 ---
 
 # Thread pool settings

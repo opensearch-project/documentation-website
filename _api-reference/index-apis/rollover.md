@@ -3,6 +3,7 @@ layout: default
 title: Roll over index
 parent: Index APIs
 nav_order: 125
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/rollover/
 ---
 
 # Roll Over Index API

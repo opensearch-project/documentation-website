@@ -6,6 +6,7 @@ nav_order: 65
 has_toc: false
 redirect_from:
   - /query-dsl/specialized/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/index/
 ---
 
 # Specialized queries

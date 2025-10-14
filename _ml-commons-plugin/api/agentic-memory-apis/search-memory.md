@@ -4,6 +4,7 @@ title: Search agentic memory
 parent: Agentic Memory APIs
 grand_parent: ML Commons APIs
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agentic-memory-apis/search-memory/
 ---
 
 # Search Agentic Memory APIs

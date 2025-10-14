@@ -8,6 +8,7 @@ redirect_from:
   - /benchmark/commands/index/
   - /benchmark/reference/commands/
   - /benchmark/commands/execute-test/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/index/
 ---
 
 # OpenSearch Benchmark command reference

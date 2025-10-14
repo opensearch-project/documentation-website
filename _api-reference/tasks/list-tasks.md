@@ -3,6 +3,7 @@ layout: default
 title: List tasks
 parent: Tasks APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/tasks/list-tasks/
 ---
 
 # List Tasks API

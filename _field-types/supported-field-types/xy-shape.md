@@ -8,6 +8,7 @@ grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/xy-shape/
   - /field-types/xy-shape/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/xy-shape/
 ---
 
 # xy shape field type

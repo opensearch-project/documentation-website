@@ -9,6 +9,7 @@ redirect_from:
   - /migration-assistant/migration-phases/deploying-migration-assistant/configuration-options/
   - /deploying-migration-assistant/configuration-options/
   - /migration-assistant/deploying-migration-assistant/configuration-options/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/deploy/configuration-options/
 ---
 
 # Configuration options

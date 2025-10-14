@@ -7,6 +7,7 @@ has_toc: false
 nav_order: 70
 redirect_from:
   - /ml-commons-plugin/api/tasks-apis/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/tasks-apis/index/
 ---
 
 # Tasks APIs

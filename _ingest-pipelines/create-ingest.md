@@ -6,6 +6,7 @@ redirect_from:
   - /opensearch/rest-api/ingest-apis/create-update-ingest/
   - /api-reference/ingest-apis/create-ingest/
   - /api-reference/ingest-apis/create-update-ingest/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/create-ingest/
 ---
 
 # Create pipeline

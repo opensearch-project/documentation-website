@@ -7,6 +7,7 @@ parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/boolean/
   - /field-types/boolean/
+canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/boolean/
 ---
 
 # Boolean field type

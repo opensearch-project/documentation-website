@@ -3,6 +3,7 @@ layout: default
 title: Segment
 parent: Index APIs
 nav_order: 135
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/segment/
 ---
 
 # Segment API
