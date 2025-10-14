@@ -239,7 +239,7 @@ You will most likely not need to specify any parameters except for `location`. F
 
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
-### Hadoop Distributed File System (HDFS)
+### HDFS
 
 To use HDFS as a snapshot repository, follow these steps:
 
