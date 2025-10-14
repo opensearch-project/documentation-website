@@ -32,7 +32,7 @@ The following table lists the available query parameters.
 
 | Parameter | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
-| `delete_all_memories` | Boolean | Optional | Controls whether to delete all memory indexes when deleting the container. Default is `false`. When `false`, memory indices (sessions, working, long-term, history) are preserved. |
+| `delete_all_memories` | Boolean | Optional | Controls whether to delete all memory indexes when deleting the container. Default is `false`. When `false`, memory indexes (sessions, working, long-term, history) are preserved. |
 | `delete_memories` | Array | Optional | Array of memory types to delete when deleting the container. Default is empty array. Accepts values: `sessions`, `working`, `long-term`, `history`. Example: `delete_memories=sessions,working`. |
 
 ## Example request: Basic deletion (preserves memory indexes)
