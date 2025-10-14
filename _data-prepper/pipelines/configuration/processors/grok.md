@@ -80,7 +80,6 @@ This example demonstrates parsing standard Apache HTTP access logs to extract cl
 apache-access-logs-pipeline:
   source:
     http:
-      port: 2021
       path: /logs
       ssl: false
 
@@ -192,7 +191,6 @@ This example shows parsing custom application logs with user-defined patterns fo
 application-logs-pipeline:
   source:
     http:
-      port: 2022
       path: /logs
       ssl: false
 
@@ -229,7 +227,7 @@ application-logs-pipeline:
 You can test this pipeline using the following command:
 
 ```bash
-curl -sS -X POST "http://localhost:2022/logs" \
+curl -sS -X POST "http://localhost:2021/logs" \
   -H "Content-Type: application/json" \
   -d '[
     {"message": "2025-10-13 14:30:45 [INFO] UserService - User login successful"},
@@ -325,7 +323,6 @@ This example demonstrates using multiple `grok` patterns to handle different log
 network-device-logs-pipeline:
   source:
     http:
-      port: 2023
       path: /logs
       ssl: false
 
@@ -380,7 +377,7 @@ network-device-logs-pipeline:
 You can test this pipeline using the following command:
 
 ```bash
-curl -sS -X POST "http://localhost:2023/logs" \
+curl -sS -X POST "http://localhost:2021/logs" \
   -H "Content-Type: application/json" \
   -d '[
     {"message":"Oct 13 14:30:45 router1 sshd[1234]: User alice logged in from 10.0.0.5"},
