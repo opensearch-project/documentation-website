@@ -82,11 +82,9 @@ routes-demo-pipeline:
       path: /logs
       ssl: false
 
-  # Define routes at the pipeline level (not in processor)
   route:
     - errors: '/level == "ERROR"'
-    - slow_requests: '/latency_ms != null and /latency_ms >= 1000'
-    # (no catch-all route name; any sink without `routes:` becomes the default)
+    - slow_requests: '/latency_ms != null and /latency_ms >= 1000' 
 
   sink:
     # 1) Only events matching the "errors" route
