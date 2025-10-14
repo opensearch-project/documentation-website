@@ -1,31 +1,33 @@
 ---
 layout: default
 title: Add agentic memory
-parent: Agentic Memory APIs
+parent: Agentic memory APIs
 grand_parent: ML Commons APIs
-nav_order: 40
+nav_order: 45
 ---
 
 # Add Agentic Memory API
-**Introduced 3.2**
+**Introduced 3.3**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
 
-Use this API to add an agentic memory to a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container). You can create a memory in one of the following modes (controlled by the `infer` parameter):
+Use this API to add an agentic memory to a [memory container]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container). You can specify different [payload types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#payload-types) and control [inference mode]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#inference-mode) for how OpenSearch processes the memory.
 
-- Fact memory -- A processed representation of the message. The large language model (LLM) associated with the memory container extracts and stores key factual information or knowledge from the original text.
+Once an agentic memory is created, provide its `memory_id` to other APIs.
 
-- Raw message memory -- The unprocessed message content.
-
-Once an agentic memory is created, you'll provide its `memory_id` to other APIs.
-
-## Endpoint
+## Endpoints
 
 ```json
-POST /_plugins/_ml/memory_containers/{memory_container_id}/memories
+POST /_plugins/_ml/memory_containers/<memory_container_id>/memories
 ```
+
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Required/Optional | Description |
+| :--- | :--- | :--- | :--- |
+| `memory_container_id` | String | Required | The ID of the memory container to add the memory to. |
 
 ## Request body fields
 
@@ -33,41 +35,142 @@ The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`messages` | List | Required | A list of messages. Each message requires `content` and may include a `role` (commonly, `user` or `assistant`) when `infer` is set to `true`.
-`session_id` | String | Optional | The session ID associated with the memory.
-`agent_id` | String | Optional | The agent ID associated with the memory.
-`infer` | Boolean | Optional | Controls whether the LLM infers context from messages. Default is `true`. When `true`, the LLM extracts factual information from the original text and stores it as the memory. When `false`, the memory contains the unprocessed message and you must explicitly specify the `role` in each message. 
-`tags` | Object | Optional | Custom metadata for the agentic memory.
+`messages` | Array | Conditional | A list of messages for a `conversational` payload. Each message requires a `content` field and may include a `role` (commonly, `user` or `assistant`) when `infer` is set to `true`. Required when `payload_type` is `conversational`.
+`structured_data` | Object | Conditional | Structured data content for data memory. Required when `payload_type` is `data`.
+`binary_data` | String | Optional | Binary data content encoded as a Base64 string for binary payloads.
+`payload_type` | String | Required | The type of payload. Valid values are `conversational` or `data`. See [Payload types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#payload-types).
+`namespace` | Object | Optional | The [namespace]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#namespaces) context for organizing memories (for example, `user_id`, `session_id`, or `agent_id`). If `session_id` is not specified in the `namespace` field and `disable_session: false` (default is `true`), a new session with a new session ID is created.
+`metadata` | Object | Optional | Additional metadata for the memory (for example, `status`, `branch`, or custom fields).
+`tags` | Object | Optional | Tags for categorizing and organizing memories.
+`infer` | Boolean | Optional | Whether to use a large language model (LLM) to extract key information from messages. Default is `false`. When `true`, the LLM extracts key information from the original text and stores it as a memory. See [Inference mode]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#inference-mode).
 
-## Example request
+## Example request: Conversational payload
 
 ```json
 POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
 {
-    "messages": [
-        {"role": "user", "content": "Machine learning is a subset of artificial intelligence"}
-    ],
-    "session_id": "sess_789",
-    "agent_id": "agent_123",
-    "tags": {
-        "topic": "personal info"
+  "messages": [
+    {
+      "role": "user",
+      "content": "I'm Bob, I really like swimming."
+    },
+    {
+      "role": "assistant",
+      "content": "Cool, nice. Hope you enjoy your life."
     }
+  ],
+  "namespace": {
+    "user_id": "bob"
+  },
+  "metadata": {
+    "status": "checkpoint",
+    "branch": {
+      "branch_name": "high",
+      "root_event_id": "228nadfs879mtgk"
+    }
+  },
+  "tags": {
+    "topic": "personal info"
+  },
+  "infer": true,
+  "payload_type": "conversational"
 }
 ```
 {% include copy-curl.html %}
 
-## Example response
+## Example response: Conversation payload
 
 ```json
 {
-    "results": [
-        {
-            "id": "T9jtmpgBOh0h20Y91WtZ",
-            "text": "Machine learning is a subset of artificial intelligence",
-            "event": "ADD"
-        }
-    ],
-    "session_id": "sess_789"
+  "session_id": "XSEuiJkBeh2gPPwzjYVh",
+  "working_memory_id": "XyEuiJkBeh2gPPwzjYWM"
+}
+```
+
+## Example request: Data payload
+
+To store agent state in working memory, send the following request:
+
+```json
+POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
+{
+  "structured_data": {
+    "time_range": {
+      "start": "2025-09-11",
+      "end": "2025-09-15"
+    }
+  },
+  "namespace": {
+    "agent_id": "testAgent1"
+  },
+  "metadata": {
+    "status": "checkpoint",
+    "anyobject": "abc"
+  },
+  "tags": {
+    "topic": "agent_state"
+  },
+  "infer": false,
+  "payload_type": "data"
+}
+```
+{% include copy-curl.html %}
+
+## Example response: Data payload
+
+```json
+{
+  "working_memory_id": "Z8xeTpkBvwXRq366l0iA"
+}
+```
+
+## Example request: Storing tool invocation data
+
+To store agent trace data in working memory, send the following request:
+
+```json
+POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories
+{
+  "structured_data": {
+    "tool_invocations": [
+      {
+        "tool_name": "ListIndexTool",
+        "tool_input": {
+          "filter": "*,-.plugins*"
+        },
+        "tool_output": "green  open security-auditlog-2025.09.17..."
+      }
+    ]
+  },
+  "namespace": {
+    "user_id": "bob",
+    "agent_id": "testAgent1",
+    "session_id": "123"
+  },
+  "metadata": {
+    "status": "checkpoint",
+    "branch": {
+      "branch_name": "high",
+      "root_event_id": "228nadfs879mtgk"
+    },
+    "anyobject": "abc"
+  },
+  "tags": {
+    "topic": "personal info",
+    "parent_memory_id": "o4-WWJkBFT7urc7Ed9hM",
+    "data_type": "trace"
+  },
+  "infer": false,
+  "payload_type": "data"
+}
+```
+{% include copy-curl.html %}
+
+## Example response: Trace data
+
+```json
+{
+  "working_memory_id": "Z8xeTpkBvwXRq366l0iA"
 }
 ```
 
@@ -77,8 +180,5 @@ The following table lists all response body fields.
 
 | Field           | Data type | Description                                                                                       |
 | :-------------- | :-------- | :------------------------------------------------------------------------------------------------ |
-| `results`       | List      | A list of memory entries returned by the request.                                                 |
-| `results.id`    | String    | The unique identifier for the memory entry.                                                       |
-| `results.text`  | String    | If `infer` is `false`, contains the stored text from the message. If `infer` is `true`, contains the extracted fact from the message.             |
-| `results.event` | String    | The type of event for the memory entry. For the Add Agentic Memory API, the event type is always `ADD`, indicating that the memory was added. |
-| `session_id`    | String    | The session ID associated with the memory.                                    |
+| `session_id`    | String    | The session ID associated with the memory (returned for `conversation` memory when a session is created or used). |
+| `working_memory_id` | String | The unique identifier for the created working memory entry. |
