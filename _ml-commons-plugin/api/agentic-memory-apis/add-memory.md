@@ -3,7 +3,7 @@ layout: default
 title: Add agentic memory
 parent: Agentic memory APIs
 grand_parent: ML Commons APIs
-nav_order: 40
+nav_order: 45
 ---
 
 # Add Agentic Memory API
