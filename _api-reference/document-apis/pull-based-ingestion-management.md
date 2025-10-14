@@ -5,6 +5,7 @@ parent: Pull-based ingestion
 grand_parent: Document APIs
 has_children: true
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/pull-based-ingestion-management/
 ---
 
 # Pull-based Ingestion Management API

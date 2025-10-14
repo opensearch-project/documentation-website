@@ -3,6 +3,7 @@ layout: default
 title: Cluster settings
 parent: Configuring OpenSearch
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/cluster-settings/
 ---
 
 # Cluster settings

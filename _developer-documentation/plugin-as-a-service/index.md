@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 redirect_from: 
   - /developer-documentation/plugin-as-a-service/
+canonical_url: https://docs.opensearch.org/latest/developer-documentation/plugin-as-a-service/index/
 ---
 
 # Plugin as a service 

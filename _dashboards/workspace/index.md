@@ -5,6 +5,7 @@ parent: Workspace for OpenSearch Dashboards
 nav_order: 0
 redirect_from:
   - /dashboards/workspace/
+canonical_url: https://docs.opensearch.org/latest/dashboards/workspace/index/
 ---
 
 # Getting started with workspaces

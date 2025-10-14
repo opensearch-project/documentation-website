@@ -4,6 +4,7 @@ title: Bounded blocking
 parent: Buffers
 grand_parent: Pipelines
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/buffers/bounded-blocking/
 ---
 
 # Bounded blocking

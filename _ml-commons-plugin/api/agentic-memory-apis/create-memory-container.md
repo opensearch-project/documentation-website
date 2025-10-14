@@ -4,6 +4,7 @@ title: Create memory container
 parent: Agentic Memory APIs
 grand_parent: ML Commons APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/
 ---
 
 # Create Memory Container API

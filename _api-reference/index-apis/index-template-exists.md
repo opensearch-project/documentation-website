@@ -3,6 +3,7 @@ layout: default
 title: Index template exists
 parent: Index APIs
 nav_order: 98
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/index-template-exists/
 ---
 
 # Index template exists

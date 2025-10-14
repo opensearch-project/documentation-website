@@ -6,6 +6,7 @@ nav_order: 20
 permalink: /migration-assistant/key-components/
 redirect_from:
   - /migration-assistant/overview/key-components/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/key-components/
 ---
 
 # Key components 

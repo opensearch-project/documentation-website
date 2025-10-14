@@ -5,6 +5,7 @@ nav_order: 11
 parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/comparing-search-results/
 ---
 
 # Comparing search results

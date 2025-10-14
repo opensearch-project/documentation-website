@@ -3,6 +3,7 @@ layout: default
 title: Get index template
 parent: Index APIs
 nav_order: 85
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/get-index-template/
 ---
 
 # Get Index Template API

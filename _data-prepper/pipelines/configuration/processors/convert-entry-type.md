@@ -4,6 +4,7 @@ title: Convert entry type
 parent: Processors
 grand_parent: Pipelines
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/convert-entry-type/
 ---
 
 # Convert entry type processor

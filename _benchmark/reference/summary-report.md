@@ -3,6 +3,7 @@ layout: default
 title: Summary report
 nav_order: 40
 parent: Metrics
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/summary-report/
 ---
 
 # Summary report

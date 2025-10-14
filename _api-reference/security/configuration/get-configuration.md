@@ -4,6 +4,7 @@ title: Get Configuration API
 parent: Configuration APIs
 grand_parent: Security APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/configuration/get-configuration/
 ---
 
 # Get Security Configuration API

@@ -8,6 +8,7 @@ redirect_from:
   - /observability-plugin/trace/index/
   - /monitoring-plugins/trace/index/
   - /observing-your-data/trace/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/index/
 ---
 
 # Trace Analytics

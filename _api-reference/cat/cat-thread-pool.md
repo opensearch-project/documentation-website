@@ -6,6 +6,7 @@ nav_order: 75
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-thread-pool/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-thread-pool/
 ---
 
 # CAT Thread Pool API

@@ -4,6 +4,7 @@ title: Shallow snapshots
 nav_order: 15
 parent: Remote-backed storage
 grand_parent: Availability and recovery
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/remote-store/snapshot-interoperability/
 ---
 
 # Shallow snapshots

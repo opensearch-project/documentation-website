@@ -3,6 +3,7 @@ layout: default
 title: Moving average
 parent: Pipeline aggregations
 nav_order: 120
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/moving-avg/
 ---
 
 ## Moving average aggregations

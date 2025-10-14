@@ -3,6 +3,7 @@ layout: default
 title: Drop
 parent: Ingest processors
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/drop/
 ---
 
 This documentation describes using the `drop` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `drop_events` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/drop-events/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.

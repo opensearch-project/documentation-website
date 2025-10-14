@@ -2,6 +2,7 @@
 layout: default
 title: Version history
 nav_order: 101
+canonical_url: https://docs.opensearch.org/latest/benchmark/version-history/
 ---
 
 # Version history

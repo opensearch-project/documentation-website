@@ -3,6 +3,7 @@ layout: default
 title: Normalization
 parent: Token filters
 nav_order: 300
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/normalization/
 ---
 
 # Normalization token filter

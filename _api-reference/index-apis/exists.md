@@ -5,6 +5,7 @@ parent: Index APIs
 nav_order: 70
 redirect_from:
   - /opensearch/rest-api/index-apis/exists/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/exists/
 ---
 
 # Index Exists API

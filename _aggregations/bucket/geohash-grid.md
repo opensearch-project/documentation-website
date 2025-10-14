@@ -5,6 +5,7 @@ parent: Bucket aggregations
 nav_order: 80
 redirect_from:
   - /query-dsl/aggregations/bucket/geohash-grid/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geohash-grid/
 ---
 
 # Geohash grid aggregations

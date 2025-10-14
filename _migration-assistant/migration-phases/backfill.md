@@ -7,6 +7,7 @@ grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/backfill/
 redirect_from:
   - /migration-phases/backfill/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/backfill/
 ---
 
 # Using backfill

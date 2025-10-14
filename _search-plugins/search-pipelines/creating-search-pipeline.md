@@ -4,6 +4,7 @@ title: Creating a search pipeline
 nav_order: 10
 has_children: false
 parent: Search pipelines
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/creating-search-pipeline/
 ---
 
 # Creating a search pipeline

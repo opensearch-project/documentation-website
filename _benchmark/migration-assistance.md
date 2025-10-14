@@ -2,6 +2,7 @@
 layout: default
 title: Migration assistance
 nav_order: 102
+canonical_url: https://docs.opensearch.org/latest/benchmark/migration-assistance/
 ---
 
 # Migrating from 1.X to 2.X

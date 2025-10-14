@@ -3,6 +3,7 @@ layout: default
 title: Recovery
 parent: Index APIs
 nav_order: 110
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/recover/
 ---
 
 # Recovery API

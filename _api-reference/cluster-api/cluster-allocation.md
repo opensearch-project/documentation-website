@@ -6,6 +6,7 @@ parent: Cluster APIs
 has_children: false
 redirect_from:
  - /opensearch/rest-api/cluster-allocation/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-allocation/
 ---
 
 # Cluster Allocation Explain API

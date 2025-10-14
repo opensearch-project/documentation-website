@@ -4,6 +4,7 @@ title: Upgrade Perform API
 parent: Configuration APIs
 grand_parent: Security APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/configuration/upgrade-perform/
 ---
 
 # Upgrade Perform API

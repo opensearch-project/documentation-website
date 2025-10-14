@@ -7,6 +7,7 @@ redirect_from:
   - /api-reference/security-api/
   - /api-reference/security/
   - /security-plugin/access-control/api/
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/index/
 ---
 
 # Security APIs

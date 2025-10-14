@@ -5,6 +5,7 @@ parent: Installing OpenSearch Dashboards
 nav_order: 31
 redirect_from: 
   - /dashboards/install/rpm/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/rpm/
 ---
 
 {% comment %}

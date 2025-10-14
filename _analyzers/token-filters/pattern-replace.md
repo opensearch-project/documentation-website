@@ -3,6 +3,7 @@ layout: default
 title: Pattern replace
 parent: Token filters
 nav_order: 320
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/pattern-replace/
 ---
 
 # Pattern replace token filter

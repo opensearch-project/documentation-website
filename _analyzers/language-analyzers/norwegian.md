@@ -4,6 +4,7 @@ title: Norwegian
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 240
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/norwegian/
 ---
 
 # Norwegian analyzer

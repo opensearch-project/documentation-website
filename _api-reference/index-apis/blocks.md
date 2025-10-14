@@ -3,6 +3,7 @@ layout: default
 title: Blocks
 parent: Index APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/blocks/
 ---
 
 # Blocks API

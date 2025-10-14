@@ -5,6 +5,7 @@ nav_order: 110
 redirect_from:
   - /dashboards/run-queries/
   - /dashboards/dev-tools/run-queries/
+canonical_url: https://docs.opensearch.org/latest/dashboards/dev-tools/index-dev/
 ---
 
 # Running queries in the Dev Tools console

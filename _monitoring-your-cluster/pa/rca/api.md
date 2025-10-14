@@ -6,6 +6,7 @@ grand_parent: Performance Analyzer
 nav_order: 1
 redirect_from:
   - /monitoring-plugins/pa/rca/api/
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/rca/api/
 ---
 
 # RCA API

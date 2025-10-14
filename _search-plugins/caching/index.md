@@ -6,6 +6,7 @@ has_children: true
 nav_order: 100
 redirect_from:
   - /search-plugins/caching/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/caching/index/
 ---
 
 # Caching
