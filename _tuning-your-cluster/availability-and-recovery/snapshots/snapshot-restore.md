@@ -259,13 +259,9 @@ To use HDFS as a snapshot repository, follow these steps:
    RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-hdfs
    ```
 
-1. If you have authentication enabled on your HDFS cluster, distribute the Kerberos keytab file to all nodes and ensure that the OpenSearch user has read access to it. Then add the following settings to the `opensearch.yml` file on all nodes in the OpenSearch cluster. Otherwise, skip this step:
+1. (Optional) If you have Kerberos authentication enabled on your HDFS cluster:
 
-   ```yml
-   hdfs.client.default.authentication: simple # or kerberos
-   hdfs.client.default.kerberos.keytab.file: /path/to/keytab/file # only if using kerberos authentication
-   hdfs.client.default.kerberos.principal: principal_name # only if using kerberos authentication
-   ```
+    If using Kerberos you may need to distribute the keytab file to all nodes and ensure that the OpenSearch user has read access to it. Otherwise, skip this step.
 
 1. Restart all nodes in the OpenSearch cluster.
 
