@@ -251,7 +251,7 @@ To use HDFS as a snapshot repository, follow these steps:
    sudo ./bin/opensearch-plugin install repository-hdfs
    ```
 
-   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins}). Your `Dockerfile` should look something like this:
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker/#working-with-plugins}). Your `Dockerfile` should look something like this:
 
    ```
    FROM opensearchproject/opensearch:{{site.opensearch_version}}
