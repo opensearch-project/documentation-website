@@ -63,7 +63,7 @@ curl -ksS -X POST "https://localhost:2021/events" \
 ```
 {% include copy.html %}
 
-Only two documents are indexed:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 {
