@@ -88,6 +88,9 @@ Only one epoch pattern is allowed per pattern list. If you need to support multi
 
 The following are examples of different configurations.
 
+The examples don't use security and are for demonstration purposes only. We strongly recommend configuring SSL before using these examples in production.
+{: .warning}
+
 ### Add the default timestamp to an event using ingestion time
 
 The following `date` processor configuration can be used to add a default timestamp in the `@timestamp` field applied to all events:
@@ -128,7 +131,7 @@ curl -sS -X POST "http://localhost:2021/events" \
 ```
 {% include copy.html %}
 
-The indexed documents have the `@timestamp` field added:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 {
@@ -268,7 +271,7 @@ curl -sS -X POST "http://localhost:2021/events" \
 ```
 {% include copy.html %}
 
-The indexed documents have the appropriate `@timestamp` field added:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 {
@@ -386,7 +389,7 @@ curl -sS -X POST "http://localhost:2021/events" \
       ]'
 ```
 
-The indexes documents have appropriate `@timestamp` field added if `syslog_timestamp` was provided:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 {
