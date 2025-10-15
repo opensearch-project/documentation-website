@@ -262,7 +262,6 @@ To use Hadoop Distributed File System (HDFS) as a snapshot repository, follow th
 
 1. (Optional) If your HDFS cluster uses Kerberos, you may need to distribute the keytab file to all nodes and ensure that the OpenSearch user has read access.
 
-    If using Kerberos you may need to distribute the keytab file to all nodes and ensure that the OpenSearch user has read access to it. Otherwise, skip this step.
 
 1. Restart all nodes in the OpenSearch cluster.
 
