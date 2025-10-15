@@ -73,7 +73,7 @@ const tpl = `
     
     #dropdown {
         position: absolute;
-        min-width: calc(100% - 2px);
+        width: calc(100% - 2px);
         top: 100%;
         left: 0;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.12);
@@ -86,7 +86,7 @@ const tpl = `
         background: #fff;
         z-index: 1;
 
-        // for scroll
+        /* for scroll */
         max-height: 60vh;
         overflow-y: auto;
         overflow-x: hidden;
@@ -112,7 +112,7 @@ const tpl = `
         background: rgba(0, 0, 0, 0.5);
     }
 
-    // for Firefox
+    /* for Firefox */
     #dropdown {
         scrollbar-width: thin;
         scrollbar-color: #c1c1c1 #f1f1f1;
