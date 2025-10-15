@@ -23,3 +23,110 @@ Option | Description | Example
 source | Mandatory field that specifies the name of the field in the event containing the message or object to be parsed. | If `source` is set to `"message"` and the input is `{"message": {"key1":"value1", "key2":{"key3":"value3"}}}`, then the `write_json` processor outputs the event as `"{\"key1\":\"value1\",\"key2\":{\"key3\":\"value3\"}}"`.
 target | An optional field that specifies the name of the field in which the resulting JSON string should be stored. If `target` is not specified, then the `source` field is used. | `key1`
 
+## Example
+
+The following example uses `write_json` twice, first to copy an `details` object into a new JSON string field named `target`, then to overwrite the original `payload` field when target is omitted:
+
+```yaml
+write-json-demo-pipeline:
+  source:
+    http:
+      path: /logs
+      ssl: false
+
+  processor:
+    # 1) Copy the nested "details" object into a JSON string at "details_json"
+    - write_json:
+        source: "details"
+        target: "details_json"
+
+    # 2) Overwrite "payload" with its JSON-string representation
+    - write_json:
+        source: "payload"   # no target -> result stored back into "payload"
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: "admin_pass"
+        index_type: custom
+        index: "write-json-demo-%{yyyy.MM.dd}"
+```
+{% include copy.html %}
+
+You can test this pipeline using the following command:
+
+```bash
+curl -sS -X POST "http://localhost:2021/logs" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "message": "order created",
+      "details": {"order_id": 123, "items": [{"sku": "A1", "qty": 2}], "expedited": true},
+      "payload": {"user": {"id": "u-42", "role": "admin"}, "ip": "10.0.0.5"}
+    },
+    {
+      "message": "order updated",
+      "details": {"order_id": 124, "items": [{"sku": "B9", "qty": 1}], "expedited": false},
+      "payload": {"user": {"id": "u-77", "role": "viewer"}, "ip": "10.0.0.9"}
+    }
+  ]'
+```
+{% include copy.html %}
+
+The documents stored in OpenSearch contain the following information:
+
+```json
+{
+  ...
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 1.0,
+    "hits" : [
+      {
+        "_index" : "write-json-demo-2025.10.15",
+        "_id" : "YMQA6ZkB1u9wkbZgz8wu",
+        "_score" : 1.0,
+        "_source" : {
+          "message" : "order created",
+          "details" : {
+            "order_id" : 123,
+            "items" : [
+              {
+                "sku" : "A1",
+                "qty" : 2
+              }
+            ],
+            "expedited" : true
+          },
+          "payload" : "{\"user\":{\"id\":\"u-42\",\"role\":\"admin\"},\"ip\":\"10.0.0.5\"}",
+          "details_json" : "{\"order_id\":123,\"items\":[{\"sku\":\"A1\",\"qty\":2}],\"expedited\":true}"
+        }
+      },
+      {
+        "_index" : "write-json-demo-2025.10.15",
+        "_id" : "YcQA6ZkB1u9wkbZgz8wu",
+        "_score" : 1.0,
+        "_source" : {
+          "message" : "order updated",
+          "details" : {
+            "order_id" : 124,
+            "items" : [
+              {
+                "sku" : "B9",
+                "qty" : 1
+              }
+            ],
+            "expedited" : false
+          },
+          "payload" : "{\"user\":{\"id\":\"u-77\",\"role\":\"viewer\"},\"ip\":\"10.0.0.9\"}",
+          "details_json" : "{\"order_id\":124,\"items\":[{\"sku\":\"B9\",\"qty\":1}],\"expedited\":false}"
+        }
+      }
+    ]
+  }
+}
+```
