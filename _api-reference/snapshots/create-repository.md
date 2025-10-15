@@ -11,7 +11,7 @@ nav_order: 1
 
 You can register a new repository in which to store snapshots or update information for an existing repository by using the snapshots API.
 
-There are three types of snapshot repositories:
+Snapshot repositories can be of the following types:
 
 * File system (`fs`): For instructions on creating an `fs` repository, see [Register repository shared file system]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
 
