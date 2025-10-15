@@ -15,7 +15,7 @@ You can use the `key_value` processor to parse the specified field into key-valu
 
 The following examples demonstrate some of the configuration you can use with this processor.
 
-The examples are for demo purposes only as the security is not used. The SSL configuration is strongly recommended before using this in production.
+The examples don't use security and are for demonstration purposes only. We strongly recommend configuring SSL before using these examples in production.
 {: .warning}
 
 ### KV parsing, cleanup and de-duplication
@@ -77,7 +77,7 @@ curl -sS -X POST "http://localhost:2021/logs" \
 ```
 {% include copy.html %}
 
-The indexed documents have been parsed as per the configuration:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 {
@@ -174,7 +174,7 @@ curl -sS -X POST "http://localhost:2021/logs" \
 ```
 {% include copy.html %}
 
-The indexed documents are parsed as per the pipeline configuration:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 {
@@ -282,18 +282,11 @@ curl -sS -X POST "http://localhost:2021/logs" \
 ```
 {% include copy.html %}
 
-The indexed documents are parsed as per the pipeline configuration:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 {
-  "took": 486,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
+  ...
   "hits": {
     "total": {
       "value": 3,
