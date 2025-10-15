@@ -265,7 +265,7 @@ To use Hadoop Distributed File System (HDFS) as a snapshot repository, follow th
 
 1. Register the repository using the OpenSearch Snapshot API:
 
-Without HDFS authentication:
+    Without HDFS authentication:
 
     ```json
     PUT _snapshot/searchable_snapshots
@@ -278,11 +278,11 @@ Without HDFS authentication:
       }
     }
     ```
-   {% include copy-curl.html %}
+    {% include copy-curl.html %}
 
-With HDFS authentication:
+    With HDFS authentication:
 
-     ```json
+    ```json
     PUT _snapshot/searchable_snapshots
     {
       "type": "hdfs",
@@ -294,7 +294,7 @@ With HDFS authentication:
       }
     }
     ```
-   {% include copy-curl.html %}
+    {% include copy-curl.html %}
 
 ### Registering a Microsoft Azure storage account using Helm 
 
