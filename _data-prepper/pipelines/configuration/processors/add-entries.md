@@ -239,7 +239,6 @@ The following pipeline is used to:
 example-pipeline:
   source:
     http:
-      port: 2021
       path: /events
       ssl: false
 
@@ -299,7 +298,7 @@ curl -sS -X POST "http://localhost:2021/events" \
 ```
 {% include copy.html %}
 
-Once these documents are processed, the index `example-2025.10.10` will contain the following documents:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 "hits": [
