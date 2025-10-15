@@ -80,7 +80,7 @@ You will most likely not need to specify any parameters except for `location`. F
    sudo ./bin/opensearch-plugin install repository-s3
    ```
 
-   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker/#working-with-plugins). Your `Dockerfile` should look something like this:
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker/#working-with-plugins). Your `Dockerfile` should look similar to the following:
 
    ```
    FROM opensearchproject/opensearch:{{site.opensearch_version}}
