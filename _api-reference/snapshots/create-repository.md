@@ -109,7 +109,7 @@ The `server_side_encryption` setting is removed as of OpenSearch 3.1.0. S3 appli
 | `uri`                             | The HDFS URI of the `hdfs://<HOST>:<PORT>/path/to/backup` format. Required.                                    |
 | `path`                            | The path within HDFS in which you want to store snapshots (for example, `/my/snapshot/directory`). Required. |
 | `security.principal`              | The Kerberos principal to use when connecting to HDFS. Optional.                                             |
-| `conf.<key>`                  | Additional HDFS client configurations (i.e. core-site.xml, hdfs-site.xml) settings. Optional.                |
+| `conf.<key>`                  | Additional HDFS client configuration settings (for example, `core-site.xml` or `hdfs-site.xml`). Optional.                |
 
 
 
