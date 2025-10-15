@@ -30,9 +30,9 @@ const tpl = `
         background-image: var(--normal-bg);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.12);
         border-radius: 4px;
-        padding: 0.3em 3em 0.3em 1em;
+        padding: 0.3em 3.8em 0.3em 1em;
         margin: 0;
-        
+
         position: relative;
         display: block;
         z-index: 2;
@@ -77,14 +77,45 @@ const tpl = `
         top: 100%;
         left: 0;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.12);
-        
+
         margin: -5px 1px 0 1px;
         padding-top: 5px;
         white-space: nowrap;
         border-radius: 0 0 4px 4px;
-        
+
         background: #fff;
         z-index: 1;
+
+        // for scroll
+        max-height: 60vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+
+    #dropdown::-webkit-scrollbar {
+        width: 6px;
+        background: transparent;
+    }
+
+    #dropdown::-webkit-scrollbar-track {
+        background: transparent;
+        margin: 5px 0;
+    }
+
+    #dropdown::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 3px;
+    }
+
+    #dropdown::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    // for Firefox
+    #dropdown {
+        scrollbar-width: thin;
+        scrollbar-color: #c1c1c1 #f1f1f1;
     }
     
     :host(:not([aria-expanded="true"])) #dropdown {
@@ -104,7 +135,7 @@ const tpl = `
     #dropdown > a {
         display: block;
         white-space: nowrap;
-        padding: 0.3em calc(3em - 1px) 0.3em calc(1em - 1px);
+        padding: 0.3em calc(3.8em - 1px) 0.3em calc(1em - 1px);
         border-bottom: 1px solid #eee;
         text-decoration: none;
         color: var(--link-color);
@@ -123,12 +154,13 @@ const tpl = `
     a.latest:after {
         content: "LATEST";
         position: absolute;
-        right: .4rem;
+        left: 15.6em;
         font-size: 0.6em;
         font-weight: 700;
         top: 50%;
         transform: translateY(-50%);
         color: #999;
+        white-space: nowrap;
     }
     
     #spacer > a.archived,
