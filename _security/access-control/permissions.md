@@ -69,7 +69,7 @@ PUT /my_index/_doc/1?perform_permission_check=true
 ```
 {% include copy-curl.html %}
 
-The response indicates whether the user has sufficient permissions to perform the operation and lists any missing privileges. This option is useful for safely testing operations such as `POST`, `PUT`, and `DELETE` but does not apply to the `GET` operation.
+The response indicates whether the user has sufficient permissions to perform the operation and lists any missing privileges. This option is particularly useful for safely testing operations such as `POST`, `PUT`, and `DELETE`.
 
 When the user has sufficient permissions, the response appears similar to the following:
 

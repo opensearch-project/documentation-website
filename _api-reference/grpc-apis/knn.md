@@ -18,7 +18,7 @@ For information about HTTP-based k-NN queries, see [k-NN query]({{site.url}}{{si
 
 ## Prerequisite
 
-To submit gRPC requests, you must have a set of protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#using-grpc-apis).
+To submit gRPC requests, you must have a set of protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#how-to-use-grpc-apis).
 
 ## gRPC service and method
 
@@ -105,9 +105,28 @@ public class KnnGrpcClient {
             .build();
 
         // Execute the search
-        SearchResponse response = searchStub.search(request);
+        try {
+            SearchResponse response = searchStub.search(request);
 
-        System.out.println("Found " + response.getResponseBody().getHits().getHitsCount() + " results");
+            // Handle the response
+            System.out.println("Search took: " + response.getTook() + " ms");
+
+            HitsMetadata hits = response.getHits();
+            if (hits.hasTotal()) {
+                System.out.println("Found " + hits.getTotal().getTotalHits().getValue() + " results");
+            }
+
+            // Process k-NN results with similarity scores
+            for (HitsMetadataHitsInner hit : hits.getHitsList()) {
+                System.out.println("Document ID: " + hit.getXId());
+                if (hit.hasXScore()) {
+                    System.out.println("Similarity score: " + hit.getXScore().getDouble());
+                }
+            }
+        } catch (io.grpc.StatusRuntimeException e) {
+            System.err.println("gRPC k-NN search request failed with status: " + e.getStatus());
+            System.err.println("Error message: " + e.getMessage());
+        }
 
         channel.shutdown();
     }
@@ -140,4 +159,4 @@ For complex filtering requirements, consider using the HTTP k-NN API, simplifyin
 - Learn more about [vector search in OpenSearch]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/).
 - Explore [k-NN index settings]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 - Review [performance tuning for k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/performance-tuning/).
-- Read about [gRPC configuration]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#enabling-grpc-apis).
+- Read about [gRPC configuration]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#grpc-settings).

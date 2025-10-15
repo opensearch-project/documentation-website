@@ -96,7 +96,7 @@ GET /_wlm/workload_group/{name}
 To delete a workload group, specify its name as a path parameter:
 
 ```json
-DELETE /_wlm/query_group/{name}
+DELETE /_wlm/workload_group/{name}
 ```
 {% include copy-curl.html %}
 

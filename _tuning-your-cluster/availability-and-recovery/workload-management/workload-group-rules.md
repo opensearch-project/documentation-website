@@ -14,13 +14,16 @@ Workload group rules allow you to automatically assign workload group IDs to inc
 
 ## Creating a rule
 
-To create a rule for a workload group, provide the workload group ID in the `workload_group` parameter. The following request creates a rule that assigns the specified workload group to requests for the matching `index_pattern`:
+To create a rule for a workload group, provide the workload group ID in the `workload_group` parameter. The following example creates a rule that assigns the given workload group to requests matching both the `index_pattern` and `principal.username` attributes:
 
 ```json
 PUT _rules/workload_group
 {
   "description": "description for rule",
   "index_pattern": ["test*"],
+  "principal": {
+    "username": ["admin"]
+  },
   "workload_group": "wfbdJoDAS0mYiLbEAjd1sA"
 }
 ```
@@ -32,23 +35,36 @@ The response contains the rule ID:
 {
   "id": "176fd554-43e7-39eb-92cc-56615d287eae",
   "description": "description for rule",
-  "index_pattern": [
-    "test*"
-  ],
+  "index_pattern": ["test*"],
+  "principal": {
+    "username": ["admin"]
+  },
   "workload_group": "wfbdJoDAS0mYiLbEAjd1sA",
   "updated_at": "2025-08-06T15:12:44.791Z"
 }
 ```
 
+## Attributes
+
+The `workload_group` feature type contains the following attributes. Each rule must contain at least one of these attributes.
+
+The table lists the attributes in order of priority, from highest to lowest. This priority is predefined and cannot be changed by the user. When multiple rules match a request, the rule containing the highest-priority attribute is applied.
+
+| Attribute            | Data type | Description                                                                                                                                                                                                                   |
+|:---------------------|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `principal.username` | List      | A list of usernames to be matched to this rule. This attribute is available only when the Security plugin is enabled on the domain. The attribute supports exact matching only.                                 |
+| `principal.role`     | List      | A list of roles to be matched to this rule. This attribute is available only when the Security plugin is enabled on the domain. The attribute supports exact matching only.                                     |
+| `index_pattern`      | List      | A list of target indexes for incoming queries. Each element can be a full index name or a prefix ending in `*` to support wildcard matching (for example, `logs*`).                                |
+
 ## Parameters
 
-The `workload_group` feature type requires the following parameters.
+The `workload_group` feature type contains the following parameters.
 
-| Attribute  | Data type | Description  |
-| :--- | :--- | :--- |
-| `index_pattern` | List      | A list of strings used to match the target indexes of incoming queries. Each string can be an exact index name or a prefix ending in `*` to support wildcard matching, for example, `logs*`. |
-| `description` | String      | A description of the rule. |
-| `workload_group` | String      | The workload group ID to apply to the requests matching this rule. |
+| Parameter        | Data type | Description                                                                                             |
+|:-----------------|:----------|:--------------------------------------------------------------------------------------------------------|
+| attribute        | Object    | A rule must contain at least one attribute (`index_pattern`, `principal.username`, or `principal.role`). |
+| `description`    | String    | A description of the rule.                                                                              |
+| `workload_group` | String    | The workload group ID to apply to the requests matching this rule.                                      |
 
 ## Updating a rule
 
@@ -96,10 +112,10 @@ GET /_rules/workload_group/{rule_id}
 ```
 {% include copy-curl.html %}
 
-The following request retrieves all `workload_group` rules matching the specified `index_pattern`:
+The following request retrieves all `workload_group` rules matching the specified `index_pattern` and `principal.username`:
 
 ```json
-GET /_rules/workload_group?index_pattern=log*,event*
+GET /_rules/workload_group?index_pattern=log*,event*&principal.username=admin
 ```
 {% include copy-curl.html %}
 

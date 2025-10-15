@@ -29,7 +29,7 @@ Rule-based auto-tagging provides a flexible framework for implementing feature-s
 Before reviewing the rule configuration and behavior, it's important to understand the following key components of rule-based auto-tagging:
 
 * **Rule**: Defines matching criteria (attributes) and the value to assign.
-* **Attributes**: Key-value pairs used to match rules (such as index patterns, user roles, or request types).
+* **Attributes**: Key-value pairs used to match rules (such as index patterns, username, user roles, or request types).
 * **Feature-specific value**: The value assigned when a rule matches.
 * **Pattern matching**: The matching behavior (exact or pattern based) for attribute values.
 
@@ -44,7 +44,11 @@ The following rule schema includes matching attributes and a feature-specific va
 ```json
 {
   "_id": "fwehf8302582mglfio349==",  
-  "index_pattern": ["logs-prod-*"],  
+  "index_pattern": ["logs-prod-*"],
+  "principal": {
+    "username": ["admin"],
+    "role": ["all_access"]
+  },
   "other_attribute": ["value1", "value2"],
   "workload_group": "production_workload_id",
   "updated_at": 1683256789000
@@ -92,7 +96,38 @@ OpenSearch evaluates incoming requests using the following process:
 3. The most specific matching rule's value is assigned.
 4. If no rules match, no value is assigned.
 
-## Examples
+### Rule matching examples
+
+The following examples demonstrate how OpenSearch matches attributes and resolves ties between rules.
+
+In these examples, the `username` attribute has higher priority than the `index_pattern` attribute (priority order depends on the feature and feature type).
+
+1. **Example 1**
+   A request matches three rules:
+
+   * Rule 1: `index_pattern = log`
+   * Rule 2: `username = admin`
+   * Rule 3: `index_pattern = log123`
+
+   **Result**: Rule 2 applies because the `username` attribute has higher priority.
+
+2. **Example 2**
+   A request matches two rules:
+
+   * Rule 1: `index_pattern = logs-prod-*`
+   * Rule 2: `index_pattern = logs-*`
+
+   **Result**: Rule 1 applies because `logs-prod-*` is more specific than `logs-*`.
+
+3. **Example 3**
+   A request matches two rules:
+
+   * Rule 1: `index_pattern = log` and `username = admin`
+   * Rule 2: `username = admin`
+
+   **Result**: Rule 1 applies because it includes both the `index_pattern` and `username` attributes, making it a more specific match.
+
+## Workload management examples
 
 These examples demonstrate how rule-based auto-tagging works in workload management, which uses index patterns as its primary attribute.
 
@@ -167,7 +202,7 @@ When creating rules, the following issues can occur:
 
 * **Unexpected value**: This can happen when multiple rules are defined with overlapping or conflicting conditions.  
   For example, consider the following rules:
-  1. `{ "username": ["dev*"], "index_pattern": ["logs*"] }`
+  1. `{ principal: {"username": ["dev*"]}, "index_pattern": ["logs*"] }`
   2. `{ "index_pattern": ["logs*", "events*"] }`
 
   If a user with the username `dev_john` sends a search request to `logs_q1_25`, it will match the first rule based on the `username` and `index_pattern` attributes. The request will not match the second rule, even though the `index_pattern` also qualifies.

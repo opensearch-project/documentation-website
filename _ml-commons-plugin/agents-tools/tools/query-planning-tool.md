@@ -14,7 +14,7 @@ grand_parent: Agents and tools
 {: .label .label-purple }
 <!-- vale on -->
 
-The `QueryPlanningTool` generates an OpenSearch query domain-specific language (DSL) query from a natural language question. It is a core component of [agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/), which enables natural language query processing through agent-driven workflows. 
+The `QueryPlanningTool` generates an OpenSearch query domain-specific language (DSL) query from a natural language question. It is a core component of [agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/), which enables natural language query processing through agent-driven workflows.
 
 The `QueryPlanningTool` supports two approaches for generating DSL queries from natural language questions:
 
@@ -521,6 +521,10 @@ Embedding Model ID for Neural Search: ${parameters.embedding_model_id:- not prov
 GIVE THE OUTPUT PART ONLY IN YOUR RESPONSE (a single JSON object)
 Output:
 ```
+
+## Testing the tool
+
+You can run this tool either as part of an agent workflow or independently using the [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/). The Execute Tool API is useful for testing individual tools or performing standalone operations.
 
 ## Related pages
 

@@ -363,6 +363,146 @@ GET _plugins/_ism/policies/policy_1
 
 ---
 
+## Get policies
+Introduced 1.0
+{: .label .label-purple }
+
+Gets a list of policies. This API accepts search parameters to filter and paginate the results.
+
+### Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `size` | Integer | The number of policies to return. |
+| `from` | Integer | The starting position for pagination. |
+| `sortField` | String | The field by which to sort the results. |
+| `sortOrder` | String | The sort order for the results. Valid values are `asc` (ascending) and `desc` (descending). |
+| `queryString` | String | A query string used to filter policies by name or other attributes. See [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/).|
+
+#### Example request
+
+```json
+GET _plugins/_ism/policies
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "policies": [
+    {
+      "_id": "policy_1",
+      "_version": 2,
+      "_seq_no": 10,
+      "_primary_term": 1,
+      "policy": {
+        "policy_id": "policy_1",
+        "description": "ingesting logs",
+        "last_updated_time": 1577990934044,
+        "schema_version": 1,
+        "error_notification": null,
+        "default_state": "ingest",
+        "states": [
+          {
+            "name": "ingest",
+            "actions": [
+              {
+                "rollover": {
+                  "min_doc_count": 5
+                }
+              }
+            ],
+            "transitions": [
+              {
+                "state_name": "search"
+              }
+            ]
+          },
+          {
+            "name": "search",
+            "actions": [],
+            "transitions": [
+              {
+                "state_name": "delete",
+                "conditions": {
+                  "min_index_age": "5m"
+                }
+              }
+            ]
+          },
+          {
+            "name": "delete",
+            "actions": [
+              {
+                "delete": {}
+              }
+            ],
+            "transitions": []
+          }
+        ]
+      }
+    },
+    {
+      "_id": "policy_2",
+      "_version": 3,
+      "_seq_no": 11,
+      "_primary_term": 1,
+      "policy": {
+        "policy_id": "policy_2",
+        "description": "ingesting logs",
+        "last_updated_time": 1577990934042,
+        "schema_version": 1,
+        "error_notification": null,
+        "default_state": "ingest",
+        "states": [
+          {
+            "name": "ingest",
+            "actions": [
+              {
+                "rollover": {
+                  "min_doc_count": 5
+                }
+              }
+            ],
+            "transitions": [
+              {
+                "state_name": "search"
+              }
+            ]
+          },
+          {
+            "name": "search",
+            "actions": [],
+            "transitions": [
+              {
+                "state_name": "delete",
+                "conditions": {
+                  "min_index_age": "5m"
+                }
+              }
+            ]
+          },
+          {
+            "name": "delete",
+            "actions": [
+              {
+                "delete": {}
+              }
+            ],
+            "transitions": []
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+---
+
 ## Remove policy from index
 Introduced 1.0
 {: .label .label-purple }
