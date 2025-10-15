@@ -379,7 +379,7 @@ The following table lists the available query parameters. All query parameters a
 | `from` | Integer | The starting position for pagination. |
 | `sortField` | String | The field by which to sort the results. |
 | `sortOrder` | String | The sort order for the results. Valid values are `asc` (ascending) and `desc` (descending). |
-| `queryString` | String | A query string to filter policies by name or other attributes. See [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/).|
+| `queryString` | String | A query string used to filter policies by name or other attributes. See [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/).|
 
 #### Example request
 
