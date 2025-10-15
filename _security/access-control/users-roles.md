@@ -196,7 +196,7 @@ The following table lists built-in static roles that are always provided.
 | Role | Description |
 | :--- | :--- |
 | `all_access`| Superuser role with full cluster access. Grants permissions to perform all cluster operations, write to all indexes, and access all tenants.|
-| `kibana_server` | The role used by the OpenSearch Dashboards server user to read/write its internal saved objects and system indexes. Don’t assign to human users. |
+| `kibana_server` | The role used by the OpenSearch Dashboards server user to read/write its internal saved objects and system indexes. Don't assign to human users. |
 | `kibana_user` | Lets a user sign in and use OpenSearch Dashboards. Grants permissions for cluster read and search, index monitoring, and writing to OpenSearch Dashboards indexes. Combine with read permissions for your data. |
 | `logstash`| Grants Logstash the permissions it needs to interact with OpenSearch. |
 | `manage_snapshots`| Grants permissions to manage snapshot repositories and run snapshot and snapshot restore operations. |
@@ -204,19 +204,19 @@ The following table lists built-in static roles that are always provided.
 | `readall` | Grants read and search permissions, such as calling `_search` and `_msearch` APIs, for all indexes in the cluster. |
 | `readall_and_monitor` | Grants the same permissions as `readall`, with additional cluster monitoring permissions (for example, viewing cluster health and statistics). |
 
-For detailed breakdown of the individual permissions for these roles see [static_roles.yml](https://github.com/opensearch-project/security/blob/main/src/main/resources/static_config/static_roles.yml).
+For a detailed breakdown of the individual permissions for these roles, see [static_roles.yml](https://github.com/opensearch-project/security/blob/main/src/main/resources/static_config/static_roles.yml).
 
 ### Demo roles
 
-The following table lists the demo roles that are created by default if the `roles.yml` file is not provided when initializing Security plugin.
+The following table lists the demo roles that are created by default if the `roles.yml` file is not provided when initializing the Security plugin.
 
 | **Role** | **Description** |
 | :--- | :--- |
-| `alerting_ack_alerts`| Grants permissions to view and acknowledge alerts, but not to modify destinations or monitors. |
+| `alerting_ack_alerts`| Grants permissions to view and acknowledge alerts but not to modify destinations or monitors. |
 | `alerting_full_access` | Grants full permissions to perform all alerting actions. |
 | `alerting_read_access` | Grants permissions to view alerts, destinations, and monitors, but not to acknowledge alerts or modify destinations or monitors. |
 | `anomaly_full_access`| Grants full permissions to perform all anomaly detection actions. |
-| `anomaly_read_access`| Grants permissions to view detectors, but not to create, modify, or delete detectors. |
+| `anomaly_read_access`| Grants permissions to view detectors but not to create, modify, or delete detectors. |
 | `asynchronous_search_full_access`| Grants full permissions to perform all asynchronous search actions. |
 | `asynchronous_search_read_access`| Grants permissions to view asynchronous searches but not to submit, modify, or delete them. |
 | `cross_cluster_replication_follower_full_access` | Grants full access to perform cross-cluster replication actions on the follower cluster. |
