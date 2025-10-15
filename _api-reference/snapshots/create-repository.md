@@ -9,6 +9,7 @@ nav_order: 1
 **Introduced 1.0**
 {: .label .label-purple }
 
+
 You can register a new repository in which to store snapshots or update information for an existing repository by using the snapshots API.
 
 Snapshot repositories can be of the following types:
@@ -288,24 +289,26 @@ body: |
 {% capture step1_rest %}
 PUT /_snapshot/my-hdfs-repository
 {
-"type": "hdfs",
-"settings": {
-"uri": "hdfs://namenode:8020",
-"path": "/opensearch/snapshots"
-}
+  "type": "hdfs",
+  "settings": {
+    "uri": "hdfs://namenode:8020",
+    "path": "/opensearch/snapshots"
+  }
 }
 {% endcapture %}
 
-{% capture step1_python %}  
+{% capture step1_python %}
+
+
 response = client.snapshot.create_repository(
-repository = "my-hdfs-repository",
-body =   {
-"type": "hdfs",
-"settings": {
-"uri": "hdfs://namenode:8020",
-"path": "/opensearch/snapshots"
-}
-}
+  repository = "my-hdfs-repository",
+  body =   {
+    "type": "hdfs",
+    "settings": {
+      "uri": "hdfs://namenode:8020",
+      "path": "/opensearch/snapshots"
+    }
+  }
 )
 
 {% endcapture %}
