@@ -227,14 +227,14 @@ The following table lists the demo roles that are created by default if the `rol
 | `notifications_full_access`| Grants full permissions to perform all Notifications actions. |
 | `notifications_read_access`| Grants permissions to view Notifications configuration/channels and features but not modify them. |
 | `point_in_time_full_access`| Grants full permissions to perform all Point-in-Time operations.|
-| `reports_instances_read_access`| Grants permissions to generate on-demand reports and download existing report instances, but not to view/create report definitions. |
+| `reports_instances_read_access`| Grants permissions to generate on-demand reports and download existing report instances but not to view/create report definitions. |
 | `security_analytics_ack_alerts`| Grants permissions to view and acknowledge Security Analytics alerts. |
 | `security_analytics_full_access` | Grants full permissions to use all Security Analytics functionality. |
 | `security_analytics_read_access` | Grants permissions to view Security Analytics detectors, alerts, findings, mappings, and rules. |
 | `snapshot_management_full_access`| Grants full permissions to perform all snapshot management actions (including repositories and snapshots).|
 | `snapshot_management_read_access`| Grants permissions to view snapshot management policies, repositories, and snapshots without modifying them. |
 
-For breakdown of individual permissions assigned to each role see [roles.yml](https://github.com/opensearch-project/security/blob/main/config/roles.yml)
+For a breakdown of individual permissions assigned to each role, see [roles.yml](https://github.com/opensearch-project/security/blob/main/config/roles.yml).
 
 ## Example 
 
