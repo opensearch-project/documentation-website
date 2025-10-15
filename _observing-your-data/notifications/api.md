@@ -149,7 +149,7 @@ sort_field | Field to sort results with.
 last_updated_time_ms | The Unix time in milliseconds of when the channel was last updated.
 created_time_ms | The Unix time in milliseconds of when the channel was created.
 is_enabled | Indicates whether the channel is enabled.
-config_type | The channel type. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email` and `microsoft_teams`.
+config_type | The channel type. Valid values are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email`, and `microsoft_teams`.
 name | The channel name.
 description	| The channel description.
 email.email_account_id | The sender email addresses the channel uses.
@@ -212,16 +212,16 @@ The create channel operation accepts multiple `config_types` as possible notific
   "role_arn": "<arn>" //optional
 }
 "slack": {
-  "url": "https://sample-slack-webhoook"
+  "url": "https://sample-slack-webhook"
 }
 "chime": {
-  "url": "https://sample-amazon-chime-webhoook"
+  "url": "https://sample-amazon-chime-webhook"
 }
 "webhook": {
   "url": "https://custom-webhook-test-url.com:8888/test-path?params1=value1&params2=value2"
 }
 "microsoft_teams": {
-  "url": "https://sample-teams-webhoook"
+  "url": "https://sample-teams-webhook"
 }
 "smtp_account": {
   "host": "test-host.com",
