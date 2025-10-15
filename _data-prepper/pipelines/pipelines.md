@@ -73,7 +73,7 @@ In the following pipeline, routes are defined at the pipeline level under route.
 
 Each OpenSearch sink can opt in to one or more routes using the `routes:` setting. Events that satisfy a route’s condition are delivered to the sinks that reference that route, for example, the first sink receives events matching errors, and the second sink receives events matching slow_requests.
 
-By default, any sink without a `routes:` list receives all events, regardless of whether they matched other routes. In this example, the third sink has no `routes:` setting, so it acts as a catch-all and receives every event, including those already routed to the first two sinks.
+By default, any sink without a `routes:` list receives all events, regardless of whether they matched other routes. In the following example, the third sink has no `routes:` setting, so it acts as a catch-all and receives every event, including those already routed to the first two sinks:
 
 ```yml
 routes-demo-pipeline:
@@ -131,7 +131,7 @@ curl -sS -X POST "http://localhost:2021/logs" \
 ```
 {% include copy.html %}
 
-The documents are indexed into the corresponding index:
+The documents are stored in the corresponding indexes:
 
 ```
 health status index                        uuid                   pri rep docs.count docs.deleted store.size pri.store.size
