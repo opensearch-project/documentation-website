@@ -252,7 +252,7 @@ To use Hadoop Distributed File System (HDFS) as a snapshot repository, follow th
    ```
    {% include copy.html %}
 
-   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker/#working-with-plugins}). Your `Dockerfile` should look something like this:
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker/#working-with-plugins}). Your `Dockerfile` should look similar to the following:
 
    ```
    FROM opensearchproject/opensearch:{{site.opensearch_version}}
