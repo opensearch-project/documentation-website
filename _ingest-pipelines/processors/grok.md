@@ -21,6 +21,9 @@ For a list of available predefined patterns, see [Grok patterns](https://github.
 
 The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE) and supports all the patterns from that library. You can use the [Grok Debugger](https://grokdebugger.com/) tool to test and debug your grok expressions.
 
+Note that patterns are *not anchored*. For performance and reliability, include a start-of-line anchor (`^`) in your pattern.
+{: .note}
+
 ## Syntax
 
 The following is the basic syntax for the `grok` processor: 
@@ -69,7 +72,7 @@ PUT _ingest/pipeline/log_line
     {
       "grok": {
         "field": "message",
-        "patterns": ["%{IPORHOST:clientip} %{HTTPDATE:timestamp} %{NUMBER:response_status:int}"]
+        "patterns": ["^%{IPORHOST:clientip} %{HTTPDATE:timestamp} %{NUMBER:response_status:int}"]
       }
     }
   ]
@@ -158,7 +161,7 @@ PUT _ingest/pipeline/log_line
     {
       "grok": {
         "field": "message",
-        "patterns": ["The issue number %{NUMBER:issue_number} is %{STATUS:status}"],
+        "patterns": ["^The issue number %{NUMBER:issue_number} is %{STATUS:status}"],
         "pattern_definitions" : {
           "NUMBER" : "\\d{3,4}",
           "STATUS" : "open|closed"
@@ -182,7 +185,7 @@ PUT _ingest/pipeline/log_line
     {  
       "grok": {  
         "field": "message",  
-        "patterns": ["%{HTTPDATE:timestamp} %{IPORHOST:clientip}", "%{IPORHOST:clientip} %{HTTPDATE:timestamp} %{NUMBER:response_status:int}"],  
+        "patterns": ["^%{HTTPDATE:timestamp} %{IPORHOST:clientip}", "%{IPORHOST:clientip} %{HTTPDATE:timestamp} %{NUMBER:response_status:int}"],
         "trace_match": true  
       }  
     }  
