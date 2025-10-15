@@ -243,7 +243,7 @@ You will most likely not need to specify any parameters except for `bucket` and 
 
 To use Hadoop Distributed File System (HDFS) as a snapshot repository, follow these steps:
 
-1. Create an HDFS directory for snapshots and ensure that the OpenSearch user has read and write permissions to it (ex: `/opensearch/repositories/searchable_snapshots`).
+1. Create an HDFS directory for snapshots (for example, `/opensearch/repositories/searchable_snapshots`) and ensure that the OpenSearch user has read and write permissions to it.
 
 1. Install the `repository-hdfs` plugin on all nodes:
 
