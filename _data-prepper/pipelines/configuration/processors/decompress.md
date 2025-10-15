@@ -70,7 +70,7 @@ curl -sS -X POST "http://localhost:2021/events" \
 ```
 {% include copy.html %}
 
-The indexed document contains the decompressed values:
+The document stored in OpenSearch contains the following information:
 
 ```json
 {
