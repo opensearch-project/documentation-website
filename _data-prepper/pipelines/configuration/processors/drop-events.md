@@ -19,9 +19,12 @@ handle_failed_events | No | Enum | Specifies how exceptions are handled when an 
 
 The following are examples of possible pipeline configurations using `drop_events` processors.
 
+The examples don't use security and are for demonstration purposes only. We strongly recommend configuring SSL before using these examples in production.
+{: .warning}
+
 ### Filter out debug logs
 
-This example configuration demonstrates filtering out `DEBUG` level logs to reduce noise and storage costs while allowing `INFO`, `WARN`, and `ERROR` events through.
+The following example configuration demonstrates filtering out `DEBUG` level logs to reduce noise and storage costs while allowing `INFO`, `WARN`, and `ERROR` events through:
 
 ```yaml
 filter-debug-logs-pipeline:
@@ -60,7 +63,7 @@ curl -sS -X POST "http://localhost:2021/events" \
 ```
 {% include copy.html %}
 
-Only three documents get indexed in OpenSearch:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 {
@@ -112,7 +115,7 @@ Only three documents get indexed in OpenSearch:
 
 ### Multi condition event filtering
 
-The following example shows how to drop events based on multiple criteria, such as debug logs, error status codes, and missing user IDs, ensuring only valid and important events reach OpenSearch.
+The following example shows how to drop events based on multiple criteria, such as debug logs, error status codes, and missing user IDs, ensuring only valid and important events reach OpenSearch:
 
 ```yaml
 multi-condition-filter-pipeline:
@@ -156,7 +159,7 @@ curl -sS -X POST "http://localhost:2021/events" \
 ```
 {% include copy.html %}
 
-Only two documents reach OpenSearch:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 {
@@ -246,7 +249,7 @@ curl -sS -X POST "http://localhost:2021/events" \
 ```
 {% include copy.html %}
 
-Three documents are indexed in OpenSearch:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 {
