@@ -267,16 +267,32 @@ To use HDFS as a snapshot repository, follow these steps:
 
 1. Register the repository using the OpenSearch Snapshot API:
 
+Without HDFS authentication:
+
     ```json
     PUT _snapshot/searchable_snapshots
     {
       "type": "hdfs",
       "settings": {
-        // If using kerberos authentication, uncomment and replace YOURREALM with your realm name
-        //    "security.principal": "opensearch@YOURREALM"
         "uri": "hdfs://namenode:8020/",
         "path": "/opensearch/repositories/searchable_snapshots",
-        "conf.<key>": "<value>" // (Optional) Additional HDFS configuration settings
+        "conf.<key>": "<value>"
+      }
+    }
+    ```
+   {% include copy-curl.html %}
+
+With HDFS authentication:
+
+     ```json
+    PUT _snapshot/searchable_snapshots
+    {
+      "type": "hdfs",
+      "settings": {
+        "uri": "hdfs://namenode:8020/",
+        "path": "/opensearch/repositories/searchable_snapshots",
+        "security.principal": "opensearch@YOURREALM",
+        "conf.<key>": "<value>"
       }
     }
     ```
