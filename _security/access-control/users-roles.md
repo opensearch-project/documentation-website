@@ -191,20 +191,20 @@ The Security plugin includes several predefined roles that serve as useful defau
 
 ### Built-in roles
 
-The following table lists built-in static roles that are always provided:
+The following table lists built-in static roles that are always provided.
 
-| **Role** | **Description** |
+| Role | Description |
 | :--- | :--- |
-| `all_access`| Superuser-style role, full cluster access, all cluster operations, write to all indexes, and all tenants. |
-| `kibana_server` | Role used by the OpenSearch Dashboards server user to read/write its internal saved objects and system indexes. Don’t assign to human users. |
-| `kibana_user` | Lets a user sign in and use Dashboards. This includes cluster read and search, index monitoring, and writes to OpenSearch Dashboards indexes. Pair with read permissions to your data. |
-| `logstash`| Grants Logstash the permissions it needs to interact with OpenSearch |
-| `manage_snapshots`| Manage snapshot repositories and run snapshot/restore operations. |
-| `own_index` | Per-user index role which gives a user full access to an index named for the user. Useful for personal workspaces or multi-tenant setups. |
-| `readall` | Cluster-wide read/search across all indexes, for example `_search`, `_msearch`. |
-| `readall_and_monitor` | Same as `readall`, plus cluster monitoring privileges, such as health and stats. |
+| `all_access`| Superuser role with full cluster access. Grants permissions to perform all cluster operations, write to all indexes, and access all tenants.|
+| `kibana_server` | The role used by the OpenSearch Dashboards server user to read/write its internal saved objects and system indexes. Don’t assign to human users. |
+| `kibana_user` | Lets a user sign in and use OpenSearch Dashboards. Grants permissions for cluster read and search, index monitoring, and writing to OpenSearch Dashboards indexes. Combine with read permissions for your data. |
+| `logstash`| Grants Logstash the permissions it needs to interact with OpenSearch. |
+| `manage_snapshots`| Grants permissions to manage snapshot repositories and run snapshot and snapshot restore operations. |
+| `own_index` | Grants each user full access to the user's own index (named after the user). Useful for personal workspaces or multi-tenant environments. |
+| `readall` | Grants read and search permissions, such as calling `_search` and `_msearch` APIs, for all indexes in the cluster. |
+| `readall_and_monitor` | Grants the same permissions as `readall`, with additional cluster monitoring permissions (for example, viewing cluster health and statistics). |
 
-For detailed breakdown of the individual permissions for these roles see [static_roles.yml](https://github.com/opensearch-project/security/blob/main/src/main/resources/static_config/static_roles.yml)
+For detailed breakdown of the individual permissions for these roles see [static_roles.yml](https://github.com/opensearch-project/security/blob/main/src/main/resources/static_config/static_roles.yml).
 
 ### Demo roles
 
