@@ -367,14 +367,26 @@ GET _plugins/_ism/policies/policy_1
 Introduced 1.0
 {: .label .label-purple }
 
-Gets list of policies. This REST call also supports the search parameters `size`, `from`, `sortField`, `sortOrder`, and `queryString`.
+Gets a list of policies. This API accepts search parameters to filter and paginate the results.
+
+### Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `size` | Integer | The number of policies to return. |
+| `from` | Integer | The starting position for pagination. |
+| `sortField` | String | The field by which to sort the results. |
+| `sortOrder` | String | The sort order for the results. Valid values are `asc` (ascending) and `desc` (descending). |
+| `queryString` | String | A query string to filter policies by name or other attributes. See [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/).|
 
 #### Example request
 
 ```json
 GET _plugins/_ism/policies
 ```
-
+{% include copy-curl.html %}
 
 #### Example response
 
