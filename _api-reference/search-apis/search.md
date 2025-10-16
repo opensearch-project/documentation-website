@@ -109,7 +109,7 @@ size | Integer | How many results to return. Default is 10.
 _source | | Whether to include the `_source` field in the response.
 stats | String | Value to associate with the request for additional logging.
 suggest_field | String | The field used for suggestions. Use with `suggest_text` and, optionally, `suggest_mode` or `suggest_size`. |
-suggest_mode | String | The mode to use when searching. Valid values are `always` (provide suggestions based on the terms in `suggest_text`), `popular` (provide suggestions occurring in more documents on the shard than the search term), and `missing` (provide suggestions for terms not in the shard). Requires `suggest_field` and `suggest_text`. |
+suggest_mode | String | The mode to use when searching. Valid values are `always` (provide suggestions based on the terms in `suggest_text`), `popular` (provide suggestions occurring in more documents on the shard than the search term), and `missing` (provide suggestions for terms not on the shard). Requires `suggest_field` and `suggest_text`. |
 suggest_size | Integer | The number of suggestions to return. Requires `suggest_field` and `suggest_text`. |
 suggest_text | String | The input text for which OpenSearch should return suggestions. Requires `suggest_field` and `suggest_text`. |
 terminate_after | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request. Default is 0.
