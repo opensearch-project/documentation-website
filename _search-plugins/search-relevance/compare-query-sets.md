@@ -7,7 +7,7 @@ grand_parent: Search relevance
 has_children: false
 ---
 
-# Comparing query sets
+# Comparing search configurations
 
 To compare the results of two different search configurations, you can run a pairwise experiment. To achieve this, you need two search configurations and a query set to use for the search configuration.
 
