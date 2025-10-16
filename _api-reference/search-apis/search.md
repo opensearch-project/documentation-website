@@ -28,13 +28,13 @@ POST /_search
 
 All parameters are optional.
 
-Many of the parameters apply only when you use the URL `q=` parameter or a `query_string` query, see [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) for further details.
+Many of the parameters apply only when you use the URL `q=` parameter or a `query_string` query. See [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) for more information.
 {: .note}
 
 Parameter | Type | Description
 :--- | :--- | :---
 `allow_no_indices` | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`. Example: `GET test-index-*/_search?allow_no_indices=true`. |
-`allow_partial_search_results` | Boolean | Whether to return partial results if the request runs into an error or times out. Default is `true`. Example: `GET test-index/_search?allow_partial_search_results=false`. |
+`allow_partial_search_results` | Boolean | Whether to return partial results if the request encounters an error or times out. Default is `true`. Example: `GET test-index/_search?allow_partial_search_results=false`. |
 `analyzer` | String | The analyzer to use in the query string. Requires `q=` or a `query_string` body. Example: `GET test-index/_search?q=title:test&analyzer=standard`. |
 `analyze_wildcard` | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is `false`. Requires `q=` or `query_string`. Example: `GET test-index/_search?q=title:te*&analyze_wildcard=true`. |
 `batched_reduce_size` | Integer | The number of shard results to combine into one batch on the coordinating node before returning the final search results. Limits the number of shard results processed together, helping reduce memory usage when a search request spans many shards. Default is `512`. Example: `GET test-index/_search?batched_reduce_size=2`. |
@@ -49,7 +49,7 @@ Parameter | Type | Description
 `ignore_throttled` | Boolean | Whether to ignore concrete indexes, expanded indexes, or indexes with aliases if they are frozen. Default is `true`. Example: `GET test-index/_search?ignore_throttled=true`. |
 `ignore_unavailable` | Boolean | If `true`, OpenSearch ignores missing or closed indexes and unavailable shards during the search. If `false`, the request returns an error when targeting missing or closed indexes. Default is `false`. Example: `GET test-index-*/_search?ignore_unavailable=true`. |
 `include_named_queries_score` | Boolean | Whether to return score contributions from named queries (queries with `_name`) for each hit. Default is `false`. Requires queries named with `_name`. Example: `POST test-index/_search?include_named_queries_score=true {"size":1,"query":{"match":{"title":{"query":"test","_name":"q1"}}}}`. |
-`lenient` | Boolean | Whether OpenSearch should accept requests if queries have format errors (for example, querying a numeric field using text) instead of returning an error. Default is `false`. Requires `q=`  or `query_string`. Example: `GET test-index/_search?q=views:abc&lenient=true`. |
+`lenient` | Boolean | Whether OpenSearch should accept requests if queries have formatting errors (for example, querying a numeric field using text) instead of returning an error. Default is `false`. Requires `q=` or `query_string`. Example: `GET test-index/_search?q=views:abc&lenient=true`. |
 `max_concurrent_shard_requests` | Integer | The maximum number of concurrent shard requests this request should execute on each node. Default is `5`. Example: `GET test-index/_search?max_concurrent_shard_requests=2`. |
 `phase_took` | Boolean | Whether to return phase-level `took` time values in the response. Default is `false`. Example: `GET test-index/_search?phase_took=true`. |
 `pre_filter_shard_size` | Integer | A prefilter size threshold for triggering a prefilter operation on search shards. If the number of shards a search request expands to exceeds this value, OpenSearch performs a prefilter operation to eliminate shards that cannot match documents based on query rewriting. Default is `128`. Example: `GET test-index/_search?pre_filter_shard_size=1`. |
@@ -63,7 +63,7 @@ Parameter | Type | Description
 `seq_no_primary_term` | Boolean | Whether to return the sequence number and primary term of the last operation of each document hit. Example: `GET test-index/_search?seq_no_primary_term=true&size=1&q=title:test`. |
 `size` | Integer | The number of results to include in the response. Example: `GET test-index/_search?size=3`. |
 `sort` | List | A comma-separated list of `<field> : <direction>` pairs to sort by. Use `track_scores=true` if you want scores when sorting by a non-score field. Example: `GET test-index/_search?sort=views:desc&track_scores=true&size=3`. |
-`_source` | String or Boolean | Controls the `_source` field provided in the response. Valid values are `true` (return the document source), `false` (do not return the document source) and `<string>` (the field or fields in the source to return provided as a list or wildcard pattern). Examples: `GET test-index/_search?_source=false&size=1`, `GET test-index/_search?_source=titl*&size=1`, `GET test-index/_search?_source=title,description&size=1`. |
+`_source` | String or Boolean | Controls the `_source` field provided in the response. Valid values are `true` (return the document source), `false` (do not return the document source) and `<string>` (the field or fields in the source to return, provided as a list or wildcard pattern). Examples: `GET test-index/_search?_source=false&size=1`, `GET test-index/_search?_source=titl*&size=1`, `GET test-index/_search?_source=title,description&size=1`. |
 `_source_excludes` | List | A comma-separated list of source fields to exclude from the response. If the `_source` parameter is `false`, this parameter is ignored. Example: `GET test-index/_search?_source_excludes=title&size=1`. |
 `_source_includes` | List | A comma-separated list of source fields to include in the response. If the `_source` parameter is `false`, this parameter is ignored. Example: `GET test-index/_search?_source_includes=title&size=1`. |
 `stats` | String | A value to associate with the request for additional logging. Example: `GET test-index/_search?stats=doc`. |
