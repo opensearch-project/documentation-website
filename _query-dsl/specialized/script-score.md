@@ -227,15 +227,15 @@ GET articles/_search
 
 With decay functions, you can score results based on proximity or recency. To learn more, see [Decay functions]({{site.url}}{{site.baseurl}}/query-dsl/compound/function-score#decay-functions). You can calculate scores using an exponential, Gaussian, or linear decay curve. To apply a decay function, call one of the following Painless methods, depending on the field type:
 
-- [Numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) fields: 
+- [Numeric]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/numeric/) fields: 
     - `double decayNumericGauss(double <origin>, double <scale>, double <offset>, double <decay>, double <field-value>)`
     - `double decayNumericExp(double <origin>, double <scale>, double <offset>, double <decay>, double <field-value>)`
     - `double decayNumericLinear(double <origin>, double <scale>, double <offset>, double <decay>, double <field-value>)`
-- [Geopoint]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) fields: 
+- [Geopoint]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-point/) fields: 
     - `double decayGeoGauss(String <origin>, String <scale>, String <offset>, double <decay>, GeoPoint <field-value>)`
     - `double decayGeoExp(String <origin>, String <scale>, String <offset>, double <decay>, GeoPoint <field-value>)`
     - `double decayGeoLinear(String <origin>, String <scale>, String <offset>, double <decay>, GeoPoint <field-value>)`
-- [Date]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/) fields: 
+- [Date]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/) fields: 
     - `double decayDateGauss(String <origin>, String <scale>, String <offset>, double <decay>, JodaCompatibleZonedDateTime <field-value>)`
     - `double decayDateExp(String <origin>, String <scale>, String <offset>, double <decay>, JodaCompatibleZonedDateTime <field-value>)`
     - `double decayDateLinear(String <origin>, String <scale>, String <offset>, double <decay>, JodaCompatibleZonedDateTime <field-value>)`

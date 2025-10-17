@@ -34,7 +34,7 @@ In this tutorial, you'll use the following OpenSearch components:
 
 - [Pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/)
 - [Ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
-- [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)
+- [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/)
 - [Search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/)
 - [Normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/)
 - [Hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/)
@@ -319,7 +319,7 @@ The response contains the ingest pipeline:
 
 #### Step 3(b): Create a vector index
 
-Now you'll create a vector index with a field named `text`, which contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding`, which contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
+Now you'll create a vector index with a field named `text`, which contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/) field named `passage_embedding`, which contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
 
 
 ```json

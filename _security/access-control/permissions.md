@@ -531,7 +531,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:admin/upgrade` | Permission for administrators to perform upgrades. |
 | `indices:admin/validate/query` |  Permission to validate a specific query. |
 | `indices:data/read/explain` |  Permission to run the [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/). |
-| `indices:data/read/field_caps` |  Permission to run the [Field Capabilities API]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/#using-aliases-in-field-capabilities-api-operations). |
+| `indices:data/read/field_caps` |  Permission to run the [Field Capabilities API]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/alias/#using-aliases-in-field-capabilities-api-operations). |
 | `indices:data/read/field_caps*` |  Permission to run the Field Capabilities API. |
 | `indices:data/read/get` |  Permission to read index data. |
 | `indices:data/read/mget` |  Permission to run [multiple GET operations]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) in one request. |
