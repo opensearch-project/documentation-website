@@ -241,13 +241,15 @@ The agentic search request executes the agent with the `QueryPlanningTool` and s
 
 After setting up basic agentic search, you can enhance your implementation with these advanced features:
 
-- [Customize agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) -- Learn how to customize your agentic search agent with different models, tools, and configurations.
+- [Configure agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) -- Learn how to configure your agentic search agent with different models, tools, and configurations.
 
 - [Use flow agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/flow-agent/) -- Use streamlined flow agents for faster, more cost-effective query planning when you don't need conversation memory or complex tool orchestration.
 
 - [Configure semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/neural-search/) -- Configure agents to automatically choose between keyword and semantic vector searches based on user intent, providing more relevant results for conceptual questions.
 
 - [Add search templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/search-templates/) -- Add predefined search templates to handle complex query patterns that would be challenging for LLMs to generate consistently, ensuring predictable query structure and improved reliability.
+
+- [Connect external MCP servers]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/mcp-server/) -- Extend agentic search with external tools and data sources through Model Context Protocol (MCP) servers for enhanced functionality and real-time information access.
 
 - [Build agentic search flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/) -- Configure agents and execute agentic search using AI search flows in OpenSearch Dashboards. 
 

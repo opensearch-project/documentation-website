@@ -80,7 +80,7 @@ You will most likely not need to specify any parameters except for `location`. F
    sudo ./bin/opensearch-plugin install repository-s3
    ```
 
-   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins). Your `Dockerfile` should look something like this:
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#working-with-plugins). Your `Dockerfile` should look similar to the following:
 
    ```
    FROM opensearchproject/opensearch:{{site.opensearch_version}}
@@ -239,6 +239,62 @@ You will most likely not need to specify any parameters except for `location`. F
 
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
+### HDFS
+
+To use Hadoop Distributed File System (HDFS) as a snapshot repository, follow these steps:
+
+1. Create an HDFS directory for snapshots (for example, `/opensearch/repositories/searchable_snapshots`) and ensure that the OpenSearch user has read and write permissions to it.
+
+1. Install the `repository-hdfs` plugin on all nodes:
+
+   ```bash
+   sudo ./bin/opensearch-plugin install repository-hdfs
+   ```
+
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#working-with-plugins). Your `Dockerfile` should look similar to the following:
+
+   ```
+   FROM opensearchproject/opensearch:{{site.opensearch_version}}
+
+   RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-hdfs
+   ```
+
+1. (Optional) If your HDFS cluster uses Kerberos, you may need to distribute the keytab file to all nodes and ensure that the OpenSearch user has read access.
+
+1. Restart all nodes in the OpenSearch cluster.
+
+1. Register the repository using the OpenSearch Snapshot API:
+
+    Without HDFS authentication:
+
+    ```json
+    PUT _snapshot/searchable_snapshots
+    {
+      "type": "hdfs",
+      "settings": {
+        "uri": "hdfs://namenode:8020/",
+        "path": "/opensearch/repositories/searchable_snapshots",
+        "conf.<key>": "<value>"
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+
+    With HDFS authentication:
+
+    ```json
+    PUT _snapshot/searchable_snapshots
+    {
+      "type": "hdfs",
+      "settings": {
+        "uri": "hdfs://namenode:8020/",
+        "path": "/opensearch/repositories/searchable_snapshots",
+        "security.principal": "opensearch@YOURREALM",
+        "conf.<key>": "<value>"
+      }
+    }
+    ```
+    {% include copy-curl.html %}
 
 ### Registering a Microsoft Azure storage account using Helm 
 
