@@ -24,7 +24,7 @@ The `percentiles` aggregation takes the following parameters.
 | `field`                                  | String           | Required      | The numeric field used to compute percentiles.                                                                                    |
 | `percents`                               | Array of doubles | Optional       | The list of percentiles returned in the response. Default is `[1, 5, 25, 50, 75, 95, 99]`.                                                 |
 | `keyed`                                  | Boolean          | Optional       | If set to `false`, returns results as an array. Otherwise, returns results as a JSON object. Default is `true`. |
-| `tdigest.compression`                    | Double           | Optional       | Controls accuracy and memory usage of the `tdigest` algorithm. See [Precision tuning with tdigest](#precision-tuning-with-tdigest). Default value is 200.                                     |
+| `tdigest.compression`                    | Double           | Optional       | Controls accuracy and memory usage of the `tdigest` algorithm. See [Precision tuning with tdigest](#precision-tuning-with-tdigest). Default is 200.                                     |
 | `hdr.number_of_significant_value_digits` | Integer          | Optional       | The precision setting for the HDR histogram. See [HDR histogram](#hdr-histogram).                                   |
 | `missing`                                | Number           | Optional       | The default value used when the target field is missing in a document.                                                                              |
 | `script`                                 | Object           | Optional       | The script used to compute custom values instead of using a field. Supports inline and stored scripts.                                |
@@ -218,7 +218,7 @@ Unlike exact percentile calculations, `tdigest` uses a probabilistic approach th
 
 The algorithm is designed to be highly accurate near the tails of the distribution---the low percentiles (such as 1st) and high percentiles (such as 99th)---which are often the most important for performance analysis. You can control the precision of the results using the `compression` parameter.
 
-A higher `compression` value means that more centroids are used, which increases accuracy (especially in the tails) but requires more memory and CPU. A lower `compression` value reduces memory usage and speeds up execution, but the results may be less accurate. The default value is `200`. Lower `compression` values such as `100` may perform especially poorly on low-cardinality data, such as HTTP status codes.
+A higher `compression` value means that more centroids are used, which increases accuracy (especially in the tails) but requires more memory and CPU. A lower `compression` value reduces memory usage and speeds up execution, but the results may be less accurate. Default is `200`. Lower `compression` values such as `100` may perform especially poorly on low-cardinality data, such as HTTP status codes.
 
 
 Use `tdigest` when:
