@@ -22,7 +22,7 @@ The `percentile_ranks` aggregation takes the following parameters.
 | `field`                                  | String           | Required          | The numeric field used to compute percentile ranks.                                                                                   |
 | `values`                                 | Array of doubles | Required          | The values used to calculate percentile ranks.                                                                                 |
 | `keyed`                                  | Boolean          | Optional          | If set to `false`, returns results as an array. Otherwise returns results as a JSON object. Default is `true`.                      |
-| `tdigest.compression`                    | Double           | Optional          | Controls accuracy and memory usage of the `tdigest` algorithm. See [Precision tuning with tdigest](#precision-tuning-with-tdigest). |
+| `tdigest.compression`                    | Double           | Optional          | Controls accuracy and memory usage of the `tdigest` algorithm. See [Precision tuning with tdigest](#precision-tuning-with-tdigest). Default value is `200`. |
 | `hdr.number_of_significant_value_digits` | Integer          | Optional          | The precision setting for the HDR histogram. See [HDR histogram](#hdr-histogram).                                                       |
 | `missing`                                | Number           | Optional          | The default value used when the target field is missing in a document.                                                                |
 | `script`                                 | Object           | Optional          | The script used to compute custom values instead of using a field. Supports inline and stored scripts.                                        |
@@ -165,9 +165,9 @@ The response includes an array instead of an object:
 
 ## Precision tuning with tdigest
 
-By default, percentile ranks are calculated using the `tdigest` algorithm. You can control the trade-off between accuracy and memory usage by specifying the `tdigest.compression` parameter. Higher values provide better accuracy but require more memory. For more information about how tdigest works, see [Precision tuning with tdigest]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/#precision-tuning-with-tdigest).
+By default, percentile ranks are calculated using the `tdigest` algorithm. You can control the trade-off between accuracy and memory usage by specifying the `tdigest.compression` parameter. Higher values provide better accuracy but require more memory. The default value is `200`. For more information about how tdigest works, see [Precision tuning with tdigest]({{site.url}}{{site.baseurl}}/aggregations/metric/percentile/#precision-tuning-with-tdigest).
 
-The following example is configured with `tdigest.compression` set to `200`:
+The following example is configured with `tdigest.compression` set to `300`:
 
 ```json
 GET /transaction_data/_search
@@ -179,7 +179,7 @@ GET /transaction_data/_search
         "field": "amount",
         "values": [25, 55],
         "tdigest": {
-          "compression": 200
+          "compression": 300
         }
       }
     }
