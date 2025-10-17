@@ -26,6 +26,53 @@ If the aggregation returns no buckets, you likely didn’t filter the foreground
 
 ## Basic example: Find out what's distinctive about high‑value returns
 
+Create index mapping::
+
+```json
+PUT retail_orders
+{
+  "mappings": {
+    "properties": {
+      "status":         { "type": "keyword" },
+      "order_total":    { "type": "double" },
+      "payment_method": { "type": "keyword" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index sample documents:
+
+```json
+POST _bulk
+{ "index": { "_index": "retail_orders" } }
+{ "status":"RETURNED", "order_total": 950, "payment_method":"gift_card" }
+{ "index": { "_index": "retail_orders" } }
+{ "status":"RETURNED", "order_total": 720, "payment_method":"gift_card" }
+{ "index": { "_index": "retail_orders" } }
+{ "status":"RETURNED", "order_total": 540, "payment_method":"gift_card" }
+{ "index": { "_index": "retail_orders" } }
+{ "status":"RETURNED", "order_total": 820, "payment_method":"credit_card" }
+{ "index": { "_index": "retail_orders" } }
+{ "status":"RETURNED", "order_total": 500, "payment_method":"paypal" }
+{ "index": { "_index": "retail_orders" } }
+{ "status":"DELIVERED", "order_total": 130, "payment_method":"credit_card" }
+{ "index": { "_index": "retail_orders" } }
+{ "status":"DELIVERED", "order_total": 75,  "payment_method":"paypal" }
+{ "index": { "_index": "retail_orders" } }
+{ "status":"DELIVERED", "order_total": 260, "payment_method":"paypal" }
+{ "index": { "_index": "retail_orders" } }
+{ "status":"DELIVERED", "order_total": 45,  "payment_method":"credit_card" }
+{ "index": { "_index": "retail_orders" } }
+{ "status":"DELIVERED", "order_total": 310, "payment_method":"credit_card" }
+{ "index": { "_index": "retail_orders" } }
+{ "status":"DELIVERED", "order_total": 220, "payment_method":"credit_card" }
+{ "index": { "_index": "retail_orders" } }
+{ "status":"DELIVERED", "order_total": 410, "payment_method":"paypal" }
+```
+{% include copy-curl.html %}
+
 You can use the following query to ask, among orders that were *returned and cost over 500*, which `payment_method` values are unusually common compared to the whole index?
 
 ```json
@@ -35,7 +82,7 @@ GET retail_orders/_search
   "query": {
     "bool": {
       "filter": [
-        { "term":  { "status.keyword": "RETURNED" } },
+        { "term":  { "status": "RETURNED" } },
         { "range": { "order_total": { "gte": 500 } } }
       ]
     }
@@ -43,13 +90,43 @@ GET retail_orders/_search
   "aggs": {
     "payment_signals": {
       "significant_terms": {
-        "field": "payment_method.keyword"
+        "field": "payment_method"
       }
     }
   }
 }
 ```
 {% include copy-curl.html %}
+
+The returned aggregation demonstrates that among the 5 high value returns, `gift_card` occurs 3 times (60%) and 3/12 times in the whole index (25%), so it’s flagged as the most over represented payment method:
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "payment_signals": {
+      "doc_count": 5,
+      "bg_count": 12,
+      "buckets": [
+        {
+          "key": "gift_card",
+          "doc_count": 3,
+          "score": 0.84,
+          "bg_count": 3
+        }
+      ]
+    }
+  }
+}
+```
 
 ## Multi‑set analysis
 
@@ -186,7 +263,7 @@ Mutual information (MI) prefers frequent terms, it can pick up popular but still
 
 ### Chi‑square
 
-Similar to [MI](#mutual-information-mi). Also supports `include_negatives` and `background_is_superset`.
+Similar to [MI](#mutual-information). Also supports `include_negatives` and `background_is_superset`.
 
 ```json
 "significant_terms": {
