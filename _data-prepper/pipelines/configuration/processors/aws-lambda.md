@@ -31,12 +31,6 @@ Field  | Type    | Required | Description
 `connection_timeout`        | Duration | Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
 
-### Invocation types
-
-The `request-response` invocation type is used for synchronous processing, the pipeline waits for the Lambda result. This is the default for `aws_lambda` processor.
- 
-The `event` invocation type sends the request to Lambda asynchronously and Data Prepper doesn't wait for a response. Default for `aws_lambda` sink.
-
 The `invocation_type` field is not supported in [Amazon OpenSearch Ingestion](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ingestion.html) pipelines using the `aws_lambda` processor. Including this field will result in a validation error.
 {: .warning}
 
@@ -66,7 +60,7 @@ processors:
 The processor supports the following invocation types:
 
 - `request-response`: The processor waits for Lambda function completion before proceeding.
-- `event`: The function is triggered asynchronously without waiting for a response.
+- `event`: The function is triggered asynchronously without waiting for a response. 
 
 ## Behavior
 
