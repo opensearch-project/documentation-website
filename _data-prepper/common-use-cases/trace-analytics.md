@@ -49,8 +49,8 @@ OpenSearch provides a generic sink that writes data to OpenSearch as the destina
 
 The sink provides specific configurations for the trace analytics feature. These configurations allow the sink to use indexes and index templates specific to trace analytics. The following OpenSearch indexes are specific to trace analytics:
 
-* otel-v1-apm-span –- The *otel-v1-apm-span* index stores the output from the [otel_traces]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-traces/) processor.
-* otel-v1-apm-service-map –- The *otel-v1-apm-service-map* index stores the output from the [service_map]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map/) processor.
+* otel-v1-apm-span – The *otel-v1-apm-span* index stores the output from the [otel_traces]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-traces/) processor.
+* otel-v1-apm-service-map – The *otel-v1-apm-service-map* index stores the output from the [service_map]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map/) processor.
 
 ## Trace tuning
 
@@ -114,9 +114,9 @@ The following sections provide examples of different types of pipelines and how 
 
 The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines serve two different purposes and write to different OpenSearch indexes. The first pipeline prepares trace data for OpenSearch and enriches and ingests the span documents into a span index within OpenSearch. The second pipeline aggregates traces into a service map and writes service map documents into a service map index within OpenSearch.
 
-Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_traces_prepper` processor. The `otel_traces` processor replaces the `otel_traces_prepper` processor and supports some of Data Prepper's recent data model changes. Instead, you should use the `otel_traces` processor. See the following YAML file example:
+Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_traces_prepper` processor. The `otel_traces` processor replaces the `otel_traces_prepper` and `otel_trace_raw` processors and supports some of Data Prepper's recent data model changes. See the following YAML file example:
 
-```yml
+```yaml
 entry-pipeline:
   delay: "100"
   source:
@@ -124,8 +124,8 @@ entry-pipeline:
       ssl: false
   buffer:
     bounded_blocking:
-      buffer_size: 10240
-      batch_size: 160
+      buffer_size: 500000
+      batch_size: 10000
   sink:
     - pipeline:
         name: "raw-trace-pipeline"
@@ -137,8 +137,8 @@ raw-trace-pipeline:
       name: "entry-pipeline"
   buffer:
     bounded_blocking:
-      buffer_size: 10240
-      batch_size: 160
+      buffer_size: 500000
+      batch_size: 10000
   processor:
     - otel_traces:
   sink:
@@ -155,8 +155,8 @@ service-map-pipeline:
       name: "entry-pipeline"
   buffer:
     bounded_blocking:
-      buffer_size: 10240
-      batch_size: 160
+      buffer_size: 500000
+      batch_size: 10000
   processor:
     - service_map:
   sink:
@@ -196,55 +196,57 @@ otel-trace-pipeline:
   # workers is the number of threads processing data in each pipeline. 
   # We recommend same value for all pipelines.
   # default value is 1, set a value based on the machine you are running Data Prepper
-  workers: 8 
+  workers: 8
   # delay in milliseconds is how often the worker threads should process data.
   # Recommend not to change this config as we want the entry-pipeline to process as quick as possible
   # default value is 3_000 ms
-  delay: "100" 
+  delay: "100"
   source:
     otel_trace_source:
       #record_type: event  # Add this when using Data Prepper 1.x. This option is removed in 2.0
-      ssl: false # Change this to enable encryption in transit
+      ssl: false
       authentication:
         unauthenticated:
   buffer:
     bounded_blocking:
-       # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memeory. 
-       # We recommend to keep the same buffer_size for all pipelines. 
-       # Make sure you configure sufficient heap
-       # default value is 512
-       buffer_size: 512
-       # This is the maximum number of request each worker thread will process within the delay.
-       # Default is 8.
-       # Make sure buffer_size >= workers * batch_size
-       batch_size: 8
+      # buffer_size is the number of ExportTraceRequest from otel-collector the Data Prepper should hold in memory. 
+      # We recommend to keep the same buffer_size for all pipelines. 
+      # Make sure you configure sufficient heap
+      # default value is 512
+      buffer_size: 500000
+      # This is the maximum number of request each worker thread will process within the delay.
+      # Default is 8.
+      # Make sure buffer_size >= workers * batch_size
+      batch_size: 10000
   sink:
     - pipeline:
         name: "raw-trace-pipeline"
     - pipeline:
         name: "entry-pipeline"
+
 raw-trace-pipeline:
   # Configure same as the otel-trace-pipeline
-  workers: 8 
+  workers: 8
   # We recommend using the default value for the raw-trace-pipeline.
-  delay: "3000" 
+  delay: "3000"
   source:
-    pipeline:
-      name: "entry-pipeline"
+    pipeline: 
+      name: "otel-trace-pipeline"
   buffer:
-      bounded_blocking:
-         # Configure the same value as in entry-pipeline
-         # Make sure you configure sufficient heap
-         # The default value is 512
-         buffer_size: 512
-         # The raw processor does bulk request to your OpenSearch sink, so configure the batch_size higher.
-         # If you use the recommended otel-collector setup each ExportTraceRequest could contain max 50 spans. https://github.com/opensearch-project/data-prepper/tree/v0.7.x/deployment/aws
-         # With 64 as batch size each worker thread could process upto 3200 spans (64 * 50)
-         batch_size: 64
+    bounded_blocking:
+      # Configure the same value as in entry-pipeline
+      # Make sure you configure sufficient heap
+      # The default value is 512
+      buffer_size: 500000
+      # The raw processor does bulk request to your OpenSearch sink, so configure the batch_size higher.
+      # If you use the recommended otel-collector setup each ExportTraceRequest could contain max 50 spans. https://github.com/opensearch-project/data-prepper/tree/v0.7.x/deployment/aws
+      # With 64 as batch size each worker thread could process upto 3200 spans (64 * 50)
+      batch_size: 10000
   processor:
     - otel_traces:
+    # Optional: only if you want the group-filler stage.
     - otel_traces_group:
-        hosts: [ "https://localhost:9200" ]
+        hosts: [ "https://opensearch:9200" ]
         # Change to your credentials
         username: "admin"
         password: "admin"
@@ -257,7 +259,7 @@ raw-trace-pipeline:
         #aws_region: us-east-1
   sink:
     - opensearch:
-        hosts: [ "https://localhost:9200" ]
+        hosts: [ "https://opensearch:9200" ]
         index_type: trace-analytics-raw
         # Change to your credentials
         username: "admin"
@@ -269,12 +271,13 @@ raw-trace-pipeline:
         # username and password above.
         #aws_sigv4: true
         #aws_region: us-east-1
+
 service-map-pipeline:
   workers: 8
   delay: "100"
   source:
-    pipeline:
-      name: "entry-pipeline"
+    pipeline: 
+      name: "otel-trace-pipeline"
   processor:
     - service_map:
         # The window duration is the maximum length of time the data prepper stores the most recent trace data to evaluvate service-map relationships. 
@@ -282,19 +285,19 @@ service-map-pipeline:
         # Set higher value if your applications have higher latency. 
         window_duration: 180 
   buffer:
-      bounded_blocking:
-         # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memeory. 
-         # We recommend to keep the same buffer_size for all pipelines. 
-         # Make sure you configure sufficient heap
-         # default value is 512
-         buffer_size: 512
-         # This is the maximum number of request each worker thread will process within the delay.
-         # Default is 8.
-         # Make sure buffer_size >= workers * batch_size
-         batch_size: 8
+    bounded_blocking:
+      # buffer_size is the number of ExportTraceRequest from otel-collector the Data Prepper should hold in memory. 
+      # We recommend to keep the same buffer_size for all pipelines. 
+      # Make sure you configure sufficient heap
+      # default value is 512
+      buffer_size: 500000
+      # This is the maximum number of request each worker thread will process within the delay.
+      # Default is 8.
+      # Make sure buffer_size >= workers * batch_size
+      batch_size: 10000
   sink:
     - opensearch:
-        hosts: [ "https://localhost:9200" ]
+        hosts: [ "https://opensearch:9200" ]
         index_type: trace-analytics-service-map
         # Change to your credentials
         username: "admin"
@@ -306,6 +309,7 @@ service-map-pipeline:
         # username and password above.
         #aws_sigv4: true
         #aws_region: us-east-1
+
 ```
 
 You need to modify the preceding configuration for your OpenSearch cluster so that the configuration matches your environment. Note that it has two `opensearch` sinks that need to be modified.
@@ -324,38 +328,208 @@ For other configurations available for OpenSearch sinks, see [Data Prepper OpenS
 
 You need to run OpenTelemetry Collector in your service environment. Follow [Getting Started](https://opentelemetry.io/docs/collector/getting-started/#getting-started) to install an OpenTelemetry collector. Ensure that you configure the collector with an exporter configured for your Data Prepper instance. The following example `otel-collector-config.yaml` file receives data from various instrumentations and exports it to Data Prepper.
 
-### Example otel-collector-config.yaml file
+### Example setup using Docker compose
 
-The following is an example `otel-collector-config.yaml` file:
+The following is an example configuration for OpenSearch, OpenSearch Dashboards, Data Prepper and  OpenTelemetry Collector using Docker containers.
 
+Create certificates you will use for Data Prepper and store them in `certs` directory:
+
+```bash
+mkdir -p certs
+
+# single self-signed server cert for Data Prepper; adds SAN=DNS:data-prepper
+openssl req -x509 -nodes -newkey rsa:2048 \
+  -keyout certs/dp.key \
+  -out    certs/dp.crt \
+  -days 365 \
+  -subj "/CN=data-prepper" \
+  -addext "subjectAltName = DNS:data-prepper"
 ```
+{% include copy-curl.html %}
+
+Create the following files:
+
+`docker-compose.yaml`
+
+```yaml
+version: "3.8"
+
+networks:
+  opensearch-net:
+
+services:
+  opensearch:
+    image: opensearchproject/opensearch:3.2.0
+    environment:
+      - discovery.type=single-node
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=<strong_password>
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
+    ulimits:
+      memlock: { soft: -1, hard: -1 }
+      nofile: { soft: 65536, hard: 65536 }
+    ports:
+      - "9200:9200"
+      - "9600:9600"
+    networks: [opensearch-net]
+
+  dashboards:
+    image: opensearchproject/opensearch-dashboards:3.2.0
+    environment:
+      OPENSEARCH_HOSTS: '["https://opensearch:9200"]'
+      OPENSEARCH_USERNAME: admin
+      OPENSEARCH_PASSWORD: "<strong_password>"   # must match OpenSearch
+    ports:
+      - "5601:5601"
+    depends_on: [opensearch]
+    networks: [opensearch-net]
+
+  data-prepper:
+    image: opensearchproject/data-prepper:latest
+    command: ["/usr/share/data-prepper/bin/data-prepper"]
+    volumes:
+      - ./pipelines:/usr/share/data-prepper/pipelines:ro
+      - ./config/data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml:ro
+      - ./certs:/usr/share/data-prepper/certs:ro
+    ports:
+      - "4900:4900"      # Data Prepper control API (HTTP)
+      - "21890:21890"    # OTLP gRPC (TLS)
+    depends_on: [opensearch]
+    networks: [opensearch-net]
+
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    command: ["--config=/etc/otelcol/otel-collector.yaml"]
+    volumes:
+      - ./otel-collector.yaml:/etc/otelcol/otel-collector.yaml:ro
+    depends_on: [data-prepper]
+    networks: [opensearch-net]
+    ports:
+      - "4317:4317"   # OTLP gRPC
+      - "4318:4318"   # OTLP HTTP (optional)
+```
+{% include copy-curl.html %}
+
+`pipelines/pipelines.yaml`:
+
+```yaml
+entry-pipeline:
+  source:
+    otel_trace_source:
+      port: 21890
+      ssl: true
+      sslKeyCertChainFile: "certs/dp.crt"
+      sslKeyFile: "certs/dp.key"
+      authentication:
+        unauthenticated:
+  buffer:
+    bounded_blocking:
+      buffer_size: 500000
+      batch_size: 10000
+  sink:
+    - pipeline:
+        name: "raw-trace-pipeline"
+    - pipeline: 
+        name: "service-map-pipeline"
+
+raw-trace-pipeline:
+  source:
+    pipeline: 
+      name: "entry-pipeline"
+  processor:
+    - otel_traces:
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: <strong_password>
+        index_type: trace-analytics-raw
+
+service-map-pipeline:
+  source:
+    pipeline: 
+      name: "entry-pipeline"
+  processor:
+    - service_map:
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: <strong_password>
+        index_type: trace-analytics-service-map
+```
+{% include copy-curl.html %}
+
+`config/data-prepper-config.yaml`:
+
+```yaml
+# Disable TLS on the Data Prepper REST API (local only)
+ssl: false
+serverPort: 4900
+
+peer_forwarder:
+  ssl: false
+  discovery_mode: local_node
+```
+{% include copy-curl.html %}
+
+`otel-collector.yaml`:
+
+```yaml
 receivers:
-  jaeger:
-    protocols:
-      grpc:
   otlp:
     protocols:
       grpc:
-  zipkin:
-
-processors:
-  batch/traces:
-    timeout: 1s
-    send_batch_size: 50
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
 
 exporters:
-  otlp/data-prepper:
-    endpoint: localhost:21890
+  otlp:
+    endpoint: data-prepper:21890
     tls:
-      insecure: true
+      insecure_skip_verify: true   # TLS is enabled, but hostname/chain is not verified
+  # optional: see incoming/outgoing spans in logs
+  debug:
+    verbosity: basic
+
+processors:
+  batch: {}
+
+extensions:
+  health_check: {}
 
 service:
+  extensions: [health_check]
+  telemetry:
+    logs:
+      level: debug
   pipelines:
     traces:
-      receivers: [jaeger, otlp, zipkin]
-      processors: [batch/traces]
-      exporters: [otlp/data-prepper]
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp, debug]
 ```
+{% include copy-curl.html %}
+
+Start all the containers using `docker-compose up` command.
+
+You can now use the following command to spin up `telemetrygen` and generate synthetic OpenTelemetry traces for 30 seconds (~50 spans/sec) and send them to `otel-collector:4317` over plaintext gRPC:
+
+```bash
+docker run --rm --network <docker_network_name> \ 
+  ghcr.io/open-telemetry/opentelemetry-collector-contrib/telemetrygen:latest \ 
+  traces \ 
+  --otlp-endpoint=otel-collector:4317 \ 
+  --otlp-insecure \ 
+  --duration=30s \ 
+  --rate=50
+```
+{% include copy-curl.html %}
+
+This will push sample telemetry to alias `otel-v1-apm-span` and store the documents in index `otel-v1-apm-span-000001`.
 
 After you run OpenTelemetry in your service environment, you must configure your application to use the OpenTelemetry Collector. The OpenTelemetry Collector typically runs alongside your application.
 
