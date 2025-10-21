@@ -66,7 +66,7 @@ source:
 
 ## Example
 
-The following pipeline demonstrates Data Prepper receiving OTLP logs over HTTPS using a PEM cert and key with unframed HTTP at a custom path, accepting `gzip` payloads, preserving OTEL-shaped documents, and indexing them into OpenSearch.
+The following pipeline demonstrates Data Prepper receiving OTLP logs over HTTPS using a PEM cert and key with unframed HTTP at a custom path, accepting `gzip` payloads, preserving OTel-shaped documents, and indexing them into OpenSearch.
 
 ```yaml
 otel-logs-otel-output:
