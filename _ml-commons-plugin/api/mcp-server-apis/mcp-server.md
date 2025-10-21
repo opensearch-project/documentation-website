@@ -65,7 +65,7 @@ While not required for normal usage, you can manually invoke the MCP server usin
 
 #### Step 1 (Optional): Register custom tools
 
-Before connecting to the MCP server, you can register custom tools using the register API. Here's how to register a list index tool:
+Before connecting to the MCP server, you can register custom tools using the [Register MCP Tools API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/). For example, to register a [List Index tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/list-index-tool/), send the following request :
 
 ```json
 POST /_plugins/_ml/mcp/register
