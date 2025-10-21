@@ -51,7 +51,7 @@ To get started, create a `pipeline.yaml` file and add `otel_logs_source` as the 
 
 ```yaml
 source:
-    - otel_logs_source:
+  otel_logs_source:
 ```
 {% include copy.html %}
 
@@ -59,8 +59,8 @@ To generate data in the OpenTelemetry format, set the `output_format` setting to
 
 ```yaml
 source:
-    - otel_logs_source:
-        output_format: otel
+  otel_logs_source:
+    output_format: otel
 ```
 {% include copy.html %}
 
