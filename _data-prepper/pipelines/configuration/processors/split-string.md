@@ -29,36 +29,103 @@ source | N/A | N/A | The key to split.
 delimiter | No | N/A | The separator character responsible for the split. Cannot be defined at the same time as `delimiter_regex`. At least `delimiter` or `delimiter_regex` must be defined.
 delimiter_regex | No | N/A | The regex string responsible for the split. Cannot be defined at the same time as `delimiter`. At least `delimiter` or `delimiter_regex` must be defined.
 
-### Usage
+### Example
 
 To get started, create the following `pipeline.yaml` file:
 
 ```yaml
-pipeline:
+split-string-all-configs-pipeline:
   source:
-    file:
-      path: "/full/path/to/logs_json.log"
-      record_type: "event"
-      format: "json"
+    http:
+      path: /logs
+      ssl: false
+
   processor:
     - split_string:
+        # 1) The top-level list of split "entries"
         entries:
-          - source: "message"
+          # 2) Use `source` + `delimiter` (comma)
+          - source: "csv_line"
             delimiter: ","
+
+          # 3) Another `source` + `delimiter` (pipe)
+          - source: "tags"
+            delimiter: "|"
+
+          # 4) `source` + `delimiter` (slash) to split a path
+          - source: "path"
+            delimiter: "/"
+
+          # 5) `source` + `delimiter_regex` (semicolon + optional spaces)
+          - source: "semicolons"
+            delimiter_regex: ";\\s*"
+
   sink:
-    - stdout:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: "admin_pass"
+        index_type: custom
+        index: "split-string-demo-%{yyyy.MM.dd}"
+
 ```
 {% include copy.html %}
 
-Next, create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with your file path. For more detailed information, see [Configuring OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
+You can test the pipeline using the following command:
 
-Before you run Data Prepper, the source appears in the following format:
-
-```json
-{"message": "hello,world"}
+```bash
+curl -sS -X POST "http://localhost:2021/logs" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "csv_line": "x,y",
+      "tags": "beta|test",
+      "path": "usr/local/bin",
+      "semicolons": "alpha;beta ; gamma"
+    }
+  ]'
 ```
-After you run Data Prepper, the source is converted to the following format:
+{% include copy.html %}
+
+The document stored in OpenSearch contains the following information:
 
 ```json
-{"message":["hello","world"]}
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "split-string-demo-2025.10.15",
+        "_id": "YSAz6JkBrcmuDURMmTeo",
+        "_score": 1,
+        "_source": {
+          "csv_line": [
+            "x",
+            "y"
+          ],
+          "tags": [
+            "beta",
+            "test"
+          ],
+          "path": [
+            "usr",
+            "local",
+            "bin"
+          ],
+          "semicolons": [
+            "alpha",
+            "beta ",
+            "gamma"
+          ]
+        }
+      }
+    ]
+  }
+}
 ```
