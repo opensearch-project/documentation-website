@@ -43,7 +43,7 @@ To use the `otel-metrics` source, create the following `pipeline.yaml` file with
 
 ```yaml
 source:
-    - otel_trace_source:
+  otel_trace_source:
 ```
 {% include copy.html %}
 
@@ -51,14 +51,140 @@ If you want to use the OpenTelemetry format for your output, set the `output_for
 
 ```yaml
 source:
-    - otel_trace_source:
-        output_format: otel
+  otel_trace_source:
+    output_format: otel
 ```
 {% include copy.html %}
 
+## Example
+
+The following example demonstrates Data Prepper ingesting OTLP traces over HTTPS using a PEM cert and key with unframed HTTP at a custom path, accepting gzip payloads, preserving OTel shaped documents, and indexing them into OpenSearch:
+
+```yaml
+otel-traces-https:
+  source:
+    otel_trace_source:
+      ssl: true
+      sslKeyFile: "/usr/share/data-prepper/certs/dp-key.pem"
+      sslKeyCertChainFile: "/usr/share/data-prepper/certs/dp-cert.pem"
+      unframed_requests: true
+      path: "/ingest/${pipelineName}/v1/traces"
+      compression: gzip
+      output_format: otel
+      request_timeout: 15000
+      health_check_service: true
+      proto_reflection_service: true
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        index: "otel-traces-https"
+        username: "admin"
+        password: "admin_pass"
+        insecure: true
+```
+{% include copy.html %}
+
+You can test the pipeline using the following command:
+
+```bash
+cat > /tmp/otel-trace3.json <<'JSON'
+{
+  "resourceSpans": [{
+    "resource": {"attributes":[
+      {"key":"service.name","value":{"stringValue":"billing"}},
+      {"key":"service.version","value":{"stringValue":"2.1.0"}}
+    ]},
+    "scopeSpans": [{
+      "scope": {"name":"manual-https"},
+      "spans": [{
+        "traceId": "1234567890abcdef1234567890abcdef",
+        "spanId":  "feedfacecafebeef",
+        "name": "PUT /invoice/42",
+        "startTimeUnixNano": "1739999999000000000",
+        "endTimeUnixNano":   "1740000000000000000",
+        "attributes": [
+          {"key":"region","value":{"stringValue":"eu-west-1"}},
+          {"key":"retry.count","value":{"intValue":"1"}}
+        ]
+      }]
+    }]
+  }]
+}
+JSON
+
+gzip -c /tmp/otel-trace3.json > /tmp/otel-trace3.json.gz
+
+curl -s -X POST "https://localhost:21890/ingest/otel-traces-https/v1/traces" \
+  -H 'Content-Type: application/json' \
+  -H 'Content-Encoding: gzip' \
+  --insecure \
+  --data-binary @/tmp/otel-trace3.json.gz
+```
+{% include copy.html %}
+
+The document stored in OpenSearch contains the following information:
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "otel-traces-https",
+        "_id": "V_5RBpoBqZ1V_u-TvYXf",
+        "_score": 1,
+        "_source": {
+          "traceId": "d76df8e7aefcf7469b71d79fd76df8e7aefcf7469b71d79f",
+          "droppedLinksCount": 0,
+          "instrumentationScope": {
+            "name": "manual-https",
+            "droppedAttributesCount": 0
+          },
+          "resource": {
+            "schemaUrl": "",
+            "attributes": {
+              "service.name": "billing",
+              "service.version": "2.1.0"
+            },
+            "droppedAttributesCount": 0
+          },
+          "kind": "SPAN_KIND_UNSPECIFIED",
+          "droppedEventsCount": 0,
+          "flags": 0,
+          "parentSpanId": "",
+          "schemaUrl": "",
+          "spanId": "7de79d7da71e71a7de6de79f",
+          "traceState": "",
+          "name": "PUT /invoice/42",
+          "startTime": "2025-02-19T21:19:59Z",
+          "attributes": {
+            "retry.count": 1,
+            "region": "eu-west-1"
+          },
+          "links": [],
+          "endTime": "2025-02-19T21:20:00Z",
+          "droppedAttributesCount": 0,
+          "durationInNanos": 1000000000,
+          "events": [],
+          "status": {
+            "code": 0,
+            "message": ""
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
 ## Metrics
 
-The 'otel_trace_source' source includes the following metrics.
+The `otel_trace_source` source includes the following metrics.
 
 ### Counters
 
