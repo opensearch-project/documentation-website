@@ -9,27 +9,27 @@ redirect_from:
 
 # Significant terms aggregations
 
-`significant_terms` helps you surface terms that are unusually frequent in a subset of documents (foreground set) compared to a broader reference set (background set). It’s the right choice when a plain `terms` aggregation shows you the *most common* values, but you want the *most over‑represented* values.
+The `significant_terms` aggregation identifies terms that occur unusually frequently in a subset of documents (foreground set) compared to a broader reference set (background set). Use this aggregation to retrieve the *most over‑represented* values, for which a plain `terms` aggregation that shows you the *most common* values is not sufficient.
 
 - Foreground set: the documents matched by your query.
 - Background set: by default, all documents in the target indexes. You can narrow it with `background_filter`.
 
 Each result bucket includes:
 
-- `key`: the term value.
-- `doc_count`: the number of foreground docs containing the term.
-- `bg_count`: the number of background docs containing the term.
-- `score`: how strongly the term stands out in the foreground relative to the background, see [Heuristics and scoring](#heuristics-and-scoring) for further details.
+- `key`: The term value.
+- `doc_count`: The number of foreground documents containing the term.
+- `bg_count`: The number of background documents containing the term.
+- `score`: Specifies how strongly the term stands out in the foreground relative to the background. For more information, see [Heuristics and scoring](#heuristics-and-scoring).
 
-If the aggregation returns no buckets, you likely didn’t filter the foreground, for example using `match_all`, or the foreground has the same distribution of terms as the background.
+If the aggregation returns no buckets, it usually means that the foreground isn't filtered (for example, you used a `match_all` query) or the term distribution in the foreground is the same as in the background.
 {: .note}
 
-## Basic example: Find out what's distinctive about high‑value returns
+## Basic example: Identify distinctive terms in high‑value returns for an e-commerce application
 
-Create index mapping::
+Create an index that contains customer orders:
 
 ```json
-PUT retail_orders
+PUT /retail_orders
 {
   "mappings": {
     "properties": {
@@ -42,7 +42,7 @@ PUT retail_orders
 ```
 {% include copy-curl.html %}
 
-Index sample documents:
+Ingest sample documents into the index:
 
 ```json
 POST _bulk
@@ -73,10 +73,10 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-You can use the following query to ask, among orders that were *returned and cost over 500*, which `payment_method` values are unusually common compared to the whole index?
+Run the following query to identify `payment_method` values that are unusually common among orders that were returned and cost over $500, compared to the entire index:
 
 ```json
-GET retail_orders/_search
+GET /retail_orders/_search
 {
   "size": 0,
   "query": {
@@ -98,7 +98,7 @@ GET retail_orders/_search
 ```
 {% include copy-curl.html %}
 
-The returned aggregation demonstrates that among the 5 high value returns, `gift_card` occurs 3 times (60%) and 3/12 times in the whole index (25%), so it’s flagged as the most over represented payment method:
+The returned aggregation shows that among the five high-value returns, `gift_card` appears 3 times (60%), compared to 3 out of 12 times in the entire index (25%). As a result, it is flagged as the most overrepresented payment method:
 
 ```json
 {
@@ -130,12 +130,12 @@ The returned aggregation demonstrates that among the 5 high value returns, `gift
 
 ## Multi‑set analysis
 
-You can compute "what’s unusual" per category by first splitting documents into buckets, then running `significant_terms` inside each bucket.
+You can determine the unusual values for each category by first grouping documents into buckets and then running a `significant_terms` aggregation within each bucket.
 
 ### Example: Unusual `cancel_reason` per region
 
 ```json
-GET rides/_search
+GET /rides/_search
 {
   "size": 0,
   "aggs": {
@@ -154,9 +154,9 @@ GET rides/_search
 
 ### Example: Hotspots on a map
 
-You have a dataset with field incidents for sites across a country. Each document has a point location `site.location` with type `geo_point` and a categorical field `issue.keyword`, for example `POWER_OUTAGE`, `FIBER_CUT`, `VANDALISM`. And you want to spot which issue types are over‑represented inside particular map tiles compared to a broader reference set. You can use `geotile_grid` that divides the map into zoom‑level tiles, higher `precision` means smaller tiles, such as street or city blocks, lower `precision` means larger tiles, for example city or region. Then run `significant_terms` inside each tile to find the local outliers.
+Suppose that you have a dataset of field incidents at sites across a country. Each document contains a point location `site.location` of type `geo_point` and a categorical field `issue.keyword` (for example, `POWER_OUTAGE`, `FIBER_CUT`, or `VANDALISM`). You want to identify the issue types that are overrepresented within specific map tiles compared to a broader reference set. You can use a `geotile_grid` to divide the map into zoom‑level tiles. Higher `precision` produces smaller tiles, such as street or city blocks, while lower `precision` produces larger tiles, such as city or region. Run a `significant_terms` aggregation within each tile to identify the local outliers.
 
-The following request segments by tiles and queries which `issue.keyword` is unusually frequent in those tiles:
+Segment the data by map tiles and identify the `issue.keyword` values that are unusually frequent in those tiles:
 
 ```json
 GET field_ops/_search
@@ -176,14 +176,14 @@ GET field_ops/_search
 ```
 {% include copy-curl.html %}
 
-## Focus the background with `background_filter`
+## Use a `background_filter` to narrow the background set
 
-By default, the background is the entire index. Sometimes you want a **narrower reference set**.
+By default, the background contains the entire index. Use a `background_filter` to restrict background documents for more precise results.
 
-### Example: Toronto verses the rest of Canada
+### Example: Compare Toronto to the rest of Canada
 
 ```json
-GET news/_search
+GET /news/_search
 {
   "size": 0,
   "query": { "term": { "city.keyword": "Toronto" } },
@@ -201,22 +201,22 @@ GET news/_search
 ```
 {% include copy-curl.html %}
 
-A custom background requires extra work, each candidate term’s background frequency must be computed by filtering, which can be slower than using the index‑wide counts.
+Using a custom background requires additional processing because the background frequency for each candidate term must be computed by applying the filter. This can be slower than using the default index-wide counts.
 {: .warning}
 
-## Free‑text fields and keyword fields
+## Field type considerations
 
-`significant_terms` works best on exact value fields, for example, `keyword`, `numeric`. Running it on heavily tokenized text can be memory‑intensive. For analyzed text, consider [`significant_text`]({{site.url}}{{site.baseurl}}/aggregations/bucket/significant-text/) instead, which is designed for free‑text and supports the same significance heuristics.
+`significant_terms` aggregations work best on exact-value fields (for example, `keyword` or `numeric`). Running `significant_terms` aggregations on heavily tokenized text can be memory intensive. For analyzed text, consider using [`significant_text` aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/significant-text/), which are designed for full-text fields and support the same significance heuristics.
 
 ## Heuristics and scoring
 
-The `score` ranks terms by how much their foreground frequency departs from the background frequency. It has no units and is meaningful only for comparison within the same request and heuristic.
+The `score` ranks terms based on how much their foreground frequency differs from the background frequency. It has no units and is meaningful only for comparison within the same request and heuristic.
 
-You can choose one heuristic per request by adding its object under `significant_terms`.
+You can select one heuristic per request by specifying it under `significant_terms`. The following heuristics are supported.
 
-### JLH (balanced absolute × relative lift)
+### JLH
 
-Good general‑purpose choice. Favors terms that increase both *absolutely* and *relatively*.
+The Jensen–Shannon Lift Heuristic (JLH) is suitable for most general‑purpose scenarios. It balances both the absolute frequency of a term and its relative overrepresentation compared to the background set, favoring terms that increase both *absolutely* and *relatively*.
 
 ```json
 "significant_terms": {
@@ -229,27 +229,29 @@ Good general‑purpose choice. Favors terms that increase both *absolutely* and 
 
 JLH score is calculated as follows:
 
-`fg_pct = doc_count / foreground_total` and `bg_pct = bg_count / background_total`. JLH ≈ `(fg_pct − bg_pct) * (fg_pct / bg_pct)`. A term whose share rises a little but from a much bigger baseline will rank higher than one with the same absolute rise from a tiny background share.
+`fg_pct = doc_count / foreground_total` and `bg_pct = bg_count / background_total`. JLH ≈ `(fg_pct − bg_pct) * (fg_pct / bg_pct)`. 
+
+A term whose frequency increases slightly from a large baseline will score higher than a term with the same absolute increase from a very small background share.
 
 #### Score example calculation using JLH
 
-If your foreground (high‑value returns) has `2,000` orders and the background (all orders) has `120,000`. One bucket reports:
+Suppose that your foreground set (high‑value returns) contains `2,000` orders, and the background set (all orders) contains `120,000` orders. Consider a single term in the `significant_terms` aggregation, which has the following counts:
 
 - `doc_count = 160`
 - `bg_count = 3,200`
 
-Percentages:
+Percentages of documents containing the term are calculated as follows:
 
 - `fg_pct = 160 / 2000 = 0.08`
 - `bg_pct = 3200 / 120000 ≈ 0.026666…`
 
 JLH ≈ `(0.08 − 0.026666…) * (0.08 / 0.026666…) ≈ 0.053333… * 3 ≈ 0.16`
 
-This positive score means searched term is notably more prevalent in high‑value returns than overall. Scores are relative, therefore use them to rank terms, not as absolute probabilities.
+This positive score means that the searched term is notably more prevalent in high‑value returns than overall. Scores are relative: use them to rank terms, not as absolute probabilities.
 
 ### Mutual information
 
-Mutual information (MI) prefers frequent terms, it can pick up popular but still distinctive terms. Set `include_negatives: false` to ignore terms that are less common in the foreground than the background. If your background is not a superset of the foreground, set `background_is_superset: false`. See following example:
+Mutual information (MI) prefers frequent terms and identifies popular but still distinctive terms. Set `include_negatives: false` to ignore terms that are less common in the foreground than the background. If your background is not a superset of the foreground, set `background_is_superset: false`:
 
 ```json
 "significant_terms": {
@@ -263,7 +265,7 @@ Mutual information (MI) prefers frequent terms, it can pick up popular but still
 
 ### Chi‑square
 
-Similar to [MI](#mutual-information). Also supports `include_negatives` and `background_is_superset`.
+Chi-square is a statistical test that measures how much the observed frequency of a term in a subset (foreground) deviates from the expected frequency based on a reference set (background). Similarly to [MI](#mutual-information),  chi-square supports `include_negatives` and `background_is_superset`.
 
 ```json
 "significant_terms": {
@@ -274,7 +276,7 @@ Similar to [MI](#mutual-information). Also supports `include_negatives` and `bac
 
 ### Google Normalized Distance
 
-Google Normalized Distance (GND) favors strong co‑occurrence. Useful for synonym discovery or items that tend to appear together.
+Google Normalized Distance (GND) favors strong co‑occurrence. It is useful for synonym discovery or items that tend to appear together.
 
 ```json
 "significant_terms": {
@@ -285,7 +287,7 @@ Google Normalized Distance (GND) favors strong co‑occurrence. Useful for synon
 
 ### Percentage
 
-Sorts terms by the ratio `doc_count`/`bg_count`, displays how many foreground hits a term has relative to its background hits, but it doesn’t account for the overall sizes of the two sets, so very rare terms can dominate.
+Percentage sorts terms by the `doc_count`/`bg_count` ratio and identifies the number of foreground hits a term has relative to its background hits. It doesn’t account for the overall sizes of the two sets, so very rare terms can dominate.
 
 ```json
 "significant_terms": {
@@ -296,12 +298,14 @@ Sorts terms by the ratio `doc_count`/`bg_count`, displays how many foreground hi
 
 ### Scripted heuristic
 
-Supply a custom formula using the following variables:
+To provide a custom heuristic formula, use the following variables:
 
-- `_subset_freq`: term docs in the foreground
-- `_superset_freq`: term docs in the background
-- `_subset_size`: foreground size
-- `_superset_size`: background size
+- `_subset_freq`: The number of documents containing the term in the foreground set.
+- `_superset_freq`: The number of documents containing the term in the background set.
+- `_subset_size`: The total number of documents in the foreground set.
+- `_superset_size`: The total number of documents in the background set.
+
+The following request runs a `significant_terms` aggregation on `field.keyword` using a custom script heuristic to score terms based on their frequency in the foreground relative to the background:
 
 ```json
 "significant_terms": {
