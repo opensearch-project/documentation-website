@@ -9,10 +9,7 @@ redirect_from:
 
 # Significant terms aggregations
 
-The `significant_terms` aggregation identifies terms that occur unusually frequently in a subset of documents (foreground set) compared to a broader reference set (background set). Use this aggregation to retrieve the *most over‑represented* values, for which a plain `terms` aggregation that shows you the *most common* values is not sufficient.
-
-- Foreground set: the documents matched by your query.
-- Background set: by default, all documents in the target indexes. You can narrow it with `background_filter`.
+The `significant_terms` aggregation identifies terms that occur unusually frequently in a subset of documents (foreground set) compared to a broader reference set (background set). By default, background set targets all documents in the target indexes. You can narrow it with `background_filter`. Use this aggregation to retrieve the *most over‑represented* values, for which a plain `terms` aggregation that shows you the *most common* values is not sufficient.
 
 Each result bucket includes:
 
@@ -134,6 +131,8 @@ You can determine the unusual values for each category by first grouping documen
 
 ### Example: Unusual `cancel_reason` per region
 
+The following example groups by region with a terms aggregation, and within each bucket runs `significant_terms` to reveal cancellation reasons disproportionately common in that region:
+
 ```json
 GET /rides/_search
 {
@@ -181,6 +180,8 @@ GET field_ops/_search
 By default, the background contains the entire index. Use a `background_filter` to restrict background documents for more precise results.
 
 ### Example: Compare Toronto to the rest of Canada
+
+The following example filters the foreground to "Toronto" and sets a `background_filter` for country "Canada".  `significant_terms` highlights topics unusually frequent in Toronto relative to other Canadian cities:
 
 ```json
 GET /news/_search
