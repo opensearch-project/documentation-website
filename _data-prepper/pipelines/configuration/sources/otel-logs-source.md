@@ -53,6 +53,7 @@ To get started, create a `pipeline.yaml` file and add `otel_logs_source` as the 
 source:
     - otel_logs_source:
 ```
+{% include copy.html %}
 
 To generate data in the OpenTelemetry format, set the `output_format` setting to `otel`, as shown in the following example:
 
@@ -62,6 +63,121 @@ source:
         output_format: otel
 ```
 {% include copy.html %}
+
+## Example
+
+The following pipeline demonstrates Data Prepper receiving OTLP logs over HTTPS using a PEM cert and key with unframed HTTP at a custom path, accepting `gzip` payloads, preserving OTEL-shaped documents, and indexing them into OpenSearch.
+
+```yaml
+otel-logs-otel-output:
+  source:
+    otel_logs_source:
+      port: 21894
+      ssl: true
+      sslKeyFile: "/usr/share/data-prepper/certs/dp-key.pem"
+      sslKeyCertChainFile: "/usr/share/data-prepper/certs/dp-cert.pem"
+      unframed_requests: true
+      path: "/ingest/${pipelineName}/v1/logs"
+      compression: gzip
+      output_format: otel
+      request_timeout: 15000
+      health_check_service: true
+      proto_reflection_service: true
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        index: "otel-logs-otel-output"
+        username: "admin"
+        password: "admin_pass"
+        insecure: true
+```
+{% include copy.html %}
+
+You can test this pipeline using the following commands:
+
+```bash
+cat > /tmp/otel-log3.json <<'JSON'
+{
+  "resourceLogs": [{
+    "resource": {"attributes":[
+      {"key":"service.name","value":{"stringValue":"checkout"}},
+      {"key":"service.version","value":{"stringValue":"1.4.2"}}
+    ]},
+    "scopeLogs": [{
+      "scope": {"name":"manual-gzip"},
+      "logRecords": [{
+        "timeUnixNano": "1739999999000000000",
+        "severityText": "ERROR",
+        "body": {"stringValue":"payment gateway timeout"},
+        "attributes":[
+          {"key":"region","value":{"stringValue":"eu-west-1"}},
+          {"key":"latency_ms","value":{"doubleValue":1234.5}}
+        ]
+      }]
+    }]
+  }]
+}
+JSON
+
+gzip -c /tmp/otel-log3.json > /tmp/otel-log3.json.gz
+
+curl -s -X POST "https://localhost:21894/ingest/otel-logs-otel-output/v1/logs" \
+  -H 'Content-Type: application/json' \
+  -H 'Content-Encoding: gzip' \
+  --insecure \
+  --data-binary @/tmp/otel-log3.json.gz
+```
+{% include copy.html %}
+
+The document stored in OpenSearch contains the following information:
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "otel-logs-otel-output",
+        "_id": "l24NBpoBk9xzgdmMXFDm",
+        "_score": 1,
+        "_source": {
+          "traceId": "",
+          "instrumentationScope": {
+            "name": "manual-gzip",
+            "droppedAttributesCount": 0
+          },
+          "resource": {
+            "attributes": {
+              "service.name": "checkout",
+              "service.version": "1.4.2"
+            },
+            "schemaUrl": "",
+            "droppedAttributesCount": 0
+          },
+          "flags": 0,
+          "severityNumber": 0,
+          "body": "payment gateway timeout",
+          "schemaUrl": "",
+          "spanId": "",
+          "severityText": "ERROR",
+          "attributes": {
+            "region": "eu-west-1",
+            "latency_ms": 1234.5
+          },
+          "time": "2025-02-19T21:19:59Z",
+          "droppedAttributesCount": 0,
+          "observedTimestamp": "1970-01-01T00:00:00Z"
+        }
+      }
+    ]
+  }
+}
+```
 
 ## Metrics
 
