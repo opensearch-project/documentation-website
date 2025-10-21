@@ -200,7 +200,7 @@ The following table lists the available `polling_ingest_stats` metrics.
 | `consumer_stats.total_poller_message_failure_count` | The total number of failed messages on the poller. |
 | `consumer_stats.total_poller_message_dropped_count` | The total number of failed messages on the poller that were dropped. |
 | `consumer_stats.lag_in_millis` | Lag in milliseconds, computed as the time elapsed since the last processed message timestamp. |
-| `consumer_stats.pointer_based_lag` | Kafka offset based lag, computed as the difference between latest available offset and current message offset. This is only applicable when Kafka is used as the streaming source. |
+| `consumer_stats.pointer_based_lag` | The Apache Kafka offset-based lag, calculated as the difference between the latest available offset and the current message offset. This metric applies only when Apache Kafka is used as the streaming source. |
 
 To retrieve shard-level pull-based ingestion metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/):
 
