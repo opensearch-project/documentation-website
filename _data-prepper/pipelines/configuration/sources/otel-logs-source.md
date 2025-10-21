@@ -72,7 +72,6 @@ The following pipeline demonstrates Data Prepper receiving OTLP logs over HTTPS 
 otel-logs-otel-output:
   source:
     otel_logs_source:
-      port: 21894
       ssl: true
       sslKeyFile: "/usr/share/data-prepper/certs/dp-key.pem"
       sslKeyCertChainFile: "/usr/share/data-prepper/certs/dp-cert.pem"
@@ -121,7 +120,7 @@ JSON
 
 gzip -c /tmp/otel-log3.json > /tmp/otel-log3.json.gz
 
-curl -s -X POST "https://localhost:21894/ingest/otel-logs-otel-output/v1/logs" \
+curl -s -X POST "https://localhost:21892/ingest/otel-logs-otel-output/v1/logs" \
   -H 'Content-Type: application/json' \
   -H 'Content-Encoding: gzip' \
   --insecure \
