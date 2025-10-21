@@ -92,7 +92,7 @@ The documents stored in OpenSearch contain the following information:
     "max_score": 1,
     "hits": [
       {
-        "_index": "anton-2025.10.21",
+        "_index": "demo-index-2025.10.21",
         "_id": "5YACB5oBqZitdAAb4n3r",
         "_score": 1,
         "_source": {
@@ -101,7 +101,7 @@ The documents stored in OpenSearch contain the following information:
         }
       },
       {
-        "_index": "anton-2025.10.21",
+        "_index": "demo-index-2025.10.21",
         "_id": "5oACB5oBqZitdAAb4n3r",
         "_score": 1,
         "_source": {
