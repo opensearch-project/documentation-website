@@ -20,9 +20,9 @@ Option | Required | Type | Description
 
 The following examples demonstrate how different file types can be processed.
 
-### Json file
+### JSON file
 
-The following example processes json file:
+The following example processes JSON file:
 
 ```yaml
 file-to-opensearch:
@@ -69,7 +69,7 @@ plain-file-to-opensearch:
 
 ### CSV file
 
-You can process csv file using the `csv` processor:
+You can process CSV file using the `csv` processor:
 
 ```yaml
 csv-file-to-opensearch:
