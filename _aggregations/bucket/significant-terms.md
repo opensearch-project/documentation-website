@@ -308,6 +308,8 @@ To provide a custom heuristic formula, use the following variables:
 
 The following request runs a `significant_terms` aggregation on `field.keyword` using a custom script heuristic to score terms based on their frequency in the foreground relative to the background:
 
+The following request runs a `significant_terms` aggregation on `field.keyword` using a custom script heuristic to score terms based on their frequency in the foreground relative to the background:
+
 ```json
 "significant_terms": {
   "field": "field.keyword",
