@@ -63,7 +63,7 @@ asyncio.run(main())
 
 While not required for normal usage, you can manually invoke the MCP server using JSON-RPC calls over HTTP. The following example presents typical MCP client behavior.
 
-#### Step 1: Register tools
+#### Step 1 (Optional): Register custom tools
 
 Before connecting to the MCP server, you can register custom tools using the register API. Here's how to register a list index tool:
 
