@@ -104,7 +104,7 @@ To learn more about indexing, see [Managing indexes]({{site.url}}{{site.baseurl}
 
 ## Dynamic mapping
 
-When you index a document, OpenSearch infers the field types from the JSON types submitted in the document. This process is called _dynamic mapping_. For more information, see [Dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/#dynamic-mapping).
+When you index a document, OpenSearch infers the field types from the JSON types submitted in the document. This process is called _dynamic mapping_. For more information, see [Dynamic mapping]({{site.url}}{{site.baseurl}}/mappings/#dynamic-mapping).
 
 To view the inferred field types, send a request to the `_mapping` endpoint:
 
@@ -247,7 +247,7 @@ DELETE /students
 
 OpenSearch indexes are configured with mappings and settings:
 
-- A _mapping_ is a collection of fields and the types of those fields. For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/).
+- A _mapping_ is a collection of fields and the types of those fields. For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/).
 - _Settings_ include index data like the index name, creation date, and number of shards. For more information, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 You can specify the mappings and settings in one request. For example, the following request specifies the number of index shards and maps the `name` field to `text` and the `grad_year` field to `date`:
@@ -320,7 +320,7 @@ Once a field is created, you cannot change its type. Changing a field type requi
 
 - For information about the OpenSearch REST API, see the [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/).
 - For information about OpenSearch language clients, see [Clients]({{site.url}}{{site.baseurl}}/clients/).
-- For information about mappings, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/).
+- For information about mappings, see [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/).
 - For information about settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Next steps

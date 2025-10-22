@@ -10,10 +10,10 @@ redirect_from:
 outside_cards:
   - heading: "Byte vectors"
     description: "Quantize vectors into byte vectors"
-    link: "/field-types/supported-field-types/knn-memory-optimized/#byte-vectors"
+    link: "/mappings/supported-field-types/knn-memory-optimized/#byte-vectors"
   - heading: "Binary vectors"
     description: "Quantize vectors into binary vector"
-    link: "/field-types/supported-field-types/knn-memory-optimized/#binary-vectors"
+    link: "/mappings/supported-field-types/knn-memory-optimized/#binary-vectors"
 inside_cards:
   - heading: "Lucene scalar quantization"
     description: "Use built-in scalar quantization for the Lucene engine"

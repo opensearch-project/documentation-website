@@ -50,7 +50,7 @@ timeout | Time | How long to wait for the request to return. Default is `30s`.
 
 ## Request body
 
-As part of your request, you can optionally specify [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/), [mappings]({{site.url}}{{site.baseurl}}/field-types/index/), [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/), and [index context]({{site.url}}{{site.baseurl}}/opensearch/index-context/). 
+As part of your request, you can optionally specify [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/), [mappings]({{site.url}}{{site.baseurl}}/mappings/index/), [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/), and [index context]({{site.url}}{{site.baseurl}}/opensearch/index-context/). 
 
 ## Example request
 

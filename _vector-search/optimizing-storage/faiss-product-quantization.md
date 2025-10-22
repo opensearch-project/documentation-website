@@ -10,7 +10,7 @@ has_math: true
 
 # Faiss product quantization
 
-Product quantization (PQ) is a technique used to represent a vector using a configurable number of bits. In general, it can be used to achieve a higher level of compression as compared to byte or scalar quantization. PQ works by separating vectors into _m_ subvectors and encoding each subvector with _code_size_ bits. Thus, the total amount of memory for the vector is `m*code_size` bits, plus overhead. For details about the parameters, see [PQ parameters]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#pq-parameters). PQ is only supported for the _Faiss_ engine and can be used with either the _HNSW_ or _IVF_ approximate nearest neighbor (ANN) algorithms.
+Product quantization (PQ) is a technique used to represent a vector using a configurable number of bits. In general, it can be used to achieve a higher level of compression as compared to byte or scalar quantization. PQ works by separating vectors into _m_ subvectors and encoding each subvector with _code_size_ bits. Thus, the total amount of memory for the vector is `m*code_size` bits, plus overhead. For details about the parameters, see [PQ parameters]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#pq-parameters). PQ is only supported for the _Faiss_ engine and can be used with either the _HNSW_ or _IVF_ approximate nearest neighbor (ANN) algorithms.
 
 ## Using Faiss product quantization
 
@@ -53,5 +53,5 @@ For example, assume that you have 1 million vectors with a dimension of 256, `iv
 
 ## Next steps
 
-- [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/)
+- [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)

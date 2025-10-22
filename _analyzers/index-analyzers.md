@@ -7,7 +7,7 @@ parent: Analyzers
 
 # Index analyzers
 
-Index analyzers are specified at indexing time and are used to analyze [text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) fields when indexing a document.
+Index analyzers are specified at indexing time and are used to analyze [text]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) fields when indexing a document.
 
 ## Determining which index analyzer to use
 
@@ -24,7 +24,7 @@ For information about verifying which analyzer is associated with which field, s
 
 ## Specifying an index analyzer for a field
 
-When creating index mappings, you can supply the `analyzer` parameter for each [text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field. For example, the following request specifies the `simple` analyzer for the `text_entry` field:
+When creating index mappings, you can supply the `analyzer` parameter for each [text]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) field. For example, the following request specifies the `simple` analyzer for the `text_entry` field:
 
 ```json
 PUT testindex

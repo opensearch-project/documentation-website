@@ -14,7 +14,7 @@ This tutorial shows you how to implement faceted search in OpenSearch using a pr
 
 ## Step 1: Define your index mapping
 
-Start by defining the fields you'll use for faceting. The [mapping]({{site.url}}{{site.baseurl}}/field-types/) configuration is crucial for effective faceted search. For faceting on string fields, map the fields to `keyword` instead of `text` because `text` fields are not optimized for aggregations.
+Start by defining the fields you'll use for faceting. The [mapping]({{site.url}}{{site.baseurl}}/mappings/) configuration is crucial for effective faceted search. For faceting on string fields, map the fields to `keyword` instead of `text` because `text` fields are not optimized for aggregations.
 
 While you can enable aggregations on `text` fields by setting `"fielddata": true`, this approach should be avoided in production because it loads all field values into heap memory, significantly increasing memory usage and potentially causing performance issues and out-of-memory errors.
 {: .tip}
@@ -1975,8 +1975,8 @@ Similarly, you can aggregate the `Clothing>Shirts` category by specifying `"cate
 
 ## Related articles
 
-- [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/)
-- [Supported field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/)
+- [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/)
+- [Supported field types]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/)
 - [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/)
 - [Query and filter context]({{site.url}}{{site.baseurl}}/query-dsl/query-filter-context/)
 - [Aggregations]({{site.url}}{{site.baseurl}}/aggregations/)
