@@ -255,7 +255,7 @@ GET my-logs/_search
 
 ## Example: Scripted value source
 
-You can use Painless script to manipulate the values in multiple ways. For example, use the following request to emit the bucket value in epoch milliseconds. This behaves the same as field: "timestamp", but shows the correct return type for scripts:
+You can use a Painless script to dynamically generate or modify the date value used for bucketing in a `date_histogram`. This provides flexibility for handling complex date logic at query time. A `date_histogram` aggregation does not work with date objects or strings directly. It requires a single, numerical value to represent each document's timestamp. This value must be a long integer representing epoch milliseconds, the number of milliseconds that have passed since 00:00:00 UTC on January 1, 1970. Any script you provide must return a value of this type. The following example with `script` behaves the same as the previous examples with `"field": "timestamp"`, but generates the correct return type for date field:
 
 ```json
 GET my-logs/_search
@@ -294,5 +294,5 @@ The `date_histogram` supports the following parameters.
 | `missing` | Optional | Date string | Treat docs missing the field as if they had this date value. |
 | `keyed` | Optional | Boolean | When `true`, returns buckets as an object keyed by the formatted date string. |
 | `order` | Optional | Object | Sort buckets by `_key` or `_count`, ascending or descending. |
-| `script` | One of the following is required: `field` or `script` | Object | Optional script to compute the value to bucket on. Use with care; scripts add overhead. |
+| `script` | One of the following is required: `field` or `script` | Object | Optional script to compute the value to bucket on. Since the scripts are operated to modify each value, they add overhead and should be used cautiously. |
 
