@@ -9,7 +9,7 @@ redirect_from:
 
 # Nested aggregations
 
-The `nested` aggregation lets you aggregate on fields inside a [nested]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) object. The `nested` type is a specialized version of the `object` data type that indexes each element of an array of objects as a separate hidden document. This preserves the relationship between fields within the same array element so they can be queried and aggregated together.
+The `nested` aggregation lets you aggregate on fields inside a [nested]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) object. The `nested` type is a specialized version of the `object` data type that indexes each element of an array of objects as a separate, hidden document. This preserves the relationship between fields within the same array element so they can be queried and aggregated together.
 
 ## Nested aggregation example
 
