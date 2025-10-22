@@ -86,11 +86,21 @@ POST /_plugins/_ml/memory_containers/<container_id>/memories
   "messages": [
     {
       "role": "user",
-      "content": "I prefer email notifications over SMS"
+      "content": [
+        {
+          "text": "I prefer email notifications over SMS",
+          "type": "text"
+        }
+      ]
     },
     {
       "role": "assistant",
-      "content": "I've noted your preference for email notifications"
+      "content": [
+        {
+          "text": "I've noted your preference for email notifications",
+          "type": "text"
+        }
+      ]
     }
   ],
   "namespace": {
