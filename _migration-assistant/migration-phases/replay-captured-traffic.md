@@ -323,4 +323,34 @@ The following metrics are also reported:
 
 Metrics and dashboards pushed to CloudWatch may experience a visibility lag of around 5 minutes. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more information, see [Amazon CloudWatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
 
+## Troubleshooting
+
+### Elasticsearch content type and accept header compatibility
+
+Newer Elasticsearch clients (version 7.11 and later, including all 8.x versions) use Elasticsearch-specific media types in both `Content-Type` and `Accept` headers. These clients may send headers such as:
+
+- `Content-Type: application/vnd.elasticsearch+json;compatible-with=8`
+- `Accept: application/vnd.elasticsearch+json;compatible-with=8`
+
+When migrating to OpenSearch or another service that does not support these Elasticsearch-specific media types, requests from these clients may fail or be rejected by the target cluster.
+
+**Important**: If you are using Elasticsearch clients version 7.11 or later and migrating to OpenSearch or a service that does not recognize `application/vnd.elasticsearch+json` media types, you need to apply a transformation to convert both the `Content-Type` and `Accept` headers to the standard `application/json` format.
+{: .note}
+
+To resolve this issue, configure Traffic Replayer with a transformation that converts the Elasticsearch-specific media types to the standard `application/json` format. Add the following transformation to your Traffic Replayer configuration using the `--transformer-config` option:
+
+```json
+[
+  {
+    "JsonJSTransformerProvider": {
+      "initializationScript": "const NEW_CONTENT_TYPE = \"application/json\";\nconst ELASTIC_CONTENT_TYPE = \"application/vnd.elasticsearch+json\";\n\nfunction transform(request, context) {\n  let headers = request.get(\"headers\");\n  if (headers) {\n    let contentType = headers.get(\"Content-Type\");\n    if (Array.isArray(contentType)) {\n      headers.set(\"Content-Type\", contentType.map(v => v.includes(ELASTIC_CONTENT_TYPE) ? NEW_CONTENT_TYPE : v));\n    } else if (typeof contentType === \"string\") {\n      if (contentType.includes(ELASTIC_CONTENT_TYPE)) {\n        headers.set(\"Content-Type\", NEW_CONTENT_TYPE);\n      }\n    }\n    let accept = headers.get(\"Accept\");\n    if (Array.isArray(accept)) {\n      headers.set(\"Accept\", accept.map(v => v.includes(ELASTIC_CONTENT_TYPE) ? NEW_CONTENT_TYPE : v));\n    } else if (typeof accept === \"string\") {\n      if (accept.includes(ELASTIC_CONTENT_TYPE)) {\n        headers.set(\"Accept\", NEW_CONTENT_TYPE);\n      }\n    }\n  }\n  return request;\n}\n\nfunction main(context) {\n  return (request) => {\n    if (Array.isArray(request)) {\n      return request.flat().map(item => transform(item, context));\n    }\n    return transform(request, context);\n  };\n}\n(() => main)();",
+      "bindingsObject": "{}"
+    }
+  }
+]
+```
+{% include copy.html %}
+
+This transformation script automatically detects Elasticsearch-specific media types in both `Content-Type` and `Accept` headers (including those with version parameters like `compatible-with=8`) and replaces them with the standard `application/json` format, ensuring compatibility with OpenSearch and other services that do not support the Elasticsearch-specific media types.
+
 {% include migration-phase-navigation.html %}
