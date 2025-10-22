@@ -147,9 +147,9 @@ The `V3` query engine provides enhanced query processing capabilities using Apac
 
 The `V3` engine introduces stricter validation for OpenSearch metadata fields. When working with commands that manipulate field names, be aware of the following restrictions:
 
-- `eval` won't allow you to use [OpenSearch metadata fields]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/index/) as the fields.
-- `rename` won't allow renaming to an [OpenSearch metadata field]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/index/).
-- `as` won't allow you to use an [OpenSearch metadata field]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/index/) as the alias name.
+- `eval` won't allow you to use [OpenSearch metadata fields]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/index/) as the fields.
+- `rename` won't allow renaming to an [OpenSearch metadata field]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/index/).
+- `as` won't allow you to use an [OpenSearch metadata field]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/index/) as the alias name.
 
 ### Unsupported functionalities
 

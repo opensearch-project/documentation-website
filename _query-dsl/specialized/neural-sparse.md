@@ -283,5 +283,5 @@ GET sparse-vector-index/_search
 
 - For more information about neural sparse search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/).
 - For more information about neural sparse ANN search, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/).
-- For field type information, see [Rank features]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/) and [Sparse vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/sparse-vector/).
+- For field type information, see [Rank features]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/rank/) and [Sparse vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/sparse-vector/).
 - For information about filtering `neural_sparse` query results, see [Filtering in neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/filtering-in-sparse-search/).

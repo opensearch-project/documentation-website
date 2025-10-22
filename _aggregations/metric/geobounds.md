@@ -9,7 +9,7 @@ redirect_from:
 
 # Geobounds aggregation
 
-The `geo_bounds` aggregation is a multi-value aggregation that calculates the [geographic bounding box](https://docs.ogc.org/is/12-063r5/12-063r5.html#30) encompassing a set of [`geo_point`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) or [`geo_shape`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-shape/) objects. The bounding box is returned as the upper-left and lower-right vertices of the rectangle given as a decimal-encoded latitude-longitude (lat-lon) pair.
+The `geo_bounds` aggregation is a multi-value aggregation that calculates the [geographic bounding box](https://docs.ogc.org/is/12-063r5/12-063r5.html#30) encompassing a set of [`geo_point`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-point/) or [`geo_shape`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-shape/) objects. The bounding box is returned as the upper-left and lower-right vertices of the rectangle given as a decimal-encoded latitude-longitude (lat-lon) pair.
 
 ## Parameters
 

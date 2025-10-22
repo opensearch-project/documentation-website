@@ -235,6 +235,6 @@ response = client.nodes.info(
 The following limitations apply when using pull-based ingestion:
 
 * [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) are not compatible with pull-based ingestion.
-* [Dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/) is not supported.
+* [Dynamic mapping]({{site.url}}{{site.baseurl}}/mappings/) is not supported.
 * [Index rollover]({{site.url}}{{site.baseurl}}/api-reference/index-apis/rollover/) is not supported.
 * Operation listeners are not supported.

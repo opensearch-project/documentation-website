@@ -157,7 +157,7 @@ When deploying to an existing VPC, consider the following:
 
 To use `Reindex-from-Snapshot` (RFS), ensure the following:
 
-- The `_source` field must be enabled on all indexes to be migrated. See [Source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/).
+- The `_source` field must be enabled on all indexes to be migrated. See [Source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/).
 - The source cluster must have the Amazon S3 plugin installed.
 - If you choose to bring your own snapshot (that is, one not created by Migration Assistant), the following settings must be applied when creating the snapshot:
   - `include_global_state: true` – Ensures that global cluster state is included.

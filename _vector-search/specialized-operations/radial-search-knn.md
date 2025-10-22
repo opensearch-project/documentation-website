@@ -34,7 +34,7 @@ You can perform radial search with either Lucene or Faiss engine. The following 
 
 ## Spaces
 
-For supported spaces, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
+For supported spaces, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
 
 ## Examples
 
