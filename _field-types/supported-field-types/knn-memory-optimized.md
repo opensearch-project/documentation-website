@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Memory-optimized vectors
-parent: k-NN vector
-grand_parent: Supported field types
+redirect_from:
+  - /field-types/supported-field-types/knn-memory-optimized/
 nav_order: 30
 ---
 
@@ -177,7 +177,7 @@ In [k-NN benchmarking tests](https://github.com/opensearch-project/opensearch-be
 When using `byte` vectors, expect some loss of recall precision compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
 {: .important}
 
-When using `byte` vectors with the `faiss` engine, we recommend using [Single Instruction Multiple Data (SIMD) optimization]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#simd-optimization), which helps to significantly reduce search latencies and improve indexing throughput.
+When using `byte` vectors with the `faiss` engine, we recommend using [Single Instruction Multiple Data (SIMD) optimization]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#simd-optimization), which helps to significantly reduce search latencies and improve indexing throughput.
 {: .important} 
 
 Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.

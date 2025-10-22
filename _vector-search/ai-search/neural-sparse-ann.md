@@ -107,7 +107,7 @@ PUT /my-sparse-ann-index
 ```
 {% include copy-curl.html %}
 
-For parameter information, see [Sparse vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/sparse-vector/).
+For parameter information, see [Sparse vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/sparse-vector/).
 
 ## Step 2: Ingest data
 
@@ -245,6 +245,6 @@ Neural sparse ANN search provides multiple parameters for balancing search accur
 ## Next steps
 
 - For query syntax, see [Neural sparse query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/).
-- For field type information, see [Sparse vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/sparse-vector/).
+- For field type information, see [Sparse vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/sparse-vector/).
 - For performance optimization, see [Neural sparse ANN search performance tuning]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-sparse/).
 - For filtering options, see [Filtering in neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/filtering-in-sparse-search/).

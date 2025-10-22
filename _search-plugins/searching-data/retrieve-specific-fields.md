@@ -157,7 +157,7 @@ GET /my_index/_search
 ```
 {% include copy-curl.html %}
 
-Additionally, you can use [most fields]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#most-fields) and [field aliases]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/) in the `fields` parameter because it queries both the document `_source` and `_mappings` of the index.
+Additionally, you can use [most fields]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#most-fields) and [field aliases]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/alias/) in the `fields` parameter because it queries both the document `_source` and `_mappings` of the index.
 <!-- vale off -->
 ## Searching with docvalue_fields
 <!-- vale on -->
@@ -838,7 +838,7 @@ The following is the expected response:
 
 ## Using scripted fields
 
-The `script_fields` parameter allows you to include custom fields whose values are computed using scripts in your search results. This can be useful for calculating values dynamically based on the document data. You can also retrieve `derived fields` by using a similar approach. For more information, see [Retrieving fields]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/derived/#retrieving-fields).
+The `script_fields` parameter allows you to include custom fields whose values are computed using scripts in your search results. This can be useful for calculating values dynamically based on the document data. You can also retrieve `derived fields` by using a similar approach. For more information, see [Retrieving fields]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/derived/#retrieving-fields).
 
 If you have an index of products, where each product document contains the `price` and `discount_percentage` fields. You can use `script_fields` parameter to include a custom field in the search results that displays the discounted price of each product. The following example demonstrates how to use the `script_fields` parameter:
 

@@ -7,7 +7,7 @@ parent: Analyzers
 
 # Search analyzers
 
-Search analyzers are specified at query time and are used to analyze the query string when you run a full-text query on a [text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field.
+Search analyzers are specified at query time and are used to analyze the query string when you run a full-text query on a [text]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) field.
 
 ## Determining which search analyzer to use
 
@@ -43,7 +43,7 @@ GET /shakespeare/_search
 
 ## Specifying a search analyzer in the mappings
 
-When defining mappings, you can provide both the `analyzer` (used at index time) and `search_analyzer` (used at query time) for any [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field.
+When defining mappings, you can provide both the `analyzer` (used at index time) and `search_analyzer` (used at query time) for any [`text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) field.
 
 ### Example: Different analyzers for indexing and search
 
