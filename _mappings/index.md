@@ -201,7 +201,7 @@ POST sample-index1/_mapping
 ```
 {% include copy-curl.html %}
 
-For more information about the Mapping API, see [Update mapping]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-mapping/).
+For more information about the Mapping API, see [Update mapping]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/).
 
 ## Retrieving mappings
 
