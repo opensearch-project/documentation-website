@@ -9,7 +9,7 @@ redirect_from:
 
 # Significant terms aggregations
 
-The `significant_terms` aggregation identifies terms that occur unusually frequently in a subset of documents (foreground set) compared to a broader reference set (background set). By default, background set targets all documents in the target indexes. You can narrow it with `background_filter`. Use this aggregation to retrieve the *most over‑represented* values, for which a plain `terms` aggregation that shows you the *most common* values is not sufficient.
+The `significant_terms` aggregation identifies terms that occur unusually frequently in a subset of documents (foreground set) compared to a broader reference set (background set). By default, the background set targets all documents in the target indexes. You can narrow it with `background_filter`. Use this aggregation to retrieve the *most overrepresented* values, for which a plain `terms` aggregation that shows you the *most common* values is insufficient.
 
 Each result bucket includes:
 
@@ -131,7 +131,7 @@ You can determine the unusual values for each category by first grouping documen
 
 ### Example: Unusual `cancel_reason` per region
 
-The following example groups by region with a terms aggregation, and within each bucket runs `significant_terms` to reveal cancellation reasons disproportionately common in that region:
+The following example groups by region with a terms aggregation and within each bucket runs `significant_terms` to identify cancellation reasons disproportionately common in that region:
 
 ```json
 GET /rides/_search
@@ -153,7 +153,7 @@ GET /rides/_search
 
 ### Example: Hotspots on a map
 
-Suppose that you have a dataset of field incidents at sites across a country. Each document contains a point location `site.location` of type `geo_point` and a categorical field `issue.keyword` (for example, `POWER_OUTAGE`, `FIBER_CUT`, or `VANDALISM`). You want to identify the issue types that are overrepresented within specific map tiles compared to a broader reference set. You can use a `geotile_grid` to divide the map into zoom‑level tiles. Higher `precision` produces smaller tiles, such as street or city blocks, while lower `precision` produces larger tiles, such as city or region. Run a `significant_terms` aggregation within each tile to identify the local outliers.
+Suppose that you have a dataset of field incidents at sites across a country. Each document contains a point location `site.location` of type `geo_point` and a categorical field `issue.keyword` (for example, `POWER_OUTAGE`, `FIBER_CUT`, or `VANDALISM`). You want to identify the issue types that are overrepresented within specific map tiles compared to a broader reference set. You can use a `geotile_grid` to divide the map into zoom‑level tiles. Higher `precision` produces smaller tiles, such as street or city blocks, while lower `precision` produces larger tiles, such as a city or region. Run a `significant_terms` aggregation within each tile to identify the local outliers.
 
 Segment the data by map tiles and identify the `issue.keyword` values that are unusually frequent in those tiles:
 
@@ -181,7 +181,7 @@ By default, the background contains the entire index. Use a `background_filter` 
 
 ### Example: Compare Toronto to the rest of Canada
 
-The following example filters the foreground to "Toronto" and sets a `background_filter` for country "Canada".  `significant_terms` highlights topics unusually frequent in Toronto relative to other Canadian cities:
+The following example filters the foreground to "Toronto" and sets a `background_filter` for "Canada". `significant_terms` highlights topics that are unusually frequent in Toronto relative to other Canadian cities:
 
 ```json
 GET /news/_search
@@ -228,7 +228,7 @@ The Jensen–Shannon Lift Heuristic (JLH) is suitable for most general‑purpose
 
 #### JLH scoring
 
-JLH score is calculated as follows:
+The JLH score is calculated as follows:
 
 `fg_pct = doc_count / foreground_total` and `bg_pct = bg_count / background_total`. JLH ≈ `(fg_pct − bg_pct) * (fg_pct / bg_pct)`. 
 
@@ -248,7 +248,7 @@ Percentages of documents containing the term are calculated as follows:
 
 JLH ≈ `(0.08 − 0.026666…) * (0.08 / 0.026666…) ≈ 0.053333… * 3 ≈ 0.16`
 
-This positive score means that the searched term is notably more prevalent in high‑value returns than overall. Scores are relative: use them to rank terms, not as absolute probabilities.
+This positive score means that the searched term is notably more prevalent in high‑value returns than it is overall. Scores are relative: use them to rank terms, not as absolute probabilities.
 
 ### Mutual information
 
@@ -266,7 +266,7 @@ Mutual information (MI) prefers frequent terms and identifies popular but still 
 
 ### Chi‑square
 
-Chi-square is a statistical test that measures how much the observed frequency of a term in a subset (foreground) deviates from the expected frequency based on a reference set (background). Similarly to [MI](#mutual-information),  chi-square supports `include_negatives` and `background_is_superset`.
+Chi-square is a statistical test that measures how much the observed frequency of a term in a subset (foreground) deviates from the expected frequency based on a reference set (background). Similarly to [MI](#mutual-information), chi-square supports `include_negatives` and `background_is_superset`:
 
 ```json
 "significant_terms": {
@@ -277,7 +277,7 @@ Chi-square is a statistical test that measures how much the observed frequency o
 
 ### Google Normalized Distance
 
-Google Normalized Distance (GND) favors strong co‑occurrence. It is useful for synonym discovery or items that tend to appear together.
+Google Normalized Distance (GND) favors strong co‑occurrence. It is useful for synonym discovery or items that tend to appear together:
 
 ```json
 "significant_terms": {
@@ -288,7 +288,7 @@ Google Normalized Distance (GND) favors strong co‑occurrence. It is useful for
 
 ### Percentage
 
-Percentage sorts terms by the `doc_count`/`bg_count` ratio and identifies the number of foreground hits a term has relative to its background hits. It doesn’t account for the overall sizes of the two sets, so very rare terms can dominate.
+Percentage sorts terms by the `doc_count`/`bg_count` ratio and identifies the number of foreground hits that a term has relative to its background hits. It doesn't account for the overall sizes of the two sets, so very rare terms can dominate:
 
 ```json
 "significant_terms": {
