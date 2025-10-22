@@ -35,7 +35,7 @@ The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`messages` | Array | Conditional | A list of messages for a `conversational` payload. Each message requires a `content` field (as an array of content objects) and may include a `role` (commonly, `user` or `assistant`) when `infer` is set to `true`. Required when `payload_type` is `conversational`.
+`messages` | Array | Conditional | A list of messages for a `conversational` payload. Each message must include a `content` field specified as an array of objects. Each object must contain the `type` (for example, `text`) and the corresponding content. Each message may include a `role` (commonly, `user` or `assistant`) when `infer` is set to `true`. Required when `payload_type` is `conversational`.
 `structured_data` | Object | Conditional | Structured data content for data memory. Required when `payload_type` is `data`.
 `binary_data` | String | Optional | Binary data content encoded as a Base64 string for binary payloads.
 `payload_type` | String | Required | The type of payload. Valid values are `conversational` or `data`. See [Payload types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#payload-types).
