@@ -98,11 +98,11 @@ PUT testindex/_doc/2
 
 ### Step 3: Run a geoshape query
 
-Finally, define a geoshape to filter the documents. The following sections illustrate providing various geoshapes in a query. For more information about various geoshape formats, see [Geoshape field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-shape/). 
+Finally, define a geoshape to filter the documents. The following sections illustrate providing various geoshapes in a query. For more information about various geoshape formats, see [Geoshape field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-shape/). 
 
 #### Envelope
 
-An [`envelope`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-shape#envelope) is a bounding rectangle in the `[[minLon, maxLat], [maxLon, minLat]]` format. Search for documents containing  geoshape fields that intersect with the provided envelope:
+An [`envelope`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-shape#envelope) is a bounding rectangle in the `[[minLon, maxLat], [maxLon, minLat]]` format. Search for documents containing  geoshape fields that intersect with the provided envelope:
 
 ```json
 GET /testindex/_search
@@ -426,7 +426,7 @@ Geoshape queries whose geometry collection contains a linestring or a multilines
 
 When constructing a geoshape query, you can also reference the name of a shape pre-indexed in another index. Using this method, you can define a geoshape at index time and refer to it by name at search time. 
 
-You can define a pre-indexed geoshape in [GeoJSON](https://geojson.org/) or [Well-Known Text (WKT)](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) format. For more information about various geoshape formats, see [Geoshape field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-shape/). 
+You can define a pre-indexed geoshape in [GeoJSON](https://geojson.org/) or [Well-Known Text (WKT)](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) format. For more information about various geoshape formats, see [Geoshape field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-shape/). 
 
 The `indexed_shape` object supports the following parameters.
 
@@ -456,7 +456,7 @@ PUT /pre-indexed-shapes
 ```
 {% include copy-curl.html %}
 
-For more information about specifying a different vertex orientation for polygons, see [Polygon]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-shape/#polygon). 
+For more information about specifying a different vertex orientation for polygons, see [Polygon]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-shape/#polygon). 
 
 Index a polygon specifying the search boundaries into the `pre-indexed-shapes` index. The polygon's ID is `search_triangle`. In this example, you'll index the polygon in WKT format:
 
@@ -658,7 +658,7 @@ PUT /testindex1/_doc/2
 ```
 {% include copy-curl.html %}
 
- For information about providing geopoint coordinates in various formats, see [Formats]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/#formats). 
+ For information about providing geopoint coordinates in various formats, see [Formats]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-point/#formats). 
 
 Search for geopoints that intersect with the provided polygon:
 

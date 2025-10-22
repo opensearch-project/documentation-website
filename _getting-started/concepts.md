@@ -13,7 +13,7 @@ This page defines key terms and concepts related to OpenSearch.
 - [***Document***]({{site.url}}{{site.baseurl}}/getting-started/intro/#document): The basic unit of information in OpenSearch, stored in JSON format.
 - [***Index***]({{site.url}}{{site.baseurl}}/getting-started/intro/#index): A collection of related documents.
 - [***JSON (JavaScript object notation)***](https://www.json.org/): A text format used to store data in OpenSearch, representing information as key-value pairs.
-- [***Mapping***]({{site.url}}{{site.baseurl}}/field-types/): The schema definition for an index that specifies how documents and their fields should be stored and indexed.
+- [***Mapping***]({{site.url}}{{site.baseurl}}/mappings/): The schema definition for an index that specifies how documents and their fields should be stored and indexed.
 
 ## Cluster architecture
 
@@ -27,7 +27,7 @@ This page defines key terms and concepts related to OpenSearch.
 
 ## Data structures and storage
 
-- [***Doc values***]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/): An on-disk data structure for efficient sorting and aggregating of field values.
+- [***Doc values***]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/): An on-disk data structure for efficient sorting and aggregating of field values.
 - [***Inverted index***]({{site.url}}{{site.baseurl}}/getting-started/intro/#inverted-index): A data structure that maps words to the documents containing them.
 - ***Lucene***: The underlying search library that OpenSearch uses to index and search data.
 - ***Segment***: An immutable unit of data storage within a shard.

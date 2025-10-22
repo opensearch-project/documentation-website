@@ -74,7 +74,7 @@ collections:
   aggregations:
     permalink: /:collection/:path/
     output: true
-  field-types:
+  mappings:
     permalink: /:collection/:path/
     output: true
   clients:
@@ -160,13 +160,13 @@ opensearch_collection:
       name: OpenSearch Dashboards
       nav_fold: true
     security:
-      name: Security in OpenSearch
+      name: Security
       nav_fold: true
     security-analytics:
       name: Security analytics 
       nav_fold: true
-    field-types:
-      name: Mappings and field types
+    mappings:
+      name: Mappings
       nav_fold: true
     analyzers:
       name: Text analysis

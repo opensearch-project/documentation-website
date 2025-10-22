@@ -9,7 +9,7 @@ nav_order: 145
 
 The `parent` aggregation is a bucket aggregation that creates a single bucket containing parent documents, based on parent-child relationships defined in your index. This aggregation enables you to perform analytics on parent documents that have the same matching child documents, allowing for powerful hierarchical data analysis.
 
-The `parent` aggregation works with the [`join` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), which establishes parent-child relationships within documents in the same index.
+The `parent` aggregation works with the [`join` field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/join/), which establishes parent-child relationships within documents in the same index.
 
 The `parent` aggregation identifies parent documents that have matching child documents, whereas the [`children` aggregation]({{site.url}}{{site.baseurl}}/aggregations/bucket/children/) identifies child documents that match a certain child relation. Both aggregations take the child relation name as input.
 
