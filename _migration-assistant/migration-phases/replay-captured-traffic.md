@@ -325,6 +325,8 @@ Metrics and dashboards pushed to CloudWatch may experience a visibility lag of a
 
 ## Troubleshooting
 
+The following sections may be helpful in diagnosing common issues that arise. If you encounter an issue not documented, incorporate that feedback into this section for future readers.
+
 ### Elasticsearch content type and accept header compatibility
 
 Newer Elasticsearch clients (version 7.11 and later, including all 8.x versions) use Elasticsearch-specific media types in both `Content-Type` and `Accept` headers. These clients may send headers such as:

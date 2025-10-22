@@ -65,11 +65,13 @@ After a short period, re-execute the same command again and compare the increase
 
 ## Troubleshooting
 
+The following sections may be helpful in diagnosing common issues that arise. If you encounter an issue not documented, incorporate that feedback into this section for future readers.
+
 ### Host header routing configuration
 
 Some systems, such as Elastic Cloud and other hosted Elasticsearch services, use the Host header for routing traffic to the appropriate cluster. When using the Capture Proxy with these systems, you need to configure the proxy to set the Host header to match your source cluster's domain.
 
-**Important**: This configuration is required for Elastic Cloud deployments and any system that uses Host header-based routing. Without this setting, requests will fail with an error response like `{"ok":false,"message":"Unknown resource."}` on Elastic Cloud or be misrouted on other systems.
+**Important**: This configuration is required for Elastic Cloud deployments and any system that uses Host header-based routing. Without this setting, requests will fail with an error response like `{"ok":false,"message":"Unknown resource."}` on Elastic Cloud or be incorrectly routed on other systems.
 {: .note}
 
 To configure the Host header, add the `captureProxyExtraArgs` parameter to your `cdk.context.json` file:
