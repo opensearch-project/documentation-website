@@ -13,7 +13,7 @@ The `nested` aggregation lets you aggregate on fields inside a [nested]({{site.u
 
 ## Nested aggregation example
 
-To aggregate over fields inside a nested array, specify the `path` to the nested field and define sub‑aggregations under it:
+To aggregate over fields inside a nested array, specify the `path` to the nested field and define subaggregations under it:
 
 ```json
 GET logs-nested/_search
