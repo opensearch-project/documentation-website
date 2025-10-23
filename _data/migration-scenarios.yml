@@ -107,3 +107,13 @@ scenarios:
         url: "{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/"
       - title: "Teardown"
         url: "{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/"
+
+  - title: "Scenario 4: Kubernetes experimental workflow-based backfill"
+    steps:
+      - title: "Workflow CLI overview"
+        url: "{{site.url}}{{site.baseurl}}/migration-assistant/migration-console/workflow-cli-overview/"
+        substeps:
+          - title: "Getting started"
+            url: "{{site.url}}{{site.baseurl}}/migration-assistant/migration-console/workflow-cli-getting-started/"
+      - title: "Backfill workflow"
+        url: "{{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill-workflow/"
