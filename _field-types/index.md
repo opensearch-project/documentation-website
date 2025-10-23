@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/mappings/
   - /field-types/mappings/
   - /field-types/index/
-canonical_url: https://docs.opensearch.org/latest/field-types/
+canonical_url: https://docs.opensearch.org/latest/mappings/
 ---
 
 # Mappings and field types
