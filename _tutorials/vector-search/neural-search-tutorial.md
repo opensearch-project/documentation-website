@@ -717,7 +717,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-Not only does OpenSearch return documents that match the semantic meaning of `wild west`, but now the documents containing words related to the wild west theme are also scored higher relative to the others:
+Not only does OpenSearch return documents that match the semantic meaning of `wild west`, but now the documents containing words related to the cowboy rodeo bronco theme are also scored higher relative to the others:
 
 <details markdown="block">
   <summary>
