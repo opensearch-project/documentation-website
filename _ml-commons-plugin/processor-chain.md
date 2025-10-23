@@ -347,7 +347,7 @@ Removes fields from JSON objects using JSONPath.
 ```json
 {
   "type": "remove_jsonpath",
-  "paths": "[$.sensitive_data]"
+  "paths": ["$.sensitive_data"]
 }
 ```
 
