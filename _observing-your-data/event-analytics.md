@@ -114,7 +114,7 @@ With Live Tail, you can select intervals and seamlessly switch between them to c
 
 ![Live Tail]({{site.url}}{{site.baseurl}}/images/live_tail.gif)
 
-## Related articles
+## Related documentation
 
 - [Demonstrating the OpenSearch Assistant toolkit](https://www.youtube.com/watch?v=VTiJtGI2Sr4&t=152s)
 - [Getting started guide for OpenSearch Assistant in OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
