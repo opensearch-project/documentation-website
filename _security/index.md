@@ -77,6 +77,6 @@ To learn more, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/security/
 
 - To get started with OpenSearch security, read the [Getting started guide]({{site.url}}{{site.baseurl}}/security/getting-started).
 
-- For practical recommendations, follow the [Best practices for OpenSearch security]({{site.url}}{{site.baseurl}}/security/configuration/best-practices/), which covers 10 key considerations.
+- For practical recommendations, follow the [Best practices for OpenSearch security]({{site.url}}{{site.baseurl}}/security/configuration/best-practices/), which include 10 key considerations.
 
 - To configure security in your OpenSearch implementation, use the [Security configuration overview]({{site.url}}{{site.baseurl}}/security/configuration/index/) for step-by-step instructions and links to customization options for your environment.
