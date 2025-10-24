@@ -5,11 +5,11 @@ parent: Nodes APIs
 nav_order: 10
 ---
 
-# Nodes info
+# Nodes Info API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The nodes info API represents mostly static information about your cluster's nodes, including but not limited to:
+The Nodes Info API represents mostly static information about your cluster's nodes, including the following:
 
 - Host system information 
 - JVM 
@@ -68,17 +68,53 @@ timeout | Time | Sets the time limit for node response. Default value is `30s`.
 
 The following query requests the `process` and `transport` metrics from the cluster manager node: 
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/cluster_manager:true/process,transport
+-->
+{% capture step1_rest %}
 GET /_nodes/cluster_manager:true/process,transport
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "process,transport",
+  node_id = "cluster_manager:true"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To get thread pool information about the cluster manager node only, use the following query:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/master:true/thread_pool
+-->
+{% capture step1_rest %}
 GET /_nodes/master:true/thread_pool
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "thread_pool",
+  node_id = "master:true"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

@@ -1,12 +1,15 @@
 ---
 layout: default
 title: Build your own chatbot
-parent: Chatbots and agents
+parent: Chatbots
 grand_parent: Generative AI
-nav_order: 160
+has_children: false
+has_toc: false
+nav_order: 170
 redirect_from:
   - /ml-commons-plugin/tutorials/build-chatbot/
   - /vector-search/tutorials/chatbots/build-chatbot/
+  - /tutorials/gen-ai/chatbots/build-chatbot/ 
 ---
 
 # Build your own chatbot
@@ -279,7 +282,7 @@ POST _plugins/_ml/agents/_register
       }
     },
     {
-      "type": "CatIndexTool",
+      "type": "ListIndexTool",
       "description": "Use this tool to get OpenSearch index information: (health, status, index, uuid, primary count, replica count, docs.count, docs.deleted, store.size, primary.store.size). \nIt takes 2 optional arguments named `index` which is a comma-delimited list of one or more indices to get information from (default is an empty list meaning all indices), and `local` which means whether to return information from the local node only instead of the cluster manager node (default is false)."
     },
     {
@@ -313,7 +316,7 @@ Note the following testing tips:
    - Avoid configuring many tools in an agent.
    - Provide a detailed tool description clarifying what the tool can do. 
    - Specify the tool to use in the LLM question, for example, `Can you use the PPLTool to query the opensearch_dashboards_sample_data_ecommerce index so it can calculate how many orders were placed last week?`.
-   - Specify the tool to use when executing an agent. For example, specify that only `PPLTool` and `CatIndexTool` should be used to process the current request.
+   - Specify the tool to use when executing an agent. For example, specify that only the `PPLTool` and `ListIndexTool` should be used to process the current request.
 
 Test the agent:
 
@@ -323,7 +326,7 @@ POST _plugins/_ml/agents/your_agent_id/_execute
     "parameters": {
     "question": "Can you query with index opensearch_dashboards_sample_data_ecommerce to calculate how many orders in last week?",
     "verbose": false,
-    "selected_tools": ["PPLTool", "CatIndexTool"]
+    "selected_tools": ["PPLTool", "ListIndexTool"]
     }
 }
 ```

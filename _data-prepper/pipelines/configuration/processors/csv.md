@@ -1,12 +1,12 @@
 ---
 layout: default
-title: csv 
+title: CSV 
 parent: Processors
 grand_parent: Pipelines
-nav_order: 49
+nav_order: 70
 ---
 
-# csv
+# CSV processor
 
 The `csv` processor parses comma-separated values (CSVs) from the event into columns.
 
@@ -53,7 +53,7 @@ When run, the processor will parse the message. Although only two column names a
 ```
 ### Automatically detect column names
 
-The following configuration automatically detects the header of a CSV file ingested through an [`s3 source`]({{site.url}}{{site.baseurl}}//data-prepper/pipelines/configuration/sources/s3/):
+The following configuration automatically detects the header of a CSV file ingested through an [`s3 source`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/):
 
 ```yaml
 csv-s3-pipeline:

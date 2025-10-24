@@ -2,7 +2,6 @@
 layout: default
 title: Grok
 parent: Ingest processors
-grand_parent: Ingest pipelines
 nav_order: 140
 ---
 
@@ -17,7 +16,13 @@ The `grok` processor is used to parse and structure unstructured data using patt
 
 The `grok` processor uses a set of predefined patterns to match parts of the input text. Each pattern consists of a name and a regular expression. For example, the pattern `%{IP:ip_address}` matches an IP address and assigns it to the field `ip_address`. You can combine multiple patterns to create more complex expressions. For example, the pattern `%{IP:client} %{WORD:method} %{URIPATHPARM:request} %{NUMBER:bytes %NUMBER:duration}` matches a line from a web server access log and extracts the client IP address, the HTTP method, the request URI, the number of bytes sent, and the duration of the request.
 
+For a list of available predefined patterns, see [Grok patterns](https://github.com/opensearch-project/OpenSearch/blob/main/libs/grok/src/main/resources/patterns/grok-patterns).
+{: .tip}
+
 The `grok` processor is built on the [Oniguruma regular expression library](https://github.com/kkos/oniguruma/blob/master/doc/RE) and supports all the patterns from that library. You can use the [Grok Debugger](https://grokdebugger.com/) tool to test and debug your grok expressions.
+
+Note that patterns are *not anchored*. For performance and reliability, include a start-of-line anchor (`^`) in your pattern.
+{: .note}
 
 ## Syntax
 
@@ -31,7 +36,7 @@ The following is the basic syntax for the `grok` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 
@@ -43,6 +48,7 @@ Parameter | Required/Optional | Description |
 `patterns`  | Required  | A list of grok expressions used to match and extract named captures. The first matching expression in the list is returned. | 
 `pattern_definitions`  | Optional  | A dictionary of pattern names and pattern tuples used to define custom patterns for the current processor. If a pattern matches an existing name, it overrides the pre-existing definition. |
 `trace_match` | Optional | When the parameter is set to `true`, the processor adds a field named `_grok_match_index` to the processed document. This field contains the index of the pattern within the `patterns` array that successfully matched the document. This information can be useful for debugging and understanding which pattern was applied to the document. Default is `false`. |
+`capture_all_matches` | Optional | When set to `true`, captures all matches of repeated grok patterns instead of only the first match. For example, given the text `192.168.1.1 10.0.0.1 172.16.0.1` and the pattern `%{IP:ipAddress} %{IP:ipAddress} %{IP:ipAddress}`, all three IP addresses are collected into an array in the `ipAddress` field. Works only with explicitly repeated patterns, not with quantified patterns such as `(%{IP:ipAddress})+`. Default is `false`. |
 `description` | Optional | A brief description of the processor. |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
@@ -66,7 +72,7 @@ PUT _ingest/pipeline/log_line
     {
       "grok": {
         "field": "message",
-        "patterns": ["%{IPORHOST:clientip} %{HTTPDATE:timestamp} %{NUMBER:response_status:int}"]
+        "patterns": ["^%{IPORHOST:clientip} %{HTTPDATE:timestamp} %{NUMBER:response_status:int}"]
       }
     }
   ]
@@ -155,7 +161,7 @@ PUT _ingest/pipeline/log_line
     {
       "grok": {
         "field": "message",
-        "patterns": ["The issue number %{NUMBER:issue_number} is %{STATUS:status}"],
+        "patterns": ["^The issue number %{NUMBER:issue_number} is %{STATUS:status}"],
         "pattern_definitions" : {
           "NUMBER" : "\\d{3,4}",
           "STATUS" : "open|closed"
@@ -179,7 +185,7 @@ PUT _ingest/pipeline/log_line
     {  
       "grok": {  
         "field": "message",  
-        "patterns": ["%{HTTPDATE:timestamp} %{IPORHOST:clientip}", "%{IPORHOST:clientip} %{HTTPDATE:timestamp} %{NUMBER:response_status:int}"],  
+        "patterns": ["^%{HTTPDATE:timestamp} %{IPORHOST:clientip}", "%{IPORHOST:clientip} %{HTTPDATE:timestamp} %{NUMBER:response_status:int}"],
         "trace_match": true  
       }  
     }  

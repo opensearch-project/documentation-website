@@ -4,7 +4,7 @@ title: Hybrid search explain
 parent: Hybrid search
 grand_parent: AI search
 has_children: false
-nav_order: 50
+nav_order: 70
 ---
 
 # Hybrid search explain
@@ -195,8 +195,12 @@ The response contains scoring information:
 ```
 </details>
 
-### Response body fields
+## Response body fields
 
 Field | Description
 :--- | :---
 `explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` property shows the result of the calculation, `description` explains what type of calculation was performed, and `details` shows any subcalculations performed. For score normalization, the information in the `description` property includes the technique used for normalization or combination and the corresponding score. 
+
+## Next steps
+
+- To learn how to use `explain` with inner hits, see [Using inner hits in hybrid queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/inner-hits/).

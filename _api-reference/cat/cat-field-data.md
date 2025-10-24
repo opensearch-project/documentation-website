@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT field data
-parent: CAT API
+parent: CAT APIs
 nav_order: 15
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-field-data/
 ---
 
-# CAT Field Data
+# CAT Field Data API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -38,7 +38,8 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
-| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, and `p`. | N/A |
+| `fields` | List or String | A comma-separated list of fields used to limit the amount of returned information. | N/A |
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
@@ -49,24 +50,76 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example requests
 
-```json
-GET _cat/fielddata?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/fielddata?v
+-->
+{% capture step1_rest %}
+GET /_cat/fielddata?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.fielddata(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To limit the information to a specific field, add the field name after your query:
 
-```json
-GET _cat/fielddata/<field_name>?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/fielddata/<field_name>?v
+-->
+{% capture step1_rest %}
+GET /_cat/fielddata/<field_name>?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.fielddata(
+  fields = "<field_name>",
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to get information for more than one field, separate the field names with commas:
 
-```json
-GET _cat/fielddata/field_name_1,field_name_2,field_name_3
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/fielddata/field_name_1,field_name_2,field_name_3
+-->
+{% capture step1_rest %}
+GET /_cat/fielddata/field_name_1,field_name_2,field_name_3
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.fielddata(
+  fields = "field_name_1,field_name_2,field_name_3"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

@@ -7,7 +7,7 @@ nav_order: 41
 
 # Getting started
 
-To get started with threat intelligence, you'll need to set up your threat intelligence sources and set up monitors to scan your log sources. The following tutorial shows you how to get started using OpenSearch Dashboards. Alternatively, you can use the [API](({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/). 
+To get started with threat intelligence, you'll need to set up your threat intelligence sources and set up monitors to scan your log sources. The following tutorial shows you how to get started using OpenSearch Dashboards. Alternatively, you can use the [API]({{site.url}}{{site.baseurl}}/security-analytics/threat-intelligence/api/threat-intel-api/). 
 
 ## Threat intelligence view
 
@@ -67,25 +67,25 @@ When creating the role, customize the following settings:
 
 - Add the following custom trust policy:
 
-      ```bash
-      { 
-         "Version": "2012-10-17",
-          "Statement": [
-              {
-                  "Effect": "Allow",
-                  "Principal": {
-                      "Service": [
-                          "opensearchservice.amazonaws.com"
-                      ]
-                  },
-                  "Action": "sts:AssumeRole"
-              }
-          ]
-      }
-      ```
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "opensearchservice.amazonaws.com"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
       
 - On the Permissions policies page, add the `AmazonS3ReadOnlyAccess` permission. 
-   
+
 
 #### Cross-account S3 bucket connection
 
@@ -93,19 +93,19 @@ Because the role ARN needs to be in the same account as the OpenSearch domain, a
 
 To download from an S3 bucket in another account, the trust policy for that bucket needs to give the role ARN permission to read from the object, as shown in the following example:
 
-```
+```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-     {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::123456789012:role/account-1-threat-intel-role"
-            },
-          "Action": "s3:*",
-            "Resource": "arn:aws:s3:::account-2-threat-intel-bucket/*"
-     }
- ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::123456789012:role/account-1-threat-intel-role"
+      },
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::account-2-threat-intel-bucket/*"
+    }
+  ]
 }
 ```
 

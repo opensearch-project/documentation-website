@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT segments
-parent: CAT API
+parent: CAT APIs
 nav_order: 55
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-segments/
 ---
 
-# CAT segments
+# CAT Segments API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -39,7 +39,7 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
-| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, and `p`. | N/A |
 | `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
 | `h` | List | A comma-separated list of column names to display. | N/A |
@@ -51,24 +51,76 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example requests
 
-```json
-GET _cat/segments?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/segments?v
+-->
+{% capture step1_rest %}
+GET /_cat/segments?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.segments(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To see only the information about segments of a specific index, add the index name after your query.
 
-```json
-GET _cat/segments/<index>?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/segments/<index>?v
+-->
+{% capture step1_rest %}
+GET /_cat/segments/<index>?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.segments(
+  index = "<index>",
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to get information for more than one index, separate the indexes with commas:
 
-```json
-GET _cat/segments/index1,index2,index3
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/segments/index1,index2,index3
+-->
+{% capture step1_rest %}
+GET /_cat/segments/index1,index2,index3
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.segments(
+  index = "index1,index2,index3"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

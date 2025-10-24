@@ -32,13 +32,13 @@ Field masking works alongside field-level security on the same per-role, per-ind
 
 You can set the salt (a random string used to hash your data) in `opensearch.yml` using the optional `plugins.security.compliance.salt` setting. The salt value must fulfill the following requirements:
 
-- Must be at least 32 characters.
+- Must be at least 16 characters.
 - Use only ASCII characters.
 
 The following example shows a salt value:
 
 ```yml
-plugins.security.compliance.salt: abcdefghijklmnopqrstuvqxyz1234567890
+plugins.security.compliance.salt: abcdefghijklmnop
 ```
 
 Although setting the salt is optional, it is highly recommended.

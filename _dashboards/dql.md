@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Dashboards Query Language (DQL)
-nav_order: 130
+nav_order: 125
 redirect_from:
   - /dashboards/dql/
   - /dashboards/discover/dql/
@@ -21,7 +21,7 @@ The syntax changes to **Lucene**. To switch back to DQL, select the **Lucene** b
 
 ## Queries on analyzed text
 
-When running queries, understanding whether your fields are analyzed ([`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) type) or non-analyzed ([`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/) type) is crucial because it significantly impacts search behavior. In analyzed fields, text undergoes tokenization and filtering, while non-analyzed fields store exact values. For simple field queries like `wind`, searches against analyzed fields match documents containing `wind` regardless of case, while the same query on keyword fields requires exact matching of the full string. For more information about analyzed fields, see [Text analysis]({{site.url}}{{site.baseurl}}/analyzers/).
+When running queries, understanding whether your fields are analyzed ([`text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) type) or non-analyzed ([`keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/keyword/) type) is crucial because it significantly impacts search behavior. In analyzed fields, text undergoes tokenization and filtering, while non-analyzed fields store exact values. For simple field queries like `wind`, searches against analyzed fields match documents containing `wind` regardless of case, while the same query on keyword fields requires exact matching of the full string. For more information about analyzed fields, see [Text analysis]({{site.url}}{{site.baseurl}}/analyzers/).
 
 ## Setup
 
@@ -314,7 +314,7 @@ title: ((wind or windy) and not rises)
 
 To refer to an object's inner field, list the dot path of the field. 
 
-To index a document containing an object, follow the steps in the [object field type example]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/object/#example). To search the `name` field of the `patient` object, use the following syntax:
+To index a document containing an object, follow the steps in the [object field type example]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/object/#example). To search the `name` field of the `patient` object, use the following syntax:
 
 ```python
 patient.name: john
@@ -325,7 +325,7 @@ patient.name: john
 
 To refer to a nested object, list the JSON path of the field. 
 
-To index a document containing an object, follow the steps in the [nested field type example]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/#nested-field-type-1).
+To index a document containing an object, follow the steps in the [nested field type example]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/#nested-field-type-1).
 
 To search the `name` field of the `patients` object, use the following syntax:
 

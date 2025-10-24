@@ -4,7 +4,7 @@ title: Paginating hybrid query results
 parent: Hybrid search
 grand_parent: AI search
 has_children: false
-nav_order: 60
+nav_order: 20
 ---
 
 ## Paginating hybrid query results

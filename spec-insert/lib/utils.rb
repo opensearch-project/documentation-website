@@ -2,18 +2,19 @@
 
 require 'yaml'
 require_relative 'spec_hash'
-require_relative 'doc_processor'
 
 # Utility methods for the Spec-Insert
 module Utils
   REPO_ROOT = File.expand_path('../..', __dir__)
-  SPEC_FILE = File.join(REPO_ROOT, 'spec-insert/opensearch-openapi.yaml')
+  SPEC_INSERT_DIR = File.join(REPO_ROOT, 'spec-insert')
+  SPEC_FILE = File.join(SPEC_INSERT_DIR, 'opensearch-openapi.yaml')
   COMPONENTS = {
     'endpoints' => 'Endpoints',
     'query_parameters' => 'Query Parameters',
     'path_parameters' => 'Path Parameters',
     'request_body_parameters' => 'Request Body Parameters',
-    'response_body_parameters' => 'Response Body Parameters'
+    'response_body_parameters' => 'Response Body Parameters',
+    'example_code' => 'Example Code'
   }.freeze
 
   # @return [Array<String>] list of markdown files to insert the spec components into
@@ -43,21 +44,16 @@ module Utils
            "-o #{SPEC_FILE}"
   end
 
-  # @return [Hash] where each is an API/action name and each value is an array of generated component for that API
-  def self.utilized_components
-    @utilized_components ||= begin
-      logger = Logger.new(IO::NULL)
-      spec_inserts = target_files.flat_map { |file| DocProcessor.new(file, logger:).spec_inserts }
-      Set.new(spec_inserts.map { |insert| [insert.args.api, insert.args.component] })
-         .to_a.group_by(&:first).transform_values { |values| values.map(&:last) }
-    end
-  end
-
-  # @param [String] value
-  # @return [Boolean]
-  def self.parse_boolean(value)
-    return true if value == true || value =~ /^(true|t|yes|y|1)$/i
-    return false if value == false || value.nil? || value =~ /^(false|f|no|n|0)$/i
-    raise ArgumentError, "invalid value for Boolean: #{value}"
+  # @param [String] api
+  # @param [String] component
+  # @return [Array<string>] lines representing dummy marker used as input for SpecInsert
+  def self.dummy_marker(api, component)
+    [
+      '<!-- doc_insert_start',
+      "api: #{api}",
+      "component: #{component}",
+      '-->',
+      '<!-- spec_insert_end -->'
+    ]
   end
 end

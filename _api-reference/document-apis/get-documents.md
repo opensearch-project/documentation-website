@@ -3,15 +3,15 @@ layout: default
 title: Get document
 parent: Document APIs
 nav_order: 5
-redirect_from: 
+redirect_from:
  - /opensearch/rest-api/document-apis/get-documents/
 ---
 
-# Get document
+# Get Document API
 **Introduced 1.0**
 {: .label .label-purple }
 
-After adding a JSON document to your index, you can use the Get Document API operation to retrieve the document's information and data.
+After adding a JSON document to your index, you can use the get document API operation to retrieve the document's information and data.
 
 
 ## Endpoints
@@ -47,7 +47,7 @@ preference | String | Specifies a preference of which shard to retrieve results 
 realtime | Boolean | Specifies whether the operation should run in realtime. If false, the operation waits for the index to refresh to analyze the source to retrieve data, which makes the operation near-realtime. Default is `true`.
 refresh | Boolean | If true, OpenSearch refreshes shards to make the get operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`.
 routing | String | A value used to route the operation to a specific shard.
-stored_fields | Boolean | Whether the get operation should retrieve fields stored in the index. Default is `false`.
+stored_fields | List | A comma-separated list of fields stored in the index that should be retrieved. Default is no stored fields will be returned.
 _source | String | Whether to include the `_source` field in the response body. Default is `true`.
 _source_excludes | String | A comma-separated list of source fields to exclude in the query response.
 _source_includes | String | A comma-separated list of source fields to include in the query response.
@@ -56,7 +56,7 @@ version_type | Enum | Retrieves a specifically typed document. Available options
 
 ### Real time
 
-The OpenSearch Get Document API operates in real time by default, which means that it retrieves the latest version of the document regardless of the index's refresh rate or the rate at which new data becomes searchable. However, if you request stored fields (using the `stored_fields` parameter) for a document that has been updated but not yet refreshed, then the Get Document API parses and analyzes the document's source to extract those stored fields. 
+The OpenSearch Get Document API operates in real time by default, which means that it retrieves the latest version of the document regardless of the index's refresh rate or the rate at which new data becomes searchable. However, if you request stored fields (using the `stored_fields` parameter) for a document that has been updated but not yet refreshed, then the Get Document API parses and analyzes the document's source to extract those stored fields.
 
 To disable the real-time behavior and retrieve the document based on the last refreshed state of the index, set the `realtime` parameter to `false`.
 
@@ -70,7 +70,7 @@ GET test-index/_doc/0?_source=false
 
 #### `source` includes and excludes
 
-If you only want to retrieve specific fields from the source, use the `_source_includes` or `_source_excludes` parameters to include or exclude particular fields, respectively. This can be beneficial for large documents because retrieving only the required fields can reduce network overhead. 
+If you only want to retrieve specific fields from the source, use the `_source_includes` or `_source_excludes` parameters to include or exclude particular fields, respectively. This can be beneficial for large documents because retrieving only the required fields can reduce network overhead.
 
 Both parameters accept a comma-separated list of fields and wildcard expressions, as shown in the following example, where any `_source` that contains `*.play` is included in the response but sources with the field `entities` are excluded:
 
@@ -108,7 +108,7 @@ However, you can specify a preference to influence the replica selection. The pr
 
 ### Refresh
 
-Set the `refresh` parameter to `true` to force a refresh of the relevant shard before running the Get Document API operation. This ensures that the most recent data changes are made searchable and visible to the API. However, a refresh should be performed judiciously because it can potentially impose a heavy load on the system and slow down indexing performance. It's recommended to carefully evaluate the trade-off between data freshness and system load before enabling the `refresh` parameter.
+Set the `refresh` parameter to `true` to force a refresh of the relevant shard before running the get document API operation. This ensures that the most recent data changes are made searchable and visible to the API. However, a refresh should be performed judiciously because it can potentially impose a heavy load on the system and slow down indexing performance. It's recommended to carefully evaluate the trade-off between data freshness and system load before enabling the `refresh` parameter.
 
 ### Distributed
 
@@ -126,10 +126,28 @@ Internally, when a document is updated in OpenSearch, the original version is ma
 
 The following example request retrieves information about a document named `1`:
 
-```json
-GET sample-index1/_doc/1
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /sample-index1/_doc/1
+-->
+{% capture step1_rest %}
+GET /sample-index1/_doc/1
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get(
+  id = "1",
+  index = "sample-index1"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

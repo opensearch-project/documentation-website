@@ -3,7 +3,7 @@ layout: default
 title: ML inference (response) 
 nav_order: 40
 has_children: false
-parent: Search processors
+parent: User-defined search processors
 grand_parent: Search pipelines
 ---
 
@@ -189,7 +189,7 @@ The following is the final configuration of the `ml_inference` search response p
 PUT /_search/pipeline/ml_inference_pipeline_local
 {
   "description": "search passage and generates embeddings",
-  "processors": [
+  "response_processors": [
     {
       "ml_inference": {
         "function_name": "text_embedding",
@@ -289,7 +289,7 @@ The following example shows you how to create a search pipeline for an externall
 PUT /_search/pipeline/ml_inference_pipeline
 {
   "description": "Generate passage_embedding when search documents",
-  "processors": [
+  "response_processors": [
     {
       "ml_inference": {
         "model_id": "<your model id>",

@@ -5,11 +5,11 @@ parent: Nodes APIs
 nav_order: 20
 ---
 
-# Nodes stats
+# Nodes Stats API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The nodes stats API returns statistics about your cluster.
+The Nodes Stats API returns statistics about your cluster.
 
 ## Endpoints
 
@@ -44,7 +44,7 @@ thread_pool | Statistics about each thread pool for the node.
 fs | File system statistics, such as read/write statistics, data path, and free disk space.
 transport | Transport layer statistics about send/receive in cluster communication.
 http | Statistics about the HTTP layer.
-breakers | Statistics about the field data circuit breakers.
+breaker | Statistics about the field data circuit breakers.
 script | Statistics about scripts, such as compilations and cache evictions. 
 discovery | Statistics about cluster states.
 ingest | Statistics about ingest pipelines.
@@ -87,10 +87,28 @@ The following index metrics are supported:
 
 For example, the following query requests statistics for `docs` and `search`:
 
-```json
-GET _nodes/stats/indices/docs,search
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/stats/indices/docs,search
+-->
+{% capture step1_rest %}
+GET /_nodes/stats/indices/docs,search
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.stats(
+  metric = "indices",
+  index_metric = "docs,search"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 You can also use specific `index_metric` values in the `caches` metric to specify which caches will return statistics. 
 The following index metrics are supported: 
@@ -99,10 +117,28 @@ The following index metrics are supported:
 
 For example, the following query requests statistics for the `request_cache`: 
 
-```json
-GET _nodes/stats/caches/request_cache
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/stats/caches/request_cache
+-->
+{% capture step1_rest %}
+GET /_nodes/stats/caches/request_cache
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.stats(
+  metric = "caches",
+  index_metric = "request_cache"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Query parameters
 
@@ -120,10 +156,27 @@ include_segment_file_sizes | Boolean | If segment statistics are requested, this
 
 ## Example request
 
-```json
-GET _nodes/stats/
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/stats
+-->
+{% capture step1_rest %}
+GET /_nodes/stats
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  node_id_or_metric = "stats"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
@@ -280,7 +333,8 @@ Select the arrow to view the example response.
         },
         "fielddata" : {
           "memory_size_in_bytes" : 356,
-          "evictions" : 0
+          "evictions" : 0,
+          "item_count": 1
         },
         "completion" : {
           "size_in_bytes" : 0,
@@ -877,10 +931,15 @@ search.concurrent_avg_slice_count	| Integer | The average slice count of all sea
 search.concurrent_query_total	|Integer | The total number of query operations that use concurrent segment search.	
 search.concurrent_query_time_in_millis	| Integer | The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.	
 search.concurrent_query_current	|Integer | The number of currently running query operations that use concurrent segment search.	
+search.startree_query_total | Integer | The total number of query operations that use a star tree for search.	
+search.startree_query_time_in_millis | Integer | The total amount of time taken by all query operations that use a star tree for search, in milliseconds.	
+search.startree_query_current | Integer | The number of currently running query operations that use a star tree for search.	
+search.startree_query_failed | Integer | The number of failed query operations that use a star tree for search.
 search.open_contexts | Integer | The number of open search contexts.
 search.query_total | Integer | The total number of shard query operations.
 search.query_time_in_millis | Integer | The total amount of time for all shard query operations, in milliseconds.
 search.query_current | Integer | The number of shard query operations that are currently running.
+search.query_failed | Integer | The total number of failed shard query operations.
 search.fetch_total | Integer | The total number of shard fetch operations.
 search.fetch_time_in_millis | Integer | The total amount of time for all shard fetch operations, in milliseconds.
 search.fetch_current | Integer | The number of shard fetch operations that are currently running.
@@ -952,6 +1011,7 @@ query_cache.evictions | Integer | The number of evictions from the query cache.
 fielddata | Object | Statistics about the field data cache for all shards in the node.
 fielddata.memory_size_in_bytes | Integer | The total amount of memory used for the field data cache for all shards in the node.
 fielddata.evictions | Integer | The number of evictions in the field data cache.
+fielddata.item_count | Integer | The number of items in the field data cache.
 fielddata.fields | Object | Contains all field data fields.
 completion | Object | Statistics about completions for all shards in the node.
 completion.size_in_bytes | Integer | The total amount of memory used for completion for all shards in the node, in bytes.

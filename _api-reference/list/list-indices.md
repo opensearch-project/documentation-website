@@ -6,7 +6,7 @@ nav_order: 25
 has_children: false
 ---
 
-# List indices
+# List Indices API
 **Introduced 2.18**
 {: .label .label-purple }
 
@@ -53,17 +53,53 @@ GET _list/indices/<index>?v&next_token=token
 
 To limit the information to a specific index, add the index name after your query, as shown in the following example:
 
-```json
-GET _list/indices/<index>?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_list/indices/<index>?v
+-->
+{% capture step1_rest %}
+GET /_list/indices/<index>?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.list.indices(
+  index = "<index>",
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To get information about more than one index, separate the indexes with commas, as shown in the following example:
 
-```json
-GET _list/indices/index1,index2,index3?v&next_token=token
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_list/indices/index1,index2,index3?v&next_token=token
+-->
+{% capture step1_rest %}
+GET /_list/indices/index1,index2,index3?v&next_token=token
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.list.indices(
+  index = "index1,index2,index3",
+  params = { "v": "true", "next_token": "token" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response
@@ -79,5 +115,21 @@ next_token MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==
 **JSON format**
 
 ```json
-{"next_token":"MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==","indices":[{"health":"green","status":"open","index":"movies","uuid":"UZbpfERBQ1-3GSH2bnM3sg","pri":"1","rep":"1","docs.count":"1","docs.deleted":"0","store.size":"7.7kb","pri.store.size":"3.8kb"}]}
+{
+  "next_token": "MTcyOTE5NTQ5NjM5N3wub3BlbnNlYXJjaC1zYXAtbG9nLXR5cGVzLWNvbmZpZw==",
+  "indices": [
+    {
+      "health": "green",
+      "status": "open",
+      "index": "movies",
+      "uuid": "UZbpfERBQ1-3GSH2bnM3sg",
+      "pri": "1",
+      "rep": "1",
+      "docs.count": "1",
+      "docs.deleted": "0",
+      "store.size": "7.7kb",
+      "pri.store.size": "3.8kb"
+    }
+  ]
+}
 ```

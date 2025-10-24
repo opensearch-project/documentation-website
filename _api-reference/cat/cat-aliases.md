@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CAT aliases
-parent: CAT API
+parent: CAT APIs
 redirect_from:
 - /opensearch/rest-api/cat/cat-aliases/
 
@@ -9,7 +9,7 @@ nav_order: 1
 has_children: false
 ---
 
-# CAT aliases
+# CAT Aliases API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -41,7 +41,7 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
-| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with open, closed, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
+| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with `open`, `closed`, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
@@ -54,24 +54,78 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example requests
 
-```json
-GET _cat/aliases?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases?v
+-->
+{% capture step1_rest %}
+GET /_cat/aliases?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To limit the information to a specific alias, add the alias name after your query:
 
-```json
-GET _cat/aliases/<alias>?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases/<alias>?v
+-->
+{% capture step1_rest %}
+GET /_cat/aliases/<alias>?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  name = "<alias>",
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to get information for more than one alias, separate the alias names with commas:
 
-```json
-GET _cat/aliases/alias1,alias2,alias3
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases/alias1,alias2,alias3
+body: 
+-->
+{% capture step1_rest %}
+GET /_cat/aliases/alias1,alias2,alias3
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  name = "alias1,alias2,alias3"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

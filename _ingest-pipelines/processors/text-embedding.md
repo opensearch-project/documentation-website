@@ -27,7 +27,7 @@ The following is the syntax for the `text_embedding` processor:
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 
@@ -45,6 +45,7 @@ The following table lists the required and optional parameters for the `text_emb
 `if` | String containing a Boolean expression | Optional | A condition for running the processor.|
 `ignore_failure` | Boolean | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the processor failure is ignored. Default is `false`.|
 `on_failure` | List | Optional | A list of processors to run if the processor fails. |
+`skip_existing` | Boolean | Optional | When `true`, the processor does not make inference calls for fields that already contain embeddings, leaving existing embeddings unchanged. Default is `false`.|
 
 ## Using the processor
 

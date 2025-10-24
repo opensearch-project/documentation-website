@@ -4,7 +4,7 @@ title: Vector search
 nav_order: 35
 ---
 
-# Vector search
+# Vector search workload
 
 The vector search workload benchmarks OpenSearch's vector engine capabilities for both indexing and search operations. It tests various vector search algorithms, quantization methods, and index configurations to measure performance metrics like throughput, latency, and recall accuracy. The workload supports different datasets and can evaluate both trained and untrained vector search methods.
 
@@ -54,7 +54,7 @@ The vector search workload supports the following test procedures.
 
 ### No-train test procedure
 
-The no-train test procedure tests vector search indexes that require no training. You can define the underlying configuration of the vector search algorithm (such as specifying a specific engine or space type) as method definitions. 
+The no-train test procedure tests vector search indexes that require no training. You can define the underlying configuration of the vector search algorithm (such as specifying a specific engine or space type) as method definitions.
 
 ### No-train test (index only) procedure
 
@@ -88,7 +88,7 @@ To run the vector search workload, use the following command:
 export ENDPOINT=<cluster-endpoint>
 export PARAMS_FILE=<params-file-path>
 
-opensearch-benchmark execute-test \
+opensearch-benchmark run \
     --target-hosts $ENDPOINT \
     --workload vectorsearch \
     --workload-params ${PARAMS_FILE} \
@@ -114,7 +114,7 @@ The following example provides results from the train test procedure:
  / __/ / / / / / /_/ / /   ___/ / /__/ /_/ / /  /  __/
 /_/   /_/_/ /_/\__,_/_/   /____/\___/\____/_/   \___/
 ------------------------------------------------------
-            
+
 |                                                         Metric |               Task |       Value |   Unit |
 |---------------------------------------------------------------:|-------------------:|------------:|-------:|
 |                     Cumulative indexing time of primary shards |                    |  0.00946667 |    min |
@@ -187,9 +187,9 @@ The following example provides results from the train test procedure:
 |                                                     error rate |       prod-queries |           0 |      % |
 
 
----------------------------------
-[INFO] SUCCESS (took 119 seconds)
----------------------------------
+------------------------------------
+[INFO] ✅ SUCCESS (took 119 seconds)
+------------------------------------
 ```
 
 ### Faiss results
@@ -317,14 +317,14 @@ The following sample outputs were generated using the Faiss IVF benchmarking pro
 |                                                  Mean recall@1 |             prod-queries |        0.99 |        |
 
 
----------------------------------
-[INFO] SUCCESS (took 218 seconds)
----------------------------------
+------------------------------------
+[INFO] ✅ SUCCESS (took 218 seconds)
+------------------------------------
 ```
 
 #### Faiss IVF with scalar quantization (100 search queries)
 
-```         
+```
 |                                                         Metric |                     Task |       Value |   Unit |
 |---------------------------------------------------------------:|-------------------------:|------------:|-------:|
 |                     Cumulative indexing time of primary shards |                          |        11.5 |    min |
@@ -442,14 +442,14 @@ The following sample outputs were generated using the Faiss IVF benchmarking pro
 |                                                  Mean recall@1 |             prod-queries |        0.98 |        |
 
 
----------------------------------
-[INFO] SUCCESS (took 218 seconds)
----------------------------------
+------------------------------------
+[INFO] ✅ SUCCESS (took 218 seconds)
+------------------------------------
 ```
 
 #### Faiss IVF with product quantization (100 search queries)
 
-```            
+```
 |                                                         Metric |                     Task |       Value |   Unit |
 |---------------------------------------------------------------:|-------------------------:|------------:|-------:|
 |                     Cumulative indexing time of primary shards |                          |     11.3862 |    min |
@@ -566,7 +566,7 @@ The following sample outputs were generated using the Faiss IVF benchmarking pro
 |                                                  Mean recall@k |             prod-queries |        0.62 |        |
 |                                                  Mean recall@1 |             prod-queries |        0.52 |        |
 
----------------------------------
-[INFO] SUCCESS (took 413 seconds)
----------------------------------
+------------------------------------
+[INFO] ✅ SUCCESS (took 413 seconds)
+------------------------------------
 ```

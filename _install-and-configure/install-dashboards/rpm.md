@@ -22,22 +22,22 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
 1. Download the RPM package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be download for both **x64** and **arm64** architectures.
 1. Import the public GPG key. This key verifies that your OpenSearch instance is signed.
     ```bash
-    sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
+    sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch-release.pgp
     ```
 1. From the command line interface (CLI), you can install the package with `rpm` or `yum`.
     **x64**
     ```bash
     # Install the x64 package using yum.
-    sudo yum install opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
+    sudo yum install opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
     # Install the x64 package using rpm.
-    sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
+    sudo rpm -ivh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
     ```
     **arm64**
     ```bash
     # Install the arm64 package using yum.
-    sudo yum install opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.rpm
+    sudo yum install opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.rpm
     # Install the arm64 package using rpm.
-    sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.rpm
+    sudo rpm -ivh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.rpm
     ```
 1. After the installation succeeds, enable OpenSearch Dashboards as a service.
     ```bash
@@ -79,11 +79,11 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
    ```
    - To install a specific version of OpenSearch Dashboards:
    ```bash
-   sudo yum install 'opensearch-dashboards-{{site.opensearch_version}}'
+   sudo yum install 'opensearch-dashboards-{{site.opensearch_dashboards_version}}'
    ```
 1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
    ```bash
-   Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
+   Fingerprint: A8B2 D9E0 4CD5 1FEF 6AA2 DB53 BA81 D999 8119 1457
    ```
     - If correct, enter `yes` or `y`. The OpenSearch installation continues.
 1. Once complete, you can run OpenSearch Dashboards.
@@ -103,7 +103,7 @@ Download the RPM package for the desired upgrade version directly from the [Open
 Navigate to the directory containing the distribution and run the following command:
 
 ```bash
-rpm -Uvh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
+rpm -Uvh opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.rpm
 ```
 {% include copy.html %}
 

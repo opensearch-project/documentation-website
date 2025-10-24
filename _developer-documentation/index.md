@@ -14,7 +14,6 @@ redirect_from:
 We welcome your contributions to the OpenSearch Project. Here are some helpful links to explore the OpenSearch repositories and learn how to contribute:
 
 - [OpenSearch Project GitHub repo](https://github.com/opensearch-project/)
-- [Javadoc documentation](https://opensearch.org/javadocs/)
 - [Getting started as an OpenSearch contributor](https://github.com/opensearch-project/.github/blob/main/ONBOARDING.md)
 - [OpenSearch Dashboards Developer Guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/DEVELOPER_GUIDE.md)
 - [OpenSearch release schedule and maintenance policy](https://opensearch.org/releases.html)

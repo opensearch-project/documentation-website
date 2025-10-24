@@ -1,0 +1,39 @@
+# Migration paths for Migration Assistant
+migration_paths:
+  - source: "Elasticsearch 1.x"
+    targets:
+      - "OpenSearch 1.x"
+      - "OpenSearch 2.x"
+      - "OpenSearch 3.x"
+  - source: "Elasticsearch 2.x"
+    targets:
+      - "OpenSearch 1.x"
+      - "OpenSearch 2.x"
+      - "OpenSearch 3.x"
+  - source: "Elasticsearch 5.x"
+    targets: 
+      - "OpenSearch 1.x"
+      - "OpenSearch 2.x"
+      - "OpenSearch 3.x"
+  - source: "Elasticsearch 6.x"
+    targets:
+      - "OpenSearch 1.x"
+      - "OpenSearch 2.x"
+      - "OpenSearch 3.x"
+  - source: "Elasticsearch 7.x"
+    targets:
+      - "OpenSearch 1.x"
+      - "OpenSearch 2.x"
+      - "OpenSearch 3.x"
+  - source: "Elasticsearch 8.x"
+    targets:
+      - "OpenSearch 2.x"
+      - "OpenSearch 3.x"
+  - source: "OpenSearch 1.x"
+    targets:
+      - "OpenSearch 2.x"
+      - "OpenSearch 3.x"
+  - source: "OpenSearch 2.x"
+    targets:
+      - "OpenSearch 2.x"
+      - "OpenSearch 3.x"

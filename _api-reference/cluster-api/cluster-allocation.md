@@ -8,7 +8,7 @@ redirect_from:
  - /opensearch/rest-api/cluster-allocation/
 ---
 
-# Cluster allocation explain
+# Cluster Allocation Explain API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -47,15 +47,43 @@ shard | Integer | The shard ID that you want an explanation for.
 
 ## Example request
 
-```json
-GET _cluster/allocation/explain?include_yes_decisions=true
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/allocation/explain?include_yes_decisions=true
+body: |
 {
   "index": "movies",
   "shard": 0,
   "primary": true
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_cluster/allocation/explain?include_yes_decisions=true
+{
+  "index": "movies",
+  "shard": 0,
+  "primary": true
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.allocation_explain(
+  params = { "include_yes_decisions": "true" },
+  body =   {
+    "index": "movies",
+    "shard": 0,
+    "primary": true
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

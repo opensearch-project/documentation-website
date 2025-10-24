@@ -3,10 +3,12 @@ layout: default
 title: Take and restore snapshots
 parent: Snapshots
 nav_order: 10
+has_toc: false
 has_children: false
 grand_parent: Availability and recovery
 redirect_from: 
   - /opensearch/snapshots/snapshot-restore/
+  - /upgrade-to/snapshot-migrate/
   - /opensearch/snapshot-restore/
   - /availability-and-recovery/snapshots/snapshot-restore/
 ---
@@ -78,7 +80,7 @@ You will most likely not need to specify any parameters except for `location`. F
    sudo ./bin/opensearch-plugin install repository-s3
    ```
 
-   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins). Your `Dockerfile` should look something like this:
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#working-with-plugins). Your `Dockerfile` should look similar to the following:
 
    ```
    FROM opensearchproject/opensearch:{{site.opensearch_version}}
@@ -190,17 +192,34 @@ You will most likely not need to specify any parameters except for `location`. F
 
    ```json
    {
-	   "Version": "2012-10-17",
-	   "Statement": [{
-		   "Action": [
-			   "s3:*"
-		   ],
-		   "Effect": "Allow",
-		   "Resource": [
-			   "arn:aws:s3:::your-bucket",
-			   "arn:aws:s3:::your-bucket/*"
-		   ]
-	   }]
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Action": [
+           "s3:GetBucketLocation",
+           "s3:ListBucket",
+           "s3:ListBucketMultipartUploads",
+           "s3:ListBucketVersions"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+           "arn:aws:s3:::your-bucket"
+         ]
+       },
+       {
+         "Action": [
+           "s3:AbortMultipartUpload",
+           "s3:DeleteObject",
+           "s3:GetObject",
+           "s3:ListMultipartUploadParts",
+           "s3:PutObject"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+           "arn:aws:s3:::your-bucket/*"
+         ]
+       }
+     ]
    }
    ```
 
@@ -220,6 +239,62 @@ You will most likely not need to specify any parameters except for `location`. F
 
 You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
+### HDFS
+
+To use Hadoop Distributed File System (HDFS) as a snapshot repository, follow these steps:
+
+1. Create an HDFS directory for snapshots (for example, `/opensearch/repositories/searchable_snapshots`) and ensure that the OpenSearch user has read and write permissions to it.
+
+1. Install the `repository-hdfs` plugin on all nodes:
+
+   ```bash
+   sudo ./bin/opensearch-plugin install repository-hdfs
+   ```
+
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#working-with-plugins). Your `Dockerfile` should look similar to the following:
+
+   ```
+   FROM opensearchproject/opensearch:{{site.opensearch_version}}
+
+   RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-hdfs
+   ```
+
+1. (Optional) If your HDFS cluster uses Kerberos, you may need to distribute the keytab file to all nodes and ensure that the OpenSearch user has read access.
+
+1. Restart all nodes in the OpenSearch cluster.
+
+1. Register the repository using the OpenSearch Snapshot API:
+
+    Without HDFS authentication:
+
+    ```json
+    PUT _snapshot/searchable_snapshots
+    {
+      "type": "hdfs",
+      "settings": {
+        "uri": "hdfs://namenode:8020/",
+        "path": "/opensearch/repositories/searchable_snapshots",
+        "conf.<key>": "<value>"
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+
+    With HDFS authentication:
+
+    ```json
+    PUT _snapshot/searchable_snapshots
+    {
+      "type": "hdfs",
+      "settings": {
+        "uri": "hdfs://namenode:8020/",
+        "path": "/opensearch/repositories/searchable_snapshots",
+        "security.principal": "opensearch@YOURREALM",
+        "conf.<key>": "<value>"
+      }
+    }
+    ```
+    {% include copy-curl.html %}
 
 ### Registering a Microsoft Azure storage account using Helm 
 
@@ -387,12 +462,7 @@ PUT /_snapshot/my-repository/2
 ```
 {% include copy-curl.html %}
 
-Request fields | Description
-:--- | :---
-`indices` | The indexes you want to include in the snapshot. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.
-`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is `false`.
-`include_global_state` | Whether to include cluster state in the snapshot. Default is `true`.
-`partial` | Whether to allow partial snapshots. Default is `false`, which fails the entire snapshot if one or more shards fails to store.
+For more information, see [Create Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot/).
 
 If you request the snapshot immediately after taking it, you might see something like this:
 
@@ -415,6 +485,8 @@ GET /_snapshot/my-repository/2
 }
 ```
 {% include copy-curl.html %}
+
+For more information, see [Get Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot/).
 
 Note that the snapshot is still in progress. If you want to wait for the snapshot to finish before continuing, add the `wait_for_completion` parameter to your request. Snapshots can take a while to complete, so consider whether or not this option fits your use case:
 
@@ -486,20 +558,7 @@ POST /_snapshot/my-repository/2/_restore
 ```
 {% include copy-curl.html %}
 
-Request parameters | Description
-:--- | :---
-`indices` | The indexes you want to restore. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.
-`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is `false`.
-`include_global_state` | Whether to restore the cluster state. Default is `false`.
-`include_aliases` | Whether to restore aliases alongside their associated indexes. Default is `true`.
-`partial` | Whether to allow the restoration of partial snapshots. Default is `false`.
-`rename_pattern` | If you want to rename indexes, use this option to specify a regular expression that matches all the indexes that you want to restore and rename. Use capture groups (`()`) to reuse portions of the index name.
-`rename_replacement` | If you want to rename indexes, use this option to specify the name replacement pattern. Use `$0` to include the entire matching index name or the number of the capture group. For example, `$1` would include the content of the first capture group.
-`rename_alias_pattern` | If you want to rename aliases, use this option to specify a regular expression that matches all the aliases you want to restore and rename. Use capture groups (`()`) to reuse portions of the alias name.
-`rename_alias_replacement` | If you want to rename aliases, use this option to specify the name replacement pattern. Use `$0` to include the entire matching alias name or the number of the capture group. For example, `$1` would include the content of the first capture group.
-`index_settings` | If you want to change [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) applied during the restore operation, specify them here. You cannot change `index.number_of_shards`.
-`ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults applied during restore. You cannot ignore `index.number_of_shards`, `index.number_of_replicas`, or `index.auto_expand_replicas`.
-`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
+For more information, see [Restore Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/restore-snapshot/).
 
 ### Conflicts and compatibility
 
@@ -550,3 +609,7 @@ We strongly recommend against restoring `.opendistro_security` using an admin ce
 ## Index codec considerations
 
 For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#snapshots).
+
+## Related articles
+
+- [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/)

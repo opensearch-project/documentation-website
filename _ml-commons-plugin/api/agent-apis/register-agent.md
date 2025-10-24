@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Register an agent
+# Register Agent API
 **Introduced 2.13**
 {: .label .label-purple }
 
@@ -14,18 +14,18 @@ Use this API to register an agent.
 
 Agents may be of the following types:
 
-- Flow agent
-- Conversational flow agent
-- Conversational agent
+- _Flow_ agent
+- _Conversational flow_ agent
+- _Conversational agent_
+- _Plan-execute-reflect_ agent
 
-For more information about agents, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).
+For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
 ## Endpoints
 
 ```json
 POST /_plugins/_ml/agents/_register
 ```
-{% include copy-curl.html %}
 
 ## Request body fields
 
@@ -34,24 +34,37 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Agent type | Description
 :---  | :--- | :--- | :--- | :---
 `name`| String | Required | All | The agent name. |
-`type` | String | Required | All | The agent type. Valid values are `flow`, `conversational_flow`, and `conversational`. For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/). |
+`type` | String | Required | All | The agent type. Valid values are [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/), [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/), [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/), and [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/). For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). |
 `description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
 `memory.type` | String | Optional | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. Currently, the only supported type is `conversation_index` (store the memory in a conversational system index).
 `llm.model_id` | String | Required | `conversational` | The model ID of the LLM to which to send questions.
 `llm.parameters.response_filter` | String | Required | `conversational` | The pattern for parsing the LLM response. For each LLM, you need to provide the field where the response is located. For example, for the Anthropic Claude model, the response is located in the `completion` field, so the pattern is `$.completion`. For OpenAI models, the pattern is `$.choices[0].message.content`.
-`llm.parameters.max_iteration` | Integer | Optional | `conversational` | The maximum number of messages to send to the LLM. Default is `3`.
+`llm.parameters.max_iteration` | Integer | Optional | `conversational` | The maximum number of messages to send to the LLM. Default is `10`.
+`parameters` | Object | Optional | All | Agent parameters, which may be used to control the `max_steps` executed by the agent, modify default prompts, and so on.
+`parameters.executor_agent_id`| Integer | Optional | `plan_execute_and_reflect` | The `plan_execute_and_reflect` agent internally uses a `conversational` agent to execute each step. By default, this executor agent uses the same model as the planning model specified in the `llm` configuration. To use a different model for executing steps, create a `conversational` agent using another model and pass the agent ID in this field. This can be useful if you want to use different models for planning and execution.
+`parameters.max_steps` | Integer | Optional | `plan_execute_and_reflect` | The maximum number of steps executed by the LLM. Default is `20`.
+`parameters.executor_max_iterations` | Integer | Optional | `plan_execute_and_reflect` | The maximum number of messages sent to the LLM by the executor agent. Default is `20`.
+`parameters.message_history_limit` | Integer | Optional | `plan_execute_and_reflect` | The number of recent messages from conversation memory to include as context for the planner. Default is `10`. 
+`parameters.executor_message_history_limit` | Integer | Optional | `plan_execute_and_reflect` | The number of recent messages from conversation memory to include as context for the executor. Default is `10`.
+`parameters._llm_interface` | String | Required | `plan_execute_and_reflect`, `conversational` | Specifies how to parse the LLM output when using function calling. Valid values are: <br> - `bedrock/converse/claude`: Anthropic Claude conversational models hosted on Amazon Bedrock  <br> - `bedrock/converse/deepseek_r1`: DeepSeek-R1 models hosted on Amazon Bedrock <br> - `openai/v1/chat/completions`: OpenAI chat completion models hosted on OpenAI. Each interface defines a default response schema and function call parser.
+`inject_datetime` | Boolean | Optional | `conversational`, `plan_execute_and_reflect` | Whether to automatically inject the current date into the system prompt. Default is `false`.
+`datetime_format` | String | Optional | `conversational`, `plan_execute_and_reflect` | A format string for dates used when `inject_datetime` is enabled. Default is `"yyyy-MM-dd'T'HH:mm:ss'Z'"` (ISO format).
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :---
+`type` | String | Required | The tool type. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 `name`| String | Optional | The tool name. The tool name defaults to the `type` parameter value. If you need to include multiple tools of the same type in an agent, specify different names for the tools. |
-`type` | String | Required | The tool type. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). 
+`description`| String | Optional | The tool description. Defaults to a built-in description for the specified type. | 
 `parameters` | Object | Optional | The parameters for this tool. The parameters are highly dependent on the tool type. You can find information about specific tool types in [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+`parameters.output_processors` | Array | Optional | A list of processors used to transform the tool's output. For more information, see [Processor chain]({{site.url}}{{site.baseurl}}/ml-commons-plugin/processor-chain/).
+`attributes.input_schema` | Object | Optional | The expected input format for this tool defined as a [JSON schema](https://json-schema.org/). Used to define the structure the LLM should follow when calling the tool.
+`attributes.strict` | Boolean | Optional | Whether function calling reliably adheres to the input schema or not.
 
-#### Example request: Flow agent
+## Example request: Flow agent
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -86,7 +99,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-#### Example request: Conversational flow agent
+## Example request: Conversational flow agent
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -137,7 +150,7 @@ Assistant:"""
 ```
 {% include copy-curl.html %}
 
-#### Example request: Conversational agent
+## Example request: Conversational agent
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -173,7 +186,7 @@ POST /_plugins/_ml/agents/_register
       }
     },
     {
-      "type": "CatIndexTool",
+      "type": "ListIndexTool",
       "name": "RetrieveIndexMetaTool",
       "description": "Use this tool to get OpenSearch index information: (health, status, index, uuid, primary count, replica count, docs.count, docs.deleted, store.size, primary.store.size)."
     }
@@ -182,7 +195,45 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example request: Plan-execute-reflect agent
+**Introduced 3.0**
+{: .label .label-purple }
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "My plan execute and reflect agent",
+  "type": "plan_execute_and_reflect",
+  "description": "this is a test agent",
+  "llm": {
+    "model_id": "<llm_model_id>",
+    "parameters": {
+      "prompt": "${parameters.question}"
+    }
+  },
+  "memory": {
+    "type": "conversation_index"
+  },
+  "parameters": {
+    "_llm_interface": "<llm_interface>"
+  },
+  "tools": [
+    {
+      "type": "ListIndexTool"
+    },
+    {
+      "type": "SearchIndexTool"
+    },
+    {
+      "type": "IndexMappingTool"
+    }
+  ],
+  "app_type": "os_chat"
+}
+```
+{% include copy-curl.html %}
+
+## Example response
 
 OpenSearch responds with an agent ID that you can use to refer to the agent:
 

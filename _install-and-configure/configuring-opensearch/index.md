@@ -4,8 +4,8 @@ title: Configuring OpenSearch
 nav_order: 10
 has_children: true
 redirect_from:
-  - /install-and-configure/configuring-opensearch/
   - /opensearch/configuration/
+  - /install-and-configure/configuring-opensearch/
 ---
 
 # Configuring OpenSearch
@@ -23,13 +23,13 @@ Whenever possible, use the Cluster Settings API; `opensearch.yml` is local to ea
 
 Certain operations are static and require you to modify the `opensearch.yml` [configuration file](#configuration-file) and restart the cluster. In general, these settings relate to networking, cluster formation, and the local file system. To learn more, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
-## Specifying settings as environment variables
+## Specifying configuration settings at startup
 
-You can specify environment variables in the following ways.
+You can specify configuration settings in the following ways.
 
-### Arguments at startup
+### Flags at startup
 
-You can specify environment variables as arguments using `-E` when launching OpenSearch:
+You can pass the configuration directly to the JVM process at startup using the `-E` flag when launching OpenSearch:
 
 ```bash
 ./opensearch -Ecluster.name=opensearch-cluster -Enode.name=opensearch-node1 -Ehttp.host=0.0.0.0 -Ediscovery.type=single-node
@@ -148,12 +148,13 @@ The demo configuration includes a number of [settings for the Security plugin]({
 
 ### (Optional) CORS header configuration
 
-If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine. Use [Cross Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so that your application can make calls to the OpenSearch API running locally. Add the following lines in your `custom-opensearch.yml` file (note that the "-" must be the first character in each line).
+If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine. Use [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so that your application can make calls to the OpenSearch API running locally. Add the following lines in your `custom-opensearch.yml` file:
+
 ```yml
-- http.host:0.0.0.0
-- http.port:9200
-- http.cors.allow-origin:"http://localhost"
-- http.cors.enabled:true
-- http.cors.allow-headers:X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
-- http.cors.allow-credentials:true
+http.host: 0.0.0.0
+http.port: 9200
+http.cors.allow-origin: "http://localhost"
+http.cors.enabled: true
+http.cors.allow-headers: X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+http.cors.allow-credentials: true
 ```

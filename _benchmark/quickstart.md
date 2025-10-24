@@ -6,13 +6,13 @@ nav_order: 2
 
 # OpenSearch Benchmark quickstart
 
-This tutorial outlines how to quickly install OpenSearch Benchmark and run your first OpenSearch Benchmark workload. 
+This page outlines how to quickly install OpenSearch Benchmark and run your first OpenSearch Benchmark workload.
 
 ## Prerequisites
 
 To perform the Quickstart steps, you'll need to fulfill the following prerequisites:
 
-- A currently active OpenSearch cluster. For instructions on how to create an OpenSearch cluster, see [Creating a cluster]({{site.url}}{{site.baseurl}}//tuning-your-cluster/index/).
+- A currently active OpenSearch cluster. For instructions on how to create an OpenSearch cluster, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index/).
 - Git 2.3 or greater.
 - Python 3.8 or later
 
@@ -76,7 +76,7 @@ If successful, OpenSearch returns the following response:
 
 ```bash
 $ opensearch-benchmark --help
-usage: opensearch-benchmark [-h] [--version] {execute-test,list,info,create-workload,generate,compare,download,install,start,stop} ...
+usage: opensearch-benchmark [-h] [--version] {run,list,info,create-workload,generate,compare,download,install,start,stop} ...
 
    ____                  _____                      __       ____                  __                         __
   / __ \____  ___  ____ / ___/___  ____ ___________/ /_     / __ )___  ____  _____/ /_  ____ ___  ____ ______/ /__
@@ -92,13 +92,13 @@ optional arguments:
   --version             show program's version number and exit
 
 subcommands:
-  {execute-test,list,info,create-workload,generate,compare,download,install,start,stop}
-    execute-test        Run a benchmark
+  {run,list,info,create-workload,generate,compare,download,install,start,stop}
+    run        Run a benchmark
     list                List configuration options
     info                Show info about a workload
     create-workload     Create a Benchmark workload from existing data
     generate            Generate artifacts
-    compare             Compare two test_executions
+    compare             Compare two test-runs
     download            Downloads an artifact
     install             Installs an OpenSearch node locally
     start               Starts an OpenSearch node locally
@@ -114,9 +114,9 @@ You can now run your first benchmark. The following benchmark uses the [percolat
 
 ### Understanding workload command flags
 
-Benchmarks are run using the [`execute-test`]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) command with the following command flags:
+Benchmarks are run using the [`run`]({{site.url}}{{site.baseurl}}/benchmark/commands/run/) command with the following command flags:
 
-For additional `execute-test` command flags, see the [execute-test]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
+For additional `run` command flags, see the [run]({{site.url}}{{site.baseurl}}/benchmark/commands/run/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
 {: .tip}
 
 * `--pipeline=benchmark-only` : Informs OSB that users wants to provide their own OpenSearch cluster.
@@ -124,19 +124,18 @@ For additional `execute-test` command flags, see the [execute-test]({{site.url}}
 * `--target-host="<OpenSearch Cluster Endpoint>"`: Indicates the target cluster or host that will be benchmarked. Enter the endpoint of your OpenSearch cluster here.
 * `--client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'"`: The username and password for your OpenSearch cluster.
 * `--test-mode`: Allows a user to run the workload without running it for the entire duration. When this flag is present, Benchmark runs the first thousand operations of each task in the workload. This is only meant for sanity checks---the metrics produced are meaningless.
-
-The `--distribution-version`, which indicates which OpenSearch version Benchmark will use when provisioning. When run, the `execute-test` command will parse the correct distribution version when it connects to the OpenSearch cluster.
+* `--distribution-version`: Indicates which OpenSearch version Benchmark will use when provisioning. When run, the `run` command will parse the correct distribution version when it connects to the OpenSearch cluster.
 
 ### Running the workload
 
-To run the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload with OpenSearch Benchmark, use the following `execute-test` command: 
+To run the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload with OpenSearch Benchmark, use the following `run` command:
 
 ```bash
-opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolator --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
+opensearch-benchmark run --pipeline=benchmark-only --workload=percolator --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
 {% include copy.html %}
 
-When the `execute-test` command runs, all tasks and operations in the `percolator` workload run sequentially.
+When the `run` command runs, all tasks and operations in the `percolator` workload run sequentially.
 
 ### Validating the test
 
@@ -243,14 +242,14 @@ OpenSearch Benchmark returns the following response once the benchmark completes
 
 
 
---------------------------------
-[INFO] SUCCESS (took 18 seconds)
---------------------------------
+-----------------------------------
+[INFO] ✅ SUCCESS (took 18 seconds)
+-----------------------------------
 ```
 
-Each task run by the `percolator` workload represents a specific OpenSearch API operation---such as Bulk or Search---that was performed when the test was run. Each task in the output summary contains the following information: 
+Each task run by the `percolator` workload represents a specific OpenSearch API operation---such as Bulk or Search---that was performed when the test was run. Each task in the output summary contains the following information:
 
-* **Throughput:** The number of successful OpenSearch operations per second. 
+* **Throughput:** The number of successful OpenSearch operations per second.
 * **Latency:** The amount of time, including wait time, taken for the request and the response to be sent and received by Benchmark.
 * **Service Time:** The amount of time, excluding wait time, taken for the request and the response to be sent and received by Benchmark.
 * **Error Rate:** The percentage of operations run during the task that were not successful or returned a 200 error code.
@@ -260,8 +259,8 @@ For more details about how the summary report is generated, see [Summary report]
 
 ## Running OpenSearch Benchmark on your own cluster
 
-Now that you're familiar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `execute-test` command, replacing the following settings.
- 
+Now that you're familiar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `run` command but replacing the following settings:
+
   * Replace `https://localhost:9200` with your target cluster endpoint.  This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
   * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
   * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster.  This directive is needed only for clusters where SSL certificates are not set up.
@@ -271,7 +270,7 @@ Now that you're familiar with running OpenSearch Benchmark on a cluster, you can
 You can copy the following command template to use in your own terminal:
 
 ```bash
-opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolator --target-host=<OpenSearch Cluster Endpoint> --client-options=basic_auth_user:admin,basic_auth_password:admin
+opensearch-benchmark run --pipeline=benchmark-only --workload=percolator --target-host=<OpenSearch Cluster Endpoint> --client-options=basic_auth_user:admin,basic_auth_password:admin
 ```
 {% include copy.html %}
 

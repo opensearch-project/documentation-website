@@ -5,6 +5,8 @@ parent: ML Commons APIs
 has_children: true
 nav_order: 10
 has_toc: false
+redirect_from:
+  - /ml-commons-plugin/api/model-apis/
 ---
 
 # Model APIs
@@ -24,7 +26,8 @@ ML Commons supports the following model-level CRUD APIs:
 Predict APIs are used to invoke machine learning (ML) models. ML Commons supports the following Predict APIs:
 
 - [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) 
-- [Batch Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/batch-predict/) (experimental)
+- [Predict Stream]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict-stream/) 
+- [Batch Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/batch-predict/)
 
 # Train API
 

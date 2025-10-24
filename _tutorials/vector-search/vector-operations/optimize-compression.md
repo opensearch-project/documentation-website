@@ -10,7 +10,9 @@ redirect_from:
 
 # Optimizing vector search using Cohere compressed embeddings
 
-This tutorial shows you how to optimize vector search using Cohere compressed embeddings in OpenSearch 2.19 or later. These embeddings allow for more efficient storage and faster retrieval of vector representations, making them ideal for large-scale search applications.
+This tutorial shows you how to optimize vector search using Cohere compressed embeddings. These embeddings allow for more efficient storage and faster retrieval of vector representations, making them ideal for large-scale search applications.
+
+This tutorial is compatible with version 2.17 and later, except for [Using a template query and a search pipeline](#using-a-template-query-and-a-search-pipeline) in [Step 4: Search the index](#step-4-search-the-index), which requires version 2.19 or later.
 
 This tutorial uses the Cohere Embed Multilingual v3 model on Amazon Bedrock. For more information about using Cohere compressed embeddings on Amazon Bedrock, see [this blog post](https://aws.amazon.com/about-aws/whats-new/2024/06/amazon-bedrock-compressed-embeddings-cohere-embed/).
 
@@ -18,7 +20,7 @@ In this tutorial, you'll use the following OpenSearch components:
 - [ML inference ingest processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/) 
 - [ML inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/)
 - [Search template query]({{site.url}}{{site.baseurl}}/api-reference/search-template/) 
-- [Vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) and [byte vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#byte-vectors)
+- [Vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) and [byte vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors)
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
@@ -660,7 +662,7 @@ PUT _ingest/pipeline/ml_inference_pipeline_cohere
 
 ### Step 5.2: Create a vector index and ingest data
 
-Create a new vector index containing a [binary vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#binary-vectors) field:
+Create a new vector index containing a [binary vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#binary-vectors) field:
 
 ```json
 PUT books_binary_embedding

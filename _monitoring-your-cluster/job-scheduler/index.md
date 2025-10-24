@@ -2,10 +2,11 @@
 layout: default
 title: Job Scheduler
 nav_order: 1
-has_children: false
+has_children: true
 has_toc: false
 redirect_from:
   - /job-scheduler-plugin/index/
+  - /monitoring-your-cluster/job-scheduler/
 ---
 
 # Job Scheduler
@@ -130,6 +131,13 @@ The following table describes the request parameters configured in the previous 
 The logic used by your job should be defined by a class extended from `ScheduledJobRunner` in the `SampleJobParameter.java` sample file, such as `SampleJobRunner`. While the job is running, there is a locking mechanism you can use to prevent other nodes from running the same job. First, [acquire](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L96) the lock. Then make sure to release the lock before the [job finishes](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L116).
 
 For more information, see the Job Scheduler [sample extension](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) directory in the [Job Scheduler GitHub repo](https://github.com/opensearch-project/job-scheduler).
+
+## Job Scheduler APIs
+
+The Job Scheduler plugin supports the following APIs used to monitor the jobs running on the cluster:
+
+- [Jobs API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/jobs/)
+- [Locks API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/locks/)
 
 ## Job Scheduler cluster settings
 

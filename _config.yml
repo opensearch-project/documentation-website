@@ -1,14 +1,15 @@
 title: OpenSearch Documentation
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation for OpenSearch, the Apache 2.0 search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
-baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
-url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/latest" # The subpath of the current version. This is version-specific. For example, for 2.19, the base URL is /docs/2.19.
+latesturl: "/latest" # The subpath of the latest version. Used for non-version-specific documentation, like Data Prepper, etc.
+url: "https://docs.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '2.19.1'
-opensearch_dashboards_version: '2.19.1'
-opensearch_major_minor_version: '2.19'
-lucene_version: '9_12_0'
+opensearch_version: '3.3.1'
+opensearch_dashboards_version: '3.3.0'
+opensearch_major_minor_version: '3.3'
+lucene_version: '10_3_1'
 
 # Build settings
 markdown: kramdown
@@ -40,9 +41,6 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
-  integrations:
-    permalink: /:collection/:path/
-    output: true
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -56,9 +54,6 @@ collections:
     permalink: /:collection/:path/
     output: true
   ml-commons-plugin:
-    permalink: /:collection/:path/
-    output: true  
-  tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
   monitoring-your-cluster:
@@ -79,7 +74,7 @@ collections:
   aggregations:
     permalink: /:collection/:path/
     output: true
-  field-types:
+  mappings:
     permalink: /:collection/:path/
     output: true
   clients:
@@ -89,6 +84,9 @@ collections:
     permalink: /:collection/:path/
     output: true
   data-prepper: 
+    permalink: /:collection/:path/
+    output: true
+  migrate-or-upgrade:
     permalink: /:collection/:path/
     output: true
   migration-assistant:
@@ -144,7 +142,13 @@ opensearch_collection:
       name: Tutorials
       nav_fold: true
     install-and-configure:
-      name: Install and upgrade
+      name: Install and configure
+      nav_fold: true
+    migrate-or-upgrade:
+      name: Migrate or upgrade
+      nav_fold: true
+    tuning-your-cluster:
+      name: Creating and tuning your cluster
       nav_fold: true
     im-plugin:
       name: Managing Indexes
@@ -155,20 +159,14 @@ opensearch_collection:
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
-    integrations:
-      name: OpenSearch Integrations
-      nav_fold: true
-    tuning-your-cluster:
-      name: Creating and tuning your cluster
-      nav_fold: true
     security:
-      name: Security in OpenSearch
+      name: Security
       nav_fold: true
     security-analytics:
       name: Security analytics 
       nav_fold: true
-    field-types:
-      name: Mappings and field types
+    mappings:
+      name: Mappings
       nav_fold: true
     analyzers:
       name: Text analysis
@@ -223,7 +221,7 @@ clients_collection:
 migration_assistant_collection:
   collections:
     migration-assistant:
-        name: Migration Assistant
+        name: Migration Assistant for OpenSearch
         nav_fold: true
 
 benchmark_collection:
@@ -270,7 +268,7 @@ defaults:
       path: "_migration-assistant"
     values:
       section: "migration-assistant"
-      section-name: "Migration Assistant"
+      section-name: "Migration Assistant for OpenSearch"
 
 # Enable or disable the site search
 # By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.

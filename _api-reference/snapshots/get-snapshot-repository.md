@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Get Snapshot Repository
+title: Get snapshot repository
 parent: Snapshot APIs
 nav_order: 2
 ---
 
-# Get snapshot repository.
+# Get Snapshot Repository. API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -39,10 +39,27 @@ GET /_snapshot/<repository>
 
 The following request retrieves information for the `my-opensearch-repo` repository:
 
-````json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_snapshot/my-opensearch-repo
+-->
+{% capture step1_rest %}
 GET /_snapshot/my-opensearch-repo
-````
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.get_repository(
+  repository = "my-opensearch-repo"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

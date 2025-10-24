@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 60
 ---
 
-# Search for a message
+# Search Message API
 **Introduced 2.12**
 {: .label .label-purple }
 
@@ -30,7 +30,25 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `memory_id` | String | The ID of the memory used to search for messages matching the query.
 
-#### Example request
+## Response body fields
+
+The following table lists the available response fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `memory_id` | String | The memory ID. |
+| `message_id` | String | The message ID. |
+| `create_time` | String | The time at which the message was created. |
+| `updated_time` | String | The time at which the message was last updated. |
+| `input` | String | The question in the message (human input). |
+| `prompt_template` | String | The prompt template that was used for the message. |
+| `response` | String | The answer to the question (generative AI output). |
+| `origin` | String | The name of the AI or other system that generated the response. |
+| `additional_info` | Object | Any other information that was sent to the `origin`. |
+| `parent_message_id` | String | The ID of the parent message (for trace messages). |
+| `trace_number` | Integer | The trace number (for trace messages). |
+
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/_search
@@ -44,7 +62,7 @@ GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -75,6 +93,7 @@ GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/_search
           "memory_id": "gW8Aa40BfUsSoeNTvOKI",
           "trace_number": null,
           "create_time": "2024-02-02T18:43:23.566994302Z",
+          "updated_time": "2024-02-02T18:43:23.566994302Z",
           "additional_info": {
             "suggestion": "api.openai.com"
           },
@@ -88,7 +107,3 @@ GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/_search
   }
 }
 ```
-
-## Response body fields
-
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).

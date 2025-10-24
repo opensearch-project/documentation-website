@@ -1,14 +1,14 @@
 ---
 layout: default
-title: aws_lambda
+title: AWS Lambda
 parent: Processors
 grand_parent: Pipelines
-nav_order: 10
+nav_order: 40
 ---
 
-# aws_lambda integration for OpenSearch Data Prepper
+# AWS Lambda processor
 
-The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows developers to use serverless computing capabilities within their OpenSearch Data Prepper pipelines for flexible event processing and data routing.
+The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows you to use serverless computing capabilities within your OpenSearch Data Prepper pipelines for flexible event processing and data routing.
 
 ## AWS Lambda processor configuration
 
@@ -31,6 +31,14 @@ Field                | Type    | Required | Description
 `tags_on_match_failure` | List | Optional |  A list of tags to add to events when Lambda matching fails or encounters an unexpected error.
 `sdk_timeout`        | Duration| Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
+`client`            | Object  | Optional | The client configuration.
+`api_call_timeout`   | Duration | Optional | The amount of time that the SDK maintains the API call before timing out, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
+`base_delay`         | Duration | Optional | The base delay for exponential backoff, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
+`connection_timeout` | Duration | Optional | The amount of time that the SDK maintains the connection to the client before timing out, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
+`max_backoff`        | Duration | Optional | The maximum backoff time for exponential backoff, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
+`max_concurrency`    | Integer  | Optional | The maximum concurrency defined on the client side. 
+`max_retries`        | Integer | Optional | The maximum number of retries before failing.  
+
 
 #### Example configuration
 
@@ -40,6 +48,9 @@ processors:
       function_name: "my-lambda-function"
       invocation_type: "request-response"
       response_events_match: false
+      client:
+        connection_timeout: PT5M
+        api_call_timeout: PT5M
       aws:
         region: "us-east-1"
         sts_role_arn: "arn:aws:iam::123456789012:role/my-lambda-role"
@@ -53,7 +64,7 @@ processors:
       lambda_when: "event['status'] == 'process'"
 
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Usage
 
@@ -90,5 +101,4 @@ Integration tests for this plugin are executed separately from the main Data Pre
 ```
 ./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.processor.lambda.region="us-east-1" -Dtests.processor.lambda.functionName="lambda_test_function"  -Dtests.processor.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role
 ```
-
-{% include copy-curl.html %}
+{% include copy.html %}

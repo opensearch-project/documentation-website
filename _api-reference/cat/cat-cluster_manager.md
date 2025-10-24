@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT cluster manager
-parent: CAT API
+parent: CAT APIs
 redirect_from:
  - /opensearch/rest-api/cat/cat-master/
 nav_order: 30
 has_children: false
 ---
 
-# CAT cluster_manager
+# CAT Cluster Manager API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -51,10 +51,27 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example request
 
-```
-GET _cat/cluster_manager?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/cluster_manager?v
+-->
+{% capture step1_rest %}
+GET /_cat/cluster_manager?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.cluster_manager(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

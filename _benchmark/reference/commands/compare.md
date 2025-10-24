@@ -4,7 +4,7 @@ title: compare
 nav_order: 55
 parent: Command reference
 grand_parent: OpenSearch Benchmark Reference
-redirect_from: 
+redirect_from:
   - /benchmark/commands/compare/
 ---
 
@@ -12,11 +12,11 @@ redirect_from:
 # compare
 <!-- vale on -->
 
-The `compare` command helps you analyze the difference between two benchmark tests. This can help you analyze the performance impact of changes made from a previous test based on a specific Git revision. 
+The `compare` command helps you analyze the difference between two benchmark tests. This can help you analyze the performance impact of changes made from a previous test based on a specific Git revision.
 
 ## Usage
 
-You can compare two different workload tests using their `TestExecution IDs`. To find a list of tests run from a specific workload, use `opensearch-benchmark list test_executions`. You should receive an output similar to the following: 
+You can compare two different workload tests using their `TestRun IDs`. To find a list of tests run from a specific workload, use `opensearch-benchmark list test-runs`. You should receive an output similar to the following:
 
 
 ```
@@ -26,16 +26,18 @@ You can compare two different workload tests using their `TestExecution IDs`. To
 / /_/ / /_/ /  __/ / / /__/ /  __/ /_/ / /  / /__/ / / /  / /_/ /  __/ / / / /__/ / / / / / / / / /_/ / /  / ,<
 \____/ .___/\___/_/ /_/____/\___/\__,_/_/   \___/_/ /_/  /_____/\___/_/ /_/\___/_/ /_/_/ /_/ /_/\__,_/_/  /_/|_|
     /_/
-Recent test-executions:
 
-Recent test_executions:
-
-TestExecution ID                      TestExecution Timestamp    Workload    Workload Parameters    TestProcedure        ProvisionConfigInstance    User Tags    workload Revision    Provision Config Revision
-------------------------------------  -------------------------  ----------  ---------------------  -------------------  -------------------------  -----------  -------------------  ---------------------------
+Recent test-runs:
+TestRun ID                            TestRun Timestamp    Workload    Workload Parameters    TestProcedure        ClusterConfigInstance    User Tags    workload Revision    Cluster Config Revision
+------------------------------------  -------------------  ----------  ---------------------  -------------------  -----------------------  -----------  -------------------  -------------------------
 729291a0-ee87-44e5-9b75-cc6d50c89702  20230524T181718Z           geonames                           append-no-conflicts  4gheap                                  30260cf
 f91c33d0-ec93-48e1-975e-37476a5c9fe5  20230524T170134Z           geonames                           append-no-conflicts  4gheap                                  30260cf
 d942b7f9-6506-451d-9dcf-ef502ab3e574  20230524T144827Z           geonames                           append-no-conflicts  4gheap                                  30260cf
-a33845cc-c2e5-4488-a2db-b0670741ff9b  20230523T213145Z           geonames                           append-no-conflicts  
+a33845cc-c2e5-4488-a2db-b0670741ff9b  20230523T213145Z           geonames                           append-no-conflicts
+
+----------------------------------
+[INFO] ✅ SUCCESS (took 0 seconds)
+----------------------------------
 
 ```
 
@@ -56,12 +58,12 @@ You should receive the following response comparing the final benchmark metrics 
     /_/
 
 Comparing baseline
-  TestExecution ID: 729291a0-ee87-44e5-9b75-cc6d50c89702
-  TestExecution timestamp: 2023-05-24 18:17:18 
+  TestRun ID: 729291a0-ee87-44e5-9b75-cc6d50c89702
+  TestRun timestamp: 2023-05-24 18:17:18
 
 with contender
-  TestExecution ID: a33845cc-c2e5-4488-a2db-b0670741ff9b
-  TestExecution timestamp: 2023-05-23 21:31:45
+  TestRun ID: a33845cc-c2e5-4488-a2db-b0670741ff9b
+  TestRun timestamp: 2023-05-23 21:31:45
 
 
 ------------------------------------------------------
@@ -125,13 +127,13 @@ Query latency country_agg_cached (100.0 percentile) [ms]     3.42547      2.8681
 
 ## Options
 
-You can use the following options to customize the results of your test comparison: 
+You can use the following options to customize the results of your test comparison:
 
-- `--baseline`: The baseline TestExecution ID used to compare the contender TestExecution.  
-- `--contender`: The TestExecution ID for the contender being compared to the baseline. 
+- `--baseline`: The baseline TestRun ID used to compare the contender TestRun.
+- `--contender`: The TestRun ID for the contender being compared to the baseline.
 - `--results-format`: Defines the output format for the command line results, either `markdown` or `csv`. Default is `markdown`.
 - `--results-numbers-align`: Defines the column number alignment for when the `compare` command outputs results. Default is `right`.
-- `--results-file`: When provided a file path, writes the compare results to the file indicated in the path. 
-- `--show-in-results`: Determines whether or not to include the comparison in the results file. 
+- `--results-file`: When provided a file path, writes the compare results to the file indicated in the path.
+- `--show-in-results`: Determines whether or not to include the comparison in the results file.
 
 

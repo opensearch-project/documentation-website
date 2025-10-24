@@ -1,0 +1,24 @@
+# Dry Run Report for Spec Insert
+
+A file containing all rendered components for API has been created in the [dry run directory](./dry-run).
+{{#any_errors}}
+Below are the components that have errors in the dry run and the commands that will reproduce them.
+
+{{#errors}}
+
+## {{{component_name}}}: {{error_count}} errors
+{{#apis}}
+### {{{api}}}
+
+<div style="color:rgb(255,94,94); background-color: black; padding: 10px">{{{message}}}</div>
+
+```shell
+  bundle exec rake dry_run_generate[{{{api}}},{{{component_id}}}]
+```
+{{/apis}}
+{{/errors}}
+{{/any_errors}}
+
+{{^any_errors}}
+No errors occurred during the dry run :D
+{{/any_errors}}

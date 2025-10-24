@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT tasks
-parent: CAT API
+parent: CAT APIs
 nav_order: 70
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-tasks/
 ---
 
-# CAT tasks
+# CAT Tasks API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -45,7 +45,7 @@ The following table lists the available query parameters. All query parameters a
 | `nodes` | List | A comma-separated list of node IDs or names used to limit the returned information.  Use `_local` to return information from the node to which you're connecting, specify a specific node from which to get information, or keep the parameter empty to get information from all nodes. | N/A |
 | `parent_task_id` | String | The parent task identifier, which is used to limit the response. | N/A |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
-| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 
 <!-- spec_insert_end -->
@@ -54,10 +54,27 @@ The following table lists the available query parameters. All query parameters a
 
 The following example request lists all tasks in progress:
 
-```
-GET _cat/tasks?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/tasks?v
+-->
+{% capture step1_rest %}
+GET /_cat/tasks?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.tasks(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

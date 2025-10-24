@@ -3,6 +3,7 @@
 require 'pathname'
 require_relative 'renderers/spec_insert'
 require_relative 'spec_insert_error'
+require_relative 'insert_arguments'
 
 # Processes a file, replacing spec-insert blocks with rendered content
 class DocProcessor
@@ -45,14 +46,16 @@ class DocProcessor
                          .filter { |line, _index| line.match?(START_MARKER) }
                          .map { |_line, index| index }
     end_indices = start_indices.map do |index|
-      (index..lines.length - 1).find { |i| lines[i].match?(END_MARKER) }
+      (index..(lines.length - 1)).find { |i| lines[i].match?(END_MARKER) }
     end.compact
 
     validate_markers!(start_indices, end_indices)
 
     start_indices.zip(end_indices).map do |start, finish|
-      [start, finish, SpecInsert.new(lines[start..finish])]
-    end
+      args = InsertArguments.from_marker(lines[start..finish])
+      next nil if args.skip?
+      [start, finish, SpecInsert.new(args)]
+    end.compact
   end
 
   # @param [Array<Integer>] start_indices

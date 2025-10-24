@@ -8,7 +8,7 @@ redirect_from:
  - /api-reference/alias/
 ---
 
-# Alias
+# Alias API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -25,7 +25,7 @@ POST _aliases
 
 All parameters are optional.
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 cluster_manager_timeout | Time | The amount of time to wait for a response from the cluster manager node. Default is `30s`.
 timeout | Time | The amount of time to wait for a response from the cluster. Default is `30s`.
@@ -34,7 +34,7 @@ timeout | Time | The amount of time to wait for a response from the cluster. Def
 
 In your request body, you need to specify what action to take, the alias name, and the index you want to associate with the alias. Other fields are optional.
 
-Field | Data Type | Description | Required
+Field | Data type | Description | Required
 :--- | :--- | :--- | :---
 actions | Array | Set of actions you want to perform on the index. Valid options are: `add`, `remove`, and `remove_index`. You must have at least one action in the array. | Yes
 add | N/A | Adds an alias to the specified index. | No
@@ -54,8 +54,10 @@ search_routing | String | Assigns a custom value to a shard only for search oper
 
 ## Example request
 
-```json
-POST _aliases
+<!-- spec_insert_start
+component: example_code
+rest: POST /_aliases
+body: |
 {
   "actions": [
     {
@@ -72,8 +74,55 @@ POST _aliases
     }
   ]
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /_aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "movies",
+        "alias": "movies-alias1"
+      }
+    },
+    {
+      "remove": {
+        "index": "old-index",
+        "alias": "old-index-alias"
+      }
+    }
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.update_aliases(
+  body =   {
+    "actions": [
+      {
+        "add": {
+          "index": "movies",
+          "alias": "movies-alias1"
+        }
+      },
+      {
+        "remove": {
+          "index": "old-index",
+          "alias": "old-index-alias"
+        }
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

@@ -84,7 +84,7 @@ Follow these steps to set up your local copy of the repository:
 
    ```
    curl -sSL https://get.rvm.io | bash -s stable
-   rvm install 3.3.2
+   rvm install 3.4.5
    ruby -v
    ```
 
@@ -102,7 +102,7 @@ Follow these steps to set up your local copy of the repository:
 
 ##### Building by using containerization
 
-Assuming you have `docker-compose` installed, run the following command:
+Assuming you have Docker installed, run the following command:
 
    ```
    docker compose -f docker-compose.dev.yml up
@@ -112,7 +112,7 @@ Assuming you have `docker-compose` installed, run the following command:
 
 Try the following troubleshooting steps if you encounter an error when trying to build the documentation website:  
 
-- If you see the `Error running '__rvm_make -j10'` error when running `rvm install 3.2`, you can resolve it by running `rvm install 3.2.0 -C --with-openssl-dir=/opt/homebrew/opt/openssl@3.2` instead of `rvm install 3.2`.
+- If you see the `Error running '__rvm_make -j10'` error when running `rvm install 3.4.5`, you can resolve it by running `rvm install 3.4.5 -C --with-openssl-dir=$(brew --prefix openssl@3)` instead of `rvm install 3.4.5`.
 - If you see the `bundle install`: `An error occurred while installing posix-spawn (0.3.15), and Bundler cannot continue.` error when trying to run `bundle install`, you can resolve it by running `gem install posix-spawn -v 0.3.15 -- --with-cflags=\"-Wno-incompatible-function-pointer-types\"` and then `bundle install`.
  
 
@@ -141,13 +141,18 @@ Here's how to build the website, make changes, and view them locally:
 
 ## Review process
 
-We greatly appreciate all contributions to the documentation and will review them as quickly as possible. 
+We greatly appreciate all contributions to the documentation and will review them as quickly as possible. Documentation can be updated at any time and does not require waiting for a release. Once you have created a PR, the documenation review process is as follows:
+
+1. Ensure that the submitted documentation is technically accurate and all examples are working. If you are a developer implementing the feature, you can optionally ask one of your peers to conduct a technical review. If you need help finding a tech reviewer, tag a [maintainer](https://github.com/opensearch-project/documentation-website/blob/main/MAINTAINERS.md).
+2. When you submit a PR, it's assigned to one of the doc reviewers. Once you have verified technical accuracy and all technical reviews are completed, tag the assignee of the PR for a doc review.
+3. A doc reviewer (technical writer) performs a doc review. The doc reviewer may push edits to the PR directly or leave comments and suggestions for you to address (let us know in a comment if you have a preference). The doc reviewer will arrange for an editorial review.
+4. The editor performs an editorial review. The editor may push edits to the PR directly or leave comments and editorial suggestions for you to address (let us know in a comment if you have a preference).
+5. When you have addressed all comments, the PR is merged. It is important that you specify to which versions the PR is applicable when you create the PR so it can be backported to the correct branches. We support updates only for the latest documentation version; the previous versions are not updated. Once the PR is merged, the documentation is published on the documentation site.
 
 During the PR process, expect that there will be some back-and-forth. If you want your contribution to be merged quickly, try to respond to comments in a timely fashion, and let us know if you don't want to continue with the PR. 
 
 We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md). Addressing Vale comments on the PR expedites the review process. You can also install Vale locally so you can address the comments before creating a PR. For more information, see [Style linting](#style-linting).
 
-If we accept the PR, we will merge it and will backport it to the appropriate branches.
 
 ### Style linting
 
@@ -169,7 +174,7 @@ If you're having trouble installing Ruby with `rvm` on an Apple silicon machine,
 ```
 # Assumes Brew is installed
 curl -sSL https://get.rvm.io | bash -s stable
-rvm install 3.2.4 --with-openssl-dir=$(brew --prefix openssl@<openssl-version>)
+rvm install 3.4.5 --with-openssl-dir=$(brew --prefix openssl@<openssl-version>)
 ruby -v
 ```
 

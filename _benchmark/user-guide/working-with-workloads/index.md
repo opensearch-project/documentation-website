@@ -3,7 +3,10 @@ layout: default
 title: Working with workloads
 nav_order: 15
 parent: User guide
+has_toc: false
 has_children: true
+redirect_from:
+  - /benchmark/user-guide/working-with-workloads/
 ---
 
 # Working with workloads

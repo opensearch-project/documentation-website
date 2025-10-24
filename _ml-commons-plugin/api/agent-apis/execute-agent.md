@@ -6,11 +6,11 @@ grand_parent: ML Commons APIs
 nav_order: 20
 ---
 
-# Execute an agent
+# Execute Agent API
 **Introduced 2.13**
 {: .label .label-purple }
 
-When an agent is executed, it runs the tools with which it is configured.
+When an agent is executed, it runs the tools with which it is configured. Starting with OpenSearch version 3.0, you can execute an agent asynchronously by setting the `async` query parameter to `true`.
 
 ### Endpoints
 
@@ -18,16 +18,24 @@ When an agent is executed, it runs the tools with which it is configured.
 POST /_plugins/_ml/agents/<agent_id>/_execute
 ```
 
+## Query parameters
+
+The following table lists the available query parameters.
+
+Parameter | Data type | Required/Optional | Description
+:---  | :--- | :--- 
+`async` | Boolean | Optional | If `true`, executes the agent asynchronously and returns a `task_id` to track execution. To check the status of the task, use the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Default is `false`.
+
 ## Request body fields
 
 The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
-`parameters`| Object | Required | The parameters required by the agent. 
+`parameters`| Object | Required | The parameters required by the agent. Any agent parameters configured during registration can be overridden using this field.
 `parameters.verbose`| Boolean | Optional | Provides verbose output. 
 
-#### Example request
+## Example request
 
 ```json
 POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
@@ -39,7 +47,7 @@ POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

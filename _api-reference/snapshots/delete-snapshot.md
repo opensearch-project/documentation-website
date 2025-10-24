@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Delete Snapshot
+title: Delete snapshot
 parent: Snapshot APIs
 nav_order: 7
 ---
@@ -10,6 +10,8 @@ nav_order: 7
 {: .label .label-purple }
 
 Deletes a snapshot from a repository.
+
+Deleting a snapshot that is in progress stops the snapshot operation and deletes the partially created snapshot.
 
 * To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
 
@@ -34,10 +36,28 @@ snapshot | String | Snapshot to delete. |
 
 The following request deletes a snapshot called `my-first-snapshot` from the `my-opensearch-repo` repository:
 
-```json
-DELETE _snapshot/my-opensearch-repo/my-first-snapshot
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /_snapshot/my-opensearch-repo/my-first-snapshot
+-->
+{% capture step1_rest %}
+DELETE /_snapshot/my-opensearch-repo/my-first-snapshot
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.delete(
+  repository = "my-opensearch-repo",
+  snapshot = "my-first-snapshot"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

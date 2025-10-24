@@ -16,7 +16,7 @@ This section provides documentation for OpenSearch-supported tools, including:
 
 - [Agents and ingestion tools](#agents-and-ingestion-tools)
 - [OpenSearch CLI](#opensearch-cli)
-- [OpenSearch Kubernetes operator](#opensearch-kubernetes-operator)
+- [OpenSearch Kubernetes operator]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/)
 - [OpenSearch upgrade, migration, and comparison tools](#opensearch-upgrade-migration-and-comparison-tools)
 - [Sycamore](#sycamore) for AI-powered extract, transform, load (ETL) on complex documents for vector and hybrid search
 
@@ -26,7 +26,7 @@ For information about Data Prepper, the server-side data collector for filtering
 
 Historically, many multiple popular agents and ingestion tools have worked with Elasticsearch OSS, such as Beats, Logstash, Fluentd, FluentBit, and OpenTelemetry. OpenSearch aims to continue to support a broad set of agents and ingestion tools, but not all have been tested or have explicitly added OpenSearch compatibility.
 
-As an intermediate compatibility solution, OpenSearch has a setting that instructs the cluster to return version 7.10.2 rather than its actual version.
+As an intermediate compatibility solution, OpenSearch 1.x and 2.x provide a setting that instructs the cluster to return version 7.10.2 rather than its actual version.
 
 If you use clients that include a version check, such as versions of Logstash OSS or Filebeat OSS between 7.x - 7.12.x, enable the setting:
 
@@ -84,6 +84,7 @@ Some users report compatibility issues with ingest pipelines on these versions o
 | ODFE 1.0 to 1.12 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
 | ODFE 1.13 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
 | OpenSearch 1.x to 2.x | Yes via version setting | Yes via version setting | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
+| OpenSearch 3.x | *No* | *No* | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
 
 \* Most current compatible version with Elasticsearch OSS.
 
@@ -116,7 +117,7 @@ The OpenSearch CLI command line interface (opensearch-cli) lets you manage your 
 
 ## OpenSearch Kubernetes operator
 
-The OpenSearch Kubernetes Operator is an open-source Kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information about how to use the operator, see [OpenSearch Kubernetes Operator]({{site.url}}{{site.baseurl}}/tools/k8s-operator/).
+The OpenSearch Kubernetes Operator is an open-source Kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information about how to use the operator, see [OpenSearch Kubernetes Operator]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/operator/).
 
 ## OpenSearch upgrade, migration, and comparison tools
 

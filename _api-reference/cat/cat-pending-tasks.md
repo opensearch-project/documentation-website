@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT pending tasks
-parent: CAT API
+parent: CAT APIs
 nav_order: 45
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-pending-tasks/
 ---
 
-# CAT pending tasks
+# CAT Pending Tasks API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -44,7 +44,7 @@ The following table lists the available query parameters. All query parameters a
 | `help` | Boolean | Returns help information. | `false` |
 | `local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
-| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 
 <!-- spec_insert_end -->
@@ -53,10 +53,27 @@ The following table lists the available query parameters. All query parameters a
 
 The following example request lists the progress of all pending node tasks:
 
-```json
-GET _cat/pending_tasks?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/pending_tasks?v
+-->
+{% capture step1_rest %}
+GET /_cat/pending_tasks?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.pending_tasks(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

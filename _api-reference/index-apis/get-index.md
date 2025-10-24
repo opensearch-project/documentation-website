@@ -2,12 +2,12 @@
 layout: default
 title: Get index
 parent: Index APIs
-nav_order: 40
+nav_order: 90
 redirect_from:
   - /opensearch/rest-api/index-apis/get-index/
 ---
 
-# Get index
+# Get Index API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -19,8 +19,6 @@ You can use the get index API operation to return information about an index.
 ```json
 GET /<index>
 ```
-
-## Path parameters
 
 ## Path parameters
 
@@ -46,10 +44,27 @@ cluster_manager_timeout | Time | How long to wait for a connection to the cluste
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /sample-index
+-->
+{% capture step1_rest %}
 GET /sample-index
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.get(
+  index = "sample-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 ```json

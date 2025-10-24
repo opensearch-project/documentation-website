@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Data streams
-nav_order: 13
+nav_order: 10
 redirect_from:
   - /opensearch/data-streams/
 ---
@@ -62,7 +62,7 @@ In this case, `logs-nginx` index matches both the `logs-template` and `logs-temp
 ### Step 2: Create a data stream
 
 After you create an index template, you can create a data stream.
-You can use the data stream API to explicitly create a data stream. The data stream API initializes the first backing index:
+You can use the Data Stream API to explicitly create a data stream. The Data Stream API initializes the first backing index:
 
 ```json
 PUT _data_stream/logs-redis

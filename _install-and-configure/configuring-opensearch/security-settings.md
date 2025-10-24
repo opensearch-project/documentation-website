@@ -22,9 +22,7 @@ The Security plugin supports the following common settings:
 
 - `plugins.security.authcz.admin_dn` (Static): Defines the DNs of certificates to which admin privileges should be assigned. Required.
 
-- `plugins.security.roles_mapping_resolution` (Static): Defines how backend roles are mapped to Security roles.
-        
-    Valid values are:
+- `plugins.security.roles_mapping_resolution` (Static): Defines how backend roles are mapped to Security roles. The following values are supported:
     - `MAPPING_ONLY`(Default): Mappings must be configured explicitly in `roles_mapping.yml`.
     - `BACKENDROLES_ONLY`: Backend roles are mapped to security roles directly. Settings in `roles_mapping.yml` have no effect.
     - `BOTH`: Backend roles are mapped to security roles both directly and through `roles_mapping.yml`.
@@ -125,27 +123,19 @@ The Security plugin supports the following expert-level settings:
 If you change any of the following password hashing properties, you must rehash all internal passwords to ensure compatibility and security.
 {: .warning}
 
-- `plugins.security.password.hashing.algorithm`: (Static): Specifies the password hashing algorithm to use.
-
-  Valid values are:
-  
+- `plugins.security.password.hashing.algorithm`: (Static): Specifies the password hashing algorithm to use. The following values are supported:  
   - `BCrypt` (Default)
   - `PBKDF2` 
+  - `Argon2`
 
 - `plugins.security.password.hashing.bcrypt.rounds` (Static): Specifies the number of rounds to use for password hashing with `BCrypt`. Valid values are between `4` and `31`, inclusive. Default is `12`.
 
-- `plugins.security.password.hashing.bcrypt.minor` (Static): Specifies the minor version of the `BCrypt` algorithm to use for password hashing.
-
-  Valid values are:
-
+- `plugins.security.password.hashing.bcrypt.minor` (Static): Specifies the minor version of the `BCrypt` algorithm to use for password hashing. The following values are supported:
   - `A`
   - `B`
   - `Y` (Default)
 
-- `plugins.security.password.hashing.pbkdf2.function` (Static): Specifies the pseudo-random function applied to the password.
-
-  Valid values are:
-
+- `plugins.security.password.hashing.pbkdf2.function` (Static): Specifies the pseudo-random function applied to the password. The following values are supported:
   - `SHA1`
   - `SHA224`
   - `SHA256` (Default)
@@ -155,6 +145,24 @@ If you change any of the following password hashing properties, you must rehash 
 - `plugins.security.password.hashing.pbkdf2.iterations` (Static): Specifies the number of times that the pseudo-random function is applied to the password. Default is `600,000`.
 
 - `plugins.security.password.hashing.pbkdf2.length` (Static): Specifies the desired length of the final derived key. Default is `256`.
+
+- `plugins.security.password.hashing.argon2.iterations`: Specifies the number of passes over memory that the algorithm performs. Increasing this value raises CPU computation time and improves resistance to brute-force attacks. Default: `3`.
+
+- `plugins.security.password.hashing.argon2.memory`: Specifies the amount of memory (in kibibytes) used during hashing. Default: `65536` (64 MiB).
+
+- `plugins.security.password.hashing.argon2.parallelism`: Specifies the number of parallel threads used for computation. Default: `1`.
+
+- `plugins.security.password.hashing.argon2.length`: Specifies the length (in bytes) of the resulting hash output. Default: `32`.
+
+- `plugins.security.password.hashing.argon2.type`: Specifies which variant of Argon2 to use. The following values are supported:
+  - `Argon2i`
+  - `Argon2d`
+  - `Argon2id` (default)
+
+- `plugins.security.password.hashing.argon2.version`: Specifies which version of Argon2 to use. The following values are supported:
+  - `16`
+  - `19` (default)
+
 
 
 ## Audit log settings
@@ -233,9 +241,9 @@ The Security plugin supports the following audit log settings:
 
 The Security plugin supports the following hostname verification and DNS lookup settings:
 
-- `plugins.security.ssl.transport.enforce_hostname_verification` (Static): Whether to verify hostnames on the transport layer. Optional. Default is `true`.
+- `transport.ssl.enforce_hostname_verification` (Static): Whether to verify hostnames on the transport layer. Optional. Default is `true`.
 
-- `plugins.security.ssl.transport.resolve_hostname` (Static): Whether to resolve hostnames against DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is enabled.
+- `transport.ssl.resolve_hostname` (Static): Whether to resolve hostnames against DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is enabled.
 
 For more information, see [Hostname verification and DNS lookup]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-hostname-verification-and-dns-lookup).
 
@@ -306,16 +314,6 @@ The Security plugin supports the following REST layer TLS key store and trust st
 - `plugins.security.ssl.http.truststore_password` (Static): The trust store password. Default is `changeit`.
 
 For more information, see [REST layer TLS]({{site.url}}{{site.baseurl}}/security/configuration/tls/#rest-layer-tls-1).
-
-## OpenSSL settings
-
-The Security plugin supports the following OpenSSL settings:
-
-- `plugins.security.ssl.transport.enable_openssl_if_available` (Static): Enables OpenSSL on the transport layer if available. Optional. Default is `true`.
-
-- `plugins.security.ssl.http.enable_openssl_if_available` (Static): Enables OpenSSL on the REST layer if available. Optional. Default is `true`.
-
-For more information, see [OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-openssl).
 
 ## X.509 PEM certificates and PKCS #8 keys---transport layer TLS settings
 
@@ -392,14 +390,14 @@ The Security plugin supports the following transport layer security settings:
 plugins.security.nodes_dn:
   - "CN=*.example.com, OU=SSL, O=Test, L=Test, C=DE"
   - "CN=node.other.com, OU=SSL, O=Test, L=Test, C=DE"
-  - "CN=node.example.com, OU=SSL\, Inc., L=Test, C=DE" # escape additional comma with `\`
+  - "CN=node.example.com, OU=SSL\\, Inc., L=Test, C=DE" # escape additional comma with `\\`
 plugins.security.authcz.admin_dn:
   - CN=kirk,OU=client,O=client,L=test, C=de
 plugins.security.roles_mapping_resolution: MAPPING_ONLY
 plugins.security.ssl.transport.pemcert_filepath: esnode.pem
 plugins.security.ssl.transport.pemkey_filepath: esnode-key.pem
 plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
-plugins.security.ssl.transport.enforce_hostname_verification: false
+transport.ssl.enforce_hostname_verification: false
 plugins.security.ssl.http.enabled: true
 plugins.security.ssl.http.pemcert_filepath: esnode.pem
 plugins.security.ssl.http.pemkey_filepath: esnode-key.pem

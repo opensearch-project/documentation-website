@@ -22,14 +22,14 @@ This table lists the relevant fields of a policy.
 
 Field | Description | Type | Required | Read Only
 :--- | :--- |:--- |:--- |
-`policy_id` |  The name of the policy. | `string` | Yes | Yes
-`description` |  A human-readable description of the policy. | `string` | Yes | No
+`policy_id` |  The name of the policy. | String | Yes | Yes
+`description` |  A human-readable description of the policy. | String | Yes | No
 `ism_template` | Specify an ISM template to automatically apply the policy to the newly created index. | `nested list of objects` | No | No
 `ism_template.index_patterns` | Specify a pattern that matches the newly created index name. | `list of strings` | No | No
-`ism_template.priority` | Specify a priority to disambiguate when multiple policies match the newly created index name. | `number` | No | No
+`ism_template.priority` | Specify a priority to disambiguate when multiple policies match the newly created index name. | Integer | No | No
 `last_updated_time`  |  The time the policy was last updated. | `timestamp` | Yes | Yes
 `error_notification` |  The destination and message template for error notifications. The destination could be Amazon Chime, Slack, or a webhook URL. | `object` | No | No
-`default_state` | The default starting state for each index that uses this policy. | `string` | Yes | No
+`default_state` | The default starting state for each index that uses this policy. | String | Yes | No
 `states` | The states that you define in the policy. | `nested list of objects` | Yes | No
 
 ---
@@ -49,7 +49,7 @@ This table lists the parameters that you can define for a state.
 
 Field | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`name` |  The name of the state. | `string` | Yes
+`name` |  The name of the state. | String | Yes
 `actions` | The actions to execute after entering a state. For more information, see [Actions](#actions). | `nested list of objects` | Yes
 `transitions` | The next states and the conditions required to transition to those states. If no transitions exist, the policy assumes that it's complete and can now stop managing the index. For more information, see [Transitions](#transitions). | `nested list of objects` | Yes
 
@@ -74,8 +74,8 @@ The `retry` operation has the following parameters:
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
-`count` | The number of retry counts. | `number` | Yes | -
-`backoff` | The backoff policy type to use when retrying. Valid values are Exponential, Constant, and Linear. | `string` | No | Exponential
+`count` | The number of retry counts. | Integer | Yes | -
+`backoff` | The backoff policy type to use when retrying. Valid values are Exponential, Constant, and Linear. | String | No | Exponential
 `delay` | The time to wait between retries. Accepts time units for minutes, hours, and days. | `time unit` | No | 1 minute
 
 The following example action has a timeout period of one hour. The policy retries this action three times with an exponential backoff policy, with a delay of 10 minutes between each retry:
@@ -112,6 +112,7 @@ ISM supports the following operations:
 - [index_priority](#index_priority)
 - [allocation](#allocation)
 - [rollup](#rollup)
+- [stop_replication](#stop_replication)
 
 ### force_merge
 
@@ -119,7 +120,7 @@ Reduces the number of Lucene segments by merging the segments of individual shar
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`max_num_segments` | The number of segments to reduce the shard to. | `number` | Yes
+`max_num_segments` | The number of segments to reduce the shard to. | Integer | Yes
 `wait_for_completion` | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
 `task_execution_timeout` | Time | The explicit task execution timeout. Only useful when `wait_for_completion` is set to `false`. Default is `1h`. | No
 
@@ -159,7 +160,7 @@ Sets the number of replicas to assign to an index.
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`number_of_replicas` | Defines the number of replicas to assign to an index. | `number` | Yes
+`number_of_replicas` | Defines the number of replicas to assign to an index. | Integer | Yes
 
 ```json
 {
@@ -200,7 +201,7 @@ Parameter | Description | Type | Example | Required
 `num_new_shards` | The maximum number of primary shards in the shrunken index. | Integer | `5` | Yes. It, however, cannot be used with `max_shard_size` or `percentage_of_source_shards`.
 `max_shard_size` | The maximum size in bytes of a shard for the target index. | Keyword | `5gb` | Yes, however, it cannot be used with `num_new_shards` or `percentage_of_source_shards`.
 `percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0, exclusive.  | Percentage | `0.5` | Yes, however it cannot be used with `max_shard_size` or `num_new_shards`
-`target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | String or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
+`target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{% raw %}{{ctx.index}}{% endraw %}` and `{% raw %}{{ctx.indexUuid}}{% endraw %}`. | String or Mustache template | `{"source": "{% raw %}{{ctx.index}}_shrunken"}{% endraw %}` | No
 `aliases` | Aliases to add to the new index. | Object | `myalias` | No. It must be an array of alias objects.
 `switch_aliases` | If `true`, copies the aliases from the source index to the target index. If there is a name conflict with an alias from the `aliases` field, the alias in the `aliases` field is used instead of the name. | Boolean | `true` | No. The default implicit value is `false`, which means no aliases are copied by default.
 `force_unsafe` | If `true`, shrinks the index even if it has no replicas. | Boolean | `false` | No
@@ -266,7 +267,12 @@ Deletes a managed index.
 
 Rolls an alias over to a new index when the managed index meets one of the rollover conditions.
 
-ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _has exceeded_ the configured limit **when the check is performed**. For example with `min_size` configured to a value of 100GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit (e.g., 105GiB) by the next check, the operation is performed.
+<p id="important-note"></p>
+
+> **IMPORTANT**
+>
+>ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _has exceeded_ the configured limit **when the check is performed**. For example, with `min_size` configured to a value of 100 GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit by the next check (for example, to 105 GiB), the operation is performed.
+{: .important}
 
 If you need to skip the rollover action, you can set the index setting `index.plugins.index_state_management.rollover_skip` to `true`. For example, if you receive the error message "Missing alias or not the write index...", you can set the `index.plugins.index_state_management.rollover_skip` parameter to `true` and retry to skip rollover action.
 
@@ -275,10 +281,10 @@ Set `index.plugins.index_state_management.rollover_alias` as the alias to rollov
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
-`min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
-`min_doc_count` |  The minimum number of documents required to roll over the index. See **Important** note above. | `number` | `2000000` | No
-`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. Supported units are `d` (days), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), and `micros` (microseconds). See **Important** note above. | `string` | `5d` or `7h` | No
+`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. See [**Important** note](#important-note). | String | `20gb` or `5mb` | No
+`min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See [**Important** note](#important-note). | String | `20gb` or `5mb` | No
+`min_doc_count` |  The minimum number of documents required to roll over the index. See [**Important** note](#important-note). | Integer | `2000000` | No
+`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. Supported units are `d` (days), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), and `micros` (microseconds). See [**Important** note](#important-note). | String | `5d` or `7h` | No
 `copy_alias` | Controls whether to copy over all aliases from the current index to a newly created index. Defaults to `false`.  | `boolean` | `true` or `false` | No
 
 ```json
@@ -383,9 +389,9 @@ The following `ctx` variable options are available for every policy:
 
 Parameter | Description | Type
 :--- | :--- |:--- |:--- |
-`index` | The name of the index. | `string`
-`index_uuid` | The uuid of the index. | `string`
-`policy_id` | The name of the policy. | `string`
+`index` | The name of the index. | String
+`index_uuid` | The UUID of the index. | String
+`policy_id` | The name of the policy. | String
 
 ### snapshot
 
@@ -395,14 +401,14 @@ The `snapshot` operation has the following parameters:
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
-`repository` | The repository name that you register through the native snapshot API operations.  | `string` | Yes | -
-`snapshot` | The name of the snapshot. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. If the Mustache variables are invalid, then the snapshot name defaults to the index's name. | `string` or Mustache template | Yes | -
+`repository` | The repository name that you register through the native snapshot API operations.  | String | Yes | -
+`snapshot` | The name of the snapshot. Accepts strings and the Mustache variables `{% raw %}{{ctx.index}}{% endraw %}` and `{% raw %}{{ctx.indexUuid}}{% endraw %}`. If the Mustache variables are invalid, then the snapshot name defaults to the index's name. | String or Mustache template | Yes | -
 
 ```json
 {
   "snapshot": {
     "repository": "my_backup",
-    "snapshot": "{{ctx.indexUuid}}"
+    "snapshot": "{% raw %}{{ctx.indexUuid}}{% endraw %}"
   }
 }
 ```
@@ -415,20 +421,20 @@ The `convert_index_to_remote` operation has the following parameters.
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
-`repository` | The repository name registered through the native snapshot API operations.  | `string` | Yes | N/A
-`snapshot` | The snapshot name created through the snapshot action.  | `string` | Yes | N/A
+`repository` | The repository name registered through the native snapshot API operations.  | String | Yes | N/A
+`snapshot` | The snapshot name created through the snapshot action.  | String | Yes | N/A
 
-Make sure that the repository name used in the `convert_index_to_remote` operation matches the repository name specified during the snapshot action. Additionally, you can reference the snapshot using `{{ctx.index}}`, as shown in the following example policy:
+Make sure that the repository name used in the `convert_index_to_remote` operation matches the repository name specified during the snapshot action. Additionally, you can reference the snapshot using `{% raw %}{{ctx.index}}{% endraw %}`, as shown in the following example policy:
 
 ```json
 {
    "snapshot": {
       "repository": "my_backup",
-      "snapshot": "{{ctx.index}}"
+      "snapshot": "{% raw %}{{ctx.index}}{% endraw %}"
    }, 
    "convert_index_to_remote": {
       "repository": "my_backup",
-      "snapshot": "{{ctx.index}}"
+      "snapshot": "{% raw %}{{ctx.index}}{% endraw %}"
    }
 }
 ```
@@ -442,7 +448,7 @@ The `index_priority` operation has the following parameter:
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |:---
-`priority` | The priority for the index as soon as it enters a state. | `number` | Yes | 1
+`priority` | The priority for the index as soon as it enters a state. | Integer | Yes | 1
 
 ```json
 "actions": [
@@ -463,10 +469,10 @@ The `allocation` operation has the following parameters:
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:---
-`require` | Allocate the index to a node with a specified attribute. | `string` | Yes
-`include` | Allocate the index to a node with any of the specified attributes. | `string` | Yes
-`exclude` | Don’t allocate the index to a node with any of the specified attributes. | `string` | Yes
-`wait_for` | Wait for the policy to execute before allocating the index to a node with a specified attribute. | `string` | Yes
+`require` | Allocate the index to a node with a specified attribute. | String | Yes
+`include` | Allocate the index to a node with any of the specified attributes. | String | Yes
+`exclude` | Don't allocate the index to a node with any of the specified attributes. | String | Yes
+`wait_for` | Wait for the policy to execute before allocating the index to a node with a specified attribute. | String | Yes
 
 ```json
 "actions": [
@@ -484,6 +490,21 @@ Parameter | Description | Type | Required
 
 Rollup jobs can be continuous or non-continuous. A rollup job created using an ISM policy can only be non-continuous.
 {: .note }
+
+### stop_replication
+
+Stops replication and converts the follower index to a regular index.
+
+```json
+{
+  "stop_replication": {}
+}
+```
+
+When cross-cluster replication is enabled, the follower index becomes read-only, preventing all write operations. To manage replicated indexes on a follower cluster, you can perform the `stop_replication` action before performing other write operations. For example, you can define a policy that first runs `stop_replication` and then deletes the index by running a `delete` action.
+
+If security is enabled, in addition to [stop replication permissions]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions), you must have the `indices:internal/plugins/replication/index/stop` permission in order to use the `stop_replication` action.
+{: .note}
 
 #### Endpoints
 
@@ -603,20 +624,26 @@ This table lists the parameters you can define for transitions.
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`state_name` |  The name of the state to transition to if the conditions are met. | `string` | Yes
+`state_name` |  The name of the state to transition to if the conditions are met. | String | Yes
 `conditions` |  List the conditions for the transition. | `list` | Yes
 
 The `conditions` object has the following parameters:
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`min_index_age` | The minimum age of the index required to transition. | `string` | No
-`min_rollover_age` | The minimum age required after a rollover has occurred to transition to the next state. | `string` | No
-`min_doc_count` | The minimum document count of the index required to transition. | `number` | No
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to transition. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so your index is transitioned to the next state. | `string` | No
+`min_index_age` | The minimum age of the index required to transition. | String | No
+`min_rollover_age` | The minimum age required after a rollover has occurred to transition to the next state. | String | No
+`min_state_age` | The minimum amount of time the index must spend in the current state before transitioning. | String | No
+`min_doc_count` | The minimum document count of the index required to transition. | Integer | No
+`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to transition. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so your index is transitioned to the next state. | String | No
+`no_alias` | Controls transition based on alias presence. If `true`, transition occurs only when the index has **no aliases**. If `false`, transition occurs only when at least **one alias exists**. | `boolean` | No
 `cron` | The `cron` job that triggers the transition if no other transition happens first. | `object` | No
-`cron.cron.expression` | The `cron` expression that triggers the transition. | `string` | Yes
-`cron.cron.timezone` | The timezone that triggers the transition. | `string` | Yes
+`cron.cron.expression` | The `cron` expression that triggers the transition. | String | Yes
+`cron.cron.timezone` | The time zone that triggers the transition. | String | Yes
+
+All time-based values (`min_index_age`, `min_rollover_age`, `min_state_age`) use [standard OpenSearch time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units).
+{: .note}
+
 
 The following example transitions the index to a `cold` state after a period of 30 days:
 
@@ -681,7 +708,7 @@ Set up error notifications at the policy level:
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes if `channel` isn't specified
-`channel` | A notification channel's ID | `string` | Yes if `destination` isn't specified
+`channel` | A notification channel's ID | String | Yes if `destination` isn't specified
 `message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | `object` | Yes
 
 The destination system **must** return a response otherwise the `error_notification` operation throws an error.
@@ -1042,4 +1069,4 @@ After 30 days, the policy moves this index into a `delete` state. The service se
 
 This diagram shows the `states`, `transitions`, and `actions` of the above policy as a finite-state machine. For more information about finite-state machines, see [Wikipedia](https://en.wikipedia.org/wiki/Finite-state_machine).
 
-![Policy State Machine]({{site.baseurl}}/images/ism.png)
+![Policy State Machine]({{site.url}}{{site.baseurl}}/images/ism.png)

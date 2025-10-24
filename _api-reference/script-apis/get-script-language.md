@@ -1,22 +1,35 @@
 ---
 layout: default
-title: Get Script Language
+title: Get script languages
 parent: Script APIs
-nav_order: 6
+nav_order: 60
 ---
 
-# Get script language
+# Get Script Languages API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The get script language API operation retrieves all supported script languages and the contexts in which they may be used.
+The Get Script Languages API retrieves all supported script languages (such as Painless) and the contexts in which they can be used.
 
 ## Example request
 
-```json
-GET _script_language
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_script_language
+-->
+{% capture step1_rest %}
+GET /_script_language
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.get_script_languages()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

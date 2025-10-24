@@ -9,6 +9,7 @@ redirect_from:
   - /query-dsl/aggregations/bucket-agg/
   - /query-dsl/aggregations/bucket/
   - /aggregations/bucket-agg/
+  - /aggregations/bucket/
 ---
 
 # Bucket aggregations
@@ -22,6 +23,7 @@ You can use bucket aggregations to implement faceted navigation (usually placed 
 OpenSearch supports the following bucket aggregations:
 
 - [Adjacency matrix]({{site.url}}{{site.baseurl}}/aggregations/bucket/adjacency-matrix/)
+- [Auto-interval date histogram]({{site.url}}{{site.baseurl}}/aggregations/bucket/auto-interval-date-histogram/)
 - [Children]({{site.url}}{{site.baseurl}}/aggregations/bucket/children)
 - [Date histogram]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-histogram/)
 - [Date range]({{site.url}}{{site.baseurl}}/aggregations/bucket/date-range/)
@@ -38,7 +40,9 @@ OpenSearch supports the following bucket aggregations:
 - [Missing]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/)
 - [Multi-terms]({{site.url}}{{site.baseurl}}/aggregations/bucket/multi-terms/)
 - [Nested]({{site.url}}{{site.baseurl}}/aggregations/bucket/nested/)
+- [Parent]({{site.url}}{{site.baseurl}}/aggregations/bucket/parent/)
 - [Range]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/)
+- [Rare terms]({{site.url}}{{site.baseurl}}/aggregations/bucket/rare-terms/)
 - [Reverse nested]({{site.url}}{{site.baseurl}}/aggregations/bucket/reverse-nested/)
 - [Sampler]({{site.url}}{{site.baseurl}}/aggregations/bucket/sampler/)
 - [Significant terms]({{site.url}}{{site.baseurl}}/aggregations/bucket/significant-terms/)

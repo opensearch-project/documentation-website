@@ -1,12 +1,12 @@
 ---
 layout: default
-title: kinesis
+title: Kinesis
 parent: Sources
 grand_parent: Pipelines
 nav_order: 45
 ---
 
-# kinesis
+# Kinesis source
 
 You can use the OpenSearch Data Prepper `kinesis` source to ingest records from one or more [Amazon Kinesis Data Streams](https://aws.amazon.com/kinesis/data-streams/).
 
@@ -69,6 +69,8 @@ Option | Required | Type    | Description
 `key_name` | No | String | The name of the input field from which to extract the JSON array and create Data Prepper events.
 `include_keys` | No | List | The list of input fields to be extracted and added as additional fields in the Data Prepper event.
 `include_keys_metadata` | No | List | The list of input fields to be extracted and added to the Data Prepper event metadata object.
+`max_event_length` | No | Integer | The maximum size of any single event being read by the JSON codec. Default is 20,000,000 characters.
+
 
 ### `newline` codec
 

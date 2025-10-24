@@ -1,12 +1,12 @@
 ---
 layout: default
-title: opensearch 
+title: OpenSearch 
 parent: Sinks
 grand_parent: Pipelines
 nav_order: 50
 ---
 
-# opensearch
+# OpenSearch sink
 
 You can use the `opensearch` sink plugin to send data to an OpenSearch cluster, a legacy Elasticsearch cluster, or an Amazon OpenSearch Service domain.
 
@@ -66,7 +66,9 @@ Option | Required | Type | Description
 `insecure` | No | Boolean  | Whether or not to verify SSL certificates. If set to `true`, then certificate authority (CA) certificate verification is disabled and insecure HTTP requests are sent instead. Default is `false`.
 `proxy` | No | String | The address of the [forward HTTP proxy server](https://en.wikipedia.org/wiki/Proxy_server). The format is `"&lt;hostname or IP&gt;:&lt;port&gt;"` (for example, `"example.com:8100"`, `"http://example.com:8100"`, `"112.112.112.112:8100"`). The port number cannot be omitted.
 `index` | Conditionally | String | The name of the export index. Only required when the `index_type` is `custom`. The index can be a plain string, such as `my-index-name`, contain [Java date-time patterns](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html), such as `my-index-%{yyyy.MM.dd}` or `my-%{yyyy-MM-dd-HH}-index`, be formatted using field values, such as `my-index-${/my_field}`, or use [Data Prepper expressions]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `my-index-${getMetadata(\"my_metadata_field\"}`. All formatting options can be combined to provide flexibility when creating static, dynamic, and rolling indexes. 
-`index_type` | No | String | Tells the sink plugin what type of data it is handling. Valid values are `custom`, `trace-analytics-raw`, `trace-analytics-service-map`, or `management-disabled`. Default is `custom`.
+`index_type` | No | String | Specifies the type of data the sink plugin handles. Valid values include `custom`, `trace-analytics-raw`, `trace-analytics-plain-raw`, `trace-analytics-service-map`, `log-analytics`, `log-analytics-plain`, `metric-analytics`, `metric-analytics-plain`, and `management-disabled`. <br><br>To produce Amazon Security Lake–compliant data from the `otel_logs_source` with `output_format: otel`, set `index_type` to `log-analytics-plain`. <br>For `otel_metrics_source` with `output_format: otel`, set `index_type` to `metric-analytics-plain`. <br>For `otel_trace_source` with `output_format: otel`, set `index_type` to `trace-analytics-plain-raw`. <br><br>Default is `custom`.
+
+
 `template_type` | No | String | Defines what type of OpenSearch template to use. Available options are `v1` and `index-template`. The default value is `v1`, which uses the original OpenSearch templates available at the `_template` API endpoints. The `index-template` option uses composable [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/), which are available through the OpenSearch `_index_template` API. Composable index types offer more flexibility than the default and are necessary when an OpenSearch cluster contains existing index templates. Composable templates are available for all versions of OpenSearch and some later versions of Elasticsearch. When `distribution_version` is set to `es6`, Data Prepper enforces the `template_type` as `v1`.
 `template_file` | No | String | The path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file, such as `/your/local/template-file.json`, when `index_type` is set to `custom`. For an example template file, see [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json). If you supply a template file, then it must match the template format specified by the `template_type` parameter.
 `template_content` | No | JSON | Contains all the inline JSON found inside of the index  [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/). For an example of template content, see [the example template content](#example_template_content).
@@ -132,6 +134,41 @@ You can include the `max_retries` option in your pipeline configuration to contr
 If you specify `max_retries` and a pipeline has a [dead-letter queue (DLQ)]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/dlq/) configured, the pipeline will keep trying to write to sinks until it reaches the maximum number of retries, at which point it starts to send failed data to the DLQ.
 
 If you don't specify `max_retries`, only data that is rejected by sinks is written to the DLQ. Pipelines continue to try to write all other data to the sinks.
+
+### Error handling with acknowledgments
+
+When pipelines have [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/#end-to-end-acknowledgments) enabled, error handling is controlled by two key configurations:
+* [Dead-letter queue (DLQ)]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/dlq/)
+* [`max_retries`](#configure-max_retries)
+
+#### DLQ configuration (strongly recommended)
+
+The OpenSearch sink acknowledges events only when:
+* Successfully sent to OpenSearch.
+* Successfully sent to DLQ.
+
+Without a DLQ configured:
+* Failed events remain unacknowledged.
+* Source must handle retries.
+* Risk of infinite reprocessing for non-retryable errors.
+
+#### Example: S3 source with acknowledgments
+
+Consider an [S3 source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/) with acknowledgments enabled:
+
+**Without DLQ**:
+* A single failed event prevents acknowledgment of an entire S3 object.
+* The entire S3 object requires reprocessing.
+* Non-retryable errors can cause infinite reprocessing ("poison pill").
+
+**With `max_retries` but no DLQ**:
+* Reaching `max_retries` still prevents acknowledgment.
+* Results in unnecessary reprocessing of entire S3 objects.
+
+**Best practice** -- Always configure a DLQ when using acknowledgments to:
+* Prevent infinite reprocessing.
+* Handle non-retryable errors gracefully.
+* Minimize unnecessary reprocessing.
 
 ## OpenSearch cluster security
 

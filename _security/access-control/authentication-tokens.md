@@ -36,7 +36,7 @@ config:
 ...
 ```
 
-The default encoding algorithm for signing the JWT is HMAC SHA512. Both the signing key and the encryption key are base64 encoded and stored on the OpenSearch node's file system. The keys should be the same on all hosts. Otherwise, encryption and decryption operations may fail. The keys' deployment is managed by the cluster operator.
+The default encoding algorithm for signing the JWT is HMAC SHA512. Both keys are Base64-encoded strings in the [security `config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/). After the configuration is applied using the `securityadmin.sh -cd <configuration directory>` command, the values are stored in the security system index and used cluster-wide.
 
 ### Token structure
 
@@ -94,6 +94,10 @@ POST /_plugins/_security/api/generateonbehalfoftoken
 While the conversation about the usage of OBO tokens continues, it is critical to manage certain edge cases. Even though an OBO token can act as a valid Bearer authorization header for any API access, certain limitations are needed. For instance, using an OBO token to access the API endpoint to issue another OBO token should be forbidden. Similarly, using an OBO token to access the reset password API in order to modify a user's authentication information should be disallowed. These preventive measures are necessary to uphold the system's integrity and security.
 
 For more information, see the [related discussion](https://github.com/opensearch-project/security/issues/2891).
+
+### Permissions
+
+To create an OBO token, you must have the `security:obo/create` permission.
 
 ## Service Accounts
 

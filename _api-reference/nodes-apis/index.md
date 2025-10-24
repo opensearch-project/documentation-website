@@ -2,14 +2,17 @@
 layout: default
 title: Nodes APIs
 has_children: true
+has_toc: false
 nav_order: 50
+redirect_from:
+  - /api-reference/nodes-apis/
 ---
 
-# Nodes API
+# Nodes APIs
 **Introduced 1.0**
 {: .label .label-purple }
 
-The nodes API makes it possible to retrieve information about individual nodes within your cluster. 
+The Nodes API makes it possible to retrieve information about individual nodes in your cluster. 
 
 ## Node filters
 
@@ -49,17 +52,53 @@ Resolution mechanisms are applied sequentially in the order specified by the cli
 
 To get statistics from the elected cluster manager node only, use the following query :
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/_cluster_manager/stats
+-->
+{% capture step1_rest %}
 GET /_nodes/_cluster_manager/stats
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "stats",
+  node_id = "_cluster_manager"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To get statistics from nodes that are data-only nodes, use the following query:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/data:true/stats
+-->
+{% capture step1_rest %}
 GET /_nodes/data:true/stats
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "stats",
+  node_id = "data:true"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Order of resolution mechanisms
 
@@ -67,14 +106,60 @@ The order of resolution mechanisms is applied sequentially, and each can add or 
 
 To get statistics from all the nodes except the cluster manager node, use the following query:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/_all,cluster_manager:false/stats
+-->
+{% capture step1_rest %}
 GET /_nodes/_all,cluster_manager:false/stats
-```
-{% include copy-curl.html %}
+{% endcapture %}
 
-However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the cluster manager node: 
+{% capture step1_python %}
 
-```json
+
+response = client.nodes.info(
+  metric = "stats",
+  node_id = "_all,cluster_manager:false"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the cluster manager node:
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/cluster_manager:false,_all/stats
+-->
+{% capture step1_rest %}
 GET /_nodes/cluster_manager:false,_all/stats
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "stats",
+  node_id = "cluster_manager:false,_all"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+## Nodes API operations
+
+The following nodes API operations are available:
+
+- [Nodes hot threads]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-hot-threads/)
+- [Nodes info]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-info/)
+- [Nodes reload secure settings]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-reload-secure/)
+- [Nodes stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)
+- [Nodes usage]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-usage/)

@@ -3,10 +3,10 @@ layout: default
 title: Delete agent
 parent: Agent APIs
 grand_parent: ML Commons APIs
-nav_order: 50
+nav_order: 40
 ---
 
-# Delete an agent
+# Delete Agent API
 **Introduced 2.13**
 {: .label .label-purple }
 
@@ -18,14 +18,14 @@ You can use this API to delete an agent based on the `agent_id`.
 DELETE /_plugins/_ml/agents/<agent_id>
 ```
 
-#### Example request
+## Example request
 
 ```json
 DELETE /_plugins/_ml/agents/MzcIJX8BA7mbufL6DOwl
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

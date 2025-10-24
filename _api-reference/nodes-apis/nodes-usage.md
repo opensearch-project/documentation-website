@@ -5,7 +5,7 @@ parent: Nodes APIs
 nav_order: 40
 ---
 
-# Nodes usage
+# Nodes Usage API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -42,10 +42,27 @@ cluster_manager_timeout | Time | Sets the time limit for a response from the clu
 
 The following request returns usage details for all nodes:
 
-```
-GET _nodes/usage
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/usage
+-->
+{% capture step1_rest %}
+GET /_nodes/usage
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  node_id_or_metric = "usage"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

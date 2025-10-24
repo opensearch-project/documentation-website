@@ -3,7 +3,7 @@ layout: default
 title: Normalization
 nav_order: 70
 has_children: false
-parent: Search processors
+parent: User-defined search processors
 grand_parent: Search pipelines
 ---
 
@@ -31,11 +31,14 @@ The following table lists all available request fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`normalization.technique` | String | The technique for normalizing scores. Valid values are [`min_max`](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization)) and [`l2`](https://en.wikipedia.org/wiki/Cosine_similarity#L2-normalized_Euclidean_distance). Optional. Default is `min_max`.
+`normalization.technique` | String | The technique for normalizing scores. Valid values are [`min_max`](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization)), [`l2`](https://en.wikipedia.org/wiki/Cosine_similarity#L2-normalized_Euclidean_distance), and [`z_score`](https://en.wikipedia.org/wiki/Standard_score). Optional. Default is `min_max`.
  `normalization.parameters.lower_bounds` | Array of objects | Defines the lower bound values (the minimum threshold scores) for each query. The array must contain the same number of objects as the number of queries. Optional. Applies only when the normalization technique is [`min_max`](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization)). If not provided, OpenSearch does not apply a lower bound to any subquery and uses the actual minimum score from the retrieved results for normalization.
 `normalization.parameters.lower_bounds.mode` | String | Specifies how the lower bound is applied to a query. Valid values are: <br> - `apply`: Uses `min_score` for normalization without modifying the original scores. Formula: `min_max_score = if (score < lowerBoundScore) then (score - minScore) / (maxScore - minScore) else (score - lowerBoundScore) / (maxScore - lowerBoundScore)`. <br> - `clip`: Replaces scores below the lower bound with `min_score`. Formula: `min_max_score = if (score < lowerBoundScore) then 0.0 else (score - lowerBoundScore) / (maxScore - lowerBoundScore)`. <br> - `ignore`: Does not apply a lower bound to this query and uses the standard `min_max` formula instead. <br> Optional. Default is `apply`. 
-`normalization.parameters.lower_bounds.min_score` | Float | The lower bound threshold. Valid values are in the [-10000.0, 10000.0] range. If `mode` is set to `ignore`, then this value has no effect. Optional. Default is `0.0`. 
-`combination.technique` | String | The technique for combining scores. Valid values are [`arithmetic_mean`](https://en.wikipedia.org/wiki/Arithmetic_mean), [`geometric_mean`](https://en.wikipedia.org/wiki/Geometric_mean), and [`harmonic_mean`](https://en.wikipedia.org/wiki/Harmonic_mean). Optional. Default is `arithmetic_mean`.
+`normalization.parameters.lower_bounds.min_score` | Float | The lower bound threshold. Valid values are in the [-10000.0, 10000.0] range. If `mode` is set to `ignore`, then this value has no effect. Optional. Default is `0.0`.
+`normalization.parameters.upper_bounds` | Array of objects | Defines the upper bound values (the maximum threshold scores) for each query. The array must contain the same number of objects as the number of queries. Optional. Applies only when the `normalization.technique` is set to `min_max`. If not provided, OpenSearch does not apply an upper bound to any subquery and uses the actual maximum score from the retrieved results for normalization.
+`normalization.parameters.upper_bounds.mode` | String | Specifies how the upper bound is applied to a query. Valid values are: <br> - `apply`: Uses `max_score` for normalization without modifying the original scores. Formula: `min_max_score = if (score > upperBoundScore) then (score - minScore) / (maxScore - minScore) else (score - minScore) / (upperBoundScore - minScore)`. <br> - `clip`: Replaces scores above the upper bound with `max_score`. Formula: `min_max_score = if (score > upperBoundScore) then 1.0 else (score - minScore) / (upperBoundScore - minScore)`. <br> - `ignore`: Does not apply an upper bound to this query and uses the standard `min_max` formula instead. <br> Optional. Default is `apply`. 
+`normalization.parameters.upper_bounds.max_score` | Float | The upper bound threshold. Valid values are in the [-10000.0, 10000.0] range. If `mode` is set to `ignore`, then this value has no effect. Optional. Default is `1.0`. 
+`combination.technique` | String | The technique for combining scores. Valid values are [`arithmetic_mean`](https://en.wikipedia.org/wiki/Arithmetic_mean), [`geometric_mean`](https://en.wikipedia.org/wiki/Geometric_mean), and [`harmonic_mean`](https://en.wikipedia.org/wiki/Harmonic_mean). Optional. Default is `arithmetic_mean`. `z_score` supports only `arithmetic_mean`.
 `combination.parameters.weights` | Array of floating-point values | Specifies the weights to use for each query. Valid values are in the [0.0, 1.0] range and signify decimal percentages. The closer the weight is to 1.0, the more weight is given to a query. The number of values in the `weights` array must equal the number of queries. The sum of the values in the array must equal 1.0. Optional. If not provided, all queries are given equal weight.
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
@@ -77,7 +80,7 @@ PUT /_search/pipeline/nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-The following example demonstrates using the `lower_bounds` parameter with the `min_max` normalization technique. It omits the `weights` parameter in the combination technique, causing the queries to be weighted equally by default. In this example, the `lower_bounds` parameter is used to set different lower bounds for each query in a hybrid search. For the first query, a lower bound of 0.5 is applied, while for the second query, the lower bound is ignored. This allows for fine-tuning of the normalization process for each individual query in a hybrid search:
+The following example demonstrates using the `lower_bounds` and `upper_bounds` parameters with the `min_max` normalization technique. It omits the `weights` parameter in the combination technique, causing the queries to be weighted equally by default. In this example, the `lower_bounds` parameter is used to set different lower bounds for each query in a hybrid search, and the `upper_bounds` parameter is used to set different upper bounds. For the first query, a lower bound of 0.5 is applied and an upper bound of 0.8 is clipped. For the second query, both the lower bound and the upper bound are ignored. This allows for fine-tuning of the normalization process for each individual query in a hybrid search:
 
 ```json
 PUT /_search/pipeline/nlp-search-pipeline
@@ -97,7 +100,16 @@ PUT /_search/pipeline/nlp-search-pipeline
                 {
                   "mode": "ignore"
                 }
-              ]
+              ],
+            "upper_bounds": [
+              {
+                "mode": "clip",
+                "max_score": 0.8
+              },
+              {
+                "mode": "ignore"
+              }
+            ]
           }
         },
         "combination": {

@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT nodes
-parent: CAT API
+parent: CAT APIs
 nav_order: 40
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-nodes/
 ---
 
-# CAT nodes
+# CAT Nodes API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -40,14 +40,14 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
-| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, and `p`. | N/A |
 | `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
 | `full_id` | Boolean or String | When `true`, returns the full node ID. When `false`, returns the shortened node ID. | `false` |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
-| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, `d` | N/A |
+| `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 
 <!-- spec_insert_end -->
@@ -56,10 +56,27 @@ The following table lists the available query parameters. All query parameters a
 
 The following example request lists node level information:
 
-```json
-GET _cat/nodes?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/nodes?v
+-->
+{% capture step1_rest %}
+GET /_cat/nodes?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.nodes(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

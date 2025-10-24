@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 50
 ---
 
-# Get message
+# Get Message API
 **Introduced 2.12**
 {: .label .label-purple }
 
@@ -38,20 +38,21 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `message_id` | String | The ID of the message to retrieve.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/message/0m8ya40BfUsSoeNTj-pU
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
   "memory_id": "gW8Aa40BfUsSoeNTvOKI",
   "message_id": "0m8ya40BfUsSoeNTj-pU",
   "create_time": "2024-02-02T19:01:32.113621539Z",
+  "updated_time": "2024-02-02T19:01:32.113621539Z",
   "input": null,
   "prompt_template": null,
   "response": "Hello, this is OpenAI. Here is the answer to your question.",
@@ -82,7 +83,25 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `memory_id` | String | The ID of the memory for which to retrieve messages.
 
-#### Example request
+## Response body fields
+
+The following table lists the available response fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `memory_id` | String | The memory ID. |
+| `message_id` | String | The message ID. |
+| `create_time` | String | The time at which the message was created. |
+| `updated_time` | String | The time at which the message was last updated. |
+| `input` | String | The question in the message (human input).  |
+| `prompt_template` | String | The prompt template that was used for the message. |
+| `response` | String | The answer to the question (generative AI output). |
+| `origin` | String | The name of the AI or other system that generated the response. |
+| `additional_info` | Object | Any other information that was sent to the `origin`. |
+| `parent_message_id` | String | The ID of the parent message (for trace messages). |
+| `trace_number` | Integer | The trace number (for trace messages). |
+
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/messages
@@ -100,7 +119,7 @@ POST /_plugins/_ml/message/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -109,6 +128,7 @@ POST /_plugins/_ml/message/_search
       "memory_id": "gW8Aa40BfUsSoeNTvOKI",
       "message_id": "BW8ha40BfUsSoeNT8-i3",
       "create_time": "2024-02-02T18:43:23.566994302Z",
+      "updated_time": "2024-02-02T18:43:23.566994302Z",
       "input": "How do I make an interaction?",
       "prompt_template": "Hello OpenAI, can you answer this question?",
       "response": "Hello, this is OpenAI. Here is the answer to your question.",
@@ -121,6 +141,7 @@ POST /_plugins/_ml/message/_search
       "memory_id": "gW8Aa40BfUsSoeNTvOKI",
       "message_id": "0m8ya40BfUsSoeNTj-pU",
       "create_time": "2024-02-02T19:01:32.113621539Z",
+      "updated_time": "2024-02-02T19:01:32.113621539Z",
       "input": null,
       "prompt_template": null,
       "response": "Hello, this is OpenAI. Here is the answer to your question.",
@@ -132,8 +153,3 @@ POST /_plugins/_ml/message/_search
   ]
 }
 ```
-
-## Response body fields
-
-For information about response fields, see [Create Message request fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message#request-body-fields).
-

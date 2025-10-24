@@ -1,13 +1,14 @@
 ---
 layout: default
-title: Create pipeline
+title: Create or update pipeline
 nav_order: 10
 redirect_from:
   - /opensearch/rest-api/ingest-apis/create-update-ingest/
   - /api-reference/ingest-apis/create-ingest/
+  - /api-reference/ingest-apis/create-update-ingest/
 ---
 
-# Create pipeline
+# Create or update pipeline
 **Introduced 1.0**
 {: .label .label-purple }
 

@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Execute Painless stored script
+title: Execute stored script
 parent: Script APIs
-nav_order: 2
+nav_order: 20
 ---
 
-# Execute Painless stored script
+# Execute Stored Script API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Runs a stored script written in the Painless language. 
+Runs a stored script that was previously saved to the cluster state using the Create Stored Script API. 
 
 OpenSearch provides several ways to run a script; the following sections show how to run a script by passing script information in the request body of a `GET <index>/_search` request.
 
@@ -37,6 +37,73 @@ GET books/_search
 | script | Object | ID of the script that produces a value for a field. |
 
 ## Example request
+<!-- spec_insert_start
+component: example_code
+rest: GET /books/_search
+body: |
+{
+   "query": {
+    "match_all": {}
+  },
+  "script_fields": {
+    "total_ratings": {
+      "script": {
+        "id": "multiplier-script",
+        "params": {
+          "multiplier": 2
+        }
+      }
+    }
+  }
+}
+-->
+{% capture step1_rest %}
+GET /books/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "script_fields": {
+    "total_ratings": {
+      "script": {
+        "id": "multiplier-script",
+        "params": {
+          "multiplier": 2
+        }
+      }
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search(
+  index = "books",
+  body =   {
+    "query": {
+      "match_all": {}
+    },
+    "script_fields": {
+      "total_ratings": {
+        "script": {
+          "id": "multiplier-script",
+          "params": {
+            "multiplier": 2
+          }
+        }
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following request runs the stored script that was created in [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). The script sums the ratings for each book and displays the sum in the `total_ratings` field in the output.
 
@@ -46,8 +113,10 @@ The following request runs the stored script that was created in [Create or upda
 
 * The `total_ratings` field value is the result of the `my-first-script` execution. See  [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).
 
-````json
-GET books/_search
+<!-- spec_insert_start
+component: example_code
+rest: GET /books/_search
+body: |
 {
    "query": {
     "match_all": {}
@@ -55,13 +124,53 @@ GET books/_search
   "script_fields": {
     "total_ratings": {
       "script": {
-        "id": "my-first-script" 
+        "id": "my-first-script"
       }
     }
   }
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /books/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "script_fields": {
+    "total_ratings": {
+      "script": {
+        "id": "my-first-script"
+      }
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search(
+  index = "books",
+  body =   {
+    "query": {
+      "match_all": {}
+    },
+    "script_fields": {
+      "total_ratings": {
+        "script": {
+          "id": "my-first-script"
+        }
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 #### Example response
 
@@ -161,8 +270,10 @@ The following request runs the stored script that was created in [Create or upda
 
 * `"multiplier": 2` in the `params` field is a variable passed to the stored script `multiplier-script`:
 
-```json
-GET books/_search
+<!-- spec_insert_start
+component: example_code
+rest: GET /books/_search
+body: |
 {
    "query": {
     "match_all": {}
@@ -170,16 +281,62 @@ GET books/_search
   "script_fields": {
     "total_ratings": {
       "script": {
-        "id": "multiplier-script", 
+        "id": "multiplier-script",
         "params": {
           "multiplier": 2
-        }        
+        }
       }
     }
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /books/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "script_fields": {
+    "total_ratings": {
+      "script": {
+        "id": "multiplier-script",
+        "params": {
+          "multiplier": 2
+        }
+      }
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search(
+  index = "books",
+  body =   {
+    "query": {
+      "match_all": {}
+    },
+    "script_fields": {
+      "total_ratings": {
+        "script": {
+          "id": "multiplier-script",
+          "params": {
+            "multiplier": 2
+          }
+        }
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 #### Example response
 

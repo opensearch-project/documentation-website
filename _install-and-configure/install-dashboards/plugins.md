@@ -28,108 +28,31 @@ Major, minor, and patch plugin versions must match OpenSearch major, minor, and 
 
 ## Available plugins
 
-The following table lists available OpenSearch Dashboards plugins.
+The following table lists available OpenSearch Dashboards plugins. All listed plugins are included in the default OpenSearch distributions.
 
-| Plugin Name | Repository | Earliest Available Version |
+| Plugin name | Repository | Earliest available version |
 | :--- | :--- | :--- |
-| Alerting Dashboards | [alerting-dashboards-plugin](https://github.com/opensearch-project/alerting-dashboards-plugin) | 1.0.0 |
-| Anomaly Detection Dashboards | [anomaly-detection-dashboards-plugin](https://github.com/opensearch-project/anomaly-detection-dashboards-plugin) | 1.0.0 |
-| Custom Import Maps Dashboards | [dashboards-maps](https://github.com/opensearch-project/dashboards-maps) | 2.2.0 |
-| Search Relevance Dashboards | [dashboards-search-relevance](https://github.com/opensearch-project/dashboards-search-relevance) | 2.4.0 |
-| Gantt Chart Dashboards | [gantt-chart](https://github.com/opensearch-project/dashboards-visualizations) | 1.0.0 |
-| Index Management Dashboards | [index-management-dashboards-plugin](https://github.com/opensearch-project/index-management-dashboards-plugin) | 1.0.0 |
-| Notebooks Dashboards | [dashboards-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 |
-| Notifications Dashboards | [dashboards-notifications](https://github.com/opensearch-project/dashboards-notifications) | 2.0.0 |
-| Observability Dashboards | [dashboards-observability](https://github.com/opensearch-project/dashboards-observability) | 2.0.0 |
-| Query Workbench Dashboards | [query-workbench](https://github.com/opensearch-project/dashboards-query-workbench) | 1.0.0 |
-| Reports Dashboards | [dashboards-reporting](https://github.com/opensearch-project/dashboards-reporting) | 1.0.0 |
-| Security Analytics Dashboards | [security-analytics-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin)| 2.4.0 |
-| Security Dashboards | [security-dashboards-plugin](https://github.com/opensearch-project/security-dashboards-plugin) | 1.0.0 |
+| `alertingDashboards` | [alerting-dashboards-plugin](https://github.com/opensearch-project/alerting-dashboards-plugin) | 1.0.0 |
+| `anomalyDetectionDashboards` | [anomaly-detection-dashboards-plugin](https://github.com/opensearch-project/anomaly-detection-dashboards-plugin) | 1.0.0 |
+| `assistantDashboards` | [dashboards-assistant](https://github.com/opensearch-project/dashboards-assistant) | 2.13.0 |
+| `customImportMapDashboards` | [dashboards-maps](https://github.com/opensearch-project/dashboards-maps) | 2.2.0 |
+| `flowFrameworkDashboards` | [dashboards-flow-framework](https://github.com/opensearch-project/dashboards-flow-framework) | 2.19.0 |
+| `indexManagementDashboards` | [index-management-dashboards-plugin](https://github.com/opensearch-project/index-management-dashboards-plugin) | 1.0.0 |
+| `mlCommonsDashboards` | [ml-commons-dashboards](https://github.com/opensearch-project/ml-commons-dashboards) | 2.6.0 |
+| `notificationsDashboards` | [dashboards-notifications](https://github.com/opensearch-project/dashboards-notifications) | 2.0.0 |
+| `observabilityDashboards` | [dashboards-observability](https://github.com/opensearch-project/dashboards-observability) | 2.0.0 |
+| `queryInsightsDashboards` | [query-insights-dashboards](https://github.com/opensearch-project/query-insights-dashboards) | 2.19.0 |
+| `queryWorkbenchDashboards` | [query-workbench](https://github.com/opensearch-project/dashboards-query-workbench) | 1.0.0 |
+| `reportsDashboards` | [dashboards-reporting](https://github.com/opensearch-project/dashboards-reporting) | 1.0.0 |
+| `searchRelevanceDashboards` | [dashboards-search-relevance](https://github.com/opensearch-project/dashboards-search-relevance) | 2.4.0 |
+| `securityAnalyticsDashboards` | [security-analytics-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin)| 2.4.0 |
+| `securityDashboards` | [security-dashboards-plugin](https://github.com/opensearch-project/security-dashboards-plugin) | 1.0.0 |
 
-## Install
+_<sup>*</sup>`dashboardNotebooks` was merged into the Observability plugin with the release of OpenSearch 1.2.0._<br>
 
-Navigate to the OpenSearch Dashboards home directory (for example, `/usr/share/opensearch-dashboards`) and run the install command for each plugin.
+## Installing a plugin
 
-{% comment %}
-
-#### Security OpenSearch Dashboards
-
-```bash
-sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-security/opensearchSecurityOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.0.1.zip
-```
-
-This plugin provides a user interface for managing users, roles, mappings, action groups, and tenants.
-
-#### Alerting OpenSearch Dashboards
-
-```bash
-sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-alerting/opensearchAlertingOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.0.0.zip
-```
-
-This plugin provides a user interface for creating monitors and managing alerts.
-
-#### Index State Management OpenSearch Dashboards
-
-```bash
-sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-index-management/opensearchIndexManagementOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.0.1.zip
-```
-
-This plugin provides a user interface for managing policies.
-
-#### Anomaly Detection OpenSearch Dashboards
-
-```bash
-sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-anomaly-detection/opensearchAnomalyDetectionOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.0.0.zip
-```
-
-This plugin provides a user interface for adding detectors.
-
-#### Query Workbench OpenSearch Dashboards
-
-```bash
-sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-query-workbench/opensearchQueryWorkbenchOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.0.0.zip
-```
-
-This plugin provides a user interface for using SQL queries to explore your data.
-
-#### Trace Analytics
-
-```bash
-sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-trace-analytics/opensearchTraceAnalyticsOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.2.0.zip
-```
-
-This plugin uses distributed trace data (indexed in OpenSearch using Data Prepper) to display latency trends, error rates, and more.
-
-#### Notebooks OpenSearch Dashboards
-
-```bash
-sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-notebooks/opensearchNotebooksOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.2.0.zip
-```
-
-This plugin lets you combine OpenSearch Dashboards visualizations and narrative text in a single interface.
-
-#### Reports OpenSearch Dashboards
-
-```bash
-# x86 Linux
-sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-reports/linux/x64/opensearchReportsOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.2.0-linux-x64.zip
-# ARM64 Linux
-sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-reports/linux/arm64/opensearchReportsOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.2.0-linux-arm64.zip
-# x86 Windows
-sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-reports/windows/x64/opensearchReportsOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.2.0-windows-x64.zip
-```
-
-This plugin lets you export and share reports from OpenSearch Dashboards dashboards, visualizations, and saved searches.
-
-#### Gantt Chart OpenSearch Dashboards
-
-```bash
-sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-dashboards-plugins/opensearch-gantt-chart/opensearchGanttChartOpenSearch Dashboards-{{site.opensearch_major_minor_version}}.0.0.zip
-```
-
-This plugin adds a new Gantt chart visualization.
-
-{% endcomment %}
+For information about installing Dashboards plugins, see [Downloading bundled plugins for offline installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#downloading-bundled-plugins-for-offline-installation).
 
 ## Viewing a list of installed plugins
 
@@ -138,53 +61,42 @@ To view the list of installed plugins from the command line, use the following c
 ```bash
 sudo bin/opensearch-dashboards-plugin list
 ```
+{% include copy.html %}
 
-## Remove plugins
-
-To remove a plugin:
-
-```bash
-sudo bin/opensearch-dashboards-plugin remove <plugin-name>
-```
-
-Then remove all associated entries from `opensearch_dashboards.yml`.
-
-For certain plugins, you must also remove the "optimize" bundle. This is a sample command for the Anomaly Detection plugin:
+The command returns the list of installed plugins and their versions:
 
 ```bash
-sudo rm /usr/share/opensearch-dashboards/optimize/bundles/opensearch-anomaly-detection-opensearch-dashboards.*
+alertingDashboards@3.1.0.0
+anomalyDetectionDashboards@3.1.0.0
+assistantDashboards@3.1.0.0
+customImportMapDashboards@3.1.0.0
+flowFrameworkDashboards@3.1.0.0
+indexManagementDashboards@3.1.0.0
+mlCommonsDashboards@3.1.0.0
+notificationsDashboards@3.1.0.0
+observabilityDashboards@3.1.0.0
+queryInsightsDashboards@3.1.0.0
+queryWorkbenchDashboards@3.1.0.0
+reportsDashboards@3.1.0.0
+searchRelevanceDashboards@3.1.0.0
+securityAnalyticsDashboards@3.1.0.0
 ```
 
-Then restart OpenSearch Dashboards. After you remove any plugin, OpenSearch Dashboards performs an optimize operation the next time you start it. This operation takes several minutes even on fast machines, so be patient.
+## Removing a plugin
+
+To remove a plugin, use the following command:
+
+```bash
+sudo bin/opensearch-dashboards-plugin remove alertingDashboards
+```
+{% include copy.html %}
+
+Then remove all associated entries from `opensearch_dashboards.yml` and restart OpenSearch Dashboards. 
 
 ## Updating plugins
 
-OpenSearch Dashboards doesn’t update plugins. Instead, you have to remove the old version and its optimized bundle, reinstall them, and restart OpenSearch Dashboards:
+OpenSearch Dashboards doesn't update plugins. Instead, you must [remove the old version](#removing-a-plugin), [reinstall the plugin](#installing-a-plugin), and restart OpenSearch Dashboards.
 
-1. Remove the old version:
+## Plugin dependencies
 
-   ```bash
-   sudo bin/opensearch-dashboards-plugin remove <plugin-name>
-   ```
-
-1. Remove the optimized bundle:
-
-   ```bash
-   sudo rm /usr/share/opensearch-dashboards/optimize/bundles/<bundle-name>
-   ```
-
-1. Reinstall the new version:
-
-   ```bash
-   sudo bin/opensearch-dashboards-plugin install <plugin-name>
-   ```
-
-1. Restart OpenSearch Dashboards.
-
-For example, to remove and reinstall the Anomaly Detection plugin:
-
-```bash
-sudo bin/opensearch-dashboards-plugin remove anomalyDetectionDashboards
-sudo rm /usr/share/opensearch-dashboards/optimize/bundles/opensearch-anomaly-detection-opensearch-dashboards.*
-sudo bin/opensearch-dashboards-plugin install <AD OpenSearch Dashboards plugin artifact URL>
-```
+Some plugins extend functionality of other plugins. If a plugin has a dependency on another plugin, you must install the required dependency before installing the dependent plugin. For plugin dependencies, see the [manifest file](https://github.com/opensearch-project/opensearch-build/blob/main/manifests/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}.yml). In this file, each plugin's dependencies are listed in the `depends_on` parameter.

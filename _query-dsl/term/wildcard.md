@@ -2,7 +2,7 @@
 layout: default
 title: Wildcard
 parent: Term-level queries
-nav_order: 100
+nav_order: 90
 ---
 
 # Wildcard query
@@ -36,7 +36,7 @@ If you change `*` to `?`, you get no matches because `?` refers to a single char
 
 Wildcard queries tend to be slow because they need to iterate over a lot of terms. Avoid placing wildcard characters at the beginning of a query because it could be a very expensive operation in terms of both resources and time.
 
-The [wildcard field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/) builds an index that is specially designed to be very efficient for wildcard and regular expression queries.
+The [wildcard field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/wildcard/) builds an index that is specially designed to be very efficient for wildcard and regular expression queries.
 
 ## Parameters
 

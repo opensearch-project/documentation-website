@@ -12,7 +12,10 @@ redirect_from:
 
 This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using the [Cohere Embed model](https://docs.cohere.com/reference/embed). For more information, see [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/).
 
-If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the Cohere Embed model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_v3_connector_embedding_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+If using Python, you can create a Cohere connector and test the model using the [opensearch-py-ml](https://github.com/opensearch-project/opensearch-py-ml) client CLI. The CLI automates many configuration steps, making setup faster and reducing the chance of errors. For more information about using the CLI, see the [CLI documentation](https://opensearch-project.github.io/opensearch-py-ml/cli/index.html#).
+{: .tip}
+
+If using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the Cohere Embed model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/cohere_connector_embedding_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
 The easiest way to set up an embedding model in Amazon OpenSearch Service is by using [AWS CloudFormation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cfn-template.html). Alternatively, you can set up an embedding model using [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
 {: .tip}
@@ -113,7 +116,7 @@ Create an IAM role named `my_create_connector_role` with the following trust pol
 ```
 {% include copy.html %}
 
-You'll use the `your_iam_user_arn` IAM user to assume the role in Step 4.1.
+You'll use the `your_iam_user_arn` IAM user to assume the role in Step 4.
 
 - Permissions:
 
@@ -155,28 +158,7 @@ The IAM role is now successfully configured in your OpenSearch cluster.
 
 Follow these steps to create a connector for the model. For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-### Step 4.1: Get temporary credentials
-
-Use the credentials of the IAM user specified in Step 3.1 to assume the role:
-
-```bash
-aws sts assume-role --role-arn your_iam_role_arn_created_in_step3.1 --role-session-name your_session_name
-```
-{% include copy.html %}
-
-Copy the temporary credentials from the response and configure them in `~/.aws/credentials`:
-
-```ini
-[default]
-AWS_ACCESS_KEY_ID=your_access_key_of_role_created_in_step3.1
-AWS_SECRET_ACCESS_KEY=your_secret_key_of_role_created_in_step3.1
-AWS_SESSION_TOKEN=your_session_token_of_role_created_in_step3.1
-```
-{% include copy.html %}
-
-### Step 4.2: Create a connector
-
-Run the following Python code with the temporary credentials configured in `~/.aws/credentials`:
+Run the following Python code with the temporary credentials fetched from AWS.
  
 ```python
 import boto3
@@ -187,8 +169,12 @@ host = 'your_amazon_opensearch_domain_endpoint_created'
 region = 'your_amazon_opensearch_domain_region'
 service = 'es'
 
-credentials = boto3.Session().get_credentials()
-awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
+assume_role_response = boto3.Session().client('sts').assume_role(
+  RoleArn="your_iam_role_arn_created_in_step3.1",
+  RoleSessionName="your_session_name"
+)
+credentials = assume_role_response["Credentials"]
+awsauth = AWS4Auth(credentials["AccessKeyId"], credentials["SecretAccessKey"], region, service, session_token=credentials["SessionToken"])
 
 path = '/_plugins/_ml/connectors/_create'
 url = host + path

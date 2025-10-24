@@ -7,11 +7,22 @@ redirect_from:
   - /query-dsl/aggregations/metric/geobounds/
 ---
 
-## Geobounds aggregations
+# Geobounds aggregation
 
-The `geo_bounds` metric is a multi-value metric aggregation that calculates the [geographic bounding box](https://docs.ogc.org/is/12-063r5/12-063r5.html#30) containing all values of a given `geo_point` or `geo_shape` field. The bounding box is returned as the upper-left and lower-right vertices of the rectangle in terms of latitude and longitude.
+The `geo_bounds` aggregation is a multi-value aggregation that calculates the [geographic bounding box](https://docs.ogc.org/is/12-063r5/12-063r5.html#30) encompassing a set of [`geo_point`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-point/) or [`geo_shape`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-shape/) objects. The bounding box is returned as the upper-left and lower-right vertices of the rectangle given as a decimal-encoded latitude-longitude (lat-lon) pair.
 
-The following example returns the `geo_bounds` metrics for the `geoip.location` field:
+## Parameters
+
+The `geo_bounds` aggregation takes the following parameters.
+
+| Parameter        | Required/Optional | Data type      | Description |
+| :--              | :--               | :--            | :--         |
+| `field`          | Required          | String         | The name of the field containing the geopoints or geoshapes for which the geobounds are computed. |
+| `wrap_longitude` | Optional          | Boolean        | Whether to allow the bounding box to overlap the international date line. Default is `true`. |
+
+## Example
+
+The following example returns the `geo_bounds` for the `geoip.location` of every order in the e-commerce sample data (each `geoip.location` is a geopoint):
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -26,30 +37,52 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-#### Example response
+## Example response
+
+As shown in the following example response, the aggregation returns the `geobounds` containing all geopoints in the `geoip.location` field:
 
 ```json
-"aggregations" : {
-  "geo" : {
-    "bounds" : {
-      "top_left" : {
-        "lat" : 52.49999997206032,
-        "lon" : -118.20000001229346
-      },
-      "bottom_right" : {
-        "lat" : 4.599999985657632,
-        "lon" : 55.299999956041574
+{
+  "took": 16,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 4675,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "geo": {
+      "bounds": {
+        "top_left": {
+          "lat": 52.49999997206032,
+          "lon": -118.20000001229346
+        },
+        "bottom_right": {
+          "lat": 4.599999985657632,
+          "lon": 55.299999956041574
+        }
       }
     }
   }
- }
 }
 ```
 
 ## Aggregating geoshapes
 
-To run an aggregation on a geoshape field, first create an index and map the `location` field as a `geo_shape`:
+You can run a `geo_bounds` aggregation on geoshapes.
+
+Prepare an example by inserting an index containing a geoshape field:
 
 ```json
 PUT national_parks
@@ -65,43 +98,27 @@ PUT national_parks
 ```
 {% include copy-curl.html %}
 
-Next, index some documents into the `national_parks` index:
+Ingest documents into the index. GeoJSON input specifies longitude first:
 
 ```json
-PUT national_parks/_doc/1
-{
-  "name": "Yellowstone National Park",
-  "location":
-  {"type": "envelope","coordinates": [ [-111.15, 45.12], [-109.83, 44.12] ]}
-}
+POST _bulk
+{ "create": { "_index": "national_parks", "_id": "1" } }
+{"name": "Yellowstone National Park", "location": {"type": "envelope","coordinates": [ [-111.15, 45.12], [-109.83, 44.12] ]}}
+{ "create": { "_index": "national_parks", "_id": "2" } }
+{ "name": "Yosemite National Park", "location": {"type": "envelope","coordinates": [ [-120.23, 38.16], [-119.05, 37.45] ]} }
+{ "create": { "_index": "national_parks", "_id": "3" } }
+{ "name": "Death Valley National Park", "location": {"type": "envelope","coordinates": [ [-117.34, 37.01], [-116.38, 36.25] ]} }
+{ "create": { "_index": "national_parks", "_id": "4" } }
+{ "name": "War In The Pacific National Historic Park Guam", "location": {"type": "point","coordinates": [144.72, 13.47]} }
 ```
 {% include copy-curl.html %}
 
-```json
-PUT national_parks/_doc/2
-{
-  "name": "Yosemite National Park",
-  "location": 
-  {"type": "envelope","coordinates": [ [-120.23, 38.16], [-119.05, 37.45] ]}
-}
-```
-{% include copy-curl.html %}
-
-```json
-PUT national_parks/_doc/3
-{
-  "name": "Death Valley National Park",
-  "location": 
-  {"type": "envelope","coordinates": [ [-117.34, 37.01], [-116.38, 36.25] ]}
-}
-```
-{% include copy-curl.html %}
-
-You can run a `geo_bounds` aggregation on the `location` field as follows:
+Run a `geo_bounds` aggregation on the `location` field:
 
 ```json
 GET national_parks/_search
 {
+  "size": 0,
   "aggregations": {
     "grouped": {
       "geo_bounds": {
@@ -114,115 +131,86 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-The optional `wrap_longitude` parameter specifies whether the bounding box returned by the aggregation can overlap the international date line (180&deg; meridian). If `wrap_longitude` is set to `true`, the bounding box can overlap the international date line and return a `bounds` object in which the lower-left longitude is greater than the upper-right longitude. The default value for `wrap_longitude` is `true`.
-
-The response contains the geo-bounding box that encloses all shapes in the `location` field:
-
-<details open markdown="block">
-  <summary>
-    Response
-  </summary>
-  {: .text-delta}
+The response contains the smallest geo-bounding box that encloses all shapes in the `location` field:
 
 ```json
 {
-  "took" : 3,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
+  "took": 8,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
   },
-  "hits" : {
-    "total" : {
-      "value" : 3,
-      "relation" : "eq"
+  "hits": {
+    "total": {
+      "value": 4,
+      "relation": "eq"
     },
-    "max_score" : 1.0,
-    "hits" : [
-      {
-        "_index" : "national_parks",
-        "_id" : "1",
-        "_score" : 1.0,
-        "_source" : {
-          "name" : "Yellowstone National Park",
-          "location" : {
-            "type" : "envelope",
-            "coordinates" : [
-              [
-                -111.15,
-                45.12
-              ],
-              [
-                -109.83,
-                44.12
-              ]
-            ]
-          }
-        }
-      },
-      {
-        "_index" : "national_parks",
-        "_id" : "2",
-        "_score" : 1.0,
-        "_source" : {
-          "name" : "Yosemite National Park",
-          "location" : {
-            "type" : "envelope",
-            "coordinates" : [
-              [
-                -120.23,
-                38.16
-              ],
-              [
-                -119.05,
-                37.45
-              ]
-            ]
-          }
-        }
-      },
-      {
-        "_index" : "national_parks",
-        "_id" : "3",
-        "_score" : 1.0,
-        "_source" : {
-          "name" : "Death Valley National Park",
-          "location" : {
-            "type" : "envelope",
-            "coordinates" : [
-              [
-                -117.34,
-                37.01
-              ],
-              [
-                -116.38,
-                36.25
-              ]
-            ]
-          }
-        }
-      }
-    ]
+    "max_score": null,
+    "hits": []
   },
-  "aggregations" : {
-    "Grouped" : {
-      "bounds" : {
-        "top_left" : {
-          "lat" : 45.11999997776002,
-          "lon" : -120.23000006563962
+  "aggregations": {
+    "grouped": {
+      "bounds": {
+        "top_left": {
+          "lat": 45.11999997776002,
+          "lon": 144.71999991685152
         },
-        "bottom_right" : {
-          "lat" : 36.249999976716936,
-          "lon" : -109.83000006526709
+        "bottom_right": {
+          "lat": 13.469999986700714,
+          "lon": -109.83000006526709
         }
       }
     }
   }
 }
 ```
-</details>
 
-Currently, OpenSearch supports geoshape aggregation through the API but not in OpenSearch Dashboards visualizations. If you'd like to see geoshape aggregation implemented for visualizations, upvote the related [GitHub issue](https://github.com/opensearch-project/dashboards-maps/issues/250).
+## Wrapping longitude
+
+If the optional `wrap_longitude` parameter is set to `true`, the bounding box can overlap the international date line (180&deg; meridian) and return a `bounds` object in which the upper-left longitude is greater than the lower-right longitude. The default value for `wrap_longitude` is `true`.
+
+Rerun the `geo_bounds` aggregation on the national parks geoshape with `wrap_longitude` set to `false`:
+
+```json
+GET national_parks/_search
+{
+  "size": 0,
+  "aggregations": {
+    "grouped": {
+      "geo_bounds": {
+        "field": "location",
+        "wrap_longitude": false
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Note that the new resulting geobound encompasses a larger area to avoid overlapping the dateline:
+
+```json
+{
+...
+  "aggregations": {
+    "grouped": {
+      "bounds": {
+        "top_left": {
+          "lat": 45.11999997776002,
+          "lon": -120.23000006563962
+        },
+        "bottom_right": {
+          "lat": 13.469999986700714,
+          "lon": 144.71999991685152
+        }
+      }
+    }
+  }
+}
+```
+
+OpenSearch supports geoshape aggregation through the API but not in OpenSearch Dashboards visualizations.
 {: .note}

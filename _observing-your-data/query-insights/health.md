@@ -61,14 +61,14 @@ GET _insights/health_stats
         "TopQueriesHeapSize": 5,
         "QueryGroupCount_Total": 0,
         "QueryGroupCount_MaxHeap": 0
-      }, 
-      "FieldTypeCacheStats" : {
-        "size_in_bytes" : 336,
-        "entry_count" : 3,
-        "evictions" : 1,
-        "hit_count" : 5,
-        "miss_count" : 4
       }
+    },
+    "FieldTypeCacheStats" : {
+      "size_in_bytes" : 336,
+      "entry_count" : 3,
+      "evictions" : 1,
+      "hit_count" : 5,
+      "miss_count" : 4
     }
   }
 }

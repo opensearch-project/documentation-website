@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT allocation
-parent: CAT API
+parent: CAT APIs
 redirect_from:
 - /opensearch/rest-api/cat/cat-allocation/
 nav_order: 5
 has_children: false
 ---
 
-# CAT allocation
+# CAT Allocation API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -40,7 +40,7 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
-| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, `p` | N/A |
+| `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, and `p`. | N/A |
 | `cluster_manager_timeout` | String | A timeout for connection to the cluster manager node. | N/A |
 | `format` | String | A short version of the HTTP `Accept` header, such as `json` or `yaml`. | N/A |
 | `h` | List | A comma-separated list of column names to display. | N/A |
@@ -53,31 +53,82 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example requests
 
-```json
-GET _cat/allocation?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/allocation?v
+-->
+{% capture step1_rest %}
+GET /_cat/allocation?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.allocation(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To limit the information to a specific node, add the node name after your query:
 
-```json
-GET _cat/allocation/<node_name>
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/allocation/<node_name>
+-->
+{% capture step1_rest %}
+GET /_cat/allocation/<node_name>
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.allocation(
+  node_id = "<node_name>"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to get information for more than one node, separate the node names with commas:
 
-```json
-GET _cat/allocation/node_name_1,node_name_2,node_name_3
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/allocation/node_name_1,node_name_2,node_name_3
+-->
+{% capture step1_rest %}
+GET /_cat/allocation/node_name_1,node_name_2,node_name_3
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.allocation(
+  node_id = "node_name_1,node_name_2,node_name_3"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
 The following response shows that eight shards are allocated to each of the two nodes available:
 
 ```json
-shards | disk.indices | disk.used | disk.avail | disk.total | disk.percent host | ip          | node
-  8    |   989.4kb    |   25.9gb  |   32.4gb   |   58.4gb   |   44 172.18.0.4   | 172.18.0.4  | odfe-node1
-  8    |   962.4kb    |   25.9gb  |   32.4gb   |   58.4gb   |   44 172.18.0.3   | 172.18.0.3  | odfe-node2
+shards | disk.indices | disk.used | disk.avail | disk.total | disk.percent | host         | ip          | node
+  8    |   989.4kb    |   25.9gb  |   32.4gb   |   58.4gb   |   44         | 172.18.0.4   | 172.18.0.4  | odfe-node1
+  8    |   962.4kb    |   25.9gb  |   32.4gb   |   58.4gb   |   44         | 172.18.0.3   | 172.18.0.3  | odfe-node2
 ```

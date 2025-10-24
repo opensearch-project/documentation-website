@@ -2,10 +2,10 @@
 layout: default
 title: Blocks
 parent: Index APIs
-nav_order: 6
+nav_order: 10
 ---
 
-# Blocks
+# Blocks API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -23,7 +23,7 @@ PUT /<index>/_block/<block>
 | Parameter | Data type | Description |
 :--- | :--- | :---
 | `index` | String | A comma-delimited list of index names. Wildcard expressions (`*`) are supported. To target all data streams and indexes in a cluster, use `_all` or `*`. Optional. |
-| `<block>` | String | Specifies the type of block to apply to the index. Valid values are: <br> `metadata`: Disables all metadata changes, such as closing the index. <br> `read`: Disables any read operations. <br> `read_only`: Disables any write operations and metadata changes. <br> `write`: Disables write operations. However, metadata changes are still allowed. |
+| `<block>` | String | Specifies the type of block to apply to the index. Valid values are: <br> - `metadata`: Blocks metadata changes, such as closing the index. <br> - `read`: Blocks read operations. <br> - `read_only`: Blocks write operations and metadata changes. <br> - `write`: Blocks write operations but allows metadata changes. <br> - `search_only`: Blocks indexing and write operations while allowing read-only access through search replicas. <br> OpenSearch automatically manages this block through the Scale API as part of the reader-writer separation mechanism. Therefore, do not set this parameter manually. |
 
 ## Query parameters
 
@@ -38,12 +38,53 @@ The following table lists the available query parameters. All query parameters a
 `timeout` | Time | The amount of time to wait for the request to return. Default is `30s`. |
 
 ## Example request
+<!-- spec_insert_start
+component: example_code
+rest: PUT /test-index/_block/write
+-->
+{% capture step1_rest %}
+PUT /test-index/_block/write
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.add_block(
+  block = "write",
+  index = "test-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following example request disables any `write` operations made to the test index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /test-index/_block/write
+-->
+{% capture step1_rest %}
 PUT /test-index/_block/write
-```
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.add_block(
+  block = "write",
+  index = "test-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

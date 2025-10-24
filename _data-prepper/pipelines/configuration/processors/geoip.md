@@ -1,12 +1,12 @@
 ---
 layout: default
-title: geoip
+title: Geo IP
 parent: Processors
 grand_parent: Pipelines
-nav_order: 49
+nav_order: 150
 ---
 
-# geoip
+# Geo IP processor
 
 The `geoip` processor enriches events with geographic information extracted from IP addresses contained in the events.
 By default, OpenSearch Data Prepper uses the [MaxMind GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) geolocation database.

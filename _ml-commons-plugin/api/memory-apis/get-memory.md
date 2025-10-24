@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 20
 ---
 
-# Get a memory
+# Get Memory API
 **Introduced 2.12**
 {: .label .label-purple }
 
@@ -42,14 +42,14 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `memory_id` | String | The ID of the memory to retrieve.
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/memory/N8AE1osB0jLkkocYjz7D
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -91,20 +91,20 @@ Create Memory            | ABCDEF | -
 Get Memory (next_token = 3, max_results = 3) -> ABC[DEF] | DEF
 
 
-#### Example request: Get all memories
+## Example request: Get all memories
 
 ```json
 GET /_plugins/_ml/memory/
 ```
 {% include copy-curl.html %}
 
-#### Example request: Paginating results
+## Example request: Paginating results
 
 ```json
 GET /_plugins/_ml/memory?max_results=2&next_token=1
 ```
 
-#### Example response
+## Example response
 
 ```json
 {

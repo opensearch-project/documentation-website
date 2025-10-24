@@ -1,12 +1,12 @@
 ---
 layout: default
-title: parse_ion 
+title: Parse Ion 
 parent: Processors
 grand_parent: Pipelines
-nav_order: 79
+nav_order: 280
 ---
 
-# parse_ion
+# Parse Ion processor
 
 The `parse_ion` processor parses [Amazon Ion](https://amazon-ion.github.io/ion-docs/) data.
 

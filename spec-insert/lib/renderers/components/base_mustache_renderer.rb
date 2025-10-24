@@ -19,6 +19,10 @@ class BaseMustacheRenderer < Mustache
     @args = args
   end
 
+  def render
+    @empty ? nil : super
+  end
+
   def omit_header
     @args.omit_header
   end

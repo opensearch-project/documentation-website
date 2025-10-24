@@ -17,7 +17,7 @@ The following is the syntax for the `fail` processor:
   "message": "Custom error message" 
   }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration parameters
 

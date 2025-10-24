@@ -1,3 +1,4 @@
+[Aa]gentic
 [Aa]nonymization
 [Aa]utomapping
 [Aa]utopopulate
@@ -44,6 +45,7 @@ Gantt
 [Gg]eospatial
 [Gg]eotile
 gibibyte
+gRPC
 [Hh]ashmap
 [Hh]ostname
 [Hh]yperparameters
@@ -54,6 +56,7 @@ gibibyte
 [Ii]nstrumentations?
 [Ii]ntracluster
 [Jj]avadoc
+[Jj]accard
 k-NN
 [Kk]eystore
 kibibyte
@@ -85,6 +88,7 @@ p\d{2}
 [Pp]erformant
 [Pp]laintext
 [Pp]luggable
+[Pp]ointwise
 [Pp]reaggregate(s|d)?
 [Pp]recompute(s|d)?
 [Pp]reconfigure
@@ -96,6 +100,7 @@ p\d{2}
 [Pp]repper
 [Pp]reprocess
 [Pp]retrain
+[Pp]rotobufs?
 [Pp]seudocode
 [Qq]uantiles?
 [Qq]uantiz(e|ation|ing|er)
