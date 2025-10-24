@@ -2,7 +2,7 @@
 layout: default
 title: k-NN vector
 nav_order: 90
-has_children: false
+has_children: true
 parent: Supported field types
 redirect_from:
   - /field-types/supported-field-types/knn-vector/
