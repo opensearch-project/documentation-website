@@ -162,7 +162,7 @@ GET sparse-vector-index/_search
 ```
 {% include copy-curl.html %}
 
-## Related pages
+## Related documentation
 
 - [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/)
 - [Neural sparse query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/)

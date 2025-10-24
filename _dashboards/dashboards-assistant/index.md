@@ -142,7 +142,7 @@ For information about additional Dashboards Assistant capabilities, see the foll
 - [Generating anomaly detector suggestions]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/suggest-anomaly-detector/)
 - [Generating visualizations from text]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/text-to-visualization/)
 
-## Related articles
+## Related documentation
 
 - [Getting started guide for OpenSearch Assistant in OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
 - [OpenSearch Assistant configuration through the REST API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/)

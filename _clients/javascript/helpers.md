@@ -201,5 +201,5 @@ client.helpers.bulk({
 ```
 {% include copy.html %}
 
-## Related articles
+## Related documentation
 https://github.com/opensearch-project/opensearch-js/tree/main/guides
