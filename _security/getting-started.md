@@ -1,7 +1,9 @@
 ---
 layout: default
 title: Getting started with OpenSearch security
-nav_order: 60
+nav_order: 1
+redirect_from:
+  - /getting-started/security/
 ---
 
 # Getting started with OpenSearch security
