@@ -209,7 +209,7 @@ If each node reports a different `cluster_uuid`, they belong to separate cluster
 
 ## Bootstrap verification
 
-After starting your cluster, verify successful bootstrap using the [monitoring commands]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring) for checking cluster health and formation:
+After starting your cluster, verify successful bootstrap using the [monitoring commands]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation) for checking cluster health and formation:
 
 - Verify cluster health status and node count.
 - Confirm that one node is elected as cluster manager.

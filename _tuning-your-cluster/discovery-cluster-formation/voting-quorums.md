@@ -107,7 +107,7 @@ If you must stop multiple nodes simultaneously:
 
 ## Monitoring voting configuration
 
-To monitor voting configuration, cluster health, and cluster manager elections, use the monitoring commands detailed in the [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation) overview.
+To monitor voting configuration, cluster health, and cluster manager elections, use the monitoring commands detailed in the [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation-discovery-and-cluster-formation) overview.
 
 ## Cluster state publishing
 
@@ -141,7 +141,7 @@ In some cases, OpenSearch falls back to publishing the **full cluster state**. T
 
 ### Monitoring state publishing
 
-To monitor cluster state publishing, use the monitoring commands detailed in the [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation) overview.
+To monitor cluster state publishing, use the monitoring commands detailed in the [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation-discovery-and-cluster-formation) overview.
 
 
 ### OpenSearch as a peer-to-peer system
