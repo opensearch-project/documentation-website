@@ -70,7 +70,7 @@ For complete details on configuring cluster bootstrapping, including setup proce
 
 ## Monitoring voting configuration changes
 
-To track voting configuration changes and check cluster formation status, use the monitoring commands detailed in the [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation-discovery-and-cluster-formation) overview.
+To track voting configuration changes and check cluster formation status, use the monitoring commands detailed in the [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation) overview.
 
 ## Related documentation
 

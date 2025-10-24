@@ -156,6 +156,6 @@ When `discovery.type` is set to `single-node`, OpenSearch bypasses the normal di
 
 ## Related documentation
 
-- To troubleshoot discovery issues, use the monitoring commands detailed in the [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation-discovery-and-cluster-formation) overview.
+- To troubleshoot discovery issues, use the monitoring commands detailed in the [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation) overview.
 
 - For a complete list of discovery-related settings, see [Discovery and cluster formation settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/settings/).
