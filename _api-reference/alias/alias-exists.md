@@ -40,10 +40,12 @@ The following table lists the available query parameters. All query parameters a
 
 ## Response codes
 
+The API returns one of the following response codes.
+
 | Response code | Description |
 | :--- | :--- |
-| `200` | Indicates all specified aliases exist. |
-| `404` | Indicates one or more specified aliases do not exist. |
+| `200` | Indicates that all specified aliases exist. |
+| `404` | Indicates that one or more specified aliases do not exist. |
 
 ## Example requests
 
