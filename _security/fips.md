@@ -12,6 +12,7 @@ To achieve FIPS compliance, OpenSearch requires:
 
 - FIPS-validated cryptographic providers for all cryptographic operations (Bouncy Castle FIPS is included with OpenSearch)
 - JVM configured to use these FIPS-validated providers
+- JVM using a Java version for which [BC-FJA](https://www.bouncycastle.org/download/bouncy-castle-java-fips/) is certified (e.g. Java 11, 17, or 21 for OpenSearch v3.2.0+ with BC-FJA v2.1.0)
 - FIPS-compliant key stores and trust stores in BCFKS or PKCS11 format
 - Strong passwords meeting FIPS minimum requirements (112 bits / approximately 14 characters)
 
