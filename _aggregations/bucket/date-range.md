@@ -173,7 +173,7 @@ Example response:
 
 ## Example: Epoch milliseconds with a time zone
 
-When the field value is provided in epoch millis, you can still provide `from` and `to` parameters as numbers. For example, in the following request, `time_zone` affects date math and boundary evaluation:
+When the field value is provided in epoch milliseconds, you can still provide `from` and `to` parameters as numbers. For example, in the following request, `time_zone` affects date math and boundary evaluation:
 
 ```json
 GET my-index/_search
