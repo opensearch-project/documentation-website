@@ -5,7 +5,6 @@ parent: Alias APIs
 nav_order: 1
 redirect_from:
  - /opensearch/rest-api/alias/
- - /api-reference/alias/
  - /api-reference/index-apis/alias/
 ---
 
@@ -36,7 +35,7 @@ POST _aliases
 
 ## Query parameters
 
-All parameters are optional.
+The following table lists the available query parameters. All query parameters are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---
@@ -45,7 +44,7 @@ Parameter | Data type | Description
 
 ## Request body fields
 
-In your request body, you need to specify what action to take, the alias name, and the index you want to associate with the alias. Other fields are optional.
+The following table lists the available request body fields.
 
 Field | Data type | Description | Required
 :--- | :--- | :--- | :---
@@ -69,7 +68,22 @@ Field | Data type | Description | Required
 
 The following request creates an alias called `logs_current` that points to the `application_logs_2024` index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_aliases
+body: |
+{
+  "actions": [
+    {
+      "add": {
+        "index": "application_logs_2024",
+        "alias": "logs_current"
+      }
+    }
+  ]
+}
+-->
+{% capture step1_rest %}
 POST /_aliases
 {
   "actions": [
@@ -81,14 +95,51 @@ POST /_aliases
     }
   ]
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.update_aliases(
+  body =   {
+    "actions": [
+      {
+        "add": {
+          "index": "application_logs_2024",
+          "alias": "logs_current"
+        }
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example: Remove an alias
 
 The following request removes the `logs_current` alias from the `application_logs_2024` index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_aliases
+body: |
+{
+  "actions": [
+    {
+      "remove": {
+        "index": "application_logs_2024",
+        "alias": "logs_current"
+      }
+    }
+  ]
+}
+-->
+{% capture step1_rest %}
 POST /_aliases
 {
   "actions": [
@@ -100,8 +151,30 @@ POST /_aliases
     }
   ]
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.update_aliases(
+  body =   {
+    "actions": [
+      {
+        "remove": {
+          "index": "application_logs_2024",
+          "alias": "logs_current"
+        }
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example: Rename an alias
 

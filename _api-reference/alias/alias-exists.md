@@ -48,12 +48,27 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example requests
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: HEAD /_alias/2030
+-->
+{% capture step1_rest %}
 HEAD /_alias/2030
-HEAD /_alias/20*
-HEAD /logs_20302801/_alias/*
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.exists_alias(
+  name = "2030"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Required permissions
 

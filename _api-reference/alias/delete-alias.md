@@ -42,10 +42,28 @@ The following table lists the available query parameters. All query parameters a
 
 The following request deletes the `alias1` alias from the `logs_20302801` index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /logs_20302801/_alias/alias1
+-->
+{% capture step1_rest %}
 DELETE /logs_20302801/_alias/alias1
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.delete_alias(
+  index = "logs_20302801",
+  name = "alias1"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

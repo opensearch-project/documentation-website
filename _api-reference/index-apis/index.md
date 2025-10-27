@@ -64,8 +64,7 @@ The following index API operations are available.
 - [Template exists (legacy)]({{site.url}}{{site.baseurl}}/api-reference/index-apis/template-exists-legacy/)
 
 ### Index aliases
-- [Alias]({{site.url}}{{site.baseurl}}/api-reference/index-apis/alias/)
-- [Update alias]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-alias/)
+- [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/)
 
 ### Index blocks and allocation
 - [Blocks]({{site.url}}{{site.baseurl}}/api-reference/index-apis/blocks/)

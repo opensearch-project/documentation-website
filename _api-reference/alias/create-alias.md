@@ -3,6 +3,8 @@ layout: default
 title: Create or update alias
 parent: Alias APIs
 nav_order: 2
+redirect_from:
+  - /api-reference/index-apis/update-alias/
 ---
 
 # Create Or Update Alias API
@@ -33,6 +35,8 @@ PUT /_alias
 
 ## Path parameters
 
+The following table lists the available path parameters. All path parameters are optional.
+
 | Parameter | Type | Description |
 :--- | :--- | :---
 | `target` | String | A comma-delimited list of indexes. Wildcard expressions (`*`) are supported. To target all indexes in a cluster, use `_all` or `*`. Optional. |
@@ -40,7 +44,7 @@ PUT /_alias
 
 ## Query parameters
 
-All query parameters are optional.
+The following table lists the available query parameters. All query parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -49,7 +53,7 @@ Parameter | Type | Description
 
 ## Request body
 
-In the request body, you can specify the index name, the alias name, and the settings for the alias. All fields are optional.
+The following table lists the available request body fields.
 
 Field | Type | Description
 :--- | :--- | :--- | :---
@@ -67,26 +71,66 @@ Field | Type | Description
 
 The following request creates a basic alias for an index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /products-2024/_alias/current-products
+-->
+{% capture step1_rest %}
 PUT /products-2024/_alias/current-products
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_alias(
+  name = "current-products",
+  index = "products-2024",
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Add a time-based alias
 
 The following request creates an alias `quarterly-2024` for the `sales-q1-2024` index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /sales-q1-2024/_alias/quarterly-2024
+-->
+{% capture step1_rest %}
 PUT /sales-q1-2024/_alias/quarterly-2024
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_alias(
+  name = "quarterly-2024",
+  index = "sales-q1-2024",
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Add a filtered alias with routing
 
 First, create an index with appropriate mappings:
 
-```json
-PUT /customer-data
+<!-- spec_insert_start
+component: example_code
+rest: PUT /customer-data
+body: |
 {
     "mappings" : {
         "properties" : {
@@ -95,13 +139,55 @@ PUT /customer-data
         }
     }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /customer-data
+{
+  "mappings": {
+    "properties": {
+      "customer_id": {
+        "type": "integer"
+      },
+      "region": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.create(
+  index = "customer-data",
+  body =   {
+    "mappings": {
+      "properties": {
+        "customer_id": {
+          "type": "integer"
+        },
+        "region": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Then add the index alias for a specific customer with routing and filtering:
 
-```json
-PUT /customer-data/_alias/customer-123
+<!-- spec_insert_start
+component: example_code
+rest: PUT /customer-data/_alias/customer-123
+body: |
 {
     "routing" : "west",
     "filter" : {
@@ -110,15 +196,50 @@ PUT /customer-data/_alias/customer-123
         }
     }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /customer-data/_alias/customer-123
+{
+  "routing": "west",
+  "filter": {
+    "term": {
+      "customer_id": 123
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_alias(
+  name = "customer-123",
+  index = "customer-data",
+  body =   {
+    "routing": "west",
+    "filter": {
+      "term": {
+        "customer_id": 123
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Add an alias during index creation
 
 You can add an alias when creating an index using the create index API:
 
-```json
-PUT /inventory-2024
+<!-- spec_insert_start
+component: example_code
+rest: PUT /inventory-2024
+body: |
 {
     "mappings" : {
         "properties" : {
@@ -134,8 +255,62 @@ PUT /inventory-2024
         }
     }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /inventory-2024
+{
+  "mappings": {
+    "properties": {
+      "category": {
+        "type": "keyword"
+      }
+    }
+  },
+  "aliases": {
+    "current-inventory": {},
+    "electronics": {
+      "filter": {
+        "term": {
+          "category": "electronics"
+        }
+      }
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.create(
+  index = "inventory-2024",
+  body =   {
+    "mappings": {
+      "properties": {
+        "category": {
+          "type": "keyword"
+        }
+      }
+    },
+    "aliases": {
+      "current-inventory": {},
+      "electronics": {
+        "filter": {
+          "term": {
+            "category": "electronics"
+          }
+        }
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

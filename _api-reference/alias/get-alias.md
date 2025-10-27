@@ -52,8 +52,10 @@ The following create index API request creates the `logs_20302801` index with tw
 - `current_day`
 - `2030`, which only returns documents in the `logs_20302801` index with a `year` field value of `2030`
 
-```json
-PUT /logs_20302801
+<!-- spec_insert_start
+component: example_code
+rest: PUT /logs_20302801
+body: |
 {
   "aliases" : {
     "current_day" : {},
@@ -64,33 +66,125 @@ PUT /logs_20302801
     }
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /logs_20302801
+{
+  "aliases": {
+    "current_day": {},
+    "2030": {
+      "filter": {
+        "term": {
+          "year": 2030
+        }
+      }
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.create(
+  index = "logs_20302801",
+  body =   {
+    "aliases": {
+      "current_day": {},
+      "2030": {
+        "filter": {
+          "term": {
+            "year": 2030
+          }
+        }
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following get index alias API request returns all aliases for the index `logs_20302801`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /logs_20302801/_alias/*
+-->
+{% capture step1_rest %}
 GET /logs_20302801/_alias/*
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.get_alias(
+  name = "*",
+  index = "logs_20302801"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Get a specific alias
 
 The following index alias API request returns the `2030` alias:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_alias/2030
+-->
+{% capture step1_rest %}
 GET /_alias/2030
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.get_alias(
+  name = "2030"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Get aliases based on a wildcard
 
 The following index alias API request returns any alias that begins with `20`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_alias/20*
+-->
+{% capture step1_rest %}
 GET /_alias/20*
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.get_alias(
+  name = "20*"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
