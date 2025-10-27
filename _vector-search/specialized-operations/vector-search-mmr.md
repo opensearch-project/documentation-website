@@ -124,6 +124,6 @@ The following limitations apply to vector search with MMR reranking:
 
 - **Remote index requirements**: When querying remote indexes, you must explicitly provide vector field information (`vector_field_path`, `vector_field_data_type`, and `vector_field_space_type`). Unlike a local index for which OpenSearch can automatically resolve this metadata from the index mapping, the system cannot reliably fetch this information from the remote cluster. Providing these details ensures correct parsing of the vector data and accurate similarity calculations.
 
-## Related pages
+## Related documentation
 
 - [System-generated search processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/system-generated-search-processors/)
