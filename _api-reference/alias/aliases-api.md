@@ -1,14 +1,15 @@
 ---
 layout: default
-title: Alias
-parent: Index APIs
-nav_order: 5
-redirect_from: 
+title: Manage aliases
+parent: Alias APIs
+nav_order: 1
+redirect_from:
  - /opensearch/rest-api/alias/
  - /api-reference/alias/
+ - /api-reference/index-apis/alias/
 ---
 
-# Alias API
+# Manage aliases API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -59,7 +60,7 @@ Field | Data type | Description | Required
 `filter` | Object | A filter to use with the alias, so the alias points to a filtered part of the index. | No
 `is_hidden` | Boolean | Specifies whether the alias should be hidden from results that include wildcard expressions | No
 `must_exist` | Boolean | Specifies whether the alias to remove must exist. | No
-`is_write_index` | Boolean | Specifies whether the index should be a write index. An alias can only have one write index at a time. If a write request is submitted to a alias that links to multiple indexes, OpenSearch executes the request only on the write index. | No
+`is_write_index` | Boolean | Specifies whether the index should be a write index. An alias can only have one write index at a time. If a write request is submitted to a alias that links to multiple indexes, OpenSearch executes the request only on the write index. **Important**: Aliases that don't explicitly set `is_write_index: true` for an index and only reference one index will have that index behave as the write index until another index is referenced. At that point, there will be no write index and writes will be rejected. | No
 `routing` | String | Used to assign a custom value to a shard for specific operations. | No
 `index_routing` | String | Assigns a custom value to a shard only for index operations. | No
 `search_routing` | String | Assigns a custom value to a shard only for search operations. | No
@@ -233,7 +234,7 @@ This operation adds the new index to the alias and deletes the old index in a si
 
 ## Example: Filtered aliases
 
-Filtered aliases allow you to create different "views" of the same index by applying filters. First, ensure your index has the necessary field mappings:
+Filtered aliases enable you to segment data within an index by applying query filters. This allows you to create focused subsets of your data accessible through separate alias names. First, ensure your index has the necessary field mappings:
 
 ```json
 PUT /user_activity
@@ -337,7 +338,7 @@ POST /_aliases
 
 In this example, all documents indexed through the alias go to the "mobile" shard, but searches can query both "mobile" and "tablet" shards.
 
-When you perform a search with both alias routing and a routing parameter, OpenSearch uses the intersection of both values.
+When you perform a search with both alias routing and a routing parameter, OpenSearch uses the intersection of both values. For example, if you search `GET /mobile_sessions/_search?routing=tablet,mobile`, only the "mobile" routing value will be used since it's the intersection of the alias routing (`mobile,tablet`) and the search parameter (`tablet,mobile`).
 {: .note}
 
 ## Example: Setting a write index
@@ -446,4 +447,4 @@ All successful alias operations return the same response format:
 }
 ```
 
-For more alias API operations, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
+For more information about aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).

@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Create or update alias
-parent: Index APIs
-nav_order: 160
+parent: Alias APIs
+nav_order: 2
 ---
 
 # Create Or Update Alias API
@@ -10,7 +10,7 @@ nav_order: 160
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Create or Update Alias API adds one or more indexes to an alias or updates the settings for an existing alias. For more alias API operations, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
+The Create or Update Alias API adds one or more indexes to an alias or updates the settings for an existing alias. For more information about aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
 
 The Create or Update Alias API is distinct from the [Alias API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/alias/), which supports the addition and removal of aliases and the removal of alias indexes. In contrast, the following API only supports adding or updating an alias without updating the index itself. Each API also uses different request body parameters.
 {: .note}
@@ -61,42 +61,81 @@ Field | Type | Description
 `search_routing` | String | Assigns a custom value to a shard only for search operations. 
 `filter` | Object | A filter to use with the alias so that the alias points to a filtered part of the index.
 
-## Example request
+## Example requests
 
-The following example request adds a sample alias with a custom routing value:
+### Add a simple alias
 
-<!-- spec_insert_start
-component: example_code
-rest: POST /sample-index/_alias/sample-alias
-body: |
+The following request creates a basic alias for an index:
+
+```json
+PUT /products-2024/_alias/current-products
+```
+{% include copy-curl.html %}
+
+### Add a time-based alias
+
+The following request creates an alias `quarterly-2024` for the `sales-q1-2024` index:
+
+```json
+PUT /sales-q1-2024/_alias/quarterly-2024
+```
+{% include copy-curl.html %}
+
+### Add a filtered alias with routing
+
+First, create an index with appropriate mappings:
+
+```json
+PUT /customer-data
 {
-  "routing":"test"
+    "mappings" : {
+        "properties" : {
+            "customer_id" : {"type" : "integer"},
+            "region" : {"type" : "keyword"}
+        }
+    }
 }
--->
-{% capture step1_rest %}
-POST /sample-index/_alias/sample-alias
+```
+{% include copy-curl.html %}
+
+Then add the index alias for a specific customer with routing and filtering:
+
+```json
+PUT /customer-data/_alias/customer-123
 {
-  "routing": "test"
+    "routing" : "west",
+    "filter" : {
+        "term" : {
+            "customer_id" : 123
+        }
+    }
 }
-{% endcapture %}
+```
+{% include copy-curl.html %}
 
-{% capture step1_python %}
+### Add an alias during index creation
 
+You can add an alias when creating an index using the create index API:
 
-response = client.indices.put_alias(
-  name = "sample-alias",
-  index = "sample-index",
-  body =   {
-    "routing": "test"
-  }
-)
-
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
+```json
+PUT /inventory-2024
+{
+    "mappings" : {
+        "properties" : {
+            "category" : {"type" : "keyword"}
+        }
+    },
+    "aliases" : {
+        "current-inventory" : {},
+        "electronics" : {
+            "filter" : {
+                "term" : {"category" : "electronics" }
+            }
+        }
+    }
+}
+```
+{% include copy-curl.html %}
 
 ## Example response
 
@@ -106,4 +145,8 @@ response = client.indices.put_alias(
 }
 ```
 
-For more alias API operations, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/aliases`.
+
+For more information about aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
