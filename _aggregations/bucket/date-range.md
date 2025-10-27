@@ -9,26 +9,26 @@ redirect_from:
 
 # Date range aggregations
 
-Use the `date_range` aggregation to group documents into buckets defined by date boundaries. The `date_range` aggregation behaves like the numeric `range` aggregation, but accepts date math in addition to [ISO-8601](https://www.iso.org/iso-8601-date-and-time-format.html) dates and epoch milliseconds.
+Use the `date_range` aggregation to group documents into buckets defined by date boundaries. The `date_range` aggregation behaves like the numeric `range` aggregation but accepts date math in addition to [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) dates and epoch milliseconds.
 
 Note the following details:
 
 - `from` is inclusive, `to` is exclusive.
-- To create an open-ended bucket, omit `from` or `to` .
-- Date math supports rounding: for example, `now-7d/d` (start of the day, seven days ago).
+- To create an open-ended bucket, omit `from` or `to`.
+- Date math supports rounding: for example, `now-7d/d` (start of the day, 7 days ago).
 
 ## Parameters
 
-The following is a table of parameters accepted by date range aggregations.
+The following is a table of parameters accepted by `date_range` aggregations.
 
 | Parameter | Required | Description |
 | --- | --- | --- |
 | `field` | Yes | The date field to aggregate on. |
 | `ranges`| Yes | The non-empty array of range objects. Each object must specify at least one boundary, `from` and/or `to`. |
-| `ranges[].from` | One of `from` or `to` is required | Lower inclusive bound. |
-| `ranges[].to` | One of `from` or `to` is required | Upper exclusive bound. |
+| `ranges[].from` | One of `from` or `to` is required. | Lower inclusive bound. |
+| `ranges[].to` | One of `from` or `to` is required. | Upper exclusive bound. |
 | `ranges[].key`| No | The label for the bucket.|
-| `format`| No | Controls the `*_as_string` fields in the response, for example `yyyy-MM-dd`. |
+| `format`| No | Controls the `*_as_string` fields in the response, for example, `yyyy-MM-dd`. |
 | `time_zone` | No | The IANA zone or UTC offset used when evaluating date math or rounding, for example,`Europe/Dublin`, `+01:00`. |
 | `keyed` | No | If `true`, returns an object with the key `key` instead of an array. |
 | `missing` | No | The value to substitute for documents in which the field is missing. |
@@ -38,9 +38,9 @@ The following is a table of parameters accepted by date range aggregations.
 
 The following values of `from` and `to` are accepted:
 
-- ISO-8601 strings: `"2025-10-01T00:00:00Z"`, `"2025-10-01"`.
-- Date math: `"now-7d/d"`, `"now+1M/M"`, `"2025-09-01||/M"`.
-- Epoch milliseconds: `1756684800000`.
+- ISO 8601 strings: `"2025-10-01T00:00:00Z"`, `"2025-10-01"`
+- Date math: `"now-7d/d"`, `"now+1M/M"`, `"2025-09-01||/M"`
+- Epoch milliseconds: `1756684800000`
 
 If components are omitted in a date string, the missing parts are filled with defaults. For example, `"2025-10"` is treated as the start of October 2025.
 {: .note}
@@ -103,9 +103,9 @@ Example response:
   }
 ```
 
-## Example: Last 10 days bucket with custom string format
+## Example: Bucket for the last 10 days with a custom string format
 
-The following request creates a single bucket that covers the last 10 calendar days. It starts at the beginning of the day 10 days ago (`now-10d/d`) and ends at the beginning of tomorrow (`now+1d/d`, exclusive). The `format` only affects the `*_as_string` fields in the response, not document matching:
+The following request creates a single bucket that covers the last 10 calendar days. It starts at the beginning of the day 10 days ago (`now-10d/d`) and ends at the beginning of tomorrow (`now+1d/d`, exclusive). The `format` only affects the `*_as_string` fields in the response---not document matching:
 
 ```json
 GET my-index/_search
