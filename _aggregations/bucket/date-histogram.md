@@ -15,10 +15,10 @@ The `date_histogram` aggregation groups documents into time-based buckets using 
 
 `date_histogram` supports two styles of intervals:
 
-- **`calendar_interval`** — aligns buckets to calendar boundaries, such as days, months, years. Great when you care about real-world calendar periods. Example values: `"day"`, `"1M"`, `"year"`.
+- **`calendar_interval`** — aligns buckets to calendar boundaries, such as days, months, or years. Use it when you care about real-world calendar periods. Example values: `"day"`, `"1M"`, `"year"`.
 - **`fixed_interval`** — uses exact durations measured in [SI units](https://en.wikipedia.org/wiki/International_System_of_Units). Buckets are always the same length, independent of daylight saving or month length. Example values: `"5m"`, `"12h"`, `"30d"`.
 
-The legacy `interval` field is kept for compatibility but is deprecated. Prefer `calendar_interval` or `fixed_interval`.
+The legacy `interval` field is kept for compatibility but is deprecated. Use `calendar_interval` or `fixed_interval` instead.
 {: .note}
 
 
@@ -44,7 +44,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 ## Example: Uniform hourly buckets (fixed duration)
 
-Retrieve exactly one-hour buckets regardless of DST changes:
+Retrieve exactly one-hour buckets regardless of daylight savings time changes:
 
 ```json
 GET my-logs/_search
@@ -85,9 +85,9 @@ GET my-logs/_search
 ```
 {% include copy-curl.html %}
 
-## Example: Shift bucket start times with `offset`
+## Example: Shift bucket start times using an `offset`
 
-Use `offset` to move the bucket boundary forward or backward. For example, to define a "reporting day" that runs 06:00–06:00 instead of midnight–midnight:
+Use the `offset` parameter to move the bucket boundary forward or backward. For example, to define a "reporting day" that runs 06:00–06:00 instead of midnight–midnight:
 
 ```json
 GET my-logs/_search
@@ -108,9 +108,9 @@ GET my-logs/_search
 
 ## Example: Include empty buckets
 
-Set `min_doc_count` to `0` and provide a range with `extended_bounds` to return empty buckets across the whole time window.
+Set `min_doc_count` to `0` and provide a range in `extended_bounds` to return empty buckets across the whole time window.
 
-Retrieve last 24 hours, one-hour buckets, include hours with no data:
+Retrieve one-hour buckets for the last 24 hours, including hours with no data:
 
 ```json
 GET my-logs/_search
@@ -132,9 +132,9 @@ GET my-logs/_search
 
 ## Example: Limit the range strictly
 
-`hard_bounds` constrains the histogram strictly to the min/max time frame, no buckets are created outside these limits even if data exists there.
+`hard_bounds` strictly limits the histogram to the specified minimum and maximum time range. No buckets are created outside these bounds, even if data falls beyond them.
 
-Retrieve 30 minute buckets for period between `2025-09-01T00:00:00Z` and `2025-09-01T06:00:00Z`:
+Retrieve 30-minute buckets for the period between `2025-09-01T00:00:00Z` and `2025-09-01T06:00:00Z`:
 
 ```json
 GET my-logs/_search
@@ -155,7 +155,7 @@ GET my-logs/_search
 
 ## Example: Return a map of buckets using `keyed`
 
-Set `keyed: true` to return buckets as an object keyed by the formatted date string:.
+Set `keyed: true` to return buckets as an object keyed by the formatted date string:
 
 ```json
 GET my-logs/_search
@@ -213,7 +213,7 @@ GET articles/_search
 
 ## Example: Sort buckets
 
-Buckets are returned sorted by `_key` ascending by default. Use `order` to change to descending if necessary.
+By default, buckets are returned sorted by `_key` in ascending order. Use the `order` parameter to change to descending if necessary.
 
 Retrieve buckets with newest month first:
 
@@ -255,7 +255,7 @@ GET my-logs/_search
 
 ## Example: Scripted value source
 
-You can use a Painless script to dynamically generate or modify the date value used for bucketing in a `date_histogram`. This provides flexibility for handling complex date logic at query time. A `date_histogram` aggregation does not work with date objects or strings directly. It requires a single, numerical value to represent each document's timestamp. This value must be a long integer representing epoch milliseconds, the number of milliseconds that have passed since 00:00:00 UTC on January 1, 1970. Any script you provide must return a value of this type. The following example with `script` behaves the same as the previous examples with `"field": "timestamp"`, but generates the correct return type for date field:
+You can use a Painless script to dynamically generate or modify the date value used for bucketing in a `date_histogram`. This provides flexibility for handling complex date logic at query time. A `date_histogram` aggregation does not work with date objects or strings directly. It requires a single, numerical value to represent each document's timestamp. This value must be a long integer representing epoch milliseconds, the number of milliseconds that have passed since 00:00:00 UTC on January 1, 1970. Any script you provide must return a value of this type. The following example with `script` behaves in the same way as the previous examples with `"field": "timestamp"`, but generates the correct return type for date field:
 
 ```json
 GET my-logs/_search
@@ -283,8 +283,8 @@ The `date_histogram` supports the following parameters.
 | Parameter | Required | Type | Description |
 |:--|:--|:--|:--|
 | `field` | One of the following is required: `field` or `script` | String | The date/datetime field to bucket on. |
-| `calendar_interval` | One of the following is required: `calendar_interval`, `fixed_interval` or legacy `interval` | String | The calendar-aware interval (e.g., `"day"`, `"1M"`, `"year"`). Only singular calendar units are supported. |
-| `fixed_interval` | One of the following is required: `calendar_interval`, `fixed_interval` or legacy `interval` | String | The exact-duration interval, for example: `"5m"`, `"12h"`, `"30d"`. Not for calendar units like months or quarters. |
+| `calendar_interval` | One of the following is required: `calendar_interval`, `fixed_interval` or legacy `interval` | String | The calendar-aware interval (for example, `"day"`, `"1M"`, `"year"`). Only singular calendar units are supported. |
+| `fixed_interval` | One of the following is required: `calendar_interval`, `fixed_interval` or legacy `interval` | String | The exact-duration interval, for example, `"5m"`, `"12h"`, `"30d"`. Not for calendar units like months or quarters. |
 | `time_zone` | Optional | String | The time zone used for bucketing and formatting. Accepts timezone, such as `"Europe/Dublin"` or UTC offsets, such as `"-07:00"`. |
 | `format` | Optional | String | The output date format used for `key_as_string`, for example, `"yyyy-MM-dd"`. If omitted, mapping defaults apply. |
 | `offset` | Optional | String | Shifts bucket boundaries by a positive or negative duration, for example, `"+6h"`, `"-30m"`. Calculated after `time_zone` is applied. |
