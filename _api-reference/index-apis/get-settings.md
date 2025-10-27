@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Get settings
-parent: Index APIs
-nav_order: 95
+parent: Index settings and mappings
+grand_parent: Index APIs
+nav_order: 10
 redirect_from:
   - /opensearch/rest-api/index-apis/get-settings/
   - /opensearch/rest-api/index-apis/get-index/

@@ -1,17 +1,16 @@
 ---
 layout: default
-title: Get index alias
+title: Get alias
 parent: Alias APIs
-nav_order: 3
+grand_parent: Index APIs
+nav_order: 20
 ---
 
-# Get index alias API
+# Get Index Alias API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Returns information about one or more index aliases.
-
-An alias is a virtual index name that can point to one or more physical indexes. Creating and updating aliases are atomic operations, so you can reindex your data and point an alias at it without any downtime.
+Returns information about one or more aliases.
 
 ## Endpoints
 
@@ -41,9 +40,7 @@ The following table lists the available query parameters. All query parameters a
 | `ignore_unavailable` | Boolean | Whether to ignore unavailable indexes. Default is `false`. |
 | `local` | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`. |
 
-## Example requests
-
-### Get all aliases for an index
+## Example request: Get all aliases for an index
 
 You can add index aliases during index creation using a create index API request.
 
@@ -134,7 +131,7 @@ response = client.indices.get_alias(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### Get a specific alias
+## Example request: Get a specific alias
 
 The following index alias API request returns the `2030` alias:
 
@@ -160,7 +157,7 @@ response = client.indices.get_alias(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### Get aliases based on a wildcard
+## Example request: Get aliases based on a wildcard
 
 The following index alias API request returns any alias that begins with `20`:
 
@@ -220,6 +217,6 @@ The following table lists all response body fields.
 | `<index>.aliases.<alias>.search_routing` | String | Routing value used for search operations. |
 | `<index>.aliases.<alias>.is_write_index` | Boolean | Whether the index is the write index for the alias. |
 
-## Required permissions
+## Related documentation
 
-If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/aliases/get`.
+For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).

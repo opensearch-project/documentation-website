@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Get index template
-parent: Index APIs
-nav_order: 85
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 30
 ---
 
 # Get Index Template API

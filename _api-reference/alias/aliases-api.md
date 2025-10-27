@@ -2,29 +2,22 @@
 layout: default
 title: Manage aliases
 parent: Alias APIs
-nav_order: 1
+grand_parent: Index APIs
+nav_order: 50
 redirect_from:
  - /opensearch/rest-api/alias/
  - /api-reference/index-apis/alias/
 ---
 
-# Manage aliases API
+# Manage Aliases API
 **Introduced 1.0**
 {: .label .label-purple }
 
-An alias is a virtual pointer that you can use to reference one or more indexes. Creating and updating aliases are atomic operations, so you can reindex your data and point an alias at it without any downtime.
+The Manage aliases API performs multiple index alias operations in a single atomic transaction. Use this API when you need to add or remove multiple aliases, switch an alias from one index to another, or delete indexes while managing their aliases simultaneously. This API accepts an array of actions, making it ideal for complex alias operations that must happen atomically.
 
-Aliases provide several key benefits:
-- Switch between indexes without interrupting client applications, enabling zero-downtime operations
-- Group related indexes under a single logical name for flexible data organization
-- Use routing and filtering to optimize query performance
-- Applications can reference stable alias names instead of changing index names, simplifying application logic
+This API is distinct from the [Create or update alias API]({{site.url}}{{site.baseurl}}/api-reference/alias/create-alias/), which operates on a single alias at a time and uses different request parameters. Use the Manage aliases API for bulk operations and atomic transactions involving multiple aliases or indexes.
 
-When working with aliases, keep in mind these important behaviors:
-- All alias changes happen atomically—there's never a moment when an alias points to an unintended set of indexes
-- When using wildcard patterns, aliases capture indexes that match at creation time and don't automatically include new indexes created later
-- Writing to an alias that points to multiple indexes requires designating a write index
-- Filtered aliases automatically apply their filters to all search, count, and delete by query operations
+For conceptual information about index aliases, including use cases and examples, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
 
 
 ## Endpoints
@@ -520,4 +513,6 @@ All successful alias operations return the same response format:
 }
 ```
 
-For more information about aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
+## Related documentation
+
+For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).

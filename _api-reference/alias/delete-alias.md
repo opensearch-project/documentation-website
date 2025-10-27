@@ -1,17 +1,16 @@
 ---
 layout: default
-title: Delete index alias
+title: Delete alias
 parent: Alias APIs
-nav_order: 4
+grand_parent: Index APIs
+nav_order: 30
 ---
 
-# Delete index alias API
+# Delete Index Alias API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Deletes an existing index alias.
-
-An alias is a virtual index name that can point to one or more physical indexes. Creating and updating aliases are atomic operations, so you can reindex your data and point an alias at it without any downtime.
+Deletes an existing alias.
 
 ## Endpoints
 
@@ -81,6 +80,6 @@ The following table lists all response body fields.
 | :--- | :--- | :--- |
 | `acknowledged` | Boolean | Whether the request was received. |
 
-## Required permissions
+## Related documentation
 
-If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/aliases`.
+For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).

@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Shrink index
-parent: Index APIs
-nav_order: 140
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 100
 redirect_from:
   - /opensearch/rest-api/index-apis/shrink-index/
 ---

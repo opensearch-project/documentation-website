@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Segment
-parent: Index APIs
-nav_order: 135
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 90
 ---
 
 # Segment API

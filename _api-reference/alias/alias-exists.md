@@ -1,17 +1,16 @@
 ---
 layout: default
-title: Index alias exists
+title: Alias exists
 parent: Alias APIs
-nav_order: 5
+grand_parent: Index APIs
+nav_order: 40
 ---
 
-# Index alias exists API
+# Index Alias Exists API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Checks if an index alias exists.
-
-An alias is a virtual index name that can point to one or more physical indexes. Creating and updating aliases are atomic operations, so you can reindex your data and point an alias at it without any downtime.
+Checks if an alias exists.
 
 ## Endpoints
 
@@ -43,8 +42,8 @@ The following table lists the available query parameters. All query parameters a
 
 | Response code | Description |
 | :--- | :--- |
-| `200` | Indicates all specified index aliases exist. |
-| `404` | Indicates one or more specified index aliases do not exist. |
+| `200` | Indicates all specified aliases exist. |
+| `404` | Indicates one or more specified aliases do not exist. |
 
 ## Example requests
 
@@ -70,6 +69,6 @@ response = client.indices.exists_alias(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-## Required permissions
+## Related documentation
 
-If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/aliases/exists`.
+For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).

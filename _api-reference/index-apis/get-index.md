@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Get index
-parent: Index APIs
-nav_order: 90
+parent: Core index APIs
+grand_parent: Index APIs
+nav_order: 30
 redirect_from:
   - /opensearch/rest-api/index-apis/get-index/
 ---

@@ -2,19 +2,19 @@
 layout: default
 title: Create or update alias
 parent: Alias APIs
-nav_order: 2
+grand_parent: Index APIs
+nav_order: 10
 redirect_from:
   - /api-reference/index-apis/update-alias/
 ---
 
-# Create Or Update Alias API
-
+# Create Or Update Index Alias API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Create or Update Alias API adds one or more indexes to an alias or updates the settings for an existing alias. For more information about aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
+The Create or Update Alias API adds one or more indexes to an index alias or updates the settings for an existing alias. For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
 
-The Create or Update Alias API is distinct from the [Alias API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/alias/), which supports the addition and removal of aliases and the removal of alias indexes. In contrast, the following API only supports adding or updating an alias without updating the index itself. Each API also uses different request body parameters.
+The Create or Update Alias API is distinct from the [Manage aliases API]({{site.url}}{{site.baseurl}}/api-reference/alias/aliases-api/), which supports the addition and removal of aliases and the removal of indexes with their aliases. In contrast, the following API only supports adding or updating an alias without updating the index itself. Each API also uses different request body parameters.
 {: .note}
 
 ## Endpoints
@@ -65,9 +65,7 @@ Field | Type | Description
 `search_routing` | String | Assigns a custom value to a shard only for search operations. 
 `filter` | Object | A filter to use with the alias so that the alias points to a filtered part of the index.
 
-## Example requests
-
-### Add a simple alias
+## Example request: Add a simple alias
 
 The following request creates a basic alias for an index:
 
@@ -95,7 +93,7 @@ response = client.indices.put_alias(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### Add a time-based alias
+## Example request: Add a time-based alias
 
 The following request creates an alias `quarterly-2024` for the `sales-q1-2024` index:
 
@@ -123,7 +121,7 @@ response = client.indices.put_alias(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### Add a filtered alias with routing
+## Example request: Add a filtered alias with routing
 
 First, create an index with appropriate mappings:
 
@@ -232,7 +230,7 @@ response = client.indices.put_alias(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### Add an alias during index creation
+## Example request: Add an alias during index creation
 
 You can add an alias when creating an index using the create index API:
 
@@ -320,8 +318,6 @@ response = client.indices.create(
 }
 ```
 
-## Required permissions
+## Related documentation
 
-If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/aliases`.
-
-For more information about aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
+For more information about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/).
