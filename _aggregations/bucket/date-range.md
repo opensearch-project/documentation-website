@@ -9,16 +9,17 @@ redirect_from:
 
 # Date range aggregations
 
-Use the `date_range` aggregation to group documents into buckets defined by date boundaries. It behaves like the numeric `range` aggregation, but accepts date math in addition to [ISO-8601](https://www.iso.org/iso-8601-date-and-time-format.html) dates and epoch milliseconds.
+Use the `date_range` aggregation to group documents into buckets defined by date boundaries. The `date_range` aggregation behaves like the numeric `range` aggregation, but accepts date math in addition to [ISO-8601](https://www.iso.org/iso-8601-date-and-time-format.html) dates and epoch milliseconds.
 
-- `from` is inclusive.
-- `to` is exclusive.
-- You can omit `from` or `to` to create an open-ended bucket.
-- Date math supports rounding, for example `now-7d/d` (start of the day, seven days ago).
+Note the following details:
+
+- `from` is inclusive, `to` is exclusive.
+- To create an open-ended bucket, omit `from` or `to` .
+- Date math supports rounding: for example, `now-7d/d` (start of the day, seven days ago).
 
 ## Parameters
 
-The following is a table of parameters accepted by date range aggregations:
+The following is a table of parameters accepted by date range aggregations.
 
 | Parameter | Required | Description |
 | --- | --- | --- |
@@ -28,23 +29,25 @@ The following is a table of parameters accepted by date range aggregations:
 | `ranges[].to` | One of `from` or `to` is required | Upper exclusive bound. |
 | `ranges[].key`| No | The label for the bucket.|
 | `format`| No | Controls the `*_as_string` fields in the response, for example `yyyy-MM-dd`. |
-| `time_zone` | No | The IANA zone or UTC offset used when evaluating date math/rounding, for example `Europe/Dublin`, `+01:00`. |
-| `keyed` | No | If `true`, returns an object keyed by `key` instead of an array. |
-| `missing` | No | Substitute value for documents where the field is missing. |
+| `time_zone` | No | The IANA zone or UTC offset used when evaluating date math or rounding, for example,`Europe/Dublin`, `+01:00`. |
+| `keyed` | No | If `true`, returns an object with the key `key` instead of an array. |
+| `missing` | No | The value to substitute for documents in which the field is missing. |
 
 
 ### Accepted values for `from` and `to`
+
+The following values of `from` and `to` are accepted:
 
 - ISO-8601 strings: `"2025-10-01T00:00:00Z"`, `"2025-10-01"`.
 - Date math: `"now-7d/d"`, `"now+1M/M"`, `"2025-09-01||/M"`.
 - Epoch milliseconds: `1756684800000`.
 
-If a date string omits components, the missing parts are filled with defaults. For example, `"2025-10"` is treated as the start of October 2025.
+If components are omitted in a date string, the missing parts are filled with defaults. For example, `"2025-10"` is treated as the start of October 2025.
 {: .note}
 
 ## Example: Three sliding windows
 
-The following example produces three buckets, last 7 days, previous 7 days, and older, using date math and `yyyy-MM-dd` output `format`.
+The following example produces three buckets (last 7 days, previous 7 days, and older), using date math and `yyyy-MM-dd` output `format`:
 
 ```json
 GET my-index/_search
@@ -102,7 +105,7 @@ Example response:
 
 ## Example: Last 10 days bucket with custom string format
 
-Creates a single bucket that covers the last 10 calendar days. It starts at the beginning of the day 10 days ago (`now-10d/d`) and ends at the beginning of tomorrow (`now+1d/d`, exclusive). The `format` only affects the `*_as_string` fields in the response, not document matching.
+The following request creates a single bucket that covers the last 10 calendar days. It starts at the beginning of the day 10 days ago (`now-10d/d`) and ends at the beginning of tomorrow (`now+1d/d`, exclusive). The `format` only affects the `*_as_string` fields in the response, not document matching:
 
 ```json
 GET my-index/_search
@@ -123,7 +126,7 @@ GET my-index/_search
 
 ## Example: Keyed response and custom keys
 
-Return an object keyed by your labels for easier downstream processing:
+The following request returns an object organized by your labels for easier downstream processing:
 
 ```json
 GET my-index/_search
@@ -168,9 +171,9 @@ Example response:
   }
 ```
 
-## Example: Epoch millis with a time zone
+## Example: Epoch milliseconds with a time zone
 
-When the field value is epoch millis, you can still provide `from`/`to` as numbers. See following request, `time_zone` affects date math and boundary evaluation:
+When the field value is provided in epoch millis, you can still provide `from` and `to` parameters as numbers. For example, in the following request, `time_zone` affects date math and boundary evaluation:
 
 ```json
 GET my-index/_search
