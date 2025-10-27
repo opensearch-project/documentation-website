@@ -526,6 +526,6 @@ Output:
 
 You can run this tool either as part of an agent workflow or independently using the [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/). The Execute Tool API is useful for testing individual tools or performing standalone operations.
 
-## Related pages
+## Related documentation
 
 - [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index)
