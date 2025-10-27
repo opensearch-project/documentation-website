@@ -6,7 +6,7 @@ nav_order: 70
 
 # Getting started with OpenSearch FIPS
 
-The Federal Information Processing Standard (FIPS) 140-2 is a U.S. government standard that defines security requirements for cryptographic modules. When running OpenSearch in a FIPS-compliant environment, you need to configure the system to use FIPS-validated cryptographic providers.
+The [Federal Information Processing Standard (FIPS) 140-3](https://csrc.nist.gov/pubs/fips/140-3/final) is a U.S. government standard that defines security requirements for cryptographic modules. When running OpenSearch in a FIPS-compliant environment, you need to configure the system to use FIPS-validated cryptographic providers.
 
 To achieve FIPS compliance, OpenSearch requires:
 
@@ -19,7 +19,7 @@ To achieve FIPS compliance, OpenSearch requires:
 
 By default, the JVM uses the `cacerts` trust store (typically in PKCS12 format) for SSL/TLS connections, which contains trusted certificate authority (CA) certificates. However, the standard PKCS12 format is not FIPS-compliant.
 
-OpenSearch includes a FIPS demo installer CLI tool that simplifies the trust store configuration process. This tool is located in `distribution/tools/fips-demo-installer-cli` and provides an automated way to set up a FIPS-compliant trust store by converting the JVM's default trust store to BCFKS format.
+OpenSearch includes a FIPS demo installer CLI tool that simplifies the trust store configuration process. The tool provides an automated way to set up a FIPS-compliant trust store by converting the JVM's default trust store to BCFKS format. The project source is available in distribution/tools/fips-demo-installer-cli.
 
 This tool is designed for demo and development purposes. Before deploying to production, carefully review all generated configuration and replace demo settings with production-appropriate values.
 {: .warning}
