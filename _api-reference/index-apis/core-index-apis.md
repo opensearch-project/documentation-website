@@ -4,6 +4,7 @@ title: Core index APIs
 parent: Index APIs
 nav_order: 20
 has_children: true
+has_toc: false
 ---
 
 # Core index APIs

@@ -4,6 +4,7 @@ title: Index templates
 parent: Index APIs
 nav_order: 50
 has_children: true
+has_toc: false
 ---
 
 # Index templates

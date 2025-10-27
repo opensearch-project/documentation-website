@@ -4,6 +4,7 @@ title: Index blocks and allocation
 parent: Index APIs
 nav_order: 70
 has_children: true
+has_toc: false
 ---
 
 # Index blocks and allocation

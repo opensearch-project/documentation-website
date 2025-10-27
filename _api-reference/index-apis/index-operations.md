@@ -4,6 +4,7 @@ title: Index operations
 parent: Index APIs
 nav_order: 30
 has_children: true
+has_toc: false
 ---
 
 # Index operations

@@ -4,6 +4,7 @@ title: Alias APIs
 parent: Index APIs
 nav_order: 45
 has_children: true
+has_toc: false
 redirect_from:
   - /opensearch/rest-api/alias/
   - /api-reference/alias-api/
