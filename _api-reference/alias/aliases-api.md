@@ -473,10 +473,10 @@ POST /_aliases
 ```
 {% include copy-curl.html %}
 
-Keep the following important considerations in mind when working with write indexes:
-- An alias can have only one write index at a time
-- If an alias points to multiple indexes without a designated write index, write operations will be rejected
-- For aliases pointing to a single index, that index automatically serves as the write index
+> Keep the following important considerations in mind when working with write indexes:
+> - An alias can have only one write index at a time.
+> - If an alias points to multiple indexes without a designated write index, write operations will be rejected.
+> - For aliases pointing to a single index, that index automatically serves as the write index.
 {: .important}
 
 ## Example: Use the must_exist parameter
