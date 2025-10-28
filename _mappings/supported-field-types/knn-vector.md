@@ -1,12 +1,12 @@
 ---
 layout: default
 title: k-NN vector
-nav_order: 15
-has_children: false
-parent: Vector field types
-grand_parent: Supported field types
+nav_order: 90
+has_children: true
+parent: Supported field types
 redirect_from:
   - /field-types/supported-field-types/knn-vector/
+  - /mappings/supported-field-types/vector-field-types/
 has_math: true
 ---
 

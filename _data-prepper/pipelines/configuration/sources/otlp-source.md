@@ -328,7 +328,7 @@ otlp-pipeline:
 ```
 {% include copy.html %}
 
-## Related pages
+## Related documentation
 
 - [OTel logs source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-logs-source/)
 - [OTel metrics source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-metrics-source/)
