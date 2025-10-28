@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Stats
+title: Index stats
 parent: Index operations
 grand_parent: Index APIs
 nav_order: 120
