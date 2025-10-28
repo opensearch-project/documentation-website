@@ -8,7 +8,7 @@ nav_order: 60
 
 # Component template APIs
 
-You can use the Component Template APIs to create, retrieve, update, and delete component templates. A component template is a reusable building block that defines settings, mappings, and aliases and can be shared across multiple index templates. 
+You can use the component template APIs to create, retrieve, update, and delete component templates. A component template is a reusable building block that defines settings, mappings, and aliases and can be shared across multiple index templates. 
 
 An index template can be constructed using multiple component templates. To incorporate a component template into an index template, you need to list it in the `composed_of` section of the index template. Component templates are only applied to newly created data streams and indexes that match the criteria specified in the index template.
 
