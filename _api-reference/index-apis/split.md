@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Split index
-parent: Index APIs
-nav_order: 150
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 110
 redirect_from:
   - /opensearch/rest-api/index-apis/split/
 ---
