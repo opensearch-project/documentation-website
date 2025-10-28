@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Create or update component template
+title: Component template APIs
 parent: Index templates
 grand_parent: Index APIs
 nav_order: 60
 ---
 
-# Create Or Update Component Template API
+# Component template APIs
 
-You can use the Component Template API to create or update a component template. A component template is a reusable building block that defines settings, mappings, and aliases that can be shared across multiple index templates. 
+You can use the Component Template APIs to create, retrieve, update, and delete component templates. A component template is a reusable building block that defines settings, mappings, and aliases that can be shared across multiple index templates. 
 
 An index template can be constructed using multiple component templates. To incorporate a component template into an index template, you need to list it in the `composed_of` section of the index template. Component templates are only applied to newly created data streams and indexes that match the criteria specified in the index template.
 
@@ -18,32 +18,48 @@ Component templates are used solely during the process of index creation. For da
 
 ## Endpoints
 
-The PUT method adds a component template and accepts both query parameters and a request body. The GET method retrieves information about an existing component template and accepts only query parameters:
-
 ```json
 PUT _component_template/<component-template-name>
 GET _component_template/<component-template-name>
+DELETE _component_template/<component-template-name>
+HEAD _component_template/<component-template-name>
 ```
+
+- `PUT`: Creates or updates a component template. Accepts both query parameters and a request body.
+- `GET`: Retrieves information about an existing component template. Accepts only query parameters.
+- `DELETE`: Deletes an existing component template. Accepts only query parameters.
+- `HEAD`: Returns whether a component template exists. Returns only HTTP status codes.
 
 ## Path parameters
 
+The following table lists the available path parameters.
+
 Parameter | Data type | Description
 :--- | :--- | :---
-`component-template-name` | String | The name of the component template.
+`component-template-name` | String | The name of the component template. Required for PUT, HEAD, and DELETE operations. Optional for GET operations.
 
 ## Query parameters
 
-The following optional query parameters are supported.
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Data type | Description
-:--- | :--- | :---
-`create` | Boolean | When true, the API cannot replace or update any existing index templates. Default is `false`.
-`cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
-`timeout` | Time | The amount of time for the operation to wait for a response. Default is `30s`.
+Parameter | Data type | Description | Supported operations
+:--- | :--- | :--- | :---
+`create` | Boolean | When true, the API cannot replace or update any existing component templates. Default is `false`. | PUT
+`cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`. | PUT, GET, DELETE
 
-## Request body fields
+## Create or update a component template
 
-The following options can be used in the request body to customize the index template.
+Use the PUT operation to create a new component template or update an existing one.
+
+### Endpoints
+
+```json
+PUT _component_template/<component-template-name>
+```
+
+### Request body fields
+
+The following table lists the available request body fields.
 
 
 Parameter | Data type | Description
@@ -82,11 +98,7 @@ The field mappings that exist in the index. For more information, see [Mappings 
 
 Any configuration options for the index. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 
-## Example requests
-
-The following example requests show how to use the Component Template API.
-
-### Create with index aliases
+### Example request: Create a component template with index aliases
 
 The following example request creates a component template including index aliases:
 
@@ -168,8 +180,7 @@ response = client.cluster.put_component_template(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### Adding component versioning
-
+### Example request: Add component versioning
 
 The following example adds a `version` number to a component template which simplifies template management for external systems:
 
@@ -220,9 +231,9 @@ response = client.cluster.put_component_template(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-## Adding template metadata
+### Example request: Add template metadata
 
-The following example request uses the `meta` parameter to add metadata to the index template. All metadata is stored in the cluster state.
+The following example request uses the `_meta` parameter to add metadata to the component template. All metadata is stored in the cluster state.
 
 <!-- spec_insert_start
 component: example_code
@@ -289,5 +300,167 @@ response = client.cluster.put_component_template(
     python=step1_python %}
 <!-- spec_insert_end -->
 
+## Retrieve component template
+
+Use the GET operation to retrieve one or more component templates and their information.
+
+### Endpoints
+
+```
+GET /_component_template/<component-template-name>
+GET /_component_template
+```
+
+### Path parameters
+
+The following table lists the available path parameters. All path parameters are optional.
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`component-template-name` | String | The name of the component template to retrieve. Supports wildcard expressions (`*`). If not specified, all component templates are returned.
+
+### Example request: Retrieve a component template by name
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /_component_template/my_template
+-->
+{% capture step1_rest %}
+GET /_component_template/my_template
+{% endcapture %}
+
+{% capture step1_python %}
 
 
+response = client.cluster.get_component_template(
+  name = "my_template"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+### Example request: Retrieve component templates using a wildcard pattern
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /_component_template/my_template*
+-->
+{% capture step1_rest %}
+GET /_component_template/my_template*
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.get_component_template(
+  name = "my_template*"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+### Example request: Retrieveall component templates
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /_component_template
+-->
+{% capture step1_rest %}
+GET /_component_template
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.cluster.get_component_template()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+## Delete component template
+
+Use the DELETE operation to remove a component template from the cluster.
+
+**Important considerations:**
+- Deleting a component template does not affect existing indexes that were created using the template.
+- You cannot delete a component template that is currently referenced by an index template.
+- The operation is irreversible.
+
+### Endpoints
+
+```
+DELETE _component_template/<component-template-name>
+```
+
+### Example request
+
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /_component_template/my_template
+-->
+{% capture step1_rest %}
+DELETE /_component_template/my_template
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.delete_component_template(
+  name = "my_template"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+## Check if component template exists
+
+Use the HEAD operation to check whether a component template exists without retrieving its contents. This operation returns only HTTP status codes and headers, with no response body.
+
+### Endpoints
+
+```
+HEAD _component_template/<component-template-name>
+```
+
+### Example request
+
+<!-- spec_insert_start
+component: example_code
+rest: HEAD /_component_template/my_template
+-->
+{% capture step1_rest %}
+HEAD /_component_template/my_template
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.exists_component_template(
+  name = "my_template"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+### Response codes
+
+- `200`: The component template exists.
+- `404`: The component template does not exist.
