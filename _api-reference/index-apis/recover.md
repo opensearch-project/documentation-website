@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Recovery
-parent: Index APIs
-nav_order: 110
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 50
 ---
 
 # Recovery API

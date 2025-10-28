@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Update settings
-parent: Index APIs
-nav_order: 165
+parent: Index settings and mappings
+grand_parent: Index APIs
+nav_order: 20
 redirect_from:
   - /opensearch/rest-api/index-apis/update-settings/
 ---

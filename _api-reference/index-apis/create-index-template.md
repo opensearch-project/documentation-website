@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Create or update index template
-parent: Index APIs
-nav_order: 35
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 10
 ---
 
 # Create Or Update Index Template API
