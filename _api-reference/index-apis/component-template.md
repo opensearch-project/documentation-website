@@ -8,7 +8,7 @@ nav_order: 60
 
 # Component template APIs
 
-You can use the Component Template APIs to create, retrieve, update, and delete component templates. A component template is a reusable building block that defines settings, mappings, and aliases that can be shared across multiple index templates. 
+You can use the Component Template APIs to create, retrieve, update, and delete component templates. A component template is a reusable building block that defines settings, mappings, and aliases and can be shared across multiple index templates. 
 
 An index template can be constructed using multiple component templates. To incorporate a component template into an index template, you need to list it in the `composed_of` section of the index template. Component templates are only applied to newly created data streams and indexes that match the criteria specified in the index template.
 
@@ -367,7 +367,7 @@ response = client.cluster.get_component_template(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### Example request: Retrieveall component templates
+### Example request: Retrieve all component templates
 
 <!-- spec_insert_start
 component: example_code
@@ -391,7 +391,7 @@ response = client.cluster.get_component_template()
 
 Use the DELETE operation to remove a component template from the cluster.
 
-**Important considerations:**
+**Important considerations**:
 - Deleting a component template does not affect existing indexes that were created using the template.
 - You cannot delete a component template that is currently referenced by an index template.
 - The operation is irreversible.
@@ -426,7 +426,7 @@ response = client.cluster.delete_component_template(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-## Check if component template exists
+## Check whether a component template exists
 
 Use the HEAD operation to check whether a component template exists without retrieving its contents. This operation returns only HTTP status codes and headers, with no response body.
 
