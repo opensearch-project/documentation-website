@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Segment
+title: Index segments
 parent: Index operations
 grand_parent: Index APIs
 nav_order: 90
 ---
 
-# Segment API
+# Index Segments API
 Introduced 1.0
 {: .label .label-purple }
 
