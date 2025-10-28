@@ -316,9 +316,9 @@ response = client.snapshot.create_repository(
 {% endcapture %}
 
 {% include code-block.html
-rest=step1_rest
-python=step1_python %}
-
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
