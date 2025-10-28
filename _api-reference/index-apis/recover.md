@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Recovery
+title: Index recovery
 parent: Index operations
 grand_parent: Index APIs
 nav_order: 50
 ---
 
-# Recovery API
+# Index Recovery API
 Introduced 1.0
 {: .label .label-purple }
 

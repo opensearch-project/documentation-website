@@ -1,11 +1,14 @@
 ---
-layout: default 
-title: Shard stores 
-parent: Cluster APIs 
-nav_order: 70
+layout: default
+title: Index shard stores
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 95
+redirect_from:
+  - /api-reference/cluster-api/shard-stores/
 ---
 
-# Shard Stores API
+# Index Shard Stores API
 
 The `_shard_stores` API provides information about the shard copies for one or more indexes. This API helps to diagnose issues with unallocated shards by indicating why shards are unassigned and providing their current states.
 
