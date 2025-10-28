@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Index template exists
-parent: Index APIs
-nav_order: 98
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 40
 ---
 
 # Index template exists
