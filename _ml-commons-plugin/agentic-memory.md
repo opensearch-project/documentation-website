@@ -22,6 +22,15 @@ Using agentic memory, you can build AI agents that can do the following:
 Currently, agentic memory is designed for integration with external agent frameworks like LangChain and LangGraph. OpenSearch's internal [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/) cannot interact with agentic memory.
 {: .note}
 
+>   **Important**:
+>   
+>   The agentic memory capability in OpenSearch is provided as a framework that enables you to build and manage memory for AI agents. As the administrator or owner of a memory container, you are responsible for the configuration, management, and security of your implementation.
+> You are responsible for the following:
+>   - Data access control: Implement and enforce all necessary data access controls for the conversation data stored within the memory container. This includes, but is not limited to, configuring appropriate index-level permissions, document-level security (DLS), or other mechanisms to restrict access. This responsibility is especially critical when the use_system_index option is set to false, because data will be stored in a standard index that requires explicit permission management.
+>   - Custom system prompt management: If you choose to use a customized system prompt instead of the default, you are responsible for the content, management, and behavior of that prompt. OpenSearch is not responsible for the outputs or interactions resulting from user-defined system prompts.
+>   Failure to properly configure and secure your agentic memory implementation may result in unauthorized data access, data leakage, or unintended agent behavior.
+{: .warning}
+
 ## Memory containers
 
 Agentic memory is organized into _memory containers_ that hold all memory types for a specific use case, such as a chatbot, research assistant, or customer service agent.
