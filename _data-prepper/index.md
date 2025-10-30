@@ -10,6 +10,7 @@ redirect_from:
   - /clients/data-prepper/index/
   - /monitoring-plugins/trace/data-prepper/
   - /data-prepper/index/
+  - /data-prepper/migrating-from-logstash-data-prepper/
 ---
 
 # OpenSearch Data Prepper
