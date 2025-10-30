@@ -8,7 +8,7 @@ grand_parent: Analyzers
 
 # Ukrainian analyzer
 
-The Ukrainian language analyzer (`ukrainian`) provides analysis for Ukrainian text. This analyzer is part of the `analysis-ukrainian` plugin that must be installed before use.
+The Ukrainian language analyzer (`ukrainian`) provides analysis for Ukrainian text. This analyzer is part of the `analysis-ukrainian` plugin, which must be installed before use.
 
 ## Installing the plugin
 

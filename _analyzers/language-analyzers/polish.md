@@ -8,7 +8,7 @@ grand_parent: Analyzers
 
 # Polish analyzer
 
-The Polish language analyzer (`polish`) provides analysis for Polish text. This analyzer is part of the `analysis-stempel` plugin that must be installed before use.
+The Polish language analyzer (`polish`) provides analysis for Polish text. This analyzer is part of the `analysis-stempel` plugin, which must be installed before use.
 
 ## Installing the plugin
 
