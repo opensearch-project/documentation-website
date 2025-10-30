@@ -230,7 +230,7 @@ raw-trace-pipeline:
   # Configure same as the otel-trace-pipeline
   workers: 8
   # We recommend using the default value for the raw-trace-pipeline.
-  delay: 3000
+  delay: "3000"
   source:
     pipeline: 
       name: otel-trace-pipeline
@@ -250,9 +250,9 @@ raw-trace-pipeline:
     - otel_traces_group:
         hosts: [ "https://opensearch:9200" ]
         # Change to your credentials
-        username: admin
-        password: admin_password
-        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
+        username: "admin"
+        password: "admin"
+        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
         # Fine-Grained Access Control, enable these settings. Comment out the
@@ -264,9 +264,9 @@ raw-trace-pipeline:
         hosts: [ "https://opensearch:9200" ]
         index_type: trace-analytics-raw
         # Change to your credentials
-        username: admin
-        password: admin_password
-        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
+        username: "admin"
+        password: "admin"
+        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
         # Fine-Grained Access Control, enable these settings. Comment out the
@@ -302,9 +302,9 @@ service-map-pipeline:
         hosts: [ "https://opensearch:9200" ]
         index_type: trace-analytics-service-map
         # Change to your credentials
-        username: admin
-        password: admin_password
-        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
+        username: "admin"
+        password: "admin"
+        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
         # Fine-Grained Access Control, enable these settings. Comment out the
@@ -582,6 +582,7 @@ This will send sample telemetry to the alias `otel-v1-apm-span` and store the do
   },
   ...
 ```
+{% include copy.html %}
 
 After you run OpenTelemetry in your service environment, you must configure your application to use the OpenTelemetry Collector. The OpenTelemetry Collector typically runs alongside your application.
 

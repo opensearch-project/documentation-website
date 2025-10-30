@@ -186,6 +186,7 @@ The documents stored in OpenSearch contain the following information:
   }
 }
 ```
+{% include copy.html %}
 
 ### Parse a timestamp to convert its format and time zone
 
@@ -340,6 +341,7 @@ The documents stored in OpenSearch contain the following information:
   }
 }
 ```
+{% include copy.html %}
 
 ### Timestamp formats with different day spacing
 
@@ -454,3 +456,4 @@ The documents stored in OpenSearch contain the following information:
   }
 }
 ```
+{% include copy.html %}
