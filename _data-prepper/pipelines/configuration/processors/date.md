@@ -66,6 +66,7 @@ The following `date` processor configuration can be used to add a default timest
     from_time_received: true
     destination: "@timestamp"
 ```
+{% include copy.html %}
 
 ## Example: Parse a timestamp to convert its format and time zone
 The following `date` processor configuration can be used to parse the value of the timestamp applied to `dd/MMM/yyyy:HH:mm:ss` and write it in `yyyy-MM-dd'T'HH:mm:ss.SSSXXX` format:
@@ -74,10 +75,11 @@ The following `date` processor configuration can be used to parse the value of t
 - date:
     match:
       - key: timestamp
-        patterns: ["dd/MMM/yyyy:HH:mm:ss"] 
+        patterns: ["dd/MMM/yyyy:HH:mm:ss"]
     destination: "@timestamp"
     output_format: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
     source_timezone: "America/Los_Angeles"
     destination_timezone: "America/Chicago"
     locale: "en_US"
 ```
+{% include copy.html %}
