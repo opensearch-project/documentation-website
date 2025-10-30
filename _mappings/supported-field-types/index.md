@@ -31,6 +31,7 @@ You can specify data types for your fields when creating a mapping. The followin
 | [`wildcard`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/wildcard/)               | Enables efficient substring and regex matching.            |
 | [`token_count`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/token-count/)         | Stores the number of tokens after analysis.                |
 | [`constant_keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/constant-keyword/) | Uses the same value for all documents in the index.      |
+| [`version`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/version/)                 | A semantic version string that follows semantic versioning specification. |
 
 ## Numeric field types
 
