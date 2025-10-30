@@ -77,10 +77,13 @@ Setting | Default | Description
 `plugins.sql.slowlog` | 2 seconds | Configures the time limit (in seconds) for slow queries. The plugin logs slow queries as `Slow query: elapsed=xxx (ms)` in `opensearch.log`.
 `plugins.sql.cursor.keep_alive` | 1 minute | Configures how long the cursor context is kept open. Cursor contexts are resource-intensive, so we recommend a low value.
 `plugins.query.memory_limit` | 85% | Configures the heap memory usage limit for the circuit breaker of the query engine.
-`plugins.query.size_limit` | 200 | Sets the default size of index that the query engine fetches from OpenSearch.
+`plugins.query.size_limit` | 10000 | Sets the default size of index that the query engine fetches from OpenSearch.
 `plugins.query.datasources.enabled` | true | Change to `false` to disable support for data sources in the plugin.
 `plugins.query.field_type_tolerance` | true | If `false`, then an array is reduced to the first non-array value at any nesting level. For example, `[[1, 2], [3, 4]]` will be reduced to `1`. If `true`, then the array is preserved. Default is `true`.
 `plugins.calcite.enabled` | true | Enables the Apache Calcite query engine, including advanced SQL and PPL capabilities such as subsearches, joins, and lookup operations.
+`plugins.calcite.all_join_types.allowed` | false | Enables performance-sensitive join types like `RIGHT`, `FULL`, and `CROSS` joins. Change to `true` to allow these join operations.
+`plugins.ppl.syntax.legacy.preferred` | true | Controls certain PPL syntax behaviors, including default argument values. When `false`, uses newer syntax standards.
+`plugins.ppl.values.max.limit` | 0 | Sets the maximum number of unique values that the `VALUES` aggregation function can return. A value of `0` means unlimited.
 
 ## Spark connector settings
 
