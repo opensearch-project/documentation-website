@@ -21,17 +21,18 @@ The minimal configuration requires at least one entry, and each entry at least o
 The following configuration extracts all available geolocation data from the IP address provided in the field named `clientip`.
 It will write the geolocation data to a new field named `geo`, the default source when none is configured:
 
-```
+```yaml
 my-pipeline:
   processor:
     - geoip:
         entries:
           - source: clientip
 ```
+{% include copy.html %}
 
 The following example excludes Autonomous System Number (ASN) fields and puts the geolocation data into a field named `clientlocation`:
 
-```
+```yaml
 my-pipeline:
   processor:
     - geoip:
@@ -40,6 +41,7 @@ my-pipeline:
             target: clientlocation
             include_fields: [asn, asn_organization, network]
 ```
+{% include copy.html %}
 
 
 ## Configuration
