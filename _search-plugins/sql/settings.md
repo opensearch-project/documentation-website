@@ -81,9 +81,9 @@ Setting | Default | Description
 `plugins.query.datasources.enabled` | true | Change to `false` to disable support for data sources in the plugin.
 `plugins.query.field_type_tolerance` | true | If `false`, then an array is reduced to the first non-array value at any nesting level. For example, `[[1, 2], [3, 4]]` will be reduced to `1`. If `true`, then the array is preserved. Default is `true`.
 `plugins.calcite.enabled` | true | Enables the Apache Calcite query engine, including advanced SQL and PPL capabilities such as subsearches, joins, and lookup operations.
-`plugins.calcite.all_join_types.allowed` | false | Enables performance-sensitive join types like `RIGHT`, `FULL`, and `CROSS` joins. Change to `true` to allow these join operations.
+`plugins.calcite.all_join_types.allowed` | false | Enables performance-sensitive join types, like `RIGHT`, `FULL`, and `CROSS` joins. Change to `true` to allow these join operations.
 `plugins.ppl.syntax.legacy.preferred` | true | Controls certain PPL syntax behaviors, including default argument values. When `false`, uses newer syntax standards.
-`plugins.ppl.values.max.limit` | 0 | Sets the maximum number of unique values that the `VALUES` aggregation function can return. A value of `0` means unlimited.
+`plugins.ppl.values.max.limit` | 0 | Sets the maximum number of unique values that the `VALUES` aggregation function can return. A value of `0` indicates no limit.
 
 ## Spark connector settings
 
