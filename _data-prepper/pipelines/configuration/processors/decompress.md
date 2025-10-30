@@ -30,6 +30,7 @@ processor:
       keys: [ "base_64_gzip_key" ]
       type: gzip
 ```
+{% include copy.html %}
 
 ## Metrics 
 
