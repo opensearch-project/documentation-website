@@ -653,6 +653,84 @@ GET _plugins/_ism/explain/index_1?show_policy=true
 
 The `plugins.index_state_management.policy_id` setting is deprecated starting from ODFE version 1.13.0. We retain this field in the response API for consistency.
 
+### Filter explain results
+
+Introduced 2.12
+{: .label .label-purple }
+
+You can use the POST method with a request body to filter explain results based on policy metadata. This is useful when you want to retrieve only indexes matching specific criteria without processing the full response set.
+
+The filter accepts the following optional parameters:
+- `policy_id`: Filter by policy ID
+- `state`: Filter by current state name
+- `action_type`: Filter by action type
+
+All specified filters use AND logic, meaning only results matching all provided criteria are returned. Omitted filters will match any value.
+
+#### Example request
+
+Filter for indexes using a specific policy:
+
+```json
+POST _plugins/_ism/explain/index_*
+{
+  "filter": {
+    "policy_id": "log_retention_policy"
+  }
+}
+```
+
+Filter for indexes in a specific state with a specific action type:
+
+```json
+POST _plugins/_ism/explain/index_*
+{
+  "filter": {
+    "policy_id": "log_retention_policy",
+    "state": "hot",
+    "action_type": "rollover"
+  }
+}
+```
+
+You can also combine the filter with the show_policy query parameter:
+
+```json
+POST _plugins/_ism/explain/index_*?show_policy=true
+{
+  "filter": {
+    "state": "delete"
+  }
+}
+```
+
+#### Example response
+
+```json
+{
+  "index_1": {
+    "index.plugins.index_state_management.policy_id": "log_retention_policy",
+    "index": "index_1",
+    "index_uuid": "gCFlS_zcTdih8xyxf3jQ-A",
+    "policy_id": "log_retention_policy",
+    "enabled": true,
+    "state": {
+      "name": "hot",
+      "start_time": 1647284980148
+    },
+    "action": {
+      "name": "rollover",
+      "start_time": 1647284980150,
+      "index": 0,
+      "failed": false,
+      "consumed_retries": 0,
+      "last_retry_time": 0
+    }
+  },
+  "total_managed_indices": 1
+}
+```
+
 ---
 
 ## Delete policy
