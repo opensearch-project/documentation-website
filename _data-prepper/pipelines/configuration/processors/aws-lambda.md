@@ -42,7 +42,7 @@ Field                | Type    | Required | Description
 
 #### Example configuration
 
-```
+```yaml
 processors:
   - aws_lambda:
       function_name: "my-lambda-function"
@@ -62,7 +62,6 @@ processors:
           maximum_size: "5mb"
           event_collect_timeout: PT10S
       lambda_when: "event['status'] == 'process'"
-
 ```
 {% include copy.html %}
 
@@ -98,7 +97,7 @@ Note the following limitations:
 
 Integration tests for this plugin are executed separately from the main Data Prepper build process. Use the following Gradle command to run these tests:
 
-```
+```bash
 ./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.processor.lambda.region="us-east-1" -Dtests.processor.lambda.functionName="lambda_test_function"  -Dtests.processor.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role
 ```
 {% include copy.html %}
