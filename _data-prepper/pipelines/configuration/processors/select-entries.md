@@ -16,9 +16,10 @@ Only the selected entries remain in the processed event and while all other entr
 You can configure the `select_entries` processor using the following options.
 
 | Option | Required | Description |
-| :--- | :--- | :--- |
-| `include_keys` | Yes | A list of keys to be selected from an event. |
-| `select_when` | No | A [conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. If the condition is not met, then the event continues through the pipeline unmodified with all the original fields present. |
+| :--- |:---------| :--- |
+| `include_keys` | No       | A list of keys to be selected from an event. |
+| `include_keys_regex` | No | A regex pattern that matches the keys to be selected from an event. |
+| `select_when` | No       | A [conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. If the condition is not met, then the event continues through the pipeline unmodified with all the original fields present. |
 
 ## Usage
 
@@ -32,6 +33,7 @@ pipeline:
   processor:
     - select_entries:
         include_keys: [ "key1", "key2" ]
+        include_keys_regex: ["^ran.*"]
         select_when: '/some_key == "test"'
   sink:
 ```
@@ -41,13 +43,22 @@ pipeline:
 For example, when your source contains the following event record:
 
 ```json
-{"message": "hello", "key1" : "value1", "key2" : "value2", "some_key" : "test"}
+{
+  "message": "hello",
+  "key1" : "value1",
+  "key2" : "value2",
+  "some_key" : "test",
+  "random1": "another",
+  "random2" : "set",
+  "random3": "of",
+  "random4": "values"
+}
 ```
 
-The `select_entries` processor includes only `key1` and `key2` in the processed output:
+The `select_entries` processor will output:
 
 ```json
-{"key1": "value1", "key2": "value2"}
+{"key1": "value1", "key2": "value2", "random1": "another", "random2" : "set", "random3": "of", "random4": "values"}
 ```
 
 ### Accessing nested fields
