@@ -84,7 +84,7 @@ PUT testindex1/_doc/4?routing=1
   "name": "Product 2",
   "product_to_brand": {
     "name": "product", 
-    "parent": "1" 
+    "parent": "2" 
   }
 }
 ```
