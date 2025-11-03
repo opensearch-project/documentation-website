@@ -16,7 +16,7 @@ Querqy for OpenSearch is a community plugin for query rewriting that improves se
 Querqy currently supports OpenSearch versions up to 2.19.2.
 {: .warning }
 
-Find out more about Querqy by visiting the comprehensive documentation on the Querqy.org site: [Querqy Docs](https://docs.querqy.org/querqy/index.html)
+For more information, see [Querqy documentation](https://docs.querqy.org/querqy/index.html).
 
 
 ## Querqy plugin installation
