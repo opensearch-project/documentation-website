@@ -125,6 +125,9 @@ PUT testindex1/_doc/2
 }
 ```
 
+semantic field cannot support an array of values since we will map it to an embedding field as rank_features/knn_vector, and they cannot support multiple vectors.
+{: .note}
+
 ## Multifields
 
 Multifields are used to index the same field differently. Strings are often mapped as `text` for full-text queries and `keyword` for exact-value queries.
