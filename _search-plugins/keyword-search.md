@@ -3,8 +3,6 @@ layout: default
 title: Keyword search
 has_children: false
 nav_order: 10
-meta_description: Learn about BM25 keyword search in OpenSearch, including how to configure BM25 parameters k1 and b for better search relevance
-meta_keywords: BM25, keyword search, k1, b, term frequency, inverse document frequency, TF/IDF, search relevance, Okapi BM25
 ---
 
 # Keyword search
@@ -167,12 +165,7 @@ PUT /testindex
 
 ## Configuring BM25 similarity 
 
-You can configure BM25 similarity parameters at the index level. The BM25 algorithm supports two key parameters: `k1` (term saturation parameter) and `b` (length normalization parameter). These parameters control how BM25 scores documents:
-
-- The `k1` parameter controls term frequency saturation, determining how quickly the relevance score increases as term frequency grows.
-- The `b` parameter controls the impact of document length on scoring.
-
-You can configure these parameters at the index level as follows:
+You can configure BM25 similarity parameters at the index level as follows:
 
 ```json
 PUT /testindex
