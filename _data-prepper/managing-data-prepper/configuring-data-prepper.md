@@ -12,10 +12,6 @@ redirect_from:
 
 You can customize your OpenSearch Data Prepper configuration by editing the `data-prepper-config.yaml` file in your Data Prepper installation. The following configuration options are independent from pipeline configuration options.
 
-> **New in this version:** A practical **latency tuning guide** with ready‑to‑paste YAML, plus links between global settings and the knobs that most affect end‑to‑end delay.
-
----
-
 ## Data Prepper configuration
 
 Use the following options to customize your Data Prepper configuration.
@@ -82,8 +78,6 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 authentication | No | Map | The authentication method. One of `mutual_tls` (mTLS) or `unauthenticated` (no authentication). Default: `unauthenticated`.
 
----
-
 ## Circuit breakers
 
 Data Prepper provides a circuit breaker to help prevent exhausting Java heap memory. This is useful when pipelines have **stateful** processors which retain memory outside of buffers.
@@ -103,8 +97,6 @@ Option | Required | Type | Description
 usage | Yes | Bytes | The JVM heap usage at which to trip the circuit breaker (e.g., `6.5gb`). If current usage exceeds this value, the breaker opens.
 reset | No  | Duration | The minimum time the breaker remains open before new checks. Default: `1s`.
 check_interval | No | Duration | The time between heap‑size checks. Default: `500ms`.
-
----
 
 ## Extension plugins
 
