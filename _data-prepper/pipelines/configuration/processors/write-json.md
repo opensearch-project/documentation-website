@@ -37,20 +37,21 @@ write-json-demo-pipeline:
   processor:
     # 1) Copy the nested "details" object into a JSON string at "details_json"
     - write_json:
-        source: "details"
-        target: "details_json"
+        source: details
+        target: details_json
 
     # 2) Overwrite "payload" with its JSON-string representation
     - write_json:
-        source: "payload"   # no target -> result stored back into "payload"
+        # no target -> result stored back into "payload"
+        source: payload   
   sink:
     - opensearch:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_pass
         index_type: custom
-        index: "write-json-demo-%{yyyy.MM.dd}"
+        index: write-json-demo-%{yyyy.MM.dd}
 ```
 {% include copy.html %}
 
