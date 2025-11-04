@@ -34,9 +34,9 @@ file-to-opensearch:
   sink:
     - opensearch:
         hosts: ["https://opensearch:9200"]
-        index: "file-demo"
-        username: "admin"
-        password: "admin_pass"
+        index: file-demo
+        username: admin
+        password: admin_pass
         insecure: true
 ```
 {% include copy.html %}
@@ -60,9 +60,9 @@ plain-file-to-opensearch:
   sink:
     - opensearch:
         hosts: ["https://opensearch:9200"]
-        index: "plain-file-demo"
-        username: "admin"
-        password: "admin_pass"
+        index: plain-file-demo
+        username: admin
+        password: admin_pass
         insecure: true
 ```
 {% include copy.html %}
@@ -84,9 +84,9 @@ csv-file-to-opensearch:
   sink:
     - opensearch:
         hosts: ["https://opensearch:9200"]
-        index: "csv-demo"
-        username: "admin"
-        password: "admin_pass"
+        index: csv-demo
+        username: admin
+        password: admin_pass
         insecure: true
 ```
 {% include copy.html %}
