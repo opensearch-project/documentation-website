@@ -128,13 +128,13 @@ entry-pipeline:
       batch_size: 10000
   sink:
     - pipeline:
-        name: "raw-trace-pipeline"
+        name: raw-trace-pipeline
     - pipeline:
-        name: "service-map-pipeline"
+        name: service-map-pipeline
 raw-trace-pipeline:
   source:
     pipeline:
-      name: "entry-pipeline"
+      name: entry-pipeline
   buffer:
     bounded_blocking:
       buffer_size: 500000
@@ -152,7 +152,7 @@ service-map-pipeline:
   delay: "100"
   source:
     pipeline:
-      name: "entry-pipeline"
+      name: entry-pipeline
   buffer:
     bounded_blocking:
       buffer_size: 500000
@@ -220,9 +220,9 @@ otel-trace-pipeline:
       batch_size: 10000
   sink:
     - pipeline:
-        name: "raw-trace-pipeline"
+        name: raw-trace-pipeline
     - pipeline:
-        name: "entry-pipeline"
+        name: entry-pipeline
 
 raw-trace-pipeline:
   # Configure same as the otel-trace-pipeline
@@ -231,7 +231,7 @@ raw-trace-pipeline:
   delay: "3000"
   source:
     pipeline: 
-      name: "otel-trace-pipeline"
+      name: otel-trace-pipeline
   buffer:
     bounded_blocking:
       # Configure the same value as in entry-pipeline
@@ -277,7 +277,7 @@ service-map-pipeline:
   delay: "100"
   source:
     pipeline: 
-      name: "otel-trace-pipeline"
+      name: otel-trace-pipeline
   processor:
     - service_map:
         # The window duration is the maximum length of time the data prepper stores the most recent trace data to evaluvate service-map relationships. 
@@ -428,14 +428,14 @@ entry-pipeline:
       batch_size: 10000
   sink:
     - pipeline:
-        name: "raw-trace-pipeline"
+        name: raw-trace-pipeline
     - pipeline: 
-        name: "service-map-pipeline"
+        name: service-map-pipeline
 
 raw-trace-pipeline:
   source:
     pipeline: 
-      name: "entry-pipeline"
+      name: entry-pipeline
   processor:
     - otel_traces:
   sink:
@@ -449,7 +449,7 @@ raw-trace-pipeline:
 service-map-pipeline:
   source:
     pipeline: 
-      name: "entry-pipeline"
+      name: entry-pipeline
   processor:
     - service_map:
   sink:
