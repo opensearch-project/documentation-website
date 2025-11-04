@@ -32,21 +32,21 @@ kv-basic-pipeline:
   processor:
     - key_value:
         # Read key=value pairs from the "message" field (default anyway)
-        source: "message"
+        source: message
         # Write parsed pairs into a nested object "parsed_kv"
-        destination: "parsed_kv"
+        destination: parsed_kv
 
         # Split pairs on '&' and split key vs value on '='
         field_split_characters: "&"
         value_split_characters: "="
 
         # Normalize keys and trim garbage whitespace around keys/values
-        transform_key: "lowercase"
+        transform_key: lowercase
         delete_key_regex: "\\s+"          # remove spaces from keys
         delete_value_regex: "^\\s+|\\s+$" # trim leading/trailing spaces
 
         # Add a prefix to every key (after normalization + delete_key_regex)
-        prefix: "meta_"
+        prefix: meta_
 
         # Keep a single unique value for duplicate keys
         skip_duplicate_values: true
@@ -59,9 +59,9 @@ kv-basic-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_password
         index_type: custom
-        index: "kv-basic-%{yyyy.MM.dd}"
+        index: kv-basic-%{yyyy.MM.dd}
 ```
 {% include copy.html %}
 
