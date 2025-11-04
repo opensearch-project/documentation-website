@@ -99,7 +99,7 @@ The following `date` processor configuration can be used to add a default timest
 date-ingestion-pipeline:
   source:
     http:
-      path: /log/ingest
+      path: /events
       ssl: false
 
   processor:
