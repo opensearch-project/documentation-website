@@ -45,8 +45,8 @@ logs-low-latency:
       port: 2021
       path: /logs
       ssl: true
-      sslKeyCertChainFile: "certs/dp.crt"
-      sslKeyFile: "certs/dp.key"
+      sslKeyCertChainFile: certs/dp.crt
+      sslKeyFile: certs/dp.key
   buffer:
     bounded_blocking:
       buffer_size: 4096
@@ -69,9 +69,9 @@ Create the following `data-prepper-config.yaml` file:
 
 ssl: true
 serverPort: 4900
-keyStoreFilePath: "certs/dp1-admin.p12"   # or .jks
-keyStorePassword: "changeit"
-privateKeyPassword: "changeit"
+keyStoreFilePath: certs/dp1-admin.p12   # or .jks
+keyStorePassword: changeit
+privateKeyPassword: changeit
 
 # Or disable ssl on top-level admin/metrics server
 #ssl: false
@@ -79,7 +79,7 @@ privateKeyPassword: "changeit"
 
 authentication:
   http_basic:
-    username: "myuser"
+    username: myuser
     password: "mys3cr3t"
   # or disable http_basic authentication
   #unauthenticated:
@@ -87,15 +87,15 @@ authentication:
 peer_forwarder:
 
   ssl: true
-  ssl_certificate_file: "certs/dp1-peer.crt"
-  ssl_key_file: "certs/dp1-peer.key"
+  ssl_certificate_file: certs/dp1-peer.crt
+  ssl_key_file: certs/dp1-peer.key
   authentication:
     mutual_tls: {}
-  port: 4994    # Default
+  port: 4994 # Default
   # choose one discovery mode
   # Discovery mode: dns
   discovery_mode: dns
-  domain_name: "data-prepper.your-domain.local"
+  domain_name: data-prepper.your-domain.local
 
   # discovery_mode: static
   #port: 4994
@@ -117,8 +117,8 @@ traces-low-latency:
     otel_trace_source:
       port: 21890
       ssl: true
-      sslKeyCertChainFile: "certs/dp.crt"
-      sslKeyFile: "certs/dp.key"
+      sslKeyCertChainFile: certs/dp.crt
+      sslKeyFile: certs/dp.key
   buffer:
     bounded_blocking:
       buffer_size: 4096
@@ -127,12 +127,12 @@ traces-low-latency:
     - trace_peer_forwarder: {}
   sink:
     - pipeline:
-        name: "raw-trace-pipeline"   # <— feed the next pipeline
+        name: raw-trace-pipeline   # feed the next pipeline
 
 raw-trace-pipeline:
   source:
     pipeline:
-      name: "traces-low-latency"     # <— consumes from above
+      name: traces-low-latency     # consumes from above
   processor:
     - otel_traces:
   sink:
@@ -140,6 +140,6 @@ raw-trace-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_password"
+        password: admin_password
         index_type: trace-analytics-raw
 ```
