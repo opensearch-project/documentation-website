@@ -25,9 +25,9 @@ max_pending_requests | No | Integer | The maximum allowed number of tasks in the
 max_request_length | No | ByteCount | The maximum number of bytes allowed in the payload of a single HTTP request. Default value is `10mb`.
 authentication | No | Object | An authentication configuration. By default, this creates an unauthenticated server for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/1.2.0/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
 ssl | No | Boolean | Enables TLS/SSL. Default value is `false`.
-ssl_certificate_file | Conditionally | String | SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. Amazon S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to true and `use_acm_certificate_for_ssl` is set to `false`.
-ssl_key_file | Conditionally | String | SSL key file path or Amazon S3 path. Amazon S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to true and `use_acm_certificate_for_ssl` is set to `false`.
-use_acm_certificate_for_ssl | No | Boolean | Enables a TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default value is `false`.
+ssl_certificate_file | Conditionally | String | The SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true` and `use_acm_certificate_for_ssl` is set to `false`.
+ssl_key_file | Conditionally | String | The SSL key file path or Amazon S3 path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true` and `use_acm_certificate_for_ssl` is set to `false`.
+use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using the certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
 acm_certificate_arn | Conditionally | String | The ACM certificate Amazon Resource Name (ARN). The ACM certificate takes preference over Amazon S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
 acm_private_key_password | No | String | ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
 acm_certificate_timeout_millis | No | Integer | Timeout, in milliseconds, that ACM takes to get certificates. Default value is 120000.
@@ -45,11 +45,11 @@ The `http` protocol only supports the JSON UTF-8 codec for incoming requests, fo
 
 ## Example
 
-The following examples demonstrate different configuration that can be used with `http` source.
+The following examples demonstrate different configurations that can be used with `http` source.
 
 ### Minimal HTTP source
 
-The following is the minimal configuration using all the default configuration:
+The following is the minimal configuration using all default values:
 
 ```yaml
 minimal-http-pipeline:
@@ -78,7 +78,7 @@ You should see the following output in the Data Prepper logs:
 
 ### Custom path using the pipeline name and health check
 
-The following example uses custom path, configures custom port and enables the health check:
+The following example uses a custom path, configures a custom port, and enables health check:
 
 ```yaml
 audit-pipeline:
@@ -93,7 +93,7 @@ audit-pipeline:
 ```
 {% include copy.html %}
 
-You can use the following command to check the health of the pipeline:
+You can use the following command to check the pipeline health:
 
 ```bash
 curl -s "http://localhost:2022/health"
@@ -111,7 +111,7 @@ curl -s "http://localhost:2022/audit-pipeline/logs" \
 
 ### Basic authentication on the source
 
-The following example configures custom port and path, health check and basic authentication:
+The following example configures a custom port and path, enables health check, and configures basic authentication:
 
 ```yaml
 secure-intake-pipeline:
