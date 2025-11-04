@@ -69,7 +69,7 @@ plain-file-to-opensearch:
 
 ### CSV file
 
-You can process CSV file using the `csv` processor:
+You can process a CSV file using the `csv` processor:
 
 ```yaml
 csv-file-to-opensearch:
