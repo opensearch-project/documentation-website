@@ -118,11 +118,11 @@ secure-intake-pipeline:
   source:
     http:
       port: 2023
-      path: "/ingest"
+      path: /ingest
       authentication:
         http_basic:
-          username: "ingest"
-          password: "s3cr3t"
+          username: ingest
+          password: s3cr3t
       health_check_service: true
       unauthenticated_health_check: true
   sink:
@@ -131,9 +131,9 @@ secure-intake-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_password
         index_type: custom
-        index: "demo-%{yyyy.MM.dd}"
+        index: demo-%{yyyy.MM.dd}
 ```
 {% include copy.html %}
 
