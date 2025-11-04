@@ -65,10 +65,10 @@ otel-traces-https:
   source:
     otel_trace_source:
       ssl: true
-      sslKeyFile: "/usr/share/data-prepper/certs/dp-key.pem"
-      sslKeyCertChainFile: "/usr/share/data-prepper/certs/dp-cert.pem"
+      sslKeyFile: /usr/share/data-prepper/certs/dp-key.pem
+      sslKeyCertChainFile: /usr/share/data-prepper/certs/dp-cert.pem
       unframed_requests: true
-      path: "/ingest/${pipelineName}/v1/traces"
+      path: /ingest/${pipelineName}/v1/traces
       compression: gzip
       output_format: otel
       request_timeout: 15000
@@ -77,7 +77,7 @@ otel-traces-https:
   sink:
     - opensearch:
         hosts: ["https://opensearch:9200"]
-        index: "otel-traces-https"
+        index: otel-traces-https
         username: "admin"
         password: "admin_pass"
         insecure: true
