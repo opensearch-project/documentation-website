@@ -66,17 +66,17 @@ source:
 
 ## Example
 
-The following pipeline demonstrates Data Prepper receiving OTLP logs over HTTPS using a PEM cert and key with unframed HTTP at a custom path, accepting `gzip` payloads, preserving OTel shaped documents, and indexing them into OpenSearch:
+The following pipeline demonstrates Data Prepper receiving OTLP logs over HTTPS using PEM certificate and key, with unframed HTTP at a custom path, accepting gzip payloads, and indexing them into OpenSearch using the OpenTelemetry field schema:
 
 ```yaml
 otel-logs-otel-output:
   source:
     otel_logs_source:
       ssl: true
-      sslKeyFile: "/usr/share/data-prepper/certs/dp-key.pem"
-      sslKeyCertChainFile: "/usr/share/data-prepper/certs/dp-cert.pem"
+      sslKeyFile: /usr/share/data-prepper/certs/dp-key.pem
+      sslKeyCertChainFile: /usr/share/data-prepper/certs/dp-cert.pem
       unframed_requests: true
-      path: "/ingest/${pipelineName}/v1/logs"
+      path: /ingest/${pipelineName}/v1/logs
       compression: gzip
       output_format: otel
       request_timeout: 15000
