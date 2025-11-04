@@ -49,26 +49,26 @@ contains-demo-pipeline:
   processor:
     - add_entries:
         entries:
-          - key: "has_test"
-            value_expression: 'contains(/message, "test")'
+          - key: has_test
+            value_expression: contains(/message, "test")
     - drop_events:
-        drop_when: 'not contains(/message, "ERROR")'
+        drop_when: not contains(/message, "ERROR")
 
   sink:
     - opensearch:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_password
         index_type: custom
-        index: "demo-index-%{yyyy.MM.dd}"
+        index: demo-index-%{yyyy.MM.dd}
 ```
 {% include copy.html %}
 
 You can test the pipeline using the following command:
 
 ```bash
-curl -sS -X POST "http://localhost:2021/events" \
+curl -sS -X POST "http://localhost:2021/log/ingest" \
   -H "Content-Type: application/json" \
   -d '[
         {"message":"ok hello"},                  
