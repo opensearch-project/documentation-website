@@ -27,32 +27,33 @@ metadata-pass-demo:
   processor:
     - add_entries:
         entries:
-          - metadata_key: "tenant"         # write to metadata
-            value_expression: "/tenant"
-          - metadata_key: "ingest_marker"
-            value: "batch-001"
+          # write to metadata
+          - metadata_key: tenant        
+            value_expression: /tenant
+          - metadata_key: ingest_marker
+            value: batch-001
     - add_entries:
         entries:
-          - key: "tenant_from_meta"
-            value_expression: 'getMetadata("tenant")'
+          - key: tenant_from_meta
+            value_expression: getMetadata("tenant")
 
   sink:
     - opensearch:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_password
         index_type: custom
         # Use metadata inside sink format strings
-        index: 'demo-%{yyyy.MM.dd}-${getMetadata("tenant")}'
-        document_id: '${/id}-${getMetadata("tenant")}'
+        index: demo-%{yyyy.MM.dd}-${getMetadata("tenant")}
+        document_id: ${/id}-${getMetadata("tenant")}
 ```
 {% include copy.html %}
 
 You can test the pipeline using the following command:
 
 ```bash
-curl -sS -X POST "http://localhost:2021/events" \
+curl -sS -X POST "http://localhost:2021/log/ingest" \
   -H "Content-Type: application/json" \
   -d '[{"id":"1","tenant":"eu","message":"hello"}, {"id":"2","tenant":"us","message":"hi"}]'
 ```
