@@ -674,7 +674,7 @@ The request body supports the following optional filters.
 | `policy_id` | String | Filter results to show only indexes managed by the specified policy ID. |
 | `state` | String | Filter results to show only indexes currently in the specified state. |
 | `action_type` | String | Filter results to show only indexes currently executing the specified action type. |
-
+| `failed` | boolean | Filter results to show only failed managed indexes. |
 All filters are optional. If a filter is not specified, indexes with any value for that parameter will be included in the results. The API returns only indexes that match all specified filters.
 
 #### Example request: Filter by policy ID
