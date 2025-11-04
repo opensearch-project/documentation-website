@@ -23,7 +23,41 @@ You can configure the `select_entries` processor using the following options.
 
 ## Usage
 
-The following example shows how to configure the `select_entries` processor in the `pipeline.yaml` file:
+The get started, create the following `pipeline.yaml` file:
+
+```yaml
+pipeline:
+  source:
+    ...
+  ....  
+  processor:
+    - select_entries:
+        include_keys: [ "key1", "key2" ]
+        select_when: '/some_key == "test"'
+  sink:
+```
+{% include copy.html %}
+
+
+For example, when your source contains the following event record:
+
+```json
+{
+  "message": "hello",
+  "key1" : "value1",
+  "key2" : "value2",
+  "some_key" : "test"
+}
+```
+
+The `select_entries` processor will output:
+
+```json
+{"key1": "value1", "key2": "value2"}
+```
+
+### Additional configuration example
+The following example shows how to configure the `include_keys_regex` field in the `pipeline.yaml` file:
 
 ```yaml
 pipeline:
@@ -38,7 +72,6 @@ pipeline:
   sink:
 ```
 {% include copy.html %}
-
 
 For example, when your source contains the following event record:
 
