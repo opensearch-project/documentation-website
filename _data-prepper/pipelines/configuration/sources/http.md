@@ -45,7 +45,7 @@ The `http` protocol only supports the JSON UTF-8 codec for incoming requests, fo
 
 ## Example
 
-The following examples demonstrate different configurations that can be used with `http` source.
+The following examples demonstrate different configurations that can be used with the `http` source.
 
 ### Minimal HTTP source
 
@@ -78,7 +78,7 @@ You should see the following output in the Data Prepper logs:
 
 ### Custom path using the pipeline name and health check
 
-The following example uses a custom path, configures a custom port, and enables health check:
+The following example uses a custom path, configures a custom port, and enables health checks:
 
 ```yaml
 audit-pipeline:
@@ -111,7 +111,7 @@ curl -s "http://localhost:2022/audit-pipeline/logs" \
 
 ### Basic authentication on the source
 
-The following example configures a custom port and path, enables health check, and configures basic authentication:
+The following example configures a custom port and path, enables health checks, and configures basic authentication:
 
 ```yaml
 secure-intake-pipeline:
