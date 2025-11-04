@@ -12,7 +12,24 @@ redirect_from:
 
 If you don't want to remove fields from a document using [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/), you can mask their values. Currently, field masking is only available for string-based fields and replaces the field's value with a cryptographic hash.
 
-Field masking works alongside field-level security on the same per-role, per-index basis. You can allow certain roles to see sensitive fields in plain text and mask them for others. A search result with a masked field might look like the following:
+Field masking works alongside field-level security on the same per-role, per-index basis. You can allow certain roles to see sensitive fields in plain text and mask them for others.
+
+## Important limitation: Search functionality
+
+**Fields with masking applied cannot be searched.** When you apply field masking to a field, you will not be able to search for terms within that field, even if the terms are not masked by your pattern. This occurs because field masking is applied after indexing, while search operations rely on the inverted index created during the indexing process.
+{: .warning}
+
+For example, if you have a field `message` with the value `"User john.doe@example.com accessed the system"` and apply pattern-based masking to hide email addresses, the displayed result might show `"User ***@***.*** accessed the system"`. However, you will not be able to search for `"User"`, `"accessed"`, or `"system"` in this field, even though these terms are not masked.
+
+### Workarounds
+
+If you need to maintain search functionality on partially masked fields, consider these alternatives:
+
+- **Use separate fields**: Split your data into separate fields—one for searchable content and another for sensitive data that needs masking.
+- **Index transformation**: Create a separate index with pre-applied masking transformations rather than using dynamic field masking.
+- **Field-level security**: Instead of masking, use [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/) to completely hide sensitive fields from unauthorized users.
+
+A search result with a masked field might look like the following:
 
 ```json
 {
@@ -108,6 +125,9 @@ someonerole:
 ## (Advanced) Pattern-based field masking
 
 Rather than creating a hash, you can use one or more regular expressions and replacement strings to mask a field. The syntax is `<field>::/<regular-expression>/::<replacement-string>`. If you use multiple regular expressions, the results are passed from left to right, like piping in a shell, as shown in the following example:
+
+{: .important }
+Remember that fields with pattern-based masking applied cannot be searched, even for the unmasked portions of the text. See [Important limitation: Search functionality](#important-limitation-search-functionality) for details and workarounds.
 
 ```yml
 hr_employee:
