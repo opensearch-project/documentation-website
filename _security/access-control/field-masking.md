@@ -126,9 +126,6 @@ someonerole:
 
 Rather than creating a hash, you can use one or more regular expressions and replacement strings to mask a field. The syntax is `<field>::/<regular-expression>/::<replacement-string>`. If you use multiple regular expressions, the results are passed from left to right, like piping in a shell, as shown in the following example:
 
-{: .important }
-Remember that fields with pattern-based masking applied cannot be searched, even for the unmasked portions of the text. See [Important limitation: Search functionality](#important-limitation-search-functionality) for details and workarounds.
-
 ```yml
 hr_employee:
   index_permissions:
