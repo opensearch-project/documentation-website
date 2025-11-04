@@ -125,7 +125,7 @@ PUT testindex1/_doc/2
 }
 ```
 
-semantic field cannot support an array of values since we will map it to an embedding field as rank_features/knn_vector, and they cannot support multiple vectors.
+The `semantic` field cannot contain an array of values because it's mapped to an embedding field (`rank_features` or `knn_vector`), which supports only a single vector.
 {: .note}
 
 ## Multifields
