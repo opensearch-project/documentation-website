@@ -245,43 +245,43 @@ example-pipeline:
   processor:
     - add_entries:
         entries:
-          - key: "app_id"
-            format: "${app}-${env}"
+          - key: app_id
+            format: ${app}-${env}
 
-          - key: "message_len"
-            value_expression: "length(/message)"
+          - key: message_len
+            value_expression: length(/message)
 
-          - metadata_key: "msg_len_meta"
-            value_expression: "length(/message)"
+          - metadata_key: msg_len_meta
+            value_expression: length(/message)
 
           # dynamic key from the event, only when both metric fields exist
-          - key: "${/metric/name}"
-            value_expression: "/metric/value"
+          - key: ${/metric/name}
+            value_expression: /metric/value
             add_when: "/metric/name != null and /metric/value != null"
 
           # set severity ONLY on error level
-          - key: "severity"
-            value: "high"
+          - key: severity
+            value: high
             add_when: '/level == "error"'
 
           # append behavior: if tags already exists, it becomes/extends an array
-          - key: "tags"
-            value: "ingested"
+          - key: tags
+            value: ingested
             append_if_key_exists: true
 
           # overwrite behavior
-          - key: "env_normalized"
-            value: "prod"
+          - key: env_normalized
+            value: prod
             overwrite_if_key_exists: true
 
   sink:
     - opensearch:
-        hosts: ["https://opensearch:9200"]
+        hosts: [https://opensearch:9200]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_password
         index_type: custom
-        index: "example-%{yyyy.MM.dd}"
+        index: example-%{yyyy.MM.dd}
 ```
 {% include copy.html %}
 
