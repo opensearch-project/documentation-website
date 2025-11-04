@@ -112,9 +112,9 @@ date-ingestion-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_pass
         index_type: custom
-        index: "date-ingestion-%{yyyy.MM.dd}"
+        index: date-ingestion-%{yyyy.MM.dd}
 ```
 {% include copy.html %}
 
@@ -202,48 +202,48 @@ date-multi-format-pipeline:
     # Handle epoch formats (separate processors for different epoch types)
     - date:
         match:
-          - key: "event_time"
+          - key: event_time
             patterns: ["epoch_milli"]
         destination: "@timestamp"
-        output_format: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-        source_timezone: "UTC"
-        destination_timezone: "America/New_York"
-        locale: "en_US"
+        output_format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+        source_timezone: UTC
+        destination_timezone: America/New_York
+        locale: en_US
         date_when: "/event_time != null"
     
     - date:
         match:
-          - key: "event_time"
+          - key: event_time
             patterns: ["epoch_second"]
         destination: "@timestamp"
-        output_format: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-        source_timezone: "UTC"
-        destination_timezone: "America/New_York"
-        locale: "en_US"
+        output_format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+        source_timezone: UTC
+        destination_timezone: America/New_York
+        locale: en_US
         date_when: "/event_time != null and /@timestamp == null"
     
     # Handle ISO format variations in a single processor
     - date:
         match:
-          - key: "event_time"
+          - key: event_time
             patterns: ["yyyy-MM-dd'T'HH:mm:ss.SSSXXX"]
         destination: "@timestamp"
-        output_format: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-        source_timezone: "UTC"
-        destination_timezone: "America/New_York"
-        locale: "en_US"
+        output_format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+        source_timezone: UTC
+        destination_timezone: America/New_York
+        locale: en_US
         date_when: "/event_time != null and /@timestamp == null"
     
     # Handle Apache format variations in a single processor
     - date:
         match:
-          - key: "event_time"
+          - key: event_time
             patterns: ["dd/MMM/yyyy:HH:mm:ss Z"]
         destination: "@timestamp"
-        output_format: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-        source_timezone: "UTC"
-        destination_timezone: "America/New_York"
-        locale: "en_US"
+        output_format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+        source_timezone: UTC
+        destination_timezone: America/New_York
+        locale: en_US
         date_when: "/event_time != null and /@timestamp == null"
 
   sink:
@@ -251,9 +251,9 @@ date-multi-format-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_pass
         index_type: custom
-        index: "date-multi-format-%{yyyy.MM.dd}"
+        index: date-multi-format-%{yyyy.MM.dd}
 ```
 {% include copy.html %}
 
@@ -355,14 +355,14 @@ date-syslog-pipeline:
   processor:
     - date:
         match:
-          - key: "syslog_timestamp"
+          - key: syslog_timestamp
             patterns: ["MMM d HH:mm:ss", "MMM  d HH:mm:ss", "MMM dd HH:mm:ss"]
         destination: "@timestamp"
-        output_format: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-        source_timezone: "America/Los_Angeles"
-        destination_timezone: "UTC"
-        locale: "en_US"
-        date_when: "/syslog_timestamp != null"
+        output_format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+        source_timezone: America/Los_Angeles
+        destination_timezone: UTC
+        locale: en_US
+        date_when: /syslog_timestamp != null
         origination_timestamp_to_metadata: true
 
   sink:
@@ -370,9 +370,9 @@ date-syslog-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_password
         index_type: custom
-        index: "date-syslog-%{yyyy.MM.dd}"
+        index: date-syslog-%{yyyy.MM.dd}
 ```
 {% include copy.html %}
 
