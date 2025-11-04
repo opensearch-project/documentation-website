@@ -718,6 +718,12 @@ POST _plugins/_ism/explain/data-*
 
 #### Example response
 
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
 ```json
 {
   "test-logs-001": {
@@ -830,6 +836,8 @@ POST _plugins/_ism/explain/data-*
   "total_managed_indices": 1
 }
 ```
+
+</details>
 
 ---
 
