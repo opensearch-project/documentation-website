@@ -85,9 +85,9 @@ otel-logs-otel-output:
   sink:
     - opensearch:
         hosts: ["https://opensearch:9200"]
-        index: "otel-logs-otel-output"
-        username: "admin"
-        password: "admin_pass"
+        index: otel-logs-otel-output
+        username: admin
+        password: admin_pass
         insecure: true
 ```
 {% include copy.html %}
