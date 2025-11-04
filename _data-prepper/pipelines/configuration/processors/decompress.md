@@ -35,69 +35,104 @@ decompress-logs-pipeline:
         keys: ["compressed_log", "compressed_metadata"]
         type: gzip
         tags_on_failure: ["decompression_failed", "gzip_error"]
-    
+
+    # Only parse if decompression succeeded
     - parse_json:
-        source: "compressed_log"
-        destination: "parsed_log"
+        source: compressed_log
+        destination: parsed_log
+        parse_when: not hasTags("decompression_failed")
 
   sink:
     - opensearch:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_passwrd
         index_type: custom
-        index: "decompressed-logs-%{yyyy.MM.dd}"
+        index: decompressed-logs-%{yyyy.MM.dd}
+        tags_target_key: "tags"
 ```
 {% include copy.html %}
 
-You can test the pipeline using the following command:
+You can test the pipeline using the two following commands:
 
 ```bash
-COMPRESSED_LOG=$(echo '{"message": "Application error occurred", "level": "ERROR", "service": "payment-api"}' | gzip | base64 -w 0)
-COMPRESSED_METADATA=$(echo '{"source_ip": "192.168.1.100", "user_agent": "Mozilla/5.0", "response_time_ms": 245}' | gzip | base64 -w 0)
+
+GOOD_COMPRESSED_LOG=$(echo '{"message":"Application OK","level":"INFO","service":"api"}' | gzip | base64 | tr -d '\n')
+GOOD_COMPRESSED_METADATA=$(echo '{"source_ip":"192.168.1.100","ok":true}' | gzip | base64 | tr -d '\n')
 
 curl -sS -X POST "http://localhost:2021/events" \
   -H "Content-Type: application/json" \
-  -d '[
-        {
-          "compressed_log": "'$COMPRESSED_LOG'",
-          "compressed_metadata": "'$COMPRESSED_METADATA'",
-          "host": "web-server-01",
-          "timestamp": "2023-10-13T14:30:45Z"
-        }
-      ]'
+  -d "[
+    {
+      \"compressed_log\": \"${GOOD_COMPRESSED_LOG}\",
+      \"compressed_metadata\": \"${GOOD_COMPRESSED_METADATA}\",
+      \"host\": \"web-server-01\",
+      \"timestamp\": \"2023-10-13T14:30:45Z\"
+    }
+  ]"
+
+BAD_COMPRESSED_LOG=$(echo -n 'this is not gzipped' | base64 | tr -d '\n')
+GOOD_COMPRESSED_METADATA=$(echo '{"source_ip":"192.168.1.100","ok":true}' | gzip | base64 | tr -d '\n')
+
+curl -sS -X POST "http://localhost:2021/events" \
+  -H "Content-Type: application/json" \
+  -d "[
+    {
+      \"compressed_log\": \"${BAD_COMPRESSED_LOG}\",
+      \"compressed_metadata\": \"${GOOD_COMPRESSED_METADATA}\",
+      \"host\": \"web-server-02\",
+      \"timestamp\": \"2023-10-13T14:31:45Z\"
+    }
+  ]"
 ```
 {% include copy.html %}
 
-The document stored in OpenSearch contains the following information:
+The documents stored in OpenSearch contain the following information:
 
 ```json
 {
   ...
   "hits": {
     "total": {
-      "value": 1,
+      "value": 2,
       "relation": "eq"
     },
     "max_score": 1,
     "hits": [
       {
-        "_index": "decompressed-logs-2025.10.13",
-        "_id": "yMdB3ZkBSaZZzfE_KprI",
+        "_index": "decompressed-logs-2025.11.04",
+        "_id": "dOv1TpoB5Jwkiy-iuKKs",
         "_score": 1,
         "_source": {
-          "compressed_log": """{"message": "Application error occurred", "level": "ERROR", "service": "payment-api"}
+          "compressed_log": """{"message":"Application OK","level":"INFO","service":"api"}
 """,
-          "compressed_metadata": """{"source_ip": "192.168.1.100", "user_agent": "Mozilla/5.0", "response_time_ms": 245}
+          "compressed_metadata": """{"source_ip":"192.168.1.100","ok":true}
 """,
           "host": "web-server-01",
           "timestamp": "2023-10-13T14:30:45Z",
           "parsed_log": {
-            "level": "ERROR",
-            "service": "payment-api",
-            "message": "Application error occurred"
-          }
+            "level": "INFO",
+            "service": "api",
+            "message": "Application OK"
+          },
+          "tags": []
+        }
+      },
+      {
+        "_index": "decompressed-logs-2025.11.04",
+        "_id": "dev1TpoB5Jwkiy-iuKKs",
+        "_score": 1,
+        "_source": {
+          "compressed_log": "dGhpcyBpcyBub3QgZ3ppcHBlZA==",
+          "compressed_metadata": """{"source_ip":"192.168.1.100","ok":true}
+""",
+          "host": "web-server-02",
+          "timestamp": "2023-10-13T14:31:45Z",
+          "tags": [
+            "decompression_failed",
+            "gzip_error"
+          ]
         }
       }
     ]
