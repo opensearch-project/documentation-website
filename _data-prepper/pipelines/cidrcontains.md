@@ -44,7 +44,7 @@ cidr-allowlist-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_pass
         index_type: custom
         index: logs-%{yyyy.MM.dd}
 ```
