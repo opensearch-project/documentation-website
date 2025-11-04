@@ -45,19 +45,19 @@ split-string-all-configs-pipeline:
         # 1) The top-level list of split "entries"
         entries:
           # 2) Use `source` + `delimiter` (comma)
-          - source: "csv_line"
+          - source: csv_line
             delimiter: ","
 
           # 3) Another `source` + `delimiter` (pipe)
-          - source: "tags"
+          - source: tags
             delimiter: "|"
 
           # 4) `source` + `delimiter` (slash) to split a path
-          - source: "path"
+          - source: path
             delimiter: "/"
 
           # 5) `source` + `delimiter_regex` (semicolon + optional spaces)
-          - source: "semicolons"
+          - source: semicolons
             delimiter_regex: ";\\s*"
 
   sink:
@@ -65,9 +65,9 @@ split-string-all-configs-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: admin_pass
         index_type: custom
-        index: "split-string-demo-%{yyyy.MM.dd}"
+        index: split-string-demo-%{yyyy.MM.dd}
 
 ```
 {% include copy.html %}
