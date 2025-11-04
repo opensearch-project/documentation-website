@@ -8,13 +8,13 @@ nav_order: 24
 
 # File source
 
-The `file` plugin reads events from a local file once at pipeline startup. It is ideal for loading seed data, testing processors and sinks, or replaying a fixed dataset. This source **does not tail** a file for new lines after startup.
+The `file` plugin reads events from a local file once when the pipeline starts. It's useful for loading seed data, testing processors and sinks, or replaying a fixed dataset. This source *does not monitor* the file for new lines after startup.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`path` | Yes | String | Absolute path to the input file inside the Data Prepper container, for example, `/usr/share/data-prepper/data/input.jsonl`.
-`format` | No | String | How to interpret the file content. Allowed values: `json`, `plain`. Use `json` when your file has one JSON object per line, or a JSON array. Use `plain` for raw text lines. Default is `plain`.
-`record_type` | No | String | The output record type produced by the source. Allowed values: `event`, `string`. Use `event` to produce structured events that downstream processors and the OpenSearch sink expect. Default is `string`.
+`path` | Yes | String | An absolute path to the input file inside the Data Prepper container, for example, `/usr/share/data-prepper/data/input.jsonl`.
+`format` | No | String | Specifies how to interpret the file content. Valid values are `json` and `plain`. Use `json` when your file has one JSON object per line or a JSON array. Use `plain` for raw text lines. Default is `plain`.
+`record_type` | No | String | The type of output record produced by the source. Valid values are `event` and `string`. Use `event` to produce structured events expected by downstream processors and the OpenSearch sink. Default is `string`.
 
 ### Example
 
@@ -22,7 +22,7 @@ The following examples demonstrate how different file types can be processed.
 
 ### JSON file
 
-The following example processes JSON file:
+The following example processes a JSON file:
 
 ```yaml
 file-to-opensearch:
@@ -43,7 +43,7 @@ file-to-opensearch:
 
 ### Plain text file
 
-Raw text file can be processed using the following pipeline:
+A raw text file can be processed using the following pipeline:
 
 ```yaml
 plain-file-to-opensearch:
