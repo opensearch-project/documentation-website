@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Analyzing data
+title: Analyzing data with Discover
 nav_order: 20
 has_children: true
 ---
 
-# Analyzing data
+# Analyzing data with Discover
 
 To analyze your data in OpenSearch and visualize key metrics, you can use the **Discover** application in OpenSearch Dashboards. An example of data analysis in **Discover** is shown in the following image. 
 

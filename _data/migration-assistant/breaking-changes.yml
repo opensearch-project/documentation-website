@@ -48,7 +48,7 @@ breaking_changes:
       title: "Transform 'dense_vector' fields to 'knn_vector'"
       url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/"
   - title: "Removal of 'flattened' field type in OpenSearch 1.0"
-    url: "https://docs.opensearch.org/2.7/field-types/supported-field-types/flat-object/"
+    url: "https://docs.opensearch.org/2.7/mappings/supported-field-types/flat-object/"
     introducedIn: "OpenSearch 1.x"
     comp: []
     transformation:

@@ -1,47 +1,164 @@
 ---
 layout: default
-title: Delete agentic memory
-parent: Agentic Memory APIs
+title: Delete memory
+parent: Agentic memory APIs
 grand_parent: ML Commons APIs
-nav_order: 80
+nav_order: 53
 ---
 
-# Delete Agentic Memory API
-**Introduced 3.2**
+# Delete Memory API
+**Introduced 3.3**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
+Use this API to delete a specific memory by its type and ID or to delete memories matching a query. This unified API supports deleting memories of any [memory type]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-types): `sessions`, `working`, `long-term`, or `history`.
 
-Use this API to delete an agentic memory by its ID.
+## Delete a memory by type and ID
 
-## Endpoint
+Use this API to delete a memory by type and ID.
+
+### Endpoints
 
 ```json
-DELETE /_plugins/_ml/memory_containers/{memory_container_id}/memories/{memory_id}
+DELETE /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id>
 ```
 
-## Example request
+### Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Required/Optional | Description |
+| :--- | :--- | :--- | :--- |
+| `memory_container_id` | String | Required | The ID of the memory container from which to delete the memory. |
+| `type` | String | Required | The type of memory to delete. Valid values are `sessions`, `working`, `long-term`, and `history`. |
+| `id` | String | Required | The ID of the specific memory to delete. |
+
+### Example request: Delete a working memory
 
 ```json
-DELETE /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories/T9jtmpgBOh0h20Y91WtZ
+DELETE /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/working/XyEuiJkBeh2gPPwzjYWM
 ```
 {% include copy-curl.html %}
 
-## Example response
+### Example request: Delete a long-term memory
+
+```json
+DELETE /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/DcxjTpkBvwXRq366C1Zz
+```
+{% include copy-curl.html %}
+
+### Example request: Delete a sessions memory
+
+```json
+DELETE /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/sessions/CcxjTpkBvwXRq366A1aE
+```
+{% include copy-curl.html %}
+
+### Example request: Delete a history memory
+
+```json
+DELETE /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMxnTpkBvwXRq366hmAU
+```
+{% include copy-curl.html %}
+
+### Example response
 
 ```json
 {
-    "_index": "ml-static-memory-sdjmmpgboh0h20y9kwun-admin",
-    "_id": "S9jnmpgBOh0h20Y9qWu7",
-    "_version": 3,
-    "result": "deleted",
-    "_shards": {
-        "total": 2,
-        "successful": 2,
-        "failed": 0
-    },
-    "_seq_no": 3,
-    "_primary_term": 1
+  "result": "deleted",
+  "_id": "XyEuiJkBeh2gPPwzjYWM",
+  "_version": 2,
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  }
 }
 ```
+
+### Response fields
+
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `result` | String | The result of the delete operation. |
+| `_id` | String | The ID of the deleted memory. |
+| `_version` | Integer | The version number after deletion. |
+| `_shards` | Object | Information about the shards involved in the operation. |
+
+## Delete memories by query
+
+Use this API to delete multiple memories using a query to match specific criteria.
+
+### Endpoints
+
+```json
+POST /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/_delete_by_query
+```
+
+### Path parameters
+
+| Field                 | Data type | Required/Optional | Description |
+|:----------------------| :--- | :--- | :--- |
+| `memory_container_id` | String | Required | The ID of the memory container from which to delete the memory. |
+| `type` | String | Required | The type of memory to delete. Valid values are `sessions`, `working`, `long-term`, and `history`. |
+
+### Request body fields
+
+The request body must contain a query to match the memories you want to delete.
+
+### Example request
+
+```json
+POST /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/working/_delete_by_query
+{
+  "query": {
+    "match": {
+      "owner_id": "admin"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Example response
+
+```json
+{
+    "took": 159,
+    "timed_out": false,
+    "total": 6,
+    "updated": 0,
+    "created": 0,
+    "deleted": 6,
+    "batches": 1,
+    "version_conflicts": 0,
+    "noops": 0,
+    "retries": {
+        "bulk": 0,
+        "search": 0
+    },
+    "throttled_millis": 0,
+    "requests_per_second": -1.0,
+    "throttled_until_millis": 0,
+    "failures": []
+}
+```
+
+### Response fields
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `took` | Integer | The time, in milliseconds, taken to execute the request. |
+| `timed_out` | Boolean | Whether the request timed out. |
+| `total` | Integer | The total number of documents processed. |
+| `deleted` | Integer | The number of documents deleted. |
+| `batches` | Integer | The number of batches processed. |
+| `version_conflicts` | Integer | The number of version conflicts encountered. |
+| `noops` | Integer | The number of no-operation updates. |
+| `retries` | Object | Information about bulk and search retries. |
+| `throttled_millis` | Integer | The time, in milliseconds, that the request was throttled. |
+| `requests_per_second` | Float | The number of requests processed per second. |
+| `throttled_until_millis` | Integer | The time, in milliseconds, until throttling is lifted. |
+| `failures` | Array | Any failures that occurred during the operation. |
+

@@ -13,7 +13,7 @@ nav_order: 90
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-Pull-based ingestion enables OpenSearch to ingest data from streaming sources such as Apache Kafka or Amazon Kinesis. Unlike traditional ingestion methods where clients actively push data to OpenSearch through REST APIs, pull-based ingestion allows OpenSearch to control the data flow by retrieving data directly from streaming sources. This approach provides exactly-once ingestion semantics and native backpressure handling, helping prevent server overload during traffic spikes.
+Pull-based ingestion enables OpenSearch to ingest data from streaming sources such as Apache Kafka or Amazon Kinesis. Unlike traditional ingestion methods where clients actively push data to OpenSearch through REST APIs, pull-based ingestion allows OpenSearch to control the data flow by retrieving data directly from streaming sources. This approach provides native backpressure handling, helping prevent server overload during traffic spikes. Pull-based ingestion guarantees at-least-once ingestion semantics and uses external versioning to ensure data consistency.
 
 ## Prerequisites
 
@@ -75,6 +75,7 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 | `num_processor_threads` | The number of threads for processing ingested data. Optional. Default is 1. |
 | `internal_queue_size` | The size of the internal blocking queue for advanced tuning. Valid values are from 1 to 100,000, inclusive. Optional. Default is 100. |
 | `all_active` | Whether to enable the all-active ingestion mode. Cannot be enabled for indexes that use segment replication mode. Default is `false`. See [Ingestion modes](#ingestion-modes). |
+| `pointer_based_lag_update_interval` | The interval at which pointer-based lag is calculated. Accepts time units. Default is `10s`. Setting this value to `0` disables pointer-based lag calculation. |
 | `param` | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; The `ingest-kafka` plugin requires:<br>&ensp;&ensp;- `topic`: The Kafka topic to consume from<br>&ensp;&ensp;- `bootstrap_servers`: The Kafka server addresses<br>&ensp;&ensp;Optionally, you can provide additional standard Kafka consumer parameters (such as `fetch.min.bytes`). These parameters are passed directly to the Kafka consumer. <br>&ensp;&#x2022; The `ingest-kinesis` plugin requires:<br>&ensp;&ensp;- `stream`: The Kinesis stream name<br>&ensp;&ensp;- `region`: The AWS Region<br>&ensp;&ensp;- `access_key`: The AWS access key<br>&ensp;&ensp;- `secret_key`: The AWS secret key<br>&ensp;&ensp;Optionally, you can provide an `endpoint_override`. | 
 
 
@@ -199,8 +200,8 @@ The following table lists the available `polling_ingest_stats` metrics.
 | `consumer_stats.total_consumer_error_count` | The total number of fatal consumer read errors. |
 | `consumer_stats.total_poller_message_failure_count` | The total number of failed messages on the poller. |
 | `consumer_stats.total_poller_message_dropped_count` | The total number of failed messages on the poller that were dropped. |
-| `consumer_stats.total_duplicate_message_skipped_count` | The total number of skipped messages that were previously processed. |
 | `consumer_stats.lag_in_millis` | Lag in milliseconds, computed as the time elapsed since the last processed message timestamp. |
+| `consumer_stats.pointer_based_lag` | The Apache Kafka offset-based lag, calculated as the difference between the latest available offset and the current message offset. This metric applies only when Apache Kafka is used as the streaming source. |
 
 To retrieve shard-level pull-based ingestion metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/):
 
@@ -234,6 +235,6 @@ response = client.nodes.info(
 The following limitations apply when using pull-based ingestion:
 
 * [Ingest pipelines]({{site.url}}{{site.baseurl}}/ingest-pipelines/) are not compatible with pull-based ingestion.
-* [Dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/) is not supported.
+* [Dynamic mapping]({{site.url}}{{site.baseurl}}/mappings/) is not supported.
 * [Index rollover]({{site.url}}{{site.baseurl}}/api-reference/index-apis/rollover/) is not supported.
 * Operation listeners are not supported.

@@ -7,11 +7,11 @@ nav_order: 40
 
 # Parent ID query
 
-The `parent_id` query returns child documents whose parent document has the specified ID. You can establish parent/child relationships between documents in the same index by using a [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) field type.
+The `parent_id` query returns child documents whose parent document has the specified ID. You can establish parent/child relationships between documents in the same index by using a [join]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/join/) field type.
 
 ## Example
 
-Before you can run a `parent_id` query, your index must contain a [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) field in order to establish parent/child relationships. The index mapping request uses the following format:
+Before you can run a `parent_id` query, your index must contain a [join]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/join/) field in order to establish parent/child relationships. The index mapping request uses the following format:
 
 ```json
 PUT /example_index

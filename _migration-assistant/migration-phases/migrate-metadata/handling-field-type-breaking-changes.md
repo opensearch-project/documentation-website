@@ -36,7 +36,7 @@ GET /library-books/_mappings
 }
 ```
 
-For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/).
+For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/).
 
 ## Configure item transformations
 

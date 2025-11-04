@@ -29,7 +29,7 @@ Before using MCP tools, you must complete the following prerequisites.
 To configure both settings, send the following request:
 
 ```json
-POST /_cluster/settings/
+PUT /_cluster/settings/
 {
   "persistent": {
     "plugins.ml_commons.trusted_connector_endpoints_regex": [
