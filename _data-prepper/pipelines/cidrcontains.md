@@ -33,8 +33,8 @@ cidr-allowlist-pipeline:
     http:
       path: /events
       ssl: true
-      sslKeyCertChainFile: "certs/dp.crt"
-      sslKeyFile: "certs/dp.key"
+      sslKeyCertChainFile: certs/dp.crt
+      sslKeyFile: certs/dp.key
   processor:
     - drop_events:
         # Drop events whose client IP is NOT in specific CIDR allowlist
@@ -46,7 +46,7 @@ cidr-allowlist-pipeline:
         username: admin
         password: "admin_pass"
         index_type: custom
-        index: "logs-%{yyyy.MM.dd}"
+        index: logs-%{yyyy.MM.dd}
 ```
 {% include copy.html %}
 
