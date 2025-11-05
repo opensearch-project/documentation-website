@@ -28,9 +28,11 @@ OpenSearch supports the following static cluster-level index settings:
 
 - `indices.requests.cache.size` (String): The cache size as a percentage of the heap size (for example, to use 1% of the heap, specify `1%`). Default is `1%`. For more information, see [Index request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
 
-- `indices.analysis.hunspell.dictionary.ignore_case` (Static, Boolean): Controls whether Hunspell dictionary matching ignores case globally for all locales. When enabled, dictionary matching becomes case insensitive. This setting can also be configured per locale using `indices.analysis.hunspell.dictionary.<locale>.ignore_case`. Default varies by implementation.
+- `indices.analysis.hunspell.dictionary.ignore_case` (Static, Boolean): Controls whether Hunspell dictionary matching ignores case globally for all locales. When enabled, dictionary matching becomes case insensitive. This setting can also be configured per locale using `indices.analysis.hunspell.dictionary.<locale>.ignore_case` (for example, `indices.analysis.hunspell.dictionary.en_US.ignore_case`). Default is `false`.
 
 - `indices.analysis.hunspell.dictionary.lazy` (Static, Boolean): Controls when Hunspell dictionaries are loaded. If `true`, dictionary loading is deferred until a dictionary is actually used, reducing startup time but potentially increasing latency on first use. If `false`, the dictionary directory is checked and all dictionaries are automatically loaded when the node starts. Default is `false`.
+
+- `indices.analysis.hunspell.dictionary.<locale>.strict_affix_parsing` (Static, Boolean): Controls whether errors encountered while reading Hunspell affix rules files cause exceptions or are silently ignored. When set to `true`, parsing errors in affix files will throw exceptions and prevent dictionary loading. When set to `false`, parsing errors are ignored and the dictionary continues to load. This setting can be configured per locale by replacing `<locale>` with the specific locale code (for example, `indices.analysis.hunspell.dictionary.en_US.strict_affix_parsing`). Default is `true`.
 
 - `indices.memory.index_buffer_size` (Static, string): Controls the amount of heap memory allocated for indexing operations across all shards on a node. Accepts either a percentage (like `10%`) or a byte size value (like `512mb`). This buffer is shared across all shards and is used to batch indexing operations before writing to disk. Default is `10%` of the total heap.
 
@@ -39,6 +41,26 @@ OpenSearch supports the following static cluster-level index settings:
 - `indices.memory.max_index_buffer_size` (Static, byte unit): Sets the absolute maximum size for the indexing buffer when `indices.memory.index_buffer_size` is specified as a percentage. This prevents the indexing buffer from consuming too much memory on nodes with large heaps. Default is unbounded (no limit).
 
 - `indices.queries.cache.size` (Static, string): Controls the memory size allocated for the query cache (filter cache) on each data node. The query cache stores the results of frequently used filters to improve search performance. Accepts either a percentage value (like `5%`) or an exact byte value (like `512mb`). Default is `10%` of heap memory.
+
+- `indices.queries.cache.all_segments` (Static, Boolean): Whether to cache queries across all segments or only frequently accessed ones.
+
+- `indices.queries.cache.count` (Static, integer): The maximum number of queries to cache.
+
+- `index.query.parse.allow_unmapped_fields` (Static, Boolean): Allows unmapped fields in query parsing. Default is `true`.
+
+- `index.query_string.lenient` (Static, Boolean): Enables lenient parsing for query strings. Default is `false`.
+
+- `index.store.stats_refresh_interval` (Static, time unit): The refresh interval for index store statistics. Default is `10s`.
+
+- `index.store.hybrid.nio.extensions` (Static, list): **Expert setting.** Lucene file extensions to load with NIO instead of memory mapping. Default includes common extensions like `segments_N`, `write.lock`, `si`, and `cfe`.
+
+- `indexing_pressure.memory.limit` (Static, byte size): Controls the memory limit for indexing operations to prevent memory exhaustion during heavy indexing workloads. When indexing operations exceed this threshold, they may be rejected or throttled to protect cluster stability. Accepts percentage values (like `10%` of heap) or byte size values (like `512mb`). Default is `10%` of the total heap memory.
+
+- `indices.query.query_string.allowLeadingWildcard` (Static, Boolean): Controls whether leading wildcards are allowed in query string queries. When enabled, queries like `*term` or `?term` are permitted but may impact performance as they require scanning all terms in the index. When disabled, leading wildcard queries are rejected to improve query performance. Default is `true`.
+
+- `indices.query.query_string.analyze_wildcard` (Static, Boolean): Controls whether wildcard terms in query string queries are analyzed using the configured analyzer. When enabled, wildcard queries undergo analysis (tokenization, filtering) which can improve matching but may affect performance. When disabled, wildcard terms are used as-is without analysis. Default is `false`.
+
+- `indices.time_series_index.default_index_merge_policy` (Static, string): Sets the default merge policy for time series indices across the cluster. This setting controls how Lucene segments are merged for time series data, which can significantly impact indexing performance and storage efficiency. Valid values include `default`, `tiered`, and `log_byte_size`. Default is `default`.
 
 ### Dynamic cluster-level index settings
 
@@ -176,6 +198,36 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.merge.policy` (String): This setting controls the merge policy for the Lucene segments. The available options are `tiered` and `log_byte_size`. The default is `tiered`, but for time-series data, such as log events, we recommend that you use the `log_byte_size` merge policy, which can improve query performance when conducting range queries on the `@timestamp` field. We recommend that you not change the merge policy of an existing index. Instead, configure this setting when creating a new index.
 
+### Tiered merge policy settings
+
+When using the `tiered` merge policy (the default), the following settings control merge behavior:
+
+- `index.merge.policy.max_merge_at_once` (Dynamic, integer): Sets the maximum number of segments to be merged at a time during normal merging operations. Higher values can reduce the total number of merges but require more memory and I/O resources during each merge operation. This setting must be at least 2 and should typically be less than or equal to `segments_per_tier` to avoid forcing too many merges. Default is `30`. Minimum is `2`.
+
+- `index.merge.policy.segments_per_tier` (Dynamic, double): Controls the allowed number of segments per tier in the tiered merge policy. Smaller values result in more merging but fewer segments, which can improve search performance at the cost of increased indexing overhead. This value should be greater than or equal to `max_merge_at_once` to prevent excessive merging. Default is `10.0`. Minimum is `2.0`.
+
+- `index.merge.policy.reclaim_deletes_weight` (Dynamic, double): Controls how aggressively the merge policy reclaims deleted documents. Higher values make the merge policy prioritize merging segments with many deleted documents, which can help reclaim disk space more quickly but may increase merge overhead. A value of `0.0` disables this behavior entirely. Default is `2.0`. Minimum is `0.0`.
+
+### Log byte size merge policy settings
+
+When using the `log_byte_size` merge policy, the following settings control merge behavior:
+
+- `index.merge.log_byte_size_policy.merge_factor` (Dynamic, integer): Controls how many segments are merged at once during normal merging operations. Higher values lead to fewer, larger segments, which can improve search performance but use more resources during merging. Default is `10`. Minimum is `2`.
+
+- `index.merge.log_byte_size_policy.min_merge` (Dynamic, byte unit): Sets the minimum size threshold for segment merging. Segments smaller than this size are more aggressively merged. Smaller values lead to fewer small segments but more merge operations. Default is `2MB`.
+
+- `index.merge.log_byte_size_policy.max_merge_segment` (Dynamic, byte unit): Controls the maximum size of segments created during normal merge operations. Larger segments improve query performance but require more memory and can increase merge times. Default is `5GB`.
+
+- `index.merge.log_byte_size_policy.max_merge_segment_forced_merge` (Dynamic, byte unit): Sets the maximum segment size when performing forced merge operations (such as during index optimization). This allows forced merges to create larger segments than normal merges. Default is unlimited.
+
+### Merge scheduler settings
+
+The following settings control the merge scheduler, which determines how merge operations are executed:
+
+- `index.merge.scheduler.max_thread_count` (Dynamic, integer): Sets the maximum number of threads on a single shard that may be merging at once. This controls the concurrency of merge operations within each shard. Higher values can improve merge performance on systems with SSDs and multiple CPU cores, but may increase resource usage. If your index is on spinning platter drives, decrease this to 1. Default is `Math.max(1, Math.min(4, node.processors / 2))`, which works well for solid-state drives. Minimum is `1`.
+
+- `index.merge.scheduler.auto_throttle` (Dynamic, Boolean): Enables automatic throttling of merge operations to prevent them from overwhelming the system. When enabled, OpenSearch automatically adjusts merge I/O rates based on incoming indexing load. Default is `true`.
+
 - `index.merge_on_flush.enabled` (Boolean): This setting controls Apache Lucene's merge-on-refresh feature that aims to reduce the number of segments by performing merges _on refresh_ (or in terms of OpenSearch, _on flush_). Default is `true`.
 
 - `index.merge_on_flush.max_full_flush_merge_wait_time` (Time unit): This setting sets the amount of time to wait for merges when `index.merge_on_flush.enabled` is enabled. Default is `10s`.
@@ -188,7 +240,15 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.append_only.enabled` (Boolean): Set to `true` to prevent any updates to documents in the index. Default is `false`.
 
-- `index.derived_source.enabled` (Boolean): Set to `true` to dynamically generate the source without explicitly storing the `_source` field, which can optimize storage. Default is `false`. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/#derived-source). 
+- `index.derived_source.enabled` (Boolean): Set to `true` to dynamically generate the source without explicitly storing the `_source` field, which can optimize storage. Default is `false`. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/#derived-source).
+
+- `index.mapping.ignore_malformed` (Boolean): Controls whether malformed fields are ignored during document parsing. When enabled, documents with malformed field values are indexed successfully, with the malformed fields either ignored or set to null depending on the field type. When disabled, documents with malformed fields are rejected. This setting provides a default behavior that can be overridden at the field level. Default is `false`.
+
+- `index.append_only_enabled` (Final, Boolean): Enables append-only mode for the index. When set to `true`, the index only allows append operations (new documents) and does not permit updates or deletes of existing documents. This setting is final and cannot be changed after index creation. Append-only mode can improve indexing performance and simplify data management for use cases that only require data ingestion. Default is `false`.
+
+- `index.soft_deletes.enabled` (Final, Boolean): Enables soft deletes for the index. When enabled, deleted documents are marked as deleted rather than immediately removed, allowing for better recovery and replication performance. This setting is mandatory for OpenSearch 2.0+ indices and is enabled by default for legacy indices. Once set, this setting cannot be changed after index creation. Default is `true`.
+
+- `index.store.preload` (Static, list): Specifies which file extensions should be preloaded into the filesystem cache when the index is opened. This setting only works with the mmap directory implementation and provides best-effort caching. Preloading files can improve search performance by reducing disk I/O, but it consumes more memory. Common extensions include `nvd` (norms), `dvd` (doc values), and `tim` (terms index). Default is `[]` (empty list).
 
 ### Updating a static index setting
 
@@ -294,6 +354,87 @@ OpenSearch supports the following dynamic index-level index settings:
 - `index.routing.allocation.total_primary_shards_per_node` (Integer): The maximum number of primary shards from a single index that can be allocated to a single node. This setting is applicable only for remote-backed clusters. Default is `-1` (unlimited). Helps control per-index primary shard distribution across nodes by limiting the number of primary shards per node. Use with caution because primary shards from this index may remain unallocated if nodes reach their configured limits.
 
 - `index.derived_source.translog.enabled` (Boolean): Controls how documents are read from the translog for an index with derived source enabled. Defaults to the `index.derived_source.enabled` value. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/#derived-source).
+
+- `index.flush_after_merge` (Dynamic, byte unit): The size (in bytes) after which to flush after merge operations. Default is `512MB`.
+
+- `index.max_slices_per_pit` (Dynamic, integer): The maximum number of slices per point-in-time search. Default is `1024`.
+
+- `index.unreferenced_file_cleanup.enabled` (Dynamic, Boolean): Enables cleanup of unreferenced index files. Default is `true`.
+
+- `index.warmer.enabled` (Dynamic, Boolean): Enables index warmer functionality. Default is `true`.
+
+- `index.allocation.max_retries` (Dynamic, integer): The maximum number of times shards can be retried for allocation before giving up. This setting prevents infinite allocation retry loops when shards cannot be allocated due to resource constraints or other issues. Default is `5`. Range is `0` to `Integer.MAX_VALUE`.
+
+- `index.max_adjacency_matrix_filters` (Dynamic, integer): The maximum number of adjacency matrix filters allowed in aggregations. Adjacency matrix aggregations analyze relationships between different filters. Higher values allow more complex relationship analysis but consume more memory. Default is `100`. Minimum is `2`.
+
+- `index.max_slices_per_scroll` (Dynamic, integer): The maximum number of slices allowed per scroll request for this index. Slicing allows scroll operations to be parallelized across multiple slices for better performance. Higher values enable more parallelization but consume more resources. Default is `1024`. Minimum is `1`.
+
+- `index.optimize_auto_generated_id` (Dynamic, Boolean): Enables optimization for documents with auto-generated IDs. When enabled, OpenSearch can optimize indexing performance for documents that use automatically generated document IDs rather than custom IDs. This optimization may not apply immediately and depends on the engine state. Default is `true`.
+
+- `index.search.throttled` (Dynamic, Boolean): Marks the index for throttled searching. When enabled, search operations on this index are limited to use only one shard concurrently, which can help reduce resource usage for less critical indexes. This setting affects search performance by serializing shard access. Default is `false`.
+
+- `index.translog.generation_threshold_size` (Dynamic, byte unit): The size threshold that triggers the creation of a new translog generation. When the current translog generation reaches this size, OpenSearch creates a new generation file. Larger values can improve indexing performance by reducing the frequency of generation rollovers but may increase recovery time. Default is `64MB`. Minimum is `64KB`.
+
+- `index.translog.sync_interval` (Dynamic, time unit): The frequency at which the translog is fsynced to disk and committed. More frequent syncing provides better durability guarantees but may impact indexing performance. Less frequent syncing improves performance but increases the risk of data loss during failures. Default is `5s`. Minimum is `100ms`.
+
+- `index.translog.retention.age` (Dynamic, time unit): The maximum age of translog files to retain for Ops-based recovery. Translog files older than this setting are deleted during translog cleanup. This setting works in conjunction with `index.translog.retention.size` to control translog retention. Default is `12h`.
+
+- `index.translog.retention.size` (Dynamic, byte unit): The maximum total size of translog files to retain for Ops-based recovery. When the total size of translog files exceeds this threshold, older files are deleted during cleanup. This setting works in conjunction with `index.translog.retention.age` to control translog retention. Default is `512MB`.
+
+- `index.translog.retention.total_files` (Integer): The maximum number of translog files to retain. This setting controls the number of translog files kept on disk regardless of their age or size, which can be useful for controlling storage usage and recovery capabilities. Default is `100`.
+
+- `index.soft_deletes.retention.operations` (Long): The maximum number of soft-deleted operations to retain in the index. Soft deletes allow for efficient replication and point-in-time recovery by marking documents as deleted rather than immediately removing them. This setting controls how many soft-deleted operations are preserved before they are eligible for cleanup. Default is `0` (unlimited retention).
+
+- `index.remote_store.enabled` (Boolean): Enables remote store functionality for the index. When enabled, the index's segments and translog data are stored in a remote repository in addition to local storage. This provides data durability and enables features like point-in-time recovery from remote snapshots. This setting must be configured during index creation and cannot be changed afterward. Default is `false`.
+
+- `index.remote_store.segment.repository` (String): Specifies the repository name for storing index segments when remote store is enabled. The repository must be configured at the cluster level before being used for remote segment storage. This setting is required when `index.remote_store.enabled` is `true` and determines where segment files are stored remotely.
+
+- `index.remote_store.translog.repository` (String): Specifies the repository name for storing translog data when remote store is enabled. The repository must be configured at the cluster level before being used for remote translog storage. This setting is required when `index.remote_store.enabled` is `true` and determines where translog files are stored remotely.
+
+- `index.remote_store.translog.keep_extra_gen` (Dynamic, integer): The number of extra translog generations to keep in the remote store beyond the minimum required for recovery. Higher values provide more recovery options but consume more storage space. This setting helps balance between storage costs and recovery flexibility in remote store configurations. Default is `0`.
+
+- `index.remote_store.translog.buffer_interval` (Dynamic, time unit): The interval at which translog data is buffered before being uploaded to the remote store. More frequent uploads provide better durability but may impact performance. This setting works in conjunction with the cluster-level `cluster.remote_store.translog.buffer_interval` setting, with the index-level setting taking precedence. Default inherits from cluster setting.
+
+- `index.blocks.read_only` (Dynamic, Boolean): When set to `true`, makes the index read-only by blocking all write operations including indexing, updates, and deletes. Read operations like searches and gets continue to work normally. This setting is useful for temporarily preventing writes during maintenance or troubleshooting. Default is `false`.
+
+- `index.replication.type` (Static, string): Defines the replication strategy used for the index. Valid values are:
+  - `DOCUMENT`: Traditional document-based replication where individual documents are replicated
+  - `SEGMENT`: Segment-based replication for improved performance and reduced network overhead
+  This setting must be configured during index creation and cannot be changed afterward. Default is `DOCUMENT`.
+
+- `index.routing.allocation.require.temp` (Dynamic, string): Requires shards for this index to be allocated only to nodes with the specified temperature attribute. This setting is used for hot-warm architectures where different node types handle different data temperatures. The value should match a node attribute like `hot`, `warm`, or `cold`. No default value - when not set, shards can be allocated to any eligible node.
+
+## Index slow log settings
+
+OpenSearch supports the following dynamic index-level slow log settings for monitoring search and indexing performance:
+
+### Indexing slow log settings
+
+- `index.indexing.slowlog.threshold.index.warn` (Dynamic, time unit): Sets the time threshold for logging slow indexing operations at the WARN level. Indexing operations that take longer than this threshold are logged as warnings. Default is `-1` (disabled).
+
+- `index.indexing.slowlog.threshold.index.info` (Dynamic, time unit): Sets the time threshold for logging slow indexing operations at the INFO level. Indexing operations that take longer than this threshold are logged for informational purposes. Default is `-1` (disabled).
+
+- `index.indexing.slowlog.threshold.index.debug` (Dynamic, time unit): Sets the time threshold for logging slow indexing operations at the DEBUG level. This provides detailed debugging information for indexing performance analysis. Default is `-1` (disabled).
+
+- `index.indexing.slowlog.threshold.index.trace` (Dynamic, time unit): Sets the time threshold for logging slow indexing operations at the TRACE level. This provides the most detailed logging for troubleshooting indexing performance issues. Default is `-1` (disabled).
+
+### Search slow log settings
+
+- `index.search.slowlog.threshold.query.warn` (Dynamic, time unit): Sets the time threshold for logging slow search query operations at the WARN level. Query operations that take longer than this threshold are logged as warnings. Default is `-1` (disabled).
+
+- `index.search.slowlog.threshold.query.info` (Dynamic, time unit): Sets the time threshold for logging slow search query operations at the INFO level. Query operations that take longer than this threshold are logged for informational purposes. Default is `-1` (disabled).
+
+- `index.search.slowlog.threshold.query.debug` (Dynamic, time unit): Sets the time threshold for logging slow search query operations at the DEBUG level. This provides detailed debugging information for query performance analysis. Default is `-1` (disabled).
+
+- `index.search.slowlog.threshold.query.trace` (Dynamic, time unit): Sets the time threshold for logging slow search query operations at the TRACE level. This provides the most detailed logging for troubleshooting query performance issues. Default is `-1` (disabled).
+
+- `index.search.slowlog.threshold.fetch.warn` (Dynamic, time unit): Sets the time threshold for logging slow search fetch operations at the WARN level. Fetch operations that take longer than this threshold are logged as warnings. Default is `-1` (disabled).
+
+- `index.search.slowlog.threshold.fetch.info` (Dynamic, time unit): Sets the time threshold for logging slow search fetch operations at the INFO level. Fetch operations that take longer than this threshold are logged for informational purposes. Default is `-1` (disabled).
+
+- `index.search.slowlog.threshold.fetch.debug` (Dynamic, time unit): Sets the time threshold for logging slow search fetch operations at the DEBUG level. This provides detailed debugging information for fetch performance analysis. Default is `-1` (disabled).
+
+- `index.search.slowlog.threshold.fetch.trace` (Dynamic, time unit): Sets the time threshold for logging slow search fetch operations at the TRACE level. This provides the most detailed logging for troubleshooting fetch performance issues. Default is `-1` (disabled).
 
 ### Updating a dynamic index setting
 

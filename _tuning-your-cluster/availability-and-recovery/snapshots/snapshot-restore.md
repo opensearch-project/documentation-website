@@ -41,6 +41,20 @@ If you need to delete a snapshot, be sure to use the OpenSearch API rather than 
 
 Before you can take a snapshot, you have to "register" a snapshot repository. A snapshot repository is just a storage location: a shared file system, Amazon Simple Storage Service (Amazon S3), Hadoop Distributed File System (HDFS), or Azure Storage.
 
+### Node-level repository settings
+
+The following node-level settings control repository behavior globally across all repositories of their respective types. These settings are configured in `opensearch.yml` and require a cluster restart to modify.
+
+#### File system repository settings
+
+- `repositories.fs.chunk_size` (Static, byte unit): Sets the default chunk size for file system repositories when storing large blobs. This setting determines how large blob files are split into smaller chunks during storage. Larger chunk sizes can improve performance for sequential access but may increase memory usage and network transfer overhead. This setting serves as a fallback when chunk size is not explicitly specified in repository settings. Default is unlimited (no chunking). Minimum is `5` bytes.
+
+#### URL repository settings
+
+- `repositories.url.allowed_urls` (Static, list): Specifies a list of URL patterns that are allowed for URL repository access. This security setting restricts which URLs can be used when creating URL repositories, preventing access to unauthorized or internal network resources. URL patterns support wildcards (e.g., `http://snapshot.example.com/*`). When empty (default), no URL repositories are permitted unless a path.repo is configured. This setting helps prevent server-side request forgery (SSRF) attacks. Default is `[]` (empty list).
+
+- `repositories.url.supported_protocols` (Static, list): Defines which URL protocols are supported for URL repositories. This setting controls which protocol schemes (such as HTTP, HTTPS, or FTP) can be used when accessing URL repositories. Limiting supported protocols helps enhance security by preventing access through potentially insecure or unintended protocols. Default is `["http", "https", "ftp", "file", "jar"]`.
+
 
 ### Shared file system
 

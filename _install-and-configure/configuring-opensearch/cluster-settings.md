@@ -76,7 +76,27 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.routing.allocation.disk.watermark.flood_stage` (Dynamic, string): Controls the flood stage watermark. This is a last resort to prevent nodes from running out of disk space. OpenSearch enforces a read-only index block (`index.blocks.read_only_allow_delete`) on every index that has one or more shards allocated on the node and at least one disk exceeding the flood stage. The index block is released once the disk utilization falls below the high watermark. This can also be entered as a ratio value, like `0.85`. Finally, this can also be set to a byte value, like `400mb`. Default is `95%`. 
 
-- `cluster.info.update.interval` (Dynamic, time unit): Sets how often OpenSearch should check disk usage for each node in the cluster. Default is `30s`. 
+- `cluster.info.update.interval` (Dynamic, time unit): Sets how often OpenSearch should check disk usage for each node in the cluster. Default is `30s`.
+
+- `cluster.blocks.create_index` (Dynamic, Boolean): Controls whether index creation is blocked at the cluster level. When set to `true`, prevents new indexes from being created. Default is `false`.
+
+- `cluster.blocks.create_index.auto_release` (Dynamic, Boolean): Controls whether automatic index creation blocks (triggered by high disk usage) are automatically removed when disk usage returns below threshold levels. Default is `true`.
+
+- `cluster.ignore_dot_indexes` (Dynamic, Boolean): When set to `true`, ignores dot-prefixed indexes (like `.opensearch-*`) in shard limit validation checks. Default is `false`.
+
+- `cluster.routing.allocation.awareness.balance` (Dynamic, Boolean): Enables awareness-based replica balancing across awareness attributes. Takes effect only when both `cluster.routing.allocation.awareness.attributes` and `cluster.routing.allocation.awareness.force.zone.values` are specified. Default is `false`.
+
+- `cluster.routing.allocation.primary_constraint.threshold` (Dynamic, long): The threshold for primary shard constraint checks in allocation decisions. Default is `10`. Minimum enforced is `0`.
+
+- `cluster.routing.allocation.remote_primary.ignore_throttle` (Dynamic, Boolean): Whether to ignore throttling limits for remote primary shard restoration operations. Default is `true`.
+
+- `cluster.routing.ignore_weighted_routing` (Dynamic, Boolean): When set to `true`, ignores weighted routing configurations and uses default routing behavior. Default is `false`.
+
+- `cluster.routing.weighted.default_weight` (Dynamic, double): The default weight assigned to nodes when weighted routing is enabled but no specific weight is configured. Default is `1.0`. Minimum enforced is `1.0`.
+
+- `cluster.routing.weighted.fail_open` (Dynamic, Boolean): When weighted routing is enabled, determines whether to fail open (allow requests to any node) if all weighted nodes are unavailable. Default is `true`.
+
+- `cluster.routing.weighted.strict` (Dynamic, Boolean): When enabled, enforces strict weighted routing where requests are only routed to nodes with appropriate weights. Default is `true`.
 
 - `cluster.routing.allocation.awareness.attributes` (Dynamic, list): See [Shard allocation awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index#shard-allocation-awareness).
 
@@ -114,6 +134,44 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.routing.allocation.total_primary_shards_per_node` (Dynamic, integer): The maximum number of primary shards that can be allocated to a single node. This setting is applicable only for remote-backed clusters. Default is `-1`(unlimited). Helps distribute primary shards evenly across nodes by limiting the number of primary shards per node. Use with caution because primary shards may remain unallocated if nodes reach their configured limits.
 
+- `cluster.routing.allocation.disk.watermark.enable_for_single_data_node` (Static, Boolean): Enables disk watermark checks for clusters with only a single data node. When enabled, disk-based shard allocation decisions are enforced even in single-node clusters. Default is `false`.
+
+### Advanced cluster routing and allocation settings
+
+OpenSearch supports the following advanced cluster routing and allocation settings:
+
+- `cluster.routing.allocation.balanced_shards_allocator.allocator_timeout` (Dynamic, time unit): Controls the timeout for balanced shard allocator operations. When set to `-1`, the timeout is disabled. When set to a positive value, the allocator will timeout after the specified duration if allocation cannot be completed. Default is `-1` (no timeout). Minimum value is `20s` when timeout is enabled.
+
+- `cluster.routing.allocation.cluster_concurrent_recoveries` (Dynamic, integer): Controls the maximum number of concurrent recovery operations allowed at the cluster level. This setting limits the total number of recovery operations (relocations) happening simultaneously across the entire cluster to prevent resource exhaustion. Set to `-1` for unlimited concurrent recoveries. Default is `-1`.
+
+### Load-aware allocation settings
+
+OpenSearch supports the following load-aware allocation settings for distributing shards based on node resource utilization:
+
+- `cluster.routing.allocation.load_awareness.allow_unassigned_primaries` (Dynamic, Boolean): When load-aware allocation is enabled, this setting controls whether newly created primary shards can be assigned even if it would breach the skew factor. Setting to `true` allows new primaries to be assigned while preventing replica allocation from breaching the skew factor. Setting to `false` can result in primaries remaining unassigned and the cluster turning red. Default is `true`.
+
+- `cluster.routing.allocation.load_awareness.flat_skew` (Dynamic, integer): The flat skew factor used in load-aware allocation to determine acceptable imbalance between nodes. Higher values allow more imbalance but provide greater allocation flexibility. Default is `2`. Minimum is `2`.
+
+- `cluster.routing.allocation.load_awareness.provisioned_capacity` (Dynamic, integer): The provisioned capacity setting for load-aware allocation. This helps the allocator understand the intended capacity of nodes for better load distribution. Set to `-1` to disable. Default is `-1`.
+
+- `cluster.routing.allocation.load_awareness.skew_factor` (Dynamic, double): The skew factor threshold for load-aware allocation. This controls how much imbalance is tolerated between nodes before the allocator takes corrective action. Higher values allow more skew. Default is `50`. Set to `-1` to disable skew-based allocation.
+
+- `cluster.routing.allocation.move.primary_first` (Dynamic, Boolean): When rebalancing shards, this setting controls whether primary shards are moved before replica shards. Moving primaries first can help balance the load more effectively but may impact search performance during rebalancing. Default is `false`.
+
+- `cluster.routing.allocation.node_initial_replicas_recoveries` (Dynamic, integer): The maximum number of initial replica recoveries that can happen simultaneously on a single node during cluster startup or when a node joins. This is separate from the concurrent recoveries limit and helps control startup load. Default is `2`.
+
+## Cluster-level snapshot settings
+
+OpenSearch supports the following cluster-level snapshot settings:
+
+- `cluster.snapshot.info.max_concurrent_fetches` (Dynamic, integer): The maximum number of concurrent snapshot information fetch operations allowed. This setting helps control the load when retrieving snapshot metadata from the repository. Higher values can improve performance when managing many snapshots but may increase resource usage. Default is `5`.
+
+## Cluster-level composite index settings
+
+OpenSearch supports the following composite index settings:
+
+- `indices.composite_index.translog.max_flush_threshold_size` (Dynamic, byte size): The maximum translog size threshold for composite indexes before a flush is triggered. This setting helps control memory usage and ensures translog data is persisted to disk regularly for composite indexes. Default is `512mb`. Minimum value is `128mb`.
+
 ## Cluster-level shard, block, and task settings
 
 OpenSearch supports the following cluster-level shard, block, and task settings:
@@ -140,6 +198,12 @@ OpenSearch supports the following cluster-level shard, block, and task settings:
     Default is `all`. 
 
 - `cluster.persistent_tasks.allocation.recheck_interval` (Time unit): The cluster manager automatically checks whether persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required.
+
+- `task_cancellation.duration_millis` (Dynamic, long): The duration threshold in milliseconds for tracking cancelled tasks in the task cancellation monitoring system. Default is `10000` (10 seconds).
+
+- `task_cancellation.enabled` (Dynamic, Boolean): Enables or disables the task cancellation monitoring service. Default is `true`.
+
+- `task_resource_tracking.enabled` (Dynamic, Boolean): Controls whether task resource tracking is enabled to monitor CPU and memory usage of individual tasks. Default is `true`.
 
 ## Cluster-level search settings
 
@@ -201,6 +265,24 @@ OpenSearch supports the following cluster-level CAT API response limit settings,
 
 - `cat.segments.response.limit.number_of_indices` (Integer): Sets a limit on the number of indexes returned by the [CAT Segments API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-segments/). The default value is `-1` (no limit). If the number of indexes in the response exceeds this limit, the API returns a `429` error. To avoid this, you can specify an index pattern filter in your query (for example, `_cat/segments/<index-pattern>`).
 
+## Cluster-level gateway and indexes settings
+
+OpenSearch supports the following gateway and indexes settings:
+
+- `gateway.slow_write_logging_threshold` (Dynamic, time unit): The threshold for logging slow write operations in gateway cluster state persistence. Default is `10s`. Minimum enforced is `0`.
+
+- `indices.id_field_data.enabled` (Dynamic, Boolean): Controls whether ID field data is enabled for indexes, allowing sorting and aggregating on the `_id` field. Default is `true`.
+
+- `indices.mapping.max_in_flight_updates` (Dynamic, integer): The maximum number of concurrent mapping update requests allowed. Default is `10`. Minimum enforced is `1`. Maximum allowed is `1000`.
+
+- `indices.recovery.internal_action_long_timeout` (Dynamic, time unit): The timeout for long-running internal recovery actions. Default is twice the value of `indices.recovery.internal_action_timeout`. Minimum enforced is `0`.
+
+- `indices.recovery.internal_remote_upload_timeout` (Dynamic, time unit): The timeout for internal remote upload operations during shard recovery. Default is `1h`.
+
+- `indices.replication.initial_retry_backoff_bound` (Dynamic, time unit): The maximum bound for the first retry backoff when replication operations fail. Default is `50ms`. Minimum enforced is `10ms`.
+
+- `indices.replication.retry_timeout` (Dynamic, time unit): The total timeout for retrying failed replication requests. Default is `60s`.
+
 ## Cluster-level metadata settings
 
 OpenSearch supports the following cluster-level metadata settings:
@@ -212,6 +294,8 @@ OpenSearch supports the following cluster-level metadata settings:
 OpenSearch supports the following remote cluster settings:
 
 - `cluster.remote.initial_connect_timeout` (Dynamic, time unit): Sets the timeout period for establishing initial connections to remote clusters when the node starts. This prevents nodes from hanging indefinitely during startup if remote clusters are unavailable. Default is `30s`.
+
+- `cluster.remote.connections_per_cluster` (Static, integer): The maximum number of connections that will be established to a remote cluster. If there is only a single seed node, other nodes will be discovered up to this number. Default is `3`. Minimum is `1`.
 
 - `cluster.remote.<cluster_alias>.mode` (Dynamic, string): Specifies the connection mode for a specific remote cluster. Valid values are `sniff` (discovers and connects to multiple nodes in the remote cluster) and `proxy` (connects through a single proxy address). Default is `sniff`.
 
@@ -234,3 +318,64 @@ OpenSearch supports the following remote cluster settings:
 - `cluster.remote.<cluster_alias>.proxy_socket_connections` (Dynamic, integer): Applicable to `proxy` mode only. Sets the number of socket connections to open to the proxy server for this remote cluster. More connections can improve throughput but consume more resources. Default is `18`.
 
 - `cluster.remote.<cluster_alias>.server_name` (Dynamic, string): Applicable to `proxy` mode only. Specifies the hostname sent in the TLS Server Name Indication (SNI) extension when TLS is enabled for the remote cluster connection. This must be a valid hostname according to TLS SNI specifications.
+
+## Cluster manager task throttling settings
+
+OpenSearch supports the following dynamic cluster manager task throttling settings that control the number of pending tasks for specific cluster manager operations:
+
+- `cluster_manager.throttling.thresholds.<task_name>.value` (Dynamic, integer): Sets the throttling limit for specific cluster manager task types. When this limit is reached, additional tasks of this type are queued rather than processed immediately. Setting to `-1` disables throttling for the specified task type. Default varies by task type. Available task names include:
+  - `create-index`: Controls index creation operations
+  - `delete-index`: Controls index deletion operations
+  - `put-mapping`: Controls mapping update operations
+  - `index-aliases`: Controls index alias operations
+  - `cluster-update-settings`: Controls cluster settings updates
+  - `put-pipeline`: Controls ingest pipeline operations
+  - `delete-pipeline`: Controls ingest pipeline deletion
+  - `put-search-pipeline`: Controls search pipeline operations
+  - `delete-search-pipeline`: Controls search pipeline deletion
+  - `put-script`: Controls stored script operations
+  - `delete-script`: Controls stored script deletion
+  - `create-snapshot`: Controls snapshot creation operations
+  - `delete-snapshot`: Controls snapshot deletion operations
+  - And other cluster manager task types
+
+
+## Cluster-level remote store settings
+
+OpenSearch supports the following remote store settings:
+
+For practical examples and step-by-step configuration guides, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/).
+{: .tip}
+
+
+- `cluster.remote_store.index.restrict.async-durability` (Static, Boolean): **Restricted Access Setting.** When enabled (`true`), restricts the creation or modification of indexes where `index.translog.durability` is set to `async`. This setting prevents indexes from using async durability mode in remote store environments, enforcing stronger durability guarantees. When  set to `false`, indexes can use any durability mode (`sync` or `async`) and can be switched between modes at any time. When set to `true`, any attempt to create or update an index with `index.translog.durability=async` will be rejected. This setting is specifically designed for remote store deployments where async durability might compromise data consistency. Default is `false`.
+
+- `cluster.remote_store.compatibility_mode` (Dynamic, string): Controls the compatibility mode for remote store operations during cluster migration. Valid values are:
+  - `strict`: Only nodes with identical remote store configuration can join the cluster
+  - `mixed`: Allows mixed clusters with both remote-store-enabled and regular nodes during migration
+  Default is `strict`.
+
+- `cluster.remote_store.state.enabled` (Static, Boolean): Enables remote cluster state functionality. When enabled, cluster state metadata is stored in a remote repository in addition to local storage, enabling features like seamless search replica recovery and improved cluster resilience. This setting must be configured during cluster initialization and requires proper remote repository configuration. Default is `false`.
+
+- `cluster.remote_store.publication.enabled` (Static, Boolean): Enables remote publication of cluster state updates. When enabled, cluster state changes are published to the remote store, allowing for distributed state management and improved cluster coordination. This setting requires `cluster.remote_store.state.enabled` to be `true`. Default is `false`.
+
+- `cluster.remote_store.index_metadata.path_type` (Static, string): Defines the path structure used for storing index metadata in the remote store. Valid values are:
+  - `FIXED`: Uses a fixed path structure for metadata storage
+  - `HASHED_PREFIX`: Uses a hashed prefix in the path structure for better distribution
+  - `HASHED_INFIX`: Uses a hashed infix in the path structure for load balancing
+  Default is `HASHED_PREFIX`.
+
+- `cluster.remote_store.index_metadata.path_hash_algo` (Static, string): Specifies the hash algorithm used for constructing prefixes or infixes in index metadata paths when `cluster.remote_store.index_metadata.path_type` is set to `HASHED_PREFIX` or `HASHED_INFIX`. Valid values are:
+  - `FNV_1A_BASE64`: Uses FNV-1a hash with Base64 encoding
+  - `FNV_1A_COMPOSITE_1`: Uses FNV-1a hash with composite encoding for better distribution
+  Default is `FNV_1A_BASE64`.
+
+- `cluster.filecache.remote_data_ratio` (Dynamic, double): Controls the ratio of remote data to local disk cache for file caching in remote store configurations. This setting determines how much remote data is cached locally to improve performance. Higher values cache more data locally but consume more disk space. Value should be between 0.0 and 1.0. Default is `0.8`.
+
+- `cluster.indices.replication.strategy` (Dynamic, string): Sets the replication strategy for indices in the cluster. Valid values include:
+  - `DOCUMENT`: Traditional document-based replication
+  - `SEGMENT`: Segment-based replication for improved performance and efficiency
+  Default is `DOCUMENT`.
+
+- `cluster.index.restrict.replication.type` (Dynamic, Boolean): When enabled, restricts the creation of indices with specific replication types to ensure consistency across the cluster. This setting helps enforce replication policies and prevents incompatible replication configurations. Default is `false`.
+
