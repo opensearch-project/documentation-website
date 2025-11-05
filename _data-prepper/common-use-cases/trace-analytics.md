@@ -146,7 +146,7 @@ raw-trace-pipeline:
         hosts: ["https://localhost:9200"]
         insecure: true
         username: admin
-        password: admin
+        password: admin_password
         index_type: trace-analytics-raw
 service-map-pipeline:
   delay: "100"
@@ -164,7 +164,7 @@ service-map-pipeline:
         hosts: ["https://localhost:9200"]
         insecure: true
         username: admin
-        password: admin
+        password: admin_password
         index_type: trace-analytics-service-map
 ```
 
@@ -179,12 +179,12 @@ source:
   otel_trace_source:
     #record_type: event  # Add this when using Data Prepper 1.x. This option is removed in 2.0
     ssl: true
-    sslKeyCertChainFile: "/full/path/to/certfile.crt"
-    sslKeyFile: "/full/path/to/keyfile.key"
+    sslKeyCertChainFile: /full/path/to/certfile.crt
+    sslKeyFile: /full/path/to/keyfile.key
     authentication:
       http_basic:
-        username: "my-user"
-        password: "my_s3cr3t"
+        username: my-user
+        password: my_s3cr3t
 ```
 
 #### Example: pipeline.yaml
@@ -228,7 +228,7 @@ raw-trace-pipeline:
   # Configure same as the otel-trace-pipeline
   workers: 8
   # We recommend using the default value for the raw-trace-pipeline.
-  delay: "3000"
+  delay: 3000
   source:
     pipeline: 
       name: otel-trace-pipeline
@@ -248,8 +248,8 @@ raw-trace-pipeline:
     - otel_traces_group:
         hosts: [ "https://opensearch:9200" ]
         # Change to your credentials
-        username: "admin"
-        password: "admin"
+        username: admin
+        password: admin_password
         # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
@@ -262,8 +262,8 @@ raw-trace-pipeline:
         hosts: [ "https://opensearch:9200" ]
         index_type: trace-analytics-raw
         # Change to your credentials
-        username: "admin"
-        password: "admin"
+        username: admin
+        password: admin_password
         # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
@@ -274,7 +274,7 @@ raw-trace-pipeline:
 
 service-map-pipeline:
   workers: 8
-  delay: "100"
+  delay: 100
   source:
     pipeline: 
       name: otel-trace-pipeline
@@ -300,8 +300,8 @@ service-map-pipeline:
         hosts: [ "https://opensearch:9200" ]
         index_type: trace-analytics-service-map
         # Change to your credentials
-        username: "admin"
-        password: "admin"
+        username: admin
+        password: admin_password
         # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
@@ -350,6 +350,9 @@ openssl req -x509 -nodes -newkey rsa:2048 \
 Create the following files:
 
 `docker-compose.yaml`
+
+Follow the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements) to set a strong admin password.
+{: .note}
 
 ```yaml
 version: "3.8"
