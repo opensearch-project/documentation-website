@@ -65,15 +65,15 @@ If a pipeline component fails to process and send an event, then the source rece
 
 Pipelines also support conditional routing, which enables the routing of events to different sinks based on specific conditions. To add conditional routing, specify a list of named routes using the `route` component and assign specific routes to sinks using the `routes` property. Any sink with the `routes` property only accepts events matching at least one of the routing conditions.
 
-In the following pipeline, routes are defined at the pipeline level under route. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the condition. Two named routes are declared:
+In the following pipeline, routes are defined at the pipeline level under `route`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the condition. Two named routes are declared:
 
 - `errors: /level == "ERROR"`
 
 - `slow_requests: /latency_ms != null and /latency_ms >= 1000`
 
-Each OpenSearch sink can opt in to one or more routes using the `routes:` setting. Events that satisfy a route’s condition are delivered to the sinks that reference that route, for example, the first sink receives events matching errors, and the second sink receives events matching slow_requests.
+Each OpenSearch sink can opt in to one or more routes using the `routes:` setting. Events that satisfy a route's condition are delivered to the sinks that reference that route. For example, the first sink receives events matching `errors`, and the second sink receives events matching `slow_requests`.
 
-By default, any sink without a `routes:` list receives all events, regardless of whether they matched other routes. In the following example, the third sink has no `routes:` setting, so it acts as a catch-all and receives every event, including those already routed to the first two sinks:
+By default, any sink without a `routes:` list receives all events, regardless of whether they matched other routes. In the following example, the third sink has no `routes:` setting, so it receives all events, including those already routed to the first two sinks:
 
 ```yml
 routes-demo-pipeline:
