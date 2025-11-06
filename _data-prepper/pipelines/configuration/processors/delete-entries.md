@@ -66,7 +66,7 @@ When you run the `delete_entries` processor, it parses the message into the foll
 
 ### Additional configuration examples
 
-#### Using `with_keys_regex` field
+### Deleting keys that match a pattern
 
 To get started, create the following `pipeline.yaml` file:
 ```yaml
