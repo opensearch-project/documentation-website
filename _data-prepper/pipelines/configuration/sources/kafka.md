@@ -46,7 +46,7 @@ Option | Required | Type | Description
 
 ### Topics
 
-Use the following options in the `topics` array (per topic).
+Use the following options in the `topics` array for each topic.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -71,7 +71,7 @@ Option | Required | Type | Description
 
 ### Schema
 
-The `schema` configuration has the following configuration options.
+The `schema` configuration has the following options.
 
 Option | Type | Required | Description
 :--- | :--- | :---
@@ -101,23 +101,23 @@ schema:
 
 #### Schema Registry over TLS
 
-The Kafka source uses the JVM truststore when connecting to Schema Registry over `https`. If Schema Registry is signed by a custom CA, add that CA to the Data Prepper JVM truststore or provide a custom truststore via environment variables. The following commands can be used to configure this in docker-compose deployment.
+The Kafka source uses the JVM truststore when connecting to Schema Registry over `https`. If Schema Registry is signed by a custom CA, add that CA to the Data Prepper JVM truststore or provide a custom truststore via environment variables. 
 
-Build a truststore with your CA:
+You can use the following command to build a truststore with your CA certificate:
 
 ```bash
 keytool -importcert -noprompt -alias sr-ca -file sr-ca.pem -keystore /usr/share/data-prepper/certs/sr.truststore.jks -storepass changeit
 ```
 {% include copy.html %}
 
-Configure Data Prepper using `JAVA_TOOL_OPTIONS`:
+The following command configures Data Prepper using `JAVA_TOOL_OPTIONS`:
 
 ```yaml
 JAVA_TOOL_OPTIONS=-Djavax.net.ssl.trustStore=/usr/share/data-prepper/certs/sr.truststore.jks -Djavax.net.ssl.trustStorePassword=changeit
 ```
 {% include copy.html %}
 
-The following configuration can be used to configure Data Pepper in Docker Compose:
+You can configure Data Pepper in `docker-compose.yaml` using the following method:
 
 ```yaml
 environment:
@@ -179,28 +179,6 @@ encryption:
 ```
 {% include copy.html %}
 
-**Trusting a private CA for brokers**
-
-As with Schema Registry, the Kafka client inside Data Prepper uses the JVM truststore. Provide a truststore containing your Kafka broker CA:
-
-```bash
-keytool -importcert -noprompt -alias kafka-ca -file kafka-ca.pem -keystore /usr/share/data-prepper/certs/kafka.truststore.jks -storepass changeit
-```
-{% include copy.html %}
-
-See following docker-compose excerpt:
-
-```yaml
-services:
-  data-prepper:
-    image: opensearchproject/data-prepper:latest
-    environment:
-      - JAVA_TOOL_OPTIONS=-Djavax.net.ssl.trustStore=/usr/share/data-prepper/certs/kafka.truststore.jks -Djavax.net.ssl.trustStorePassword=changeit
-    volumes:
-      - ./certs:/usr/share/data-prepper/certs:ro
-```
-{% include copy.html %}
-
 #### AWS
 
 Use the following options when setting up authentication for `aws` services.
@@ -221,6 +199,8 @@ Option | Required | Type | Description
 `broker_connection_type` | No | String | The type of connector to use with the MSK broker, either `public`, `single_vpc`, or `multip_vpc`. Default is `single_vpc`.
 
 ## Configuration examples
+
+This section demonstrates different pipeline configuration options.
 
 ### Basic Kafka source
 
