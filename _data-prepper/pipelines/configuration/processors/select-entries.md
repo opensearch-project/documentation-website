@@ -50,7 +50,7 @@ For example, when your source contains the following event record:
 }
 ```
 
-The `select_entries` processor will output:
+After processing, only the keys listed in `include_keys` are retained in the event; all other keys are removed:
 
 ```json
 {"key1": "value1", "key2": "value2"}
