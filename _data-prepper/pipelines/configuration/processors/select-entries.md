@@ -88,7 +88,7 @@ For example, when your source contains the following event record:
 }
 ```
 
-The `select_entries` processor will output:
+The processor retains keys explicitly listed in `include_keys` and any keys matching the` include_keys_regex` pattern, removing all other keys from the event:
 
 ```json
 {"key1": "value1", "key2": "value2", "random1": "another", "random2" : "set", "random3": "of", "random4": "values"}
