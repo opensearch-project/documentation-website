@@ -25,7 +25,7 @@ target | An optional field that specifies the name of the field in which the res
 
 ## Example
 
-The following example uses `write_json` twice, first to copy an `details` object into a new JSON string field named `target`, then to overwrite the original `payload` field when target is omitted:
+The following example uses `write_json` twice, first to copy the `details` object into a new JSON string field named `target`, then to overwrite the original `payload` field when target is omitted:
 
 ```yaml
 write-json-demo-pipeline:
