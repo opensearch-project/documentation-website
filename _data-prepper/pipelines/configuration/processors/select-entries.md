@@ -23,7 +23,7 @@ You can configure the `select_entries` processor using the following options.
 
 ## Usage
 
-The get started, create the following `pipeline.yaml` file:
+First, create the following `pipeline.yaml` file:
 
 ```yaml
 pipeline:
