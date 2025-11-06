@@ -56,7 +56,8 @@ After processing, only the keys listed in `include_keys` are retained in the eve
 {"key1": "value1", "key2": "value2"}
 ```
 
-### Additional configuration example
+### Selecting keys using a regex
+
 The following example shows how to configure the `include_keys_regex` field in the `pipeline.yaml` file:
 
 ```yaml
