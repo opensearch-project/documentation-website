@@ -64,7 +64,6 @@ When you run the `delete_entries` processor, it parses the message into the foll
 {"message2": "goodbye", "message3": "test"}
 ```
 
-### Additional configuration examples
 
 ### Deleting keys that match a pattern
 
