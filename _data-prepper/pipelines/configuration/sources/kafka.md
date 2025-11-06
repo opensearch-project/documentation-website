@@ -75,14 +75,14 @@ The `schema` configuration has the following options.
 
 Option | Type | Required | Description
 :--- | :--- | :---
-`type` | String | Yes | Sets the type of schema based on your registry, either the AWS Glue Schema Registry, `aws_glue`, or the Confluent Schema Registry, `confluent`. When using the `aws_glue` registry, set any [AWS](#aws) configuration options.
-`basic_auth_credentials_source` | String | No | Where Schema Registry credentials come from. Use `USER_INFO` when providing `api_key/api_secret`. Other valid values are `URL` and `SASL_INHERIT`. Default typically aligns with the underlying client.
+`type` | String | Yes | Sets the type of schema based on your registry, either the AWS Glue schema registry, `aws_glue`, or the Confluent schema registry, `confluent`. When using the `aws_glue` registry, set any [AWS](#aws) configuration options.
+`basic_auth_credentials_source` | String | No | Where schema registry credentials come from. Use `USER_INFO` when providing `api_key/api_secret`. Other valid values are `URL` and `SASL_INHERIT`. Default typically aligns with the underlying client.
 
 The following configuration options are only required when using a `confluent` registry.
 
 Option | Type | Description
 :--- | :--- | :---
-`registry_url` | String | Base URL of the Schema Registry, for example, `http://schema-registry:8081` or `https://sr.example.com`.
+`registry_url` | String | Base URL of the schema registry, for example, `http://schema-registry:8081` or `https://sr.example.com`.
 `version` | String | Schema version to use per subject. Use an integer or `"latest"`.
 `api_key` | String | The schema registry API key.
 `api_secret` | String | The schema registry API secret.
@@ -99,9 +99,9 @@ schema:
 ```
 {% include copy.html %}
 
-#### Schema Registry over TLS
+#### schema registry over TLS
 
-The Kafka source uses the JVM truststore when connecting to Schema Registry over `https`. If Schema Registry is signed by a custom CA, add that CA to the Data Prepper JVM truststore or provide a custom truststore via environment variables. 
+The Kafka source uses the JVM truststore when connecting to schema registry over `https`. If schema registry is signed by a custom CA, add that CA to the Data Prepper JVM truststore or provide a custom truststore using environment variables. 
 
 You can use the following command to build a truststore with your CA certificate:
 
@@ -175,7 +175,7 @@ Option | Required | Type | Description
 encryption:
   type: ssl
   # With public CA: no extra config needed.
-  # With private CA: trust via JVM truststore.
+  # With private CA: trust using JVM truststore.
 ```
 {% include copy.html %}
 
@@ -280,9 +280,9 @@ kafka-pipeline:
 ```
 {% include copy.html %}
 
-### Amazon MSK with AWS Glue Schema Registry
+### Amazon MSK with AWS Glue schema registry
 
-The following example configures Amazon MSK with AWS Glue Schema Registry, consumes from an MSK cluster using AWS settings, deserializes payload using AWS Glue Schema Registry, normalizes timestamps, and writes to an Amazon OpenSearch domain:
+The following example configures Amazon MSK with AWS Glue schema registry, consumes from an MSK cluster using AWS settings, deserializes payload using AWS Glue schema registry, normalizes timestamps, and writes to an Amazon OpenSearch domain:
 
 ```yaml
 msk-pipeline:
@@ -318,9 +318,9 @@ msk-pipeline:
 ```
 {% include copy.html %}
 
-### Confluent Kafka with Schema Registry
+### Confluent Kafka with schema registry
 
-The following example configures Confluent Kafka with Schema Registry, connects to Confluent Cloud over TLS with SASL and Confluent Schema Registry credentials, decodes payloads, and indexes them into OpenSearch:
+The following example configures Confluent Kafka with schema registry, connects to Confluent Cloud over TLS with SASL and Confluent schema registry credentials, decodes payloads, and indexes them into OpenSearch:
 
 ```yaml
 confluent-pipeline:
