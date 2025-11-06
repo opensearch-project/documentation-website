@@ -123,9 +123,9 @@ kubectl get crds | grep opensearch
 ```
 {% include copy.html %}
 
-If you deployed the operator using [Helm charts](#use-a-helm-chart), to ensure that Kubernetes recognizes the OpenSearch Kubernetes Operator as a namespace, enter `k get ns | grep opensearch`. Both `opensearch` and `opensearch-operator-system` should appear as `Active`.
+If you deployed the operator using [Helm charts](#use-a-helm-chart), verify that Kubernetes recognizes the OpenSearch Kubernetes Operator namespaces by running `kubectl get ns | grep opensearch`. Both `opensearch` and `opensearch-operator-system` should appear as `Active`.
 
-With the operator active, use `k get pod -n opensearch-operator-system` to make sure that the operator's pods are running. 
+With the operator active, verify that the operator's pods are running by executing `kubectl get pod -n opensearch-operator-system`. All pods should have the `Running` status. 
 
 ```
 NAME                                              READY   STATUS   RESTARTS   AGE
