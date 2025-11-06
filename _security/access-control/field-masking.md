@@ -29,7 +29,7 @@ If you need to maintain search functionality on partially masked fields, conside
 - **Index transformation**: Create a separate index with pre-applied masking transformations rather than using dynamic field masking.
 - **Field-level security**: Instead of masking, use [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/) to completely hide sensitive fields from unauthorized users.
 
-A search result with a masked field might look like the following:
+A search result with a masked field might appear similar to the following:
 
 ```json
 {
