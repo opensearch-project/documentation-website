@@ -222,7 +222,7 @@ kafka-pipeline:
     - opensearch:
         hosts: ["https://localhost:9200"]
         username: admin
-        password: admin
+        password: admin_password
         index: kafka-data
 ```
 {% include copy.html %}
@@ -246,7 +246,7 @@ kafka-pipeline:
     - opensearch:
         hosts: ["https://localhost:9200"]
         username: admin
-        password: admin
+        password: admin_password
         index: secure-kafka-data
 ```
 {% include copy.html %}
@@ -275,7 +275,7 @@ kafka-pipeline:
     - opensearch:
         hosts: ["https://localhost:9200"]
         username: admin
-        password: admin
+        password: admin_password
         index: authenticated-kafka-data
 ```
 {% include copy.html %}
