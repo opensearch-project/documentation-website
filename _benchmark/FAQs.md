@@ -15,7 +15,7 @@ Check the end of the OSB log files to view messages from the latest run.
 
 You also have the following options:
 - [Post a question in the OpenSearch Benchmark Slack channel](https://opensearch.slack.com/archives/C082PLA3VPW).
-- [Attend the Community Meeting, Office Hours, and Issue Triage](https://www.meetup.com/opensearch/events/309982456/?eventOrigin=group_upcoming_events).
+- [Attend the community meeting, office hours, or issue triage session](https://www.meetup.com/opensearch/events/309982456/?eventOrigin=group_upcoming_events).
 
 
 ## Where are the OSB log files located?
