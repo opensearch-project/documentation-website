@@ -6,7 +6,7 @@ nav_order: 103
 
 # FAQs
 
-This is intended to be a compendium of frequently-asked questions.  There are only a few currently, but additional ones will be included as the documentation is enhanced.
+This section provides answers to frequently asked questions.
 
 
 ## How can I get more information about an error that I encountered?
