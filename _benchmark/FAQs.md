@@ -11,7 +11,7 @@ This is intended to be a compendium of frequently-asked questions.  There are on
 
 ## How can I get more information about an error that I encountered?
 
-You can take a look at the OSB log files, towards the end, where messages for the latest run will appear.
+Check the end of the OSB log files to view messages from the latest run.
 
 You also have the following options:
 - [Post a question in the OpenSearch Benchmark Slack channel](https://opensearch.slack.com/archives/C082PLA3VPW).
