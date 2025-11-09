@@ -105,14 +105,12 @@ To upsert a document, either:
 { "update": { "_index": "movies", "_id": "tt0816711" } }
 { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
 ```
-2. Or specify the document to be updated in the `doc` field` (which will be used if the document exists), and the document to be upserted (if the document doesnt exist) in the `upsert` field, and leave `doc_as_update` as `false`. This is best used in the scenario where you only want to update only specific fields when a document exists, but insert a complete document when it doesn't exist.
+2. Or specify the document to be updated (if the document exists) in the `doc` field , and the document to be upserted (if the document doesn't exist) in the `upsert` field, and leave `doc_as_update` as `false`.
+This is best used in the scenario where you only want to update only specific fields when a document exists, but insert a complete document when it doesn't exist.
 
 ```
 { "update": { "_index": "products", "_id": "widget-123" } }
-{ 
-  "doc": { "stock": 75, "updated_at": "2025-01-15T10:30:00Z" },
-  "upsert": { "name": "Widget", "price": 39.99, "stock": 100, "created_at": "2025-01-15T10:30:00Z" }
-}
+{ "doc": { "stock": 75, "updated_at": "2025-01-15T10:30:00Z" }, "upsert": { "name": "Widget", "price": 39.99, "stock": 100, "created_at": "2025-01-15T10:30:00Z" }}
 ```
 
 ### Script
