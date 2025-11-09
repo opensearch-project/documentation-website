@@ -126,19 +126,8 @@ You can specify a script for more complex document updates by defining the scrip
 
 You can use a script to update or upsert a document.
 
-1. To upsert a document using a script, set `scripted_upsert` to `true`. This ensures that the script runs whether or not the document exists. If the document does not exist, the script initializes its content from scratch.
 
-```json
-POST _bulk
-{ "update": { "_index": "movies", "_id": "tt0816711" } }
-{ "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "scripted_upsert": true }
-```
-
-This operation creates a new document if one with ID `tt0816711` does not exist, using the logic in the script. If the document does exist, the same script is applied to update its fields.
-
-You can aso use a script only to update a document.
-
-2. To update a document (if the document exists) using a script, but to upsert a document (if the document document exist, set both the `script` and `upsert` fields. `script` will be used if the document exists and `upsert` will be used if it doesn't.
+1. Script + Upsert (scripted_upsert=false, default). If the document exists, update the document using the `script`. If the document does not,  upsert the document in the `upsert` field (without running the script)
 
 ```
 POST _bulk
@@ -146,6 +135,15 @@ POST _bulk
 { "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "upsert": { "title": "World War Z", "genre": "Action", "author": "Tom Smith" } }
 `
 ```
+
+2. Script + Upsert + scripted_upsert=true. If the document exists, update the document using the `script`. If the document does not, run the script on the `upsert` field then upsert the document.
+
+```json
+POST _bulk
+{ "update": { "_index": "movies", "_id": "tt0816711" } }
+{ "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "scripted_upsert": true }
+```
+
 
 ## Example request
 
