@@ -20,8 +20,7 @@ You can configure the processor using the following configuration options.
 
 Field                | Type    | Required | Description                                                                 
 -------------------- | ------- | -------- | ---------------------------------------------------------------------------- 
-`function_name`      | String  | Required | The name of the AWS Lambda function to invoke. Default is `none`.
-`invocation_type`    | String  | Required | Specifies the invocation type, either `request-response` or `event`. Default is `request-response`.           
+`function_name`      | String  | Required | The name of the AWS Lambda function to invoke. Default is `none`.           
 `aws.region`         | String  | Required | The AWS Region in which the Lambda function is located. Default is `none`.                         
 `aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function. Default is `none`.               
 `max_retries`        | Integer | Optional | The maximum number of retries for failed invocations. Default is `3`.             
@@ -48,7 +47,6 @@ The following is example configuration:
 processors:
   - aws_lambda:
       function_name: "my-lambda-function"
-      invocation_type: "request-response"
       response_events_match: false
       client:
         connection_timeout: PT5M
