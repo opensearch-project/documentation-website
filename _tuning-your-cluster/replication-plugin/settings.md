@@ -39,7 +39,7 @@ Setting | Default | Description
 `plugins.replication.translog.retention_lease.pruning.enabled` | true | If enabled, prunes the translog based on retention leases on the leader index.
 `plugins.replication.translog.retention_size` | 512 MB | Controls the size of the translog on the leader index.
 `plugins.replication.replicate.delete_index` | false | If enabled, the follower index is automatically deleted whenever the corresponding leader index is deleted.
-`plugins.replication.follower.index.ops_batch_size` | 50000 | The number of operations that can be fetched at a time during the syncing phase of replication.
+`plugins.replication.follower.index.ops_batch_size` | 50000 | The number of operations that can be fetched at a time during the sync phase of replication.
 
 ## Index-level settings
 
@@ -47,4 +47,4 @@ You can specify these settings when creating a follower index or update them for
 
 Setting | Default | Description
 :--- |:------| :---
-`index.plugins.replication.follower.ops_batch_size` | 50000 | The number of operations that can be fetched at a time during the syncing phase of replication for the specific index. This setting overrides the cluster level setting. 
+`index.plugins.replication.follower.ops_batch_size` | 50000 | The number of operations that can be fetched at a time during the sync phase of replication for the specific index. This setting overrides the cluster level setting. 
