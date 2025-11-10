@@ -67,7 +67,8 @@ When you run the `delete_entries` processor, it parses the message into the foll
 
 ### Deleting keys that match a pattern
 
-To get started, create the following `pipeline.yaml` file:
+First, create the following `pipeline.yaml` file:
+
 ```yaml
 pipeline:
   source:
