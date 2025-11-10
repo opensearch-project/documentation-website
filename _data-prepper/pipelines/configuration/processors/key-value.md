@@ -13,14 +13,14 @@ You can use the `key_value` processor to parse the specified field into key-valu
 
 ## Examples
 
-The following examples demonstrate some of the configuration you can use with this processor.
+The following examples demonstrate several configurations you can use with this processor.
 
 The examples don't use security and are for demonstration purposes only. We strongly recommend configuring SSL before using these examples in production.
 {: .warning}
 
-### KV parsing, cleanup and de-duplication
+### Key-value parsing, normalization, and deduplication
 
-The following example parses `message` into `key=value` pairs, normalizes and cleans the keys, prefixes them with `meta_`, deduplicates values, and drops keys without values into `parsed_kv`:
+The following example parses the `message` field into `key=value` pairs, normalizes and cleans the keys, prefixes them with `meta_`, deduplicates values, and drops keys without values into `parsed_kv`:
 
 ```yaml
 kv-basic-pipeline:
@@ -122,7 +122,7 @@ The documents stored in OpenSearch contain the following information:
 
 ### Grouped values to root
 
-The following example parses `payload` using `&&` between pairs and `==` between key and value, preserves bracketed groups as single values, writes results at the event root without overwriting existing fields, and records unmatched tokens as `null`:
+The following example parses the `payload` field by using `&&` to separate pairs and `==` to separate keys and values. It preserves bracketed groups as single values, writes the parsed results to the event root without overwriting existing fields, and records any unmatched tokens as `null`:
 
 ```yaml
 kv-grouping-pipeline:
@@ -215,9 +215,9 @@ The documents stored in OpenSearch contain the following information:
 }
 ```
 
-### Conditional recursive KV parsing
+### Conditional recursive key-value parsing
 
-The following example parses bracketed nested `key=value` structures from `body` into `parsed.*` only when `/type == "nested"`, honoring grouping, enforcing strict nesting, and applying default fields while leaving non-nested events untouched:
+The following example parses bracketed nested `key=value` structures from `body` into `parsed.*` only when `/type == "nested"`. It preserves group hierarchy, enforces strict nesting rules, applies default fields, and leaves non-nested events unchanged:
 
 ```yaml
 kv-conditional-recursive-pipeline:
