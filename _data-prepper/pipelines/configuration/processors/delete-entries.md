@@ -125,4 +125,4 @@ When you run the `delete_entries` processor, it parses the message into the foll
 {"message2": "goodbye","test": "friends"}
 ```
 
-> If `with_keys`, `with_keys_regex`, or `exclude_from_delete` values do not match any event keys, then no action occurs.
+> If the `with_keys`, `with_keys_regex`, or `exclude_from_delete` values do not match any event keys, then no action occurs.

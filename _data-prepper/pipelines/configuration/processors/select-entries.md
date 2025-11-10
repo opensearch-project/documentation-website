@@ -18,7 +18,7 @@ You can configure the `select_entries` processor using the following options.
 | Option | Required | Description |
 | :--- |:---------| :--- |
 | `include_keys` | No       | A list of keys to be selected from an event. |
-| `include_keys_regex` | No | A regex pattern that matches the keys to be selected from an event. |
+| `include_keys_regex` | No | A regular expression (regex) pattern that matches the keys to be selected from an event. |
 | `select_when` | No       | A [conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"`, that is evaluated to determine whether the processor will be executed on the event. If the condition is not met, then the event continues through the pipeline unmodified, with all the original fields present. |
 
 ## Usage
