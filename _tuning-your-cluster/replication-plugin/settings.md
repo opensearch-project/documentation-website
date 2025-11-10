@@ -47,4 +47,4 @@ You can specify these settings when creating a follower index or update them for
 
 Setting | Default | Description
 :--- |:------| :---
-`index.plugins.replication.follower.ops_batch_size` | 50000 | The number of operations that can be fetched at a time during the sync phase of replication for the specific index. This setting overrides the cluster level setting. 
+`index.plugins.replication.follower.ops_batch_size` | 50000 | The number of operations that can be fetched at a time during the sync phase of replication for the specific index. This setting overrides the cluster-level setting. 
