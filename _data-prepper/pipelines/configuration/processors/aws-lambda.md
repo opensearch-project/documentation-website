@@ -20,27 +20,29 @@ You can configure the processor using the following configuration options.
 
 Field                | Type    | Required | Description                                                                 
 -------------------- | ------- | -------- | ---------------------------------------------------------------------------- 
-`function_name`      | String  | Required | The name of the AWS Lambda function to invoke.                               
+`function_name`      | String  | Required | The name of the AWS Lambda function to invoke. Default is `none`.
 `invocation_type`    | String  | Required | Specifies the invocation type, either `request-response` or `event`. Default is `request-response`.           
-`aws.region`         | String  | Required | The AWS Region in which the Lambda function is located.                         
-`aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function.               
+`aws.region`         | String  | Required | The AWS Region in which the Lambda function is located. Default is `none`.                         
+`aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function. Default is `none`.               
 `max_retries`        | Integer | Optional | The maximum number of retries for failed invocations. Default is `3`.             
-`batch`              | Object  | Optional | The batch settings for the Lambda invocations. Default is `key_name = "events"`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                            
-`lambda_when`        | String  | Optional | A conditional expression that determines when to invoke the Lambda processor.     
+`batch`              | Object  | Optional | The batch settings for the Lambda invocations. Default is `key_name = "events"`, threshold `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                            
+`lambda_when`        | String  | Optional | A conditional expression that determines when to invoke the Lambda processor. Default is `none`.     
 `response_codec`     | Object  | Optional |  A codec configuration for parsing Lambda responses. Default is `json`.
-`tags_on_match_failure` | List | Optional |  A list of tags to add to events when Lambda matching fails or encounters an unexpected error.
-`sdk_timeout`        | Duration| Optional | Configures the SDK's client connection timeout period. Default is `60s`. 
+`tags_on_match_failure` | List | Optional |  A list of tags to add to events when Lambda matching fails or encounters an unexpected error. Default is `[]`.
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
 `client`            | Object  | Optional | The client configuration.
-`api_call_timeout`   | Duration | Optional | The amount of time that the SDK maintains the API call before timing out, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
-`base_delay`         | Duration | Optional | The base delay for exponential backoff, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
-`connection_timeout` | Duration | Optional | The amount of time that the SDK maintains the connection to the client before timing out, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
-`max_backoff`        | Duration | Optional | The maximum backoff time for exponential backoff, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
-`max_concurrency`    | Integer  | Optional | The maximum concurrency defined on the client side. 
-`max_retries`        | Integer | Optional | The maximum number of retries before failing.  
+`api_call_timeout`   | Duration | Optional | The amount of time that the SDK maintains the API call before timing out, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations). Default is `60s`.
+`base_delay`         | Duration | Optional | The base delay for exponential backoff, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations). Default is `100ms`.
+`connection_timeout` | Duration | Optional | The amount of time that the SDK maintains the connection to the client before timing out, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations). Default is `60s`.
+`max_backoff`        | Duration | Optional | The maximum backoff time for exponential backoff, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations). Default is `20s`.
+`max_concurrency`    | Integer  | Optional | The maximum concurrency defined on the client side. Default is `200`.
+`max_retries`        | Integer | Optional | The maximum number of retries before failing. Default is `3`.
+`circuit_breaker_retries` | Integer | Optional | The number of retry attempts to perform when the circuit breaker is open before resuming normal processing. Default is `0`.
+`circuit_breaker_wait_interval` | Integer | Optional | The wait interval, in milliseconds, between circuit breaker retries. Default is `1000`.
 
+## Example configuration
 
-#### Example configuration
+The following is example configuration:
 
 ```
 processors:
@@ -61,8 +63,9 @@ processors:
           event_count: 100
           maximum_size: "5mb"
           event_collect_timeout: PT10S
+      circuit_breaker_retries: 30
+      circuit_breaker_wait_interval: 1000
       lambda_when: "event['status'] == 'process'"
-
 ```
 {% include copy.html %}
 
