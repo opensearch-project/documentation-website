@@ -61,7 +61,7 @@ For example, before you run the `delete_entries` processor, if the `logs_json.lo
 When you run the `delete_entries` processor, it parses the message into the following output:
 
 ```json
-{"message2": "goodbye", "message3": "test"}
+{"message2": "goodbye"}
 ```
 
 
