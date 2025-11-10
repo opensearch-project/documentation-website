@@ -94,7 +94,7 @@ When you run the `delete_entries` processor, it parses the message into the foll
 {"test": "friends"}
 ```
 
-#### Using `entries` field
+### Combining multiple deletion rules
 
 To get started, create the following `pipeline.yaml` file:
 
