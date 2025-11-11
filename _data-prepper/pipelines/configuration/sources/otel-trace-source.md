@@ -58,7 +58,7 @@ source:
 
 ## Example
 
-The following example demonstrates Data Prepper ingesting OTLP traces over HTTPS using a PEM cert and key with unframed HTTP at a custom path, accepting gzip payloads, preserving OTel shaped documents, and indexing them into OpenSearch:
+The following example shows Data Prepper ingesting OTLP traces over HTTPS using a PEM certificate and key with unframed HTTP at a custom path, accepting gzip-compressed payloads, preserving OpenTelemetry document structure, and indexing them into OpenSearch:
 
 ```yaml
 otel-traces-https:
