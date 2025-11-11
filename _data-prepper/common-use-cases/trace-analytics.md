@@ -333,7 +333,7 @@ You need to run OpenTelemetry Collector in your service environment. Follow [Get
 
 ### Example setup using Docker compose
 
-The following is an example configuration for OpenSearch, OpenSearch Dashboards, Data Prepper, and  OpenTelemetry Collector using Docker containers.
+The following is an example configuration for OpenSearch, OpenSearch Dashboards, Data Prepper, and OpenTelemetry Collector using Docker containers.
 
 Create certificates you will use for Data Prepper and store them in the `certs` directory:
 
@@ -528,7 +528,7 @@ service:
 ```
 {% include copy.html %}
 
-Start all the containers using `docker-compose up` command.
+Start all the containers using the `docker-compose up` command.
 
 Run the following command to start `telemetrygen`, which generates synthetic OpenTelemetry traces for 30 seconds (at approximately 50 spans/sec) and sends them to `otel-collector:4317` over plaintext gRPC:
 
