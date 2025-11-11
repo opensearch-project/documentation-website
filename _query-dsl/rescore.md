@@ -76,7 +76,7 @@ The `score_mode` parameter determines how OpenSearch combines the original score
 Mode | Description | Use case
 --- | --- | ---
 `total` | Adds original score + rescore score | General relevance improvement (default)
-`multiply` | Multiplies original score × rescore score | Effective with function queries that return values between 0-1
+`multiply` | Multiplies original score × rescore score | Effective with function queries that return values between 0 and 1
 `avg` | Averages the two scores | Balanced approach when both scores are equally important
 `max` | Uses the higher of the two scores | Ensures documents with high scores in either query rank well
 `min` | Uses the lower of the two scores | Conservative approach that requires both queries to agree
@@ -133,7 +133,7 @@ POST /_search
 {% include copy-curl.html %}
 
 In this multi-stage example:
-1. **First rescoring stage**: Examines 200 documents per shard, applying phrase matching to improve relevance.
-2. **Second rescoring stage**: Takes the top 50 results from the first stage and applies popularity-based scoring using a logarithmic function.
+1. The **first rescoring stage** examines 200 documents per shard, applying phrase matching to improve relevance.
+2. The **second rescoring stage** takes the top 50 results from the first stage and applies popularity-based scoring using a logarithmic function.
 
 Each stage processes the results from the previous stage, creating a refinement pipeline where computationally expensive operations only operate on the most promising candidates.
