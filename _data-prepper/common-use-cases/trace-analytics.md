@@ -525,17 +525,56 @@ Start all the containers using `docker-compose up` command.
 You can now use the following command to spin up `telemetrygen` and generate synthetic OpenTelemetry traces for 30 seconds (~50 spans/sec) and send them to `otel-collector:4317` over plaintext gRPC:
 
 ```bash
-docker run --rm --network <docker_network_name> \ 
-  ghcr.io/open-telemetry/opentelemetry-collector-contrib/telemetrygen:latest \ 
-  traces \ 
-  --otlp-endpoint=otel-collector:4317 \ 
-  --otlp-insecure \ 
-  --duration=30s \ 
+docker run --rm --network anton_opensearch-net \
+  ghcr.io/open-telemetry/opentelemetry-collector-contrib/telemetrygen:latest \
+  traces \
+  --otlp-endpoint=otel-collector:4317 \
+  --otlp-insecure \
+  --duration=30s \
   --rate=50
 ```
 {% include copy.html %}
 
-This will push sample telemetry to alias `otel-v1-apm-span` and store the documents in index `otel-v1-apm-span-000001`.
+This will push sample telemetry to alias `otel-v1-apm-span` and store the documents in index `otel-v1-apm-span-000001`. The stored documents will have the following structure: 
+
+```
+
+"hits": [
+  {
+    "_index": "otel-v1-apm-span-000001",
+    "_id": "b7446942445f1f0220cc9e3707dcd7d3/153de4602f5169d3",
+    "_score": 1,
+    "_source": {
+      "traceId": "b7446942445f1f0220cc9e3707dcd7d3",
+      "droppedLinksCount": 0,
+      "kind": "SPAN_KIND_CLIENT",
+      "droppedEventsCount": 0,
+      "traceGroupFields": {
+        "endTime": "2025-11-11T12:52:42.791867180Z",
+        "durationInNanos": 123000,
+        "statusCode": 0
+      },
+      "traceGroup": "lets-go",
+      "serviceName": "telemetrygen",
+      "parentSpanId": "",
+      "spanId": "153de4602f5169d3",
+      "traceState": "",
+      "name": "lets-go",
+      "startTime": "2025-11-11T12:52:42.791744180Z",
+      "links": [],
+      "endTime": "2025-11-11T12:52:42.791867180Z",
+      "droppedAttributesCount": 0,
+      "durationInNanos": 123000,
+      "events": [],
+      "span.attributes.network@peer@address": "1.2.3.4",
+      "instrumentationScope.name": "telemetrygen",
+      "span.attributes.peer@service": "telemetrygen-server",
+      "resource.attributes.service@name": "telemetrygen",
+      "status.code": 0
+    }
+  },
+  ...
+```
 
 After you run OpenTelemetry in your service environment, you must configure your application to use the OpenTelemetry Collector. The OpenTelemetry Collector typically runs alongside your application.
 
