@@ -7,7 +7,7 @@ nav_order: 10
 
 # Match query
 
-Use the `match` query for full-text search on a specific document field. If you run a `match` query on a [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field, the `match` query [analyzes]({{site.url}}{{site.baseurl}}/analyzers/index/) the provided search string and returns documents that match any of the string's terms. If you run a `match` query on an exact-value field, it returns documents that match the exact value. The preferred way to search exact-value fields is to use a filter because, unlike a query, a filter is cached.
+Use the `match` query for full-text search on a specific document field. If you run a `match` query on a [`text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) field, the `match` query [analyzes]({{site.url}}{{site.baseurl}}/analyzers/index/) the provided search string and returns documents that match any of the string's terms. If you run a `match` query on an exact-value field, it returns documents that match the exact value. The preferred way to search exact-value fields is to use a filter because, unlike a query, a filter is cached.
 
 The following example shows a basic `match` query for the word `wind` in the `title`:
 

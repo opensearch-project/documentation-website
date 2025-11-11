@@ -116,7 +116,7 @@ The following example demonstrates how to build a pipeline that supports the [Op
 
 Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_traces_prepper` processor. The `otel_traces` processor replaces the `otel_traces_prepper` processor and supports some of Data Prepper's recent data model changes. Instead, you should use the `otel_traces` processor. See the following YAML file example:
 
-```yml
+```yaml
 entry-pipeline:
   delay: "100"
   source:
@@ -167,6 +167,7 @@ service-map-pipeline:
         password: admin
         index_type: trace-analytics-service-map
 ```
+{% include copy.html %}
 
 To maintain similar ingestion throughput and latency, scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload. {: .tip}
 
@@ -186,6 +187,7 @@ source:
         username: "my-user"
         password: "my_s3cr3t"
 ```
+{% include copy.html %}
 
 #### Example: pipeline.yaml
 
@@ -193,14 +195,14 @@ The following is an example `pipeline.yaml` file without SSL and basic authentic
 
 ```yaml
 otel-trace-pipeline:
-  # workers is the number of threads processing data in each pipeline. 
+  # workers is the number of threads processing data in each pipeline.
   # We recommend same value for all pipelines.
   # default value is 1, set a value based on the machine you are running Data Prepper
-  workers: 8 
+  workers: 8
   # delay in milliseconds is how often the worker threads should process data.
   # Recommend not to change this config as we want the entry-pipeline to process as quick as possible
   # default value is 3_000 ms
-  delay: "100" 
+  delay: "100"
   source:
     otel_trace_source:
       #record_type: event  # Add this when using Data Prepper 1.x. This option is removed in 2.0
@@ -209,8 +211,8 @@ otel-trace-pipeline:
         unauthenticated:
   buffer:
     bounded_blocking:
-       # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memeory. 
-       # We recommend to keep the same buffer_size for all pipelines. 
+       # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memeory.
+       # We recommend to keep the same buffer_size for all pipelines.
        # Make sure you configure sufficient heap
        # default value is 512
        buffer_size: 512
@@ -225,9 +227,9 @@ otel-trace-pipeline:
         name: "entry-pipeline"
 raw-trace-pipeline:
   # Configure same as the otel-trace-pipeline
-  workers: 8 
+  workers: 8
   # We recommend using the default value for the raw-trace-pipeline.
-  delay: "3000" 
+  delay: "3000"
   source:
     pipeline:
       name: "entry-pipeline"
@@ -248,7 +250,7 @@ raw-trace-pipeline:
         # Change to your credentials
         username: "admin"
         password: "admin"
-        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
+        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
         # Fine-Grained Access Control, enable these settings. Comment out the
@@ -262,7 +264,7 @@ raw-trace-pipeline:
         # Change to your credentials
         username: "admin"
         password: "admin"
-        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
+        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
         # Fine-Grained Access Control, enable these settings. Comment out the
@@ -277,14 +279,14 @@ service-map-pipeline:
       name: "entry-pipeline"
   processor:
     - service_map:
-        # The window duration is the maximum length of time the data prepper stores the most recent trace data to evaluvate service-map relationships. 
+        # The window duration is the maximum length of time the data prepper stores the most recent trace data to evaluvate service-map relationships.
         # The default is 3 minutes, this means we can detect relationships between services from spans reported in last 3 minutes.
-        # Set higher value if your applications have higher latency. 
-        window_duration: 180 
+        # Set higher value if your applications have higher latency.
+        window_duration: 180
   buffer:
       bounded_blocking:
-         # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memeory. 
-         # We recommend to keep the same buffer_size for all pipelines. 
+         # buffer_size is the number of ExportTraceRequest from otel-collector the data prepper should hold in memeory.
+         # We recommend to keep the same buffer_size for all pipelines.
          # Make sure you configure sufficient heap
          # default value is 512
          buffer_size: 512
@@ -299,7 +301,7 @@ service-map-pipeline:
         # Change to your credentials
         username: "admin"
         password: "admin"
-        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
+        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
         # Fine-Grained Access Control, enable these settings. Comment out the
@@ -307,6 +309,7 @@ service-map-pipeline:
         #aws_sigv4: true
         #aws_region: us-east-1
 ```
+{% include copy.html %}
 
 You need to modify the preceding configuration for your OpenSearch cluster so that the configuration matches your environment. Note that it has two `opensearch` sinks that need to be modified.
 {: .note}
@@ -328,7 +331,7 @@ You need to run OpenTelemetry Collector in your service environment. Follow [Get
 
 The following is an example `otel-collector-config.yaml` file:
 
-```
+```yaml
 receivers:
   jaeger:
     protocols:
@@ -356,6 +359,7 @@ service:
       processors: [batch/traces]
       exporters: [otlp/data-prepper]
 ```
+{% include copy.html %}
 
 After you run OpenTelemetry in your service environment, you must configure your application to use the OpenTelemetry Collector. The OpenTelemetry Collector typically runs alongside your application.
 

@@ -18,6 +18,18 @@ For information about user access for this API, see [Model access control consid
 POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>
 ```
 
+## Request body fields
+
+The following table lists the available request fields.
+
+Field | Data type | Required/Optional | Description
+:---  | :--- | :--- | :---
+`parameters` | Object | Optional | Model-specific parameters for prediction.
+`parameters.input_processors` | Array | Optional | A list of processors used to transform the input data before sending it to the model. For more information, see [Processor chain]({{site.url}}{{site.baseurl}}/ml-commons-plugin/processor-chain/).
+`parameters.output_processors` | Array | Optional | A list of processors used to transform the model's output data. For more information, see [Processor chain]({{site.url}}{{site.baseurl}}/ml-commons-plugin/processor-chain/).
+
+For externally hosted models, the actual input fields depend on the model's connector configuration. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+
 ## Example request
 
 ```json

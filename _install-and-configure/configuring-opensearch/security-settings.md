@@ -125,7 +125,7 @@ If you change any of the following password hashing properties, you must rehash 
 
 - `plugins.security.password.hashing.algorithm`: (Static): Specifies the password hashing algorithm to use. The following values are supported:  
   - `BCrypt` (Default)
-  - `PBKDF2` 
+  - `PBKDF2` (Compliant with FIPS 140-2 and FIPS 140-3)
   - `Argon2`
 
 - `plugins.security.password.hashing.bcrypt.rounds` (Static): Specifies the number of rounds to use for password hashing with `BCrypt`. Valid values are between `4` and `31`, inclusive. Default is `12`.

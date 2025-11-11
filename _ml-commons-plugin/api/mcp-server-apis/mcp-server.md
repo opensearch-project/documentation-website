@@ -63,7 +63,47 @@ asyncio.run(main())
 
 While not required for normal usage, you can manually invoke the MCP server using JSON-RPC calls over HTTP. The following example presents typical MCP client behavior.
 
-#### Step 1: Initialize a connection
+#### Step 1 (Optional): Register custom tools
+
+Before connecting to the MCP server, you can register custom tools using the [Register MCP Tools API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/). For example, to register a [List Index tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/list-index-tool/), send the following request :
+
+```json
+POST /_plugins/_ml/mcp/register
+{
+    "tools": [
+        {
+            "name": "ListIndexTool",
+            "type": "ListIndexTool",
+            "description": "This tool returns information about indices in the OpenSearch cluster along with the index `health`, `status`, `index`, `uuid`, `pri`, `rep`, `docs.count`, `docs.deleted`, `store.size`, `pri.store. size `, `pri.store.size`, `pri.store`. Optional arguments: 1. `indices`, a comma-delimited list of one or more indices to get information from (default is an empty list meaning all indices). Use only valid index names. 2. `local`, whether to return information from the local node only instead of the cluster manager node (Default is false)",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "indices": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "OpenSearch index name list, separated by comma. for example: [\"index1\", \"index2\"], use empty array [] to list all indices in the cluster"
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    ]
+}
+```
+{% include copy-curl.html %}
+
+The server responds with confirmation that the tool was registered:
+
+```json
+200 OK
+{
+  "message": "Tool 'ListIndexTool' registered successfully"
+}
+```
+
+#### Step 2: Initialize a connection
 
 Send an `initialize` method with your client information and capabilities. Note that the `protocolVersion` must match the MCP specification version:
 
@@ -121,7 +161,7 @@ The server responds with its capabilities and server information. The `tools.lis
 }
 ```
 
-#### Step 2: Send an initialization complete notification
+#### Step 3: Send an initialization complete notification
 
 Send a notification to indicate that initialization is complete. This notification does not expect a response payload:
 
@@ -141,7 +181,7 @@ The server acknowledges the notification with a `202 Accepted` status:
 202 Accepted
 ```
 
-#### Step 3: List available tools
+#### Step 4: List available tools
 
 Use the `tools/list` method to discover available tools:
 
@@ -189,7 +229,7 @@ The server returns an array of available tools with their names, descriptions, a
 }
 ```
 
-#### Step 4: Call a tool
+#### Step 5: Call a tool
 
 Use the `tools/call` method to invoke a specific tool. Provide the tool name and arguments that match the tool's input schema:
 

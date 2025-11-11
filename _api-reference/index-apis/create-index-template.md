@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Create or update index template
-parent: Index APIs
-nav_order: 35
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 10
 ---
 
 # Create Or Update Index Template API
@@ -68,7 +69,7 @@ Parameter | Data type | Description
 
 #### `mappings`
 
-The field mappings that exist in the index. For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/). Optional.
+The field mappings that exist in the index. For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/). Optional.
 
 #### `settings`
 

@@ -125,7 +125,7 @@ The response contains the matching documents:
 }
 ```
 
-## Related pages
+## Related documentation
 
 - [Agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/)
 - [Agentic query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/agentic/)
