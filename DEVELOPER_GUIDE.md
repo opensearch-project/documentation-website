@@ -300,3 +300,78 @@ cd spec-insert
 bundle exec rake generate_dry_run_report
 ```
 This will also generate a markdown (.md) file for each API with their rendered components in the `spec-insert/dry_run` folder. This allows you to preview the rendered components for all APIs without modifying the original documentation files. A report summarizing the errors found during the dry-run will be generated in the `spec-insert/dry_run_report.md` file.
+
+## PDF Generation
+
+The documentation website supports generating PDF versions of the developer guides and other documentation sections. This feature allows users to download complete documentation sets for offline use, easier searching, and integration with AI tools.
+
+### Generating PDFs Locally
+
+To generate PDFs locally:
+
+1. **Install Node.js dependencies:**
+   ```shell
+   npm install
+   ```
+
+2. **Build the Jekyll site:**
+   ```shell
+   bundle exec jekyll build
+   ```
+
+3. **Generate PDFs:**
+   ```shell
+   npm run generate-pdfs
+   ```
+
+   Or generate a PDF for a specific collection:
+   ```shell
+   npm run generate-pdfs -- --collection developer-documentation
+   ```
+
+The generated PDFs will be saved in the `pdfs/` directory.
+
+### PDF Generation Configuration
+
+PDF generation is configured in `pdf-config.json`. This file defines:
+- Which collections to convert to PDFs
+- PDF output settings (format, margins, headers, footers)
+- Base URL and output directory
+
+You can customize the configuration by editing `pdf-config.json`.
+
+### CI/CD Integration
+
+PDF generation runs automatically in CI/CD through the [generate-pdfs.yml](.github/workflows/generate-pdfs.yml) GitHub Actions workflow. This workflow:
+
+- Runs weekly on Sundays at 2 AM UTC
+- Can be triggered manually via `workflow_dispatch`
+- Builds the Jekyll site
+- Generates PDFs for all configured collections
+- Uploads PDFs as GitHub Actions artifacts
+
+The workflow runs separately from the main Jekyll build to avoid adding to build time.
+
+### Available PDFs
+
+The following documentation sections are available as PDFs (as configured in `pdf-config.json`):
+
+- OpenSearch Developer Guide
+- Getting Started Guide
+- API Reference
+- Install and Configure Guide
+- Cluster Tuning Guide
+- Security Guide
+- Query DSL Guide
+- Search Features Guide
+- Vector Search Guide
+- Machine Learning Guide
+
+### Copyright and Usage
+
+OpenSearch documentation is licensed under the Apache License 2.0, which allows you to:
+- Use the PDFs for personal or commercial purposes
+- Upload PDFs to AI tools (ChatGPT, NotebookLLM, etc.) for knowledge summarization
+- Share and distribute the PDFs
+
+Proper attribution should be maintained when using the documentation.
