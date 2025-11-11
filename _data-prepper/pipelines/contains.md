@@ -40,7 +40,6 @@ The `contains()` function performs a case-sensitive search.
 
 The following pipeline uses the `contains()` function to add a Boolean flag `has_test` based on a substring in `/message` and filters out non-matching events, forwarding only messages that contain the string `ERROR` to OpenSearch:
 
-
 ```yaml
 contains-demo-pipeline:
   source:
