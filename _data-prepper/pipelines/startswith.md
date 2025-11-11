@@ -38,7 +38,7 @@ The `startsWith()` function performs a case-sensitive check.
 
 ## Example
 
-The following pipeline uses `startsWith()` to add two boolean flags `starts_abcd` and `starts_error`, and only forwards events to OpenSearch that beginning with "ERROR:":
+The following pipeline uses the `startsWith()` function to add two Boolean flags, `starts_abcd` and `starts_error`, to each event and forwards only events that start with the string `ERROR:` to OpenSearch:
 
 ```yaml
 startswith-demo:
