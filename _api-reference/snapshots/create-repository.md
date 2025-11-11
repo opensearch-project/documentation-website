@@ -9,15 +9,18 @@ nav_order: 1
 **Introduced 1.0**
 {: .label .label-purple }
 
+
 You can register a new repository in which to store snapshots or update information for an existing repository by using the snapshots API.
 
-There are two types of snapshot repositories:
+Snapshot repositories can be of the following types:
 
 * File system (`fs`): For instructions on creating an `fs` repository, see [Register repository shared file system]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
 
 * Amazon Simple Storage Service (Amazon S3) bucket (`s3`): For instructions on creating an `s3` repository, see [Register repository Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
 
-For instructions on creating a repository, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
+* Hadoop Distributed File System (HDFS) (`hdfs`): For instructions on creating an `hdfs` repository, see [Register an HDFS repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#hdfs).
+
+For instructions on creating a repository, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#register-repository).
 
 ## Endpoints
 
@@ -34,7 +37,10 @@ Parameter | Data type | Description
 
 ## Request parameters
 
-Request parameters depend on the type of repository: `fs` or `s3`.
+Request parameters depend on the type of repository:
+  - `fs`
+  - `s3`
+  - `hdfs`
 
 ### Common parameters
 
@@ -73,6 +79,8 @@ Request field | Description
 |:--------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `base_path`                                 | The path within the bucket in which you want to store snapshots (for example, `my/snapshot/directory`). Optional. If not specified, snapshots are stored in the S3 bucket root.                                                                                                                                                                                                                                                                    |
 | `bucket`                                    | Name of the S3 bucket. Required.                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `region`                                    | The AWS Region in which the S3 bucket is located. Optional. If missing, values of `s3.client.default.region` from `opensearch.yml` are used.                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `endpoint`                                    | The S3 bucket endpoint. Optional. Required if `region` is set for Opensearch 2.9 and later. For example, for `us-west-2`, use `https://s3.us-west-2.amazonaws.com`. If missing, values of `s3.client.default.endpoint` from `opensearch.yml` are used.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `buffer_size`                               | The threshold beyond which chunks (of `chunk_size`) should be broken into pieces (of `buffer_size`) and sent to S3 using a different API. Default is the smaller of two values: 100 MB or 5% of the Java heap. Valid values are between `5mb` and `5gb`. We don't recommend changing this option.                                                                                                                                                  |
 | `canned_acl`                                | S3 has several [canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) that the `repository-s3` plugin can add to objects as it creates them in S3. Default is `private`. Optional.                                                                                                                                                                                                                            |
 | `chunk_size`                                | Breaks files into chunks during snapshot operations (for example, `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `1gb`. Optional.                                                                                                                                                                                                                                               |
@@ -96,6 +104,17 @@ For the `base_path` parameter, do not enter the `s3://` prefix when entering you
 
 The `server_side_encryption` setting is removed as of OpenSearch 3.1.0. S3 applies server-side encryption as the base level of encryption for all S3 buckets. Because this cannot be disabled, this value repository setting had no effect. For more information, see [Protecting data with server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html).
 {: .note}
+
+### hdfs repository
+
+| Request field        | Description                                                                                                 |
+|:---------------------|:------------------------------------------------------------------------------------------------------------|
+| `uri`                | The HDFS URI of the `hdfs://<HOST>:<PORT>/path/to/backup` format. Required.                                 |
+| `path`               | The path within HDFS where you want to store snapshots (for example, `/my/snapshot/directory`). Required.   |
+| `security.principal` | The Kerberos principal to use when connecting to HDFS. Optional.                                            |
+| `conf.<key>`         | Additional HDFS client configuration settings (for example, `core-site.xml` or `hdfs-site.xml`). Optional.  |
+
+
 
 ## Example requests
 
@@ -245,6 +264,53 @@ response = client.snapshot.create_repository(
   }
 }
 '''
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+### `hdfs`
+
+The following request registers a new HDFS repository using the HDFS URI `hdfs://namenode:8020` and the HDFS filesystem path `/opensearch/snapshots`:
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_snapshot/my-hdfs-repository
+body: |
+{
+  "type": "hdfs",
+  "settings": {
+    "uri": "hdfs://namenode:8020",
+    "path": "/opensearch/snapshots"
+  }
+}
+-->
+{% capture step1_rest %}
+PUT /_snapshot/my-hdfs-repository
+{
+  "type": "hdfs",
+  "settings": {
+    "uri": "hdfs://namenode:8020",
+    "path": "/opensearch/snapshots"
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.create_repository(
+  repository = "my-hdfs-repository",
+  body =   {
+    "type": "hdfs",
+    "settings": {
+      "uri": "hdfs://namenode:8020",
+      "path": "/opensearch/snapshots"
+    }
+  }
 )
 
 {% endcapture %}

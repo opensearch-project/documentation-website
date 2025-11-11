@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Simulate index templates
-parent: Index APIs
-nav_order: 145
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 50
 ---
 
 # Simulate Index Templates API

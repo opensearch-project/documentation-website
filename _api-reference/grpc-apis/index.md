@@ -15,28 +15,33 @@ redirect_from:
 **Bulk and k-NN search generally available 3.2**
 {: .label .label-green }
 
-Starting with OpenSearch version 3.2, the gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available. These use [protobuf version 0.6.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.6.0). However, expect updates to the protobuf structure as the feature matures in upcoming versions. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of these features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
+Starting with OpenSearch version 3.2, the gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available. These use [protobuf version 0.19.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.19.0). However, expect updates to the protobuf structure as the feature matures in upcoming versions. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of these features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
 {: .note}
 
-The OpenSearch gRPC functionality provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results.
+The OpenSearch gRPC functionality provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results. For more information, see [Performance Benefits](#grpc-performance-benefits).
 
-The primary goal of gRPC support is to:
+## Supported APIs
 
-* Offer a **binary-encoded** alternative to HTTP/REST-based communication.
-* **Improve performance** for bulk workloads and large-scale ingestion scenarios.
-* **Enable more efficient client integrations** across languages, like Java, Go, and Python, using native gRPC stubs.
+The following gRPC APIs are currently supported:
+- [Bulk]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) **Generally available 3.2**
+- [k-NN]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) **Generally available 3.2**
+- [Search]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/) (for select query types)
 
-## Performance benefits
+## How to use gRPC APIs
 
-Using gRPC APIs provides several advantages over HTTP APIs:
+To use gRPC APIs, follow these steps:
+1. Enable gRPC transport by configuring the necessary [gRPC settings](#grpc-settings).
 
-- **Reduced latency**: Binary protocol buffers eliminate JSON parsing overhead.
-- **Higher throughput**: More efficient network utilization for high-frequency queries.
-- **Lower CPU usage**: Reduced serialization and deserialization costs.
-- **Type safety**: Protocol buffer schemas provide compile-time validation.
-- **Smaller payload sizes**: Binary encoding reduces network traffic.
+2. To submit gRPC requests, you must have a set of protobufs on the client side. You can obtain the protobufs in the following ways.
 
-## Enabling gRPC APIs
+| Language | Distribution method | Instructions |
+| :------- | :------------------ | :----------- |
+| Java | Maven Central repository | Download the `opensearch-protobufs` jar from the [Maven Central repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.19.0). |
+| Python | PyPI repository | Download the `opensearch-protobufs` package from the [PyPI repository](https://pypi.org/project/opensearch-protobufs/0.19.0). |
+| Other languages | GitHub repository (raw protobufs) | Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.19.0)](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.19.0). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/). |
+
+
+## gRPC settings
 
 The `transport-grpc` module is included by default with OpenSearch installations. To enable it, add the following settings to `opensearch.yml`:
 
@@ -63,7 +68,7 @@ grpc.bind_host: 0.0.0.0
 ```
 {% include copy.html %}
 
-## Advanced gRPC settings
+### Advanced gRPC settings
 
 OpenSearch supports the following advanced settings for gRPC communication. These settings can be configured in `opensearch.yml`.
 
@@ -74,6 +79,7 @@ OpenSearch supports the following advanced settings for gRPC communication. Thes
 | `grpc.bind_host` | A list of addresses to bind the gRPC server to. Can be distinct from publish hosts. | `["0.0.0.0", "::"]` | Value of `grpc.host` |
 | `grpc.publish_host` | A list of hostnames or IPs published to peers for client connections. | `["thisnode.example.com"]` | Value of `grpc.host` |
 | `grpc.netty.worker_count` | The number of Netty worker threads for the gRPC server. Controls concurrency and parallelism. | `2` | Number of processors |
+| `grpc.netty.executor_count` | The number of threads in the fork-join pool for processing gRPC service calls. Controls request processing parallelism. | `32` | `2 * number of processors` |
 | `grpc.netty.max_concurrent_connection_calls` | The maximum number of simultaneous in-flight requests allowed per client connection. | `200` | `100` |
 | `grpc.netty.max_connection_age` | The maximum age a connection can reach before being gracefully closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `500ms` | Not set (no limit) |
 | `grpc.netty.max_connection_idle` | The maximum duration for which a connection can be idle before being closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `2m` | Not set (no limit) |
@@ -105,18 +111,16 @@ grpc.netty.max_msg_size: 10mb
 
 These settings are similar to the [HTTP Network settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/network-settings/#advanced-http-settings) but specifically apply to gRPC communication.
 
-## Using gRPC APIs
 
-To submit gRPC requests, you must have a set of protobufs on the client side. You can obtain the protobufs in the following ways:
+## gRPC performance benefits
 
-- **Raw protobufs**: Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.6.0)](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.6.0). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/).
-- **Java client-side programs only**: Download the `opensearch-protobufs` jar from the [Maven Central repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.6.0).
-- **Python client-side programs only**: Download the `opensearch-protobufs` package from the [PyPI repository](https://pypi.org/project/opensearch-protobufs/).
+Using gRPC APIs provides several advantages over HTTP APIs:
 
-## Supported APIs
+- **Reduced latency**: Binary protocol buffers eliminate JSON parsing overhead.
+- **Higher throughput**: More efficient network utilization for high-frequency queries.
+- **Lower CPU usage**: Reduced serialization and deserialization costs.
+- **Type safety**: Protocol buffer schemas provide compile-time validation.
+- **Smaller payload sizes**: Binary encoding reduces network traffic.
 
-The following gRPC APIs are supported:
-
-- [Bulk]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) **Generally available 3.2**
-- [k-NN]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) **Generally available 3.2**
-- [Search]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/) (for select query types)
+### Additional performance tip
+Indexing documents as supported binary formats, such as SMILE, will usually incur lower latency than indexing/searching for them as JSON. Both indexing and searching latency should be reduced.

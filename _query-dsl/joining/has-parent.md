@@ -7,14 +7,14 @@ nav_order: 20
 
 # Has parent query
 
-The `has_parent` query returns child documents whose parent documents match a specific query. You can establish parent/child relationships between documents in the same index by using a [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) field type.
+The `has_parent` query returns child documents whose parent documents match a specific query. You can establish parent/child relationships between documents in the same index by using a [join]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/join/) field type.
 
 The `has_parent` query is slower than other queries because of the join operation it performs. Performance decreases as the number of matching parent documents increases. Each `has_parent` query in your search may significantly impact query performance. If you prioritize speed, avoid using this query or limit its usage as much as possible.
 {: .warning}
 
 ## Example 
 
-Before you can run a `has_parent` query, your index must contain a [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) field in order to establish parent/child relationships. The index mapping request uses the following format:
+Before you can run a `has_parent` query, your index must contain a [join]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/join/) field in order to establish parent/child relationships. The index mapping request uses the following format:
 
 ```json
 PUT /example_index
