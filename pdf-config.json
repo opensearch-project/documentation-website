@@ -1,0 +1,91 @@
+{
+  "outputDir": "pdfs",
+  "collections": [
+    {
+      "name": "developer-documentation",
+      "title": "OpenSearch Developer Guide",
+      "filename": "opensearch-developer-guide.pdf",
+      "description": "Complete developer documentation for OpenSearch",
+      "startPath": "/developer-documentation/"
+    },
+    {
+      "name": "getting-started",
+      "title": "OpenSearch Getting Started Guide",
+      "filename": "opensearch-getting-started.pdf",
+      "description": "Getting started guide for OpenSearch",
+      "startPath": "/getting-started/"
+    },
+    {
+      "name": "api-reference",
+      "title": "OpenSearch API Reference",
+      "filename": "opensearch-api-reference.pdf",
+      "description": "Complete API reference documentation",
+      "startPath": "/api-reference/"
+    },
+    {
+      "name": "install-and-configure",
+      "title": "OpenSearch Install and Configure Guide",
+      "filename": "opensearch-install-configure.pdf",
+      "description": "Installation and configuration guide",
+      "startPath": "/install-and-configure/"
+    },
+    {
+      "name": "tuning-your-cluster",
+      "title": "OpenSearch Cluster Tuning Guide",
+      "filename": "opensearch-cluster-tuning.pdf",
+      "description": "Guide for creating and tuning your cluster",
+      "startPath": "/tuning-your-cluster/"
+    },
+    {
+      "name": "security",
+      "title": "OpenSearch Security Guide",
+      "filename": "opensearch-security.pdf",
+      "description": "Security configuration and management guide",
+      "startPath": "/security/"
+    },
+    {
+      "name": "query-dsl",
+      "title": "OpenSearch Query DSL Guide",
+      "filename": "opensearch-query-dsl.pdf",
+      "description": "Query DSL documentation",
+      "startPath": "/query-dsl/"
+    },
+    {
+      "name": "search-plugins",
+      "title": "OpenSearch Search Features Guide",
+      "filename": "opensearch-search-features.pdf",
+      "description": "Search features and plugins documentation",
+      "startPath": "/search-plugins/"
+    },
+    {
+      "name": "vector-search",
+      "title": "OpenSearch Vector Search Guide",
+      "filename": "opensearch-vector-search.pdf",
+      "description": "Vector search documentation",
+      "startPath": "/vector-search/"
+    },
+    {
+      "name": "ml-commons-plugin",
+      "title": "OpenSearch Machine Learning Guide",
+      "filename": "opensearch-machine-learning.pdf",
+      "description": "Machine learning plugin documentation",
+      "startPath": "/ml-commons-plugin/"
+    }
+  ],
+  "pdfOptions": {
+    "format": "A4",
+    "printBackground": true,
+    "margin": {
+      "top": "20mm",
+      "right": "15mm",
+      "bottom": "20mm",
+      "left": "15mm"
+    },
+    "displayHeaderFooter": true,
+    "headerTemplate": "<div style='font-size: 10px; text-align: center; width: 100%; color: #666;'><span class='title'></span></div>",
+    "footerTemplate": "<div style='font-size: 10px; text-align: center; width: 100%; color: #666;'><span class='pageNumber'></span> / <span class='totalPages'></span></div>"
+  },
+  "waitForSelector": ".main-content",
+  "waitTimeout": 30000
+}
+
