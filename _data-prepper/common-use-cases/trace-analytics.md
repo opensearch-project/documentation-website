@@ -384,7 +384,8 @@ services:
     environment:
       OPENSEARCH_HOSTS: '["https://opensearch:9200"]'
       OPENSEARCH_USERNAME: admin
-      OPENSEARCH_PASSWORD: "<strong_password>"   # must match OpenSearch
+      # password must match OpenSearch
+      OPENSEARCH_PASSWORD: "<strong_password>"   
     ports:
       - "5601:5601"
     depends_on: [opensearch]
@@ -398,8 +399,10 @@ services:
       - ./config/data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml:ro
       - ./certs:/usr/share/data-prepper/certs:ro
     ports:
-      - "4900:4900"      # Data Prepper control API (HTTP)
-      - "21890:21890"    # OTLP gRPC (TLS)
+      # Data Prepper control API (HTTP)
+      - "4900:4900"
+      # OTLP gRPC (TLS)
+      - "21890:21890"    
     depends_on: [opensearch]
     networks: [opensearch-net]
 
@@ -411,8 +414,10 @@ services:
     depends_on: [data-prepper]
     networks: [opensearch-net]
     ports:
-      - "4317:4317"   # OTLP gRPC
-      - "4318:4318"   # OTLP HTTP (optional)
+      # OTLP gRPC
+      - "4317:4317"
+      # OTLP HTTP (optional)
+      - "4318:4318"
 ```
 {% include copy.html %}
 
@@ -496,7 +501,8 @@ exporters:
   otlp:
     endpoint: data-prepper:21890
     tls:
-      insecure_skip_verify: true   # TLS is enabled, but hostname/chain is not verified
+      # TLS is enabled, but hostname/chain is not verified
+      insecure_skip_verify: true   
   # optional: see incoming/outgoing spans in logs
   debug:
     verbosity: basic
@@ -537,8 +543,7 @@ docker run --rm --network anton_opensearch-net \
 
 This will push sample telemetry to alias `otel-v1-apm-span` and store the documents in index `otel-v1-apm-span-000001`. The stored documents will have the following structure: 
 
-```
-
+```json
 "hits": [
   {
     "_index": "otel-v1-apm-span-000001",
