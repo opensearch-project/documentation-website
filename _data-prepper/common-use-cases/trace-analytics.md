@@ -49,8 +49,8 @@ OpenSearch provides a generic sink that writes data to OpenSearch as the destina
 
 The sink provides specific configurations for the trace analytics feature. These configurations allow the sink to use indexes and index templates specific to trace analytics. The following OpenSearch indexes are specific to trace analytics:
 
-* otel-v1-apm-span – The *otel-v1-apm-span* index stores the output from the [otel_traces]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-traces/) processor.
-* otel-v1-apm-service-map – The *otel-v1-apm-service-map* index stores the output from the [service_map]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map/) processor.
+* otel-v1-apm-span -- The *otel-v1-apm-span* index stores the output from the [otel_traces]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-traces/) processor.
+* otel-v1-apm-service-map -- The *otel-v1-apm-service-map* index stores the output from the [service_map]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map/) processor.
 
 ## Trace tuning
 
@@ -114,7 +114,7 @@ The following sections provide examples of different types of pipelines and how 
 
 The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines serve two different purposes and write to different OpenSearch indexes. The first pipeline prepares trace data for OpenSearch and enriches and ingests the span documents into a span index within OpenSearch. The second pipeline aggregates traces into a service map and writes service map documents into a service map index within OpenSearch.
 
-Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_traces_prepper` processor. The `otel_traces` processor replaces the `otel_traces_prepper` and `otel_trace_raw` processors and supports some of Data Prepper's recent data model changes. See the following YAML file example:
+Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_traces_prepper` processor. The `otel_traces` processor replaces the `otel_traces_prepper` and `otel_trace_raw` processors and supports some of Data Prepper's recent data model changes. The following is an example YAML file configuration:
 
 ```yaml
 entry-pipeline:
@@ -333,9 +333,9 @@ You need to run OpenTelemetry Collector in your service environment. Follow [Get
 
 ### Example setup using Docker compose
 
-The following is an example configuration for OpenSearch, OpenSearch Dashboards, Data Prepper and  OpenTelemetry Collector using Docker containers.
+The following is an example configuration for OpenSearch, OpenSearch Dashboards, Data Prepper, and  OpenTelemetry Collector using Docker containers.
 
-Create certificates you will use for Data Prepper and store them in `certs` directory:
+Create certificates you will use for Data Prepper and store them in the `certs` directory:
 
 ```bash
 mkdir -p certs
@@ -352,10 +352,8 @@ openssl req -x509 -nodes -newkey rsa:2048 \
 
 Create the following files:
 
-`docker-compose.yaml`
+`docker-compose.yaml` file:
 
-Follow the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements) to set a strong admin password.
-{: .note}
 
 ```yaml
 version: "3.8"
@@ -421,7 +419,11 @@ services:
 ```
 {% include copy.html %}
 
-`pipelines/pipelines.yaml`:
+
+Follow the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements) to set a strong admin password.
+{: .note}
+
+`pipelines/pipelines.yaml` file:
 
 ```yaml
 entry-pipeline:
@@ -473,7 +475,7 @@ service-map-pipeline:
 ```
 {% include copy.html %}
 
-`config/data-prepper-config.yaml`:
+`config/data-prepper-config.yaml` file:
 
 ```yaml
 # Disable TLS on the Data Prepper REST API (local only)
@@ -486,7 +488,7 @@ peer_forwarder:
 ```
 {% include copy.html %}
 
-`otel-collector.yaml`:
+`otel-collector.yaml` file:
 
 ```yaml
 receivers:
@@ -528,7 +530,7 @@ service:
 
 Start all the containers using `docker-compose up` command.
 
-You can now use the following command to spin up `telemetrygen` and generate synthetic OpenTelemetry traces for 30 seconds (~50 spans/sec) and send them to `otel-collector:4317` over plaintext gRPC:
+Run the following command to start `telemetrygen`, which generates synthetic OpenTelemetry traces for 30 seconds (at approximately 50 spans/sec) and sends them to `otel-collector:4317` over plaintext gRPC:
 
 ```bash
 docker run --rm --network anton_opensearch-net \
@@ -541,7 +543,7 @@ docker run --rm --network anton_opensearch-net \
 ```
 {% include copy.html %}
 
-This will push sample telemetry to alias `otel-v1-apm-span` and store the documents in index `otel-v1-apm-span-000001`. The stored documents will have the following structure: 
+This will send sample telemetry to the alias `otel-v1-apm-span` and store the documents in the index `otel-v1-apm-span-000001`. The stored documents will have the following structure: 
 
 ```json
 "hits": [
