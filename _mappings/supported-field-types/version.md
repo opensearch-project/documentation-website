@@ -17,10 +17,10 @@ The `version` field type is designed for indexing and querying version strings t
 The `version` field type provides the following functionality:
 
 - Correctly parses semantic version strings with major, minor, and patch components
-- Handles pre-release identifiers like `-alpha`, `-beta`, `-rc.1`
+- Handles pre-release identifiers like `-alpha`, `-beta`, and `-rc.1`
 - Accepts build metadata like `+build.123` but ignores it for ordering (per SemVer specification)
-- Versions are sorted according to semantic versioning rules (e.g., `1.0.0-alpha < 1.0.0-beta < 1.0.0`)
-- Compatible with various query types including range, term, terms, wildcard, prefix, and more
+- Versions are sorted according to semantic versioning rules (for example, `1.0.0-alpha < 1.0.0-beta < 1.0.0`)
+- Compatible with various query types, including range, term, terms, wildcard, prefix, and more
 
 ## Version format
 
@@ -270,10 +270,10 @@ This request returns documents sorted in version order, with pre-release version
 
 The version field follows semantic versioning comparison rules:
 
-1. `major`, `minor`, `patch`: Compared numerically (`1.2.3` < `1.2.4` < `1.3.0` < `2.0.0`)
-2. Pre-release precedence: Pre-release versions have lower precedence than normal versions (`1.0.0-alpha` < `1.0.0`)
-3. Pre-release comparison: When both versions are pre-releases, they are compared lexically by each dot-separated identifier (`1.0.0-alpha` < `1.0.0-alpha.1` < `1.0.0-beta`)
-4. Build metadata ignored: Build metadata does not affect version precedence (`1.0.0+build.1` equals `1.0.0+build.2` for sorting purposes)
+1. `major`, `minor`, `patch`: Compared numerically (`1.2.3` < `1.2.4` < `1.3.0` < `2.0.0`).
+2. Pre-release precedence: Pre-release versions have lower precedence than normal versions (`1.0.0-alpha` < `1.0.0`).
+3. Pre-release comparison: When both versions are pre-releases, they are compared lexically by each dot-separated identifier (`1.0.0-alpha` < `1.0.0-alpha.1` < `1.0.0-beta`).
+4. Build metadata ignored: Build metadata does not affect version precedence (`1.0.0+build.1` equals `1.0.0+build.2` for sorting purposes).
 
 ## Parameters
 
@@ -303,5 +303,5 @@ PUT software_with_nulls
 ## Limitations
 
 - Version strings must follow the semantic versioning format. Invalid version strings will cause indexing to fail.
-- Build metadata (part after `+`) is accepted but ignored during comparisons and sorting.
+- Build metadata is accepted but ignored during comparisons and sorting.
 - The field does not support advanced version range specifications like `^1.2.3` or `~1.2.0`; use [`range` queries]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) instead.
