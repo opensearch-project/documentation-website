@@ -16,7 +16,7 @@ The value returned can be of any type. For example, if the metadata contains `{"
 
 ## Example 
 
-The following pipeline writes request derived values into event metadata, then uses `getMetadata()` in the OpenSearch sink to build tenant scoped daily index names and document IDs:
+The following pipeline writes request-derived values into event metadata and then uses `getMetadata()` in the OpenSearch sink to construct tenant-scoped daily index names and document IDs:
 
 ```yaml
 metadata-pass-demo:
