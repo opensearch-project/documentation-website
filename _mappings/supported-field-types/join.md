@@ -109,7 +109,7 @@ PUT testindex1/_doc/4?routing=1
 
 After this step, the index contains three documents with this structure.
 
-| Document ID | Document Type | `name` field | `product_to_brand` field |
+| Document ID | Document type | `name` field | `product_to_brand` field |
 |-------------|---------------|--------------|--------------------------|
 | 1 | Parent (brand) | "Brand 1" | `{"name": "brand"}` |
 | 3 | Child (product) | "Product 1" | `{"name": "product", "parent": "1"}` |
