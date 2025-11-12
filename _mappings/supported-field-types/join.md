@@ -77,7 +77,7 @@ PUT testindex1/_doc/1
 
 ### Step 3: Index child documents (products)
 
-When indexing child documents, you need to specify the `routing` query parameter because parent and child documents in the same parent/child hierarchy must be indexed on the same shard. For more information, see [Routing]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/routing/).
+When indexing child documents, you must specify the `routing` query parameter because parent and child documents in the same parent/child hierarchy must be indexed on the same shard. For more information, see [Routing]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/routing/).
 
 Each child document refers to its parent's ID in the `parent` field of the `join` field.
 
