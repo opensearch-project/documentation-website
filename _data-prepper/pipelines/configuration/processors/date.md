@@ -60,7 +60,7 @@ The `date` processor includes the following custom metrics.
 
 ## Pattern reference
 
-The following table contains common DateTime patterns.
+The following table provides common `DateTime` patterns.
 
 | Pattern                        | Example                       | Description                   |
 | ------------------------------ | ----------------------------- | ----------------------------- |
@@ -72,7 +72,7 @@ The following table contains common DateTime patterns.
 
 ## Epoch patterns
 
-Table of epoch patterns.
+The following table provides supported epoch patterns.
 
 | Pattern        | Description                                        | Example value       |
 | -------------- | -------------------------------------------------- | ------------------- |
@@ -81,7 +81,7 @@ Table of epoch patterns.
 | `epoch_micro`  | Microseconds since Unix epoch                      | 1678902000123456    |
 | `epoch_nano`   | Nanoseconds since Unix epoch                       | 1678902000123456789 |
 
-Only one epoch pattern is allowed per pattern list. If you need to support multiple epoch formats, use separate date processors.
+Only one epoch pattern is allowed per pattern list. To support multiple epoch formats, use separate date processors.
 {: .note}
 
 ## Examples
@@ -189,7 +189,7 @@ The documents stored in OpenSearch contain the following information:
 
 ### Parse a timestamp to convert its format and time zone
 
-The following example demonstrates how the `date` processor can sequentially parse different timestamp formats, such as epoch milliseconds, epoch seconds, ISO 8601, Apache Common Log, using multiple processors, each handling one specific format:
+The following example demonstrates how the `date` processor can sequentially parse different timestamp formats (such as epoch milliseconds, epoch seconds, ISO 8601, or Apache Common Log) using multiple processors, each handling one specific format:
 
 ```yaml
 date-multi-format-pipeline:
@@ -388,6 +388,7 @@ curl -sS -X POST "http://localhost:2021/events" \
         {"host":"cache-server-04","message":"redis[3456]: Background saving terminated with success"}
       ]'
 ```
+{% include copy.html %}
 
 The documents stored in OpenSearch contain the following information:
 
@@ -453,4 +454,3 @@ The documents stored in OpenSearch contain the following information:
   }
 }
 ```
-{% include copy.html %}
