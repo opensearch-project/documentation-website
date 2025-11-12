@@ -51,7 +51,7 @@ PUT testindex1
 
 ### Step 2: Index parent documents (brands)
 
-Index a parent document representing a brand and define its role in a parent/child relationship (`"brand"`) in the `product_to_brand`  field:
+Index a parent document representing a brand and define its role in a parent/child relationship (`"brand"`) in the `product_to_brand` field:
 
 ```json
 PUT testindex1/_doc/1
