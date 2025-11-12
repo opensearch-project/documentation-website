@@ -27,7 +27,7 @@ The following example creates an index in which brands are parents and products 
 
 ### Step 1: Create the mapping
 
-Create a mapping to establish a parent/child relationship between products and their brands. The `name` field stores product names. The `product_to_brand` field is a `join` field that defines a `"brand": "product"` relation, indicating that `brand` documents can have `product` children:
+Create a mapping to establish a parent/child relationship between products and their brands. The `name` field stores product or brand names. The `product_to_brand` field is a `join` field that defines a `"brand": "product"` relation, indicating that `brand` documents can have `product` children:
 
 ```json
 PUT testindex1
