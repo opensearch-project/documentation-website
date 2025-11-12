@@ -15,7 +15,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-A `join` field type defines a parent-child relationship between documents within the same index. It is a field that records how documents are related so that queries can connect related documents:
+A `join` field type defines a parent/child relationship between documents within the same index. It is a field that records how documents are related so that queries can connect related documents:
 
 - Defines the relationship names: Specifies the names for the parent and child types (for example, `brand` and `product`).
 - Stores relationship metadata: Identifies which documents are parents, which are children, and how they are connected.
