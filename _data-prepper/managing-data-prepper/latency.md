@@ -7,34 +7,39 @@ nav_order: 45
 
 # Pipeline latency tuning guide
 
-This section collects the most impactful configuration for reducing end‑to‑end latency and provides copy‑paste examples. 
+This section provides the most effective configurations for reducing end-to-end latency and contains ready-to-use examples.
 
-“Latency” can mean:
+There are the following latency types:
 
-- **Ingest latency**: The time it takes from the source receiving data until the sink sends it to OpenSearch, or another destination.
-- **Searchable latency**: The time it takes until data becomes visible in OpenSearch search results. This is capped by the index’s `refresh_interval`.
+- **Ingest latency**: The amount of time from the moment the source receives data until the sink sends it to OpenSearch or another destination.
+- **Searchable latency**: The amount of time until data becomes visible in OpenSearch search results. This is capped by the index's `refresh_interval`.
 
-## Low Latency configuration
+## Low-latency configuration
 
-The following table lists configuration that can be tweaked to improve latency.
+The following table lists configurations that can be adjusted to improve latency.
 
 Component | Setting | Why it matters | Low‑latency starting point | Trade‑offs
 :--- | :--- | :--- | :--- | :---
-**Pipeline loop** | `workers` in each pipeline | More parallelism reduces queueing in CPU/IO bound pipelines. | The number of CPU cores, increase if sinks are I/O bound. | Higher CPU, more concurrent requests to sinks.
-**Pipeline loop** | `delay` | Sleep between buffer reads. | `0`–`10ms` to pull as soon as possible. | Lower delays increase polling overhead, increasing context switches and CPU wakeups. Tune to balance latency and CPU.
-**Bounded blocking buffer** | `batch_size` | Smaller batches flush sooner. | 64–256 | Smaller batches decrease throughput and increase request rate.
-**Peer Forwarder** | `batch_size`, `request_timeout` | The batch sizing and timeouts affect hop‑to‑hop delay. | Keep `batch_size` modest for example 48–128. | Too small `batch_size` reduces throughput. `request_timeout` too low increases retries/timeouts under load.
-**Peer Forwarder** | `forwarder` [configuration]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/#configuration) | Caps queueing before forwarding. | Use low timeouts for example 50–200 ms. | Shorter timeouts can increase in-flight requests/connections, adding CPU, memory, TLS handshakes, and context-switch overhead. Too long causes queue build-up and higher tail latency.
-**Aggregate processors** | `group_duration` | The events wait for the window to close. | Prefer removing aggregation. If required, keep the window minimal, for example `5s`. | Smaller windows may break grouping semantics.
-**OpenSearch sink** | `bulk_size` (MiB) | Smaller bulks flush sooner. | 1–5 MiB | Very small `bulk_size` leads to more bulk requests for the same data, extra HTTP/TLS overhead, more threadpool contention, smaller Lucene batches, lower throughput. Very large leads to longer time to fill a batch, bigger retries, and memory spikes,and higher p95/p99.
-**OpenSearch side** | `index.refresh_interval` | Controls when data becomes searchable. | `1s` (default). | Lower refresh increases segment churn and indexing cost.
+**Pipeline loop** | `workers` in each pipeline | Increasing parallelism reduces queueing in CPU- or I/O-bound pipelines. | Typically set to the number of CPU cores; increase if sinks are I/O bound. | Higher CPU usage and more concurrent requests to sinks.
+
+**Pipeline loop** | `delay` | The pause between buffer reads. | `0`--`10ms` to pull data as soon as possible. | Lower delays reduce latency but increase polling overhead, context switches, and CPU activations. Adjust to balance latency and CPU usage.
+
+**Bounded blocking buffer** | `batch_size` | Determines how many records are processed per batch; smaller batches flush sooner. | 64--256 | Smaller batches reduce throughput and increase the number of requests.
+
+**Peer Forwarder** | `batch_size`, `request_timeout` | Batch size and request timeouts impact hop-to-hop latency. | Keep `batch_size` moderate, for example, 48--128. | Too small a `batch_size` reduces throughput, and a `request_timeout` that is too short can cause retries or timeouts under load.
+**Peer Forwarder** | `forwarder` [configuration]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/#configuration) | Limits queueing before forwarding. | Use low timeouts, e.g., 50–200 ms. | Shorter timeouts increase in-flight requests and connections, adding CPU, memory, TLS handshake, and context-switch overhead. Longer timeouts can cause queue buildup and higher tail latency.
+**Aggregate processors** | `group_duration` | Determines how long events wait for the aggregation window to close. | Prefer removing aggregation; if needed, keep the window short, for example, `5s`. | Smaller windows can break grouping semantics.
+**OpenSearch sink** | `bulk_size` (MiB) | Determines the size of bulk requests; smaller bulks flush sooner. | 1--5 MiB | Very small `bulk_size` increases the number of bulk requests, adds HTTP/TLS overhead, causes more threadpool contention, produces smaller Lucene batches, and lowers throughput. Very large `bulk_size` increases time to fill a batch, can cause bigger retries, memory spikes, and higher p95/p99 latency.
+**OpenSearch sink** | `index.refresh_interval` | Controls how frequently indexed data becomes searchable. | `1s` (default) | Lower values increase segment churn and indexing overhead.
 
 The Delay processor adds latency by design. Avoid it in low‑latency pipelines.
 {: note}
 
 ## Low‑latency configuration examples
 
-### Logs: prioritize sub‑second ingest
+The following are low-latency configuration examples.
+
+### Logs: Prioritize sub‑second ingest
 
 ```yaml
 logs-low-latency:
@@ -59,7 +64,7 @@ logs-low-latency:
         bulk_size: 1         # MiB; smaller -> lower latency, lower throughput
         max_retries: 8
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### Traces with peer forwarding minimizing cross‑node wait
 
@@ -105,9 +110,9 @@ peer_forwarder:
   batch_size: 96
   request_timeout: 1000   # ms
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
-Create `pipelines.yml` as follows:
+Create the following `pipelines.yml` file:
 
 ```yaml
 traces-low-latency:
@@ -143,3 +148,4 @@ raw-trace-pipeline:
         password: admin_password
         index_type: trace-analytics-raw
 ```
+{% include copy.html %}
