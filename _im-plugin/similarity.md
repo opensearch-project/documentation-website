@@ -251,7 +251,7 @@ OpenSearch supports the following similarity types.
 
 ### DFI similarity
 
-`DFI` similarity implements the divergence from independence (DFI) model.
+`DFI` similarity implements the [divergence from independence (DFI)](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DFISimilarity.html) model.
 
 `DFI` similarity supports the following parameters.
 
