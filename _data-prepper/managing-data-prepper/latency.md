@@ -39,6 +39,8 @@ The Delay processor adds latency by design. Avoid it in low‑latency pipelines.
 
 The following are low-latency configuration examples.
 
+The following are low-latency configuration examples.
+
 ### Logs: Prioritize sub‑second ingest
 
 ```yaml
@@ -148,4 +150,5 @@ raw-trace-pipeline:
         password: admin_password
         index_type: trace-analytics-raw
 ```
+{% include copy.html %}
 {% include copy.html %}

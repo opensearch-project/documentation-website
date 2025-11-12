@@ -46,7 +46,7 @@ server_thread_count | No | Integer | The number of threads used by the Peer Forw
 client_thread_count | No | Integer | The number of threads used by the Peer Forwarder client. Default is `200`.
 max_connection_count | No | Integer | The maximum number of open connections for the Peer Forwarder server. Default is `500`.
 max_pending_requests | No | Integer | The maximum number of tasks in the `ScheduledThreadPool` work queue. Default is `1024`.
-discovery_mode | No | String | The peer discovery mode. One of `local_node`, `static`, `dns`, or `aws_cloud_map`. Default: `local_node` (process locally).
+discovery_mode | No | String | The peer discovery mode. Valid values are `local_node`, `static`, `dns`, or `aws_cloud_map`. Default is `local_node` (process locally).
 static_endpoints | Conditional | List | The endpoints for all Data Prepper instances. Required if `discovery_mode` is set to `static`.
 domain_name | Conditional | String | The domain name used for DNS-based discovery (supports multiple A records). Required if `discovery_mode` is set to `dns`.
 
@@ -65,7 +65,7 @@ drain_timeout | No | Duration | The amount of time for the Peer Forwarder to com
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 ssl | No | Boolean | Enables TLS/SSL. Default is `true`.
-ssl_certificate_file | Conditionally | String | The SSL certificate chain file path or S3 path (`s3://<bucket>/<path>`). **Required** if `ssl: true` and `use_acm_certificate_for_ssl: false`. Default: `config/default_certificate.pem`. See the certificate examples in the Data Prepper repo.
+ssl_certificate_file | Conditional | String | The SSL certificate chain file path or S3 path (`s3://<bucket>/<path>`). Required if `ssl: true` and `use_acm_certificate_for_ssl: false`. Default is `config/default_certificate.pem`. See the certificate examples in the Data Prepper repo.
 ssl_key_file | Conditionally | String | The SSL private key file path or S3 path. Required if `ssl` is set to `true` and `use_acm_certificate_for_ssl` is set to `false`. Default is `config/default_private_key.pem`.
 ssl_insecure_disable_verification | No | Boolean | Disables verification of the server TLS certificate chain. Default is `false`.
 ssl_fingerprint_verification_only | No | Boolean | If `true`, verifies only the certificate fingerprint (disables chain verification). Default is `false`.
@@ -98,7 +98,7 @@ The `heap` circuit breaker configures Data Prepper to reject incoming data when 
 Option | Required | Type | Description
 :--- |:---|:---| :---
 usage | Yes | Bytes | The JVM heap usage at which to trigger the circuit breaker (for example, `6.5gb`). If current usage exceeds this value, the breaker is triggered.
-reset | No  | Duration | The minimum time the breaker remains open before new checks. Default: `1s`.
+reset | No  | Duration | The minimum amount of time the circuit breaker remains activated before new heap size checks can attempt to deactivate it. Default is `1s`.
 check_interval | No | Duration | The time interval between heap size checks that determine if the circuit breaker should be activated. Default is `500ms`.
 
 ## Extension plugins
