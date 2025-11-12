@@ -82,7 +82,7 @@ Use the following option to set how Peer Forwarder authenticates requests betwee
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`authentication` | No | Map | The authentication method. Valid values are `mutual_tls` *(mTLS with client certs)* or `unauthenticated` *(no auth)*. Default is `unauthenticated`.
+`authentication` | No | Map | The authentication method. Valid values are `mutual_tls` (mTLS) or `unauthenticated` (no authentication). Default is `unauthenticated`.
 
 ## Circuit breakers
 
@@ -98,7 +98,7 @@ Option | Required | Type | Description
 
 ### Heap circuit breaker
 
-The `heap` circuit breaker configures Data Prepper to reject incoming data when JVM heap reaches a specified usage threshold. The table below describes the `heap` settings.
+The `heap` circuit breaker configures Data Prepper to reject incoming data when JVM heap reaches a specified usage threshold. The `heap` parameter supports the following values.
 
 Option | Required | Type | Description
 :--- |:---|:---| :---
@@ -131,7 +131,7 @@ extensions:
 
 ### Secrets
 
-The `secrets` extension supports the following parameters. The table below documents each setting and its default behavior.
+The `secrets` extension supports the following parameters.
 
 Option | Required | Type | Description
 :--- |:---|:---| :---
@@ -145,8 +145,8 @@ Option | Required | Type | Description
 
 In `pipelines.yaml`, reference secret values in plugin settings using:
 
-* Plaintext: {% raw %}${{aws_secrets:<YOUR_SECRET_CONFIG_ID>}}{% endraw %}
-* JSON key: {% raw %}${{aws_secrets:<YOUR_SECRET_CONFIG_ID>:<YOUR_KEY>}}{% endraw %}
+* Plaintext: `{% raw %}${{aws_secrets:<YOUR_SECRET_CONFIG_ID>}}{% endraw %}`
+* JSON key: `{% raw %}${{aws_secrets:<YOUR_SECRET_CONFIG_ID>:<YOUR_KEY>}}{% endraw %}`
 
 You can use the following setting types for secret substitution: string, number, long, short, integer, double, float, Boolean, or character.
 
