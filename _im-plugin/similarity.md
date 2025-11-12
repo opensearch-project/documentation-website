@@ -8,7 +8,7 @@ nav_order: 37
 
 A similarity defines how matching documents are scored and ranked during search operations. OpenSearch uses similarity algorithms to calculate relevance scores that determine the order of search results. 
 
-Each field can have its own similarity configuration, allowing fine-tuned control over how different types of content are scored. You can define custom similarity algorithms in your index settings at index level. Once configured, you can apply these algorithms to specific fields using the [`similarity` mapping parameter]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/similarity/).
+Each field can have its own similarity configuration, allowing fine-tuned control over how different types of content are scored. You can define custom similarity algorithms in your index settings at the index level. Once configured, you can apply these algorithms to specific fields using the [`similarity` mapping parameter]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/similarity/).
 
 Configuring custom similarity settings is an advanced feature. The built-in similarities are sufficient for most use cases.
 
@@ -77,7 +77,7 @@ GET /product_catalog/_settings
 ```
 {% include copy-curl.html %}
 
-The response confirms that the default similarity is updated:
+The response confirms that the default similarity has been updated:
 
 ```json
 {
@@ -116,7 +116,7 @@ The response confirms that the default similarity is updated:
 
 When changing from one similarity type to another, OpenSearch retains parameters from the previous configuration. If the new similarity type doesn't support these parameters, you'll encounter errors.
 
-For example, if you try to change from `DFR` similarity to `boolean` similarity, you'll get an error like:
+For example, if you try to change from `DFR` similarity to `boolean` similarity, you'll get an error such as the following:
 
 ```
 "Unknown settings for similarity of type [boolean]: [normalization.h2.c, normalization, after_effect, basic_model]"
@@ -142,9 +142,9 @@ PUT /product_catalog/_settings
 ```
 {% include copy-curl.html %}
 
-## Configuring a built-in similarity on the field level
+## Configuring a built-in similarity at the field level
 
-OpenSearch provides built-in similarity algorithms (`BM25` and `boolean`) that can be used directly in field mappings. To configure similarity on the field level, apply the similarity to the field when creating the index. The following example applies a `boolean` similarity to the `content` field:
+OpenSearch provides built-in similarity algorithms (`BM25` and `boolean`) that can be used directly in field mappings. To configure a similarity at the field level, apply it to the field when creating the index. The following example applies a `boolean` similarity to the `content` field:
 
 ```json
 PUT /blog_posts_2/
@@ -161,7 +161,7 @@ PUT /blog_posts_2/
 ```
 {% include copy-curl.html %}
 
-In this example, only the `content` field uses boolean similarity. Other fields in the index will use the default BM25 similarity.
+In this example, only the `content` field uses a `boolean` similarity. Other fields in the index will use the default `BM25` similarity.
 
 ## Configuring a custom similarity
 
@@ -169,12 +169,12 @@ For more advanced use cases, you can define named custom similarities that can b
 
 Configuring named custom similarities requires a two-step process:
 
-1. Define the similarity in index settings with a custom name
-2. Apply the similarity to specific fields in mappings
+1. Define the similarity in the index settings with a custom name.
+2. Apply the similarity to specific fields in mappings.
 
 ### Step 1: Define a custom similarity
 
-The following example creates an index with a custom DFR similarity configuration:
+The following example creates an index with a custom `DFR` similarity configuration:
 
 ```json
 PUT /blog_posts
@@ -198,7 +198,7 @@ PUT /blog_posts
 
 ### Step 2: Apply the custom similarity to fields
 
-After defining the similarity, you must explicitly apply it to specific fields in your mappings. Unlike default similarity, custom similarities are not automatically applied to all fields:
+After defining the similarity, you must explicitly apply it to specific fields in your mappings. Unlike the default similarity, custom similarities are not automatically applied to all fields:
 
 ```json
 PUT /blog_posts/_mapping
@@ -213,7 +213,7 @@ PUT /blog_posts/_mapping
 ```
 {% include copy-curl.html %}
 
-In this example, only the `content` field uses the custom `blog_similarity`. Other fields in the index (if any) continue using the default BM25 similarity unless explicitly configured otherwise.
+In this example, only the `content` field uses the custom `blog_similarity`. Other fields in the index (if any) continue using the default `BM25` similarity unless explicitly configured otherwise.
 
 ## Available similarity types
 
@@ -223,7 +223,7 @@ OpenSearch supports the following similarity types.
 
 `BM25` similarity is a TF/IDF-based similarity with built-in term frequency normalization. It works well for most text fields, particularly shorter fields like titles and names.
 
-BM25 similarity supports the following parameters.
+`BM25` similarity supports the following parameters.
 
 | Parameter | Description | Default | Required |
 |-----------|-------------|---------|----------|
@@ -233,9 +233,9 @@ BM25 similarity supports the following parameters.
 
 ### Boolean similarity
 
-`boolean` similarity is a built-in similarity that assigns all matching documents the same constant score, making it useful when you only care about whether documents match rather than how relevant they are. This similarity ignores term frequency, document length, and other scoring factors.
+`boolean` similarity is a built-in similarity that assigns all matching documents the same constant score, making it useful for only determining whether documents match rather than how relevant they are. This similarity ignores term frequency, document length, and other scoring factors.
 
-Boolean similarity does not support parameters.
+`boolean` similarity does not support parameters.
 
 ### DFR similarity
 
@@ -251,7 +251,7 @@ Boolean similarity does not support parameters.
 
 ### DFI similarity
 
-`DFI` similarity implements the divergence from independence model.
+`DFI` similarity implements the divergence from independence (DFI) model.
 
 `DFI` similarity supports the following parameters.
 
@@ -259,11 +259,11 @@ Boolean similarity does not support parameters.
 |-----------|-------------|------------------|----------|
 | `independence_measure` | Independence measure for the DFI model. | [`standardized`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/IndependenceStandardized.html), [`saturated`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/IndependenceSaturated.html), [`chisquared`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/IndependenceChiSquared.html) | Yes |
 
-When using DFI similarity, avoid removing stop words for optimal relevance. Terms with frequency less than expected will receive a score of 0.
+When using `DFI` similarity, avoid removing stop words for optimal relevance. Terms with a frequency that is lower than expected will receive a score of 0.
 
 ### IB similarity
 
-`IB` similarity uses the [information-based model](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/IBSimilarity.html) that analyzes the repetitive usage of basic elements in symbolic distributions.
+`IB` similarity uses the [information-based model](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/IBSimilarity.html), which analyzes the repetitive usage of basic elements in symbolic distributions.
 
 `IB` similarity supports the following parameters.
 
@@ -271,7 +271,7 @@ When using DFI similarity, avoid removing stop words for optimal relevance. Term
 |-----------|-------------|------------------|----------|
 | `distribution` | Distribution model for the IB framework. | [`ll`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DistributionLL.html), [`spl`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/DistributionSPL.html) | Yes |
 | `lambda` | Lambda model for the IB framework. | [`df`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LambdaDF.html), [`ttf`](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/similarities/LambdaTTF.html) | Yes |
-| `normalization` | Normalization model for the IB framework. | Same options as DFR similarity | Yes |
+| `normalization` | Normalization model for the IB framework. | Same options as `DFR` similarity | Yes |
 
 ### LM Dirichlet similarity
 
@@ -611,8 +611,8 @@ After indexing the same sample documents and searching using the same query, the
 In this optimized example:
 
 - The `weight_script` calculates the score of `2.8109303` (IDF + query boost, same for all documents).
-- The main `script` calculates document-specific factors using the pre-calculated `weight` value.
-- The final score is `1.2570862` (identical to the single-script approach, but more efficient).
+- The main `script` calculates document-specific factors using the precalculated `weight` value.
+- The final score is `1.2570862` (identical to the single-script approach but more efficient).
 
 The `weight_script` parameter name is reserved and cannot be changed. The result is always available in the `weight` variable within your main script.
 {: .note}

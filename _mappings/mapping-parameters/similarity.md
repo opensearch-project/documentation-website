@@ -21,8 +21,8 @@ OpenSearch supports two types of similarities for field mappings:
 - [`BM25`]({{site.url}}{{site.baseurl}}/im-plugin/similarity/#bm25-similarity-default) (default): Uses a modern, probabilistic ranking model that balances term frequency, document length, and inverse document frequency.
 - [`boolean`]({{site.url}}{{site.baseurl}}/im-plugin/similarity/#boolean-similarity): Returns constant scores (`1` or `0`), so should be used if you care only about matching, not relevance.
 
-**Custom similarities** (must be defined in index settings first):
-- [DFR, DFI, IB, LM Dirichlet, LM Jelinek Mercer, and scripted similarities]({{site.url}}{{site.baseurl}}/im-plugin/similarity/#available-similarity-types): Advanced similarity algorithms that require configuration in index settings before they can be referenced by name in field mappings.
+**Custom similarities** (must be defined in the index settings first):
+- [DFR, DFI, IB, LM Dirichlet, LM Jelinek Mercer, and scripted similarities]({{site.url}}{{site.baseurl}}/im-plugin/similarity/#available-similarity-types): Advanced similarity algorithms that require configuration in the index settings before they can be referenced by name in field mappings.
 
 ## Setting a custom similarity on a field
 
