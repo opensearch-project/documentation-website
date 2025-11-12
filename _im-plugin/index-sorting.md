@@ -13,9 +13,6 @@ The sorting behavior is controlled by the `index.sort.field`, `index.sort.order`
 Index sorting can only be configured during index creation and cannot be modified afterward. This feature impacts indexing performance because documents must be sorted during flush and merge operations. We recommend testing the performance impact of sorting before implementing it in production.
 {: .note}
 
-Nested fields cannot be used with index sorting because they require nested documents to be stored with consecutive document IDs, which index sorting can disrupt. Attempting to enable index sorting on an index containing nested fields results in an error.
-{: .note}
-
 ## Sorting by a single field
 
 The following example sorts the index by the `timestamp` field in descending order:
@@ -73,6 +70,53 @@ PUT /sample-index
 }
 ```
 {% include copy-curl.html %}
+
+## Sorting on Nested field
+
+Starting with **OpenSearch 3.3**, index sorting now supports indices that include **nested fields**.  
+
+Previously, attempting to enable index sorting on an index containing nested fields resulted in an error.  
+This limitation has been removed in OpenSearch 3.3 and later.
+
+### Example: Sorting an index that contains nested fields
+
+The following example sorts a nested index by a top-level field (`user_id`) and a nested field (`comments.timestamp`) in descending order.
+
+```json
+PUT /nested-index
+{
+  "settings": {
+    "index": {
+      "sort.field": [
+        "user_id",
+        "comments.timestamp"
+      ],
+      "sort.order": [
+        "asc",
+        "desc"
+      ]
+    }
+  },
+  "mappings": {
+    "properties": {
+      "user_id": {
+        "type": "keyword"
+      },
+      "comments": {
+        "type": "nested",
+        "properties": {
+          "message": { "type": "text" },
+          "timestamp": { "type": "date" }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %
+
+Even though nested fields are allowed within mappings, index sorting cannot be applied to fields inside nested objects. This limitation ensures nested documents retain their structural integrity.
+{: .note}
 
 ## Search optimization with early termination
 
