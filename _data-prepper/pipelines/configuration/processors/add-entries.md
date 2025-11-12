@@ -233,7 +233,7 @@ The following pipeline performs these actions:
 4. If both `/metric/name` and `/metric/value` exist, creates a new field named after `/metric/name` and sets its value to `/metric/value`.
 5. If `/level == "error"`, adds the field `severity: "high"`.
 6. Appends `"ingested"` to the `tags` field, ensuring that the `tags` field is an array.
-7. Set `env_normalized: "prod"`, overwriting the existing value it the field already exists.
+7. Sets `env_normalized: "prod"`, overwriting the existing value if the field already exists.
 
 ```yaml
 example-pipeline:
