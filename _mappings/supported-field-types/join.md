@@ -64,7 +64,7 @@ PUT testindex1/_doc/1
 
 When indexing child documents, you need to specify the `routing` query parameter because parent and child documents in the same parent/child hierarchy must be indexed on the same shard. For more information, see [Routing]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/routing/). Each child document refers to its parent's ID in the `parent` field.
 
-Index two child documents, one for each parent:
+Index two child documents for the same parent:
 
 ```json
 PUT testindex1/_doc/3?routing=1
@@ -84,7 +84,7 @@ PUT testindex1/_doc/4?routing=1
   "name": "Product 2",
   "product_to_brand": {
     "name": "product", 
-    "parent": "2" 
+    "parent": "1" 
   }
 }
 ```
