@@ -22,7 +22,7 @@ Option | Required | Type | Description
 `delete_header` | No | Boolean | If specified, the event header (`column_names_source_key`) is deleted after the event is parsed. If there is no event header, no action is taken. Default value is true.
 `column_names_source_key` | No | String | The field in the event that specifies the CSV column names, which will be automatically detected. If there need to be extra column names, the column names are automatically generated according to their index. If `column_names` is also defined, the header in `column_names_source_key` can also be used to generate the event fields. If too few columns are specified in this field, the remaining column names are automatically generated. If too many column names are specified in this field, the CSV processor omits the extra column names.
 `column_names` | No | List | User-specified names for the CSV columns. Default value is `[column1, column2, ..., columnN]` if there are no columns of data in the CSV record and `column_names_source_key` is not defined. If `column_names_source_key` is defined, the header in `column_names_source_key` generates the event fields. If too few columns are specified in this field, the remaining column names are automatically generated. If too many column names are specified in this field, the CSV processor omits the extra column names.
-`delete_source` | No | Boolean | If `true`, deletes the configured `source` field (default `message`) after CSV parsing. Default is `false`.
+`delete_source` | No | Boolean | If `true`, deletes the configured `source` field (default `message`) after CSV parsing. This configuration option improves memory pressure if the `source` field is not going to be used as the processing is done in batches. Default is `false`.
 
 ## Usage
 
@@ -111,7 +111,7 @@ csv-pipeline-delete-source:
   processor:
     - csv:
         column_names: ["col1", "col2"]
-        delete_source: true    # default is false
+        delete_source: true
   sink:
     - opensearch:
         hosts: ["https://opensearch:9200"]
