@@ -20,17 +20,17 @@ You can configure the processor using the following configuration options.
 
 Field                | Type    | Required | Description                                                                 
 -------------------- | ------- | -------- | ---------------------------------------------------------------------------- 
-`function_name`      | String  | Required | The name of the AWS Lambda function to invoke. Default is `none`.           
-`aws.region`         | String  | Required | The AWS Region in which the Lambda function is located. Default is `none`.                         
-`aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function. Default is `none`.               
+`function_name`      | String  | Required | The name of the AWS Lambda function to invoke.           
+`aws.region`         | String  | Required | The AWS Region in which the Lambda function is located. If no configuration is provided, value in `data-prepper-config.yaml` file is used. If still not found, default AWS credentials on the host are used.                         
+`aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function. If no configuration is provided, value in `data-prepper-config.yaml` file is used. If still not found, default AWS credentials on the host are used.               
 `max_retries`        | Integer | Optional | The maximum number of retries for failed invocations. Default is `3`.             
 `batch`              | Object  | Optional | The batch settings for the Lambda invocations. Default is `key_name = "events"`, threshold `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                            
-`lambda_when`        | String  | Optional | A conditional expression that determines when to invoke the Lambda processor. Default is `none`.     
+`lambda_when`        | String  | Optional | A conditional expression that determines when to invoke the Lambda processor. By default all events are processed.   
 `response_codec`     | Object  | Optional |  A codec configuration for parsing Lambda responses. Default is `json`.
 `tags_on_match_failure` | List | Optional |  A list of tags to add to events when Lambda matching fails or encounters an unexpected error. Default is `[]`.
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
 `client`            | Object  | Optional | The client configuration.
-`api_call_timeout`   | Duration | Optional | The amount of time that the SDK maintains the API call before timing out, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations). Default is `60s`.
+`api_call_timeout`   | Duration | Optional | The total time that the SDK will attempt connection, including all retries. A Data Prepper duration can be expressed either as full [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations) or as a simplified form in seconds or milliseconds, for example `60s` or `60000ms`. Default is `60s`.
 `base_delay`         | Duration | Optional | The base delay for exponential backoff, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations). Default is `100ms`.
 `connection_timeout` | Duration | Optional | The amount of time that the SDK maintains the connection to the client before timing out, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations). Default is `60s`.
 `max_backoff`        | Duration | Optional | The maximum backoff time for exponential backoff, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Durations). Default is `20s`.
@@ -46,20 +46,20 @@ The following is example configuration:
 ```
 processors:
   - aws_lambda:
-      function_name: "my-lambda-function"
+      function_name: my-lambda-function
       response_events_match: false
       client:
         connection_timeout: PT5M
         api_call_timeout: PT5M
       aws:
-        region: "us-east-1"
-        sts_role_arn: "arn:aws:iam::123456789012:role/my-lambda-role"
+        region: us-east-1
+        sts_role_arn: arn:aws:iam::123456789012:role/my-lambda-role
       max_retries: 3
       batch:
-        key_name: "events"
+        key_name: events
         threshold:
           event_count: 100
-          maximum_size: "5mb"
+          maximum_size: 5mb
           event_collect_timeout: PT10S
       circuit_breaker_retries: 30
       circuit_breaker_wait_interval: 1000
