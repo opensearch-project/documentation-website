@@ -96,6 +96,8 @@ See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#crea
 
 By default, the Security plugin uses the BLAKE2b algorithm, but you can use any hashing algorithm that your JVM provides. This list typically includes MD5, SHA-1, SHA-384, and SHA-512.
 
+Note that BLAKE2b and several other commonly available algorithms such as MD5 and SHA-1 are not approved for use in FIPS 140-3 compliant environments. If your deployment requires FIPS compliance, you should configure the plugin to use a FIPS-approved algorithm such as SHA-256 or SHA-512, and ensure that the underlying cryptographic provider (e.g., Bouncy Castle FIPS or a FIPS-validated JCE provider) is properly installed and configured.
+
 You can override the default algorithm in `opensearch.yml` using the optional default masking algorithm setting `plugins.security.masked_fields.algorithm.default`, as shown in the following example:
 
 ```yml
