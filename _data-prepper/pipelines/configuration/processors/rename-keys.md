@@ -151,7 +151,7 @@ Renaming operations occur in the order that the key-value pair entries are liste
           to_key: "message3"
 ```
 
-If the processor receives `{"message": "hello"}`, the resultng output will be:
+If the processor receives `{"message": "hello"}`, the resultng output is as follows:
 
 ```json
 {"message3": "hello"}
