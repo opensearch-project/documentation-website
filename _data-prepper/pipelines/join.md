@@ -13,14 +13,14 @@ The `join()` function joins elements of a list to form a string. The function ta
 
 ## Parameters
 
-- **delimiter** (string, optional): The text placed between elements. Examples: `","`, `" | "`, `"; "`. Default is `","`.
+- **delimiter** (string, optional): The string placed between elements. Examples: `","`, `" | "`, `"; "`. Default is `","`.
 - **pointer** (required): JSON Pointer resolving to a list in the event.
 
 ## Returns
 - **string**: All elements concatenated with the chosen delimiter.
 
 ## Quick examples
-- `join("-", /tags)` returns `"prod-api-us"` for `tags: ["prod","api","us"]`
+- `join("-", /labels)` returns `"prod-api-us"` for `labels: ["prod","api","us"]`
 - `join(" | ", /authors)` returns `"Ada | Linus | Grace"` for `authors: ["Ada","Linus","Grace"]
 
 ## Using `join()` in pipeline
@@ -31,13 +31,13 @@ You can use `join()` inside processors that support `value_expression`, for exam
 processor:
   - add_entries:
       entries:
-        - key: tags_csv
-          value_expression: join(" | ", /tags)
+        - key: labels_csv
+          value_expression: join(" | ", /labels)
 ```
 
 ## Example
 
-The following pipeline ingests JSON events using the HTTP source, uses `add_entries` with `join()` to build two new fields, `tags_csv` and `authors_pipe`:
+The following pipeline ingests JSON events using the HTTP source, uses `add_entries` with `join()` to build two new fields, `labels_csv` and `authors_pipe`:
 
 ```yaml
 join-demo:
@@ -48,8 +48,8 @@ join-demo:
   processor:
     - add_entries:
         entries:
-          - key: tags_csv
-            value_expression: join(/tags) # Comma is used by default
+          - key: labels_csv
+            value_expression: join(/labels) # Comma is used by default
           - key: authors_pipe
             value_expression: join(" | ", /authors)
   sink:
@@ -69,8 +69,8 @@ You can test the pipeline using the following command:
 curl "http://localhost:2021/events" \
    -H "Content-Type: application/json" \
    -d '[
-    {"message":"hello","tags":["prod","api","us"],"authors":["Ada","Linus","Grace"]},
-    {"message":"world","tags":["stage","etl"],"authors":["Marie","Alan"]}
+    {"message":"hello","labels":["prod","api","us"],"authors":["Ada","Linus","Grace"]},
+    {"message":"world","labels":["stage","etl"],"authors":["Marie","Alan"]}
   ]'
 ```
 {% include copy.html %}
@@ -93,7 +93,7 @@ The document stored in OpenSearch contains the following information:
         "_score": 1,
         "_source": {
           "message": "hello",
-          "tags": [
+          "labels": [
             "prod",
             "api",
             "us"
@@ -103,7 +103,7 @@ The document stored in OpenSearch contains the following information:
             "Linus",
             "Grace"
           ],
-          "tags_csv": "prod,api,us",
+          "labels_csv": "prod,api,us",
           "authors_pipe": "Ada | Linus | Grace"
         }
       },
@@ -113,7 +113,7 @@ The document stored in OpenSearch contains the following information:
         "_score": 1,
         "_source": {
           "message": "world",
-          "tags": [
+          "labels": [
             "stage",
             "etl"
           ],
@@ -121,7 +121,7 @@ The document stored in OpenSearch contains the following information:
             "Marie",
             "Alan"
           ],
-          "tags_csv": "stage,etl",
+          "labels_csv": "stage,etl",
           "authors_pipe": "Marie | Alan"
         }
       }
