@@ -610,6 +610,6 @@ We strongly recommend against restoring `.opendistro_security` using an admin ce
 
 For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#snapshots).
 
-## Related articles
+## Related documentation
 
 - [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/)
