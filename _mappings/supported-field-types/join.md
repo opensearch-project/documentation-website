@@ -24,8 +24,6 @@ A `join` field type defines a parent-child relationship between documents within
 ## Example
 
 The following example creates an index in which brands are parents and products are children. 
-2. Index some brand documents (parents)
-3. Index some product documents (children) that reference their brand parents
 
 ### Step 1: Create the mapping
 
