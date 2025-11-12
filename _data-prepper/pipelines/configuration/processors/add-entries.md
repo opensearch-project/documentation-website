@@ -223,17 +223,17 @@ The processed event will contain the following data:
 {"message": ["hello", "world"]}
 ```
 
-## Complete example
+## Example
 
-The following pipeline is used to:
+The following pipeline performs these actions:
 
-1. Add `app_id` using a format string ${app}-${env}.
-2. Add `message_len` with `length(/message)`.
-3. Add metadata key `msg_len_meta` with `length(/message)`.
-4. If `/metric/name` and `/metric/value` exist, create a new field named after `/metric/name` and set its value to `/metric/value`.
-5. If `/level == "error"`, add `severity: "high"`.
-6. Add `"ingested"` to `tags`.
-7. Set `env_normalized: "prod"` and overwrite it if it already exists.
+1. Adds an `app_id` field using the format string `${app}-${env}`.
+2. Adds a `message_len` field with the value of `length(/message)`.
+3. Adds a metadata key `msg_len_meta` with the value of `length(/message)`.
+4. If both `/metric/name` and `/metric/value` exist, creates a new field named after `/metric/name` and sets its value to `/metric/value`.
+5. If `/level == "error"`, adds the field `severity: "high"`.
+6. Appends `"ingested"` to the `tags` field, ensuring that the `tags` field is an array.
+7. Set `env_normalized: "prod"`, overwriting the existing value it the field already exists.
 
 ```yaml
 example-pipeline:
