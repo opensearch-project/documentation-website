@@ -11,23 +11,25 @@ nav_order: 210
 
 # Querqy
 
-Querqy is a community plugin for query rewriting that helps to solve relevance issues, making search engines more precise regarding matching and scoring.
+Querqy for OpenSearch is a community plugin for query rewriting that improves search relevance. It makes OpenSearch more precise in matching and scoring by applying rules for boosting, burying, filtering, and redirecting search results, among other capabilities.
 
-Querqy is currently only supported in OpenSearch 2.3.
+Querqy currently supports OpenSearch versions up to 2.19.2.
 {: .warning }
+
+For more information, see the [Querqy documentation](https://docs.querqy.org/querqy/index.html).
+
 
 ## Querqy plugin installation
 
-The Querqy plugin is now available for OpenSearch 2.3.0. Run the following command to install the Querqy plugin.
+The Querqy plugin is now available for OpenSearch 2.19.2. Run the following command to install the Querqy plugin:
 
 ````bash
 ./bin/opensearch-plugin install \
-   "https://repo1.maven.org/maven2/org/querqy/opensearch-querqy/1.0.os2.3.0/opensearch-querqy-1.0.os2.3.0.zip"
+   "https://repo1.maven.org/maven2/org/querqy/opensearch-querqy/1.1.os2.19.2/opensearch-querqy-1.1.os2.19.2.zip"
 ````
 
 Answer `yes` to the security prompts during the installation as Querqy requires additional permissions to load query rewriters.
 
-After installing the Querqy plugin you can find comprehensive documentation on the Querqy.org site: [Querqy](https://docs.querqy.org/querqy/index.html)
 
 ## Endpoints
 
