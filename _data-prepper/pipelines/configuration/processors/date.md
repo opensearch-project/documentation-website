@@ -189,7 +189,7 @@ The documents stored in OpenSearch contain the following information:
 
 ### Parse a timestamp to convert its format and time zone
 
-The following example demonstrates how the `date` processor can sequentially parse different timestamp formats (such as epoch milliseconds, epoch seconds, ISO 8601, or Apache Common Log) using multiple processors, each handling one specific format:
+The following example demonstrates how the `date` processor can sequentially parse different timestamp formats (such as epoch milliseconds, epoch seconds, ISO 8601, or Apache Common Log Format) using multiple processors, each handling one specific format:
 
 ```yaml
 date-multi-format-pipeline:
