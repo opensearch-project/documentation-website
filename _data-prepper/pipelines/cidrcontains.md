@@ -25,7 +25,7 @@ This function returns `true` if the IP address matches any of the specified CIDR
 
 ## Example
 
-The following pipeline drops any documents that are not part of the specified CIDR blocks:
+The following pipeline discards any documents that are not part of the specified CIDR blocks:
 
 ```yaml
 cidr-allowlist-pipeline:
