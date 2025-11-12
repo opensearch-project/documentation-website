@@ -142,7 +142,7 @@ The documents stored in OpenSearch contain the following information:
 
 ## Metrics 
 
-Data Prepper serves metrics from the `/metrics/prometheus` endpoint on port `4900` by default. You can access all the metrics by running the following command:
+By default, Data Prepper serves metrics from the `/metrics/prometheus` endpoint on port `4900`. You can access all the metrics by running the following command:
 
 ```bash
 curl http://localhost:4900/metrics/prometheus
