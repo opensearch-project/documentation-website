@@ -110,7 +110,7 @@ Option | Required | Type | Description
 
 Data Prepper supports user‑configurable extension plugins. Extension plugins provide a reusable configuration shared across pipeline plugins (sources, buffers, processors, or sinks).
 
-### AWS Secrets extension plugin
+### AWS extension plugin
 
 The `aws` extension provides the `secrets` configuration, which integrates with [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) to securely manage sensitive configuration values in your pipelines. The following example shows a basic configuration:
 
