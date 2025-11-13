@@ -385,26 +385,7 @@ OpenSearch automatically manages several metadata fields for each document, such
 
 OpenSearch provides several settings to prevent mapping explosion and control mapping growth. These settings help maintain cluster performance and prevent memory issues caused by creating an excessive number of fields.
 
-These settings can be configured when creating an index or updated for existing indexes:
-
-```json
-PUT /my-index/_settings
-{
-  "index.mapping.total_fields.limit": 2000
-}
-```
-{% include copy-curl.html %}
-
-The following table lists all available mapping limit settings. All settings are dynamic. For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
-
-| Setting | Default | Valid values | Description |
-|:--- |:--- |:--- |:--- |:--- |
-| `index.mapping.total_fields.limit` | `1000` | [0, ∞) | Sets the maximum number of fields allowed in an index, including regular fields, object mappings, and field aliases. Increasing this limit requires careful consideration of cluster resources. When raising this setting, consider also adjusting the `indices.query.bool.max_clause_count` setting to accommodate larger queries. |
-| `index.mapping.depth.limit` | `20` | [1, 100] | Controls the maximum nesting depth for field mappings. Depth is calculated by counting the levels of nested objects, starting from the root level (depth 1 for root-level fields, depth 2 for fields within one level of object nesting, and so on). |
-| `index.mapping.nested_fields.limit` | `50` | [0, ∞) | Limits the number of distinct `nested` field types in an index. Since nested fields require special handling and additional memory, this setting helps prevent excessive resource consumption. |
-| `index.mapping.nested_objects.limit` | `10000` | [0, ∞) | Restricts the total number of nested JSON objects that a single document can contain across all nested field types. This prevents individual documents from consuming excessive memory during indexing. |
-| `index.mapping.field_name_length.limit` | `50000` | [1, 50000] | Sets the maximum allowed length for field names. This setting can help maintain reasonable mapping sizes by preventing extremely long field names. |
-| `index.mapper.dynamic` | `true` | `true`,`false` | Determines whether new fields should be dynamically added to a mapping. Setting this to `false` can prevent uncontrolled field growth. |
+For detailed information about all mapping limit settings, including their default values and valid ranges, see [Mapping limit settings]({{site.url}}{{site.baseurl}}/mappings/mapping-explosion/#mapping-limit-settings).
 
 
 ## Related documentation
