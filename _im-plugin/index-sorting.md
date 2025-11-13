@@ -75,9 +75,6 @@ PUT /sample-index
 **Introduced 2.8**
 {: .label .label-purple }
 
-
-
-
 You can sort an index that contains nested fields by the nested fields. The following example sorts a nested index by a top-level field (`user_id`) and a nested field (`comments.timestamp`) in descending order:
 
 ```json
