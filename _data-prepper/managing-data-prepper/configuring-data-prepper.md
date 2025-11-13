@@ -110,9 +110,9 @@ Option | Required | Type | Description
 
 Data Prepper supports user‑configurable extension plugins. Extension plugins provide a reusable configuration shared across pipeline plugins (sources, buffers, processors, or sinks).
 
-### AWS secrets extension plugin
+### AWS Secrets extension plugin
 
-The aws extension integrates with [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) to securely manage sensitive configuration values in your pipelines. See following example configuration:
+The `aws` extension provides the `secrets` configuration, which integrates with [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) to securely manage sensitive configuration values in your pipelines. The following example shows a basic configuration:
 
 ```yaml
 extensions:
@@ -131,7 +131,7 @@ extensions:
 
 ### Secrets
 
-The `secrets` extension supports the following parameters.
+The `secrets` configuration supports the following parameters.
 
 Option | Required | Type | Description
 :--- |:---|:---| :---
@@ -174,7 +174,7 @@ You can then reference these secrets in `pipelines.yaml` as follows:
 ```yaml
 sink:
   - opensearch:
-      hosts: [ {% raw %}"${{aws_secrets:host-secret-config}}"{% endraw %} ]
+      hosts: [{% raw %}"${{aws_secrets:host-secret-config}}"{% endraw %}]
       username: {% raw %}"${{aws_secrets:credential-secret-config:username}}"{% endraw %}
       password: {% raw %}"${{aws_secrets:credential-secret-config:password}}"{% endraw %}
       index: "test-migration"
