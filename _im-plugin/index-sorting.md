@@ -71,16 +71,14 @@ PUT /sample-index
 ```
 {% include copy-curl.html %}
 
-## Sorting on Nested field
+## Sorting by nested fields
+**Introduced 2.8**
+{: .label .label-purple }
 
-Starting with **OpenSearch 3.3**, index sorting now supports indices that include **nested fields**.  
 
-Previously, attempting to enable index sorting on an index containing nested fields resulted in an error.  
-This limitation has been removed in OpenSearch 3.3 and later.
 
-### Example: Sorting an index that contains nested fields
 
-The following example sorts a nested index by a top-level field (`user_id`) and a nested field (`comments.timestamp`) in descending order.
+You can sort an index that contains nested fields by the nested fields. The following example sorts a nested index by a top-level field (`user_id`) and a nested field (`comments.timestamp`) in descending order:
 
 ```json
 PUT /nested-index
@@ -113,7 +111,7 @@ PUT /nested-index
   }
 }
 ```
-{% include copy-curl.html %
+{% include copy-curl.html %}
 
 Even though nested fields are allowed within mappings, index sorting cannot be applied to fields inside nested objects. This limitation ensures nested documents retain their structural integrity.
 {: .note}
