@@ -27,7 +27,7 @@ As the number of fields grows, several issues can emerge:
 
 ## Mapping limit settings
 
-OpenSearch provides several index-level settings to prevent mapping explosion by limiting various aspects of mapping growth. These settings can be configured when creating an index or updated on existing indexes:
+OpenSearch provides several index-level settings to prevent mapping explosion by limiting various aspects of mapping growth. These settings can be configured when creating an index or updated for existing indexes:
 
 ```json
 PUT /my-index/_settings
@@ -41,8 +41,8 @@ The following table lists all available mapping limit settings. All settings are
 
 | Setting | Default | Valid values | Description |
 |:--- |:--- |:--- |:--- |:--- |
-| `index.mapping.total_fields.limit` | `1000` | [0, ∞) | Sets the maximum number of fields allowed in an index, including regular fields, object mappings, and field aliases. Increasing this limit requires careful consideration of cluster resources. When raising this setting, consider also adjusting the `indices.query.bool.max_clause_count` setting to accommodate larger queries. |
-| `index.mapping.depth.limit` | `20` | [1, 100] | Controls the maximum nesting depth for field mappings. Depth is calculated by counting the levels of nested objects, starting from the root level (depth 1 for root-level fields, depth 2 for fields within one level of object nesting, and so on). |
+| `index.mapping.total_fields.limit` | `1000` | [0, ∞) | Sets the maximum number of fields allowed in an index, including regular fields, object mappings, and field aliases. Increasing this limit requires careful consideration of cluster resources. When increasing this limit, consider also adjusting the `indices.query.bool.max_clause_count` setting to accommodate larger queries. |
+| `index.mapping.depth.limit` | `20` | [1, 100] | Controls the maximum nesting depth for field mappings. Depth is calculated by counting the levels of nested objects, starting from the root level (depth 1 for root-level fields, depth 2 for fields within 1 level of object nesting, and so on). |
 | `index.mapping.nested_fields.limit` | `50` | [0, ∞) | Limits the number of distinct `nested` field types in an index. Since nested fields require special handling and additional memory, this setting helps prevent excessive resource consumption. |
 | `index.mapping.nested_objects.limit` | `10000` | [0, ∞) | Restricts the total number of nested JSON objects that a single document can contain across all nested field types. This prevents individual documents from consuming excessive memory during indexing. |
 | `index.mapping.field_name_length.limit` | `50000` | [1, 50000] | Sets the maximum allowed length for field names. This setting can help maintain reasonable mapping sizes by preventing extremely long field names. |
@@ -102,7 +102,7 @@ PUT /logs
 ```
 {% include copy-curl.html %}
 
-### Consider flat object field type
+### Use the flat_object field type
 
 For documents with arbitrary key-value pairs, use the [`flat_object` field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/flat-object/) instead of allowing dynamic mapping:
 
@@ -150,7 +150,7 @@ PUT /structured-data
 
 Regular monitoring helps you detect mapping growth early and take action before it affects cluster performance. You can monitor field mappings in the following ways.
 
-### Check current field count
+### Check the current field count
 
 Monitor the number of fields in your indexes:
 
