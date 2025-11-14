@@ -175,3 +175,88 @@ When you run the same term query on the configured index, the query takes longer
   }
 }
 ```
+
+## Derived source
+
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort keyword values and remove duplicates in multi-value keyword fields during source reconstruction.
+
+Create an index that enables derived source and configures a `name` field:
+
+```json
+PUT sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+```
+
+Index a document with multiple keyword values, including duplicates, into the index:
+
+```json
+PUT sample-index1/_doc/1
+{
+  "name": ["ba", "ab", "ac", "ba"]
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` removes duplicates and sorts the values alphabetically:
+
+```json
+{
+  "name": ["ab", "ac", "ba"]
+}
+```
+
+If the field mapping defines a [`null_value`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/null-value/), any ingested null values are replaced with that value during reconstruction. The following example demonstrates how `null_value` affects derived source output.
+
+Create an index that enables derived source and configures a `null_value` for the `name` field:
+
+```json
+PUT sample-index2
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "keyword",
+        "null_value": "foo"
+      }
+    }
+  }
+}
+```
+
+Index a document with null values into the index:
+
+```json
+PUT sample-index2/_doc/1
+{
+  "name": [null, "ba", "ab"]
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` replaces null values and sorts the values alphabetically:
+
+```json
+{
+  "name": ["ab", "ba", "foo"]
+}
+```
