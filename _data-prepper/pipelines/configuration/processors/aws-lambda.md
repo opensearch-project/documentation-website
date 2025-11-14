@@ -43,7 +43,7 @@ Field                | Type    | Required | Description
 `cache.ttl`          | Long    | Optional | The cache time-to-live.
 `cache.max_size`     | Long    | Optional | The maximum cache size. Must be between 1048576 and 10485760.
 `circuit_breaker_retries` | Integer | Optional | The maximum number of circuit breaker checks before proceeding. Default is `0`.
-`circuit_breaker_wait_interval` | Long | Optional | Time in milliseconds between circuit breaker checks. Default is `1000ms`.
+`circuit_breaker_wait_interval` | Long | Optional | The amount of time, in milliseconds, between circuit breaker checks. Default is `1000ms`.
 
 #### Example configuration
 
