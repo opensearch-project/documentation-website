@@ -88,11 +88,11 @@ The processor supports the following invocation types:
 - `request-response`: The processor waits for Lambda function completion before proceeding.
 - `event`: The function is triggered asynchronously without waiting for a response.
 
-### Batch Processing
+### Batch processing
 
 When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Batch thresholds control the event count, size limit, and timeout.
 
-### Response Handling
+### Response handling
 
 The processor supports two response modes:
 - `replace`: Lambda response replaces the original event data (default)
@@ -106,7 +106,7 @@ When `response_mode` is set to `merge` and `keys` are specified, the processor c
 
 The processor includes circuit breaker functionality to handle memory pressure situations gracefully.
 
-### Tags on Failure
+### Tags on failure
 
 Custom tags can be applied to events when Lambda processing fails or encounters exceptions using the `tags_on_failure` configuration.
 
