@@ -102,7 +102,7 @@ The processor supports two response modes:
 
 When `response_mode` is set to `merge` and `keys` are specified, the processor can cache Lambda responses to improve performance for repeated requests.
 
-### Circuit Breaker
+### Circuit breaker
 
 The processor includes circuit breaker functionality to handle memory pressure situations gracefully.
 
