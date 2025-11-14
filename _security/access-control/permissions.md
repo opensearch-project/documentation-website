@@ -59,6 +59,36 @@ GET _cat/shards?v
 }
 ```
 
+The preceding request runs the actual operation to test permissions. To simulate the check without executing the operation, set the `perform_permission_check` query parameter to `true`:
+
+```json
+PUT /my_index/_doc/1?perform_permission_check=true
+{
+   "title": "Test Document"
+}
+```
+{% include copy-curl.html %}
+
+The response indicates whether the user has sufficient permissions to perform the operation and lists any missing privileges. This option is particularly useful for safely testing operations such as `POST`, `PUT`, and `DELETE`.
+
+When the user has sufficient permissions, the response appears similar to the following:
+
+```json
+{
+   "accessAllowed": true,
+   "missingPrivileges": []
+}
+```
+
+When the user does not have sufficient permissions, the response lists the missing privileges:
+
+```json
+{
+   "accessAllowed": false,
+   "missingPrivileges": ["indices:data/write/index"]
+}
+```
+
 [Create a user and a role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/), map the role to the user, and start sending signed requests using curl, Postman, or any other client. Then gradually add permissions to the role as you encounter errors. Even after you resolve one permissions error, the same request might generate new errors; the plugin only returns the first error it encounters, so keep trying until the request succeeds.
 
 Rather than individual permissions, you can often achieve your desired security posture using a combination of the default action groups. See [Default action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/) for descriptions of the permissions that each group grants.
@@ -501,7 +531,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:admin/upgrade` | Permission for administrators to perform upgrades. |
 | `indices:admin/validate/query` |  Permission to validate a specific query. |
 | `indices:data/read/explain` |  Permission to run the [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/). |
-| `indices:data/read/field_caps` |  Permission to run the [Field Capabilities API]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/#using-aliases-in-field-capabilities-api-operations). |
+| `indices:data/read/field_caps` |  Permission to run the [Field Capabilities API]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/alias/#using-aliases-in-field-capabilities-api-operations). |
 | `indices:data/read/field_caps*` |  Permission to run the Field Capabilities API. |
 | `indices:data/read/get` |  Permission to read index data. |
 | `indices:data/read/mget` |  Permission to run [multiple GET operations]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) in one request. |

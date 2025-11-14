@@ -12,7 +12,6 @@ redirect_from:
   - /search-plugins/ppl/index/
   - /search-plugins/ppl/endpoint/
   - /search-plugins/ppl/protocol/
-  - /search-plugins/sql/ppl/index/
   - /observability-plugin/ppl/index/
 ---
 

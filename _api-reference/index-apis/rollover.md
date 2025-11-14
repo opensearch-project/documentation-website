@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Roll over index
-parent: Index APIs
-nav_order: 125
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 70
 ---
 
 # Roll Over Index API
@@ -40,7 +41,7 @@ During the index alias rollover process, if you don't specify a custom name and 
 
 ## Using date math with index rollovers
 
-When using an index alias for time-series data, you can use [date math]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/) in the index name to track the rollover date. For example, you can create an alias pointing to `my-index-{now/d}-000001`. If you create an alias on June 11, 2029, then the index name would be `my-index-2029.06.11-000001`. For a rollover on June 12, 2029, the new index would be named `my-index-2029.06.12-000002`. See [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index) for a practical example.
+When using an index alias for time-series data, you can use [date math]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/) in the index name to track the rollover date. For example, you can create an alias pointing to `my-index-{now/d}-000001`. If you create an alias on June 11, 2029, then the index name would be `my-index-2029.06.11-000001`. For a rollover on June 12, 2029, the new index would be named `my-index-2029.06.12-000002`. See [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index) for a practical example.
 
 ## Path parameters
 
@@ -81,7 +82,7 @@ Parameter | Type | Description
 
 ### `mappings`
 
-The `mappings` parameter specifies the index field mappings. It is optional. See [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/) for more information.
+The `mappings` parameter specifies the index field mappings. It is optional. See [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/) for more information.
 
 ### `conditions`
 

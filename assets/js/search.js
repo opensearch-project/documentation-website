@@ -90,7 +90,7 @@
 
         const doSearch = async () => {
             const query = elInput.value.replace(/[^a-z0-9-_. ]+/ig, ' ');
-            if (query.length < 3) return hideResults(true);
+            if (query.length < 2) return hideResults(true);
             if (query === lastQuery) return;
 
             recordEvent('search', {
@@ -281,9 +281,18 @@ window.doResultsPageSearch = async (query, type, version) => {
     const searchResultsContainer = document.getElementById('searchPageResultsContainer');
 
     try {
+        // Clear any previous search results
+        searchResultsContainer.innerHTML = '';
+
+        // Display a loading message while fetching results
+        const loadingElement = document.createElement('div');
+        loadingElement.textContent = 'Loading...';
+        searchResultsContainer.appendChild(loadingElement);
+
         const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${version}&t=${type}`);
         const data = await response.json();
-        // Clear any previous search results
+
+        // Clear the loading message
         searchResultsContainer.innerHTML = '';
 
         if (data.results && data.results.length > 0) {

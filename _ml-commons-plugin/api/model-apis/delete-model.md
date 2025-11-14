@@ -3,7 +3,7 @@ layout: default
 title: Delete model
 parent: Model APIs
 grand_parent: ML Commons APIs
-nav_order: 50
+nav_order: 47
 ---
 
 # Delete Model API

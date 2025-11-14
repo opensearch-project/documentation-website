@@ -3,7 +3,7 @@ layout: default
 title: k-NN
 parent: Specialized queries
 has_children: true
-nav_order: 10
+nav_order: 15
 redirect_from:
   - /query-dsl/specialized/k-nn/
 ---
@@ -39,13 +39,13 @@ The top-level `vector_field` specifies the vector field against which to run a s
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`vector` | Array of floats or bytes | Required | The query vector to use for vector search. The data type of the vector elements must match the data type of vectors indexed in the [`knn_vector` field]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) searched.
+`vector` | Array of floats or bytes | Required | The query vector to use for vector search. The data type of the vector elements must match the data type of vectors indexed in the [`knn_vector` field]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/) searched.
 `k` | Integer | Optional | The number of nearest neighbors to return. Valid values are in the [1, 10,000] range. Required if either `max_distance` or `min_score` is not specified.
 `max_distance` | Float | Optional | The maximum distance threshold for search results. Only one of `k`, `max_distance`, or `min_score` can be specified. For more information, see [Radial search]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/radial-search-knn/).
 `min_score` | Float | Optional | The minimum score threshold for search results. Only one of `k`, `max_distance`, or `min_score` can be specified. For more information, see [Radial search]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/radial-search-knn/).
 `filter` | Object | Optional | A filter to apply to the k-NN search. For more information, see [Vector search with filters]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/). **Important**: A filter can only be used with the `faiss` or `lucene` engines.
 `method_parameters` | Object | Optional | Additional parameters for fine-tuning the search:<br>- `ef_search` (Integer): The number of vectors to examine (for the `hnsw` method)<br>- `nprobes` (Integer): The number of buckets to examine (for the `ivf` method). For more information, see [Specifying method parameters in the query](#specifying-method-parameters-in-the-query).
-`rescore` | Object or Boolean | Optional | Parameters for configuring rescoring functionality:<br>- `oversample_factor` (Float): Controls how many candidate vectors are retrieved before rescoring. Valid values are in the `[1.0, 100.0]` range. Default is `false` for fields with `in_memory` mode (no rescoring) and enabled (with dynamic values) for fields with `on_disk` mode. In `on_disk` mode, the default `oversample_factor` is determined by the `compression_level`. For more information, see the [compression level table]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#rescoring-quantized-results-to-full-precision). To explicitly enable rescoring with the default `oversample_factor` of `1.0`, set `rescore` to `true`. For more information, see [Rescoring results](#rescoring-results).
+`rescore` | Object or Boolean | Optional | Parameters for configuring rescoring functionality:<br>- `oversample_factor` (Float): Controls how many candidate vectors are retrieved before rescoring. Valid values are in the `[1.0, 100.0]` range. Default is `false` for fields with `in_memory` mode (no rescoring) and enabled (with dynamic values) for fields with `on_disk` mode. In `on_disk` mode, the default `oversample_factor` is determined by the `compression_level`. For more information, see the [compression level table]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#rescoring-quantized-results-to-full-precision). To explicitly enable rescoring with the default `oversample_factor` of `1.0`, set `rescore` to `true`. For more information, see [Rescoring results](#rescoring-results).
 `expand_nested_docs` | Boolean | Optional | When `true`, retrieves scores for all nested field documents within each parent document. Used with nested queries. For more information, see [Vector search with nested fields]({{site.url}}{{site.baseurl}}/vector-search/specialized-operations/nested-search-knn/).
 
 ## Example request
@@ -217,5 +217,5 @@ GET /my-vector-index/_search
 
 ## Next steps
 
-- [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)
-- [Rescoring quantized results to full precision]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/#rescoring-quantized-results-to-full-precision)
+- [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/)
+- [Rescoring quantized results to full precision]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#rescoring-quantized-results-to-full-precision)

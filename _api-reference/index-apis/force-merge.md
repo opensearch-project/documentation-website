@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Force merge
-parent: Index APIs
-nav_order: 80
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 40
 ---
 
 # Force Merge API

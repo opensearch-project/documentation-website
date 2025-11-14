@@ -4,6 +4,8 @@ title: Sources
 parent: Pipelines
 has_children: true
 nav_order: 110
+redirect_from:
+  - /data-prepper/pipelines/configuration/sources/
 ---
 
 # Sources

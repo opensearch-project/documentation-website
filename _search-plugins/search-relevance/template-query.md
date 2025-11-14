@@ -209,7 +209,7 @@ The response contains the matching document:
 }
 ```
 
-## Related articles
+## Related documentation
 
 - [Template query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/template/)
 - [ML inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/)

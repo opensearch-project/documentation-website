@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Stats
-parent: Index APIs
-nav_order: 155
+title: Index stats
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 120
 ---
 
 # Index Stats API 
@@ -340,7 +341,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
       },
       "fielddata": {
         "memory_size_in_bytes": 0,
-        "evictions": 0
+        "evictions": 0,
+        "item_count": 0
       },
       "completion": {
         "size_in_bytes": 0
@@ -507,7 +509,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
       },
       "fielddata": {
         "memory_size_in_bytes": 0,
-        "evictions": 0
+        "evictions": 0,
+        "item_count": 0
       },
       "completion": {
         "size_in_bytes": 0
@@ -678,7 +681,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         },
         "fielddata": {
           "memory_size_in_bytes": 0,
-          "evictions": 0
+          "evictions": 0,
+          "item_count": 0
         },
         "completion": {
           "size_in_bytes": 0
@@ -845,7 +849,8 @@ By default, the returned statistics are aggregated in the `primaries` and `total
         },
         "fielddata": {
           "memory_size_in_bytes": 0,
-          "evictions": 0
+          "evictions": 0,
+          "item_count": 0
         },
         "completion": {
           "size_in_bytes": 0
