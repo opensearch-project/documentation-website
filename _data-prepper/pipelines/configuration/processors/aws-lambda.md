@@ -38,7 +38,7 @@ Field                | Type    | Required | Description
 `tags_on_failure`    | List    | Optional |  A list of tags to add to events when the Lambda function fails or encounters an exception.
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
 `response_mode`      | String  | Optional | Response handling mode, either `replace` or `merge`. Default is `replace`.
-`keys`               | List    | Optional | Keys to send to lambda function.
+`keys`               | List    | Optional | Keys to send to the Lambda function.
 `cache`              | Object  | Optional | Cache configuration. Only valid when `response_mode` is `merge` and `keys` are specified.
 `cache.ttl`          | Long    | Optional | Cache time-to-live.
 `cache.max_size`     | Long    | Optional | Maximum cache size. Must be between 1048576 and 10485760.
