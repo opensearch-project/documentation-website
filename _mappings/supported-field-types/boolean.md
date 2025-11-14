@@ -158,3 +158,83 @@ The script returns the value of `a` as `true`, `key` returns the value of `a` as
   }
 }
 ```
+
+## Derived source
+
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort values in a multi-value `boolean` field during source reconstruction. The following example shows how OpenSearch processes mixed `boolean` inputs.
+
+Create an index that enables derived source and configures a `boolean` field named `a`:
+
+```json
+PUT /sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "a":  {"type": "boolean"}
+    }
+  }
+}
+```
+
+Index a document into the index:
+
+```json
+PUT sample-index1/_doc/1
+{
+  "a": [false, "true", "false", true, ""]
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` is as follows:
+
+```json
+{
+  "a": [false, false, false, true, true]
+}
+```
+
+If the field mapping defines a [`null_value`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/null-value/), any ingested null values are replaced with that value during reconstruction. The following example demonstrates how `null_value` affects derived source output.
+
+Create an index that enables derived source and configures a `null_value` for the `boolean` field `a`:
+
+```json
+PUT sample-index2
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "a":  {"type": "boolean", "null_value": true}
+    }
+  }
+}
+```
+
+Index a document into the index:
+
+```json
+PUT sample-index2/_doc/1
+{
+  "a": [null, true, "false"]
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` is as follows:
+
+```json
+{
+  "a": [false, true, true]
+}
+```
