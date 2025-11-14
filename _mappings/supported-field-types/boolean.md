@@ -200,7 +200,7 @@ After OpenSearch reconstructs `_source`, the derived `_source` is as follows:
 }
 ```
 
-If the field mapping defines a [`null_value`]({{site.url}}{{site.baseurl}}/_field-types/mapping-parameters/null-value/), any ingested null values are replaced with that value during reconstruction. The following example demonstrates how `null_value` affects derived source output.
+If the field mapping defines a [`null_value`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/null-value/), any ingested null values are replaced with that value during reconstruction. The following example demonstrates how `null_value` affects derived source output.
 
 Create an index that enables derived source and configures a `null_value` for the `boolean` field `a`:
 
