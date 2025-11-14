@@ -24,7 +24,7 @@ Field                | Type    | Required | Description
 `invocation_type`    | String  | Optional | Specifies the invocation type, either `request-response` or `event`. Default is `request-response`.           
 `aws.region`         | String  | Required | The AWS Region in which the Lambda function is located.                         
 `aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function. Must be 20--2048 characters.               
-`aws.sts_external_id` | String | Optional | External ID for STS role assumption. Must be 2-1224 characters.
+`aws.sts_external_id` | String | Optional | An external ID for STS role assumption. Must be 2--1224 characters.
 `aws.sts_header_overrides` | Map | Optional | STS header overrides. Maximum of 5 headers supported.
 `client.max_retries` | Integer | Optional | The maximum number of retries for failed invocations. Default is `3`.             
 `client.api_call_timeout` | Duration | Optional | The API call timeout. Default is `60s`.
