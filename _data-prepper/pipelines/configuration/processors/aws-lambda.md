@@ -35,7 +35,7 @@ Field                | Type    | Required | Description
 `batch`              | Object  | Optional | The batch settings for the Lambda invocations. Default is `key_name = "events"`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                            
 `lambda_when`        | String  | Optional | A conditional expression that determines when to invoke the Lambda processor.     
 `response_codec`     | Object  | Optional |  A codec configuration for parsing Lambda responses. Default is `json`.
-`tags_on_failure`    | List    | Optional |  A list of tags to add to events when Lambda fails or encounters an exception.
+`tags_on_failure`    | List    | Optional |  A list of tags to add to events when the Lambda function fails or encounters an exception.
 `response_events_match` | Boolean | Optional | Specifies how Data Prepper interprets and processes Lambda function responses. Default is `false`.
 `response_mode`      | String  | Optional | Response handling mode, either `replace` or `merge`. Default is `replace`.
 `keys`               | List    | Optional | Keys to send to lambda function.
