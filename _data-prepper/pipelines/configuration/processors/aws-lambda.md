@@ -27,7 +27,7 @@ Field                | Type    | Required | Description
 `aws.sts_external_id` | String | Optional | External ID for STS role assumption. Must be 2-1224 characters.
 `aws.sts_header_overrides` | Map | Optional | STS header overrides. Maximum of 5 headers supported.
 `client.max_retries` | Integer | Optional | The maximum number of retries for failed invocations. Default is `3`.             
-`client.api_call_timeout` | Duration | Optional | API call timeout before timing out. Default is `60s`.
+`client.api_call_timeout` | Duration | Optional | The API call timeout. Default is `60s`.
 `client.connection_timeout` | Duration | Optional | SDK connection timeout. Default is `60s`.
 `client.max_concurrency` | Integer | Optional | Maximum concurrency from client side. Default is `200`.
 `client.base_delay`  | Duration | Optional | Base delay for exponential backoff. Default is `100ms`.
