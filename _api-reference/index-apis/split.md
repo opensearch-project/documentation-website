@@ -1,21 +1,41 @@
 ---
 layout: default
 title: Split index
-parent: Index APIs
-nav_order: 70
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 110
 redirect_from:
   - /opensearch/rest-api/index-apis/split/
 ---
 
-# Split index
+# Split Index API
 **Introduced 1.0**
 {: .label .label-purple }
 
 The split index API operation splits an existing read-only index into a new index, cutting each primary shard into some amount of primary shards in the new index.
 
-## Example
+To make the index read-only, set the [dynamic index-level index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) `index.blocks.write` to `true`.
+{: .note}
 
-```json
+## Example Request
+
+<!-- spec_insert_start
+component: example_code
+rest: PUT /sample-index1/_split/split-index1
+body: |
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 4,
+      "number_of_replicas": 2
+    }
+  },
+  "aliases": {
+    "sample-alias1": {}
+  }
+}
+-->
+{% capture step1_rest %}
 PUT /sample-index1/_split/split-index1
 {
   "settings": {
@@ -28,8 +48,33 @@ PUT /sample-index1/_split/split-index1
     "sample-alias1": {}
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.split(
+  index = "sample-index1",
+  target = "split-index1",
+  body =   {
+    "settings": {
+      "index": {
+        "number_of_shards": 4,
+        "number_of_replicas": 2
+      }
+    },
+    "aliases": {
+      "sample-alias1": {}
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Endpoints
 

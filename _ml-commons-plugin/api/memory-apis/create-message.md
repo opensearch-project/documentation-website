@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 40
 ---
 
-# Create or update a message
+# Create Or Update Message API
 **Introduced 2.12**
 {: .label .label-purple }
 
@@ -53,7 +53,25 @@ Field | Data type | Required/Optional | Updatable | Description
 To create or update a message successfully, you must provide at least one of the preceding fields. The provided field(s) cannot be null or empty.
 {: .note}
 
-#### Example request: Create a message
+## Response body fields
+
+The following table lists the available response fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `memory_id` | String | The memory ID. |
+| `message_id` | String | The message ID. |
+| `create_time` | String | The time at which the message was created. |
+| `updated_time` | String | The time at which the message was last updated. |
+| `input` | String | The question in the message (human input). |
+| `prompt_template` | String | The prompt template that was used for the message. |
+| `response` | String | The answer to the question (generative AI output). |
+| `origin` | String | The name of the AI or other system that generated the response. |
+| `additional_info` | Object | Any other information that was sent to the `origin`. |
+| `parent_message_id` | String | The ID of the parent message (for trace messages). |
+| `trace_number` | Integer | The trace number (for trace messages). |
+
+## Example request: Create a message
 
 ```json
 POST /_plugins/_ml/memory/SXA2cY0BfUsSoeNTz-8m/messages
@@ -69,15 +87,15 @@ POST /_plugins/_ml/memory/SXA2cY0BfUsSoeNTz-8m/messages
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
-  "memory_id": "WnA3cY0BfUsSoeNTI-_J"
+  "message_id": "WnA3cY0BfUsSoeNTI-_J"
 }
 ```
 
-#### Example request: Add a field to `additional_info`
+## Example request: Add a field to `additional_info`
 
 ```json
 PUT /_plugins/_ml/memory/message/WnA3cY0BfUsSoeNTI-_J
@@ -89,7 +107,7 @@ PUT /_plugins/_ml/memory/message/WnA3cY0BfUsSoeNTI-_J
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -115,6 +133,7 @@ The updated message contains an additional `feedback` field:
   "memory_id": "SXA2cY0BfUsSoeNTz-8m",
   "message_id": "WnA3cY0BfUsSoeNTI-_J",
   "create_time": "2024-02-03T23:04:15.554370024Z",
+  "updated_time": "2024-02-03T23:05:20.123456789Z",
   "input": "How do I make an interaction?",
   "prompt_template": "Hello OpenAI, can you answer this question?",
   "response": "Hello, this is OpenAI. Here is the answer to your question.",
@@ -126,7 +145,7 @@ The updated message contains an additional `feedback` field:
 }
 ```
 
-#### Example request: Change a field in `additional_info`
+## Example request: Change a field in `additional_info`
 
 ```json
 PUT /_plugins/_ml/memory/message/WnA3cY0BfUsSoeNTI-_J
@@ -138,7 +157,7 @@ PUT /_plugins/_ml/memory/message/WnA3cY0BfUsSoeNTI-_J
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {
@@ -164,6 +183,7 @@ The updated message contains the updated `feedback` field:
   "memory_id": "SXA2cY0BfUsSoeNTz-8m",
   "message_id": "WnA3cY0BfUsSoeNTI-_J",
   "create_time": "2024-02-03T23:04:15.554370024Z",
+  "updated_time": "2024-02-03T23:06:45.987654321Z",
   "input": "How do I make an interaction?",
   "prompt_template": "Hello OpenAI, can you answer this question?",
   "response": "Hello, this is OpenAI. Here is the answer to your question.",

@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /query-insights/
+  - /observing-your-data/query-insights/
 ---
 
 # Query insights

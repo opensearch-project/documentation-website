@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT pending tasks
-parent: CAT API
+parent: CAT APIs
 nav_order: 45
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-pending-tasks/
 ---
 
-# CAT pending tasks
+# CAT Pending Tasks API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -53,10 +53,27 @@ The following table lists the available query parameters. All query parameters a
 
 The following example request lists the progress of all pending node tasks:
 
-```json
-GET _cat/pending_tasks?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/pending_tasks?v
+-->
+{% capture step1_rest %}
+GET /_cat/pending_tasks?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.pending_tasks(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

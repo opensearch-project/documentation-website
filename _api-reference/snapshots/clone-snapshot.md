@@ -5,7 +5,7 @@ parent: Snapshot APIs
 nav_order: 10
 ---
 
-# Clone snapshot
+# Clone Snapshot API
 Introduced 1.0
 {: .label .label-purple }
 
@@ -59,13 +59,41 @@ The following table lists the available query parameters. All query parameters a
 
 The following request clones indexes `index_a` and `index_b` from `my_snapshot`, a snapshot located in the snapshot repository `my-opensearch-repo`, into a new snapshot in the same repository called `my_new_snapshot`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_snapshot/my-opensearch-repo/my_snapshot/_clone/my_new_snapshot
+body: |
+{
+	“indices” : “index_a,index_b”
+}
+-->
+{% capture step1_rest %}
 PUT /_snapshot/my-opensearch-repo/my_snapshot/_clone/my_new_snapshot
 {
 	“indices” : “index_a,index_b”
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.clone(
+  repository = "my-opensearch-repo",
+  snapshot = "my_snapshot",
+  target_snapshot = "my_new_snapshot",
+  body = '''
+{
+	“indices” : “index_a,index_b”
+}
+'''
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

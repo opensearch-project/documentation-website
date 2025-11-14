@@ -103,6 +103,26 @@ module Api
     # @return [String] Deprecation message
     def deprecation_message; @spec['x-deprecation-message']; end
 
+    def self.find_by_rest(rest_line)
+      method, raw_path = rest_line.strip.split(' ', 2)
+      return nil unless method && raw_path
+
+      # Remove query parameters
+      path = raw_path.split('?').first
+
+      all.find do |action|
+        action.operations.any? do |op|
+          op.http_verb.casecmp?(method) &&
+            path_template_matches?(op.url, path)
+        end
+      end
+    end
+
+    def self.path_template_matches?(template, actual)
+      # "/{index}/_doc/{id}" => "^/[^/]+/_doc/[^/]+$"
+      regex = Regexp.new("^" + template.gsub(/\{[^\/]+\}/, '[^/]+') + "$")
+      regex.match?(actual)
+    end
     # @return [String] API reference
     def api_reference; @operation.external_docs.url; end
   end

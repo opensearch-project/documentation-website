@@ -3,7 +3,7 @@ layout: default
 title: Configuring
 nav_order: 7
 grand_parent: User guide
-parent: Install and configure
+parent: Install and configure OpenSearch Benchmark
 redirect_from:
   - /benchmark/configuring-benchmark/
   - /benchmark/user-guide/configuring-benchmark/
@@ -12,9 +12,38 @@ redirect_from:
 
 # Configuring OpenSearch Benchmark
 
-OpenSearch Benchmark configuration data is stored in `~/.benchmark/benchmark.ini`, which is automatically created the first time OpenSearch Benchmark runs. 
+OpenSearch Benchmark configuration data is stored in `~/.benchmark/benchmark.ini`, which is automatically created the first time OpenSearch Benchmark runs.
 
 The file is separated into the following sections, which you can customize based on the needs of your cluster.
+
+## client_options
+
+This section explains how to customize client-level settings during benchmark execution using the `--client-options` command line flag.
+
+You can pass client-specific parameters to OpenSearch Benchmark using the `--client-options` flag. These parameters let you control low-level client behavior such as timeouts, authentication methods, and SSL settings.
+
+The `--client-options` flag accepts a comma-separated list of key-value pairs, as shown in the following example:
+
+```bash
+--client-options=timeout:120,verify_certs:false
+```
+
+You can customize `--client-options` with the following settings.
+
+| Option | Type | Description |
+| :---- | :---- | :---- |
+| `timeout` | Integer | Sets the request timeout value in seconds. |
+| `verify_certs` | Boolean | Determines whether to verify SSL certificates when connecting to the OpenSearch cluster. |
+
+This example runs a benchmark with a 2-minute timeout and disabled certificate verification:
+
+```bash
+opensearch-benchmark run \
+--target-hosts=https://localhost:9200 \
+--pipeline=benchmark-only \
+--workload=geonames \
+--client-options=timeout:120,verify_certs:false
+```
 
 <!-- vale off -->
 ## meta
@@ -59,7 +88,7 @@ This section contains more details about the OpenSearch source tree.
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
 | `remote.repo.url` | URL | The URL from which to check out OpenSearch. Default is `https://github.com/opensearch-project/OpenSearch.git`.
-| `opensearch.src.subdir` | String | The local path relative to the `src.root.dir` of the OpenSearch search tree. Default is `OpenSearch`. 
+| `opensearch.src.subdir` | String | The local path relative to the `src.root.dir` of the OpenSearch search tree. Default is `OpenSearch`.
 | `cache` | Boolean | Enables OpenSearch's internal source artifact cache, `opensearch*.tar.gz`, and any plugin zip files. Artifacts are cached based on their Git revision. Default is `true`. |
 | `cache.days` | Integer | The number of days that an artifact should be kept in the source artifact cache. Default is `7`. |
 
@@ -74,7 +103,7 @@ This section contains the settings that can be customized in the OpenSearch Benc
 | `local.dataset.cache` | String | The directory in which benchmark datasets are stored. Depending on the benchmarks that are run, this directory may contain hundreds of GB of data. Default path is `$HOME/.benchmark/benchmarks/data`. |
 
 <!-- vale off -->
-## results_publishing
+## reporting
 <!-- vale on -->
 
 This section defines how benchmark metrics are stored.
@@ -82,7 +111,7 @@ This section defines how benchmark metrics are stored.
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
 | `datastore.type` | String | If set to `in-memory` all metrics are kept in memory while running the benchmark. If set to `opensearch` all metrics are instead written to a persistent metrics store and the data is made available for further analysis. Default is `in-memory`. |
-| `sample.queue.size` | Function | The number of metrics samples that can be stored in OpenSearch Benchmark’s in-memory queue. Default is `2^20`. | 
+| `sample.queue.size` | Function | The number of metric samples that can be stored in OpenSearch Benchmark's in-memory queue. Default is `2^20`. |
 | metrics.request.downsample.factor | Integer| (default: 1): Determines how many service time and latency samples are saved in the metrics store. By default, all values are saved. If you want to, for example. keep only every 100th sample, specify `100`. This is useful to avoid overwhelming the metrics store in benchmarks with many clients. Default is `1`. |
 | `output.processingtime` | Boolean | If set to `true`, OpenSearch shows the additional metric processing time in the command line report. Default is `false`. |
 
@@ -112,7 +141,7 @@ You can use the following examples to set reporting values in your cluster.
 This example defines an unprotected metrics store in the local network:
 
 ```
-[results_publishing]
+[reporting]
 datastore.type = opensearch
 datastore.host = 192.168.10.17
 datastore.port = 9200
@@ -124,7 +153,7 @@ datastore.password =
 This example defines a secure connection to a metrics store in the local network with a self-signed certificate:
 
 ```
-[results_publishing]
+[reporting]
 datastore.type = opensearch
 datastore.host = 192.168.10.22
 datastore.port = 9200
@@ -148,7 +177,7 @@ This section defines the default values of certain OpenSearch Benchmark CLI para
 
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
-| `preserve_benchmark_candidate` | Boolean | Determines whether OpenSearch installations are preserved or wiped by default after a benchmark. To preserve an installation for a single benchmark, use the command line flag `--preserve-install`. Default is `false`. 
+| `preserve_benchmark_candidate` | Boolean | Determines whether OpenSearch installations are preserved or wiped by default after a benchmark. To preserve an installation for a single benchmark, use the command line flag `--preserve-install`. Default is `false`.
 
 <!-- vale off -->
 ## distributions
@@ -162,13 +191,32 @@ This section defines how OpenSearch versions are distributed.
 
 ## Running OpenSearch Benchmark with AWS Signature Version 4
 
-OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run OpenSearch Benchmark with AWS Signature Version 4, you need to set up an [AWS Identity and Access Management (IAM) user or role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html) and provide it access to the OpenSearch cluster using AWS Signature Version 4 authentication. 
+OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run OpenSearch Benchmark with AWS Signature Version 4, you need to set up an [AWS Identity and Access Management (IAM) user or role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html) and provide it access to the OpenSearch cluster using AWS Signature Version 4 authentication.
 
 Whether to use an IAM role or user depends on your test cluster's access management requirements. For more information about whether to use an IAM role or user, see [When to create an IAM user (instead of a role)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html#id_which-to-choose).
 
-Use the following steps to set up AWS Signature Version 4:
+### OpenSearch Benchmark version 1.15.0 and later
 
-1. Create an IAM role or user in the AWS Management Console. 
+Starting with OpenSearch Benchmark version 1.15.0, you can use session-based authentication that automatically handles temporary credential generation and refresh. This method eliminates the need to manually export AWS credentials:
+
+1. Create an IAM role or user in the AWS Management Console that has the necessary permissions to access your OpenSearch cluster. Ensure that the role or user has the required policies attached for OpenSearch access.
+
+2. Run the following `execute-test` command with the `--client-options=amazon_aws_log_in:session` flag. OpenSearch Benchmark will automatically generate temporary credentials and handle auto-refresh:
+
+   ```bash
+   opensearch-benchmark execute-test \
+   --target-hosts=<CLUSTER ENDPOINT> \
+   --pipeline=benchmark-only \
+   --workload=geonames \
+   --client-options=timeout:120,amazon_aws_log_in:session,region:<region>,service:<aoss for serverless, es for managed service>
+   ```
+   {% include copy.html %}
+
+### OpenSearch Benchmark version 1.14.0 and earlier
+
+For OpenSearch Benchmark versions prior to 1.15.0, use the environment variable method:
+
+1. Create an IAM role or user in the AWS Management Console.
 
 2. Set up your environment variables. If you're testing using Amazon OpenSearch Serverless, set `OSB_SERVICE` to `aoss`.
 
@@ -194,29 +242,30 @@ Use the following steps to set up AWS Signature Version 4:
    {% include copy.html %}
 
 
-3. Customize and run the following `execute-test` command with the `--client-options=amazon_aws_log_in:environment` flag. This flag provides the location of your exported credentials to OpenSearch Benchmark.
+3. Customize and run the following `run` command with the `--client-options=amazon_aws_log_in:environment` flag. This flag provides the location of your exported credentials to OpenSearch Benchmark.
 
    ```bash
-   opensearch-benchmark execute-test \
+   opensearch-benchmark run \
    --target-hosts=<CLUSTER ENDPOINT> \
    --pipeline=benchmark-only \
    --workload=geonames \
-   --client-options=timeout:120,amazon_aws_log_in:environment \
+   --client-options=timeout:120,amazon_aws_log_in:environment
    ```
+   {% include copy.html %}
 
 
 ## Proxy configurations
 
 OpenSearch automatically downloads all the necessary proxy data for you, including:
 
-- OpenSearch distributions, when you specify `--distribution-version=<OPENSEARCH-VERSION>`. 
-- OpenSearch source code, when you specify a Git revision number, for example, `--revision=1e04b2w`. 
+- OpenSearch distributions, when you specify `--distribution-version=<OPENSEARCH-VERSION>`.
+- OpenSearch source code, when you specify a Git revision number, for example, `--revision=1e04b2w`.
 - Any metadata tracked from the [OpenSearch GitHub repository](https://github.com/opensearch-project/OpenSearch).
 
 As of OpenSearch Benchmark 0.5.0, only `http_proxy` is supported.
 {: .warning}
 
-You can use an `http_proxy` to connect OpenSearch Benchmark to a specific proxy and connect the proxy to a benchmark workload. To add the proxy: 
+You can use an `http_proxy` to connect OpenSearch Benchmark to a specific proxy and connect the proxy to a benchmark workload. To add the proxy:
 
 
 1. Add your proxy URL to your shell profile:

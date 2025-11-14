@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Multi-get document
+title: Multi-get documents
 parent: Document APIs
 nav_order: 30
 redirect_from: 
  - /opensearch/rest-api/document-apis/multi-get/
 ---
 
-# Multi-get documents
+# Multi-get Documents API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -65,8 +65,10 @@ ids | Array | IDs of the documents to retrieve. Only allowed when an index is sp
 
 The following example requests does specifies an index in the request body:
 
-```json
-GET _mget
+<!-- spec_insert_start
+component: example_code
+rest: GET /_mget
+body: |
 {
   "docs": [
   {
@@ -82,15 +84,66 @@ GET _mget
   }
   ]
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_mget
+{
+  "docs": [
+    {
+      "_index": "sample-index1",
+      "_id": "1"
+    },
+    {
+      "_index": "sample-index2",
+      "_id": "1",
+      "_source": {
+        "include": [
+          "Length"
+        ]
+      }
+    }
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.mget(
+  body =   {
+    "docs": [
+      {
+        "_index": "sample-index1",
+        "_id": "1"
+      },
+      {
+        "_index": "sample-index2",
+        "_id": "1",
+        "_source": {
+          "include": [
+            "Length"
+          ]
+        }
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Specify an index the URL
 
 The following example specifies an index in the URL:
 
-```json
-GET sample-index1/_mget
+<!-- spec_insert_start
+component: example_code
+rest: GET /sample-index1/_mget
+body: |
 {
   "docs": [
     {
@@ -103,8 +156,54 @@ GET sample-index1/_mget
     }
   ]
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /sample-index1/_mget
+{
+  "docs": [
+    {
+      "_id": "1",
+      "_source": false
+    },
+    {
+      "_id": "2",
+      "_source": [
+        "Director",
+        "Title"
+      ]
+    }
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.mget(
+  index = "sample-index1",
+  body =   {
+    "docs": [
+      {
+        "_id": "1",
+        "_source": false
+      },
+      {
+        "_id": "2",
+        "_source": [
+          "Director",
+          "Title"
+        ]
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response 
 

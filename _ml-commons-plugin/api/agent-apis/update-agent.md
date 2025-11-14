@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 15
 ---
 
-# Update an agent
+# Update Agent API
 **Introduced 3.1**
 {: .label .label-purple }
 
@@ -41,7 +41,7 @@ Field | Data type | Agent type | Description
 `llm.parameters.response_filter` | String | `conversational` | The pattern for parsing the LLM response.
 `llm.parameters.max_iteration` | Integer | `conversational` | The maximum number of messages to send to the LLM.
 
-#### Example request: Update tool prompt
+## Example request: Update tool prompt
 
 ```json
 PUT /_plugins/_ml/agents/N8AE1osB0jLkkocYjz7D
@@ -62,7 +62,7 @@ PUT /_plugins/_ml/agents/N8AE1osB0jLkkocYjz7D
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

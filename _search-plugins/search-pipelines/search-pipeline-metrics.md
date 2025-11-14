@@ -1,10 +1,9 @@
 ---
 layout: default
 title: Search pipeline metrics
-nav_order: 50
+nav_order: 60
 has_children: false
 parent: Search pipelines
-grand_parent: Search
 ---
 
 # Search pipeline metrics

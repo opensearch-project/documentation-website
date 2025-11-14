@@ -2,7 +2,7 @@
 layout: default
 title: Cluster settings
 parent: Configuring OpenSearch
-nav_order: 60
+nav_order: 50
 ---
 
 # Cluster settings
@@ -78,6 +78,8 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.info.update.interval` (Dynamic, time unit): Sets how often OpenSearch should check disk usage for each node in the cluster. Default is `30s`. 
 
+- `cluster.routing.allocation.awareness.attributes` (Dynamic, list): See [Shard allocation awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index#shard-allocation-awareness).
+
 - `cluster.routing.allocation.include.<attribute>` (Dynamic, enum): Allocates shards to a node whose `attribute` contains at least one of the included comma-separated values. 
 
 - `cluster.routing.allocation.require.<attribute>` (Dynamic, enum): Only allocates shards to a node whose `attribute` contains all of the included comma-separated values. 
@@ -91,7 +93,9 @@ OpenSearch supports the following cluster-level routing and shard allocation set
     - `_ip` – Match either `_host_ip` or `_publish_ip`. 
     - `_host` – Match nodes by hostname. 
     - `_id` – Match nodes by node ID. 
-    - `_tier` – Match nodes by data tier role.     
+    - `_tier` – Match nodes by data tier role.
+
+- `cluster.routing.allocation.awareness.force.<attribute>.values` (Dynamic, list): See [Forced awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index#forced-awareness).   
 
 - `cluster.routing.allocation.shard_movement_strategy` (Dynamic, enum): Determines the order in which shards are relocated from outgoing to incoming nodes. 
 
@@ -120,6 +124,11 @@ OpenSearch supports the following cluster-level shard, block, and task settings:
 
 - `cluster.blocks.read_only_allow_delete` (Boolean): Similar to `cluster.blocks.read_only`, but allows you to delete indexes. 
 
+- `cluster.no_cluster_manager_block` (String): Configures the operations that are rejected when no cluster manager is active. Accepts one of the following three option:
+    - `all`: Blocks all read and write requests to the cluster.
+    - `write`: Blocks only write requests. Read requests can still be processed.
+    - `metadata_write`: Metadata-related writes, such as updates to mappings or routing tables, are blocked, but normal document indexing can still be performed. Read and write requests are processed using the cluster state last received by the node. Because the node may be cut off from the rest of the cluster, this can lead to serving outdated information or returning only part of the data.
+
 - `cluster.max_shards_per_node` (Integer): Limits the total number of primary and replica shards for the cluster. The limit is calculated as follows: `cluster.max_shards_per_node` multiplied by the number of non-frozen data nodes. Shards for closed indexes do not count toward this limit. Default is `1000`. 
 
 - `cluster.persistent_tasks.allocation.enable` (String): Enables or disables allocation for persistent tasks.   
@@ -131,6 +140,12 @@ OpenSearch supports the following cluster-level shard, block, and task settings:
     Default is `all`. 
 
 - `cluster.persistent_tasks.allocation.recheck_interval` (Time unit): The cluster manager automatically checks whether persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required.
+
+## Cluster-level search settings
+
+OpenSearch supports the following cluster-level search settings:
+
+- `cluster.search.ignore_awareness_attributes` (Boolean): Controls whether awareness attributes are considered during shard query routing. If `true`, the cluster ignores awareness attributes and uses Adaptive Replica Selection (ARS) to choose the optimal shard copy, reducing query response latency. Set this to `false` for routing decisions to prioritize awareness attributes instead of performance-based selection. Default is `false` (`true` for Amazon OpenSearch Service).
 
 ## Cluster-level slow log settings
 
@@ -164,6 +179,18 @@ OpenSearch supports the following cluster-level coordination settings. All setti
 
 - `cluster.publish.timeout` (Time unit): The amount of time that the cluster manager waits for each cluster state update to be completely published to all nodes, unless `discovery.type` is set to `single-node`. Default is `30s`.
 
+## Cluster-level fault detection settings
+
+OpenSearch supports the following cluster-level fault detection settings that control how nodes detect and respond to failures:
+
+- `cluster.fault_detection.follower_check.retry_count` (Static, integer): Sets how many consecutive follower check failures must occur before the elected cluster manager considers a node to be faulty and removes it from the cluster. This setting controls fault detection sensitivity for follower nodes. Default is `3`. **Warning**: Changing this setting from the default may cause your cluster to become unstable.
+
+- `cluster.fault_detection.leader_check.interval` (Static, time unit): Sets how long each node waits between checks of the elected cluster manager. This controls the frequency of leader health checks performed by follower nodes. Default is `1s`. **Warning**: Changing this setting from the default may cause your cluster to become unstable.
+
+- `cluster.fault_detection.leader_check.retry_count` (Static, integer): Sets how many consecutive leader check failures must occur before a node considers the elected cluster manager to be faulty and attempts to find or elect a new cluster manager. This setting controls fault detection sensitivity for the cluster manager node. Default is `3`. **Warning**: Changing this setting from the default may cause your cluster to become unstable.
+
+- `cluster.indices.tombstones.size` (Static, integer): Sets the maximum number of index deletion tombstones to keep in the cluster state. Index tombstones prevent nodes that are not part of the cluster when a delete occurs from joining the cluster and reimporting the index as though the delete was never issued. To prevent the cluster state from growing too large, only the most recent deletions are kept. Default is `500`. You can increase this value if you expect nodes to be absent from the cluster and miss more than 500 index deletions, though this is rare. Tombstones use minimal space, but very large values (like 50,000) are not recommended.
+
 ## Cluster-level CAT response limit settings
 
 OpenSearch supports the following cluster-level CAT API response limit settings, all of which are dynamic:
@@ -173,3 +200,37 @@ OpenSearch supports the following cluster-level CAT API response limit settings,
 - `cat.shards.response.limit.number_of_shards` (Integer): Sets a limit on the number of shards returned by the [CAT Shards API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/). The default value is `-1` (no limit). If the number of shards in the response exceeds this limit, the API returns a `429` error. To avoid this, you can specify an index pattern filter in your query (for example, `_cat/shards/<index-pattern>`).
 
 - `cat.segments.response.limit.number_of_indices` (Integer): Sets a limit on the number of indexes returned by the [CAT Segments API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-segments/). The default value is `-1` (no limit). If the number of indexes in the response exceeds this limit, the API returns a `429` error. To avoid this, you can specify an index pattern filter in your query (for example, `_cat/segments/<index-pattern>`).
+
+## Cluster-level metadata settings
+
+OpenSearch supports the following cluster-level metadata settings:
+
+- `cluster.metadata.<key>` (Dynamic, varies): Adds cluster metadata in the `"cluster.metadata.key": "value"` format. This setting is useful for persisting arbitrary, infrequently changing information about the cluster, such as contact details or annotations, without creating a dedicated index. **Important**: User-defined cluster metadata is not intended to store sensitive or confidential information. The values are visible to anyone with access to the Get Cluster Settings API and are recorded in the logs.
+
+## Cluster-level remote cluster settings
+
+OpenSearch supports the following remote cluster settings:
+
+- `cluster.remote.initial_connect_timeout` (Dynamic, time unit): Sets the timeout period for establishing initial connections to remote clusters when the node starts. This prevents nodes from hanging indefinitely during startup if remote clusters are unavailable. Default is `30s`.
+
+- `cluster.remote.<cluster_alias>.mode` (Dynamic, string): Specifies the connection mode for a specific remote cluster. Valid values are `sniff` (discovers and connects to multiple nodes in the remote cluster) and `proxy` (connects through a single proxy address). Default is `sniff`.
+
+- `node.remote_cluster_client` (Static, Boolean): Controls whether a node can act as a cross-cluster client and connect to remote clusters. Default is `true`. Set to `false` to prevent a node from connecting to remote clusters. Remote cluster requests must be sent to a node on which this setting is enabled.
+
+- `cluster.remote.<cluster_alias>.skip_unavailable` (Dynamic, Boolean): Controls whether cross-cluster operations should continue when this specific remote cluster is unavailable. When set to `true`, the cluster becomes optional and operations will skip it if unreachable. When set to `false`, operations fail if this cluster is unavailable. Default is `false`.
+
+- `cluster.remote.<cluster_alias>.transport.compress` (Dynamic, Boolean): Enables compression for transport communications with a specific remote cluster. When enabled, reduces network bandwidth usage but increases CPU overhead for compression operations. If unset, uses the global `transport.compress` setting as a fallback. Default is `false`.
+
+- `cluster.remote.<cluster_alias>.transport.ping_schedule` (Dynamic, time unit): Sets the interval for sending application-level ping messages to maintain connections with a specific remote cluster. Setting to `-1` disables pings for this cluster. If unset, uses the global `transport.ping_schedule` setting. Default is `-1` (disabled).
+
+- `cluster.remote.<cluster_alias>.seeds` (Dynamic, list): Applicable to `sniff` mode only. Specifies the list of seed nodes used to discover the remote cluster topology. These nodes are contacted initially to retrieve the cluster state and identify gateway nodes for ongoing connections.
+
+- `cluster.remote.<cluster_alias>.node_connections` (Dynamic, integer): Applicable to `sniff` mode only. Sets the number of gateway nodes to which to maintain active connections in the remote cluster. More connections provide better availability but consume more resources. Default is `3`.
+
+- `cluster.remote.node.attr` (Static, string): Applicable to `sniff` mode only. Specifies a node attribute to filter nodes that are eligible as gateway nodes in remote clusters. When set, only remote cluster nodes with the specified attribute will be used for connections. For example, if remote cluster nodes have `node.attr.gateway: true` and this setting is set to `gateway`, only those nodes will be connected to for cross-cluster operations.
+
+- `cluster.remote.<cluster_alias>.proxy_address` (Dynamic, string): Applicable to `proxy` mode only. Specifies the proxy server address for connecting to the remote cluster. All remote connections are routed through this single proxy endpoint.
+
+- `cluster.remote.<cluster_alias>.proxy_socket_connections` (Dynamic, integer): Applicable to `proxy` mode only. Sets the number of socket connections to open to the proxy server for this remote cluster. More connections can improve throughput but consume more resources. Default is `18`.
+
+- `cluster.remote.<cluster_alias>.server_name` (Dynamic, string): Applicable to `proxy` mode only. Specifies the hostname sent in the TLS Server Name Indication (SNI) extension when TLS is enabled for the remote cluster connection. This must be a valid hostname according to TLS SNI specifications.

@@ -6,12 +6,9 @@ grand_parent: ML Commons APIs
 nav_order: 40
 ---
 
-# Remove MCP tools
+# Remove MCP Tools API
 **Introduced 3.0**
-{: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
 
 Use this API to delete one or more Model Context Protocol (MCP)-based tools by name.
 

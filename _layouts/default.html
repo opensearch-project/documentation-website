@@ -154,10 +154,73 @@ layout: table_wrappers
             <nav aria-label="Breadcrumb" class="breadcrumb-nav">
               <ol class="breadcrumb-nav-list">
                 {% if page.grand_parent %}
-                  <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.grand_parent }}</a></li>
-                  <li class="breadcrumb-nav-list-item"><a href="{{ second_level_url }}">{{ page.parent }}</a></li>
+                  {%- comment -%}Find URLs for 4-level breadcrumb{%- endcomment -%}
+                  {%- assign all_pages = site.pages -%}
+                  
+                  {%- comment -%}Add collection pages based on current page collection{%- endcomment -%}
+                  {%- if page.collection -%}
+                    {%- assign current_collection = site[page.collection] -%}
+                    {%- if current_collection -%}
+                      {%- assign all_pages = all_pages | concat: current_collection -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                  
+                  {%- assign grandparent_url = "" -%}
+                  {%- assign parent_url = "" -%}
+                  
+                  {%- for p in all_pages -%}
+                    {%- if p.title == page.grand_parent -%}
+                      {%- assign grandparent_url = p.url | relative_url -%}
+                    {%- elsif p.title == page.parent -%}
+                      {%- assign parent_url = p.url | relative_url -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  
+                  {%- comment -%}Find great-grandparent by looking at grandparent's parent{%- endcomment -%}
+                  {%- assign great_grandparent_url = "" -%}
+                  {%- assign great_grandparent_title = "" -%}
+                  {%- for p in all_pages -%}
+                    {%- if p.title == page.grand_parent and p.parent -%}
+                      {%- assign great_grandparent_title = p.parent -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  
+                  {%- if great_grandparent_title != "" -%}
+                    {%- for p in all_pages -%}
+                      {%- if p.title == great_grandparent_title -%}
+                        {%- assign great_grandparent_url = p.url | relative_url -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+                  
+                  {%- if great_grandparent_title != "" and great_grandparent_url != "" -%}
+                    <li class="breadcrumb-nav-list-item"><a href="{{ great_grandparent_url }}">{{ great_grandparent_title }}</a></li>
+                  {%- endif -%}
+                  <li class="breadcrumb-nav-list-item"><a href="{{ grandparent_url }}">{{ page.grand_parent }}</a></li>
+                  <li class="breadcrumb-nav-list-item"><a href="{{ parent_url }}">{{ page.parent }}</a></li>
                 {% else %}
-                  <li class="breadcrumb-nav-list-item"><a href="{{ first_level_url }}">{{ page.parent }}</a></li>
+                  {%- comment -%}Find parent URL for 2-level breadcrumb{%- endcomment -%}
+                  {%- assign all_pages = site.pages -%}
+                  
+                  {%- comment -%}Add collection pages based on current page collection{%- endcomment -%}
+                  {%- if page.collection -%}
+                    {%- assign current_collection = site[page.collection] -%}
+                    {%- if current_collection -%}
+                      {%- assign all_pages = all_pages | concat: current_collection -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                  
+                  {%- assign parent_url = "" -%}
+                  {%- for p in all_pages -%}
+                    {%- if p.title == page.parent -%}
+                      {%- assign parent_url = p.url | relative_url -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  
+                  <li class="breadcrumb-nav-list-item"><a href="{{ parent_url }}">{{ page.parent }}</a></li>
                 {% endif %}
                 <li class="breadcrumb-nav-list-item"><span>{{ page.title }}</span></li>
               </ol>
@@ -167,9 +230,9 @@ layout: table_wrappers
         <div id="main-content" class="main-content" role="main">
           {% if page.section == "opensearch" %}
             {% if site.doc_version == "supported" %}            
-              <p class="supported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. For the latest version, see the <a href="{{ site.url }}/docs{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
+              <p class="supported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. For the latest version, see the <a href="{{ site.url }}{{ site.latesturl }}{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
             {% elsif site.doc_version == "unsupported" %}
-              <p class="unsupported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. This version is no longer maintained. For the latest version, see the <a href="{{ site.url }}/docs{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
+              <p class="unsupported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. This version is no longer maintained. For the latest version, see the <a href="{{ site.url }}{{ site.latesturl }}{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
             {% endif %}
           {% endif %}
           {% if site.heading_anchors != false %}
@@ -184,7 +247,7 @@ layout: table_wrappers
 
           {% if page.has_children == true and page.has_toc != false %}
             <hr>
-            <h2>Related articles</h2>
+            <h2>Related documentation</h2>
             <ul>
               {% for child in toc_list %}
                 <li>

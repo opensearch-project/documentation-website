@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Rule Lifecycle API
+title: Rules API
 nav_order: 20
-parent: Rule based autotagging
+parent: Rule-based auto-tagging
 grand_parent: Availability and recovery
 ---
 
-# Rule Lifecycle API
+# Rules API
 
-The Rule Lifecycle API allows you to create, update, retrieve, and delete rules. Each rule is associated with a specific feature type and contains a feature value and at least one attribute.
+The Rules API allows you to create, update, retrieve, and delete rules. Each rule is associated with a specific feature type and contains a feature value and at least one attribute.
 These rules are designed to automatically assign feature values to incoming queries based on the specified attributes, helping to categorize and manage queries automatically.
 
 ## Endpoints
@@ -17,7 +17,7 @@ The following sections describe the API endpoints available for managing rules a
 
 ### Create a rule
 
-Use the followiing endpoint to add a new rule for a specific feature type:
+Use the following endpoint to add a new rule for a specific feature type:
 
 ```json
 PUT /_rules/{feature_type}
@@ -81,17 +81,21 @@ The following table lists the fields available in the request body.
 
 ## Example requests
 
-The following example demonstrates how to use the Rule Lifecycle API to create a rule.
+The following example demonstrates how to use the Rules API to create a rule.
 
 ### Create a rule
 
-The following request creates a rule that assigns a `workload_group` value based on matching `index_pattern` attributes:
+The following request creates a rule that assigns a `workload_group` value based on matching `index_pattern` and principal attributes:
 
 ```json
 PUT _rules/workload_group
 {
   "description": "description for rule",
   "index_pattern": ["log*", "event*"],
+  "principal": {
+    "username": ["admin"],
+    "role": ["all_access"]
+  },
   "workload_group": "EITBzjFkQ6CA-semNWGtRQ"
 }
 ```
@@ -106,6 +110,10 @@ PUT _rules/workload_group/0A6RULxkQ9yLqn4r8LPrIg
 {
   "description": "updated_description for rule",
   "index_pattern": ["log*"],
+  "principal": {
+    "username": ["admin"],
+    "role": ["all_access"]
+  },
   "workload_group": "EITBzjFkQ6CA-semNWGtRQ"
 }
 ```
@@ -114,7 +122,7 @@ PUT _rules/workload_group/0A6RULxkQ9yLqn4r8LPrIg
 You can't change the `feature_type`. Fields that are not updated can be omitted.
 {: .note }
 
-### Get a rule
+### Retrieve a rule
 
 The following request retrieves a rule by ID:
 
@@ -130,10 +138,10 @@ GET /_rules/{feature_type}
 ```
 {% include copy-curl.html %}
 
-The following request returns all rules of the feature type `workload_group` that contain the attribute `index_pattern` with values `a` or `b`:
+The following request returns all rules of the `workload_group` feature type that contain an `index_pattern` attribute with values `a` or `b` and `principal.username` set to `admin`:
 
 ```json
-GET /_rules/workload_group?index_pattern=a,b
+GET /_rules/workload_group?index_pattern=a,b&principal.username=admin
 ```
 {% include copy-curl.html %}
 
@@ -143,7 +151,7 @@ To retrieve the next page, send another request to the same endpoint using the s
 The following example continues the search for all rules of the `workload_group` feature type where the `index_pattern` attribute contains the values `a` or `b`:
 
 ```json
-"GET /_rules/workload_group?index_pattern=a,b&search_after=z1MJApUB0zgMcDmz-UQq"
+GET /_rules/workload_group?index_pattern=a,b&search_after=z1MJApUB0zgMcDmz-UQq
 ```
 {% include copy-curl.html %}
 
@@ -160,6 +168,10 @@ The following example continues the search for all rules of the `workload_group`
   "id": "wi6VApYBoX5wstmtU_8l",
   "description": "description for rule",
   "index_pattern": ["log*", "event*"],
+  "principal": {
+    "username": ["admin"],
+    "role": ["all_access"]
+  },
   "workload_group": "EITBzjFkQ6CA-semNWGtRQ",
   "updated_at": "2025-04-04T20:54:22.406Z"
 }
@@ -181,6 +193,10 @@ The following example continues the search for all rules of the `workload_group`
       "id": "z1MJApUB0zgMcDmz-UQq",
       "description": "Rule for tagging workload_group_id to index123",
       "index_pattern": ["index123"],
+      "principal": {
+        "username": ["admin"],
+        "role": ["all_access"]
+      },
       "workload_group": "workload_group_id",
       "updated_at": "2025-02-14T01:19:22.589Z"
     },

@@ -1,17 +1,21 @@
 ---
 layout: default
 title: Shrink index
-parent: Index APIs
-nav_order: 25
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 100
 redirect_from:
   - /opensearch/rest-api/index-apis/shrink-index/
 ---
 
-# Shrink index
+# Shrink Index API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The shrink index API operation moves all of your data in an existing index into a new index with fewer primary shards.
+The shrink index API operation moves all of your data in an existing read-only index into a new index with fewer primary shards. This operation requires that a copy of each shard, either primary or replica, is located on the same node. You can use [shard allocation filtering]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shard-allocation/) to move shards to the same node.
+
+To make the index read-only, set the [dynamic index-level index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) `index.blocks.write` to `true`.
+{: .note}
 
 
 ## Endpoints
@@ -54,7 +58,7 @@ You can use the request body to configure some index settings for the target ind
 
 Field | Type | Description
 :--- | :--- | :---
-alias | Object | Sets an alias for the target index. Can have the fields `filter`, `index_routing`, `is_hidden`, `is_write_index`, `routing`, or `search_routing`. See [Index Aliases]({{site.url}}{{site.baseurl}}/api-reference/alias/#request-body-fields).
+alias | Object | Sets an alias for the target index. Can have the fields `filter`, `index_routing`, `is_hidden`, `is_write_index`, `routing`, or `search_routing`. See [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/).
 settings | Object | Index settings you can apply to your target index. See [Index Settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/).
 [max_shard_size](#the-max_shard_size-parameter) | Bytes | Specifies the maximum size of a primary shard in the target index. Because `max_shard_size` conflicts with the `index.number_of_shards` setting, you cannot set both of them at the same time. 
 
@@ -78,8 +82,10 @@ For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/
 
 ## Example request
 
-```json
-POST /my-old-index/_shrink/my-new-index
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-old-index/_shrink/my-new-index
+body: |
 {
   "settings": {
     "index.number_of_replicas": 4,
@@ -89,5 +95,40 @@ POST /my-old-index/_shrink/my-new-index
     "new-index-alias": {}
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /my-old-index/_shrink/my-new-index
+{
+  "settings": {
+    "index.number_of_replicas": 4,
+    "index.number_of_shards": 3
+  },
+  "aliases": {
+    "new-index-alias": {}
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.shrink(
+  index = "my-old-index",
+  target = "my-new-index",
+  body =   {
+    "settings": {
+      "index.number_of_replicas": 4,
+      "index.number_of_shards": 3
+    },
+    "aliases": {
+      "new-index-alias": {}
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->

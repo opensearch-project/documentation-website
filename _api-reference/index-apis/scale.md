@@ -1,11 +1,12 @@
 ---
 layout: default
 title: Scale
-parent: Index APIs
-nav_order: 50
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 80
 ---
 
-# Scale
+# Scale API
 **Introduced 3.0**
 {: .label .label-purple }
 

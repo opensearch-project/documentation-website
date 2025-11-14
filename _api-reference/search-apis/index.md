@@ -4,6 +4,8 @@ title: Search APIs
 nav_order: 75
 has_children: true
 has_toc: false
+redirect_from:
+  - /api-reference/search-apis/
 ---
 
 # Search APIs
@@ -18,7 +20,7 @@ These APIs form the foundation of OpenSearch's search capabilities:
 
 - **[Search]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/)**: Run search queries across one or more indexes.
 - **[Multi-search]({{site.url}}{{site.baseurl}}/api-reference/search-apis/multi-search/)**: Run multiple search requests in a single API call.
-- **[Point in time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time-api/)**: Create a consistent view of the index for search operations.
+- **[Point in Time]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-in-time-api/)**: Create a consistent view of the index for search operations.
 - **[Scroll]({{site.url}}{{site.baseurl}}/api-reference/search-apis/scroll/)**: Retrieve large numbers of results from a search query.
 - **[Count]({{site.url}}{{site.baseurl}}/api-reference/search-apis/count/)**: Get the number of documents that match a query.
 
@@ -27,7 +29,7 @@ These APIs form the foundation of OpenSearch's search capabilities:
 These APIs help you test, debug, and optimize your search operations:
 
 - **[Explain]({{site.url}}{{site.baseurl}}/api-reference/search-apis/explain/)**: Explain how a specific document matches (or doesn't match) a query.
-- **Field capabilities**: Get the capabilities of fields across multiple indexes.
+- **[Field capabilities]({{site.url}}{{site.baseurl}}/api-reference/search-apis/field-caps/)**: Get the capabilities of fields across multiple indexes.
 - **[Profile]({{site.url}}{{site.baseurl}}/api-reference/search-apis/profile/)**: Profile the execution of search requests.
 - **[Ranking evaluation]({{site.url}}{{site.baseurl}}/api-reference/search-apis/rank-eval/)**: Evaluate the quality of search results.
 - **[Search shards]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-shards/)**: Get information about the shards on which a search request would be executed.

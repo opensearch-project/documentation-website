@@ -8,12 +8,11 @@ redirect_from:
  - /api-reference/count/
 ---
 
-# Count
+# Count API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The count API gives you quick access to the number of documents that match a query.
-You can also use it to check the document count of an index, data stream, or cluster.
+The Count API returns the count of documents that match a query. You can use it to check the document count of an index, a data stream, or a cluster.
 
 
 ## Endpoints
@@ -44,11 +43,12 @@ Parameter | Type | Description
 `terminate_after` | Integer | The maximum number of matching documents (hits) OpenSearch should process before terminating the request.
 
 ## Example requests
-
 To see the number of documents that match a query:
 
-```json
-GET opensearch_dashboards_sample_data_logs/_count
+<!-- spec_insert_start
+component: example_code
+rest: GET /opensearch_dashboards_sample_data_logs/_count
+body: |
 {
   "query": {
     "term": {
@@ -56,13 +56,45 @@ GET opensearch_dashboards_sample_data_logs/_count
     }
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /opensearch_dashboards_sample_data_logs/_count
+{
+  "query": {
+    "term": {
+      "response": "200"
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.count(
+  index = "opensearch_dashboards_sample_data_logs",
+  body =   {
+    "query": {
+      "term": {
+        "response": "200"
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following call to the search API produces equivalent results:
 
-```json
-GET opensearch_dashboards_sample_data_logs/_search
+<!-- spec_insert_start
+component: example_code
+rest: GET /opensearch_dashboards_sample_data_logs/_search
+body: |
 {
   "query": {
     "term": {
@@ -72,24 +104,93 @@ GET opensearch_dashboards_sample_data_logs/_search
   "size": 0,
   "track_total_hits": true
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /opensearch_dashboards_sample_data_logs/_search
+{
+  "query": {
+    "term": {
+      "response": "200"
+    }
+  },
+  "size": 0,
+  "track_total_hits": true
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search(
+  index = "opensearch_dashboards_sample_data_logs",
+  body =   {
+    "query": {
+      "term": {
+        "response": "200"
+      }
+    },
+    "size": 0,
+    "track_total_hits": true
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To see the number of documents in an index:
 
-```json
-GET opensearch_dashboards_sample_data_logs/_count
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /opensearch_dashboards_sample_data_logs/_count
+-->
+{% capture step1_rest %}
+GET /opensearch_dashboards_sample_data_logs/_count
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.count(
+  index = "opensearch_dashboards_sample_data_logs",
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To check for the number of documents in a [data stream]({{site.url}}{{site.baseurl}}/opensearch/data-streams/), replace the index name with the data stream name.
 
 To see the number of documents in your cluster:
 
-```json
-GET _count
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_count
+-->
+{% capture step1_rest %}
+GET /_count
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.count(
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Alternatively, you could use the [cat indexes]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) and [cat count]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-count/) APIs to see the number of documents per index or data stream.
 {: .note }

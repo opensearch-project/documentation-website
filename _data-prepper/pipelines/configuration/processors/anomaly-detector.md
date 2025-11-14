@@ -1,18 +1,18 @@
 ---
 layout: default
-title: anomaly_detector
+title: Anomaly detector
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 30
 ---
 
-# anomaly_detector
+# Anomaly detector processor
 
-The anomaly detector processor takes structured data and runs anomaly detection algorithms on fields that you can configure in that data. The data must be either an integer or a real number for the anomaly detection algorithm to detect anomalies. Deploying the aggregate processor in a pipeline before the anomaly detector processor can help you achieve the best results, as the aggregate processor automatically aggregates events by key and keeps them on the same host. For example, if you are searching for an anomaly in latencies from a specific IP address and if all the events go to the same host, then the host has more data for these events. This additional data results in better training of the machine learning (ML) algorithm, which results in better anomaly detection. 
+The `anomaly_detector` processor takes structured data and runs anomaly detection algorithms on fields that you can configure in that data. The data must be either an integer or a real number for the anomaly detection algorithm to detect anomalies. Deploying the aggregate processor in a pipeline before the `anomaly_detector` processor can help you achieve the best results, as the aggregate processor automatically aggregates events by key and keeps them on the same host. For example, if you are searching for an anomaly in latencies from a specific IP address and if all the events go to the same host, then the host has more data for these events. This additional data results in better training of the machine learning (ML) algorithm, which results in better anomaly detection. 
 
 ## Configuration
 
-You can configure the anomaly detector processor by specifying a key and the options for the selected mode. You can use the following options to configure the anomaly detector processor.
+You can configure the `anomaly_detector` processor by specifying a key and the options for the selected mode. You can use the following options to configure the `anomaly_detector` processor.
 
 | Name | Required | Description |
 | :--- | :--- | :--- |
@@ -25,11 +25,11 @@ You can configure the anomaly detector processor by specifying a key and the opt
 
 ### Keys
 
-Keys that are used in the anomaly detector processor are present in the input event. For example, if the input event is `{"key1":value1, "key2":value2, "key3":value3}`, then any of the keys (such as `key1`, `key2`, `key3`) in that input event can be used as anomaly detector keys as long as their value (such as `value1`, `value2`, `value3`) is an integer or real number.
+Keys that are used in the `anomaly_detector` processor are present in the input event. For example, if the input event is `{"key1":value1, "key2":value2, "key3":value3}`, then any of the keys (such as `key1`, `key2`, `key3`) in that input event can be used as anomaly detector keys as long as their value (such as `value1`, `value2`, `value3`) is an integer or real number.
 
 ### random_cut_forest mode
 
-The random cut forest (RCF) ML algorithm is an unsupervised algorithm for detecting anomalous data points within a dataset. To detect anomalies, the anomaly detector processor uses the `random_cut_forest` mode.
+The random cut forest (RCF) ML algorithm is an unsupervised algorithm for detecting anomalous data points within a dataset. To detect anomalies, the `anomaly_detector` processor uses the `random_cut_forest` mode.
 
 | Name | Description |
 | :--- | :--- |
@@ -38,8 +38,8 @@ The random cut forest (RCF) ML algorithm is an unsupervised algorithm for detect
 RCF is an unsupervised ML algorithm for detecting anomalous data points within a dataset. OpenSearch Data Prepper uses RCF to detect anomalies in data by passing the values of the configured key to RCF. For example, when an event with a latency value of 11.5 is sent, the following anomaly event is generated:
 
 
- ```json
-  { "latency": 11.5, "deviation_from_expected":[10.469302736820003],"grade":1.0}
+```json
+{ "latency": 11.5, "deviation_from_expected":[10.469302736820003],"grade":1.0}
 ```
 
 In this example, `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values, and `grade` is the anomaly grade that indicates the anomaly severity.
@@ -64,14 +64,15 @@ To get started, create the following `pipeline.yaml` file. You can use the follo
 ad-pipeline:
   source:
     ...
-  ....  
+  ....
   processor:
     - anomaly_detector:
         keys: ["latency"]
-        mode: 
+        mode:
             random_cut_forest:
 ```
+{% include copy.html %}
 
-When you run the anomaly detector processor, the processor extracts the value for the `latency` key, and then passes the value through the RCF ML algorithm. You can configure any key that comprises integers or real numbers as values. In the following example, you can configure `bytes` or `latency` as the key for an anomaly detector. 
+When you run the `anomaly_detector` processor, the processor extracts the value for the `latency` key and then passes the value through the RCF ML algorithm. You can configure any key that comprises integers or real numbers as values. In the following example, you can configure `bytes` or `latency` as the key for an anomaly detector. 
 
 `{"ip":"1.2.3.4", "bytes":234234, "latency":0.2}`

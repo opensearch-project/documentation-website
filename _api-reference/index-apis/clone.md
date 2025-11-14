@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Clone index
-parent: Index APIs
-nav_order: 15
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 20
 redirect_from:
   - /opensearch/rest-api/index-apis/clone/
 ---
 
-# Clone index
+# Clone Index API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -55,7 +56,23 @@ The clone index API operation creates a new target index, so you can specify any
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /sample-index1/_clone/cloned-index1
+body: |
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 2,
+      "number_of_replicas": 1
+    }
+  },
+  "aliases": {
+    "sample-alias1": {}
+  }
+}
+-->
+{% capture step1_rest %}
 PUT /sample-index1/_clone/cloned-index1
 {
   "settings": {
@@ -68,8 +85,33 @@ PUT /sample-index1/_clone/cloned-index1
     "sample-alias1": {}
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.clone(
+  index = "sample-index1",
+  target = "cloned-index1",
+  body =   {
+    "settings": {
+      "index": {
+        "number_of_shards": 2,
+        "number_of_replicas": 1
+      }
+    },
+    "aliases": {
+      "sample-alias1": {}
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

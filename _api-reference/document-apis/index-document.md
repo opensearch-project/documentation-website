@@ -7,7 +7,7 @@ redirect_from:
  - /opensearch/rest-api/document-apis/index-document/
 ---
 
-# Index document
+# Index Document API
 **Introduced 1.0**
 {: .label .label-purple}
 
@@ -66,35 +66,91 @@ version_type | Enum | Assigns a specific type to the document. Valid options are
 wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
 require_alias | Boolean | Specifies whether the target index must be an index alias. Default is `false`. | No
 
-## Example requests 
+## Example requests
 
 The following example requests create a sample index document for an index named `sample_index`:
 
 
 ### Example PUT request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /sample_index/_doc/1
+body: |
+{
+  "name": "Example",
+  "price": 29.99,
+  "description": "To be or not to be, that is the question"
+}
+-->
+{% capture step1_rest %}
 PUT /sample_index/_doc/1
 {
   "name": "Example",
   "price": 29.99,
   "description": "To be or not to be, that is the question"
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.index(
+  index = "sample_index",
+  id = "1",
+  body =   {
+    "name": "Example",
+    "price": 29.99,
+    "description": "To be or not to be, that is the question"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example POST request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /sample_index/_doc
+body: |
+{
+  "name": "Another Example",
+  "price": 19.99,
+  "description": "We are such stuff as dreams are made on"
+}
+-->
+{% capture step1_rest %}
 POST /sample_index/_doc
 {
   "name": "Another Example",
   "price": 19.99,
   "description": "We are such stuff as dreams are made on"
 }
+{% endcapture %}
 
-```
-{% include copy-curl.html %}
+{% capture step1_python %}
+
+
+response = client.index(
+  index = "sample_index",
+  body =   {
+    "name": "Another Example",
+    "price": 19.99,
+    "description": "We are such stuff as dreams are made on"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

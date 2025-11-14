@@ -2,7 +2,7 @@
 layout: default
 title: Regexp
 parent: Term-level queries
-nav_order: 60
+nav_order: 100
 ---
 
 # Regexp query
@@ -30,7 +30,7 @@ Note the following important considerations:
 - Regular expressions use the Lucene syntax, which differs from more standardized implementations. Test thoroughly to ensure that you receive the results you expect. To learn more, see [the Lucene documentation](https://lucene.apache.org/core/8_9_0/core/index.html).
 - To improve regexp query performance, avoid wildcard patterns without a prefix or suffix, such as `.*` or `.*?+`.
 - `regexp` queries can be expensive operations and require the [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/#expensive-queries) setting to be set to `true`. Before making frequent `regexp` queries, test their impact on cluster performance and examine alternative queries that may achieve similar results.
-- The [wildcard field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/wildcard/) builds an index that is specially designed to be very efficient for wildcard and regular expression queries.
+- The [wildcard field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/wildcard/) builds an index that is specially designed to be very efficient for wildcard and regular expression queries.
 
 ## Parameters
 

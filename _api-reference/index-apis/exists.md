@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Index exists
-parent: Index APIs
-nav_order: 19
+parent: Core index APIs
+grand_parent: Index APIs
+nav_order: 40
 redirect_from:
   - /opensearch/rest-api/index-apis/exists/
 ---
 
-# Index exists
+# Index Exists API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -36,10 +37,27 @@ local | Boolean | Whether to return information from only the local node instead
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: HEAD /sample-index
+-->
+{% capture step1_rest %}
 HEAD /sample-index
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.exists(
+  index = "sample-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

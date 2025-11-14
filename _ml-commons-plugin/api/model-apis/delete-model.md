@@ -3,10 +3,10 @@ layout: default
 title: Delete model
 parent: Model APIs
 grand_parent: ML Commons APIs
-nav_order: 50
+nav_order: 47
 ---
 
-# Delete a model
+# Delete Model API
 
 Deletes a model based on the `model_id`.
 
@@ -21,14 +21,14 @@ For information about user access for this API, see [Model access control consid
 DELETE /_plugins/_ml/models/<model_id>
 ```
 
-#### Example request
+## Example request
 
 ```json
 DELETE /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

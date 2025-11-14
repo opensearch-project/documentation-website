@@ -13,6 +13,25 @@
 #     - title: Title of the transformation guide
 #     - url: Link to transformation guide
 breaking_changes:
+  - title: "OpenSearch 3.x: Breaking Changes"
+    url: "https://docs.opensearch.org/latest/breaking-changes/#300"
+    introducedIn: "OpenSearch 3.x"
+    comp: []
+  - title: "OpenSearch 2.x: Remove mapping types parameter"
+    url: "https://docs.opensearch.org/latest/breaking-changes/#remove-mapping-types-parameter"
+    introducedIn: "OpenSearch 2.x"
+    comp: []
+    transformation:
+      title: "Type mapping deprecation"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/"
+  - title: "OpenSearch Notifications Plugins"
+    url: "https://docs.opensearch.org/latest/breaking-changes/#add-opensearch-notifications-plugins"
+    introducedIn: "OpenSearch 2.x"
+    comp: []
+  - title: "OpenSearch 2.x: Client JDK 8 Support Dropped"
+    url: "https://docs.opensearch.org/latest/breaking-changes/#drop-support-for-jdk-8"
+    introducedIn: "OpenSearch 2.x"
+    comp: []
   - title: "Amazon OpenSearch Service: Upgrade Guidance"
     url: "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/version-migration.html"
     introducedIn: "OpenSearch 1.x"
@@ -21,45 +40,55 @@ breaking_changes:
     url: "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/rename.html"
     introducedIn: "OpenSearch 1.x"
     comp: []
-  - title: "OpenSearch 2.x: Remove mapping types parameter"
-    url: "https://docs.opensearch.org/docs/latest/breaking-changes/#remove-mapping-types-parameter"
-    introducedIn: "OpenSearch 2.x"
+  - title: "Removal of 'dense_vector' field type in OpenSearch 1.0"
+    url: "https://docs.opensearch.org/1.0/search-plugins/knn/knn-index/"
+    introducedIn: "OpenSearch 1.x"
     comp: []
     transformation:
-      title: "Type Mapping Deprecation"
-      url: "https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/"
-  - title: "OpenSearch 3.x: Breaking Changes"
-    url: "/docs/latest/breaking-changes/#300"
-    introducedIn: "OpenSearch 3.x"
+      title: "Transform 'dense_vector' fields to 'knn_vector'"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/"
+  - title: "Removal of 'flattened' field type in OpenSearch 1.0"
+    url: "https://docs.opensearch.org/2.7/mappings/supported-field-types/flat-object/"
+    introducedIn: "OpenSearch 1.x"
     comp: []
-  - title: "OpenSearch Notifications Plugins"
-    url: "https://docs.opensearch.org/docs/latest/breaking-changes/#add-opensearch-notifications-plugins"
-    introducedIn: "OpenSearch 2.x"
-    comp: []
-  - title: "OpenSearch 2.x: Client JDK 8 Support Dropped"
-    url: "https://docs.opensearch.org/docs/latest/breaking-changes/#drop-support-for-jdk-8"
-    introducedIn: "OpenSearch 2.x"
-    comp: []
+    transformation:
+      title: "Transform 'flattened' fields to 'flat_object'"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/"
   - title: "Removal of Types in Elasticsearch 7.x"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/7.10/removal-of-types.html"
     introducedIn: "Elasticsearch 7.x"
     comp: []
     transformation:
-      title: "Type Mapping Deprecation"
-      url: "https://docs.opensearch.org/docs/latest/migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/"
-  - title: "Elasticsearch 6.0 - 6.6 Breaking Changes"
-    url: "https://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes.html"
-    introducedIn: "Elasticsearch 6.x"
-    comp: []
+      title: "Transform field types"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/#example-field-type-converterjs-implementation"
   - title: "Elasticsearch 7.0 - 7.10 Breaking Changes"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/7.10/breaking-changes.html"
     introducedIn: "Elasticsearch 7.x"
     comp: []
-  - title: "Kibana 6 Breaking Changes"
-    url: "https://www.elastic.co/guide/en/kibana/6.8/breaking-changes.html"
-    introducedIn: "Elasticsearch 6.x"
-    comp: ["dashboards"]
   - title: "Kibana 7 Breaking Changes"
     url: "https://www.elastic.co/guide/en/kibana/7.10/breaking-changes.html"
     introducedIn: "Elasticsearch 7.x"
-    comp: ["dashboards"]
+    comp: [ "dashboards" ]
+  - title: "Elasticsearch 6.0 - 6.8 Breaking Changes"
+    url: "https://www.elastic.co/guide/en/elasticsearch/reference/6.8/breaking-changes.html"
+    introducedIn: "Elasticsearch 6.x"
+    comp: []
+  - title: "Kibana 6 Breaking Changes"
+    url: "https://www.elastic.co/guide/en/kibana/6.8/breaking-changes.html"
+    introducedIn: "Elasticsearch 6.x"
+    comp: [ "dashboards" ]
+  - title: "'string' field type deprecated in Elasticsearch 5.0"
+    url: "https://www.elastic.co/guide/en/elasticsearch/reference/5.0/breaking_50_mapping_changes.html"
+    introducedIn: "Elasticsearch 5.x"
+    comp: []
+    transformation:
+      title: "Transform 'string' fields to 'text'/'keyword'"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/"
+  - title: "Elasticsearch 5.0 - 5.6 Breaking Changes"
+    url: "https://www.elastic.co/guide/en/elasticsearch/reference/5.6/breaking-changes.html"
+    introducedIn: "Elasticsearch 5.x"
+    comp: []
+  - title: "Elasticsearch 2.0 - 2.4 Breaking Changes"
+    url: "https://www.elastic.co/guide/en/elasticsearch/reference/2.4/breaking-changes.html"
+    introducedIn: "Elasticsearch 2.x"
+    comp: []

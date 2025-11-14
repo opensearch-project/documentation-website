@@ -21,6 +21,7 @@ The **Query insights** dashboard contains the following pages:
 - [Top N queries](#top-n-queries): Displays the query metrics and details for the top queries.
 - [Query details](#query-details): Displays details for individual queries and query groups.
 - [Configuration](#configuration): Customizes all monitoring and data retention settings for the query insights feature.
+- [Live queries](#live-queries): Monitors currently running queries in real time.
 
 
 ## Top N queries
@@ -42,7 +43,7 @@ Each label corresponds to the following components:
 
 ### A. Navigation tabs
 
-The navigation tabs allow you to switch between the **Configuration** and **Top N queries** pages.
+The navigation tabs allow you to switch between the **Live Queries**, **Top N Queries**, and **Configuration** pages.
 
 ### B. Search queries bar
 
@@ -181,6 +182,100 @@ When configuring the query insights feature, remember the following best practic
 - Choose your **Window size** carefully. A longer window size can save compute resources because the insights found are less granular. Inversely, a shorter window size can output more comprehensive query insights but uses more resources.
 - When setting data retention periods, consider shorter retention periods that save storage but reduce the number of long-term insights.
 - Enable metrics based on your monitoring needs. Monitoring fewer metrics prevents system overload.
+
+## Live queries
+
+The **Live queries** page provides real-time visibility into search queries currently running in your OpenSearch cluster. It enables active monitoring, fast debugging, and insight into how a query's load is distributed across nodes and indexes.
+
+The following image shows the live queries view.
+
+![Live Queries Dashboard]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries.png)
+
+### Metrics overview
+
+The top panel in the live queries view displays the following key real-time metrics.
+
+| Panel                    | Description                                                                 |
+| :---                     |:----------------------------------------------------------------------------|
+| **Active queries**        | The total number of queries currently running in the cluster.             |
+| **Avg. elapsed time**     | The average execution time across all active queries.                       |
+| **Longest running query** | The query ID and elapsed time of the longest currently running query.     |
+| **Total CPU time**        | The cumulative CPU time consumed by all active queries.                     |
+| **Total memory usage**    | The total memory consumed by all active queries.                            |
+| **Total completions**     | The number of queries that have successfully completed.                     |
+| **Total cancellations**   | The number of queries canceled.           |
+| **Total rejections**      | The number of queries rejected. |
+
+
+### Breakdown charts
+
+Two visual charts provide breakdowns of query load:
+
+- **By node** – Shows how many queries are running on each node.
+- **By index** – Displays how many queries are targeting each index.
+
+![Live Queries visual charts]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_queries_visuailization.png)
+
+You can toggle between **Donut** and **Bar** chart formats using the chart type switch.
+
+Only the top 9 items are displayed individually in the chart; additional values are grouped under the **Others** category.
+
+### Live queries table
+
+The live queries table lists the following information for each live query.
+
+
+| Column              | Description                                                                                                                                                               |
+| :---                |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Timestamp**        | The time at which the query started running.                                                                                                                              |
+| **Task ID**          | The unique identifier for the query task.                                                                                                                                 |
+| **Index**            | The index or indexes targeted by the query.                                                                                                                               |
+| **Node**             | The node currently running the query.                                                                                                                                   |
+| **Time elapsed**     | The current execution time for the query, in seconds.                                                                                                                      |
+| **CPU usage**        | The cumulative CPU time consumed by the query.                                                                                                                            |
+| **Memory usage**     | The amount of memory consumed by the query during execution.                                                                                                              |
+| **Search type**      | The search execution method, such as `query_then_fetch`.                                                                                                                  |
+| **Coordinator node** | The node that coordinated the query execution.                                                                                                                            |
+| **WLM Group**        | The workload group associated with the query. Displayed as plain text if workload management (WLM) is disabled or as a clickable link to the **WLM Group Details** page associated with that query when WLM is enabled. |
+| **Status**           | The current status of the query. Values are `running` or `cancelled`.                                                                                                         |
+| **Actions**          | The available actions for the query, such as canceling execution.                                                                                                       |
+
+You can use the filter bar to search for queries by text or specific field values---such as node ID, index name, or task ID---and paginate the table to better analyze specific queries. The following image shows the live queries table view.
+
+![Live Queries Table]({{site.url}}{{site.baseurl}}/images/Query-Insights/Live_Queries_Table.png)
+
+The live queries table provides the following real-time monitoring controls:
+- **Auto-refresh toggle** – Enable or disable periodic data refresh.
+- **Refresh interval** – Choose the refresh frequency. This option is available only when **Auto-refresh** is enabled.
+- **Manual refresh** – Select the **Refresh** button to update immediately.
+
+### Workload group selector
+
+The **workload group selector** lets you filter and analyze active queries by workload group:
+
+- By default, the selector is set to **All Workload Groups**, showing queries across the cluster.
+- When **WLM is disabled**, only the `DEFAULT_WORKLOAD_GROUP` option is available.
+- When **WLM is enabled**, the dropdown lists all available workload groups.
+- Selecting a specific group filters the dashboard to show only queries running under that workload group.
+- The [metrics](#metrics-overview) panels and charts update to display only the selected workload group.
+
+### Canceling live queries
+
+The live queries table provides direct controls for canceling queries that are currently running in the cluster. This allows you to immediately stop problematic or resource-intensive searches without waiting for them to finish. You can cancel live queries in the following ways:
+
+1. Cancel an individual query:
+   - In the **Actions** column for the query you want to stop, select the trash can icon. 
+   - When prompted, confirm the cancellation. 
+   Once the cancellation succeeds, the query status changes to `Cancelled`.
+
+2. Cancel multiple queries in bulk:
+   - To select multiple queries, use the checkboxes to the left of the table. To select all queries, use the **Select all** checkbox in the table header.
+   - Select the **Cancel selected** button above the table. 
+   - Confirm the cancellation for all selected queries.
+   All selected queries are stopped and their statuses updated.
+
+
+
 
 
 

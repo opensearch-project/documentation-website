@@ -1,0 +1,35 @@
+{% assign scenarios = include.scenarios %}
+
+{% for scenario in scenarios %}
+<div class="scenario-container" id="scenario-{{ forloop.index }}">
+  <div class="scenario-title">{{ scenario.title }}</div>
+  
+  <ol>
+    {% for step in scenario.steps %}
+      <li>
+        {% if step.url %}
+          {% assign clean_step_url = step.url | replace: '{{site.url}}{{site.baseurl}}', '' %}
+          <a href="{{ site.url }}{{ site.baseurl }}{{ clean_step_url }}">{{ step.title }}</a>
+        {% else %}
+          {{ step.title }}
+        {% endif %}
+        
+        {% if step.substeps %}
+          <ul>
+            {% for substep in step.substeps %}
+              <li>
+                {% if substep.url %}
+                  {% assign clean_substep_url = substep.url | replace: '{{site.url}}{{site.baseurl}}', '' %}
+                  <a href="{{ site.url }}{{ site.baseurl }}{{ clean_substep_url }}">{{ substep.title }}</a>
+                {% else %}
+                  {{ substep.title }}
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+</div>
+{% endfor %}

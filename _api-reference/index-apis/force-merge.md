@@ -1,11 +1,12 @@
 ---
 layout: default
 title: Force merge
-parent: Index APIs
-nav_order: 37
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 40
 ---
 
-# Force merge
+# Force Merge API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -76,6 +77,30 @@ The following table lists the available query parameters. All query parameters a
 | `primary_only` | Boolean | If set to `true`, then the merge operation is performed only on the primary shards of an index. This can be useful when you want to take a snapshot of the index after the merge is complete. Snapshots only copy segments from the primary shards. Merging the primary shards can reduce resource consumption. Default is `false`. |
 
 ## Example requests
+<!-- spec_insert_start
+component: example_code
+rest: POST /.testindex-logs/_forcemerge?primary_only=true
+body: 
+-->
+{% capture step1_rest %}
+POST /.testindex-logs/_forcemerge?primary_only=true
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.forcemerge(
+  index = ".testindex-logs",
+  params = { "primary_only": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following examples show how to use the Force merge API.
 
@@ -83,46 +108,133 @@ The following examples show how to use the Force merge API.
 
 The following example force merges a specific index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /testindex1/_forcemerge
+-->
+{% capture step1_rest %}
 POST /testindex1/_forcemerge
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.forcemerge(
+  index = "testindex1"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Force merge multiple indexes
 
 The following example force merges multiple indexes:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /testindex1,testindex2/_forcemerge
+body: 
+-->
+{% capture step1_rest %}
 POST /testindex1,testindex2/_forcemerge
-```
-{% include copy-curl.html %}
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.forcemerge(
+  index = "testindex1,testindex2"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Force merge all indexes
 
 The following example force merges all indexes:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_forcemerge
+body: 
+-->
+{% capture step1_rest %}
 POST /_forcemerge
-```
-{% include copy-curl.html %}
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.indices.forcemerge()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Force merge a data stream's backing indexes into one segment
 
 The following example force merges a data stream's backing indexes into one segment:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /.testindex-logs/_forcemerge?max_num_segments=1
+-->
+{% capture step1_rest %}
 POST /.testindex-logs/_forcemerge?max_num_segments=1
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.forcemerge(
+  index = ".testindex-logs",
+  params = { "max_num_segments": "1" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Force merge primary shards
 
 The following example force merges an index's primary shards:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /.testindex-logs/_forcemerge?primary_only=true
+-->
+{% capture step1_rest %}
 POST /.testindex-logs/_forcemerge?primary_only=true
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.forcemerge(
+  index = ".testindex-logs",
+  params = { "primary_only": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

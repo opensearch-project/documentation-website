@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Close index
-parent: Index APIs
-nav_order: 20
+parent: Core index APIs
+grand_parent: Index APIs
+nav_order: 60
 redirect_from:
   - /opensearch/rest-api/index-apis/close-index/
 ---
 
-# Close index
+# Close Index API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -41,10 +42,29 @@ timeout | Time | How long to wait for a response from the cluster. Default is `3
 
 ## Example requests
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /sample-index/_close
+body: 
+-->
+{% capture step1_rest %}
 POST /sample-index/_close
-```
-{% include copy-curl.html %}
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.close(
+  index = "sample-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

@@ -23,7 +23,6 @@ PUT _cluster/settings
 {
   "persistent": {
     "plugins.ml_commons.only_run_on_ml_node": "false",
-    "plugins.ml_commons.model_access_control_enabled": "true",
     "plugins.ml_commons.native_memory_threshold": "99"
   }
 }
@@ -124,7 +123,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 
 ### Step 3: Create a vector index
 
-Now you'll create a vector index by setting `index.knn` to `true`. In the index, the field named `text` contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding` contains the vector embedding of the text. The vector field `dimension` must match the dimensionality of the model you configured in Step 2. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
+Now you'll create a vector index by setting `index.knn` to `true`. In the index, the field named `text` contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/) field named `passage_embedding` contains the vector embedding of the text. The vector field `dimension` must match the dimensionality of the model you configured in Step 2. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
 
 
 ```json
@@ -261,16 +260,16 @@ You can use automated workflows to create and deploy externally hosted models an
 
 ### Step 1: Register and deploy the model
 
-To register and deploy a model, select the built-in workflow template for the model provider. For more information, see [Supported workflow templates]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#supported-workflow-templates). Alternatively, to configure a custom model, use [Step 1 of the manual setup](#step-1-register-and-deploy-the-model).
+To register and deploy a model, select the built-in workflow template for the model provider. For more information, see [Supported workflow templates]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#supported-workflow-templates). Alternatively, to configure a custom model, use [Step 1 of the manual setup](#step-1-register-and-deploy-the-model). Note the model ID; you'll use it in the next step.
 
 ### Step 2: Configure a workflow
 
-Create and provision a semantic search workflow. You must provide the model ID for the configured model. Review your selected workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/semantic-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. Change the workflow template default text field from `passage_text` to `text` in order to match the manual example:
+Create and provision a semantic search workflow. You must provide the model ID for the model deployed in the previous step. Review your selected workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/semantic-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. Change the workflow template default text field from `passage_text` to `text` in order to match the manual example:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=semantic_search&provision=true
 {
-    "create_ingest_pipeline.model_id" : "mBGzipQB2gmRjlv_dOoB",
+    "create_ingest_pipeline.model_id" : "aVeif4oB5Vm0Tdw8zYO2",
     "text_embedding.field_map.output.dimension": "768",
     "text_embedding.field_map.input": "text"
 }

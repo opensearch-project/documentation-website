@@ -8,7 +8,7 @@ nav_order: 30
 
 The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON. For example, you can submit requests to your cluster using objects to create indexes, add data to documents, or complete some other operation using the client's built-in methods. For the client's complete API documentation and additional examples, see the [javadoc](https://www.javadoc.io/doc/org.opensearch.client/opensearch-java/latest/index.html).
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-java repo](https://github.com/opensearch-project/opensearch-java).
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [`opensearch-java` repo](https://github.com/opensearch-project/opensearch-java).
 
 ## Installing the client using Apache HttpClient 5 Transport
 
@@ -18,7 +18,7 @@ To start using the OpenSearch Java client, you need to provide a transport. The 
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>2.8.1</version>
+  <version>3.0.0</version>
 </dependency>
 
 <dependency>
@@ -33,7 +33,7 @@ If you're using Gradle, add the following dependencies to your project:
 
 ```
 dependencies {
-  implementation 'org.opensearch.client:opensearch-java:2.8.1'
+  implementation 'org.opensearch.client:opensearch-java:3.0.0'
   implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
 }
 ```
@@ -83,9 +83,9 @@ keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore
 ```
 {% include copy.html %}
 
-You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (refer to the sample code below on how to do so).
+You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (see the sample code in the next sections).
 
-If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls).
+If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index/) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls/).
 
 ## Sample data
 

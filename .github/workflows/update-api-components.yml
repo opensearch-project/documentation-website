@@ -19,7 +19,8 @@ jobs:
       - run: git config --global pull.rebase true
 
       - uses: ruby/setup-ruby@v1
-        with: { ruby-version: 3.3.0 }
+        with: 
+          ruby-version: '3.4.5'
 
       - run: bundle install
 

@@ -10,6 +10,7 @@ Amazon SageMaker
 AWS Secrets Manager
 Ansible
 Anthropic Claude
+Apache HttpClient 5 Transport
 Apache Kafka
 Auditbeat
 AWS Cloud
@@ -97,6 +98,7 @@ Querqy
 Query Workbench
 RankLib
 Reindex-from-Snapshot
+Replayer
 RCF Summarize
 RPM Package Manager
 Ruby

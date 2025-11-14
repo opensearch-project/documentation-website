@@ -46,15 +46,16 @@ class DocProcessor
                          .filter { |line, _index| line.match?(START_MARKER) }
                          .map { |_line, index| index }
     end_indices = start_indices.map do |index|
-      (index..lines.length - 1).find { |i| lines[i].match?(END_MARKER) }
+      (index..(lines.length - 1)).find { |i| lines[i].match?(END_MARKER) }
     end.compact
 
     validate_markers!(start_indices, end_indices)
 
     start_indices.zip(end_indices).map do |start, finish|
       args = InsertArguments.from_marker(lines[start..finish])
+      next nil if args.skip?
       [start, finish, SpecInsert.new(args)]
-    end
+    end.compact
   end
 
   # @param [Array<Integer>] start_indices

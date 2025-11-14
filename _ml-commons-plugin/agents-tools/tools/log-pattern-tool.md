@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Log Pattern Tool
+title: Log Pattern tool
 has_children: false
 has_toc: false
 nav_order: 37
@@ -9,7 +9,7 @@ grand_parent: Agents and tools
 ---
 
 <!-- vale off -->
-# LogPatternTool
+# Log Pattern tool
 **Introduced 2.19**
 {: .label .label-purple }
 <!-- vale on -->
@@ -118,3 +118,7 @@ Parameter	| Type | Required/Optional      | Description
 | `index`   | String | Required for DSL queries | The index to search for pattern analysis. |
 | `input`   | String | Required for DSL queries | A DSL query JSON as a string. If both `input` and `ppl` are provided, `input` (DSL) takes precedence. |
 | `ppl`     | String | Required for PPL queries | A PPL query string. Ignored if `input` is also provided. |
+
+## Testing the tool
+
+You can run this tool either as part of an agent workflow or independently using the [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/). The Execute Tool API is useful for testing individual tools or performing standalone operations.

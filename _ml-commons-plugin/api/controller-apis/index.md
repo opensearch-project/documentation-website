@@ -5,7 +5,8 @@ parent: ML Commons APIs
 has_children: true
 has_toc: false
 nav_order: 60
-redirect_from: /ml-commons-plugin/api/controller-apis/
+redirect_from:
+  - /ml-commons-plugin/api/controller-apis/
 ---
 
 # Controller APIs

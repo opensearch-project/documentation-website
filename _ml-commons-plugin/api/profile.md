@@ -2,10 +2,10 @@
 layout: default
 title: Profile
 parent: ML Commons APIs
-nav_order: 100
+nav_order: 110
 ---
 
-# Profile
+# Profile API
 
 The profile API operation returns runtime information about ML tasks and models. The profile operation can help debug model issues at runtime. 
 
@@ -53,7 +53,7 @@ Field | Data type | Description
 `return_all_tasks` | Boolean | Determines whether or not a request returns all tasks. When set to `false`, task profiles are left out of the response.
 `return_all_models` | Boolean | Determines whether or not a profile request returns all models. When set to `false`, model profiles are left out of the response.
 
-#### Example request: Returning all tasks and models on a specific node
+## Example request: Returning all tasks and models on a specific node
 
 ```json
 GET /_plugins/_ml/profile
@@ -65,7 +65,7 @@ GET /_plugins/_ml/profile
 ```
 {% include copy-curl.html %}
 
-#### Example response 
+## Example response 
 
 ```json
 {

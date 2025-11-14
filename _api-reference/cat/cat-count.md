@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CAT count
-parent: CAT API
+parent: CAT APIs
 nav_order: 10
 has_children: false
 redirect_from:
@@ -9,7 +9,7 @@ redirect_from:
 
 ---
 
-# CAT count
+# CAT Count API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -50,24 +50,76 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example requests
 
-```json
-GET _cat/count?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/count?v
+-->
+{% capture step1_rest %}
+GET /_cat/count?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.count(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To see the number of documents in a specific index or alias, add the index or alias name after your query:
 
-```json
-GET _cat/count/<index_or_alias>?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/count/<index_or_alias>?v
+-->
+{% capture step1_rest %}
+GET /_cat/count/<index_or_alias>?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.count(
+  index = "<index_or_alias>",
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to get information for more than one index or alias, separate the index or alias names with commas:
 
-```json
-GET _cat/count/index_or_alias_1,index_or_alias_2,index_or_alias_3
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/count/index_or_alias_1,index_or_alias_2,index_or_alias_3
+-->
+{% capture step1_rest %}
+GET /_cat/count/index_or_alias_1,index_or_alias_2,index_or_alias_3
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.count(
+  index = "index_or_alias_1,index_or_alias_2,index_or_alias_3"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

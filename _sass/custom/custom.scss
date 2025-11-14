@@ -805,6 +805,11 @@ main {
   -moz-osx-font-smoothing: auto;
 }
 
+// Fix breadcrumb leading slash
+.breadcrumb-nav-list-item:first-child::before {
+  content: none !important;
+}
+
 .main-content {
   h1, h2, h3, h4, h5, h6 {
     a {
@@ -1323,6 +1328,28 @@ body {
   position: relative;
 }
 
+
+// Migration scenario panels
+.scenario-container {
+  border: 1px solid #aaa;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background-color: #f9f9f9;
+}
+
+.scenario-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: $grey-dk-300;
+  border-bottom: 2px solid #e1e4e8;
+  padding-bottom: 0.5rem;
+}
+
+.scenario-container ol {
+  margin-top: 0.5rem;
+}
 
 @import "../font-awesome.scss";
 @import "../_navigation-header.scss";

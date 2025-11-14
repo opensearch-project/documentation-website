@@ -5,7 +5,7 @@ parent: Nodes APIs
 nav_order: 50
 ---
 
-# Nodes reload secure settings
+# Nodes Reload Secure Settings API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -40,10 +40,27 @@ The request may include an optional object containing the password for the OpenS
 
 The following is an example API request:
 
-```
-POST _nodes/reload_secure_settings
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: POST /_nodes/reload_secure_settings
+-->
+{% capture step1_rest %}
+POST /_nodes/reload_secure_settings
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.reload_secure_settings(
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

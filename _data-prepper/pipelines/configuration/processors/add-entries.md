@@ -1,12 +1,12 @@
 ---
 layout: default
-title: add_entries
+title: Add entries
 parent: Processors
 grand_parent: Pipelines
-nav_order: 40
+nav_order: 10
 ---
 
-# add_entries
+# Add entries processor
 
 The `add_entries` processor adds entries to an event.
 
@@ -221,4 +221,146 @@ The processed event will contain the following data:
 
 ```json
 {"message": ["hello", "world"]}
+```
+
+## Example
+
+The following pipeline performs these actions:
+
+1. Adds an `app_id` field using the format string `${app}-${env}`.
+2. Adds a `message_len` field with the value of `length(/message)`.
+3. Adds a metadata key `msg_len_meta` with the value of `length(/message)`.
+4. If both `/metric/name` and `/metric/value` exist, creates a new field named after `/metric/name` and sets its value to `/metric/value`.
+5. If `/level == "error"`, adds the field `severity: "high"`.
+6. Appends `"ingested"` to the `tags` field, ensuring that the `tags` field is an array.
+7. Sets `env_normalized: "prod"`, overwriting the existing value if the field already exists.
+
+```yaml
+example-pipeline:
+  source:
+    http:
+      path: /events
+      ssl: false
+
+  processor:
+    - add_entries:
+        entries:
+          - key: app_id
+            format: ${app}-${env}
+
+          - key: message_len
+            value_expression: length(/message)
+
+          - metadata_key: msg_len_meta
+            value_expression: length(/message)
+
+          # dynamic key from the event, only when both metric fields exist
+          - key: ${/metric/name}
+            value_expression: /metric/value
+            add_when: "/metric/name != null and /metric/value != null"
+
+          # set severity ONLY on error level
+          - key: severity
+            value: high
+            add_when: '/level == "error"'
+
+          # append behavior: if tags already exists, it becomes/extends an array
+          - key: tags
+            value: ingested
+            append_if_key_exists: true
+
+          # overwrite behavior
+          - key: env_normalized
+            value: prod
+            overwrite_if_key_exists: true
+
+  sink:
+    - opensearch:
+        hosts: [https://opensearch:9200]
+        insecure: true
+        username: admin
+        password: admin_password
+        index_type: custom
+        index: example-%{yyyy.MM.dd}
+```
+{% include copy.html %}
+
+You can test this pipeline by executing the following command:
+
+```bash
+curl -sS -X POST "http://localhost:2021/events" \
+  -H "Content-Type: application/json" \
+  -d '[
+        {"app":"shop","env":"dev","message":"hello","level":"info","metric":{"name":"cpu","value":42}},
+        {"app":"shop","env":"prod","message":"boom","level":"error"},
+        {"app":"api","env":"stage","message":"hi","level":"warn","metric":{"name":"mem","value":2048},"tags":"pretag"}
+      ]'
+```
+{% include copy.html %}
+
+The documents stored in OpenSearch contain the following information:
+
+```json
+"hits": [
+  {
+    "_index": "example-2025.10.10",
+    "_id": "BnvWzpkBTMZ443JmHuHI",
+    "_score": 1,
+    "_source": {
+      "app": "shop",
+      "env": "dev",
+      "message": "hello",
+      "level": "info",
+      "metric": {
+        "name": "cpu",
+        "value": 42
+      },
+      "app_id": "shop-dev",
+      "message_len": 5,
+      "cpu": 42,
+      "tags": "ingested",
+      "env_normalized": "prod"
+    }
+  },
+  {
+    "_index": "example-2025.10.10",
+    "_id": "B3vWzpkBTMZ443JmHuHI",
+    "_score": 1,
+    "_source": {
+      "app": "shop",
+      "env": "prod",
+      "message": "boom",
+      "level": "error",
+      "app_id": "shop-prod",
+      "message_len": 4,
+      "severity": "high",
+      "tags": "ingested",
+      "env_normalized": "prod"
+    }
+  },
+  {
+    "_index": "example-2025.10.10",
+    "_id": "CHvWzpkBTMZ443JmHuHI",
+    "_score": 1,
+    "_source": {
+      "app": "api",
+      "env": "stage",
+      "message": "hi",
+      "level": "warn",
+      "metric": {
+        "name": "mem",
+        "value": 2048
+      },
+      "tags": [
+        "pretag",
+        "ingested"
+      ],
+      "app_id": "api-stage",
+      "message_len": 2,
+      "mem": 2048,
+      "env_normalized": "prod"
+    }
+  }
+]
+
 ```

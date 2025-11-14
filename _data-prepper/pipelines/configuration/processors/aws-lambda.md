@@ -1,14 +1,14 @@
 ---
 layout: default
-title: aws_lambda
+title: AWS Lambda
 parent: Processors
 grand_parent: Pipelines
-nav_order: 10
+nav_order: 40
 ---
 
-# aws_lambda integration for OpenSearch Data Prepper
+# AWS Lambda processor
 
-The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows developers to use serverless computing capabilities within their OpenSearch Data Prepper pipelines for flexible event processing and data routing.
+The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows you to use serverless computing capabilities within your OpenSearch Data Prepper pipelines for flexible event processing and data routing.
 
 ## AWS Lambda processor configuration
 
@@ -79,7 +79,7 @@ processors:
       circuit_breaker_wait_interval: 1000
       tags_on_failure: ["lambda_failed"]
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Usage
 
@@ -132,8 +132,7 @@ Note the following limitations:
 
 Integration tests for this plugin are executed separately from the main Data Prepper build process. Use the following Gradle command to run these tests:
 
-```
+```bash
 ./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.processor.lambda.region="us-east-1" -Dtests.processor.lambda.functionName="lambda_test_function"  -Dtests.processor.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role
 ```
-
-{% include copy-curl.html %}
+{% include copy.html %}

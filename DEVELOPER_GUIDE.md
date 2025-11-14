@@ -8,16 +8,17 @@
   - [Query parameters](#query-parameters)
   - [Path parameters](#path-parameters)
   - [Endpoints](#endpoints)
-
+  - [Example_Code](#example_code)
+  
 ## Introduction
 
-The `.md` documents in this repository are rendered into HTML pages using [Jekyll](https://jekyllrb.com/). These HTML pages are hosted on [opensearch.org](https://opensearch.org/docs/latest/).
+The `.md` documents in this repository are rendered into HTML pages using [Jekyll](https://jekyllrb.com/). These HTML pages are hosted on [opensearch.org](https://docs.opensearch.org/latest/).
 
 ## Starting the Jekyll server locally
 
 You can run the Jekyll server locally to view the rendered HTML pages using the following steps:
 
-1. Install [Ruby](https://www.ruby-lang.org/en/documentation/installation/) 3.1.0 or later for your operating system.
+1. Install [Ruby](https://www.ruby-lang.org/en/documentation/installation/) 3.4.5 or later for your operating system.
 2. Install the required gems by running `bundle install`.
 3. Run `bundle exec jekyll serve` to start the Jekyll server locally (this can take several minutes to complete).
 4. Open your browser and navigate to `http://localhost:4000` to view the rendered HTML pages.
@@ -26,7 +27,7 @@ You can run the Jekyll server locally to view the rendered HTML pages using the 
 
 The `spec-insert` Jekyll plugin is used to insert API components into Markdown files. The plugin downloads the [latest OpenSearch specification](https://github.com/opensearch-project/opensearch-api-specification) and renders the API components from the spec. This aims to reduce the manual effort required to keep the documentation up to date.
 
-To use this plugin, make sure that you have installed Ruby 3.1.0 or later and the required gems by running `bundle install`.
+To use this plugin, make sure that you have installed Ruby 3.4.5 or later and the required gems by running `bundle install`.
 
 Edit your Markdown file and insert the following snippet where you want render an API component:
 
@@ -87,6 +88,65 @@ All spec insert components accept the following arguments:
 - `api` (String; required): The name of the API to render the component from. This is equivalent to the `x-operation-group` field in the OpenSearch OpenAPI Spec.
 - `component` (String; required): The name of the component to render, such as `query_parameters`, `path_parameters`, or `endpoints`.
 - `omit_header` (Boolean; Default is `false`): If set to `true`, the markdown header of the component will not be rendered.
+
+### Example_Code
+
+- `api` should not be placed for the `component: example_code` tag. `rest` is mapped to the correct API by regex mapping.
+- `rest` (String; required): The HTTP request line (`HTTP method` + `endpoint path`) that is regex mapped to the `opensearch-openapi.yaml`.
+
+The following tags are included to help with additional needs:
+
+- `body` (String; optional): The request body for the API call, using YAML `|` to preserve newlines and indentation.
+- `include_client_setup:` (Boolean; Default is `false`): If set to `true`, the client setup for the language will be rendered.
+- `skip` (Boolean; Default is `false`): If set to `true`, the language conversions will not render/re-render. Use for manual conversions.
+
+To insert multi-language support for the `cat.allocation` API, use the following snippet:
+
+```markdown
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/allocation?v
+-->
+<!-- spec_insert_end -->
+```
+
+To insert multi-language support for the `index` API with a request body, use the following snippet. The `|` is needed for multiline support for the body:
+
+```markdown
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_settings?expand_wildcards=all&analyze_wildcard
+body: |
+  {
+    "index": {
+      "number_of_replicas": 2
+    }
+  }
+-->
+<!-- spec_insert_end -->
+```
+
+To insert multi-language support for the `index` API and include the client setup for each language, use the following snippet:
+
+```markdown
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_settings?expand_wildcards=all&analyze_wildcard
+include_client_setup: true
+-->
+<!-- spec_insert_end -->
+```
+
+To insert multi-language support for the `index` API but need to manually set the multi-language example for the `index` API, use the following snippet:
+
+```markdown
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_settings?expand_wildcards=all&analyze_wildcard
+skip: true
+-->
+<!-- spec_insert_end -->
+```
 
 ### Endpoints
 To insert endpoints for the `search` API, use the following snippet:
@@ -152,6 +212,59 @@ include_deprecated: false
 pretty: true
 -->
 <!-- spec_insert_end -->
+```
+### Inserting new tags
+
+`_script/insert_tags_block.py`
+
+This script scans markdown documentation files in `/_api-reference` for `## Example Request(s)` headings and automatically inserts a blank `spec-insert` block for the `example_code` component. It will be placed immediately beneath the first matching 
+header. It supports scanning individual files, multiple files or the whole `_api-reference` tree.
+
+Update entire _api-reference/ tree:
+```
+python3 _script/insert_tags_block.py
+```
+
+Update a specific folder (recursively):
+```
+python3 _script/insert_tags_block.py _api-reference/cat
+```
+
+Update only the top-level files in a folder (no recursion):
+```
+python3 _script/insert_tags_block.py _api-reference/cat --no-recursive
+```
+
+Update a specific file:
+```
+python3 _script/insert_tags_block.py _api-reference/cat/cat-allocation.md
+```
+
+Update multiple files/folders at once:
+```
+python3 _script/insert_tags_block.py _api-reference/cat _api-reference/indices/create-index.md
+```
+
+`--dry-runs` will show you what files will be modified:
+
+Dry-run on the entire _api-reference/ tree:
+```
+python3 _script/insert_tags_block.py --dry-run
+```
+
+Dry-run on a specific folder (recursively):
+```
+python3 _script/insert_tags_block.py _api-reference/cat --dry-run
+```
+
+Dry-run on a specific file:
+```
+python3 _script/insert_tags_block.py _api-reference/cat/cat-allocation.md --dry-run
+```
+
+Dry-run on multiple files/folders:
+```
+python3 _script/insert_tags_block.py _api-reference/cat _api-reference/indices/create-index.md --dry-run
 ```
 
 ### Request and response bodies (Beta)

@@ -1,11 +1,12 @@
 ---
 layout: default
 title: Create or update index template
-parent: Index APIs
-nav_order: 26
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 10
 ---
 
-# Create or update index template
+# Create Or Update Index Template API
 
 You can use the Create or Update Index Template API to create indexes with predefined mappings and settings as well as update existing index templates.
 
@@ -68,7 +69,7 @@ Parameter | Data type | Description
 
 #### `mappings`
 
-The field mappings that exist in the index. For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/). Optional.
+The field mappings that exist in the index. For more information, see [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/). Optional.
 
 #### `settings`
 
@@ -82,8 +83,10 @@ The following examples show how to use the Create or Update Index Template API.
 
 The following example request includes index aliases in the template:
 
-```json
-PUT _index_template/alias-template
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_index_template/alias-template
+body: |
 {
   "index_patterns" : ["sh*"],
   "template": {
@@ -98,12 +101,72 @@ PUT _index_template/alias-template
             },
             "routing" : "shard-1"
         },
-        "{index}-alias" : {} 
+        "{index}-alias" : {}
     }
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /_index_template/alias-template
+{
+  "index_patterns": [
+    "sh*"
+  ],
+  "template": {
+    "settings": {
+      "number_of_shards": 1
+    },
+    "aliases": {
+      "alias1": {},
+      "alias2": {
+        "filter": {
+          "term": {
+            "user.id": "hamlet"
+          }
+        },
+        "routing": "shard-1"
+      },
+      "{index}-alias": {}
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_index_template(
+  name = "alias-template",
+  body =   {
+    "index_patterns": [
+      "sh*"
+    ],
+    "template": {
+      "settings": {
+        "number_of_shards": 1
+      },
+      "aliases": {
+        "alias1": {},
+        "alias2": {
+          "filter": {
+            "term": {
+              "user.id": "hamlet"
+            }
+          },
+          "routing": "shard-1"
+        },
+        "{index}-alias": {}
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Using multiple matching templates
 
@@ -150,8 +213,10 @@ Overlapping index patterns given the same priority are not allowed. An error wil
 
 The following example request adds a `version` number to an index template, which simplifies template management for external systems:
 
-```json
-PUT /_index_template/template_one
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_index_template/template_one
+body: |
 {
   "index_patterns" : ["mac", "cheese"],
   "priority" : 0,
@@ -162,16 +227,60 @@ PUT /_index_template/template_one
   },
   "version": 1
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /_index_template/template_one
+{
+  "index_patterns": [
+    "mac",
+    "cheese"
+  ],
+  "priority": 0,
+  "template": {
+    "settings": {
+      "number_of_shards": 1
+    }
+  },
+  "version": 1
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_index_template(
+  name = "template_one",
+  body =   {
+    "index_patterns": [
+      "mac",
+      "cheese"
+    ],
+    "priority": 0,
+    "template": {
+      "settings": {
+        "number_of_shards": 1
+      }
+    },
+    "version": 1
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ### Adding template metadata
 
 The following example request uses the `meta` parameter to add metadata to the index template. All metadata is stored in the cluster state:
 
-```json
-PUT /_index_template/template_one
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_index_template/template_one
+body: |
 {
   "index_patterns": ["rom", "juliet"],
   "template": {
@@ -187,19 +296,103 @@ PUT /_index_template/template_one
     }
   }
 }
-```
+-->
+{% capture step1_rest %}
+PUT /_index_template/template_one
+{
+  "index_patterns": [
+    "rom",
+    "juliet"
+  ],
+  "template": {
+    "settings": {
+      "number_of_shards": 2
+    }
+  },
+  "_meta": {
+    "description": "Where art thou",
+    "serialization": {
+      "class": "MyIndexTemplate",
+      "id": 12
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_index_template(
+  name = "template_one",
+  body =   {
+    "index_patterns": [
+      "rom",
+      "juliet"
+    ],
+    "template": {
+      "settings": {
+        "number_of_shards": 2
+      }
+    },
+    "_meta": {
+      "description": "Where art thou",
+      "serialization": {
+        "class": "MyIndexTemplate",
+        "id": 12
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Data stream definition
 
 Include a `data_stream` object to use an index template for data streams, as shown in the following example request:
 
-```json
-PUT /_index_template/template_1
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_index_template/template_1
+body: |
 {
   "index_patterns": ["logs-*"],
   "data_stream": { }
 }
-```
+-->
+{% capture step1_rest %}
+PUT /_index_template/template_1
+{
+  "index_patterns": [
+    "logs-*"
+  ],
+  "data_stream": {}
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_index_template(
+  name = "template_1",
+  body =   {
+    "index_patterns": [
+      "logs-*"
+    ],
+    "data_stream": {}
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Using multiple component templates
 

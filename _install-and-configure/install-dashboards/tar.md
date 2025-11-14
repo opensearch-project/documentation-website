@@ -15,11 +15,11 @@ redirect_from:
 
    ```bash
    # x64
-   tar -zxf opensearch-dashboards-{{site.opensearch_version}}-linux-x64.tar.gz
-   cd opensearch-dashboards
+   tar -zxf opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.tar.gz
+   cd opensearch-dashboards-{{site.opensearch_dashboards_version}}
    # ARM64
-   tar -zxf opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.tar.gz
-   cd opensearch-dashboards
+   tar -zxf opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.tar.gz
+   cd opensearch-dashboards-{{site.opensearch_dashboards_version}}
    ```
 
 1. If desired, modify `config/opensearch_dashboards.yml`.

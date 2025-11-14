@@ -13,9 +13,9 @@ redirect_from:
 
 # Managing indexes
 
-You index data using the OpenSearch REST API. Two APIs exist: the index API and the `_bulk` API.
+You index data using the OpenSearch REST API. Two APIs exist: the Index API and the `_bulk` API.
 
-For situations in which new data arrives incrementally (for example, customer orders from a small business), you might use the index API to add documents individually as they arrive. For situations in which the flow of data is less frequent (for example, weekly updates to a marketing website), you might prefer to generate a file and send it to the `_bulk` API. For large numbers of documents, lumping requests together and using the `_bulk` API offers superior performance. If your documents are enormous, however, you might need to index them individually.
+For situations in which new data arrives incrementally (for example, customer orders from a small business), you might use the Index API to add documents individually as they arrive. For situations in which the data flow is less frequent (for example, weekly updates to a marketing website), you might prefer to generate a file and send it to the `_bulk` API. For large numbers of documents, lumping requests together and using the `_bulk` API offers superior performance. If your documents are exceptionally large, however, you might need to index them individually.
 
 When indexing documents, the document `_id` must be 512 bytes or less in size.
 
@@ -26,7 +26,7 @@ Before you can search data, you must *index* it. Indexing is the method by which
 
 In OpenSearch, the basic unit of data is a JSON *document*. Within an index, OpenSearch identifies each document using a unique ID.
 
-A request to the index API looks like this:
+A request sent to the Index API appears as follows:
 
 ```json
 PUT <index>/_doc/<id>
@@ -280,7 +280,6 @@ DELETE movies/_doc/1
 ```
 
 The DELETE operation increments the `_version` field. If you add the document back to the same ID, the `_version` field increments again. This behavior occurs because OpenSearch deletes the document `_source`, but retains its metadata.
-
 
 ## Next steps
 

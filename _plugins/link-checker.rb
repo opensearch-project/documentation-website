@@ -67,6 +67,13 @@ module Jekyll::LinkChecker
     'openai.com', # 403s on bots
     'mvnrepository.com', # 403s on bots
     'www.intel.com', # 403s on bots
+    'wordnet.princeton.edu', # 403s on bots
+    'docs.search-guard.com', # 403s on bots
+    'www.deepseek.com', # 403s on bots
+    'dl.acm.org', # 403s on bots
+    'www.npmjs.com', # 403s on bots
+    'www.base64decode.org', # 403s on bots
+    'docs.docker.com', # 403s on bots
     'example.issue.link' # a fake example link from the template
   ]
 
@@ -198,7 +205,7 @@ module Jekyll::LinkChecker
   def self.verify(_site)
     return unless check_links?
 
-    @base_url_matcher = %r{^#{@site.config["url"]}#{@site.baseurl}(/.*)$}.freeze
+    @base_url_matcher = %r{^#{@site.config['url']}#{@site.baseurl}(/.*)$}.freeze
 
     @urls.sort_by { |_url, _pages| rand }.each do |url, pages|
       location = "./#{pages.to_a.join(', ./')}"

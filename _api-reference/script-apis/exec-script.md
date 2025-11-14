@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Execute Painless script
+title: Execute inline script
 parent: Script APIs
 nav_order: 7
 ---
 
-# Execute Painless script
+# Execute Inline Script API
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Execute Painless script API allows you to run a script that is not stored.
+The Execute Inline Script API allows you to run a script directly without storing it in the cluster state. The script is compiled and executed each time the API is called.
 
 ## Endpoints
 
@@ -27,10 +27,92 @@ POST /_scripts/painless/_execute
 | context_setup | Specifies additional parameters for the context. Optional.| 
 
 ## Example request
+<!-- spec_insert_start
+component: example_code
+rest: POST /_scripts/painless/_execute
+body: |
+{
+  "script": {
+    "source": "doc['gpa_4_0'].value * params.max_gpa / 4.0",
+    "params": {
+      "max_gpa": 5.0
+    }
+  },
+  "context": "score",
+  "context_setup": {
+    "index": "testindex1",
+    "document": {
+      "gpa_4_0": 3.5
+    }
+  }
+}
+-->
+{% capture step1_rest %}
+POST /_scripts/painless/_execute
+{
+  "script": {
+    "source": "doc['gpa_4_0'].value * params.max_gpa / 4.0",
+    "params": {
+      "max_gpa": 5.0
+    }
+  },
+  "context": "score",
+  "context_setup": {
+    "index": "testindex1",
+    "document": {
+      "gpa_4_0": 3.5
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.put_script(
+  id = "painless",
+  context = "_execute",
+  body =   {
+    "script": {
+      "source": "doc['gpa_4_0'].value * params.max_gpa / 4.0",
+      "params": {
+        "max_gpa": 5.0
+      }
+    },
+    "context": "score",
+    "context_setup": {
+      "index": "testindex1",
+      "document": {
+        "gpa_4_0": 3.5
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following request uses the default `painless_context` for the script:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_scripts/painless/_execute
+body: |
+{
+  "script": {
+    "source": "(params.x + params.y)/ 2",
+    "params": {
+      "x": 80,
+      "y": 100
+    }
+  }
+}
+-->
+{% capture step1_rest %}
 GET /_scripts/painless/_execute
 {
   "script": {
@@ -41,8 +123,29 @@ GET /_scripts/painless/_execute
     }
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.scripts_painless_execute(
+  body =   {
+    "script": {
+      "source": "(params.x + params.y)/ 2",
+      "params": {
+        "x": 80,
+        "y": 100
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
@@ -101,7 +204,28 @@ PUT /testindex1
 
 Run a script to determine if a student is eligible to graduate with honors:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_scripts/painless/_execute
+body: |
+{
+  "script": {
+    "source": "doc['grad'].value == true && doc['gpa'].value >= params.min_honors_gpa",
+    "params": {
+      "min_honors_gpa": 3.5
+    }
+  },
+  "context": "filter",
+  "context_setup": {
+    "index": "testindex1",
+    "document": {
+      "grad": true,
+      "gpa": 3.79
+    }
+  }
+}
+-->
+{% capture step1_rest %}
 POST /_scripts/painless/_execute
 {
   "script": {
@@ -119,8 +243,38 @@ POST /_scripts/painless/_execute
     }
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.put_script(
+  id = "painless",
+  context = "_execute",
+  body =   {
+    "script": {
+      "source": "doc['grad'].value == true && doc['gpa'].value >= params.min_honors_gpa",
+      "params": {
+        "min_honors_gpa": 3.5
+      }
+    },
+    "context": "filter",
+    "context_setup": {
+      "index": "testindex1",
+      "document": {
+        "grad": true,
+        "gpa": 3.79
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains the result:
 
@@ -160,7 +314,27 @@ PUT /testindex1
 
 Run a script that converts a GPA on a 4.0 scale into a different scale that is provided as a parameter:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_scripts/painless/_execute
+body: |
+{
+  "script": {
+    "source": "doc['gpa_4_0'].value * params.max_gpa / 4.0",
+    "params": {
+      "max_gpa": 5.0
+    }
+  },
+  "context": "score",
+  "context_setup": {
+    "index": "testindex1",
+    "document": {
+      "gpa_4_0": 3.5
+    }
+  }
+}
+-->
+{% capture step1_rest %}
 POST /_scripts/painless/_execute
 {
   "script": {
@@ -177,8 +351,37 @@ POST /_scripts/painless/_execute
     }
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.put_script(
+  id = "painless",
+  context = "_execute",
+  body =   {
+    "script": {
+      "source": "doc['gpa_4_0'].value * params.max_gpa / 4.0",
+      "params": {
+        "max_gpa": 5.0
+      }
+    },
+    "context": "score",
+    "context_setup": {
+      "index": "testindex1",
+      "document": {
+        "gpa_4_0": 3.5
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains the result:
 

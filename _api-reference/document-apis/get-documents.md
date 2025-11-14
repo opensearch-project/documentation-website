@@ -7,11 +7,11 @@ redirect_from:
  - /opensearch/rest-api/document-apis/get-documents/
 ---
 
-# Get document
+# Get Document API
 **Introduced 1.0**
 {: .label .label-purple }
 
-After adding a JSON document to your index, you can use the Get Document API operation to retrieve the document's information and data.
+After adding a JSON document to your index, you can use the get document API operation to retrieve the document's information and data.
 
 
 ## Endpoints
@@ -108,7 +108,7 @@ However, you can specify a preference to influence the replica selection. The pr
 
 ### Refresh
 
-Set the `refresh` parameter to `true` to force a refresh of the relevant shard before running the Get Document API operation. This ensures that the most recent data changes are made searchable and visible to the API. However, a refresh should be performed judiciously because it can potentially impose a heavy load on the system and slow down indexing performance. It's recommended to carefully evaluate the trade-off between data freshness and system load before enabling the `refresh` parameter.
+Set the `refresh` parameter to `true` to force a refresh of the relevant shard before running the get document API operation. This ensures that the most recent data changes are made searchable and visible to the API. However, a refresh should be performed judiciously because it can potentially impose a heavy load on the system and slow down indexing performance. It's recommended to carefully evaluate the trade-off between data freshness and system load before enabling the `refresh` parameter.
 
 ### Distributed
 
@@ -126,10 +126,28 @@ Internally, when a document is updated in OpenSearch, the original version is ma
 
 The following example request retrieves information about a document named `1`:
 
-```json
-GET sample-index1/_doc/1
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /sample-index1/_doc/1
+-->
+{% capture step1_rest %}
+GET /sample-index1/_doc/1
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get(
+  id = "1",
+  index = "sample-index1"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

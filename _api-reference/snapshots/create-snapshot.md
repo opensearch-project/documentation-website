@@ -5,15 +5,15 @@ parent: Snapshot APIs
 nav_order: 5
 ---
 
-# Create snapshot
+# Create Snapshot API
 **Introduced 1.0**
 {: .label .label-purple }
 
 Creates a snapshot within an existing repository.
 
-* To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
+* To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/).
 
-* To view a list of your repositories, see [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository).
+* To view a list of your repositories, see [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository/).
 
 ## Endpoints
 
@@ -52,25 +52,75 @@ Field | Data type | Description
 
 The following request creates a snapshot called `my-first-snapshot` in an S3 repository called `my-s3-repository`. A request body is not included because it is optional.
 
-```json
-POST _snapshot/my-s3-repository/my-first-snapshot
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: POST /_snapshot/my-s3-repository/my-first-snapshot
+-->
+{% capture step1_rest %}
+POST /_snapshot/my-s3-repository/my-first-snapshot
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.create(
+  repository = "my-s3-repository",
+  snapshot = "my-first-snapshot",
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Request with a body
 
 You can also add a request body to include or exclude certain indices or specify other settings:
 
-```json
-PUT _snapshot/my-s3-repository/2
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_snapshot/my-s3-repository/2
+body: |
 {
   "indices": "opensearch-dashboards*,my-index*,-my-index-2016",
   "ignore_unavailable": true,
   "include_global_state": false,
   "partial": false
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /_snapshot/my-s3-repository/2
+{
+  "indices": "opensearch-dashboards*,my-index*,-my-index-2016",
+  "ignore_unavailable": true,
+  "include_global_state": false,
+  "partial": false
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.create(
+  repository = "my-s3-repository",
+  snapshot = "2",
+  body =   {
+    "indices": "opensearch-dashboards*,my-index*,-my-index-2016",
+    "ignore_unavailable": true,
+    "include_global_state": false,
+    "partial": false
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example responses
 

@@ -80,7 +80,7 @@
         };
 
         const getBreadcrumbs = result => {
-            const crumbs = [...result.ancestors];
+            const crumbs = [...result.ancestors].filter(crumb => crumb && crumb.trim());
 
             if (result.type === 'DOCS') crumbs.unshift(`OpenSearch ${result.versionLabel || result.version}`);
             else if (result.type) crumbs.unshift(result.type);
@@ -90,7 +90,7 @@
 
         const doSearch = async () => {
             const query = elInput.value.replace(/[^a-z0-9-_. ]+/ig, ' ');
-            if (query.length < 3) return hideResults(true);
+            if (query.length < 2) return hideResults(true);
             if (query === lastQuery) return;
 
             recordEvent('search', {
@@ -181,10 +181,7 @@
             elSpinner?.classList.remove(CLASSNAME_SPINNING);
         };
 
-        const emptyResults = () => {
-            //ToDo: Replace with `elResults.replaceChildren();` when https://caniuse.com/?search=replaceChildren shows above 90% can use it
-            while (elResults.firstChild) elResults.firstChild.remove();
-        };
+        const emptyResults = () => elResults.replaceChildren();
 
         const sanitizeText = text => {
             return text?.replace?.(/</g, '&lt;');
@@ -256,7 +253,7 @@
 
         const navToResultsPage = () => {
             const query = encodeURIComponent(elInput.value);
-            window.location.href = `/docs/${docsVersion}/search.html?q=${query}`;
+            window.location.href = `/${docsVersion}/search.html?q=${query}`;
         }
 
         const navToResult = () => {
@@ -284,9 +281,18 @@ window.doResultsPageSearch = async (query, type, version) => {
     const searchResultsContainer = document.getElementById('searchPageResultsContainer');
 
     try {
+        // Clear any previous search results
+        searchResultsContainer.innerHTML = '';
+
+        // Display a loading message while fetching results
+        const loadingElement = document.createElement('div');
+        loadingElement.textContent = 'Loading...';
+        searchResultsContainer.appendChild(loadingElement);
+
         const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${version}&t=${type}`);
         const data = await response.json();
-        // Clear any previous search results
+
+        // Clear the loading message
         searchResultsContainer.innerHTML = '';
 
         if (data.results && data.results.length > 0) {
@@ -295,7 +301,7 @@ window.doResultsPageSearch = async (query, type, version) => {
               resultElement.classList.add('search-page--results--display--container--item');
 
               const contentCite = document.createElement('cite');
-              const crumbs = [...result.ancestors];
+              const crumbs = [...result.ancestors].filter(crumb => crumb && crumb.trim());
               if (result.type === 'DOCS') crumbs.unshift(`OpenSearch ${result.versionLabel || result.version}`);
               else if (result.type) crumbs.unshift(result.type);
               contentCite.textContent = crumbs.join(' › ')?.replace?.(/</g, '&lt;');

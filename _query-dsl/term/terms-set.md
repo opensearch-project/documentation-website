@@ -2,7 +2,7 @@
 layout: default
 title: Terms set
 parent: Term-level queries
-nav_order: 90
+nav_order: 30
 ---
 
 # Terms set query
@@ -165,6 +165,6 @@ The `<field>` accepts the following parameters. All parameters except `terms` ar
 Parameter | Data type | Description
 :--- | :--- | :---
 `terms` | Array of strings | The array of terms to search for in the field specified in `<field>`. A document is returned in the results only if the required number of terms matches the document's field values exactly, with the correct spacing and capitalization.
-`minimum_should_match_field` | String | The name of the [numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) field that specifies the number of matching terms required in order to return a document in the results. You must specify either `minimum_should_match_field` or `minimum_should_match_script`, but not both.
+`minimum_should_match_field` | String | The name of the [numeric]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/numeric/) field that specifies the number of matching terms required in order to return a document in the results. You must specify either `minimum_should_match_field` or `minimum_should_match_script`, but not both.
 `minimum_should_match_script` | String | A script that returns the number of matching terms required in order to return a document in the results. You must specify either `minimum_should_match_field` or `minimum_should_match_script`, but not both.
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.

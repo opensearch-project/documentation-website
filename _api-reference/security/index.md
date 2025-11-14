@@ -5,6 +5,8 @@ nav_order: 77
 has_children: true
 redirect_from:
   - /api-reference/security-api/
+  - /api-reference/security/
+  - /security-plugin/access-control/api/
 ---
 
 # Security APIs
@@ -13,7 +15,7 @@ The Security plugin provides numerous REST APIs for managing its resources. Thes
 
 All Security APIs use the base path of `_plugins/_security/` followed by the specific path for each operation. For example, the path for the Upgrade Perform API would be `/_plugins/_security/api/_upgrade_perform`.
 
-Many Security API operations are available through both REST API calls and OpenSearch Dashboards settings. This documentation focuses on the REST APIs, which offer the most flexibility for programmatic access and automation.
+Many security API operations are available through both REST API calls and OpenSearch Dashboards settings. This documentation focuses on the REST APIs, which offer the most flexibility for programmatic access and automation.
 
 ## API format
 

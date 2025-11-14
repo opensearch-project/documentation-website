@@ -1,11 +1,12 @@
 ---
 layout: default
 title: Refresh index
-parent: Index APIs
-nav_order: 61
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 60
 ---
 
-# Refresh index 
+# Refresh Index API
 Introduced 1.0
 {: .label .label-purple }
 
@@ -19,6 +20,11 @@ OpenSearch's refresh behavior depends on whether or not `index.refresh_interval`
 After a shard becomes idle, the indexes will not refresh until either the next search request or a Refresh Index API request is sent. The first search request on an idle shard will wait for the refresh operation to complete. 
 
 To use the Refresh Index API, you must have write access to the indexes you want to refresh.
+
+## Refresh request behavior
+
+The Refresh Index API call is synchronous. The response is returned only after all targeted shards have been refreshed.
+Because refresh operations are resource intensive, we recommend relying on automatic periodic refreshes using `index.refresh_interval`.
 
 ## Endpoints
 
@@ -55,10 +61,27 @@ The following table lists the available query parameters. All query parameters a
 The following example request refreshes two indexes named `my-index-A` and `my-index-B`:
 
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index-A,my-index-B/_refresh
+-->
+{% capture step1_rest %}
 POST /my-index-A,my-index-B/_refresh
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.refresh(
+  index = "my-index-A,my-index-B"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Refresh all data streams and indexes in a cluster
 

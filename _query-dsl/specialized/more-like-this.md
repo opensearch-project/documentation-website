@@ -14,11 +14,11 @@ The `more_like_this` query analyzes the input documents or texts and selects ter
 
 ## Prerequisites
 
-Before you use a `more_like_this` query, ensure that the fields you target are indexed and their data type is either [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) or [`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/). 
+Before you use a `more_like_this` query, ensure that the fields you target are indexed and their data type is either [`text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) or [`keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/keyword/). 
 
-If you reference documents in the `like` section, OpenSearch needs access to their content. This is typically done through the `_source` field, which is enabled by default. If `_source` is disabled, you must either store the fields individually or configure them to save [`term_vector`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/term-vector/) data. 
+If you reference documents in the `like` section, OpenSearch needs access to their content. This is typically done through the `_source` field, which is enabled by default. If `_source` is disabled, you must either store the fields individually or configure them to save [`term_vector`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/term-vector/) data. 
 
-Saving [`term_vector`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/term-vector/) information when indexing documents can greatly accelerate `more_like_this` queries because the engine can directly retrieve the important terms without reanalyzing the field text at query time.
+Saving [`term_vector`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/term-vector/) information when indexing documents can greatly accelerate `more_like_this` queries because the engine can directly retrieve the important terms without reanalyzing the field text at query time.
 {: .note}
 
 ## Example: No term vector optimization
@@ -103,11 +103,15 @@ PUT /articles-optimized
 {
   "mappings": {
     "properties": {
-      "title": {
+      "name": {
         "type": "text",
         "term_vector": "with_positions_offsets"
       },
-      "content": {
+      "alias": {
+        "type": "text",
+        "term_vector": "with_positions_offsets"
+      },
+      "quote": {
         "type": "text",
         "term_vector": "with_positions_offsets"
       }

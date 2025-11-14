@@ -75,7 +75,7 @@ The `actions` parameter supports the following options.
 
 | Field | Data type | Description |
 |:---|:---|:---|
-| `action_type` | String | Required. Sets the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. |
+| `action_type` | String | Required. Specifies the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. |
 | `method`  | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`. |
 | `url` | String      | Required. Specifies the connection endpoint at which the action occurs. This must match the regex expression for the connection used when [adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index#adding-trusted-endpoints).|
 | `request_body` | String | Required. Sets the parameters contained in the request body of the action. The parameters must include `\"inputText\`, which specifies how users of the connector should construct the request payload for the `action_type`.  |
@@ -88,7 +88,7 @@ The `client_config` parameter supports the following options.
 | Field  | Data type | Description |
 |:---|:---|:---|
 | `max_connection` | Integer   | The maximum number of concurrent connections that the client can establish to the server. Some remote services, like SageMaker, constrain the maximum number of concurrent connections and throw a throttling exception if the number of concurrent connections exceeds the threshold. The maximum number of concurrent OpenSearch connections is `max_connection`*`node_number_for_connector`. To mitigate this issue, try to decrease the value of this parameter and modify the retry settings in `client_config`. Default is `30`. |
-| `connection_timeout` | Integer | The maximum amount of time (in seconds) that the client will wait while trying to establish a connection to the server. A timeout prevents the client from waiting indefinitely and allows the client to recover when it encounters unreachable network endpoints. |
+| `connection_timeout` | Integer | The maximum amount of time (in milliseconds) that the client will wait while trying to establish a connection to the server. A timeout prevents the client from waiting indefinitely and allows the client to recover when it encounters unreachable network endpoints. |
 | `read_timeout` | Integer | The maximum amount of time (in seconds) that the client will wait for a response from the server after sending a request. This is useful when the server is slow to respond or encounters an issue while processing a request. |
 | `retry_backoff_policy`  | String   | The backoff policy for retries to the remote connector. This is useful when there is spike in traffic causing throttling exceptions. Supported policies are `constant`, `exponential_equal_jitter`, and `exponential_full_jitter`. Default is `constant`. |
 | `max_retry_times`  | Integer   | The maximum number of times that a single remote inference request will be retried. This is useful when there is a spike in traffic causing throttling exceptions. When set to `0`, retrying is disabled. When set to `-1`, OpenSearch does not limit the number of `retry_times`. Setting this to a positive integer specifies the maximum number of retry attempts. Default is `0`.       |

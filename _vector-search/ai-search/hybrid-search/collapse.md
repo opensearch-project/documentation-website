@@ -17,8 +17,7 @@ The `collapse` parameter is compatible with other hybrid query search options, s
 
 When using `collapse` in a hybrid query, note the following considerations:
 
-- Inner hits are not supported.
-- Performance may be impacted when working with large result sets.
+- Performance may be impacted when working with large result sets.  Starting with OpenSearch 3.2, the index-level [`index.neural_search.hybrid_collapse_docs_per_group_per_subquery`]({{site.url}}{{site.baseurl}}/vector-search/settings/#hybrid-collapse-docs-per-group) setting controls how many documents are stored per group per subquery. 
 - Aggregations run on pre-collapsed results, not the final output.
 - Pagination behavior changes: Because `collapse` reduces the total number of results, it can affect how results are distributed across pages. To retrieve more results, consider increasing the pagination depth.
 - Results may differ from those returned by the [`collapse` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/collapse-processor/), which applies collapse logic after the query is executed.
@@ -55,6 +54,7 @@ PUT /bakery-items
 Ingest documents into the index:
 
 ```json
+POST /bakery-items/_bulk
 { "index": {} }
 { "item": "Chocolate Cake", "category": "cakes", "price": 15, "baked_date": "2023-07-01T00:00:00Z" }
 { "index": {} }
@@ -527,3 +527,187 @@ GET /bakery-items-pagination/_search?search_pipeline=norm-pipeline
         ]
     }
 ```
+
+## Retrieving inner hits for collapsed hybrid query results
+**Introduced 3.2**
+{: .label .label-purple }
+
+You can use the `inner_hits` parameter within the `collapse` parameter to retrieve additional documents from each collapsed group.
+
+The following example uses the `bakery-items` index created previously. It searches for cake items, collapses (groups) the results by the `item` field, and returns the two cheapest items for each collapsed value:
+
+```json
+GET /bakery-items/_search?search_pipeline=norm-pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "item": "Chocolate Cake"
+          }
+        },
+        {
+          "bool": {
+            "must": {
+              "match": {
+                "category": "cakes"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "collapse": {
+    "field": "item",
+    "inner_hits": [
+      {
+        "name": "cheapest_items",
+        "size": 2,
+        "sort": ["price"]
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+In the response, the main `hits` contain the top-scoring document from each collapsed group. The `inner_hits` contain the two cheapest items from each group:
+
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "bakery-items",
+        "_id": "bIe6e5gBAB5HT6ixTd4F",
+        "_score": 1,
+        "_source": {
+          "item": "Chocolate Cake",
+          "category": "cakes",
+          "price": 15,
+          "baked_date": "2023-07-01T00:00:00Z"
+        },
+        "fields": {
+          "item": [
+            "Chocolate Cake"
+          ]
+        },
+        "inner_hits": {
+          "cheapest_items": {
+            "hits": {
+              "total": {
+                "value": 2,
+                "relation": "eq"
+              },
+              "max_score": null,
+              "hits": [
+                {
+                  "_index": "bakery-items",
+                  "_id": "bIe6e5gBAB5HT6ixTd4F",
+                  "_score": null,
+                  "_source": {
+                    "item": "Chocolate Cake",
+                    "category": "cakes",
+                    "price": 15,
+                    "baked_date": "2023-07-01T00:00:00Z"
+                  },
+                  "sort": [
+                    15
+                  ]
+                },
+                {
+                  "_index": "bakery-items",
+                  "_id": "bYe6e5gBAB5HT6ixTd4F",
+                  "_score": null,
+                  "_source": {
+                    "item": "Chocolate Cake",
+                    "category": "cakes",
+                    "price": 18,
+                    "baked_date": "2023-07-04T00:00:00Z"
+                  },
+                  "sort": [
+                    18
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index": "bakery-items",
+        "_id": "boe6e5gBAB5HT6ixTd4F",
+        "_score": 0.5005,
+        "_source": {
+          "item": "Vanilla Cake",
+          "category": "cakes",
+          "price": 12,
+          "baked_date": "2023-07-02T00:00:00Z"
+        },
+        "fields": {
+          "item": [
+            "Vanilla Cake"
+          ]
+        },
+        "inner_hits": {
+          "cheapest_items": {
+            "hits": {
+              "total": {
+                "value": 3,
+                "relation": "eq"
+              },
+              "max_score": null,
+              "hits": [
+                {
+                  "_index": "bakery-items",
+                  "_id": "boe6e5gBAB5HT6ixTd4F",
+                  "_score": null,
+                  "_source": {
+                    "item": "Vanilla Cake",
+                    "category": "cakes",
+                    "price": 12,
+                    "baked_date": "2023-07-02T00:00:00Z"
+                  },
+                  "sort": [
+                    12
+                  ]
+                },
+                {
+                  "_index": "bakery-items",
+                  "_id": "b4e6e5gBAB5HT6ixTd4F",
+                  "_score": null,
+                  "_source": {
+                    "item": "Vanilla Cake",
+                    "category": "cakes",
+                    "price": 16,
+                    "baked_date": "2023-07-03T00:00:00Z"
+                  },
+                  "sort": [
+                    16
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+</details>

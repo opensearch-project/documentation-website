@@ -2,7 +2,6 @@
 layout: default
 title: Auto-interval date histogram
 parent: Bucket aggregations
-grand_parent: Aggregations
 nav_order: 12
 ---
 
@@ -205,7 +204,7 @@ The `key_as_string` field is now returned in the specified format:
 }
 ```
 
-Alternatively, you can specify one of the built-in date [formats]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats):
+Alternatively, you can specify one of the built-in date [formats]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#formats):
 
 ```json
 GET /blogs/_search

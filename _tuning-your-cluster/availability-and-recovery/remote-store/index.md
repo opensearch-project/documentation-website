@@ -4,9 +4,10 @@ title: Remote-backed storage
 nav_order: 40
 has_children: true
 parent: Availability and recovery
-redirect_from: 
+redirect_from:
   - /opensearch/remote/
   - /tuning-your-cluster/availability-and-recovery/remote/
+  - /tuning-your-cluster/availability-and-recovery/remote-store/
 ---
 
 # Remote-backed storage
@@ -60,7 +61,7 @@ During the bootstrapping process, the remote-backed repositories listed in `open
 
 ## Related cluster settings
 
-You can use the following [cluster settings]({{site.url}}{{site.baseurl}}//api-reference/cluster-api/cluster-settings/) to tune how remote-backed clusters handle each workload.
+You can use the following [cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) to tune how remote-backed clusters handle each workload.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |

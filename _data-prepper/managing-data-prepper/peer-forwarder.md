@@ -7,9 +7,9 @@ parent: Managing OpenSearch Data Prepper
 
 # Peer forwarder
 
-Peer forwarder is an HTTP service that performs peer forwarding of an `event` between OpenSearch Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node it should handle on a given trace before rerouting it to that node. Currently, peer forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_traces_raw` [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
+Peer forwarder is an HTTP service that performs peer forwarding of an `event` between OpenSearch Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node it should handle on a given trace before rerouting it to that node. Currently, peer forwarder is supported by the `aggregate`, `service_map`, and `otel_traces` [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
 
-Peer Forwarder groups events based on the identification keys provided by the supported processors. For `service_map_stateful` and `otel_traces_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
+Peer Forwarder groups events based on the identification keys provided by the supported processors. For `service_map` and `otel_traces`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
 
 Peer discovery allows Data Prepper to find other nodes that it will communicate with. Currently, peer discovery is provided by a static list, a DNS record lookup, or AWS Cloud Map.  
 
@@ -105,8 +105,12 @@ The following table provides optional configuration values.
 | `aws_cloud_map_query_parameters`  | Map | Key-value pairs used to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned. |
 | `buffer_size` | Integer | Represents the maximum number of unchecked records the buffer accepts (the number of unchecked records equals the number of records written into the buffer plus the number of records that are still processing and not yet checked by the Checkpointing API). Default is `512`. |
 | `batch_size` |  Integer | Represents the maximum number of records that the buffer returns on read. Default is `48`. |
+| `batch_delay` | Integer | Represents the maximum amount of time, in milliseconds, to retrieve `batch_size` records from the Peer Forwarder buffer. If `batch_size` is not reached within this duration, a partial batch is returned. If set to `0`, all available records up to `batch_size` are returned immediately. If the buffer is empty, it blocks for up to 5 milliseconds while waiting for records. Default is `3000`. |
 |  `aws_region` |  String | Represents the AWS Region that uses `ACM`, `Amazon S3`, or `AWS Cloud Map` and is required when any of the following conditions are met:<br> - The `use_acm_certificate_for_ssl` setting is set to `true`. <br> - Either `ssl_certificate_file` or `ssl_key_file` specifies an Amazon Simple Storage Service (Amazon S3) URI (for example, s3://mybucket/path/to/public.cert).<br> - The `discovery_mode` is set to `aws_cloud_map`. |
 | `drain_timeout`  | Duration | Represents the amount of time that peer forwarder will wait to complete data processing before shutdown. |
+| `forwarding_batch_size` | Integer | Represents the maximum number of records to send in each request to a peer. Default is `1500`. Maximum is `15000`. |
+| `forwarding_batch_queue_depth` | Integer | Represents the depth of the batching queue. This value is a scalar used to determine the size of the linked blocking queues used for batching records before they are sent to a peer. The queue size is determined by the formula `workers * forwarding_batch_size * forwarding_batch_queue_depth`. Default is `1`. |
+| `forwarding_batch_timeout` | Duration | Represents the maximum amount of time that can occur between flushing batches to a peer. Default is `3s`. |
 
 ## SSL configuration
 

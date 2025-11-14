@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 20
 ---
 
-# Execute an agent
+# Execute Agent API
 **Introduced 2.13**
 {: .label .label-purple }
 
@@ -32,10 +32,10 @@ The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
-`parameters`| Object | Required | The parameters required by the agent. 
+`parameters`| Object | Required | The parameters required by the agent. Any agent parameters configured during registration can be overridden using this field.
 `parameters.verbose`| Boolean | Optional | Provides verbose output. 
 
-#### Example request
+## Example request
 
 ```json
 POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
@@ -47,7 +47,7 @@ POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

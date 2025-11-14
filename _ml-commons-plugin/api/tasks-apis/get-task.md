@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 10
 ---
 
-# Get task
+# Get Task API
 
 You can retrieve information about a task using the `task_id`.
 
@@ -16,14 +16,14 @@ You can retrieve information about a task using the `task_id`.
 GET /_plugins/_ml/tasks/<task_id>
 ```
 
-#### Example request
+## Example request
 
 ```json
 GET /_plugins/_ml/tasks/MsBi1YsB0jLkkocYjD5f
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 The response includes information about the task.
 

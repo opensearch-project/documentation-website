@@ -1,6 +1,6 @@
 ---
 layout: default
-title: http
+title: HTTP
 parent: Sources
 grand_parent: Pipelines
 nav_order: 30
@@ -8,7 +8,7 @@ redirect_from:
   - /data-prepper/pipelines/configuration/sources/http-source/
 ---
 
-# http
+# HTTP source
 
 The `http` plugin accepts HTTP requests from clients. The following table describes options you can use to configure the `http` source.
 
@@ -24,10 +24,10 @@ max_connection_count | No | Integer | The maximum allowed number of open connect
 max_pending_requests | No | Integer | The maximum allowed number of tasks in the `ScheduledThreadPool` work queue. Default value is `1024`.
 max_request_length | No | ByteCount | The maximum number of bytes allowed in the payload of a single HTTP request. Default value is `10mb`.
 authentication | No | Object | An authentication configuration. By default, this creates an unauthenticated server for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/1.2.0/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
-ssl | No | Boolean | Enables TLS/SSL. Default value is false.
-ssl_certificate_file | Conditionally | String | SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. Amazon S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to true and `use_acm_certificate_for_ssl` is set to false.
-ssl_key_file | Conditionally | String | SSL key file path or Amazon S3 path. Amazon S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to true and `use_acm_certificate_for_ssl` is set to false.
-use_acm_certificate_for_ssl | No | Boolean | Enables a TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default value is false.
+ssl | No | Boolean | Enables TLS/SSL. Default value is `false`.
+ssl_certificate_file | Conditionally | String | The SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true` and `use_acm_certificate_for_ssl` is set to `false`.
+ssl_key_file | Conditionally | String | The SSL key file path or Amazon S3 path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true` and `use_acm_certificate_for_ssl` is set to `false`.
+use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using the certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
 acm_certificate_arn | Conditionally | String | The ACM certificate Amazon Resource Name (ARN). The ACM certificate takes preference over Amazon S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
 acm_private_key_password | No | String | ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
 acm_certificate_timeout_millis | No | Integer | Timeout, in milliseconds, that ACM takes to get certificates. Default value is 120000.
@@ -43,14 +43,108 @@ Clients should send HTTP `POST` requests to the endpoint `/log/ingest`.
 
 The `http` protocol only supports the JSON UTF-8 codec for incoming requests, for example, `[{"key1": "value1"}, {"key2": "value2"}]`.
 
-#### Example: Ingest data with cURL
+## Example
 
-The following cURL command can be used to ingest data:
+The following examples demonstrate different configurations that can be used with the `http` source.
+
+### Minimal HTTP source
+
+The following is the minimal configuration using all default values:
+
+```yaml
+minimal-http-pipeline:
+  source:
+    http:
+  sink:
+    - stdout: {}
+```
+{% include copy.html %}
+
+You can test this pipeline using the following command:
+
+```bash
+curl -s "http://localhost:2021/log/ingest" \
+  -H "Content-Type: application/json" \
+  --data '[{"msg":"one"},{"msg":"two"}]'
+```
+{% include copy.html %}
+
+You should see the following output in the Data Prepper logs:
 
 ```
-curl "http://localhost:2021/log/ingest" --data '[{"key1": "value1"}, {"key2": "value2"}]'
+{"msg":"one"}
+{"msg":"two"}
 ```
-{% include copy-curl.html %}
+
+### Custom path using the pipeline name and health check
+
+The following example uses a custom path, configures a custom port, and enables health checks:
+
+```yaml
+audit-pipeline:
+  source:
+    http:
+      port: 2022
+      path: "/${pipelineName}/logs"  # -> /audit-pipeline/logs
+      health_check_service: true
+      unauthenticated_health_check: true
+  sink:
+    - stdout: {}
+```
+{% include copy.html %}
+
+You can use the following command to check the pipeline health:
+
+```bash
+curl -s "http://localhost:2022/health"
+```
+{% include copy.html %}
+
+You can ingest data using the following command:
+
+```bash
+curl -s "http://localhost:2022/audit-pipeline/logs" \
+  -H "Content-Type: application/json" \
+  --data '[{"event":"login","user":"alice"}]'
+```
+{% include copy.html %}
+
+### Basic authentication on the source
+
+The following example configures a custom port and path, enables health checks, and configures basic authentication:
+
+```yaml
+secure-intake-pipeline:
+  source:
+    http:
+      port: 2023
+      path: /ingest
+      authentication:
+        http_basic:
+          username: ingest
+          password: s3cr3t
+      health_check_service: true
+      unauthenticated_health_check: true
+  sink:
+    - stdout: {}
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: admin_password
+        index_type: custom
+        index: demo-%{yyyy.MM.dd}
+```
+{% include copy.html %}
+
+You can test this pipeline using the following command:
+
+```bash
+curl -s -u ingest:s3cr3t "http://localhost:2023/ingest" \
+  -H "Content-Type: application/json" \
+  --data '[{"service":"web","status":"ok"}]'
+```
+{% include copy.html %}
 
 ## Metrics
 

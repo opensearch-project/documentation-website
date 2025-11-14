@@ -1,11 +1,12 @@
 ---
 layout: default
 title: Resolve index
-parent: Index APIs
-nav_order: 62
+parent: Core index APIs
+grand_parent: Index APIs
+nav_order: 70
 ---
 
-# Resolve index
+# Resolve Index API
 
 The Resolve Index API helps you understand how OpenSearch resolves aliases, data streams, and concrete indexes that match a specified name or wildcard expression.
 
@@ -39,36 +40,105 @@ The following sections provide example Resolve API requests.
 ### Resolve a concrete index
 
 
-```json
-GET _resolve/index/my-index-001
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_resolve/index/my-index-001
+-->
+{% capture step1_rest %}
+GET /_resolve/index/my-index-001
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.resolve_index(
+  name = "my-index-001"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Resolve indexes using a wildcard
 
 
-```json
-GET _resolve/index/my-index-*
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_resolve/index/my-index-*
+-->
+{% capture step1_rest %}
+GET /_resolve/index/my-index-*
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.resolve_index(
+  name = "my-index-*"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Resolve a data stream or alias
 
 If an alias or data stream named `logs-app` exists, use the following request to resolve it:
 
-```json
-GET _resolve/index/logs-app
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_resolve/index/logs-app
+-->
+{% capture step1_rest %}
+GET /_resolve/index/logs-app
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.resolve_index(
+  name = "logs-app"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Resolve hidden indexes using a wildcard in a remote cluster
 
 The following example shows an API request using a wildcard, a remote cluster, and `expand_wildcards` configured to `hidden`:
 
-```json
-GET _resolve/index/my-index-*,remote-cluster:my-index-*?expand_wildcards=hidden
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_resolve/index/my-index-*,remote-cluster:my-index-*?expand_wildcards=hidden
+-->
+{% capture step1_rest %}
+GET /_resolve/index/my-index-*,remote-cluster:my-index-*?expand_wildcards=hidden
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.resolve_index(
+  name = "my-index-*,remote-cluster:my-index-*",
+  params = { "expand_wildcards": "hidden" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

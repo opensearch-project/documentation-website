@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT snapshots
-parent: CAT API
+parent: CAT APIs
 nav_order: 65
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-snapshots/
 ---
 
-# CAT snapshots
+# CAT Snapshots API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -55,10 +55,27 @@ The following table lists the available query parameters.
 
 The following example request lists all snapshots:
 
-```
-GET _cat/snapshots?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/snapshots?v
+-->
+{% capture step1_rest %}
+GET /_cat/snapshots?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.snapshots(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

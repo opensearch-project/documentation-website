@@ -1,14 +1,14 @@
 ---
 layout: default
 title: CAT tasks
-parent: CAT API
+parent: CAT APIs
 nav_order: 70
 has_children: false
 redirect_from:
 - /opensearch/rest-api/cat/cat-tasks/
 ---
 
-# CAT tasks
+# CAT Tasks API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -54,10 +54,27 @@ The following table lists the available query parameters. All query parameters a
 
 The following example request lists all tasks in progress:
 
-```
-GET _cat/tasks?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/tasks?v
+-->
+{% capture step1_rest %}
+GET /_cat/tasks?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.tasks(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response
