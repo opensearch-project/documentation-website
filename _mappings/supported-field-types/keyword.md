@@ -253,7 +253,7 @@ PUT sample-index2/_doc/1
 }
 ```
 
-After OpenSearch reconstructs `_source`, the derived `_source` replaces null values and sorts alphabetically:
+After OpenSearch reconstructs `_source`, the derived `_source` replaces null values and sorts the values alphabetically:
 
 ```json
 {

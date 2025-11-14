@@ -197,7 +197,7 @@ After OpenSearch reconstructs `_source`, the derived `_source` sorts the values 
 }
 ```
 
-When using `half_float` fields, precision loss may occur based on the field's stored precision. Create an index with a `hf` field:
+When using `half_float` fields, precision loss may occur based on the field's stored precision. Create an index with an `hf` field:
 
 ```json
 PUT sample-index2
@@ -236,7 +236,7 @@ After OpenSearch reconstructs `_source`, the derived `_source` shows precision l
 }
 ```
 
-When using `scaled_float` fields, precision loss may occur due to the scaling factor. Create an index with a `sf` field:
+When using `scaled_float` fields, precision loss may occur due to the scaling factor. Create an index with an `sf` field:
 
 ```json
 PUT sample-index3
