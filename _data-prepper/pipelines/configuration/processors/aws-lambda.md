@@ -30,7 +30,7 @@ Field                | Type    | Required | Description
 `client.api_call_timeout` | Duration | Optional | The API call timeout. Default is `60s`.
 `client.connection_timeout` | Duration | Optional | The SDK connection timeout. Default is `60s`.
 `client.max_concurrency` | Integer | Optional | The maximum number of concurrent threads on the client. Default is `200`.
-`client.base_delay`  | Duration | Optional | Base delay for exponential backoff. Default is `100ms`.
+`client.base_delay`  | Duration | Optional | The base delay for the exponential backoff. Default is `100ms`.
 `client.max_backoff` | Duration | Optional | Maximum backoff time for exponential backoff. Default is `20s`.
 `batch`              | Object  | Optional | The batch settings for the Lambda invocations. Default is `key_name = "events"`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                            
 `lambda_when`        | String  | Optional | A conditional expression that determines when to invoke the Lambda processor.     
