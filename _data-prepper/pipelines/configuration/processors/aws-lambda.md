@@ -40,7 +40,7 @@ Field                | Type    | Required | Description
 `response_mode`      | String  | Optional | The response handling mode, either `replace` or `merge`. Default is `replace`.
 `keys`               | List    | Optional | Keys to send to the Lambda function.
 `cache`              | Object  | Optional | The cache configuration. Only valid when `response_mode` is `merge` and `keys` are specified.
-`cache.ttl`          | Long    | Optional | Cache time-to-live.
+`cache.ttl`          | Long    | Optional | The cache time-to-live.
 `cache.max_size`     | Long    | Optional | The maximum cache size. Must be between 1048576 and 10485760.
 `circuit_breaker_retries` | Integer | Optional | Maximum number of circuit breaker checks before proceeding. Default is `0`.
 `circuit_breaker_wait_interval` | Long | Optional | Time in milliseconds between circuit breaker checks. Default is `1000ms`.
