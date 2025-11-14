@@ -20,7 +20,7 @@ You can configure the processor using the following configuration options.
 
 Field                | Type    | Required | Description                                                                 
 -------------------- | ------- | -------- | ---------------------------------------------------------------------------- 
-`function_name`      | String  | Required | The name of the AWS Lambda function to invoke. Must be 3-500 characters.                               
+`function_name`      | String  | Required | The name of the AWS Lambda function to invoke. Must be 3--500 characters.                               
 `invocation_type`    | String  | Optional | Specifies the invocation type, either `request-response` or `event`. Default is `request-response`.           
 `aws.region`         | String  | Required | The AWS Region in which the Lambda function is located.                         
 `aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function. Must be 20-2048 characters.               
