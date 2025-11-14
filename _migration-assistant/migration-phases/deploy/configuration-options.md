@@ -60,6 +60,12 @@ The following CDK performs a backfill migrations using RFS:
             "userSecretArn": <SECRET_WITH_USERNAME_AND_PASSWORD_KEYS>
         }
     },
+    "// Note": "The following three options are true by default:",
+    "migrationAssistanceEnabled": true,
+    "migrationConsoleServiceEnabled": true,
+    "otelCollectorEnabled": true,
+
+    "// Note": "Additional options specific to this migration type:",
     "reindexFromSnapshotServiceEnabled": true,
     "reindexFromSnapshotExtraArgs": "",
     "artifactBucketRemovalPolicy": "DESTROY"
@@ -101,6 +107,11 @@ The following sample CDK performs a live capture migration with C&R:
             "userSecretArn": <SECRET_WITH_USERNAME_AND_PASSWORD_KEYS>
         }
     },
+
+    "// Note": "The following three options are true by default:",
+    "migrationAssistanceEnabled": true,
+    "migrationConsoleServiceEnabled": true,
+    "otelCollectorEnabled": true,
 
     "// settingsForCaptureAndReplay": "Enable the following services for live traffic capture and replay:",
     "trafficReplayerServiceEnabled": true,
