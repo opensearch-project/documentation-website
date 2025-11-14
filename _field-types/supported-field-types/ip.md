@@ -154,7 +154,7 @@ PUT sample-index1/_doc/1
 }
 ```
 
-After OpenSearch reconstructs `_source`, the derived `_source` removes duplicates and may sort the values:
+After OpenSearch reconstructs `_source`, the derived `_source` removes duplicates and sorts the values:
 
 ```json
 {

@@ -59,7 +59,10 @@ Parameter | Description
 
 ## Derived source
 
-When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort wildcard values and remove duplicates in multi-value wildcard fields during source reconstruction. Note that `doc_values` must be enabled for `wildcard` fields to be supported when using wildcard values with derived source.
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort wildcard values and remove duplicates in multi-value wildcard fields during source reconstruction. 
+
+`doc_values` must be enabled for `wildcard` fields to be supported when using wildcard values with derived source.
+{: .note}
 
 Create an index that enables derived source and configures a `name` field with `doc_values` enabled:
 
