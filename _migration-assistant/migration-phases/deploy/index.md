@@ -162,11 +162,7 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
             }
         },
         "reindexFromSnapshotExtraArgs": "<RFS PARAMETERS (see below)>",
-        "reindexFromSnapshotMaxShardSizeGiB": 80,
-        "// Note": "The following three options are true by default:",
-        "migrationAssistanceEnabled": true,
-        "migrationConsoleServiceEnabled": true,
-        "otelCollectorEnabled": true
+        "reindexFromSnapshotMaxShardSizeGiB": 80
     }
     }
     ```
@@ -182,8 +178,6 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
     {
     "test-deploy": {
         "stage": "test",
-        "migrationAssistanceEnabled": true,
-        "migrationConsoleServiceEnabled": true,
         "reindexFromSnapshotServiceEnabled": true,
         "sourceCluster": {
             "endpoint": "https://migration-source-es710.us-west-2.es.amazonaws.com",
@@ -203,8 +197,6 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
     },
     "prod-deploy": {
         "stage": "prod",
-        "migrationAssistanceEnabled": true,
-        "migrationConsoleServiceEnabled": true,
         "reindexFromSnapshotServiceEnabled": true,
         "// ... additional production-specific configuration"
     }
