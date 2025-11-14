@@ -58,18 +58,45 @@ Parameter | Description
 `null_value` | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, then the field is treated as missing when its value is `null`. Default is `null`.
 
 ## Derived source
-`doc_values` must be enabled for `wildcard` field type to be supported for derived source.
 
-Derived source may sort and remove duplicates when using multi-value field. For example:
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort wildcard values and remove duplicates in multi-value wildcard fields during source reconstruction. Note that `doc_values` must be enabled for `wildcard` fields to be supported when using wildcard values with derived source.
+
+Create an index that enables derived source and configures a `name` field with `doc_values` enabled:
+
+```json
+PUT sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "wildcard",
+        "doc_values": true
+      }
+    }
+  }
+}
+```
+
+Index a document with multiple wildcard values, including duplicates, into the index:
+
 ```json
 PUT sample-index1/_doc/1
 {
-  "wildcard": ["ba", "ab", "ac", "ba"]
+  "name": ["ba", "ab", "ac", "ba"]
 }
 ```
-Will become:
+
+After OpenSearch reconstructs `_source`, the derived `_source` removes duplicates and sorts the values alphabetically:
+
 ```json
 {
-  "wildcard": ["ab", "ac", "ba"]
+  "name": ["ab", "ac", "ba"]
 }
 ```

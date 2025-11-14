@@ -362,7 +362,10 @@ The response contains both documents:
 
 ## Derived source
 
-Derived source may sort values when using multi-value field, when configuring multiple date formats separated by `||` under `format` mapping parameter, derived source will return results in first provided format. For example:
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort values in multi-value date fields during source reconstruction. When configuring multiple date formats separated by `||` under the `format` mapping parameter, derived source returns results in the first provided format.
+
+Create an index that enables derived source and configures a `date` field with multiple formats:
+
 ```json
 PUT sample-index1
 {
@@ -375,20 +378,26 @@ PUT sample-index1
   },
   "mappings": {
     "properties": {
-      "date":  {
-        "type": "date", 
+      "date": {
+        "type": "date",
         "format": "strict_date_time_no_millis||strict_date_optional_time||epoch_millis"
       }
     }
   }
 }
+```
 
+Index a document with mixed date formats into the index:
+
+```json
 PUT sample-index1/_doc/1
 {
   "date": [1758504860, "2025-09-22T00:34", "2025-09-22T01:34:20Z"]
 }
 ```
-Will become:
+
+After OpenSearch reconstructs `_source`, all dates are in the `strict_date_time_no_millis` format:
+
 ```json
 {
   "date": ["2025-09-22T00:34:00.000Z", "2025-09-22T01:34:00.000Z", "2025-09-22T01:34:00.000Z"]

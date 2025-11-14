@@ -121,14 +121,41 @@ Parameter | Description
 
 ## Derived source
 
-Derived source may sort values and remove duplicates when using multi-value field. For example:
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort IP address values and remove duplicates in multi-value IP fields during source reconstruction.
+
+Create an index that enables derived source and configures an `ip` field:
+
+```json
+PUT sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "ip": {
+        "type": "ip"
+      }
+    }
+  }
+}
+```
+
+Index a document with multiple IP addresses, including duplicates, into the index:
+
 ```json
 PUT sample-index1/_doc/1
 {
   "ip": ["10.16.0.1", "192.168.0.1", "10.16.0.1", "2001:0db8:85a3:0000:0000:8a2e:0370:7334"]
 }
 ```
-Will become:
+
+After OpenSearch reconstructs `_source`, the derived `_source` removes duplicates and may sort the values:
+
 ```json
 {
   "ip": ["10.16.0.1", "192.168.0.1", "2001:0db8:85a3:0000:0000:8a2e:0370:7334"]

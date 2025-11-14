@@ -177,20 +177,51 @@ When you run the same term query on the configured index, the query takes longer
 
 ## Derived source
 
-Derived source may sort and remove duplicates when using multi-value field. For example:
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort keyword values and remove duplicates in multi-value keyword fields during source reconstruction.
+
+Create an index that enables derived source and configures a `name` field:
+
+```json
+PUT sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+```
+
+Index a document with multiple keyword values, including duplicates, into the index:
+
 ```json
 PUT sample-index1/_doc/1
 {
-  "keyword": ["ba", "ab", "ac", "ba"]
+  "name": ["ba", "ab", "ac", "ba"]
 }
 ```
-Will become:
+
+After OpenSearch reconstructs `_source`, the derived `_source` removes duplicates and sorts the values alphabetically:
+
 ```json
 {
-  "keyword": ["ab", "ac", "ba"]
+  "name": ["ab", "ac", "ba"]
 }
 ```
-If `null_value` is configured in field mapping parameter, ingested `null` value will be replaced with `null_value` in derived source
+
+If the field mapping defines a [`null_value`]({{site.url}}{{site.baseurl}}/_field-types/mapping-parameters/null-value/), any ingested null values are replaced with that value during reconstruction. The following example demonstrates how `null_value` affects derived source output.
+
+Create an index that enables derived source and configures a `null_value` for the `name` field:
+
 ```json
 PUT sample-index2
 {
@@ -203,19 +234,28 @@ PUT sample-index2
   },
   "mappings": {
     "properties": {
-      "keyword":  {"type": "keyword", "null_value": "foo"}
+      "name": {
+        "type": "keyword",
+        "null_value": "foo"
+      }
     }
   }
 }
+```
 
+Index a document with null values into the index:
+
+```json
 PUT sample-index2/_doc/1
 {
-  "keyword": [null, "ba", "ab"]
+  "name": [null, "ba", "ab"]
 }
 ```
-Will become:
+
+After OpenSearch reconstructs `_source`, the derived `_source` replaces null values and sorts alphabetically:
+
 ```json
 {
-  "keyword": ["ab", "ba", "foo"]
+  "name": ["ab", "ba", "foo"]
 }
 ```

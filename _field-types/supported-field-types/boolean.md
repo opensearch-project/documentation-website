@@ -160,20 +160,49 @@ The script returns the value of `a` as `true`, `key` returns the value of `a` as
 
 ## Derived source
 
-Derived source may sort values when using multi-value field. For example:
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort values in a multi-value `boolean` field during source reconstruction. The following example shows how OpenSearch processes mixed `boolean` inputs.
+
+Create an index that enables derived source and configures a `boolean` field named `a`:
+
+```json
+PUT /sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "a":  {"type": "boolean"}
+    }
+  }
+}
+```
+
+Index a document into the index:
+
 ```json
 PUT sample-index1/_doc/1
 {
-  "boolean": [false, "true", "false", true, ""]
+  "a": [false, "true", "false", true, ""]
 }
 ```
-Will become:
+
+After OpenSearch reconstructs `_source`, the derived `_source` is as follows:
+
 ```json
 {
-  "boolean": [false, false, false, true, true]
+  "a": [false, false, false, true, true]
 }
 ```
-If `null_value` is configured in field mapping parameter, ingested `null` value will be replaced with `null_value` in derived source
+
+If the field mapping defines a [`null_value`]({{site.url}}{{site.baseurl}}/_field-types/mapping-parameters/null-value/), any ingested null values are replaced with that value during reconstruction. The following example demonstrates how `null_value` affects derived source output.
+
+Create an index that enables derived source and configures a `null_value` for the `boolean` field `a`:
+
 ```json
 PUT sample-index2
 {
@@ -186,19 +215,25 @@ PUT sample-index2
   },
   "mappings": {
     "properties": {
-      "boolean":  {"type": "boolean", "null_value": true}
+      "a":  {"type": "boolean", "null_value": true}
     }
   }
 }
+```
 
+Index a document into the index:
+
+```json
 PUT sample-index2/_doc/1
 {
-  "keyword": [null, true, "false"]
+  "a": [null, true, "false"]
 }
 ```
-Will become:
+
+After OpenSearch reconstructs `_source`, the derived `_source` is as follows:
+
 ```json
 {
-  "keyword": [false, true, true]
+  "a": [false, true, true]
 }
 ```
