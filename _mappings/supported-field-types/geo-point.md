@@ -114,3 +114,92 @@ Parameter | Description
 `ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Valid values for latitude are [-90, 90]. Valid values for longitude are [-180, 180]. Default is `false`.
 `ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_value` is `false`, an exception is thrown.
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+
+## Derived source
+
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch normalizes geopoint values to a consistent latitude/longitude object format during source reconstruction, regardless of the original input format. OpenSearch may also sort multi-value geopoint fields, and precision loss can occur during the conversion process.
+
+Create an index that enables derived source and configures a `geo_point` field:
+
+```json
+PUT sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "geo_point": {
+        "type": "geo_point"
+      }
+    }
+  }
+}
+```
+
+Index a document with a geohash format into the index:
+
+```json
+PUT sample-index1/_doc/1
+{
+  "geo_point": "txhxegj0uyp3"
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` is as follows:
+
+```json
+{
+  "geo_point": {"lat": 40.71, "lon": 74.00}
+}
+```
+
+Index another document with a Well-Known Text format into the index:
+
+```json
+PUT sample-index1/_doc/2
+{
+  "geo_point": "POINT (74.00 40.71)"
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` is as follows:
+
+```json
+{
+  "geo_point": {"lat": 40.71, "lon": 74.00}
+}
+```
+
+Index a document with multiple geopoints into the index:
+
+```json
+PUT sample-index1/_doc/3
+{
+  "geo_point": [
+    {"lat": 75.98, "lon": 40.34},
+    {"lat": -90, "lon": -80}
+  ]
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` shows sorted values with potential precision changes:
+
+```json
+{
+  "geo_point": [
+    {
+      "lat": -90.0,
+      "lon": -80.00000000931323
+    },
+    {
+      "lat": 75.97999997902662,
+      "lon": 40.339999962598085
+    }
+  ]
+}
+```

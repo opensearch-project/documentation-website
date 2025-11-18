@@ -151,5 +151,128 @@ Scaled float has an additional required parameter: `scaling_factor`.
 
 Parameter | Description 
 :--- | :--- 
-`scaling_factor` | A double value that is multiplied by the field value and rounded to the nearest long. Required.
-`skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, OpenSearch creates indexed doc values that can improve performance for `range` queries by allowing the query engine to skip irrelevant document ranges. Default is `false`. 
+`scaling_factor` | A double value that is multiplied by the field value and rounded to the nearest long. Required. 
+`skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, OpenSearch creates indexed doc values that can improve performance for `range` queries by allowing the query engine to skip irrelevant document ranges. Default is `false`.
+
+## Derived source
+
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort numeric values in multi-value fields during source reconstruction. Additionally, precision loss can occur with certain numeric field types.
+
+Create an index that enables derived source and configures a `number` field:
+
+```json
+PUT sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "number": {
+        "type": "integer"
+      }
+    }
+  }
+}
+```
+
+Index a document with multiple integer values into the index:
+
+```json
+PUT sample-index1/_doc/1
+{
+  "number": [1, 0, -1, 0]
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` sorts the values numerically:
+
+```json
+{
+  "number": [-1, 0, 0, 1]
+}
+```
+
+When using `half_float` fields, precision loss may occur based on the field's stored precision. Create an index with an `hf` field:
+
+```json
+PUT sample-index2
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "hf": {
+        "type": "half_float"
+      }
+    }
+  }
+}
+```
+
+Index a document with a precise decimal value into the index:
+
+```json
+PUT sample-index2/_doc/1
+{
+  "hf": 1234.56
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` shows precision loss:
+
+```json
+{
+  "hf": 1235.0
+}
+```
+
+When using `scaled_float` fields, precision loss may occur due to the scaling factor. Create an index with an `sf` field:
+
+```json
+PUT sample-index3
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "sf": {
+        "type": "scaled_float",
+        "scaling_factor": 100
+      }
+    }
+  }
+}
+```
+
+Index a document with a decimal value into the index:
+
+```json
+PUT sample-index3/_doc/1
+{
+  "sf": 12.345
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` shows precision loss:
+
+```json
+{
+  "sf": 12.34
+}
+```
+
