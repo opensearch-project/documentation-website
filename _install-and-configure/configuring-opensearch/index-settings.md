@@ -295,6 +295,8 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.derived_source.translog.enabled` (Boolean): Controls how documents are read from the translog for an index with derived source enabled. Defaults to the `index.derived_source.enabled` value. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/#derived-source).
 
+- `index.periodic_flush_interval` (Time unit): Triggers a flush periodically at the configured interval, storing all in-memory operations to segments on disk. OpenSearch automatically performs flushes in the background based on conditions like transaction log size among others. This feature can be enabled if a use case requires special handling. Default is `-1`, which disables periodic flush.
+
 ### Updating a dynamic index setting
 
 You can update a dynamic index setting at any time through the API. For example, to update the refresh interval, use the following request:
