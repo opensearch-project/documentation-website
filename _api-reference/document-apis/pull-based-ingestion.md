@@ -76,7 +76,7 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 | `internal_queue_size` | The size of the internal blocking queue for advanced tuning. Valid values are from 1 to 100,000, inclusive. Optional. Default is 100. |
 | `all_active` | Whether to enable the all-active ingestion mode. Cannot be enabled for indexes that use segment replication mode. Default is `false`. See [Ingestion modes](#ingestion-modes). |
 | `pointer_based_lag_update_interval` | The interval at which pointer-based lag is calculated. Accepts time units. Default is `10s`. Setting this value to `0` disables pointer-based lag calculation. |
-| `mapper_type` | Defines the mapper for the input message format. Supported values are `default` and `raw_payload`. See [Message formats](#message-format) |
+| `mapper_type` | Defines the mapper for the input message format. Valid values are `default` and `raw_payload`. See [Message format](#message-format). |
 | `param` | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; The `ingest-kafka` plugin requires:<br>&ensp;&ensp;- `topic`: The Kafka topic to consume from<br>&ensp;&ensp;- `bootstrap_servers`: The Kafka server addresses<br>&ensp;&ensp;Optionally, you can provide additional standard Kafka consumer parameters (such as `fetch.min.bytes`). These parameters are passed directly to the Kafka consumer. <br>&ensp;&#x2022; The `ingest-kinesis` plugin requires:<br>&ensp;&ensp;- `stream`: The Kinesis stream name<br>&ensp;&ensp;- `region`: The AWS Region<br>&ensp;&ensp;- `access_key`: The AWS access key<br>&ensp;&ensp;- `secret_key`: The AWS secret key<br>&ensp;&ensp;Optionally, you can provide an `endpoint_override`. | 
 
 
