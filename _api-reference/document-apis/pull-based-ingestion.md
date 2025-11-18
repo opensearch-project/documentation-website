@@ -82,7 +82,7 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 
 ### Other parameters
 
-Pull-based ingestion relies on the following OpenSearch parameters.
+Pull-based ingestion supports the following OpenSearch parameters.
 
 | Parameter | Description |
 | :--- | :--- |
