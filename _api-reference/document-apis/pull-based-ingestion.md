@@ -86,7 +86,7 @@ Pull-based ingestion supports the following OpenSearch parameters.
 
 | Parameter | Description |
 | :--- | :--- |
-| `index.periodic_flush_interval` | Indicates the interval at which OpenSearch will trigger a flush. Default for pull-based ingestion indexes is 10m. See [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/) |
+| `index.periodic_flush_interval` | The interval at which OpenSearch will trigger a flush. Default for pull-based ingestion indexes is `10m`. See [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/). |
 
 ### Ingestion modes
 
