@@ -71,7 +71,7 @@ The `source` object supports the following fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `index` | String | Required | The name of the index, data stream, or index alias to copy from. You can specify multiple source indexes as a comma-separated list.
-`query` | Object | Optional | The search query to use for the reindex operation. See [Filtering documents](#filtering-documents).
+`query` | Object | Optional | The search query to use for the reindex operation. See [Filtering documents by query](#filtering-documents-by-query).
 `remote` | Object | Optional | Information about a remote OpenSearch cluster to copy data from. See [Reindexing from a remote cluster](#reindexing-from-a-remote-cluster).
 `remote.host` | String | Required when `remote` is specified | The URL for the remote OpenSearch cluster that you want to index from.
 `remote.username` | String | Optional | The username to use for authentication with the remote host.
@@ -81,7 +81,7 @@ Field | Data type | Required/Optional | Description
 `size` | Integer | Optional | The number of documents to index per batch. Use this when indexing from a remote source to ensure that each batch fits within the on-heap buffer, which has a default maximum size of 100 MB.
 `slice` | Object | Optional | The configuration for manual slicing. Must be an object with `id` (slice ID) and `max` (total number of slices) properties to manually specify which slice of the data to process. This enables parallel processing by running multiple reindex operations, each handling a different slice. See [Using slicing for parallel processing](#using-slicing-for-parallel-processing). 
 `_source` | Boolean or Array | Optional | Whether to reindex source fields. Specify a list of fields to reindex or true to reindex all fields. Default is `true`. See [Selecting specific fields](#selecting-specific-fields).
-`sort` | Array | Optional | _Deprecated_. A comma-separated list of `<field>:<direction>` pairs to sort documents before reindexing. If used with `max_docs` to control which documents are reindexed, consider using [query filtering](#filtering-documents) to find the desired subset of data.
+`sort` | Array | Optional | _Deprecated_. A comma-separated list of `<field>:<direction>` pairs to sort documents before reindexing. If used with `max_docs` to control which documents are reindexed, consider using [filtering documents by query](#filtering-documents-by-query) to find the desired subset of data.
 
 ### The `dest` object
 
