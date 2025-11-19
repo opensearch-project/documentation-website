@@ -99,7 +99,7 @@ By default, this action updates existing documents and returns an error if the d
 ### Upsert
 
 To upsert a document, either:
-1. Specify the document in the `doc` field, and set `doc_as_update=true`. If the document exists, it is updated with the contents of the `doc` field; if it does not exist, a new document is indexed with the parameters specified in the `doc` field.
+1. Specify the document in the `doc` field, and set `doc_as_upsert=true`. If the document exists, it is updated with the contents of the `doc` field; if it does not exist, a new document is indexed with the parameters specified in the `doc` field.
 
 ```json
 { "update": { "_index": "movies", "_id": "tt0816711" } }
