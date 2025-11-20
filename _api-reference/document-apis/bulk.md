@@ -128,25 +128,23 @@ You can specify a script for more complex document updates by defining the scrip
 
 You can use a script to update or upsert a document in the following ways:
 
-
 1. Script + upsert (`scripted_upsert=false`, default): If the document exists, the document is updated using the `script`. If the document does not exist, the document in the `upsert` field is inserted without running the script:
 
-```json
-POST _bulk
-{ "update": { "_index": "movies", "_id": "tt0816711" } }
-{ "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "upsert": { "title": "World War Z", "genre": "Action", "author": "Tom Smith" } }
-```
-{% include copy-curl.html %}
+    ```json
+    POST _bulk
+    { "update": { "_index": "movies", "_id": "tt0816711" } }
+    { "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "upsert": { "title": "World War Z", "genre": "Action", "author": "Tom Smith" } }
+    ```
+    {% include copy-curl.html %}
 
-2. Script + upsert + `scripted_upsert=true`. If the document exists, the document is updated using the `script`. If the document does not exist, the script runs on the `upsert` field and the resulting document is inserted:
+1. Script + upsert + `scripted_upsert=true`. If the document exists, the document is updated using the `script`. If the document does not exist, the script runs on the `upsert` field and the resulting document is inserted:
 
-```json
-POST _bulk
-{ "update": { "_index": "movies", "_id": "tt0816711" } }
-{ "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "scripted_upsert": true }
-```
-{% include copy-curl.html %}
-
+    ```json
+    POST _bulk
+    { "update": { "_index": "movies", "_id": "tt0816711" } }
+    { "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "scripted_upsert": true }
+    ```
+    {% include copy-curl.html %}
 
 ## Example request
 
