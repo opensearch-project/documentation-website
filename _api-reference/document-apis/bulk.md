@@ -102,17 +102,17 @@ To upsert a document, use one of the following options:
 
 1. Specify the document in the `doc` field and set `doc_as_upsert=true`. If the document exists, it is updated with the contents of the `doc` field. If the document does not exist, a new document is indexed with the parameters specified in the `doc` field:
 
-```json
-{ "update": { "_index": "movies", "_id": "tt0816711" } }
-{ "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
-```
-2. Specify the document to update (when it exists) in the `doc` field, the document to insert (when it doesn't exist) in the `upsert` field, and leave `doc_as_update` set to `false`:
+    ```json
+    { "update": { "_index": "movies", "_id": "tt0816711" } }
+    { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
+    ```
+1. Specify the document to update (when it exists) in the `doc` field, the document to insert (when it doesn't exist) in the `upsert` field, and leave `doc_as_update` set to `false`:
 
-```json
-{ "update": { "_index": "products", "_id": "widget-123" } }
-{ "doc": { "stock": 75, "updated_at": "2025-01-15T10:30:00Z" }, "upsert": { "name": "Widget", "price": 39.99, "stock": 100, "created_at": "2025-01-15T10:30:00Z" }}
-```
-
+    ```json
+    { "update": { "_index": "products", "_id": "widget-123" } }
+    { "doc": { "stock": 75, "updated_at": "2025-01-15T10:30:00Z" }, "upsert": { "name": "Widget", "price": 39.99, "stock": 100, "created_at": "2025-01-15T10:30:00Z" }}
+    ```
+    
 Use this option when you want to only update specific fields when a document exists, but insert a complete document when it doesn't exist.
 
 ### Script
