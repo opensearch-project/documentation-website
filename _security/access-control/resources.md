@@ -56,7 +56,7 @@ These types must match the resource types declared by plugins implementing the `
 
 Starting with **3.4**, both settings can be updated dynamically:
 
-```curl
+```
 PUT _cluster/settings
 {
   "transient": {
@@ -246,7 +246,7 @@ client.isFeatureEnabledForType(resourceType);
 
 Replace the entire sharing configuration.
 
-```curl
+```
 PUT _plugins/_security/api/resource/share
 {
   "resource_id": "123",
@@ -267,7 +267,7 @@ PUT _plugins/_security/api/resource/share
 
 Add or revoke access.
 
-```curl
+```
 PATCH/POST _plugins/_security/api/resource/share
 {
   "resource_id": "123",
@@ -286,7 +286,7 @@ PATCH/POST _plugins/_security/api/resource/share
 
 ## 3. Get sharing info
 
-```curl
+```
 GET _plugins/_security/api/resource/share?resource_id=<id>&resource_type=<resource-type>
 ```
 {% include copy-curl.html %}
@@ -295,7 +295,7 @@ GET _plugins/_security/api/resource/share?resource_id=<id>&resource_type=<resour
 
 ## 4. List resource types
 
-```curl
+```
 GET _plugins/_security/api/resource/types
 ```
 {% include copy-curl.html %}
@@ -306,7 +306,7 @@ Returns action groups declared by plugins.
 
 ## 5. List accessible resources
 
-```curl
+```
 GET _plugins/_security/api/resource/list?resource_type=<resource-type>
 ```
 {% include copy-curl.html %}
@@ -319,7 +319,7 @@ Returns only resources visible to the caller.
 
 Used once to import legacy plugin-managed sharing metadata.
 
-```curl
+```
 POST _plugins/_security/api/resources/migrate
 {
   "source_index": "<source-index>",
