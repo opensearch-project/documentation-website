@@ -195,7 +195,26 @@ OpenSearch Benchmark supports AWS Signature Version 4 authentication. To run Ope
 
 Whether to use an IAM role or user depends on your test cluster's access management requirements. For more information about whether to use an IAM role or user, see [When to create an IAM user (instead of a role)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html#id_which-to-choose).
 
-Use the following steps to set up AWS Signature Version 4:
+### OpenSearch Benchmark version 1.15.0 and later
+
+Starting with OpenSearch Benchmark version 1.15.0, you can use session-based authentication that automatically handles temporary credential generation and refresh. This method eliminates the need to manually export AWS credentials:
+
+1. Create an IAM role or user in the AWS Management Console that has the necessary permissions to access your OpenSearch cluster. Ensure that the role or user has the required policies attached for OpenSearch access.
+
+2. Run the following `execute-test` command with the `--client-options=amazon_aws_log_in:session` flag. OpenSearch Benchmark will automatically generate temporary credentials and handle auto-refresh:
+
+   ```bash
+   opensearch-benchmark execute-test \
+   --target-hosts=<CLUSTER ENDPOINT> \
+   --pipeline=benchmark-only \
+   --workload=geonames \
+   --client-options=timeout:120,amazon_aws_log_in:session,region:<region>,service:<aoss for serverless, es for managed service>
+   ```
+   {% include copy.html %}
+
+### OpenSearch Benchmark version 1.14.0 and earlier
+
+For OpenSearch Benchmark versions prior to 1.15.0, use the environment variable method:
 
 1. Create an IAM role or user in the AWS Management Console.
 
@@ -230,8 +249,9 @@ Use the following steps to set up AWS Signature Version 4:
    --target-hosts=<CLUSTER ENDPOINT> \
    --pipeline=benchmark-only \
    --workload=geonames \
-   --client-options=timeout:120,amazon_aws_log_in:environment \
+   --client-options=timeout:120,amazon_aws_log_in:environment
    ```
+   {% include copy.html %}
 
 
 ## Proxy configurations

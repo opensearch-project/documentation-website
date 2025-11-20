@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /vector-search/api/knn/
   - /vector-search/api/
+  - /search-plugins/knn/api/
 ---
 
 # Vector search API
@@ -17,7 +18,7 @@ For k-NN plugin APIs, see [k-NN API]({{site.url}}{{site.baseurl}}/vector-search/
 
 In addition to plugin-specific APIs, the following APIs support vector search functionality:
 
-- [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)
+- [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)
 - [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)
 - [Neural sparse query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/)

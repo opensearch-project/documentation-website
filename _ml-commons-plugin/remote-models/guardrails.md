@@ -30,7 +30,7 @@ A simple way to validate the user input and LLM output is to provide a set of pr
 
 ### Step 1: Create a guardrail index
 
-To start, create an index that will store the excluded words (_stopwords_). In the index settings, specify a `title` field, which will contain excluded words, and a `query` field of the [percolator]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/) type. The percolator query will be used to match the LLM input or output:
+To start, create an index that will store the excluded words (_stopwords_). In the index settings, specify a `title` field, which will contain excluded words, and a `query` field of the [percolator]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/percolator/) type. The percolator query will be used to match the LLM input or output:
 
 ```json
 PUT /words0

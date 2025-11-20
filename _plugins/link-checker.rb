@@ -73,6 +73,8 @@ module Jekyll::LinkChecker
     'dl.acm.org', # 403s on bots
     'www.npmjs.com', # 403s on bots
     'www.base64decode.org', # 403s on bots
+    'docs.docker.com', # 403s on bots,
+    'docs-vizlib.insightsoftware.com', # 403s on bots,
     'example.issue.link' # a fake example link from the template
   ]
 

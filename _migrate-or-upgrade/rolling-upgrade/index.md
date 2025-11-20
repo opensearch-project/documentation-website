@@ -5,10 +5,11 @@ nav_order: 20
 has_toc: true
 permalink: /migrate-or-upgrade/rolling-upgrade/
 nav_exclude: false
-redirect_from: 
+redirect_from:
  - /upgrade-opensearch/
  - /rolling-upgrade/index/
  - /migrate-or-upgrade/rolling-upgrade/appendix/
+ - /install-and-configure/upgrade-opensearch/rolling-upgrade/
 ---
 
 # Rolling upgrade
@@ -274,7 +275,7 @@ To perform a rolling restart, follow the steps outlined in [Performing the upgra
 
 By preserving quorum and restarting nodes sequentially, rolling restarts ensure zero downtime and full data continuity.
 
-## Related articles
+## Related documentation
 
 - [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/) -- A hands-on lab with step-by-step instructions for practicing rolling upgrades in a test environment.
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)

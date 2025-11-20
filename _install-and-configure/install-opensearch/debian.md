@@ -114,13 +114,15 @@ APT, the primary package management tool for Debian–based operating systems, a
 
 1. Import the public GPG key. This key is used to verify that the APT repository is signed.
     ```bash
-    curl -o- https://artifacts.opensearch.org/publickeys/opensearch-release.pgp | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-release-keyring
+    curl -fsSL https://artifacts.opensearch.org/publickeys/opensearch-release.pgp \
+    | sudo gpg --dearmor -o /etc/apt/keyrings/opensearch.gpg
     ```
     {% include copy.html %}
 
 1. Create an APT repository for OpenSearch:
    ```bash
-   echo "deb [signed-by=/usr/share/keyrings/opensearch-release-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch/{{major_version_mask}}/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-{{major_version_mask}}.list
+   echo "deb [signed-by=/etc/apt/keyrings/opensearch.gpg] https://artifacts.opensearch.org/releases/bundle/opensearch/3.x/apt stable main" \
+   | sudo tee /etc/apt/sources.list.d/opensearch-3.x.list
    ```
    {% include copy.html %}
 
@@ -145,6 +147,9 @@ APT, the primary package management tool for Debian–based operating systems, a
    sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> apt-get install opensearch
    ```
    {% include copy.html %}
+
+   For more information, see the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements).
+   {: .note}
 
    - To install a specific version of OpenSearch:
 

@@ -7,7 +7,7 @@ nav_order: 60
 
 # Using semantic highlighting
 
-Semantic highlighting enhances search results by identifying and emphasizing the most semantically relevant sentences or passages within documents, based on the query's meaning. Unlike traditional highlighters that rely on exact keyword matches, semantic highlighting uses machine learning (ML) models to understand the context and relevance of text segments. This allows you to pinpoint the most pertinent information within a document, even if the exact search terms aren't present in the highlighted passage. For more information, see [Using the `semantic` highlighter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight#using-the-semantic-highlighter).
+Semantic highlighting enhances search results by identifying and emphasizing the most semantically relevant sentences or passages within documents, based on the query's meaning. Unlike traditional highlighters that rely on exact keyword matches, semantic highlighting uses machine learning (ML) models to understand the context and relevance of text segments. This allows you to pinpoint the most pertinent information within a document, even if the exact search terms aren't present in the highlighted passage. For more information, see [Using the `semantic` highlighter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight#the-semantic-highlighter).
 
 This tutorial guides you through setting up and using semantic highlighting with a neural search query.
 
@@ -111,6 +111,9 @@ POST /_plugins/_ml/models/_register?deploy=true
 
 Monitor the deployment status using the Tasks API. Note the semantic highlighting model ID; you'll use it in the following steps.
 
+For production environments, consider using an externally hosted model instead of a locally deployed model. Externally hosted models offer better scalability, resource isolation, and support for advanced features like batch inference. For information about deploying externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/).
+{: .tip}
+
 ## Step 3 (Optional): Configure an ingest pipeline 
 
 To automatically generate embeddings during indexing, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/):
@@ -213,8 +216,6 @@ POST /neural-search-index/_search
 ```
 {% include copy-curl.html %}
 
-## Step 6: Interpret the results
-
 The search results include a `highlight` object within each hit. The specified `text` field in the `highlight` object contains the original text, with the most semantically relevant sentences wrapped in `<em>` tags by default:
 
 ```json
@@ -267,3 +268,11 @@ The search results include a `highlight` object within each hit. The specified `
 ```
 
 The `semantic` highlighter identifies the sentence determined by the model to be semantically relevant to the query ("treatments for neurodegenerative diseases") within the context of each retrieved document. You can customize the highlight tags using the `pre_tags` and `post_tags` parameters if needed. For more information, see [Changing the highlighting tags]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/#changing-the-highlighting-tags).
+
+### Using batch inference mode for highlighting
+
+For improved performance when highlighting multiple documents in production environments, consider enabling batch inference mode. This processes all documents in a single ML inference call instead of one call per document. For more information, see [Batch inference mode]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight#batch-inference-mode).
+
+## Next steps
+
+For more information about semantic highlighting options and configuration, see [Using the semantic highlighter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight#the-semantic-highlighter).

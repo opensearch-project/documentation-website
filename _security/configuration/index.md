@@ -7,6 +7,7 @@ has_toc: true
 redirect_from:
   - /security-plugin/configuration/
   - /security-plugin/configuration/index/
+  - /security/configuration/
 ---
 
 # Security configuration
