@@ -98,20 +98,22 @@ By default, this action updates existing documents and returns an error if the d
 
 ### Upsert
 
-To upsert a document, either:
-1. Specify the document in the `doc` field, and set `doc_as_upsert=true`. If the document exists, it is updated with the contents of the `doc` field; if it does not exist, a new document is indexed with the parameters specified in the `doc` field.
+To upsert a document, use one of the following options:
+
+1. Specify the document in the `doc` field and set `doc_as_upsert=true`. If the document exists, it is updated with the contents of the `doc` field. If the document does not exist, a new document is indexed with the parameters specified in the `doc` field:
 
 ```json
 { "update": { "_index": "movies", "_id": "tt0816711" } }
 { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
 ```
-2. Or specify the document to be updated (if the document exists) in the `doc` field , and the document to be upserted (if the document doesn't exist) in the `upsert` field, and leave `doc_as_update` as `false`.
-This is best used in the scenario where you only want to update only specific fields when a document exists, but insert a complete document when it doesn't exist.
+2. Specify the document to update (when it exists) in the `doc` field, the document to insert (when it doesn't exist) in the `upsert` field, and leave `doc_as_update` set to `false`:
 
-```
+```json
 { "update": { "_index": "products", "_id": "widget-123" } }
 { "doc": { "stock": 75, "updated_at": "2025-01-15T10:30:00Z" }, "upsert": { "name": "Widget", "price": 39.99, "stock": 100, "created_at": "2025-01-15T10:30:00Z" }}
 ```
+
+Use this option when you want to only update specific fields when a document exists, but insert a complete document when it doesn't exist.
 
 ### Script
 
@@ -124,25 +126,26 @@ You can specify a script for more complex document updates by defining the scrip
 
 ### Scripted upsert
 
-You can use a script to update or upsert a document.
+You can use a script to update or upsert a document in the following ways:
 
 
-1. Script + Upsert (scripted_upsert=false, default). If the document exists, update the document using the `script`. If the document does not,  upsert the document in the `upsert` field (without running the script)
+1. Script + upsert (`scripted_upsert=false`, default): If the document exists, the document is updated using the `script`. If the document does not exist, the document in the `upsert` field is inserted without running the script:
 
-```
+```json
 POST _bulk
 { "update": { "_index": "movies", "_id": "tt0816711" } }
 { "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "upsert": { "title": "World War Z", "genre": "Action", "author": "Tom Smith" } }
-`
 ```
+{% include copy-curl.html %}
 
-2. Script + Upsert + scripted_upsert=true. If the document exists, update the document using the `script`. If the document does not, run the script on the `upsert` field then upsert the document.
+2. Script + upsert + `scripted_upsert=true`. If the document exists, the document is updated using the `script`. If the document does not exist, the script runs on the `upsert` field and the resulting document is inserted:
 
 ```json
 POST _bulk
 { "update": { "_index": "movies", "_id": "tt0816711" } }
 { "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "scripted_upsert": true }
 ```
+{% include copy-curl.html %}
 
 
 ## Example request
