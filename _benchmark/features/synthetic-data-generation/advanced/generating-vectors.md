@@ -137,11 +137,11 @@ With just an OpenSearch index mapping, OSB can generate synthetic dense and spar
 
 ## Dense Vectors (KNN Vector) Parameters
 
-The following are parameters that users can add to their SDG Config (YAML Config) to finetune generation of dense vectors.
+The following are parameters that users can add to their SDG Config (YAML Config) to fine-tune generation of dense vectors.
 
 #### `dimension` (required)
 
-**What it does**: Specifies the number of dimensions in the vector.
+Specifies the number of dimensions in the vector.
 
 **Where to specify**: In the mapping (required) or in config params (optional override).
 
@@ -179,13 +179,11 @@ field_overrides:
 
 #### `sample_vectors` (optional, highly recommended)
 
-**What it does**: Provides base vectors that the generator will add noise to, creating realistic variations and clusters.
+Provides base vectors that the generator will add noise to, creating realistic variations and clusters. Without sample vectors, OSB's synthetic data generator will generate random uniform vectors across entire space, which is unrealistic and offers poor search quality.
 
-**Why it matters**:
-- **Without**: Generates random uniform vectors across entire space (unrealistic, poor search quality)
-- **With**: Creates natural clusters around sample vectors (realistic, good search quality)
+Providing sample vectors allows OSB's synthetic data generator to create more realistic and natural clusters.
 
-**Format**: List of lists, where each inner list is a complete vector.
+After you have a list of sample vectors, insert them as a **list of lists**, where each inner list is a complete vector. See the following example of a how sample vectors are provided to the SDG config.
 
 ```yaml
 field_overrides:
@@ -199,7 +197,8 @@ field_overrides:
         - [0.34, 0.21, -0.45, ..., 0.42]  # Vector 3 (768 values)
 ```
 
-**How many sample vectors?**
+**How many sample vectors should be provided?**
+
 - **Minimum**: 3-5 for basic clustering
 - **Recommended**: 5-10 for realistic distribution
 - **Maximum**: 20+ for complex multi-cluster scenarios
@@ -231,7 +230,7 @@ print(embeddings.tolist())  # Copy to your SDG config (YAML config)
 
 #### `noise_factor` (default: 0.1)
 
-**What it does**: Controls the amount of noise added to base vectors.
+Controls the amount of noise added to base vectors.
 - For **gaussian**: Standard deviation of normal distribution
 - For **uniform**: Range of uniform distribution (±noise_factor)
 
@@ -266,7 +265,7 @@ field_overrides:
 
 #### `distribution_type` (default: "gaussian")
 
-**What it does**: Specifies the type of noise distribution.
+Specifies the type of noise distribution.
 
 **Options**:
 - **`gaussian`**: Normal distribution N(0, noise_factor)
@@ -303,7 +302,7 @@ field_overrides:
 
 #### `normalize` (default: false)
 
-**What it does**: L2 normalizes vectors after noise addition, making their magnitude (length) exactly 1.0.
+L2 normalizes vectors after noise addition, making their magnitude (length) exactly 1.0.
 
 **When to use normalize=true**:
 
@@ -348,7 +347,7 @@ The following are parameters that users can add to their SDG config to finetune 
 
 #### `num_tokens` (default: 10)
 
-**What it does**: Number of token-weight pairs to generate per vector.
+Number of token-weight pairs to generate per vector.
 
 **Impact**:
 - **Low (5-10)**: Very sparse, fast search, may miss some relevant docs

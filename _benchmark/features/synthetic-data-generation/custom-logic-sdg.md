@@ -17,7 +17,7 @@ This document explores using custom logic to generate synthetic data.
 ### Prerequisites
 
 * **Required**: Custom logic defined in Python module
-* **Optional**: Synthetic Data Generation Config
+* **Optional**: [Synthetic Data Generation Config](https://github.com/opensearch-project/opensearch-benchmark/blob/main/osbenchmark/resources/sdg-config.yml)
 
 Python module with custom logic **must include** `generate_synthetic_data(providers, **custom_lists)` within.
 {: .important}
