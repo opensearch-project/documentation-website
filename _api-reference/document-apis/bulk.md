@@ -113,7 +113,7 @@ To upsert a document, use one of the following options:
     { "doc": { "stock": 75, "updated_at": "2025-01-15T10:30:00Z" }, "upsert": { "name": "Widget", "price": 39.99, "stock": 100, "created_at": "2025-01-15T10:30:00Z" }}
     ```
     
-Use this option when you want to only update specific fields when a document exists, but insert a complete document when it doesn't exist.
+Use this option when you want to only update specific fields when a document exists but insert a complete document when it doesn't exist.
 
 ### Script
 
