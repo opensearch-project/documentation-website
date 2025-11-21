@@ -114,9 +114,9 @@ You can now run your first benchmark. The following benchmark uses the [percolat
 
 ### Understanding workload command flags
 
-Benchmarks are run using the [`run`]({{site.url}}{{site.baseurl}}/benchmark/commands/run/) command with the following command flags:
+Benchmarks are run using the [`run`]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/run/) command with the following command flags:
 
-For additional `run` command flags, see the [run]({{site.url}}{{site.baseurl}}/benchmark/commands/run/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
+For additional `run` command flags, see the [run]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/run/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
 {: .tip}
 
 * `--pipeline=benchmark-only` : Informs OSB that users wants to provide their own OpenSearch cluster.
