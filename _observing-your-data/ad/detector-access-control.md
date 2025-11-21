@@ -34,7 +34,7 @@ When resource-level authorization is enabled for this type, each detector’s vi
 
 Add the type to the protected list and enable the feature.
 
-### `opensearch.yml` (3.4+)
+### `opensearch.yml` (3.3+)
 
 ```yaml
 plugins.security.experimental.resource_sharing.enabled: true
