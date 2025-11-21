@@ -89,7 +89,7 @@ Following actions are allowed with this access level:
 - "cluster:admin/security/resource/share"
 ```
 
-> These access-levels are non-configurable. If you would like to add more access-levels please file an issue on [the GitHub repo](https://github.com/opensearch-project/ml-commons/).
+> These access-levels are non-configurable. If you would like to add more access-levels, file an issue on [the GitHub repo](https://github.com/opensearch-project/ml-commons/).
 {: .note } yellow
 
 ---
