@@ -19,7 +19,7 @@ Every custom module provided to OpenSearch Benchmark must define the `generate_s
 | Parameter | Required/Optional | Description |
 |---|---|---|
 | `providers` | Required | A dictionary containing data generation tools. Available providers are `generic` (Mimesis [Generic provider](https://mimesis.name/master/api.html#generic-providers)) and `random` (Mimesis [Random class](https://mimesis.name/master/random_and_seed.html)). To add custom providers, see [Advanced configuration](#advanced-configuration). |
-| `**custom_lists` | Optional | Keyword arguments containing predefined lists of values that you can use in your data generation logic. These are defined in your YAML configuration file under `custom_lists` and allow you to separate data values from your Python code. For example, if you define `dog_names: [Buddy, Max, Luna]` in YAML, you can access it as `custom_lists['dog_names']` in your function. This makes it easy to modify data values without changing your Python code. |
+| `custom_lists` | Optional | Keyword arguments containing predefined lists of values that you can use in your data generation logic. These are defined in your YAML configuration file under `custom_lists` and allow you to separate data values from your Python code. For example, if you define `dog_names: [Buddy, Max, Luna]` in YAML, you can access it as `custom_lists['dog_names']` in your function. This makes it easy to modify data values without changing your Python code. |
 
 ### Basic function template
 
