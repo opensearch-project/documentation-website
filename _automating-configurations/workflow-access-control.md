@@ -7,7 +7,7 @@ nav_order: 30
 # Workflow access control
 
 **Status:** Experimental  
-**Replaces:** `plugins.flow_framework.filter_by_backend_roles` (on deprecation path; see note below)
+**Replaces:** `plugins.flow_framework.filter_by_backend_roles`
 {: .warning }
 
 This page explains how **Flow Framework** integrates with the Security plugin’s **Resource Sharing and Access Control** framework to provide **document-level** authorization for **workflow state** records.
@@ -59,7 +59,7 @@ PUT _cluster/settings
 
 Flow Framework exposes **three access levels** for workflow documents.
 
-### 1. workflow_read_only
+### workflow_read_only
 
 This read-only access level grants a read and search only access to the shared workflow.
 
@@ -69,7 +69,7 @@ Following actions are allowed with this access-level:
 - "cluster:admin/opensearch/flow_framework/workflow/search"
 ```
 
-### 2. workflow_read_write
+### workflow_read_write
 
 This read-write access level grants full access to a workflow except share.
 
@@ -79,7 +79,7 @@ Following actions are allowed with this access-level:
 - "cluster:monitor/*"
 ```
 
-### 3. workflow_full_access
+### workflow_full_access
 
 This access level grants complete access to a workflow and will allow shared user owner-like permission.
 
