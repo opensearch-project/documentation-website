@@ -31,6 +31,9 @@ When resource-level authorization is enabled for this type, each workflow-stateâ
 
 Add the type to the protected list and enable the feature.
 
+> **Admin-only:** These settings can be configured **only by cluster administrators** (super-admins).
+{: .important }
+
 ### `opensearch.yml` (3.4+)
 
 ```yaml
