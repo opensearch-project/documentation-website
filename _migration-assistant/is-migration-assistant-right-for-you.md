@@ -88,7 +88,6 @@ Use this checklist to determine whether Migration Assistant is the right fit for
 - Are you upgrading but want the ability to safely back out, reducing the risk of data loss or service disruption?
 - Do you need to maintain high service availability with minimal or zero downtime?
 - Do you need to validate a new OpenSearch cluster before switching over—with rollback capabilities?
-- Is your environment self-managed or running on Amazon OpenSearch Service?
 - Are you looking for tooling to migrate index settings and other metadata?
 - Do you need to reconfigure your target cluster—for example, by changing the sharding strategy and reindexing?
 - Are you migrating across Regions, from on premises, or from another cloud provider?
@@ -158,7 +157,7 @@ When deploying to an existing VPC, consider the following:
 
 To use `Reindex-from-Snapshot` (RFS), ensure the following:
 
-- The `_source` field must be enabled on all indexes to be migrated. See [Source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/).
+- The `_source` field must be enabled on all indexes to be migrated. See [Source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/).
 - The source cluster must have the Amazon S3 plugin installed.
 - If you choose to bring your own snapshot (that is, one not created by Migration Assistant), the following settings must be applied when creating the snapshot:
   - `include_global_state: true` – Ensures that global cluster state is included.

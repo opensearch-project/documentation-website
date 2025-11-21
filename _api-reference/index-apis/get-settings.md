@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Get settings
-parent: Index APIs
-nav_order: 95
+parent: Index settings and mappings
+grand_parent: Index APIs
+nav_order: 10
 redirect_from:
   - /opensearch/rest-api/index-apis/get-settings/
   - /opensearch/rest-api/index-apis/get-index/
@@ -46,10 +47,27 @@ cluster_manager_timeout | Time | How long to wait for a connection to the cluste
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /sample-index1/_settings
+-->
+{% capture step1_rest %}
 GET /sample-index1/_settings
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.get_settings(
+  index = "sample-index1"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

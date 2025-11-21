@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Update settings
-parent: Index APIs
-nav_order: 165
+parent: Index settings and mappings
+grand_parent: Index APIs
+nav_order: 20
 redirect_from:
   - /opensearch/rest-api/index-apis/update-settings/
 ---
@@ -55,7 +56,18 @@ The request body must all of the index settings that you want to update.
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /sample-index1/_settings
+body: |
+{
+  "index.plugins.index_state_management.rollover_skip": true,
+  "index": {
+    "number_of_replicas": 4
+  }
+}
+-->
+{% capture step1_rest %}
 PUT /sample-index1/_settings
 {
   "index.plugins.index_state_management.rollover_skip": true,
@@ -63,8 +75,27 @@ PUT /sample-index1/_settings
     "number_of_replicas": 4
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_settings(
+  index = "sample-index1",
+  body =   {
+    "index.plugins.index_state_management.rollover_skip": true,
+    "index": {
+      "number_of_replicas": 4
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

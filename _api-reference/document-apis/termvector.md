@@ -2,12 +2,12 @@
 layout: default
 title: Term vectors
 parent: Document APIs
-nav_order: 32
+nav_order: 70
 ---
 
 # Term Vectors API
 
-The `_termvectors` API retrieves term vector information for a single document. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations. For more information, see [Term vector parameter]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/#term-vector-parameter).
+The `_termvectors` API retrieves term vector information for a single document. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations. For more information, see [Term vector parameter]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/#term-vector-parameter).
 
 <!-- spec_insert_start
 api: termvectors
@@ -87,7 +87,7 @@ The `filter` object in the request body allows you to filter the tokens to inclu
 | `min_word_length` | Integer | The minimum length of the term to be included. |
 | `max_word_length` | Integer | The maximum length of the term to be included. |
 
-## Example
+## Example Requests
 
 Create an index:
 
@@ -108,33 +108,109 @@ PUT /my-index
 
 Index the document:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/_doc/1
+body: |
+{
+  "text": "OpenSearch is a search engine."
+}
+-->
+{% capture step1_rest %}
 POST /my-index/_doc/1
 {
   "text": "OpenSearch is a search engine."
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.index(
+  index = "my-index",
+  id = "1",
+  body =   {
+    "text": "OpenSearch is a search engine."
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example request
 
 Retrieve the term vectors:
 
-```json
-GET /my-index/_termvectors/1
+<!-- spec_insert_start
+component: example_code
+rest: GET /my-index/_termvectors/1
+body: |
 {
   "fields": ["text"],
   "term_statistics": true
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /my-index/_termvectors/1
+{
+  "fields": [
+    "text"
+  ],
+  "term_statistics": true
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.termvectors(
+  index = "my-index",
+  id = "1",
+  body =   {
+    "fields": [
+      "text"
+    ],
+    "term_statistics": true
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Alternatively, you can provide `fields` and `term_statistics` as query parameters:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /my-index/_termvectors/1?fields=text&term_statistics=true
+-->
+{% capture step1_rest %}
 GET /my-index/_termvectors/1?fields=text&term_statistics=true
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.termvectors(
+  index = "my-index",
+  id = "1",
+  params = { "fields": "text", "term_statistics": "true" },
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example response
 

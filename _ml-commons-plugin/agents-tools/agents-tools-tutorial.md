@@ -101,6 +101,7 @@ PUT /_ingest/pipeline/test-pipeline-local-model
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Step 3: Create a vector index and ingest data
 

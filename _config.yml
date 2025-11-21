@@ -6,10 +6,10 @@ latesturl: "/latest" # The subpath of the latest version. Used for non-version-s
 url: "https://docs.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '3.1.0'
-opensearch_dashboards_version: '3.1.0'
-opensearch_major_minor_version: '3.1'
-lucene_version: '10_2_1'
+opensearch_version: '3.3.2'
+opensearch_dashboards_version: '3.3.0'
+opensearch_major_minor_version: '3.3'
+lucene_version: '10_3_1'
 
 # Build settings
 markdown: kramdown
@@ -74,7 +74,7 @@ collections:
   aggregations:
     permalink: /:collection/:path/
     output: true
-  field-types:
+  mappings:
     permalink: /:collection/:path/
     output: true
   clients:
@@ -160,13 +160,13 @@ opensearch_collection:
       name: OpenSearch Dashboards
       nav_fold: true
     security:
-      name: Security in OpenSearch
+      name: Security
       nav_fold: true
     security-analytics:
       name: Security analytics 
       nav_fold: true
-    field-types:
-      name: Mappings and field types
+    mappings:
+      name: Mappings
       nav_fold: true
     analyzers:
       name: Text analysis

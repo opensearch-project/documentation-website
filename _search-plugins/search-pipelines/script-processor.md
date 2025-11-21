@@ -3,7 +3,7 @@ layout: default
 title: Script
 nav_order: 120
 has_children: false
-parent: Search processors
+parent: User-defined search processors
 grand_parent: Search pipelines
 ---
 

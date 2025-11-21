@@ -35,7 +35,7 @@ raw-pipeline:
     pipeline:
       name: "entry-pipeline"
   processor:
-    - otel_trace_raw:
+    - otel_traces:
   sink:
     - opensearch:
 service-map-pipeline:
@@ -44,7 +44,7 @@ service-map-pipeline:
     pipeline:
       name: "entry-pipeline"
   processor:
-    - service_map_stateful:
+    - service_map:
   sink:
     - opensearch:
 ```

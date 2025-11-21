@@ -95,18 +95,19 @@ To download a specific version of OpenSearch or OpenSearch Dashboards other than
 
 Before continuing, you should verify that Docker is working correctly by deploying OpenSearch in a single container.
 
-1. Run the following command:
+1. Start OpenSearch in Docker.
+    OpenSearch 2.12 or later requires that you set a custom admin password when starting. For more information, see [Setting a custom admin password](#setting-a-custom-admin-password). If the password is insufficiently strong, an error is reported in the log and OpenSearch quits:
+    ```bash
+    docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" opensearchproject/opensearch:latest
+    ```
+    Older versions do not include a password when starting:
     ```bash
     # This command maps ports 9200 and 9600, sets the discovery type to "single-node" and requests the newest image of OpenSearch
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
     ```
-   For OpenSearch 2.12 or greater, set a new custom admin password before installation using the following command:
-   ```bash
-    docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" opensearchproject/opensearch:latest
-    ```
-1. Send a request to port 9200. The default username and password are `admin`.
+1. After waiting a few minutes for OpenSearch to start, send a request to port `9200`. For versions earlier than 2.12, the default username and password are `admin`.
     ```bash
-    curl https://localhost:9200 -ku admin:<custom-admin-password>
+    curl https://localhost:9200 -ku admin:"<custom-admin-password>"
     ```
     {% include copy.html %}
 
@@ -513,7 +514,7 @@ services:
       - discovery.seed_hosts=opensearch-node1,opensearch-node2,opensearch-node3
       - cluster.initial_master_nodes=opensearch-node1,opensearch-node2,opensearch-node3
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
     ulimits:
       memlock:
         soft: -1
@@ -553,7 +554,7 @@ services:
       - discovery.seed_hosts=opensearch-node1,opensearch-node2,opensearch-node3
       - cluster.initial_master_nodes=opensearch-node1,opensearch-node2,opensearch-node3
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
     ulimits:
       memlock:
         soft: -1
@@ -592,8 +593,7 @@ services:
       - discovery.seed_hosts=opensearch-node1,opensearch-node2,opensearch-node3
       - cluster.initial_master_nodes=opensearch-node1,opensearch-node2,opensearch-node3
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
-      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=admin3
+      - "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
     ulimits:
       memlock:
         soft: -1

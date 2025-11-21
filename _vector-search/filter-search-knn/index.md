@@ -23,6 +23,8 @@ To refine vector search results, you can filter a vector search using one of the
 
 - [Scoring script filter]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/scoring-script-filter/): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It may have high latency and does not scale when filtered subsets are large. 
 
+- [Filtering in sparse vector search]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/filtering-in-sparse-search/): This approach applies filtering to approximate sparse vector search.
+
 The following table summarizes the preceding filtering use cases.
 
 Filter | When the filter is applied | Type of search | Supported engines and methods | Where to place the `filter` clause
@@ -31,6 +33,7 @@ Efficient k-NN filtering | During search (a hybrid of pre- and post-filtering) |
 Boolean filter | After search (post-filtering) | Approximate | - `lucene` <br> - `faiss` <br> - `nmslib` (deprecated)  | Outside the k-NN query clause. Must be a leaf clause.
 The `post_filter` parameter | After search (post-filtering) | Approximate | - `lucene`<br> - `faiss` <br> - `nmslib` (deprecated) | Outside the k-NN query clause. 
 Scoring script filter | Before search (pre-filtering) | Exact | N/A | Inside the script score query clause.
+Filtering in neural sparse vector search | After search (post-filtering) | Approximate | N/A | In the `method_parameters` field of the `neural_sparse` query.
 
 ## Filtered search optimization
 

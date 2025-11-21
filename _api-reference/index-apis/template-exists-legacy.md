@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Template exists (deprecated)
-parent: Index APIs
-nav_order: 157
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 100
 ---
 
 # Template exists
@@ -38,10 +39,27 @@ The following table lists the available query parameters. All parameters are opt
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: HEAD /_template/logging_template
+-->
+{% capture step1_rest %}
 HEAD /_template/logging_template
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.exists_template(
+  name = "logging_template"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

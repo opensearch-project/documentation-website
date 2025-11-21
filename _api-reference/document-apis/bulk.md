@@ -98,12 +98,22 @@ By default, this action updates existing documents and returns an error if the d
 
 ### Upsert
 
-To upsert a document, specify `doc_as_upsert` as `true`. If a document exists, it is updated; if it does not exist, a new document is indexed with the parameters specified in the `doc` field:
+To upsert a document, use one of the following options:
 
-```json
-{ "update": { "_index": "movies", "_id": "tt0816711" } }
-{ "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
-```
+1. Specify the document in the `doc` field and set `doc_as_upsert=true`. If the document exists, it is updated with the contents of the `doc` field. If the document does not exist, a new document is indexed with the parameters specified in the `doc` field:
+
+    ```json
+    { "update": { "_index": "movies", "_id": "tt0816711" } }
+    { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
+    ```
+1. Specify the document to update (when it exists) in the `doc` field, the document to insert (when it doesn't exist) in the `upsert` field, and leave `doc_as_update` set to `false`:
+
+    ```json
+    { "update": { "_index": "products", "_id": "widget-123" } }
+    { "doc": { "stock": 75, "updated_at": "2025-01-15T10:30:00Z" }, "upsert": { "name": "Widget", "price": 39.99, "stock": 100, "created_at": "2025-01-15T10:30:00Z" }}
+    ```
+    
+Use this option when you want to only update specific fields when a document exists but insert a complete document when it doesn't exist.
 
 ### Script
 
@@ -116,20 +126,32 @@ You can specify a script for more complex document updates by defining the scrip
 
 ### Scripted upsert
 
-You can use a script to insert or update a document in one operation by setting `scripted_upsert` to `true`. This ensures that the script runs whether or not the document exists. If the document does not exist, the script initializes its content from scratch.
+You can use a script to update or upsert a document in the following ways:
 
-```json
-POST _bulk
-{ "update": { "_index": "movies", "_id": "tt0816711" } }
-{ "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "upsert": {}, "scripted_upsert": true }
-```
+1. Script + upsert (`scripted_upsert=false`, default): If the document exists, the document is updated using the `script`. If the document does not exist, the document in the `upsert` field is inserted without running the script:
 
-This operation creates a new document if one with ID `tt0816711` does not exist, using the logic in the script. If the document does exist, the same script is applied to update its fields.
+    ```json
+    POST _bulk
+    { "update": { "_index": "movies", "_id": "tt0816711" } }
+    { "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "upsert": { "title": "World War Z", "genre": "Action", "author": "Tom Smith" } }
+    ```
+    {% include copy-curl.html %}
+
+1. Script + upsert + `scripted_upsert=true`. If the document exists, the document is updated using the `script`. If the document does not exist, the script runs on the `upsert` field and the resulting document is inserted:
+
+    ```json
+    POST _bulk
+    { "update": { "_index": "movies", "_id": "tt0816711" } }
+    { "script": { "source": "ctx._source.title = params.title; ctx._source.genre = params.genre;", "params": { "title": "World War Z", "genre": "Action" } }, "scripted_upsert": true }
+    ```
+    {% include copy-curl.html %}
 
 ## Example request
 
-```json
-POST _bulk
+<!-- spec_insert_start
+component: example_code
+rest: POST /_bulk
+body: |
 { "delete": { "_index": "movies", "_id": "tt2229499" } }
 { "index": { "_index": "movies", "_id": "tt1979320" } }
 { "title": "Rush", "year": 2013 }
@@ -137,9 +159,39 @@ POST _bulk
 { "title": "Prisoners", "year": 2013 }
 { "update": { "_index": "movies", "_id": "tt0816711" } }
 { "doc" : { "title": "World War Z" } }
+-->
+{% capture step1_rest %}
+POST /_bulk
+{ "delete": { "_index": "movies", "_id": "tt2229499" } }
+{ "index": { "_index": "movies", "_id": "tt1979320" } }
+{ "title": "Rush", "year": 2013 }
+{ "create": { "_index": "movies", "_id": "tt1392214" } }
+{ "title": "Prisoners", "year": 2013 }
+{ "update": { "_index": "movies", "_id": "tt0816711" } }
+{ "doc" : { "title": "World War Z" } }
+{% endcapture %}
 
-```
-{% include copy-curl.html %}
+{% capture step1_python %}
+
+
+response = client.bulk(
+  body = '''
+{ "delete": { "_index": "movies", "_id": "tt2229499" } }
+{ "index": { "_index": "movies", "_id": "tt1979320" } }
+{ "title": "Rush", "year": 2013 }
+{ "create": { "_index": "movies", "_id": "tt1392214" } }
+{ "title": "Prisoners", "year": 2013 }
+{ "update": { "_index": "movies", "_id": "tt0816711" } }
+{ "doc" : { "title": "World War Z" } }
+'''
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

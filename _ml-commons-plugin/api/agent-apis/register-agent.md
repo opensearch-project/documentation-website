@@ -26,7 +26,6 @@ For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-
 ```json
 POST /_plugins/_ml/agents/_register
 ```
-{% include copy-curl.html %}
 
 ## Request body fields
 
@@ -47,7 +46,11 @@ Field | Data type | Required/Optional | Agent type | Description
 `parameters.executor_agent_id`| Integer | Optional | `plan_execute_and_reflect` | The `plan_execute_and_reflect` agent internally uses a `conversational` agent to execute each step. By default, this executor agent uses the same model as the planning model specified in the `llm` configuration. To use a different model for executing steps, create a `conversational` agent using another model and pass the agent ID in this field. This can be useful if you want to use different models for planning and execution.
 `parameters.max_steps` | Integer | Optional | `plan_execute_and_reflect` | The maximum number of steps executed by the LLM. Default is `20`.
 `parameters.executor_max_iterations` | Integer | Optional | `plan_execute_and_reflect` | The maximum number of messages sent to the LLM by the executor agent. Default is `20`.
+`parameters.message_history_limit` | Integer | Optional | `plan_execute_and_reflect` | The number of recent messages from conversation memory to include as context for the planner. Default is `10`. 
+`parameters.executor_message_history_limit` | Integer | Optional | `plan_execute_and_reflect` | The number of recent messages from conversation memory to include as context for the executor. Default is `10`.
 `parameters._llm_interface` | String | Required | `plan_execute_and_reflect`, `conversational` | Specifies how to parse the LLM output when using function calling. Valid values are: <br> - `bedrock/converse/claude`: Anthropic Claude conversational models hosted on Amazon Bedrock  <br> - `bedrock/converse/deepseek_r1`: DeepSeek-R1 models hosted on Amazon Bedrock <br> - `openai/v1/chat/completions`: OpenAI chat completion models hosted on OpenAI. Each interface defines a default response schema and function call parser.
+`inject_datetime` | Boolean | Optional | `conversational`, `plan_execute_and_reflect` | Whether to automatically inject the current date into the system prompt. Default is `false`.
+`datetime_format` | String | Optional | `conversational`, `plan_execute_and_reflect` | A format string for dates used when `inject_datetime` is enabled. Default is `"yyyy-MM-dd'T'HH:mm:ss'Z'"` (ISO format).
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
@@ -57,6 +60,7 @@ Field | Data type | Required/Optional | Description
 `name`| String | Optional | The tool name. The tool name defaults to the `type` parameter value. If you need to include multiple tools of the same type in an agent, specify different names for the tools. |
 `description`| String | Optional | The tool description. Defaults to a built-in description for the specified type. | 
 `parameters` | Object | Optional | The parameters for this tool. The parameters are highly dependent on the tool type. You can find information about specific tool types in [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
+`parameters.output_processors` | Array | Optional | A list of processors used to transform the tool's output. For more information, see [Processor chain]({{site.url}}{{site.baseurl}}/ml-commons-plugin/processor-chain/).
 `attributes.input_schema` | Object | Optional | The expected input format for this tool defined as a [JSON schema](https://json-schema.org/). Used to define the structure the LLM should follow when calling the tool.
 `attributes.strict` | Boolean | Optional | Whether function calling reliably adheres to the input schema or not.
 

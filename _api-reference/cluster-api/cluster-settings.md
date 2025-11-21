@@ -50,25 +50,69 @@ The following example request show how to use the cluster settings API.
 
 The following example request checks for default cluster settings:
 
-```json
-GET _cluster/settings?include_defaults=true
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/settings?include_defaults=true
+-->
+{% capture step1_rest %}
+GET /_cluster/settings?include_defaults=true
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.get_settings(
+  params = { "include_defaults": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Update cluster setting
 
 The following example updates the `cluster.max_shards_per_node` setting. For a PUT operation, the request body must contain `transient` or `persistent`, along with the setting you want to update:
 
 
-```json
-PUT _cluster/settings
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_cluster/settings
+body: |
 {
    "persistent":{
       "cluster.max_shards_per_node": 500
    }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /_cluster/settings
+{
+  "persistent": {
+    "cluster.max_shards_per_node": 500
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.put_settings(
+  body =   {
+    "persistent": {
+      "cluster.max_shards_per_node": 500
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 For more information about transient settings, persistent settings, and precedence, see [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
 

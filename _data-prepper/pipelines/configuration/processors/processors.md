@@ -7,6 +7,7 @@ nav_order: 35
 redirect_from:
   - /data-prepper/pipelines/configuration/processors/mutate-event/
   - /data-prepper/pipelines/configuration/processors/mutate-string/
+  - /data-prepper/pipelines/configuration/processors/
 ---
 
 # Processors

@@ -63,7 +63,7 @@ Name | Description
 `openid_connect_url` | The URL of your IdP where the Security plugin can find the OpenID Connect metadata/configuration settings. This URL differs between IdPs. Required when using OpenID Connect as your backend.
 `jwt_header` | The HTTP header that stores the token. Typically the `Authorization` header with the `Bearer` schema: `Authorization: Bearer <token>`. Optional. Default is `Authorization`.
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header, but as an URL parameter, define the name of the parameter here. Optional.
-`subject_key` | The key in the JSON payload that stores the user's name. If not defined, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used. Most IdP providers use the `preferred_username` claim. Optional.
+`subject_key` | The key in the JSON payload that stores the user's name. If not defined, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used. Most IdP providers use the `preferred_username` claim. To extract a username from nested JWT claims, you can configure `subject_key` as a list. Optional. 
 `roles_key` | The key in the JSON payload that stores the user's roles. The value must be a comma-separated list of roles. This key is required only if you want to use roles in the JWT. You can configure `roles_key` as a list to extract roles from nested JWT claims.
 `required_audience` | The name of the audience that the JWT must specify. You can specify a single value (for example, `project1`) or multiple comma-separated values (for example, `project1,admin`). If you specify multiple values, the JWT must have at least one required audience. This parameter corresponds to the [`aud` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3).
 `required_issuer` | The target issuer of the JWT stored in the JSON payload. This corresponds to the [`iss` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
@@ -363,6 +363,19 @@ opensearch.requestHeadersAllowlist: ["Authorization", "securitytenant"]
 
 To include OpenID Connect with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
 {: .note } 
+
+### Additional parameters
+
+Some identity providers require custom parameters to complete the authentication process. You can add custom parameters to the `opensearch_dashboards.yml` configuration file under the `opensearch_security.openid.additional_parameters` namespace. You can find these additional parameters by sending a GET request to your identity provider. This feature allows for greater flexibility and customization when communicating with various identity providers.
+
+In the following example, two custom parameters, `foo` and `acr_values`, and their values, `bar` and `1`, were found using a GET request to an OpenID provider:
+
+```yml
+opensearch_security.openid.additional_parameters.foo: "bar"
+opensearch_security.openid.additional_parameters.acr_values: "1"
+```
+{% include copy.html %}
+
 
 
 #### Session management with additional cookies

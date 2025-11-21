@@ -22,7 +22,7 @@ breaking_changes:
     introducedIn: "OpenSearch 2.x"
     comp: []
     transformation:
-      title: "Type Mapping Deprecation"
+      title: "Type mapping deprecation"
       url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/"
   - title: "OpenSearch Notifications Plugins"
     url: "https://docs.opensearch.org/latest/breaking-changes/#add-opensearch-notifications-plugins"
@@ -45,21 +45,21 @@ breaking_changes:
     introducedIn: "OpenSearch 1.x"
     comp: []
     transformation:
-      title: "Type Mapping Deprecation"
-      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/"
+      title: "Transform 'dense_vector' fields to 'knn_vector'"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/transform-dense-vector-knn-vector/"
   - title: "Removal of 'flattened' field type in OpenSearch 1.0"
-    url: "https://docs.opensearch.org/2.7/field-types/supported-field-types/flat-object/"
+    url: "https://docs.opensearch.org/2.7/mappings/supported-field-types/flat-object/"
     introducedIn: "OpenSearch 1.x"
     comp: []
     transformation:
-      title: "Field Type Converter"
-      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/#example-field-type-converterjs-implementation"
+      title: "Transform 'flattened' fields to 'flat_object'"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/transform-flattened-flat-object/"
   - title: "Removal of Types in Elasticsearch 7.x"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/7.10/removal-of-types.html"
     introducedIn: "Elasticsearch 7.x"
     comp: []
     transformation:
-      title: "Field Type Converter"
+      title: "Transform field types"
       url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/#example-field-type-converterjs-implementation"
   - title: "Elasticsearch 7.0 - 7.10 Breaking Changes"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/7.10/breaking-changes.html"
@@ -77,13 +77,13 @@ breaking_changes:
     url: "https://www.elastic.co/guide/en/kibana/6.8/breaking-changes.html"
     introducedIn: "Elasticsearch 6.x"
     comp: [ "dashboards" ]
-  - title: "String field type deprecated in Elasticsearch 5.0"
+  - title: "'string' field type deprecated in Elasticsearch 5.0"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/5.0/breaking_50_mapping_changes.html"
     introducedIn: "Elasticsearch 5.x"
     comp: []
     transformation:
-      title: "Field Type Converter"
-      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/#example-field-type-converterjs-implementation"
+      title: "Transform 'string' fields to 'text'/'keyword'"
+      url: "https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/transform-string-text-keyword/"
   - title: "Elasticsearch 5.0 - 5.6 Breaking Changes"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/5.6/breaking-changes.html"
     introducedIn: "Elasticsearch 5.x"

@@ -2,12 +2,12 @@
 layout: default
 title: Multi term vectors
 parent: Document APIs
-nav_order: 33
+nav_order: 80
 ---
 
 # Multi Term Vectors API
 
-The `_mtermvectors` API retrieves term vector information for multiple documents in one request. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations. For more information, see [Term vector parameter]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/#term-vector-parameter).
+The `_mtermvectors` API retrieves term vector information for multiple documents in one request. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations. For more information, see [Term vector parameter]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/#term-vector-parameter).
 
 <!-- spec_insert_start
 api: mtermvectors
@@ -94,7 +94,8 @@ The `filter` object in the request body allows you to filter the tokens to inclu
 | `min_word_length` | Integer | The minimum length of the term to be included. |
 | `max_word_length` | Integer | The maximum length of the term to be included. |
 
-## Example
+## Example requests
+
 
 Create an index with term vectors enabled:
 
@@ -115,30 +116,82 @@ PUT /my-index
 
 Index the first document:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/_doc/1
+body: |
+{
+  "text": "OpenSearch is a search engine."
+}
+-->
+{% capture step1_rest %}
 POST /my-index/_doc/1
 {
   "text": "OpenSearch is a search engine."
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.index(
+  index = "my-index",
+  id = "1",
+  body =   {
+    "text": "OpenSearch is a search engine."
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Index the second document:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/_doc/2
+body: |
+{
+  "text": "OpenSearch provides powerful features."
+}
+-->
+{% capture step1_rest %}
 POST /my-index/_doc/2
 {
   "text": "OpenSearch provides powerful features."
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.index(
+  index = "my-index",
+  id = "2",
+  body =   {
+    "text": "OpenSearch provides powerful features."
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example request
 
 Get term vectors for multiple documents:
 
-```json
-POST /_mtermvectors
+<!-- spec_insert_start
+component: example_code
+rest: POST /_mtermvectors
+body: |
 {
   "docs": [
     {
@@ -153,27 +206,128 @@ POST /_mtermvectors
     }
   ]
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /_mtermvectors
+{
+  "docs": [
+    {
+      "_index": "my-index",
+      "_id": "1",
+      "fields": [
+        "text"
+      ]
+    },
+    {
+      "_index": "my-index",
+      "_id": "2",
+      "fields": [
+        "text"
+      ]
+    }
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.mtermvectors(
+  body =   {
+    "docs": [
+      {
+        "_index": "my-index",
+        "_id": "1",
+        "fields": [
+          "text"
+        ]
+      },
+      {
+        "_index": "my-index",
+        "_id": "2",
+        "fields": [
+          "text"
+        ]
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Alternatively, you can specify both `ids` and `fields` as query parameters:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /my-index/_mtermvectors?ids=1,2&fields=text
+-->
+{% capture step1_rest %}
 GET /my-index/_mtermvectors?ids=1,2&fields=text
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.mtermvectors(
+  index = "my-index",
+  params = { "ids": "1,2", "fields": "text" },
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 You can also provide document IDs in the `ids` array instead of specifying `docs`:
 
-```json
-GET /my-index/_mtermvectors?fields=text
-{ 
+<!-- spec_insert_start
+component: example_code
+rest: GET /my-index/_mtermvectors?fields=text
+body: |
+{
   "ids": [
      "1", "2"
   ]
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /my-index/_mtermvectors?fields=text
+{
+  "ids": [
+    "1",
+    "2"
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.mtermvectors(
+  index = "my-index",
+  params = { "fields": "text" },
+  body =   {
+    "ids": [
+      "1",
+      "2"
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

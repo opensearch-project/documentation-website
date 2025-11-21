@@ -11,7 +11,7 @@ redirect_from:
 
 # Nested field search
 
-Using [nested fields]({{site.url}}{{site.baseurl}}/field-types/nested/) in a vector index, you can store multiple vectors in a single document. For example, if your document consists of various components, you can generate a vector value for each component and store each vector in a nested field.
+Using [nested fields]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/) in a vector index, you can store multiple vectors in a single document. For example, if your document consists of various components, you can generate a vector value for each component and store each vector in a nested field.
 
 A vector search operates at the field level. For a document with nested fields, OpenSearch examines only the vector nearest to the query vector to decide whether to include the document in the results. For example, consider an index containing documents `A` and `B`. Document `A` is represented by vectors `A1` and `A2`, and document `B` is represented by vector `B1`. Further, the similarity order for a query Q is `A1`, `A2`, `B1`. If you search using query Q with a k value of 2, the search will return both documents `A` and `B` instead of only document `A`.
 

@@ -3,7 +3,7 @@ layout: default
 title: Search agent
 parent: Agent APIs
 grand_parent: ML Commons APIs
-nav_order: 30
+nav_order: 35
 ---
 
 # Search Agent API

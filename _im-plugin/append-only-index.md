@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Append-only index
-nav_order: 14
+nav_order: 15
 ---
 
 # Append-only index

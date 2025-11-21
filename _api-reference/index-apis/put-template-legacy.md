@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Put template (deprecated)
-parent: Index APIs
-nav_order: 107
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 80
 ---
 
 # Put template
@@ -50,8 +51,10 @@ The request body must define one or more of the following components.
 
 ## Example request
 
-```json
-PUT /_template/logs_template
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_template/logs_template
+body: |
 {
   "index_patterns": ["logs-*"],
   "settings": {
@@ -67,9 +70,66 @@ PUT /_template/logs_template
     "logs": {}
   }
 }
-```
+-->
+{% capture step1_rest %}
+PUT /_template/logs_template
+{
+  "index_patterns": [
+    "logs-*"
+  ],
+  "settings": {
+    "number_of_shards": 1
+  },
+  "mappings": {
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "message": {
+        "type": "text"
+      }
+    }
+  },
+  "aliases": {
+    "logs": {}
+  }
+}
+{% endcapture %}
 
-{% include copy-curl.html %}
+{% capture step1_python %}
+
+
+response = client.indices.put_template(
+  name = "logs_template",
+  body =   {
+    "index_patterns": [
+      "logs-*"
+    ],
+    "settings": {
+      "number_of_shards": 1
+    },
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "message": {
+          "type": "text"
+        }
+      }
+    },
+    "aliases": {
+      "logs": {}
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
