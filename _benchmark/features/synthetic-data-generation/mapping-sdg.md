@@ -413,8 +413,8 @@ The following generators and their parameters are available for use in `field_ov
 | `generate_date` | `format`, `start_date`, `end_date` |
 | `generate_ip` | N/A|
 | `generate_geo_point` | N/A|
-| `generate_knn_vector` | `dimension`, `sample_vectors`, `noise_factor`, `distribution_type`, `normalize`. See [Advanced techniques](/benchmark/features/synthetic-data-generation/advanced/). |
-| `generate_sparse_vector` | `num_tokens`, `min_weight`, `max_weight`, `token_id_start`, `token_id_step`. See [Advanced techniques](/benchmark/features/synthetic-data-generation/advanced/). |
+| `generate_knn_vector` | `dimension`, `sample_vectors`, `noise_factor`, `distribution_type`, `normalize`. See [Generating vectors](/benchmark/features/synthetic-data-generation/generating-vectors/). |
+| `generate_sparse_vector` | `num_tokens`, `min_weight`, `max_weight`, `token_id_start`, `token_id_step`. See [Generating vectors](/benchmark/features/synthetic-data-generation/generating-vectors/). |
 
 ### Using the configuration
 
