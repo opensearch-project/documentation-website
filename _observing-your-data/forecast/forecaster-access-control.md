@@ -9,7 +9,7 @@ has_children: false
 # Forecaster access control
 
 **Status:** Experimental  
-**Replaces:** `plugins.forecast.filter_by_backend_roles` (on deprecation path; see note below)
+**Replaces:** `plugins.forecast.filter_by_backend_roles`
 {: .warning }
 
 This page explains how the **Forecaster** resource integrates with the Security plugin’s **Resource Sharing and Access Control** framework to provide **document-level** authorization for forecasters.
@@ -28,12 +28,39 @@ This page explains how the **Forecaster** resource integrates with the Security 
 When resource-level authorization is enabled for this type, each forecaster’s visibility is governed by a central sharing record. Owners and users with share capability can grant or revoke access for specific **users**, **roles**, or **backend roles**.
 
 ---
+## Enable or disable for this resource type
+
+Add the type to the protected list and enable the feature.
+
+### `opensearch.yml` (3.4+)
+
+```yaml
+plugins.security.experimental.resource_sharing.enabled: true
+plugins.security.system_indices.enabled: true
+plugins.security.experimental.resource_sharing.protected_types:
+  - "forecaster"
+````
+
+### Dev Tools (3.4+)
+
+```curl
+PUT _cluster/settings
+{
+  "transient": {
+    "plugins.security.experimental.resource_sharing.enabled": true,
+    "plugins.security.experimental.resource_sharing.protected_types": ["forecaster", <existing-resource-types>]
+  }
+}
+```
+{% include copy-curl.html %}
+
+---
 
 ## Forecaster access levels
 
 There are **three access levels** for granting access to forecasters:
 
-### 1. forecast_read_only
+### forecast_read_only
 This read-only access level grants a read and search only access to the shared forecaster.
 
 Following actions are allowed with this access-level:
@@ -47,7 +74,7 @@ Following actions are allowed with this access-level:
 - 'cluster:admin/plugin/forecast/result/topForecasts'
 ```
 
-### 2. forecast_read_write
+### forecast_read_write
 This read-write access level grants full access to a forecaster except share.
 
 Following actions are allowed with this access level:
@@ -57,7 +84,7 @@ Following actions are allowed with this access level:
 - 'cluster:admin/settings/update'
 ```
 
-### 3. forecast_full_access
+### forecast_full_access
 This access level grants complete access to a forecaster and will allow shared user owner-like permission.
 
 Following actions are allowed with this access level:
