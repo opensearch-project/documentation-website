@@ -1,34 +1,65 @@
 ---
 layout: default
-title: Custom Logic Approach
+title: Generating data using custom logic
 nav_order: 35
-parent: Synthetic Data Generation
-grand_parent: Features
+parent: Synthetic data generation
+grand_parent: Additional features
 ---
 
-# Generating Data with Custom Logic
+# Generating data using custom logic
 
-To invoke synthetic data generation, you'll need to provide either one of the two required input files:
-* OpenSearch index mappings
-* Custom logic (via Python module)
+You can generate synthetic data using custom logic defined in a Python module. This approach offers you the most granular control over how synthetic data is produced in OpenSearch Benchmark. This is especially useful if you understand the distribution of your data and the relationship between different fields.
 
-This document explores using custom logic to generate synthetic data.
+## The generate_synthetic_document function
 
-### Prerequisites
+Every custom module provided to OpenSearch Benchmark must define the `generate_synthetic_document(providers, **custom_lists)` function. This function defines how OpenSearch Benchmark generates each synthetic document.
 
-* **Required**: Custom logic defined in Python module
-* **Optional**: [Synthetic Data Generation Config](https://github.com/opensearch-project/opensearch-benchmark/blob/main/osbenchmark/resources/sdg-config.yml)
+### Function parameters
 
-Python module with custom logic **must include** `generate_synthetic_data(providers, **custom_lists)` within.
-{: .important}
+| Parameter | Required/Optional | Description |
+|---|---|---|
+| `providers` | Required | A dictionary containing data generation tools. Available providers are `generic` (Mimesis [Generic provider](https://mimesis.name/master/api.html#generic-providers)) and `random` (Mimesis [Random class](https://mimesis.name/master/random_and_seed.html)). To add custom providers, see [Advanced configuration](#advanced-configuration). |
+| `**custom_lists` | Optional | Keyword arguments containing predefined lists of values that you can use in your data generation logic. These are defined in your YAML configuration file under `custom_lists` and allow you to separate data values from your Python code. For example, if you define `dog_names: [Buddy, Max, Luna]` in YAML, you can access it as `custom_lists['dog_names']` in your function. This makes it easy to modify data values without changing your Python code. |
 
-### Overview
+### Basic function template
 
-This approach offers the most granular control over how synthetic data is produced in OpenSearch Benchmark. This is especially useful for users who understand the distribution of their data and the relationship between different fields.
+```python
+def generate_synthetic_document(providers, **custom_lists):
+    # Access the available providers
+    generic = providers['generic']
+    random_provider = providers['random']
 
-An example of what a valid Python module with custom logic that can be provided is shown below:
+    # Generate a document using the providers
+    document = {
+        'name': generic.person.full_name(),
+        'age': random_provider.randint(18, 80),
+        'email': generic.person.email(),
+        'timestamp': generic.datetime.datetime()
+    }
 
-```shell
+    # Optionally, use custom lists if provided
+    if 'categories' in custom_lists:
+        document['category'] = random_provider.choice(custom_lists['categories'])
+
+    return document
+```
+{% include copy.html %}
+
+For more information, see the [Mimesis documentation](https://mimesis.name/master/api.html).
+
+## Python module example
+
+The following example Python module demonstrates custom logic for generating documents about dog drivers for a fictional ride-sharing company, *Pawber*, which uses OpenSearch to store and search large volumes of ride-sharing data.
+
+This example showcases several advanced concepts:
+- **[Custom provider classes](#advanced-configuration)** (`NumericString`, `MultipleChoices`) that extend Mimesis functionality
+- **[Custom lists](#advanced-configuration)** for data values like dog names, breeds, and treats (referenced as `custom_lists['dog_names']`)
+- **Geographic clustering** logic for realistic location data
+- **Complex document structures** with nested objects and relationships
+
+Save this code to a file called `pawber.py` in your desired directory (for example, `~/pawber.py`):
+
+```python
 from mimesis.providers.base import BaseProvider
 from mimesis.enums import TimestampFormat
 
@@ -135,32 +166,22 @@ def generate_synthetic_document(providers, **custom_lists):
 
     return document
 ```
-This example Python module has custom logic to generate documents related to dog drivers for a fictional ride-sharing company called *Pawber*, who uses OpenSearch to store and search across large volumes of ride-sharing data.
+{% include copy.html %}
 
-In the module above, notice that there's function called `generate_synthetic_data(providers, **custom_lists)`. OpenSearch Benchmark expects that all custom modules provided must have this function defined along with its parameters. This function informs OpenSearch Benchmark on how to generate a synthetic document.
-{: .important}
+## Generating data
 
-Next, we'll see how we can use this to generate documents.
-
-### Command Parameters
+To generate synthetic data using custom logic, use the `generate-data` subcommand and provide the required custom Python module, index name, output path, and total amount of data to generate:
 
 ```shell
-osb generate-data --custom-module ~/Desktop/http-logs.py --index-name http-logs-regenerated --output-path ~/Desktop/sdg_outputs/ --total-size 2
+osb generate-data --custom-module ~/pawber.py --index-name pawber-data --output-path ~/Desktop/sdg_outputs/ --total-size 2
 ```
+{% include copy.html %}
 
-* `generate-data` (required): sub-command that activates synthetic data generation in OpenSearch Benchmark
-* `--custom-module` or `-m` (required): Path to Python logic that includes custom logic
+For a complete list of available parameters and their descriptions, see the [`generate-data` command reference]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/generate-data/).
 
-For `--custom-module` parameter, the custom Python module provided must include `generate_synthetic_data(providers, **custom_lists)`.
-{: .important}
+## Example output
 
-* `--index-name` or `-n` (required): Name of data corpora generated
-* `--output-path` or `-p` (required): Path where data should be generated in
-* `--total-size` or `-s` (required): Total amount of data that should be generated in GB
-* `--custom-config` or `-c` (optional): Path to YAML config defining rules for how data should be generated. This is further explored in the subsequent section
-* `--test-document` or `-t` (optional): When flag is present, OSB generates a single synthetic document and outputs to the console. Provides users a way to verify that the example document generated is aligned with expectations. When the flag is not present, the entire data corpora will be generated
-
-### Example Output
+The following is an example output of generating 100 GB of data:
 
 ```
    ____                  _____                      __       ____                  __                         __
@@ -174,7 +195,7 @@ For `--custom-module` parameter, the custom Python module provided must include 
 [NOTE] ✨ Dashboard link to monitor processes and task streams: [http://127.0.0.1:8787/status]
 [NOTE] ✨ For users who are running generation on a virtual machine, consider SSH port forwarding (tunneling) to localhost to view dashboard.
 [NOTE] Example of localhost command for SSH port forwarding (tunneling) from an AWS EC2 instance:
-ssh -i <PEM filepath> -N -L localhost:8787:localhost:8787 ec2-user@<DNS>
+ssh -i <PEM_FILEPATH> -N -L localhost:8787:localhost:8787 ec2-user@<DNS>
 
 Total GB to generate: [1]
 Average document size in bytes: [412]
@@ -189,39 +210,48 @@ Generated 24271844660 docs in 12000 seconds. Total dataset size is 100.21GB.
 [INFO] ✅ SUCCESS (took 272 seconds)
 -----------------------------------
 ```
-This is an example output of what it might look like if you generated 100GB.
 
+## Advanced configuration
 
-### Using synthetic data generation config
+You can optionally create a YAML configuration file to store custom data and providers. The configuration file must define a `CustomGenerationValues` parameter.
 
-Using a synthetic data generation config is not necessary for this approach unless users prefer to store custom logic in the config file for organizational purposes.
+The following parameters are available in `CustomGenerationValues`. Both parameters are optional.
 
-To store custom logic in the config file, the synthetic data generation config must have *CustomGenerationValues* defined and can have *custom_lists* and *custom_providers* defined.
+| Parameter | Required/Optional | Description |
+|---|---|---|
+| `custom_lists` | Optional | Predefined arrays of values that you can reference in your Python module using `custom_lists['list_name']`. This allows you to separate data values from your code logic, making it easy to modify data values without changing your Python file. For example, `dog_names: [Buddy, Max, Luna]` becomes accessible as `custom_lists['dog_names']`. |
+| `custom_providers` | Optional | Custom data generation classes that extend Mimesis functionality. These should be defined as classes in your Python module (like `NumericString` or `MultipleChoices` in the [example](#python-module-example)) and then listed in this parameter by name. This allows you to create specialized data generators beyond what Mimesis provides by default. |
 
-* **custom_lists** → Key, value pair mapping.  Keys are names of lists and values are list of values.
-* **custom_providers** → “Custom Providers” from Mimesis. Synthetic data generation in OpenSearch Benchmark uses Mimesis under the hood. These should be defined in the same file as the custom Python module supplied.
+### Example configuration file
 
-Example of synthetic data generation config with *CustomGenerationValues* defined:
+Save your configuration in a YAML file:
 
 ```yml
 CustomGenerationValues:
-  # For users who want to generate data via a custom Python module
+  # Generate data using a custom Python module
   custom_lists:
-  # Custom lists for users who are using a custom Python module and want to consolidate all values in this YAML file
+  # Custom lists to consolidate all values in this YAML file
     dog_names: [Hana, Youpie, Charlie, Lucy, Cooper, Luna, Rocky, Daisy, Buddy, Molly]
     dog_breeds: [Jindo, Labrador, German Shepherd, Golden Retriever, Bulldog, Poodle, Beagle, Rottweiler, Boxer, Dachshund, Chihuahua]
     treats: [cookies, pup_cup, jerky]
   custom_providers:
-  # OSB's synthetic data generator uses mimesis and custom providers are essentially custom Python classes that adds more functionality to Mimesis
+  # OSB's synthetic data generator uses Mimesis; custom providers are essentially custom Python classes that adds more functionality to Mimesis
     - NumericString
     - MultipleChoices
 ```
+{% include copy.html %}
 
-To use the synthetic data generation config with CustomGenerationValues defined, supply the following parameter to the generate-data command:
+
+### Using the configuration
+
+To use your configuration file, add the `--custom-config` parameter to the `generate-data` command:
 
 ```shell
---custom-config ~/Desktop/sdg-config.yml
+osb generate-data --custom-module ~/pawber.py --index-name pawber-data --output-path ~/Desktop/sdg_outputs/ --total-size 2 --custom-config ~/Desktop/sdg-config.yml
 ```
+{% include copy.html %}
 
-OpenSearch Benchmark will now be using those custom_lists and custom_providers defined when generating synthetic data.
+## Related documentation
 
+- [`generate-data` command reference]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/generate-data/)
+- [Generating data using index mappings]({{site.url}}{{site.baseurl}}/benchmark/features/synthetic-data-generation/mapping-sdg/)

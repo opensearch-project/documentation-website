@@ -1,7 +1,7 @@
 ---
 layout: default
 title: compare
-nav_order: 55
+nav_order: 20
 parent: Command reference
 grand_parent: OpenSearch Benchmark Reference
 redirect_from: 

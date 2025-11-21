@@ -1,20 +1,19 @@
 ---
 layout: default
-title: Features
+title: Additional features
 nav_order: 30
 has_children: true
 has_toc: false
 redirect_from:
   - /benchmark/features/
-  - /benchmark/features/index/
 more_cards:
-  - heading: "Synthetic Data Generation"
-    description: "Generate synthetic data for benchmarking"
+  - heading: "Synthetic data generation"
+    description: "Create synthetic datasets using index mappings or custom Python logic for comprehensive benchmarking and testing."
     link: "/benchmark/features/synthetic-data-generation/"
 ---
 
-# Features
+# Additional features
 
-On top of general benchmarking, OpenSearch Benchmark comes with other features. See the following sections for more information on each.
+In addition to general benchmarking, OpenSearch Benchmark provides several specialized features.
 
 {% include cards.html cards=page.more_cards %}

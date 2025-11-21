@@ -1,7 +1,7 @@
 ---
 layout: default
 title: execute-test
-nav_order: 65
+nav_order: 40
 parent: Command reference
 grand_parent: OpenSearch Benchmark Reference
 redirect_from:

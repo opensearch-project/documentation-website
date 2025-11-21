@@ -1,26 +1,16 @@
 ---
 layout: default
-title: Mapping Approach
+title: Generating data using index mappings
 nav_order: 15
-parent: Synthetic Data Generation
-grand_parent: Features
+parent: Synthetic data generation
+grand_parent: Additional features
 ---
 
-# Generating Data with OpenSearch Index Mappings
+# Generating data using index mappings
 
-To invoke synthetic data generation, you'll need to provide either one of the two required input files:
-* OpenSearch index mappings
-* Custom logic (via Python module)
+You can use OpenSearch index mappings to generate synthetic data. This approach offers a balance between automation and customization. 
 
-This document explores using OpenSearch index mappings to generate synthetic data.
-
-### Prerequisites
-
-* **Required**: OpenSearch Index Mapping
-* **Optional**: Synthetic Data Generation Config
-
-### Overview
-This approach offers a balance between automation and customization. Synthetic data generation in OpenSearch Benchmark can use basic OpenSearch index mappings like this:
+To use this method, save your OpenSearch index mappings to a JSON file:
 
 ```json
 {
@@ -64,239 +54,245 @@ This approach offers a balance between automation and customization. Synthetic d
 }
 ```
 
-or complex OpenSearch index mappings like this:
+OpenSearch Benchmark works with any valid index mappings, regardless of complexity. You can provide more complex mappings similar to the following:
+
+<details markdown="block">
+  <summary>
+    Mappings
+  </summary>
+  {: .text-delta}
 
 ```json
 {
-    "mappings": {
-      "dynamic": "strict",
-      "properties": {
-        "user": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "keyword"
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "keyword"
+          },
+          "email": {
+            "type": "keyword"
+          },
+          "name": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              },
+              "completion": {
+                "type": "completion"
+              }
             },
-            "email": {
-              "type": "keyword"
-            },
-            "name": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "type": "keyword",
-                  "ignore_above": 256
-                },
-                "completion": {
-                  "type": "completion"
+            "analyzer": "standard"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "street": {
+                "type": "text"
+              },
+              "city": {
+                "type": "keyword"
+              },
+              "state": {
+                "type": "keyword"
+              },
+              "zip": {
+                "type": "keyword"
+              },
+              "location": {
+                "type": "geo_point"
+              }
+            }
+          },
+          "preferences": {
+            "type": "object",
+            "dynamic": true
+          }
+        }
+      },
+      "orders": {
+        "type": "nested",
+        "properties": {
+          "id": {
+            "type": "keyword"
+          },
+          "date": {
+            "type": "date",
+            "format": "strict_date_optional_time||epoch_millis"
+          },
+          "amount": {
+            "type": "scaled_float",
+            "scaling_factor": 100
+          },
+          "status": {
+            "type": "keyword"
+          },
+          "items": {
+            "type": "nested",
+            "properties": {
+              "product_id": {
+                "type": "keyword"
+              },
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
                 }
               },
-              "analyzer": "standard"
-            },
-            "address": {
-              "type": "object",
-              "properties": {
-                "street": {
-                  "type": "text"
-                },
-                "city": {
-                  "type": "keyword"
-                },
-                "state": {
-                  "type": "keyword"
-                },
-                "zip": {
-                  "type": "keyword"
-                },
-                "location": {
-                  "type": "geo_point"
-                }
-              }
-            },
-            "preferences": {
-              "type": "object",
-              "dynamic": true
-            }
-          }
-        },
-        "orders": {
-          "type": "nested",
-          "properties": {
-            "id": {
-              "type": "keyword"
-            },
-            "date": {
-              "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
-            },
-            "amount": {
-              "type": "scaled_float",
-              "scaling_factor": 100
-            },
-            "status": {
-              "type": "keyword"
-            },
-            "items": {
-              "type": "nested",
-              "properties": {
-                "product_id": {
-                  "type": "keyword"
-                },
-                "name": {
-                  "type": "text",
-                  "fields": {
-                    "keyword": {
-                      "type": "keyword"
-                    }
-                  }
-                },
-                "quantity": {
-                  "type": "short"
-                },
-                "price": {
-                  "type": "float"
-                },
-                "categories": {
-                  "type": "keyword"
-                }
-              }
-            },
-            "shipping_address": {
-              "type": "object",
-              "properties": {
-                "street": {
-                  "type": "text"
-                },
-                "city": {
-                  "type": "keyword"
-                },
-                "state": {
-                  "type": "keyword"
-                },
-                "zip": {
-                  "type": "keyword"
-                },
-                "location": {
-                  "type": "geo_point"
-                }
+              "quantity": {
+                "type": "short"
+              },
+              "price": {
+                "type": "float"
+              },
+              "categories": {
+                "type": "keyword"
               }
             }
-          }
-        },
-        "activity_log": {
-          "type": "nested",
-          "properties": {
-            "timestamp": {
-              "type": "date"
-            },
-            "action": {
-              "type": "keyword"
-            },
-            "ip_address": {
-              "type": "ip"
-            },
-            "details": {
-              "type": "object",
-              "enabled": false
-            }
-          }
-        },
-        "metadata": {
-          "type": "object",
-          "properties": {
-            "created_at": {
-              "type": "date"
-            },
-            "updated_at": {
-              "type": "date"
-            },
-            "tags": {
-              "type": "keyword"
-            },
-            "source": {
-              "type": "keyword"
-            },
-            "version": {
-              "type": "integer"
-            }
-          }
-        },
-        "description": {
-          "type": "text",
-          "analyzer": "english",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            },
-            "standard": {
-              "type": "text",
-              "analyzer": "standard"
-            }
-          }
-        },
-        "ranking_scores": {
-          "type": "object",
-          "properties": {
-            "popularity": {
-              "type": "float"
-            },
-            "relevance": {
-              "type": "float"
-            },
-            "quality": {
-              "type": "float"
-            }
-          }
-        },
-        "permissions": {
-          "type": "nested",
-          "properties": {
-            "user_id": {
-              "type": "keyword"
-            },
-            "role": {
-              "type": "keyword"
-            },
-            "granted_at": {
-              "type": "date"
+          },
+          "shipping_address": {
+            "type": "object",
+            "properties": {
+              "street": {
+                "type": "text"
+              },
+              "city": {
+                "type": "keyword"
+              },
+              "state": {
+                "type": "keyword"
+              },
+              "zip": {
+                "type": "keyword"
+              },
+              "location": {
+                "type": "geo_point"
+              }
             }
           }
         }
-      }
-    },
-    "settings": {
-      "number_of_shards": 3,
-      "number_of_replicas": 2,
-      "analysis": {
-        "analyzer": {
-          "email_analyzer": {
-            "type": "custom",
-            "tokenizer": "uax_url_email",
-            "filter": ["lowercase", "stop"]
+      },
+      "activity_log": {
+        "type": "nested",
+        "properties": {
+          "timestamp": {
+            "type": "date"
+          },
+          "action": {
+            "type": "keyword"
+          },
+          "ip_address": {
+            "type": "ip"
+          },
+          "details": {
+            "type": "object",
+            "enabled": false
+          }
+        }
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "date"
+          },
+          "updated_at": {
+            "type": "date"
+          },
+          "tags": {
+            "type": "keyword"
+          },
+          "source": {
+            "type": "keyword"
+          },
+          "version": {
+            "type": "integer"
+          }
+        }
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "english",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          },
+          "standard": {
+            "type": "text",
+            "analyzer": "standard"
+          }
+        }
+      },
+      "ranking_scores": {
+        "type": "object",
+        "properties": {
+          "popularity": {
+            "type": "float"
+          },
+          "relevance": {
+            "type": "float"
+          },
+          "quality": {
+            "type": "float"
+          }
+        }
+      },
+      "permissions": {
+        "type": "nested",
+        "properties": {
+          "user_id": {
+            "type": "keyword"
+          },
+          "role": {
+            "type": "keyword"
+          },
+          "granted_at": {
+            "type": "date"
           }
         }
       }
     }
+  },
+  "settings": {
+    "number_of_shards": 3,
+    "number_of_replicas": 2,
+    "analysis": {
+      "analyzer": {
+        "email_analyzer": {
+          "type": "custom",
+          "tokenizer": "uax_url_email",
+          "filter": ["lowercase", "stop"]
+        }
+      }
+    }
   }
+}
 ```
 
-In the next section, we'll use the example index mappings (or your own) to generate synthetic documents.
+</details>
 
-## Command Parameters
-A basic command that activates synthetic data generation with an OpenSearch index mapping:
+## Generating data
+
+To generate synthetic data using index mappings, use the `generate-data` subcommand and provide the required index mappings file, index name, output path, and total amount of data to generate:
+
 ```shell
-osb generate-data --index-name <NAME OF DATA CORPORA> --index-mappings <PATH TO INDEX MAPPINGS> --output-path <DESIRED OUTPUT PATH> --total-size <TOTAL SIZE OF DATA CORPORA GENERATED IN GB>
+osb generate-data --index-name <NAME_OF_DATA_CORPORA> --index-mappings <PATH_TO_INDEX_MAPPINGS> --output-path <DESIRED_OUTPUT_PATH> --total-size <TOTAL_SIZE_OF_DATA_CORPORA_GENERATED_IN_GB>
 ```
-* `generate-data` (required): sub-command that activates synthetic data generation in OpenSearch Benchmark
-* `--index-mappings` or `-i` (required): Path to OpenSearch index mappings
-* `--index-name` or `-n` (required): Name of data corpora generated
-* `--output-path` or `-p` (required): Path where data should be generated in
-* `--total-size` or `-s` (required): Total amount of data that should be generated in GB
-* `--custom-config` or `-c` (optional): Path to YAML config defining rules for how data should be generated. This is further explored in the subsequent section
-* `--test-document` or `-t` (optional): When flag is present, OSB generates a single synthetic document and outputs to the console. Provides users a way to verify that the example document generated is aligned with expectations. When the flag is not present, the entire data corpora will be generated
+{% include copy.html %}
 
-### Example Output
+For a complete list of available parameters and their descriptions, see the [`generate-data` command reference]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/generate-data/).
+
+## Example output
+
+The following is an example output of generating 100 GB of data:
 
 ```
    ____                  _____                      __       ____                  __                         __
@@ -310,7 +306,7 @@ osb generate-data --index-name <NAME OF DATA CORPORA> --index-mappings <PATH TO 
 [NOTE] ✨ Dashboard link to monitor processes and task streams: [http://127.0.0.1:8787/status]
 [NOTE] ✨ For users who are running generation on a virtual machine, consider SSH port forwarding (tunneling) to localhost to view dashboard.
 [NOTE] Example of localhost command for SSH port forwarding (tunneling) from an AWS EC2 instance:
-ssh -i <PEM filepath> -N -L localhost:8787:localhost:8787 ec2-user@<DNS>
+ssh -i <PEM_FILEPATH> -N -L localhost:8787:localhost:8787 ec2-user@<DNS>
 
 Total GB to generate: [1]
 Average document size in bytes: [412]
@@ -325,22 +321,11 @@ Generated 24271844660 docs in 12000 seconds. Total dataset size is 100.21GB.
 [INFO] ✅ SUCCESS (took 272 seconds)
 -----------------------------------
 ```
-This is an example output of what it might look like if you generated 100GB.
 
-## Using synthetic data generation config
+## Advanced configuration
 
-Users can have more control over how data is generated with the help of the synthetic data generation config. When generating synthetic data with an OpenSearch index mappings, the synthetic data generation config should have *MappingGenerationValues* defined and either *generator_overrides*, *field_overrides*, or both defined.
+You can control how synthetic data is generated by creating a YAML configuration file. The following is an example configuration file that defines custom rules in the `MappingGenerationValues` parameter:
 
-* **MappingGenerationValues** → When synthetic data generator is using OpenSearch index mappings to generate synthetic data, it looks for this section for additional instructions
-* **generator_overrides** → For each type of generator defined in this section, the synthetic data generator uses these rules to generate synthetic data for that OpenSearch mapping field type.
-* **field_overrides** → For each field defined, the synthetic data generator uses these rules to generate synthetic data for that specific field
-
-If both generator_overrides and field_overrides are defined, field_overrides have a higher precedence than generator_overrides.
-{: .important}
-
-### Example sdg-config.yml
-
-Example of MappingGenerationValues defined:
 ```yml
 MappingGenerationValues:
   # For users who want more granular control over how data is generated when providing an OpenSearch mapping
@@ -386,11 +371,61 @@ MappingGenerationValues:
       params:
         choices: ["Python", "English"]
 ```
+{% include copy.html %}
 
-To use this synthetic data generation config, append the following parameter and path to the YAML config to the `generate-data` command:
+`MappingGenerationValues` supports the following parameters.
+
+| Parameter | Description |
+|---|---|
+| `generator_overrides` | Defines custom generator rules for specific OpenSearch field types. Any field that uses the corresponding type will follow these rules. See [Generator overrides parameters](#generator-overrides-parameters). |
+| `field_overrides` | Defines generator rules for individual fields by field name. These apply only to the fields explicitly listed. For nested fields, use dot notation (for example, `orders.items.product_id`). See [Field overrides parameters](#field-overrides-parameters). |
+
+If both `generator_overrides` and `field_overrides` are present, `field_overrides` take precedence.
+{: .important}
+
+#### Generator overrides parameters
+
+The following parameters are available for each OpenSearch field type in `generator_overrides`.
+
+| Field type | Parameters |
+|---|---|
+| `integer`, `long`, `short`, `byte` | `min`, `max` |
+| `float`, `double` | `min`, `max`, `round` (the number of decimal places to round to) |
+| `date` | `start_date`, `end_date`, `format` |
+| `text` | `must_include` (array of terms to include in generated text) |
+| `keyword` | `choices` (array of keywords to randomly select from) |
+
+#### Field overrides parameters
+
+The following generators and their parameters are available for use in `field_overrides`.
+
+| Generator | Parameters |
+|---|---|
+| `generate_text` | `must_include` (array of terms to include in generated text) |
+| `generate_keyword` | `choices` (array of keywords to randomly select from) |
+| `generate_integer` | `min`, `max` |
+| `generate_long` | `min`, `max` |
+| `generate_short` | `min`, `max` |
+| `generate_byte` | `min`, `max` |
+| `generate_float` | `min`, `max`, `round` (the number of decimal places to round to) |
+| `generate_double` | `min`, `max` |
+| `generate_boolean` | N/A|
+| `generate_date` | `format`, `start_date`, `end_date` |
+| `generate_ip` | N/A|
+| `generate_geo_point` | N/A|
+| `generate_knn_vector` | `dimension`, `sample_vectors`, `noise_factor`, `distribution_type`, `normalize`. See [Advanced techniques](/benchmark/features/synthetic-data-generation/advanced/). |
+| `generate_sparse_vector` | `num_tokens`, `min_weight`, `max_weight`, `token_id_start`, `token_id_step`. See [Advanced techniques](/benchmark/features/synthetic-data-generation/advanced/). |
+
+### Using the configuration
+
+To use your configuration file, provide its full path in the `--custom-config` parameter:
 
 ```shell
---custom-config ~/Desktop/sdg-config.yml
+osb generate-data --index-name <NAME_OF_DATA_CORPORA> --index-mappings <PATH_TO_INDEX_MAPPINGS> --output-path <DESIRED_OUTPUT_PATH> --total-size <TOTAL_SIZE_OF_DATA_CORPORA_GENERATED_IN_GB> --custom-config ~/Desktop/sdg-config.yml
 ```
+{% include copy.html %}
 
-OpenSearch Benchmark should now be generating synthetic data with these rules in mind.
+## Related documentation
+
+- [`generate-data` command reference]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/generate-data/)
+- [Generating data using custom logic]({{site.url}}{{site.baseurl}}/benchmark/features/synthetic-data-generation/custom-logic-sdg/)
