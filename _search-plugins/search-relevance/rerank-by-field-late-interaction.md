@@ -237,7 +237,7 @@ PUT /_search/pipeline/colpali_search_pipeline
     {
       "ml_inference": {
         "model_id": "<YOUR_MODEL_ID>",
-        "query_template": "{\n    \"query\": {\n        \"knn\": {\n            \"knn_vector\": {\n                \"vector\": ${query_knn_vector},\n                \"k\": 100\n            }\n        }\n    },\n    \"rescore\": {\n        \"query\": {\n            \"rescore_query\": {\n                \"script_score\": {\n                    \"query\": {\n                        \"match_all\": {}\n                    }, \n                    \"script\": {\n                        \"source\": \"lateInteractionScore(params.query_vector, 'colbert_vectors', params._source)\",\n                        \"params\": {\n                            \"query_vector\": ${query_colbert_vectors}\n                        }\n                    }\n                }\n            }\n        }\n    },\n    \"size\": 10,\n  \"_source\": {\n    \"excludes\": [\"knn_vector\",\"colbert_vectors\"]\n  }\n}",
+        "query_template": "{\n    \"query\": {\n        \"knn\": {\n            \"knn_vector\": {\n                \"vector\": ${query_knn_vector},\n                \"k\": 100\n            }\n        }\n    },\n    \"rescore\": {\n        \"query\": {\n            \"rescore_query\": {\n                \"script_score\": {\n                    \"query\": {\n                        \"match_all\": {}\n                    }, \n                    \"script\": {\n                        \"source\": \"lateInteractionScore(params.query_vector, 'colbert_vectors', params._source)\",\n                        \"params\": {\n                            \"query_vector\": ${query_colbert_vectors}\n                        }\n                    }\n                }\n            }\n        }\n    },\n    \"size\": 10,\n  \"_source\": {\n    \"excludes\": [\"knn_vector\"]\n  }\n}",
         "input_map": [
           {
             "queries": "$..query.term.search_text.value"
@@ -287,7 +287,7 @@ The following is the `query_template` from the preceding search pipeline, format
   },
   "size": 10,
   "_source": {
-    "excludes": [ "knn_vector", "colbert_vectors" ]
+    "excludes": ["knn_vector"]
   }
 }
 ```
@@ -548,8 +548,7 @@ The response provides a complete view of the query transformation process captur
         },
         "_source": {
           "excludes": [
-            "knn_vector",
-            "colbert_vectors"
+            "knn_vector"
           ]
         },
         "rescore": [
