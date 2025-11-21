@@ -32,6 +32,9 @@ When resource-level authorization is enabled for this type, each forecaster’s 
 
 Add the type to the protected list and enable the feature.
 
+> **Admin-only:** The settings below can be configured **only by cluster administrators** (super-admins).
+{: .important }
+
 ### `opensearch.yml` (3.3+)
 
 ```yaml
@@ -95,6 +98,42 @@ Following actions are allowed with this access level:
 - "cluster:admin/security/resource/share"
 ```
 
+> These access-levels are non-configurable. If you would like to add more access-levels please file an issue on [the GitHub repo](https://github.com/opensearch-project/anomaly-detection/).
+{: .note } yellow
+
 ---
 
-> These access-levels are non-configurable. If you would like to add more access-levels please file an issue on [the GitHub repo](https://github.com/opensearch-project/anomaly-detection/).
+## Migrating from legacy framework
+
+> **Admin-only:** The migrate API can only be run **by cluster administrators** (super-admins or rest-admins).
+{: .important }
+ 
+Once the feature is turned on, and the resource is marked as protected it is imperative that cluster-admins call the migrate API to migrate legacy-sharing information to the new framework: 
+
+### 3.3 clusters
+```curl
+POST _plugins/_security/api/resources/migrate 
+{
+  "source_index": ".opensearch-forecasters",
+  "username_path": "/user/name",
+  "backend_roles_path": "/user/backend_roles",
+  "default_access_level": "<pick-one-access-level>"
+}
+```
+{% include copy-curl.html %}
+
+### 3.4+ clusters
+
+```curl
+POST _plugins/_security/api/resources/migrate 
+{
+  "source_index": ".opensearch-forecasters",
+  "username_path": "/user/name",
+  "backend_roles_path": "/user/backend_roles",
+  "default_owner": "<replace-with-existing-user>",
+  "default_access_level": {
+    "forecaster": "<pick-one-access-level>"
+  }
+}
+```
+{% include copy-curl.html %}
