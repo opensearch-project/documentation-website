@@ -34,7 +34,7 @@ When resource-level authorization is enabled for this type, each detector’s vi
 
 Add the type to the protected list and enable the feature.
 
-> **Admin-only:** The settings below can be configured **only by cluster administrators** (super-admins).
+> **Admin-only:** These settings can be configured **only by cluster administrators** (super-admins).
 {: .important }
 
 ### `opensearch.yml` (3.3+)
@@ -101,7 +101,7 @@ Following actions are allowed with this access level:
 ```
 
 
-> These access-levels are non-configurable. If you would like to add more access-levels please file an issue on [the GitHub repo](https://github.com/opensearch-project/anomaly-detection/).
+> These access-levels are non-configurable. If you would like to add more access-levels, file an issue on [the GitHub repo](https://github.com/opensearch-project/anomaly-detection/).
 {: .note } yellow
 
 ---

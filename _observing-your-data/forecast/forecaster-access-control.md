@@ -23,7 +23,7 @@ This page explains how the **Forecaster** resource integrates with the Security 
 
 - **Resource type:** `forecaster`
 - **System index:** `.opensearch-forecasters`
-- **Onboarded in:** 3.3
+- **Onboarded in:** `3.3`
 
 When resource-level authorization is enabled for this type, each forecaster’s visibility is governed by a central sharing record. Owners and users with share capability can grant or revoke access for specific **users**, **roles**, or **backend roles**.
 
@@ -32,7 +32,7 @@ When resource-level authorization is enabled for this type, each forecaster’s 
 
 Add the type to the protected list and enable the feature.
 
-> **Admin-only:** The settings below can be configured **only by cluster administrators** (super-admins).
+> **Admin-only:** These settings can be configured **only by cluster administrators** (super-admins).
 {: .important }
 
 ### `opensearch.yml` (3.3+)
@@ -98,7 +98,7 @@ Following actions are allowed with this access level:
 - "cluster:admin/security/resource/share"
 ```
 
-> These access-levels are non-configurable. If you would like to add more access-levels please file an issue on [the GitHub repo](https://github.com/opensearch-project/anomaly-detection/).
+> These access-levels are non-configurable. If you would like to add more access-levels, file an issue on [the GitHub repo](https://github.com/opensearch-project/anomaly-detection/).
 {: .note } yellow
 
 ---
