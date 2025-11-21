@@ -35,6 +35,9 @@ Model-groups control access to models.
 
 Add the type to the protected list and enable the feature.
 
+> **Admin-only:** These settings can be configured **only by cluster administrators** (super-admins).
+{: .important }
+
 ### `opensearch.yml` (3.3+)
 
 ```yaml
