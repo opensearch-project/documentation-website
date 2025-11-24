@@ -14,7 +14,7 @@ nav_order: 20
 This is an experimental UI feature. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).  
 {: .warning}
 
-[Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/) lets you ask questions in natural language and have OpenSearch agents plan and execute the retrieval automatically. OpenSearch Dashboards offers an intuitive UI for configuring agents, equipping agents with different tools, executing agentic searches, and how to use in your downstream applications.
+[Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/) lets you ask questions in natural language and have OpenSearch agents plan and execute the retrieval automatically. OpenSearch Dashboards offers an intuitive UI for configuring agents, equipping agents with different tools, executing agentic searches, and instructions for how to use agentic search in your downstream applications.
 
 ![Agentic search editor]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/agentic-search-editor.png)
 
@@ -53,18 +53,18 @@ Models can be optimized for different scenarios: cost-efficient, fast inference 
 
 ### Tools
 
-All agents must have the **Query Planning** tool enabled for executing agentic searches. Query generation can be entirely LLM-generated (default), or can be steered to select from a list of available search templates. Search templates can be useful to maintain control over the queries generated, and for the model to leverage known, working, and performant queries.
+Agents must have the **Query Planning** tool enabled for executing agentic searches. Query generation can be entirely LLM-generated (default), or can be steered to select from a list of available search templates. Search templates can be useful for maintaining control over the queries generated, and forces the model to leverage known, working, and performant queries.
 ![Search templates]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/agentic-search-search-template.png)
 
 Other pre-built tools are available for `Conversational` agents, including **Search Index**, **List Index**, **Index Mapping**, and **Web Search**. Enable these to extend your agent's capabilities.
 
 ### MCP servers
 
-Integrate with MCP servers to let `Conversational` agents access more external tools. Limit which tools the agents can access by configuring filters under **Tool filters**. For more information, see [Using external MCP servers]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/mcp-server).
+Integrate with MCP servers to let `Conversational` agents access more external tools. Limit which tools the agents can access by configuring filters under **Tool filters** for each server. For more information, see [Using external MCP servers]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/mcp-server).
 
 ## Running agentic searches
 
-Test how the agents perform with different indices and different search queries. Collapse the **Configure agent** panel to focus entirely on running searches and viewing the search responses. The following image shows a search for **mens blue shirts** against an index **demo_amazon_fashion** with relevant result images.
+Test how the agents perform with different indices and different search queries. Collapse the **Configure agent** panel to focus on executing searches and analyzing the results. The following image shows a search for **mens blue shirts** against an index **demo_amazon_fashion** with relevant result images.
 
 ![Agent configuration]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/agentic-search-configuration.png)
 
@@ -78,11 +78,11 @@ Try out different agents you've created. Select the **Inspect** button to view t
 
 ### Query
 
-Try out different natural language queries. You can also specify query fields for the agent to focus on in your selected index. To edit the full `agentic` search query directly, toggle to the **JSON** view. For `Conversational` agents, select **Continue conversation** after a search to persist the context for future searches. Select **Clear conversation** to remove any history and start a new conversation.
+Try out different natural language queries. You can also specify query fields for the agent to focus on in your selected index. To edit the full `agentic` search query directly, toggle to the **JSON** view. For `Conversational` agents, select **Continue conversation** after a search to persist the context for future searches. Select **Clear conversation** to discard any past context and start a new conversation.
 
 ### Running searches
 
-Select **Search** to execute an agentic search. This can take several seconds for the agent to reason about the query, analyze the indices and their mappings, and any other tool orchestration and execution the agent decided to do. If it's taking too long, or you want to try a new search, you can select **Stop**.
+Select **Search** to execute an agentic search. This may take several seconds for the agent to reason about the query, analyze the indices and their mappings, and any other tool orchestration and execution the agent decides to do. If it's taking too long, or you want to try a new search, you can select **Stop**.
 
 Once the search is completed, under **Generated query**, view the query domain-specific language (DSL) that the agent generated and ran against your cluster. Under **Search results**, view the search response. Depending on the response, you may see different tabs available, such as **Aggregations** if the response contains aggregations, or **Visual hits** if the documents contain images. **Raw response** will always be available. If the search was executed with a `Conversational` agent, you can select **View agent summary** to get a step-by-step breakdown of the agent's actions, including the sequence of tools it used and why.
 
