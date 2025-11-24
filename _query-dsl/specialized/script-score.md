@@ -432,7 +432,7 @@ GET my_index/_search
       "script": {
         "source": "lateInteractionScore(params.query_vectors, 'my_vector', params._source, params.space_type)",
         "params": {
-          "query_vectors": [[[1.0, 0.0]], [[0.0, 1.0]]],
+          "query_vectors": [[1.0, 0.0], [0.0, 1.0]],
           "space_type": "cosinesimil"
         }
       }
