@@ -112,7 +112,7 @@ This example uses a deployed OpenAI GPT-5 model described in [this documentation
 ## Next steps
 
 - Learn more about Agentic Search [here]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/)
-- Learn more about agents [here]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agent-tools/agents/index/)
+- Learn more about agents [here]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/)
 - Join the discussion on the [OpenSearch forum](https://forum.opensearch.org/)
 - For any issues or bugs found, please open an issue on [GitHub](https://github.com/opensearch-project/dashboards-flow-framework)
 - TODO link to blog
