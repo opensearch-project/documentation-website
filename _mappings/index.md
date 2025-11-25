@@ -58,9 +58,9 @@ PUT /movies
 
 ### Key terminology
 
-- **Mappings**: The overall schema definition for an index
-- **Properties**: The container for all field definitions within mappings
-- **Field**: An individual data element (like `title` or `year`)
+- **Mappings**: The overall schema definition for an index.
+- **Properties**: The container for all field definitions within mappings.
+- **Field**: An individual data element (like `title` or `year`).
 - **Field type**: Defines how the field data is stored and indexed (for example, `text`, `integer`, `date`). For more information, see [Supported field types]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/).
 - **Mapping parameters**: Configuration options that modify field behavior (for example, `analyzer`, `coerce`, `format`). For more information, see [Mapping parameters]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/).
 
