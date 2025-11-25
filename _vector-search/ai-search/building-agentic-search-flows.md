@@ -44,7 +44,7 @@ Agents are very customizable and can be configured in many different ways depend
 
 `Flow` agents are optimized for speed and simplicity in query generation. `Conversational` agents can be configured with more tools and functionality for deeper thinking. Agent types can only be configured **once** during agent creation.
 
-When configuring `Flow` agents, ensure to add an appropriate `response_filter` in the **Query Planning** tool. For more details, see [Register a flow agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/flow-agent/#step-4-register-a-flow-agent).  
+When configuring `Flow` agents, certain models may require manually adding an appropriate `response_filter` in the **Query Planning** tool. For more details, see [Register a flow agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/flow-agent/#step-4-register-a-flow-agent). Currently, only `OpenAI` and `Amazon Bedrock Converse` are supported. If you would like native support for other endpoints, please open a [GitHub issue](https://github.com/opensearch-project/dashboards-flow-framework/issues).
 {: .note}
 
 ### Models
