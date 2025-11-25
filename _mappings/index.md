@@ -21,9 +21,89 @@ While [dynamic mappings](#dynamic-mapping) automatically add new data and fields
 
 For example, with explicit mappings, you can ensure that `year` is treated as text and `age` as an integer instead of both being interpreted as integers by dynamic mapping.
 
+## Mapping structure and concepts
+
+Before learning how to create mappings, it's important to understand how mappings are structured and the key terminology used throughout this documentation.
+
+### Mapping structure and example
+
+OpenSearch mappings follow a hierarchical JSON structure. The following example demonstrates using `text` and `date` fields with their mapping parameters. Additionally, it contains a nested `director` object with its own properties:
+
+```json
+PUT /movies
+{
+  "mappings": {                    // Overall mappings object
+    "properties": {                // Properties container
+      "title": {                   // Field name
+        "type": "text",            // Field type
+        "analyzer": "standard"     // Mapping parameter
+      },
+      "year": {                    // Field name
+        "type": "date",            // Field type
+        "format": "yyyy"           // Mapping parameter
+      },
+      "director": {                // Field name (object type)
+        "type": "object",          // Field type
+        "properties": {            // Properties container for nested fields
+          "name": {                // Field name (nested)
+            "type": "text"         // Field type
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Key terminology
+
+- **Mappings**: The overall schema definition for an index
+- **Properties**: The container for all field definitions within mappings
+- **Field**: An individual data element (like `title` or `year`)
+- **Field type**: Defines how the field data is stored and indexed (for example, `text`, `integer`, `date`). For more information, see [Supported field types]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/).
+- **Mapping parameters**: Configuration options that modify field behavior (for example, `analyzer`, `coerce`, `format`). For more information, see [Mapping parameters]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/).
+
+## Explicit mapping
+
+If you know exactly which field data types you need to use, then you can specify them in your request body when creating your index, as shown in the following example request:
+
+```json
+PUT sample-index1
+{
+  "mappings": {
+    "properties": {
+      "year":    { "type" : "text" },
+      "age":     { "type" : "integer" },
+      "director":{ "type" : "text" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+You cannot change the mapping of an existing field, you can only modify the field's mapping parameters.
+{: .note}
+
+To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method, as shown in the following example request:
+
+```json
+POST sample-index1/_mapping
+{
+  "properties": {
+    "year":    { "type" : "text" },
+    "age":     { "type" : "integer" },
+    "director":{ "type" : "text" }
+  }
+}
+```
+{% include copy-curl.html %}
+
+For more information about the Mapping API, see [Update mapping]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/).
+
 ## Dynamic mapping
 
-When you index a document, OpenSearch adds fields automatically with dynamic mapping. You can also explicitly add fields to an index mapping.
+When you index a document, OpenSearch can automatically detect and add new fields using dynamic mapping. This behavior differs from using explicit mappings, in which you define field types ahead of time.
 
 ### Dynamic mapping rules
 
@@ -165,43 +245,6 @@ PUT sample-index/_doc/1
 With numeric detection enabled:
 - The `price` field will be mapped as a `float` field
 - The `quantity` field will be mapped as a `long` field
-
-## Explicit mapping
-
-If you know exactly which field data types you need to use, then you can specify them in your request body when creating your index, as shown in the following example request:
-
-```json
-PUT sample-index1
-{
-  "mappings": {
-    "properties": {
-      "year":    { "type" : "text" },
-      "age":     { "type" : "integer" },
-      "director":{ "type" : "text" }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-You cannot change the mapping of an existing field, you can only modify the field's mapping parameters.
-{: .note}
-
-To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method, as shown in the following example request:
-
-```json
-POST sample-index1/_mapping
-{
-  "properties": {
-    "year":    { "type" : "text" },
-    "age":     { "type" : "integer" },
-    "director":{ "type" : "text" }
-  }
-}
-```
-{% include copy-curl.html %}
-
-For more information about the Mapping API, see [Update mapping]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/).
 
 ## Retrieving mappings
 
