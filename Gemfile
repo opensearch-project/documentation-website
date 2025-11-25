@@ -27,6 +27,7 @@ group :jekyll_plugins do
   gem 'jekyll-last-modified-at'
   gem 'jekyll-sitemap'
   gem 'jekyll-spec-insert', :path => './spec-insert'
+  gem 'jekyll-pdf-generator', :path => './_pdf-generator'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -46,6 +47,9 @@ gem 'typhoeus'
 # Spec Insert
 gem 'activesupport', '~> 7'
 gem 'mustache', '~> 1'
+
+# PDF Generator
+gem 'pdfkit', '~> 0.8'
 
 group :development, :test do
   gem 'rspec'

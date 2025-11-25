@@ -9,6 +9,4 @@ Gemfile.lock
 .jekyll-cache
 .project
 vendor/bundle
-node_modules
 pdfs
-package-lock.json

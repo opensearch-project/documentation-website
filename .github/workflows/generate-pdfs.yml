@@ -1,74 +1,9 @@
-name: Generate PDFs
-
-on:
-  workflow_dispatch:
-  schedule:
-    # Run weekly on Sundays at 2 AM UTC
-    - cron: "0 2 * * 0"
-  # Optional: Run after main branch updates (uncomment if desired)
-  # push:
-  #   branches:
-  #     - main
-
-jobs:
-  generate-pdfs:
-    if: github.repository == 'opensearch-project/documentation-website'
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.4.5'
-          bundler-cache: true
-
-      - name: Build Jekyll site
-        env:
-          JEKYLL_ENV: production
-        run: |
-          bundle exec jekyll build --future
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Generate PDFs
-        run: |
-          npm run generate-pdfs
-
-      - name: List generated PDFs
-        run: |
-          echo "Generated PDFs:"
-          ls -lh pdfs/ || echo "No PDFs generated"
-
-      - name: Upload PDFs as artifacts
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: opensearch-documentation-pdfs
-          path: pdfs/*.pdf
-          retention-days: 30
-
-      # Optional: Create a GitHub release with PDFs
-      # Uncomment and configure if you want to automatically create releases
-      # - name: Create GitHub Release
-      #   if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     files: pdfs/*.pdf
-      #     tag_name: pdfs-${{ github.run_number }}
-      #     name: Documentation PDFs
-      #     body: |
-      #       Automatically generated PDF documentation for OpenSearch.
-      #       Generated on ${{ github.run_id }}
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# PDF generation is now integrated into the Jekyll build process
+# PDFs are automatically generated during `jekyll build` and included in _site/pdfs/
+# PDFs will be deployed with the site to S3, accessible at:
+# https://docs.opensearch.org/pdfs/<filename>.pdf
+#
+# Note: The main Jekyll build workflow should install wkhtmltopdf:
+#   - name: Install wkhtmltopdf
+#     run: sudo apt-get update && sudo apt-get install -y wkhtmltopdf
 

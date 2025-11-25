@@ -329,6 +329,11 @@ plugins:
   - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-spec-insert
+  - jekyll-pdf-generator
+
+# PDF Generator configuration
+pdf_generator:
+  enabled: true
 
 # This format has to conform to RFC822
 last-modified-at:
