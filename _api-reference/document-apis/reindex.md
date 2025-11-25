@@ -14,21 +14,21 @@ redirect_from:
 
 The reindex document API operation copies all documents or a subset of documents from a source index(es), data stream, or alias into a destination index, data stream, or alias. The source and destination must be different. 
 
-The reindex operation takes a snapshot of the source index and copies documents to the destination index. For each document, copying is perfomed by extracting the document source ([`_source` field]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/)) and indexing it into the destination.
+The reindex operation takes a snapshot of the source index and copies documents to the destination index. For each document, copying is performed by extracting the document source ([`_source` field]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/)) and indexing it into the destination.
 
 OpenSearch natively supports cross-cluster reindexing, allowing you to copy data between different OpenSearch clusters. For more information, see [Cross-cluster reindexing](#cross-cluster-reindexing).
 
-Before using the reindex API, note the following requirements and limitations:
+Before using the Reindex API, note the following requirements and limitations:
 
 - The reindex operation requires the `_source` field to be enabled for all documents in the source index. If `_source` is disabled, the operation will fail.
 - You must create and configure the destination index before running the reindex operation. OpenSearch does not automatically copy settings, mappings, or shard configurations from the source index.
 - Configure the appropriate number of shards, replicas, and field mappings for the destination index based on your requirements.
-- For large reindex operations, consider temporarily disabling replicas on the destination index by setting `number_of_replicas` to `0`, then re-enabling them after completion.
+- For large reindex operations, consider temporarily disabling replicas on the destination index by setting `number_of_replicas` to `0` and then re-enabling them after completion.
 
-Reindexing large datasets can be resource-intensive and may impact cluster performance. Monitor cluster health during reindex operations and consider using throttling parameters for production environments. For more information, see [Performance optimization](#performance-optimization).
+Reindexing large datasets can be resource intensive and may impact cluster performance. Monitor cluster health during reindex operations and consider using throttling parameters for production environments. For more information, see [Performance optimization](#performance-optimization).
 {: .warning }
 
-Unlike update operations that modify documents within the same index, reindex operations work on different source and destination. Thus, version conflicts are unlikely. The `version_type` parameter controls how OpenSearch handles document versions during reindexing. By default, version conflicts stop the reindex process. To continue reindexing when conflicts occur, set the `conflicts` parameter to `proceed`. The response will include a count of version conflicts encountered. Other error types are unaffected by the `conflicts` parameter. 
+Unlike update operations that modify documents within the same index, reindex operations work on different sources and destinations. Thus, version conflicts are unlikely. The `version_type` parameter controls how OpenSearch handles document versions during reindexing. By default, version conflicts stop the reindex process. To continue reindexing when conflicts occur, set the `conflicts` parameter to `proceed`. The response will include a count of version conflicts encountered. Other error types are unaffected by the `conflicts` parameter. 
 
 By default, documents with the same ID are overwritten. The `op_type` parameter determines whether existing documents can be replaced or if only new documents are allowed, in which case attempting to index a document with an existing ID results in an error. For more information, see [Request body fields](#request-body-fields).
 
@@ -47,7 +47,7 @@ Parameter | Data type | Description
 `refresh` | Boolean | If `true`, OpenSearch refreshes shards to make the reindex operation available to search results. Valid values are `true`, `false`, and `wait_for`, which specifies to wait for a refresh before executing the operation. Default is `false`.
 `timeout` | Time unit | How long to wait for a response from the cluster. Default is `30s`.
 `wait_for_active_shards` | String | The number of active shards that must be available before OpenSearch processes the reindex request. Default is `1` (only the primary shard). Set to `all` or a positive integer. Values greater than `1` require replicas. For example, if you specify a value of `3`, the index must have two replicas distributed across two additional nodes for the operation to succeed.
-`wait_for_completion` | Boolean | If `false`, OpenSearch runs the reindex operation asynchronously, without waiting for it to complete. The request returns immediately, and the task continues in the background. You can monitor its progress using the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/). Default is `true`, which means the operation runs synchronously. See [Asynchronous operations](#asynchronous-operations).
+`wait_for_completion` | Boolean | If `false`, OpenSearch runs the reindex operation asynchronously without waiting for it to complete. The request returns immediately, and the task continues in the background. You can monitor its progress using the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/). Default is `true`, which means the operation runs synchronously. See [Asynchronous operations](#asynchronous-operations).
 `requests_per_second` | Integer | Specifies the request's throttling in sub-requests per second. Default is `-1`, which means no throttling. See [Controlling reindex rate](#controlling-reindex-rate) and [Throttling and rate control](#throttling-and-rate-control).
 `require_alias` | Boolean | Whether the destination index must be an alias. Default is `false`.
 `scroll` | Time unit | How long to keep the search context open. Default is `5m`.
@@ -62,7 +62,7 @@ Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `source` | Object | Required | The source to copy data from. See [The `source` object](#the-source-object).
 `dest` | Object | Required | The destination to copy data to. See [The `dest` object](#the-dest-object).
-`conflicts` | String | Optional | Indicates to OpenSearch what should happen if the Reindex operation runs into a version conflict. Valid values are `abort` and `proceed`. Default is `abort`.
+`conflicts` | String | Optional | Indicates to OpenSearch what should happen if the reindex operation encounters a version conflict. Valid values are `abort` and `proceed`. Default is `abort`.
 `script` | Object | Optional | A script that OpenSearch uses to apply transformations to the data during the reindex operation. See [The `script` object](#the-script-object).
 
 ### The `source` object
@@ -81,8 +81,8 @@ Field | Data type | Required/Optional | Description
 `remote.connect_timeout` | String | Optional | The remote connection timeout. Default is `30s`.
 `size` | Integer | Optional | The number of documents to index per batch. Use this when indexing from a remote source to ensure that each batch fits within the on-heap buffer, which has a default maximum size of 100 MB.
 `slice` | Object | Optional | The configuration for manual slicing. Must be an object with `id` (slice ID) and `max` (total number of slices) properties to manually specify which slice of the data to process. This enables parallel processing by running multiple reindex operations, each handling a different slice. See [Using slicing for parallel processing](#using-slicing-for-parallel-processing). 
-`_source` | Boolean or Array | Optional | Whether to reindex source fields. Specify a list of fields to reindex or true to reindex all fields. Default is `true`. See [Selecting specific fields](#selecting-specific-fields).
-`sort` | Array | Optional | _Deprecated_. A comma-separated list of `<field>:<direction>` pairs to sort documents before reindexing. If used with `max_docs` to control which documents are reindexed, consider using [filtering documents by query](#filtering-documents-by-query) to find the desired subset of data.
+`_source` | Boolean or Array | Optional | Whether to reindex source fields. Specify a list of fields to reindex or `true` to reindex all fields. Default is `true`. See [Selecting specific fields](#selecting-specific-fields).
+`sort` | Array | Optional | _Deprecated_. A comma-separated list of `<field>:<direction>` pairs used to sort documents before reindexing. If used with `max_docs` to control which documents are reindexed, consider [filtering documents by query](#filtering-documents-by-query) to find the desired subset of data.
 
 ### The `dest` object
 
@@ -91,8 +91,8 @@ The `dest` object supports the following fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `index` | String | Required | The name of the index, data stream, or alias to copy to.
-`version_type` | String | Optional | Controls how OpenSearch handles document versions during reindexing:<br>• `internal` (default): Ignores versions and overwrites any documents in the destination that have the same ID as documents from the source<br>• `external`: Preserves the version from the source, creates any missing documents, and updates documents in the destination only if they have an older version than the source<br>• `external_gt`: Similar to `external`, but only updates documents if the source version is greater than the destination version<br>• `external_gte`: Similar to `external`, but updates documents if the source version is greater than or equal to the destination version
-`op_type` | String | Optional | Determines how documents are processed during reindexing:<br>• `index` (default): Creates new documents and updates existing ones<br>• `create`: Only creates documents that don't exist in the destination. Documents with existing IDs cause version conflicts. Required when reindexing to data streams (which are append-only)
+`version_type` | String | Optional | Controls how OpenSearch handles document versions during reindexing:<br>• `internal` (default): Ignores versions and overwrites any documents in the destination that have the same ID as documents from the source.<br>• `external`: Preserves the version from the source, creates any missing documents, and updates documents in the destination only if they have an older version than the source.<br>• `external_gt`: Similar to `external` but only updates documents if the source version is greater than the destination version.<br>• `external_gte`: Similar to `external` but updates documents if the source version is greater than or equal to the destination version.
+`op_type` | String | Optional | Determines how documents are processed during reindexing:<br>• `index` (default): Creates new documents and updates existing ones.<br>• `create`: Only creates documents that don't exist in the destination. Documents with existing IDs cause version conflicts. Required when reindexing to data streams (which are append-only).
 `pipeline` | String | Optional | The ingest pipeline to use during reindexing. See [Transforming documents using ingest pipelines](#transforming-documents-using-ingest-pipelines).
 `routing` | String | Optional | Controls how document routing is handled during reindexing. Valid values are `keep` (preserves existing routing, default), `discard` (removes routing), or `=<value>` (sets routing to a specific value). See [Routing](#routing).
 
@@ -185,7 +185,7 @@ response = client.reindex(
 
 ## Response body fields
 
-The following table lists all response body fields with detailed descriptions.
+The following table lists all response body fields and provides a detailed description for each.
 
 Field | Data type | Description
 :--- | :--- | :---
@@ -558,7 +558,7 @@ PUT /_ingest/pipeline/data-enrichment
 }
 ```
 
-### Controlling reindex rate
+### Controlling the reindex rate
 
 Control the reindex rate to minimize cluster impact:
 
@@ -615,17 +615,17 @@ You can transform documents during the reindex process using scripts. You can mo
 
 Scripts can modify the following document metadata fields:
 
-- `ctx._id`: Change the document ID
-- `ctx._index`: Route documents to different destination indexes
-- `ctx._version`: Control document versioning
-- `ctx._routing`: Set custom routing values
+- `ctx._id`: Change the document ID.
+- `ctx._index`: Route documents to different destination indexes.
+- `ctx._version`: Control document versioning.
+- `ctx._routing`: Set custom routing values.
 
 Set the `ctx.op` field to control what happens to each document:
 
-- `ctx.op = "index"`: Index the document normally (default behavior)
-- `ctx.op = "create"`: Only create the document if it doesn't exist
-- `ctx.op = "noop"`: Skip the document (useful for conditional processing)
-- `ctx.op = "delete"`: Delete the document from the destination index
+- `ctx.op = "index"`: Index the document normally (default behavior).
+- `ctx.op = "create"`: Only create the document if it doesn't exist.
+- `ctx.op = "noop"`: Skip the document (useful for conditional processing).
+- `ctx.op = "delete"`: Delete the document from the destination index.
 
 ### Transforming field values
 
@@ -930,7 +930,7 @@ response = client.reindex(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-This example consolidates three months of daily log indices into a quarterly index while adding metadata about the consolidation.
+This example consolidates 3 months of daily log indexes into a quarterly index while adding metadata about the consolidation.
 
 ## Asynchronous operations
 
@@ -1112,7 +1112,7 @@ Parameter | Description | Default
 SSL settings must be configured in `opensearch.yml` and require a cluster restart. They cannot be set in the reindex request body.
 {: .warning }
 
-#### Remote cluster allowlist
+#### Remote cluster allow list
 
 Configure allowed remote hosts in `opensearch.yml`:
 
@@ -1124,7 +1124,7 @@ reindex.remote.allowlist: [
 ]
 ```
 
-The allowlist supports:
+The allow list supports:
 
 - Explicit host:port combinations.
 - Wildcard patterns for IP ranges.
@@ -1242,7 +1242,7 @@ response = client.reindex(
 
 For more control over parallelization, you can manually configure slices by specifying the slice ID and total number of slices in the request body.
 
-OpenSearch uses the `max` parameter to partition the dataset consistently across all slice requests. OpenSearch applies a hash function to each document using the `max` value to determine the slice the document belongs to. This ensures that:
+OpenSearch uses the `max` parameter to partition the dataset consistently across all slice requests. OpenSearch applies a hash function to each document using the `max` value to determine which slice the document belongs to. This ensures that:
 
 - Documents are distributed evenly across all slices.
 - Each document goes to exactly one slice (no duplicates or gaps).
