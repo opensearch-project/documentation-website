@@ -80,7 +80,7 @@ Try out different agents you've created. Select the **Inspect** button to view t
 
 ### Query
 
-Try out different natural language queries. You can also specify query fields for the agent to focus on in your selected index. To edit the full `agentic` search query directly, toggle to the **JSON** view. For `Conversational` agents, select **Continue conversation** after a search to persist the context for future searches. Select **Clear conversation** to discard any conversational history and start a new one.
+Try out different natural language queries. Select `Add query fields` to specify query fields for the agent to focus on in your selected index. To edit the full `agentic` search query directly, toggle to the **JSON** view. For `Conversational` agents, select **Continue conversation** after a search to persist the context for future searches. Select **Clear conversation** to discard any conversational history and start a new one.
 
 ### Running searches
 
