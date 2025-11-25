@@ -75,6 +75,9 @@ module Jekyll::LinkChecker
     'www.base64decode.org', # 403s on bots
     'docs.docker.com', # 403s on bots,
     'docs-vizlib.insightsoftware.com', # 403s on bots,
+    'medium.com', # 403s on bots
+    'elastic.co', # 406s on bots
+    'www.elastic.co', # 406s on bots
     'example.issue.link' # a fake example link from the template
   ]
 
