@@ -33,7 +33,7 @@ Choose one of the following approaches:
 osb generate-data --index-name my-index --index-mappings mapping.json --output-path ./data --total-size 1
 ```
 
-**Method 2: Using custom Python module**:
+**Method 2: Using a custom Python module**:
 
 ```shell
 osb generate-data --index-name my-index --custom-module custom.py --output-path ./data --total-size 1
@@ -51,7 +51,7 @@ Use the following options with the `generate-data` command.
 | `--index-mappings` or `-i` | Conditional (Either `--index-mappings` or `--custom-module` must be specified)| The path to the OpenSearch index mappings you want to use. Required when using mapping-based generation. Cannot be used with `--custom-module`. |
 | `--custom-module` or `-m` | Conditional (Either `--index-mappings` or `--custom-module` must be specified)| The path to the Python module that includes your custom logic. Required when using custom logic generation. Cannot be used with `--index-mappings`. The Python module must include the `generate_synthetic_document(providers, **custom_lists)` function. |
 | `--custom-config` or `-c` | Optional | The path to a YAML configuration file defining rules for how you want data to be generated. |
-| `--test-document` or `-t` | Optional | When this flag is present, OSB generates a single synthetic document and outputs it to the console. This provides you with a way to verify that the example document generated aligns with your expectations. When the flag is not present, the entire data corpora will be generated. |
+| `--test-document` or `-t` | Optional | When this flag is present, OpenSearch Benchmark generates a single synthetic document and outputs it to the console. This provides you with a way to verify that the generated example document aligns with your expectations. When the flag is not present, the entire data corpora will be generated. |
 
 ## Example output
 

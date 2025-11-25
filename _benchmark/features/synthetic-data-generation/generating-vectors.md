@@ -24,7 +24,7 @@ Example embedding for the word "dog":
 
 ## Sparse vectors
 
-Sparse vectors (represented by the [`sparse_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/sparse-vector/) field type in OpenSearch) are vectors in which most dimensions are zero, represented as key-value pairs of non-zero token IDs and their weights. Think of sparse vectors as a dictionary of important words with their importance scores, in which only significant terms are stored.
+Sparse vectors (represented by the [`sparse_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/sparse-vector/) field type in OpenSearch) are vectors in which most dimensions are zero, represented as key-value pairs of non-zero token IDs and their weights.
 
 Example text: "Korean jindos are hunting dogs that have a reputation for being loyal, independent, and confident."
 
@@ -93,7 +93,7 @@ In each of the generated documents, the `my_embedding` field might appear as fol
 
 ### Generating sparse vectors
 
-Generate sparse vectors with default configuration (10 tokens).
+Generate sparse vectors with the default configuration (10 tokens).
 
 **1. Create a mapping file** (`simple-sparse-mapping.json`):
 
@@ -144,13 +144,13 @@ In each of the generated documents, the `sparse_embedding` field might appear as
 }
 ```
 
-Using only an OpenSearch index mapping, OSB can generate synthetic dense and sparse vectors. However, this produces basic synthetic vectors. For more realistic distributions and clusterings, we recommend configuring the parameters described in the following section.
+Using only an OpenSearch index mapping, OpenSearch Benchmark can generate synthetic dense and sparse vectors. However, this produces basic synthetic vectors. For more realistic distributions and clusterings, we recommend configuring the parameters described in the following section.
 
 ---
 
 ## Dense vector (k-NN vector) parameters
 
-The following are parameters that you can add to your synthetic data generation configuration file (YAML Config) to fine-tune generation of dense vectors. These parameters are used in the `field_overrides` section with the `generate_knn_vector` generator. For complete configuration details, see [Advanced configuration](/benchmark/features/synthetic-data-generation/mapping-sdg/#advanced-configuration).
+The following are parameters that you can add to your synthetic data generation configuration file (YAML configuration) to fine-tune the generation of dense vectors. These parameters are used in the `field_overrides` section with the `generate_knn_vector` generator. For complete configuration details, see [Advanced configuration](/benchmark/features/synthetic-data-generation/mapping-sdg/#advanced-configuration).
 
 #### dimension
 
@@ -168,14 +168,14 @@ This parameter specifies the number of dimensions in the vector. Optional.
 
 The following table shows common dimension values and their typical use cases.
 
-| Dimension | Use Case | Example Models |
+| Dimension | Use case | Example models |
 |-----------|----------|----------------|
 | 128 | Lightweight, custom models | Custom embeddings, fast search |
 | 384 | General purpose | sentence-transformers/all-MiniLM-L6-v2 |
 | 768 | Standard NLP | BERT-Base, DistilBERT, MPNet |
-| 1024 | High quality NLP | BERT-Large |
-| 1536 | OpenAI standard | text-embedding-ada-002, text-embedding-3-small |
-| 3072 | OpenAI premium | text-embedding-3-large |
+| 1,024 | High-quality NLP | BERT-Large |
+| 1,536 | OpenAI standard | text-embedding-ada-002, text-embedding-3-small |
+| 3,072 | OpenAI premium | text-embedding-3-large |
 
 **Example**:
 
@@ -194,9 +194,9 @@ field_overrides:
 
 #### sample_vectors
 
-This parameter provides base vectors to which the generator adds noise, creating realistic variations and clusters. Optional, but highly recommended. 
+This parameter provides base vectors to which the generator adds noise, creating realistic variations and clusters. Optional but highly recommended. 
 
-Without sample vectors, OSB's synthetic data generator generates random uniform vectors across the entire space, which is unrealistic and offers poor search quality. Providing sample vectors allows OSB's synthetic data generator to create more realistic and natural clusters.
+Without sample vectors, OpenSearch Benchmark's synthetic data generator generates random uniform vectors across the entire space, which is unrealistic and offers poor search quality. Providing sample vectors allows OpenSearch Benchmark's synthetic data generator to create more realistic and natural clusters.
 
 After you prepare a list of sample vectors, insert them as a **list of lists**, in which each inner list is a complete vector. The following example provides sample vectors in the synthetic data generation configuration file:
 
@@ -221,7 +221,7 @@ Use the following guidelines to determine the number of vectors that you provide
 
 **How to obtain sample vectors**:
 
-**Option 1: Using actual embeddings from your domain (Recommended)**: Use actual embeddings from your domain, representing different semantic clusters. Random generation without sample vectors produces unrealistic data unsuitable for search quality testing.
+**Option 1 (Recommended): Using actual embeddings from your domain**: Use actual embeddings from your domain, representing different semantic clusters. Random generation without sample vectors produces unrealistic data unsuitable for search quality testing.
 
 **Option 2: Using sentence-transformers** in Python:
 
@@ -294,7 +294,7 @@ Optional. Default is `0.1`.
 
 The following table shows how different `noise_factor` values impact the generated data.
 
-| `noise_factor` | Effect | Use Case |
+| `noise_factor` | Effect | Use case |
 |--------------|--------|----------|
 | 0.01--0.05 | Tight clustering, minimal variation | Duplicate detection, near-exact matches |
 | 0.1--0.2 | Natural variation within topic | General semantic search, recommendations |
@@ -341,7 +341,6 @@ The following table shows when to set `normalize` to `true` based on your index 
 * **sentence-transformers**: Many models output normalized vectors. Review the model documentation; in most cases, `normalize` should be set to `true`.
 * **BERT (raw output)**: Raw BERT embeddings are not normalized. Set `normalize` to `false` and rely on the index configuration to perform normalization if needed.
 
-
 **Configuration**:
 
 ```yaml
@@ -368,22 +367,22 @@ field_overrides:
 
 ---
 
-## Sparse vectors parameters
+## Sparse vector parameters
 
-The following are parameters that you can add to your synthetic data generation configuration file to finetune how sparse vectors are generated. These parameters are used in the `field_overrides` section with the `generate_sparse_vector` generator. For complete configuration details, see [Advanced configuration](/benchmark/features/synthetic-data-generation/mapping-sdg/#advanced-configuration).
+The following are parameters that you can add to your synthetic data generation configuration file to fine-tune how sparse vectors are generated. These parameters are used in the `field_overrides` section with the `generate_sparse_vector` generator. For complete configuration details, see [Advanced configuration](/benchmark/features/synthetic-data-generation/mapping-sdg/#advanced-configuration).
 
 #### num_tokens
 
 This parameter specifies the number of token-weight pairs to generate per vector. Optional. Default is `10`. 
 
 **Impact**:
-- **Low (5--10)**: Very sparse, fast search, may miss some relevant documents
+- **Low (5--10)**: Very sparse, fast search; may miss some relevant documents
 - **Medium (10--25)**: Balanced performance and recall
-- **High (50--100)**: Dense sparse representation, comprehensive but slower
+- **High (50--100)**: Dense sparse representation; comprehensive but slower
 
 The following table shows typical `num_tokens` values for different models and approaches.
 
-| Model/Approach | Typical `num_tokens` | Use Case |
+| Model/Approach | Typical `num_tokens` | Use case |
 |----------------|-------------------|----------|
 | SPLADE v1 | 10--15 | Standard sparse neural search |
 | SPLADE v2 | 15--25 | Improved recall |
@@ -448,9 +447,9 @@ field_overrides:
 {% include copy.html %}
 
 **Constraints**:
-- `min_weight` must be > `0.0` (OpenSearch requires positive weights)
-- `max_weight` must be > `min_weight`
-- Weights are rounded to `4` decimal places
+- `min_weight` must be > `0.0` (OpenSearch requires positive weights).
+- `max_weight` must be > `min_weight`.
+- Weights are rounded to `4` decimal places.
 
 **Best practice**: Keep `min_weight` small (`0.01--0.05`) to allow nuanced weighting.
 
@@ -484,7 +483,7 @@ The following table shows different token ID configurations and their use cases.
 | Configuration               | `token_id_start`  | `token_id_step` | Use case                                                           |
 | --------------------------- | ----------------- | --------------- | ------------------------------------------------------------------ |
 | Default testing             | `1000`            | `100`           | Helps visually distinguish generated token ranges.                 |
-| Realistic vocabulary        | `0`               | `1`             | Aligns token IDs with a real model's vocabulary indices.           |
+| Realistic vocabulary        | `0`               | `1`             | Aligns token IDs with a real model's vocabulary indexes.           |
 | Multi-field generation      | `1000`, `5000`, `10000` | `1`             | Keeps token ID ranges separate across different fields.            |
 | Large vocabulary simulation | `0`               | `1`             | Supports generation scenarios with vocabularies of `50,000`+ tokens. |
 
@@ -540,4 +539,4 @@ The following table outlines when to use simple generation versus a more complex
 | Search quality testing    | Complex generation                              | Requires meaningful vector clusters to evaluate recall and precision accurately.              |
 
 
-**Recommendation**: For search quality testing or algorithm comparisons, use complex configuration with sample vectors to ensure realistic data distributions.
+**Recommendation**: For search quality testing or algorithm comparisons, use a complex configuration with sample vectors to ensure realistic data distributions.
