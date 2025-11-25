@@ -181,7 +181,7 @@ For a complete list of available parameters and their descriptions, see the [`ge
 
 ## Example output
 
-The following is an example output of generating 100 GB of data:
+The following is an example output when generating 100 GB of data:
 
 ```
    ____                  _____                      __       ____                  __                         __
