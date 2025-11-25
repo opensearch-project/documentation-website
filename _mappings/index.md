@@ -82,7 +82,7 @@ PUT sample-index1
 ```
 {% include copy-curl.html %}
 
-You cannot change the mapping of an existing field, you can only modify the field's mapping parameters.
+You cannot change the mapping of an existing field; you can only modify the field's mapping parameters.
 {: .note}
 
 To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method, as shown in the following example request:
