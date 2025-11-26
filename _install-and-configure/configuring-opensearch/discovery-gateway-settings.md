@@ -79,10 +79,6 @@ The following discovery settings are for expert-level configuration. **Warning**
 
 The local gateway stores on-disk cluster state and shard data that is used when a cluster is restarted. The following local gateway settings are supported:
 
-- `gateway.recover_after_nodes` (Static, integer): The minimum number of total nodes for any role that must be running after a full cluster restart before recovery can begin.
-  - **Default**: `0` (disabled)—recovery can start as soon as a cluster forms.
-  - **Recommendation**: Set to slightly over half of the number of all expected nodes so that the cluster doesn't start recovering with too few nodes.
-
 - `gateway.recover_after_data_nodes` (Static, integer): The minimum number of data nodes that must be running after a full cluster restart before recovery can begin.
   - **Default**: `0`
   - **Recommendation**: Set to a significant portion of the data nodes—approximately 50–70% of the total data nodes—to avoid premature recovery.
