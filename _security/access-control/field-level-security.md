@@ -10,9 +10,9 @@ redirect_from:
 
 # Field-level security
 
-Field-level security lets you control which document fields a user can see. Just like [document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/), you control access by index within a role.
+Field-level security (FLS) controls which document fields a role can **read** in an index. It applies only to read operations, such as search and get, and does not prevent users who have write or delete permissions from indexing, updating, or deleting data in those fields. Just like [document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/), you configure field-level security per index within a role.
 
-The easiest way to get started with document- and field-level security is open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
+The easiest way to get started with field-level security is open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
 
 ---
 

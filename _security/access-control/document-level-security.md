@@ -9,7 +9,8 @@ redirect_from:
 ---
 
 # Document-level security
-Document-level security lets you restrict a role to a subset of documents in an index. The easiest way to get started with document- and field-level security is to open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index Permissions** section, shown in the following image.
+
+Document-level security (DLS) controls which documents a role can retrieve when reading from an index. It applies only to read operations, such as search and get, and does not restrict indexing, updating, or deleting documents. If a role has write or delete permissions on an index, it can still modify or remove documents that are hidden by DLS. The write permissions are governed solely by index permissions and action groups. To get started with document level security, open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section, shown in the following image.
 
 ![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
 
@@ -18,7 +19,7 @@ The maximum size for the document-level security configuration is 1024 KB (1,048
 
 ## Simple roles
 
-Document-level security uses OpenSearch query domain-specific language (DSL) to define which documents a role grants access to. In OpenSearch Dashboards, choose an index pattern and provide a query in the **Document-level security** section:
+Document-level security uses OpenSearch query domain-specific language (DSL) to define which documents a role can read. In OpenSearch Dashboards, choose an index pattern and provide a query in the **Document-level security** section:
 
 ```json
 {
