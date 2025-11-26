@@ -49,7 +49,7 @@ When configuring `Flow` agents, certain models may require manually adding an ap
 
 ### Models
 
-In `Conversational` agents, models are responsible for query generation and tool orchestration. In `Flow` agents, models are used strictly for query generation. Additionally, different models are typically optimized for different scenarios: cost-efficient, fast inference versus resource-intensive, deep-thinking approaches.
+In `Conversational` agents, models are responsible for intelligent thinking - tool orchestration, connecting to external sources, and finally generating an appropriate DSL query. In `Flow` agents, tools run sequentially, and models in the **Query Planner** tool are used only for query generation. Additionally, different models are typically optimized for different scenarios: cost-efficient, fast inference versus resource-intensive, deep-thinking approaches.
 
 For a list of suggested models compatible with agentic search, see [Model configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration).
 
@@ -58,7 +58,7 @@ For a list of suggested models compatible with agentic search, see [Model config
 Agents must have the **Query Planning** tool enabled for executing agentic searches. Query generation can be entirely LLM-generated (default), or can be steered to select from a list of available search templates. Search templates can be useful for maintaining control over the queries generated, forcing the model to leverage known, working, and performant queries.
 ![Search templates]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/agentic-search-search-template.png)
 
-Other pre-built tools are available for `Conversational` agents, including **Search Index**, **List Index**, **Index Mapping**, and **Web Search**. Enable these to extend your agent's capabilities.
+Other pre-built tools are available for `Conversational` agents, including **Search Index**, **List Index**, **Index Mapping**, and **Web Search**. Enable these to extend your agent's capabilities. While these represent the most commonly used tools in agentic search, several additional [OpenSearch tools are available]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/) and can be configured manually in the **JSON** view.
 
 ### MCP servers
 
@@ -107,7 +107,7 @@ This example uses a deployed OpenAI GPT-5 model mentioned [here]({{site.url}}{{s
    ![Quick configure modal]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/agentic-search-quick-configure-modal.png)
 3. Under **Configure agent**, select **Create new agent**. Enter a unique **Name**, optionally provide a **Description**, and under **Model**, select the deployed **OpenAI GPT-5** model. Finally, select **Create agent** at the bottom.
    ![Agentic search configuration]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/agentic-search-example-configuration.png)
-4. Under **Agentic search**, select the index you'd like to search against. The agent will already be selected.
+4. Under **Agentic search**, select the index you'd like to search against, or leave the default as **All indices** and let the agent decide. The agent will already be selected.
 5. Under **Query**, enter a natural language query about your data. Select **Search** to run an agentic search.
    ![Agentic search]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/agentic-search-example-search.png)
 6. View the agent's generated query, the search hits, and agent summary.
@@ -117,10 +117,13 @@ This example uses a deployed OpenAI GPT-5 model mentioned [here]({{site.url}}{{s
 
    ![Agentic search summary]({{site.url}}{{site.baseurl}}/images/dashboards-flow-framework/agentic-search-example-summary.png)
 
+7. Optionally tune your agent. Try different sets of tools, different models, integrate with MCP servers, and more to see how the agent performs on different queries against your data.
+
 ## Next steps
 
-- Try out Agentic Search right now on the [ML Playground](https://ml.playground.opensearch.org/app/opensearch-flow#/workflows/WAmxgJoBWVNV3bhKKnGx?configureAgent=false)
-- Check out the Agentic Search [documentation]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/) and [blog](https://opensearch.org/blog/introducing-agentic-search-in-opensearch-transforming-data-interaction-through-natural-language/)
+- Try out Agentic Search on the [ML Playground](https://ml.playground.opensearch.org/app/opensearch-flow#/workflows/WAmxgJoBWVNV3bhKKnGx?configureAgent=false)
+- Check out the Agentic Search [documentation]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/)
+- Check out the Agentic Search [blog](https://opensearch.org/blog/introducing-agentic-search-in-opensearch-transforming-data-interaction-through-natural-language/)
 - Check out the OpenSearch agents [documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/index/)
-- Join the discussion on the [OpenSearch forum](https://forum.opensearch.org/)
+- Join the discussion on the [forum](https://forum.opensearch.org/t/use-cases-and-general-feedback-for-agentic-search/27488)
 - For any issues or bugs found, please open an issue on [GitHub](https://github.com/opensearch-project/dashboards-flow-framework)
