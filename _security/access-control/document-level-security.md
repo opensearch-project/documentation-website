@@ -19,7 +19,7 @@ The maximum size for the document-level security configuration is 1024 KB (1,048
 
 ## Simple roles
 
-Document-level security uses OpenSearch query domain-specific language (DSL) to define which documents a role can read. In OpenSearch Dashboards, choose an index pattern and provide a query in the **Document-level security** section:
+Document-level security uses OpenSearch query domain-specific language (DSL) to define which documents a role can retrieve. In OpenSearch Dashboards, choose an index pattern and provide a query in the **Document-level security** section:
 
 ```json
 {
