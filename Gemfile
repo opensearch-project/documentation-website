@@ -47,8 +47,11 @@ gem 'typhoeus'
 gem 'activesupport', '~> 7'
 gem 'mustache', '~> 1'
 
-# PDF Generator
-gem 'grover', '~> 1.3'
+# PDF Generator (optional - requires Node.js)
+# Install with: ENABLE_PDF_GENERATION=true bundle install
+if ENV['ENABLE_PDF_GENERATION'] == 'true'
+  gem 'grover', '~> 1.3'
+end
 
 group :development, :test do
   gem 'rspec'
