@@ -47,6 +47,9 @@ gem 'typhoeus'
 gem 'activesupport', '~> 7'
 gem 'mustache', '~> 1'
 
+# PDF Generator
+gem 'grover', '~> 1.3'
+
 group :development, :test do
   gem 'rspec'
   gem 'rubocop', '~> 1.44', require: false
