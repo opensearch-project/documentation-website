@@ -571,4 +571,3 @@ Jekyll::Hooks.register :site, :post_write do |site|
     generator.send(:generate_pdf_for_documents, pdf_job[:title], pdf_job[:documents], pdf_job[:filename])
   end
 end
-
