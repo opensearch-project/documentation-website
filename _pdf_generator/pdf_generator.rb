@@ -1,9 +1,17 @@
 # frozen_string_literal: true
 
 require "jekyll"
-require "grover"
 require "fileutils"
 require "uri"
+
+# Conditionally require grover - only needed when PDF generation is enabled
+begin
+  require "grover"
+  GROVER_AVAILABLE = true
+rescue LoadError
+  GROVER_AVAILABLE = false
+  # Don't log here as Jekyll logger may not be available yet
+end
 
 ##
 # Jekyll Generator Plugin for PDF Generation
@@ -18,6 +26,7 @@ module Jekyll
 
     def generate(site)
       return unless site.config["pdf_generator"] && site.config["pdf_generator"]["enabled"]
+      return unless GROVER_AVAILABLE
 
       @site = site
       @pdf_config = site.config["pdf_generator"]
@@ -226,8 +235,8 @@ module Jekyll
       end
       
       # Clean up content - remove script tags and interactive elements
-      content = content.gsub(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/mi, "")
-      content = content.gsub(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/mi, "")
+      content = content.gsub(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/mis, "")
+      content = content.gsub(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/mis, "")
       
       # Extract main content from HTML - try to find the main content area
       # Remove common HTML structure elements
@@ -253,42 +262,42 @@ module Jekyll
       return "" if html.nil? || html.empty?
       
       # Remove entire head section
-      html = html.gsub(/<head[^>]*>.*?<\/head>/mi, "")
+      html = html.gsub(/<head[^>]*>.*?<\/head>/mis, "")
       
       # Remove header/nav elements (entire elements)
-      html = html.gsub(/<header[^>]*>.*?<\/header>/mi, "")
-      html = html.gsub(/<nav[^>]*>.*?<\/nav>/mi, "")
-      html = html.gsub(/<aside[^>]*>.*?<\/aside>/mi, "")
-      html = html.gsub(/<footer[^>]*>.*?<\/footer>/mi, "")
+      html = html.gsub(/<header[^>]*>.*?<\/header>/mis, "")
+      html = html.gsub(/<nav[^>]*>.*?<\/nav>/mis, "")
+      html = html.gsub(/<aside[^>]*>.*?<\/aside>/mis, "")
+      html = html.gsub(/<footer[^>]*>.*?<\/footer>/mis, "")
       
       # Remove side-bar and navigation divs (multiline match)
-      html = html.gsub(/<div[^>]*class=["'][^"']*side-bar[^"']*["'][^>]*>.*?<\/div>/mi, "")
-      html = html.gsub(/<div[^>]*class=["'][^"']*site-nav[^"']*["'][^>]*>.*?<\/div>/mi, "")
-      html = html.gsub(/<div[^>]*class=["'][^"']*site-header[^"']*["'][^>]*>.*?<\/div>/mi, "")
-      html = html.gsub(/<div[^>]*class=["'][^"']*toc-wrap[^"']*["'][^>]*>.*?<\/div>/mi, "")
+      html = html.gsub(/<div[^>]*class=["'][^"']*side-bar[^"']*["'][^>]*>.*?<\/div>/mis, "")
+      html = html.gsub(/<div[^>]*class=["'][^"']*site-nav[^"']*["'][^>]*>.*?<\/div>/mis, "")
+      html = html.gsub(/<div[^>]*class=["'][^"']*site-header[^"']*["'][^>]*>.*?<\/div>/mis, "")
+      html = html.gsub(/<div[^>]*class=["'][^"']*toc-wrap[^"']*["'][^>]*>.*?<\/div>/mis, "")
       
       # Try to extract main content area - look for main-content or main-content-wrap
       # Using multiline and dotall matching
-      if html =~ /<div[^>]*class=["'][^"']*main-content[^"']*["'][^>]*>(.*?)<\/div>/mi
+      if html =~ /<div[^>]*class=["'][^"']*main-content[^"']*["'][^>]*>(.*?)<\/div>/mis
         html = $1
-      elsif html =~ /<div[^>]*id=["'][^"']*main-content[^"']*["'][^>]*>(.*?)<\/div>/mi
+      elsif html =~ /<div[^>]*id=["'][^"']*main-content[^"']*["'][^>]*>(.*?)<\/div>/mis
         html = $1
-      elsif html =~ /<main[^>]*>(.*?)<\/main>/mi
+      elsif html =~ /<main[^>]*>(.*?)<\/main>/mis
         html = $1
-      elsif html =~ /<div[^>]*id=["'][^"']*main[^"']*["'][^>]*>(.*?)<\/div>/mi
+      elsif html =~ /<div[^>]*id=["'][^"']*main[^"']*["'][^>]*>(.*?)<\/div>/mis
         html = $1
       end
       
       # Remove breadcrumb navigation
-      html = html.gsub(/<nav[^>]*aria-label=["']Breadcrumb["'][^>]*>.*?<\/nav>/mi, "")
-      html = html.gsub(/<div[^>]*class=["'][^"']*breadcrumb[^"']*["'][^>]*>.*?<\/div>/mi, "")
+      html = html.gsub(/<nav[^>]*aria-label=["']Breadcrumb["'][^>]*>.*?<\/nav>/mis, "")
+      html = html.gsub(/<div[^>]*class=["'][^"']*breadcrumb[^"']*["'][^>]*>.*?<\/div>/mis, "")
       
       # Remove any remaining script/style tags
-      html = html.gsub(/<script[^>]*>.*?<\/script>/mi, "")
-      html = html.gsub(/<style[^>]*>.*?<\/style>/mi, "")
+      html = html.gsub(/<script[^>]*>.*?<\/script>/mis, "")
+      html = html.gsub(/<style[^>]*>.*?<\/style>/mis, "")
       
       # Remove SVG elements (icons, etc.)
-      html = html.gsub(/<svg[^>]*>.*?<\/svg>/mi, "")
+      html = html.gsub(/<svg[^>]*>.*?<\/svg>/mis, "")
       
       # Clean up extra whitespace
       html = html.gsub(/\s+/, " ")
@@ -560,6 +569,7 @@ end
 # Hook to generate PDFs after all files are written
 Jekyll::Hooks.register :site, :post_write do |site|
   next unless site.config["pdf_generator"] && site.config["pdf_generator"]["enabled"]
+  next unless GROVER_AVAILABLE
   
   # Process all queued PDF generations
   Jekyll::PdfGenerator.pdf_jobs.each do |pdf_job|
