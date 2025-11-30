@@ -28,6 +28,7 @@ group :jekyll_plugins do
   gem 'jekyll-sitemap'
   gem 'jekyll-spec-insert', :path => './spec-insert'
   gem 'jekyll-pdf'
+  gem 'pdf_generator_loader', path: './pdf_generator_loader'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
