@@ -27,6 +27,7 @@ group :jekyll_plugins do
   gem 'jekyll-last-modified-at'
   gem 'jekyll-sitemap'
   gem 'jekyll-spec-insert', :path => './spec-insert'
+  gem 'jekyll-pdf'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
