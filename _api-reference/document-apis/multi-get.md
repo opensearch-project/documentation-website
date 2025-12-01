@@ -49,10 +49,10 @@ If you don't specify an index in your request's URL, you must specify your targe
 
 Field | Type | Description | Required
 :--- | :--- | :--- | :---
-docs | Array | The documents you want to retrieve data from. Can contain the attributes: `_id`, `_index`, `_routing`, `_source`, and `_stored_fields`. If you specify an index in the URL, you can omit this field and add IDs of the documents to retrieve. | Yes if an index is not specified in the URL
+docs | Array | The documents you want to retrieve data from. Can contain the attributes: `_id`, `_index`, `routing`, `_source`, and `_stored_fields`. If you specify an index in the URL, you can omit this field and add IDs of the documents to retrieve. | Yes if an index is not specified in the URL
 _id | String | The ID of the document. | Yes if `docs` is specified in the request body
 _index | String | Name of the index. | Yes if an index is not specified in the URL
-_routing | String | The value of the shard that has the document. | Yes if a routing value was used when indexing the document
+routing | String | The value of the shard that has the document. | Yes if a routing value was used when indexing the document
 _source | Object | Specifies whether to return the `_source` field from an index (boolean), whether to return specific fields (array), or whether to include or exclude certain fields. | No
 _source.includes | Array | Specifies which fields to include in the query response. For example, `"_source": { "include": ["Title"] }` retrieves `Title` from the index. | No
 _source.excludes | Array | Specifies which fields to exclude in the query response. For example, `"_source": { "exclude": ["Director"] }` excludes `Director` from the query response. | No
