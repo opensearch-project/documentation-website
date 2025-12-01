@@ -1148,13 +1148,13 @@ body: |
 }
 -->
 {% capture step1_rest %}
-POST /_reindex?requests_per_second=500
+POST /_reindex?requests_per_second=100
 {
   "source": {
-    "index": "production-data"
+    "index": "source"
   },
   "dest": {
-    "index": "production-backup"
+    "index": "dest"
   }
 }
 {% endcapture %}
@@ -1163,13 +1163,13 @@ POST /_reindex?requests_per_second=500
 
 
 response = client.reindex(
-  params = { "requests_per_second": "500" },
+  params = { "requests_per_second": "100" },
   body =   {
     "source": {
-      "index": "production-data"
+      "index": "source"
     },
     "dest": {
-      "index": "production-backup"
+      "index": "dest"
     }
   }
 )
