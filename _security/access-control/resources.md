@@ -1,39 +1,45 @@
 ---
 layout: default
-title: Sharing resources between access roles
+title: Resource sharing and access control
 parent: Access control
-nav_order: 130
+nav_order: 110
+has_children: true
+has_toc: false
 ---
 
-# Resource Sharing and Access Control
+# Resource sharing and access control
 
 **Introduced 3.3**
 {: .label .label-purple }
 
-This feature is **experimental**.
-{: .warning }
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
+{: .warning}
 
-The **Resource Sharing and Access Control** framework in the OpenSearch Security plugin provides *document-level*, fine-grained access management for plugin-defined resources. It extends OpenSearch’s existing role-based access control (RBAC) by letting resource owners explicitly share individual resources with other principals.
+The resource sharing and access control framework in the OpenSearch Security plugin provides *document-level*, fine-grained access management for plugin-defined resources. It extends OpenSearch's existing role-based access control by letting resource owners explicitly share individual resources with other principals.
 
-With this feature, you can:
+A _resource_ is a document stored in a plugin's system index. Resource sharing information is stored in a central security-managed system index.
 
-- Share or revoke access to your resources.
-- Allow users with share permission to redistribute access.
-- View and manage all shareable resources as a super administrator.
-- Integrate shareable resource types through a standardized **Resource Sharing SPI**.
-- Search resource indices with automatic per-user filtering applied by the Security plugin.
+Resource sharing requires coordination between plugin developers, administrators, and users. Plugin developers must first implement resource sharing support in their plugins and define the resource types that can be shared (such as `ml-model-group` or `anomaly-detector`). Once plugins with resource sharing support are installed, administrators enable the feature cluster-wide and configure the resource types that use resource-level authorization. Finally, users can create and share resources through the UI or APIs, provided they have the necessary cluster permissions.
 
-A **resource** is currently defined as a **document stored in a plugin’s system index**, and sharing information is stored in a **central security-managed system index**.
+This documentation is intended for **users** and **administrators** who want to configure and use resource sharing. If you are a **plugin developer** implementing resource sharing support for your plugin, see the [developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md).
 
----
+Resource sharing enables the following operations:
 
-# Enabling resource sharing
+- **Resource owners** can share or revoke access to their resources.
+- **Resource owners** can allow users with share permission to redistribute access.
+- **Administrators** with superadmin privileges can view and manage all shareable resources.
+- **All users** can search resource indexes with automatic per-user filtering applied by the Security plugin.
 
-The feature is controlled through the cluster settings configuration.
+## Configuring resource sharing
 
-## Cluster settings
+Resource sharing is disabled by default. To configure resource sharing, follow these steps.
 
-To enable resource sharing:
+Before configuring resource sharing, ensure that the plugins you want to use with resource sharing have implemented resource sharing support. If you need to add resource sharing support to a plugin, see the [developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md).
+{: .note}
+
+### Step 1: Enable resource sharing
+
+To enable resource sharing, add the following settings to the `opensearch.yml` file:
 
 ```yaml
 plugins.security.experimental.resource_sharing.enabled: true
@@ -41,22 +47,13 @@ plugins.security.system_indices.enabled: true
 ```
 {% include copy.html %}
 
-### Protected resource types
+For more information, see [Experimental feature flags]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
-Administrators must list which resource types use resource-level authorization:
+In OpenSearch 3.3, these settings can be updated only through `opensearch.yml` and require a cluster restart. 
 
-```yaml
-plugins.security.experimental.resource_sharing.protected_types: ["sample-resource", "ml-model"]
-```
-{% include copy.html %}
+Starting with OpenSearch 3.4, you can update both resource sharing settings dynamically without restarting the cluster:
 
-These types must match the resource types declared by plugins implementing the `ResourceSharingExtension` SPI.
-
-### Dynamic updates (3.4+)
-
-Starting with **3.4**, both settings can be updated dynamically:
-
-```
+```json
 PUT _cluster/settings
 {
   "transient": {
@@ -67,13 +64,42 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-In **3.3**, these settings can be updated **only through `opensearch.yml`** and require a restart.
+### Step 2: Configure protected resource types
 
----
+Specify the resource types that use resource-level authorization by listing them in the protected types configuration. This setting determines the plugin-defined resources that use the sharing and access control framework:
 
-# Required permissions
+```yaml
+plugins.security.experimental.resource_sharing.protected_types: ["sample-resource", "ml-model"]
+```
+{% include copy.html %}
 
-Resource sharing requires plugin-specific cluster permissions. Add the following to `roles.yml`:
+The resource types you specify must match exactly the resource types supported by your installed plugins. To discover the resource types available in your cluster, follow these steps:
+
+1. **Enable resource sharing** with an empty `protected_types` configuration initially.
+2. **Use the [List resource types API]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/#list-resource-types)** to discover all available resource types from your installed plugins.
+3. **Update your `protected_types` configuration** with the resource types you want to enable.
+
+## Example resource types
+
+The following are example resource types available for resource sharing:
+
+- **ML Commons plugin:**
+  - `ml-model-group` - Machine learning model groups
+
+- **Anomaly Detection plugin:**
+  - `anomaly-detector` - Anomaly detection jobs
+  - `forecaster` - Time series forecasting jobs
+
+Example configuration after discovering available types:
+
+```yaml
+plugins.security.experimental.resource_sharing.protected_types: ["ml-model-group", "anomaly-detector", "forecaster"]
+```
+{% include copy.html %}
+
+## Required permissions
+
+To access shared resources through plugin APIs, users need cluster-level permissions for those specific plugins. Administrators should configure appropriate roles in `roles.yml`. The following example shows the configuration for a `sample-resource-plugin`:
 
 ```yaml
 sample_full_access:
@@ -86,82 +112,29 @@ sample_read_access:
 ```
 {% include copy.html %}
 
-Users must have both:
+Resource sharing does not automatically grant API access. To access a resource using the API, users must have both:
 
-1. Cluster permissions for the plugin APIs
-2. Resources shared with them through the sharing APIs
+1. Cluster permissions for the plugin APIs.
+2. Resources shared with them through the sharing APIs.
 
-Sharing alone does **not** grant API access.
+## Data model
 
----
-
-# Resource sharing components
-
-The resource sharing framework includes several internal components and APIs.
-
-## Service Provider Interface (SPI)
-
-Plugins integrate through the **`opensearch-security-spi`** package.
-
-Plugins must implement:
-
-* `ResourceSharingExtension`
-  Declares shareable resource types and system indices.
-* `ResourceSharingClientAccessor`
-  Provides access to verification, sharing, and listing operations.
-
-Plugins must also register:
-
-```
-src/main/resources/META-INF/services/org.opensearch.security.spi.ResourceSharingExtension
-```
-
-Containing only:
-
-```
-com.example.MyResourceSharingExtension
-```
-
-{% include copy.html %}
-
-## resource-action-groups.yml
-
-Plugins define access levels using action groups:
-
-```yaml
-resource_types:
-  sample-resource:
-    sample_read_only:
-      allowed_actions:
-        - "cluster:admin/sample-resource-plugin/get"
-
-    sample_read_write:
-      allowed_actions:
-        - "cluster:admin/sample-resource-plugin/*"
-```
-
-These action groups become the valid “access levels” a user may share.
-
----
-
-# Data model
-
-All sharing metadata is stored in a dedicated *security-owned* system index.
+All sharing metadata (listed in the following table) is stored in a dedicated *security-owned* system index.
 
 | Field         | Description                                    |
-|---------------|------------------------------------------------|
-| `resource_id` | Unique identifier of the resource              |
-| `created_by`  | Creator username (and tenant if applicable)    |
-| `share_with`  | Mapping of action-groups to allowed principals |
-| `source_idx`  | Resource index managed by the plugin           |
+|:---|:---|
+| `resource_id` | The unique identifier of the resource.              |
+| `created_by`  | The resource creator username (and tenant, if applicable).    |
+| `share_with`  | The mapping of action groups to allowed principals. |
+| `source_idx`  | The resource index managed by the plugin.           |
 
-### Example document
+This example shows a resource with ID `model-group-123` created by the user `bob` in the `analytics` tenant. The resource is shared with specific users, roles, and backend roles with read-only access:
 
 ```json
 {
   "resource_id": "model-group-123",
   "created_by": {
-    "user": "darshit",
+    "user": "bob",
     "tenant": "analytics"
   },
   "share_with": {
@@ -173,202 +146,72 @@ All sharing metadata is stored in a dedicated *security-owned* system index.
   }
 }
 ```
+{% include copy.html %}
 
-To make a resource public:
+In this example:
+
+- Users: `alice` can access the resource.
+
+- Roles: Any user assigned the `data_viewer` role can access the resource.
+
+- Backend roles: Any user mapped to the `analytics_backend` backend role can access the resource.
+
+To make this resource public, set `users` to `["*"]`:
 
 ```json
+PATCH _plugins/_security/api/resource/share
 {
-  "share_with": {
-    "read_only": {
-      "users": ["*"]
-    }
+  "resource_id": "model-group-123",
+  "resource_type": "ml-model-group",
+  "add": {
+    "read_only": { "users": ["*"] }
   }
 }
 ```
-NOTE: Resource will be marked public only if "*" is added to user list.
-{: .note} yellow
+{% include copy-curl.html %}
 
-To keep a resource private:
+To keep a resource private, make the `share_with` object empty:
 
 ```json
-{ "share_with": {} }
-```
-
----
-
-# Access filtering for plugins
-
-When plugins perform a search on their system index:
-
-* The plugin performs the search using its system identity
-* Security automatically filters documents based on:
-
-    * resource owner
-    * shared principals
-    * privileges
-
-For example, only documents whose `all_shared_principals` list matches the authenticated user or roles will be returned.
-
-This filtering is done automatically if the plugin:
-
-* Implements `IdentityAwarePlugin`
-* Uses system identity for index access (no `stashContext`)
-
----
-
-# Java APIs for plugins
-
-Plugins call the ResourceSharingClient to enforce access.
-
-### Verify resource access
-
-```
-client.verifyAccess(resourceId, resourceIndex, action, listener);
-```
-
-### List accessible resource IDs
-
-```
-client.getAccessibleResourceIds(resourceIndex, listener);
-```
-
-### Check if feature enabled for type
-
-```
-client.isFeatureEnabledForType(resourceType);
-```
-
----
-
-# REST APIs
-
-## 1. Share a resource
-
-Replace the entire sharing configuration.
-
-```
 PUT _plugins/_security/api/resource/share
 {
-  "resource_id": "123",
-  "resource_type": "sample-resource",
-  "share_with": {
-    "read_only": {
-      "users": ["alice"],
-      "roles": ["auditor"]
-    }
-  }
+  "resource_id": "model-group-123",
+  "resource_type": "ml-model-group",
+  "share_with": {}
 }
 ```
 {% include copy-curl.html %}
 
----
+## REST APIs
 
-## 2. Modify sharing configuration
+You can use resource sharing API operations to share resources, manage access permissions, and automate resource sharing workflows.
 
-Add or revoke access.
+For complete API documentation, see [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/).
 
-```
-PATCH/POST _plugins/_security/api/resource/share
-{
-  "resource_id": "123",
-  "resource_type": "sample-resource",
-  "add": {
-    "read_only": { "users": ["bob"] }
-  },
-  "revoke": {
-    "read_only": { "users": ["alice"] }
-  }
-}
-```
-{% include copy-curl.html %}
+## Requirements and limitations
 
----
+To ensure proper resource sharing and access control, the following requirements and limitations apply:
 
-## 3. Get sharing info
-
-```
-GET _plugins/_security/api/resource/share?resource_id=<id>&resource_type=<resource-type>
-```
-{% include copy-curl.html %}
-
----
-
-## 4. List resource types
-
-```
-GET _plugins/_security/api/resource/types
-```
-{% include copy-curl.html %}
-
-Returns action groups declared by plugins.
-
----
-
-## 5. List accessible resources
-
-```
-GET _plugins/_security/api/resource/list?resource_type=<resource-type>
-```
-{% include copy-curl.html %}
-
-Returns only resources visible to the caller.
-
----
-
-## 6. Migration API (admin-only)
-
-Used once to import legacy plugin-managed sharing metadata.
-
-```
-POST _plugins/_security/api/resources/migrate
-{
-  "source_index": "<source-index>",
-  "username_path": "<json-path-to-owner-name>", # e.g. /owner/name
-  "backend_roles_path": "<json-path-to-backend-roles>", # e.g. /owner/backend_roles
-  "default_owner": "some_user",
-  "default_access_level": {
-    "<resource-type>": "<access-level>" # if resource-index has more than one resource type add more entries
-  }
-}
-
-```
-{% include copy-curl.html %}
-
-
----
-
-# Restrictions
-
-* Only owners, super-admins and users with sharing access can share or revoke access.
-* All resource indices must be system indices.
+* Only resource owners, superadmins, or users explicitly granted sharing permissions can share or revoke access.
+* All resources must reside in system indexes.
 * System index protection must be enabled.
-* Users still require plugin-level cluster permissions, specifically for creating resources.
-* Action-groups must be declared in plugin configuration.
+* Users still require plugin-level cluster permissions, including permission to create resources.
+* Action groups must be defined in the plugin configuration.
 
----
 
-# Best practices
+## Best practices
 
-For developers:
+When managing resource sharing, administrators should follow these best practices:
 
-* Use SPI and ResourceSharingClient instead of custom ACL logic.
-* Store only consistent resource types in a resource index.
-* Use the implicit DLS filtering by running searches under system identity.
+- Enable resource sharing on new clusters before usage.
 
-For admins:
+- Keep system index protection enabled.
 
-* Enable the feature on fresh clusters first.
-* Keep system index protection enabled.
-* Share resources minimally and explicitly.
+- Share resources minimally and explicitly to maintain security and control.
 
----
+## Related documentation
 
-# Conclusion
-
-The Resource Sharing and Access Control framework provides a unified and secure way to implement document-level access control for plugin-defined resources in OpenSearch. It introduces a standardized SPI, central sharing index, and new REST APIs for fine-grained authorization.
-
-For implementation examples, see the **sample-resource-plugin** in the security plugin repository.
-For more detailed documentation on this feature, please see [RESOURCE_SHARING_AND_ACCESS_CONTROL.md](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md).
-
----
-
+- [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) - REST API reference for programmatic management
+- [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) - UI workflows and user guidance
+- [Sample resource plugin](https://github.com/opensearch-project/security/tree/main/src/test/java/org/opensearch/security/resources/sample) - Implementation examples in the security plugin repository
+- [Developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md) - Detailed technical documentation for plugin developers, users, and administrators
