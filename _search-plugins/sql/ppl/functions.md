@@ -14,6 +14,134 @@ redirect_from:
 
 `PPL` supports most [`SQL` common]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/) functions, including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces few more functions (called `commands`) which are available in `PPL` only.
 
+## bin
+
+The ``bin`` command groups numeric values into buckets of equal intervals, making it useful for creating histograms and analyzing data distribution. It takes a numeric or time-based field and generates a new field with values that represent the lower bound of each bucket.
+
+### Syntax
+
+```sql
+bin <field> [span=<interval>] [minspan=<interval>] [bins=<count>] [aligntime=(earliest | latest | <time-specifier>)] [start=<value>] [end=<value>]
+```
+
+Field | Description | Required | Default
+:--- | :--- |:--- |:--- |:---
+`field` |  The field to bin. Accepts numeric or time-based fields. | Yes | -
+`span` | The interval size for each bin. Cannot be used with bins or minspan parameters. | No | -
+`minspan` | The minimum interval size for automatic span calculation. Cannot be used with span or bins parameters. | No | -
+`bins` | The maximum number of equal-width bins to create. Cannot be used with span or minspan parameters. The bins parameter must be between 2 and 50000 (inclusive). | No | -
+`aligntime` | Align the bin times for time-based fields. Valid only for time-based discretization. | No | -
+`start` | The starting value for binning range. | No | minimum field value
+`end` | The ending value for binning range | No | maximum field value
+
+**Example 1: Basic numeric span**
+
+```sql
+source=accounts | bin age span=10 | fields age, account_number | head 3;
+```
+
+| age | account_number
+:--- | :--- |
+| 30-40 | 1
+| 30-40 | 6
+| 20-30 | 13
+
+**Example 2: Logarithmin span (log10)**
+
+```sql
+source=accounts | bin balance span=log10 | fields balance | head 2;
+```
+
+| balance
+:--- |
+| 10000.0-1000000.0
+| 1000.0-10000.0
+
+**Example 3: Basic bins parameter**
+
+```sql
+source=time_test | bin value bins=5 | fields value | head 3;
+```
+
+| value
+:--- |
+| 8000-9000
+| 7000-8000
+| 9000-10000
+
+**Example 4: High bin count**
+
+```sql
+source=accounts | bin age bins=21 | fields age, account_number | head 3;
+```
+
+| age | account_number
+:--- | :--- |
+| 32-33 | 1
+| 36-37 | 6
+| 28-29 | 13
+
+**Example 5: Basic minspan**
+
+```sql
+source=accounts | bin age minspan=5 | fields age, account_number | head 3;
+```
+
+| age | account_number
+:--- | :--- |
+| 30-40 | 1
+| 30-40 | 6
+| 20-30 | 13
+
+**Example 6: Span with start/end**
+
+```sql
+source=accounts | bin age span=1 start=25 end=35 | fields age | head 6;
+```
+
+| age
+:--- |
+| 32-33
+| 36-37
+| 28-29
+| 33-34
+
+**Example 7: Hour span**
+
+```sql
+source=time_test | bin @timestamp span=1h | fields @timestamp, value | head 3;
+```
+
+| @timestamp | value
+:--- | :--- |
+| 2025-07-28 00:00:00 | 8945
+| 2025-07-28 01:00:00 | 7623
+| 2025-07-28 02:00:00 | 9187
+
+**Example 8: Default behavior (no parameters)**
+
+```sql
+source=accounts | bin age | fields age, account_number | head 3;
+```
+
+| age | account_number
+:--- | :--- |
+| 32.0-33.0 | 1
+| 36.0-37.0 | 6
+| 28.0-29.0 | 13
+
+**Example 9: Binning with string fields**
+
+```sql
+source=accounts | eval age_str = CAST(age AS STRING) | bin age_str bins=3 | stats count() by age_str | sort age_str;
+```
+
+| count() | age_str
+:--- | :--- |
+| 1 | 20-30
+| 3 | 30-40
+
+
 ## dedup
 
 The `dedup` (data deduplication) command removes duplicate documents defined by a field from the search result.
@@ -248,7 +376,7 @@ fetched rows / total rows = 4/4
 | null                  | null          
 | daleadams@boink.com   | boink.com  
 
-*Example 2*: Override the existing field
+**Example 2: Override the existing field**
 
 The example shows how to override the existing address field with street number removed.
 
@@ -287,6 +415,103 @@ A few limitations exist when using the parse command:
 - Fields defined by parse cannot be overridden with other commands. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval street='1' | where street='1' ;` `where` will not match any documents since `street` cannot be overridden.
 - The text field used by parse cannot be overridden. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval address='1' ;` `street` will not be parse since address is overridden. 
 - Fields defined by parse cannot be filtered/sorted after using them in the `stats` command. For example, `source=accounts | parse email '.+@(?<host>.+)' | stats avg(age) by host | where host=pyrami.com ;` `where` will not parse the domain listed.
+
+## regex
+
+The `regex` command filters search results by matching field values against a regular expression pattern. Only documents where the specified field matches the pattern are included in the results.
+
+### Syntax
+
+```sql
+regex <field> = <pattern> 
+regex <field> != <pattern>
+```
+
+Field | Description | Required
+:--- | :--- |:---
+`field` | The field name to match against. | Yes
+`pattern` | The regular expression pattern to match. Supports Java regex syntax including named groups, lookahead/lookbehind, and character classes. | Yes
+
+**Example 1: Basic pattern matching**
+
+This example shows how to filter documents where the ``lastname`` field matches names starting with uppercase letters.
+
+```sql
+source=accounts | regex lastname="^[A-Z][a-z]+$" | fields account_number, firstname, lastname;
+```
+
+| account_number | firstname | lastname
+:--- | :--- | :--- |
+| 1  | Amber   | Duke
+| 6  | Hattie  | Bond
+| 13 | Nanette | Bates
+| 18 | Dale    | Adams
+
+**Example 2: Negative matching**
+
+This example shows how to exclude documents where the ``lastname`` field ends with "son".
+
+```sql
+source=accounts | regex lastname!=".*son$" | fields account_number, lastname;
+```
+
+| account_number | lastname
+:--- | :--- |
+| 1  | Duke
+| 6  | Bond
+| 13 | Bates
+| 18 | Adams
+
+**Example 3: Email domain matching**
+
+This example shows how to filter documents by email domain patterns.
+
+```sql
+source=accounts | regex email="@pyrami\.com$" | fields account_number, email;
+```
+
+| account_number | email
+:--- | :--- |
+| 1  | amberduke@pyrami.com
+
+**Example 4: Complex patterns with character classes**
+
+This example shows how to use complex regex patterns with character classes and quantifiers.
+
+```sql
+source=accounts | regex address="\d{3,4}\s+[A-Z][a-z]+\s+(Street|Lane|Court)" | fields account_number, address;
+```
+
+| account_number | address
+:--- | :--- |
+| 1  | 880 Holmes Lane
+| 6  | 671 Bristol Street
+| 13 | 789 Madison Street
+| 18 | 467 Hutchinson Court
+
+**Example 4: Case-sensitive matching**
+
+This example demonstrates that regex matching is case-sensitive by default.
+
+```sql
+source=accounts | regex state="va" | fields account_number, state;
+```
+
+| account_number | state
+:--- | :--- |
+
+```sql
+source=accounts | regex state="VA" | fields account_number, state;
+```
+
+| account_number | state
+:--- | :--- |
+| 13 | VA
+
+### Limitations
+
+- **Field specification required**: A field name must be specified in the regex command. Pattern-only syntax (e.g., ``regex "pattern"``) is not currently supported.
+- **String fields only**: The regex command currently only supports string fields. Using it on numeric or boolean fields will result in an error.
 
 ## rename
 
@@ -336,6 +561,90 @@ search source=accounts | rename account_number as an, employer as emp | fields a
 ### Limitations
 
 The `rename` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
+
+## rex
+
+The `rex` command extracts fields from a raw text field using regular expression named capture groups.
+
+### Syntax
+
+```sql
+rex [mode=<mode>] field=<field> <pattern> [max_match=<int>] [offset_field=<string>]
+```
+
+Field | Description | Required | Default
+:--- | :--- |:---
+`field` | The field must be a string field to extract data from. | Yes | -
+`pattern` | The regular expression pattern with named capture groups used to extract new fields. Pattern must contain at least one named capture group using ``(?<name>pattern)`` syntax. | Yes | -
+`mode` | Either `extract` which creates new fields from regular expression named capture groups or `sed` which performs text substitution on the field using sed-style patterns. | No | `extract`
+`max_match` | Maximum number of matches to extract. If greater than 1, extracted fields become arrays. The value 0 means unlimited matches, but is automatically capped to the configured limit (default: 10, configurable via `plugins.ppl.rex.max_match.limit`). | No | 1
+`offset_field` | Field name to store the character offset positions of matches. Only available in extract mode. | No | -
+
+**Example 1: Basic Field Extraction**
+
+This example shows extracting username and domain from email addresses using named capture groups. Both extracted fields are returned as string type.
+
+```sql
+source=accounts | rex field=email "(?<username>[^@]+)@(?<domain>[^.]+)" | fields email, username, domain | head 2;
+```
+
+| email | username | domain
+:--- | :--- | :--- |
+| amberduke@pyrami.com  | amberduke  | pyrami
+| hattiebond@netagy.com | hattiebond | netagy
+
+**Example 2: Handling Non-matching Patterns**
+
+This example shows the rex command returning all events, setting extracted fields to null for non-matching patterns. Extracted fields would be string type when matches are found.
+
+```sql
+source=accounts | rex field=email "(?<user>[^@]+)@(?<domain>gmail\\.com)" | fields email, user, domain | head 2;
+```
+
+| email | username | domain
+:--- | :--- | :--- |
+| amberduke@pyrami.com  | null | null
+| hattiebond@netagy.com | null | null
+
+**Example 3: Multiple Matches with max_match**
+
+This example shows extracting multiple words from address field using max_match parameter. The extracted field is returned as an array type containing string elements.
+
+```sql
+source=accounts | rex field=address "(?<words>[A-Za-z]+)" max_match=2 | fields address, words | head 3;
+```
+
+| address | words
+:--- | :--- |
+| 880 Holmes Lane    | [Holmes,Lane]
+| 671 Bristol Street | [Bristol,Street]
+| 789 Madison Street | [Madison,Street]
+
+**Example 4: Text Replacement with mode=sed**
+
+This example shows replacing email domains using sed mode for text substitution. The extracted field is returned as string type.
+
+```sql
+source=accounts | rex field=email mode=sed "s/@.*/@company.com/" | fields email | head 2;
+```
+
+| email
+:--- |
+| amberduke@company.com
+| hattiebond@company.com
+
+**Example 5: Using offset_field**
+
+This example shows tracking the character positions where matches occur. Extracted fields are string type, and the offset_field is also string type.
+
+```sql
+source=accounts | rex field=email mode=sed "s/@.*/@company.com/" | fields email | head 2;
+```
+
+| email | username | domain | matchpos
+:--- | :--- | :--- | :--- |
+| amberduke@pyrami.com. | amberduke  | pyrami | domain=10-15&username=0-8
+| hattiebond@netagy.com | hattiebond | netagy | domain=11-16&username=0-9
 
 ## sort
 
@@ -426,6 +735,76 @@ search source=accounts | sort + gender, - age | fields account_number, gender, a
 | 18 | M | 33
 | 1  | M | 32
 
+## spath
+
+The spath command allows extracting fields from structured text data. It currently allows selecting from JSON data with JSON paths.
+
+### Syntax
+
+```sql
+spath input=<field> [output=<field>] [path=]<path>
+```
+
+Field | Description | Required | Default
+:--- | :--- |:---
+`input` | The field to scan for JSON data. | Yes | -
+`output` | The destination field that the data will be loaded to. | No | value of path
+`path` | The path of the data to load for the object. | Yes | -
+
+**Example 1: Simple Field Extraction**
+
+The simplest spath is to extract a single field. This example extracts n from the doc field of type text.
+
+```sql
+source=structured | spath input=doc_n n | fields doc_n n;
+```
+
+| doc_n | n |
+:--- | :--- |
+| {"n": 1} | 1
+| {"n": 2} | 2
+| {"n": 3} | 3
+
+**Example 2: Lists & Nesting**
+
+This example demonstrates more JSON path uses, like traversing nested fields and extracting list elements.
+
+```sql
+source=structured | spath input=doc_list output=first_element list{0} | spath input=doc_list output=all_elements list{} | spath input=doc_list output=nested nest_out.nest_in | fields doc_list first_element all_elements nested;
+```
+
+| doc_list | first_element | all_elements | nested
+:--- | :--- | :--- | :--- |
+| {"list": [1, 2, 3, 4], "nest_out": {"nest_in": "a"}} | 1 | [1,2,3,4] | a
+| {"list": [], "nest_out": {"nest_in": "a"}} | null | [] | a
+| {"list": [5, 6], "nest_out": {"nest_in": "a"}}  | 5 | [5,6] | a
+
+**Example 3: Sum of inner elements**
+
+This example shows extracting an inner field and doing statistics on it, using the docs from example 1. It also demonstrates that `spath` always returns strings for inner types.
+
+```sql
+source=structured | spath input=doc_n n | eval n=cast(n as int) | stats sum(n) | fields `sum(n)`;
+```
+
+| sum(n)
+:--- |
+| 6
+
+**Example 4: Escaped paths**
+
+`spath` can escape paths with strings to accept any path that `json_extract` does. This includes escaping complex field names as array components.
+
+```sql
+source=structured | spath output=a input=doc_escape "['a fancy field name']" | spath output=b input=doc_escape "['a.b.c']" | fields a b;
+```
+
+| a | b
+:--- | :--- |
+| true | 0
+| true | 1
+| false | 2
+
 ## stats
 
 Use the `stats` command to aggregate from search results.
@@ -514,6 +893,190 @@ search source=accounts | stats max(age), min(age) by gender;
 :--- | :--- | :--- |
 | F  | 28 | 28
 | M  | 32 | 36
+
+## timechart
+
+The ``timechart`` command creates a time-based aggregation of data. It groups data by time intervals and optionally by a field, then applies an aggregation function to each group. The results are returned in an unpivoted format with separate rows for each time-field combination.
+
+
+### Syntax
+
+```sql
+timechart [timefield=<field_name>] [span=<time_interval>] [limit=<number>] [useother=<boolean>] <aggregation_function> [by <field>]
+```
+
+Field | Description | Required | Default
+:--- | :--- |:--- | :--- |
+`timefield` | An expression that evaluates to a boolean value. | No | `@timestamp`
+`span` | Specifies the time interval for grouping data. | No | 1m
+`limit` | Specifies the maximum number of distinct values to display when using the "by" clause. | No | 10
+`useother` | Controls whether to create an "OTHER" category for values beyond the limit. | No | true
+`aggregation_function` | The aggregation function to apply to each time bucket. | Yes | -
+`by` | Groups the results by the specified field in addition to time intervals. If not specified, the aggregation is performed across all documents in each time interval. | No | -
+
+**Example 1: Count events by hour**
+
+This example counts events for each hour and groups them by host.
+
+```sql
+source=events | timechart span=1h count() by host;
+```
+
+| @timestamp | host | count()
+:--- | :--- | :--- |
+| 2023-01-01 10:00:00 | server1 | 4
+| 2023-01-01 10:00:00 | server2 | 4
+
+**Example 2: Calculate average number of packets by minute** 
+
+This example calculates the average packets for each minute without grouping by any field.
+
+```sql
+source=events | timechart span=1m avg(packets);
+```
+
+| @timestamp | avg(packets)
+:--- | :--- |
+| 2023-01-01 10:00:00 | 60.0
+| 2023-01-01 10:05:00 | 30.0
+| 2023-01-01 10:10:00 | 60.0
+| 2023-01-01 10:15:00 | 30.0
+| 2023-01-01 10:20:00 | 60.0
+| 2023-01-01 10:25:00 | 30.0
+| 2023-01-01 10:30:00 | 180.0
+| 2023-01-01 10:35:00 | 90.0
+
+**Example 3: Calculate average number of packets by every 20 minutes and status** 
+
+This example calculates the average number of packets for every 20 minutes and groups them by status.
+
+```sql
+source=events | timechart span=20m avg(packets) by status;
+```
+
+| @timestamp | status | avg(packets)
+:--- | :--- | :--- |
+| 2023-01-01 10:00:00 | active | 30.0
+| 2023-01-01 10:05:00 | inactive | 30.0
+| 2023-01-01 10:10:00 | pending | 60.0
+| 2023-01-01 10:15:00 | processing | 60.0
+| 2023-01-01 10:20:00 | cancelled | 180.0
+| 2023-01-01 10:25:00 | completed | 60.0
+| 2023-01-01 10:30:00 | inactive | 90.0
+| 2023-01-01 10:35:00 | pending | 30.0
+
+**Example 4: Using the limit parameter with count() function** 
+
+When there are many distinct values in the "by" field, the timechart command will display the top values based on the limit parameter and group the rest into an "OTHER" category.
+This query will display the top 2 hosts with the highest count values, and group the remaining hosts into an "OTHER" category.
+
+```sql
+source=events | timechart span=1m limit=2 count() by host;
+```
+
+| @timestamp | host | count()
+:--- | :--- | :--- |
+| 2023-01-01 10:00:00 | server1 | 1
+| 2023-01-01 10:05:00 | server2 | 1
+| 2023-01-01 10:10:00 | server1 | 1
+| 2023-01-01 10:15:00 | server2 | 1
+| 2023-01-01 10:20:00 | server1 | 1
+| 2023-01-01 10:25:00 | server2 | 1
+| 2023-01-01 10:30:00 | server1 | 1
+| 2023-01-01 10:35:00 | server2 | 1
+
+**Example 5: Using limit=0 with count() to show all values** 
+
+To display all distinct values without any limit, set limit=0:
+
+```sql
+source=events_many_hosts | timechart span=1h limit=0 count() by host;
+```
+
+| @timestamp | host | count()
+:--- | :--- | :--- |
+| 2024-07-01 00:00:00 | web-01 | 1
+| 2024-07-01 00:00:00 | web-02 | 1
+| 2024-07-01 00:00:00 | web-03 | 1
+| 2024-07-01 00:00:00 | web-04 | 1
+| 2024-07-01 00:00:00 | web-05 | 1
+| 2024-07-01 00:00:00 | web-06 | 1
+| 2024-07-01 00:00:00 | web-07 | 1
+| 2024-07-01 00:00:00 | web-08 | 1
+| 2024-07-01 00:00:00 | web-09 | 1
+| 2024-07-01 00:00:00 | web-10 | 1
+| 2024-07-01 00:00:00 | web-11 | 1
+
+**Example 6: Using useother=false with count() function** 
+
+Limit to top 10 hosts without OTHER category (useother=false):
+
+```sql
+source=events_many_hosts | timechart span=1h useother=false count() by host;
+```
+
+| @timestamp | host | count()
+:--- | :--- | :--- |
+| 2024-07-01 00:00:00 | web-01 | 1
+| 2024-07-01 00:00:00 | web-02 | 1
+| 2024-07-01 00:00:00 | web-03 | 1
+| 2024-07-01 00:00:00 | web-04 | 1
+| 2024-07-01 00:00:00 | web-05 | 1
+| 2024-07-01 00:00:00 | web-06 | 1
+| 2024-07-01 00:00:00 | web-07 | 1
+| 2024-07-01 00:00:00 | web-08 | 1
+| 2024-07-01 00:00:00 | web-09 | 1
+| 2024-07-01 00:00:00 | web-10 | 1
+
+**Example 7: Using limit with useother parameter and avg() function** 
+
+Limit to top 3 hosts with OTHER category (default useother=true):
+
+```sql
+source=events_many_hosts | timechart span=1h limit=3 avg(cpu_usage) by host;
+```
+
+| @timestamp | host | avg(cpu_usage)
+:--- | :--- | :--- |
+| 2024-07-01 00:00:00 | OTHER | 41.3
+| 2024-07-01 00:00:00 | web-03 | 55.3
+| 2024-07-01 00:00:00 | web-07 | 48.6
+| 2024-07-01 00:00:00 | web-09 | 67.8
+
+**Example 8: Handling null values in the "by" field** 
+
+This example shows how null values in the "by" field are treated as a separate category. The dataset events_null has 1 entry that does not have a host field.
+It is put into a separate "NULL" category because the defaults for `usenull` and `nullstr` are `true` and `"NULL"` respectively.
+
+```sql
+source=events_null | timechart span=1h count() by host;
+```
+
+| @timestamp | host | count()
+:--- | :--- | :--- |
+| 2024-07-01 00:00:00 | NULL | 1
+| 2024-07-01 00:00:00 | db-01 | 1
+| 2024-07-01 00:00:00 | web-01 | 2
+| 2024-07-01 00:00:00 | web-02 | 2
+
+**Example 9: Calculate packets per second rate** 
+
+This example calculates the per-second packet rate for network traffic data using the per_second() function.
+
+```sql
+source=events | timechart span=30m per_second(packets) by host;
+```
+
+| @timestamp | host | count()
+:--- | :--- | :--- |
+| 2024-07-01 00:00:00 | server1 | 0.1
+| 2024-07-01 00:00:00 | server2 | 0.05
+| 2024-07-01 00:00:00 | server1 | 0.1
+| 2024-07-01 00:00:00 | server2 | 0.05
+
+### Limitations
+- Only a single aggregation function is supported per timechart command.
+- The `bins` parameter and other bin options are not supported since the `bin` command is not implemented yet. Use the `span` parameter to control time intervals.
 
 ## where
 
