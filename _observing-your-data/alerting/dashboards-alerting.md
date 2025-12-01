@@ -36,7 +36,7 @@ Alerting visualizations are displayed as time-series charts that give you a snap
 
 Keep in mind the following requirements when setting up or creating alerting visualizations. The visualization:
 
-- Must be a [Vizlib line chart](https://community.vizlib.com/support/solutions/articles/35000107262-vizlib-line-chart-introduction)
+- Must be a [Vizlib line chart](https://docs-vizlib.insightsoftware.com/hc/en-us/articles/39676102755341-Line-Chart-Overview)
 - Must contain at least a Y-axis metric aggregation
 - Must not have non-Y-axis metric aggregation types
 - Must use the date histogram aggregation type for the X-axis bucket

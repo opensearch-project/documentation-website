@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Command flags
-nav_order: 51
+nav_order: 150
 parent: Command reference
 redirect_from:
   - /benchmark/commands/command-flags/
