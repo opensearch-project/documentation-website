@@ -748,7 +748,7 @@ spath input=<field> [output=<field>] [path=]<path>
 Field | Description | Required | Default
 :--- | :--- |:---
 `input` | The field to scan for JSON data. | Yes | -
-`output` | The destination field that the data will be loaded to. | No | value of path
+`output` | The destination field that the data will be loaded to. | No | Value of path
 `path` | The path of the data to load for the object. | Yes | -
 
 **Example 1: Simple Field Extraction**
