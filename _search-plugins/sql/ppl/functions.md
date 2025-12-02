@@ -646,6 +646,25 @@ source=accounts | rex field=email mode=sed "s/@.*/@company.com/" | fields email 
 | amberduke@pyrami.com. | amberduke  | pyrami | domain=10-15&username=0-8
 | hattiebond@netagy.com | hattiebond | netagy | domain=11-16&username=0-9
 
+### Limitations
+
+**Named Capture Group Naming:**
+
+- Group names must start with a letter and contain only letters and digits
+- For detailed Java regex pattern syntax and usage, refer to the `official Java Pattern documentation <https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html>`_
+
+**Pattern Requirements:**
+
+- Pattern must contain at least one named capture group
+- Regular capture groups ``(...)`` without names are not allowed
+
+**Max Match Limit:**
+ 
+- The ``max_match`` parameter is subject to a configurable system limit to prevent memory exhaustion
+- When ``max_match=0`` (unlimited) is specified, it is automatically capped at the configured limit (default: 10)
+- User-specified values exceeding the configured limit will result in an error
+- Users can adjust the limit via the ``plugins.ppl.rex.max_match.limit`` cluster setting. Setting this limit to a large value is not recommended as it can lead to excessive memory consumption, especially with patterns that match empty strings (e.g., ``\d*``, ``\w*``)
+
 ## sort
 
 Use the `sort` command to sort search results by a specified field.
