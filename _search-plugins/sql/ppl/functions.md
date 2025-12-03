@@ -21,12 +21,19 @@ redirect_from:
 {:toc}
 </details>
 
+{::options toc_levels="2..2" /}
 
-PPL supports most [common SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/) functions, including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces several more functions (called _commands_), which are available in PPL only.
+PPL supports most common [SQL functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces several more functions (called _commands_), which are available in PPL only.
 
 ---
 
 ## ad
+
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
 
 The `ad` command applies the Random Cut Forest (RCF) algorithm in the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) on the search result returned by a PPL command. Based on the input, the plugin uses two types of RCF algorithms: fixed in time RCF for processing time-series data and batch RCF for processing non-time-series data.
 
@@ -87,11 +94,19 @@ The command returns the following results.
 
 value | score | anomalous
 :--- | :--- | :---
-10844.0 | 0.0 | false  
+10844.0 | 0.0 | false
+
+</details>
 
 ---
 
 ## bin
+
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
 
 The `bin` command groups numeric values into buckets of equal intervals, making it useful for creating histograms and analyzing data distribution. It takes a numeric or time-based field and generates a new field with values that represent the lower bound of each bucket.
 
@@ -248,9 +263,17 @@ The command returns the following results.
 | 1 | 20-30
 | 3 | 30-40
 
+</details>
+
 ---
 
 ## dedup
+
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
 
 The `dedup` (data deduplication) command removes duplicate documents defined by a field from the search result.
 
@@ -356,10 +379,18 @@ account_number | gender
 
 The `dedup` command is not rewritten to OpenSearch DSL, it is only executed on the coordinating node.
 
+</details>
+
 ---
 
 ## eval
 
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+    
 The `eval` command evaluates an expression and appends its result to the search result.
 
 ### Syntax
@@ -435,10 +466,18 @@ age | doubleAge | ddAge
 
 The `eval` command is not rewritten to OpenSearch DSL; it is only executed on the coordinating node.
 
+</details>
+
 ---
 
 ## fields
 
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
 Use the `fields` command to keep or remove fields from a search result.
 
 ### Syntax
@@ -491,10 +530,18 @@ The command returns the following results.
 | Nanette | Bates
 | Dale    | Adams
 
+</details>
+
 ---
 
 ## head
 
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
 Use the `head` command to return the first N number of results in a specified search order.
 
 ### Syntax
@@ -547,14 +594,22 @@ The command returns the following results.
 
 The `head` command is not rewritten to OpenSearch DSL, it is only executed on the coordinating node.
 
+</details>
+
 ---
 
 ## join
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
-
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
 You can combine two datasets using the `join` command. The left side can be an index or results from piped commands, while the right side can be either an index or a subquery.
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
+{: .warning}
 
 ### Syntax
 
@@ -657,10 +712,18 @@ null | 40 | null
 
 The `join` command works only when `plugins.calcite.enabled` is set to `true`.
 
+</details>
+
 ---
 
 ## kmeans
 
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
 The `kmeans` command applies the ML Commons plugin's k-means algorithm to the provided PPL command's search results.
 
 ### Syntax
@@ -693,14 +756,22 @@ sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm 
 | 5.6 | 3.0 | 4.1 | 1.3 | 0
 | 6.7 | 2.5 | 5.8 | 1.8 | 2
 
+</details>
+
 ---
 
 ## lookup
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
-
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
 The `lookup` command enriches your search data by adding or replacing data from a lookup index (dimension table). You can extend index fields with values from a dimension table or append/replace values when a lookup condition is matched. As an alternative to the `join` command, the `lookup` command is more suitable for enriching the source data with a static dataset.
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
+{: .warning}
 
 ### Syntax
 
@@ -808,11 +879,20 @@ id | name | occupation | country | salary | new_occupation
 
 The `lookup` command works only when `plugins.calcite.enabled` is set to `true`.
 
+</details>
+
 ---
 
 ## parse
 
-Use the `parse` command to parse a text field using a regular expression and append the result to the search result. 
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
+Use the `parse` command to parse a text field using a regular expression and append the result to the search result.
+ 
 
 ### Syntax
 
@@ -892,12 +972,19 @@ A few limitations exist when using the `parse` command:
 - The text field used by parse cannot be overridden. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval address='1' ;`, `street` is not parsed since address is overridden.
 - Fields defined by parse cannot be filtered/sorted after using them in the `stats` command. For example, `source=accounts | parse email '.+@(?<host>.+)' | stats avg(age) by host | where host=pyrami.com ;` `where` does not match the domain listed.
 
+</details>
+
 ---
 
 ## rare
 
-Use the `rare` command to find the least common values of all fields in a field list.
-A maximum of 10 results are returned for each distinct set of values of the group-by fields.
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
+Use the `rare` command to find the least common values of all fields in a field list. A maximum of 10 results are returned for each distinct set of values of the group-by fields.
 
 ### Syntax
 
@@ -950,11 +1037,20 @@ The command returns the following results.
 
 The `rare` command is not rewritten to OpenSearch DSL, it is only executed on the coordinating node.
 
+</details>
+
 ---
 
 ## regex
 
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
 The `regex` command filters search results by matching field values against a regular expression pattern. Only documents where the specified field matches the pattern are included in the results.
+
 
 ### Syntax
 
@@ -1070,11 +1166,20 @@ The command returns the following results.
 - **Field specification required**: A field name must be specified in the regex command. Pattern-only syntax (e.g., ``regex "pattern"``) is not currently supported.
 - **String fields only**: The regex command currently only supports string fields. Using it on numeric or boolean fields results in an error.
 
+</details>
+
 ---
 
 ## rename
 
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
 Use the `rename` command to rename one or more fields in the search result.
+
 
 ### Syntax
 
@@ -1130,11 +1235,20 @@ The command returns the following results.
 
 The `rename` command is not rewritten to OpenSearch DSL, it is only executed on the coordinating node.
 
+</details>
+
 ---
 
 ## rex
 
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
 The `rex` command extracts fields from a raw text field using regular expression named capture groups.
+
 
 ### Syntax
 
@@ -1253,11 +1367,20 @@ The command returns the following results.
 - User-specified values exceeding the configured limit result in an error
 - Users can adjust the limit via the ``plugins.ppl.rex.max_match.limit`` cluster setting. Setting this limit to a large value is not recommended as it can lead to excessive memory consumption, especially with patterns that match empty strings (e.g., ``\d*``, ``\w*``)
 
+</details>
+
 ---
 
 ## sort
 
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
 Use the `sort` command to sort search results by a specified field.
+
 
 ### Syntax
 
@@ -1360,11 +1483,20 @@ The command returns the following results.
 | 18 | M | 33
 | 1  | M | 32
 
+</details>
+
 ---
 
 ## spath
 
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
 The spath command allows extracting fields from structured text data. It currently allows selecting from JSON data with JSON paths.
+
 
 ### Syntax
 
@@ -1445,10 +1577,18 @@ The command returns the following results.
 | true | 1
 | false | 2
 
+</details>
+
 ---
 
 ## stats
 
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
+  
 Use the `stats` command to aggregate data from search results.
 
 The following table lists the aggregation functions and also indicates how each one handles null or missing values:
@@ -1552,9 +1692,17 @@ The command returns the following results.
 | F  | 28 | 28
 | M  | 32 | 36
 
+</details>
+
 ---
 
 ## timechart
+
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
 
 The `timechart` command creates a time-based aggregation of data. It groups data by time intervals and optionally by a field, then applies an aggregation function to each group. The results are returned in an unpivoted format with separate rows for each time-field combination.
 
@@ -1766,9 +1914,17 @@ The command returns the following results.
 - Only a single aggregation function is supported per timechart command.
 - The `bins` parameter and other bin options are not supported in the `timechart` command. Use the `span` parameter to control time intervals.
 
+</details>
+
 ---
 
 ## top
+
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
 
 Use the `top` command to find the most common values of all fields in the field list.
 
@@ -1838,9 +1994,17 @@ The command returns the following results.
 
 The `top` command is not rewritten to OpenSearch DSL, it is only executed on the coordinating node.
 
+</details>
+
 ---
 
 ## where
+
+<details open markdown="block">
+  <summary>
+    Syntax and examples
+  </summary>
+  {: .text-delta }
 
 Use the `where` command with a boolean expression to filter the search result. The `where` command only returns the result when the boolean expression evaluates to true.
 
@@ -1872,3 +2036,5 @@ The command returns the following results.
 :--- | :--- |
 | 1  | M
 | 13 | F
+
+</details>
