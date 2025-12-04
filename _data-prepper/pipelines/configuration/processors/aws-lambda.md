@@ -44,7 +44,7 @@ Field                | Type    | Required | Description
 `circuit_breaker_retries` | Integer | Optional | The maximum number of circuit breaker checks before proceeding. Default is `0`.
 `circuit_breaker_wait_interval` | Long | Optional | The amount of time, in milliseconds, between circuit breaker checks. Default is `1000ms`.
 
-The following is example configuration:
+The following is an example configuration:
 
 ```yaml
 processors:
