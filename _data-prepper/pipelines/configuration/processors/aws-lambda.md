@@ -20,8 +20,7 @@ You can configure the processor using the following configuration options.
 
 Field                | Type    | Required | Description                                                                 
 -------------------- | ------- | -------- | ---------------------------------------------------------------------------- 
-`function_name`      | String  | Required | The name of the AWS Lambda function to invoke. Must be 3--500 characters.                               
-`invocation_type`    | String  | Optional | Specifies the invocation type, either `request-response` or `event`. Default is `request-response`.           
+`function_name`      | String  | Required | The name of the AWS Lambda function to invoke. Must be 3--500 characters.                                         
 `aws.region`         | String  | Required | The AWS Region in which the Lambda function is located.                         
 `aws.sts_role_arn`   | String  | Optional | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function. Must be 20--2048 characters.               
 `aws.sts_external_id` | String | Optional | An external ID for STS role assumption. Must be 2--1224 characters.
@@ -45,31 +44,30 @@ Field                | Type    | Required | Description
 `circuit_breaker_retries` | Integer | Optional | The maximum number of circuit breaker checks before proceeding. Default is `0`.
 `circuit_breaker_wait_interval` | Long | Optional | The amount of time, in milliseconds, between circuit breaker checks. Default is `1000ms`.
 
-#### Example configuration
+The following is an example configuration:
 
 ```yaml
 processors:
   - aws_lambda:
-      function_name: "my-lambda-function"
-      invocation_type: "request-response"
+      function_name: my-lambda-function
       response_events_match: false
-      response_mode: "replace"
+      response_mode: replace
       aws:
-        region: "us-east-1"
-        sts_role_arn: "arn:aws:iam::123456789012:role/my-lambda-role"
+        region: us-east-1
+        sts_role_arn: arn:aws:iam::123456789012:role/my-lambda-role
       client:
         max_retries: 3
-        api_call_timeout: "PT60S"
-        connection_timeout: "PT60S"
+        api_call_timeout: PT60S
+        connection_timeout: PT60S
         max_concurrency: 200
         base_delay: "PT0.1S"
         max_backoff: "PT20S"
       batch:
-        key_name: "events"
+        key_name: events
         threshold:
           event_count: 100
-          maximum_size: "5mb"
-          event_collect_timeout: "PT10S"
+          maximum_size: 5mb
+          event_collect_timeout: PT10S
       lambda_when: "/some_key == null"
       keys: ["key1", "key2"]
       cache:
