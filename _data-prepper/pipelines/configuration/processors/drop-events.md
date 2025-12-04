@@ -13,18 +13,18 @@ The `drop_events` processor drops all the events that are passed into it. The fo
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 drop_when | Yes | String | Accepts an OpenSearch Data Prepper expression string following the [expression syntax]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/). Configuring `drop_events` with `drop_when: true` drops all the events received.
-handle_failed_events | No | Enum | Specifies how exceptions are handled when an exception occurs while evaluating an event. Default value is `drop`, which drops the event so that it is not sent to any sinks or further processors. Available options are: <br> - `drop`: The event will be dropped and a warning will be logged.<br> - `drop_silently`: The event will be dropped without warning. <br> - `skip`: The event will not be dropped and a warning will be logged. <br> - `skip_silently`: The event will not be dropped and no warning will be logged.<br>For more information, see [handle_failed_events](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/drop-events-processor#handle_failed_events).
+handle_failed_events | No | Enum | Specifies how exceptions are handled when an exception occurs while evaluating an event. Default is `drop`, which drops the event so that it is not sent to any sinks or further processors. Valid values are: <br> - `drop`: The event will be dropped and a warning will be logged.<br> - `drop_silently`: The event will be dropped without warning. <br> - `skip`: The event will not be dropped and a warning will be logged. <br> - `skip_silently`: The event will not be dropped and no warning will be logged.<br>For more information, see [handle_failed_events](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/drop-events-processor#handle_failed_events).
 
 ## Examples
 
-The following are examples of possible pipeline configurations using `drop_events` processors.
+The following are examples of pipeline configurations using `drop_events` processors.
 
 The examples don't use security and are for demonstration purposes only. We strongly recommend configuring SSL before using these examples in production.
 {: .warning}
 
 ### Filter out debug logs
 
-The following example configuration demonstrates filtering out `DEBUG` level logs to reduce noise and storage costs while allowing `INFO`, `WARN`, and `ERROR` events through:
+The following example configuration demonstrates filtering out `DEBUG` level logs to reduce noise and storage costs while allowing `INFO`, `WARN`, and `ERROR` events:
 
 ```yaml
 filter-debug-logs-pipeline:
@@ -113,9 +113,9 @@ The documents stored in OpenSearch contain the following information:
 }
 ```
 
-### Multi condition event filtering
+### Multi-condition event filtering
 
-The following example shows how to drop events based on multiple criteria, such as debug logs, error status codes, and missing user IDs, ensuring only valid and important events reach OpenSearch:
+The following example shows how to drop events based on multiple criteria, such as debug logs, error status codes, and missing user IDs, in order to ensure that only valid and important events reach OpenSearch:
 
 ```yaml
 multi-condition-filter-pipeline:
@@ -204,7 +204,7 @@ The documents stored in OpenSearch contain the following information:
 
 ### Intelligent data sampling
 
-The following example demonstrates how to implement sampling strategies that drop high volume traffic based on request ID patterns and internal IP addresses, to manage data volume while preserving representative samples:
+The following example demonstrates how to implement sampling strategies that drop high-volume traffic based on request ID patterns and internal IP addresses, in order to manage data volume while preserving representative samples:
 
 ```yaml
 sampling-pipeline:
