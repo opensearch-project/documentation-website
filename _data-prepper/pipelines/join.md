@@ -9,23 +9,27 @@ nav_order: 25
 # join()
 
 
-The `join()` function joins elements of a list to form a string. The function takes a JSON pointer, which represents the key to a list or map where values are of the list type, and joins the lists as strings using a delimiter. Commas are the default delimiter between strings.
+The `join()` function joins elements of a list to form a string. The function takes a JSON pointer, which represents the key to a list or map where values are of the list type, and joins the lists as strings using a delimiter. The default delimiter is a comma (`,`).
 
 ## Parameters
 
-- **delimiter** (string, optional): The string placed between elements. Examples: `","`, `" | "`, `"; "`. Default is `","`.
-- **pointer** (required): JSON Pointer resolving to a list in the event.
+The `join` function takes the following parameters:
+
+- `delimiter` (string, optional): The string placed between elements. Examples: `,`, ` | `, `; `. Default is `,`.
+- `pointer` (required): A JSON pointer resolving to a list in the event.
 
 ## Returns
-- **string**: All elements concatenated with the chosen delimiter.
+The `join` command returns the following value:
+
+- `string`: All elements concatenated using the specified `delimiter`.
 
 ## Quick examples
 - `join("-", /labels)` returns `"prod-api-us"` for `labels: ["prod","api","us"]`
-- `join(" | ", /authors)` returns `"Ada | Linus | Grace"` for `authors: ["Ada","Linus","Grace"]
+- `join(" | ", /authors)` returns `"Ada | Linus | Grace"` for `authors: ["Ada","Linus","Grace"]`
 
-## Using `join()` in pipeline
+## Using `join()` in a pipeline
 
-You can use `join()` inside processors that support `value_expression`, for example `add_entries`:
+You can use `join()` inside processors that support `value_expression`, for example, the `add_entries` processor:
 
 ```yaml
 processor:
@@ -34,10 +38,11 @@ processor:
         - key: labels_csv
           value_expression: join(" | ", /labels)
 ```
+{% include copy.html %}
 
 ## Example
 
-The following pipeline ingests JSON events using the HTTP source, uses `add_entries` with `join()` to build two new fields, `labels_csv` and `authors_pipe`:
+The following pipeline ingests JSON events using an`http` source. It then uses `add_entries` with `join()` to build two new fields, `labels_csv` and `authors_pipe`:
 
 ```yaml
 join-demo:
