@@ -204,7 +204,7 @@ The documents stored in OpenSearch contain the following information:
 
 ### Intelligent data sampling
 
-The following example demonstrates how to implement sampling strategies that drop high-volume traffic based on request ID patterns and internal IP addresses, in order to manage data volume while preserving representative samples:
+The following example demonstrates how to implement sampling strategies that drop high-volume traffic based on request ID patterns and internal IP addresses in order to manage data volume while preserving representative samples:
 
 ```yaml
 sampling-pipeline:
