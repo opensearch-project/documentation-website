@@ -42,7 +42,7 @@ processor:
 
 ## Example
 
-The following pipeline ingests JSON events using an`http` source. It then uses `add_entries` with `join()` to build two new fields, `labels_csv` and `authors_pipe`:
+The following pipeline ingests JSON events using an `http` source. It then uses `add_entries` with `join()` to build two new fields, `labels_csv` and `authors_pipe`:
 
 ```yaml
 join-demo:
