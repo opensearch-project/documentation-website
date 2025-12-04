@@ -70,34 +70,32 @@ Requests to the `_plugins/_ppl` and `_plugins/_sql` endpoints include index name
 
 ## Available settings
 
-The following table lists the available SQL and PPL settings.
-
-| Setting                                               | Default            | Description                                                                                                                                                                  |
-| :---------------------------------------------------- | :----------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `plugins.sql.enabled`                                 | `true`             | Change to `false` to disable SQL support in the plugin.                                                                                                                      |
-| `plugins.ppl.enabled`                                 | `true`             | Change to `false` to disable PPL support in the plugin.                                                                                                                      |
-| `plugins.sql.slowlog`                                 | `2`                | Sets the time limit (in seconds) for slow queries. The plugin logs slow queries as `Slow query: elapsed=xxx (ms)` in `opensearch.log`.                                       |
-| `plugins.sql.cursor.keep_alive`                       | `1m`               | Configures the amount of time that the cursor context remains open. Because cursor contexts are resource-intensive, we recommend a low value.                                |
-| `plugins.query.memory_limit`                          | `85%`              | Sets the heap memory usage limit for the query engine’s circuit breaker.                                                                                                     |
-| `plugins.query.size_limit`                            | `10000`            | Sets the maximum number of rows returned from a query.                                                                                                                       |
-| `plugins.query.datasources.enabled`                   | `true`             | Change to `false` to disable support for data sources in the plugin.                                                                                                         |
-| `plugins.query.field_type_tolerance`                  | `true`             | If set to `false`, an array is reduced to the first non-array value at any nesting level. For example, `[[1, 2], [3, 4]]` reduces to `1`. If `true`, the array is preserved. |
-| `plugins.query.buckets`                               | `10000`            | Sets the number of aggregation buckets returned in a single response. The default value matches `plugins.query.size_limit`.                                                  |
-| `plugins.calcite.enabled`                             | `true`             | Enables the Apache Calcite query engine, including advanced SQL and PPL features such as subsearches, joins, and lookup operations.                                          |
-| `plugins.calcite.pushdown.enabled`                    | `true`             | Change to `false` to disable the operator pushdown optimization. We recommend using the default value.                                                                       |
-| `plugins.calcite.fallback.allowed`                    | `false`            | Change to `true` to allow fallback to the v2 engine.                                                                                                                         |
-| `plugins.calcite.pushdown.rowcount.estimation.factor` | `0.9`              | Sets a factor used to multiply the row count of a table scan to estimate the resulting row count. We recommend using the default value.                                      |
-| `plugins.calcite.all_join_types.allowed`              | `false`            | Enables performance-sensitive join types (such as `RIGHT`, `FULL`, and `CROSS`). Change to `true` to allow these join operations.                                            |
-| `plugins.ppl.syntax.legacy.preferred`                 | `true`             | Controls certain PPL syntax behaviors, including default argument values. When set to `false`, uses newer syntax standards.                                                  |
-| `plugins.ppl.values.max.limit`                        | `0`                | Sets the maximum number of unique values that the `VALUES` aggregation function can return. A value of `0` indicates no limit.                                               |
-| `plugins.ppl.rex.max_match.limit`                     | `10`               | Sets the maximum number of matches extracted by the `rex` command.                                                                                                           |
-| `plugins.ppl.subsearch.maxout`                        | `10000`            | Sets the maximum number of rows returned from a subsearch.                                                                                                                   |
-| `plugins.ppl.join.subsearch_maxout`                   | `50000`            | Sets the maximum number of rows from a subsearch used in a join.                                                                                                             |
-| `plugins.ppl.pattern.method`                          | `simple_pattern` | Sets the default algorithm used by the PPL patterns command to detect patterns in log data. Valid values are `simple_pattern` (a lightweight, fast pattern-extraction method) and `brain` (a more advanced algorithm for deeper pattern analysis).                                         |
-| `plugins.ppl.pattern.mode` | `label` | Sets the default pattern-matching mode used by the PPL patterns command. This determines how log patterns are generated and returned. Valid values are `label` (produces concise, high-level pattern labels) and `aggregation` (returns detailed pattern groups with sample logs and counts). |
-| `plugins.ppl.pattern.max.sample.count`                | `10`               | Sets the maximum number of sample logs returned per pattern in aggregation mode.                                                                                             |
-| `plugins.ppl.pattern.buffer.limit`                    | `100000`           | Sets the size of the internal temporary buffer used by the `brain` algorithm.                                                                                              |
-| `plugins.ppl.pattern.show.numbered.token`             | `false`            | Change to `true` to enable the numbered-token output format.                                                                                                                 |
+Setting | Default | Description
+:--- | :--- | :---
+`plugins.sql.enabled` | true | Change to `false` to disable the `SQL` support in the plugin.
+`plugins.ppl.enabled` | true | Change to `false` to disable the `PPL` support in the plugin.
+`plugins.sql.slowlog` | 2 | Configures the time limit (in seconds) for slow queries. The plugin logs slow queries as `Slow query: elapsed=xxx (ms)` in `opensearch.log`.
+`plugins.sql.cursor.keep_alive` | 1m | Configures how long the cursor context is kept open. Cursor contexts are resource-intensive, so we recommend a low value.
+`plugins.query.memory_limit` | 85% | Configures the heap memory usage limit for the circuit breaker of the query engine.
+`plugins.query.size_limit` | 10000 | Sets the maximum amount of rows returned from a query execution results.
+`plugins.query.datasources.enabled` | true | Change to `false` to disable support for data sources in the plugin.
+`plugins.query.field_type_tolerance` | true | If `false`, then an array is reduced to the first non-array value at any nesting level. For example, `[[1, 2], [3, 4]]` will be reduced to `1`. If `true`, then the array is preserved. Default is `true`.
+`plugins.query.buckets` | 10000 | Sets how many aggregation buckets will return in a single response. The default value equals to `plugins.query.size_limit`.
+`plugins.calcite.enabled` | true | Enables the Apache Calcite query engine, including advanced SQL and PPL capabilities such as subsearches, joins, and lookup operations.
+`plugins.calcite.pushdown.enabled` | true | Change to `false` to disable the operator pushdown optimization. We recommend using the default value.
+`plugins.calcite.fallback.allowed` | false | Change to `true` to allow fallback to v2 engine.
+`plugins.calcite.pushdown.rowcount.estimation.factor` | 0.9 | The value is a factor to multiply the row count of the table scan to get the estimated row count. We recommend using the default value.
+`plugins.calcite.all_join_types.allowed` | false | Enables performance-sensitive join types, like `RIGHT`, `FULL`, and `CROSS` joins. Change to `true` to allow these join operations.
+`plugins.ppl.syntax.legacy.preferred` | true | Controls certain PPL syntax behaviors, including default argument values. When `false`, uses newer syntax standards.
+`plugins.ppl.values.max.limit` | 0 | Sets the maximum number of unique values that the `VALUES` aggregation function can return. A value of `0` indicates no limit.
+`plugins.ppl.rex.max_match.limit` | 10  | Maximum number of matches to extract in `rex` command.
+`plugins.ppl.subsearch.maxout` | 10000 | Sets the maximum of rows to return from subsearch.
+`plugins.ppl.join.subsearch_maxout` | 50000 | Sets the maximum of rows from subsearch to join against.
+`plugins.ppl.pattern.method` | "simple_pattern" | Sets the default patterns method. Another supported method is "brain".
+`plugins.ppl.pattern.mode` | "label" | Sets the default patterns mode. Another supported mode is "aggregation".
+`plugins.ppl.pattern.max.sample.count` | 10 | Sets the default max sample logs returned per pattern in aggregation mode.
+`plugins.ppl.pattern.buffer.limit` | 100000 | Sets the default size of internal temporary buffer used in "brain" algorithm.
+`plugins.ppl.pattern.show.numbered.token` | false | Change to `true` to turn on numbered token output format.
 
 ## Spark connector settings
 
