@@ -35,16 +35,16 @@ PPL supports most common [SQL functions]({{site.url}}{{site.baseurl}}/search-plu
   </summary>
   {: .text-delta }
 
-The `ad` command applies the Random Cut Forest (RCF) algorithm in the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) on the search result returned by a PPL command. Based on the input, the plugin uses two types of RCF algorithms: fixed in time RCF for processing time-series data and batch RCF for processing non-time-series data.
+The `ad` command applies the Random Cut Forest (RCF) algorithm in the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) on the search result returned by a PPL command. Based on the input, the plugin uses two types of RCF algorithms: fixed-in-time RCF for processing time-series data and batch RCF for processing non-time-series data.
 
-### Syntax: Fixed In Time RCF For Time-series Data Command
+### Syntax: Fixed-in-time RCF for time-series data command
 
 ```sql
 ad <shingle_size> <time_decay> <time_field>
 ```
 {% include copy.html %}
 
-The following table describes the parameters for the `ad` command when using fixed in time RCF for time-series data.
+The following table describes the parameters for the `ad` command when using fixed-in-time RCF for time-series data.
 
 Field | Description | Required
 :--- | :--- | :---
@@ -52,7 +52,7 @@ Field | Description | Required
 `time_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
 `time_field` | Specifies the time field for RCF to use as time-series data. Must be either a long value, such as the timestamp in milliseconds, or a string value in "yyyy-MM-dd HH:mm:ss".| Yes
 
-### Syntax: Batch RCF for Non-time-series Data Command
+### Syntax: Batch RCF for non-time-series data command
 
 ```sql
 ad <shingle_size> <time_decay>
@@ -126,8 +126,8 @@ Field | Description | Required | Default
 `minspan` | The minimum interval size for automatic span calculation. Cannot be used with span or bins parameters. | No | N/A
 `bins` | The maximum number of equal-width bins to create. Cannot be used with span or minspan parameters. The bins parameter must be between 2 and 50000 (inclusive). | No | N/A
 `aligntime` | Align the bin times for time-based fields. Valid only for time-based discretization. | No | N/A
-`start` | The starting value for the bin range. | No | minimum field value
-`end` | The ending value for the bin range | No | maximum field value
+`start` | The starting value for the bin range. | No | Minimum field value
+`end` | The ending value for the bin range. | No | Maximum field value
 
 **Example 1: Basic numeric span**
 
@@ -377,7 +377,7 @@ account_number | gender
 
 ### Limitations
 
-The `dedup` command is not rewritten to OpenSearch DSL, it is only executed on the coordinating node.
+The `dedup` command is not rewritten to OpenSearch query domain-specific language (DSL); it is only executed on the coordinating node.
 
 </details>
 
@@ -464,7 +464,7 @@ age | doubleAge | ddAge
 
 ### Limitations
 
-The `eval` command is not rewritten to OpenSearch DSL; it is only executed on the coordinating node.
+The `eval` command is not rewritten to OpenSearch query DSL; it is only executed on the coordinating node.
 
 </details>
 
@@ -592,7 +592,7 @@ The command returns the following results.
 
 ### Limitations
 
-The `head` command is not rewritten to OpenSearch DSL, it is only executed on the coordinating node.
+The `head` command is not rewritten to OpenSearch query DSL; it is only executed on the coordinating node.
 
 </details>
 
@@ -741,7 +741,7 @@ Field | Description | Required
 
 **Example: Group Iris data**
 
-This example shows how to classify three Iris species (Iris setosa, Iris virginica and Iris versicolor) based on the combination of four features measured from each sample: the length and the width of the sepals and petals:
+This example shows how to classify three Iris species (Iris setosa, Iris virginica, and Iris versicolor) based on the combination of four features measured from each sample: the length and the width of the sepals and petals:
 
 ```sql
 source=iris_data | fields sepal_length_in_cm, sepal_width_in_cm, petal_length_in_cm, petal_width_in_cm | kmeans 3
@@ -834,7 +834,6 @@ The command returns the following results.
 1004 | David | Null | Canada | 0 | Null
 1005 | Jane | Scientist | Canada | 90000 | DATA
 
-
 **Example 2: Look up workers and replace their occupation and department**
 
 The following example looks up workers and replaces their occupation and department using their `work_information`:
@@ -893,7 +892,6 @@ The `lookup` command works only when `plugins.calcite.enabled` is set to `true`.
   
 Use the `parse` command to parse a text field using a regular expression and append the result to the search result.
  
-
 ### Syntax
 
 ```sql
@@ -908,11 +906,11 @@ Field | Description | Required
 `field` | A text field. | Yes
 `regular-expression` | The regular expression used to extract new fields from the given text field. If a new field name exists, it replaces the original field. | Yes
 
-The regular expression is used to match the whole text field of each document with Java regex engine. Each named capture group in the expression becomes a new `STRING` field.
+The regular expression is used to match the whole text field of each document with the Java regex engine. Each named capture group in the expression becomes a new `STRING` field.
 
-**Example 1: Create new field**
+**Example 1: Create a new field**
 
-The example shows how to create new field `host` for each document. `host` is the hostname after `@` in `email` field. Parsing a null field returns an empty string.
+The following example shows how to create a new field `host` for each document. `host` is the hostname after `@` in the `email` field. Parsing a null field returns an empty string:
 
 ```sql
 source=accounts | parse email '.+@(?<host>.+)' | fields email, host ;
@@ -930,7 +928,7 @@ The command returns the following results.
 
 **Example 2: Override the existing field**
 
-The example shows how to override the existing address field with street number removed.
+The following example shows how to override the existing address field with the street number removed:
 
 ```sql
 source=accounts | parse address '\d+ (?<address>.+)' | fields address ;
@@ -946,9 +944,9 @@ The command returns the following results.
 | Madison Street   
 | Hutchinson Court
 
-**Example 3: Filter and sort by cast parsed field**
+**Example 3: Filter and sort by a cast-parsed field**
 
-The example shows how to sort street numbers that are higher than 500 in address field.
+The following example shows how to sort street numbers that are higher than 500 in the address field:
 
 ```sql
 source=accounts | parse address '(?<streetNumber>\d+) (?<street>.+)' | where cast(streetNumber as int) > 500 | sort num(streetNumber) | fields streetNumber, street ;
@@ -967,10 +965,10 @@ The command returns the following results.
 
 A few limitations exist when using the `parse` command:
 
-- Fields defined by parse cannot be parsed again. For example, `source=accounts | parse address '\d+ (?<street>.+)' | parse street '\w+ (?<road>\w+)' ;` fails to return any expressions.
-- Fields defined by parse cannot be overridden with other commands. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval street='1' | where street='1' ;` `where` does not match any documents since `street` cannot be overridden.
-- The text field used by parse cannot be overridden. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval address='1' ;`, `street` is not parsed since address is overridden.
-- Fields defined by parse cannot be filtered/sorted after using them in the `stats` command. For example, `source=accounts | parse email '.+@(?<host>.+)' | stats avg(age) by host | where host=pyrami.com ;` `where` does not match the domain listed.
+- Fields defined by `parse` cannot be parsed again. For example, `source=accounts | parse address '\d+ (?<street>.+)' | parse street '\w+ (?<road>\w+)' ;` fails to return any expressions.
+- Fields defined by `parse` cannot be overridden with other commands. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval street='1' | where street='1' ;` `where` does not match any documents since `street` cannot be overridden.
+- The text field used by `parse` cannot be overridden. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval address='1' ;`, `street` is not parsed since the address is overridden.
+- Fields defined by `parse` cannot be filtered/sorted after using them in the `stats` command. For example, `source=accounts | parse email '.+@(?<host>.+)' | stats avg(age) by host | where host=pyrami.com ;` `where` does not match the domain listed.
 
 </details>
 
@@ -1035,7 +1033,7 @@ The command returns the following results.
 
 ### Limitations
 
-The `rare` command is not rewritten to OpenSearch DSL, it is only executed on the coordinating node.
+The `rare` command is not rewritten to OpenSearch query DSL; it is only executed on the coordinating node.
 
 </details>
 
@@ -1049,7 +1047,7 @@ The `rare` command is not rewritten to OpenSearch DSL, it is only executed on th
   </summary>
   {: .text-delta }
   
-The `regex` command filters search results by matching field values against a regular expression pattern. Only documents where the specified field matches the pattern are included in the results.
+The `regex` command filters search results by matching field values against a regular expression pattern. Only documents in which the specified field matches the pattern are included in the results.
 
 
 ### Syntax
@@ -1065,11 +1063,11 @@ The following table describes the parameters for the `regex` command.
 Field | Description | Required
 :--- | :--- | :---
 `field` | The field name to match against. | Yes
-`pattern` | The regular expression pattern to match. Supports Java regex syntax including named groups, lookahead/lookbehind, and character classes. | Yes
+`pattern` | The regular expression pattern to match. Supports Java regex syntax, including named groups, lookahead/lookbehind, and character classes. | Yes
 
 **Example 1: Basic pattern matching**
 
-This example shows how to filter documents where the ``lastname`` field matches names starting with uppercase letters.
+The following example shows how to filter documents where the ``lastname`` field matches names starting with uppercase letters:
 
 ```sql
 source=accounts | regex lastname="^[A-Z][a-z]+$" | fields account_number, firstname, lastname;
@@ -1087,7 +1085,7 @@ The command returns the following results.
 
 **Example 2: Negative matching**
 
-This example shows how to exclude documents where the ``lastname`` field ends with "son".
+The following example shows how to exclude documents where the ``lastname`` field ends with "son":
 
 ```sql
 source=accounts | regex lastname!=".*son$" | fields account_number, lastname;
@@ -1105,7 +1103,7 @@ The command returns the following results.
 
 **Example 3: Email domain matching**
 
-This example shows how to filter documents by email domain patterns.
+The following example shows how to filter documents by email domain patterns:
 
 ```sql
 source=accounts | regex email="@pyrami\.com$" | fields account_number, email;
@@ -1120,7 +1118,7 @@ The command returns the following results.
 
 **Example 4: Complex patterns with character classes**
 
-This example shows how to use complex regex patterns with character classes and quantifiers.
+The following example shows how to use complex regex patterns with character classes and quantifiers:
 
 ```sql
 source=accounts | regex address="\d{3,4}\s+[A-Z][a-z]+\s+(Street|Lane|Court)" | fields account_number, address;
@@ -1138,7 +1136,7 @@ The command returns the following results.
 
 **Example 5: Case-sensitive matching**
 
-This example demonstrates that regex matching is case-sensitive by default.
+The following example demonstrates that regex matching is case-sensitive by default:
 
 ```sql
 source=accounts | regex state="va" | fields account_number, state;
@@ -1163,8 +1161,8 @@ The command returns the following results.
 
 ### Limitations
 
-- **Field specification required**: A field name must be specified in the regex command. Pattern-only syntax (e.g., ``regex "pattern"``) is not currently supported.
-- **String fields only**: The regex command currently only supports string fields. Using it on numeric or boolean fields results in an error.
+- **Field specification required**: A field name must be specified in the `regex` command. Pattern-only syntax (for example, ``regex "pattern"``) is not currently supported.
+- **String fields only**: The `regex` command currently only supports string fields. Using it on numeric or Boolean fields results in an error.
 
 </details>
 
@@ -1233,7 +1231,7 @@ The command returns the following results.
 
 ### Limitations
 
-The `rename` command is not rewritten to OpenSearch DSL, it is only executed on the coordinating node.
+The `rename` command is not rewritten to OpenSearch query DSL; it is only executed on the coordinating node.
 
 </details>
 
@@ -1262,14 +1260,14 @@ The following table describes the parameters for the `rex` command.
 Field | Description | Required | Default
 :--- | :--- | :--- | :---
 `field` | The field must be a string field to extract data from. | Yes | N/A
-`pattern` | The regular expression pattern with named capture groups used to extract new fields. Pattern must contain at least one named capture group using ``(?<name>pattern)`` syntax. | Yes | N/A
-`mode` | Either `extract` which creates new fields from regular expression named capture groups or `sed` which performs text substitution on the field using sed-style patterns. | No | `extract`
-`max_match` | Maximum number of matches to extract. If greater than 1, extracted fields become arrays. The value 0 means unlimited matches, but is automatically capped to the configured limit (default: 10, configurable via `plugins.ppl.rex.max_match.limit`). | No | 1
-`offset_field` | Field name to store the character offset positions of matches. Only available in extract mode. | No | N/A
+`pattern` | The regular expression pattern with named capture groups used to extract new fields. The pattern must contain at least one named capture group using ``(?<name>pattern)`` syntax. | Yes | N/A
+`mode` | Either `extract`, which creates new fields from regular expression named capture groups, or `sed`, which performs text substitution on the field using sed-style patterns. | No | `extract`
+`max_match` | The maximum number of matches to extract. If greater than 1, extracted fields become arrays. The value 0 means unlimited matches, but is automatically capped to the configured limit (default: 10, configurable using `plugins.ppl.rex.max_match.limit`). | No | 1
+`offset_field` | The field name used to store the character offset positions of matches. Only available in extract mode. | No | N/A
 
-**Example 1: Basic Field Extraction**
+**Example 1: Basic field extraction**
 
-This example shows extracting username and domain from email addresses using named capture groups. Both extracted fields are returned as string type.
+The following example shows how to extract the username and domain from email addresses using named capture groups. Both extracted fields are returned as a string type:
 
 ```sql
 source=accounts | rex field=email "(?<username>[^@]+)@(?<domain>[^.]+)" | fields email, username, domain | head 2;
@@ -1283,9 +1281,9 @@ The command returns the following results.
 | amberduke@pyrami.com  | amberduke  | pyrami
 | hattiebond@netagy.com | hattiebond | netagy
 
-**Example 2: Handling Non-matching Patterns**
+**Example 2: Handling non-matching patterns**
 
-This example shows the rex command returning all events, setting extracted fields to null for non-matching patterns. Extracted fields are string type when matches are found.
+The following example shows the `rex` command returning all events, setting extracted fields to null for non-matching patterns. Extracted fields are of a string type when matches are found:
 
 ```sql
 source=accounts | rex field=email "(?<user>[^@]+)@(?<domain>gmail\\.com)" | fields email, user, domain | head 2;
@@ -1299,9 +1297,9 @@ The command returns the following results.
 | amberduke@pyrami.com  | null | null
 | hattiebond@netagy.com | null | null
 
-**Example 3: Multiple Matches with max_match**
+**Example 3: Multiple matches with max_match**
 
-This example shows extracting multiple words from address field using max_match parameter. The extracted field is returned as an array type containing string elements.
+The following example shows how to extract multiple words from the address field using the `max_match` parameter. The extracted field is returned as an array type containing string elements:
 
 ```sql
 source=accounts | rex field=address "(?<words>[A-Za-z]+)" max_match=2 | fields address, words | head 3;
@@ -1316,9 +1314,9 @@ The command returns the following results.
 | 671 Bristol Street | [Bristol,Street]
 | 789 Madison Street | [Madison,Street]
 
-**Example 4: Text Replacement with mode=sed**
+**Example 4: Text replacement with mode=sed**
 
-This example shows replacing email domains using sed mode for text substitution. The extracted field is returned as string type.
+The following example shows how to replace email domains using sed mode for text substitution. The extracted field is returned as a string type:
 
 ```sql
 source=accounts | rex field=email mode=sed "s/@.*/@company.com/" | fields email | head 2;
@@ -1334,7 +1332,7 @@ The command returns the following results.
 
 **Example 5: Using offset_field**
 
-This example shows tracking the character positions where matches occur. Extracted fields are string type, and the offset_field is also string type.
+The following example shows how to track the character positions where matches occur. Extracted fields are of a string type, and the `offset_field` is also of a string type:
 
 ```sql
 source=accounts | rex field=email "(?<username>[^@]+)@(?<domain>[^.]+)" offset_field=matchpos | fields email, username, domain, matchpos | head 2;
@@ -1352,20 +1350,20 @@ The command returns the following results.
 
 **Named Capture Group Naming:**
 
-- Group names must start with a letter and contain only letters and digits
-- For detailed Java regex pattern syntax and usage, refer to the [official Java Pattern documentation](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html)
+- Group names must start with a letter and contain only letters and digits.
+- For detailed Java regex pattern syntax and usage, refer to the [official Java Pattern documentation](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
-**Pattern Requirements:**
+**Pattern requirements**:
 
-- Pattern must contain at least one named capture group
-- Regular capture groups ``(...)`` without names are not allowed
+- The pattern must contain at least one named capture group.
+- Regular capture groups ``(...)`` without names are not allowed.
 
-**Max Match Limit:**
+**Max match limit**:
  
-- The ``max_match`` parameter is subject to a configurable system limit to prevent memory exhaustion
-- When ``max_match=0`` (unlimited) is specified, it is automatically capped at the configured limit (default: 10)
-- User-specified values exceeding the configured limit result in an error
-- Users can adjust the limit via the ``plugins.ppl.rex.max_match.limit`` cluster setting. Setting this limit to a large value is not recommended as it can lead to excessive memory consumption, especially with patterns that match empty strings (e.g., ``\d*``, ``\w*``)
+- The ``max_match`` parameter is subject to a configurable system limit to prevent memory exhaustion.
+- When ``max_match=0`` (unlimited) is specified, it is automatically capped at the configured limit (default: 10).
+- User-specified values exceeding the configured limit result in an error.
+- Users can adjust the limit using the ``plugins.ppl.rex.max_match.limit`` cluster setting. Setting this limit to a large value is not recommended because it can lead to excessive memory consumption, especially with patterns that match empty strings (for example, ``\d*``, ``\w*``).
 
 </details>
 
@@ -1393,7 +1391,7 @@ The following table describes the parameters for the `sort` command.
 
 Field | Description | Required | Default
 :--- | :--- | :--- | :---
-`count` | The maximum number results to return from the sorted result. If count=0, all results are returned. | No | 1000
+`count` | The maximum number of results to return from the sorted result. If count=0, all results are returned. | No | 1000
 `[+|-]` | Use plus [+] to sort by ascending order and minus [-] to sort by descending order. | No | Ascending order
 `sort-field` | Specify the field that you want to sort by. | Yes | N/A
 
@@ -1417,7 +1415,7 @@ account_number | age
 
 **Example 2: Sort by one field and return all results**
 
-To sort all documents by the `age` field in ascending order and specify count as 0 to get back all results, use the following command:
+To sort all documents by the `age` field in ascending order and specify `count` as 0 to return all results, use the following command:
 
 ```sql
 search source=accounts | sort 0 age | fields account_number, age;
@@ -1451,7 +1449,7 @@ account_number | age
 
 **Example 4: Specify the number of sorted documents to return**
 
-To sort all documents by the `age` field in ascending order and specify count as 2 to get back two results, use the following command:
+To sort all documents by the `age` field in ascending order and specify `count` as 2 to return two results, use the following command:
 
 ```sql
 search source=accounts | sort 2 age | fields account_number, age;
@@ -1467,7 +1465,7 @@ account_number | age
 
 **Example 5: Sort by multiple fields**
 
-To sort all documents by the `gender` field in ascending order and `age` field in descending order, use the following command:
+To sort all documents by the `gender` field in ascending order and the `age` field in descending order, use the following command:
 
 ```sql
 search source=accounts | sort + gender, - age | fields account_number, gender, age;
@@ -1495,7 +1493,7 @@ The command returns the following results.
   </summary>
   {: .text-delta }
   
-The spath command allows extracting fields from structured text data. It currently allows selecting from JSON data with JSON paths.
+The `spath` command allows you to extract fields from structured text data. It currently allows selecting from JSON data with JSON paths.
 
 
 ### Syntax
@@ -1513,9 +1511,9 @@ Field | Description | Required | Default
 `output` | The destination field that the data is loaded to. | No | Value of path
 `path` | The path of the data to load for the object. | Yes | N/A
 
-**Example 1: Simple Field Extraction**
+**Example 1: Simple field extraction**
 
-The simplest spath is to extract a single field. This example extracts n from the doc field of type text.
+The simplest `spath` is to extract a single field. The following example extracts n from the doc field of type text:
 
 ```sql
 source=structured | spath input=doc_n n | fields doc_n n;
@@ -1530,9 +1528,9 @@ doc_n | n
 {"n": 2} | 2
 {"n": 3} | 3
 
-**Example 2: Lists & Nesting**
+**Example 2: Lists and nesting**
 
-This example demonstrates more JSON path uses, like traversing nested fields and extracting list elements.
+The following example demonstrates additional JSON path use cases, such as traversing nested fields and extracting list elements:
 
 ```sql
 source=structured | spath input=doc_list output=first_element list{0} | spath input=doc_list output=all_elements list{} | spath input=doc_list output=nested nest_out.nest_in | fields doc_list first_element all_elements nested;
@@ -1547,7 +1545,7 @@ source=structured | spath input=doc_list output=first_element list{0} | spath in
 
 **Example 3: Sum of inner elements**
 
-This example shows extracting an inner field and doing statistics on it, using the docs from example 1. It also demonstrates that `spath` always returns strings for inner types.
+The following example shows how to extract an inner field and generate statistics on it, using the documents from the first example. It also demonstrates that `spath` always returns strings for inner types:
 
 ```sql
 source=structured | spath input=doc_n n | eval n=cast(n as int) | stats sum(n) | fields `sum(n)`;
@@ -1562,7 +1560,7 @@ The command returns the following results.
 
 **Example 4: Escaped paths**
 
-`spath` can escape paths with strings to accept any path that `json_extract` does. This includes escaping complex field names as array components.
+`spath` can escape paths with strings to accept any path that `json_extract` does. This includes escaping complex field names as array components:
 
 ```sql
 source=structured | spath output=a input=doc_escape "['a fancy field name']" | spath output=b input=doc_escape "['a.b.c']" | fields a b;
@@ -1591,7 +1589,7 @@ The command returns the following results.
   
 Use the `stats` command to aggregate data from search results.
 
-The following table lists the aggregation functions and also indicates how each one handles null or missing values:
+The following table lists the aggregation functions and also indicates how each one handles null or missing values.
 
 Function | NULL | MISSING
 :--- | :--- | :---
@@ -1633,7 +1631,7 @@ The command returns the following results.
 
 **Example 2: Calculate the average value of a field by group**
 
-To calculate the average age grouped by gender, use the following command:
+To calculate the average `age` grouped by gender, use the following command:
 
 ```sql
 search source=accounts | stats avg(age) by gender;
@@ -1649,7 +1647,7 @@ The command returns the following results.
 
 **Example 3: Calculate the average and sum of a field by group**
 
-To calculate the average and sum of age grouped by gender, use the following command:
+To calculate the average and sum of `age` grouped by gender, use the following command:
 
 ```sql
 search source=accounts | stats avg(age), sum(age) by gender;
@@ -1665,7 +1663,7 @@ The command returns the following results.
 
 **Example 4: Calculate the maximum value of a field**
 
-To calculate the maximum age, use the following command:
+To calculate the maximum `age`, use the following command:
 
 ```sql
 search source=accounts | stats max(age);
@@ -1678,7 +1676,7 @@ search source=accounts | stats max(age);
 
 **Example 5: Calculate the maximum and minimum value of a field by group**
 
-To calculate the maximum and minimum age values grouped by gender, use the following command:
+To calculate the maximum and minimum `age` values grouped by gender, use the following command:
 
 ```sql
 search source=accounts | stats max(age), min(age) by gender;
@@ -1721,13 +1719,13 @@ Field | Description | Required | Default
 `timefield` | The field to use for time-based grouping. Must be a timestamp field. | No | `@timestamp`
 `span` | Specifies the time interval for grouping data. | No | 1m
 `limit` | Specifies the maximum number of distinct values to display when using the "by" clause. | No | 10
-`useother` | Controls whether to create an "OTHER" category for values beyond the limit. | No | true
+`useother` | Controls whether to create an "OTHER" category for values beyond the limit. | No | `true`
 `aggregation_function` | The aggregation function to apply to each time bucket. | Yes | N/A
 `by` | Groups the results by the specified field in addition to time intervals. If not specified, the aggregation is performed across all documents in each time interval. | No | N/A
 
 **Example 1: Count events by hour**
 
-This example counts events for each hour and groups them by host.
+The following example counts events for each hour and groups them by host:
 
 ```sql
 source=events | timechart span=1h count() by host;
@@ -1743,7 +1741,7 @@ The command returns the following results.
 
 **Example 2: Calculate average number of packets by minute** 
 
-This example calculates the average packets for each minute without grouping by any field.
+The following example calculates the average packets for each minute without grouping by any field:
 
 ```sql
 source=events | timechart span=1m avg(packets);
@@ -1765,7 +1763,7 @@ The command returns the following results.
 
 **Example 3: Calculate average number of packets by every 20 minutes and status** 
 
-This example calculates the average number of packets for every 20 minutes and groups them by status.
+The following example calculates the average number of packets for every 20 minutes and groups them by status:
 
 ```sql
 source=events | timechart span=20m avg(packets) by status;
@@ -1785,10 +1783,10 @@ The command returns the following results.
 | 2023-01-01 10:30:00 | inactive | 90.0
 | 2023-01-01 10:35:00 | pending | 30.0
 
-**Example 4: Using the limit parameter with count() function** 
+**Example 4: Using the limit parameter with the count() function** 
 
-When there are many distinct values in the "by" field, the timechart command displays the top values based on the limit parameter and groups the rest into an "OTHER" category.
-This query displays the top 2 hosts with the highest count values, and groups the remaining hosts into an "OTHER" category.
+When there are many distinct values in the "by" field, the `timechart` command displays the top values based on the `limit` parameter and groups the rest into an "OTHER" category.
+The following query displays the top 2 hosts with the highest count values and groups the remaining hosts into an "OTHER" category:
 
 ```sql
 source=events | timechart span=1m limit=2 count() by host;
@@ -1808,7 +1806,7 @@ source=events | timechart span=1m limit=2 count() by host;
 
 **Example 5: Using limit=0 with count() to show all values** 
 
-To display all distinct values without any limit, set limit=0 and use the following command:
+To display all distinct values without any limit, set `limit=0` and use the following command:
 
 ```sql
 source=events_many_hosts | timechart span=1h limit=0 count() by host;
@@ -1831,9 +1829,9 @@ The command returns the following results.
 | 2024-07-01 00:00:00 | web-10 | 1
 | 2024-07-01 00:00:00 | web-11 | 1
 
-**Example 6: Using useother=false with count() function** 
+**Example 6: Using useother=false with the count() function** 
 
-Limit to top 10 hosts without OTHER category (useother=false):
+The following example displays the top 10 hosts without the OTHER category (`useother=false`):
 
 ```sql
 source=events_many_hosts | timechart span=1h useother=false count() by host;
@@ -1855,9 +1853,9 @@ The command returns the following results.
 | 2024-07-01 00:00:00 | web-09 | 1
 | 2024-07-01 00:00:00 | web-10 | 1
 
-**Example 7: Using limit with useother parameter and avg() function** 
+**Example 7: Using the limit parameter with the useother parameter and the avg() function** 
 
-Limit to top 3 hosts with OTHER category (default useother=true):
+The following example displays the top 3 hosts with the OTHER category (default is `useother=true`):
 
 ```sql
 source=events_many_hosts | timechart span=1h limit=3 avg(cpu_usage) by host;
@@ -1875,8 +1873,8 @@ The command returns the following results.
 
 **Example 8: Handling null values in the "by" field** 
 
-This example shows how null values in the "by" field are treated as a separate category. The dataset events_null has 1 entry that does not have a host field.
-It is put into a separate "NULL" category because the defaults for `usenull` and `nullstr` are `true` and `"NULL"` respectively.
+The following example shows how null values in the "by" field are treated as a separate category. The dataset `events_null` has 1 entry that does not have a host field.
+It is put into a separate "NULL" category because the defaults for `usenull` and `nullstr` are `true` and `"NULL"`, respectively:
 
 ```sql
 source=events_null | timechart span=1h count() by host;
@@ -1894,7 +1892,7 @@ The command returns the following results.
 
 **Example 9: Calculate packets per second rate** 
 
-This example calculates the per-second packet rate for network traffic data using the per_second() function.
+The following example calculates the per-second packet rate for network traffic data using the `per_second()` function:
 
 ```sql
 source=events | timechart span=30m per_second(packets) by host;
@@ -1911,7 +1909,7 @@ The command returns the following results.
 | 2024-07-01 00:00:00 | server2 | 0.05
 
 ### Limitations
-- Only a single aggregation function is supported per timechart command.
+- Only a single aggregation function is supported per `timechart` command.
 - The `bins` parameter and other bin options are not supported in the `timechart` command. Use the `span` parameter to control time intervals.
 
 </details>
@@ -1992,7 +1990,7 @@ The command returns the following results.
 
 ### Limitations
 
-The `top` command is not rewritten to OpenSearch DSL, it is only executed on the coordinating node.
+The `top` command is not rewritten to OpenSearch query DSL; it is only executed on the coordinating node.
 
 </details>
 
@@ -2006,7 +2004,7 @@ The `top` command is not rewritten to OpenSearch DSL, it is only executed on the
   </summary>
   {: .text-delta }
 
-Use the `where` command with a boolean expression to filter the search result. The `where` command only returns the result when the boolean expression evaluates to true.
+Use the `where` command with a Boolean expression to filter the search result. The `where` command only returns the result when the Boolean expression evaluates to `true`.
 
 ### Syntax
 
@@ -2019,9 +2017,9 @@ The following table describes the parameters for the `where` command.
 
 Field | Description | Required
 :--- | :--- | :---
-`boolean-expression` | An expression that evaluates to a boolean value. | No
+`boolean-expression` | An expression that evaluates to a Boolean value. | No
 
-**Example: Filter result set with a condition**
+**Example: Filter the result set with a condition**
 
 To get all documents from the `accounts` index where `account_number` is 1 or gender is `F`, use the following command:
 
