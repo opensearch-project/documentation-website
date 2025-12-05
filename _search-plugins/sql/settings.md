@@ -90,7 +90,7 @@ Setting | Default | Description
 `plugins.ppl.values.max.limit` | `0` | Sets the maximum number of unique values that the `VALUES` aggregation function can return. A value of `0` indicates no limit.
 `plugins.ppl.rex.max_match.limit` | `10` | Sets the maximum number of matches extracted by the `rex` command.
 `plugins.ppl.subsearch.maxout` | `10000` | Sets the maximum number of rows to return from a subsearch.
-`plugins.ppl.join.subsearch_maxout` | `50000` | Sets the maximum of rows from subsearch to join against.
+`plugins.ppl.join.subsearch_maxout` | `50000` | Sets the maximum number of rows from to return from a subsearch used in a join operation.
 `plugins.ppl.pattern.method` | `simple_pattern` | Sets the method for the `patterns` command. Valid values are `simple_pattern` and `brain`. For more information, see [`patterns` syntax](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/cmd/patterns.rst#syntax).
 `plugins.ppl.pattern.mode` | `label` | Sets the mode for the `patterns` command. Valid values are `label` and `aggregation`. For more information, see [`patterns` syntax](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/cmd/patterns.rst#syntax).
 `plugins.ppl.pattern.max.sample.count` | `10` | Sets the maximum number of sample logs returned per pattern in aggregation mode.
