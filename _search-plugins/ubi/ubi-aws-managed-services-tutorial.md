@@ -12,7 +12,7 @@ nav_order: 30
 This tutorial shows you how to collect queries and events in the User Behavior Insights (UBI) format when using Amazon OpenSearch Service (AWS managed service).
 
 The native UBI plugin is only available in open-source OpenSearch distributions and is not part of Amazon OpenSearch Service. This tutorial demonstrates an alternative approach using Amazon OpenSearch Ingestion for AWS managed service customers who want to implement UBI-style data collection.
-{: .note}
+{: .important}
 
 After following this tutorial, you'll be able to send authenticated queries and events to both Amazon Simple Storage Service (Amazon S3) for long-term storage and OpenSearch for real-time processing using the `curl` command-line tool. 
 
