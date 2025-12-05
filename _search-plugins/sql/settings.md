@@ -79,7 +79,7 @@ Setting | Default | Description
 `plugins.query.memory_limit` | `85%` | Configures the heap memory usage limit for the query engine's circuit breaker.
 `plugins.query.size_limit` | `10000` | Sets the maximum number of rows returned from a query execution.
 `plugins.query.datasources.enabled` | `true` | Change to `false` to disable support for data sources in the plugin.
-`plugins.query.field_type_tolerance` | `true` | If `false`, then an array is reduced to the first non-array value at any nesting level. For example, `[[1, 2], [3, 4]]` will be reduced to `1`. If `true`, then the array is preserved. Default is `true`.
+`plugins.query.field_type_tolerance` | `true` | If `false`, then an array is reduced to the first non-array value at any nesting level. For example, `[[1, 2], [3, 4]]` is reduced to `1`. If `true`, then the array is preserved. Default is `true`.
 `plugins.query.buckets` | `10000` | Sets how many aggregation buckets will return in a single response. The default value equals to `plugins.query.size_limit`.
 `plugins.calcite.enabled` | `true` | Enables the Apache Calcite query engine, including advanced SQL and PPL capabilities such as subsearch, join, and lookup operations.
 `plugins.calcite.pushdown.enabled` | `true` | Change to `false` to disable the operator push-down optimization. We recommend using the default value.
