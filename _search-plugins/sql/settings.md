@@ -93,7 +93,7 @@ Setting | Default | Description
 `plugins.ppl.join.subsearch_maxout` | `50000` | Sets the maximum of rows from subsearch to join against.
 `plugins.ppl.pattern.method` | `"simple_pattern"` | Sets the default patterns method. Another supported method is "brain".
 `plugins.ppl.pattern.mode` | `"label"` | Sets the default patterns mode. Another supported mode is "aggregation".
-`plugins.ppl.pattern.max.sample.count` | `10` | Sets the default max sample logs returned per pattern in aggregation mode.
+`plugins.ppl.pattern.max.sample.count` | `10` | Sets the maximum number of sample logs returned per pattern in aggregation mode.
 `plugins.ppl.pattern.buffer.limit` | `100000` | Sets the default size of internal temporary buffer used in "brain" algorithm.
 `plugins.ppl.pattern.show.numbered.token` | `false` | Change to `true` to turn on numbered token output format.
 `plugins.ppl.pattern.show.numbered.token` | `false` | Change to `true` to turn on numbered token output format.
