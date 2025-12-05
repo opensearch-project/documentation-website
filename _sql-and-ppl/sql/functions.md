@@ -2,11 +2,9 @@
 layout: default
 title: Functions
 parent: SQL
-grand_parent: SQL and PPL
 nav_order: 7
 redirect_from:
-  - /search-plugins/ppl/commands/
-  - /observability-plugin/ppl/commands/
+  - /search-plugins/sql/sql/functions/
 ---
 
 # Functions
@@ -28,6 +26,8 @@ matchquery(field_expression, query_expression[, option=<option_value>]*)
 field_expression = match_query(query_expression[, option=<option_value>]*)
 field_expression = matchquery(query_expression[, option=<option_value>]*)
 ```
+{% include copy.html %}
+
 
 You can specify the following options in any order:
 
@@ -43,6 +43,8 @@ SELECT account_number, address
 FROM accounts
 WHERE MATCHQUERY(address, 'Holmes')
 ```
+{% include copy.html %}
+
 
 Alternatively, you can use `MATCH_QUERY` to replace `MATCH`:
 
@@ -51,6 +53,8 @@ SELECT account_number, address
 FROM accounts
 WHERE address = MATCH_QUERY('Holmes')
 ```
+{% include copy.html %}
+
 
 The results contain documents in which the address contains "Holmes":
 
@@ -69,6 +73,8 @@ multimatch('query'=query_expression[, 'fields'=field_expression][, option=<optio
 multi_match('query'=query_expression[, 'fields'=field_expression][, option=<option_value>]*)
 multimatchquery('query'=query_expression[, 'fields'=field_expression][, option=<option_value>]*)
 ```
+{% include copy.html %}
+
 
 The `fields` parameter is optional and can contain a single field or a comma-separated list (white space characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without white space. 
 
@@ -80,6 +86,8 @@ The following queries show the `fields` parameter of a multi-match query with a 
 multi_match('fields' = "Tags^2,Title^3.4,Body,Comments^0.3", ...)
 multi_match('fields' = "Title", ...)
 ```
+{% include copy.html %}
+
 
 You can specify the following options in any order:
 
@@ -99,6 +107,8 @@ The `QUERY` function is a synonym for [`QUERY_STRING`]({{site.url}}{{site.baseur
 ```sql
 query('query'=query_expression[, 'fields'=field_expression][, option=<option_value>]*)
 ```
+{% include copy.html %}
+
 
 The `fields` parameter is optional and can contain a single field or a comma-separated list (white space characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without white space. 
 
@@ -110,6 +120,8 @@ The following queries show the `fields` parameter of a multi-match query with a 
 query('fields' = "Tags^2,Title^3.4,Body,Comments^0.3", ...)
 query('fields' = "Tags", ...)
 ```
+{% include copy.html %}
+
 
 You can specify the following options in any order:
 
@@ -133,6 +145,7 @@ GET accounts/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The request above is equivalent to the following `query` function:
 
@@ -141,6 +154,8 @@ SELECT account_number, address
 FROM accounts
 WHERE query('address:Lane OR address:Street')
 ```
+{% include copy.html %}
+
 
 The results contain addresses that contain "Lane" or "Street":
 
@@ -159,6 +174,8 @@ The `MATCHPHRASEQUERY` function is a synonym for [`MATCH_PHRASE`]({{site.url}}{{
 ```sql
 matchphrasequery(query_expression, field_expression[, option=<option_value>]*)
 ```
+{% include copy.html %}
+
 
 You can specify the following options in any order:
 
@@ -179,6 +196,8 @@ SCORE(match_query_expression, score)
 SCOREQUERY(match_query_expression, score)
 SCORE_QUERY(match_query_expression, score)
 ```
+{% include copy.html %}
+
 
 ### Example
 
@@ -191,6 +210,8 @@ WHERE SCORE(MATCH_QUERY(address, 'Lane'), 0.5) OR
   SCORE(MATCH_QUERY(address, 'Street'), 100)
 ORDER BY _score
 ```
+{% include copy.html %}
+
 
 The results contain matches with corresponding scores:
 
@@ -210,6 +231,8 @@ To search documents by a given wildcard, use the `WILDCARDQUERY` or `WILDCARD_QU
 wildcardquery(field_expression, query_expression[, boost=<value>])
 wildcard_query(field_expression, query_expression[, boost=<value>])
 ```
+{% include copy.html %}
+
 
 ### Example
 
@@ -220,6 +243,8 @@ SELECT account_number, address
 FROM accounts
 WHERE wildcard_query(address, '*Holmes*');
 ```
+{% include copy.html %}
+
 
 The results contain documents that match the wildcard expression:
 

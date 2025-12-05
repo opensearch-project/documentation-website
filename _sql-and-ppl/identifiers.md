@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Identifiers
-parent: SQL and PPL
 nav_order: 6
 redirect_from:
+  - /search-plugins/sql/identifiers/
   - /observability-plugin/ppl/identifiers/
   - /search-plugins/ppl/identifiers/
 ---
@@ -33,6 +33,8 @@ In this example, `source`, `fields`, `account_number`, `firstname`, and `lastnam
 ```sql
 SELECT account_number, firstname, lastname FROM accounts;
 ```
+{% include copy.html %}
+
 
 | account_number | firstname | lastname |
 :--- | :--- |
@@ -60,6 +62,8 @@ To quote an index name with back ticks:
 ```sql
 source=`accounts` | fields `account_number`;
 ```
+{% include copy.html %}
+
 
 | account_number |
 :--- |

@@ -1,11 +1,10 @@
 ---
 layout: default
-title: JDBC Driver
+title: JDBC driver
 parent: SQL
-grand_parent: SQL and PPL
 nav_order: 71
 redirect_from:
-  - /search-plugins/sql/jdbc/
+  - /search-plugins/sql/sql/jdbc/
 
 ---
 

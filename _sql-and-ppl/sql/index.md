@@ -1,12 +1,13 @@
 ---
 layout: default
 title: SQL
-parent: SQL and PPL
 nav_order: 4
 has_children: true
 has_toc: false
 redirect_from:
+  - /sql-and-ppl/sql/
   - /search-plugins/sql/sql/
+  - /search-plugins/sql/sql/index/
 ---
 
 # SQL
@@ -63,6 +64,7 @@ To run the preceding query in the command line, use the [curl](https://curl.haxx
 curl -XPOST https://localhost:9200/_plugins/_sql -u 'admin:<custom-admin-password>' -k -H 'Content-Type: application/json' -d '{"query": "SELECT * FROM my-index* LIMIT 50"}'
 ```
 {% include copy.html %}
+
 
 You can specify the [response format]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) as JDBC, standard OpenSearch JSON, CSV, or raw. By default, queries return data in JDBC format. The following query sets the format to JSON:
 
