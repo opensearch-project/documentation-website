@@ -75,7 +75,7 @@ Setting | Default | Description
 `plugins.sql.enabled` | `true` | Change to `false` to disable the `SQL` support in the plugin.
 `plugins.ppl.enabled` | `true` | Change to `false` to disable the `PPL` support in the plugin.
 `plugins.sql.slowlog` | `2` | Configures the time limit (in seconds) for slow queries. The plugin logs slow queries as `Slow query: elapsed=xxx (ms)` in `opensearch.log`.
-`plugins.sql.cursor.keep_alive` | `1m` | Configures how long the cursor context is kept open. Cursor contexts are resource-intensive, so we recommend a low value.
+`plugins.sql.cursor.keep_alive` | `1m` | Configures the amount of time that the cursor context remains open. Because cursor contexts are resource-intensive, we recommend a low value.
 `plugins.query.memory_limit` | `85%` | Configures the heap memory usage limit for the circuit breaker of the query engine.
 `plugins.query.size_limit` | `10000` | Sets the maximum amount of rows returned from a query execution results.
 `plugins.query.datasources.enabled` | `true` | Change to `false` to disable support for data sources in the plugin.
