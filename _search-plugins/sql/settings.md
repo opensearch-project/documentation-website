@@ -88,7 +88,7 @@ Setting | Default | Description
 `plugins.calcite.all_join_types.allowed` | `false` | Enables performance-sensitive join types, such as `RIGHT`, `FULL`, and `CROSS` joins. Change to `true` to allow these join operations.
 `plugins.ppl.syntax.legacy.preferred` | `true` | Controls PPL syntax behaviors, including default argument values. When `false`, uses newer syntax standards. For more information, see the [legacy syntax documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/settings.rst#plugins-ppl-syntax-legacy-preferred).
 `plugins.ppl.values.max.limit` | `0` | Sets the maximum number of unique values that the `VALUES` aggregation function can return. A value of `0` indicates no limit.
-`plugins.ppl.rex.max_match.limit` | `10` | Maximum number of matches to extract in `rex` command.
+`plugins.ppl.rex.max_match.limit` | `10` | Sets the maximum number of matches extracted by the `rex` command.
 `plugins.ppl.subsearch.maxout` | `10000` | Sets the maximum of rows to return from subsearch.
 `plugins.ppl.join.subsearch_maxout` | `50000` | Sets the maximum of rows from subsearch to join against.
 `plugins.ppl.pattern.method` | `"simple_pattern"` | Sets the default patterns method. Another supported method is "brain".
