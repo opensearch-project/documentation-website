@@ -2,7 +2,7 @@
 layout: default
 title: Anonymous authentication
 parent: Access control
-nav_order: 145
+nav_order: 130
 ---
 
 # Anonymous authentication

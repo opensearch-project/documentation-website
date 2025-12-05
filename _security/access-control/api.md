@@ -11,8 +11,6 @@ redirect_from:
 
 The Security plugin REST API lets you programmatically create and manage users, roles, role mappings, action groups, and tenants.
 
----
-
 #### Table of contents
 1. TOC
 {:toc}
@@ -2008,3 +2006,11 @@ HTTP/1.1 200 OK
 content-type: application/json; charset=UTF-8
 content-length: 45
 ```
+
+---
+
+## Resource sharing
+**Introduced 3.3**
+{: .label .label-purple }
+
+For managing resource-level access control and sharing plugin-defined resources such as ML models and anomaly detectors, see [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/).
