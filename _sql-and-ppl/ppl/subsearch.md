@@ -2,11 +2,12 @@
 layout: default
 title: Subsearch
 parent: PPL
-grand_parent: SQL and PPL
 nav_order: 3
+redirect_from:
+  - /search-plugins/sql/ppl/subsearch/
 ---
 
-# subsearch
+# Subsearch
 
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
@@ -103,6 +104,7 @@ The following example demonstrates how to nest one subsearch within another, cre
 source = outer | where exists [ source = inner1 | where a = c and exists [ source = nested | where c = e ] ]
 source = outer | where exists [ source = inner1 | where a = c | where exists [ source = nested | where c = e ] ]
 ```
+{% include copy.html %}
 
 ## `scalar`
 
@@ -213,6 +215,7 @@ source = supplier
        ]
      | fields ps_suppkey
 ```
+{% include copy.html %}
 
 **Example 2: Query with `relation`, `scalar`, and `exists` subsearches**
 
@@ -238,6 +241,7 @@ source = [  /* relation subsearch */
 | stats count() as numcust, sum(c_acctbal) as totacctbal by cntrycode
 | sort cntrycode
 ```
+{% include copy.html %}
 
 ## Limitations
 

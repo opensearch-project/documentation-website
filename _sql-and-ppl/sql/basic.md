@@ -1,11 +1,10 @@
 ---
 layout: default
-title: Basic Queries
+title: Basic queries
 parent: SQL
-grand_parent: SQL and PPL
 nav_order: 5
 redirect_from:
-  - /search-plugins/sql/basic/
+  - /search-plugins/sql/sql/basic/
 ---
 
 
@@ -28,6 +27,7 @@ FROM index_name
 [ORDER BY expression [IS [NOT] NULL] [ASC | DESC] [, ...]]
 [LIMIT [offset, ] size]
 ```
+{% include copy.html %}
 
 ### Fundamentals
 
@@ -62,6 +62,7 @@ FROM index
      ORDER BY expressions
       LIMIT size
 ```
+{% include copy.html %}
 
 ## Select
 
@@ -83,6 +84,7 @@ Rule `selectElement`:
 SELECT *
 FROM accounts
 ```
+{% include copy.html %}
 
 | account_number | firstname | gender | city | balance | employer | state | email | address | lastname | age
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
@@ -97,6 +99,7 @@ FROM accounts
 SELECT firstname, lastname
 FROM accounts
 ```
+{% include copy.html %}
 
 | firstname | lastname
 | :--- | :---

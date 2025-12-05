@@ -1,12 +1,13 @@
 ---
 layout: default
 title: PPL
-parent: SQL and PPL
 nav_order: 5
 has_children: true
 has_toc: false
 redirect_from:
+  - /sql-and-ppl/ppl/
   - /search-plugins/sql/ppl/
+  - /search-plugins/sql/ppl/index/
   - /search-plugins/ppl/
   - /observability-plugin/ppl/
   - /search-plugins/ppl/index/
@@ -28,11 +29,11 @@ search source=<index-name> | <command_1> | <command_2> | ... | <command_n>
 ```
 {% include copy.html %}
 
-See [Syntax]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/syntax/) for specific PPL syntax examples.
+See [Syntax]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/syntax/) for specific PPL syntax examples.
 
 ## PPL commands
 
-PPL filters, transforms, and aggregates data using a series of commands. See [Commands]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/functions/) for a description and an example of each command.
+PPL filters, transforms, and aggregates data using a series of commands. See [Commands]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/) for a description and an example of each command.
 
 ## Using PPL within OpenSearch
 
@@ -43,7 +44,7 @@ You can run PPL queries interactively in OpenSearch Dashboards or programmatical
 
 In OpenSearch Dashboards, the [Query Workbench tool](https://playground.opensearch.org/app/opensearch-query-workbench#/) provides an interactive testing environment, documented in [Query Workbench documentation]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
 
-To run a PPL query using the API, see [SQL and PPL API]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api/).
+To run a PPL query using the API, see [SQL and PPL API]({{site.url}}{{site.baseurl}}/sql-and-ppl/sql-ppl-api/).
 
 
 ## Developer documentation

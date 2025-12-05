@@ -70,7 +70,10 @@ collections:
     output: true
   query-dsl:
     permalink: /:collection/:path/
-    output: true 
+    output: true
+  sql-and-ppl:
+    permalink: /:collection/:path/
+    output: true
   aggregations:
     permalink: /:collection/:path/
     output: true
@@ -173,6 +176,9 @@ opensearch_collection:
       nav_fold: true
     query-dsl:
       name: Query DSL
+      nav_fold: true
+    sql-and-ppl:
+      name: SQL and PPL
       nav_fold: true
     aggregations:
       name: Aggregations

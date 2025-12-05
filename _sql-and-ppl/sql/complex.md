@@ -1,11 +1,10 @@
 ---
 layout: default
-title: Complex Queries
+title: Complex queries
 parent: SQL
-grand_parent: SQL and PPL
 nav_order: 6
 redirect_from:
-  - /search-plugins/sql/complex/
+  - /search-plugins/sql/sql/complex/
 ---
 
 # Complex queries
@@ -69,6 +68,7 @@ FROM accounts a
 JOIN employees_nested e
  ON a.account_number = e.id
 ```
+{% include copy.html %}
 
 Explain:
 
@@ -166,6 +166,7 @@ SELECT
 FROM accounts a
 JOIN employees_nested e
 ```
+{% include copy.html %}
 
 Result set:
 
@@ -198,6 +199,7 @@ FROM accounts a
 LEFT JOIN employees_nested e
  ON a.account_number = e.id
 ```
+{% include copy.html %}
 
 Result set:
 
@@ -226,6 +228,7 @@ WHERE a1.account_number IN (
   WHERE a2.balance > 10000
 )
 ```
+{% include copy.html %}
 
 Explain:
 
@@ -369,6 +372,7 @@ FROM (
   WHERE age > 30
 ) AS a
 ```
+{% include copy.html %}
 
 Explain:
 

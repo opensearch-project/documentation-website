@@ -1,12 +1,13 @@
 ---
 layout: default
 title: SQL
-parent: SQL and PPL
 nav_order: 4
 has_children: true
 has_toc: false
 redirect_from:
+  - /sql-and-ppl/sql/
   - /search-plugins/sql/sql/
+  - /search-plugins/sql/sql/index/
 ---
 
 # SQL

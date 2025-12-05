@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Limitations
-parent: SQL and PPL
 nav_order: 99
 redirect_from:
   - /search-plugins/sql/limitation/
@@ -26,6 +25,7 @@ FROM (
     FROM opensearch_dashboards_sample_data_flights
     WHERE OriginCountry = 'US') t
 ```
+{% include copy.html %}
 
 But, if the outer query has `GROUP BY` or `ORDER BY`, then it's not supported.
 
@@ -81,6 +81,7 @@ POST _plugins/_sql/
   "query" : "SELECT OriginCountry, DestCountry FROM opensearch_dashboards_sample_data_flights ORDER BY OriginCountry ASC"
 }
 ```
+{% include copy-curl.html %}
 
 The response in JDBC format with cursor id.
 

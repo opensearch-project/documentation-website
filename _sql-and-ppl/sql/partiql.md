@@ -1,14 +1,13 @@
 ---
 layout: default
-title: JSON Support
+title: JSON support
 parent: SQL
-grand_parent: SQL and PPL
 nav_order: 8
 redirect_from:
-  - /search-plugins/sql/partiql/
+  - /search-plugins/sql/sql/partiql/
 ---
 
-# JSON Support
+# JSON support
 
 SQL plugin supports JSON by following [PartiQL](https://partiql.org/) specification, a SQL-compatible query language that lets you query semi-structured and nested data for any data format. The SQL plugin only supports a subset of the PartiQL specification.
 
@@ -27,6 +26,7 @@ POST employees_nested/_bulk?refresh
 {"index":{"_id":"3"}}
 {"id":6,"name":"Jane Smith","title":"Software Eng 2","projects":[{"name":"SQL security","started_year":1998},{"name":"Hello security","started_year":2015,"address":[{"city":"Dallas","state":"TX"}]}]}
 ```
+{% include copy-curl.html %}
 
 ### Example 1: Unnesting a nested collection
 
@@ -39,6 +39,7 @@ FROM employees_nested AS e,
        e.projects AS p
 WHERE p.name LIKE '%security%'
 ```
+{% include copy.html %}
 
 Explain:
 
@@ -124,6 +125,7 @@ WHERE EXISTS (
     WHERE p.name LIKE '%security%'
 )
 ```
+{% include copy.html %}
 
 Explain:
 

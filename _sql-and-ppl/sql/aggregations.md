@@ -1,11 +1,10 @@
 ---
 layout: default
-title: Aggregate Functions
+title: Aggregate functions
 parent: SQL
-grand_parent: SQL and PPL
 nav_order: 11
-Redirect_from:
-  - /search-plugins/sql/aggregations/
+redirect_from:
+  - /search-plugins/sql/sql/aggregations/
 ---
 
 # Aggregate functions
@@ -44,6 +43,7 @@ PUT employees/_bulk?refresh
 {"index":{"_id":"18"}}
 {"employee_id":18,"department":2, "firstname":"Dale", "lastname":"Adams", "sales":4180, "sale_date":"2022-11-05"}
 ```
+{% include copy-curl.html %}
 
 ## GROUP BY
 
@@ -55,10 +55,11 @@ You can use an identifier, ordinal, or expression in the `GROUP BY` clause.
 
 You can specify the field name (column name) to aggregate on in the `GROUP BY` clause. For example, the following query returns the department numbers and the total sales for each department: 
 ```sql
-SELECT department, sum(sales) 
-FROM employees 
+SELECT department, sum(sales)
+FROM employees
 GROUP BY department;
 ```
+{% include copy.html %}
 
 | department | sum(sales)
 :--- | :---
@@ -70,10 +71,11 @@ GROUP BY department;
 You can specify the column number to aggregate on in the `GROUP BY` clause. The column number is determined by the column position in the `SELECT` clause. For example, the following query is equivalent to the query above. It returns the department numbers and the total sales for each department. It groups the results by the first column of the result set, which is `department`:
 
 ```sql
-SELECT department, sum(sales) 
-FROM employees 
+SELECT department, sum(sales)
+FROM employees
 GROUP BY 1;
 ```
+{% include copy.html %}
 
 | department | sum(sales)
 :--- | :---
@@ -85,10 +87,11 @@ GROUP BY 1;
 You can use an expression in the `GROUP BY` clause. For example, the following query returns the average sales for each year:
 
 ```sql
-SELECT year(sale_date), avg(sales) 
-FROM employees 
+SELECT year(sale_date), avg(sales)
+FROM employees
 GROUP BY year(sale_date);
 ```
+{% include copy.html %}
 
 | year(start_date) | avg(sales)
 :--- | :---
@@ -105,10 +108,11 @@ You can use aggregate expressions in the `SELECT` clause either directly or as p
 The following query returns the average sales for each department:
 
 ```sql
-SELECT department, avg(sales) 
-FROM employees 
+SELECT department, avg(sales)
+FROM employees
 GROUP BY department;
 ```
+{% include copy.html %}
 
 | department | avg(sales)
 :--- | :---
@@ -120,10 +124,11 @@ GROUP BY department;
 The following query calculates the average commission for the employees of each department as 5% of the average sales:
 
 ```sql
-SELECT department, avg(sales) * 0.05 as avg_commission 
-FROM employees 
+SELECT department, avg(sales) * 0.05 as avg_commission
+FROM employees
 GROUP BY department;
 ```
+{% include copy.html %}
 
 | department | avg_commission
 :--- | :---
@@ -135,10 +140,11 @@ GROUP BY department;
 The following query calculates the average commission amount for each department. First it calculates the commission amount for each `sales` value as 5% of the `sales`. Then it determines the average of all commission values:
 
 ```sql
-SELECT department, avg(sales * 0.05) as avg_commission 
-FROM employees 
+SELECT department, avg(sales * 0.05) as avg_commission
+FROM employees
 GROUP BY department;
 ```
+{% include copy.html %}
 
 | department | avg_commission
 :--- | :---
@@ -158,10 +164,11 @@ The following table describes how various forms of the `COUNT` function operate.
 For example, the following query returns the count of sales for each year:
 
 ```sql
-SELECT year(sale_date), count(sales) 
-FROM employees 
+SELECT year(sale_date), count(sales)
+FROM employees
 GROUP BY year(sale_date);
 ```
+{% include copy.html %}
 
 | year(sale_date) | count(sales)
 :--- | :---
@@ -187,6 +194,7 @@ FROM employees
 GROUP BY employee_id
 HAVING count(sales) > 1;
 ```
+{% include copy.html %}
 
 | employee_id | count(sales)
 :--- | :---
@@ -201,6 +209,7 @@ FROM employees
 GROUP BY employee_id
 HAVING count(sales) > 1;
 ```
+{% include copy.html %}
 
 | employee_id | sum (sales)
 :--- | :---
@@ -215,6 +224,7 @@ FROM employees
 GROUP BY id
 HAVING count(sales) > 1;
 ```
+{% include copy.html %}
 
 | id | sum (sales)
 :--- | :---
@@ -229,6 +239,7 @@ FROM employees
 GROUP BY department
 HAVING total > 40000;
 ```
+{% include copy.html %}
 
 | department | total
 :--- | :---
@@ -242,6 +253,7 @@ FROM employees
 GROUP BY department
 HAVING sales > 40000;
 ```
+{% include copy.html %}
 
 | department | sales
 :--- | :---
@@ -254,6 +266,7 @@ You can use a `HAVING` clause without a `GROUP BY` clause. In this case, the who
 ```sql
 SELECT 'True' as more_than_one_department FROM employees HAVING min(department) < max(department);
 ```
+{% include copy.html %}
 
 | more_than_one_department |
 :--- |

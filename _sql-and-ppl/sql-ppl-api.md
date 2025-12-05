@@ -1,8 +1,9 @@
 ---
 layout: default
 title: SQL and PPL API
-parent: SQL and PPL
 nav_order: 1
+redirect_from:
+  - /search-plugins/sql/sql-ppl-api/
 ---
 
 # SQL and PPL API
@@ -31,11 +32,12 @@ query | String | The query to be executed. Required.
 #### Example request
 
 ```json
-POST /_plugins/_sql 
+POST /_plugins/_sql
 {
   "query" : "SELECT * FROM accounts"
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -159,7 +161,7 @@ total | Integer | The total number of rows (documents) in the index.
 size | Integer | The number of results to return in one response.
 status | String | The HTTP response status OpenSearch returns after running the query.
 
-## `Explain` API
+## Explain API
 
 The SQL plugin's `explain` feature shows how a query is executed against OpenSearch, which is useful for debugging and development. A POST request to the `_plugins/_sql/_explain` or `_plugins/_ppl/_explain` endpoint returns [OpenSearch domain-specific language]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/) (DSL) in JSON format.
 
@@ -205,7 +207,6 @@ The response shows the query execution plan:
   }
 }
 ```
-{% include copy.html %}
 
 #### Advanced query with the Calcite engine
 
@@ -235,7 +236,6 @@ The response shows both logical and physical plans in the standard format:
   }
 }
 ```
-{% include copy.html %}
 
 For a simplified view of the query plan, you can use the `simple` format:
 
@@ -245,7 +245,7 @@ POST _plugins/_ppl/_explain?format=simple
   "query" : "source=state_country | where country = 'USA' OR country = 'England' | stats count() by country"
 }
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 The response shows a condensed logical plan:
 
@@ -260,7 +260,6 @@ The response shows a condensed logical plan:
   }
 }
 ```
-{% include copy.html %}
 
 For queries that require post-processing, the `explain` response includes a query plan in addition to the OpenSearch DSL. For queries that don't require post-processing, you'll see only the complete DSL.
 
@@ -282,6 +281,7 @@ POST _plugins/_sql/
   "query" : "SELECT firstname, lastname FROM accounts WHERE age > 20 ORDER BY state ASC"
 }
 ```
+{% include copy-curl.html %}
 
 The response contains all the fields that a query without `fetch_size` would contain, and a `cursor` field that is used to retrieve subsequent pages of results:
 
@@ -329,11 +329,12 @@ The response contains all the fields that a query without `fetch_size` would con
 To fetch subsequent pages, use the `cursor` from the previous response:
 
 ```json
-POST /_plugins/_sql 
+POST /_plugins/_sql
 {
    "cursor": "d:eyJhIjp7fSwicyI6IkRYRjFaWEo1UVc1a1JtVjBZMmdCQUFBQUFBQUFBQU1XZWpkdFRFRkZUMlpTZEZkeFdsWnJkRlZoYnpaeVVRPT0iLCJjIjpbeyJuYW1lIjoiZmlyc3RuYW1lIiwidHlwZSI6InRleHQifSx7Im5hbWUiOiJsYXN0bmFtZSIsInR5cGUiOiJ0ZXh0In1dLCJmIjo1LCJpIjoiYWNjb3VudHMiLCJsIjo5NTF9"
 }
 ```
+{% include copy-curl.html %}
 
 The next response contains only the `datarows` of the results and a new `cursor`.
 
@@ -373,11 +374,12 @@ The last page of results has only `datarows` and no `cursor`. The `cursor` conte
 To explicitly clear the cursor context, use the `_plugins/_sql/close` endpoint operation:
 
 ```json
-POST /_plugins/_sql/close 
+POST /_plugins/_sql/close
 {
-   "cursor": "d:eyJhIjp7fSwicyI6IkRYRjFaWEo1UVc1a1JtVjBZMmdCQUFBQUFBQUFBQU1XZWpkdFRFRkZUMlpTZEZkeFdsWnJkRlZoYnpaeVVRPT0iLCJjIjpbeyJuYW1lIjoiZmlyc3RuYW1lIiwidHlwZSI6InRleHQifSx7Im5hbWUiOiJsYXN0bmFtZSIsInR5cGUiOiJ0ZXh0In1dLCJmIjo1LCJpIjoiYWNjb3VudHMiLCJsIjo5NTF9"
-}'
+   "cursor": "d:eyJhIjp7fSwicyI6IkRYRjFaWEo1UVc1a1JtVjBZMmdCQUFBQUFBQUFBQU1XZWpkdFRFRkZUMlpTZEZkeFdsWnJkRlZoYnpaeVVRPT0iLCJjIjpbeyJuYW1lIjoiZmlyc3RuYW1lIiwidHlwZSI6InRleHQifSx7Im5hbWUiOiJsYXN0bmFtZSIsInR5cGUiOiJ0ZXh0In1kLCJmIjo1LCJpIjoiYWNjb3VudHMiLCJsIjo5NTF9"
+}
 ```
+{% include copy-curl.html %}
 
 The response is an acknowledgement from OpenSearch:
 
@@ -392,7 +394,7 @@ You can use the `filter` parameter to add more conditions to the OpenSearch DSL 
 The following SQL query returns the names and account balances of all customers. The results are then filtered to contain only those customers with less than $10,000 balance. 
 
 ```json
-POST /_plugins/_sql/ 
+POST /_plugins/_sql/
 {
   "query" : "SELECT firstname, lastname, balance FROM accounts",
   "filter" : {
@@ -404,6 +406,7 @@ POST /_plugins/_sql/
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the matching results:
 
@@ -444,7 +447,7 @@ The response contains the matching results:
 You can use the Explain API to see how this query is executed against OpenSearch:
 
 ```json
-POST /_plugins/_sql/_explain 
+POST /_plugins/_sql/_explain
 {
   "query" : "SELECT firstname, lastname, balance FROM accounts",
   "filter" : {
@@ -454,8 +457,9 @@ POST /_plugins/_sql/_explain
       }
     }
   }
-}'
+}
 ```
+{% include copy-curl.html %}
 
 The response contains the Boolean query in OpenSearch DSL that corresponds to the query above:
 
@@ -504,7 +508,7 @@ You can use the `parameters` field to pass parameter values to a prepared SQL qu
 The following explain operation uses an SQL query with an `age` parameter:
 
 ```json
-POST /_plugins/_sql/_explain 
+POST /_plugins/_sql/_explain
 {
   "query": "SELECT * FROM accounts WHERE age = ?",
   "parameters": [{
@@ -513,6 +517,7 @@ POST /_plugins/_sql/_explain
   }]
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the Boolean query in OpenSearch DSL that corresponds to the SQL query above:
 
