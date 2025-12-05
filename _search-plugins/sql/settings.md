@@ -85,7 +85,7 @@ Setting | Default | Description
 `plugins.calcite.pushdown.enabled` | `true` | Change to `false` to disable the operator push-down optimization. We recommend using the default value.
 `plugins.calcite.fallback.allowed` | `false` | Change to `true` to allow fallback to the v2 engine.
 `plugins.calcite.pushdown.rowcount.estimation.factor` | `0.9` | A factor used to multiply the row count of a table scan to estimate the resulting row count. We recommend using the default value.
-`plugins.calcite.all_join_types.allowed` | `false` | Enables performance-sensitive join types, like `RIGHT`, `FULL`, and `CROSS` joins. Change to `true` to allow these join operations.
+`plugins.calcite.all_join_types.allowed` | `false` | Enables performance-sensitive join types, such as `RIGHT`, `FULL`, and `CROSS` joins. Change to `true` to allow these join operations.
 `plugins.ppl.syntax.legacy.preferred` | `true` | Controls PPL syntax behaviors, including default argument values. When `false`, uses newer syntax standards. For more information, see the [legacy syntax documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/settings.rst#plugins-ppl-syntax-legacy-preferred).
 `plugins.ppl.values.max.limit` | `0` | Sets the maximum number of unique values that the `VALUES` aggregation function can return. A value of `0` indicates no limit.
 `plugins.ppl.rex.max_match.limit` | `10` | Maximum number of matches to extract in `rex` command.
