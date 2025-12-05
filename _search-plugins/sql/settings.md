@@ -91,7 +91,7 @@ Setting | Default | Description
 `plugins.ppl.rex.max_match.limit` | `10` | Sets the maximum number of matches extracted by the `rex` command.
 `plugins.ppl.subsearch.maxout` | `10000` | Sets the maximum of rows to return from subsearch.
 `plugins.ppl.join.subsearch_maxout` | `50000` | Sets the maximum of rows from subsearch to join against.
-`plugins.ppl.pattern.method` | `"simple_pattern"` | Sets the default patterns method. Another supported method is "brain".
+`plugins.ppl.pattern.method` | `simple_pattern` | Sets the method for the `patterns` command. Valid values are `simple_pattern` and `brain`. For more information, see [`patterns` syntax](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/cmd/patterns.rst#syntax).
 `plugins.ppl.pattern.mode` | `"label"` | Sets the default patterns mode. Another supported mode is "aggregation".
 `plugins.ppl.pattern.max.sample.count` | `10` | Sets the maximum number of sample logs returned per pattern in aggregation mode.
 `plugins.ppl.pattern.buffer.limit` | `100000` | Sets the size of the internal temporary buffer used by the `brain` algorithm.
