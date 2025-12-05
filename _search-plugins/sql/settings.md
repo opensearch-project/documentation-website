@@ -75,7 +75,7 @@ Setting | Default | Description
 `plugins.sql.enabled` | `true` | Change to `false` to disable the `SQL` support in the plugin.
 `plugins.ppl.enabled` | `true` | Change to `false` to disable the `PPL` support in the plugin.
 `plugins.sql.slowlog` | `2` | Configures the time limit (in seconds) for slow queries. The plugin logs slow queries as `Slow query: elapsed=xxx (ms)` in `opensearch.log`.
-`plugins.sql.cursor.keep_alive` | `1m` | Configures the amount of time that the cursor context remains open. Because cursor contexts are resource-intensive, we recommend a low value.
+`plugins.sql.cursor.keep_alive` | `1m` | Configures the amount of time that the cursor context remains open. Because cursor contexts are resource intensive, we recommend a low value.
 `plugins.query.memory_limit` | `85%` | Configures the heap memory usage limit for the query engine's circuit breaker.
 `plugins.query.size_limit` | `10000` | Sets the maximum number of rows returned from a query execution.
 `plugins.query.datasources.enabled` | `true` | Change to `false` to disable support for data sources in the plugin.
@@ -90,13 +90,13 @@ Setting | Default | Description
 `plugins.ppl.values.max.limit` | `0` | Sets the maximum number of unique values that the `VALUES` aggregation function can return. A value of `0` indicates no limit.
 `plugins.ppl.rex.max_match.limit` | `10` | Sets the maximum number of matches extracted by the `rex` command.
 `plugins.ppl.subsearch.maxout` | `10000` | Sets the maximum number of rows to return from a subsearch.
-`plugins.ppl.join.subsearch_maxout` | `50000` | Sets the maximum number of rows from to return from a subsearch used in a join operation.
+`plugins.ppl.join.subsearch_maxout` | `50000` | Sets the maximum number of rows to return from a subsearch used in a join operation.
 `plugins.ppl.pattern.method` | `simple_pattern` | Sets the method for the `patterns` command. Valid values are `simple_pattern` and `brain`. For more information, see [`patterns` syntax](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/cmd/patterns.rst#syntax).
 `plugins.ppl.pattern.mode` | `label` | Sets the mode for the `patterns` command. Valid values are `label` and `aggregation`. For more information, see [`patterns` syntax](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/cmd/patterns.rst#syntax).
 `plugins.ppl.pattern.max.sample.count` | `10` | Sets the maximum number of sample logs returned per pattern in aggregation mode.
 `plugins.ppl.pattern.buffer.limit` | `100000` | Sets the size of the internal temporary buffer used by the `brain` algorithm.
 `plugins.ppl.pattern.show.numbered.token` | `false` | Change to `true` to enable the numbered token output format.
-`plugins.ppl.query.timeout` | `5m` | Configures the maximum amount of time a PPL query can run. If a query exceeds this limit, execution stops and returns a timeout error.
+`plugins.ppl.query.timeout` | `5m` | Configures the maximum amount of time that a PPL query can run. If a query exceeds this limit, execution stops and returns a timeout error.
 
 ## Spark connector settings
 
