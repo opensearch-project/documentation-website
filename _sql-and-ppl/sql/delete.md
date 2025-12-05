@@ -2,7 +2,6 @@
 layout: default
 title: Delete
 parent: SQL
-grand_parent: SQL and PPL
 nav_order: 12
 redirect_from:
   - /search-plugins/sql/delete/
@@ -26,6 +25,7 @@ PUT _plugins/_query/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Syntax
 
@@ -41,6 +41,8 @@ SQL query:
 DELETE FROM accounts
 WHERE age > 30
 ```
+{% include copy.html %}
+
 
 Explain:
 

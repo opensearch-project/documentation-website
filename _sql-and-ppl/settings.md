@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Settings
-parent: SQL and PPL
 nav_order: 77
 redirect_from:
   - /search-plugins/sql/settings/
@@ -23,6 +22,7 @@ PUT _cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 Alternatively, you can use the following request format:
 
@@ -38,6 +38,7 @@ PUT _cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 Similarly, you can update the settings by sending a request to the `_plugins/_query/settings` endpoint:
 
@@ -49,6 +50,7 @@ PUT _plugins/_query/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 Alternatively, you can use the following request format:
 
@@ -64,6 +66,7 @@ PUT _plugins/_query/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 Requests to the `_plugins/_ppl` and `_plugins/_sql` endpoints include index names in the request body, so they have the same access policy considerations as the `bulk`, `mget`, and `msearch` operations. Setting the `rest.action.multi.allow_explicit_index` parameter to `false` disables both the `SQL` and `PPL` endpoints.
 {: .note}
@@ -133,3 +136,4 @@ content-type: application/json
    "query": "source = my_spark.sql('select * from alb_logs')"
 }
 ```
+{% include copy-curl.html %}

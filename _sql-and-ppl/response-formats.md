@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Response formats
-parent: SQL and PPL
 nav_order: 2
+redirect_from:
+  - /search-plugins/sql/response-formats/
 ---
 
 # Response formats
@@ -23,6 +24,7 @@ POST _plugins/_sql
   "query" : "SELECT firstname, lastname, age FROM accounts ORDER BY age LIMIT 2"
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -71,6 +73,7 @@ POST /_plugins/_sql
   "query" : "SELECT unknown FROM accounts"
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the error message and the cause of the error:
 
@@ -99,6 +102,7 @@ POST _plugins/_sql?format=json
   "query" : "SELECT firstname, lastname, age FROM accounts ORDER BY age LIMIT 2"
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -165,6 +169,7 @@ POST /_plugins/_sql?format=csv
   "query" : "SELECT firstname, lastname, age FROM accounts ORDER BY age"
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -194,6 +199,7 @@ PUT /userdata/_doc/1?refresh=true
   "address": "671 Bristol Street, Dente, TN"
 }
 ```
+{% include copy-curl.html %}
 
 You can use the query below to request results in CSV format:
 
@@ -203,6 +209,7 @@ POST /_plugins/_sql?format=csv
   "query" : "SELECT * FROM userdata"
 }
 ```
+{% include copy-curl.html %}
 
 In the response, cells that start with special characters are prefixed with `'`. The cell that has commas is surrounded with quotation marks:
 
@@ -219,6 +226,7 @@ POST /_plugins/_sql?format=csvandsanitize=false
   "query" : "SELECT * FROM userdata"
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the results in the original CSV format:
 
@@ -239,6 +247,7 @@ POST /_plugins/_sql?format=raw
   "query" : "SELECT firstname, lastname, age FROM accounts ORDER BY age"
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -265,6 +274,7 @@ PUT /userdata/_doc/1?refresh=true
   "|address": "671 Bristol Street| Dente| TN"
 }
 ```
+{% include copy-curl.html %}
 
 You can use the query below to request results in `raw` format:
 
@@ -274,6 +284,7 @@ POST /_plugins/_sql?format=raw
   "query" : "SELECT * FROM userdata"
 }
 ```
+{% include copy-curl.html %}
 
 The query returns cells with the `|` character surrounded by quotation marks:
 

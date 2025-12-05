@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Data types
-parent: SQL and PPL
 nav_order: 7
+redirect_from:
+  - /search-plugins/sql/datatypes/
 ---
 
 # Data types

@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Troubleshooting
-parent: SQL and PPL
 nav_order: 88
 redirect_from:
   - /search-plugins/sql/troubleshoot/
@@ -19,6 +18,7 @@ POST _plugins/_sql
   "query": "SELECT * FROM my-index WHERE ['name.firstname']='saanvi' LIMIT 5"
 }
 ```
+{% include copy-curl.html %}
 
 If a query isn't behaving the way you expect, use the `_explain` API to see the translated query, which you can then troubleshoot. For most operations, `_explain` returns OpenSearch query DSL. For `UNION`, `MINUS`, and `JOIN`, it returns something more akin to a SQL execution plan.
 
@@ -30,6 +30,7 @@ POST _plugins/_sql/_explain
   "query": "SELECT * FROM my-index LIMIT  50"
 }
 ```
+{% include copy-curl.html %}
 
 
 #### Example response

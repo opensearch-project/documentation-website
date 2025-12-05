@@ -1,8 +1,7 @@
 ---
 layout: default
-title: ODBC Driver
+title: ODBC driver
 parent: SQL
-grand_parent: SQL and PPL
 nav_order: 72
 redirect_from:
   - /search-plugins/sql/odbc/
@@ -62,6 +61,8 @@ Host: localhost
 Port: 9200
 Auth: NONE
 ```
+{% include copy.html %}
+
 
 To customize the DSN, use **ODBC Data Source Administrator** which is pre-installed on Windows 10.
 
@@ -87,6 +88,8 @@ Currently, the DSN is not set up as part of the installation and needs to be con
 ```
 sudo /Applications/iODBC/iODBC\ Administrator64.app/Contents/MacOS/iODBC\ Administrator64
 ```
+{% include copy.html %}
+
 
 This command gives the application permissions to save the driver and DSN configurations.
 

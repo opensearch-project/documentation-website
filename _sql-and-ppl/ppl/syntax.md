@@ -2,8 +2,9 @@
 layout: default
 title: Syntax
 parent: PPL
-grand_parent: SQL and PPL
 nav_order: 1
+redirect_from:
+  - /search-plugins/sql/ppl/syntax/
 ---
 
 # PPL syntax
@@ -21,6 +22,8 @@ Subsequent commands can follow in any order.
 search source=<index> [boolean-expression]
 source=<index> [boolean-expression]
 ```
+{% include copy.html %}
+
 
 Field | Description | Required
 :--- | :--- |:---
@@ -38,6 +41,8 @@ search source=accounts
 | where age > 18
 | fields firstname, lastname
 ```
+{% include copy.html %}
+
 
 In the following examples, angle brackets `< >` enclose required arguments and square brackets `[ ]` enclose optional arguments.
 {: .note }
@@ -50,6 +55,8 @@ To get all documents from the `accounts` index, specify it as the `source`:
 ```sql
 search source=accounts;
 ```
+{% include copy.html %}
+
 
 | account_number | firstname | address | balance | gender | city | employer | state | age | email | lastname |
 :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
@@ -65,6 +72,8 @@ To get all documents from the `accounts` index that either have `account_number`
 ```sql
 search source=accounts account_number=1 or gender=\"F\";
 ```
+{% include copy.html %}
+
 
 | account_number | firstname | address | balance | gender | city | employer | state | age | email | lastname |
 :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---

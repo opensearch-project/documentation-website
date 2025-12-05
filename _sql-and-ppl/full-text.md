@@ -1,10 +1,9 @@
 ---
 layout: default
-title: Full-Text Search
-parent: SQL and PPL
+title: Full-text search
 nav_order: 11
 redirect_from:
-  - /search-plugins/sql/sql-full-text/
+  - /search-plugins/sql/full-text/
 ---
 
 # Full-text search
@@ -52,15 +51,21 @@ GET my_index/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 *SQL query:*
 ```sql
 SELECT message FROM my_index WHERE match(message, "this is a test")
 ```
+{% include copy.html %}
+
+
 *PPL query:*
-```ppl
+```sql
 SOURCE=my_index | WHERE match(message, "this is a test") | FIELDS message
 ```
+{% include copy.html %}
+
 
 ### Example 2: Search the `message` field with the `operator` parameter:
 
@@ -77,15 +82,21 @@ GET my_index/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 *SQL query:*
 ```sql
 SELECT message FROM my_index WHERE match(message, "this is a test", operator='and')
 ```
+{% include copy.html %}
+
+
 *PPL query:*
-```ppl
+```sql
 SOURCE=my_index | WHERE match(message, "this is a test", operator='and') | FIELDS message
 ```
+{% include copy.html %}
+
 
 ### Example 3: Search the `message` field with the `operator` and `zero_terms_query` parameters:
 
@@ -103,15 +114,21 @@ GET my_index/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 *SQL query:*
 ```sql
 SELECT message FROM my_index WHERE match(message, "this is a test", operator='and', zero_terms_query='all')
 ```
+{% include copy.html %}
+
+
 *PPL query:*
 ```sql
 SOURCE=my_index | WHERE match(message, "this is a test", operator='and', zero_terms_query='all') | FIELDS message
 ```
+{% include copy.html %}
+
 
 ## Multi-match
 
@@ -124,6 +141,8 @@ The `MULTI_MATCH` function *boosts* certain fields by using **^** character. Boo
 ```sql
 multi_match([field_expression+], query_expression[, option=<option_value>]*)
 ```
+{% include copy.html %}
+
 
 The weight is optional and is specified after the field name. It could be delimited by the `caret` character -- `^` or by white space. Refer to the following examples:
 
@@ -131,6 +150,8 @@ The weight is optional and is specified after the field name. It could be delimi
 multi_match(["Tags" ^ 2, 'Title' 3.4, `Body`, Comments ^ 0.3], ...)
 multi_match(["*"], ...)
 ```
+{% include copy.html %}
+
 
 You can specify the following options for `MULTI_MATCH` in any order:
 
@@ -165,16 +186,23 @@ GET accounts/_search
   }
 }
 ```
+{% include copy-curl.html %}
+
 could be called from *SQL* using `multi_match` function
 ```sql
 SELECT firstname, lastname
 FROM accounts
 WHERE multi_match(['*name'], 'Dale')
 ```
+{% include copy.html %}
+
+
 or `multi_match` *PPL* function
 ```sql
 SOURCE=accounts | WHERE multi_match(['*name'], 'Dale') | fields firstname, lastname
 ```
+{% include copy.html %}
+
 
 | firstname | lastname
 :--- | :---
@@ -192,6 +220,8 @@ The `QUERY_STRING` function has syntax similar to `MATCH_QUERY` and *boosts* cer
 ```sql
 query_string([field_expression+], query_expression[, option=<option_value>]*)
 ```
+{% include copy.html %}
+
 
 The weight is optional and is specified after the field name. It could be delimited by the `caret` character -- `^` or by white space. Refer to the following examples:
 
@@ -199,6 +229,8 @@ The weight is optional and is specified after the field name. It could be delimi
 query_string(["Tags" ^ 2, 'Title' 3.4, `Body`, Comments ^ 0.3], ...)
 query_string(["*"], ...)
 ```
+{% include copy.html %}
+
 
 You can specify the following options for `QUERY_STRING` in any order:
 
@@ -243,6 +275,7 @@ GET accounts/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 could be called from *SQL*
 
@@ -251,12 +284,16 @@ SELECT account_number, address
 FROM accounts
 WHERE query_string(['address'], 'Lane Street', default_operator='OR')
 ```
+{% include copy.html %}
+
 
 or from *PPL*
 
 ```sql
 SOURCE=accounts | WHERE query_string(['address'], 'Lane Street', default_operator='OR') | fields account_number, address
 ```
+{% include copy.html %}
+
 
 | account_number | address
 :--- | :---
@@ -275,6 +312,8 @@ matchphrasequery(field_expression, query_expression)
 matchphrase(field_expression, query_expression[, option=<option_value>]*)
 match_phrase(field_expression, query_expression[, option=<option_value>]*)
 ```
+{% include copy.html %}
+
 
 The `MATCHPHRASE`/`MATCH_PHRASE` functions let you specify the following options in any order:
 
@@ -300,16 +339,23 @@ GET accounts/_search
   }
 }
 ```
+{% include copy-curl.html %}
+
 could be called from *SQL*
 ```sql
 SELECT account_number, address
 FROM accounts
 WHERE match_phrase(address, '880 Holmes Lane')
 ```
+{% include copy.html %}
+
+
 or *PPL*
 ```sql
 SOURCE=accounts | WHERE match_phrase(address, '880 Holmes Lane') | FIELDS account_number, address
 ```
+{% include copy.html %}
+
 
 | account_number | address
 :--- | :---
@@ -328,6 +374,8 @@ The syntax supports specifying the fields with double quotes, single quotes, bac
 ```sql
 simple_query_string([field_expression+], query_expression[, option=<option_value>]*)
 ```
+{% include copy.html %}
+
 
 The weight is optional and is specified after the field name. It could be delimited by the `caret` character -- `^` or by white space. Refer to the following examples:
 
@@ -335,6 +383,8 @@ The weight is optional and is specified after the field name. It could be delimi
 simple_query_string(["Tags" ^ 2, 'Title' 3.4, `Body`, Comments ^ 0.3], ...)
 simple_query_string(["*"], ...)
 ```
+{% include copy.html %}
+
 
 You can specify the following options for `SIMPLE_QUERY_STRING` in any order:
 
@@ -367,16 +417,23 @@ GET accounts/_search
   }
 }
 ```
+{% include copy-curl.html %}
+
 could be called from *SQL*
 ```sql
 SELECT account_number, address
 FROM accounts
 WHERE simple_query_string(['address'], 'Lane Street', default_operator='OR')
 ```
+{% include copy.html %}
+
+
 or from *PPL*
 ```sql
 SOURCE=accounts | WHERE simple_query_string(['address'], 'Lane Street', default_operator='OR') | fields account_number, address
 ```
+{% include copy.html %}
+
 
 | account_number | address
 :--- | :---
@@ -419,16 +476,23 @@ GET accounts/_search
   }
 }
 ```
+{% include copy-curl.html %}
+
 could be called from *SQL*
 ```sql
 SELECT author, title
 FROM books
 WHERE match_phrase_prefix(author, 'Alexander Mil')
 ```
+{% include copy.html %}
+
+
 or *PPL*
 ```sql
 source=books | where match_phrase_prefix(author, 'Alexander Mil') | fields author, title
 ```
+{% include copy.html %}
+
 
 | author | title
 :--- | :---
@@ -475,16 +539,23 @@ GET accounts/_search
   }
 }
 ```
+{% include copy-curl.html %}
+
 could be called from *SQL*
 ```sql
 SELECT firstname, address
 FROM accounts
 WHERE match_bool_prefix(address, 'Bristol Stre')
 ```
+{% include copy.html %}
+
+
 or *PPL*
 ```sql
 source=accounts | where match_bool_prefix(address, 'Bristol Stre') | fields firstname, address
 ```
+{% include copy.html %}
+
 
 | firstname | address
 :--- | :---
