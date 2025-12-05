@@ -41,6 +41,7 @@ pip3 install opensearchsql
 ```
 {% include copy.html %}
 
+
 The SQL CLI only works with Python 3.
 {: .note }
 
@@ -49,6 +50,7 @@ The SQL CLI only works with Python 3.
 opensearchsql https://localhost:9200 --username admin --password admin
 ```
 {% include copy.html %}
+
 By default, the `opensearchsql` command connects to http://localhost:9200.
 
 ## Configure
@@ -70,17 +72,20 @@ For a list of all available configurations, see [clirc](https://github.com/opens
 opensearchsql --username admin --password admin https://localhost:9200
 ```
 {% include copy.html %}
+
 If your cluster runs without security, run:
 ```console
 opensearchsql
 ```
 {% include copy.html %}
 
+
 2. Run a sample SQL command:
 ```sql
 SELECT * FROM accounts;
 ```
 {% include copy.html %}
+
 
 By default, you see a maximum output of 200 rows. To show more results, add a `LIMIT` clause with the desired value.
 
@@ -95,11 +100,13 @@ opensearchsql -l ppl <params>
 ```
 {% include copy.html %}
 
+
 2. Execute a PPL query:
 ```sql
 source=accounts | fields firstname, lastname
 ```
 {% include copy.html %}
+
 
 ## Query options
 

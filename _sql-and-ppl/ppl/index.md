@@ -29,6 +29,7 @@ search source=<index-name> | <command_1> | <command_2> | ... | <command_n>
 ```
 {% include copy.html %}
 
+
 See [Syntax]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/syntax/) for specific PPL syntax examples.
 
 ## PPL commands

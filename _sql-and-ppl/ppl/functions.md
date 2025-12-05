@@ -44,6 +44,7 @@ ad <shingle_size> <time_decay> <time_field>
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `ad` command when using fixed-in-time RCF for time-series data.
 
 Field | Description | Required
@@ -58,6 +59,7 @@ Field | Description | Required
 ad <shingle_size> <time_decay>
 ```
 {% include copy.html %}
+
 
 The following table describes the parameters for the `ad` command when using batch RCF for non-time-series data.
 
@@ -75,6 +77,7 @@ source=nyc_taxi | fields value, timestamp | AD time_field='timestamp' | where va
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 value | timestamp | score | anomaly_grade
@@ -89,6 +92,7 @@ The following example uses batch RCF to detect anomalies in non-time-series data
 source=nyc_taxi | fields value | AD | where value=10844.0
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -117,6 +121,7 @@ bin <field> [span=<interval>] [minspan=<interval>] [bins=<count>] [aligntime=(ea
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `bin` command.
 
 Field | Description | Required | Default
@@ -136,6 +141,7 @@ source=accounts | bin age span=10 | fields age, account_number | head 3;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | age | account_number
@@ -151,6 +157,7 @@ source=accounts | bin balance span=log10 | fields balance | head 2;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | balance
@@ -164,6 +171,7 @@ The command returns the following results.
 source=time_test | bin value bins=5 | fields value | head 3;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -180,6 +188,7 @@ source=accounts | bin age bins=21 | fields age, account_number | head 3;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | age | account_number
@@ -195,6 +204,7 @@ source=accounts | bin age minspan=5 | fields age, account_number | head 3;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | age | account_number
@@ -209,6 +219,7 @@ The command returns the following results.
 source=accounts | bin age span=1 start=25 end=35 | fields age | head 6;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -226,6 +237,7 @@ source=time_test | bin @timestamp span=1h | fields @timestamp, value | head 3;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | @timestamp | value
@@ -241,6 +253,7 @@ source=accounts | bin age | fields age, account_number | head 3;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | age | account_number
@@ -255,6 +268,7 @@ The command returns the following results.
 source=accounts | eval age_str = CAST(age AS STRING) | bin age_str bins=3 | stats count() by age_str | sort age_str;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -284,6 +298,7 @@ dedup [int] <field-list> [keepempty=<bool>] [consecutive=<bool>]
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `dedup` command.
 
 Field | Description | Type | Required | Default
@@ -302,6 +317,7 @@ search source=accounts | dedup gender | fields account_number, gender;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | account_number | gender
@@ -318,6 +334,7 @@ To keep two duplicate documents with the same gender, use the following command:
 search source=accounts | dedup 2 gender | fields account_number, gender;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -336,6 +353,7 @@ search source=accounts | dedup email keepempty=true | fields account_number, ema
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 account_number | email
@@ -352,6 +370,7 @@ search source=accounts | dedup email | fields account_number, email;
 ```
 {% include copy.html %}
 
+
 account_number | email
 :--- | :---
 1 | amberduke@pyrami.com
@@ -366,6 +385,7 @@ To remove duplicates of consecutive documents, use the following command:
 search source=accounts | dedup gender consecutive=true | fields account_number, gender;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -400,6 +420,7 @@ eval <field>=<expression> ["," <field>=<expression> ]...
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `eval` command.
 
 Field | Description | Required
@@ -415,6 +436,7 @@ To create a new `doubleAge` field for each document where `doubleAge` is the res
 search source=accounts | eval doubleAge = age * 2 | fields age, doubleAge;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -434,6 +456,7 @@ search source=accounts | eval age = age + 1 | fields age;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | age
@@ -451,6 +474,7 @@ To create a new field `ddAge` where `ddAge` is the result of `doubleAge` multipl
 search source=accounts | eval doubleAge = age * 2, ddAge = doubleAge * 2 | fields age, doubleAge, ddAge;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -487,6 +511,7 @@ fields [+|-] <field-list>
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `fields` command.
 
 Field | Description | Required | Default
@@ -502,6 +527,7 @@ To get `account_number`, `firstname`, and `lastname` fields from a search result
 search source=accounts | fields account_number, firstname, lastname;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -520,6 +546,7 @@ To remove the `account_number` field from the search results, use the following 
 search source=accounts | fields account_number, firstname, lastname | fields - account_number;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -551,6 +578,7 @@ head [N]
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `head` command.
 
 Field | Description | Required | Default
@@ -565,6 +593,7 @@ To get the first 10 results, use the following command:
 search source=accounts | fields firstname, age | head;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -582,6 +611,7 @@ To get the first two results, use the following command:
 search source=accounts | fields firstname, age | head 2;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -617,6 +647,7 @@ This is an experimental feature and is not recommended for use in a production e
 [join-type] join [left-alias] [right-alias] on <join-criteria> <right-dataset>
 ```
 {% include copy.html %}
+
 
 The following table describes additional requirements for the `join` command.
 
@@ -672,6 +703,7 @@ search source = state_country
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 avg(salary) | age_span | b.country
@@ -699,6 +731,7 @@ search source = state_country as a
 | stats avg(salary) by span(age, 10) as age_span, b.country
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -733,6 +766,7 @@ kmeans <cluster-number>
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `kmeans` command.
 
 Field | Description | Required
@@ -747,6 +781,7 @@ This example shows how to classify three Iris species (Iris setosa, Iris virgini
 source=iris_data | fields sepal_length_in_cm, sepal_width_in_cm, petal_length_in_cm, petal_width_in_cm | kmeans 3
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -779,6 +814,7 @@ This is an experimental feature and is not recommended for use in a production e
 lookup <lookup-index> (<lookup-mapping-field> [as <source-mapping-field>])... [(replace | append) (<input-field> [AS <output-field>])...]
 ```
 {% include copy.html %}
+
 
 The following table describes the parameters for the `lookup` command.
 
@@ -823,6 +859,7 @@ source = workers | lookup work_information uid as id append department
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | id | name | occupation | country | salary | department
@@ -843,6 +880,7 @@ source = workers | lookup work_information uid as id, name
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 id | name | occupation | country | salary | department
@@ -862,6 +900,7 @@ The following example looks up workers and appends their occupation from `work_i
 source = workers | lookup work_information name replace occupation as new_occupation
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -899,6 +938,7 @@ parse <field> <regular-expression>
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `parse` command.
 
 Field | Description | Required
@@ -916,6 +956,7 @@ The following example shows how to create a new field `host` for each document. 
 source=accounts | parse email '.+@(?<host>.+)' | fields email, host ;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -935,6 +976,7 @@ source=accounts | parse address '\d+ (?<address>.+)' | fields address ;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | address
@@ -952,6 +994,7 @@ The following example shows how to sort street numbers that are higher than 500 
 source=accounts | parse address '(?<streetNumber>\d+) (?<street>.+)' | where cast(streetNumber as int) > 500 | sort num(streetNumber) | fields streetNumber, street ;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -991,6 +1034,7 @@ rare <field-list> [by-clause]
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `rare` command.
 
 Field | Description | Required
@@ -1007,6 +1051,7 @@ search source=accounts | rare gender;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | gender
@@ -1022,6 +1067,7 @@ To find the least common age grouped by gender, use the following command:
 search source=accounts | rare age by gender;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1058,6 +1104,7 @@ regex <field> != <pattern>
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `regex` command.
 
 Field | Description | Required
@@ -1073,6 +1120,7 @@ The following example shows how to filter documents where the ``lastname`` field
 source=accounts | regex lastname="^[A-Z][a-z]+$" | fields account_number, firstname, lastname;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1092,6 +1140,7 @@ source=accounts | regex lastname!=".*son$" | fields account_number, lastname;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | account_number | lastname
@@ -1110,6 +1159,7 @@ source=accounts | regex email="@pyrami\.com$" | fields account_number, email;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | account_number | email
@@ -1124,6 +1174,7 @@ The following example shows how to use complex regex patterns with character cla
 source=accounts | regex address="\d{3,4}\s+[A-Z][a-z]+\s+(Street|Lane|Court)" | fields account_number, address;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1143,6 +1194,7 @@ source=accounts | regex state="va" | fields account_number, state;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | account_number | state
@@ -1152,6 +1204,7 @@ The command returns the following results.
 source=accounts | regex state="VA" | fields account_number, state;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1186,6 +1239,7 @@ rename <source-field> AS <target-field>["," <source-field> AS <target-field>]...
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `rename` command.
 
 Field | Description | Required
@@ -1201,6 +1255,7 @@ To rename the `account_number` field as `an`, use the following command:
 search source=accounts | rename account_number as an | fields an;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1219,6 +1274,7 @@ To rename the `account_number` field as `an` and `employer` as `emp`, use the fo
 search source=accounts | rename account_number as an, employer as emp | fields an, emp;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1255,6 +1311,7 @@ rex [mode=<mode>] field=<field> <pattern> [max_match=<int>] [offset_field=<strin
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `rex` command.
 
 Field | Description | Required | Default
@@ -1274,6 +1331,7 @@ source=accounts | rex field=email "(?<username>[^@]+)@(?<domain>[^.]+)" | fields
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | email | username | domain
@@ -1290,6 +1348,7 @@ source=accounts | rex field=email "(?<user>[^@]+)@(?<domain>gmail\\.com)" | fiel
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | email | user | domain
@@ -1305,6 +1364,7 @@ The following example shows how to extract multiple words from the address field
 source=accounts | rex field=address "(?<words>[A-Za-z]+)" max_match=2 | fields address, words | head 3;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1323,6 +1383,7 @@ source=accounts | rex field=email mode=sed "s/@.*/@company.com/" | fields email 
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | email
@@ -1338,6 +1399,7 @@ The following example shows how to track the character positions where matches o
 source=accounts | rex field=email "(?<username>[^@]+)@(?<domain>[^.]+)" offset_field=matchpos | fields email, username, domain, matchpos | head 2;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1387,6 +1449,7 @@ sort [count] <[+|-] sort-field>...
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `sort` command.
 
 Field | Description | Required | Default
@@ -1403,6 +1466,7 @@ To sort all documents by the `age` field in ascending order, use the following c
 search source=accounts | sort age | fields account_number, age;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1422,6 +1486,7 @@ search source=accounts | sort 0 age | fields account_number, age;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 account_number | age
@@ -1440,6 +1505,7 @@ search source=accounts | sort - age | fields account_number, age;
 ```
 {% include copy.html %}
 
+
 account_number | age
 :--- | :---
 6 | 36
@@ -1456,6 +1522,7 @@ search source=accounts | sort 2 age | fields account_number, age;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 account_number | age
@@ -1471,6 +1538,7 @@ To sort all documents by the `gender` field in ascending order and the `age` fie
 search source=accounts | sort + gender, - age | fields account_number, gender, age;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1503,6 +1571,7 @@ spath input=<field> [output=<field>] [path=]<path>
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `spath` command.
 
 Field | Description | Required | Default
@@ -1519,6 +1588,7 @@ The simplest `spath` is to extract a single field. The following example extract
 source=structured | spath input=doc_n n | fields doc_n n;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1537,6 +1607,7 @@ source=structured | spath input=doc_list output=first_element list{0} | spath in
 ```
 {% include copy.html %}
 
+
 | doc_list | first_element | all_elements | nested
 | :--- | :--- | :--- | :--- |
 | {"list": [1, 2, 3, 4], "nest_out": {"nest_in": "a"}} | 1 | [1,2,3,4] | a
@@ -1552,6 +1623,7 @@ source=structured | spath input=doc_n n | eval n=cast(n as int) | stats sum(n) |
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | sum(n)
@@ -1566,6 +1638,7 @@ The command returns the following results.
 source=structured | spath output=a input=doc_escape "['a fancy field name']" | spath output=b input=doc_escape "['a.b.c']" | fields a b;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1607,6 +1680,7 @@ stats <aggregation>... [by-clause]...
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `stats` command.
 
 Field | Description | Required | Default
@@ -1623,6 +1697,7 @@ search source=accounts | stats avg(age);
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | avg(age)
@@ -1637,6 +1712,7 @@ To calculate the average `age` grouped by gender, use the following command:
 search source=accounts | stats avg(age) by gender;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1654,6 +1730,7 @@ search source=accounts | stats avg(age), sum(age) by gender;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | gender | avg(age) | sum(age)
@@ -1670,6 +1747,7 @@ search source=accounts | stats max(age);
 ```
 {% include copy.html %}
 
+
 | max(age)
 :--- |
 | 36
@@ -1682,6 +1760,7 @@ To calculate the maximum and minimum `age` values grouped by gender, use the fol
 search source=accounts | stats max(age), min(age) by gender;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1712,6 +1791,7 @@ timechart [timefield=<field_name>] [span=<time_interval>] [limit=<number>] [useo
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `timechart` command.
 
 Field | Description | Required | Default
@@ -1732,6 +1812,7 @@ source=events | timechart span=1h count() by host;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | @timestamp | host | count()
@@ -1747,6 +1828,7 @@ The following example calculates the average packets for each minute without gro
 source=events | timechart span=1m avg(packets);
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1769,6 +1851,7 @@ The following example calculates the average number of packets for every 20 minu
 source=events | timechart span=20m avg(packets) by status;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1793,6 +1876,7 @@ source=events | timechart span=1m limit=2 count() by host;
 ```
 {% include copy.html %}
 
+
 | @timestamp | host | count()
 :--- | :--- | :--- |
 | 2023-01-01 10:00:00 | server1 | 1
@@ -1812,6 +1896,7 @@ To display all distinct values without any limit, set `limit=0` and use the foll
 source=events_many_hosts | timechart span=1h limit=0 count() by host;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1838,6 +1923,7 @@ source=events_many_hosts | timechart span=1h useother=false count() by host;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | @timestamp | host | count()
@@ -1862,6 +1948,7 @@ source=events_many_hosts | timechart span=1h limit=3 avg(cpu_usage) by host;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | @timestamp | host | avg(cpu_usage)
@@ -1881,6 +1968,7 @@ source=events_null | timechart span=1h count() by host;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | @timestamp | host | count()
@@ -1898,6 +1986,7 @@ The following example calculates the per-second packet rate for network traffic 
 source=events | timechart span=30m per_second(packets) by host;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -1933,6 +2022,7 @@ top [N] <field-list> [by-clause]
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `top` command.
 
 Field | Description | Required | Default
@@ -1950,6 +2040,7 @@ search source=accounts | top gender;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | gender
@@ -1966,6 +2057,7 @@ search source=accounts | top 1 gender;
 ```
 {% include copy.html %}
 
+
 The command returns the following results.
 
 | gender
@@ -1980,6 +2072,7 @@ To find the most common age grouped by gender, use the following command:
 search source=accounts | top 1 age by gender;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 
@@ -2013,6 +2106,7 @@ where <boolean-expression>
 ```
 {% include copy.html %}
 
+
 The following table describes the parameters for the `where` command.
 
 Field | Description | Required
@@ -2027,6 +2121,7 @@ To get all documents from the `accounts` index where `account_number` is 1 or ge
 search source=accounts | where account_number=1 or gender="F" | fields account_number, gender;
 ```
 {% include copy.html %}
+
 
 The command returns the following results.
 

@@ -38,6 +38,7 @@ SQL query:
 ```
 {% include copy.html %}
 
+
 Result set:
 
 ```json

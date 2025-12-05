@@ -28,6 +28,7 @@ field_expression = matchquery(query_expression[, option=<option_value>]*)
 ```
 {% include copy.html %}
 
+
 You can specify the following options in any order:
 
 - `analyzer`
@@ -44,6 +45,7 @@ WHERE MATCHQUERY(address, 'Holmes')
 ```
 {% include copy.html %}
 
+
 Alternatively, you can use `MATCH_QUERY` to replace `MATCH`:
 
 ```sql
@@ -52,6 +54,7 @@ FROM accounts
 WHERE address = MATCH_QUERY('Holmes')
 ```
 {% include copy.html %}
+
 
 The results contain documents in which the address contains "Holmes":
 
@@ -72,6 +75,7 @@ multimatchquery('query'=query_expression[, 'fields'=field_expression][, option=<
 ```
 {% include copy.html %}
 
+
 The `fields` parameter is optional and can contain a single field or a comma-separated list (white space characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without white space. 
 
 ### Example
@@ -83,6 +87,7 @@ multi_match('fields' = "Tags^2,Title^3.4,Body,Comments^0.3", ...)
 multi_match('fields' = "Title", ...)
 ```
 {% include copy.html %}
+
 
 You can specify the following options in any order:
 
@@ -104,6 +109,7 @@ query('query'=query_expression[, 'fields'=field_expression][, option=<option_val
 ```
 {% include copy.html %}
 
+
 The `fields` parameter is optional and can contain a single field or a comma-separated list (white space characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without white space. 
 
 ### Example
@@ -115,6 +121,7 @@ query('fields' = "Tags^2,Title^3.4,Body,Comments^0.3", ...)
 query('fields' = "Tags", ...)
 ```
 {% include copy.html %}
+
 
 You can specify the following options in any order:
 
@@ -149,6 +156,7 @@ WHERE query('address:Lane OR address:Street')
 ```
 {% include copy.html %}
 
+
 The results contain addresses that contain "Lane" or "Street":
 
 | account_number | address
@@ -167,6 +175,7 @@ The `MATCHPHRASEQUERY` function is a synonym for [`MATCH_PHRASE`]({{site.url}}{{
 matchphrasequery(query_expression, field_expression[, option=<option_value>]*)
 ```
 {% include copy.html %}
+
 
 You can specify the following options in any order:
 
@@ -189,6 +198,7 @@ SCORE_QUERY(match_query_expression, score)
 ```
 {% include copy.html %}
 
+
 ### Example
 
 The following example uses the `SCORE` function to boost the documents' scores:
@@ -201,6 +211,7 @@ WHERE SCORE(MATCH_QUERY(address, 'Lane'), 0.5) OR
 ORDER BY _score
 ```
 {% include copy.html %}
+
 
 The results contain matches with corresponding scores:
 
@@ -222,6 +233,7 @@ wildcard_query(field_expression, query_expression[, boost=<value>])
 ```
 {% include copy.html %}
 
+
 ### Example
 
 The following example uses a wildcard query:
@@ -232,6 +244,7 @@ FROM accounts
 WHERE wildcard_query(address, '*Holmes*');
 ```
 {% include copy.html %}
+
 
 The results contain documents that match the wildcard expression:
 

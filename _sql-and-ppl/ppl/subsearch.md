@@ -32,6 +32,7 @@ where <field> [not] in [ search source=... | ... | ... ]
 ```
 {% include copy.html %}
 
+
 ### Usage
 
 ```sql
@@ -48,6 +49,7 @@ source = table1 | inner join left = l right = r on l.a = r.a AND r.a in [ source
 ```
 {% include copy.html %}
 
+
 ## `exists`
 
 An `exists` subsearch checks whether any results are returned by the subsearch query. This is particularly useful for correlated subqueries where you want to check the existence of related records.
@@ -58,6 +60,7 @@ An `exists` subsearch checks whether any results are returned by the subsearch q
 where [not] exists [ search source=... | ... | ... ]
 ```
 {% include copy.html %}
+
 
 ### Usage
 
@@ -86,6 +89,7 @@ source = table as t1 exists [ source = table as t2 | where t1.a = t2.a ]
 {% include copy.html %}
 
 
+
 #### Uncorrelated
 
 In the following example, the subsearches are independent of the outer query. The inner query doesn't reference any fields from the outer query, so it's evaluated only once, regardless of how many rows are in the outer query:
@@ -95,6 +99,7 @@ source = outer | where exists [ source = inner | where c > 10 ]
 source = outer | where not exists [ source = inner | where c > 10 ]
 ```
 {% include copy.html %}
+
 
 #### Nested
 
@@ -106,6 +111,7 @@ source = outer | where exists [ source = inner1 | where a = c | where exists [ s
 ```
 {% include copy.html %}
 
+
 ## `scalar`
 
 A `scalar` subsearch returns a single value that you can use in comparisons or calculations. This is useful when you need to compare a field against an aggregated value from another query.
@@ -116,6 +122,7 @@ A `scalar` subsearch returns a single value that you can use in comparisons or c
 where <field> = [ search source=... | ... | ... ]
 ```
 {% include copy.html %}
+
 
 ### Usage
 
@@ -133,6 +140,7 @@ source = outer a > [ source = inner | stats min(c) ] | fields a
 ```
 {% include copy.html %}
 
+
 #### Correlated
 
 In the following example, the `scalar` subsearch references fields from the outer query, creating a dependency where the inner query result depends on each row of the outer query:
@@ -149,6 +157,7 @@ source = outer [ source = inner | where outer.b = inner.d OR inner.d = 1 | stats
 ```
 {% include copy.html %}
 
+
 #### Nested
 
 The following example demonstrates how to nest multiple `scalar` subsearches to create complex comparisons or use one subsearch result within another:
@@ -158,6 +167,7 @@ source = outer | where a = [ source = inner | stats max(c) | sort c ] OR b = [ s
 source = outer | where a = [ source = inner | where c =  [ source = nested | stats max(e) by f | sort f ] | stats max(d) by c | sort c | head 1 ]
 ```
 {% include copy.html %}
+
 
 ## `relation`
 
@@ -170,6 +180,7 @@ join on <condition> [ search source=... | ... | ... ] [as alias]
 ```
 {% include copy.html %}
 
+
 ### Usage
 
 The following example demonstrates how to use `relation` subsearches in join operations. The first example shows how to join with a filtered dataset, while the second shows how to nest a `relation` subsearch within another query:
@@ -179,6 +190,7 @@ source = table1 | join left = l right = r on condition [ source = table2 | where
 source = [ source = table1 | join left = l right = r [ source = table2 | where d > 10 | head 5 ] | stats count(a) by b ] as outer | head 1
 ```
 {% include copy.html %}
+
           
 ## Examples
 
@@ -217,6 +229,7 @@ source = supplier
 ```
 {% include copy.html %}
 
+
 **Example 2: Query with `relation`, `scalar`, and `exists` subsearches**
 
 The following query uses `relation`, `scalar`, and `exists` subsearches to find customers from specific country codes with above-average account balances who have not placed any orders:
@@ -242,6 +255,7 @@ source = [  /* relation subsearch */
 | sort cntrycode
 ```
 {% include copy.html %}
+
 
 ## Limitations
 

@@ -43,6 +43,7 @@ WHERE age > 30
 ```
 {% include copy.html %}
 
+
 Explain:
 
 ```json

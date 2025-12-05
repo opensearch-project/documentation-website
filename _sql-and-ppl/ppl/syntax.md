@@ -24,6 +24,7 @@ source=<index> [boolean-expression]
 ```
 {% include copy.html %}
 
+
 Field | Description | Required
 :--- | :--- |:---
 `index` | Specifies the index to query. | No
@@ -42,6 +43,7 @@ search source=accounts
 ```
 {% include copy.html %}
 
+
 In the following examples, angle brackets `< >` enclose required arguments and square brackets `[ ]` enclose optional arguments.
 {: .note }
 
@@ -54,6 +56,7 @@ To get all documents from the `accounts` index, specify it as the `source`:
 search source=accounts;
 ```
 {% include copy.html %}
+
 
 | account_number | firstname | address | balance | gender | city | employer | state | age | email | lastname |
 :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
@@ -70,6 +73,7 @@ To get all documents from the `accounts` index that either have `account_number`
 search source=accounts account_number=1 or gender=\"F\";
 ```
 {% include copy.html %}
+
 
 | account_number | firstname | address | balance | gender | city | employer | state | age | email | lastname |
 :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---

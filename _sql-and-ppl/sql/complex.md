@@ -70,6 +70,7 @@ JOIN employees_nested e
 ```
 {% include copy.html %}
 
+
 Explain:
 
 The `explain` output is complicated, because a `JOIN` clause is associated with two OpenSearch DSL queries that execute in separate query planner frameworks. You can interpret it by examining the `Physical Plan` and `Logical Plan` objects.
@@ -168,6 +169,7 @@ JOIN employees_nested e
 ```
 {% include copy.html %}
 
+
 Result set:
 
 | a.account_number | a.firstname | a.lastname | e.id | e.name
@@ -201,6 +203,7 @@ LEFT JOIN employees_nested e
 ```
 {% include copy.html %}
 
+
 Result set:
 
 | a.account_number | a.firstname | a.lastname | e.id | e.name
@@ -229,6 +232,7 @@ WHERE a1.account_number IN (
 )
 ```
 {% include copy.html %}
+
 
 Explain:
 
@@ -373,6 +377,7 @@ FROM (
 ) AS a
 ```
 {% include copy.html %}
+
 
 Explain:
 

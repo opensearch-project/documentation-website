@@ -61,6 +61,7 @@ GROUP BY department;
 ```
 {% include copy.html %}
 
+
 | department | sum(sales)
 :--- | :---
 1 | 58700  |
@@ -77,6 +78,7 @@ GROUP BY 1;
 ```
 {% include copy.html %}
 
+
 | department | sum(sales)
 :--- | :---
 1 | 58700  |
@@ -92,6 +94,7 @@ FROM employees
 GROUP BY year(sale_date);
 ```
 {% include copy.html %}
+
 
 | year(start_date) | avg(sales)
 :--- | :---
@@ -114,6 +117,7 @@ GROUP BY department;
 ```
 {% include copy.html %}
 
+
 | department | avg(sales)
 :--- | :---
 1 | 14675.0 |
@@ -130,6 +134,7 @@ GROUP BY department;
 ```
 {% include copy.html %}
 
+
 | department | avg_commission
 :--- | :---
 1 | 733.75 |
@@ -145,6 +150,7 @@ FROM employees
 GROUP BY department;
 ```
 {% include copy.html %}
+
 
 | department | avg_commission
 :--- | :---
@@ -169,6 +175,7 @@ FROM employees
 GROUP BY year(sale_date);
 ```
 {% include copy.html %}
+
 
 | year(sale_date) | count(sales)
 :--- | :---
@@ -196,6 +203,7 @@ HAVING count(sales) > 1;
 ```
 {% include copy.html %}
 
+
 | employee_id | count(sales)
 :--- | :---
 1 | 2 |
@@ -210,6 +218,7 @@ GROUP BY employee_id
 HAVING count(sales) > 1;
 ```
 {% include copy.html %}
+
 
 | employee_id | sum (sales)
 :--- | :---
@@ -226,6 +235,7 @@ HAVING count(sales) > 1;
 ```
 {% include copy.html %}
 
+
 | id | sum (sales)
 :--- | :---
 1 | 40580 |
@@ -241,6 +251,7 @@ HAVING total > 40000;
 ```
 {% include copy.html %}
 
+
 | department | total
 :--- | :---
 1 | 58700 |
@@ -255,6 +266,7 @@ HAVING sales > 40000;
 ```
 {% include copy.html %}
 
+
 | department | sales
 :--- | :---
 1 | 58700 |
@@ -267,6 +279,7 @@ You can use a `HAVING` clause without a `GROUP BY` clause. In this case, the who
 SELECT 'True' as more_than_one_department FROM employees HAVING min(department) < max(department);
 ```
 {% include copy.html %}
+
 
 | more_than_one_department |
 :--- |

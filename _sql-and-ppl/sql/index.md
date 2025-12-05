@@ -65,6 +65,7 @@ curl -XPOST https://localhost:9200/_plugins/_sql -u 'admin:<custom-admin-passwor
 ```
 {% include copy.html %}
 
+
 You can specify the [response format]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) as JDBC, standard OpenSearch JSON, CSV, or raw. By default, queries return data in JDBC format. The following query sets the format to JSON:
 
 ```json

@@ -41,6 +41,7 @@ WHERE p.name LIKE '%security%'
 ```
 {% include copy.html %}
 
+
 Explain:
 
 ```json
@@ -126,6 +127,7 @@ WHERE EXISTS (
 )
 ```
 {% include copy.html %}
+
 
 Explain:
 

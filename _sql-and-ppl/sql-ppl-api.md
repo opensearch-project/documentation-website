@@ -186,6 +186,7 @@ POST _plugins/_sql/_explain
 ```
 {% include copy.html %}
 
+
 The response shows the query execution plan:
 
 ```json
@@ -219,6 +220,7 @@ POST _plugins/_ppl/_explain
 }
 ```
 {% include copy.html %}
+
 
 The response shows both logical and physical plans in the standard format:
 

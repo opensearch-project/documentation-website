@@ -29,6 +29,7 @@ FROM index_name
 ```
 {% include copy.html %}
 
+
 ### Fundamentals
 
 Apart from the predefined keywords of SQL, the most basic elements are literal and identifiers.
@@ -64,6 +65,7 @@ FROM index
 ```
 {% include copy.html %}
 
+
 ## Select
 
 Specify the fields to be retrieved.
@@ -86,6 +88,7 @@ FROM accounts
 ```
 {% include copy.html %}
 
+
 | account_number | firstname | gender | city | balance | employer | state | email | address | lastname | age
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
 | 1 | Amber | M | Brogan | 39225 | Pyrami | IL | amberduke@pyrami.com | 880 Holmes Lane | Duke | 32
@@ -100,6 +103,7 @@ SELECT firstname, lastname
 FROM accounts
 ```
 {% include copy.html %}
+
 
 | firstname | lastname
 | :--- | :---

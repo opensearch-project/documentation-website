@@ -35,6 +35,7 @@ SELECT account_number, firstname, lastname FROM accounts;
 ```
 {% include copy.html %}
 
+
 | account_number | firstname | lastname |
 :--- | :--- |
 | 1  | Amber | Duke       
@@ -62,6 +63,7 @@ To quote an index name with back ticks:
 source=`accounts` | fields `account_number`;
 ```
 {% include copy.html %}
+
 
 | account_number |
 :--- |
