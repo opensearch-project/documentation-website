@@ -23,7 +23,7 @@ SQL in OpenSearch bridges the gap between traditional relational database concep
 
 ## PPL
 
-PPL is a query language that processes data in a sequential, step-by-step manner using the pipe (`|`) operator to chain commands together. PPL excels at analyzing observability data like logs, metrics, and traces, and is particularly effective for exploratory data analysis and transformations.
+PPL is a query language that processes data in a sequential, step-by-step manner using the pipe (`|`) operator to chain commands together. PPL excels at analyzing observability data like logs, metrics, and traces and is particularly effective for exploratory data analysis and transformations.
 
 **Best for**: Log analysis, observability workflows, and users who prefer a pipeline-based approach to data processing.
 
