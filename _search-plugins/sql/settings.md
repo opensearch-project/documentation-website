@@ -94,7 +94,7 @@ Setting | Default | Description
 `plugins.ppl.pattern.method` | `"simple_pattern"` | Sets the default patterns method. Another supported method is "brain".
 `plugins.ppl.pattern.mode` | `"label"` | Sets the default patterns mode. Another supported mode is "aggregation".
 `plugins.ppl.pattern.max.sample.count` | `10` | Sets the maximum number of sample logs returned per pattern in aggregation mode.
-`plugins.ppl.pattern.buffer.limit` | `100000` | Sets the default size of internal temporary buffer used in "brain" algorithm.
+`plugins.ppl.pattern.buffer.limit` | `100000` | Sets the size of the internal temporary buffer used by the `brain` algorithm.
 `plugins.ppl.pattern.show.numbered.token` | `false` | Change to `true` to turn on numbered token output format.
 `plugins.ppl.pattern.show.numbered.token` | `false` | Change to `true` to turn on numbered token output format.
 `plugins.ppl.query.timeout` | `5m` | Configures the maximum execution time for PPL queries. When a query exceeds this timeout, it will be interrupted and return a timeout error.
