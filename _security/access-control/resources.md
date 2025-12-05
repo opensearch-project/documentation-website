@@ -150,11 +150,13 @@ This example shows a resource with ID `model-group-123` created by the user `bob
 
 In this example:
 
-- Users: `alice` can access the resource.
+- At read-only level:
 
-- Roles: Any user assigned the `data_viewer` role can access the resource.
+ - Users: `alice` can access the resource.
 
-- Backend roles: Any user mapped to the `analytics_backend` backend role can access the resource.
+ - Roles: Any user assigned the `data_viewer` role can access the resource.
+
+ - Backend roles: Any user mapped to the `analytics_backend` backend role can access the resource.
 
 To make this resource public, set `users` to `["*"]`:
 

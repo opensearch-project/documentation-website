@@ -56,6 +56,26 @@ POST _plugins/_security/api/resources/migrate
 ```
 {% include copy-curl.html %}
 
+### Example response
+
+```json
+{
+  "summary": "Migration complete. migrated 10; skippedNoType 1; skippedExisting 0; failed 1",
+  "resourcesWithDefaultOwner": ["doc-17"],
+  "skippedResources": ["doc-22"]
+}
+```
+
+### Response body fields
+
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `summary` | String | A summary message describing the migration results, including counts of migrated, skipped, and failed resources. |
+| `resourcesWithDefaultOwner` | Array | A list of resource IDs that were assigned the default owner because no owner information was found. |
+| `skippedResources` | Array | A list of resource IDs that were skipped during migration (for example, missing type information or already migrated). |
+
 ### Required permissions
 
 If you use the Security plugin, make sure you have the appropriate permissions: `restapi:admin/resource_sharing/migrate`.
@@ -89,7 +109,26 @@ GET _plugins/_security/api/resource/share?resource_id=model-group-123&resource_t
 ### Example response
 
 ```json
-
+{
+  "sharing_info": {
+    "resource_id": "model-group-123",
+    "created_by": {
+      "user": "admin"
+    },
+    "share_with": {
+      "read_only": {
+        "users": ["bob"],
+        "roles": ["data_viewer"],
+        "backend_roles": []
+      },
+      "read_write": {
+        "users": ["charlie"],
+        "roles": [],
+        "backend_roles": ["ml_team"]
+      }
+    }
+  }
+}
 ```
 
 ### Response body fields
@@ -98,6 +137,15 @@ The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
+| `sharing_info` | Object | Contains the complete sharing configuration for the resource. |
+| `sharing_info.resource_id` | String | The unique identifier of the resource. |
+| `sharing_info.created_by` | Object | Information about the resource creator. |
+| `sharing_info.created_by.user` | String | The username of the resource creator. |
+| `sharing_info.share_with` | Object | The sharing configuration organized by access level. |
+| `sharing_info.share_with.<access_level>` | Object | An access level (for example, `read_only`, `read_write`) containing lists of principals. |
+| `sharing_info.share_with.<access_level>.users` | Array | A list of usernames with this access level. |
+| `sharing_info.share_with.<access_level>.roles` | Array | A list of roles with this access level. |
+| `sharing_info.share_with.<access_level>.backend_roles` | Array | A list of backend roles with this access level. |
 
 ### Required permissions
 
@@ -155,6 +203,47 @@ PUT _plugins/_security/api/resource/share
 }
 ```
 {% include copy-curl.html %}
+
+### Example response
+
+```json
+{
+  "sharing_info": {
+    "resource_id": "model-group-123",
+    "created_by": {
+      "user": "admin"
+    },
+    "share_with": {
+      "read_only": {
+        "users": ["bob"],
+        "roles": ["data_viewer"],
+        "backend_roles": []
+      },
+      "read_write": {
+        "users": ["charlie"],
+        "roles": [],
+        "backend_roles": ["ml_team"]
+      }
+    }
+  }
+}
+```
+
+### Response body fields
+
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `sharing_info` | Object | Contains the complete sharing configuration for the resource. |
+| `sharing_info.resource_id` | String | The unique identifier of the resource. |
+| `sharing_info.created_by` | Object | Information about the resource creator. |
+| `sharing_info.created_by.user` | String | The username of the resource creator. |
+| `sharing_info.share_with` | Object | The sharing configuration organized by access level. |
+| `sharing_info.share_with.<access_level>` | Object | An access level (for example, `read_only`, `read_write`) containing lists of principals. |
+| `sharing_info.share_with.<access_level>.users` | Array | A list of usernames with this access level. |
+| `sharing_info.share_with.<access_level>.roles` | Array | A list of roles with this access level. |
+| `sharing_info.share_with.<access_level>.backend_roles` | Array | A list of backend roles with this access level. |
 
 ### Required permissions
 
@@ -226,6 +315,43 @@ PATCH _plugins/_security/api/resource/share
 ```
 {% include copy-curl.html %}
 
+### Example response
+
+```json
+{
+  "sharing_info": {
+    "resource_id": "model-group-123",
+    "created_by": {
+      "user": "admin"
+    },
+    "share_with": {
+      "read_only": {
+        "users": ["bob", "dave"],
+        "roles": ["data_viewer"],
+        "backend_roles": []
+      },
+      "read_write": {}
+    }
+  }
+}
+```
+
+### Response body fields
+
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `sharing_info` | Object | Contains the complete sharing configuration for the resource after modifications. |
+| `sharing_info.resource_id` | String | The unique identifier of the resource. |
+| `sharing_info.created_by` | Object | Information about the resource creator. |
+| `sharing_info.created_by.user` | String | The username of the resource creator. |
+| `sharing_info.share_with` | Object | The updated sharing configuration organized by access level. |
+| `sharing_info.share_with.<access_level>` | Object | An access level containing lists of principals after add/revoke operations. |
+| `sharing_info.share_with.<access_level>.users` | Array | A list of usernames with this access level. |
+| `sharing_info.share_with.<access_level>.roles` | Array | A list of roles with this access level. |
+| `sharing_info.share_with.<access_level>.backend_roles` | Array | A list of backend roles with this access level. |
+
 ### Required permissions
 
 If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/security/resource/share`.
@@ -258,7 +384,31 @@ GET _plugins/_security/api/resource/list?resource_type=ml-model-group
 ### Example response
 
 ```json
-
+{
+  "resources": [
+    {
+      "resource_id": "model-group-123",
+      "created_by": {
+        "user": "admin",
+        "tenant": "default"
+      },
+      "share_with": {
+        "read_only": {
+          "users": ["bob"]
+        }
+      },
+      "can_share": true
+    },
+    {
+      "resource_id": "model-group-456",
+      "created_by": {
+        "user": "alice",
+        "tenant": "default"
+      },
+      "can_share": false
+    }
+  ]
+}
 ```
 
 ### Response body fields
@@ -267,6 +417,15 @@ The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
+| `resources` | Array | A list of resources accessible to the authenticated user. |
+| `resources[].resource_id` | String | The unique identifier of the resource. |
+| `resources[].created_by` | Object | Information about the resource creator. |
+| `resources[].created_by.user` | String | The username of the resource creator. |
+| `resources[].created_by.tenant` | String | The tenant associated with the resource creator (if applicable). |
+| `resources[].share_with` | Object | The sharing configuration for this resource. This field may not be present if the resource has not been shared yet. |
+| `resources[].share_with.<access_level>` | Object | An access level containing lists of principals. |
+| `resources[].share_with.<access_level>.users` | Array | A list of usernames with this access level. |
+| `resources[].can_share` | Boolean | Indicates whether the authenticated user has permission to share this resource. |
 
 ### Required permissions
 
@@ -292,7 +451,18 @@ GET _plugins/_security/api/resource/types
 ### Example response
 
 ```json
-
+{
+  "types": [
+    {
+      "type": "ml-model-group",
+      "action_groups": ["ml_read_only", "ml_read_write", "ml_full_access"]
+    },
+    {
+      "type": "anomaly-detector",
+      "action_groups": ["ad_read_only", "ad_full_access"]
+    }
+  ]
+}
 ```
 
 ### Response body fields
@@ -301,6 +471,9 @@ The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
+| `types` | Array | A list of resource types available in the system. |
+| `types[].type` | String | The name of the resource type. |
+| `types[].action_groups` | Array | A list of available action groups (access levels) for this resource type. |
 
 ### Required permissions
 
