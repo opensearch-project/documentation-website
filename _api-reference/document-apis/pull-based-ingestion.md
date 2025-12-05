@@ -76,8 +76,17 @@ The `ingestion_source` parameters control how OpenSearch pulls data from the str
 | `internal_queue_size` | The size of the internal blocking queue for advanced tuning. Valid values are from 1 to 100,000, inclusive. Optional. Default is 100. |
 | `all_active` | Whether to enable the all-active ingestion mode. Cannot be enabled for indexes that use segment replication mode. Default is `false`. See [Ingestion modes](#ingestion-modes). |
 | `pointer_based_lag_update_interval` | The interval at which pointer-based lag is calculated. Accepts time units. Default is `10s`. Setting this value to `0` disables pointer-based lag calculation. |
+| `mapper_type` | Defines the mapper for the input message format. Valid values are `default` and `raw_payload`. See [Message format](#message-format). |
 | `param` | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; The `ingest-kafka` plugin requires:<br>&ensp;&ensp;- `topic`: The Kafka topic to consume from<br>&ensp;&ensp;- `bootstrap_servers`: The Kafka server addresses<br>&ensp;&ensp;Optionally, you can provide additional standard Kafka consumer parameters (such as `fetch.min.bytes`). These parameters are passed directly to the Kafka consumer. <br>&ensp;&#x2022; The `ingest-kinesis` plugin requires:<br>&ensp;&ensp;- `stream`: The Kinesis stream name<br>&ensp;&ensp;- `region`: The AWS Region<br>&ensp;&ensp;- `access_key`: The AWS access key<br>&ensp;&ensp;- `secret_key`: The AWS secret key<br>&ensp;&ensp;Optionally, you can provide an `endpoint_override`. | 
 
+
+### Other parameters
+
+Pull-based ingestion supports the following OpenSearch parameters.
+
+| Parameter | Description |
+| :--- | :--- |
+| `index.periodic_flush_interval` | The interval at which OpenSearch will trigger a flush. Default for pull-based ingestion indexes is `10m`. See [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/). |
 
 ### Ingestion modes
 
@@ -173,7 +182,7 @@ To be correctly processed by OpenSearch, messages in the streaming source must h
 {"_id":"2", "_version":"2", "_source":{"name": "alice", "age": 30}, "_op_type": "delete"}
 ```
 
-Each data unit in the streaming source (Kafka message or Kinesis record) must include the following fields that specify how to create or modify an OpenSearch document.
+Each data unit in the streaming source (Kafka message or Kinesis record) must include the following fields that specify how to create or modify an OpenSearch document. This is the default format supported by pull-based ingestion.
 
 | Field | Data type | Required | Description |
 | :--- | :--- | :--- | :--- |
@@ -181,6 +190,13 @@ Each data unit in the streaming source (Kafka message or Kinesis record) must in
 | `_version` | Long | No | A document version number, which must be maintained externally. If provided, OpenSearch drops messages with versions earlier than the current document version. If not provided, no version checking occurs. |
 | `_op_type` | String | No | The operation to perform. Valid values are:<br>- `index`: Creates a new document or updates an existing one.<br>- `create`: Creates a new document in append mode. Note that this will not update existing documents. <br>- `delete`: Soft deletes a document. |
 | `_source` | Object | Yes | The message payload containing the document data. |
+
+Alternatively, pull-based ingestion supports indexing raw payloads in append-only mode without transformations. To enable this behavior, set `index.ingestion_source.mapper_type` to `raw_payload`. Note that in this mode, the index mappings must conform to the message structure because dynamic mapping is not supported. When using `raw_payload`, you must provide raw JSON objects exactly as they appear in the incoming data stream, as shown in the following example:
+
+```json
+{"name": "alice", "age": 30}
+{"name": "bob", "age": 30}
+```
 
 ## Pull-based ingestion metrics
 

@@ -6,7 +6,7 @@ latesturl: "/latest" # The subpath of the latest version. Used for non-version-s
 url: "https://docs.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '3.3.1'
+opensearch_version: '3.3.2'
 opensearch_dashboards_version: '3.3.0'
 opensearch_major_minor_version: '3.3'
 lucene_version: '10_3_1'
@@ -70,7 +70,10 @@ collections:
     output: true
   query-dsl:
     permalink: /:collection/:path/
-    output: true 
+    output: true
+  sql-and-ppl:
+    permalink: /:collection/:path/
+    output: true
   aggregations:
     permalink: /:collection/:path/
     output: true
@@ -173,6 +176,9 @@ opensearch_collection:
       nav_fold: true
     query-dsl:
       name: Query DSL
+      nav_fold: true
+    sql-and-ppl:
+      name: SQL and PPL
       nav_fold: true
     aggregations:
       name: Aggregations

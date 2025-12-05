@@ -64,13 +64,14 @@ To get started, create the following `pipeline.yaml` file. You can use the follo
 ad-pipeline:
   source:
     ...
-  ....  
+  ....
   processor:
     - anomaly_detector:
         keys: ["latency"]
-        mode: 
+        mode:
             random_cut_forest:
 ```
+{% include copy.html %}
 
 When you run the `anomaly_detector` processor, the processor extracts the value for the `latency` key and then passes the value through the RCF ML algorithm. You can configure any key that comprises integers or real numbers as values. In the following example, you can configure `bytes` or `latency` as the key for an anomaly detector. 
 

@@ -19,8 +19,8 @@ There are many more plugins available in addition to those provided by the stand
 | [`analysis-phonenumber`]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/phone-analyzers/)                  | 2.18.0                     |
 | `analysis-phonetic`                                                                                                      | 1.0.0                      |
 | `analysis-smartcn`                                                                                                       | 1.0.0                      |
-| `analysis-stempel`                                                                                                       | 1.0.0                      |
-| `analysis-ukrainian`                                                                                                     | 1.0.0                      |
+| [`analysis-stempel`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/polish/)                                                                                                       | 1.0.0                      |
+| [`analysis-ukrainian`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/ukrainian/)                                                                                                     | 1.0.0                      |
 | `discovery-azure-classic`                                                                                                | 1.0.0                      |
 | `discovery-ec2`                                                                                                          | 1.0.0                      |
 | `discovery-gce`                                                                                                          | 1.0.0                      |
