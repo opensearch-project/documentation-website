@@ -1,0 +1,138 @@
+---
+layout: default
+title: "rare"
+parent: "Commands"
+grand_parent: "PPL"
+nav_order: 28
+---
+# rare
+
+
+The `rare` command finds the least common tuple of values of all fields in the field list.
+
+**Note**: A maximum of 10 results is returned for each distinct tuple of values of the group-by fields.
+
+## Syntax
+
+Use the following syntax:
+
+`rare [rare-options] <field-list> [by-clause]`
+* `field-list`: mandatory. Comma-delimited list of field names.  
+* `by-clause`: optional. One or more fields to group the results by.  
+* `rare-options`: optional. Options for the rare command. Supported syntax is [countfield=\<string\>] [showcount=\<bool\>].  
+* showcount=\<bool\>: optional. Whether to create a field in output that represent a count of the tuple of values. **Default:** `true`.  
+* countfield=\<string\>: optional. The name of the field that contains count. **Default:** `'count'`.  
+* usenull=\<bool\>: optional. whether to output the null value. **Default:** Determined by `plugins.ppl.syntax.legacy.preferred`:  
+  * When `plugins.ppl.syntax.legacy.preferred=true`, `usenull` defaults to `true`  
+  * When `plugins.ppl.syntax.legacy.preferred=false`, `usenull` defaults to `false`  
+  
+
+## Example 1: Find the least common values in a field  
+
+The following example PPL query shows how to use `rare` to find the least common gender of all the accounts.
+  
+```sql
+source=accounts
+| rare showcount=false gender
+```
+{% include copy.html %}
+  
+Expected output:
+  
+| gender |
+| --- |
+| F |
+| M |
+  
+
+## Example 2: Find the least common values organized by gender  
+
+The following example PPL query shows how to use `rare` to find the least common age of all the accounts grouped by gender.
+  
+```sql
+source=accounts
+| rare showcount=false age by gender
+```
+{% include copy.html %}
+  
+Expected output:
+  
+| gender | age |
+| --- | --- |
+| F | 28 |
+| M | 32 |
+| M | 33 |
+| M | 36 |
+  
+
+## Example 3: Rare command  
+
+The following example PPL query shows how to use `rare` to find the least common gender of all the accounts.
+  
+```sql
+source=accounts
+| rare gender
+```
+{% include copy.html %}
+  
+Expected output:
+  
+| gender | count |
+| --- | --- |
+| F | 1 |
+| M | 3 |
+  
+
+## Example 4: Specify the count field option  
+
+The following example PPL query shows how to use `rare` to specify the count field.
+  
+```sql
+source=accounts
+| rare countfield='cnt' gender
+```
+{% include copy.html %}
+  
+Expected output:
+  
+| gender | cnt |
+| --- | --- |
+| F | 1 |
+| M | 3 |
+  
+
+## Example 5: Specify the usenull field option  
+  
+```sql
+source=accounts
+| rare usenull=false email
+```
+{% include copy.html %}
+  
+Expected output:
+  
+| email | count |
+| --- | --- |
+| amberduke@pyrami.com | 1 |
+| daleadams@boink.com | 1 |
+| hattiebond@netagy.com | 1 |
+  
+```sql
+source=accounts
+| rare usenull=true email
+```
+{% include copy.html %}
+  
+Expected output:
+  
+| email | count |
+| --- | --- |
+| null | 1 |
+| amberduke@pyrami.com | 1 |
+| daleadams@boink.com | 1 |
+| hattiebond@netagy.com | 1 |
+  
+
+## Limitations  
+
+The `rare` command is not rewritten to [query domain-specific language (DSL)](https://opensearch.org/docs/latest/query-dsl/index/). It is only run on the coordinating node.

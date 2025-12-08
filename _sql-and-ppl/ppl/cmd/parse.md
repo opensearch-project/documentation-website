@@ -1,0 +1,134 @@
+---
+layout: default
+title: "parse"
+parent: "Commands"
+grand_parent: "PPL"
+nav_order: 26
+---
+# parse
+
+
+The `parse` command extracts information from a text field using a regular expression and adds it to the search result.
+
+## Syntax
+
+Use the following syntax:
+
+`parse <field> <pattern>`
+* `field`: mandatory. The field must be a text field.  
+* `pattern`: mandatory. The regular expression pattern used to extract new fields from the given text field. If a new field name already exists, it will replace the original field.  
+  
+
+## Regular expression
+The regular expression pattern is used to match the whole text field of each document with Java regex engine. Each named capture group in the expression will become a new `STRING` field.  
+
+## Example 1: Create a new field  
+
+The following example PPL query shows how to create new field `host` for each document. `host` becomes the hostname after the @ symbol in the `email` field. Parsing a null field returns an empty string.
+  
+```sql
+source=accounts
+| parse email '.+@(?<host>.+)'
+| fields email, host
+```
+{% include copy.html %}
+  
+Expected output:
+  
+| email | host |
+| --- | --- |
+| amberduke@pyrami.com | pyrami.com |
+| hattiebond@netagy.com | netagy.com |
+| null |  |
+| daleadams@boink.com | boink.com |
+  
+
+## Example 2: Override an existing field  
+
+The following example PPL query shows how to override the existing `address` field while excluding the street number:
+  
+```sql
+source=accounts
+| parse address '\d+ (?<address>.+)'
+| fields address
+```
+{% include copy.html %}
+  
+Expected output:
+  
+| address |
+| --- |
+| Holmes Lane |
+| Bristol Street |
+| Madison Street |
+| Hutchinson Court |
+  
+
+## Example 3: Filter and sort by casted parsed field  
+
+The following example PPL query shows how to sort street numbers that are higher than 500 in the `address` field.
+  
+```sql
+source=accounts
+| parse address '(?<streetNumber>\d+) (?<street>.+)'
+| where cast(streetNumber as int) > 500
+| sort num(streetNumber)
+| fields streetNumber, street
+```
+{% include copy.html %}
+  
+Expected output:
+  
+| streetNumber | street |
+| --- | --- |
+| 671 | Bristol Street |
+| 789 | Madison Street |
+| 880 | Holmes Lane |
+  
+
+## Limitations  
+
+There are a few limitations with parse command:
+- Fields defined by parse cannot be parsed again.  
+  
+The following command will not work
+  
+```
+source=accounts | parse address '\d+ (?<street>.+)' | parse street '\w+ (?<road>\w+)' ;
+```
+  
+- Fields defined by parse cannot be overridden with other commands.  
+  
+`where` will not match any documents since `street` cannot be overridden  
+  
+```
+source=accounts | parse address '\d+ (?<street>.+)' | eval street='1' | where street='1' ;
+```
+  
+- The text field used by parse cannot be overridden.  
+  
+`street` will not be successfully parsed since `address` is overridden  
+  
+```
+source=accounts | parse address '\d+ (?<street>.+)' | eval address='1' ;
+```
+  
+- Fields defined by parse cannot be filtered/sorted after using them in `stats` command.  
+  
+`where` in the following command will not work  
+  
+```
+source=accounts | parse email '.+@(?<host>.+)' | stats avg(age) by host | where host=pyrami.com ;
+```
+  
+- Fields defined by parse will not appear in the final result unless the original source field is included in the `fields` command.  
+  
+For example, the following query will not display the parsed fields `host` unless the source field `email` is also explicitly included  
+  
+```
+source=accounts | parse email '.+@(?<host>.+)' | fields email, host ;
+```
+  
+- Named capture group must start with a letter and contain only letters and digits.  
+  
+  For detailed Java regex pattern syntax and usage, refer to the [official Java Pattern documentation](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html)
