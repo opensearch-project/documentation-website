@@ -11,19 +11,19 @@ The [Federal Information Processing Standard (FIPS) 140-3](https://csrc.nist.gov
 
 To achieve FIPS compliance, OpenSearch requires:
 
-- FIPS-validated cryptographic providers for all cryptographic operations (Bouncy Castle FIPS is included in OpenSearch)
-- JVM configured to use these FIPS-validated providers
-- JVM using a Java version for which [BC-FJA](https://www.bouncycastle.org/download/bouncy-castle-java-fips/) is certified (for example, Java 11, 17, or 21 for OpenSearch v3.2.0+ with BC-FJA v2.1.0)
-- FIPS-compliant keystores and truststores in BCFKS or PKCS11 format
-- Strong passwords meeting FIPS minimum requirements (112 bits or approximately 14 characters)
+- FIPS-validated cryptographic providers for all cryptographic operations (Bouncy Castle FIPS is included in OpenSearch).
+- A JVM configured to use these FIPS-validated providers.
+- A JVM using a Java version for which [BC-FJA](https://www.bouncycastle.org/download/bouncy-castle-java-fips/) is certified (for example, Java 11, 17, or 21 for OpenSearch v3.2.0+ with BC-FJA v2.1.0).
+- FIPS-compliant keystores and truststores in BCFKS or PKCS11 format.
+- Strong passwords meeting FIPS minimum requirements (112 bits or approximately 14 characters).
 
 ## FIPS demo installer
 
-By default, the JVM uses the `cacerts` truststore (typically, in PKCS12 format) for SSL/TLS connections. This truststore which contains trusted certificate authority (CA) certificates. However, the standard PKCS12 format is not FIPS-compliant.
+By default, the JVM uses the `cacerts` truststore (typically in PKCS12 format) for SSL/TLS connections. This truststore contains trusted certificate authority (CA) certificates. However, the standard PKCS12 format is not FIPS compliant.
 
 OpenSearch includes a FIPS demo installer CLI tool that simplifies the truststore configuration process. The tool provides an automated way to configure a FIPS-compliant truststore by converting the JVM's default truststore to BCFKS format. The project source is available in `distribution/tools/fips-demo-installer-cli`.
 
-This tool is designed for demo and development purposes. Before deploying to production, carefully review all generated configuration and replace demo settings with production-appropriate values.
+This tool is designed for demo and development purposes. Before deploying to production, carefully review all generated configurations and replace demo settings with production-appropriate values.
 {: .warning}
 
 ### Prerequisites
@@ -42,7 +42,7 @@ The FIPS demo installer provides the following commands.
 |---------|-------------|
 | `generated` | Generates a new BCFKS truststore from the JVM default truststore. |
 | `system` | Uses the existing system PKCS11 truststore. |
-| `show-providers` | Shows available security providers and exits (does not change configuration). |
+| `show-providers` | Shows available security providers and exits (does not change the configuration). |
 
 ### Configuration options
 
@@ -58,7 +58,7 @@ The FIPS demo installer supports the following command-line options.
 
 ### Non-interactive mode
 
-To run the installer in non-interactive mode for automated deployments, use the `-n` or `--non-interactive` flag:
+To run the installer in non-interactive mode for automated deployments, use either the `-n` or `--non-interactive` flag:
 
 ```bash
 ./bin/opensearch-fips-demo-installer -n
@@ -88,19 +88,19 @@ Interactive mode (prompts for all choices):
 ```
 {% include copy.html %}
 
-Non-interactive mode with auto-generated password - overrides existing FIPS configuration:
+Non-interactive mode with auto-generated password---overrides the existing FIPS configuration:
 ```bash
 ./bin/opensearch-fips-demo-installer -n -f
 ```
 {% include copy.html %}
 
-Generate BCFKS trust store with custom password:
+Generate a BCFKS truststore with a custom password:
 ```bash
 ./bin/opensearch-fips-demo-installer generated -p "MySecurePassword123!"
 ```
 {% include copy.html %}
 
-Use system PKCS11 trust store with specific provider:
+Use the system PKCS11 truststore with a specific provider:
 ```bash
 ./bin/opensearch-fips-demo-installer system --pkcs11-provider YourPKCS11-Provider
 ```
@@ -127,9 +127,9 @@ These properties configure the JVM to use the FIPS-compliant truststore for all 
 
 ## Troubleshooting FIPS
 
-This section covers common issues when running OpenSearch in FIPS mode.
+This section covers common issues encountered when running OpenSearch in FIPS mode.
 
-### Trust store type not specified
+### Truststore type not specified
 
 The following error indicates that the FIPS truststore configuration is incomplete or missing from `jvm.options`:
 
@@ -142,9 +142,9 @@ To resolve this issue:
 - Verify that you have run the FIPS demo installer successfully.
 - Check that `jvm.options` contains the FIPS truststore configuration block.
 
-### Trust store file not found
+### Truststore file not found
 
-If you see an error indicating that the trust store file cannot be found, verify that:
+If you see an error indicating that the truststore file cannot be found, verify that:
 
 - The path in `jvm.options` is correct and absolute.
 - The truststore file exists at the specified location.
@@ -154,7 +154,7 @@ If you see an error indicating that the trust store file cannot be found, verify
 
 Some certificates in the JVM default truststore may not be compatible with the BCFKS format. The installer reports the number of certificates that were successfully converted. Review the output to ensure that critical certificates were converted successfully.
 
-### Keystore password too weak for FIPS mode
+### Keystore password is too weak for FIPS mode
 
 When the [OpenSearch keystore]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#password-protection) `$OPENSEARCH_HOME/config/opensearch.keystore` contains a password that does not meet FIPS requirements, OpenSearch fails to start with the following error:
 
@@ -164,36 +164,36 @@ org.bouncycastle.crypto.fips.FipsUnapprovedOperationError: password must be at l
 
 In FIPS mode, Bouncy Castle enforces a minimum password strength of 112 bits, which is approximately 14 characters.
 
-Because the FIPS mode is already active, the `opensearch-keystore passwd` command does not accept the existing weak password. The workaround is to recreate the keystore as follows:
+Because FIPS mode is already active, the `opensearch-keystore passwd` command does not accept the existing weak password. Alternatively, you can recreate the keystore as follows:
 
-List existing secrets for backup (if needed):
+1. List existing secrets for backup (if needed):
 ```bash
 ./bin/opensearch-keystore list
 ```
 {% include copy.html %}
 
-Create a new keystore with a FIPS-compliant password (at least 14 characters):
+2. Create a new keystore with a FIPS-compliant password (at least 14 characters):
 ```bash
 ./bin/opensearch-keystore create --password
 ```
 {% include copy.html %}
 
-Re-add any secrets that were stored in the old keystore (if needed):
+3. Re-add any secrets that were stored in the old keystore (if needed):
 ```bash
 ./bin/opensearch-keystore add <setting-name>
 ```
 {% include copy.html %}
 
-Ensure that your new password is at least 14 characters long and includes a mix of uppercase, lowercase, numbers, and special characters. For security best practices, consider using a password manager to generate and store complex passwords.
+Ensure that your new password is at least 14 characters long and includes a mix of uppercase characters, lowercase characters, numbers, and special characters. For security best practices, consider using a password manager to generate and store complex passwords.
 {: .note}
 
 ## Next steps
 
 After configuring FIPS mode for OpenSearch:
 
-- Review the [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/) guide for additional security settings.
+- Review the [security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/) guide for additional security settings.
 - Configure [TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/) for node-to-node and client-to-node encryption.
 - Set up [authentication and authorization]({{site.url}}{{site.baseurl}}/security/configuration/configuration/) for your cluster.
 - Configure [PBKDF2 password hashing]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#expert-level-settings) for internal user passwords to ensure FIPS compliance.
 - Set up [field masking with FIPS-approved hash algorithms]({{site.url}}{{site.baseurl}}/security/access-control/field-masking/) instead of the default BLAKE2b.
-- Review [Best practices for OpenSearch security]({{site.url}}{{site.baseurl}}/security/configuration/best-practices/) for comprehensive security guidance.
+- Review [best practices for OpenSearch security]({{site.url}}{{site.baseurl}}/security/configuration/best-practices/) for comprehensive security guidance.
