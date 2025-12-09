@@ -2,7 +2,7 @@
 layout: default
 title: Field masking
 parent: Access control
-nav_order: 95
+nav_order: 100
 redirect_from:
  - /security/access-control/field-masking/
  - /security-plugin/access-control/field-masking/
