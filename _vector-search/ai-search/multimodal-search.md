@@ -15,8 +15,13 @@ Introduced 2.11
 
 Use multimodal search to search text and image data using multimodal embedding models. 
 
-**PREREQUISITE**<br>
-Before using text search, you must set up a multimodal embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
+> **PREREQUISITE**<br>
+> Before using multimodal search, you must set up a multimodal embedding model. OpenSearch supports the following multimodal models:
+> 
+> - **Amazon Bedrock -- Titan Multimodal Embeddings**: See the [Titan Multimodal Embeddings blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_titan_multimodal_embedding_blueprint.md).
+> - **Cohere -- Multimodal embedding models**: See the [Cohere multimodal embedding blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/cohere_connector_image_embedding_blueprint.md).
+> 
+> For complete setup instructions, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/) and [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 {: .note}
 
 ## Configuring multimodal search

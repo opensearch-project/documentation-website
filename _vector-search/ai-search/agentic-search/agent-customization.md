@@ -165,7 +165,7 @@ The [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-
 
 ### Additional tools
 
-You can configure additional [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/) to extend your agent's functionality.
+Beyond the required `QueryPlanningTool`, you can configure additional tools to extend your agent's functionality. OpenSearch provides built-in tools for various use cases, including search operations, data analysis, anomaly detection, and web integration. For a complete list of all available tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
 The conversational agent automatically selects and orchestrates the appropriate tools based on the query context.
 
@@ -411,3 +411,5 @@ The default user prompt template passes the natural language question and availa
 ## Next steps
 
 - For a comprehensive example of using customized agents in practice, see [Inspecting agentic search and continuing conversations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/). 
+
+- For a list of available tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).

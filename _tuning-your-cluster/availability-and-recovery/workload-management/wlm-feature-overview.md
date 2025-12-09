@@ -87,7 +87,7 @@ curl -X GET "http://localhost:9200/testindex/_search?pretty" \
 ```
 {% include copy.html %}
 
-To avoid passing the ID in every query, you can create rules to apply the ID automatically. For more information, see [Workload group rules]({{site.url}}{{site.baseurl}}/).
+To avoid passing the ID in every query, you can create rules to apply the ID automatically. For more information, see [Workload group rules]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-group-rules/).
 
 ## Operating modes
 
