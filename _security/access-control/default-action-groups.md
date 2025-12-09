@@ -2,7 +2,7 @@
 layout: default
 title: Default action groups
 parent: Access control
-nav_order: 115
+nav_order: 80
 redirect_from:
  - /security/access-control/default-action-groups/
  - /security-plugin/access-control/default-action-groups/
