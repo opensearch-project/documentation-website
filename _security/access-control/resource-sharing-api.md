@@ -19,7 +19,7 @@ You can manage resource sharing directly using these REST APIs. Operations can o
 
 ## Migrate legacy sharing metadata
 
-Imports legacy plugin-managed sharing metadata. This API is intended for administrators to run once during system migration.
+Imports legacy plugin-managed sharing metadata. This API is intended to be run once by an administrator during system migration.
 
 ### Endpoint
 
@@ -251,7 +251,7 @@ If you use the Security plugin, make sure you have the appropriate permissions: 
 
 ## Update resource sharing configuration
 
-Adds or removes access without affecting existing sharing configuration. This operation is non-destructive and preserves current access settings.
+Adds or removes access without affecting the existing sharing configuration. This operation is non-destructive and preserves current access settings.
 
 ### Endpoint
 
@@ -479,8 +479,7 @@ The following table lists all response body fields.
 
 This API requires authenticated access but does not require specific cluster permissions.
 
-
 ## Related documentation
 
-- [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/) - Backend concepts, configuration, and setup
-- [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) - UI workflows and user guidance
+- [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/) -- Backend concepts, configuration, and setup
+- [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance

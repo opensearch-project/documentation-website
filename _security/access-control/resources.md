@@ -73,10 +73,10 @@ plugins.security.experimental.resource_sharing.protected_types: ["sample-resourc
 ```
 {% include copy.html %}
 
-The resource types you specify must match exactly the resource types supported by your installed plugins. To discover the resource types available in your cluster, follow these steps:
+The resource types you specify must exactly match the resource types supported by your installed plugins. To discover the resource types available in your cluster, follow these steps:
 
 1. **Enable resource sharing** with an empty `protected_types` configuration initially.
-2. **Use the [List resource types API]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/#list-resource-types)** to discover all available resource types from your installed plugins.
+2. **Use the [List resource types API]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/#list-resource-types)** to discover all available resource types for your installed plugins.
 3. **Update your `protected_types` configuration** with the resource types you want to enable.
 
 ## Example resource types
@@ -84,13 +84,13 @@ The resource types you specify must match exactly the resource types supported b
 The following are example resource types available for resource sharing:
 
 - **ML Commons plugin:**
-  - `ml-model-group` - Machine learning model groups
+  - `ml-model-group` -- Machine learning (ML) model groups
 
 - **Anomaly Detection plugin:**
-  - `anomaly-detector` - Anomaly detection jobs
-  - `forecaster` - Time series forecasting jobs
+  - `anomaly-detector` -- Anomaly detection jobs
+  - `forecaster` -- Time series forecasting jobs
 
-Example configuration after discovering available types:
+The following is an example configuration after discovering available types:
 
 ```yaml
 plugins.security.experimental.resource_sharing.protected_types: ["ml-model-group", "anomaly-detector", "forecaster"]
@@ -128,7 +128,7 @@ All sharing metadata (listed in the following table) is stored in a dedicated *s
 | `share_with`  | The mapping of action groups to allowed principals. |
 | `source_idx`  | The resource index managed by the plugin.           |
 
-This example shows a resource with ID `model-group-123` created by the user `bob` in the `analytics` tenant. The resource is shared with specific users, roles, and backend roles with read-only access:
+The following example shows a resource with ID `model-group-123` created by the user `bob` in the `analytics` tenant. The resource is shared with specific users, roles, and backend roles with read-only access:
 
 ```json
 {
@@ -200,7 +200,6 @@ To ensure proper resource sharing and access control, the following requirements
 * Users still require plugin-level cluster permissions, including permission to create resources.
 * Action groups must be defined in the plugin configuration.
 
-
 ## Best practices
 
 When managing resource sharing, administrators should follow these best practices:
@@ -213,7 +212,7 @@ When managing resource sharing, administrators should follow these best practice
 
 ## Related documentation
 
-- [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) - REST API reference for programmatic management
-- [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) - UI workflows and user guidance
-- [Sample resource plugin](https://github.com/opensearch-project/security/tree/main/src/test/java/org/opensearch/security/resources/sample) - Implementation examples in the security plugin repository
-- [Developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md) - Detailed technical documentation for plugin developers, users, and administrators
+- [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
+- [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
+- [Sample resource plugin](https://github.com/opensearch-project/security/tree/main/src/test/java/org/opensearch/security/resources/sample) -- Implementation examples in the Security plugin repository
+- [Developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md) -- Detailed technical documentation for plugin developers, users, and administrators
