@@ -335,10 +335,35 @@ plugins:
   - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-spec-insert
+  - pdf_generator_loader
 
 # This format has to conform to RFC822
 last-modified-at:
   date-format: '%a, %d %b %Y %H:%M:%S %z'
+
+# PDF Generator Configuration
+pdf_generator:
+  enabled: true
+  # Generate PDFs for entire collections
+  collections:
+    - getting-started
+    - install-and-configure
+    - api-reference
+    - query-dsl
+    - aggregations
+    - mappings
+    - analyzers
+  # Generate PDFs for specific guides (more granular control)
+  guides:
+    - name: "Getting Started Guide"
+      collection: getting-started
+      filename: "getting-started-guide.pdf"
+    - name: "Installation Guide"
+      collection: install-and-configure
+      filename: "installation-guide.pdf"
+    - name: "API Reference"
+      collection: api-reference
+      filename: "api-reference.pdf"
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
