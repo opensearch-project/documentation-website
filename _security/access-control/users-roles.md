@@ -2,7 +2,7 @@
 layout: default
 title: Defining users and roles
 parent: Access control
-nav_order: 85
+nav_order: 70
 redirect_from:
  - /security/access-control/users-roles/
  - /security-plugin/access-control/users-roles/
