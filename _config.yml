@@ -330,15 +330,10 @@ doc_version: latest
 footer_content:
 
 plugins:
-  - jekyll-last-modified-at
   - jekyll-remote-theme
   - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-spec-insert
-
-# This format has to conform to RFC822
-last-modified-at:
-  date-format: '%a, %d %b %Y %H:%M:%S %z'
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
