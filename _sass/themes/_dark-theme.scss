@@ -607,4 +607,14 @@
       text-decoration-color: var(--blue-vibrant-300);
     }
   }
+
+  .breadcrumb-nav-list-item a {
+    &:hover {
+      text-decoration-color: var(--blue-vibrant-300);
+    }
+  }
+
+  .side-bar {
+    border-right: 1px solid var(--border-color);
+  }
 }
