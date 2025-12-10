@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Switching traffic from the source cluster
+parent: Live traffic migration
+grand_parent: Migration phases
 nav_order: 110
 nav_exclude: true
 permalink: /migration-assistant/migration-phases/live-traffic-migration/switching-traffic-from-the-source-cluster/
