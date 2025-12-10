@@ -570,4 +570,41 @@
       }
     }
   }
+
+  .search-page--results--wrapper {
+    background-color: var(--body-bg);
+  }
+
+  .search-page--results--input-box {
+    background-color: var(--body-bg);
+    border-color: var(--border-color);
+    color: var(--body-text);
+
+    &::placeholder {
+      color: var(--text-light);
+    }
+
+    &:focus {
+      border-color: var(--blue-vibrant-300);
+      outline: none;
+    }
+  }
+
+  .search-page--sidebar {
+    color: var(--body-text);
+  }
+
+  .search-page--results--display--header {
+    color: var(--body-text);
+    border-bottom-color: var(--border-color);
+  }
+
+  .search-page--results--display--container--item--link {
+    color: var(--link-color);
+    text-decoration-color: var(--border-color);
+
+    &:hover {
+      text-decoration-color: var(--blue-vibrant-300);
+    }
+  }
 }
