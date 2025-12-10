@@ -335,7 +335,7 @@ The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `errors` | `bool` | Indicates whether any of the operations in the bulk request failed. If any operation fails, the response's `errors` field will be `true`. You can iterate over the individual `Item` actions for more detailed information.|
-| `items` | `repeated Item` | The result of all operations in the bulk request, in the order they were submitted. |
+| `items` | `repeated` [`Item`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L199) | The result of all operations in the bulk request, in the order they were submitted. |
 | `took` | `int64` | The amount of time taken to process the bulk request, in milliseconds. |
 | `ingest_took` | `int64` | The amount of time taken to process documents through an ingest pipeline, in milliseconds. |
 
@@ -346,10 +346,10 @@ Each `Item` in the response corresponds to a single operation in the request. Fo
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `create` | `ResponseItem` | The result of the `CreateOperation`. |
-| `delete` | `ResponseItem` | The result of the `DeleteOperation`.   |
-| `index` | `ResponseItem` | The result of the `IndexOperation`.  |
-| `update` | `ResponseItem` | The result of the `UpdateOperation`.  |
+| `create` | [`ResponseItem`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L215) | The result of the `CreateOperation`. |
+| `delete` | [`ResponseItem`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L215) | The result of the `DeleteOperation`.   |
+| `index` | [`ResponseItem`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L215) | The result of the `IndexOperation`.  |
+| `update` | [`ResponseItem`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L215) | The result of the `UpdateOperation`.  |
 
 
 ### ResponseItem fields
@@ -370,6 +370,20 @@ Each `ResponseItem` corresponds to a single operation in the request. It contain
 | `version` | `int64` | The document version (only returned for successful actions). |
 | `forced_refresh` | `bool` | If `true`, forces the document to become visible immediately after the operation. |
 | `get` | [`InlineGetDictUserDefined`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L248) | Contains the document `source` returned from an inline get, if requested. |
+
+### InlineGetDictUserDefined fields
+
+The [`InlineGetDictUserDefined`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L248) message contains the document source returned from an inline get operation.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `metadata_fields` | `optional` [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L107) | The metadata fields for the document. |
+| `fields` | `optional` [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L107) | The stored fields for the document. |
+| `found` | `bool` | Whether the document exists. |
+| `x_seq_no` | `optional int64` | The sequence number assigned to the document. |
+| `x_primary_term` | `optional int64` | The primary term assigned to the document. |
+| `x_routing` | `optional string` | The routing value for the document. |
+| `x_source` | `optional bytes` | The document's source data. |
 
 ## Example response
 
@@ -551,9 +565,8 @@ Use the following code to send the request:
 ```python
 import grpc
 
-from opensearch.protobufs.schemas import document_pb2
-from opensearch.protobufs.schemas import common_pb2
-from opensearch.protobufs.services.document_service_pb2_grpc import DocumentServiceStub
+from opensearch.protobufs.schemas import *
+from opensearch.protobufs.services import DocumentServiceStub
 
 channel = grpc.insecure_channel(
     target="localhost:9400",
@@ -562,13 +575,13 @@ channel = grpc.insecure_channel(
 document_stub = DocumentServiceStub(channel)
 
 # Add documents to a request body
-requestBody = document_pb2.BulkRequestBody(
-    operation_container=document_pb2.OperationContainer(index=document_pb2.IndexOperation())
+requestBody = BulkRequestBody(
+    operation_container=OperationContainer(index=IndexOperation())
 )
 requestBody.object = "{\"field\": \"value\"}".encode('utf-8')
 
 # Append to a bulk request
-request = document_pb2.BulkRequest()
+request = BulkRequest()
 request.index = "my-index"
 request.bulk_request_body.append(requestBody)
 

@@ -152,7 +152,7 @@ Note that some query types are currently unsupported. See [Supported queries](#s
 | `terms` | [`TermsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L611) | Matches any document containing one or more specified terms in a field. Must be the only field set. |
 | `terms_set` | [`TermsSetQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1775) | Matches documents containing a minimum number of exact terms in a field. Must be the only field set. |
 | `wildcard` | [`WildcardQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1209) | Matches terms using a wildcard pattern. Must be the only field set. |
-| `match` | `map<string, MatchQuery>` | Full-text match on text or exact-value fields. Must be the only field set. |
+| `match` | `map<string, `[`MatchQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1324)`>` | Full-text match on text or exact-value fields. Must be the only field set. |
 | `match_bool_prefix` | [`MatchBoolPrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2171) | Matches full words and prefixes in a Boolean-style query. Must be the only field set. |
 | `match_phrase` | [`MatchPhraseQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2235) | Matches an exact phrase in order. Must be the only field set. |
 | `match_phrase_prefix` | [`MatchPhrasePrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2216)    | Matches a phrase in which the last term is treated as a prefix. Must be the only field set. |
@@ -169,14 +169,432 @@ Note that some query types are currently unsupported. See [Supported queries](#s
 ## Supported queries
 
 The gRPC Search API supports the following query types:
-* Term-level: `exists`, `ids`, `prefix`, `range`, `regexp`, `terms_set`, `wildcard`
-* Full-text: `match`, `match_bool_prefix`, `match_phrase`, `multi_match`
-* Compound queries: `bool`
+* Term-level: `exists`, `fuzzy`, `ids`, `prefix`, `range`, `regexp`, `term`, `terms`, `terms_set`, `wildcard`
+* Full-text: `match`, `match_bool_prefix`, `match_phrase`, `match_phrase_prefix`, `multi_match`
+* Compound queries: `bool`, `constant_score`
 * Geographic: `geo_bounding_box`, `geo_distance`
 * Joining queries: `nested`
 * Specialized queries: `script`
 
 For more information about these query types, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
+
+### Term-level query fields
+
+#### ExistsQuery fields
+
+The following table lists the fields for the [`ExistsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1148) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. The name of the field you wish to search. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+
+#### FuzzyQuery fields
+
+The following table lists the fields for the [`FuzzyQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2062) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `value` | [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2094) | Required. The term you wish to find in the provided field. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `max_expansions` | `optional int32` | The maximum number of terms to which the query can expand. Default is `50`. |
+| `prefix_length` | `optional int32` | The number of leading characters that are not considered in fuzziness. Default is `0`. |
+| `rewrite` | `optional` [`MultiTermQueryRewrite`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1232) | Determines how OpenSearch rewrites the query. Default is `constant_score`. |
+| `transpositions` | `optional bool` | Specifies whether to allow transpositions of two adjacent characters as edits. Default is `true`. |
+| `fuzziness` | `optional` [`Fuzziness`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2083) | The number of character edits needed to change one word to another. |
+
+#### IdsQuery fields
+
+The following table lists the fields for the [`IdsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2104) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `values` | `repeated string` | The document IDs to search for. |
+
+#### PrefixQuery fields
+
+The following table lists the fields for the [`PrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1689) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `value` | `string` | Required. The term to search for in the specified field. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `rewrite` | `optional` [`MultiTermQueryRewrite`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1232) | Determines how OpenSearch rewrites the query. Default is `constant_score`. |
+| `case_insensitive` | `optional bool` | Allows ASCII case-insensitive matching. Default is `false`. |
+
+#### RangeQuery fields
+
+The [`RangeQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1920) message is a `oneof` type that can contain either a [`NumberRangeQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1928) or a [`DateRangeQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1983).
+
+##### NumberRangeQuery fields
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `relation` | `optional` [`RangeRelation`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2029) | Indicates how the range query matches values for range fields. |
+| `gt` | `optional double` | Greater than. |
+| `gte` | `optional double` | Greater than or equal to. |
+| `lt` | `optional double` | Less than. |
+| `lte` | `optional double` | Less than or equal to. |
+| `from` | `optional` [`NumberRangeQueryAllOfFrom`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1964) | The starting value for the range. |
+| `to` | `optional` [`NumberRangeQueryAllOfTo`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1973) | The ending value for the range. |
+| `include_lower` | `optional bool` | Include the lower bound. |
+| `include_upper` | `optional bool` | Include the upper bound. |
+
+##### DateRangeQuery fields
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `relation` | `optional` [`RangeRelation`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2029) | Indicates how the range query matches values for range fields. |
+| `gt` | `optional string` | Greater than. |
+| `gte` | `optional string` | Greater than or equal to. |
+| `lt` | `optional string` | Less than. |
+| `lte` | `optional string` | Less than or equal to. |
+| `from` | `optional` [`DateRangeQueryAllOfFrom`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2014) | The starting value for the range. |
+| `to` | `optional` [`DateRangeQueryAllOfTo`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2021) | The ending value for the range. |
+| `format` | `optional string` | The date format pattern. |
+| `time_zone` | `optional string` | The time zone identifier. |
+| `include_lower` | `optional bool` | Include the lower bound. |
+| `include_upper` | `optional bool` | Include the upper bound. |
+
+#### RegexpQuery fields
+
+The following table lists the fields for the [`RegexpQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2036) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `value` | `string` | Required. Regular expression for terms you wish to find in the provided field. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `case_insensitive` | `optional bool` | Allows case-insensitive matching of the regular expression. Default is `false`. |
+| `flags` | `optional string` | Enables optional operators for the regular expression. |
+| `max_determinized_states` | `optional int32` | Maximum number of automaton states the query requires. Default is `10000`. |
+| `rewrite` | `optional` [`MultiTermQueryRewrite`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1232) | Determines how OpenSearch rewrites and scores multi-term queries. Default is `constant_score`. |
+
+#### TermQuery fields
+
+The following table lists the fields for the [`TermQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1796) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `value` | [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2094) | Required. The term you wish to find in the provided field. Must exactly match the field value. |
+| `case_insensitive` | `optional bool` | Allows ASCII case-insensitive matching. Default is `false`. |
+
+#### TermsQuery fields
+
+The following table lists the fields for the [`TermsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L611) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `value_type` | `optional` [`TermsQueryValueType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1719) | Specifies the types of values used for filtering. Valid values are `default` and `bitmap`. Default is `default`. |
+| `terms` | `map<string, `[`TermsQueryField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1725)`>` | A map of field names to terms values or terms lookup. |
+
+#### TermsSetQuery fields
+
+The following table lists the fields for the [`TermsSetQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1775) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `terms` | `repeated string` | Required. The array of terms to search for in the specified field. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `minimum_should_match_field` | `optional string` | The name of the numeric field that specifies the number of matching terms required. |
+| `minimum_should_match_script` | `optional` [`Script`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L37) | A script that returns the number of matching terms required. |
+
+#### WildcardQuery fields
+
+The following table lists the fields for the [`WildcardQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1209) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `case_insensitive` | `optional bool` | Allows case-insensitive matching. Default is `false`. |
+| `rewrite` | `optional` [`MultiTermQueryRewrite`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1232) | Determines how OpenSearch rewrites the query. |
+| `value` | `optional string` | Wildcard pattern for terms you wish to find. Required when `wildcard` is not set. |
+| `wildcard` | `optional string` | Wildcard pattern for terms you wish to find. Required when `value` is not set. |
+
+### Full-text query fields
+
+#### MatchQuery fields
+
+The following table lists the fields for the [`MatchQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1324) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `query` | [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2094) | Required. The query string to use for search. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `analyzer` | `optional string` | The analyzer used to tokenize the query string text. |
+| `auto_generate_synonyms_phrase_query` | `optional bool` | Specifies whether to create a match phrase query automatically for multi-term synonyms. |
+| `fuzziness` | `optional` [`Fuzziness`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2083) | The number of character edits that it takes to change one word to another. |
+| `fuzzy_rewrite` | `optional` [`MultiTermQueryRewrite`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1232) | Determines how OpenSearch rewrites the query. Default is `constant_score`. |
+| `fuzzy_transpositions` | `optional bool` | Adds swaps of adjacent characters to the fuzziness operations. Default is `true`. |
+| `lenient` | `optional bool` | Ignores data type mismatches between the query and the document field. Default is `false`. |
+| `max_expansions` | `optional int32` | The maximum number of terms to which the query can expand. Default is `50`. |
+| `minimum_should_match` | `optional` [`MinimumShouldMatch`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1395) | The number of terms that need to match for the document to be considered a match. |
+| `operator` | `optional` [`Operator`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1159) | Whether all terms need to match (`AND`) or only one term needs to match (`OR`). Default is `OR`. |
+| `prefix_length` | `optional int32` | The number of leading characters that are not considered in fuzziness. Default is `0`. |
+| `zero_terms_query` | `optional` [`ZeroTermsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2208) | Specifies whether to match no documents (`none`) or all documents (`all`) when the analyzer removes all terms. Default is `none`. |
+
+#### MatchBoolPrefixQuery fields
+
+The following table lists the fields for the [`MatchBoolPrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2171) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `query` | `string` | Required. The terms you wish to find in the provided field. The last term is used in a prefix query. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `analyzer` | `optional string` | The analyzer used to tokenize the query string text. |
+| `fuzziness` | `optional` [`Fuzziness`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2083) | The number of character edits that it takes to change one word to another. |
+| `fuzzy_rewrite` | `optional` [`MultiTermQueryRewrite`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1232) | Determines how OpenSearch rewrites the query. Default is `constant_score`. |
+| `fuzzy_transpositions` | `optional bool` | Adds swaps of adjacent characters to the fuzziness operations. Default is `true`. |
+| `max_expansions` | `optional int32` | The maximum number of terms to which the query can expand. Default is `50`. |
+| `minimum_should_match` | `optional` [`MinimumShouldMatch`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1395) | The number of terms that need to match for the document to be considered a match. |
+| `operator` | `optional` [`Operator`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1159) | Whether all terms need to match (`AND`) or only one term needs to match (`OR`). Default is `OR`. |
+| `prefix_length` | `optional int32` | The number of leading characters that are not considered in fuzziness. Default is `0`. |
+
+#### MatchPhraseQuery fields
+
+The following table lists the fields for the [`MatchPhraseQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2235) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `query` | `string` | Required. The query string to use for search. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `analyzer` | `optional string` | The analyzer used to tokenize the query string text. |
+| `slop` | `optional int32` | The number of other words permitted between words in the query phrase. Default is `0` (exact match). |
+| `zero_terms_query` | `optional` [`ZeroTermsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2208) | Specifies whether to match no documents (`none`) or all documents (`all`) when the analyzer removes all terms. Default is `none`. |
+
+#### MatchPhrasePrefixQuery fields
+
+The following table lists the fields for the [`MatchPhrasePrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2216) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `field` | `string` | Required. Specifies the field against which to run a search query. |
+| `query` | `string` | Required. The query string to use for search. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `analyzer` | `optional string` | The analyzer used to tokenize the query string text. |
+| `max_expansions` | `optional int32` | The maximum number of terms to which the query can expand. Default is `50`. |
+| `slop` | `optional int32` | The number of other words permitted between words in the query phrase. Default is `0` (exact match). |
+| `zero_terms_query` | `optional` [`ZeroTermsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2208) | Specifies whether to match no documents (`none`) or all documents (`all`) when the analyzer removes all terms. Default is `none`. |
+
+#### MultiMatchQuery fields
+
+The following table lists the fields for the [`MultiMatchQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2252) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `query` | `string` | Required. The query string to use for search. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `analyzer` | `optional string` | The analyzer used to tokenize the query string text. |
+| `auto_generate_synonyms_phrase_query` | `optional bool` | Specifies whether to create a match phrase query automatically for multi-term synonyms. Default is `true`. |
+| `fields` | `repeated string` | The list of fields in which to search. |
+| `fuzzy_rewrite` | `optional` [`MultiTermQueryRewrite`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1232) | Determines how OpenSearch rewrites the query. Default is `constant_score`. |
+| `fuzziness` | `optional` [`Fuzziness`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2083) | The number of character edits that it takes to change one word to another. |
+| `fuzzy_transpositions` | `optional bool` | Adds swaps of adjacent characters to the fuzziness operations. Default is `true`. |
+| `lenient` | `optional bool` | Ignores data type mismatches between the query and the document field. Default is `false`. |
+| `max_expansions` | `optional int32` | The maximum number of terms to which the query can expand. Default is `50`. |
+| `minimum_should_match` | `optional` [`MinimumShouldMatch`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1395) | The number of terms that need to match for the document to be considered a match. |
+| `operator` | `optional` [`Operator`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1159) | Whether all terms need to match (`AND`) or only one term needs to match (`OR`). Default is `OR`. |
+| `prefix_length` | `optional int32` | The number of leading characters that are not considered in fuzziness. Default is `0`. |
+| `slop` | `optional int32` | The number of other words permitted between words in the query phrase. Supported for `phrase` and `phrase_prefix` query types. |
+| `tie_breaker` | `optional float` | A factor between `0` and `1.0` used to give more weight to documents matching multiple query clauses. |
+| `type` | `optional` [`TextQueryType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1890) | The multi-match query type. Valid values are `best_fields`, `most_fields`, `cross_fields`, `phrase`, `phrase_prefix`, `bool_prefix`. Default is `best_fields`. |
+| `zero_terms_query` | `optional` [`ZeroTermsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2208) | Specifies whether to match no documents (`none`) or all documents (`all`) when the analyzer removes all terms. Default is `none`. |
+
+#### MatchAllQuery fields
+
+The following table lists the fields for the [`MatchAllQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2163) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+
+#### MatchNoneQuery fields
+
+The following table lists the fields for the [`MatchNoneQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2198) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+
+### Compound query fields
+
+#### BoolQuery fields
+
+The following table lists the fields for the [`BoolQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1368) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `filter` | `repeated` [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L493) | The clause (query) must appear in matching documents. The score of the query will be ignored. |
+| `minimum_should_match` | `optional` [`MinimumShouldMatch`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1395) | The minimum number of `should` clauses that must match. |
+| `must` | `repeated` [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L493) | The clause (query) must appear in matching documents and will contribute to the score. |
+| `must_not` | `repeated` [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L493) | The clause (query) must not appear in matching documents. A score of `0` is returned for all documents. |
+| `should` | `repeated` [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L493) | The clause (query) should appear in the matching document. |
+| `adjust_pure_negative` | `optional bool` | Ensures correct behavior when a query contains only `must_not` clauses. Default is `true`. |
+
+#### ConstantScoreQuery fields
+
+The following table lists the fields for the [`ConstantScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1421) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `filter` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L493) | Required. The filter query that a document must match to be returned in the results. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+
+### Joining query fields
+
+#### NestedQuery fields
+
+The following table lists the fields for the [`NestedQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L625) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `path` | `string` | Required. The path to a field or an array of paths. |
+| `query` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L493) | Required. The query to run on the nested objects within the specified path. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+| `ignore_unmapped` | `optional bool` | Set to `true` to ignore an unmapped field and not match any documents. Default is `false`. |
+| `inner_hits` | `optional` [`InnerHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L651) | If provided, returns the underlying hits that matched the query. |
+| `score_mode` | `optional` [`ChildScoreMode`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L642) | Defines how scores of matching inner documents influence the parent document's score. |
+
+### Geographic query fields
+
+#### GeoBoundingBoxQuery fields
+
+The following table lists the fields for the [`GeoBoundingBoxQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L507) message. This query returns documents whose geopoints are within the bounding box specified in the query.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | The name of the filter. |
+| `type` | `optional` [`GeoExecution`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L573) | The execution type for the geo query. |
+| `validation_method` | `optional` [`GeoValidationMethod`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1066) | The validation method. Valid values are `IGNORE_MALFORMED`, `COERCE`, and `STRICT`. Default is `STRICT`. |
+| `ignore_unmapped` | `optional bool` | Specifies whether to ignore an unmapped field. Default is `false`. |
+| `bounding_box` | `map<string, `[`GeoBounds`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L522)`>` | A map of field names to geo bounds defining the bounding box. |
+
+#### GeoDistanceQuery fields
+
+The following table lists the fields for the [`GeoDistanceQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L579) message. This query returns documents with geopoints that are within a specified distance from the provided geopoint.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `distance` | `string` | Required. The distance within which to match the points. This is the radius of a circle centered at the specified point. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | The name of the filter. |
+| `distance_type` | `optional` [`GeoDistanceType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1033) | Specifies how to calculate the distance. Valid values are `arc` or `plane`. |
+| `validation_method` | `optional` [`GeoValidationMethod`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1066) | The validation method. Valid values are `IGNORE_MALFORMED`, `COERCE`, and `STRICT`. Default is `STRICT`. |
+| `ignore_unmapped` | `optional bool` | Set to `true` to ignore an unmapped field and not match any documents. Default is `false`. |
+| `unit` | `optional` [`DistanceUnit`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L598) | The unit of distance measurement. |
+| `location` | `map<string, `[`GeoLocation`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L145)`>` | A map of field names to geo locations specifying the center point. |
+
+### Specialized query fields
+
+#### ScriptQuery fields
+
+The following table lists the fields for the [`ScriptQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L497) message. This query filters documents based on a custom condition written in the Painless scripting language.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `script` | [`Script`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L37) | Required. The script to execute for filtering documents. |
+| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | Query name for query tagging. |
+
+### Common types
+
+#### Fuzziness
+
+The [`Fuzziness`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2083) message is a `oneof` type that can contain:
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `string` | `string` | `AUTO` generates an edit distance based on the length of the term. You can optionally provide `AUTO:[low],[high]`. |
+| `int32` | `int32` | `0`, `1`, or `2`: The maximum allowed Levenshtein Edit Distance. |
+
+#### MultiTermQueryRewrite
+
+The [`MultiTermQueryRewrite`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1232) enum determines how OpenSearch rewrites and scores multi-term queries.
+
+| Value | Description |
+| :---- | :---- |
+| `MULTI_TERM_QUERY_REWRITE_UNSPECIFIED` | Unspecified. |
+| `MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE` | Uses a constant score equal to the query boost for all matching documents. |
+| `MULTI_TERM_QUERY_REWRITE_CONSTANT_SCORE_BOOLEAN` | Uses a constant score boolean query. |
+| `MULTI_TERM_QUERY_REWRITE_SCORING_BOOLEAN` | Uses a scoring boolean query. |
+| `MULTI_TERM_QUERY_REWRITE_TOP_TERMS_N` | Scores terms and selects the top N. |
+| `MULTI_TERM_QUERY_REWRITE_TOP_TERMS_BLENDED_FREQS_N` | Blends term frequencies for the top N terms. |
+| `MULTI_TERM_QUERY_REWRITE_TOP_TERMS_BOOST_N` | Uses boost values for the top N terms. |
+
+#### MinimumShouldMatch
+
+The [`MinimumShouldMatch`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1395) message is a `oneof` type that can contain:
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `int32` | `int32` | An integer specifying the minimum number of terms that should match. |
+| `string` | `string` | A string specifying a percentage or combination. See [Minimum should match]({{site.url}}{{site.baseurl}}/query-dsl/minimum-should-match/). |
+
+#### FieldValue
+
+The [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2094) message represents a field value and can contain:
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `bool` | `optional bool` | A Boolean value. |
+| `general_number` | `optional` [`GeneralNumber`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L186) | A numeric value. |
+| `string` | `optional string` | A string value. |
+| `null_value` | `optional` [`NullValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L132) | A null value. |
+
+#### InnerHits fields
+
+The following table lists the fields for the [`InnerHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L651) message.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `name` | `optional string` | The name to be used for the particular inner hit definition in the response. |
+| `size` | `optional int32` | The maximum number of hits to return per `inner_hits`. |
+| `from` | `optional int32` | Inner hit starting document offset. |
+| `collapse` | `optional` [`FieldCollapse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L713) | Groups search results by a particular field value. |
+| `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L748) | The fields that OpenSearch should return using their docvalue forms. |
+| `explain` | `optional bool` | Whether to return details about how OpenSearch computed the document's score. Default is `false`. |
+| `highlight` | `optional` [`Highlight`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L758) | Highlighting emphasizes the search term(s) in the results. |
+| `ignore_unmapped` | `optional bool` | Specifies how to treat an unmapped field. Default is `false`. |
+| `script_fields` | `map<string, `[`ScriptField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L710)`>` | Custom fields whose values are computed using scripts. |
+| `seq_no_primary_term` | `optional bool` | Whether to return sequence number and primary term of the last operation of each document hit. |
 
 
 All of the following examples show valid request payloads that can be sent to the `SearchService/Search` gRPC method.
@@ -474,9 +892,9 @@ Use the following code to send the request:
 ```python
 import grpc
 
-from opensearch.protobufs.schemas import search_pb2
-from opensearch.protobufs.schemas import common_pb2
-from opensearch.protobufs.services.search_service_pb2_grpc import SearchServiceStub
+from opensearch.protobufs.schemas import *
+from opensearch.protobufs.services import SearchServiceStub
+
 
 channel = grpc.insecure_channel(
     target="localhost:9400",
@@ -485,15 +903,15 @@ channel = grpc.insecure_channel(
 search_stub = SearchServiceStub(channel)
 
 # Create a term query
-term_query = common_pb2.TermQuery(
+term_query = TermQuery(
     field="field",
-    value=common_pb2.FieldValue(string="value")
+    value=FieldValue(string="value")
 )
-query_container = common_pb2.QueryContainer(term=term_query)
+query_container = QueryContainer(term=term_query)
 
 # Create a search request
-request = search_pb2.SearchRequest(
-    search_request_body=search_pb2.SearchRequestBody(query=query_container),
+request = SearchRequest(
+    search_request_body=SearchRequestBody(query=query_container),
     index=["my-index"]
 )
 
