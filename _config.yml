@@ -262,13 +262,13 @@ defaults:
       path: "_clients"
     values:
       section: "clients"
-      section-name: "Clients"
+      section-name: "OpenSearch clients"
   -
     scope:
       path: "_benchmark"
     values:
       section: "benchmark"
-      section-name: "Benchmark"
+      section-name: "OpenSearch Benchmark"
   -
     scope:
       path: "_migration-assistant"
