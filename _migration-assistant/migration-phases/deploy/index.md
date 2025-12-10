@@ -2,7 +2,6 @@
 layout: default
 title: Deploy
 parent: Migration phases
-grand_parent: Migration Assistant for OpenSearch
 nav_order: 2
 has_children: true
 has_toc: true
