@@ -1,13 +1,13 @@
 @mixin gradient-open-sky {
-    background: linear-gradient(180deg, #E1FAFF 0%, #98E3F4 48.15%, #00B7E0 100%);
+    background: linear-gradient(180deg, var(--gradient-open-sky-start) 0%, var(--gradient-open-sky-mid) 48.15%, var(--gradient-open-sky-end) 100%);
 }
 
 @mixin gradient-deep-blue-sea {
-    background: linear-gradient(180deg, #016BA7 0%, #011C2D 97.92%);
+    background: linear-gradient(180deg, var(--gradient-deep-blue-sea-start) 0%, var(--gradient-deep-blue-sea-end) 97.92%);
 }
 
 @mixin thick-edge-left {
-    border-left: $blue-200 10px solid;
+    border-left: var(--blue-200) 10px solid;
 }
 
 * {
@@ -16,7 +16,7 @@
 
 .main-content-wrap-home {
     width: 100%;
-    background-color: $grey-lt-000;
+    background-color: var(--grey-lt-000);
     padding: 3rem 4rem;
   }
 
@@ -69,17 +69,17 @@
     padding: 1rem;
     margin-bottom: 2rem;
     text-align: left;
-    background-color: white;
+    background-color: var(--white);
     display: flex;
     flex-direction: column;
     position: relative;
     &:hover {
         transition: all 0.25s ease;
-        box-shadow:2px 3px 5px #94A1A8;
-        color: $blue-200;
+        box-shadow:2px 3px 5px var(--shadow-hover);
+        color: var(--blue-200);
         transform: scale(1.02);
         > .heading {
-            color: $blue-vibrant-300;
+            color: var(--blue-vibrant-300);
         }
         > .last-link {
             text-decoration: underline;
@@ -92,7 +92,7 @@
     @include heading-sans-serif;
     font-size: $size;
     font-weight: 700;
-    color: $blue-dk-300;
+    color: var(--blue-dk-300);
 }
 
 .heading {
@@ -125,9 +125,9 @@
     margin-top: auto;
     margin-bottom: 1rem;
     padding: 0;
-    background-color: white;
+    background-color: var(--white);
     border: none;
-    color: $blue-200;
+    color: var(--blue-200);
     text-align: left;
 }
 
@@ -158,8 +158,8 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background-color: $blue-lt-100; 
-    color: $blue-dk-300; 
+    background-color: var(--blue-lt-100); 
+    color: var(--blue-dk-300); 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -176,7 +176,7 @@
     @include heading-font (1.2rem); 
     margin: 0 0 0.75rem 0; 
     font-size: 1.2rem;
-    color: $blue-dk-300;
+    color: var(--blue-dk-300);
     font-weight: bold;
 }
 
@@ -190,13 +190,13 @@
 
 .os-banner {
     @extend .panel;
-    @include gradient-deep-blue-sea;
+    background: linear-gradient(180deg, #016BA7 0%, #011C2D 97.92%);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: white;
+    color: #FFFFFF;
     margin-bottom: 2rem;
-    @include mq(md) {  
+    @include mq(md) {
         margin-bottom: 4rem;
     }
 }
@@ -210,11 +210,11 @@
     margin: 1rem 1rem 0 1.5rem;
     padding: 0 1.5rem;
     border-style: none none none solid;
-    border-color: $blue-lt-300;
+    border-color: #b9d9eb;
     border-width: 4px;
     border-radius: 1px;
     max-width: 47rem;
-    @include mq(md) {  
+    @include mq(md) {
         margin: 2rem 4rem 0 4rem;
     }
   }
@@ -226,6 +226,7 @@
     @include mq(md) {
         font-size: 3.2rem;
     }
+    color: #FFFFFF;
   }
   
   .banner-text-description {
@@ -236,6 +237,7 @@
     @include mq(md) {
         font-size: 1.3rem;
     }
+    color: #FFFFFF;
   }
   
   .btn-contribute {
@@ -244,11 +246,11 @@
     margin-right: 4rem;
     padding: 1rem 2rem;
     float: right;
-    color: $blue-dk-300;
+    color: var(--blue-dk-300);
     font-size: 1.13rem;
-    box-shadow: 2px 3px 5px #000000;
+    box-shadow: 2px 3px 5px var(--shadow-light);
     &:hover {
-      box-shadow: 2px 3px 5px $blue-dk-300 !important;
+      box-shadow: 2px 3px 5px var(--shadow-hover) !important;
     }
   }
   
