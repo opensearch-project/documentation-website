@@ -1,0 +1,126 @@
+// Theme toggle component
+.theme-toggle {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: var(--body-text);
+
+  &:hover {
+    color: var(--link-color);
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--link-color);
+    border-radius: 4px;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  .theme-toggle__icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    display: block;
+
+    &::before {
+      content: "\f185";
+      font-family: FontAwesome, "Font Awesome 5 Free", "Font Awesome 6 Free";
+      font-weight: 400;
+      font-size: 18px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.3s ease;
+      opacity: 1;
+    }
+
+    &::after {
+      content: "\f186";
+      font-family: FontAwesome, "Font Awesome 5 Free", "Font Awesome 6 Free";
+      font-weight: 400;
+      font-size: 16px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(90deg);
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+  }
+}
+
+// Fallback for systems without FontAwesome
+@supports not (font-family: FontAwesome) {
+  .theme-toggle .theme-toggle__icon {
+    &::before {
+      content: "☀";
+      font-family: system-ui, sans-serif;
+      font-size: 20px;
+    }
+
+    &::after {
+      content: "🌙";
+      font-family: system-ui, sans-serif;
+      font-size: 16px;
+    }
+  }
+}
+
+.theme-toggle-desktop {
+  display: none;
+  align-items: center;
+
+  @include mq(lg) {
+    display: flex;
+    margin-right: 1rem;
+  }
+}
+
+.theme-toggle {
+  @media screen and (max-width: ($content-width + $nav-width - 1)) {
+    position: absolute;
+    top: 15px;
+    right: 70px;
+    z-index: 10;
+  }
+
+  @include mq(lg) {
+    display: none; // use .theme-toggle-desktop instead
+  }
+}
+
+.theme-toggle-desktop .theme-toggle {
+  @include mq(lg) {
+    display: flex !important;
+    position: static;
+    top: auto;
+    right: auto;
+    z-index: auto;
+  }
+}
+
+// Fix for menu button styling in dark theme
+.menu-button i.icon.icon-reorder,
+.menu-button i.icon.icon-close {
+  background: transparent !important;
+  background-image: none !important;
+
+  &:before,
+  &:after {
+    background: transparent !important;
+    background-image: none !important;
+  }
+}
