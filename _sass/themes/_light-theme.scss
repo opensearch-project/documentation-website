@@ -1,5 +1,40 @@
 // Light theme colors
 :root {
+  // Transitions
+  --transition-base: 0.3s ease;
+  --transition-fast: 0.25s ease-out;
+  --transition-opacity: opacity 0.25s ease-out;
+  --transition-all: all 0.25s ease-out;
+
+  // Border radius
+  --border-radius-sm: 2px;
+  --border-radius-base: 4px;
+  --border-radius-md: 5px;
+  --border-radius-lg: 6px;
+  --border-radius-xl: 10px;
+  --border-radius-round: 50%;
+
+  // Shadows
+  --shadow-base: 2px 3px 5px;
+  --shadow-simple: 1px 1px;
+  --shadow-complex: 0 1px 2px var(--shadow-light), 0 3px 10px var(--shadow-medium);
+  --shadow-inset: inset 1px 1px 3px;
+  --shadow-focus: 0 0 0 2px var(--link-color);
+
+  // Typography
+  --font-size-xs: 14px;
+  --font-size-sm: 15px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+
+  // Spacing
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-base: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  // Colors
   --blue-300: #{$blue-300};
   --blue-200: #{$blue-200};
   --blue-100: #{$blue-100};
@@ -55,8 +90,10 @@
   --sidebar-bg: #{$grey-lt-000};
   --code-bg: #{$grey-lt-000};
   --nav-bg: #{$light-theme-navigation-background};
+  --nav-link-color: #{$primary-open-sky-s3};
+  --nav-link-hover-color: #{$primary-open-sky-s2};
   --link-color: #{$blue-300};
-  --link-hover: #{$blue-vibrant-300};
+  --link-hover: #{$blue-300};
   --border-color: #{$grey-lt-300};
   --search-bg: #{$primary-pacific-sky-t2};
   --button-bg: #{$white};
@@ -177,7 +214,4 @@
     scrollbar-color: var(--grey-lt-300) var(--grey-lt-000);
   }
 
-  .navigation-container--nested-nav-wrapper--nested-nav > li > ul > li > a {
-    color: var(--primary-open-sky-s3) !important;
-  }
 }

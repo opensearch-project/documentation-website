@@ -55,8 +55,10 @@
   --sidebar-bg: #2a2f37;
   --code-bg: #3a3f47;
   --nav-bg: #001a2e;
-  --link-color: #1ab3f0;
-  --link-hover: #56c6e9;
+  --nav-link-color: #ffffff;
+  --nav-link-hover-color: var(--blue-vibrant-300);
+  --link-color: var(--blue-vibrant-300);
+  --link-hover: var(--blue-vibrant-300);
   --border-color: #3a3f47;
   --search-bg: #232832;
   --button-bg: #2a2f37;
@@ -72,13 +74,13 @@
   --accent: #3ce5d4;
   --accent-dark: #0a2438;
   --accent-light: #8fc9d6;
-  --text-visited: #1ab3f0;
+  --text-visited: var(--blue-vibrant-300);
   --text-hover: #c4d7db;
   --text-light: #9cb2b7;
 
   --light-theme-navigation-background: #001a2e;
 
-  --primary-open-sky-s2: #46BDE9;
+  --primary-open-sky-s2: var(--blue-vibrant-300);
   --primary-open-sky-s3: #001a2e;
   --primary-pacific-sky-t2: var(--grey-lt-300);
 
@@ -282,7 +284,7 @@
   .main-content a:visited {
     background-image: none;
     text-decoration: underline;
-    text-decoration-color: var(--grey-lt-300);
+    text-decoration-color: var(--border-color);
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
   }
@@ -292,7 +294,7 @@
   .main-content a:focus {
     background-image: none;
     text-decoration: underline;
-    text-decoration-color: var(--border-color);
+    text-decoration-color: var(--blue-vibrant-300);
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
   }
@@ -553,10 +555,6 @@
   #search-results.top-banner-search--field-with-results--field--wrapper--search-component--search-results {
     background-color: var(--grey-lt-000) !important;
     border: 1px solid var(--grey-lt-300) !important;
-  }
-
-  .navigation-container--nested-nav-wrapper--nested-nav > li > ul > li > a {
-    color: var(--grey-dk-300) !important;
   }
 
   .theme-toggle {

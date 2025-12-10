@@ -117,7 +117,7 @@ $max-container: 1440px;
                 height: 0;
                 margin-top: 0;
                 overflow: hidden;
-                transition: all 0.3s ease-out;
+                transition: var(--transition-all);
             }
             @media screen and (min-width: $header-banner-min-width) {
                 float: right;
@@ -315,7 +315,7 @@ $max-container: 1440px;
                         min-width: 100%;
                         @media screen and (min-width: $header-banner-min-width) {
                             background: var(--white);
-                            border-radius: 2px;
+                            border-radius: var(--border-radius-sm);
                             box-shadow: 0 2px 5px var(--shadow-medium);
                             box-sizing: border-box;
                             display: block;
@@ -330,7 +330,7 @@ $max-container: 1440px;
                         @media screen and (max-width: $header-banner-mobile-breakpoint) {
                             height: 0;
                             opacity: 0;
-                            transition: all .25s ease-out;
+                            transition: var(--transition-all);
                             z-index: 1;
                             position: relative;
                             &[expanded] {
@@ -372,19 +372,19 @@ $max-container: 1440px;
                                     color: #FFFFFF;
                                     padding-left: 30px;
                                     &.in-category {
-                                        color: #46BDE9;
+                                        color: var(--primary-open-sky-s2);
                                         text-decoration: underline;
-                                        text-decoration-color: #46BDE9;
+                                        text-decoration-color: var(--primary-open-sky-s2);
                                         text-decoration-thickness: 2px;
                                         text-underline-offset: 6px;
                                         @media screen and (max-width: $header-banner-mobile-breakpoint) {
-                                            color: #46BDE9;
-                                            text-decoration-color: #46BDE9;
+                                            color: var(--primary-open-sky-s2);
+                                            text-decoration-color: var(--primary-open-sky-s2);
                                         }
                                     }
                                     &:active {
-                                        color: #46BDE9;
-                                        text-decoration-color: #46BDE9;
+                                        color: var(--primary-open-sky-s2);
+                                        text-decoration-color: var(--primary-open-sky-s2);
                                     }
                                 }
                             }
@@ -535,7 +535,7 @@ $max-container: 1440px;
                                 min-width: 100%;
                                 @media screen and (min-width: $header-banner-min-width) {
                                     background: var(--white);
-                                    border-radius: 2px;
+                                    border-radius: var(--border-radius-sm);
                                     box-shadow: 0 2px 5px var(--shadow-medium);
                                     box-sizing: border-box;
                                     display: block;
@@ -550,7 +550,7 @@ $max-container: 1440px;
                                 @media screen and (max-width: $header-banner-mobile-breakpoint) {
                                     height: 0;
                                     opacity: 0;
-                                    transition: all .25s ease-out;
+                                    transition: var(--transition-all);
                                     z-index: 1;
                                     position: relative;
                                     &[expanded] {
@@ -615,7 +615,7 @@ $max-container: 1440px;
                                     min-width: 100%;
                                     @media screen and (min-width: $header-banner-min-width) {
                                         background: var(--white);
-                                        border-radius: 2px;
+                                        border-radius: var(--border-radius-sm);
                                         box-shadow: 0 2px 5px var(--shadow-medium);
                                         box-sizing: border-box;
                                         display: block;
@@ -636,7 +636,7 @@ $max-container: 1440px;
                                     @media screen and (max-width: $header-banner-mobile-breakpoint) {
                                         height: 0;
                                         opacity: 0;
-                                        transition: all .25s ease-out;
+                                        transition: var(--transition-all);
                                         z-index: 1;
                                         position: relative;
                                         &[expanded] {
@@ -726,7 +726,7 @@ $max-container: 1440px;
                                             padding-left: 9.6px;
                                             padding-right: 6px;
                                             transition: padding-right linear 200ms;
-                                            border-radius: 6px;
+                                            border-radius: var(--border-radius-lg);
                                             border-color: var(--primary-pacific-sky-t2);
                                             border-width: 0;
                                             background-color: var(--primary-pacific-sky-t2);

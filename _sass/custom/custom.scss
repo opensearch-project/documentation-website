@@ -108,7 +108,7 @@ nav#site-nav > .nav-list:nth-of-type(1) {
     }
   }
   h4 {
-    font-size: 14px !important;
+    font-size: var(--font-size-xs) !important;
   }
   .highlight {
     line-height: 1.4;
@@ -138,7 +138,7 @@ nav#site-nav > .nav-list:nth-of-type(1) {
 
 .panel {
   border-radius: $border-radius;
-  box-shadow: 0 1px 2px var(--shadow-light), 0 3px 10px var(--shadow-medium);
+  box-shadow: var(--shadow-complex);
 }
 
 .td-custom {
@@ -177,9 +177,9 @@ img {
 // Note, tip, important, and warning blocks
 %callout {
   border: 1px solid var(--border-color);
-  border-radius: 5px;
-  margin: 1rem 0;
-  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  margin: var(--spacing-base) 0;
+  padding: var(--spacing-base);
   position: relative;
 }
 
@@ -287,8 +287,8 @@ img {
   font-weight: 510;
   border-width: 1px;
   border-style: solid;
-  border-radius: 5px;
-  box-shadow: 1px 1px var(--grey-lt-300);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-simple) var(--grey-lt-300);
   cursor: pointer;
 }
 
@@ -330,8 +330,8 @@ img {
   font-weight: 510;
   border-width: 1px;
   border-style: solid;
-  border-radius: 5px;
-  box-shadow: 1px 1px var(--grey-lt-300);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-simple) var(--grey-lt-300);
   cursor: pointer;
 }
 
@@ -436,7 +436,7 @@ div.highlighter-rouge {
 .feedback-header {
   @extend %toc-font;
   letter-spacing: 0.08em;
-  margin: 1rem 0;
+  margin: var(--spacing-base) 0;
 }
 
 .feedback-text-header {
@@ -606,7 +606,7 @@ p.label {
   letter-spacing: 0.1em;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: 14px !important;
+  font-size: var(--font-size-xs) !important;
 }
 
 .toc-list {
@@ -1254,7 +1254,7 @@ body {
 }
 
 .search-page--results--no-results {
-    padding: 1rem;
+    padding: var(--spacing-base);
     display: block;
     font-size: 1rem;
     font-weight: normal;  
@@ -1401,7 +1401,7 @@ body {
 .scenario-container {
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
-  padding: 1rem;
+  padding: var(--spacing-base);
   margin-bottom: 1.5rem;
   background-color: var(--sidebar-bg);
 }
@@ -1426,6 +1426,22 @@ body {
 @import "themes/light-theme";
 @import "themes/dark-theme";
 @import "themes/theme-toggle";
+
+.navigation-container--nested-nav-wrapper--nested-nav li .nested-nav--top-menu-item-wrapper--link a {
+  color: var(--nav-link-color) !important;
+
+  &:hover {
+    color: var(--nav-link-hover-color) !important;
+  }
+}
+
+.navigation-container--nested-nav-wrapper--nested-nav li ul li a {
+  color: var(--nav-link-color) !important;
+
+  &:hover {
+    color: var(--nav-link-hover-color) !important;
+  }
+}
 
 @import "../font-awesome.scss";
 @import "../_navigation-header.scss";

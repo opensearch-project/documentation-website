@@ -2,21 +2,35 @@ const THEME_KEY = 'opensearch-docs-theme';
 const DARK_THEME = 'dark';
 const LIGHT_THEME = 'light';
 
+function getSystemTheme() {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return DARK_THEME;
+  }
+  return LIGHT_THEME;
+}
+
 function getStoredTheme() {
   try {
-    return localStorage.getItem(THEME_KEY) || LIGHT_THEME;
+    return localStorage.getItem(THEME_KEY);
   } catch (e) {
-    // localStorage might not be available in some contexts
-    return LIGHT_THEME;
+    return null;
   }
+}
+
+function getPreferredTheme() {
+  // Precedence: stored theme > system theme > light theme
+  const stored = getStoredTheme();
+  if (stored) {
+    return stored;
+  }
+  return getSystemTheme();
 }
 
 function storeTheme(theme) {
   try {
     localStorage.setItem(THEME_KEY, theme);
   } catch (e) {
-    // localStorage might not be available in some contexts
-    console.warn('Could not store theme preference:', e);
+    // apply default light theme
   }
 }
 
@@ -45,18 +59,20 @@ function updateToggleButton(theme) {
 }
 
 function handleThemeToggle() {
-  const currentTheme = getStoredTheme();
+  const currentTheme = getPreferredTheme();
   const nextTheme = getNextTheme(currentTheme);
   applyTheme(nextTheme);
   updateToggleButton(nextTheme);
 }
 
-const storedTheme = getStoredTheme();
-applyTheme(storedTheme);
+// prevent flashing
+const initialTheme = getPreferredTheme();
+applyTheme(initialTheme);
 
 // initialize UI elements when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  updateToggleButton(getStoredTheme());
+  const currentTheme = getPreferredTheme();
+  updateToggleButton(currentTheme);
 
   const toggleButtons = document.querySelectorAll('#theme-toggle');
   toggleButtons.forEach(button => {
