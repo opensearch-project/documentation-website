@@ -3,6 +3,7 @@ layout: default
 title: Migration Assistant for OpenSearch
 nav_order: 30
 has_children: true
+has_toc: false
 nav_exclude: true
 permalink: /migration-assistant/
 redirect_from:

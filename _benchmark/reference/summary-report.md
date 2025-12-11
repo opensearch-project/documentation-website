@@ -2,7 +2,7 @@
 layout: default
 title: Summary report
 nav_order: 40
-parent: Metrics
+parent: Reference
 ---
 
 # Summary report
