@@ -11,12 +11,12 @@ This is an experimental feature and is not recommended for use in a production e
 
 Flow Framework integrates with the Security plugin's resource sharing and access control framework to provide document-level authorization for workflow state records. This replaces the legacy `plugins.flow_framework.filter_by_backend_roles` setting with a more flexible sharing system that allows resource owners to grant specific access levels to users, roles, or backend roles.
 
-For the end-to-end framework concepts and APIs, see [resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/).
+For the end-to-end framework concepts and APIs, see [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/).
 {: .note}
 
 ## Resource configuration
 
-The following table describes the workflow state resource configuration:
+The following table describes the workflow state resource configuration.
 
 | Field | Value |
 | :--- | :--- |
@@ -45,7 +45,7 @@ plugins.security.experimental.resource_sharing.protected_types:
 ```
 {% include copy.html %}
 
-### Configuration using cluster settings API
+### Configuration using the Cluster Settings API
 
 Alternatively, you can enable resource sharing dynamically using the Cluster Settings API:
 
@@ -98,10 +98,10 @@ The `workflow_state_full_access` full access level grants users complete control
 ```
 {% include copy.html %}
 
-These access levels are predefined and cannot be modified. To request additional access levels, file an issue in the [Flow Framework GitHub repository](https://github.com/opensearch-project/flow-framework/).
+These access levels are predefined and cannot be modified. To request additional access levels, create an issue in the [Flow Framework GitHub repository](https://github.com/opensearch-project/flow-framework/).
 {: .note}
 
-## Migrating from legacy framework
+## Migrating from the legacy framework
 
 After enabling resource sharing and marking workflow states as a protected resource type, cluster administrators must run the migration API to transfer existing workflow state sharing information from the legacy framework to the new resource sharing system.
 
