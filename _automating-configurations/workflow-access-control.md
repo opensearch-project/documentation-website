@@ -6,129 +6,129 @@ nav_order: 30
 
 # Workflow access control
 
-**Status:** Experimental  
-**Replaces:** `plugins.flow_framework.filter_by_backend_roles`
-{: .warning }
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
+{: .warning}
 
-This page explains how **Flow Framework** integrates with the Security plugin’s **Resource Sharing and Access Control** framework to provide **document-level** authorization for **workflow state** records.
+Flow Framework integrates with the Security plugin's resource sharing and access control framework to provide document-level authorization for workflow records. This replaces the legacy `plugins.flow_framework.filter_by_backend_roles` setting with a more flexible sharing system that allows resource owners to grant specific access levels to users, roles, or backend roles.
 
-> For the end-to-end framework concepts and APIs, see [Resource Sharing and Access Control]({{site.url}}{{site.baseurl}}/security/access-control/resources/)
+For the end-to-end framework concepts and APIs, see [resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/).
 {: .note}
 
----
+## Resource configuration
 
-## Onboarding
+The following table describes the workflow resource configuration.
 
-- **Resource type:** `workflow`
-- **System index:** `.plugins-flow-framework-templates`
-- **Onboarded in:** `3.4`
+| Field | Value |
+| :--- | :--- |
+| Resource type | `workflow` |
+| System index | `.plugins-flow-framework-templates` |
+| Onboarded version | OpenSearch 3.4 |
 
-When resource-level authorization is enabled for this type, each workflow’s visibility is governed by a central sharing record. Owners and users with share capability can grant or revoke access for specific **users**, **roles**, or **backend roles**.
+When resource-level authorization is enabled for workflows, each workflow's visibility is governed by a central sharing record. Resource owners and users with sharing capabilities can grant or revoke access permissions for specific users, roles, or backend roles.
 
----
+## Enable workflow resource sharing
 
-## Enable or disable for this resource type
+To enable resource sharing for workflows, you must add the workflow resource type to the protected types list and enable resource sharing cluster-wide.
 
-Add the type to the protected list and enable the feature.
-
-> **Admin-only:** These settings can be configured **only by cluster administrators** (super-admins).
+Admin-only: These settings can be configured only by cluster administrators with superadmin privileges.
 {: .important }
 
-### `opensearch.yml` (3.4+)
+### Configuration using opensearch.yml
+
+Add the following settings to your `opensearch.yml` configuration file to enable resource sharing for workflows:
 
 ```yaml
 plugins.security.experimental.resource_sharing.enabled: true
 plugins.security.system_indices.enabled: true
 plugins.security.experimental.resource_sharing.protected_types:
   - "workflow"
-````
+```
+{% include copy.html %}
 
-### Dev Tools (3.4+)
+### Configuration using cluster settings API
 
-```curl
+Alternatively, you can enable resource sharing dynamically using the Cluster Settings API:
+
+```json
 PUT _cluster/settings
 {
   "transient": {
     "plugins.security.experimental.resource_sharing.enabled": true,
-    "plugins.security.experimental.resource_sharing.protected_types": ["workflow", <existing-resource-types>]
+    "plugins.security.experimental.resource_sharing.protected_types": ["workflow"]
   }
 }
 ```
 {% include copy-curl.html %}
 
----
+When adding the workflow resource type to an existing configuration, include all previously configured resource types in the `protected_types` array.
+{: .note}
 
 ## Workflow access levels
 
-Flow Framework exposes **three access levels** for workflow documents.
+Flow Framework provides the following predefined access levels for workflow documents. These access levels determine the specific permissions granted to users who have been granted access to a workflow resource.
 
 ### workflow_read_only
 
-This read-only access level grants a read and search only access to the shared workflow.
+The `workflow_read_only` read-only access level grants users the ability to view and search shared workflows but not modify them. This access level includes the following permissions:
 
-Following actions are allowed with this access-level:
 ```yaml
 - "cluster:admin/opensearch/flow_framework/workflow/get"
 - "cluster:admin/opensearch/flow_framework/workflow/search"
 ```
+{% include copy.html %}
 
 ### workflow_read_write
 
-This read-write access level grants full access to a workflow except share.
+The `workflow_read_write` read-write access level grants users full access to workflow operations except for sharing capabilities. This access level includes all read permissions plus write operations:
 
-Following actions are allowed with this access-level:
 ```yaml
 - "cluster:admin/opensearch/flow_framework/workflow/*"
 - "cluster:monitor/*"
 ```
+{% include copy.html %}
 
 ### workflow_full_access
 
-This access level grants complete access to a workflow and will allow shared user owner-like permission.
+The `workflow_full_access` full access level grants users complete control over a workflow, including owner-like permissions such as sharing the resource with other users. This access level includes all workflow operations plus resource sharing permissions:
 
-Following actions are allowed with this access-level:
 ```yaml
 - "cluster:admin/opensearch/flow_framework/workflow/*"
 - "cluster:monitor/*"
 - "cluster:admin/security/resource/share"
 ```
+{% include copy.html %}
 
-> These access-levels are non-configurable. If you would like to add more access-levels, file an issue on [the GitHub repo](https://github.com/opensearch-project/flow-framework/).
-{: .note } yellow
-
----
+These access levels are predefined and cannot be modified. To request additional access levels, file an issue in the [Flow Framework GitHub repository](https://github.com/opensearch-project/flow-framework/).
+{: .note}
 
 ## Migrating from legacy framework
 
-> **Admin-only:** The migrate API can only be run **by cluster administrators** (super-admins or rest-admins).
+After enabling resource sharing and marking workflows as a protected resource type, cluster administrators must run the migration API to transfer existing workflow sharing information from the legacy framework to the new resource sharing system.
+
+Admin-only: The Migrate API can only be executed by cluster administrators with superadmin or REST admin privileges.
 {: .important }
 
-Once the feature is turned on, and the resource is marked as protected it is imperative that cluster-admins call the migrate API to migrate legacy-sharing information to the new framework:
+Use the following API call to migrate legacy workflow sharing data to the resource sharing framework:
 
-### 3.3 clusters
-```curl
-POST _plugins/_security/api/resources/migrate 
-{
-  "source_index": ".plugins-flow-framework-templates",
-  "username_path": "/user/name",
-  "backend_roles_path": "/user/backend_roles",
-  "default_access_level": "<pick-one-access-level>"
-}
-```
-{% include copy-curl.html %}
-
-### 3.4+ clusters
-
-```curl
-POST _plugins/_security/api/resources/migrate 
+```json
+POST _plugins/_security/api/resources/migrate
 {
   "source_index": ".plugins-flow-framework-templates",
   "username_path": "/user/name",
   "backend_roles_path": "/user/backend_roles",
   "default_owner": "<replace-with-existing-user>",
   "default_access_level": {
-    "workflow": "<pick-one-access-level>"
+    "workflow": "<select-appropriate-access-level>"
   }
 }
 ```
 {% include copy-curl.html %}
+
+Replace `<replace-with-existing-user>` with the username of an existing user who should own workflows without explicit ownership information. Replace `<select-appropriate-access-level>` with one of the available workflow access levels: `workflow_read_only`, `workflow_read_write`, or `workflow_full_access`.
+
+## Related documentation
+
+- [resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/) -- Backend concepts, configuration, and setup
+- [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
+- [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
+- [Workflow state access control]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-state-access-control/) -- Access control for workflow execution states
