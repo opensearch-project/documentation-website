@@ -20,7 +20,7 @@ For the end-to-end framework concepts and APIs, see [Resource sharing and access
 
 ## Resource configuration
 
-The following table describes the ML model group resource configuration:
+The following table describes the machine learning (ML) model group resource configuration.
 
 | Field | Value |
 | :--- | :--- |
@@ -49,7 +49,7 @@ plugins.security.experimental.resource_sharing.protected_types:
 ```
 {% include copy.html %}
 
-### Configuration using cluster settings API
+### Configuration using the Cluster Settings API
 
 Alternatively, you can enable resource sharing dynamically using the Cluster Settings API:
 
@@ -100,10 +100,10 @@ The `ml_full_access` full access level grants users complete control over an ML 
 ```
 {% include copy.html %}
 
-These access levels are predefined and cannot be modified. To request additional access levels, file an issue in the [ML Commons GitHub repository](https://github.com/opensearch-project/ml-commons/).
+These access levels are predefined and cannot be modified. To request additional access levels, create an issue in the [ML Commons GitHub repository](https://github.com/opensearch-project/ml-commons/).
 {: .note}
 
-## Migrating from legacy framework
+## Migrating from the legacy framework
 
 After enabling resource sharing and marking ML model groups as a protected resource type, cluster administrators must run the migration API to transfer existing model group sharing information from the legacy framework to the new resource sharing system.
 
