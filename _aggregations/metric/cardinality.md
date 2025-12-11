@@ -117,7 +117,7 @@ You can control how an aggregation runs using the `execution_hint` setting. This
 - `direct` – Uses field values directly.  
 - `ordinals` – Uses ordinals of the field. 
 
-If you don't specify `execution_hint`, OpenSearch automatically chooses the best option for the field.  
+If you don't specify `execution_hint`, OpenSearch automatically chooses the best option for the field using the hybrid collector (enabled by default).
 
 Setting `ordinals` on a non-ordinal field has no effect. Similarly, `direct` has no effect on ordinal fields.  
 {: .note}
@@ -144,6 +144,18 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```  
 {% include copy-curl.html %}
+
+## Hybrid collector
+**Introduced 3.4**
+{: .label .label-purple }
+
+By default, OpenSearch uses a _hybrid collector_ for cardinality aggregations to improve speed and manage memory. The hybrid collector begins with the faster ordinals collector and monitors memory use during execution. If usage exceeds a configurable threshold, it automatically switches to the direct collector, continuing from the data already computed.
+
+This approach provides faster performance when memory is available while maintaining safety for high-cardinality fields. It adapts dynamically to real memory conditions and avoids the overhead of restarting the aggregation when switching collectors.
+
+To configure the hybrid collector, use the following cluster settings:
+- `search.aggregations.cardinality.hybrid_collector.enabled` (Dynamic, Boolean): Enables the hybrid collector. When disabled, OpenSearch uses the traditional logic to select between ordinals and direct collectors. Default is `true`.
+- `search.aggregations.cardinality.hybrid_collector.memory_threshold` (Dynamic, percentage or byte size): Sets the memory threshold for switching from ordinals to direct collector. You can specify this setting as a percentage of JVM heap (for example, `1%`) or as an absolute value (for example, `10mb` or `1gb`). Default is `1%`.
 
 ## Missing values
 
