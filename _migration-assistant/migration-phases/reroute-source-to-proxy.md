@@ -3,7 +3,6 @@ layout: default
 title: Reroute client traffic
 nav_order: 3
 parent: Migration phases
-grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
 ---
 
