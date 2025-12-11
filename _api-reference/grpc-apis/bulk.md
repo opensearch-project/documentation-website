@@ -377,12 +377,12 @@ The [`InlineGetDictUserDefined`](https://github.com/opensearch-project/opensearc
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `metadata_fields` | `optional` [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L107) | The metadata fields for the document. |
-| `fields` | `optional` [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L107) | The stored fields for the document. |
+| `metadata_fields` | `optional` [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L107) | The document's metadata fields. |
+| `fields` | `optional` [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L107) | The document's stored fields. |
 | `found` | `bool` | Whether the document exists. |
-| `x_seq_no` | `optional int64` | The sequence number assigned to the document. |
-| `x_primary_term` | `optional int64` | The primary term assigned to the document. |
-| `x_routing` | `optional string` | The routing value for the document. |
+| `x_seq_no` | `optional int64` | The document's sequence number. |
+| `x_primary_term` | `optional int64` | The document's primary term. |
+| `x_routing` | `optional string` | The document's routing value. |
 | `x_source` | `optional bytes` | The document's source data. |
 
 ## Example response
