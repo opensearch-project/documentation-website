@@ -44,7 +44,7 @@ The [`BulkRequest`](https://github.com/opensearch-project/opensearch-protobufs/b
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `bulk_request_body` | `repeated `[`BulkRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L48) | The list of bulk operations, each containing one of the operation types (`index`/`create`/`update`/`delete`). Required. |
+| `bulk_request_body` | `repeated `[`BulkRequestBody`](#bulkrequestbody-fields) | The list of bulk operations, each containing one of the operation types (`index`/`create`/`update`/`delete`). Required. |
 | `index` | `string` | The default index for all operations unless overridden in `bulk_request_body`. Specifying the `index` in the `BulkRequest` means that you don't need to include it in the [BulkRequestBody](#bulkrequestbody-fields). Optional. |
 | `x_source` | [`SourceConfigParam`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L195) | Controls whether to return the full `_source`, no `_source`, or only specific fields from `_source` in the response. Optional. |
 | `x_source_excludes` | `repeated string` | Fields to exclude from `source`. Optional. |
@@ -335,7 +335,7 @@ The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `errors` | `bool` | Indicates whether any of the operations in the bulk request failed. If any operation fails, the response's `errors` field will be `true`. You can iterate over the individual `Item` actions for more detailed information.|
-| `items` | `repeated` [`Item`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L199) | The result of all operations in the bulk request, in the order they were submitted. |
+| `items` | `repeated` [`Item`](#item-fields) | The result of all operations in the bulk request, in the order they were submitted. |
 | `took` | `int64` | The amount of time taken to process the bulk request, in milliseconds. |
 | `ingest_took` | `int64` | The amount of time taken to process documents through an ingest pipeline, in milliseconds. |
 
@@ -346,10 +346,10 @@ Each `Item` in the response corresponds to a single operation in the request. Fo
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `create` | [`ResponseItem`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L215) | The result of the `CreateOperation`. |
-| `delete` | [`ResponseItem`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L215) | The result of the `DeleteOperation`.   |
-| `index` | [`ResponseItem`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L215) | The result of the `IndexOperation`.  |
-| `update` | [`ResponseItem`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L215) | The result of the `UpdateOperation`.  |
+| `create` | [`ResponseItem`](#responseitem-fields) | The result of the `CreateOperation`. |
+| `delete` | [`ResponseItem`](#responseitem-fields) | The result of the `DeleteOperation`.   |
+| `index` | [`ResponseItem`](#responseitem-fields) | The result of the `IndexOperation`.  |
+| `update` | [`ResponseItem`](#responseitem-fields) | The result of the `UpdateOperation`.  |
 
 
 ### ResponseItem fields
@@ -369,7 +369,7 @@ Each `ResponseItem` corresponds to a single operation in the request. It contain
 | `shards` | [`ShardInfo`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L329) | Shard information for the operation (only returned for successful actions). |
 | `version` | `int64` | The document version (only returned for successful actions). |
 | `forced_refresh` | `bool` | If `true`, forces the document to become visible immediately after the operation. |
-| `get` | [`InlineGetDictUserDefined`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L248) | Contains the document `source` returned from an inline get, if requested. |
+| `get` | [`InlineGetDictUserDefined`](#inlinegetdictuserdefined-fields) | Contains the document `source` returned from an inline get, if requested. |
 
 ### InlineGetDictUserDefined fields
 

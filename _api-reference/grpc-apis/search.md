@@ -69,7 +69,7 @@ The [`SearchRequest`](https://github.com/opensearch-project/opensearch-protobufs
 | `suggest_size` | `int32` | The number of suggestions to return. |
 | `suggest_text` | `string` | The input text for generating suggestions. |
 | `typed_keys` | `bool` | Whether to include type information in aggregation and suggestion keys. Default is `true`. |
-| `search_request_body` | [`SearchRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L93) | The main search request payload, including the query and filters. |
+| `search_request_body` | [`SearchRequestBody`](#searchrequestbody-fields) | The main search request payload, including the query and filters. |
 | `global_params` | [`GlobalParams`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L15) | Global parameters for the request. Optional. |
 
 ### SearchRequestBody fields
@@ -87,11 +87,11 @@ The `SearchRequestBody` message accepts the following fields. All fields are opt
 | `indices_boost` | `map<string, float>` | Per-index boost multipliers in the `<index>: <boost>` format. |
 | `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1108) | The fields returned using doc values. Optionally, this field can be formatted for readability. |
 | `min_score` | `float` | The minimum score required in order for a document to be included in the results. |
-| `post_filter` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L384) | Filters hits after aggregations are applied. |
+| `post_filter` | [`QueryContainer`](#querycontainer-fields) | Filters hits after aggregations are applied. |
 | `profile` | `bool` | Enables profiling to analyze query performance. |
 | `search_pipeline` | `string` | The name of the search pipeline to apply. |
 | `verbose_pipeline` | `bool` | Enables verbose logging in the search pipeline. |
-| `query` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L384) | The query domain-specific language (DSL) for the search. |
+| `query` | [`QueryContainer`](#querycontainer-fields) | The query domain-specific language (DSL) for the search. |
 | `rescore` | `repeated` [`Rescore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L524)   | Reranks the top N hits to improve precision. |
 | `script_fields` | `map<string, `[`ScriptField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L703)`>`  | Custom fields whose values are computed by scripts. |
 | `search_after` | `repeated` [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2094) | Cursor-based pagination using values from the previous page. |
@@ -110,7 +110,7 @@ The `SearchRequestBody` message accepts the following fields. All fields are opt
 | `stored_fields` | `repeated string` | The stored fields to return (excludes `_source` unless re-enabled). |
 | `pit` | [`PointInTimeReference`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L647) | The Point in Time reference used to search a fixed snapshot. |
 | `stats` | `repeated string` | The tagging or logging fields to associate with the request. |
-| `derived` | `map<string, `[`DerivedField`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L204)`>` | Dynamically computed fields returned in the response. |
+| `derived` | `map<string, `[`DerivedField`](#derivedfield-fields)`>` | Dynamically computed fields returned in the response. |
 
 ### DerivedField fields
 
@@ -489,7 +489,7 @@ The following table lists the fields for the [`NestedQuery`](https://github.com/
 | `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
 | `x_name` | `optional string` | Query name for query tagging. |
 | `ignore_unmapped` | `optional bool` | Set to `true` to ignore an unmapped field and not match any documents. Default is `false`. |
-| `inner_hits` | `optional` [`InnerHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L651) | If provided, returns the underlying hits that matched the query. |
+| `inner_hits` | `optional` [`InnerHits`](#innerhits-fields) | If provided, returns the underlying hits that matched the query. |
 | `score_mode` | `optional` [`ChildScoreMode`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L642) | Defines how scores of matching inner documents influence the parent document's score. |
 
 ### Geographic query fields
@@ -716,7 +716,7 @@ The source documents are returned as bytes. Use Base64 decoding to read the `_so
 | `timed_out` | `bool` | Whether the search timed out. |
 | `x_shards` | [`ShardStatistics`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L311) | The shard-level success/failure/total metadata. |
 | `phase_took` | [`PhaseTook`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L295)   | The phase-level `took` time values in the response. |
-| `hits` | [`HitsMetadata`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L326)    | The main document results and metadata. |
+| `hits` | [`HitsMetadata`](#hitsmetadata-fields)    | The main document results and metadata. |
 | `processor_results` | `repeated` [`ProcessorExecutionDetail`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L278) | Processor execution details. |
 | `x_clusters` | [`ClusterStatistics`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L430) | Information about the search on each cluster when searching remote clusters. |
 | `fields` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L107)    | Retrieved specific fields in the search response. |
@@ -734,7 +734,7 @@ The `HitsMetadata` object contains information about the search results, includi
 | :---- | :---- | :---- |
 | `total` | [`HitsMetadataTotal`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L312)  | Metadata about the total number of matching documents (value \+ relation). |
 | `max_score` | [`HitsMetadataMaxScore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L319)   | The highest relevance score of the returned hits (may be `null`). |
-| `hits` | `repeated` [`HitsMetadataHitsInner`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L366) | The actual list of matched documents. Each hit includes core fields like `index`, `id`, `score`, and `source`, along with additional optional fields. |
+| `hits` | `repeated` [`HitsMetadataHitsInner`](#hitsmetadatahitsinner-fields) | The actual list of matched documents. Each hit includes core fields like `index`, `id`, `score`, and `source`, along with additional optional fields. |
 
 ### HitsMetadataHitsInner fields
 
