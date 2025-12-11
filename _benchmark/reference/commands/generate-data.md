@@ -3,7 +3,7 @@ layout: default
 title: generate-data
 nav_order: 50
 parent: Command reference
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 redirect_from:
   - /benchmark/commands/generate-data/
 ---
