@@ -97,8 +97,9 @@
             <rect width="200" height="38.7097" fill="white"/>
           </clipPath>
         </defs>
-      </svg>       
+      </svg>
     </a>
+    {% include theme-toggle.html %}
     <div class="menu-button">
       <i class="icon icon-reorder"></i>
       <i class="icon icon-close"></i>
@@ -189,6 +190,9 @@
             {% endif %}
           </li>
         {% endfor %}
+        <li class="theme-toggle-desktop">
+          {% include theme-toggle.html %}
+        </li>
         <li class="top-banner-search">
           <div class="top-banner-search--field-with-results">
             <div class="top-banner-search--field-with-results--field">
