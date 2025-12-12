@@ -182,7 +182,7 @@ For more information about these query types, see [Query DSL]({{site.url}}{{site
 
 #### ExistsQuery fields
 
-The following table lists the fields for the [`ExistsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1148) message.
+The [`ExistsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1148) message accepts the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
