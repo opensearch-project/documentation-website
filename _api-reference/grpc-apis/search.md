@@ -189,7 +189,7 @@ The [`ExistsQuery`](https://github.com/opensearch-project/opensearch-protobufs/b
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `field` | `string` | Required. The name of the field to search. |
-| `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `boost` | `optional float` | A floating-point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
 | `x_name` | `optional string` | Query name for query tagging. |
 
 #### FuzzyQuery fields
