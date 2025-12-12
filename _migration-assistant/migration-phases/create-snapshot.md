@@ -2,7 +2,6 @@
 layout: default
 title: Creating a snapshot
 parent: Migration phases
-grand_parent: Migration Assistant for OpenSearch
 nav_order: 4
 permalink: /migration-assistant/migration-phases/create-snapshot/
 ---

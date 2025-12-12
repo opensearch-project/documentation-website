@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Monitoring
-parent: SQL and PPL
 nav_order: 95
 redirect_from:
   - /search-plugins/sql/monitoring/
@@ -37,6 +36,8 @@ SQL query:
 ```console
 >> curl -H 'Content-Type: application/json' -X GET localhost:9200/_plugins/_sql/stats
 ```
+{% include copy.html %}
+
 
 Result set:
 

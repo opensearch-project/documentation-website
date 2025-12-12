@@ -1,11 +1,10 @@
 ---
 layout: default
-title: Metadata Queries
+title: Metadata queries
 parent: SQL
-grand_parent: SQL and PPL
 nav_order: 9
 redirect_from:
-  - /search-plugins/sql/metadata/
+  - /search-plugins/sql/sql/metadata/
 ---
 
 # Metadata queries
@@ -30,6 +29,8 @@ Use the wildcard `%` to match all indexes:
 ```sql
 SHOW TABLES LIKE %
 ```
+{% include copy.html %}
+
 
 | TABLE_CAT | TABLE_SCHEM | TABLE_NAME | TABLE_TYPE | REMARKS | TYPE_CAT | TYPE_SCHEM | TYPE_NAME | SELF_REFERENCING_COL_NAME | REF_GENERATION
 :--- | :---
@@ -44,6 +45,8 @@ To see metadata for an index name with a prefix of `acc`:
 ```sql
 SHOW TABLES LIKE acc%
 ```
+{% include copy.html %}
+
 
 | TABLE_CAT | TABLE_SCHEM | TABLE_NAME | TABLE_TYPE | REMARKS | TYPE_CAT | TYPE_SCHEM | TYPE_NAME | SELF_REFERENCING_COL_NAME | REF_GENERATION
 :--- | :---
@@ -57,6 +60,8 @@ To see metadata for field names that match a specific pattern, use the `DESCRIBE
 ```sql
 DESCRIBE TABLES LIKE accounts
 ```
+{% include copy.html %}
+
 
 | TABLE_CAT | TABLE_SCHEM | TABLE_NAME | COLUMN_NAME | DATA_TYPE | TYPE_NAME | COLUMN_SIZE | BUFFER_LENGTH | DECIMAL_DIGITS | NUM_PREC_RADIX | NULLABLE | REMARKS | COLUMN_DEF | SQL_DATA_TYPE | SQL_DATETIME_SUB | CHAR_OCTET_LENGTH | ORDINAL_POSITION | IS_NULLABLE | SCOPE_CATALOG | SCOPE_SCHEMA | SCOPE_TABLE | SOURCE_DATA_TYPE | IS_AUTOINCREMENT | IS_GENERATEDCOLUMN
 :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---

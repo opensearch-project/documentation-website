@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Limitations
-parent: SQL and PPL
 nav_order: 99
 redirect_from:
   - /search-plugins/sql/limitation/
@@ -26,6 +25,8 @@ FROM (
     FROM opensearch_dashboards_sample_data_flights
     WHERE OriginCountry = 'US') t
 ```
+{% include copy.html %}
+
 
 But, if the outer query has `GROUP BY` or `ORDER BY`, then it's not supported.
 
@@ -59,12 +60,14 @@ SELECT l.key, l.spanId, r.spanId
 ```
 {% include copy.html %}
 
+
 By default, JOIN queries will automatically terminate after 60 seconds to prevent excessive resource consumption. You can adjust this timeout period using a hint in your query. For example, to set a 5-minute (300-second) timeout, use the following code:
 
 ```sql
 SELECT /*! JOIN_TIME_OUT(300) */ left.a, right.b FROM left JOIN right ON left.id = right.id;
 ```
 {% include copy.html %}
+
 
 These performance restrictions don't apply when [querying external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source/).
 
@@ -81,6 +84,7 @@ POST _plugins/_sql/
   "query" : "SELECT OriginCountry, DestCountry FROM opensearch_dashboards_sample_data_flights ORDER BY OriginCountry ASC"
 }
 ```
+{% include copy-curl.html %}
 
 The response in JDBC format with cursor id.
 
