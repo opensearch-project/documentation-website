@@ -194,7 +194,7 @@ The [`ExistsQuery`](https://github.com/opensearch-project/opensearch-protobufs/b
 
 #### FuzzyQuery fields
 
-The following table lists the fields for the [`FuzzyQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2062) message.
+The [`FuzzyQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2062) message accepts the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
