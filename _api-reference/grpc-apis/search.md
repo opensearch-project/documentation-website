@@ -258,6 +258,8 @@ he `NumberRangeQuery` message accepts the following fields.
 
 ##### DateRangeQuery fields
 
+ The `DateRangeQuery` message accepts the following fields.
+
 The `DateRangeQuery` message accepts the following fields.
 
 | Field | Protobuf type | Description |
@@ -343,6 +345,8 @@ The [`WildcardQuery`](https://github.com/opensearch-project/opensearch-protobufs
 | `wildcard` | `optional string` | A wildcard pattern used for matching terms in the specified field. Required when `value` is not set. |
 
 ### Full-text query fields
+
+The following sections describe the fields for each full-text query message.
 
 The following sections describe the fields for each full-text query message.
 
@@ -463,6 +467,8 @@ The [`MatchNoneQuery`](https://github.com/opensearch-project/opensearch-protobuf
 
 The following sections describe the fields for each compound query message.
 
+The following sections describe the fields for each compound query message.
+
 #### BoolQuery fields
 
 The [`BoolQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1368) message accepts the following fields.
@@ -492,6 +498,8 @@ The [`ConstantScoreQuery`](https://github.com/opensearch-project/opensearch-prot
 
 The following sections describe the fields for each joining query message.
 
+The following sections describe the fields for each joining query message.
+
 #### NestedQuery fields
 
 The [`NestedQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L625) message accepts the following fields.
@@ -507,6 +515,8 @@ The [`NestedQuery`](https://github.com/opensearch-project/opensearch-protobufs/b
 | `score_mode` | `optional` [`ChildScoreMode`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L642) | Defines how scores of matching inner documents influence the parent document's score. |
 
 ### Geographic query fields
+
+The following sections describe the fields for each geographic query message.
 
 The following sections describe the fields for each geographic query message.
 
@@ -539,6 +549,8 @@ A geodistance query returns documents with geopoints that are within a specified
 | `location` | `map<string, `[`GeoLocation`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L145)`>` | A map of field names to geolocations specifying the center point. |
 
 ### Specialized query fields
+
+The following sections describe the fields for each specialized query message.
 
 The following sections describe the fields for each specialized query message.
 
