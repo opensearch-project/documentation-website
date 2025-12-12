@@ -15,7 +15,7 @@ redirect_from:
 **Bulk and k-NN search generally available 3.2**
 {: .label .label-green }
 
-Starting with OpenSearch version 3.2, the gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available. These use [protobuf version 0.19.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.19.0). However, expect updates to the protobuf structure as the feature matures in upcoming versions. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of these features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
+Starting with OpenSearch version 3.2, the gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available. These use [protobuf version 0.24.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.24.0). However, expect updates to the protobuf structure as the feature matures in upcoming versions. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of these features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
 {: .note}
 
 The OpenSearch gRPC functionality provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results. For more information, see [Performance Benefits](#grpc-performance-benefits).
@@ -36,9 +36,9 @@ To use gRPC APIs, follow these steps:
 
 | Language | Distribution method | Instructions |
 | :------- | :------------------ | :----------- |
-| Java | Maven Central repository | Download the `opensearch-protobufs` jar from the [Maven Central repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.19.0). |
-| Python | PyPI repository | Download the `opensearch-protobufs` package from the [PyPI repository](https://pypi.org/project/opensearch-protobufs/0.19.0). |
-| Other languages | GitHub repository (raw protobufs) | Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.19.0)](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.19.0). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/). |
+| Java | Maven Central repository | Download the `opensearch-protobufs` jar from the [Maven Central repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.24.0). |
+| Python | PyPI repository | Download the `opensearch-protobufs` package from the [PyPI repository](https://pypi.org/project/opensearch-protobufs/0.24.0). |
+| Other languages | GitHub repository (raw protobufs) | Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.24.0)](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.24.0). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/). |
 
 
 ## gRPC settings
