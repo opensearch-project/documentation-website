@@ -22,6 +22,7 @@ This document serves as a high-level, platform-agnostic overview of the rolling 
 Before making any changes to your OpenSearch cluster, is it highly recommended to back up your configuration files and create a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/) of the cluster state and indexes.
 
 **Important**: OpenSearch nodes **cannot be downgraded**. If you need to revert the upgrade, then you will need to perform a new installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure. Rolling upgrades are **only supported between major adjacent versions**, for example, from OpenSearch 1.x to 2.x but not 1.x to 3.x.
+If you're running OpenSearch 1.3 or 2.x, you must first upgrade to OpenSearch 2.19 before upgrading to OpenSearch 3.x.
 {: .important}
 
 **Important**: The minimum required cluster version for upgrades to 3.x.x is 2.19.0.
