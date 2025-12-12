@@ -155,7 +155,7 @@ This approach provides faster performance when memory is available while maintai
 
 To configure the hybrid collector, use the following cluster settings:
 - `search.aggregations.cardinality.hybrid_collector.enabled` (Dynamic, Boolean): Enables the hybrid collector. When disabled, OpenSearch uses the traditional logic to select between ordinals and direct collectors. Default is `true`.
-- `search.aggregations.cardinality.hybrid_collector.memory_threshold` (Dynamic, percentage or byte size): Sets the memory threshold for switching from ordinals to direct collector. You can specify this setting as a percentage of JVM heap (for example, `1%`) or as an absolute value (for example, `10mb` or `1gb`). Default is `1%`.
+- `search.aggregations.cardinality.hybrid_collector.memory_threshold` (Dynamic, percentage or byte size): Sets the memory threshold for switching from ordinals to direct collectors. You can specify this setting as a percentage of JVM heap (for example, `1%`) or as an absolute value (for example, `10mb` or `1gb`). Default is `1%`.
 
 ## Missing values
 
