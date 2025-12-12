@@ -199,7 +199,7 @@ The [`FuzzyQuery`](https://github.com/opensearch-project/opensearch-protobufs/bl
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `field` | `string` | Required. The field against which to run a search query. |
-| `value` | [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2094) | Required. The term you wish to find in the provided field. |
+| `value` | [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2094) | Required. The term to search for in the specified field. |
 | `boost` | `optional float` | Floating point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
 | `x_name` | `optional string` | Query name for query tagging. |
 | `max_expansions` | `optional int32` | The maximum number of terms to which the query can expand. Default is `50`. |
