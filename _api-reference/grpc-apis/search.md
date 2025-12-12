@@ -583,7 +583,7 @@ The [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/bl
 
 #### InnerHits fields
 
-The following table lists the fields for the [`InnerHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L651) message.
+The [`InnerHits`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L651) message accepts the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
