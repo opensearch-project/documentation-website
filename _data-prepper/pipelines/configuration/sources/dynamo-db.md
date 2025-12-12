@@ -102,6 +102,7 @@ The following metadata will be added to each event that is processed by the `dyn
 * `opensearch_action`: A default value for mapping DynamoDB event actions to OpenSearch actions. This action will be `index` for export items, and `INSERT` or `MODIFY` for stream events, and `REMOVE` stream events when the OpenSearch action is `delete`.
 * `dynamodb_event_name`: The exact event type for the item. Will be `null` for export items and either `INSERT`, `MODIFY`, or `REMOVE` for stream events.
 * `table_name`: The name of the DynamoDB table that an event came from.
+* `ttl_delete`: A boolean value indicating whether a REMOVE event was triggered by DynamoDB Time-To-Live (TTL). This will be `true` for TTL-based deletions and `false` for all other events. This metadata can be used with conditional routing or filtering to handle TTL deletions differently from manual deletions.
 
 
 ## Permissions
