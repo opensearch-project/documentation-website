@@ -61,6 +61,7 @@ module Jekyll::LinkChecker
   @ignored_domains = [
     'localhost',
     'playground.opensearch.org', # inifite redirect, https://github.com/opensearch-project/dashboards-anywhere/issues/172
+    'ml.playground.opensearch.org', # infinite redirect
     'crates.io', # 404s on bots
     'www.cloudflare.com', # 403s on bots
     'platform.openai.com', # 403s on bots
