@@ -572,7 +572,7 @@ The [`MinimumShouldMatch`](https://github.com/opensearch-project/opensearch-prot
 
 #### FieldValue
 
-The [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2094) message represents a field value and can contain:
+The [`FieldValue`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L2094) message represents a field value and accepts the following values.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
