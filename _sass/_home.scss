@@ -1,13 +1,10 @@
 @mixin gradient-open-sky {
-    background: linear-gradient(180deg, var(--gradient-open-sky-start) 0%, var(--gradient-open-sky-mid) 48.15%, var(--gradient-open-sky-end) 100%);
+    background: linear-gradient(180deg, var(--home-card-bg-start) 0%, var(--home-card-bg-mid) 48.15%, var(--home-card-bg-end) 100%);
 }
 
-@mixin gradient-deep-blue-sea {
-    background: linear-gradient(180deg, var(--gradient-deep-blue-sea-start) 0%, var(--gradient-deep-blue-sea-end) 97.92%);
-}
 
 @mixin thick-edge-left {
-    border-left: var(--blue-200) 10px solid;
+    border-left: var(--card-accent-border) 10px solid;
 }
 
 * {
@@ -16,7 +13,7 @@
 
 .main-content-wrap-home {
     width: 100%;
-    background-color: var(--grey-lt-000);
+    background-color: var(--surface-secondary);
     padding: 3rem 4rem;
   }
 
@@ -69,17 +66,17 @@
     padding: 1rem;
     margin-bottom: 2rem;
     text-align: left;
-    background-color: var(--white);
+    background-color: var(--surface-primary);
     display: flex;
     flex-direction: column;
     position: relative;
     &:hover {
         transition: all 0.25s ease;
         box-shadow:2px 3px 5px var(--shadow-hover);
-        color: var(--blue-200);
+        color: var(--link-color);
         transform: scale(1.02);
         > .heading {
-            color: var(--blue-vibrant-300);
+            color: var(--link-color);
         }
         > .last-link {
             text-decoration: underline;
@@ -92,7 +89,7 @@
     @include heading-sans-serif;
     font-size: $size;
     font-weight: 700;
-    color: var(--blue-dk-300);
+    color: var(--heading-color);
 }
 
 .heading {
@@ -125,9 +122,9 @@
     margin-top: auto;
     margin-bottom: 1rem;
     padding: 0;
-    background-color: var(--white);
+    background-color: var(--surface-primary);
     border: none;
-    color: var(--blue-200);
+    color: var(--link-color);
     text-align: left;
 }
 
@@ -158,8 +155,8 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background-color: var(--blue-lt-100); 
-    color: var(--blue-dk-300); 
+    background-color: var(--hover-overlay-light); 
+    color: var(--heading-color); 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -176,7 +173,7 @@
     @include heading-font (1.2rem); 
     margin: 0 0 0.75rem 0; 
     font-size: 1.2rem;
-    color: var(--blue-dk-300);
+    color: var(--heading-color);
     font-weight: bold;
 }
 
@@ -246,7 +243,7 @@
     margin-right: 4rem;
     padding: 1rem 2rem;
     float: right;
-    color: var(--blue-dk-300);
+    color: var(--heading-color);
     font-size: 1.13rem;
     box-shadow: 2px 3px 5px var(--shadow-light);
     &:hover {

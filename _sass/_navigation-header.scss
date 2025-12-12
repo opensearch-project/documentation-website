@@ -40,7 +40,7 @@ $max-container: 1440px;
             padding: 0 4.1666666667%;
         }
         > .navigation-container--logo {
-            color: var(--white);
+            color: var(--text-inverse);
             display: block;
             float: left;
             font-size: 35px;
@@ -146,7 +146,7 @@ $max-container: 1440px;
                 margin: 0;
                 list-style-type: none;
                 > li {
-                    color: var(--grey-dk-300);
+                    color: var(--body-text);
                     font-size: 15px;
                     font-weight: 700;
                     line-height: 16px;
@@ -154,7 +154,7 @@ $max-container: 1440px;
                     @media screen and (max-width: $header-banner-mobile-breakpoint) {
                         padding-bottom: 20px;
                         padding-top: 15px;
-                        border-bottom-color: var(--primary-open-sky-s2);
+                        border-bottom-color: var(--nav-link-hover-color);
                         border-bottom-style: solid;
                         border-bottom-width: 2px;
                         margin: 0;
@@ -227,9 +227,9 @@ $max-container: 1440px;
                             > a {
                                 &.in-category,
                                 &:hover {
-                                    color: var(--primary-open-sky-s2);
+                                    color: var(--nav-link-hover-color);
                                     text-decoration: underline;
-                                    text-decoration-color: var(--primary-open-sky-s2);
+                                    text-decoration-color: var(--nav-link-hover-color);
                                     text-decoration-thickness: 2px;
                                     text-underline-offset: 6px;
                                     @media screen and (max-width: $header-banner-mobile-breakpoint) {
@@ -248,7 +248,7 @@ $max-container: 1440px;
                                 }
                                 @media screen and (min-width: $header-banner-min-width) {
                                     display: inline;
-                                    @include header-level6(var(--primary-open-sky-s3));
+                                    @include header-level6(var(--nav-link-color));
                                     text-decoration: none;
                                 }
                             }
@@ -314,7 +314,7 @@ $max-container: 1440px;
                         margin: 0;
                         min-width: 100%;
                         @media screen and (min-width: $header-banner-min-width) {
-                            background: var(--white);
+                            background: var(--surface-primary);
                             border-radius: var(--border-radius-sm);
                             box-shadow: 0 2px 5px var(--shadow-medium);
                             box-sizing: border-box;
@@ -342,7 +342,7 @@ $max-container: 1440px;
                             }
                         }
                         > li {
-                            color: var(--primary-open-sky-s3);
+                            color: var(--nav-link-color);
                             display: block;
                             font-size: 15px;
                             font-weight: 700;
@@ -351,7 +351,7 @@ $max-container: 1440px;
                             > a {
                                 text-decoration: none;
                                 @media screen and (min-width: $header-banner-min-width) {
-                                    @include header-level6(var(--primary-open-sky-s3));
+                                    @include header-level6(var(--nav-link-color));
                                     width: max-content;
                                     display: block;
                                     white-space: nowrap;
@@ -360,9 +360,9 @@ $max-container: 1440px;
                                     margin-right: 18px;
                                     &:hover,
                                     &.in-category {
-                                        color: var(--primary-open-sky-s2);
+                                        color: var(--nav-link-hover-color);
                                         text-decoration: underline;
-                                        text-decoration-color: var(--primary-open-sky-s2);
+                                        text-decoration-color: var(--nav-link-hover-color);
                                         text-decoration-thickness: 2px;
                                         text-underline-offset: 6px;
                                     }
@@ -372,19 +372,19 @@ $max-container: 1440px;
                                     color: #FFFFFF;
                                     padding-left: 30px;
                                     &.in-category {
-                                        color: var(--primary-open-sky-s2);
+                                        color: var(--nav-link-hover-color);
                                         text-decoration: underline;
-                                        text-decoration-color: var(--primary-open-sky-s2);
+                                        text-decoration-color: var(--nav-link-hover-color);
                                         text-decoration-thickness: 2px;
                                         text-underline-offset: 6px;
                                         @media screen and (max-width: $header-banner-mobile-breakpoint) {
-                                            color: var(--primary-open-sky-s2);
-                                            text-decoration-color: var(--primary-open-sky-s2);
+                                            color: var(--nav-link-hover-color);
+                                            text-decoration-color: var(--nav-link-hover-color);
                                         }
                                     }
                                     &:active {
-                                        color: var(--primary-open-sky-s2);
-                                        text-decoration-color: var(--primary-open-sky-s2);
+                                        color: var(--nav-link-hover-color);
+                                        text-decoration-color: var(--nav-link-hover-color);
                                     }
                                 }
                             }
@@ -447,8 +447,8 @@ $max-container: 1440px;
                                         &.in-category,
                                         &:hover {
                                             @media screen and (min-width: $header-banner-min-width) {
-                                                color: var(--primary-open-sky-s2);
-                                                text-decoration-color: var(--primary-open-sky-s2);
+                                                color: var(--nav-link-hover-color);
+                                                text-decoration-color: var(--nav-link-hover-color);
                                             }
                                             @media screen and (max-width: $header-banner-mobile-breakpoint) {
                                                 color: var(--primary-open-sky-t2);
@@ -466,7 +466,7 @@ $max-container: 1440px;
                                         @media screen and (min-width: $header-banner-min-width) {
                                             display: block;
                                             width: max-content;
-                                            @include header-level6(var(--primary-open-sky-s3));
+                                            @include header-level6(var(--nav-link-color));
                                             text-decoration: none;
                                             padding: 18px 0 0 0;
                                             margin-left: 18px;
@@ -534,7 +534,7 @@ $max-container: 1440px;
                                 margin: 0;
                                 min-width: 100%;
                                 @media screen and (min-width: $header-banner-min-width) {
-                                    background: var(--white);
+                                    background: var(--surface-primary);
                                     border-radius: var(--border-radius-sm);
                                     box-shadow: 0 2px 5px var(--shadow-medium);
                                     box-sizing: border-box;
@@ -562,7 +562,7 @@ $max-container: 1440px;
                                     }
                                 }
                                 > li {
-                                    color: var(--primary-open-sky-s3);
+                                    color: var(--nav-link-color);
                                     display: block;
                                     font-size: 15px;
                                     font-weight: 700;
@@ -571,7 +571,7 @@ $max-container: 1440px;
                                     > a {
                                         text-decoration: none;
                                         @media screen and (min-width: $header-banner-min-width) {
-                                            @include header-level6(var(--primary-open-sky-s3));
+                                            @include header-level6(var(--nav-link-color));
                                             width: max-content;
                                             display: block;
                                             white-space: nowrap;
@@ -580,9 +580,9 @@ $max-container: 1440px;
                                             margin-right: 18px;
                                             &:hover,
                                             &.in-category {
-                                                color: var(--primary-open-sky-s2);
+                                                color: var(--nav-link-hover-color);
                                                 text-decoration: underline;
-                                                text-decoration-color: var(--primary-open-sky-s2);
+                                                text-decoration-color: var(--nav-link-hover-color);
                                                 text-decoration-thickness: 2px;
                                                 text-underline-offset: 6px;
                                             }
@@ -614,7 +614,7 @@ $max-container: 1440px;
                                     margin: 0;
                                     min-width: 100%;
                                     @media screen and (min-width: $header-banner-min-width) {
-                                        background: var(--white);
+                                        background: var(--surface-primary);
                                         border-radius: var(--border-radius-sm);
                                         box-shadow: 0 2px 5px var(--shadow-medium);
                                         box-sizing: border-box;
@@ -727,15 +727,15 @@ $max-container: 1440px;
                                             padding-right: 6px;
                                             transition: padding-right linear 200ms;
                                             border-radius: var(--border-radius-lg);
-                                            border-color: var(--primary-pacific-sky-t2);
+                                            border-color: var(--input-bg);
                                             border-width: 0;
-                                            background-color: var(--primary-pacific-sky-t2);
-                                            @include header-level6(var(--primary-open-sky-s2));
+                                            background-color: var(--input-bg);
+                                            @include header-level6(var(--nav-link-hover-color));
                                             box-sizing: border-box;
                                             position: absolute;
                                             width: 100%;
                                             &::placeholder {
-                                                @include header-level6(var(--primary-open-sky-s2));
+                                                @include header-level6(var(--nav-link-hover-color));
                                             }
                                             @media screen and (max-width: $header-banner-mobile-breakpoint) {
                                                 height: 60px;
@@ -753,7 +753,7 @@ $max-container: 1440px;
                                                 outline: 0;
                                             }
                                             &:focus + .top-banner-search--field-with-results--field--wrapper--search-component--search-label .top-banner-search--field-with-results--field--wrapper--search-component--search-icon {
-                                                color: var(--blue-300);
+                                                color: var(--link-color);
                                             }
                                         }
                                         > .top-banner-search--field-with-results--field--wrapper--search-component--search-spinner {
@@ -822,7 +822,7 @@ $max-container: 1440px;
                                                 width: 19.2px;
                                                 height: 19.2px;
                                                 align-self: center;
-                                                color: var(--grey-dk-000);
+                                                color: var(--text-light);
                                             }
                                         }
                                     }
@@ -833,7 +833,7 @@ $max-container: 1440px;
                                         width: 100%;
                                         max-height: unset;
                                         overflow-y: auto;
-                                        background-color: var(--white);
+                                        background-color: var(--surface-primary);
                                         border-bottom-right-radius: 4px;
                                         border-bottom-left-radius: 4px;
                                         box-shadow: 0 1px 2px var(--shadow-light), 0 3px 10px var(--shadow-medium);
@@ -867,9 +867,9 @@ $max-container: 1440px;
                                                     line-height: 1.6;
                                                     font-weight: bold;
                                                     background: linear-gradient(rgb(238, 235, 238) 0%, rgb(238, 235, 238) 100%) repeat-x 0 100%/1px 1px;
-                                                    color: var(--blue-300);
+                                                    color: var(--link-color);
                                                     font-size: 20px;
-                                                    text-decoration: var(--blue-300);
+                                                    text-decoration-color: var(--link-color);
                                                     white-space: unset;
                                                     display: inline;
                                                     &:hover {
@@ -878,7 +878,7 @@ $max-container: 1440px;
                                                     > cite {
                                                         font-size: 12px;
                                                         font-family: "Open Sans", "Segoe UI", Tahoma, sans-serif;
-                                                        color: var(--grey-dk-300);
+                                                        color: var(--body-text);
                                                         text-decoration: none;
                                                         font-style: normal;
                                                         display: block;
@@ -888,7 +888,7 @@ $max-container: 1440px;
                                                 }
                                                 > span {
                                                     font-size: 14px;
-                                                    color: var(--grey-dk-200);
+                                                    color: var(--text-light);
                                                     line-height: 1.4;
                                                     display: block;
                                                     overflow-wrap: break-word;
@@ -996,7 +996,7 @@ $max-container: 1440px;
 }
 
 .search-active .top-banner-search--field-with-results--field--wrapper--search-component--search-input {
-    background-color: var(--white);
+    background-color: var(--surface-primary);
 }
 
 .search-active .top-banner-search--field-with-results--field--wrapper--search-component--search-results {
