@@ -237,6 +237,8 @@ The [`RangeQuery`](https://github.com/opensearch-project/opensearch-protobufs/bl
 
 ##### NumberRangeQuery fields
 
+The `NumberRangeQuery` message accepts the following fields.
+
 he `NumberRangeQuery` message accepts the following fields.
 
 | Field | Protobuf type | Description |
