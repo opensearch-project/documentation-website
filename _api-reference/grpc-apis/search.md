@@ -591,7 +591,7 @@ The [`InnerHits`](https://github.com/opensearch-project/opensearch-protobufs/blo
 | `size` | `optional int32` | The maximum number of hits to return per `inner_hits`. |
 | `from` | `optional int32` | Inner hit starting document offset. |
 | `collapse` | `optional` [`FieldCollapse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L713) | Groups search results by a particular field value. |
-| `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L748) | The fields that OpenSearch should return using their docvalue forms. |
+| `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L748) | The fields that OpenSearch should return using their `doc_values`. |
 | `explain` | `optional bool` | Whether to return details about how OpenSearch computed the document's score. Default is `false`. |
 | `highlight` | `optional` [`Highlight`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L758) | Highlighting emphasizes the search term(s) in the results. |
 | `ignore_unmapped` | `optional bool` | Specifies how to treat an unmapped field. Default is `false`. |
