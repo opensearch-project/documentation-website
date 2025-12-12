@@ -180,6 +180,8 @@ For more information about these query types, see [Query DSL]({{site.url}}{{site
 
 ### Term-level query fields
 
+The following sections describe the fields for each term-level query message.
+
 #### ExistsQuery fields
 
 The [`ExistsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1148) message accepts the following fields.
