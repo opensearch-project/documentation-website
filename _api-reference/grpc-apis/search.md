@@ -588,7 +588,7 @@ The [`InnerHits`](https://github.com/opensearch-project/opensearch-protobufs/blo
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `name` | `optional string` | The name to be used for the particular inner hit definition in the response. |
-| `size` | `optional int32` | The maximum number of hits to return per `inner_hits`. |
+| `size` | `optional int32` | The maximum number of hits to return in `inner_hits`. |
 | `from` | `optional int32` | The starting document offset for an inner hit. |
 | `collapse` | `optional` [`FieldCollapse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L713) | Groups search results by a particular field value. |
 | `docvalue_fields` | `repeated` [`FieldAndFormat`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L748) | The fields that OpenSearch should return using their `doc_values`. |
