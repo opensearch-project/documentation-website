@@ -2,7 +2,7 @@
 layout: default
 title: Field masking
 parent: Access control
-nav_order: 95
+nav_order: 100
 redirect_from:
  - /security/access-control/field-masking/
  - /security-plugin/access-control/field-masking/
@@ -95,6 +95,9 @@ See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#crea
 ## (Advanced) Use an alternative hash algorithm
 
 By default, the Security plugin uses the BLAKE2b algorithm, but you can use any hashing algorithm that your JVM provides. This list typically includes MD5, SHA-1, SHA-384, and SHA-512.
+
+BLAKE2b and several other commonly available algorithms, such as MD5 and SHA-1, are not approved for use in FIPS 140-3-compliant environments. If your deployment requires FIPS compliance, configure the plugin to use a FIPS-approved algorithm, such as SHA-256 or SHA-512, and make sure that the underlying cryptographic provider (for example, Bouncy Castle FIPS or another FIPS-validated JCE provider) is installed and configured correctly.
+{: .note}
 
 You can override the default algorithm in `opensearch.yml` using the optional default masking algorithm setting `plugins.security.masked_fields.algorithm.default`, as shown in the following example:
 

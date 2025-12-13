@@ -17,9 +17,9 @@ To submit gRPC requests, you must have a set of protobufs on the client side. Fo
 
 ## gRPC service and method
 
-gRPC Document APIs reside in the [DocumentService](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/services/document_service.proto#L22).
+gRPC Document APIs reside in the [DocumentService](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/services/document_service.proto#L22).
 
-You can submit bulk requests by invoking the [`Bulk`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/services/document_service.proto#L24) gRPC method within the `DocumentService`. The method takes a [`BulkRequest`](#bulkrequest-fields) and returns a [`BulkResponse`](#bulkresponse-fields).
+You can submit bulk requests by invoking the [`Bulk`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/services/document_service.proto#L24) gRPC method within the `DocumentService`. The method takes a [`BulkRequest`](#bulkrequest-fields) and returns a [`BulkResponse`](#bulkresponse-fields).
 
 ## Document format
 
@@ -40,28 +40,28 @@ For a gRPC Bulk API request, provide the same document in Base64 encoding:
 
 ## BulkRequest fields
 
-The [`BulkRequest`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L17) message is the top-level container for a gRPC bulk operation. It accepts the following fields.
+The [`BulkRequest`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L17) message is the top-level container for a gRPC bulk operation. It accepts the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `request_body` | `repeated `[`BulkRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L48) | The list of bulk operations, each containing one of the operation types (`index`/`create`/`update`/`delete`). Required. |
-| `index` | `string` | The default index for all operations unless overridden in `request_body`. Specifying the `index` in the `BulkRequest` means that you don't need to include it in the [BulkRequestBody](#bulkrequestbody-fields). Optional. |
-| `x_source` | [`SourceConfigParam`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/common.proto#L199) | Controls whether to return the full `_source`, no `_source`, or only specific fields from `_source` in the response. Optional. |
+| `bulk_request_body` | `repeated `[`BulkRequestBody`](#bulkrequestbody-fields) | The list of bulk operations, each containing one of the operation types (`index`/`create`/`update`/`delete`). Required. |
+| `index` | `string` | The default index for all operations unless overridden in `bulk_request_body`. Specifying the `index` in the `BulkRequest` means that you don't need to include it in the [BulkRequestBody](#bulkrequestbody-fields). Optional. |
+| `x_source` | [`SourceConfigParam`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L195) | Controls whether to return the full `_source`, no `_source`, or only specific fields from `_source` in the response. Optional. |
 | `x_source_excludes` | `repeated string` | Fields to exclude from `source`. Optional. |
 | `x_source_includes` | `repeated string` | Fields to include from `source`. Optional. |
 | `pipeline` | `string` | The preprocessing ingest pipeline ID. Optional. |
-| `refresh` | [`Refresh`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L264) | Whether to refresh shards after indexing. Optional. |
+| `refresh` | [`Refresh`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L265) | Whether to refresh shards after indexing. Optional. |
 | `require_alias` | `bool` | If `true`, actions must target an alias. Optional. |
 | `routing` | `string` | The routing value for shard assignment. Optional. |
 | `timeout` | `string` | The timeout duration (for example, `1m`). Optional. |
 | `type` (Deprecated) | `string` | The document type (always `_doc`). Optional. |
-| `wait_for_active_shards` | [`WaitForActiveShards`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/common.proto#L23) | The minimum number of active shards to wait for. Optional. |
-| `global_params` | [`GlobalParams`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/common.proto#L14) | Global parameters for the request. Optional. |
+| `wait_for_active_shards` | [`WaitForActiveShards`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L24) | The minimum number of active shards to wait for. Optional. |
+| `global_params` | [`GlobalParams`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L15) | Global parameters for the request. Optional. |
 
 
 ## BulkRequestBody fields
 
-The [`BulkRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L48) message represents a single document-level operation within a `BulkRequest`. It accepts the following fields.
+The [`BulkRequestBody`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L48) message represents a single document-level operation within a `BulkRequest`. It accepts the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
@@ -71,7 +71,7 @@ The [`BulkRequestBody`](https://github.com/opensearch-project/opensearch-protobu
 
 ## OperationContainer fields
 
-The [`OperationContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L57) message contains exactly one operation type. It accepts the following fields.
+The [`OperationContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L57) message contains exactly one operation type. It accepts the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
@@ -82,17 +82,17 @@ The [`OperationContainer`](https://github.com/opensearch-project/opensearch-prot
 
 ## UpdateAction fields
 
-The [`UpdateAction`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L71) message provides additional options for update operations. It accepts the following fields.
+The [`UpdateAction`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L71) message provides additional options for update operations. It accepts the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `detect_noop` | `bool` | If `true`, skips the update if the document content hasn't changed. Optional. Default is `true`. |
 | `doc` | `bytes` | Partial or full document data for `update` operations. Optional. |
 | `doc_as_upsert` | `bool` | If `true`, treats the document as the full upsert document if the target document doesn't exist. Only valid for the `update` operation. Optional. |
-| `script` | [`Script`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/common.proto#L36) | A script to apply to the document (used with `update`). Optional. |
+| `script` | [`Script`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L37) | A script to apply to the document (used with `update`). Optional. |
 | `scripted_upsert` | `bool` | If `true`, executes the script whether or not the document exists. Optional. |
 | `upsert` | `bytes` | The full document to use if the target does not exist. Used with `script`. Optional. |
-| `x_source` | [`SourceConfig`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/common.proto#L230) | Controls how the document source is fetched or filtered. Optional. |
+| `x_source` | [`SourceConfig`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L226) | Controls how the document source is fetched or filtered. Optional. |
 
 
 ### Create
@@ -118,7 +118,7 @@ The following example shows a bulk request with a `create` operation. It creates
 ```json
 {
   "index": "movies",
-  "request_body": [
+  "bulk_request_body": [
     {
       "operation_container": {
         "create": {
@@ -144,7 +144,7 @@ The `DeleteOperation` removes a document by ID. It accepts the following fields.
 | `if_primary_term` | `int64` | Used for concurrency control. The operation only runs if the document's primary term matches this value. Optional. |
 | `if_seq_no` | `int64` | Used for concurrency control. The operation only runs if the document's sequence number matches this value. Optional. |
 | `version` | `int64` | The explicit document version for concurrency control. Optional. |
-| `version_type` | [`VersionType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L95) | Controls version matching behavior. Optional. |
+| `version_type` | [`VersionType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L95) | Controls version matching behavior. Optional. |
 
 #### Example request
 
@@ -153,7 +153,7 @@ The following example shows a bulk request with a `delete` operation. It deletes
 ```json
 {
   "index": "movies",
-  "request_body": [
+  "bulk_request_body": [
     {
       "operation_container": {
         "delete": {
@@ -182,9 +182,9 @@ The following optional fields can also be provided.
 | `routing` | `string` | A custom routing value used to control shard placement. Optional. |
 | `if_primary_term` | `int64` | Used for concurrency control. The operation only runs if the document's primary term matches this value. Optional. |
 | `if_seq_no` | `int64` | Used for concurrency control. The operation only runs if the document's sequence number matches this value. Optional. |
-| `op_type` | [`OpType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L89) | The operation type. Controls the overwriting behavior. Valid values are `index` (default) and `create`. Optional. |
+| `op_type` | [`OpType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L89) | The operation type. Controls the overwriting behavior. Valid values are `index` (default) and `create`. Optional. |
 | `version` | `int64` | The explicit document version for concurrency control. Optional. |
-| `version_type` | [`VersionType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L95) | Controls version matching behavior. Optional. |
+| `version_type` | [`VersionType`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L95) | Controls version matching behavior. Optional. |
 | `pipeline` | `string` | The preprocessing ingest pipeline ID. Optional. |
 | `require_alias` | `bool` | If `true`, requires that all actions target an index alias rather than an index. Default is `false`. Optional. |
 
@@ -196,7 +196,7 @@ The following example shows a bulk request with an `index` operation. It indexes
 ```json
 {
   "index": "movies",
-  "request_body": [
+  "bulk_request_body": [
     {
       "operation_container": {
         "index": {
@@ -237,7 +237,7 @@ The following example shows a bulk request with an `update` operation. It will u
 ```json
 {
   "index": "movies",
-  "request_body": [
+  "bulk_request_body": [
     {
       "operation_container": {
         "update": {
@@ -268,14 +268,18 @@ The following example shows a bulk request with an `upsert` operation. It update
 ```json
 {
   "index": "movies",
-  "request_body": [
+  "bulk_request_body": [
     {
-      "update": {
-        "index": "movies",
-        "id": "tt1375666"
+      "operation_container": {
+        "update": {
+          "x_index": "movies",
+          "x_id": "tt1375666"
+        }
       },
-      "doc": "eyJ5ZWFyIjogMjAxMn0=",
-      "doc_as_upsert": true
+      "update_action": {
+        "doc": "eyJ5ZWFyIjogMjAxMn0=",
+        "doc_as_upsert": true
+      }
     }
   ]
 }
@@ -295,16 +299,22 @@ The following example shows a bulk request with a `script` operation. It increme
 ```json
 {
   "index": "movies",
-  "request_body": [
+  "bulk_request_body": [
     {
-      "update": {
-        "index": "movies",
-        "id": "tt1375666"
+      "operation_container": {
+        "update": {
+          "x_index": "movies",
+          "x_id": "tt1375666"
+        }
       },
-      "script": {
-        "inline_script": {
-          "source": "ctx._source.year += 1",
-          "lang": "SCRIPT_LANGUAGE_PAINLESS"
+      "update_action": {
+        "script": {
+          "inline": {
+            "source": "ctx._source.year += 1",
+            "lang": {
+              "builtin": "BUILTIN_SCRIPT_LANGUAGE_PAINLESS"
+            }
+          }
         }
       }
     }
@@ -320,12 +330,12 @@ The gRPC Bulk API provides the following response fields.
 
 ### BulkResponse fields
 
-The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L186) message is returned directly from the `Bulk` gRPC method and provides a summary and per-item result of a bulk operation. It contains the following fields.
+The [`BulkResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L187) message is returned directly from the `Bulk` gRPC method and provides a summary and per-item result of a bulk operation. It contains the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `errors` | `bool` | Indicates whether any of the operations in the bulk request failed. If any operation fails, the response's `errors` field will be `true`. You can iterate over the individual `Item` actions for more detailed information.|
-| `items` | `repeated Item` | The result of all operations in the bulk request, in the order they were submitted. |
+| `items` | `repeated` [`Item`](#item-fields) | The result of all operations in the bulk request, in the order they were submitted. |
 | `took` | `int64` | The amount of time taken to process the bulk request, in milliseconds. |
 | `ingest_took` | `int64` | The amount of time taken to process documents through an ingest pipeline, in milliseconds. |
 
@@ -336,10 +346,10 @@ Each `Item` in the response corresponds to a single operation in the request. Fo
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `create` | `ResponseItem` | The result of the `CreateOperation`. |
-| `delete` | `ResponseItem` | The result of the `DeleteOperation`.   |
-| `index` | `ResponseItem` | The result of the `IndexOperation`.  |
-| `update` | `ResponseItem` | The result of the `UpdateOperation`.  |
+| `create` | [`ResponseItem`](#responseitem-fields) | The result of the `CreateOperation`. |
+| `delete` | [`ResponseItem`](#responseitem-fields) | The result of the `DeleteOperation`.   |
+| `index` | [`ResponseItem`](#responseitem-fields) | The result of the `IndexOperation`.  |
+| `update` | [`ResponseItem`](#responseitem-fields) | The result of the `UpdateOperation`.  |
 
 
 ### ResponseItem fields
@@ -349,107 +359,111 @@ Each `ResponseItem` corresponds to a single operation in the request. It contain
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
 | `type` | `string` | The document type. |
-| `id` | [`ResponseItem.Id`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/common.proto#L223) | The document ID associated with the operation. Can be `null`. |
+| `id` | `string` | The document ID associated with the operation. |
 | `index` | `string` | The name of the index associated with the operation. If a data stream was targeted, this is the backing index. |
 | `status` | `int32` | The HTTP status code returned for the operation. *(Note: This field may be replaced with a gRPC code in the future.)* |
-| `error` | [`ErrorCause`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/common.proto#L293) | Contains additional information about a failed operation. |
+| `error` | [`ErrorCause`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L288) | Contains additional information about a failed operation. |
 | `primary_term` | `int64` | The primary term assigned to the document. |
 | `result` | `string` | The operation result. Valid values are `created`, `deleted`, and `updated`. |
 | `seq_no` | `int64` | A sequence number assigned to the document to maintain version order. |
-| `shards` | [`ShardInfo`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/common.proto#L340) | Shard information for the operation (only returned for successful actions). |
+| `shards` | [`ShardInfo`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L329) | Shard information for the operation (only returned for successful actions). |
 | `version` | `int64` | The document version (only returned for successful actions). |
 | `forced_refresh` | `bool` | If `true`, forces the document to become visible immediately after the operation. |
-| `get` | [`InlineGetDictUserDefined`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.19.0/protos/schemas/document.proto#L266) | Contains the document `source` returned from an inline get, if requested. |
+| `get` | [`InlineGetDictUserDefined`](#inlinegetdictuserdefined-fields) | Contains the document `source` returned from an inline get, if requested. |
+
+### InlineGetDictUserDefined fields
+
+The [`InlineGetDictUserDefined`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/document.proto#L248) message contains the document source returned from an inline get operation.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `metadata_fields` | `optional` [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L107) | The document's metadata fields. |
+| `fields` | `optional` [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L107) | The document's stored fields. |
+| `found` | `bool` | Whether the document exists. |
+| `x_seq_no` | `optional int64` | The document's sequence number. |
+| `x_primary_term` | `optional int64` | The document's primary term. |
+| `x_routing` | `optional string` | The document's routing value. |
+| `x_source` | `optional bytes` | The document's source data. |
 
 ## Example response
 
 ```json
 {
-  "bulk_response_body": {
-    "errors": false,
-    "items": [
-      {
-        "index": {
-          "id": {
-            "string": "2"
-          },
-          "index": "my_index",
-          "status": 201,
-          "primary_term": 1,
-          "result": "created",
-          "seq_no": 0,
-          "shards": {
-            "successful": 1,
-            "total": 2
-          },
-          "version": 1,
-          "forced_refresh": true
-        }
-      },
-      {
-        "create": {
-          "id": {
-            "string": "1"
-          },
-          "index": "my_index",
-          "status": 201,
-          "primary_term": 1,
-          "result": "created",
-          "seq_no": 0,
-          "shards": {
-            "successful": 1,
-            "total": 2
-          },
-          "version": 1,
-          "forced_refresh": true
-        }
-      },
-      {
-        "update": {
-          "id": {
-            "string": "2"
-          },
-          "index": "my_index",
-          "status": 200,
-          "primary_term": 1,
-          "result": "updated",
-          "seq_no": 1,
-          "shards": {
-            "successful": 1,
-            "total": 2
-          },
-          "version": 2,
-          "forced_refresh": true,
-          "get": {
-            "found": true,
-            "seq_no": 1,
-            "primary_term": 1,
-            "source": "e30="
-          }
-        }
-      },
-      {
-        "delete": {
-          "id": {
-            "string": "2"
-          },
-          "index": "my_index",
-          "status": 200,
-          "primary_term": 1,
-          "result": "deleted",
-          "seq_no": 2,
-          "shards": {
-            "successful": 1,
-            "total": 2
-          },
-          "version": 3,
-          "forced_refresh": true
+  "errors": false,
+  "items": [
+    {
+      "index": {
+        "x_id": "2",
+        "x_index": "my_index",
+        "status": 201,
+        "x_primary_term": 1,
+        "result": "created",
+        "x_seq_no": 0,
+        "x_shards": {
+          "successful": 1,
+          "total": 2
+        },
+        "x_version": 1,
+        "forced_refresh": true
+      }
+    },
+    {
+      "create": {
+        "x_id": "1",
+        "x_index": "my_index",
+        "status": 201,
+        "x_primary_term": 1,
+        "result": "created",
+        "x_seq_no": 0,
+        "x_shards": {
+          "successful": 1,
+          "total": 2
+        },
+        "x_version": 1,
+        "forced_refresh": true
+      }
+    },
+    {
+      "update": {
+        "x_id": "2",
+        "x_index": "my_index",
+        "status": 200,
+        "x_primary_term": 1,
+        "result": "updated",
+        "x_seq_no": 1,
+        "x_shards": {
+          "successful": 1,
+          "total": 2
+        },
+        "x_version": 2,
+        "forced_refresh": true,
+        "get": {
+          "found": true,
+          "x_seq_no": 1,
+          "x_primary_term": 1,
+          "x_source": "e30="
         }
       }
-    ],
-    "took": 87,
-    "ingest_took": 0
-  }
+    },
+    {
+      "delete": {
+        "x_id": "2",
+        "x_index": "my_index",
+        "status": 200,
+        "x_primary_term": 1,
+        "result": "deleted",
+        "x_seq_no": 2,
+        "x_shards": {
+          "successful": 1,
+          "total": 2
+        },
+        "x_version": 3,
+        "forced_refresh": true
+      }
+    }
+  ],
+  "took": 87,
+  "ingest_took": 0
 }
 ```
 {% include copy.html %}
@@ -497,8 +511,8 @@ public class BulkClient {
         // Build the bulk request
         BulkRequest request = BulkRequest.newBuilder()
                 .setIndex("my-index")
-                .addRequestBody(indexBody)
-                .addRequestBody(deleteBody)
+                .addBulkRequestBody(indexBody)
+                .addBulkRequestBody(deleteBody)
                 .build();
 
         // Execute the bulk request
@@ -542,7 +556,7 @@ The following example shows how to send the same request using a Python client a
 First, install the `opensearch-protobufs` package using `pip`:
 
 ```bash
-pip install opensearch-protobufs==0.19.0
+pip install opensearch-protobufs==0.24.0
 ```
 {% include copy.html %}
 
@@ -551,9 +565,8 @@ Use the following code to send the request:
 ```python
 import grpc
 
-from opensearch.protobufs.schemas import document_pb2
-from opensearch.protobufs.schemas import common_pb2
-from opensearch.protobufs.services.document_service_pb2_grpc import DocumentServiceStub
+from opensearch.protobufs.schemas import *
+from opensearch.protobufs.services import DocumentServiceStub
 
 channel = grpc.insecure_channel(
     target="localhost:9400",
@@ -562,15 +575,15 @@ channel = grpc.insecure_channel(
 document_stub = DocumentServiceStub(channel)
 
 # Add documents to a request body
-requestBody = document_pb2.BulkRequestBody(
-    operation_container=document_pb2.OperationContainer(index=document_pb2.IndexOperation())
+requestBody = BulkRequestBody(
+    operation_container=OperationContainer(index=IndexOperation())
 )
 requestBody.object = "{\"field\": \"value\"}".encode('utf-8')
 
 # Append to a bulk request
-request = document_pb2.BulkRequest()
+request = BulkRequest()
 request.index = "my-index"
-request.request_body.append(requestBody)
+request.bulk_request_body.append(requestBody)
 
 # Send request and handle response
 try:
