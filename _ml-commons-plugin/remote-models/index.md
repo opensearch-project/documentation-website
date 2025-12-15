@@ -217,7 +217,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-To undeploy the model, use the [Undeploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
+To deploy the model, use the [Deploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/).
 
 ```bash
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
