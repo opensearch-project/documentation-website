@@ -84,7 +84,11 @@ The `opensearch` source can be configured with Amazon OpenSearch Serverless by s
 
 ## Using metadata
 
-When the `opensource` source constructs OpenSearch Data Prepper events from documents in the cluster, the document index is stored in the EventMetadata with an `opensearch-index` key, and the document_id is stored in the `EventMetadata` with the `opensearch-document_id` as the key. This allows for conditional routing based on the index or `document_id`. The following example pipeline configuration sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster:
+When the `opensource` source constructs OpenSearch Data Prepper events from documents, the document index is stored in the `EventMetadata` with `opensearch-index` as the key, and the `document_id` is stored in the `EventMetadata` with the `opensearch-document_id` as the key.
+
+You can reference this metadata in your pipeline configuration as needed. For example, you can use the `opensearch-document_id` to prevent duplicates in sinks that support document updates, such as the `opensearch` sink. You can also use the original document metadata for conditional routing.
+
+The following example pipeline configuration sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster to prevent duplicate documents:
 
 
 ```yaml
@@ -176,9 +180,9 @@ Option | Required | Type    | Description
 
 ### Default search behavior
 
-By default, the `opensearch` source will look up the cluster version and distribution to determine
-which `search_context_type` to use. For versions and distributions that support [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after), `point_in_time` will be used.
-If `point_in_time` is not supported by the cluster, then [scroll]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search) will be used. For Amazon OpenSearch Serverless collections, [search_after]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter) will be used because neither `point_in_time` nor `scroll` are supported by collections.
+By default, the `opensearch` source uses the cluster's version and distribution to determine which `search_context_type` to use. For clusters and domains that support [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after), the source uses `point_in_time`. If the cluster does not support Point in Time search, it falls back to [scroll search]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search).
+
+For Amazon OpenSearch Serverless collections, the default behavior is to use [`search_after`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter). However, we recommend using `point_in_time` instead.
 
 ### Connection
 
