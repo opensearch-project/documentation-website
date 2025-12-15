@@ -7,7 +7,6 @@ grand_parent: Availability and recovery
 ---
 
 # Remote segment warmer
-
 Introduced 3.4
 {: .label .label-purple }
 

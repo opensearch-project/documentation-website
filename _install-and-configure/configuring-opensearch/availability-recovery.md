@@ -60,6 +60,8 @@ For more remote-backed storage settings, see [Remote-backed storage]({{site.url}
 
 For remote segment backpressure settings, see [Remote segment backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/#remote-segment-backpressure-settings).
 
+For remote segment warmer settings, see [Remote segment warmer settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-warmer/#remote-segment-warmer-settings).
+
 ## Search backpressure settings
 
 Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. For more information, see [Search backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/search-backpressure/#search-backpressure-settings).
