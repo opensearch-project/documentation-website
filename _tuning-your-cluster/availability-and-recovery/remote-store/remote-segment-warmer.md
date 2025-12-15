@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Remote segment backpressure
+title: Remote segment warmer
 nav_order: 10
 parent: Remote-backed storage
 grand_parent: Availability and recovery
@@ -11,19 +11,19 @@ grand_parent: Availability and recovery
 Introduced 3.4
 {: .label .label-purple }
 
-Remote segment warmer does pre-copy of merged segments to decrease the replication lag. 
+The remote segment warmer performs pre-copying of merged segments to reduce replication lag between primary and replica shards.
 
 ## Remote segment warmer settings
 
-Remote segment warmer adds several settings to the standard OpenSearch cluster settings. The settings are dynamic, so you can change the default  behavior without restarting your cluster. 
+The remote segment warmer adds several settings to the standard OpenSearch cluster settings. The settings are dynamic, so you can change the default behavior without restarting your cluster. 
 
-The following table lists the settings used for remote segment warmer.
+The following table lists the settings used for the remote segment warmer.
 
 |Setting	| Data type	 | Description	                                                                                     |
 |:---	|:-----------|:-------------------------------------------------------------------------------------------------|
-|`indices.replication.merges.warmer.enabled`	| Boolean    | Enables remote segment warmer. Default is `false`.                                               |
-|`indices.replication.merges.warmer.max_bytes_per_sec`	| Integer    | Individual speed setting for merged segment replication. Default is `-1` to use recovery speed.	 |
-|`indices.replication.merges.warmer.timeout`	| Time unit  | Control the maximum waiting time for replicate merged segment to the replica. Default is `10`.	  |
-|`indices.replication.merges.warmer.min_segment_size_threshold`	| Byte unit	 | set a threshold for minimum size of a merged segment to be warmed. Default is `500MB`.	          |
+|`indices.replication.merges.warmer.enabled`	| Boolean    | Enables the remote segment warmer. Default is `false`.                                               |
+|`indices.replication.merges.warmer.max_bytes_per_sec`	| Integer    | The individual speed setting for merged segment replication. Default is `-1` (use recovery speed).	 |
+|`indices.replication.merges.warmer.timeout`	| Time unit  | Controls the maximum amount of time the system waits while replicating merged segments to a replica. Default is `10`.	  |
+|`indices.replication.merges.warmer.min_segment_size_threshold`	| Byte unit	 | Sets a threshold for the minimum size of a merged segment to be warmed. Default is `500MB`.	          |
 
 
