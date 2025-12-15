@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Report definition access control
-nav_order: 30
+nav_order: 35
 ---
 
 # Report definition access control
@@ -26,7 +26,7 @@ The following table describes the workflow resource configuration.
 
 When resource-level authorization is enabled for report-definitions, each report-definition's visibility is governed by a central sharing record. Resource owners and users with sharing capabilities can grant or revoke access permissions for specific users, roles, or backend roles.
 
-## Enable report-definition resource sharing
+## Enable report definition resource sharing
 
 To enable resource sharing for report-definition, you must add the report-definition resource type to the protected types list and enable resource sharing cluster-wide.
 

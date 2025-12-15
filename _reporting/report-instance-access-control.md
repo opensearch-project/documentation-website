@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Report instance access control
-nav_order: 35
+nav_order: 40
 ---
 
 # Report instance access control
@@ -26,7 +26,7 @@ The following table describes the workflow resource configuration.
 
 When resource-level authorization is enabled for report-instances, each report-instance's visibility is governed by a central sharing record. Resource owners and users with sharing capabilities can grant or revoke access permissions for specific users, roles, or backend roles.
 
-## Enable report-instance resource sharing
+## Enable report instance resource sharing
 
 To enable resource sharing for report-instance, you must add the report-instance resource type to the protected types list and enable resource sharing cluster-wide.
 
@@ -67,9 +67,9 @@ When adding the report-instance resource type to an existing configuration, incl
 
 Reporting plugin provides the following predefined access levels for report-instance documents. These access levels determine the specific permissions granted to users who have been granted access to a report-instance resource.
 
-### rd_read_only
+### ri_read_only
 
-The `rd_read_only` read-only access level grants users the ability to view and search shared report-instances but not modify them. This access level includes the following permissions:
+The `ri_read_only` read-only access level grants users the ability to view and search shared report-instances but not modify them. This access level includes the following permissions:
 
 ```yaml
 - "cluster:admin/opendistro/reports/instance/get"
@@ -78,9 +78,9 @@ The `rd_read_only` read-only access level grants users the ability to view and s
 ```
 {% include copy.html %}
 
-### rd_read_write
+### ri_read_write
 
-The `rd_read_write` read-write access level grants users full access to report-instance operations except for sharing capabilities. This access level includes all read permissions plus write operations:
+The `ri_read_write` read-write access level grants users full access to report-instance operations except for sharing capabilities. This access level includes all read permissions plus write operations:
 
 ```yaml
 - "cluster:admin/opendistro/reports/instance/*"
@@ -88,9 +88,9 @@ The `rd_read_write` read-write access level grants users full access to report-i
 ```
 {% include copy.html %}
 
-### rd_full_access
+### ri_full_access
 
-The `rd_full_access` full access level grants users complete control over a report-instance, including owner-like permissions such as sharing the resource with other users. This access level includes all report-instance operations plus resource sharing permissions:
+The `ri_full_access` full access level grants users complete control over a report-instance, including owner-like permissions such as sharing the resource with other users. This access level includes all report-instance operations plus resource sharing permissions:
 
 ```yaml
 - "cluster:admin/opendistro/reports/instance/*"
@@ -125,7 +125,7 @@ POST _plugins/_security/api/resources/migrate
 ```
 {% include copy-curl.html %}
 
-Replace `<replace-with-existing-user>` with the username of an existing user who should own report-instances without explicit ownership information. Replace `<select-appropriate-access-level>` with one of the available report-instance access levels: `rd_read_only`, `rd_read_write`, or `rd_full_access`.
+Replace `<replace-with-existing-user>` with the username of an existing user who should own report-instances without explicit ownership information. Replace `<select-appropriate-access-level>` with one of the available report-instance access levels: `ri_read_only`, `ri_read_write`, or `ri_full_access`.
 
 ## Related documentation
 
