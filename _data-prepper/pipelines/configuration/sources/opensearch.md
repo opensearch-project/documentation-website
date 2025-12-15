@@ -180,9 +180,9 @@ Option | Required | Type    | Description
 
 ### Default search behavior
 
-By default, the `opensearch` source uses the cluster's version and distribution to determine which `search_context_type` to use. For clusters and domains that support [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after}), the source uses `point_in_time`. If the cluster does not support Point in Time search, it falls back to [scroll search]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search).
+By default, the `opensearch` source uses the cluster's version and distribution to determine which `search_context_type` to use. For clusters and domains that support [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after), the source uses `point_in_time`. If the cluster does not support Point in Time search, it falls back to [scroll search]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search).
 
-For Amazon OpenSearch Serverless collections, the default behavior is to use [`search_after`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter}). However, we recommend using `point_in_time` instead.
+For Amazon OpenSearch Serverless collections, the default behavior is to use [`search_after`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter). However, we recommend using `point_in_time` instead.
 
 ### Connection
 
