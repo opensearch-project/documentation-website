@@ -70,7 +70,10 @@ collections:
     output: true
   query-dsl:
     permalink: /:collection/:path/
-    output: true 
+    output: true
+  sql-and-ppl:
+    permalink: /:collection/:path/
+    output: true
   aggregations:
     permalink: /:collection/:path/
     output: true
@@ -174,6 +177,9 @@ opensearch_collection:
     query-dsl:
       name: Query DSL
       nav_fold: true
+    sql-and-ppl:
+      name: SQL and PPL
+      nav_fold: true
     aggregations:
       name: Aggregations
       nav_fold: true
@@ -256,13 +262,13 @@ defaults:
       path: "_clients"
     values:
       section: "clients"
-      section-name: "Clients"
+      section-name: "OpenSearch clients"
   -
     scope:
       path: "_benchmark"
     values:
       section: "benchmark"
-      section-name: "Benchmark"
+      section-name: "OpenSearch Benchmark"
   -
     scope:
       path: "_migration-assistant"
@@ -324,15 +330,10 @@ doc_version: latest
 footer_content:
 
 plugins:
-  - jekyll-last-modified-at
   - jekyll-remote-theme
   - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-spec-insert
-
-# This format has to conform to RFC822
-last-modified-at:
-  date-format: '%a, %d %b %Y %H:%M:%S %z'
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
