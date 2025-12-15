@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Report instance access control
-nav_order: 40
+nav_order: 20
 ---
 
 # Report instance access control
@@ -132,4 +132,4 @@ Replace `<replace-with-existing-user>` with the username of an existing user who
 - [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/) -- Backend concepts, configuration, and setup
 - [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
 - [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
-- [Report instance access control]({{site.url}}{{site.baseurl}}/automating-configurations/report-instance-access-control/) -- Access control for report-instances
+- [Report instance access control]({{site.url}}{{site.baseurl}}/reporting/report-instance-access-control/) -- Access control for report-instances
