@@ -140,10 +140,10 @@ layout: table_wrappers
         {% endunless %}
         <div id="main-content" class="main-content" role="main">
           {% if page.section == "opensearch" %}
-            {% if site.doc_version == "supported" %}            
-              <p class="supported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. For the latest version, see the <a href="{{ site.url }}/latest{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
+            {% if site.doc_version == "supported" %}
+              <p class="supported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. For the latest version, see the <a href="{% if page.url contains '404' %}{{ site.url }}/latest/about/{% else %}{{ site.url }}/latest{{ page.url }}{% endif %}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
             {% elsif site.doc_version == "unsupported" %}
-              <p class="unsupported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. This version is no longer maintained. For the latest version, see the <a href="{{ site.url }}/latest{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
+              <p class="unsupported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. This version is no longer maintained. For the latest version, see the <a href="{% if page.url contains '404' %}{{ site.url }}/latest/about/{% else %}{{ site.url }}/latest{{ page.url }}{% endif %}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
             {% endif %}
           {% endif %}
           {% if site.heading_anchors != false %}
