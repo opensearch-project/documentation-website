@@ -53,7 +53,7 @@ To run a PPL query using the API, see [SQL and PPL API]({{site.url}}{{site.baseu
 Developers can find information in the following resources:
 
 - [Piped Processing Language](https://github.com/opensearch-project/piped-processing-language) specification
-- [OpenSearch PPL Reference Manual](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/index.rst)
+- [OpenSearch PPL Reference Manual](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/index.md)
 - [Observability](https://github.com/opensearch-project/dashboards-observability/) using [PPL-based visualizations](https://github.com/opensearch-project/dashboards-observability#event-analytics)
-- PPL [Data types](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/general/datatypes.rst)
-- [Cross-cluster search](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/cross_cluster_search.rst#using-cross-cluster-search-in-ppl) in PPL
+- PPL [Data types](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/general/datatypes.md)
+- [Cross-cluster search](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/cross_cluster_search.md#using-cross-cluster-search-in-ppl) in PPL
