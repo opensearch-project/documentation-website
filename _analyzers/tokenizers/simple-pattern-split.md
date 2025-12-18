@@ -3,6 +3,7 @@ layout: default
 title: Simple pattern split
 parent: Tokenizers
 nav_order: 120
+canonical_url: https://docs.opensearch.org/latest/analyzers/tokenizers/simple-pattern-split/
 ---
 
 # Simple pattern split tokenizer

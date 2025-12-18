@@ -6,6 +6,7 @@ redirect_from:
   - /vector-search/creating-a-vector-db/
   - /search-plugins/knn/knn-index/
   - /vector-search/creating-vector-index/
+canonical_url: https://docs.opensearch.org/latest/vector-search/creating-vector-index/
 ---
 
 # Creating a vector index

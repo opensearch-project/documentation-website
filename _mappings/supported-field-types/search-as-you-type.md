@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/supported-field-types/search-as-you-type/
   - /opensearch/supported-field-types/search-as-you-type/
   - /field-types/search-as-you-type/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/search-as-you-type/
 ---
 
 # Search-as-you-type field type

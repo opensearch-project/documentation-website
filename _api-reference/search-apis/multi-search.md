@@ -6,6 +6,7 @@ nav_order: 20
 redirect_from: 
  - /opensearch/rest-api/multi-search/
  - /api-reference/multi-search/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/multi-search/
 ---
 
 # Multi-search API

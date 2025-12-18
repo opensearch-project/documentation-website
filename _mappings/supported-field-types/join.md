@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/supported-field-types/join/
   - /opensearch/supported-field-types/join/
   - /field-types/join/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/join/
 ---
 
 # Join field type

@@ -4,6 +4,7 @@ title: Get index template
 parent: Index templates
 grand_parent: Index APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/get-index-template/
 ---
 
 # Get Index Template API

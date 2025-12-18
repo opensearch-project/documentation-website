@@ -9,6 +9,7 @@ redirect_from:
   - /ml-commons-plugin/api/mcp-server-apis/
   - /ml-commons-plugin/api/mcp-server-apis/sse-message/
   - /ml-commons-plugin/api/mcp-server-apis/sse-session/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/mcp-server-apis/index/
 ---
 
 # MCP server APIs

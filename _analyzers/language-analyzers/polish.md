@@ -4,6 +4,7 @@ title: Polish
 nav_order: 255
 parent: Language analyzers
 grand_parent: Analyzers
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/polish/
 ---
 
 # Polish analyzer

@@ -2,6 +2,7 @@
 layout: default
 title: Rescore
 nav_order: 99
+canonical_url: https://docs.opensearch.org/latest/query-dsl/rescore/
 ---
 
 # Rescore

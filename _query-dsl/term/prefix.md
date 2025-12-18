@@ -3,6 +3,7 @@ layout: default
 title: Prefix
 parent: Term-level queries
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/query-dsl/term/prefix/
 ---
 
 # Prefix query

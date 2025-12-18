@@ -4,6 +4,7 @@ title: Using UBI in Amazon OpenSearch Service
 parent: User Behavior Insights
 has_children: false
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ubi/ubi-aws-managed-services-tutorial/
 ---
 
 

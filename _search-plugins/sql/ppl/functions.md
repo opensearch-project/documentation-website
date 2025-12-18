@@ -8,6 +8,7 @@ redirect_from:
   - /observability-plugin/ppl/commands/
   - /search-plugins/ppl/commands/
   - /search-plugins/ppl/functions/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/ppl/functions/
 ---
 
 # Commands

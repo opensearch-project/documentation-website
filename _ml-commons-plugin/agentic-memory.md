@@ -2,6 +2,7 @@
 layout: default
 title: Agentic memory
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/agentic-memory/
 ---
 
 # Agentic memory

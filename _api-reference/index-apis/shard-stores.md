@@ -6,6 +6,7 @@ grand_parent: Index APIs
 nav_order: 95
 redirect_from:
   - /api-reference/cluster-api/shard-stores/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/shard-stores/
 ---
 
 # Index Shard Stores API

@@ -3,6 +3,7 @@ layout: default
 title: Bucket sort
 parent: Pipeline aggregations
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/bucket-sort/
 ---
 
 # Bucket sort aggregations

@@ -4,6 +4,7 @@ title: Force merge
 parent: Index operations
 grand_parent: Index APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/force-merge/
 ---
 
 # Force Merge API

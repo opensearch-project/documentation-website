@@ -4,6 +4,7 @@ title: System-generated search processors
 nav_order: 50
 has_children: false
 parent: Search pipelines
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/system-generated-search-processors/
 ---
 
 # System-generated search processors

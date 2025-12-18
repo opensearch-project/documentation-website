@@ -4,6 +4,7 @@ title: Index template exists
 parent: Index templates
 grand_parent: Index APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/index-template-exists/
 ---
 
 # Index template exists

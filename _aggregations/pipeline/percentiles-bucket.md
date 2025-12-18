@@ -3,6 +3,7 @@ layout: default
 title: Percentiles bucket
 parent: Pipeline aggregations
 nav_order: 160
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/percentiles-bucket/
 ---
 
 # Percentiles bucket aggregations

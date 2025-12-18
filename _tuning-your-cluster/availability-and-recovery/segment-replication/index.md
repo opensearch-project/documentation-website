@@ -10,6 +10,7 @@ redirect_from:
   - /opensearch/segment-replication/index/
   - /tuning-your-cluster/segment-replication/
   - /tuning-your-cluster/availability-and-recovery/segment-replication/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/segment-replication/index/
 ---
 
 # Segment replication

@@ -10,6 +10,7 @@ redirect_from:
   - /install-and-configure/index/
   - /opensearch/install/index/
   - /install-and-configure/install-opensearch/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/index/
 ---
 
 # Installing OpenSearch

@@ -22,6 +22,7 @@ items:
   - heading: "Execute your migration in phases"
     description: "A step-by-step guide for performing a migration."
     link: "/migration-assistant/migration-phases/"
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # Migration Assistant for OpenSearch

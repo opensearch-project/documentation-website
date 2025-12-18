@@ -3,6 +3,7 @@ layout: default
 title: The Overview page
 parent: Using Security Analytics
 nav_order: 25
+canonical_url: https://docs.opensearch.org/latest/security-analytics/usage/overview/
 ---
 
 # The Overview page

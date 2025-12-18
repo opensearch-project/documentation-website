@@ -6,6 +6,7 @@ nav_order: 6
 redirect_from:
   - /observability-plugin/ppl/identifiers/
   - /search-plugins/ppl/identifiers/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/identifiers/
 ---
 
 
