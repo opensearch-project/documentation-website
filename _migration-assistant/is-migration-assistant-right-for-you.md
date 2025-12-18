@@ -4,6 +4,7 @@ title: Is Migration Assistant right for you?
 nav_order: 10
 redirect_from:
   - /migration-assistant/overview/is-migration-assistant-right-for-you/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/is-migration-assistant-right-for-you/
 ---
 
 # Is Migration Assistant right for you?

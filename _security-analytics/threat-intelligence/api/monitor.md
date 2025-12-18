@@ -4,6 +4,7 @@ title: Monitor API
 parent: Threat intelligence APIs
 grand_parent: Threat intelligence
 nav_order: 35
+canonical_url: https://docs.opensearch.org/latest/security-analytics/threat-intelligence/api/monitor/
 ---
 
 # Monitor API

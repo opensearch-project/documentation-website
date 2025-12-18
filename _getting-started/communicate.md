@@ -2,6 +2,7 @@
 layout: default
 title: Communicate with OpenSearch
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/getting-started/communicate/
 ---
 
 # Communicate with OpenSearch

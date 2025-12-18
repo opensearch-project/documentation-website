@@ -4,6 +4,7 @@ title: Predict stream
 parent: Model APIs
 grand_parent: ML Commons APIs
 nav_order: 65
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/train-predict/predict-stream/
 ---
 
 # Predict Stream API

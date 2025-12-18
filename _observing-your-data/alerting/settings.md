@@ -5,6 +5,7 @@ parent: Alerting
 nav_order: 5
 redirect_from:
   - /monitoring-plugins/alerting/settings/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/settings/
 ---
 
 # Management

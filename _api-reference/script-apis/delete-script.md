@@ -3,6 +3,7 @@ layout: default
 title: Delete stored script
 parent: Script APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/delete-script/
 ---
 
 # Delete Stored Script API

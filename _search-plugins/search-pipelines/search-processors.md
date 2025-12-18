@@ -4,6 +4,7 @@ title: User-defined search processors
 nav_order: 40
 has_children: true
 parent: Search pipelines
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/search-processors/
 ---
 
 # User-defined search processors

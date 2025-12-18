@@ -3,6 +3,7 @@ layout: default
 title: Forecasting API
 parent: Forecasting
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/forecast/api/
 ---
 
 # Forecasting API

@@ -4,6 +4,7 @@ title: Query Workbench
 nav_order: 125
 redirect_from:
   - /search-plugins/sql/workbench/
+canonical_url: https://docs.opensearch.org/latest/dashboards/query-workbench/
 ---
 
 # Query Workbench

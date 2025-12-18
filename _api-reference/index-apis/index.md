@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/rest-api/index-apis/index/
   - /opensearch/rest-api/index-apis/
   - /api-reference/index-apis/
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/index/
 ---
 
 # Index APIs

@@ -3,6 +3,7 @@ layout: default
 title: Security configuration versioning
 parent: Configuration
 nav_order: 27
+canonical_url: https://docs.opensearch.org/latest/security/configuration/versioning/
 ---
 
 # Security Configuration Versioning and Rollback API

@@ -6,6 +6,7 @@ has_children: true
 nav_order: 15
 redirect_from:
   - /query-dsl/specialized/k-nn/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/k-nn/index/
 ---
 
 # k-NN query

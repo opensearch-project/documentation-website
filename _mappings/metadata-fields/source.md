@@ -5,6 +5,7 @@ parent: Metadata fields
 nav_order: 70
 redirect_from:
   - /field-types/metadata-fields/source/
+canonical_url: https://docs.opensearch.org/latest/mappings/metadata-fields/source/
 ---
 
 # Source

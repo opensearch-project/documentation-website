@@ -3,6 +3,7 @@ layout: default
 title: Pipeline latency tuning guide
 parent: Managing OpenSearch Data Prepper
 nav_order: 45
+canonical_url: https://docs.opensearch.org/latest/data-prepper/managing-data-prepper/latency/
 ---
 
 # Pipeline latency tuning guide

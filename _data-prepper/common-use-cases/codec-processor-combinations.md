@@ -3,6 +3,7 @@ layout: default
 title: Codec processor combinations
 parent: Common use cases
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/data-prepper/common-use-cases/codec-processor-combinations/
 ---
 
 # Codec processor combinations

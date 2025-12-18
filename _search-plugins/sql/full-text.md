@@ -5,6 +5,7 @@ parent: SQL and PPL
 nav_order: 11
 redirect_from:
   - /search-plugins/sql/sql-full-text/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/full-text/
 ---
 
 # Full-text search

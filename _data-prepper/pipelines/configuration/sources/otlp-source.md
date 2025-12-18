@@ -4,6 +4,7 @@ title: OTLP source
 parent: Sources
 grand_parent: Pipelines
 nav_order: 85
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/otlp-source/
 ---
 
 # OTLP source

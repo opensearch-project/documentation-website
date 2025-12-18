@@ -3,6 +3,7 @@ layout: default
 title: Manage workspaces
 parent: Workspace for OpenSearch Dashboards
 nav_order: 2
+canonical_url: https://docs.opensearch.org/latest/dashboards/workspace/manage-workspace/
 ---
 
 # Manage workspaces

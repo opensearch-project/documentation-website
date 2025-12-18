@@ -48,6 +48,7 @@ conversational_search:
     - "<b>Platform:</b> OpenSearch"
     - "<b>Model:</b> Anthropic Claude"  
     - "<b>Deployment:</b> Amazon Bedrock API"  
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/rag/index/
 ---
 
 # RAG tutorials

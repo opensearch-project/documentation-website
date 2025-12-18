@@ -44,6 +44,7 @@ reranking:
       - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
       - "<b>Model:</b> Cohere Rerank"  
       - "<b>Deployment:</b> Provider API" 
+canonical_url: https://docs.opensearch.org/latest/tutorials/reranking/index/
 ---
 
 # Reranking search results tutorials

@@ -5,6 +5,7 @@ nav_order: 110
 has_children: false
 redirect_from:
   - /mappings/mapping-explosion/
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-explosion/
 ---
 
 # Mapping explosion

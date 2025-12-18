@@ -8,6 +8,7 @@ redirect_from:
   - /field-types/supported-field-types/numeric/
   - /opensearch/supported-field-types/numeric/
   - /field-types/numeric/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/numeric/
 ---
 
 # Numeric field types

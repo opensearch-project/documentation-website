@@ -3,6 +3,7 @@ layout: default
 title: SQL and PPL API
 parent: SQL and PPL
 nav_order: 1
+canonical_url: https://docs.opensearch.org/latest/search-plugins/sql/sql-ppl-api/
 ---
 
 # SQL and PPL API

@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/supported-field-types/xy/
   - /opensearch/supported-field-types/xy/
   - /field-types/xy/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/xy/
 ---
 
 # Cartesian field types

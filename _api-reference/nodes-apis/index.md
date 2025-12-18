@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 50
 redirect_from:
   - /api-reference/nodes-apis/
+canonical_url: https://docs.opensearch.org/latest/api-reference/nodes-apis/index/
 ---
 
 # Nodes APIs
