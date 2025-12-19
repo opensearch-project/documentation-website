@@ -9,9 +9,9 @@ nav_order: 30
 
 # Collecting UBI-formatted data in Amazon OpenSearch Service
 
-This tutorial shows you how to collect queries and events in the User Behavior Insights (UBI) format when using Amazon OpenSearch Service (AWS managed service).
+This tutorial shows you how to collect queries and events in the User Behavior Insights (UBI) format when using Amazon OpenSearch Service.
 
-The native UBI plugin is only available in open-source OpenSearch distributions and is not part of Amazon OpenSearch Service. If you're using AWS managed service and want to implement UBI-style data collection, this tutorial demonstrates an alternative approach for implementing this.
+The native UBI plugin is only available in open-source OpenSearch distributions and is not part of Amazon OpenSearch Service. If you're using OpenSearch Service and want to implement UBI-style data collection, this tutorial demonstrates an alternative approach for implementing this.
 {: .important}
 
 After following this tutorial, you'll be able to send authenticated queries and events to both Amazon Simple Storage Service (Amazon S3) for long-term storage and OpenSearch for real-time processing using the `curl` command-line tool. 
@@ -19,7 +19,7 @@ After following this tutorial, you'll be able to send authenticated queries and 
 This tutorial assumes the following:
 
 1. You are using Amazon OpenSearch Service.
-2. You are not using the UBI plugin for OpenSearch. The UBI plugin is only available in the open-source version of OpenSearch and is not included in Amazon OpenSearch Service (the AWS managed service).
+2. You are not using the UBI plugin for OpenSearch. The UBI plugin is only available in the open-source version of OpenSearch and is not included in Amazon OpenSearch Service.
 3. You are writing UBI data to OpenSearch using [Amazon OpenSearch Ingestion](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ingestion.html), the managed version of OpenSearch Data Prepper.
 4. You have already configured permissions between OpenSearch Ingestion and your managed clusters by following the instructions found in [Tutorial: Ingesting data into a domain using Amazon OpenSearch Ingestion](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/osis-get-started.html), specifically the *Required permissions* step.
 
