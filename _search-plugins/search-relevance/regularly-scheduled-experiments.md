@@ -32,7 +32,7 @@ When you open up the scheduling modal you can set up the schedule that you want:
 
 Once you schedule an Experiment to run you can start looking at the data over time.  You will see a new dashboard icon that is specific to looking at analytics over time. The dashboard is built around evaluating daily runs, so you will need to wait 24 hours for the data to populate so that the dashboard starts to display meaningful results.
 
-
+**I NEED TO WAIT A WEEK TO HAVE SOME MEANINGFUL DATA IN THE DAHSBORD OR FAKE IT**
 
 
 ## Using the API
