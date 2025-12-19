@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Exploring search evaluation results
-nav_order: 68
+title: Evaluating search over time
+nav_order: 70
 parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
@@ -11,11 +11,33 @@ has_children: false
 Introduced 3.4
 {: .label .label-purple }
 
-An option for tracking the results from search evaluations overtime is to use regularly scheduled experiments.
+Search quality is rarely static.  Even when you aren't changing your algorithms, the data you index is changing, the signals being collected such as popularity and recency are constantly fluctuating, and the types of questions your users are asking are changing.  To guard against unexpected changes you need to monitor search quality over time.  To do that you can schedule a Search Evaluation experiment to be run on a regular basis.
 
-## Creating scheduled experiments
+Scheduling is done using a cron pattern and leverages OpenSearch's [Job Scheduler]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/) plugin under the covers.
 
-You can create regularly scheduled experiments.
+You can have a single schedule per job, so if you need to change it, the process is to remove the existing schedule and add a new one.  Be aware that removing the schedule also removes any existing historical data as well.
+
+## Scheduling through SRW UI
+
+After you run a Search Evaluation the first time successfully then you will see a clock icon that lets you schedule the experiment:
+
+
+<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduling_icon.png" alt="Schedule a Experiment to Run"/>{: .img-fluid }
+
+When you open up the scheduling modal you can set up the schedule that you want:
+
+<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduling_modal.png" alt="Setting the schedule of how often to run"/>{: .img-fluid }
+
+### Evaluating Results
+
+Once you schedule an Experiment to run you can start looking at the data over time.  You will see a new dashboard icon that is specific to looking at analytics over time. The dashboard is built around evaluating daily runs, so you will need to wait 24 hours for the data to populate so that the dashboard starts to display meaningful results.
+
+
+
+
+## Using the API
+
+You can create regularly scheduled experiments.  The experiment you are scheduling must already be created.
 
 ### Endpoint
 
@@ -32,13 +54,13 @@ Field | Data type |  Description
 `experimentId` | String | The id of the experiment which will be rerun.
 `cronExpression` | String | A cron expression representing the schedule for running the evaluation based on the UTC time.
 
-### Example request: Run experiment every night at midnight
+### Example request: Run experiment every night at 1 AM.
 
 ```json
 POST _plugins/_search_relevance/experiments/schedule
 {
   "experimentId": "6282afa6-fa14-49c8-a627-ac1d5204d357",
-  "cronExpression": "0 0 * * *",
+  "cronExpression": "0 1 * * *"
 }
 ```
 
@@ -145,4 +167,3 @@ DELETE _plugins/_search_relevance/experiments/schedule/6282afa6-fa14-49c8-a627-a
   "_primary_term": 1
 }
 ```
-
