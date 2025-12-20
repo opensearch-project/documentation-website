@@ -21,23 +21,24 @@ You can have a single schedule per job, so if you need to change it, the process
 
 After you run a Search Evaluation the first time successfully then you will see a clock icon that lets you schedule the experiment:
 
-
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduling_icon.png" alt="Schedule a Experiment to Run"/>{: .img-fluid }
+<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_icon.png" alt="Schedule a Experiment to Run"/>{: .img-fluid }
 
 When you open up the scheduling modal you can set up the schedule that you want:
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduling_modal.png" alt="Setting the schedule of how often to run"/>{: .img-fluid }
+<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_modal.png" alt="Setting the schedule of how often to run"/>{: .img-fluid }
 
 ### Evaluating Results
 
 Once you schedule an Experiment to run you can start looking at the data over time.  You will see a new dashboard icon that is specific to looking at analytics over time. The dashboard is built around evaluating daily runs, so you will need to wait 24 hours for the data to populate so that the dashboard starts to display meaningful results.
 
-**I NEED TO WAIT A WEEK TO HAVE SOME MEANINGFUL DATA IN THE DAHSBORD OR FAKE IT**
+**I NEED TO WAIT A WEEK TO HAVE SOME MEANINGFUL DATA IN THE DASHBOARD OR FAKE IT**
+
+<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_dashboard.png" alt="Review search quality over time"/>{: .img-fluid }
 
 
 ## Using the API
 
-You can create regularly scheduled experiments.  The experiment you are scheduling must already be created.
+You can create regularly scheduled experiments.  The experiment you are scheduling must already exist.
 
 ### Endpoint
 
