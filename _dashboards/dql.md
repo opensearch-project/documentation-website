@@ -151,7 +151,7 @@ The following table provides a quick reference for both query language commands.
 | Fuzzy search | Not supported | `title:wind~2` |
 | Proximity search | Not supported | `"wind rises"~2` |
 | Boosting terms | Not supported | `title:wind^2` |
-| Reserved characters | `\ ( ) : < > " *` | `+ - = && \|\| > < ! ( ) { } [ ] ^ " ~ * ? : \ /` |
+| Reserved characters | `\ ( ) : < > " *` | `+ - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /` |
 
 ## Search for terms
 
