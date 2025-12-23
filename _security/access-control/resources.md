@@ -214,5 +214,4 @@ When managing resource sharing, administrators should follow these best practice
 
 - [Resource sharing APIs]({{site.url}}{{site.baseurl}}/security/access-control/resource-sharing-api/) -- REST API reference for programmatic management
 - [Resource access management]({{site.url}}{{site.baseurl}}/dashboards/management/resource-sharing/) -- UI workflows and user guidance
-- [Sample resource plugin](https://github.com/opensearch-project/security/tree/main/src/test/java/org/opensearch/security/resources/sample) -- Implementation examples in the Security plugin repository
 - [Developer documentation](https://github.com/opensearch-project/security/blob/main/RESOURCE_SHARING_AND_ACCESS_CONTROL.md) -- Detailed technical documentation for plugin developers, users, and administrators

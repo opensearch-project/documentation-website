@@ -16,9 +16,9 @@ You can connect OpenSearch to your Amazon Simple Storage Service (Amazon S3) dat
 
 Before connecting a data source, verify that the following requirements are met:
 
-- You have access to Amazon S3 and the [AWS Glue Data Catalog](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst#id2).
+- You have access to Amazon S3 and the [AWS Glue Data Catalog](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.md).
 - You have access to OpenSearch and OpenSearch Dashboards.
-- You have an understanding of OpenSearch data source and connector concepts. See the [developer documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst#introduction) for more information.
+- You have an understanding of OpenSearch data source and connector concepts. See the [developer documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.md) for more information.
 
 ## Connect your data source 
 
@@ -46,5 +46,5 @@ This feature is currently under development, including the data integration func
 
 - Learn about [querying your data in Data Explorer]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source/) through OpenSearch Dashboards.
 - Learn about [optimizing the query performance of your external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/), such as Amazon S3, through Query Workbench. 
-- Learn about [Amazon S3 and AWS Glue Data Catalog](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst) and the APIS used with Amazon S3 data sources, including configuration settings and query examples.
+- Learn about Amazon S3 and AWS Glue Data Catalog and the APIs used with Amazon S3 data sources, including configuration settings and query examples in the [PPL documentation]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/).
 - Learn about [managing your indexes]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
