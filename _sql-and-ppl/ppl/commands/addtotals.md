@@ -3,7 +3,7 @@ layout: default
 title: addtotals
 parent: Commands
 grand_parent: PPL
-nav_order: 3
+nav_order: 4
 ---
 
 # addtotals
