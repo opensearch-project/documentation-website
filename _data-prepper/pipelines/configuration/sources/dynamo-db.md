@@ -175,6 +175,10 @@ The following are the minimum required permissions for running DynamoDB as a sou
 When performing an export, the `"Sid": "allowReadFromStream"` section is not required. If only reading from DynamoDB streams, the 
 `"Sid": "allowReadAndWriteToS3ForExport"`, `"Sid": "allowCheckExportjob"`, and ` "Sid": "allowRunExportJob"` sections are not required.
 
+## Limitations
+
+* Each Data Prepper instance is limited to process a maximum of 150 DynamoDB stream shards in parallel at one time. You should configure the number of Data Prepper instances as ceil(totalOpenShards.max / 150) to prevent high latency or data loss.
+
 ## Metrics
 
 The `dynamodb` source includes the following metrics.
@@ -192,6 +196,9 @@ The `dynamodb` source includes the following metrics.
 * `changeEventsProcessingErrors`: The number of processing errors for change events from DynamoDB streams.
 * `shardProgress`: The incremented shard progress when DynamoDB streams are being read correctly. This being`0` for any significant amount of time means there is a problem with the pipeline that has streams enabled.
 
+### Gauges
 
+* `totalOpenShards`: The number of open shards found on the DynamoDB stream. Open shards are shards that do not have an EndingSequenceNumber yet.
+* `activeShardsInProcessing`: The number of shards that are currently being processed by Data Prepper
 
 
