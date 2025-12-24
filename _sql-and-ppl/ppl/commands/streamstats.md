@@ -3,7 +3,7 @@ layout: default
 title: streamstats
 parent: Commands
 grand_parent: PPL
-nav_order: 39
+nav_order: 40
 ---
 
 # streamstats

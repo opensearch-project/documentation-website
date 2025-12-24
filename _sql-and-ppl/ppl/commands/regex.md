@@ -3,7 +3,7 @@ layout: default
 title: regex
 parent: Commands
 grand_parent: PPL
-nav_order: 29
+nav_order: 30
 ---
 
 # regex
