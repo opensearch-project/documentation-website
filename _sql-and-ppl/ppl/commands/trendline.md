@@ -26,8 +26,8 @@ The `trendline` command supports the following parameters.
 | --- | --- | --- |
 | `[+|-]` | Optional | The sort order for the data. `+` specifies ascending order with `NULL`/`MISSING` first, `-` specifies descending order with `NULL`/`MISSING` last. Default is `+`. |
 | `<sort-field>` | Required | The field used to sort the data. |
-| `(sma | wma)` | Required | The type of moving average to calculate. `sma` calculates simple moving average with equal weighting for all values, `wma` calculates weighted moving average with more weight to recent values. |
-| `number-of-datapoints` | Required | The number of datapoints used to calculate the moving average. Must be greater than zero. |
+| `(sma | wma)` | Required | The type of moving average to calculate. `sma` calculates the simple moving average with equal weighting for all values, `wma` calculates the weighted moving average with more weight given to recent values. |
+| `number-of-datapoints` | Required | The number of data points used to calculate the moving average. Must be greater than zero. |
 | `<field>` | Required | The field for which the moving average is calculated. |
 | `<alias>` | Optional | The name of the resulting column containing the moving average. Default is the `<field>` name with `_trendline` appended. |
 
@@ -75,7 +75,7 @@ The query returns the following results:
 
 ## Example 3: Calculate the simple moving average for one field without specifying an alias
 
-The following query calculates the simple moving average for one field:
+The following query calculates the simple moving average for one field without specifying an alias:
   
 ```sql
 source=accounts

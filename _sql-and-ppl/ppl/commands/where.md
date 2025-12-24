@@ -24,7 +24,7 @@ The `where` command supports the following parameters.
 
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
-| `<boolean-expression>` | Required | The condition used to filter the results. Only rows where this condition evaluates to `true` are returned. |
+| `<boolean-expression>` | Required | The condition used to filter the results. Only rows in which this condition evaluates to `true` are returned. |
 
 ## Example 1: Filter by numeric values
 

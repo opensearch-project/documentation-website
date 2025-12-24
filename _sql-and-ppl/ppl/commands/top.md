@@ -28,7 +28,7 @@ The `top` command supports the following parameters.
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
 | `<N>` | Optional | The number of results to return. Default is `10`. |
-| `top-options` | Optional | `showcount`: Whether to create a field in output that represents a count of the tuple of values. Default is `true`.<br>`countfield`: The name of the field that contains the count. Default is `count`.<br>`usenull`: Whether to output `null` values. Default is the value of `plugins.ppl.syntax.legacy.preferred`. |
+| `top-options` | Optional | `showcount`: Whether to create a field in the output that represents a count of the tuple of values. Default is `true`.<br>`countfield`: The name of the field that contains the count. Default is `count`.<br>`usenull`: Whether to output `null` values. Default is the value of `plugins.ppl.syntax.legacy.preferred`. |
 | `<field-list>` | Required | A comma-delimited list of field names.  |
 | `<by-clause>` | Optional | One or more fields to group the results by. |
 
@@ -50,7 +50,7 @@ By default, the `top` command automatically includes a `count` column showing th
 | F | 1 |
 
 
-## Example 2: Find the most common values without count display
+## Example 2: Find the most common values without the count display
 
 The following query uses `showcount=false` to hide the `count` column in the results:
 
