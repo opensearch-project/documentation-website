@@ -160,6 +160,7 @@ Name | Description
 `plugins.security.ssl.transport.enforce_hostname_verification` (Deprecated) | This setting has been deprecated. Use `transport.ssl.enforce_hostname_verification` instead.
 `transport.ssl.resolve_hostname` | Whether to resolve hostnames using DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is enabled.
 `plugins.security.ssl.transport.resolve_hostname` (Deprecated) | This setting has been deprecated. Use `transport.ssl.resolve_hostname` instead.
+`transport.ssl.dual_mode.enabled` | Allows receiving both SSL and unencrypted traffic on the transport layer. Usually used temporarily while enabling SSL across a cluster. Optional. Default is `false`.
 
 
 ## (Advanced) Client authentication
