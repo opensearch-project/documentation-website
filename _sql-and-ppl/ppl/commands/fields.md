@@ -129,9 +129,9 @@ The query returns the following results:
 | Dale | Adams |
   
 
-## Example 6: Contains wildcard pattern  
+## Example 6: Wildcard pattern matching  
 
-The following query selects fields containing a pattern using contains wildcards:
+The following query selects fields containing a pattern using `contains` wildcards:
   
 ```sql
 source=accounts
@@ -225,4 +225,4 @@ The query returns the following results:
 
 ## Related documentation 
 
-- [`table`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/table/) - An alias command with identical functionality  
+- [`table`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/table/) -- An alias command with identical functionality  

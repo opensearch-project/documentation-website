@@ -16,7 +16,7 @@ The `eventstats` command operates in the following way:
 2. The original events remain intact, with new fields added to contain the statistical results.
 3. The command is particularly useful for comparative analysis, identifying outliers, and providing additional context to individual events.
 
-## Comparing `stats` and `eventstats`
+## Comparing stats and eventstats
 
 For a comprehensive comparison of `stats`, `eventstats`, and `streamstats` commands, including their differences in transformation behavior, output format, aggregation scope, and use cases, see [Comparing stats, eventstats, and streamstats]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/streamstats/#comparing-stats-eventstats-and-streamstats).
 
@@ -46,9 +46,9 @@ The `eventstats` command supports the following parameters.
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
 | `<function>` | Required | An aggregation function or window function. |
-| `bucket_nullable` | Optional | Controls whether the `eventstats` command considers `null` buckets as a valid group in group-by aggregations. When set to `false`, it does not treat `null` group by values as a distinct group during aggregation. Default is determined by `plugins.ppl.syntax.legacy.preferred`. |
+| `bucket_nullable` | Optional | Controls whether the `eventstats` command considers `null` buckets as a valid group in group-by aggregations. When set to `false`, it does not treat `null` group-by values as a distinct group during aggregation. Default is determined by `plugins.ppl.syntax.legacy.preferred`. |
 | `<by-clause>` | Optional | Groups results by specified fields or expressions. Syntax: `by [span-expression,] [field,]...` Default is aggregating over the entire search results. |
-| `<span-expression>` | Optional | Splits field into buckets by intervals (at most one). Syntax: `span(field_expr, interval_expr)`. For example, `span(age, 10)` creates 10-year age buckets, `span(timestamp, 1h)` creates hourly buckets. |
+| `<span-expression>` | Optional | Splits a field into buckets by intervals (at most one). Syntax: `span(field_expr, interval_expr)`. For example, `span(age, 10)` creates 10-year age buckets, while `span(timestamp, 1h)` creates hourly buckets. |
 
 ### Time units
 
@@ -83,7 +83,7 @@ The `eventstats` command supports the following aggregation functions:
 
 For detailed documentation of each function, see [Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/functions/#aggregate).  
 
-## Example 1: Calculate the average, sum and count of a field by group  
+## Example 1: Calculate the average, sum, and count of a field by group  
 
 The following query calculates the average age, sum of age, and count of events for all accounts grouped by gender:
   

@@ -11,7 +11,7 @@ nav_order: 22
 The `kmeans` command is deprecated in favor of the [`ml` command]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/ml/).
 {: .warning}
 
-The `kmeans` command applies the k-means algorithm in the ml-commons plugin on the search results returned by a PPL command.
+The `kmeans` command applies the k-means algorithm in the ML Commons plugin on the search results returned by a PPL command.
 
 To use the `kmeans` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}
@@ -30,14 +30,14 @@ The `kmeans` command supports the following parameters.
 
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
-| `<centroids>` | Optional | The number of clusters you want to group your data points into. Default is `2`. |
+| `<centroids>` | Optional | The number of clusters to group data points into. Default is `2`. |
 | `<iterations>` | Optional | The number of iterations. Default is `10`. |
 | `<distance_type>` | Optional | The distance type. Valid values are `COSINE`, `L1`, and `EUCLIDEAN`. Default is `EUCLIDEAN`. |  
   
 
 ## Example: Clustering of the Iris dataset  
 
-The following query classifies three Iris species (Iris setosa, Iris virginica and Iris versicolor) based on the combination of four features measured from each sample (the lengths and widths of sepals and petals):
+The following query classifies three Iris species (Iris setosa, Iris virginica, and Iris versicolor) based on the combination of four features measured from each sample (the lengths and widths of sepals and petals):
   
 ```sql
 source=iris_data

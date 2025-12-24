@@ -51,8 +51,8 @@ The basic `join` syntax supports the following parameters.
 | `<joinCriteria>` | Required | A comparison expression specifying how to join the datasets. Must be placed after the `on` or `where` keyword in the query. |
 | `<right-dataset>` | Required | The right dataset, which can be an index or a subsearch, with or without an alias. |
 | `joinType` | Optional | The type of join to perform. Valid values are `left`, `semi`, `anti`, and performance-sensitive types (`right`, `full`, and `cross`). Default is `inner`. |
-| `left` | Optional | An alias for the left dataset (typically a subsearch), used to avoid ambiguous field names. Specify as `left = <leftAlias>`. |
-| `right` | Optional | An alias for the right dataset (typically, a subsearch), used to avoid ambiguous field names. Specify as `right = <rightAlias>`. |
+| `left` | Optional | An alias for the left dataset (typically a subsearch) used to avoid ambiguous field names. Specify as `left = <leftAlias>`. |
+| `right` | Optional | An alias for the right dataset (typically, a subsearch) used to avoid ambiguous field names. Specify as `right = <rightAlias>`. |
 
 ### Extended syntax
 
@@ -85,8 +85,8 @@ The extended `join` syntax supports the following parameters.
 | `<join-field-list>` | Optional | A list of fields used to build the join criteria. These fields must exist in both datasets. If not specified, all fields common to both datasets are used as join keys. |
 | `overwrite` | Optional | Applicable only when `join-field-list` is specified. Specifies whether fields from the right dataset with duplicate names should replace corresponding fields in the main search results. Default is `true`. |
 | `max` | Optional | The maximum number of subsearch results to join with each row in the main search. Default is `0` (unlimited). |
-| `left` | Optional | An alias for the left dataset (typically a subsearch), used to avoid ambiguous field names. Specify as `left = <leftAlias>`. |
-| `right` | Optional | An alias for the right dataset (typically, a subsearch), used to avoid ambiguous field names. Specify as `right = <rightAlias>`. |
+| `left` | Optional | An alias for the left dataset (typically a subsearch) used to avoid ambiguous field names. Specify as `left = <leftAlias>`. |
+| `right` | Optional | An alias for the right dataset (typically, a subsearch) used to avoid ambiguous field names. Specify as `right = <rightAlias>`. |
   
 
 ## Configuration
@@ -127,7 +127,7 @@ The query returns the following results:
 | 100000.0 | 70 | England |
   
 
-## Example 2: Join with subsearch  
+## Example 2: Join with a subsearch  
 
 The following query combines a dataset with a subsearch using the basic `join` syntax:
   
@@ -202,7 +202,7 @@ The query returns the following results:
 
 The `join` command has the following limitations:
 
-* **Field name ambiguity in basic syntax** – When fields from the left and right datasets share the same name, the field names in the output are ambiguous. To resolve this, conflicting fields are renamed to `<alias>.id`, or `<tableName>.id` if no alias is specified.
+* **Field name ambiguity in basic syntax** – When fields from the left and right datasets share the same name, the field names in the output are ambiguous. To resolve this, conflicting fields are renamed to `<alias>.id` (or `<tableName>.id` if no alias is specified).
 
   The following table demonstrates how field name conflicts are resolved when both `table1` and `table2` contain a field named `id`.
 
