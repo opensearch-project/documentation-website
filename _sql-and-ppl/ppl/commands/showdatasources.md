@@ -8,7 +8,7 @@ nav_order: 35
 
 # show datasources
 
-The `show datasources` command queries data sources configured in the PPL engine. The `show datasources` command can only be used as the first command in the PPL query.
+The `show datasources` command queries data sources configured in the PPL engine. The `show datasources` command can only be used as the first command in a PPL query.
 
 To use the `show datasources` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}

@@ -10,7 +10,7 @@ nav_order: 38
 
 The `stats` command calculates aggregations on the search results.
 
-## Comparing `stats`, `eventstats`, and `streamstats`
+## Comparing stats, eventstats, and streamstats
 
 For a comprehensive comparison of `stats`, `eventstats`, and `streamstats` commands, including their differences in transformation behavior, output format, aggregation scope, and use cases, see [Comparing stats, eventstats, and streamstats]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/streamstats/#comparing-stats-eventstats-and-streamstats).
 
@@ -30,12 +30,12 @@ The `stats` command supports the following parameters.
 | --- | --- | --- |
 | `<aggregation>` | Required | An aggregation function. |
 | `<by-clause>` | Optional | Groups results by specified fields or expressions. Syntax: `by [span-expression,] [field,]...` If no `by-clause` is specified, the stats command returns only one row, which is the aggregation over the entire search results. |
-| `bucket_nullable` | Optional | Controls whether to include `null` buckets in group-by aggregations. When `false`, ignores records in which the group-by field is null, resulting in faster performance. Default is the value of `plugins.ppl.syntax.legacy.preferred`. |
+| `bucket_nullable` | Optional | Controls whether to include `null` buckets in group-by aggregations. When `false`, ignores records in which the `group-by` field is null, resulting in faster performance. Default is the value of `plugins.ppl.syntax.legacy.preferred`. |
 | `<span-expression>` | Optional | Splits a field into buckets by intervals (maximum of one). Syntax: `span(field_expr, interval_expr)`. By default, the interval uses the field's default unit. For date/time fields, aggregation results ignore null values. Examples: `span(age, 10)` creates 10-year age buckets, and `span(timestamp, 1h)` creates hourly buckets. Valid time units are millisecond (`ms`), second (`s`), minute (`m`), hour (`h`), day (`d`), week (`w`), month (`M`), quarter (`q`), year (`y`). |
 
 ## Aggregation functions  
 
-The stats command supports the following aggregation functions:
+The `stats` command supports the following aggregation functions:
 
 * `COUNT`/`C` -- Count of values
 * `SUM` -- Sum of numeric values
@@ -171,7 +171,7 @@ The query returns the following results:
 
 ## Example 7: Calculate the distinct count of a field  
 
-To retrieve the count of distinct values of a field, you can use `DISTINCT_COUNT` (or `DC`) function instead of `COUNT`. The following query calculates both the count and the distinct count of the `gender` field for all accounts:
+To retrieve the count of distinct values of a field, you can use the `DISTINCT_COUNT` (or `DC`) function instead of `COUNT`. The following query calculates both the count and the distinct count of the `gender` field for all accounts:
   
 ```sql
 source=accounts
@@ -239,9 +239,9 @@ The query returns the following results:
 | 1 | 35 | M |
   
 
-## Example 10: Count and retrieve email list by gender and age span
+## Example 10: Count and retrieve an email list by gender and age span
 
-The following query calculates the count of `age` values grouped into 5-year intervals and by `gender`, and also returns a list of up to 5 emails for each group:
+The following query calculates the count of `age` values grouped into 5-year intervals as well as by `gender` and also returns a list of up to 5 emails for each group:
 
 ```sql
 source=accounts
@@ -295,7 +295,7 @@ The query returns the following results:
 
 ## Example 13: Calculate the percentile by a gender and span  
 
-The following query calculates the 90th percentile of `age`, grouped into 10-year intervals and by `gender`:
+The following query calculates the 90th percentile of `age`, grouped into 10-year intervals as well as by `gender`:
   
 ```sql
 source=accounts
@@ -328,7 +328,7 @@ The query returns the following results:
 | [Amber,Hattie,Nanette,Dale] |
   
 
-## Example 15: Ignore null bucket
+## Example 15: Ignore a null bucket
 
 The following query excludes null values from grouping by setting `bucket_nullable=false`:
 
@@ -366,7 +366,7 @@ The query returns the following results:
 
 ## Example 17: Date span grouping with null handling  
 
-The following example uses this sample index data.
+The following example uses this sample index data:
 
 | Name | DEPTNO | birthday |
 | --- | --- | --- |
@@ -459,7 +459,7 @@ source=hits
 
 This query is translated into a `terms` aggregation in OpenSearch with `"order": { "_count": "desc" }`. For fields with high cardinality, some buckets may be discarded, so the results may only be approximate.
 
-### Sorting by `doc_count` in ascending order may produce inaccurate results
+### Sorting by doc_count in ascending order may produce inaccurate results
 
 When retrieving the least frequent terms for high-cardinality fields, results may be inaccurate. Shard-level aggregations can miss globally rare terms or misrepresent their frequency, causing errors in the overall results.
 
@@ -474,4 +474,4 @@ source=hits
 
 {% include copy.html %}
 
-A globally rare term might not appear as rare on every shard or could be entirely absent from some shard results. Conversely, a term infrequent on one shard might be common on another. In both cases, shard-level approximations can cause rare terms to be missed, leading to inaccurate overall results.
+A globally rare term might not appear as rare on every shard or could be entirely absent from some shard results. Conversely, a term that is infrequent on one shard might be common on another. In both cases, shard-level approximations can cause rare terms to be missed, leading to inaccurate overall results.

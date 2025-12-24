@@ -10,7 +10,7 @@ nav_order: 33
 
 The `rex` command extracts fields from a raw text field using regular expression named capture groups. It uses Java regex patterns. For more information, see the [Java regular expression documentation](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
-## rex and parse commands compared
+## The rex and parse commands compared
 
 The `rex` and [`parse`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/parse/) commands both extract information from text fields using Java regular expressions with named capture groups. The following table compares the capabilities of the `rex` and `parse` commands. 
 
@@ -51,7 +51,7 @@ You can set the `max_match` limit in the `plugins.ppl.rex.max_match.limit` clust
 
 ## Example 1: Basic text extraction  
 
-The following query extracts username and domain from email addresses using named capture groups. Both extracted fields are returned as strings:
+The following query extracts the username and domain from email addresses using named capture groups. Both extracted fields are returned as strings:
   
 ```sql
 source=accounts
@@ -150,7 +150,7 @@ The query returns the following results:
 | hattiebond@netagy.com | hattiebond | netagy | domain=11-16&username=0-9 |
   
 
-## Example 6: Extract complex email pattern  
+## Example 6: Extract a complex email pattern  
 
 The following query extracts complete email components, including the top-level domain. All extracted fields are returned as strings:
   
@@ -251,7 +251,7 @@ The query returns the following results:
 | --- | --- |
 | 880 Holmes Lane | 10 |
 
-**PPL query exceeding the configured limit results in an error**:
+**A PPL query exceeding the configured limit results in an error**:
   
 ```sql
 source=accounts

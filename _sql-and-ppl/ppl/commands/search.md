@@ -8,7 +8,7 @@ nav_order: 34
 
 # search
 
-The `search` command retrieves documents from the index. The `search` command can only be used as the first command in the PPL query.
+The `search` command retrieves documents from the index. The `search` command can only be used as the first command in a PPL query.
 
 ## Syntax
 
@@ -25,7 +25,7 @@ The `search` command supports the following parameters.
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
 | `<index>` | Required | The index to query. The index name can be prefixed with `<remote-cluster>:` (the remote cluster name) for cross-cluster search. |
-| `<search-expression>` | Optional | A search expression that is converted to OpenSearch [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) query. |
+| `<search-expression>` | Optional | A search expression that is converted to an OpenSearch [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) query. |
   
 
 ## Search expression  
@@ -85,7 +85,7 @@ The following are examples of common time modifier patterns:
 * `earliest=-7d` -- Start from 7 days ago.
 * `latest='+1d@d'` -- End at the start of tomorrow.
 * `earliest='-1month@month'` -- Start from the beginning of the previous month.
-* `latest=1754020061` -- End at a Unix timestamp `1754020061` (August 1, 2025, 03:47:41 UTC).
+* `latest=1754020061` -- End at the Unix timestamp `1754020061` (August 1, 2025, 03:47:41 UTC).
 
 The following considerations apply when using time modifiers in the `search` command:
 
@@ -207,6 +207,7 @@ The query returns the following results:
   
 `search user email` is equivalent to `search user AND email`. 
 {: .note}
+
 Enclose terms containing special characters in double quotation marks:
   
 ```sql
@@ -326,7 +327,7 @@ The query returns the following results:
   
 **`NOT` operator** 
 
-Find all accounts that do not specify `Quility` as employer (including those with null employer values):
+Find all accounts that do not specify `Quility` as the employer (including those with null employer values):
 
 ```sql
 search NOT employer="Quility" source=accounts
@@ -343,7 +344,7 @@ The query returns the following results. Dale Adams appears in the search result
 
 ## Example 5: Range queries
 
-Use comparison operators (`>,` `<,` `>=`, and `<=`) to filter numeric and date fields within specific ranges. Range queries are particularly useful for filtering by age, price, timestamps, or any numeric metrics:
+Use comparison operators (`>,` `<,` `>=` and `<=`) to filter numeric and date fields within specific ranges. Range queries are particularly useful for filtering by age, price, timestamps, or any numeric metrics:
 
 ```sql
 search severityNumber>15 AND severityNumber<=20 source=otellogs
@@ -436,7 +437,7 @@ The query returns the following results:
 
 ## Example 7: Wildcard patterns in field searches  
 
-When searching in text or keyword fields, wildcards enable partial matching, which is useful when you only know part of a value. Wildcards work best on keyword fields, for which they match the exact value using patterns. Using wildcards on text fields may produce unexpected results because they apply to individual tokens after analysis, not the entire field value. Wildcards in keyword fields are case-sensitive unless normalized at indexing.
+When searching in text or keyword fields, wildcards enable partial matching, which is useful when you only know part of a value. Wildcards work best on keyword fields, for which they match the exact value using patterns. Using wildcards on text fields may produce unexpected results because they apply to individual tokens after analysis, not the entire field value. Wildcards in keyword fields are case sensitive unless normalized at indexing.
 
 Leading wildcards (for example, `*@example.com`) can decrease query speed compared to trailing wildcards.
 {: .note}
@@ -525,7 +526,7 @@ The query returns the following results:
 
 ## Example 9: Complex expressions  
 
-To create sophisticated search queries, combine multiple conditions using Boolean operators and parentheses.
+To create sophisticated search queries, combine multiple conditions using Boolean operators and parentheses:
   
 ```sql
 search (severityText="ERROR" OR severityText="WARN") AND severityNumber>10 source=otellogs
@@ -543,7 +544,7 @@ The query returns the following results:
 | WARN |
 | ERROR |
 
-Combine multiple conditions with OR and AND operators to search for logs matching either a specific user or high-severity fund errors:
+Combine multiple conditions with `OR` and `AND` operators to search for logs matching either a specific user or high-severity fund errors:
 
 ```sql
 search `attributes.user.email`="user@example.com" OR (`attributes.error.code`="INSUFFICIENT_FUNDS" AND severityNumber>15) source=otellogs
@@ -585,7 +586,7 @@ The query returns the following results:
   
 ### Relative time filtering
 
-Filter logs using relative time expressions, such as events that occurred before 30 seconds ago:
+Filter logs using relative time expressions, such as those that occurred before 30 seconds ago:
 
 ```sql
 search latest=-30s source=otellogs
@@ -605,7 +606,7 @@ The query returns the following results:
   
 ### Time rounding
 
-Use time rounding expressions to filter events relative to time boundaries, such as before the start of the current minute:
+Use time rounding expressions to filter events relative to time boundaries, such as those before the start of the current minute:
 
 ```sql
 search latest='@m' source=otellogs
