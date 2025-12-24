@@ -11,23 +11,23 @@ nav_order: 1
 The `ad` command is deprecated in favor of the [`ml` command]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/ml/).
 {: .warning}
 
-The `ad` command applies Random Cut Forest (RCF) algorithm in the ML Commons plugin to the search results returned by a PPL command. The command provides two anomaly detection approaches:
+The `ad` command applies the Random Cut Forest (RCF) algorithm in the ML Commons plugin to the search results returned by a PPL command. The command provides two anomaly detection approaches:
 
-- [Anomaly detection for time-series data](#anomaly-detection-for-time-series-data) using the fixed in time RCF algorithm
-- [Anomaly detection for non-time-series data](#anomaly-detection-for-non-time-series-data) using the batch RCF algorithm.
+- [Anomaly detection for time-series data](#anomaly-detection-for-time-series-data) using the fixed-in-time RCF algorithm
+- [Anomaly detection for non-time-series data](#anomaly-detection-for-non-time-series-data) using the batch RCF algorithm
 
 To use the `ad` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}
 
 ## Syntax
 
-The `ad` command has two different syntax variants depending on the algorithm type.
+The `ad` command has two different syntax variants, depending on the algorithm type.
 
 ### Anomaly detection for time-series data
 
-Use this syntax to detect anomalies in time-series data. This method uses the fixed in time RCF algorithm, which is optimized for sequential data patterns.
+Use this syntax to detect anomalies in time-series data. This method uses the fixed-in-time RCF algorithm, which is optimized for sequential data patterns.
 
-The fixed in time RCF `ad` command has the following syntax:
+The fixed-in-time RCF `ad` command has the following syntax:
 
 ```sql
 ad [number_of_trees] [shingle_size] [sample_size] [output_after] [time_decay] [anomaly_rate] <time_field> [date_format] [time_zone] [category_field]
@@ -35,7 +35,7 @@ ad [number_of_trees] [shingle_size] [sample_size] [output_after] [time_decay] [a
 
 ### Parameters
 
-The fixed in time RCF algorithm supports the following parameters.
+The fixed-in-time RCF algorithm supports the following parameters.
 
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |

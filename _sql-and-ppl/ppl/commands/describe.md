@@ -12,7 +12,7 @@ The `describe` command queries index metadata. The `describe` command can only b
 
 ## Syntax
 
-The `describe` command has the following syntax. The argument to the command is a dot-separated path to the table, consisting of an optional data source, optional schema, and required table name:
+The `describe` command has the following syntax. The argument to the command is a dot-separated path to the table consisting of an optional data source, optional schema, and required table name:
 
 ```sql
 describe [<data-source>.][<schema>.]<table-name>

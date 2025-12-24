@@ -10,7 +10,7 @@ nav_order: 6
 
 The `appendpipe` command appends the results of a subpipeline to the search results. Unlike a subsearch, the subpipeline is not executed first; it runs only when the search reaches the `appendpipe` command.
 
-The command aligns columns that have the same field names and types. For columns that exist in only the main search or only the subpipeline, `NULL` values are inserted in the missing fields for the respective rows.
+The command aligns columns that have the same field names and types. For columns that exist in only the main search or subpipeline, `NULL` values are inserted into the missing fields for the respective rows.
 
 ## Syntax
 
@@ -83,4 +83,4 @@ The query returns the following results:
 
 The `appendpipe` command has the following limitations:
 
-* **Schema compatibility**: When fields with the same name exist in both the main search and the subpipeline but have incompatible types, the query fails with an error. To avoid type conflicts, ensure that fields with the same name share the same data type. Alternatively, use different field names. You can rename the conflicting fields using `eval`, or select non-conflicting columns using `fields`.
+* **Schema compatibility**: When fields with the same name exist in both the main search and the subpipeline but have incompatible types, the query fails with an error. To avoid type conflicts, ensure that fields with the same name share the same data type. Alternatively, use different field names. You can rename the conflicting fields using `eval` or select non-conflicting columns using `fields`.

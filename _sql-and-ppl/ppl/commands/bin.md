@@ -25,9 +25,9 @@ The `bin` command supports the following parameters.
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
 | `<field>` | Required | The field to group into buckets. Accepts numeric or time-based fields. |
-| `span` | Optional | The interval size for each bin. Cannot be used with `bins` or `minspan` parameters. Supports numeric, logarithmic (`log10`, `2log10`), and time intervals. See [Time units](#time-units).|
-| `minspan` | Optional | The minimum interval size for automatic span calculation. Cannot be used with `span` or `bins` parameters. |
-| `bins` | Optional | The maximum number of equal-width bins to create. Must be between `2` and `50000` (inclusive). Cannot be used with `span` or `minspan` parameters. See [The bins parameter for timestamp fields](#the-bins-parameter-for-timestamp-fields).|
+| `span` | Optional | The interval size for each bin. Cannot be used with the `bins` or `minspan` parameters. Supports numeric, logarithmic (`log10`, `2log10`), and time intervals. See [Time units](#time-units).|
+| `minspan` | Optional | The minimum interval size for automatic span calculation. Cannot be used with the `span` or `bins` parameters. |
+| `bins` | Optional | The maximum number of equal-width bins to create. Must be between `2` and `50000` (inclusive). Cannot be used with the `span` or `minspan` parameters. See [The bins parameter for timestamp fields](#the-bins-parameter-for-timestamp-fields).|
 | `aligntime` | Optional | Align the bin times for time-based fields. Valid only for time-based discretization. Valid values are `earliest`, `latest`, or a specific time. See [Align options](#align-time-options).|
 | `start` | Optional | The starting value of the interval range. Default is the minimum value of the field. |
 | `end` | Optional | The ending value of the interval range. Default is the maximum value of the field. |
@@ -37,7 +37,7 @@ The `bin` command supports the following parameters.
 The `bins` parameter for timestamp fields has the following requirements:
 
 - **Pushdown must be enabled**: Enable pushdown by setting `plugins.calcite.pushdown.enabled` to `true` (enabled by default). If pushdown is disabled, use the `span` parameter instead (for example, `bin @timestamp span=5m`).
-- **Timestamp field must be used as an aggregation bucket**: The binned timestamp field must be included in a `stats` aggregation (for example, `source=events | bin @timestamp bins=3 | stats count() by @timestamp`). Using `bins` on timestamp fields outside of aggregation buckets is not supported.
+- **The timestamp field must be used as an aggregation bucket**: The binned timestamp field must be included in a `stats` aggregation (for example, `source=events | bin @timestamp bins=3 | stats count() by @timestamp`). Using `bins` on timestamp fields outside of aggregation buckets is not supported.
 
 
 ### Time units
@@ -64,7 +64,7 @@ The following options are available for the `aligntime` parameter:
   
 ### Parameter behavior
 
-When multiple parameters are specified, priority order is: `span` > `minspan` > `bins` > `start`/`end` > default.
+When multiple parameters are specified, the priority order is: `span` > `minspan` > `bins` > `start`/`end` > default.
 
 ### Special parameter types
 

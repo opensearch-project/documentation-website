@@ -27,7 +27,7 @@ The `chart` command supports the following parameters.
 | `<aggregation_function>` | Required | The aggregation function to apply to the data. Only a single aggregation function is supported. Available functions are the aggregation functions supported by the [`stats`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/stats/) command. | N/A |
 | `<by>` | Optional | Groups the results by either one field (row split) or two fields (row split and column split). The parameters `limit`, `useother`, and `usenull` apply to the column split. Results are returned as individual rows for each combination. | Aggregate across all documents |
 | `over [] by []` | Optional | Alternative syntax for grouping by multiple fields. `over <row_split> by <column_split>` groups the results by both fields. Using `over` alone on one field is equivalent to `by <row_split>`. | N/A |
-| `limit` | Optional | The number of categories to display when using column split. `limit=N` or `limit=topN` returns the top N categories. `limit=bottomN` returns the bottom N categories. When the limit is exceeded, remaining categories are grouped into an `OTHER` category (unless `useother=false`). Set to `0` to show all categories without limit. The ranking is based on the sum of aggregated values for each column category. For example, `limit=top3` keeps the three categories with the highest total values. Only applies when grouping by two fields. | `top10` |
+| `limit` | Optional | The number of categories to display when using column split. `limit=N` or `limit=topN` returns the top N categories. `limit=bottomN` returns the bottom N categories. When the limit is exceeded, remaining categories are grouped into an `OTHER` category (unless `useother=false`). Set to `0` to show all categories without a limit. The ranking is based on the sum of aggregated values for each column category. For example, `limit=top3` keeps the three categories with the highest total values. Only applies when grouping by two fields. | `top10` |
 | `useother` | Optional | Controls whether to create an `OTHER` category for categories beyond the `limit`. When set to `false`, only the top or bottom N categories (based on `limit`) are shown without an `OTHER` category. When set to `true`, categories beyond the `limit` are grouped into an `OTHER` category. This parameter only applies when using column split and when there are more categories than the `limit`. | `true` |
 | `usenull` | Optional | Controls whether to group documents that have null values in the column split field into a separate `NULL` category. This parameter only applies to column split. Documents with null values in the row split field are ignored; only documents with non-null values in the row split field are included in the results. When `usenull=false`, documents with null values in the column split field are excluded from the results. When `usenull=true`, documents with null values in the column split field are grouped into a separate `NULL` category. | `true` |
 | `nullstr` | Optional | Specifies the category name for documents that have null values in the column split field. This parameter only applies when `usenull` is `true`. | `"NULL"` |
@@ -59,7 +59,7 @@ The query returns the following results:
 | 20482.25 |
   
 
-## Example 2: Group by single field  
+## Example 2: Group by a single field  
 
 This example calculates the count of accounts grouped by gender:
   
@@ -79,7 +79,7 @@ The query returns the following results:
 
 ## Example 3: Using over [] by [] to group by multiple fields  
 
-The following query calculates average balance grouped by both `gender` and `age` fields:
+The following query calculates average balance grouped by both the `gender` and `age` fields:
   
 ```sql
 source=accounts
@@ -118,7 +118,7 @@ The query returns the following results. The `age` column in the result is conve
 
 ## Example 5: Using limit with other parameters  
 
-The following query uses the `chart` command with `limit`, `useother`, and custom `otherstr` parameters:
+The following query uses the `chart` command with the `limit`, `useother`, and custom `otherstr` parameters:
   
 ```sql
 source=accounts
@@ -138,7 +138,7 @@ The query returns the following results:
 
 ## Example 6: Using null parameters  
 
-The following query uses the `chart` command with `limit`, `usenull`, and custom `nullstr` parameters:
+The following query uses the `chart` command with the `limit`, `usenull`, and custom `nullstr` parameters:
   
 ```sql
 source=accounts

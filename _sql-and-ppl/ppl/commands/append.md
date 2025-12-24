@@ -10,7 +10,7 @@ nav_order: 4
 
 The `append` command appends the results of a subsearch as additional rows to the end of the input search results (the main search).
 
-The command aligns columns that have the same field names and types. For columns that exist in only the main search or only the subsearch, `NULL` values are inserted in the missing fields for the respective rows.
+The command aligns columns that have the same field names and types. For columns that exist in only the main search or subsearch, `NULL` values are inserted into the missing fields for the respective rows.
 
 ## Syntax
 
@@ -73,4 +73,4 @@ The query returns the following results:
 
 The `append` command has the following limitations:
 
-* **Schema compatibility**: When fields with the same name exist in both the main search and the subsearch but have incompatible types, the query fails with an error. To avoid type conflicts, ensure that fields with the same name share the same data type. Alternatively, use different field names. You can rename the conflicting fields using `eval`, or select non-conflicting columns using `fields`.
+* **Schema compatibility**: When fields with the same name exist in both the main search and the subsearch but have incompatible types, the query fails with an error. To avoid type conflicts, ensure that fields with the same name share the same data type. Alternatively, use different field names. You can rename the conflicting fields using `eval` or select non-conflicting columns using `fields`.

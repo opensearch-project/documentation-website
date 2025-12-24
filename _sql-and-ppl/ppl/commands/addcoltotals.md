@@ -28,7 +28,7 @@ The `addcoltotals` command supports the following parameters.
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
 | `<field-list>` | Optional | A comma-separated list of numeric fields to add. By default, all numeric fields are added. |
-| `labelfield` | Optional | The field in which the label is placed. If the field does not exist, it is created, and the label is shown in the summary row (last row) of the new field. |
+| `labelfield` | Optional | The field in which the label is placed. If the field does not exist, it is created and the label is shown in the summary row (last row) of the new field. |
 | `label` | Optional | The text that appears in the summary row (last row) to identify the computed totals. When used with `labelfield`, this text is placed in the specified field in the summary row. Default is `Total`. |
 
 ### Example 1: Basic example

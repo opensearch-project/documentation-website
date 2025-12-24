@@ -30,7 +30,7 @@ The `addtotals` command supports the following parameters.
 | `<field-list>` | Optional | A comma-separated list of numeric fields to add. By default, all numeric fields are added. |
 | `row` | Optional | Calculates the total of each row and adds a new field to store the row total. Default is `true`. |
 | `col` | Optional | Calculates the total of each column and adds a summary event at the end with the column totals. Default is `false`. |
-| `labelfield` | Optional | The field in which the label is placed. If the field does not exist, it is created, and the label is shown in the summary row (last row) of the new field. Applicable when `col=true`. |
+| `labelfield` | Optional | The field in which the label is placed. If the field does not exist, it is created and the label is shown in the summary row (last row) of the new field. Applicable when `col=true`. |
 | `label` | Optional | The text that appears in the summary row (last row) to identify the computed totals. When used with `labelfield`, this text is placed in the specified field in the summary row. Default is `Total`. Applicable when `col=true`. This parameter has no effect when the `labelfield` and `fieldname` parameters specify the same field name. |
 | `fieldname` | Optional | The field used to store row totals. Applicable when `row=true`. |
 
