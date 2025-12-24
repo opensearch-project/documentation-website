@@ -3,7 +3,7 @@ layout: default
 title: bin
 parent: Commands
 grand_parent: PPL
-nav_order: 7
+nav_order: 8
 ---
 
 # bin

@@ -3,7 +3,7 @@ layout: default
 title: patterns
 parent: Commands
 grand_parent: PPL
-nav_order: 27
+nav_order: 28
 ---
 
 # patterns

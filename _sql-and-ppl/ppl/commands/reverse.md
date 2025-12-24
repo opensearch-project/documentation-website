@@ -3,7 +3,7 @@ layout: default
 title: reverse
 parent: Commands
 grand_parent: PPL
-nav_order: 32
+nav_order: 33
 ---
 
 # reverse
