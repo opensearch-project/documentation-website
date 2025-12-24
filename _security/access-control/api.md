@@ -1884,7 +1884,7 @@ Changes to the `_readonly` property result in a 409 error, as indicated in the r
 A GET call retrieves the audit configuration.
 
 ```json
-GET /_opendistro/_security/api/audit
+GET /_plugins/_security/api/audit
 ```
 {% include copy-curl.html %}
 
@@ -1893,7 +1893,7 @@ GET /_opendistro/_security/api/audit
 A PUT call updates the audit configuration.
 
 ```json
-PUT /_opendistro/_security/api/audit/config
+PUT /_plugins/_security/api/audit/config
 {
   "enabled": true,
   "audit": {
@@ -1937,7 +1937,7 @@ A PATCH call is used to update specified fields in the audit configuration. The 
 Using the PATCH method also requires a user to have a security configuration that includes admin certificates for encryption. To find out more about these certificates, see [Configuring admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
 
 ```bash
-curl -X PATCH -k -i --cert <admin_cert file name> --key <admin_cert_key file name> <domain>/_opendistro/_security/api/audit -H 'Content-Type: application/json' -d'[{"op":"add","path":"/config/enabled","value":"true"}]'
+curl -X PATCH -k -i --cert <admin_cert file name> --key <admin_cert_key file name> <domain>/_plugins/_security/api/audit -H 'Content-Type: application/json' -d'[{"op":"add","path":"/config/enabled","value":"true"}]'
 ```
 {% include copy.html %}
 
