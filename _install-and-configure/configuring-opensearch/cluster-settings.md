@@ -146,7 +146,7 @@ OpenSearch supports the following cluster-level shard, block, and task settings:
 
 OpenSearch supports the following cluster-level search settings:
 
-- `cluster.search.ignore_awareness_attributes` (Boolean): Controls whether awareness attributes are considered during shard query routing. If `true`, the cluster ignores awareness attributes and uses Adaptive Replica Selection (ARS) to choose the optimal shard copy, reducing query response latency. Set this to `false` for routing decisions to prioritize awareness attributes instead of performance-based selection. Default is `false` (`true` for Amazon OpenSearch Service).
+- `cluster.search.ignore_awareness_attributes` (Boolean): Controls whether awareness attributes are considered during shard query routing. If `true`, the cluster ignores awareness attributes and uses Adaptive Replica Selection (ARS) to choose the optimal shard copy, reducing query response latency. Set this to `false` for routing decisions to prioritize awareness attributes instead of performance-based selection. Default is `true` (`false` for Amazon OpenSearch Service).
 
 ## Cluster-level slow log settings
 
