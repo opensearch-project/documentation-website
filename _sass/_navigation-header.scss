@@ -369,7 +369,7 @@ $max-container: 1440px;
                                 }
                                 @media screen and (max-width: $header-banner-mobile-breakpoint) {
                                     @include body-text;
-                                    color: #FFFFFF;
+                                    color: var(--nav-link-color);
                                     padding-left: 30px;
                                     &.in-category {
                                         color: var(--nav-link-hover-color);
