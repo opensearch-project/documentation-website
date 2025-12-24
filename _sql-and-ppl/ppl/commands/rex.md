@@ -3,7 +3,7 @@ layout: default
 title: rex
 parent: Commands
 grand_parent: PPL
-nav_order: 33
+nav_order: 34
 ---
 
 # rex
