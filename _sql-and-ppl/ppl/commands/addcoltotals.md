@@ -3,7 +3,7 @@ layout: default
 title: addcoltotals
 parent: Commands
 grand_parent: PPL
-nav_order: 2
+nav_order: 3
 ---
 
 # addcoltotals

@@ -3,7 +3,7 @@ layout: default
 title: eventstats
 parent: Commands
 grand_parent: PPL
-nav_order: 12
+nav_order: 13
 ---
 
 # eventstats
