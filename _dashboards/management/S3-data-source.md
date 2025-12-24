@@ -16,9 +16,9 @@ You can connect OpenSearch to your Amazon Simple Storage Service (Amazon S3) dat
 
 Before connecting a data source, verify that the following requirements are met:
 
-- You have access to Amazon S3 and the [AWS Glue Data Catalog](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.md#id2).
+- You have access to Amazon S3 and the [AWS Glue Data Catalog](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.md).
 - You have access to OpenSearch and OpenSearch Dashboards.
-- You have an understanding of OpenSearch data source and connector concepts. See the [developer documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.md#introduction) for more information.
+- You have an understanding of OpenSearch data source and connector concepts. See the [developer documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.md) for more information.
 
 ## Connect your data source 
 
