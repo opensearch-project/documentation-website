@@ -13,7 +13,7 @@ redirect_from:
 
 Radial search enhances the vector search capabilities beyond approximate top-k searches. With radial search, you can search all points within a vector space that reside within a specified maximum distance or minimum score threshold from a query point. This provides increased flexibility and utility in search operations.
 
-You can perform radial search using either Lucene or Faiss engine. Both engines support radial search on nested fields.
+You can perform radial search using either the Lucene or Faiss engines. Both engines support radial search on nested fields.
 
 ## Parameters
 
@@ -489,7 +489,7 @@ GET nested-knn-index/_search
 ```
 {% include copy-curl.html %}
 
-This query works with both Lucene and Faiss engines and returns documents in which the nested vector embeddings meet the minimum similarity score threshold, as shown in the following response:
+This query works with both the Lucene and Faiss engines and returns documents in which the nested vector embeddings meet the minimum similarity score threshold, as shown in the following response:
 
 <details markdown="block">
   <summary>
