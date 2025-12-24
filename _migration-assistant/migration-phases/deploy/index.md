@@ -161,9 +161,7 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
             }
         },
         "reindexFromSnapshotExtraArgs": "<RFS PARAMETERS (see below)>",
-        "reindexFromSnapshotMaxShardSizeGiB": 80,
-        "otelCollectorEnabled": true,
-        "migrationConsoleServiceEnabled": true
+        "reindexFromSnapshotMaxShardSizeGiB": 80
     }
     }
     ```
@@ -171,7 +169,7 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
 
     The source and target cluster authorization can be configured to have no authorization, `basic` with a username and password, or `sigv4`. 
 
-    ### Environment configuration examples
+### Environment configuration examples
 
     To avoid conflicts with existing deployments, consider using different context IDs and stage names:
 
@@ -179,31 +177,25 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
     {
     "test-deploy": {
         "stage": "test",
-        "migrationAssistanceEnabled": true,
-        "migrationConsoleServiceEnabled": true,
         "reindexFromSnapshotServiceEnabled": true,
         "sourceCluster": {
             "endpoint": "https://migration-source-es710.us-west-2.es.amazonaws.com",
             "version": "ES_7.10",
             "auth": {
                 "type": "basic",
-                "username": "admin",
-                "passwordFromSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-source-password"
+                "userSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-source-password"
             }
         },
         "targetCluster": {
             "endpoint": "https://migration-target-os219.us-west-2.es.amazonaws.com",
             "auth": {
                 "type": "basic",
-                "username": "admin",
-                "passwordFromSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-target-password"
+                "userSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-target-password"
             }
         }
     },
     "prod-deploy": {
         "stage": "prod",
-        "migrationAssistanceEnabled": true,
-        "migrationConsoleServiceEnabled": true,
         "reindexFromSnapshotServiceEnabled": true,
         "// ... additional production-specific configuration"
     }
