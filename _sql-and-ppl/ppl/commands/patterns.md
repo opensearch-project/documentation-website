@@ -8,7 +8,7 @@ nav_order: 27
 
 # patterns
 
-The `patterns` command extracts log patterns from a text field and appends the results to the search results. Grouping logs by pattern simplifies aggregating statistics from large volumes of log data for analysis and troubleshooting. You can choose from the following log-parsing methods to achieve high pattern-grouping accuracy:
+The `patterns` command extracts log patterns from a text field and appends the results to the search results. Grouping logs by pattern simplifies aggregating statistics from large volumes of log data for analysis and troubleshooting. You can choose from the following log parsing methods to achieve high pattern-grouping accuracy:
 
 * `simple_pattern`: A parsing method that uses [Java regular expressions](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 * `brain`: An automatic log-grouping method that provides high grouping accuracy while preserving semantic meaning.
@@ -78,6 +78,7 @@ By default, the Apache Calcite engine labels variables using the `<*>` placehold
 ## Changing the default pattern method  
 
 To override default pattern parameters, run the following command:
+
 ```json
 PUT _cluster/settings
 {
@@ -159,7 +160,7 @@ The query returns the following results:
 | 210.204.15.104 - - [28/Sep/2022:10:15:57 -0700] "POST /users HTTP/1.1" 301 9481 | <*><*><*>.<*><*><*>.<*><*>.<*><*><*> - - [<*><*>/Sep/<*><*><*><*>:<*><*>:<*><*>:<*><*> -<*><*><*><*>] "POST /users HTTP/<*>.<*>" <*><*><*> <*><*><*><*> |
   
 
-### Example 4: Return log pattern aggregation result
+### Example 4: Return a log pattern aggregation result
 
 The following query aggregates patterns extracted from a raw log field:
   
@@ -246,7 +247,7 @@ The query returns the following results:
 | 210.204.15.104 - - [28/Sep/2022:10:15:57 -0700] "POST /users HTTP/1.1" 301 9481 | <*IP*> - <*> [<*>/Sep/<*>:<*>:<*>:<*> <*>] <*> <*> HTTP/<*>" <*> <*> |
   
 
-### Example 3: Return log pattern aggregation result
+### Example 3: Return a log pattern aggregation result
 
 The following query aggregates patterns extracted from a raw log field using the `brain` algorithm:
   

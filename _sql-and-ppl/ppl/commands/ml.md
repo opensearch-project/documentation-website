@@ -8,7 +8,7 @@ nav_order: 24
 
 # ml
 
-The `ml` command applies machine learning algorithms from the ML Commons plugin to the search results returned by a PPL command. It supports various machine learning operations, including anomaly detection and clustering. The command can perform train, predict, or combined train-and-predict operations, depending on the algorithm and specified action.
+The `ml` command applies machine learning (ML) algorithms from the ML Commons plugin to the search results returned by a PPL command. It supports various ML operations, including anomaly detection and clustering. The command can perform train, predict, or combined train-and-predict operations, depending on the algorithm and specified action.
 
 To use the `ml` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}
@@ -25,7 +25,7 @@ The `ml` command supports different syntax options, depending on the algorithm.
 
 ### Anomaly detection for time-series data
 
-Use this syntax to detect anomalies in time-series data. This method uses the Random Cut Forest (RCF) algorithm optimized for sequential data patterns:
+Use this syntax to detect anomalies in time-series data. This method uses the RCF algorithm optimized for sequential data patterns:
 
 ```sql
 ml action='train' algorithm='rcf' <number_of_trees> <shingle_size> <sample_size> <output_after> <time_decay> <anomaly_rate> <time_field> <date_format> <time_zone>
@@ -33,7 +33,7 @@ ml action='train' algorithm='rcf' <number_of_trees> <shingle_size> <sample_size>
 
 ### Parameters
 
-The fixed in time RCF algorithm supports the following parameters.
+The fixed-in-time RCF algorithm supports the following parameters.
 
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
@@ -50,7 +50,7 @@ The fixed in time RCF algorithm supports the following parameters.
 
 ### Anomaly detection for non-time-series data
 
-Use this syntax to detect anomalies in data where the order doesn't matter. This method uses the Random Cut Forest (RCF) algorithm optimized for independent data points:
+Use this syntax to detect anomalies in data where the order doesn't matter. This method uses the RCF algorithm optimized for independent data points:
 
 ```sql
 ml action='train' algorithm='rcf' <number_of_trees> <sample_size> <output_after> <training_data_size> <anomaly_score_threshold>
@@ -84,7 +84,7 @@ The k-means clustering algorithm supports the following parameters.
 
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
-| `centroids` | Optional | The number of clusters you want to group your data points into. Default is `2`. |
+| `centroids` | Optional | The number of clusters to group data points into. Default is `2`. |
 | `iterations` | Optional | The number of iterations. Default is `10`. |
 | `distance_type` | Optional | The distance type. Valid values are `COSINE`, `L1`, and `EUCLIDEAN`. Default is `EUCLIDEAN`. |  
   

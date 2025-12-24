@@ -21,8 +21,8 @@ regex <field> != <pattern>
 
 The following operators are supported:
 
-* `=` - Positive matching (include matches).
-* `!=` - Negative matching (exclude matches).  
+* `=` -- Positive matching (include matches)
+* `!=` -- Negative matching (exclude matches)
 
 The `regex` command uses Java's built-in regular expression engine, which supports:
 
@@ -120,7 +120,7 @@ The query returns the following results:
 
 ## Example 5: Case-sensitive matching  
 
-By default, regex matching is case sensitive. The following query searches for lowercase state name `va`:
+By default, regex matching is case sensitive. The following query searches for the lowercase state name `va`:
   
 ```sql
 source=accounts
@@ -131,7 +131,7 @@ source=accounts
   
 The query returns no results because the regex pattern `va` (lowercase) does not match any state values in the data.
   
-The following query searches for uppercase state name `VA`:
+The following query searches for the uppercase state name `VA`:
 
 ```sql
 source=accounts

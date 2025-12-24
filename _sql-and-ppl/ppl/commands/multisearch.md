@@ -11,7 +11,7 @@ nav_order: 25
 
 The `multisearch` command runs multiple subsearches and merges their results. It allows you to combine data from different queries on the same or different sources. You can optionally apply subsequent processing, such as aggregation or sorting, to the combined results. Each subsearch can have different filtering criteria, data transformations, and field selections. 
 
-Multisearch is particularly useful for comparative analysis, union operations, and creating comprehensive datasets from multiple search criteria. The command  supports timestamp-based result interleaving when working with time-series data.
+Multisearch is particularly useful for comparative analysis, union operations, and creating comprehensive datasets from multiple search criteria. The command supports timestamp-based result interleaving when working with time-series data.
 
 Use multisearch for:
 
@@ -126,7 +126,7 @@ The query returns the following results:
 
 ## Example 4: Handling missing fields across subsearches
 
-This example demonstrates how multisearch handles schema differences when subsearches return different fields. When one subsearch includes a field that others don't have, missing values are automatically filled with null values:
+This example demonstrates how `multisearch` handles schema differences when subsearches return different fields. When one subsearch includes a field that others don't have, missing values are automatically filled with null values:
   
 ```sql
 | multisearch [search source=accounts

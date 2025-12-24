@@ -93,7 +93,7 @@ The query returns the following results:
 
 ## Example 4: Replace text using multiple pattern-replacement pairs
 
-The following query uses the `replace` command with multiple pattern and replacement pairs in a single replace command. The replacements are applied sequentially.
+The following query uses the `replace` command with multiple pattern and replacement pairs in a single replace command. The replacements are applied sequentially:
   
 ```sql
 source=accounts
@@ -175,7 +175,7 @@ The query returns the following results:
 
 ## Example 8: Wildcard capture and substitution  
 
-The following query uses wildcards in both pattern and replacement to capture and reuse matched portions. The number of wildcards must match in pattern and replacement:
+The following query uses wildcards in both the pattern and replacement to capture and reuse matched portions. The number of wildcards must match in the pattern and replacement:
   
 ```sql
 source=accounts
@@ -283,6 +283,6 @@ The query returns the following results:
 
 The `replace` command has the following limitations:
 
-* **Wildcards**: The `*` wildcard matches zero or more characters and is case-sensitive.
-* **Wildcard matching**: Replacement wildcards must match the pattern wildcard count, or be zero.
+* **Wildcards**: The `*` wildcard matches zero or more characters and is case sensitive.
+* **Wildcard matching**: Replacement wildcards must match the pattern wildcard count or be zero.
 * **Escape sequences**: Use `\*` for literal asterisk and `\\` for literal backslash characters.  

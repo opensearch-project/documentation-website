@@ -8,9 +8,9 @@ nav_order: 32
 
 # reverse
 
-The `reverse` command reverses the display order of the search results. It returns the same results, but in the opposite order.
+The `reverse` command reverses the display order of the search results. It returns the same results but in the opposite order.
 
-The `reverse` command processes the entire dataset. If applied directly to millions of records, it consumes significant memory resources on the coordinating node. Only apply the `reverse` command to smaller datasets, typically after aggregation operations.
+The `reverse` command processes the entire dataset. If applied directly to millions of records, it consumes significant coordinating node memory resources. Only apply the `reverse` command to smaller datasets, typically after aggregation operations.
 {: .note}
 
 ## Syntax
@@ -88,7 +88,7 @@ The query returns the following results:
 
 ## Example 4: Double reverse  
 
-The following query shows that applying reverse twice returns documents in the original order:
+The following query shows that applying `reverse` twice returns documents in the original order:
   
 ```sql
 source=accounts

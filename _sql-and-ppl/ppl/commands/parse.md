@@ -10,7 +10,7 @@ nav_order: 26
 
 The `parse` command extracts information from a text field using a regular expression and adds the extracted information to the search results. It uses Java regex patterns. For more information, see the [Java regular expression documentation](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
-## rex and parse commands compared
+## The rex and parse commands compared
 
 The `rex` and `parse` commands both extract information from text fields using Java regular expressions with named capture groups. To compare the capabilities of the `rex` and `parse` commands, see the [`rex` command documentation]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/rex/).
 
