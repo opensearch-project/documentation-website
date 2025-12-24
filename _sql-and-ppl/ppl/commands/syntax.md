@@ -49,8 +49,8 @@ Placeholders are shown in angle brackets (`< >`). These must be replaced with ac
 Optional elements are enclosed in square brackets (`[ ]`). These can be omitted from the command.
 
 **Examples**:
-- `[+|-]` means the plus or minus signs are optional
-- `[<alias>]` means the alias placeholder is optional
+- `[+|-]` means the plus or minus signs are optional.
+- `[<alias>]` means the alias placeholder is optional.
 
 ### Required choices
 
@@ -66,7 +66,7 @@ Optional choices between alternatives are shown in square brackets with pipe sep
 
 ### Repetition
 
-Ellipsis (`...`) indicates that the preceding element can be repeated multiple times.
+An ellipsis (`...`) indicates that the preceding element can be repeated multiple times.
 
 **Examples**:
 - `<field>...` means one or more fields without commas: `field1 field2 field3`
@@ -77,7 +77,7 @@ Ellipsis (`...`) indicates that the preceding element can be repeated multiple t
 
 **Example 1: Search through accounts index**
 
-In the following query, the `search` command refers to an `accounts` index as the source and uses `fields` and `where` commands for the conditions:
+In the following query, the `search` command refers to an `accounts` index as the source and uses the `fields` and `where` commands for the conditions:
 
 ```sql
 search source=accounts

@@ -25,7 +25,7 @@ The `table` command supports the following parameters.
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
 | `<field-list>` | Required | A comma-delimited or space-delimited list of fields to keep or remove. Supports wildcard patterns. |
-| `[+|-]` | Optional | Specifies the fields to keep or remove. If the plus (+) is used, only the fields specified in the field list are kept. If the minus (-) is used, all the fields specified in the field list are removed. Default is `+`. |
+| `[+|-]` | Optional | Specifies the fields to keep or remove. If the plus sign (`+`) is used, only the fields specified in the field list are kept. If the minus sign (`-`) is used, all the fields specified in the field list are removed. Default is `+`. |
 
 ## Example: Basic table command usage  
 
@@ -49,4 +49,4 @@ The query returns the following results:
 
 ## Related documentation 
 
-- [`fields`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/fields/) - An alias command with identical functionality  
+- [`fields`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/fields/) -- An alias command with identical functionality  

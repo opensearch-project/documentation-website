@@ -8,19 +8,19 @@ nav_order: 39
 
 # streamstats
 
-The `streamstats` command calculates cumulative or rolling statistics as events are processed in order. Unlike `stats` or `eventstats` which operate on the entire dataset at once, `streamstats` processes events incrementally, making it suitable for time-series and sequence-based analysis.
+The `streamstats` command calculates cumulative or rolling statistics as events that are processed in order. Unlike `stats` or `eventstats`, which operate on the entire dataset at once, `streamstats` processes events incrementally, making it suitable for time-series and sequence-based analysis.
 
-Key features include support for `window` (sliding window calculations) and `current` (whether to include the current event in calculations) parameters, and specialized use cases such as identifying trends or detecting changes over sequences of events.  
+Key features include support for the `window` (sliding window calculations) and `current` (whether to include the current event in calculations) parameters and specialized use cases such as identifying trends or detecting changes over sequences of events.  
   
-## Comparing `stats`, `eventstats`, and `streamstats`
+## Comparing stats, eventstats, and streamstats
 
 The `stats`, `eventstats`, and `streamstats` commands can all generate aggregations such as average, sum, and maximum. However, they differ in how they operate and the results they produce. The following table summarizes these differences.
 
 | Aspect | `stats` | `eventstats` | `streamstats` |
 | --- | --- | --- | --- |
-| Transformation behavior | Transforms all events into an aggregated result table, losing original event structure | Adds aggregation results as new fields to the original events without removing the event structure | Adds cumulative (running) aggregation results to each event as they stream through the pipeline |
+| Transformation behavior | Transforms all events into an aggregated result table, losing original event structure | Adds aggregation results as new fields to the original events without removing the event structure | Adds cumulative (running) aggregation results to each event as it streams through the pipeline |
 | Output format | Output contains only aggregated values. Original raw events are not preserved | Original events remain, with extra fields containing summary statistics | Original events remain, with extra fields containing running totals or cumulative statistics |
-| Aggregation scope | Based on all events in the search (or groups defined by BY clause) | Based on all relevant events, then the result is added back to each event in the group | Calculations occur progressively as each event is processed; can be scoped by window |
+| Aggregation scope | Based on all events in the search (or groups defined by the `by` clause) | Based on all relevant events, then the result is added back to each event in the group | Calculations occur progressively as each event is processed; can be scoped by window |
 | Use cases | When only aggregated results are needed (for example, counts, averages, sums) | When aggregated statistics are needed alongside original event data | When a running total or cumulative statistic is needed across event streams |  
   
 
@@ -57,7 +57,7 @@ The `streamstats` command supports the following parameters.
 | Parameter | Required/Optional | Description |
 | --- | --- | --- |
 | `<function>` | Required | An aggregation function or window function. |
-| `bucket_nullable` | Optional | Controls whether to consider null buckets as a valid group in group-by aggregations. When `false`, does not treat null group by values as a distinct group during aggregation. Default is the value of `plugins.ppl.syntax.legacy.preferred`. |
+| `bucket_nullable` | Optional | Controls whether to consider null buckets as a valid group in group-by aggregations. When `false`, does not treat null group-by values as a distinct group during aggregation. Default is the value of `plugins.ppl.syntax.legacy.preferred`. |
 | `current` | Optional | Whether to include the current event in summary calculations. When `true`, includes the current event; when `false`, uses the field value from the previous event. Default is `true`. |
 | `window` | Optional | The number of events to use when computing statistics. Default is `0` (all previous and current events are used). |
 | `global` | Optional | Used only when `window` is specified. Determines whether to use a single window (`true`) or separate windows for each group defined by the `by` clause (`false`). When `false` and `window` is non-zero, a separate window is used for each group of values of the field specified in the `by` clause. Default is `true`. |
@@ -69,7 +69,7 @@ The `streamstats` command supports the following parameters.
 
 ## Aggregation functions  
 
-The streamstats command supports the following aggregation functions:
+The `streamstats` command supports the following aggregation functions:
 
 * `COUNT` -- Count of values  
 * `SUM` -- Sum of numeric values  
@@ -92,7 +92,7 @@ For detailed documentation of each function, see [Functions]({{site.url}}{{site.
 
 ## Example 1: Calculate the running average, sum, and count of a field by group  
 
-The following query calculates the running average age, running sum of age, and running count of events for all accounts, grouped by `gender`:
+The following query calculates the running average `age`, running sum of `age`, and running count of events for all accounts, grouped by `gender`:
   
 ```sql
 source=accounts
@@ -112,7 +112,7 @@ The query returns the following results:
 
 ## Example 2: Calculate the running maximum over a 2-row window
 
-The following query calculates the running maximum age over a 2-row window, excluding the current event:
+The following query calculates the running maximum `age` over a 2-row window, excluding the current event:
   
 ```sql
 source=state_country
@@ -134,14 +134,14 @@ The query returns the following results:
 | David | USA | Washington | 4 | 2023 | 40 | 70 |
   
 
-## Example 3: Global vs group-specific windows  
+## Example 3: Global compared to group-specific windows  
 
 The `global` parameter takes the following values:
 
-* `true`: A global window is applied across all rows, but the calculations inside the window still respect the by groups.
-* `false`: The window itself is created per group, meaning each group gets its own independent window. 
+* `true`: A global window is applied across all rows, but the calculations inside the window still respect the `by` groups.
+* `false`: The window itself is created per group, meaning each group receives an independent window. 
   
-The following example uses a sample index containing the following data.
+The following example uses a sample index containing the following data:
 
 | name | country | state | month | year | age |
 | --- | --- | --- | --- | --- | --- |
@@ -177,7 +177,7 @@ As a result, `David` and `Rick` are included in the same sliding window when com
 | Rick | Canada | B.C | 4 | 2023 | 70 | 63.5 |
 | David | USA | Washington | 4 | 2023 | 40 | 40.0 |
   
-In contrast, when `global=false`, each `by` group forms its own independent stream and window:
+In contrast, when `global=false`, each `by` group forms an independent stream and window:
 
 ```sql
 source=state_country

@@ -119,7 +119,7 @@ source = outer | where a = [ source = inner | where c =  [ source = nested | sta
 ```
 {% include copy.html %}
   
-### Relation Subquery
+### Relation subquery
 
 Used in `join` operations to provide dynamic right-side data:  
   

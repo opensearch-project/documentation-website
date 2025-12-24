@@ -26,11 +26,11 @@ The `timechart` command supports the following parameters.
 | --- | --- | --- |
 | `timefield` | Optional | The field to use for time-based grouping. Must be a timestamp field. Default is `@timestamp`. |
 | `span` | Optional | Specifies the time interval for grouping data. Default is `1m` (1 minute). For a complete list of supported time units, see [Time units](#time-units). |
-| `limit` | Optional | Specifies the maximum number of distinct values to display when using the "by" clause. Default is `10`. When there are more distinct values than the limit, additional values are grouped into an "OTHER" category if `useother` is not set to `false`. The "most distinct" values are determined by calculating the sum of aggregation values across all time intervals. Set to `0` to show all distinct values without any limit (when `limit=0`, `useother` is automatically set to `false`). Only applies when using the "by" clause. |
+| `limit` | Optional | Specifies the maximum number of distinct values to display when using the `by` clause. Default is `10`. When there are more distinct values than the limit, additional values are grouped into an `OTHER` category if `useother` is not set to `false`. The "most distinct" values are determined by calculating the sum of aggregation values across all time intervals. Set to `0` to show all distinct values without any limit (when `limit=0`, `useother` is automatically set to `false`). Only applies when using the `by` clause. |
 | `useother` | Optional | Controls whether to create an `OTHER` category for values beyond the `limit`. When set to `false`, only the top N values (based on `limit`) are shown without an `OTHER` category. When set to `true`, values beyond the `limit` are grouped into an `OTHER` category. This parameter only applies when using the `by` clause and when there are more values than the `limit`. Default is `true`. |
 | `usenull` | Optional | Controls whether to group documents that have null values in the `by` field into a separate `NULL` category. When `usenull=false`, documents with null values in the `by` field are excluded from the results. When `usenull=true`, documents with null values in the `by` field are grouped into a separate `NULL` category. Default is `true`. |
 | `nullstr` | Optional | Specifies the category name for documents that have null values in the `by` field. This parameter only applies when `usenull` is `true`. Default is `"NULL"`. |
-| `<aggregation_function>` | Required | The aggregation function to apply to each time bucket. Only a single aggregation function is supported. Available functions: All aggregation functions supported by the [stats]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/stats/) command, as well as the timechart-specific aggregations. |
+| `<aggregation_function>` | Required | The aggregation function to apply to each time bucket. Only a single aggregation function is supported. Available functions: All aggregation functions supported by the [stats]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/stats/) command as well as the timechart-specific aggregations. |
 | `by` | Optional | Groups the results by the specified field in addition to time intervals. If not specified, the aggregation is performed across all documents in each time interval. |
 
 ## Notes
@@ -114,7 +114,7 @@ The query returns the following results:
 
 ## Example 2: Count events by minute  
 
-The following query counts events in each one-minute interval and groups the results by `host`:
+The following query counts events in each 1-minute interval and groups the results by `host`:
   
 ```sql
 source=events
@@ -136,7 +136,7 @@ The query returns the following results:
 | 2023-01-01 10:35:00 | server2 | 1 |
   
 
-## Example 3: Calculate the average number of packets by minute  
+## Example 3: Calculate the average number of packets per minute  
 
 The following query calculates the average number of packets per minute without grouping by any additional field:
   
@@ -160,7 +160,7 @@ The query returns the following results:
 | 2023-01-01 10:35:00 | 90.0 |
   
 
-## Example 4: Calculate the average number of packets by every 20 minutes and status  
+## Example 4: Calculate the average number of packets per 20 minutes and status  
 
 The following query calculates the average number of packets in each 20-minute interval and groups the results by `status`:
   
@@ -186,7 +186,7 @@ The query returns the following results:
 
 ## Example 5: Count events by hour and category  
 
-The following query counts events in each one-second interval and groups the results by `category`:
+The following query counts events in each 1-second interval and groups the results by `category`:
   
 ```sql
 source=events
@@ -258,7 +258,7 @@ All 11 hosts are returned as separate rows without an `OTHER` category:
 | 2024-07-01 00:00:00 | web-10 | 1 |
 | 2024-07-01 00:00:00 | web-11 | 1 |
 
-## Example 8: Use useother=false with count() function  
+## Example 8: Use useother=false with the count() function  
 
 The following query limits the results to the top 10 hosts without creating an `OTHER` category by setting `useother=false`:
   
@@ -284,7 +284,7 @@ The query returns the following results:
 | 2024-07-01 00:00:00 | web-10 | 1 |
   
 
-## Example 9: Use limit with useother parameter and avg() function  
+## Example 9: Use the limit parameter with the useother parameter and the avg() function  
 
 The following query displays the top 3 hosts based on average `cpu_usage` per hour. All remaining hosts are grouped into an `OTHER` category (by default, `useother=true`):
   
@@ -303,7 +303,7 @@ The query returns the following results:
 | 2024-07-01 00:00:00 | web-07 | 48.6 |
 | 2024-07-01 00:00:00 | web-09 | 67.8 |
   
-The following query displays the top 3 hosts based on average `cpu_usage` per hour, without creating an `OTHER` category by setting `useother=false`:
+The following query displays the top 3 hosts based on average `cpu_usage` per hour without creating an `OTHER` category by setting `useother=false`:
 
 ```sql
 source=events_many_hosts
@@ -320,7 +320,7 @@ The query returns the following results:
 | 2024-07-01 00:00:00 | web-09 | 67.8 |
   
 
-## Example 10: Handling null values in the `by` field
+## Example 10: Handling null values in the by field
 
 The following query demonstrates how null values in the `by` field are treated as a separate category:
 
@@ -340,7 +340,7 @@ The `events_null` dataset contains one entry without a `host` value. Because the
 | 2024-07-01 00:00:00 | web-02 | 2 |
   
 
-## Example 11: Calculate packets per second rate  
+## Example 11: Calculate the per-second packet rate  
 
 The following query calculates the per-second packet rate for network traffic data using the `per_second()` function:
   
