@@ -817,8 +817,8 @@ main {
   align-content: stretch;
   height: 100%;
   position: relative;
-  justify-content: center;
-
+  justify-content: flex-start;
+  
   @include mq(lg) {
     background: linear-gradient(to right, var(--sidebar-bg) $nav-width, transparent $nav-width);
   }
