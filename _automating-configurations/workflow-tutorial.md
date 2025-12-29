@@ -97,7 +97,7 @@ The [Deploy Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-
     register_model_2: model_id
 ```
 
-When using the Deploy Model API directly, a task ID is returned, requiring use of the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) to determine when the deployment is complete. The automated workflow eliminates the manual status check and returns the final `model_id` directly.
+When using the Deploy Model API directly, a task ID is returned, requiring use of the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) to determine when the deployment is complete. The automated workflow eliminates the manual status check and returns the final `model_id` directly.
 
 ### Ordering steps
 
