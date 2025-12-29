@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Search task
-parent: Tasks APIs
+title: Search ML tasks
+parent: ML Tasks APIs
 grand_parent: ML Commons APIs
 nav_order: 15
 ---
 
-# Search Task API
+# Search ML Tasks API
 
-Searches tasks based on parameters indicated in the request body.
+Searches machine learning (ML) tasks based on parameters indicated in the request body.
 
 ## Endpoints
 

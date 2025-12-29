@@ -127,7 +127,7 @@ The response contains a task ID for the ingestion task:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once ingestion is complete, the task `state` changes to `COMPLETED`.
+To check the status of the operation, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once ingestion is complete, the task `state` changes to `COMPLETED`.
 
 
 ## Ingesting data from multiple files
@@ -189,6 +189,6 @@ The response contains a task ID for the ingestion task:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once ingestion is complete, the task `state` changes to `COMPLETED`.
+To check the status of the operation, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once ingestion is complete, the task `state` changes to `COMPLETED`.
 
 For request field descriptions, see [Asynchronous Batch Ingestion API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/async-batch-ingest/).
