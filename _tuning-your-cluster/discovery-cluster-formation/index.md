@@ -30,10 +30,10 @@ Discovery is how nodes find other nodes when starting up or when connection to t
 
 ## Cluster manager election
 
-OpenSearch uses a sophisticated voting mechanism to ensure exactly one cluster manager exists at any time:
+OpenSearch uses a sophisticated voting mechanism to ensure that exactly one cluster manager exists at any time:
 
 - **Voting configuration**: The set of cluster-manager-eligible nodes that participate in elections.
-- **Quorum requirements**: Elections require a majority of voting nodes to prevent split-brain scenarios.
+- **Quorum requirements**: Elections require a majority of voting nodes in order to prevent split-brain scenarios.
 - **Automatic reconfiguration**: The voting configuration adjusts as nodes join and leave the cluster.
 
 ## Cluster state management
@@ -55,7 +55,7 @@ The following topics provide detailed guidance on each stage of discovery and cl
 
 [Voting configuration management]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/voting-configuration/): Learn how OpenSearch automatically manages voting configurations and handles bootstrap requirements for new clusters.
 
-[Cluster bootstrapping]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/bootstrapping/): Configure initial cluster startup and learn the requirements for safely bringing up a new cluster.
+[Cluster bootstrapping]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/bootstrapping/): Configure initial cluster startup and learn the requirements for safely starting a new cluster.
 
 [Discovery and cluster formation settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/settings/): Complete reference for all configuration options that control discovery and cluster formation behavior, including fault detection and cluster state publishing settings.
 
@@ -92,6 +92,6 @@ Returns the current voting configuration, showing which nodes participate in clu
 
 ## Next steps
 
-- Start with [Node discovery and seed hosts]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/discovery/) to understand the foundation of cluster formation
-- Review [Discovery and cluster formation settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/settings/) for configuration options
-- See [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/) for hands-on cluster setup guidance
+- Start with [Node discovery and seed hosts]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/discovery/) to understand the foundation of cluster formation.
+- Review [Discovery and cluster formation settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/settings/) for configuration options.
+- See [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/) for hands-on cluster setup guidance.

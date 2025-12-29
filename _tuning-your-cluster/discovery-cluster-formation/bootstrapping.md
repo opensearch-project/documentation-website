@@ -11,15 +11,15 @@ When starting an OpenSearch cluster for the very first time, you must explicitly
 
 Cluster bootstrapping is required in the following situations:
 
-- Starting a brand-new cluster for the very first time
-- No existing cluster state exists on any node
-- Initial cluster manager election needs to take place
+- Starting a brand-new cluster for the very first time.
+- No existing cluster state exists on any node.
+- Initial cluster manager election needs to take place.
 
 Bootstrapping is not required in the following situations:
 
-- Nodes joining an existing cluster - they get configuration from the current cluster manager
-- Cluster restarts - nodes that have previously joined a cluster store the necessary information
-- Full cluster restarts - existing cluster state is preserved and used for recovery
+- Nodes joining an existing cluster: They get their configuration from the current cluster manager.
+- Cluster restarts: Nodes that have previously joined a cluster store the necessary information.
+- Full cluster restarts: Existing cluster state is preserved and used for recovery.
 
 ## Configuring the bootstrap nodes
 
@@ -60,7 +60,7 @@ You can identify nodes in the bootstrap configuration using any of these methods
    ```
    {% include copy.html %}
 
-3. Use the node's publish IP address:
+3. Use the node's public IP address:
 
    ```yaml
    cluster.initial_cluster_manager_nodes:
@@ -132,8 +132,8 @@ Node names in the bootstrap configuration must exactly match each node's `node.n
 **Common naming issues**:
 
 * If a node's name is `server1.example.com`, the bootstrap list must also use `server1.example.com`, not `server1`.
-* Node names are case-sensitive.
-* The names must match exactly, with no added characters or whitespace.
+* Node names are case sensitive.
+* The names must match exactly, with no added characters or white space.
 
 If a node's name does not exactly match an entry in the bootstrap configuration, the log will contain an error message. In this example, the node name `cluster-manager-1.example.com` does not match the bootstrap entry `cluster-manager-1`:
 
@@ -209,7 +209,7 @@ If each node reports a different `cluster_uuid`, they belong to separate cluster
 
 ## Bootstrap verification
 
-After starting your cluster, verify successful bootstrap using the [monitoring commands]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation) for checking cluster health and formation:
+After starting your cluster, verify successful bootstrapping using the [monitoring commands]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation) for checking cluster health and formation:
 
 - Verify cluster health status and node count.
 - Confirm that one node is elected as cluster manager.
@@ -217,6 +217,6 @@ After starting your cluster, verify successful bootstrap using the [monitoring c
 
 ## Related documentation
 
-- [Voting configuration management]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/voting-configuration/): How OpenSearch manages voting after bootstrap
+- [Voting configuration management]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/voting-configuration/): How OpenSearch manages voting after bootstrapping
 - [Discovery and cluster formation settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/settings/): Complete settings reference
 - [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/): Step-by-step cluster setup guide

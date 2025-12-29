@@ -13,11 +13,11 @@ This page provides a comprehensive reference for all settings that control disco
 
 The following settings control the fundamental discovery process:
 
-- `discovery.seed_hosts` (Static, list): Provides a list of addresses for cluster-manager-eligible nodes in the cluster. This setting is essential for nodes to find each other during cluster formation. Each address can be specified as `host:port` or just `host`. The `host` can be a hostname (resolved via DNS - if multiple IPs are resolved, OpenSearch attempts to connect to all), IPv4 address, or IPv6 address (must be enclosed in square brackets). If no port is specified, OpenSearch determines the port by checking `transport.profiles.default.port`, then `transport.port`. If neither is configured, the default port `9300` is used. Default is `["127.0.0.1", "[::1]"]`.
+- `discovery.seed_hosts` (Static, list): Provides a list of addresses for cluster-manager-eligible nodes in the cluster. This setting is essential for nodes to be able to find each other during cluster formation. Each address can be specified as `host:port` or just `host`. The `host` can be a hostname (resolved through DNS---if multiple IPs are resolved, OpenSearch attempts to connect to all), IPv4 address, or IPv6 address (must be enclosed in square brackets). If no port is specified, OpenSearch determines the port by checking `transport.profiles.default.port`, then `transport.port`. If neither is configured, the default port `9300` is used. Default is `["127.0.0.1", "[::1]"]`.
 
-- `discovery.seed_providers` (Static, list): Specifies which seed hosts providers to use for obtaining seed node addresses during discovery. Available providers are `settings` (uses addresses from the `discovery.seed_hosts` setting) and `file` (reads addresses from the `unicast_hosts.txt` file). You can specify multiple providers to combine discovery methods. Default is `["settings"]`.
+- `discovery.seed_providers` (Static, list): Specifies which seed host providers to use for obtaining seed node addresses during discovery. Available providers are `settings` (uses addresses from the `discovery.seed_hosts` setting) and `file` (reads addresses from the `unicast_hosts.txt` file). You can specify multiple providers to combine discovery methods. Default is `["settings"]`.
 
-- `discovery.type` (Static, string): Specifies whether OpenSearch should form a multiple-node cluster or operate as a single node. When set to `single-node`, OpenSearch forms a single-node cluster and suppresses certain timeouts. This setting is useful for development and testing environments. Valid values are `multi-node` (default) and `single-node`.
+- `discovery.type` (Static, string): Specifies whether OpenSearch should form a multi-node cluster or operate as a single node. When set to `single-node`, OpenSearch forms a single-node cluster and suppresses certain timeouts. This setting is useful for development and testing environments. Valid values are `multi-node` (default) and `single-node`.
 
 - `cluster.initial_cluster_manager_nodes` (Static, list): Sets the initial cluster-manager-eligible nodes for bootstrapping a brand-new cluster. This setting is required when bootstrapping a cluster for the first time and should contain the node names (as defined by `node.name`) of the initial cluster-manager-eligible nodes. This list should be empty for nodes joining an existing cluster. Default is `[]` (empty).
 
@@ -43,7 +43,7 @@ The following settings control connection attempts during discovery:
 
 - `discovery.probe.connect_timeout` (Static, time unit): Sets the timeout when attempting to connect to each address during discovery. Default is `3s`.
 
-- `discovery.probe.handshake_timeout` (Static, time unit): Sets the timeout when attempting to identify a remote node via handshake during discovery. Default is `1s`.
+- `discovery.probe.handshake_timeout` (Static, time unit): Sets the timeout when attempting to identify a remote node through handshake during discovery. Default is `1s`.
 
 - `discovery.request_peers_timeout` (Static, time unit): Sets how long a node waits for peer information requests during discovery before considering the request failed. Default is `3s`.
 
@@ -63,7 +63,7 @@ These settings control the cluster manager election process:
 
 The following settings control the voting mechanism for cluster manager elections:
 
-- `cluster.auto_shrink_voting_configuration` (Dynamic, boolean): Controls whether the voting configuration automatically removes departed nodes, provided at least 3 nodes remain. When set to `false`, you must manually remove departed nodes using the voting configuration exclusions API. Default is `true`.
+- `cluster.auto_shrink_voting_configuration` (Dynamic, Boolean): Controls whether the voting configuration automatically removes departed nodes, provided at least three nodes remain. When set to `false`, you must manually remove departed nodes using the Voting Configuration Exclusions API. Default is `true`.
 
 - `cluster.max_voting_config_exclusions` (Dynamic, integer): Sets the maximum number of voting configuration exclusions allowed simultaneously. This is used during cluster manager node maintenance operations. Default is `10`.
 
@@ -89,7 +89,7 @@ The elected cluster manager periodically checks each node in the cluster:
 3. Tracks consecutive check failures for each node.
 4. Removes nodes that fail consecutive checks (based on retry count).
 
-If the cluster manager detects a node has disconnected (network-level disconnect), it bypasses the timeout and retry settings and immediately attempts to remove the node from the cluster.
+If the cluster manager detects that a node has disconnected (network-level disconnect), it bypasses the timeout and retry settings and immediately attempts to remove the node from the cluster.
 
 ### Leader checks
 
@@ -97,10 +97,10 @@ Each non-cluster-manager node periodically checks the health of the elected clus
 
 1. Send periodic health check requests to the cluster manager.
 2. Wait for responses within the configured timeout.
-3. Track consecutive check failures for the cluster manager.
-4. Start new cluster manager election if consecutive checks fail.
+3. Tracks consecutive check failures for the cluster manager.
+4. Starts a new cluster manager election if consecutive checks fail.
 
-If a node detects the cluster manager has disconnected, it bypasses timeout and retry settings and immediately restarts its discovery phase to find or elect a new cluster manager.
+If a node detects that the cluster manager has disconnected, it bypasses timeout and retry settings and immediately restarts its discovery phase to find or elect a new cluster manager.
 
 The following settings control health monitoring and failure detection.
 
@@ -140,7 +140,7 @@ The following settings control cluster joining and coordination:
 
 - `cluster.join.timeout` (Static, time unit): Sets how long a node waits after sending a join request before considering it failed and retrying. This setting is ignored when `discovery.type` is set to `single-node`. Default is `60s`.
 
-- `cluster.no_cluster_manager_block` (Dynamic, string): Specifies which operations are rejected when there is no active cluster manager. Valid values are `all` (all operations including read/write and cluster state APIs are rejected) and `write` (only write operations are rejected; read operations succeed based on the last known cluster state but may return stale data). This setting doesn't affect node-based APIs (cluster stats, node info, node stats). For full cluster functionality, an active cluster manager is required. Default is `write`.
+- `cluster.no_cluster_manager_block` (Dynamic, string): Specifies which operations are rejected when there is no active cluster manager. Valid values are `all` (all operations including read/write and cluster state APIs are rejected) and `write` (only write operations are rejected; read operations succeed based on the last known cluster state but may return stale data). This setting doesn't affect node-based APIs (Cluster Stats, Node Info, Node Stats). For full cluster functionality, an active cluster manager is required. Default is `write`.
 
 ## Configuration examples
 
@@ -211,6 +211,6 @@ cluster.join.timeout: 120s
 
 ## Related documentation
 
-- [Node discovery and seed hosts]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/discovery/): Learn about discovery mechanisms and seed host providers
+- [Node discovery and seed hosts]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/discovery/): Provides information about discovery mechanisms and seed host providers
 - [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/): Step-by-step cluster setup guide
 - [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/): General configuration guidance

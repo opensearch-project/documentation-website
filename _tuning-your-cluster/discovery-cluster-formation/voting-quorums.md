@@ -36,7 +36,7 @@ The voting configuration follows these rules:
 
 - Decisions require more than half of voting nodes to respond.
 - OpenSearch adds nodes to the voting configuration when they join.
-- Nodes are removed from voting configuration when they leave gracefully.
+- Nodes are removed from the voting configuration when they leave gracefully.
 - No two partitions can both have a voting majority.
 
 ## Fault tolerance guidelines
@@ -85,17 +85,17 @@ Understanding quorum requirements helps you perform maintenance safely.
 OpenSearch can remain available during rolling restarts:
 
 - Restart nodes one at a time: Restart nodes individually, waiting for each to rejoin.
-- Maintain majority: Ensure majority of voting nodes remain available.
-- Wait for stabilization: Allow voting configuration to update after each node rejoins.
+- Maintain a majority: Ensure a majority of voting nodes remain available.
+- Wait for stabilization: Allow the voting configuration to update after each node rejoins.
 
 ### Planned maintenance
 
 For maintenance requiring multiple nodes:
 
-1. Check voting configuration: Verify current voting nodes using the cluster API.
-2. Plan shutdown order: Ensure majority remains available throughout maintenance.
+1. Check the voting configuration: Verify current voting nodes using the Cluster API.
+2. Plan shutdown order: Ensure a majority remains available throughout maintenance.
 3. Wait between changes: Allow time for voting configuration updates.
-4. Monitor cluster health: Verify cluster remains green during maintenance.
+4. Monitor cluster health: Verify that the cluster remains green during maintenance.
 
 ### Emergency procedures
 
@@ -105,9 +105,9 @@ If you must stop multiple nodes simultaneously:
 - Restore carefully: Bring nodes back online in the correct order.
 - Clear exclusions: Remove voting exclusions once nodes are stable.
 
-## Monitoring voting configuration
+## Monitoring voting configurations
 
-To monitor voting configuration, cluster health, and cluster manager elections, use the monitoring commands detailed in the [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation) overview.
+To monitor voting configurations, cluster health, and cluster manager elections, use the monitoring commands detailed in [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation).
 
 ## Cluster state publishing
 
@@ -134,29 +134,29 @@ After a successful commitment, some nodes might be slow to apply the update. The
 
 ### State publishing optimizations
 
-OpenSearch optimizes cluster state publishing by typically sending **differential updates (diffs)** instead of full state copies. This approach reduces network bandwidth and publication time because only the changed portions are transmitted to nodes that already hold the current state. For example, when index mappings are updated, only the mapping changes are distributed rather than the entire state.
+OpenSearch typically optimizes cluster state publishing by sending **differential updates (diffs)** instead of full state copies. This approach reduces network bandwidth and publication time because only the changed portions are transmitted to nodes that already hold the current state. For example, when index mappings are updated, only the mapping changes are distributed rather than the entire state.
 
-In some cases, OpenSearch falls back to publishing the **full cluster state**. This happens when nodes need complete information, such as when a node rejoins the cluster, when a new node joins for the first time, or when a node’s state is outdated and must be synchronized with the current cluster view.
+In some cases, OpenSearch falls back to publishing the **full cluster state**. This happens when nodes need complete information, such as when a node rejoins the cluster, when a new node joins for the first time, or when a node's state is outdated and must be synchronized with the current cluster view.
 
 
 ### Monitoring state publishing
 
-To monitor cluster state publishing, use the monitoring commands detailed in the [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation) overview.
+To monitor cluster state publishing, use the monitoring commands detailed in [Discovery and cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/#monitoring-discovery-and-cluster-formation).
 
 
 ### OpenSearch as a peer-to-peer system
 
 Understanding OpenSearch's architecture helps explain state publishing importance:
 
-- High-throughput APIs (index, delete, search) communicate directly between nodes.
-- Cluster manager role is limited to maintaining global cluster state and coordinating shard allocation.
+- High-throughput APIs (Index, Delete, Search) communicate directly between nodes.
+- The cluster manager role is limited to maintaining global cluster state and coordinating shard allocation.
 - State changes (node joins/leaves, shard reassignment) require cluster-wide coordination.
-- State publishing ensures all nodes have consistent view of cluster topology.
+- State publishing ensures that all nodes have a consistent view of cluster topology.
 
 This design keeps the cluster manager from becoming a bottleneck for data operations while ensuring consistent cluster coordination.
 
 ## Related documentation
 
-- [Discovery and cluster formation settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/settings/): Configure voting and election behavior
+- [Discovery and cluster formation settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/settings/): Configuring voting and election behavior
 - [Node discovery and seed hosts]({{site.url}}{{site.baseurl}}/tuning-your-cluster/discovery-cluster-formation/discovery/): How nodes find each other
 - [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/): Step-by-step cluster setup guide

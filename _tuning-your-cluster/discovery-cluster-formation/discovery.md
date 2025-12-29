@@ -11,9 +11,9 @@ Node discovery is the process by which OpenSearch nodes locate and connect to ot
 
 The discovery process operates in two distinct phases:
 
-1. **Initial seed discovery**: Each starting node connects to a predefined list of seed addresses and attempts to identify whether the nodes at those addresses are cluster-manager-eligible.
+1. **Initial seed discovery**: Each starting node connects to a predefined list of seed addresses and attempts to identify whether the nodes at those addresses are cluster manager eligible.
 
-2. **Peer discovery**: Once connected to seed nodes, the node exchanges lists of known cluster-manager-eligible peers. This creates a cascading discovery process where each newly discovered node provides additional peer information.
+2. **Peer discovery**: Once connected to seed nodes, the node exchanges lists of known cluster-manager-eligible peers. This creates a cascading discovery process whereby each newly discovered node provides additional peer information.
 
 The discovery process continues until one of the following conditions is met:
 
@@ -22,13 +22,13 @@ The discovery process continues until one of the following conditions is met:
 
 If neither condition is met within the configured time, the node retries the discovery process after the interval specified by `discovery.find_peers_interval` (default is `1s`).
 
-## Seed hosts providers
+## Seed host providers
 
-OpenSearch uses _seed hosts providers_ to supply the initial list of addresses for node discovery. These providers define how nodes obtain the seed addresses needed to start the discovery process.
+OpenSearch uses _seed host providers_ to supply the initial list of addresses for node discovery. These providers define how nodes obtain the seed addresses needed to start the discovery process.
 
-You can configure seed hosts providers using the `discovery.seed_providers` setting, which accepts a list of provider types. This allows you to combine multiple discovery methods for your cluster. The default provider is `settings`, which uses static configuration.
+You can configure seed host providers using the `discovery.seed_providers` setting, which accepts a list of provider types. This allows you to combine multiple discovery methods for your cluster. The default provider is `settings`, which uses static configuration.
 
-### Settings-based seed hosts provider
+### Settings-based seed host provider
 
 The settings-based provider uses static configuration to define a list of seed node addresses. This is the most common approach for on-premises deployments with known node addresses.
 
@@ -59,7 +59,7 @@ When no port is specified, OpenSearch uses the first port from these settings in
 
 If neither setting is configured, the default port `9300` is used.
 
-When you specify hostnames as seed addresses OpenSearch performs the following DNS resolution steps:
+When you specify hostnames as seed addresses, OpenSearch performs the following DNS resolution steps:
 
 - OpenSearch performs DNS lookups to resolve hostnames to IP addresses.
 - If a hostname resolves to multiple IP addresses, OpenSearch attempts to connect to all resolved addresses.
@@ -68,10 +68,10 @@ When you specify hostnames as seed addresses OpenSearch performs the following D
 
 The DNS resolution behavior is controlled by these settings:
 
-- `discovery.seed_resolver.max_concurrent_resolvers`: Maximum concurrent DNS lookups (default is `10`).
-- `discovery.seed_resolver.timeout`: Timeout for each DNS lookup (default is `5s`).
+- `discovery.seed_resolver.max_concurrent_resolvers`: Maximum concurrent DNS lookups (default is `10`)
+- `discovery.seed_resolver.timeout`: Timeout for each DNS lookup (default is `5s`)
 
-### File-based seed hosts provider
+### File-based seed host provider
 
 The file-based provider reads seed host addresses from an external file, allowing for dynamic updates without restarting nodes. This is particularly useful in containerized environments where IP addresses may not be known at startup.
 
@@ -109,12 +109,12 @@ node2.example.com:9301
 ```
 {% include copy.html %}
 
-The file should follow this format:
+Each line in the file must follow these rules:
 
 - Each line contains a single host address.
-- Specify a `host:port` or just `host` (uses default port).
+- Specify a `host:port` or just `host` (uses the default port).
 - Lines starting with `#` are treated as comments.
-- IPv6 addresses must be enclosed in brackets, with optional port after the brackets.
+- IPv6 addresses must be enclosed in brackets, with an optional port specified after the brackets.
 - Empty lines are ignored.
 
 OpenSearch automatically detects changes to the `unicast_hosts.txt` file and reloads the seed host list without requiring a node restart. This allows you to:
@@ -141,7 +141,7 @@ discovery.seed_hosts:
 ```
 {% include copy.html %}
 
-This configuration uses both static seed hosts and dynamically loaded hosts from a file.
+This configuration uses both static seed hosts and hosts loaded dynamically from a file.
 
 ### Single-node development setup
 
