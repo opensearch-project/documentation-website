@@ -113,14 +113,14 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Registering a model is an asynchronous task. OpenSearch returns a task ID for this task. Check the status of the task by using the Tasks API:
+Registering a model is an asynchronous task. OpenSearch returns a task ID for this task. Check the status of the task by using the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```json
 GET /_plugins/_ml/tasks/<task_id>
 ```
 {% include copy-curl.html %}
 
-Once the task is complete, the task state will change to `COMPLETED` and the Tasks API response will contain a model ID for the registered model. Note the model ID; you'll use it in the following steps.
+Once the task is complete, the task state will change to `COMPLETED` and the ML Tasks API response will contain a model ID for the registered model. Note the model ID; you'll use it in the following steps.
 
 ### Step 2: Create an ingest pipeline 
 {:.no_toc} 
