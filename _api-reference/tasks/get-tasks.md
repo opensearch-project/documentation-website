@@ -9,7 +9,10 @@ nav_order: 20
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Get Task API returns detailed information about a single task.
+The Get Task API returns detailed information about a single general OpenSearch task (such as search, reindex, or bulk operations).
+
+This API is different from the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/), which tracks machine learning tasks and has a different response format.
+{: .important }
 
 <!-- spec_insert_start
 api: tasks.get

@@ -41,7 +41,7 @@ OpenSearch responds with a task ID for the model registration and deployment tas
 }
 ```
 
-You can monitor the status of the task by calling the Tasks API:
+You can monitor the status of the task by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```json
 GET _plugins/_ml/tasks/M_9KY40Bk4MTqirc5lP8
