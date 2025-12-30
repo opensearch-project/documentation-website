@@ -11,11 +11,14 @@ redirect_from:
 Introduced 2.13
 {: .label .label-purple }
 
-When working with large text documents in [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/), it's often necessary to split them into smaller passages because most embedding models have token length limitations. This process, called _text\_chunking_, helps maintain the quality and relevance of vector search results by ensuring that each embedding represents a focused piece of content that fits within model constraints. 
+When working with large text documents in [AI search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/), it's often necessary to split them into smaller passages because most embedding models have token length limitations. This process, called _text chunking_, helps maintain the quality and relevance of vector search results by ensuring that each embedding represents a focused piece of content that fits within model constraints. 
 
-To split long text into passages, you can use a `text_chunking` processor as a preprocessing step for a `text_embedding` or `sparse_encoding` processor in order to obtain embeddings for each chunked passage. For more information about the processor parameters, see [Text chunking processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/). Before you start, follow the steps outlined in the [pretrained model documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) to register an embedding model. The following examples preprocess text by splitting it into passages and then produces embeddings using `text_embedding` or `sparse_encoding` processor.
+To split long text into passages, you can use a `text_chunking` processor as a preprocessing step for a `text_embedding` or `sparse_encoding` processor in order to obtain embeddings for each chunked passage. For more information about the processor parameters, see [Text chunking processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-chunking/). Before you start, follow the steps outlined in the [pretrained model documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) to register an embedding model. The following examples preprocess text by splitting it into passages and then produce embeddings using a `text_embedding` or `sparse_encoding` processor.
 
-## Text chunking with text embedding processor
+## Text chunking using a text embedding processor
+
+The following example uses a text embedding processor to perform text chunking.
+
 
 ### Step 1: Create a pipeline
 
@@ -122,7 +125,10 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-## Text chunking with sparse encoding processor
+## Text chunking using a sparse encoding processor
+
+The following example uses a sparse encoding processor to perform text chunking.
+
 
 ### Step 1: Create a pipeline
 
@@ -162,10 +168,10 @@ PUT _ingest/pipeline/text-chunking-embedding-ingest-pipeline
 
 ### Step 2: Create an index for ingestion
 
-In order to use the ingest pipeline, you need to create an index supporting sparse embeddings. The `passage_chunk_embedding` field must be of the `nested` type. For conventional [neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/), the `sparse_encoding` field must be with type `rank_features`:
+In order to use the ingest pipeline, you need to create an index supporting sparse embeddings. The `passage_chunk_embedding` field must be of the `nested` type. For conventional [neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/), the `sparse_encoding` field must be of the `rank_features` type:
 
 ```json
-PUT testindex
+PUT /testindex
 {
   "mappings": {
     "properties": {
@@ -186,10 +192,10 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-For [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) introduced in OpenSearch 3.4, the index setting `index.sparse` must be true and the `sparse_encoding` field must be with type `sparse_vector`:
+For [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/), the index  `index.sparse` setting must be set to `true` and the `sparse_encoding` field must be of the `sparse_vector` type:
 
 ```json
-PUT testindex
+PUT /testindex
 {
   "settings": {
     "index": {
@@ -228,17 +234,17 @@ To ingest a document into the index created in the previous step, send the follo
 ```json
 POST testindex/_doc?pipeline=text-chunking-embedding-ingest-pipeline
 {
-"passage_text": "This is an example document to be chunked. The document contains a single paragraph, two sentences and 24 tokens by standard tokenizer in OpenSearch."
+  "passage_text": "This is an example document to be chunked. The document contains a single paragraph, two sentences and 24 tokens by standard tokenizer in OpenSearch."
 }
 ```
 {% include copy-curl.html %}
 
 ### Step 4: Search the index
 
-You can use a `nested` query to perform vector search on your index. We recommend setting `score_mode` to `max`, where the document score is set to the highest score out of all passage embeddings:
+You can use a `nested` query to perform vector search on your index. We recommend setting `score_mode` to `max` so the document score is set to the highest score out of all passage embeddings:
 
 ```json
-GET testindex/_search
+GET /testindex/_search
 {
   "query": {
     "nested": {
