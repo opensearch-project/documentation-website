@@ -186,9 +186,7 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-For [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/), the index setting `index.sparse` must be true and the `sparse_encoding` field must be with type `sparse_vector`:
-Introduced 3.4
-{: .label .label-purple }
+For [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/) introduced in OpenSearch 3.4, the index setting `index.sparse` must be true and the `sparse_encoding` field must be with type `sparse_vector`:
 
 ```json
 PUT testindex
