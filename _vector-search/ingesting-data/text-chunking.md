@@ -168,7 +168,7 @@ PUT _ingest/pipeline/text-chunking-embedding-ingest-pipeline
 
 ### Step 2: Create an index for ingestion
 
-In order to use the ingest pipeline, you need to create an index supporting sparse embeddings. The `passage_chunk_embedding` field must be of the `nested` type. For conventional [neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/), the `sparse_encoding` field must be of the `rank_features` type:
+In order to use the ingest pipeline, you need to create an index that supports sparse embeddings. The `passage_chunk_embedding` field must be of the `nested` type. For conventional [neural sparse search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-search/), the `sparse_encoding` field must be of the `rank_features` type:
 
 ```json
 PUT /testindex
@@ -192,7 +192,7 @@ PUT /testindex
 ```
 {% include copy-curl.html %}
 
-For [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/), the index  `index.sparse` setting must be set to `true` and the `sparse_encoding` field must be of the `sparse_vector` type:
+For [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/), the `index.sparse` setting must be set to `true` and the `sparse_encoding` field must be of the `sparse_vector` type:
 
 ```json
 PUT /testindex
