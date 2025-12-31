@@ -23,7 +23,7 @@ To create a cluster metrics monitor, follow these steps:
 1. Select **Alerting** > **Monitors** > **Create monitor**.
 2. Select the **Per cluster metrics monitor** option.
 3. In the Query section, pick the **Request type** from the dropdown list.
-4. (Optional) If you want to filter the API response to use only certain path parameters, enter those parameters under **Query parameters**. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (for example, comma-separated lists of index names).
+4. (Optional) If you want to filter the API response to use only certain path parameters, enter those parameters under **Path parameters**. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (for example, comma-separated lists of index names).
 5. In the [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) section, indicate which conditions will trigger an alert. The trigger condition autopopulates a `painless ctx` variable. For example, a cluster monitor watching for Cluster Stats uses the trigger condition `ctx.results[0].indices.count <= 0`, which triggers an alert based on the number of indexes returned by the query. For more specificity, add any additional Painless conditions supported by the API. To see an example of the condition response, select **Preview condition response**.
 6. In the Actions section, indicate how you want your users to be notified when a trigger condition is met.
 7. Select **Create**. Your new monitor appears in the **Monitors** list.
