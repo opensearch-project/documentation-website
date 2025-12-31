@@ -87,7 +87,6 @@ The `script` parameter points the `source` to the Painless script `for (cluster 
   "inputs": [
     {
       "uri": {
-        "api_type": "CLUSTER_HEALTH",
         "path": "_cluster/health/",
         "path_params": "",
         "url": "http://localhost:9200/_cluster/health/",
