@@ -462,7 +462,7 @@ OpenSearch responds with the `task_id`, task `status`, and `model_id`:
 
 ## Check the status of model registration
 
-To see the status of your model registration and retrieve the model ID created for the new model version, pass the `task_id` as a path parameter to the Tasks API:
+To see the status of your model registration and retrieve the model ID created for the new model version, pass the `task_id` as a path parameter to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```json
 GET /_plugins/_ml/tasks/<task_id>

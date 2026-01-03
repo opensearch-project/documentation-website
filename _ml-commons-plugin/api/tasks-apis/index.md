@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Tasks APIs
+title: ML Tasks APIs
 parent: ML Commons APIs
 has_children: true
 has_toc: false
@@ -9,9 +9,10 @@ redirect_from:
   - /ml-commons-plugin/api/tasks-apis/
 ---
 
-# Tasks APIs
+# ML Tasks APIs
 
-ML Commons supports the following Tasks APIs:
+ML Commons supports the following ML Tasks APIs:
 
-- [Get task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/)
-- [Delete task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/delete-task/)
+- [Get ML task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/)
+- [Delete ML task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/delete-task/)
+- [Search ML tasks]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/search-task/)

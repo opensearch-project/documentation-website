@@ -87,14 +87,14 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-This API returns a `task_id` for the deployment operation. Use the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) to monitor the deployment status:
+This API returns a `task_id` for the deployment operation. Use the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) to monitor the deployment status:
 
 ```json
 GET /_plugins/_ml/tasks/<your-task-id>
 ```
 {% include copy-curl.html %}
 
-Once the `state` changes to `COMPLETED`, the Tasks API returns the model ID for the deployed model. Note the text embedding model ID; you'll use it in the following steps.
+Once the `state` changes to `COMPLETED`, the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) returns the model ID for the deployed model. Note the text embedding model ID; you'll use it in the following steps.
 
 Next, register a pretrained semantic sentence highlighting model:
 
@@ -109,7 +109,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Monitor the deployment status using the Tasks API. Note the semantic highlighting model ID; you'll use it in the following steps.
+Monitor the deployment status using the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Note the semantic highlighting model ID; you'll use it in the following steps.
 
 For production environments, consider using an externally hosted model instead of a locally deployed model. Externally hosted models offer better scalability, resource isolation, and support for advanced features like batch inference. For information about deploying externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/).
 {: .tip}

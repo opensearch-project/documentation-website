@@ -105,6 +105,7 @@ Parameter | Data type     | Description
     {
       "timestamp" : 1745021834451,
       "id" : "36506bd2-7bca-4a0a-a6b8-f3e7db2b0745",
+      "wlm_group_id" : "DEFAULT_WORKLOAD_GROUP",
       "group_by" : "NONE",
       "indices" : [
         "my-index-0"
@@ -167,6 +168,7 @@ Parameter | Data type     | Description
           }
         }
       ],
+      "username" : "admin",
       "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
       "phase_latency_map" : {
         "expand" : 0,
@@ -178,6 +180,9 @@ Parameter | Data type     | Description
       },
       "search_type" : "query_then_fetch",
       "total_shards" : 1,
+      "user_roles" : [
+        "all_access"
+      ],
       "measurements" : {
         "memory" : {
           "number" : 6608456,
@@ -199,6 +204,7 @@ Parameter | Data type     | Description
     {
       "timestamp" : 1745021826937,
       "id" : "86e161d0-e982-48c2-b8da-e3a3763f2e36",
+      "wlm_group_id" : "DEFAULT_WORKLOAD_GROUP",
       "group_by" : "NONE",
       "indices" : [
         "my-index-*"
@@ -236,6 +242,7 @@ Parameter | Data type     | Description
           }
         }
       ],
+      "username" : "admin",
       "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
       "phase_latency_map" : {
         "expand" : 0,
@@ -245,6 +252,9 @@ Parameter | Data type     | Description
       "labels" : { },
       "search_type" : "query_then_fetch",
       "total_shards" : 1,
+      "user_roles" : [
+        "all_access"
+      ],
       "measurements" : {
         "memory" : {
           "number" : 4408088,

@@ -22,7 +22,7 @@ OpenSearch supports the following machine learning (ML) APIs:
 - [Controller APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/index/)
 - [Execute Algorithm API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-algorithm/)
 - [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/)
-- [Tasks APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/index/)
+- [ML Tasks APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/index/)
 - [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/)
 - [Stats API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/stats/)
 - [MCP Server APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/)
