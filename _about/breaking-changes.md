@@ -47,7 +47,7 @@ OpenSearch 2.5 contains a bug fix that corrects the behavior of the `case_insens
 
 ### Default k-NN engine change
 
-The default k-NN engine changed from NMSLIB to Faiss. If you use `space_type: "cosinesimil"` without explicitly specifying an engine, your vectors are now automatically normalized to unit length during indexing. This happens because Faiss does not natively support cosine similarity and instead uses inner product on normalized vectors. As a result, stored vector values will differ from input values, which may affect code that retrieves and compares vectors. If your vectors are already normalized, consider using `space_type: "innerproduct"` instead for mathematically equivalent results with explicit control over normalization. For more information, see pull request [#2221](https://github.com/opensearch-project/k-NN/pull/2221).
+The default k-NN engine changed from NMSLIB to Faiss. If you use `space_type: "cosinesimil"` without explicitly specifying an engine, your vectors are now automatically normalized to unit length during indexing. This happens because Faiss does not natively support cosine similarity and instead uses inner product on normalized vectors. As a result, stored vector values will differ from input values, which may affect code that retrieves and compares vectors. If your vectors are already normalized, consider setting `space_type` to `innerproduct` instead of `cosinesimil` to obtain mathematically equivalent results with explicit control over normalization. For more information, see pull request [#2221](https://github.com/opensearch-project/k-NN/pull/2221).
 
 ## 2.19.0
 

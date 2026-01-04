@@ -40,7 +40,7 @@ With cosine similarity, it is not valid to pass a zero vector (`[0, 0, ...]`) as
 The `hamming` space type is supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized#binary-vectors).
 {: .note}
 
-When using `cosinesimil` with the Faiss engine, vectors are automatically normalized to unit length during indexing because Faiss uses inner product on normalized vectors internally. If your vectors are already normalized, consider using `innerproduct` instead for equivalent results with explicit control over normalization.
+When using `cosinesimil` with the Faiss engine, vectors are automatically normalized to unit length during indexing because Faiss uses inner product on normalized vectors internally. If your vectors are already normalized, consider using `innerproduct` instead of `cosinesimil` to obtain equivalent results with explicit control over normalization.
 {: .important}
 
 ## Specifying the space type

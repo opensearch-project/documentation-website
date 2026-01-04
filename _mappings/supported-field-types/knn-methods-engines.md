@@ -132,7 +132,7 @@ Method name | Requires training | Supported spaces
 [`hnsw`](#hnsw-parameters-1) | No | `l2`, `innerproduct` (not available when [PQ](#pq-parameters) is used), `hamming`, and `cosinesimil` (supported in OpenSearch 2.19 and later).
 [`ivf`](#ivf-parameters) | Yes | `l2`, `innerproduct`, `hamming` (supported for binary vectors in OpenSearch version 2.16 and later. For more information, see [Binary k-NN vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized#binary-vectors), `cosinesimil` (supported in OpenSearch 2.19 and later).
 
-When using `cosinesimil` with the Faiss engine, vectors are automatically normalized to unit length during indexing because Faiss uses inner product on normalized vectors internally. Stored vector values will differ from input values.
+When using `cosinesimil` with the Faiss engine, vectors are automatically normalized to unit length during indexing because Faiss uses inner product on normalized vectors internally. As a result, stored vector values will differ from input values.
 {: .important}
 
 #### HNSW parameters
