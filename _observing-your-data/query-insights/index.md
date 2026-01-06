@@ -22,7 +22,7 @@ Typical use cases for query insights features include the following:
 - Analyze common slow query structures to find optimization opportunities.
 - Monitor live, in-flight queries to diagnose immediate search performance issues.
 
-Query insights features are provided by the Query Insights plugin, which is included by default in the OpenSearch distribution. At a high level, these features consist of the following components:
+Query insights features are provided by the Query Insights plugin, which is included by default in the OpenSearch distribution. At a high level, these features comprise the following components:
 
 * _Collectors_: Gather performance-related data points at various stages of search query execution.
 * _Processors_: Perform lightweight aggregation and processing on data collected by the collectors.
