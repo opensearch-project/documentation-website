@@ -62,6 +62,12 @@ For information about `two_phase_search_pipeline`, see [Neural sparse query two-
 
 For information about splitting large documents into smaller passages before generating embeddings, see [Text chunking]({{site.url}}{{site.baseurl}}/vector-search/ingesting-data/text-chunking/).
 
+## Neural sparse ANN search
+**Introduced 3.3**
+{: .label .label-purple }
+
+You can run neural sparse approximate nearest neighbor (ANN) search to achieve better query performance with high query recall (>0.9). For more information, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/).
+
 ## Further reading
 
 - Learn more about how sparse encoding models work and explore OpenSearch neural sparse search benchmarks in [Improving document retrieval with sparse semantic encoders](https://opensearch.org/blog/improving-document-retrieval-with-sparse-semantic-encoders/).

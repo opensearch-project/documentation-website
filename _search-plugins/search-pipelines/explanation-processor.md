@@ -3,7 +3,7 @@ layout: default
 title: Hybrid score explanation
 nav_order: 15
 has_children: false
-parent: Search processors
+parent: User-defined search processors
 grand_parent: Search pipelines
 ---
 

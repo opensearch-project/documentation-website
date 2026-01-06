@@ -3,21 +3,26 @@ layout: default
 title: Command reference
 nav_order: 50
 has_children: true
-parent: OpenSearch Benchmark Reference
+has_toc: false
+parent: Reference
 redirect_from:
   - /benchmark/commands/index/
   - /benchmark/reference/commands/
+  - /benchmark/commands/execute-test/
 ---
 
 # OpenSearch Benchmark command reference
 
-This section provides a list of commands supported by OpenSearch Benchmark, including commonly used commands such as `run` and `list`.
+OpenSearch Benchmark supports the following commands:
 
-- [compare]({{site.url}}{{site.baseurl}}/benchmark/commands/compare/)
-- [download]({{site.url}}{{site.baseurl}}/benchmark/commands/download/)
-- [run]({{site.url}}{{site.baseurl}}/benchmark/commands/run/)
-- [info]({{site.url}}{{site.baseurl}}/benchmark/commands/info/)
-- [list]({{site.url}}{{site.baseurl}}/benchmark/commands/list/)
+- [aggregate]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/aggregate/)
+- [compare]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/compare/)
+- [download]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/download/)
+- [generate-data]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/generate-data/)
+- [info]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/info/)
+- [list]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/list/)
+- [redline-test]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/redline-test/)
+- [run]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/run/)
 
 ## List of common options
 
@@ -27,3 +32,4 @@ All OpenSearch Benchmark commands support the following options:
 - `--quiet`: Hides as much of the results output as possible. Default is `false`.
 - `--offline`: Indicates whether OpenSearch Benchmark has a connection to the internet. Default is `false`.
 
+For more information about command options, see [Command flags]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/command-flags/).

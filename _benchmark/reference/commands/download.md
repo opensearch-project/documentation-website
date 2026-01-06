@@ -1,9 +1,9 @@
 ---
 layout: default
 title: download
-nav_order: 60
+nav_order: 30
 parent: Command reference
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 redirect_from:
   - /benchmark/commands/download/
 ---

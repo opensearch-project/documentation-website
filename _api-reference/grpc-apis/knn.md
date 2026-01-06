@@ -18,19 +18,19 @@ For information about HTTP-based k-NN queries, see [k-NN query]({{site.url}}{{si
 
 ## Prerequisite
 
-To submit gRPC requests, you must have a set of protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#using-grpc-apis).
+To submit gRPC requests, you must have a set of protobufs on the client side. For ways to obtain the protobufs, see [Using gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#how-to-use-grpc-apis).
 
 ## gRPC service and method
 
-gRPC k-NN APIs reside in the [`SearchService`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/services/search_service.proto#L22), the same service used for general search operations.
+gRPC k-NN APIs reside in the [`SearchService`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/services/search_service.proto#L22), the same service used for general search operations.
 
-You can submit k-NN search requests by invoking the [`Search`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/services/search_service.proto#L23) gRPC method within the `SearchService`, using a [`KnnQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1058) within the search request. The method takes a [`SearchRequest`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L18) and returns a [`SearchResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L317).
+You can submit k-NN search requests by invoking the [`Search`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/services/search_service.proto#L23) gRPC method within the `SearchService`, using a [`KnnQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1267) within the search request. The method takes a [`SearchRequest`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L19) and returns a [`SearchResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L230).
 
 The gRPC implementation uses the same underlying k-NN functionality as the HTTP API while providing improved performance through protocol buffer serialization.
 
 ## KnnQuery fields
 
-The gRPC k-NN API uses the [`KnnQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1058) message within a [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L341) for k-NN searches. The `KnnQuery` message accepts the following fields.
+The gRPC k-NN API uses the [`KnnQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1267) message within a [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L384) for k-NN searches. The `KnnQuery` message accepts the following fields.
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
@@ -39,11 +39,11 @@ The gRPC k-NN API uses the [`KnnQuery`](https://github.com/opensearch-project/op
 | `k` | `int32` | The number of nearest neighbors to return as top hits. Optional. |
 | `min_score` | `float` | The minimum similarity score required for a neighbor to be considered a hit. Optional. |
 | `max_distance` | `float` | The maximum physical distance in vector space required for a neighbor to be considered a hit. Optional. |
-| `filter` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L341) | Filters for the k-NN search query. See [Filter limitations](#filter-limitations). Optional. |
+| `filter` | [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L384) | Filters for the k-NN search query. See [Filter limitations](#filter-limitations). Optional. |
 | `boost` | `float` | A boost value used to increase or decrease relevance scores. Default is 1.0. Optional. |
 | `underscore_name` | `string` | A query name for query tagging (JSON key: `_name`). Optional. |
-| `method_parameters` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L76) | Algorithm-specific parameters (for example, `ef_search` or `nprobes`). Optional. |
-| `rescore` | [`KnnQueryRescore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/common.proto#L1107) | A rescoring configuration for improved accuracy. Available in versions later than 2.17. Optional. |
+| `method_parameters` | [`ObjectMap`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L107) | Algorithm-specific parameters (for example, `ef_search` or `nprobes`). Optional. |
+| `rescore` | [`KnnQueryRescore`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/common.proto#L1316) | A rescoring configuration for improved accuracy. Available in versions later than 2.17. Optional. |
 | `expand_nested_docs` | `bool` | When `true`, retrieves scores for all nested field documents within each parent document. Used with nested queries. Optional. |
 
 ## Example request
@@ -53,7 +53,7 @@ The following example shows a gRPC search request with a k-NN query. It searches
 ```json
 {
   "index": ["vector_index"],
-  "request_body": {
+  "search_request_body": {
     "query": {
       "knn": {
         "field": "my_vector",
@@ -98,16 +98,35 @@ public class KnnGrpcClient {
         // Create the search request
         SearchRequest request = SearchRequest.newBuilder()
             .addIndex("vector_index")
-            .setRequestBody(SearchRequestBody.newBuilder()
+            .setSearchRequestBody(SearchRequestBody.newBuilder()
                 .setQuery(knnQuery)
                 .setSize(10)
                 .build())
             .build();
 
         // Execute the search
-        SearchResponse response = searchStub.search(request);
+        try {
+            SearchResponse response = searchStub.search(request);
 
-        System.out.println("Found " + response.getResponseBody().getHits().getHitsCount() + " results");
+            // Handle the response
+            System.out.println("Search took: " + response.getTook() + " ms");
+
+            HitsMetadata hits = response.getHits();
+            if (hits.hasTotal()) {
+                System.out.println("Found " + hits.getTotal().getTotalHits().getValue() + " results");
+            }
+
+            // Process k-NN results with similarity scores
+            for (HitsMetadataHitsInner hit : hits.getHitsList()) {
+                System.out.println("Document ID: " + hit.getXId());
+                if (hit.hasXScore()) {
+                    System.out.println("Similarity score: " + hit.getXScore().getDouble());
+                }
+            }
+        } catch (io.grpc.StatusRuntimeException e) {
+            System.err.println("gRPC k-NN search request failed with status: " + e.getStatus());
+            System.err.println("Error message: " + e.getMessage());
+        }
 
         channel.shutdown();
     }
@@ -117,7 +136,7 @@ public class KnnGrpcClient {
 
 ## Response fields
 
-k-NN search requests return the same [`SearchResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.6.0/protos/schemas/search.proto#L317) structure as regular search operations. For information about response fields, see [Search (gRPC) response fields]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/#response-fields).
+k-NN search requests return the same [`SearchResponse`](https://github.com/opensearch-project/opensearch-protobufs/blob/0.24.0/protos/schemas/search.proto#L230) structure as regular search operations. For information about response fields, see [Search (gRPC) response fields]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/#response-fields).
 
 The response includes the standard search metadata (`took`, `timed_out`, and `shards`) and a `hits` array containing the k-NN documents with their similarity scores.
 
@@ -140,4 +159,4 @@ For complex filtering requirements, consider using the HTTP k-NN API, simplifyin
 - Learn more about [vector search in OpenSearch]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/).
 - Explore [k-NN index settings]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 - Review [performance tuning for k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/performance-tuning/).
-- Read about [gRPC configuration]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#enabling-grpc-apis).
+- Read about [gRPC configuration]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#grpc-settings).

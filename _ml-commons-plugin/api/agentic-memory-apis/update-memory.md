@@ -1,40 +1,105 @@
 ---
 layout: default
-title: Update agentic memory
-parent: Agentic Memory APIs
+title: Update memory
+parent: Agentic memory APIs
 grand_parent: ML Commons APIs
-nav_order: 50
+nav_order: 52
 ---
 
-# Update Agentic Memory API
-**Introduced 3.2**
+# Update Memory API
+**Introduced 3.3**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
+Use this API to update a specific memory by its type and ID. This unified API supports updating `sessions`, `working`, and `long-term` [memory types]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-types). `history` memory does not support updates.
 
-Use this API to update an agentic memory.
-
-## Endpoint
+## Endpoints
 
 ```json
-PUT /_plugins/_ml/memory_containers/{memory_container_id}/memories/{memory_id}
+PUT /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id>
 ```
 
-## Request body fields
+## Path parameters
 
-The following table lists the available request body fields.
+The following table lists the available path parameters.
 
-Field | Data type | Required/Optional | Description
-:--- | :--- | :--- | :---
-`text` | String | Required | The updated `text` content.
+| Parameter | Data type | Required/Optional | Description |
+| :--- | :--- | :--- | :--- |
+| `memory_container_id` | String | Required | The ID of the memory container. |
+| `type` | String | Required | The memory type. Valid values are `sessions`, `working`, and `long-term`. Note that `history` memory cannot be updated. |
+| `id` | String | Required | The ID of the memory to update. |
 
-## Example request
+## Request fields
+
+The request fields vary depending on the memory type being updated. All request fields are optional.
+
+### Session memory request fields
+
+The following table lists all session memory request body fields. 
+
+| Field      | Data type             | Description |
+|:-----------|:----------------------| :--- |
+| `summary`  | String                | The summary of the session.
+| `metadata` | Object   | Additional metadata for the memory (for example, `status`, `branch`, or custom fields). |
+| `agents`   | Object   | Additional information about the agents. |
+| `additional_info` | Object | Additional metadata to associate with the session. |
+
+### Working memory request fields
+
+The following table lists all working memory request body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `messages` | Array | Updated conversation messages (for conversation type). Optional. |
+| `structured_data` | Object | Updated structured data content (for `data` memory payloads). |
+| `binary_data` | Object | Updated binary data content (for `data` memory payloads). Optional.           |
+| `tags` | Object | Updated tags for categorization.                       |
+| `metadata` | Object  | Additional metadata for the memory (for example, `status`, `branch`, or custom fields).
+
+### Long-term memory request fields
+
+The following table lists all long-term memory request body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `memory` | String | The updated memory content. Optional. |
+| `tags` | Object | Updated tags for categorization. Optional. |
+
+## Example request: Update a session
 
 ```json
-PUT /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories/T9jtmpgBOh0h20Y91WtZ
+PUT /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/sessions/N2CDipkB2Mtr6INFFcX8
 {
-    "text": "Updated content with new information about machine learning"
+  "additional_info": {
+    "key1": "value1",
+    "last_activity": "2025-09-15T17:30:00Z"
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Example request: Update a working memory
+
+```json
+PUT /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/working/XyEuiJkBeh2gPPwzjYWM
+{
+  "tags": {
+    "topic": "updated_topic",
+    "priority": "high"
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Example request: Update a long-term memory
+
+```json
+PUT /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/DcxjTpkBvwXRq366C1Zz
+{
+  "memory": "User's name is Bob Smith",
+  "tags": {
+    "topic": "personal info",
+    "updated": "true"
+  }
 }
 ```
 {% include copy-curl.html %}
@@ -43,16 +108,24 @@ PUT /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories/T9jtmpgBOh0h20
 
 ```json
 {
-    "_index": "ml-static-memory-sdjmmpgboh0h20y9kwun-admin",
-    "_id": "S9jnmpgBOh0h20Y9qWu7",
-    "_version": 2,
-    "result": "updated",
-    "_shards": {
-        "total": 2,
-        "successful": 2,
-        "failed": 0
-    },
-    "_seq_no": 2,
-    "_primary_term": 1
+  "result": "updated",
+  "_id": "N2CDipkB2Mtr6INFFcX8",
+  "_version": 2,
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  }
 }
 ```
+
+## Response fields
+
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `result` | String | The result of the update operation. |
+| `_id` | String | The ID of the updated memory. |
+| `_version` | Integer | The version number of the updated memory. |
+| `_shards` | Object | Information about the shards involved in the operation. |

@@ -57,14 +57,14 @@ Registering a model is an asynchronous task. OpenSearch returns a task ID for th
 }
 ```
 
-You can check the status of the task by calling the Tasks API:
+You can check the status of the task by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```json
 GET /_plugins/_ml/tasks/aFeif4oB5Vm0Tdw8yoN7
 ```
 {% include copy-curl.html %}
 
-Once the task is complete, the task state changes to `COMPLETED` and the Tasks API response includes a model ID for the deployed model:
+Once the task is complete, the task state changes to `COMPLETED` and the ML Tasks API response includes a model ID for the deployed model:
 
 ```json
 {
@@ -101,6 +101,7 @@ PUT /_ingest/pipeline/test-pipeline-local-model
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Step 3: Create a vector index and ingest data
 

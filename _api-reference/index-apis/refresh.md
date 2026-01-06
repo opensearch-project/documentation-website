@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Refresh index
-parent: Index APIs
-nav_order: 115
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 60
 ---
 
 # Refresh Index API

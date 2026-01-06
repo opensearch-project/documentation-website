@@ -85,7 +85,7 @@ To filter specific records for processing, use `ml_when` conditions.
 
 Once an offline batch job is created by the Data Prepper pipeline, you can track its status using the AI provider's (Amazon SageMaker or Amazon Bedrock) native console.
 
-Alternatively, you can check the job status by calling the [Search Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/search-task/). For example, to search for all currently running tasks, use the following request:
+Alternatively, you can check the job status by calling the [Search ML Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/search-task/). For example, to search for all currently running tasks, use the following request:
 
 ```json
 GET /_plugins/_ml/tasks/_search

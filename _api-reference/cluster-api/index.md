@@ -34,4 +34,3 @@ The following cluster API operations are available.
 - [Cluster decommission]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-decommission/)
 - [Cluster reroute]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-reroute/)
 - [Cluster voting configuration exclusions]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-voting-configuration-exclusions/)
-- [Shard stores]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/shard-stores/)

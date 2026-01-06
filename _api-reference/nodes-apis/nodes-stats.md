@@ -333,7 +333,8 @@ Select the arrow to view the example response.
         },
         "fielddata" : {
           "memory_size_in_bytes" : 356,
-          "evictions" : 0
+          "evictions" : 0,
+          "item_count": 1
         },
         "completion" : {
           "size_in_bytes" : 0,
@@ -933,10 +934,12 @@ search.concurrent_query_current	|Integer | The number of currently running query
 search.startree_query_total | Integer | The total number of query operations that use a star tree for search.	
 search.startree_query_time_in_millis | Integer | The total amount of time taken by all query operations that use a star tree for search, in milliseconds.	
 search.startree_query_current | Integer | The number of currently running query operations that use a star tree for search.	
+search.startree_query_failed | Integer | The number of failed query operations that use a star tree for search.
 search.open_contexts | Integer | The number of open search contexts.
 search.query_total | Integer | The total number of shard query operations.
 search.query_time_in_millis | Integer | The total amount of time for all shard query operations, in milliseconds.
 search.query_current | Integer | The number of shard query operations that are currently running.
+search.query_failed | Integer | The total number of failed shard query operations.
 search.fetch_total | Integer | The total number of shard fetch operations.
 search.fetch_time_in_millis | Integer | The total amount of time for all shard fetch operations, in milliseconds.
 search.fetch_current | Integer | The number of shard fetch operations that are currently running.
@@ -1008,6 +1011,7 @@ query_cache.evictions | Integer | The number of evictions from the query cache.
 fielddata | Object | Statistics about the field data cache for all shards in the node.
 fielddata.memory_size_in_bytes | Integer | The total amount of memory used for the field data cache for all shards in the node.
 fielddata.evictions | Integer | The number of evictions in the field data cache.
+fielddata.item_count | Integer | The number of items in the field data cache.
 fielddata.fields | Object | Contains all field data fields.
 completion | Object | Statistics about completions for all shards in the node.
 completion.size_in_bytes | Integer | The total amount of memory used for completion for all shards in the node, in bytes.

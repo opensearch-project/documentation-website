@@ -79,21 +79,21 @@ nav#site-nav > .nav-list:nth-of-type(1) {
 }
 
 .nav-shadow {
-  box-shadow: 0 6px 4px -4px $grey-lt-300;
+  box-shadow: 0 6px 4px -4px var(--border-color);
 }
 
 .main-content {
   ol {
     > li {
       &:before {
-        color: $grey-dk-100;
+        color: var(--text-light);
       }
     }
   }
   ul {
     > li {
       &:before {
-        color: $grey-dk-100;
+        color: var(--text-light);
       }
     }
   }
@@ -108,7 +108,7 @@ nav#site-nav > .nav-list:nth-of-type(1) {
     }
   }
   h4 {
-    font-size: 14px !important;
+    font-size: var(--font-size-xs) !important;
   }
   .highlight {
     line-height: 1.4;
@@ -138,14 +138,14 @@ nav#site-nav > .nav-list:nth-of-type(1) {
 
 .panel {
   border-radius: $border-radius;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-complex);
 }
 
 .td-custom {
   @extend td;
   
   &:first-of-type {
-    border-left: $border $border-color;
+    border-left: $border var(--border-color);
   }
 }
 
@@ -171,55 +171,60 @@ img {
 }
 
 .img-border {
-  border: 1px solid $grey-lt-300;
+  border: 1px solid var(--border-color);
 }
 
 // Note, tip, important, and warning blocks
 %callout {
-  border: 1px solid $grey-lt-300;
-  border-radius: 5px;
-  margin: 1rem 0;
-  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  margin: var(--spacing-base) 0;
+  padding: var(--spacing-base);
   position: relative;
 }
 
 .note {
   @extend %callout;
-  border-left: 5px solid $blue-300;
+  border-left: 5px solid var(--attention);
+  background-color: var(--callout-note-bg);
 }
 
 .tip {
   @extend %callout;
-  border-left: 5px solid $green-100;
+  border-left: 5px solid var(--callout-tip-border);
+  background-color: rgba(40, 192, 176, 0.08);
 }
 
 .important {
   @extend %callout;
-  border-left: 5px solid $yellow-000;
+  border-left: 5px solid var(--callout-warning-border);
+  background-color: rgba(255, 184, 28, 0.12);
 }
 
 .warning {
   @extend %callout;
-  border-left: 5px solid $red-100;
+  border-left: 5px solid var(--callout-error-border);
+  background-color: rgba(221, 74, 105, 0.08);
 }
 
 .info {
   @extend %callout;
-  border-left: 5px solid $blue-300;
+  border-left: 5px solid var(--attention);
   font-weight: 600;
-  background-color: $blue-lt-000;
+  background-color: var(--callout-note-bg);
 }
+
 
 @mixin version-warning ( $version: 'latest' ){
   @extend %callout, .panel;
   font-weight: 600;
   @if $version == 'unsupported' {
-    border-left: 5px solid $red-100;
-    background-color: mix(white, $red-100, 80%);
+    border-left: 5px solid var(--callout-error-border);
+    background-color: var(--callout-error-bg);
   }
   @else if $version == 'supported' {
-    border-left: 5px solid $yellow-000;
-    background-color: mix(white, $yellow-000, 80%);
+    border-left: 5px solid var(--callout-warning-border);
+    background-color: var(--callout-warning-bg);
   }
 }
 
@@ -234,73 +239,78 @@ img {
 // Labels
 .label,
 .label-blue {
-  background-color: $blue-300;
+  background-color: var(--attention);
 }
 
 .label-green {
-  background-color: $green-300;
+  background-color: var(--accent-secondary);
 }
 
 .label-purple {
-  background-color: $purple-200;
+  background-color: var(--accent-primary);
 }
 
 .label-red {
-  background-color: $red-100;
+  background-color: var(--accent-quaternary);
 }
 
 .label-yellow {
-  color: $grey-dk-300;
-  background-color: $yellow-000;
+  color: var(--body-text);
+  background-color: var(--accent-tertiary);
 }
 
 // Buttons
 .btn-primary {
-  @include btn-color($white, $btn-primary-color);
+  color: var(--text-inverse);
+  background-color: var(--accent-primary);
 }
 
 .btn-purple {
-  @include btn-color($white, $purple-200);
+  color: var(--text-inverse);
+  background-color: var(--accent-primary);
 }
 
 .btn-blue {
-  @include btn-color($white, $blue-300);
+  color: var(--text-inverse);
+  background-color: var(--attention);
 }
 
 .btn-green {
-  @include btn-color($white, $green-300);
+  color: var(--text-inverse);
+  background-color: var(--accent-secondary);
 }
 
 @mixin btn-default {
-  color: $blue-100;
-  background-color: white;
+  color: var(--link-color);
+  background-color: var(--surface-primary);
   font-size: 0.9rem;
   font-weight: 510;
-  border-width: 1px; 
+  border-width: 1px;
   border-style: solid;
-  border-radius: 5px;
-  box-shadow: 1px 1px $grey-lt-300;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-simple) var(--border-color);
   cursor: pointer;
 }
 
 @mixin elt-disabled {
-  color: mix(black, $base-button-color, 40%);
-  border-color: $base-button-color;
+  color: var(--disabled-text);
+  border-color: var(--button-bg);
   cursor: default;
-  background-color: mix(white, $base-button-color, 50%);
+  background-color: var(--disabled-bg);
   box-shadow: none;
 }
 
 .btn-general {
   @include btn-default;
-  border-color: $blue-100;
+  color: #{$blue-100};
+  border-color: #{$blue-100};
   padding: 0.5rem 1rem;
   margin-left: 0.4rem;
   margin-right: 0.4rem;
   &:hover {
     &:not([disabled]) {
-      background-color: $blue-lt-100;
-      box-shadow: 1px 2px 4px $grey-lt-300;
+      background-color: var(--hover-overlay-light);
+      box-shadow: 1px 2px 4px var(--border-color);
       transform: translateY(-1px);
       text-decoration: underline;
       text-underline-offset: 2px;
@@ -315,30 +325,40 @@ img {
 }
 
 @mixin btn-dark-blue {
-  color: white;
-  background-color: $blue-300;  
+  color: $white;
+  background-color: $blue-300;
   font-size: 1.13rem;
   font-weight: 510;
-  border-width: 1px; 
+  border-width: 1px;
   border-style: solid;
-  border-radius: 5px;
-  box-shadow: 1px 1px $grey-lt-300;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-simple) var(--border-color);
   cursor: pointer;
 }
 
 .btn-dark-blue {
   @include btn-dark-blue;
-  border-color: $blue-dk-300;  
+  border-color: $blue-dk-300;
   padding: 0.5rem 1rem;
   margin-left: 0.4rem;
   margin-right: 0.4rem;
 
+  text-decoration: none !important;
+  color: $white !important; 
+
+  &:link,
+  &:visited,
+  &:hover,
+  &:active,
+  &:focus {
+    color: $white !important;
+    text-decoration: none !important;
+  }
+
   &:hover:not([disabled]) {
-    background-color: $blue-vibrant-300;  
-    box-shadow: 1px 2px 4px $grey-lt-300;
+    background-color: $blue-vibrant-300;
+    box-shadow: 1px 2px 4px var(--border-color);
     transform: translateY(-1px);
-    text-decoration: underline;
-    text-underline-offset: 2px;
   }
 
   &:active {
@@ -356,13 +376,13 @@ img {
   display: block;
   width: 2.5rem;
   height: 2.5rem;
-  color: $blue-dk-100;
-  background-color: white;
-  border-width:2px; 
-  border-style:solid;
-  border-color: $grey-lt-300;
+  color: var(--text-light);
+  background-color: var(--surface-primary);
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--border-color);
   border-radius: 10px;
-  box-shadow: 1px 1px 1px $grey-lt-300;
+  box-shadow: 1px 1px 1px var(--border-color);
   padding: 0.2rem;
   position: fixed;
   bottom: 30px;
@@ -373,9 +393,9 @@ img {
     transform: rotate(-90deg);
   }
   &:hover {
-    border-color: $blue-dk-100;
-    background-color: $sidebar-color; 
-    color: $blue-100;
+    border-color: var(--button-border);
+    background-color: var(--sidebar-bg);
+    color: var(--link-color);
   }
 }
 
@@ -385,7 +405,7 @@ div.highlighter-rouge {
 }
 
 .copy-button-wrap {
-  background-color: $sidebar-color;
+  background-color: var(--sidebar-bg);
   padding: 0.25rem 2rem 0.5rem 2rem;
   margin-bottom: 0.75rem;
   display: flex;
@@ -401,7 +421,7 @@ div.highlighter-rouge {
 
 .copy-button {
   @extend .btn-general;
-  background-color: $sidebar-color;
+  background-color: var(--sidebar-bg);
 }
 
 // Copy as curl button
@@ -417,7 +437,7 @@ div.highlighter-rouge {
 .feedback-header {
   @extend %toc-font;
   letter-spacing: 0.08em;
-  margin: 1rem 0;
+  margin: var(--spacing-base) 0;
 }
 
 .feedback-text-header {
@@ -439,22 +459,21 @@ div.highlighter-rouge {
 
 .feedback-radio {
   @include btn-default;
-  border-color: $grey-lt-100;
+  border-color: var(--button-border-light);
   margin: 0;
   padding: 0.5rem 1.2rem;
-  border-color: $grey-lt-100;
   &:hover {
-    &:not([disabled]) {    
-      background-color: mix(white, $blue-lt-000, 50%);
-      box-shadow: 1px 2px 4px $grey-lt-300;
+    &:not([disabled]) {
+      background-color: var(--hover-overlay-light);
+      box-shadow: 1px 2px 4px var(--border-color);
     }
   }
 }
 
 .feedback-radio-div input[type="radio"]:checked+label {
-  border-color: $blue-100;
-  background-color: $blue-lt-100;
-  box-shadow: inset 1px 1px 3px $blue-dk-100;
+  border-color: var(--link-color);
+  background-color: var(--hover-overlay-light);
+  box-shadow: inset 1px 1px 3px var(--shadow-light);
 }
 
 .feedback-radio-div input[type="radio"]:disabled+label {
@@ -466,14 +485,14 @@ textarea {
   @extend .panel, .img-border;
   width: 100%;
   height: 5rem;
-  color: $grey-dk-300;
-  background-color: mix(white, $grey-lt-000, 50%);
+  color: var(--body-text);
+  background-color: var(--disabled-bg);
   font-size: 0.9rem;
   resize: vertical;
   &:focus {
     outline: none;
-    border: 1px solid $blue-100;
-    background-color: white;
+    border: 1px solid var(--link-color);
+    background-color: var(--surface-primary);
   }
   &:disabled {
     @include elt-disabled;
@@ -483,7 +502,7 @@ textarea {
 .num-chars {
   margin-bottom: 0.5rem;
   text-align: left;
-  color: mix(white, $grey-dk-300, 40%);
+  color: var(--text-light);
 }
 
 .hidden {
@@ -493,13 +512,13 @@ textarea {
 // Tables
 th,
 td {
-  border-bottom: $border rgba($table-border-color, 0.5);
-  border-left: $border $table-border-color;
+  border-bottom: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
 }
 
 thead {
   th {
-    border-bottom: 1px solid $table-border-color;
+    border-bottom: 1px solid var(--border-color);
   }
 }
 td {
@@ -528,7 +547,7 @@ p.label {
 
 // Modifies margins in xl layout to support TOC
 .side-bar {
-  background-color: $sidebar-color;
+  background-color: var(--sidebar-bg);
   @include mq(lg) {
     width: $nav-width;
   }
@@ -587,7 +606,7 @@ p.label {
   letter-spacing: 0.1em;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: 14px !important;
+  font-size: var(--font-size-xs) !important;
 }
 
 .toc-list {
@@ -595,10 +614,10 @@ p.label {
     content: "On this page";
     @extend %toc-font;
   }
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   font-size: 14px;
   list-style-type: none;
-  background-color: $sidebar-color;
+  background-color: var(--sidebar-bg);
   padding: 2rem 1.5rem 1rem 1.5rem;
   margin: 0 3rem 0 1rem;
   overflow: auto;
@@ -632,40 +651,6 @@ p.label {
 /* Website Header & Footer */
 $logo_width: 170px;
 
-$attention-light: #4fb3e3;
-$attention: #00a3e0; //formerly $green-medium, open sky
-$attention-dark: #0082b3; //formerly $green-medium-dark, open sky, tent 1
-$core:  #0053b8; //pacific blue
-
-$warning-light: #ffc460; //golden poppy, tint 2
-$warning: #ffb81c; //golden poppy
-$warning-dark: #cc9316; //golden poppy, shade 1
-
-$background-darkest:  #D9E1E2;
-$background-darker: #f5f7f7; //SF Fog, tint 1
-$background-lightest: #fff; //pure white
-
-$line: #ccd3d6; //sf fog, shade 1
-$line-lighter: #f6f8f8; // sf fog, tint 1
-$highlight: #b9d9eb; //pacific sky, formerly $green-very-light
-$highlight-lighter: #c7dfee;
-$highlight-lightest: #f4f8fb;
-
-$accent: #2cd5c4; //seafoam mint, formerly $green-light
-$accent-dark: #003b5c; //deep blue sea, formerly $green-dark, $green-dark-text unused
-$accent-light: #7b96a9; //deep blue sea, tint 2
-
-$text: #002a3a; //midnight sky
-$text-visited: #1d3c4b; //midnight sky, tint 1
-$text-hover: #4c636f; //midnight sky, tint 2
-$text-light: #647782; //midnight sky, tint 3
-$text-light-darker: #4c636f; //midnight sky, tint 2
-$text-light-darkest: #1d3c4b; //midnight sky, tint 1
-
-$text-link-alternate: #0053b8; //pacific blue
-$text-link-alternate-lighter: #137cc1; //pacific blue tint 1
-$text-link-alternate-darker: #00529e;
-
 @mixin respond-min($width) {
   @media screen and (min-width: $width) {
     @content;
@@ -697,39 +682,39 @@ $text-link-alternate-darker: #00529e;
 
 // Green Link Mixin
 @mixin link-alternate { //todo make non-colour oriented
-  color: $text-link-alternate;
+  color: var(--link-color);
   text-decoration: none;
   &:visited {
-    color: $text-link-alternate;
+    color: var(--link-color);
   }
   &:hover,
   &:active,
   &:focus {
-    color: $text-link-alternate-lighter;
+    color: var(--link-hover);
     text-decoration: none;
   }
 }
 
 @mixin stripes {
-  background-image: -webkit-linear-gradient(-45deg, rgba(0, 0, 0, .04) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .04) 50%, rgba(0, 0, 0, .04) 75%, transparent 75%, transparent);
-  background-image: -moz-linear-gradient(-45deg, rgba(0, 0, 0, .04) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .04) 50%, rgba(0, 0, 0, .04) 75%, transparent 75%, transparent);
-  background-image: linear-gradient(135deg, rgba(0, 0, 0, .04) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .04) 50%, rgba(0, 0, 0, .04) 75%, transparent 75%, transparent);
+  background-image: -webkit-linear-gradient(-45deg, var(--stripe-pattern) 25%, transparent 25%, transparent 50%, var(--stripe-pattern) 50%, var(--stripe-pattern) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(-45deg, var(--stripe-pattern) 25%, transparent 25%, transparent 50%, var(--stripe-pattern) 50%, var(--stripe-pattern) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(135deg, var(--stripe-pattern) 25%, transparent 25%, transparent 50%, var(--stripe-pattern) 50%, var(--stripe-pattern) 75%, transparent 75%, transparent);
 }
 
 @mixin warning-stripes {
-  background-color: $warning;
-  background-image: linear-gradient(135deg, $warning-light 25%, transparent 25%, transparent 50%, $warning-light 50%, $warning-light 75%, transparent 75%, transparent);
+  background-color: var(--warning);
+  background-image: linear-gradient(135deg, var(--warning-light) 25%, transparent 25%, transparent 50%, var(--warning-light) 50%, var(--warning-light) 75%, transparent 75%, transparent);
 }
 
 html {
-  background: $accent-dark;
+  background: var(--body-bg);
 }
 
 body {
   @include sans-serif;
   @include font-size(16);
-  background: $background-lightest;
-  color: $text;
+  background: var(--body-bg);
+  color: var(--body-text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -740,20 +725,106 @@ body {
   }
 }
 
+html {
+  background: var(--body-bg);
+}
+
+body {
+  background: var(--body-bg);
+  color: var(--body-text);
+}
+
+main {
+  background: var(--body-bg);
+}
+
+.side-bar {
+  background-color: var(--sidebar-bg);
+}
+
+#top {
+  background: var(--light-theme-navigation-background);
+}
+
+.main-content {
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--heading-color);
+  }
+
+  a:not([class]) {
+    color: var(--link-color);
+
+    &:hover {
+      color: var(--link-hover);
+    }
+  }
+}
+
+.main-content a:not([class]):not(.nav-list-link):not(.site-category):not(.nav-list-expander) {
+  color: var(--link-color);
+
+  &:hover {
+    color: var(--link-hover);
+  }
+
+  &:visited {
+    color: var(--text-visited);
+  }
+}
+
+.heading-main {
+  color: var(--heading-color);
+}
+
+.home-card {
+  background-color: var(--sidebar-bg);
+
+  .heading {
+    color: var(--heading-color);
+  }
+
+  .card-link {
+    color: var(--link-color);
+
+    &:hover {
+      color: var(--link-hover);
+    }
+  }
+
+  &:hover .heading {
+    color: var(--link-hover);
+  }
+}
+
+.contribute,
+.btn-contribute,
+.contribute a,
+.btn-contribute a {
+  background-color: var(--button-bg);
+  color: var(--link-color);
+  border-color: var(--border-color);
+
+  &:hover {
+    background-color: var(--sidebar-bg);
+    color: var(--link-hover);
+  }
+}
+
 main {
   display: flex;
   flex-flow: row nowrap;
+  background: var(--body-bg);
   align-content: stretch;
   height: 100%;
   position: relative;
-  justify-content: center;
-
+  justify-content: flex-start;
+  
   @include mq(lg) {
-    background: linear-gradient(to right, $sidebar-color $nav-width, transparent $nav-width); 
+    background: linear-gradient(to right, var(--sidebar-bg) $nav-width, transparent $nav-width);
   }
 
   @include mq(xl) {
-    background: linear-gradient(to right, $sidebar-color calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ), transparent calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ));
+    background: linear-gradient(to right, var(--sidebar-bg) calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ), transparent calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ));
   }
 
   @include mq(md) {
@@ -793,7 +864,7 @@ main {
 
   &.sidebar-right {
     .mdzr-boxshadow & {
-      box-shadow: -1200px 0 0 0px $background-lightest;
+      box-shadow: -1200px 0 0 0px var(--body-bg);
     }
   }
 }
@@ -808,6 +879,11 @@ main {
 // Fix breadcrumb leading slash
 .breadcrumb-nav-list-item:first-child::before {
   content: none !important;
+}
+
+.breadcrumb-nav-list {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .main-content {
@@ -831,7 +907,7 @@ main {
 [role="banner"]:not(#top) {
   // Includes global navigation, logo, and tagline at top of document
   @include clearfix;
-  background: $accent-dark;
+  background: var(--accent-dark);
   overflow: hidden;
   margin: 0;
   padding: 10px 0 6px;
@@ -870,7 +946,7 @@ main {
 }
 
 .copy-banner {
-  background: $background-darkest;
+  background: var(--border-color);
   padding: 1px 10px;
   display: none;
 
@@ -887,7 +963,7 @@ main {
   h1 {
     @include sans-serif;
     @include font-size(24, true);
-    color: $core;
+    color: var(--core);
     font-weight: 300;
     line-height: 1.3;
     padding: 1px 0 6px;
@@ -898,7 +974,7 @@ main {
       @include font-size(32, true);
 
       margin: .35em 0 .35em;
-      color: $highlight;
+      color: var(--link-color);
       padding: 1px 0 6px;
 
     }
@@ -906,7 +982,7 @@ main {
     a {
       font-weight: 300;
       background: none;
-      color: $text-link-alternate;
+      color: var(--link-color);
 
       &:hover, :active {
         background: none;
@@ -940,7 +1016,7 @@ main {
 
 
 .site-header {
-  background: #D9E1E2;
+  background: var(--border-color);
   font-weight: 300;
   line-height: 1.3;
   @include font-size(24);
@@ -971,7 +1047,7 @@ main {
     }
 
     &~ .copy-banner {
-      background: #F5F7F7;
+      background: var(--surface-secondary);
       display: block;
 
       & h1 {
@@ -1003,12 +1079,12 @@ main {
   text-underline-offset: 1px;
 
   a {
-    color: $text;
+    color: var(--body-text);
 
     &:active,
     &:focus,
     &:hover {
-      color: $text-hover;
+      color: var(--link-hover);
     }
 
     &:active,
@@ -1028,17 +1104,14 @@ main {
   position: sticky;
   top: 0;
   z-index: 9999999;
-  background-color: $sidebar-color;
-  border-bottom: 1px solid #eeebee;
+  background-color: var(--sidebar-bg);
+  border-bottom: 1px solid var(--border-color);
 }
 
 version-selector {
   z-index: 1;
   font-size: .9rem;
   margin: 0.5rem 3px 1rem 3px;
-  --normal-bg: linear-gradient(#{lighten($blue-300, 5%)}, #{darken($blue-300, 2%)});
-  --hover-bg: linear-gradient(#{lighten($blue-300, 2%)}, #{darken($blue-300, 4%)});
-  --link-color: #{$blue-300};
 }
 
 body {
@@ -1083,10 +1156,10 @@ body {
   padding-bottom: 0.5rem;
   margin-top: 0;
   font-size: 0.8rem;
-  color: $blue-dk-300;
+  color: var(--heading-color);
   font-weight: 600;
   text-transform: uppercase;
-  border-bottom: 1px solid #eeebee;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .search-page {
@@ -1094,7 +1167,7 @@ body {
   align-items: flex-start;
   justify-content: center;
   gap: 0;
-  border-top: 1px solid #eeebee;
+  border-top: 1px solid var(--border-color);
   flex-direction: column; 
   @include mq(md) {
     flex-direction: row; 
@@ -1104,9 +1177,9 @@ body {
 
 .search-page--sidebar {
   max-width: 100%;
-  order: 2; 
+  order: 2;
   margin-top: 1rem;
-  color: $grey-dk-300;
+  color: var(--body-text);
   @include mq(md) {
     flex: 1;
     max-width: 200px;
@@ -1135,7 +1208,7 @@ body {
   position: relative;
   display: flex;
   width: 100%;
-  background-color: white;
+  background-color: var(--surface-primary);
   margin: 0 auto 2rem;
   max-width: 800px;
 }
@@ -1143,9 +1216,9 @@ body {
 .search-page--results--input-box {
   width: 100%;
   padding: 10px 40px 10px 10px; 
-  border: 1px solid $grey-lt-300;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  color: $grey-dk-300;
+  color: var(--body-text);
 }
 
 .search-page--results--input-icon {
@@ -1153,7 +1226,7 @@ body {
   right: 12px;
   align-self: center;
   pointer-events: none;
-  color: $grey-dk-000;
+  color: var(--text-light);
 }
 
 .search-page--results--display {
@@ -1169,11 +1242,11 @@ body {
 .search-page--results--display--header {
   text-align: center;
   background-color: transparent;
-  color: $grey-dk-300;
+  color: var(--body-text);
   margin-bottom: 1rem;
   margin-top: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid $blue-dk-100;
+  border-bottom: 1px solid var(--border-color);
   font-size: 20px; 
   @include mq(md) {
     font-size: 1.5rem;
@@ -1186,7 +1259,7 @@ body {
 }
 
 .search-page--results--no-results {
-    padding: 1rem;
+    padding: var(--spacing-base);
     display: block;
     font-size: 1rem;
     font-weight: normal;  
@@ -1199,9 +1272,9 @@ body {
   display: block;
   text-decoration: underline;
   text-underline-offset: 5px;
-  text-decoration-color: $grey-lt-300;
+  text-decoration-color: var(--border-color);
   &:hover {
-    text-decoration-color:  $blue-100;
+    text-decoration-color: var(--link-color);
   }
 }
 
@@ -1209,7 +1282,7 @@ body {
   margin-right: 4px;
 }
 
-@mixin body-text($color: #000) {
+@mixin body-text($color: var(--body-text)) {
   color: $color;
   font-family: 'Open Sans';
   font-size: 24px;
@@ -1218,11 +1291,8 @@ body {
   line-height: 48px;
 }
 
-@mixin gradient-deep-blue-sea {
-  background: linear-gradient(180deg, #016BA7 0%, #011C2D 97.92%);
-}
 
-@mixin header-level3($color: $primary-open-sky-s1) {
+@mixin header-level3($color: var(--link-color)) {
   color: $color;
   font-family: 'Open Sans';
   font-size: 21px;
@@ -1231,7 +1301,7 @@ body {
   font-weight: 700;
 }
 
-@mixin header-level4($color: $primary-open-sky-s3) {
+@mixin header-level4($color: var(--accent-light)) {
   color: $color;
   font-family: 'Open Sans';
   font-size: 15px;
@@ -1242,16 +1312,16 @@ body {
   text-transform: uppercase;
 }
 
-@mixin header-level5($color: $primary-open-sky-s3) {
+@mixin header-level5($color: var(--accent-light)) {
   color: $color;
   font-family: 'Open Sans';
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
-  line-height: 24px; 
+  line-height: 24px;
 }
 
-@mixin header-level6($color: $primary-open-sky-s2) {
+@mixin header-level6($color: var(--accent-light)) {
   color: $color;
   font-family: 'Open Sans';
   font-size: 15px;
@@ -1263,7 +1333,7 @@ body {
 .code-container {
   position: relative;
   padding-bottom: 3.5rem; /* Make room for scroll bar */
-  background-color: $code-background-color;
+  background-color: var(--code-bg);
 }
 
 .button-container {
@@ -1290,7 +1360,7 @@ body {
 }
 
 .code-tabs .tab-nav {
-  border-bottom: 1px solid #eeebee;
+  border-bottom: 1px solid var(--border-color);
   margin-bottom: -1px;
 }
 
@@ -1300,21 +1370,21 @@ body {
   padding: 8px 16px;
   cursor: pointer;
   margin-bottom: -1px;
-  color: $blue-dk-200;
+  color: var(--link-color);
   &:hover {
-    background-color: $blue-lt-100;
+    background-color: var(--hover-overlay-light);
   }
 }
 
 .code-tabs .tab-button.active {
-  border-color: #eeebee;
-  border-bottom-color: #fff;
-  color: $blue-dk-300;
+  border-color: var(--border-color);
+  border-bottom-color: var(--body-bg);
+  color: var(--heading-color);
 }
 
 .code-tabs .tab {
   display: none;
-  border: 1px solid #eeebee;
+  border: 1px solid var(--border-color);
   padding: 15px;
 }
 
@@ -1331,24 +1401,48 @@ body {
 
 // Migration scenario panels
 .scenario-container {
-  border: 1px solid #aaa;
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
-  padding: 1rem;
+  padding: var(--spacing-base);
   margin-bottom: 1.5rem;
-  background-color: #f9f9f9;
+  background-color: var(--sidebar-bg);
 }
 
 .scenario-title {
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  color: $grey-dk-300;
-  border-bottom: 2px solid #e1e4e8;
+  color: var(--heading-color);
+  border-bottom: 2px solid var(--border-color);
   padding-bottom: 0.5rem;
 }
 
 .scenario-container ol {
   margin-top: 0.5rem;
+}
+
+.err {
+  color: #0891b2 !important;
+}
+
+@import "themes/light-theme";
+@import "themes/dark-theme";
+@import "themes/theme-toggle";
+
+.navigation-container--nested-nav-wrapper--nested-nav li .nested-nav--top-menu-item-wrapper--link a {
+  color: var(--nav-link-color) !important;
+
+  &:hover {
+    color: var(--nav-link-hover-color) !important;
+  }
+}
+
+.navigation-container--nested-nav-wrapper--nested-nav li ul li a {
+  color: var(--nav-link-color) !important;
+
+  &:hover {
+    color: var(--nav-link-hover-color) !important;
+  }
 }
 
 @import "../font-awesome.scss";

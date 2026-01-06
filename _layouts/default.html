@@ -50,7 +50,7 @@ layout: table_wrappers
 
   <main>
     <div id="main-header"></div>
-    <div class="side-bar">
+    <div class="side-bar sidebar-container">
       <div class="site-header">
         <a href="{{site.latesturl}}/" id="menu-button" class="site-button">
           Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
@@ -148,12 +148,40 @@ layout: table_wrappers
         </nav>
     </div>
     <div class="main">
-      <div id="main-content-wrap" class="main-content-wrap">
+      <div id="main-content-wrap" class="main-content-wrap content-container">
         {% unless page.url == "/" %}
-          {% if page.parent %}
+          {%- comment -%}Check if this is a collection index page{%- endcomment -%}
+          {% assign is_collection_index = false %}
+          {% if page.collection and page.parent == nil %}
+            {% assign expected_collection_url = page.collection | prepend: '/' | append: '/' %}
+            {% if page.url == expected_collection_url %}
+              {% assign is_collection_index = true %}
+            {% endif %}
+          {% endif %}
+
+          {% unless is_collection_index %}
+            {% if page.collection or page.parent %}
             <nav aria-label="Breadcrumb" class="breadcrumb-nav">
               <ol class="breadcrumb-nav-list">
-                {% if page.grand_parent %}
+                {%- comment -%}Add collection name as first breadcrumb{%- endcomment -%}
+                {% if page.collection %}
+                  {% if page.section == "opensearch" %}
+                    {%- comment -%}For OpenSearch collections, use collection name{%- endcomment -%}
+                    {% assign collection_config = site.opensearch_collection.collections[page.collection] %}
+                    {% if collection_config and collection_config.name %}
+                      <li class="breadcrumb-nav-list-item">
+                        <a href="{{ page.collection | prepend: '/' | append: '/' | relative_url }}">{{ collection_config.name }}</a>
+                      </li>
+                    {% endif %}
+                  {% else %}
+                    {%- comment -%}For non-OpenSearch collections, use section name{%- endcomment -%}
+                    <li class="breadcrumb-nav-list-item">
+                      <a href="{{ page.section | prepend: '/' | append: '/' | relative_url }}">{{ page.section-name }}</a>
+                    </li>
+                  {% endif %}
+                {% endif %}
+                {% if page.parent %}
+                  {% if page.grand_parent %}
                   {%- comment -%}Find URLs for 4-level breadcrumb{%- endcomment -%}
                   {%- assign all_pages = site.pages -%}
                   
@@ -198,9 +226,9 @@ layout: table_wrappers
                   {%- if great_grandparent_title != "" and great_grandparent_url != "" -%}
                     <li class="breadcrumb-nav-list-item"><a href="{{ great_grandparent_url }}">{{ great_grandparent_title }}</a></li>
                   {%- endif -%}
-                  <li class="breadcrumb-nav-list-item"><a href="{{ grandparent_url }}">{{ page.grand_parent }}</a></li>
-                  <li class="breadcrumb-nav-list-item"><a href="{{ parent_url }}">{{ page.parent }}</a></li>
-                {% else %}
+                    <li class="breadcrumb-nav-list-item"><a href="{{ grandparent_url }}">{{ page.grand_parent }}</a></li>
+                    <li class="breadcrumb-nav-list-item"><a href="{{ parent_url }}">{{ page.parent }}</a></li>
+                  {% else %}
                   {%- comment -%}Find parent URL for 2-level breadcrumb{%- endcomment -%}
                   {%- assign all_pages = site.pages -%}
                   
@@ -219,20 +247,22 @@ layout: table_wrappers
                       {%- break -%}
                     {%- endif -%}
                   {%- endfor -%}
-                  
-                  <li class="breadcrumb-nav-list-item"><a href="{{ parent_url }}">{{ page.parent }}</a></li>
+
+                    <li class="breadcrumb-nav-list-item"><a href="{{ parent_url }}">{{ page.parent }}</a></li>
+                  {% endif %}
                 {% endif %}
                 <li class="breadcrumb-nav-list-item"><span>{{ page.title }}</span></li>
               </ol>
             </nav>
-          {% endif %}
+            {% endif %}
+          {% endunless %}
         {% endunless %}
-        <div id="main-content" class="main-content" role="main">
+        <div id="main-content" class="main-content content-container" role="main">
           {% if page.section == "opensearch" %}
-            {% if site.doc_version == "supported" %}            
-              <p class="supported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. For the latest version, see the <a href="{{ site.url }}{{ site.latesturl }}{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
+            {% if site.doc_version == "supported" %}
+              <p class="supported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. For the latest version, see the <a href="{% if page.url contains '404' %}{{ site.url }}{{ site.latesturl }}/about/{% else %}{{ site.url }}{{ site.latesturl }}{{ page.url }}{% endif %}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
             {% elsif site.doc_version == "unsupported" %}
-              <p class="unsupported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. This version is no longer maintained. For the latest version, see the <a href="{{ site.url }}{{ site.latesturl }}{{ page.url }}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
+              <p class="unsupported-version-warning">You're viewing version {{site.opensearch_major_minor_version}} of the OpenSearch documentation. This version is no longer maintained. For the latest version, see the <a href="{% if page.url contains '404' %}{{ site.url }}{{ site.latesturl }}/about/{% else %}{{ site.url }}{{ site.latesturl }}{{ page.url }}{% endif %}">current documentation</a>. For information about OpenSearch version maintenance, see <a href="https://opensearch.org/releases.html">Release Schedule and Maintenance Policy</a>.</p>
             {% endif %}
           {% endif %}
           {% if site.heading_anchors != false %}
@@ -247,7 +277,7 @@ layout: table_wrappers
 
           {% if page.has_children == true and page.has_toc != false %}
             <hr>
-            <h2>Related articles</h2>
+            <h2>Related documentation</h2>
             <ul>
               {% for child in toc_list %}
                 <li>
@@ -325,5 +355,6 @@ layout: table_wrappers
   <script src="{{ '/assets/js/copy-button.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/nav-scroll.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/listener.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
 </body>
 </html>

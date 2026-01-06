@@ -5,10 +5,11 @@ nav_order: 20
 has_toc: true
 permalink: /migrate-or-upgrade/rolling-upgrade/
 nav_exclude: false
-redirect_from: 
+redirect_from:
  - /upgrade-opensearch/
  - /rolling-upgrade/index/
  - /migrate-or-upgrade/rolling-upgrade/appendix/
+ - /install-and-configure/upgrade-opensearch/rolling-upgrade/
 ---
 
 # Rolling upgrade
@@ -21,6 +22,9 @@ This document serves as a high-level, platform-agnostic overview of the rolling 
 Before making any changes to your OpenSearch cluster, is it highly recommended to back up your configuration files and create a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/) of the cluster state and indexes.
 
 **Important**: OpenSearch nodes **cannot be downgraded**. If you need to revert the upgrade, then you will need to perform a new installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure. Rolling upgrades are **only supported between major adjacent versions**, for example, from OpenSearch 1.x to 2.x but not 1.x to 3.x.
+{: .important}
+
+**Important**: The minimum required cluster version for upgrades to 3.x.x is 2.19.0.
 {: .important}
 
 ## Performing the upgrade
@@ -274,7 +278,7 @@ To perform a rolling restart, follow the steps outlined in [Performing the upgra
 
 By preserving quorum and restarting nodes sequentially, rolling restarts ensure zero downtime and full data continuity.
 
-## Related articles
+## Related documentation
 
 - [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/) -- A hands-on lab with step-by-step instructions for practicing rolling upgrades in a test environment.
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
