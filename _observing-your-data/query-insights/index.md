@@ -22,21 +22,12 @@ Typical use cases for query insights features include the following:
 - Analyze common slow query structures to find optimization opportunities.
 - Monitor live, in-flight queries to diagnose immediate search performance issues.
 
-Query insights features are supported by the Query Insights plugin. At a high level, query insights features comprise the following components:
+Query insights features are provided by the Query Insights plugin, which is included by default in the OpenSearch distribution. At a high level, these features consist of the following components:
 
 * _Collectors_: Gather performance-related data points at various stages of search query execution.
 * _Processors_: Perform lightweight aggregation and processing on data collected by the collectors.
 * _Exporters_: Export the data into different sinks.
 
-
-## Installing the Query Insights plugin
-
-You need to install the `query-insights` plugin to enable query insights features. To install the plugin, run the following command:
-
-```bash
-bin/opensearch-plugin install query-insights
-```
-For information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 ## Query Insights features and settings
 
