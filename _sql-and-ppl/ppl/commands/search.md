@@ -131,9 +131,12 @@ Consider the following performance optimizations when working with different fie
 * Each field type has specific search capabilities and limitations. Choosing an inappropriate field type during ingestion can negatively affect performance and query accuracy.
 * For wildcard searches on non-keyword fields, create a `keyword` subfield to improve performance. For example, for wildcard searches on a `message` field of type `text`, add a `message.keyword` field.
 
+<!-- temporarily commented out because the admin section is not ported
+
 ## Cross-cluster search  
 
 Cross-cluster search lets any node in a cluster execute search requests against other clusters. Refer to [Cross-Cluster Search]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/cross_cluster_search/) for configuration.
+-->
 
 ## Example 1: Fetching all data
 
