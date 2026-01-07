@@ -273,10 +273,10 @@ The query returns the following results:
   
 | label |
 | --- |
-| *123.txt |
-| *123.txt |
-| *123.txt |
-| *123.txt |
+| \*123.txt |
+| \*123.txt |
+| \*123.txt |
+| \*123.txt |
   
 
 ## Limitations

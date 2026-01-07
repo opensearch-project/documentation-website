@@ -61,7 +61,7 @@ Tests whether a subquery returns any results:
   
 ```sql
 where [not] exists [ source=... | ... | ... ]
-```  
+```
 {% include copy.html %}
 
 The following are examples of the `EXISTS` subquery syntax:
@@ -151,6 +151,7 @@ PUT /_plugins/_query/settings
 }
 ```
 {% include copy-curl.html %}
+  
 
 ## Example 1: TPC-H q20
 

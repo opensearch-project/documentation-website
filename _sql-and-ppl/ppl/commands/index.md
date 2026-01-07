@@ -2,7 +2,7 @@
 layout: default
 title: Commands
 parent: PPL
-nav_order: 20
+nav_order: 21
 has_children: true
 redirect_from:
   - /search-plugins/sql/ppl/functions/
@@ -14,4 +14,4 @@ redirect_from:
 
 # Commands  
 
-PPL supports most common [SQL functions](https://docs.opensearch.org/latest/search-plugins/sql/functions/), including [relevance search](https://docs.opensearch.org/latest/search-plugins/sql/full-text/), but also introduces several more functions, called _commands_, which are available in PPL only.  
+PPL supports most common [SQL functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces several more functions, called _commands_, which are available in PPL only.  

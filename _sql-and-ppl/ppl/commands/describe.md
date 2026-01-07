@@ -28,8 +28,6 @@ The `describe` command supports the following parameters.
 | `<data-source>` | Optional | The data source to use. Default is the OpenSearch `datasource`. |
 | `<schema>` | Optional | The schema to use. Default is the default schema. |
 
-<!-- Once the admin section is ported, add a link to [`datasource`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/datasources/) -->
-
 ## Example 1: Fetch all metadata  
 
 This example describes the `accounts` index:
@@ -75,10 +73,7 @@ The query returns the following results:
 | balance |
 | age |
   
-<!-- temporarily commented out because the admin section is not ported
 
-## Example 3: Fetch table metadata for a Prometheus data source  
+## Example 3: Fetch table metadata for a Prometheus data source
 
-See [Fetch metadata for table in Prometheus data source]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/datasources/).
-
--->
+See [Fetch metadata for table in Prometheus datasource]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/datasources/) for more context.

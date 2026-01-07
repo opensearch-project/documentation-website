@@ -3,7 +3,7 @@ layout: default
 title: timechart
 parent: Commands
 grand_parent: PPL
-nav_order: 44
+nav_order: 43
 ---
 
 # timechart
@@ -213,8 +213,8 @@ The following query displays the top `2` hosts with the highest event counts and
 source=events
 | timechart span=1m limit=2 count() by host
 ```
-
 {% include copy.html %}
+
   
 The query returns the following results:
   

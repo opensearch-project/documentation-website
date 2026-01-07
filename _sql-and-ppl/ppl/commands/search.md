@@ -129,14 +129,11 @@ Different field types have specific search capabilities and limitations. The fol
 Consider the following performance optimizations when working with different field types:
 
 * Each field type has specific search capabilities and limitations. Choosing an inappropriate field type during ingestion can negatively affect performance and query accuracy.
-* For wildcard searches on non-keyword fields, create a `keyword` subfield to improve performance. For example, for wildcard searches on a `message` field of type `text`, add a `message.keyword` field.  
-
-<!-- temporarily commented out because the admin section is not ported
+* For wildcard searches on non-keyword fields, create a `keyword` subfield to improve performance. For example, for wildcard searches on a `message` field of type `text`, add a `message.keyword` field.
 
 ## Cross-cluster search  
 
 Cross-cluster search lets any node in a cluster execute search requests against other clusters. Refer to [Cross-Cluster Search]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/cross_cluster_search/) for configuration.
--->
 
 ## Example 1: Fetching all data
 
@@ -203,7 +200,7 @@ The query returns the following results:
   
 | body |
 | --- |
-| Executing SQL: SELECT * FROM users WHERE email LIKE '%@gmail.com' AND status != 'deleted' ORDER BY created_at DESC |
+| Executing SQL: SELECT \* FROM users WHERE email LIKE '%@gmail.com' AND status != 'deleted' ORDER BY created_at DESC |
   
 `search user email` is equivalent to `search user AND email`. 
 {: .note}
@@ -468,7 +465,7 @@ The query returns the following results:
   
 | firstname | age | city |
 | --- | --- | --- |
-| Amber | 32 | Brogan |  
+| Amber | 32 | Brogan |
 
 ## Example 8: Field value matching  
 
@@ -672,8 +669,8 @@ Each backslash in the search value must be escaped with another backslash. For e
 search `attributes.error.type`="C:\\\\Users\\\\admin" source=otellogs
 | fields `attributes.error.type`
 ```
-
 {% include copy.html %}
+
 
 The query returns the following results:
 
@@ -694,14 +691,14 @@ search body="\"exact phrase\"" source=otellogs
 | fields body
 | head 1
 ```
-
 {% include copy.html %}
+
 
 The query returns the following results:
 
-| body | 
+| body |
 | --- |
-| Query contains Lucene special characters: +field:value -excluded AND (grouped OR terms) NOT "exact phrase" wildcard* fuzzy~2 /regex/ [range TO search] |
+| Query contains Lucene special characters: +field:value -excluded AND (grouped OR terms) NOT "exact phrase" wildcard\* fuzzy~2 /regex/ [range TO search] |
 
 ### Text containing special characters
 
@@ -712,11 +709,10 @@ search "wildcard\\* fuzzy~2" source=otellogs
 | fields body
 | head 1
 ```
-
 {% include copy.html %}
 
 The query returns the following results:
 
 | body |
 | --- |
-| Query contains Lucene special characters: +field:value -excluded AND (grouped OR terms) NOT "exact phrase" wildcard* fuzzy~2 /regex/ [range TO search] |
+| Query contains Lucene special characters: +field:value -excluded AND (grouped OR terms) NOT "exact phrase" wildcard\* fuzzy~2 /regex/ [range TO search] |
