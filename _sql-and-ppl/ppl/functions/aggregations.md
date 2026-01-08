@@ -534,7 +534,11 @@ Usage: `VALUES(expr)`. Collects all unique values from the specified expression 
 The maximum number of unique values returned is controlled by the `plugins.ppl.values.max.limit` setting:
 * Default value is 0, which means unlimited values are returned  
 * Can be configured to any positive integer to limit the number of unique values  
+
+<!-- temporarily commented out because the admin section is not ported
+
 * See the [PPL Settings]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/settings#plugins-ppl-values-max-limit) documentation for more details  
+-->
   
 Example with string fields
   

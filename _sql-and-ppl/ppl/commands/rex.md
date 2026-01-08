@@ -46,7 +46,7 @@ The `rex` command supports the following parameters.
 
 <p id="note"></p>
 
-You can set the `max_match` limit in the `plugins.ppl.rex.max_match.limit` cluster setting. For more information, see [SQL settings]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/settings/). Setting this limit to a large value is not recommended because it can lead to excessive memory consumption, especially with patterns that match empty strings (for example, `\d*` or `\w*`).
+You can set the `max_match` limit in the `plugins.ppl.rex.max_match.limit` cluster setting. For more information, see [SQL settings]({{site.url}}{{site.baseurl}}/sql-and-ppl/settings/). Setting this limit to a large value is not recommended because it can lead to excessive memory consumption, especially with patterns that match empty strings (for example, `\d*` or `\w*`).
 {: .note}
 
 
