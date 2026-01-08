@@ -4,6 +4,8 @@ title: PPL syntax
 parent: Commands
 grand_parent: PPL
 nav_order: 1
+redirect_from:
+  - /search-plugins/sql/ppl/syntax/
 ---
 
 # PPL syntax
