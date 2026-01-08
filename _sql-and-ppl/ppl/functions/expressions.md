@@ -22,7 +22,7 @@ Arithmetic expression is an expression formed by numeric literals and binary ari
 3. `*`: Multiply.  
 4. `/`: Divide. Integer operands follow the legacy truncating result when  
   
-   [plugins.ppl.syntax.legacy.preferred]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/settings/) is `true` (default). When the
+   [plugins.ppl.syntax.legacy.preferred]({{site.url}}{{site.baseurl}}/sql-and-ppl/settings/) is `true` (default). When the
    setting is `false` the operands are promoted to floating point, preserving
    the fractional part. Division by zero still returns `NULL`.
 5. `%`: Modulo. This can be used with integers only with remainder of the division as result.  
