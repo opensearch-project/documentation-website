@@ -4,6 +4,7 @@ title: Complex queries
 parent: SQL
 nav_order: 6
 redirect_from:
+  - /search-plugins/sql/complex/
   - /search-plugins/sql/sql/complex/
 ---
 

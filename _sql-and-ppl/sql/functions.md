@@ -4,6 +4,7 @@ title: Functions
 parent: SQL
 nav_order: 7
 redirect_from:
+  - /search-plugins/sql/functions/
   - /search-plugins/sql/sql/functions/
 ---
 

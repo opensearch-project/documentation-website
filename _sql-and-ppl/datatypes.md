@@ -38,7 +38,7 @@ To use a function without a corresponding mapping, you must explicitly convert t
 
 The date and time types represent a time period: `DATE`, `TIME`, `DATETIME`, `TIMESTAMP`, and `INTERVAL`. By default, the OpenSearch DSL uses the `date` type as the only date-time related type that contains all information of an absolute time point.
 
-To integrate with SQL, each type other than the `timestamp` type holds part of the time period information. To use date-time functions, see [datetime]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions#date-and-time). Some functions might have restrictions for the input argument type.
+To integrate with SQL, each type other than the `timestamp` type holds part of the time period information. To use date-time functions, see [datetime]({{site.url}}{{site.baseurl}}/sql-and-ppl/functions#date-and-time). Some functions might have restrictions for the input argument type.
 
 
 ### Date
