@@ -4,8 +4,8 @@ title: JDBC driver
 parent: SQL
 nav_order: 71
 redirect_from:
+  - /search-plugins/sql/jdbc/
   - /search-plugins/sql/sql/jdbc/
-
 ---
 
 # JDBC driver
