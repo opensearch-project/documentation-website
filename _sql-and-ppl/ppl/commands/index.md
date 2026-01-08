@@ -2,7 +2,7 @@
 layout: default
 title: Commands
 parent: PPL
-nav_order: 20
+nav_order: 1
 has_children: true
 redirect_from:
   - /search-plugins/sql/ppl/functions/

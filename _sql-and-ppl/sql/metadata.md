@@ -4,6 +4,7 @@ title: Metadata queries
 parent: SQL
 nav_order: 9
 redirect_from:
+  - /search-plugins/sql/metadata/
   - /search-plugins/sql/sql/metadata/
 ---
 
