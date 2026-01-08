@@ -24,26 +24,29 @@ There are two ways to get started with the operator:
 
 If you use Helm to manage your Kubernetes cluster, you can use the OpenSearch Kubernetes Operator's Cloud Native Computing Foundation (CNCF) project stored in Artifact Hub, a web-based application for finding, installing, and publishing CNCF packages. 
 
-To begin, log in to your Kubernetes cluster and add the Helm repository (repo) from [Artifact Hub](https://artifacthub.io/packages/helm/opensearch-operator/opensearch-operator/). 
+To begin, log in to your Kubernetes cluster and add the Helm repository (repo) from [Artifact Hub](https://artifacthub.io/packages/helm/opensearch-operator/opensearch-operator/): 
 
-```
+```bash
 helm repo add opensearch-operator https://opensearch-project.github.io/opensearch-k8s-operator/
 ```
+{% include copy.html %}
 
-Make sure that the repo is included in your Kubernetes cluster. 
+Make sure that the repo is included in your Kubernetes cluster: 
 
-```
+```bash
 helm repo list | grep opensearch
 ```
+{% include copy.html %}
 
 Both the `opensearch` and `opensearch-operator` repos appear in the list of repos.
 
 
-Install the manager that operates all of the OpenSearch Kubernetes Operator's actions. 
+Install the manager that operates all of the OpenSearch Kubernetes Operator's actions: 
 
-```
+```bash
 helm install opensearch-operator opensearch-operator/opensearch-operator
 ```
+{% include copy.html %}
 
 After the installation completes, the operator returns information on the deployment with `STATUS: deployed`. Then you can configure and start your [OpenSearch cluster](#deploy-a-new-opensearch-cluster).
 
@@ -138,32 +141,38 @@ With the Kubernetes cluster running, you can now run OpenSearch inside the clust
 
 From your cloned OpenSearch Kubernetes Operator repo, navigate to the `opensearch-operator/examples` directory. There you'll find the `opensearch-cluster.yaml` file, which can be customized to the needs of your cluster, including the `clusterName` that acts as the namespace in which your new OpenSearch cluster will reside.
 
-With your cluster configured, run the `kubectl apply` command.
+With your cluster configured, run the `kubectl apply` command:
 
-```
+```bash
 kubectl apply -f opensearch-cluster.yaml
 ```
+{% include copy.html %}
 
-The operator creates several pods, including a bootstrap pod, three OpenSearch cluster pods, and one Dashboards pod. To connect to your cluster, use the `port-forward` command.
+The operator creates several pods, including a bootstrap pod, three OpenSearch cluster pods, and one Dashboards pod. To connect to your cluster, use the `port-forward` command:
 
-```
+```bash
 kubectl port-forward svc/my-cluster-dashboards 5601
 ```
+{% include copy.html %}
 
-Open http://localhost:5601 in your preferred browser and log in with the default demo credentials `admin / admin`. You can also run curl commands against the OpenSearch REST API by forwarding to port 9200.
+Open http://localhost:5601 in your preferred browser and log in with the default demo credentials `admin / admin`. You can also run curl commands against the OpenSearch REST API by forwarding to port 9200:
 
-```
+```bash
 kubectl port-forward svc/my-cluster 9200
 ```
+{% include copy.html %}
 
-In order to delete the OpenSearch cluster, delete the cluster resources. The following command deletes the cluster namespace and all its resources.
+In order to delete the OpenSearch cluster, delete the cluster resources. The following command deletes the cluster namespace and all its resources:
 
-```
+```bash
 kubectl delete -f opensearch-cluster.yaml
 ```
+{% include copy.html %}
 
 ## Next steps
 
-To learn more about how to customize your Kubernetes OpenSearch cluster, including data persistence, authentication methods, and scaling, see the [OpenSearch Kubernetes Operator User Guide](https://github.com/Opster/opensearch-k8s-operator/blob/main/docs/userguide/main.md). 
+- To learn more about how to customize your Kubernetes OpenSearch cluster, including data persistence, authentication methods, and scaling, see the [OpenSearch Kubernetes Operator User Guide](https://github.com/Opster/opensearch-k8s-operator/blob/main/docs/userguide/main.md). 
 
-If you want to contribute to the development of the OpenSearch Kubernetes Operator, see the repo [design documents](https://github.com/Opster/opensearch-k8s-operator/blob/main/docs/designs/high-level.md).
+- If you want to contribute to the development of the OpenSearch Kubernetes Operator, see the repo [design documents](https://github.com/Opster/opensearch-k8s-operator/blob/main/docs/designs/high-level.md).
+
+- For more information, see [OpenSearch Operator](https://operatorhub.io/operator/opensearch-operator).
