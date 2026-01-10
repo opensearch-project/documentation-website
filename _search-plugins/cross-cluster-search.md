@@ -20,6 +20,17 @@ You can use cross-cluster search (CCS) in OpenSearch to search and analyze data 
 
 ---
 
+## Prerequisite
+
+Before configuring cross-cluster search, ensure that the following prerequisite is met:
+
+- If you've overridden `node.roles` in `opensearch.yml` for any node in a cluster participating in cross-cluster search, ensure that the `node.roles` setting includes the `remote_cluster_client` role:
+
+   ```yaml
+   node.roles: [<other_roles>, remote_cluster_client]
+   ```
+   {% include copy.html %}
+
 ## Authentication flow
 
 The following sequence describes the authentication flow when using cross-cluster search to access a *remote cluster* from a *coordinating cluster*. You can have different authentication and authorization configurations on the remote and coordinating clusters, but we recommend using the same settings on both.

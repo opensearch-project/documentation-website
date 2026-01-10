@@ -5,6 +5,7 @@ parent: SQL
 nav_order: 12
 redirect_from:
   - /search-plugins/sql/delete/
+  - /search-plugins/sql/sql/delete/
 ---
 
 
