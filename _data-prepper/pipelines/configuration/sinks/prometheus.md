@@ -8,11 +8,11 @@ nav_order: 59
 
 # Prometheus sink
 
-The `prometheus` sink buffers and writes batches of open telemetry metrics data in Prometheus TimeSeries format to Prometheus server using remote write API.Currently, amazon managed prometheus server is supported as the prometheus server. The configured `url` provides the amazon managed prometheus server's remote write endpoint.
+The prometheus sink buffers OpenTelemetry metrics and exports them in Prometheus TimeSeries format via the Remote Write API. At this time, it is specifically designed to support Amazon Managed Service for Prometheus, utilizing the configured url as the remote write endpoint.
 
 The `prometheus` sink only sends metric type data to prometheus server. All other types of data are sent to [DLQ pipeline](#_data-prepper/pipelines/pipeline.md), if configured
 
-The `prometheus` sink sorts metrics by their timestamp in each batch before sending to the prometheus server.
+To ensure compatibility, the prometheus sink sorts metrics by timestamp per batch before sending them to the server. It also supports an out-of-order window, enabling the ingestion of metrics with older timestamps.
 
 ## Usage
 
@@ -62,19 +62,16 @@ To use the `prometheus` sink, configure AWS Identify and Access Management (IAM)
 
 ## Configuration 
 
-`url` | Yes       | String                                         | path to prometheus server remote write endpoint
-`encoding` | No   | String                                         | encoding mode (only "snappy" encoding mode is supported)
-`remote_write_version` | No | String                               | remote write version number (only version "0.1.0" supported )
-`content_type` | No | String                                       | content type (only "application/x-protobuf")
-`out_of_order_time_window` | No      | Integer                     | Time window (in seconds) to accept late-arriving data points.
-`sanitize_names` | No | Boolean                                    | indicates if metric and label names should be sanitized or not. Default `true`.
-`connection_timeout` | No | Duration                               | The amount of time allowed for http request connection establishment. Default is `60s`.
-`idle_timeout` | No | Duration                                     | The maximum amount of time an HTTP connection is allowed to remain open but inactive (no data sent or received) before it is automatically closed. Default is `60s`.
-`request_timeout` | No | Duration                                  | The maximum amount of time a client is willing to wait for an HTTP request to complete end-to-end before aborting it. Default is `60s`.
-`threshold` | No      | [Threshold](#threshold-configuration)      | Condition for sending timeseries to Prometheus Server. Default threshold is `max_Events=1000`, `max_request_size=1mb`, and `flush_interval=10s`
-`max_retries` | No       | Integer                                 | The maximum number of retries for Prometheus ingestion requests. Default is `5`.
-`aws.region`        | String  | Yes                                | The AWS Region in which the AMP Server is located.                         
-`aws.sts_role_arn`  | String  | No                                 | The Amazon Resource Name (ARN) of the role to assume before invoking the AMP Server.
-
-
-
+`url` | Yes       | String                                         | The full URL of the Prometheus remote write endpoint.
+`encoding` | No   | String                                         | The compression format used for requests. Only snappy is supported. Default is snappy.
+`remote_write_version` | No | String                               | The version of the Prometheus remote write protocol. Only 0.1.0 is supported.
+`content_type` | No | String                                       | The MIME type of the body. Only application/x-protobuf is supported.
+`out_of_order_time_window` | No      | Duration                     | The time window allowed for late-arriving data points. Data older than this window relative to the latest point will be dropped.
+`sanitize_names` | No | Boolean                                    | Determines whether metric and label names are sanitized to comply with Prometheus naming conventions. Default is true.
+`connection_timeout` | No | Duration                               | The maximum time allowed to establish an HTTP connection. Default is 60s.
+`idle_timeout` | No | Duration                                     | The maximum time an idle HTTP connection remains open before being closed. Default is 60s.
+`request_timeout` | No | Duration                                  | The maximum time allowed for a full end-to-end HTTP request to complete. Default is 60s.
+`threshold` | No      | [Threshold](#threshold-configuration)      | Configuration for batching and flushing timeseries data. Defaults: max_events=1000, max_request_size=1mb, flush_interval=10s.
+`max_retries` | No       | Integer                                 | The maximum number of attempts for failed ingestion requests. Default is 5.
+`aws.region`        | String  | Yes                                | The AWS Region where the Amazon Managed Service for Prometheus (AMP) workspace is located.
+`aws.sts_role_arn`  | String  | No                                 | The IAM Role ARN to assume for authentication when sending data to AMP.

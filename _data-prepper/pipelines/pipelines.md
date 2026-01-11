@@ -143,16 +143,17 @@ green open   routed-errors-2025.10.14     v3r7JzPfQVOS8dWOBF1o2w   1   1        
 ```
 
 ### DLQ Pipeline
-DLQ Pipeline is a dedicated “dead-letter queue” pipeline used to capture any events that Data Prepper is unable to process in any sub-pipeline or stage (source, processor, buffer, or sink). It is defined using a reserved pipeline name, dlq_pipeline, and is configured without a source. The pipeline may include optional processors and routes, but must contain at least one sink to send failed events to an external destination. 
-Like any other sub-pipeline DLQ pipeline can have routes and multiple sinks to route different events to different sinks.
+DLQ Pipeline is a dedicated “dead-letter queue” pipeline used to capture any events that Data Prepper is unable to process in any pipeline or stage (source, processor, buffer, or sink). It is defined using a reserved pipeline name, dlq_pipeline, and is configured without a source. The pipeline may include optional processors and routes, but must contain at least one sink to send failed events to an external destination. 
+Like any other pipeline DLQ pipeline can have routes and multiple sinks to route different events to different sinks.
 
 The following is an example configuration:
 
 ```yml
 dlq_pipeline:
   processor:
-    - string_converter:
-        upper_case: true
+    - uppercase_string:
+        with_keys:
+          - "uppercaseField"
   sink:
     - opensearch:
 ```
