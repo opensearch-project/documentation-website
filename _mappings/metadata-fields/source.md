@@ -136,3 +136,4 @@ Derived source does not support the following fields:
 
 - Fields containing [`copy_to`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/copy-to/) parameters.
 - [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) and [`wildcard`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/wildcard/) fields that define either the [`ignore_above`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/ignore-above/) or [`normalizer`]({{site.url}}{{site.baseurl}}/analyzers/normalizers/) parameters.
+- Nested fields.
