@@ -177,7 +177,9 @@ When performing an export, the `"Sid": "allowReadFromStream"` section is not req
 
 ## Limitations
 
-* Each Data Prepper instance is limited to process a maximum of 150 DynamoDB stream shards in parallel at one time. You should configure the number of Data Prepper instances as ceil(totalOpenShards.max / 150) to prevent high latency or data loss.
+Note the following limitations:
+
+* Each Data Prepper instance can process up to 150 DynamoDB stream shards in parallel. To prevent high latency and data loss, set the number of Data Prepper instances to the maximum number of open shards divided by 150 (rounded up to the nearest integer).
 
 ## Metrics
 
