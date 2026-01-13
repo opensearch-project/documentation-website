@@ -201,6 +201,6 @@ The `dynamodb` source includes the following metrics.
 The `dynamodb` source includes the following gauges:
 
 * `totalOpenShards`: The number of open shards in the DynamoDB stream. Open shards are shards that are not assigned an `EndingSequenceNumber`.
-* `activeShardsInProcessing`: The number of shards that are currently being processed by Data Prepper
+* `activeShardsInProcessing`: The number of shards currently being processed by Data Prepper.
 
 
