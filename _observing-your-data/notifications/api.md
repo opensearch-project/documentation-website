@@ -325,7 +325,7 @@ GET _plugins/_notifications/configs/<config_id>
 
 ## Update channel configuration
 
-To update a channel configuration, send a POST request to the `configs` resource and specify the channel's `config_id` as a path parameter. Specify the new configuration details in the request body.
+To update a channel configuration, send a PUT request to the `configs` resource and specify the channel's `config_id` as a path parameter. Specify the new configuration details in the request body.
 
 #### Example request
 
