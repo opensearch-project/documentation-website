@@ -70,6 +70,22 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
+## Configuring source truncation
+
+To manage memory usage and response size, you can configure the maximum length (in characters) of the query source stored in top N query records. The default `max_source_length` is `524288` characters (1 MB). For example, to limit the source length to 1000 characters, update the `search.insights.top_queries.max_source_length` setting:
+
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "search.insights.top_queries.max_source_length" : 1000
+  }
+}
+```
+{% include copy-curl.html %}
+
+Setting this value to `0` will completely truncate the source, storing no query source information. When the source exceeds the maximum length, it is hard truncated at the character limit, and the `source_truncated` field in the response will be set to `true`.
+
 ## Monitoring current top N queries 
 
 You can use the Insights API endpoint to retrieve the top N queries for the current time window. This API returns top N `latency` results by default.
@@ -110,42 +126,7 @@ Parameter | Data type     | Description
       "indices" : [
         "my-index-0"
       ],
-      "source" : {
-        "size" : 20,
-        "query" : {
-          "bool" : {
-            "must" : [
-              {
-                "match_phrase" : {
-                  "message" : {
-                    "query" : "document",
-                    "slop" : 0,
-                    "zero_terms_query" : "NONE",
-                    "boost" : 1.0
-                  }
-                }
-              },
-              {
-                "match" : {
-                  "user.id" : {
-                    "query" : "userId",
-                    "operator" : "OR",
-                    "prefix_length" : 0,
-                    "max_expansions" : 50,
-                    "fuzzy_transpositions" : true,
-                    "lenient" : false,
-                    "zero_terms_query" : "NONE",
-                    "auto_generate_synonyms_phrase_query" : true,
-                    "boost" : 1.0
-                  }
-                }
-              }
-            ],
-            "adjust_pure_negative" : true,
-            "boost" : 1.0
-          }
-        }
-      },
+      "source" : """{"size":20,"query":{"bool":{"must":[{"match_phrase":{"message":{"query":"document","slop":0,"zero_terms_query":"NONE","boost":1.0}}},{"match":{"user.id":{"query":"userId","operator":"OR","prefix_length":0,"max_expansions":50,"fuzzy_transpositions":true,"lenient":false,"zero_terms_query":"NONE","auto_generate_synonyms_phrase_query":true,"boost":1.0}}}],"adjust_pure_negative":true,"boost":1.0}}}""",
       "task_resource_usages" : [
         {
           "action" : "indices:data/read/search[phase/query]",
@@ -179,6 +160,7 @@ Parameter | Data type     | Description
         "X-Opaque-Id" : "query-label-1"
       },
       "search_type" : "query_then_fetch",
+      "source_truncated" : false,
       "total_shards" : 1,
       "user_roles" : [
         "all_access"
@@ -209,17 +191,7 @@ Parameter | Data type     | Description
       "indices" : [
         "my-index-*"
       ],
-      "source" : {
-        "size" : 20,
-        "query" : {
-          "term" : {
-            "user.id" : {
-              "value" : "userId",
-              "boost" : 1.0
-            }
-          }
-        }
-      },
+      "source" : """{"size":20,"query":{"term":{"user.id":{"value":"userId","boost":1.0}}}}""",
       "task_resource_usages" : [
         {
           "action" : "indices:data/read/search[phase/query]",
@@ -251,6 +223,7 @@ Parameter | Data type     | Description
       },
       "labels" : { },
       "search_type" : "query_then_fetch",
+      "source_truncated" : false,
       "total_shards" : 1,
       "user_roles" : [
         "all_access"

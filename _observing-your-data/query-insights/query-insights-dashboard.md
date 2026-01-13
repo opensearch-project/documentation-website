@@ -119,6 +119,7 @@ You can access detailed information about a single query by selecting the query 
 ![Individual Query Details]({{site.url}}{{site.baseurl}}/images/Query-Insights/IndividualQueryDetails.png)
 
 In the query details view, you can view information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
+If the query source has been truncated due to size limits, it will be displayed as a string instead of formatted JSON.
 
 ### Viewing query group details
 
@@ -130,7 +131,6 @@ To view query group details, select a query ID marked as a "group" in the **Top 
 
 - The **Aggregate summary for queries** section provides a view of key query metrics for the entire group, including **Average latency**, **Average CPU time**, **Average memory usage**, and **Group by** criteria.
 - The **Sample query details** section provides information about a single representative query, including its **Timestamp**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
-- The **Query** section displays the JSON structure of the query.
 - The **Latency** section presents a graphical representation of the run phases for the query.
 
 ## Configuration
