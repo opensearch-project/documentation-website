@@ -32,7 +32,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | employer | firstname |
 | --- | --- | --- |
@@ -50,7 +50,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | employer | status |
 | --- | --- | --- |
@@ -68,7 +68,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | account_number | firstname | employer |
 | --- | --- | --- |
@@ -99,7 +99,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | employer | has_employer |
 | --- | --- | --- |
@@ -117,7 +117,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | account_number | employer |
 | --- | --- |
@@ -132,7 +132,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | employer | validation |
 | --- | --- | --- |
@@ -153,7 +153,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | account_number | email |
 | --- | --- |
@@ -177,7 +177,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | employer | firstname |
 | --- | --- | --- |
@@ -199,7 +199,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | employer | firstname | lastname |
 | --- | --- | --- | --- |
@@ -226,7 +226,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | employer | firstname |
 | --- | --- | --- |
@@ -253,7 +253,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | firstname | lastname |
 | --- | --- | --- |
@@ -269,7 +269,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | firstname | lastname |
 | --- | --- | --- |
@@ -284,8 +284,8 @@ source=accounts
 | fields is_vip, firstname, lastname
 ```
 {% include copy.html %}
-  
-Expected output:
+  h
+The query returns the following results:
   
 | is_vip | firstname | lastname |
 | --- | --- | --- |
@@ -318,7 +318,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | firstname | lastname | age | employer |
 | --- | --- | --- | --- | --- |
@@ -334,7 +334,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | firstname | lastname | age |
 | --- | --- | --- | --- |
@@ -350,7 +350,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | lastname | age |
 | --- | --- | --- |
@@ -391,7 +391,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | firstname | lastname | employer |
 | --- | --- | --- | --- |
@@ -410,7 +410,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | empty_field | firstname |
 | --- | --- | --- |
@@ -426,7 +426,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | firstname |
 | --- | --- |
@@ -444,7 +444,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | employer | balance |
 | --- | --- | --- |
@@ -462,7 +462,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result | firstname |
 | --- | --- |
@@ -490,7 +490,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | employer | firstname |
 | --- | --- |
@@ -517,7 +517,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | isblank(temp) | temp | isblank(employer) | employer |
 | --- | --- | --- | --- |
@@ -545,7 +545,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | isempty(temp) | temp | isempty(employer) | employer |
 | --- | --- | --- | --- |
@@ -595,7 +595,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | a | b |
 | --- | --- |
@@ -608,7 +608,7 @@ source=nyc_taxi
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | cnt |
 | --- |
@@ -634,7 +634,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | a | b |
 | --- | --- |
@@ -647,7 +647,7 @@ source=nyc_taxi
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | cnt |
 | --- |

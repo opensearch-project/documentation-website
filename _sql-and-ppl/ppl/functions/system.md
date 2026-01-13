@@ -25,7 +25,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | typeof(date) | typeof(int) | typeof(now()) | typeof(column) |
 | --- | --- | --- | --- |

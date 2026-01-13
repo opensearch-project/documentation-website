@@ -27,7 +27,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | age | max_val |
 | --- | --- |
@@ -43,7 +43,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | result |
 | --- | --- |
@@ -59,7 +59,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | age | firstname | result |
 | --- | --- | --- |
@@ -88,7 +88,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | age | min_val |
 | --- | --- |
@@ -104,7 +104,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | result |
 | --- | --- |
@@ -120,7 +120,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | age | firstname | result |
 | --- | --- | --- |

@@ -39,7 +39,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | count() | c() | count | c |
 | --- | --- | --- | --- |

@@ -24,7 +24,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | array |
 | --- |
@@ -38,7 +38,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | array |
 | --- |
@@ -62,7 +62,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | length |
 | --- |
@@ -72,7 +72,7 @@ Expected output:
 
 ### Description  
 
-Usage: `forall(array, function)` check whether all element inside array can meet the lambda function. The function should also return boolean. The lambda function accepts one single input.
+Usage: `forall(array, function)` check whether all element inside array can meet the lambda function. The function should also return a boolean. The lambda function accepts one single input.
 **Argument type:** `array:ARRAY, function:LAMBDA`
 **Return type:** `BOOLEAN`
 ### Example
@@ -85,7 +85,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -108,7 +108,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -131,7 +131,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -154,7 +154,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -168,7 +168,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -191,7 +191,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -205,7 +205,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -228,7 +228,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -243,7 +243,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -266,7 +266,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -280,7 +280,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -294,7 +294,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -308,7 +308,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -322,7 +322,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -336,7 +336,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -350,7 +350,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -364,7 +364,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -378,7 +378,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -404,7 +404,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -418,7 +418,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -432,7 +432,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -446,7 +446,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -460,7 +460,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -483,7 +483,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -497,7 +497,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -511,7 +511,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -534,7 +534,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -548,7 +548,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -562,7 +562,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -576,7 +576,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -599,7 +599,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -613,7 +613,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -627,7 +627,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -641,7 +641,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -655,7 +655,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | result |
 | --- |
@@ -678,7 +678,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -692,7 +692,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -710,7 +710,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -741,7 +741,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | nserver |
 | --- |
@@ -755,7 +755,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -769,7 +769,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -783,7 +783,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |
@@ -797,7 +797,7 @@ source=people
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | result |
 | --- |

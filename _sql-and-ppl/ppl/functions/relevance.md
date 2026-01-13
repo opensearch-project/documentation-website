@@ -36,7 +36,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | lastname | address |
 | --- | --- |
@@ -52,7 +52,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | lastname |
 | --- |
@@ -78,7 +78,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | author | title |
 | --- | --- |
@@ -94,7 +94,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | author | title |
 | --- | --- |
@@ -122,7 +122,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | author | title |
 | --- | --- |
@@ -138,7 +138,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | author | title |
 | --- | --- |
@@ -186,7 +186,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | id | title | author |
 | --- | --- | --- |
@@ -202,7 +202,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | id | title | author |
 | --- | --- | --- |
@@ -217,7 +217,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | id | title | author |
 | --- | --- | --- |
@@ -264,7 +264,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | id | title | author |
 | --- | --- | --- |
@@ -280,7 +280,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | id | title | author |
 | --- | --- | --- |
@@ -295,7 +295,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | id | title | author |
 | --- | --- | --- |
@@ -327,7 +327,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | address |
 | --- | --- |
@@ -343,7 +343,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | address |
 | --- | --- |
@@ -401,7 +401,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | id | title | author |
 | --- | --- | --- |
@@ -417,7 +417,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | id | title | author |
 | --- | --- | --- |
@@ -432,7 +432,7 @@ source=books
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | id | title | author |
 | --- | --- | --- |

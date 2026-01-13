@@ -23,7 +23,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | CONCAT('hello', 'world') | CONCAT('hello ', 'whole ', 'world', '!') |
 | --- | --- |
@@ -45,7 +45,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | CONCAT_WS(',', 'hello', 'world') |
 | --- |
@@ -70,7 +70,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | LENGTH('helloworld') |
 | --- |
@@ -99,7 +99,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | LIKE('hello world', '_ello%') | LIKE('hello world', '_ELLo%', true) | LIKE('hello world', '_ELLo%', false) |
 | --- | --- | --- |
@@ -126,7 +126,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | ILIKE('hello world', '_ELLo%') |
 | --- |
@@ -149,7 +149,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | LOCATE('world', 'helloworld') | LOCATE('invalid', 'helloworld') | LOCATE('world', 'helloworld', 6) |
 | --- | --- | --- |
@@ -171,7 +171,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | LOWER('helloworld') | LOWER('HELLOWORLD') |
 | --- | --- |
@@ -193,7 +193,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | LTRIM('   hello') | LTRIM('hello   ') |
 | --- | --- |
@@ -216,7 +216,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | POSITION('world' IN 'helloworld') | POSITION('invalid' IN 'helloworld') |
 | --- | --- |
@@ -245,7 +245,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | REPLACE('helloworld', 'world', 'universe') | REPLACE('helloworld', 'invalid', 'universe') |
 | --- | --- |
@@ -260,7 +260,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | Replace domain | Replace with quote |
 | --- | --- |
@@ -275,7 +275,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | Remove digits | Collapse spaces | Remove special |
 | --- | --- | --- |
@@ -290,7 +290,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | Swap date | Reverse words | Extract domain |
 | --- | --- | --- |
@@ -305,7 +305,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | Clean phone | Remove vowels | Add prefix |
 | --- | --- | --- |
@@ -331,7 +331,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | REVERSE('abcde') |
 | --- |
@@ -353,7 +353,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | RIGHT('helloworld', 5) | RIGHT('HELLOWORLD', 0) |
 | --- | --- |
@@ -375,7 +375,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | RTRIM('   hello') | RTRIM('hello   ') |
 | --- | --- |
@@ -398,7 +398,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SUBSTRING('helloworld', 5) | SUBSTRING('helloworld', 5, 3) |
 | --- | --- |
@@ -419,7 +419,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | TRIM('   hello') | TRIM('hello   ') |
 | --- | --- |
@@ -441,7 +441,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | UPPER('helloworld') | UPPER('HELLOWORLD') |
 | --- | --- |
@@ -464,7 +464,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DOMAIN |
 | --- |

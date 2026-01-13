@@ -33,7 +33,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | '2020-08-26' + 1h | '2020-08-26' + 1 | ts '2020-08-26 01:01:01' + 1 |
 | --- | --- | --- |
@@ -58,7 +58,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | '2008-12-12' + 0 |
 | --- |
@@ -71,7 +71,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | '23:59:59' + 0 |
 | --- |
@@ -84,7 +84,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | '2004-01-01' + '23:59:59' |
 | --- |
@@ -97,7 +97,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | '10:20:30' + '00:05:42' |
 | --- |
@@ -110,7 +110,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | '2007-02-28 10:20:30' + '20:40:50' |
 | --- |
@@ -133,7 +133,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | convert_tz('2008-05-15 12:00:00','+00:00','+10:00') |
 | --- |
@@ -149,7 +149,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | convert_tz('2008-05-15 12:00:00','+00:00','+15:00') |
 | --- |
@@ -165,7 +165,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | convert_tz('2008-05-15 12:00:00','+03:30','-10:00') |
 | --- |
@@ -181,7 +181,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | convert_tz('2008-04-31 12:00:00','+03:30','-10:00') |
 | --- |
@@ -197,7 +197,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | convert_tz('2008-02-30 12:00:00','+03:30','-10:00') |
 | --- |
@@ -213,7 +213,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | convert_tz('2008-02-29 12:00:00','+03:30','-10:00') |
 | --- |
@@ -229,7 +229,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | convert_tz('2007-02-29 12:00:00','+03:30','-10:00') |
 | --- |
@@ -245,7 +245,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | convert_tz('2008-02-01 12:00:00','+14:01','+00:00') |
 | --- |
@@ -261,7 +261,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | convert_tz('2008-02-01 12:00:00','+14:00','+00:00') |
 | --- |
@@ -277,7 +277,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | convert_tz('2008-02-01 12:00:00','-14:00','+00:00') |
 | --- |
@@ -293,7 +293,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | convert_tz('2008-02-01 12:00:00','-13:59','+00:00') |
 | --- |
@@ -316,7 +316,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | CURDATE() |
 | --- |
@@ -336,7 +336,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | CURRENT_DATE() |
 | --- |
@@ -356,7 +356,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | CURRENT_TIME() |
 | --- |
@@ -376,7 +376,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | CURRENT_TIMESTAMP() |
 | --- |
@@ -399,7 +399,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | value_1 | value_2 |
 | --- | --- |
@@ -421,7 +421,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DATE('2020-08-26') |
 | --- |
@@ -434,7 +434,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DATE(TIMESTAMP('2020-08-26 13:49:00')) |
 | --- |
@@ -447,7 +447,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DATE('2020-08-26 13:49') |
 | --- |
@@ -460,7 +460,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DATE('2020-08-26 13:49') |
 | --- |
@@ -484,7 +484,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | '2020-08-26' + 1h | ts '2020-08-26 01:01:01' + 1d |
 | --- | --- |
@@ -548,7 +548,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DATE_FORMAT('1998-01-31 13:14:15.012345', '%T.%f') | DATE_FORMAT(TIMESTAMP('1998-01-31 13:14:15.012345'), '%Y-%b-%D %r') |
 | --- | --- |
@@ -573,7 +573,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DATETIME('2004-02-28 23:00:00-10:00', '+10:00') |
 | --- |
@@ -589,7 +589,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DATETIME('2008-01-01 02:00:00', '-14:00') |
 | --- |
@@ -613,7 +613,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | '2008-01-02' - 31d | ts '2020-08-26 01:01:01' + 1h |
 | --- | --- |
@@ -633,7 +633,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | '2000-01-02' - '2000-01-01' | '2001-02-01' - '2004-01-01' | today - today |
 | --- | --- | --- |
@@ -656,7 +656,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DAY(DATE('2020-08-26')) |
 | --- |
@@ -678,7 +678,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DAYNAME(DATE('2020-08-26')) |
 | --- |
@@ -701,7 +701,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DAYOFMONTH(DATE('2020-08-26')) |
 | --- |
@@ -724,7 +724,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DAY_OF_MONTH(DATE('2020-08-26')) |
 | --- |
@@ -747,7 +747,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DAYOFWEEK(DATE('2020-08-26')) |
 | --- |
@@ -770,7 +770,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DAY_OF_WEEK(DATE('2020-08-26')) |
 | --- |
@@ -793,7 +793,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DAYOFYEAR(DATE('2020-08-26')) |
 | --- |
@@ -816,7 +816,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DAY_OF_YEAR(DATE('2020-08-26')) |
 | --- |
@@ -866,7 +866,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | extract(YEAR_MONTH FROM "2023-02-07 10:11:12") |
 | --- |
@@ -888,7 +888,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | FROM_DAYS(733687) |
 | --- |
@@ -914,7 +914,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | FROM_UNIXTIME(1220249547) |
 | --- |
@@ -927,7 +927,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | FROM_UNIXTIME(1220249547, '%T') |
 | --- |
@@ -949,7 +949,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | GET_FORMAT(DATE, 'USA') |
 | --- |
@@ -972,7 +972,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | HOUR(TIME('01:02:03')) |
 | --- |
@@ -995,7 +995,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | HOUR_OF_DAY(TIME('01:02:03')) |
 | --- |
@@ -1015,7 +1015,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | last_day('2023-02-06') |
 | --- |
@@ -1035,7 +1035,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | LOCALTIMESTAMP() |
 | --- |
@@ -1055,7 +1055,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | LOCALTIME() |
 | --- |
@@ -1087,7 +1087,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MAKEDATE(1945, 5.9) | MAKEDATE(1984, 1984) |
 | --- | --- |
@@ -1117,7 +1117,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MAKETIME(20, 30, 40) | MAKETIME(20.2, 49.5, 42.100502) |
 | --- | --- |
@@ -1139,7 +1139,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MICROSECOND(TIME('01:02:03.123456')) |
 | --- |
@@ -1162,7 +1162,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MINUTE(TIME('01:02:03')) |
 | --- |
@@ -1184,7 +1184,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MINUTE_OF_DAY(TIME('01:02:03')) |
 | --- |
@@ -1207,7 +1207,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MINUTE_OF_HOUR(TIME('01:02:03')) |
 | --- |
@@ -1230,7 +1230,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MONTH(DATE('2020-08-26')) |
 | --- |
@@ -1253,7 +1253,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MONTH_OF_YEAR(DATE('2020-08-26')) |
 | --- |
@@ -1275,7 +1275,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MONTHNAME(DATE('2020-08-26')) |
 | --- |
@@ -1298,7 +1298,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | value_1 | value_2 |
 | --- | --- |
@@ -1320,7 +1320,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | PERIOD_ADD(200801, 2) | PERIOD_ADD(200801, -12) |
 | --- | --- |
@@ -1342,7 +1342,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | PERIOD_DIFF(200802, 200703) | PERIOD_DIFF(200802, 201003) |
 | --- | --- |
@@ -1364,7 +1364,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | QUARTER(DATE('2020-08-26')) |
 | --- |
@@ -1390,7 +1390,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SEC_TO_TIME(3601) | SEC_TO_TIME(1234.123) |
 | --- | --- |
@@ -1413,7 +1413,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SECOND(TIME('01:02:03')) |
 | --- |
@@ -1436,7 +1436,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SECOND_OF_MINUTE(TIME('01:02:03')) |
 | --- |
@@ -1610,7 +1610,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1648,7 +1648,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1683,7 +1683,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1706,7 +1706,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1729,7 +1729,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1752,7 +1752,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1775,7 +1775,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1810,7 +1810,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1842,7 +1842,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1865,7 +1865,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1888,7 +1888,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1911,7 +1911,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1964,7 +1964,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -1996,7 +1996,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2028,7 +2028,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2063,7 +2063,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2098,7 +2098,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2134,7 +2134,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2166,7 +2166,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2200,7 +2200,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2235,7 +2235,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2267,7 +2267,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2299,7 +2299,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2331,7 +2331,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2379,7 +2379,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2413,7 +2413,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2461,7 +2461,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2493,7 +2493,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   
@@ -2526,7 +2526,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
 
 ```text
   

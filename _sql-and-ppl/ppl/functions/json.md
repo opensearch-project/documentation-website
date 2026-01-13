@@ -43,7 +43,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | test_name | json_string | json |
 | --- | --- | --- |
@@ -71,7 +71,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | is_valid_json | is_invalid_json |
 | --- | --- |
@@ -94,7 +94,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | test_json |
 | --- |
@@ -117,7 +117,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | test_json_array |
 | --- |
@@ -140,7 +140,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | array_length |
 | --- |
@@ -154,7 +154,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | array_length |
 | --- |
@@ -177,7 +177,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | extract |
 | --- |
@@ -191,7 +191,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | extract |
 | --- |
@@ -214,7 +214,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | delete |
 | --- |
@@ -228,7 +228,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | delete |
 | --- |
@@ -242,7 +242,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | delete |
 | --- |
@@ -265,7 +265,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | jsonSet |
 | --- |
@@ -279,7 +279,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | jsonSet |
 | --- |
@@ -302,7 +302,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | jsonAppend |
 | --- |
@@ -316,7 +316,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | jsonAppend |
 | --- |
@@ -330,7 +330,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | jsonAppend |
 | --- |
@@ -353,7 +353,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | jsonExtend |
 | --- |
@@ -367,7 +367,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | jsonExtend |
 | --- |
@@ -381,7 +381,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | jsonExtend |
 | --- |
@@ -404,7 +404,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | jsonKeys |
 | --- |
@@ -418,7 +418,7 @@ source=json_test
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | jsonKeys |
 | --- |

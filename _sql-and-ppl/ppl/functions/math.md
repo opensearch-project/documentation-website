@@ -23,7 +23,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | ABS(-1) |
 | --- |
@@ -46,7 +46,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | ADD(2, 1) |
 | --- |
@@ -69,7 +69,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SUBTRACT(2, 1) |
 | --- |
@@ -92,7 +92,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MULTIPLY(2, 1) |
 | --- |
@@ -115,7 +115,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DIVIDE(2, 1) |
 | --- |
@@ -138,7 +138,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SUM(1, 2, 3) |
 | --- |
@@ -154,7 +154,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | age | total |
 | --- | --- |
@@ -180,7 +180,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | AVG(1, 2, 3) |
 | --- |
@@ -196,7 +196,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | age | average |
 | --- | --- |
@@ -221,7 +221,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | ACOS(0) |
 | --- |
@@ -243,7 +243,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | ASIN(0) |
 | --- |
@@ -265,7 +265,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | ATAN(2) | ATAN(2, 3) |
 | --- | --- |
@@ -287,7 +287,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | ATAN2(2, 3) |
 | --- |
@@ -314,7 +314,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | CEILING(0) | CEILING(50.00005) | CEILING(-50.00005) |
 | --- | --- | --- |
@@ -327,7 +327,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | CEILING(3147483647.12345) | CEILING(113147483647.12345) | CEILING(3147483647.00001) |
 | --- | --- | --- |
@@ -349,7 +349,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | CONV('12', 10, 16) | CONV('2C', 16, 10) | CONV(12, 10, 2) | CONV(1111, 2, 10) |
 | --- | --- | --- | --- |
@@ -371,7 +371,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | COS(0) |
 | --- |
@@ -393,7 +393,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | COSH(2) |
 | --- |
@@ -415,7 +415,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | COT(1) |
 | --- |
@@ -437,7 +437,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | CRC32('MySQL') |
 | --- |
@@ -459,7 +459,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | DEGREES(1.57) |
 | --- |
@@ -480,7 +480,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | E() |
 | --- |
@@ -502,7 +502,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | EXP(2) |
 | --- |
@@ -524,7 +524,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | EXPM1(1) |
 | --- |
@@ -547,7 +547,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | FLOOR(0) | FLOOR(50.00005) | FLOOR(-50.00005) |
 | --- | --- | --- |
@@ -560,7 +560,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | FLOOR(3147483647.12345) | FLOOR(113147483647.12345) | FLOOR(3147483647.00001) |
 | --- | --- | --- |
@@ -573,7 +573,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | FLOOR(282474973688888.022) | FLOOR(9223372036854775807.022) | FLOOR(9223372036854775807.0000001) |
 | --- | --- | --- |
@@ -595,7 +595,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | LN(2) |
 | --- |
@@ -618,7 +618,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | LOG(2) | LOG(2, 8) |
 | --- | --- |
@@ -641,7 +641,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | LOG2(8) |
 | --- |
@@ -664,7 +664,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | LOG10(100) |
 | --- |
@@ -686,7 +686,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MOD(3, 2) | MOD(3.1, 2) |
 | --- | --- |
@@ -708,7 +708,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MODULUS(3, 2) | MODULUS(3.1, 2) |
 | --- | --- |
@@ -729,7 +729,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | PI() |
 | --- |
@@ -752,7 +752,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | POW(3, 2) | POW(-3, 2) | POW(3, -2) |
 | --- | --- | --- |
@@ -775,7 +775,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | POWER(3, 2) | POWER(-3, 2) | POWER(3, -2) |
 | --- | --- | --- |
@@ -797,7 +797,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | RADIANS(90) |
 | --- |
@@ -819,7 +819,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | RAND(3) |
 | --- |
@@ -843,7 +843,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | ROUND(12.34) | ROUND(12.34, 1) | ROUND(12.34, -1) | ROUND(12, 1) |
 | --- | --- | --- | --- |
@@ -865,7 +865,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SIGN(1) | SIGN(0) | SIGN(-1.1) |
 | --- | --- | --- |
@@ -888,7 +888,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SIGNUM(1) | SIGNUM(0) | SIGNUM(-1.1) |
 | --- | --- | --- |
@@ -910,7 +910,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SIN(0) |
 | --- |
@@ -932,7 +932,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SINH(2) |
 | --- |
@@ -956,7 +956,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SQRT(4) | SQRT(4.41) |
 | --- | --- |
@@ -979,7 +979,7 @@ source=location
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | CBRT(8) | CBRT(9.261) | CBRT(-27) |
 | --- | --- | --- |
@@ -1002,7 +1002,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | RINT(1.7) |
 | --- |

@@ -26,7 +26,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | MD5('hello') |
 | --- |
@@ -51,7 +51,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SHA1('hello') |
 | --- |
@@ -77,7 +77,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SHA2('hello',256) |
 | --- |

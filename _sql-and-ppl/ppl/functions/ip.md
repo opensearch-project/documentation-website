@@ -25,7 +25,7 @@ source=weblogs
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | host | url |
 | --- | --- |

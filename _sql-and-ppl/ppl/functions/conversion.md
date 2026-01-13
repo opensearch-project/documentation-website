@@ -36,7 +36,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | cbool | cint | cdate |
 | --- | --- | --- |
@@ -51,7 +51,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | cbool | cstring |
 | --- | --- |
@@ -66,7 +66,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | cdate | ctime | ctimestamp |
 | --- | --- | --- |
@@ -81,7 +81,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | cbool |
 | --- |
@@ -109,7 +109,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | divide | multiply | add | minus | concat |
 | --- | --- | --- | --- | --- |
@@ -124,7 +124,7 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | e | en | ed | edn | l | ld | i |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -167,7 +167,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | balance_binary | balance |
 | --- | --- | --- |
@@ -185,7 +185,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | balance_hex | balance |
 | --- | --- | --- |
@@ -203,7 +203,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | balance_commas | balance |
 | --- | --- | --- |
@@ -221,7 +221,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | firstname | duration |
 | --- | --- |
@@ -239,7 +239,7 @@ source=accounts
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | boolean_str |
 | --- |
@@ -263,7 +263,7 @@ source=people | eval int_value = tonumber('010101',2) | fields int_value | head 
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | int_value |
 | --- |
@@ -276,7 +276,7 @@ source=people | eval int_value = tonumber('FA34',16) | fields int_value | head 1
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | int_value |
 | --- |
@@ -289,7 +289,7 @@ source=people | eval int_value = tonumber('4598') | fields int_value | head 1
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | int_value |
 | --- |
@@ -302,7 +302,7 @@ source=people | eval double_value = tonumber('4598.678') | fields double_value |
 ```
 {% include copy.html %}
 
-Expected output:
+The query returns the following results:
 
 | double_value |
 | --- |
