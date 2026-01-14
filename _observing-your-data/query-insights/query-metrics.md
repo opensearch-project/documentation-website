@@ -15,15 +15,11 @@ Key query [metrics](#metrics), such as aggregation types, query types, latency, 
 
 To configure query metric generation, use the following steps.
 
-### Step 1: Install the Query Insights plugin
-
-For information about installing the Query Insights plugin, see [Installing the Query Insights plugin]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/index/#installing-the-query-insights-plugin).
-
-### Step 2: Install the OpenTelemetry plugin
+### Step 1: Install the OpenTelemetry plugin
 
 For information about installing the OpenTelemetry plugin, see [Distributed tracing]({{site.url}}{{site.baseurl}}/observing-your-data/trace/distributed-tracing/).
 
-### Step 3: Enable query metrics
+### Step 2: Enable query metrics
 
 Enable query metrics by configuring the following `opensearch.yml` settings:
 

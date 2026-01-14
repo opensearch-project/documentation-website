@@ -478,7 +478,7 @@ The API call returns results only after the warm up operation finishes or the re
 
 If the request times out, then the operation continues on the cluster. 
 
-To monitor the warm up operation, use the OpenSearch Tasks API:
+To monitor the warm up operation, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/):
 
 ```json
 GET /_tasks
@@ -566,7 +566,7 @@ The API call returns results only after the clear cache operation finishes or th
 
 If the request times out, the operation continues running in the cluster.
 
-To monitor the progress of the clear cache operation, use the OpenSearch Tasks API:
+To monitor the progress of the clear cache operation, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/):
 
 ```json
 GET /_tasks

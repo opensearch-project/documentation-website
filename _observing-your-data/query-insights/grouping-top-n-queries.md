@@ -222,6 +222,7 @@ The response contains the top N query groups:
   "top_queries": [
     {
       "timestamp": 1725495127359,
+      "wlm_group_id": "DEFAULT_WORKLOAD_GROUP",
       "source": {
         "query": {
           "match_all": {
@@ -259,10 +260,14 @@ The response contains the top N query groups:
           }
         }
       ],
+      "username": "admin",
       "indices": [
         "my_index"
       ],
       "labels": {},
+      "user_roles": [
+        "all_access"
+      ],
       "search_type": "query_then_fetch",
       "measurements": {
         "latency": {
@@ -274,6 +279,7 @@ The response contains the top N query groups:
     },
     {
       "timestamp": 1725495135160,
+      "wlm_group_id": "DEFAULT_WORKLOAD_GROUP",
       "source": {
         "query": {
           "term": {
@@ -314,10 +320,14 @@ The response contains the top N query groups:
           }
         }
       ],
+      "username": "admin",
       "indices": [
         "my_index"
       ],
       "labels": {},
+      "user_roles": [
+        "all_access"
+      ],
       "search_type": "query_then_fetch",
       "measurements": {
         "latency": {
@@ -329,6 +339,7 @@ The response contains the top N query groups:
     },
     {
       "timestamp": 1725495139766,
+      "wlm_group_id": "DEFAULT_WORKLOAD_GROUP",
       "source": {
         "query": {
           "match": {
@@ -376,10 +387,14 @@ The response contains the top N query groups:
           }
         }
       ],
+      "username": "admin",
       "indices": [
         "my_index"
       ],
       "labels": {},
+      "user_roles": [
+        "all_access"
+      ],
       "search_type": "query_then_fetch",
       "measurements": {
         "latency": {
