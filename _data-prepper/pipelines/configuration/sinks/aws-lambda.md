@@ -20,7 +20,14 @@ Field             | Type    | Required | Description
 `invocation_type`   | String  | No       | Specifies the invocation type. Default is `event`.             
 `aws.region`        | String  | Yes      | The AWS Region in which the Lambda function is located.                         
 `aws.sts_role_arn`  | String  | No       | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function.               
-`max_retries`       | Integer | No       | The maximum number of retries if the invocation fails. Default is `3`.             
+`max_retries`       | Integer | No       | The maximum number of retries if the invocation fails. Default is `3`.
+`client.max_retries` | Integer | No | The maximum number of retries for failed invocations. Default is `3`.             
+`client.api_call_timeout` | Duration | No | The API call timeout. Default is `60s`.
+`client.connection_timeout` | Duration | No | The SDK connection timeout. Default is `60s`.
+`client.read_timeout` | Duration | No | The time the SDK waits for data to be read from an established connection. Default is `60s`.
+`client.max_concurrency` | Integer | No | The maximum number of concurrent threads on the client. Default is `200`.
+`client.base_delay`  | Duration | No | The base delay for the exponential backoff. Default is `100ms`.
+`client.max_backoff` | Duration | No | The maximum backoff time for the exponential backoff. Default is `20s`.             
 `batch`             | Object  | No       | Optional batch settings for Lambda invocations. Default is `key_name = events`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.
 `lambda_when`       | String  | No       | A conditional expression that determines when to invoke the Lambda sink.          
 `dlq`               | Object  | No       | The dead-letter queue (DLQ) configuration for failed invocations.                
@@ -36,6 +43,14 @@ sink:
         region: "us-west-2"
         sts_role_arn: "arn:aws:iam::123456789012:role/my-lambda-sink-role"
       max_retries: 5
+      client:
+        max_retries: 3
+        api_call_timeout: PT60S
+        connection_timeout: PT60S
+        read_timeout: PT60S
+        max_concurrency: 200
+        base_delay: PT0.1S
+        max_backoff: PT20S
       batch:
         key_name: "events"
         threshold:
