@@ -8,11 +8,11 @@ nav_order: 59
 
 # Prometheus sink
 
-The prometheus sink buffers OpenTelemetry metrics and exports them in Prometheus TimeSeries format via the Remote Write API. At this time, it is specifically designed to support Amazon Managed Service for Prometheus, utilizing the configured url as the remote write endpoint.
+The Prometheus sink buffers OpenTelemetry metrics and exports them in Prometheus time series format using the Remote Write API. It is currently designed to work with Amazon Managed Service for Prometheus, using the configured `url` as the remote write endpoint.
 
-The `prometheus` sink only sends metric type data to prometheus server. All other types of data are sent to [DLQ pipeline](#_data-prepper/pipelines/pipeline.md), if configured
+The `prometheus` sink processes only metric data. All other data types are sent to the [DLQ pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/dlq/), if it is configured.
 
-To ensure compatibility, the prometheus sink sorts metrics by timestamp per batch before sending them to the server. It also supports an out-of-order window, enabling the ingestion of metrics with older timestamps.
+To ensure compatibility, the Prometheus sink sorts metrics by timestamp within each batch before sending them to the server. It also supports an out-of-order window, which allows ingestion of metrics with older timestamps.
 
 ## Usage
 
@@ -36,9 +36,9 @@ pipeline:
           sts_role_arn: arn:aws:iam::123456789012:role/Data-Prepper
         max_retries: 3
 ```
+{% include copy.html %}
 
 ## IAM permissions
-
 
 To use the `prometheus` sink, configure AWS Identify and Access Management (IAM) to grant Data Prepper permissions to write to Amazon Managed Prometheus. You can use a configuration similar to the following JSON configuration:
 
@@ -62,16 +62,30 @@ To use the `prometheus` sink, configure AWS Identify and Access Management (IAM)
 
 ## Configuration 
 
+Use the following options when customizing the `prometheus` sink.
+
+Option | Required | Type                                            | Description
+:--- | :--- | :--- | :--- 
 `url` | Yes       | String                                         | The full URL of the Prometheus remote write endpoint.
-`encoding` | No   | String                                         | The compression format used for requests. Only snappy is supported. Default is snappy.
-`remote_write_version` | No | String                               | The version of the Prometheus remote write protocol. Only 0.1.0 is supported.
-`content_type` | No | String                                       | The MIME type of the body. Only application/x-protobuf is supported.
+`encoding` | No   | String                                         | The compression format used for requests. Only `snappy` is supported. Default is `snappy`.
+`remote_write_version` | No | String                               | The version of the Prometheus remote write protocol. Only `0.1.0` is supported.
+`content_type` | No | String                                       | The MIME type of the body. Only `application/x-protobuf` is supported.
 `out_of_order_time_window` | No      | Duration                     | The time window allowed for late-arriving data points. Data older than this window relative to the latest point will be dropped.
-`sanitize_names` | No | Boolean                                    | Determines whether metric and label names are sanitized to comply with Prometheus naming conventions. Default is true.
-`connection_timeout` | No | Duration                               | The maximum time allowed to establish an HTTP connection. Default is 60s.
-`idle_timeout` | No | Duration                                     | The maximum time an idle HTTP connection remains open before being closed. Default is 60s.
-`request_timeout` | No | Duration                                  | The maximum time allowed for a full end-to-end HTTP request to complete. Default is 60s.
-`threshold` | No      | [Threshold](#threshold-configuration)      | Configuration for batching and flushing timeseries data. Defaults: max_events=1000, max_request_size=1mb, flush_interval=10s.
-`max_retries` | No       | Integer                                 | The maximum number of attempts for failed ingestion requests. Default is 5.
+`sanitize_names` | No | Boolean                                    | Determines whether metric and label names are sanitized in order to comply with Prometheus naming conventions. Default is `true`.
+`connection_timeout` | No | Duration                               | The maximum amount of time allowed to establish an HTTP connection. Default is `60s`.
+`idle_timeout` | No | Duration                                     | The maximum amount of time an idle HTTP connection remains open before being closed. Default is `60s`.
+`request_timeout` | No | Duration                                  | The maximum amount of time allowed for a full end-to-end HTTP request to complete. Default is `60s`.
+`threshold` | No      | [Threshold configuration](#threshold-configuration)      | Configuration for batching and flushing time-series data.
+`max_retries` | No       | Integer                                 | The maximum number of attempts for failed ingestion requests. Default is `5`.
 `aws.region`        | String  | Yes                                | The AWS Region where the Amazon Managed Service for Prometheus (AMP) workspace is located.
 `aws.sts_role_arn`  | String  | No                                 | The IAM Role ARN to assume for authentication when sending data to AMP.
+
+## Threshold configuration
+
+Use the following options to configure batching and flushing behavior for the Prometheus sink.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`max_events` | No | Integer | The maximum number of events to accumulate before flushing to Prometheus. Default is `1000`.
+`max_request_size` | No | String | The maximum size of the request payload before flushing. Default is `1mb`.
+`flush_interval` | No | Duration | The maximum amount of time to wait before flushing events. Default is `10s`.
