@@ -113,6 +113,7 @@ ISM supports the following operations:
 - [allocation](#allocation)
 - [rollup](#rollup)
 - [stop_replication](#stop_replication)
+- [search_only](#search_only)
 
 ### force_merge
 
@@ -505,6 +506,58 @@ When cross-cluster replication is enabled, the follower index becomes read-only,
 
 If security is enabled, in addition to [stop replication permissions]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions), you must have the `indices:internal/plugins/replication/index/stop` permission in order to use the `stop_replication` action.
 {: .note}
+
+### search_only
+
+Set an index to search-only mode by calling the [Scale API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/scale/). When an index enters search-only mode, OpenSearch removes the primary and regular replica shards while retaining search replicas for query operations. OpenSearch blocks further writes to the index.
+
+```json
+{
+  "search_only": {}
+}
+```
+
+This is useful for log lifecycle management where older indexes no longer need write capability but should remain searchable.
+
+This action requires the following prerequisites: remote store must be enabled on the cluster, segment replication must be enabled on the index, and search replicas must be configured on the index. For more information about search-only mode and reader/writer separation, see [Separate index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/).
+{: .note}
+
+If the index is already in search-only mode, the action completes successfully without making any changes.
+
+The following example policy transitions an index to search-only mode after 7 days:
+
+```json
+{
+  "policy": {
+    "policy_id": "hot-warm-search-only",
+    "default_state": "hot",
+    "states": [
+      {
+        "name": "hot",
+        "actions": [],
+        "transitions": [
+          {
+            "state_name": "warm",
+            "conditions": {
+              "min_index_age": "7d"
+            }
+          }
+        ]
+      },
+      {
+        "name": "warm",
+        "actions": [
+          {
+            "search_only": {}
+          }
+        ],
+        "transitions": []
+      }
+    ]
+  }
+}
+```
+{% include copy.html %}
 
 #### Endpoints
 
