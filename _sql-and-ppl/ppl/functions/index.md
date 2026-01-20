@@ -25,7 +25,7 @@ PPL supports a wide range of built-in functions for data processing and analysis
   - [EARLIEST]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/#earliest).
   - [LATEST]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/#latest).
   - [TAKE]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/#take).
-  - [PERCENTILE, PERCENTILE_APPROX]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/#percentile-or-percentile_approx).
+  - [PERCENTILE, PERCENTILE_APPROX]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/#percentile-percentile_approx).
   - [MEDIAN]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/#median).
   - [FIRST]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/#first).
   - [LAST]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/#last).

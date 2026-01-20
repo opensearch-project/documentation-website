@@ -562,3 +562,5 @@ search source = people
 
 <!-- temporarily commented out because the optimization section is not ported
 See [Optimization]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/optimization/optimization/) to get more details about the query engine optimization.
+
+-->
