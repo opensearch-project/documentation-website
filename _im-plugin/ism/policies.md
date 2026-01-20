@@ -557,7 +557,6 @@ The following example policy transitions an index to search-only mode after 7 da
   }
 }
 ```
-{% include copy.html %}
 
 #### Endpoints
 
