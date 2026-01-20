@@ -40,7 +40,7 @@ pipeline:
 
 ## IAM permissions
 
-To use the `prometheus` sink, configure AWS Identify and Access Management (IAM) to grant Data Prepper permissions to write to Amazon Managed Prometheus. You can use a configuration similar to the following JSON configuration:
+To use the `prometheus` sink, configure AWS Identity and Access Management (IAM) to grant OpenSearch Data Prepper permissions to write to Amazon Managed Service for Prometheus. You can use a configuration similar to the following JSON configuration:
 
 ```json
 {
@@ -77,8 +77,8 @@ Option | Required | Type                                            | Descriptio
 `request_timeout` | No | Duration                                  | The maximum amount of time allowed for a full end-to-end HTTP request to complete. Default is `60s`.
 `threshold` | No      | [Threshold configuration](#threshold-configuration)      | Configuration for batching and flushing time-series data.
 `max_retries` | No       | Integer                                 | The maximum number of attempts for failed ingestion requests. Default is `5`.
-`aws.region`        | String  | Yes                                | The AWS Region where the Amazon Managed Service for Prometheus (AMP) workspace is located.
-`aws.sts_role_arn`  | String  | No                                 | The IAM Role ARN to assume for authentication when sending data to AMP.
+`aws.region`        | String  | Yes                                | The AWS Region where the Amazon Managed Service for Prometheus workspace is located.
+`aws.sts_role_arn`  | String  | No                                 | The IAM role Amazon Resource Name (ARN) to assume for authentication when sending data to Amazon Managed Service for Prometheus.
 
 ## Threshold configuration
 
