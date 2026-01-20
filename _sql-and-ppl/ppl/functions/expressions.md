@@ -5,37 +5,31 @@ parent: Functions
 grand_parent: PPL
 nav_order: 7
 ---
-# Expressions  
 
-## Introduction  
+# Expressions
 
-Expressions, particularly value expressions, are those which return a scalar value. Expressions have different types and forms. For example, there are literal values as atom expression and arithmetic, predicate and function expression built on top of them. And also expressions can be used in different clauses, such as using arithmetic expression in `Filter`, `Stats` command.
-## Arithmetic Operators  
+Expressions, particularly value expressions, return a scalar value. Expressions have different types and forms. For example, there are literal values as atomic expressions, as well as arithmetic, predicate, and function expressions built on top of them. You can use expressions in different clauses, such as arithmetic expressions in the `Filter` or `Stats` commands.
 
-### Description  
+## Arithmetic operators
 
-#### Operators  
+Arithmetic expressions are formed by combining numeric literals and binary arithmetic operators. The following operators are available:
+1. `+`: Addition
+2. `-`: Subtraction
+3. `*`: Multiplication
+4. `/`: Division. When [`plugins.ppl.syntax.legacy.preferred`]({{site.url}}{{site.baseurl}}/sql-and-ppl/settings/) is `true` (default), integer operands follow the legacy truncating result. When the setting is `false`, the operands are promoted to floating-point, preserving the fractional part. Division by zero returns `NULL`.
+5. `%`: Modulo. This operator can only be used with integers and returns the remainder of the division.
 
-Arithmetic expression is an expression formed by numeric literals and binary arithmetic operators as follows:
-1. `+`: Add.  
-2. `-`: Subtract.  
-3. `*`: Multiply.  
-4. `/`: Divide. Integer operands follow the legacy truncating result when  
-  
-   [plugins.ppl.syntax.legacy.preferred]({{site.url}}{{site.baseurl}}/sql-and-ppl/settings/) is `true` (default). When the
-   setting is `false` the operands are promoted to floating point, preserving
-   the fractional part. Division by zero still returns `NULL`.
-5. `%`: Modulo. This can be used with integers only with remainder of the division as result.  
-  
-#### Precedence  
+### Precedence
 
-Parentheses can be used to control the precedence of arithmetic operators. Otherwise, operators of higher precedence is performed first.
-#### Type Conversion  
+You can use parentheses to control the precedence of arithmetic operators. Otherwise, operators with higher precedence are performed first.
 
-Implicit type conversion is performed when looking up operator signature. For example, an integer `+` a real number matches signature `+(double,double)` which results in a real number. This rule also applies to function call discussed below.
-### Examples  
+### Type conversion
 
-Here is an example for different type of arithmetic expressions
+The system performs implicit type conversion when determining which operator to use. For example, adding an integer to a real number matches the signature `+(double,double)`, which results in a real number. The same type conversion rules apply to function calls.
+
+### Examples
+
+The following are examples of different types of arithmetic expressions:
   
 ```sql
 source=accounts
@@ -52,36 +46,45 @@ The query returns the following results:
 | 36 |
 | 33 |
   
-## Predicate Operators  
+## Predicate operators
 
-### Description  
+Predicate operators are expressions that evaluate to `true` or `false`.
 
-Predicate operator is an expression that evaluated to be ture. The MISSING and NULL value comparison has following the rule. MISSING value only equal to MISSING value and less than all the other values. NULL value equals to NULL value, large than MISSING value, but less than all the other values.
-#### Operators  
+Comparisons for `MISSING` and `NULL` values follow these rules:
+- `MISSING` values only equal other `MISSING` values and are less than all other values.
+- `NULL` values equal other `NULL` values, are greater than `MISSING` values, but less than all other values.
+
+### Operators
   
-| name | description |
+| Name | Description |
 | --- | --- |
-| > | Greater than operator |
-| >= | Greater than or equal operator |
-| < | Less than operator |
-| != | Not equal operator |
-| <= | Less than or equal operator |
-| = | Equal operator |
-| == | Equal operator (alternative syntax) |
-| LIKE | Simple Pattern matching |
-| IN | NULL value test |
-| AND | AND operator |
-| OR | OR operator |
-| XOR | XOR operator |
-| NOT | NOT NULL value test |
+| `>` | Greater than |
+| `>=` | Greater than or equal to |
+| `<` | Less than |
+| `!=` | Not equal to |
+| `<=` | Less than or equal to |
+| `=` | Equal to |
+| `==` | Equal to (alternative syntax) |
+| `LIKE` | Simple pattern matching |
+| `IN` | Value list membership test |
+| `AND` | Logical AND |
+| `OR` | Logical OR |
+| `XOR` | Logical XOR |
+| `NOT` | Logical NOT |
   
-It is possible to compare datetimes. When comparing different datetime types, for example `DATE` and `TIME`, both converted to `DATETIME`.
-The following rule is applied on coversion: a `TIME` applied to today's date; `DATE` is interpreted at midnight.
-### Examples  
+You can compare date and time values. When comparing different date and time types (for example, `DATE` and `TIME`), both values are converted to `DATETIME`.
 
-#### Basic Predicate Operator  
+The following conversion rules are applied:
+- A `TIME` value is combined with today's date.
+- A `DATE` value is interpreted as midnight on that date.
 
-Here is an example for comparison operators
+### Examples
+
+The following examples demonstrate how to use predicate operators in PPL queries.
+
+#### Basic predicate operators
+
+The following is an example of comparison operators:
   
 ```sql
 source=accounts
@@ -96,7 +99,7 @@ The query returns the following results:
 | --- |
 | 36 |
   
-The `==` operator can be used as an alternative to `=` for equality comparisons
+The `==` operator can be used as an alternative to `=` for equality comparisons.
   
 ```sql
 source=accounts
@@ -111,10 +114,12 @@ The query returns the following results:
 | --- |
 | 32 |
   
-Note: Both `=` and `==` perform the same equality comparison. You can use either based on your preference.
-#### IN  
+Both `=` and `==` perform the same equality comparison. You can use either based on your preference.
+{: .note}
 
-IN operator test field in value lists
+#### IN
+
+The `IN` operator tests whether a field value is in the specified list of values.
   
 ```sql
 source=accounts
@@ -129,10 +134,10 @@ The query returns the following results:
 | --- |
 | 32 |
 | 33 |
-  
-#### OR  
 
-OR operator
+#### OR
+
+The `OR` operator performs a logical OR operation between two Boolean expressions.
   
 ```sql
 source=accounts
@@ -147,10 +152,10 @@ The query returns the following results:
 | --- |
 | 32 |
 | 33 |
-  
-#### NOT  
 
-NOT operator
+#### NOT
+
+The `NOT` operator performs a logical NOT operation, negating a Boolean expression.
   
 ```sql
 source=accounts
@@ -165,4 +170,3 @@ The query returns the following results:
 | --- |
 | 36 |
 | 28 |
-  

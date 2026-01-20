@@ -1,17 +1,29 @@
 ---
 layout: default
-title: Type Conversion Functions
+title: Type conversion functions
 parent: Functions
 grand_parent: PPL
 nav_order: 4
 ---
-# Type Conversion Functions  
 
-## CAST  
+# Type conversion functions
 
-### Description  
+The following type conversion functions are supported in PPL.
 
-Usage: `cast(expr as dateType)` cast the expr to dataType. return the value of dataType. The following conversion rules are used:
+## CAST
+
+**Usage**: `cast(expr as dataType)`
+
+Casts the expression to the specified data type and returns the converted value.
+
+**Parameters**:
+
+- `expr` (Required): The expression to cast to a different data type.
+- `dataType` (Required): The target data type for the cast operation.
+
+**Return type**: Specified by data type
+
+The following table shows the conversion rules used for casting between data types:
   
 | Src/Target | STRING | NUMBER | BOOLEAN | TIMESTAMP | DATE | TIME | IP |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -23,12 +35,13 @@ Usage: `cast(expr as dateType)` cast the expr to dataType. return the value of d
 | TIME | Note1 | N/A | N/A | N/A | N/A |  | N/A |
 | IP | Note2 | N/A | N/A | N/A | N/A | N/A |  |
   
-Note1: the conversion follow the JDK specification.
-Note2: IP will be converted to its canonical representation. Canonical representation
-for IPv6 is described in [RFC 5952](https://datatracker.ietf.org/doc/html/rfc5952).
+Note1: The conversion follows the JDK specification.
+Note2: IP addresses are converted to their canonical representation. The canonical representation for IPv6 is described in [RFC 5952](https://datatracker.ietf.org/doc/html/rfc5952).
 
-### Example: Cast to string
-  
+#### Example
+
+The following example casts different data types to string:
+
 ```sql
 source=people
 | eval `cbool` = CAST(true as string), `cint` = CAST(1 as string), `cdate` = CAST(CAST('2012-08-07' as date) as string)
@@ -42,8 +55,8 @@ The query returns the following results:
 | --- | --- | --- |
 | TRUE | 1 | 2012-08-07 |
   
-### Example: Cast to number
-  
+The following example casts values to integer type:
+
 ```sql
 source=people
 | eval `cbool` = CAST(true as int), `cstring` = CAST('1' as int)
@@ -57,8 +70,8 @@ The query returns the following results:
 | --- | --- |
 | 1 | 1 |
   
-### Example: Cast to date
-  
+The following example casts strings to date, time, and timestamp types:
+
 ```sql
 source=people
 | eval `cdate` = CAST('2012-08-07' as date), `ctime` = CAST('01:01:01' as time), `ctimestamp` = CAST('2012-08-07 01:01:01' as timestamp)
@@ -72,8 +85,8 @@ The query returns the following results:
 | --- | --- | --- |
 | 2012-08-07 | 01:01:01 | 2012-08-07 01:01:01 |
   
-### Example: Cast function can be chained
-  
+The following example demonstrates chaining cast functions:
+
 ```sql
 source=people
 | eval `cbool` = CAST(CAST(true as string) as boolean)
@@ -87,21 +100,21 @@ The query returns the following results:
 | --- |
 | True |
   
-## IMPLICIT (AUTO) TYPE CONVERSION  
+## Implicit type conversion  
 
-Implicit conversion is automatic casting. When a function does not have an exact match for the
-input types, the engine looks for another signature that can safely work with the values. It picks
-the option that requires the least stretching of the original types, so you can mix literals and
-fields without adding `CAST` everywhere.
+Implicit conversion is automatic casting. When a function does not have an exact match for the input types, the engine looks for another signature that can safely handle the values. It selects the option that requires the least conversion of the original types, so you can mix literals and fields without adding explicit `cast` functions.
 
-### String to numeric  
+### String to numeric type conversion
 
-When a string stands in for a number we simply parse the text:
-- The value must be something like `"3.14"` or `"42"`. Anything else causes the query to fail.  
-- If a string appears next to numeric arguments, it is treated as a `DOUBLE` so the numeric overload of the function can run.
+When a string is used where a numeric value is expected, the engine attempts to parse the string as a number:
 
-### Example: Use string in arithmetic operator
-  
+- The string must represent a valid numeric value, such as `"3.14"` or `"42"`. Any other value causes the query to fail.
+- If a string is used alongside numeric arguments, the engine treats it as a `DOUBLE` so that the numeric overload of the function can be applied.
+
+#### Example
+
+The following example demonstrates using strings in arithmetic operations:
+
 ```sql
 source=people
 | eval divide="5"/10, multiply="5" * 10, add="5" + 10, minus="5" - 10, concat="5" + "5"
@@ -115,8 +128,8 @@ The query returns the following results:
 | --- | --- | --- | --- | --- |
 | 0.5 | 50.0 | 15.0 | -5.0 | 55 |
   
-### Example: Use string in comparison operator
-  
+The following example demonstrates using strings in comparison operations:
+
 ```sql
 source=people
 | eval e="1000"==1000, en="1000"!=1000, ed="1000"==1000.0, edn="1000"!=1000.0, l="1000">999, ld="1000">999.9, i="malformed"==1000
@@ -130,35 +143,31 @@ The query returns the following results:
 | --- | --- | --- | --- | --- | --- | --- |
 | True | False | True | False | True | True | null |
   
-## TOSTRING  
+## TOSTRING
 
-### Description  
+**Usage**: `tostring(value[, format])`
 
-The following usage options are available, depending on the parameter types and the number of parameters.
+Converts the value to a string representation. If a format is provided, converts numbers to the specified format type. For Boolean values, converts to `TRUE` or `FALSE`.
 
-Usage with format type: `tostring(ANY, [format])`: Converts the value in first argument to provided format type string in second argument. If second argument is not provided, then it converts to default string representation.
+**Parameters**:
 
-**Return type:** `STRING`
-
-Usage for boolean parameter without format type `tostring(boolean)`: Converts the string to 'TRUE' or 'FALSE'.
-
-**Return type:** `STRING`
-
-You can use this function with the eval commands and as part of eval expressions. If first argument can be any valid type, second argument is optional and if provided, it needs to be format name to convert to where first argument contains only numbers. If first argument is boolean, then second argument is not used even if its provided.
+- `value` (Required): The value to convert to string (any data type).
+- `format` (Optional): The format type for number conversion. This parameter is only used when `value` is a number. If `value` is a Boolean, this parameter is ignored.
 
 Format types:
-1. "binary" Converts a number to a binary value.  
-2. "hex" Converts the number to a hexadecimal value.  
-3. "commas" Formats the number with commas. If the number includes a decimal, the function rounds the number to nearest two decimal places.  
-4. "duration" Converts the value in seconds to the readable time format HH:MM:SS.  
-5. "duration_millis" Converts the value in milliseconds to the readable time format HH:MM:SS.  
-  
-The format argument is optional and is only used when the value argument is a number. The tostring function supports the following formats.
 
-### Example: Convert number to binary string
+- `binary`: Converts a number to a binary value.
+- `hex`: Converts the number to a hexadecimal value.
+- `commas`: Formats the number using commas. If the number includes a decimal, the function rounds the number to the nearest two decimal places.
+- `duration`: Converts the value in seconds to the readable time format `HH:MM:SS`.
+- `duration_millis`: Converts the value in milliseconds to the readable time format `HH:MM:SS`.
 
-You can use this function to convert a number to a string of its binary representation.
-  
+**Return type**: `STRING`
+
+#### Example
+
+The following example converts a number to its binary string representation:
+
 ```sql
 source=accounts
 | where firstname = "Amber"
@@ -173,10 +182,8 @@ The query returns the following results:
 | --- | --- | --- |
 | Amber | 1001100100111001 | 39225 |
   
-### Example: Convert number to hex string
+The following example converts a number to its hexadecimal string representation:
 
-You can use this function to convert a number to a string of its hex representation.
-  
 ```sql
 source=accounts
 | where firstname = "Amber"
@@ -191,9 +198,7 @@ The query returns the following results:
 | --- | --- | --- |
 | Amber | 9939 | 39225 |
   
-### Example: Format number with commas
-
-The following example formats the column totalSales to display values with commas.
+The following example formats numbers with comma separators:
   
 ```sql
 source=accounts
@@ -211,7 +216,7 @@ The query returns the following results:
   
 ### Example: Convert seconds to duration format
 
-The following example converts number of seconds to HH:MM:SS format representing hours, minutes and seconds.
+The following example converts the number of seconds to the `HH:MM:SS` format representing hours, minutes, and seconds:
   
 ```sql
 source=accounts
@@ -227,9 +232,7 @@ The query returns the following results:
 | --- | --- |
 | Amber | 01:48:20 |
   
-### Example: Convert boolean to string
-
-The following example converts boolean parameter to string.
+The following example converts a Boolean value to string:
   
 ```sql
 source=accounts
@@ -247,19 +250,32 @@ The query returns the following results:
 
 ## TONUMBER
 
-### Description
+**Usage**: `tonumber(string[, base])`
 
-Usage: `tonumber(string, [base])` converts the value in first argument.
-The second argument describes the base of first argument. If second argument is not provided, then it converts to base 10 number representation.
+Converts the string value to a number. The optional `base` parameter specifies the base of the input string. If not provided, the function assumes base `10`.
 
-**Return type:** `NUMBER`
+**Parameters**:
 
-You can use this function with the eval commands and as part of eval expressions. Base values can be between 2 and 36. The maximum value supported for base 10 is +(2-2^-52)·2^1023 and minimum is -(2-2^-52)·2^1023. The maximum for other supported bases is 2^63-1 (or 7FFFFFFFFFFFFFFF) and minimum is -2^63 (or -7FFFFFFFFFFFFFFF). If the tonumber function cannot parse a field value to a number, the function returns NULL. You can use this function to convert a string representation of a binary number to return the corresponding number in base 10.
+- `string` (Required): The string representation of the number to convert.
+- `base` (Optional): The base of the input string (between `2` and `36`). Defaults to `10`.
 
-### Example: Convert binary string to number
+**Return type**: `NUMBER`
+
+You can use this function with `eval` commands and as part of `eval` expressions. Base values can be between `2` and `36`.
+
+**Value limits**:
+- Base 10: Maximum is +(2-2^-52)·2^1023 and minimum is -(2-2^-52)·2^1023.
+- Other bases: Maximum is 2^63-1 (or 7FFFFFFFFFFFFFFF) and minimum is -2^63 (or -7FFFFFFFFFFFFFFF).
+
+If the `tonumber` function cannot parse a field value to a number, the function returns `NULL`. You can use this function to convert string representations of numbers in various bases to their corresponding base 10 values.
+
+#### Example: Convert a binary string to a number
 
 ```sql
-source=people | eval int_value = tonumber('010101',2) | fields int_value | head 1
+source=people
+| eval int_value = tonumber('010101',2)
+| fields int_value
+| head 1
 ```
 {% include copy.html %}
 
@@ -269,10 +285,13 @@ The query returns the following results:
 | --- |
 | 21.0 |
 
-### Example: Convert hex string to number
+#### Example: Convert a hexadecimal string to a number
 
 ```sql
-source=people | eval int_value = tonumber('FA34',16) | fields int_value | head 1
+source=people
+| eval int_value = tonumber('FA34',16)
+| fields int_value
+| head 1
 ```
 {% include copy.html %}
 
@@ -282,10 +301,13 @@ The query returns the following results:
 | --- |
 | 64052.0 |
 
-### Example: Convert decimal string to number
+#### Example: Convert a decimal string without a decimal part to a number
 
 ```sql
-source=people | eval int_value = tonumber('4598') | fields int_value | head 1
+source=people
+| eval int_value = tonumber('4598')
+| fields int_value
+| head 1
 ```
 {% include copy.html %}
 
@@ -295,10 +317,13 @@ The query returns the following results:
 | --- |
 | 4598.0 |
 
-### Example: Convert decimal string with fraction to number
+#### Example: Convert a decimal string with a decimal part to a number
 
 ```sql
-source=people | eval double_value = tonumber('4598.678') | fields double_value | head 1
+source=people
+| eval double_value = tonumber('4598.678')
+| fields double_value
+| head 1
 ```
 {% include copy.html %}
 
@@ -307,4 +332,3 @@ The query returns the following results:
 | double_value |
 | --- |
 | 4598.678 |
-  

@@ -1,24 +1,29 @@
 ---
 layout: default
-title: PPL Cryptographic Functions
+title: Cryptographic functions
 parent: Functions
 grand_parent: PPL
 nav_order: 5
 ---
-# PPL Cryptographic Functions  
 
-## MD5  
+# Cryptographic functions
 
-### Description  
+The following cryptographic functions are supported in PPL.
 
-Version: 3.1.0  
-Usage: `md5(str)` calculates the MD5 digest and returns the value as a 32-character hex string.  
+## MD5
 
-**Argument type:** `STRING`  
-**Return type:** `STRING`  
+**Usage**: `MD5(str)`
 
-### Example  
-  
+Calculates the MD5 digest and returns the value as a 32-character hex string.
+
+**Parameters**:
+
+- `str` (Required): The string for which to calculate the MD5 digest.
+
+**Return type**: `STRING`
+
+#### Example
+
 ```sql
 source=people
 | eval `MD5('hello')` = MD5('hello')
@@ -32,18 +37,20 @@ The query returns the following results:
 | --- |
 | 5d41402abc4b2a76b9719d911017c592 |
   
-## SHA1  
+## SHA1
 
-### Description  
+**Usage**: `SHA1(str)`
 
-Version: 3.1.0  
-Usage: `sha1(str)` returns the hex string result of SHA-1.  
+Returns the SHA-1 hash as a hex string.
 
-**Argument type:** `STRING`  
-**Return type:** `STRING`  
+**Parameters**:
 
-### Example  
-  
+- `str` (Required): The string for which to calculate the SHA-1 hash.
+
+**Return type**: `STRING`
+
+#### Example
+
 ```sql
 source=people
 | eval `SHA1('hello')` = SHA1('hello')
@@ -57,19 +64,21 @@ The query returns the following results:
 | --- |
 | aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d |
   
-## SHA2  
+## SHA2
 
-### Description  
+**Usage**: `SHA2(str, numBits)`
 
-Version: 3.1.0  
-Usage: `sha2(str, numBits)` returns the hex string result of SHA-2 family of hash functions (SHA-224, SHA-256, SHA-384, and SHA-512).  
-The numBits indicates the desired bit length of the result, which must have a value of 224, 256, 384, or 512.  
+Returns the result of SHA-2 family hash functions (SHA-224, SHA-256, SHA-384, and SHA-512) as a hex string.
 
-**Argument type:** `STRING`, `INTEGER`  
-**Return type:** `STRING`  
+**Parameters**:
 
-### Example  
-  
+- `str` (Required): The string for which to calculate the SHA-2 hash.
+- `numBits` (Required): The desired bit length of the result, which must be `224`, `256`, `384`, or `512`.
+
+**Return type**: `STRING`
+
+#### Example: SHA-256 hash
+
 ```sql
 source=people
 | eval `SHA2('hello',256)` = SHA2('hello',256)
@@ -82,7 +91,9 @@ The query returns the following results:
 | SHA2('hello',256) |
 | --- |
 | 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824 |
-  
+
+#### Example: SHA-512 hash
+
 ```sql
 source=people
 | eval `SHA2('hello',512)` = SHA2('hello',512)
@@ -90,9 +101,8 @@ source=people
 ```
 {% include copy.html %}
   
-Expected output:
+The query returns the following results:
   
 | SHA2('hello',512) |
 | --- |
 | 9b71d224bd62f3785d96d46ad3ea3d73319bfbc2890caadae2dff72519673ca72323c3d99ba5c11d7c7acc6e14b8c5da0c4663475c2e5c3adef46f73bcdec043 |
-  

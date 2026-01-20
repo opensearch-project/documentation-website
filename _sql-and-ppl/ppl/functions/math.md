@@ -1,19 +1,27 @@
 ---
 layout: default
-title: Mathematical Functions
+title: Mathematical functions
 parent: Functions
 grand_parent: PPL
 nav_order: 10
 ---
-# Mathematical Functions  
 
-## ABS  
+# Mathematical functions
 
-### Description  
+The following mathematical functions are supported in PPL.
 
-Usage: `abs(x)` calculates the abs x.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `INTEGER/LONG/FLOAT/DOUBLE`
+## ABS
+
+**Usage**: `ABS(x)`
+
+Calculates the absolute value of `x`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` (same type as input)
+
 ### Example
   
 ```sql
@@ -29,14 +37,21 @@ The query returns the following results:
 | --- |
 | 1 |
   
-## ADD  
+## ADD
 
-### Description  
+**Usage**: `ADD(x, y)`
 
-Usage: `add(x, y)` calculates x plus y.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE, INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `Wider number between x and y`
-Synonyms: Addition Symbol (+)
+Calculates the sum of `x` and `y`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `y` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: The wider numeric type between `x` and `y`
+
+**Synonyms**: Addition Symbol (`+`)
+
 ### Example
   
 ```sql
@@ -52,14 +67,21 @@ The query returns the following results:
 | --- |
 | 3 |
   
-## SUBTRACT  
+## SUBTRACT
 
-### Description  
+**Usage**: `SUBTRACT(x, y)`
 
-Usage: `subtract(x, y)` calculates x minus y.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE, INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `Wider number between x and y`
-Synonyms: Subtraction Symbol (-)
+Calculates `x` minus `y`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `y` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: The wider numeric type between `x` and `y`
+
+**Synonyms**: Subtraction Symbol (`-`)
+
 ### Example
   
 ```sql
@@ -75,14 +97,21 @@ The query returns the following results:
 | --- |
 | 1 |
   
-## MULTIPLY  
+## MULTIPLY
 
-### Description  
+**Usage**: `MULTIPLY(x, y)`
 
-Usage: `multiply(x, y)` calculates the multiplication of x and y.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE, INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `Wider number between x and y. If y equals to 0, then returns NULL.`
-Synonyms: Multiplication Symbol (\*)
+Calculates the product of `x` and `y`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `y` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: The wider numeric type between `x` and `y`
+
+**Synonyms**: Multiplication Symbol (`*`)
+
 ### Example
   
 ```sql
@@ -98,14 +127,21 @@ The query returns the following results:
 | --- |
 | 2 |
   
-## DIVIDE  
+## DIVIDE
 
-### Description  
+**Usage**: `DIVIDE(x, y)`
 
-Usage: `divide(x, y)` calculates x divided by y.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE, INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `Wider number between x and y`
-Synonyms: Division Symbol (/)
+Calculates `x` divided by `y`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `y` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: The wider numeric type between `x` and `y`
+
+**Synonyms**: Division Symbol (`/`)
+
 ### Example
   
 ```sql
@@ -121,14 +157,21 @@ The query returns the following results:
 | --- |
 | 2 |
   
-## SUM  
+## SUM
 
-### Description  
+**Usage**: `SUM(x, y, ...)`
 
-Usage: `sum(x, y, ...)` calculates the sum of all provided arguments. This function accepts a variable number of arguments.
-Note: This function is only available in the eval command context and is rewritten to arithmetic addition while query parsing.
-**Argument type:** `Variable number of INTEGER/LONG/FLOAT/DOUBLE arguments`
-**Return type:** `Wider number type among all arguments`
+Calculates the sum of all provided arguments. This function accepts a variable number of arguments.
+
+This function is only available in the `eval` command context and is rewritten to arithmetic addition during query parsing.
+{: .note}
+
+**Parameters**:
+
+- `x, y, ...` (Required): Variable number of `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` arguments.
+
+**Return type**: The widest numeric type among all arguments
+
 ### Example
   
 ```sql
@@ -163,14 +206,21 @@ The query returns the following results:
 | 28 | 43 |
 | 33 | 48 |
   
-## AVG  
+## AVG
 
-### Description  
+**Usage**: `AVG(x, y, ...)`
 
-Usage: `avg(x, y, ...)` calculates the average (arithmetic mean) of all provided arguments. This function accepts a variable number of arguments.
-Note: This function is only available in the eval command context and is rewritten to arithmetic expression (sum / count) at query parsing time.
-**Argument type:** `Variable number of INTEGER/LONG/FLOAT/DOUBLE arguments`
-**Return type:** `DOUBLE`
+Calculates the average (arithmetic mean) of all provided arguments. This function accepts a variable number of arguments.
+
+This function is only available in the `eval` command context and is rewritten to an arithmetic expression (sum or count) during query parsing.
+{: .note}
+
+**Parameters**:
+
+- `x, y, ...` (Required): Variable number of `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` arguments.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -205,13 +255,18 @@ The query returns the following results:
 | 28 | 29.0 |
 | 33 | 31.5 |
   
-## ACOS  
+## ACOS
 
-### Description  
+**Usage**: `ACOS(x)`
 
-Usage: `acos(x)` calculates the arc cosine of x. Returns NULL if x is not in the range -1 to 1.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Calculates the arccosine of `x`. Returns `NULL` if `x` is not in the `[-1, 1]` range.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -227,13 +282,18 @@ The query returns the following results:
 | --- |
 | 1.5707963267948966 |
   
-## ASIN  
+## ASIN
 
-### Description  
+**Usage**: `ASIN(x)`
 
-Usage: `asin(x)` calculate the arc sine of x. Returns NULL if x is not in the range -1 to 1.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Calculates the arcsine of `x`. Returns `NULL` if `x` is not in the `[-1, 1]` range.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -249,13 +309,19 @@ The query returns the following results:
 | --- |
 | 0.0 |
   
-## ATAN  
+## ATAN
 
-### Description  
+**Usage**: `ATAN(x)`, `ATAN(y, x)`
 
-Usage: `atan(x)` calculates the arc tangent of x. atan(y, x) calculates the arc tangent of y / x, except that the signs of both arguments are used to determine the quadrant of the result.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Calculates the arctangent of `x`. `ATAN(y, x)` calculates the arctangent of the quotient y / x, using the signs of both arguments to determine the quadrant of the result.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `y` (Optional): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value (when using two-argument form).
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -271,13 +337,19 @@ The query returns the following results:
 | --- | --- |
 | 1.1071487177940904 | 0.5880026035475675 |
   
-## ATAN2  
+## ATAN2
 
-### Description  
+**Usage**: `ATAN2(y, x)`
 
-Usage: atan2(y, x) calculates the arc tangent of y / x, except that the signs of both arguments are used to determine the quadrant of the result.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE, INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Calculates the arctangent of the quotient y / x, using the signs of both arguments to determine the quadrant of the result.
+
+**Parameters**:
+
+- `y` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -293,18 +365,37 @@ The query returns the following results:
 | --- |
 | 0.5880026035475675 |
   
-## CEIL  
+## CEIL
+
+**Usage**: `CEIL(x)`
+
+Returns the ceiling of the value `x`.
 
 An alias for [CEILING](#ceiling) function.
-## CEILING  
 
-### Description  
+**Parameters**:
 
-Usage: `CEILING(T)` takes the ceiling of value T.
-Note: [CEIL](#ceil) and CEILING functions have the same implementation & functionality
-Limitation: CEILING only works as expected when IEEE 754 double type displays decimal when stored.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `same type with input`
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: Same type as input
+
+## CEILING
+
+**Usage**: `CEILING(x)`
+
+Returns the ceiling of the value `x`.
+
+The [`CEIL`](#ceil) and `CEILING` functions have the same implementation and functionality.
+{: .note}
+
+Limitation: `CEILING` only works as expected when the IEEE 754 double type displays a decimal when stored.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: Same type as input
+
 ### Example
   
 ```sql
@@ -333,13 +424,20 @@ The query returns the following results:
 | --- | --- | --- |
 | 3147483648.0 | 113147483648.0 | 3147483648.0 |
   
-## CONV  
+## CONV
 
-### Description  
+**Usage**: `CONV(x, a, b)`
 
-Usage: `CONV(x, a, b)` converts the number x from a base to b base.
-**Argument type:** `x: STRING, a: INTEGER, b: INTEGER`
-**Return type:** `STRING`
+Converts the number `x` from base `a` to base `b`.
+
+**Parameters**:
+
+- `x` (Required): A `STRING` value.
+- `a` (Required): An `INTEGER` value.
+- `b` (Required): An `INTEGER` value.
+
+**Return type**: `STRING`
+
 ### Example
   
 ```sql
@@ -355,13 +453,18 @@ The query returns the following results:
 | --- | --- | --- | --- |
 | c | 44 | 1100 | 15 |
   
-## COS  
+## COS
 
-### Description  
+**Usage**: `COS(x)`
 
-Usage: `cos(x)` calculates the cosine of x, where x is given in radians.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Calculates the cosine of `x`, where `x` is given in radians.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -377,13 +480,18 @@ The query returns the following results:
 | --- |
 | 1.0 |
   
-## COSH  
+## COSH
 
-### Description  
+**Usage**: `COSH(x)`
 
-Usage: `cosh(x)` calculates the hyperbolic cosine of x, defined as (((e^x) + (e^(-x))) / 2).
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Calculates the hyperbolic cosine of `x`, defined as (((e^x) + (e^(-x))) / 2).
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -399,13 +507,18 @@ The query returns the following results:
 | --- |
 | 3.7621956910836314 |
   
-## COT  
+## COT
 
-### Description  
+**Usage**: `COT(x)`
 
-Usage: `cot(x)` calculates the cotangent of x. Returns out-of-range error if x equals to 0.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Calculates the cotangent of `x`. Returns an error if `x` equals 0.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -421,13 +534,18 @@ The query returns the following results:
 | --- |
 | 0.6420926159343306 |
   
-## CRC32  
+## CRC32
 
-### Description  
+**Usage**: `CRC32(expr)`
 
-Usage: Calculates a cyclic redundancy check value and returns a 32-bit unsigned value.
-**Argument type:** `STRING`
-**Return type:** `LONG`
+Calculates a cyclic redundancy check value and returns a 32-bit unsigned value.
+
+**Parameters**:
+
+- `expr` (Required): A `STRING` value.
+
+**Return type**: `LONG`
+
 ### Example
   
 ```sql
@@ -443,13 +561,18 @@ The query returns the following results:
 | --- |
 | 3259397556 |
   
-## DEGREES  
+## DEGREES
 
-### Description  
+**Usage**: `DEGREES(x)`
 
-Usage: `degrees(x)` converts x from radians to degrees.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Converts `x` from radians to degrees.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -465,12 +588,16 @@ The query returns the following results:
 | --- |
 | 89.95437383553924 |
   
-## E  
+## E
 
-### Description  
+**Usage**: `E()`
 
-Usage: `E()` returns the Euler's number
-**Return type:** `DOUBLE`
+Returns Euler's number (e ≈ 2.718281828459045).
+
+**Parameters**: None
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -486,13 +613,18 @@ The query returns the following results:
 | --- |
 | 2.718281828459045 |
   
-## EXP  
+## EXP
 
-### Description  
+**Usage**: `EXP(x)`
 
-Usage: `exp(x)` return e raised to the power of x.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Returns e raised to the power of `x`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -508,13 +640,18 @@ The query returns the following results:
 | --- |
 | 7.38905609893065 |
   
-## EXPM1  
+## EXPM1
 
-### Description  
+**Usage**: `EXPM1(x)`
 
-Usage: expm1(NUMBER T) returns the exponential of T, minus 1.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Returns e^x - 1 (exponential of `x` minus 1).
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -530,14 +667,20 @@ The query returns the following results:
 | --- |
 | 1.718281828459045 |
   
-## FLOOR  
+## FLOOR
 
-### Description  
+**Usage**: `FLOOR(x)`
 
-Usage: `FLOOR(T)` takes the floor of value T.
-Limitation: FLOOR only works as expected when IEEE 754 double type displays decimal when stored.
-**Argument type:** `a: INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `same type with input`
+Returns the floor of the value `x`.
+
+Limitation: `FLOOR` only works as expected when the IEEE 754 double type displays a decimal when stored.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: Same type as input
+
 ### Example
   
 ```sql
@@ -579,13 +722,18 @@ The query returns the following results:
 | --- | --- | --- |
 | 282474973688888.0 | 9.223372036854776e+18 | 9.223372036854776e+18 |
   
-## LN  
+## LN
 
-### Description  
+**Usage**: `LN(x)`
 
-Usage: `ln(x)` return the the natural logarithm of x.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Returns the natural logarithm of `x`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -601,14 +749,19 @@ The query returns the following results:
 | --- |
 | 0.6931471805599453 |
   
-## LOG  
+## LOG
 
-### Description  
+**Usage**: `LOG(x)`, `LOG(B, x)`
 
-Specifications:
-Usage: `log(x)` returns the natural logarithm of x that is the base e logarithm of the x. log(B, x) is equivalent to log(x)/log(B).
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Returns the natural logarithm of `x` (base e logarithm). `LOG(B, x)` is equivalent to log(x)/log(B).
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `B` (Optional): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value (when using two-argument form).
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -624,14 +777,18 @@ The query returns the following results:
 | --- | --- |
 | 0.6931471805599453 | 3.0 |
   
-## LOG2  
+## LOG2
 
-### Description  
+**Usage**: `LOG2(x)`
 
-Specifications:
-Usage: log2(x) is equivalent to log(x)/log(2).
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Returns the base-2 logarithm of `x`. Equivalent to log(x)/log(2).
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -647,14 +804,18 @@ The query returns the following results:
 | --- |
 | 3.0 |
   
-## LOG10  
+## LOG10
 
-### Description  
+**Usage**: `LOG10(x)`
 
-Specifications:
-Usage: log10(x) is equivalent to log(x)/log(10).
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Returns the base-10 logarithm of `x`. Equivalent to log(x)/log(10).
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -670,13 +831,19 @@ The query returns the following results:
 | --- |
 | 2.0 |
   
-## MOD  
+## MOD
 
-### Description  
+**Usage**: `MOD(n, m)`
 
-Usage: `MOD(n, m)` calculates the remainder of the number n divided by m.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE, INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `Wider type between types of n and m if m is nonzero value. If m equals to 0, then returns NULL.`
+Calculates the remainder of the number `n` divided by `m`.
+
+**Parameters**:
+
+- `n` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `m` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: The wider type between `n` and `m` if `m` is nonzero value. If `m` equals `0`, then returns `NULL`.
+
 ### Example
   
 ```sql
@@ -692,13 +859,19 @@ The query returns the following results:
 | --- | --- |
 | 1 | 1.1 |
   
-## MODULUS  
+## MODULUS
 
-### Description  
+**Usage**: `MODULUS(n, m)`
 
-Usage: `MODULUS(n, m)` calculates the remainder of the number n divided by m.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE, INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `Wider type between types of n and m if m is nonzero value. If m equals to 0, then returns NULL.`
+Calculates the remainder of the number `n` divided by `m`.
+
+**Parameters**:
+
+- `n` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `m` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: The wider type between `n` and `m` if `m` is nonzero value. If `m` equals `0`, then returns `NULL`.
+
 ### Example
   
 ```sql
@@ -714,12 +887,16 @@ The query returns the following results:
 | --- | --- |
 | 1 | 1.1 |
   
-## PI  
+## PI
 
-### Description  
+**Usage**: `PI()`
 
-Usage: `PI()` returns the constant pi
-**Return type:** `DOUBLE`
+Returns the mathematical constant π (pi ≈ 3.141592653589793).
+
+**Parameters**: None
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -735,14 +912,21 @@ The query returns the following results:
 | --- |
 | 3.141592653589793 |
   
-## POW  
+## POW
 
-### Description  
+**Usage**: `POW(x, y)`
 
-Usage: `POW(x, y)` calculates the value of x raised to the power of y. Bad inputs return NULL result.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE, INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
-Synonyms: [POWER](#power)
+Calculates the value of `x` raised to the power of `y`. Invalid inputs return `NULL`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `y` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
+**Synonyms**: [POWER](#power)
+
 ### Example
   
 ```sql
@@ -758,14 +942,21 @@ The query returns the following results:
 | --- | --- | --- |
 | 9.0 | 9.0 | 0.1111111111111111 |
   
-## POWER  
+## POWER
 
-### Description  
+**Usage**: `POWER(x, y)`
 
-Usage: `POWER(x, y)` calculates the value of x raised to the power of y. Bad inputs return NULL result.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE, INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
-Synonyms: [POW](#pow)
+Calculates the value of `x` raised to the power of `y`. Invalid inputs return `NULL`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `y` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
+**Synonyms**: [POW](#pow)
+
 ### Example
   
 ```sql
@@ -781,13 +972,18 @@ The query returns the following results:
 | --- | --- | --- |
 | 9.0 | 9.0 | 0.1111111111111111 |
   
-## RADIANS  
+## RADIANS
 
-### Description  
+**Usage**: `RADIANS(x)`
 
-Usage: `radians(x)` converts x from degrees to radians.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Converts x from degrees to radians.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -803,13 +999,18 @@ The query returns the following results:
 | --- |
 | 1.5707963267948966 |
   
-## RAND  
+## RAND
 
-### Description  
+**Usage**: `RAND()`, `RAND(N)`
 
-Usage: `RAND()`/`RAND(`N) returns a random floating-point value in the range 0 <= value < 1.0. If integer N is specified, the seed is initialized prior to execution. One implication of this behavior is with identical argument N, rand(N) returns the same value each time, and thus produces a repeatable sequence of column values.
-**Argument type:** `INTEGER`
-**Return type:** `FLOAT`
+Returns a random floating-point value in the `[0, 1)` range. If an integer `N` is specified, the seed is initialized prior to execution. As a result, calling `RAND(N)` with the same value of `N` always returns the same result, producing a repeatable sequence of column values.
+
+**Parameters**:
+
+- `N` (Optional): An `INTEGER` value.
+
+**Return type**: `FLOAT`
+
 ### Example
   
 ```sql
@@ -825,15 +1026,21 @@ The query returns the following results:
 | --- |
 | 0.34346429521113886 |
   
-## ROUND  
+## ROUND
 
-### Description  
+**Usage**: `ROUND(x, d)`
 
-Usage: `ROUND(x, d)` rounds the argument x to d decimal places, d defaults to 0 if not specified
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-Return type map:
-(INTEGER/LONG [,INTEGER]) -> LONG
-(FLOAT/DOUBLE [,INTEGER]) -> LONG
+Rounds the argument `x` to `d` decimal places. `d` defaults to `0`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+- `d` (Optional): An `INTEGER` value.
+
+**Return type**:
+- `(INTEGER/LONG [,INTEGER])` -> `LONG`.
+- `(FLOAT/DOUBLE [,INTEGER])` -> `LONG`.
+
 ### Example
   
 ```sql
@@ -849,13 +1056,18 @@ The query returns the following results:
 | --- | --- | --- | --- |
 | 12.0 | 12.3 | 10.0 | 12 |
   
-## SIGN  
+## SIGN
 
-### Description  
+**Usage**: `SIGN(x)`
 
-Usage: Returns the sign of the argument as -1, 0, or 1, depending on whether the number is negative, zero, or positive
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `same type with input`
+Returns the sign of the argument as `-1`, `0`, or `1`, depending on whether the number is negative, zero, or positive.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: Same type as input
+
 ### Example
   
 ```sql
@@ -871,14 +1083,20 @@ The query returns the following results:
 | --- | --- | --- |
 | 1 | 0 | -1.0 |
   
-## SIGNUM  
+## SIGNUM
 
-### Description  
+**Usage**: `SIGNUM(x)`
 
-Usage: Returns the sign of the argument as -1, 0, or 1, depending on whether the number is negative, zero, or positive
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `INTEGER`
-Synonyms: `SIGN`
+Returns the sign of the argument as `-1`, `0`, or `1`, depending on whether the number is negative, zero, or positive.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `INTEGER`
+
+**Synonyms**: `SIGN`
+
 ### Example
   
 ```sql
@@ -894,13 +1112,18 @@ The query returns the following results:
 | --- | --- | --- |
 | 1 | 0 | -1.0 |
   
-## SIN  
+## SIN
 
-### Description  
+**Usage**: `SIN(x)`
 
-Usage: `sin(x)` calculates the sine of x, where x is given in radians.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Calculates the sine of `x`, where `x` is given in radians.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -916,13 +1139,18 @@ The query returns the following results:
 | --- |
 | 0.0 |
   
-## SINH  
+## SINH
 
-### Description  
+**Usage**: `SINH(x)`
 
-Usage: `sinh(x)` calculates the hyperbolic sine of x, defined as (((e^x) - (e^(-x))) / 2).
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Calculates the hyperbolic sine of `x`, defined as (((e^x) - (e^(-x))) / 2).
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -938,15 +1166,20 @@ The query returns the following results:
 | --- |
 | 3.626860407847019 |
   
-## SQRT  
+## SQRT
 
-### Description  
+**Usage**: `SQRT(x)`
 
-Usage: Calculates the square root of a non-negative number
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-Return type map:
-(Non-negative) INTEGER/LONG/FLOAT/DOUBLE -> DOUBLE
-(Negative) INTEGER/LONG/FLOAT/DOUBLE -> NULL
+Calculates the square root of a non-negative number `x`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**:
+- `(Non-negative) INTEGER/LONG/FLOAT/DOUBLE` -> `DOUBLE`.
+- `(Negative) INTEGER/LONG/FLOAT/DOUBLE` -> `NULL`.
+
 ### Example
   
 ```sql
@@ -962,14 +1195,18 @@ The query returns the following results:
 | --- | --- |
 | 2.0 | 2.1 |
   
-## CBRT  
+## CBRT
 
-### Description  
+**Usage**: `CBRT(x)`
 
-Usage: Calculates the cube root of a number
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-Return type DOUBLE:
-INTEGER/LONG/FLOAT/DOUBLE -> DOUBLE
+Calculates the cube root of a number `x`.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -986,13 +1223,18 @@ The query returns the following results:
 | 2.0 | 2.1 | -3.0 |
 | 2.0 | 2.1 | -3.0 |
   
-## RINT  
+## RINT
 
-### Description  
+**Usage**: `RINT(x)`
 
-Usage: `rint(NUMBER T)` returns T rounded to the closest whole integer number.
-**Argument type:** `INTEGER/LONG/FLOAT/DOUBLE`
-**Return type:** `DOUBLE`
+Returns `x` rounded to the nearest integer.
+
+**Parameters**:
+
+- `x` (Required): An `INTEGER`, `LONG`, `FLOAT`, or `DOUBLE` value.
+
+**Return type**: `DOUBLE`
+
 ### Example
   
 ```sql
@@ -1007,4 +1249,3 @@ The query returns the following results:
 | RINT(1.7) |
 | --- |
 | 2.0 |
-  

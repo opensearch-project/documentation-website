@@ -1,21 +1,34 @@
 ---
 layout: default
-title: PPL Collection Functions
+title: Collection functions
 parent: Functions
 grand_parent: PPL
 nav_order: 2
 ---
-# PPL Collection Functions  
 
-## ARRAY  
+# Collection functions
 
-### Description  
+Collection functions create, manipulate, and analyze arrays and multivalue fields in data. These functions are essential for working with complex data structures and performing operations such as filtering, transforming, and analyzing array elements.
 
-Usage: `array(value1, value2, value3...)` create an array with input values. Currently we don't allow mixture types. We will infer a least restricted type, for example `array(1, "demo")` -> ["1", "demo"]
-**Argument type:** `value1: ANY, value2: ANY, ...`
-**Return type:** `ARRAY`
-### Example
-  
+The following collection functions are supported in PPL.
+
+## ARRAY
+
+**Usage**: `array(value1, value2, value3...)`
+
+Creates an array containing the input values. Mixed types are automatically converted to the least restrictive type. For example, `array(1, "demo")` returns `["1", "demo"]` where the integer is converted to a string.
+
+**Parameters**:
+
+- `value1` (Required): A value of any type to include in the array.
+- `value2`, `value3` (Optional): Additional values of any type to include in the array.
+
+**Return type**: `ARRAY`
+
+#### Example
+
+The following example creates an array with numeric values:
+
 ```sql
 source=people
 | eval array = array(1, 2, 3)
@@ -23,13 +36,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | array |
 | --- |
 | [1,2,3] |
-  
+
+The following example demonstrates mixed-type conversion:
+
 ```sql
 source=people
 | eval array = array(1, "demo")
@@ -37,22 +52,27 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
   
 | array |
 | --- |
 | [1,demo] |
   
-## ARRAY_LENGTH  
+## ARRAY_LENGTH
 
-### Description  
+**Usage**: `array_length(array)`
 
-Usage: `array_length(array)` returns the length of input array.
-**Argument type:** `array:ARRAY`
-**Return type:** `INTEGER`
-### Example
-  
+Returns the length of the input `array`.
+
+**Parameters**:
+
+- `array` (Required): The array for which to return the length.
+
+**Return type**: `INTEGER`
+
+#### Example
+
 ```sql
 source=people
 | eval array = array(1, 2, 3)
@@ -61,22 +81,28 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
   
 | length |
 | --- |
 | 3 |
   
-## FORALL  
+## FORALL
 
-### Description  
+**Usage**: `forall(array, function)`
 
-Usage: `forall(array, function)` check whether all element inside array can meet the lambda function. The function should also return a boolean. The lambda function accepts one single input.
-**Argument type:** `array:ARRAY, function:LAMBDA`
-**Return type:** `BOOLEAN`
-### Example
-  
+Checks whether all elements in the array satisfy the lambda function condition. The lambda function must accept a single input parameter and return a Boolean value.
+
+**Parameters**:
+
+- `array` (Required): The array to check.
+- `function` (Required): A lambda function that returns a Boolean value and accepts a single input parameter.
+
+**Return type**: `BOOLEAN`
+
+#### Example
+
 ```sql
 source=people
 | eval array = array(1, 2, 3), result = forall(array, x -> x > 0)
@@ -84,22 +110,28 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
   
 | result |
 | --- |
 | True |
   
-## EXISTS  
+## EXISTS
 
-### Description  
+**Usage**: `exists(array, function)`
 
-Usage: `exists(array, function)` check whether existing one of element inside array can meet the lambda function. The function should also return boolean. The lambda function accepts one single input.
-**Argument type:** `array:ARRAY, function:LAMBDA`
-**Return type:** `BOOLEAN`
-### Example
-  
+Checks whether at least one element in the array satisfies the lambda function condition. The lambda function must accept a single input parameter and return a Boolean value.
+
+**Parameters**:
+
+- `array` (Required): The array to check.
+- `function` (Required): A lambda function that returns a Boolean value and accepts a single input parameter.
+
+**Return type**: `BOOLEAN`
+
+#### Example
+
 ```sql
 source=people
 | eval array = array(-1, -2, 3), result = exists(array, x -> x > 0)
@@ -107,22 +139,28 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
   
 | result |
 | --- |
 | True |
   
-## FILTER  
+## FILTER
 
-### Description  
+**Usage**: `filter(array, function)`
 
-Usage: `filter(array, function)` filter the element in the array by the lambda function. The function should return boolean. The lambda function accepts one single input.
-**Argument type:** `array:ARRAY, function:LAMBDA`
-**Return type:** `ARRAY`
-### Example
-  
+Filters the elements in the array using a lambda function. The lambda function must accept a single input parameter and return a Boolean value.
+
+**Parameters**:
+
+- `array` (Required): The array to filter.
+- `function` (Required): A lambda function that returns a Boolean value and accepts a single input parameter.
+
+**Return type**: `ARRAY`
+
+#### Example
+
 ```sql
 source=people
 | eval array = array(1, -2, 3), result = filter(array, x -> x > 0)
@@ -130,22 +168,30 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
   
 | result |
 | --- |
 | [1,3] |
   
-## TRANSFORM  
+## TRANSFORM
 
-### Description  
+**Usage**: `transform(array, function)`
 
-Usage: `transform(array, function)` transform the element of array one by one using lambda. The lambda function can accept one single input or two input. If the lambda accepts two argument, the second one is the index of element in array.
-**Argument type:** `array:ARRAY, function:LAMBDA`
-**Return type:** `ARRAY`
-### Example
-  
+Transforms the elements of the `array` one by one using a lambda function. The lambda function can accept one or two inputs. If the lambda function accepts two parameters, the second parameter is the index of the element in the `array`.
+
+**Parameters**:
+
+- `array` (Required): The array to transform.
+- `function` (Required): A lambda function that accepts one or two input parameters and returns a transformed value.
+
+**Return type**: `ARRAY`
+
+#### Example
+
+The following example transforms each element by adding 2:
+
 ```sql
 source=people
 | eval array = array(1, -2, 3), result = transform(array, x -> x + 2)
@@ -153,13 +199,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [3,0,5] |
-  
+
+The following example uses both element value and index in the transformation:
+
 ```sql
 source=people
 | eval array = array(1, -2, 3), result = transform(array, (x, i) -> x + i)
@@ -167,22 +215,32 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
   
 | result |
 | --- |
 | [1,-1,5] |
   
-## REDUCE  
+## REDUCE
 
-### Description  
+**Usage**: `reduce(array, acc_base, function, <reduce_function>)`
 
-Usage: `reduce(array, acc_base, function, <reduce_function>)` use lambda function to go through all element and interact with acc_base. The lambda function accept two argument accumulator and array element. If add one more reduce_function, will apply reduce_function to accumulator finally. The reduce function accept accumulator as the one argument.
-**Argument type:** `array:ARRAY, acc_base:ANY, function:LAMBDA, reduce_function:LAMBDA`
-**Return type:** `ANY`
-### Example
-  
+Uses a lambda function to iterate through all elements and interact with the accumulator base value. The lambda function accepts two parameters: the accumulator and the array element. When an optional `reduce_function` is provided, it is applied to the final accumulator value. The reduce function accepts the accumulator as a single parameter.
+
+**Parameters**:
+
+- `array` (Required): The array to reduce.
+- `acc_base` (Required): The initial accumulator value.
+- `function` (Required): A lambda function that accepts accumulator and array element as parameters.
+- `reduce_function` (Optional): A lambda function to apply to the final accumulator value.
+
+**Return type**: Same as accumulator type (determined by `acc_base` and `reduce_function`)
+
+#### Example
+
+The following example reduces an array by summing all elements with an initial value:
+
 ```sql
 source=people
 | eval array = array(1, -2, 3), result = reduce(array, 10, (acc, x) -> acc + x)
@@ -190,13 +248,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | 12 |
-  
+
+The following example uses an additional reduce function to transform the final result:
+
 ```sql
 source=people
 | eval array = array(1, -2, 3), result = reduce(array, 10, (acc, x) -> acc + x, acc -> acc * 10)
@@ -204,22 +264,30 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
   
 | result |
 | --- |
 | 120 |
   
-## MVJOIN  
+## MVJOIN
 
-### Description  
+**Usage**: `mvjoin(array, delimiter)`
 
-Usage: `mvjoin(array, delimiter)` joins string array elements into a single string, separated by the specified delimiter. NULL elements are excluded from the output. Only string arrays are supported. 
-**Argument type:** `array: ARRAY of STRING, delimiter: STRING`
-**Return type:** `STRING`
-### Example
-  
+Joins string array elements into a single string, separated by the specified delimiter. `NULL` elements are excluded from the output. Only string arrays are supported.
+
+**Parameters**:
+
+- `array` (Required): An array of strings to join.
+- `delimiter` (Required): The string to use as a separator between array elements.
+
+**Return type**: `STRING`
+
+#### Example
+
+The following example joins an array of strings with a comma delimiter:
+
 ```sql
 source=people
 | eval result = mvjoin(array('a', 'b', 'c'), ',')
@@ -227,13 +295,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | a,b,c |
-  
+
+The following example joins field values into a single string:
+
 ```sql
 source=accounts
 | eval names_array = array(firstname, lastname)
@@ -242,22 +312,31 @@ source=accounts
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
   
 | result |
 | --- |
 | Amber, Duke |
   
-## MVAPPEND  
+## MVAPPEND
 
-### Description  
+**Usage**: `mvappend(value1, value2, value3...)`
 
-Usage: `mvappend(value1, value2, value3...)` appends all elements from arguments to create an array. Flattens array arguments and collects all individual elements. Always returns an array or null for consistent type behavior.
-**Argument type:** `value1: ANY, value2: ANY, ...`
-**Return type:** `ARRAY`
-### Example
-  
+Appends all elements from parameters to create an array. Flattens array parameters and collects all individual elements. Always returns an array or `NULL` for consistent type behavior.
+
+**Parameters**:
+
+- `value1` (Required): A value of any type to append to the array.
+- `value2` (Optional): Additional values of any type to append to the array.
+- `...` (Optional): Any number of additional values.
+
+**Return type**: `ARRAY`
+
+#### Example
+
+The following example appends multiple values to create an array:
+
 ```sql
 source=people
 | eval result = mvappend(1, 1, 3)
@@ -265,13 +344,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
   
 | result |
 | --- |
 | [1,1,3] |
-  
+
+The following example demonstrates array flattening:
+
 ```sql
 source=people
 | eval result = mvappend(1, array(2, 3))
@@ -279,13 +360,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
   
 | result |
 | --- |
 | [1,2,3] |
-  
+
+The following example shows nested `mvappend` calls:
+
 ```sql
 source=people
 | eval result = mvappend(mvappend(1, 2), 3)
@@ -293,13 +376,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [1,2,3] |
-  
+
+The following example creates an array from a single value:
+
 ```sql
 source=people
 | eval result = mvappend(42)
@@ -307,13 +392,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [42] |
-  
+
+The following example demonstrates `NULL` value filtering:
+
 ```sql
 source=people
 | eval result = mvappend(nullif(1, 1), 2)
@@ -321,13 +408,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [2] |
-  
+
+The following example shows behavior with only `NULL` values:
+
 ```sql
 source=people
 | eval result = mvappend(nullif(1, 1))
@@ -335,13 +424,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | null |
-  
+
+The following example concatenates multiple arrays:
+
 ```sql
 source=people
 | eval arr1 = array(1, 2), arr2 = array(3, 4), result = mvappend(arr1, arr2)
@@ -349,13 +440,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [1,2,3,4] |
-  
+
+The following example appends field values:
+
 ```sql
 source=accounts
 | eval result = mvappend(firstname, lastname)
@@ -363,13 +456,15 @@ source=accounts
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [Amber,Duke] |
-  
+
+The following example demonstrates mixed data types:
+
 ```sql
 source=people
 | eval result = mvappend(1, 'text', 2.5)
@@ -377,24 +472,29 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [1,text,2.5] |
   
-## SPLIT  
+## SPLIT
 
-### Description  
+**Usage**: `split(str, delimiter)`
 
-Usage: `split(str, delimiter)` splits the string values on the delimiter and returns the string values as a multivalue field (array). Use an empty string ("") to split the original string into one value per character. If the delimiter is not found, returns an array containing the original string. If the input string is empty, returns an empty array.
+Splits the string values on the delimiter and returns the string values as a multivalue field (array). Use an empty string (`""`) to split the original string into one value per character. If the delimiter is not found, the function returns an array containing the original string. If the input string is empty, the function returns an empty array.
 
-**Argument type:** `str: STRING, delimiter: STRING`
+**Parameters**:
 
-**Return type:** `ARRAY of STRING`
+- `str` (Required): The string to split.
+- `delimiter` (Required): The string to use as a delimiter for splitting.
 
-### Example
+**Return type**: `ARRAY`
+
+#### Example
+
+The following example splits a string using a semicolon delimiter:
 
 ```sql
 source=people
@@ -410,6 +510,8 @@ The query returns the following results:
 | --- |
 | [buttercup,rarity,tenderhoof,dash] |
 
+The following example uses a multi-character delimiter:
+
 ```sql
 source=people
 | eval test = '1a2b3c4def567890', result = split(test, 'def')
@@ -423,6 +525,8 @@ The query returns the following results:
 | result |
 | --- |
 | [1a2b3c4,567890] |
+
+The following example splits a string into individual characters using an empty delimiter:
 
 ```sql
 source=people
@@ -438,6 +542,8 @@ The query returns the following results:
 | --- |
 | [a,b,c,d] |
 
+The following example splits using a double-colon delimiter:
+
 ```sql
 source=people
 | eval test = 'name::value', result = split(test, '::')
@@ -451,6 +557,8 @@ The query returns the following results:
 | result |
 | --- |
 | [name,value] |
+
+The following example shows behavior when the delimiter is not found:
 
 ```sql
 source=people
@@ -466,15 +574,22 @@ The query returns the following results:
 | --- |
 | [hello] |
   
-## MVDEDUP  
+## MVDEDUP
 
-### Description  
+**Usage**: `mvdedup(array)`
 
-Usage: `mvdedup(array)` removes duplicate values from a multivalue array while preserving the order of first occurrence. NULL elements are filtered out. Returns an array with duplicates removed, or null if the input is null.
-**Argument type:** `array: ARRAY`
-**Return type:** `ARRAY`
-### Example
-  
+Removes duplicate values from a multivalue array while preserving the order of the first occurrence. `NULL` elements are filtered out. Returns a deduplicated array, or `NULL` if the input is `NULL`.
+
+**Parameters**:
+
+- `array` (Required): The array from which to remove duplicates.
+
+**Return type**: `ARRAY`
+
+#### Example
+
+The following example removes duplicate numbers while preserving order:
+
 ```sql
 source=people
 | eval array = array(1, 2, 2, 3, 1, 4), result = mvdedup(array)
@@ -482,13 +597,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [1,2,3,4] |
-  
+
+The following example deduplicates string values:
+
 ```sql
 source=people
 | eval array = array('z', 'a', 'z', 'b', 'a', 'c'), result = mvdedup(array)
@@ -496,13 +613,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [z,a,b,c] |
-  
+
+The following example shows behavior with an empty array:
+
 ```sql
 source=people
 | eval array = array(), result = mvdedup(array)
@@ -510,21 +629,29 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [] |
 
 ## MVFIND
 
-### Description
+**Usage**: `mvfind(array, regex)`
 
-Usage: mvfind(array, regex) searches a multivalue array and returns the 0-based index of the first element that matches the regular expression. Returns NULL if no match is found.
-Argument type: array: ARRAY, regex: STRING
-Return type: INTEGER (nullable)
-Example
+Searches a multivalue array and returns the `0`-based index of the first element that matches the regular expression. Returns `NULL` if no match is found.
+
+**Parameters**:
+
+- `array` (Required): The array to search.
+- `regex` (Required): The regular expression pattern to match against array elements.
+
+**Return type**: `INTEGER` (or `NULL` if no match found)
+
+#### Example
+
+The following example searches for the first element that matches a regular expression:
 
 ```sql
 source=people
@@ -540,6 +667,8 @@ The query returns the following results:
 | --- |
 | 1 |
 
+The following example shows behavior when no match is found:
+
 ```sql
 source=people
 | eval array = array('cat', 'dog', 'bird'), result = mvfind(array, 'fish')
@@ -553,6 +682,8 @@ The query returns the following results:
 | result |
 | --- |
 | null |
+
+The following example uses a regex pattern with character classes:
 
 ```sql
 source=people
@@ -568,6 +699,8 @@ The query returns the following results:
 | --- |
 | 0 |
 
+The following example demonstrates case-insensitive matching:
+
 ```sql
 source=people
 | eval array = array('Apple', 'Banana', 'Cherry'), result = mvfind(array, '(?i)banana')
@@ -582,15 +715,24 @@ The query returns the following results:
 | --- |
 | 1 |
 
-## MVINDEX  
+## MVINDEX
 
-### Description  
+**Usage**: `mvindex(array, start, [end])`
 
-Usage: `mvindex(array, start, [end])` returns a subset of the multivalue array using the start and optional end index values. Indexes are 0-based (first element is at index 0). Supports negative indexing where -1 refers to the last element. When only start is provided, returns a single element. When both start and end are provided, returns an array of elements from start to end (inclusive).
-**Argument type:** `array: ARRAY, start: INTEGER, end: INTEGER (optional)`
-**Return type:** `ANY (single element) or ARRAY (range)`
-### Example
-  
+Returns a subset of the multivalue array using the start and optional end index values. Indexes are `0`-based (the first element is at index `0`). Supports negative indexing where `-1` refers to the last element. When only start is provided, the function returns a single element. When both start and end are provided, the function returns an array of elements from start to end (inclusive).
+
+**Parameters**:
+
+- `array` (Required): The array from which to extract elements.
+- `start` (Required): The starting index (`0`-based).
+- `end` (Optional): The ending index (`0`-based, inclusive).
+
+**Return type**: Single element type when only `start` is provided; `ARRAY` when both `start` and `end` are provided
+
+#### Example
+
+The following example gets a single element at index 1:
+
 ```sql
 source=people
 | eval array = array('a', 'b', 'c', 'd', 'e'), result = mvindex(array, 1)
@@ -598,13 +740,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | b |
-  
+
+The following example uses negative indexing to get the last element:
+
 ```sql
 source=people
 | eval array = array('a', 'b', 'c', 'd', 'e'), result = mvindex(array, -1)
@@ -612,13 +756,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | e |
-  
+
+The following example extracts a range of elements:
+
 ```sql
 source=people
 | eval array = array(1, 2, 3, 4, 5), result = mvindex(array, 1, 3)
@@ -626,13 +772,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [2,3,4] |
-  
+
+The following example uses negative indexing for a range:
+
 ```sql
 source=people
 | eval array = array(1, 2, 3, 4, 5), result = mvindex(array, -3, -1)
@@ -640,13 +788,15 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [3,4,5] |
-  
+
+The following example extracts elements from the beginning of an array:
+
 ```sql
 source=people
 | eval array = array('alex', 'celestino', 'claudia', 'david'), result = mvindex(array, 0, 2)
@@ -654,21 +804,29 @@ source=people
 | head 1
 ```
 {% include copy.html %}
-  
+
 The query returns the following results:
-  
+
 | result |
 | --- |
 | [alex,celestino,claudia] |
 
 ## MVMAP
 
-### Description
+**Usage**: `mvmap(array, expression)`
 
-Usage: mvmap(array, expression) iterates over each element of a multivalue array, applies the expression to each element, and returns a multivalue array with the transformed results. The field name in the expression is implicitly bound to each element value.
-Argument type: array: ARRAY, expression: EXPRESSION
-Return type: ARRAY
-Example
+Iterates over each element of a multivalue array, applies the expression to each element, and returns a multivalue array containing the transformed results. The field name in the expression is implicitly bound to each element value.
+
+**Parameters**:
+
+- `array` (Required): The array to map over.
+- `expression` (Required): The expression to apply to each element.
+
+**Return type**: `ARRAY`
+
+#### Example
+
+The following example applies a mathematical operation to each element of an array:
 
 ```sql
 source=people
@@ -684,6 +842,8 @@ The query returns the following results:
 | --- |
 | [10,20,30] |
 
+The following example applies a different mathematical operation:
+
 ```sql
 source=people
 | eval array = array(1, 2, 3), result = mvmap(array, array + 5)
@@ -698,9 +858,10 @@ The query returns the following results:
 | --- |
 | [6,7,8] |
 
-Note: For nested expressions like ``mvmap(mvindex(arr, 1, 3), arr * 2)``, the field name (``arr``) is extracted from the first argument and must match the field referenced in the expression.
+For nested expressions such as `mvmap(mvindex(arr, 1, 3), arr * 2)`, the field name (`arr`) is extracted from the first argument and must match the field referenced in the expression.
+{: .note}
 
-The expression can also reference other single-value fields:
+The following example shows how the expression can reference other single-value fields:
 
 ```sql
 source=people
@@ -719,19 +880,27 @@ The query returns the following results:
 
 ## MVZIP
 
-### Description
+**Usage**: `mvzip(mv_left, mv_right, [delim])`
 
-Usage: `mvzip(mv_left, mv_right, [delim])` combines the values in two multivalue arrays by pairing corresponding elements and joining them into strings. The delimiter is used to specify a delimiting character to join the two values. This is similar to the Python zip command.
+Combines the values in two multivalue arrays by pairing corresponding elements and joining them into strings. The delimiter specifies the character or string used to join the two values. This is similar to the Python zip command.
 
-The values are stitched together combining the first value of mv_left with the first value of mv_right, then the second with the second, and so on. Each pair is concatenated into a string using the delimiter. The function stops at the length of the shorter array.
+The values are combined by pairing the first value of `mv_left` with the first value of `mv_right`, then the second with the second, and so on. Each pair is concatenated into a string using the delimiter. The function stops at the length of the shorter array.
 
-The delimiter is optional. When specified, it must be enclosed in quotation marks. The default delimiter is a comma ( , ).
+The delimiter is optional. When specified, it must be enclosed in quotation marks. The default delimiter is a comma.
 
-Returns null if either input is null. Returns an empty array if either input array is empty.
+Returns `NULL` if either input is `NULL`. Returns an empty array if either input array is empty.
 
-**Argument type:** `mv_left: ARRAY, mv_right: ARRAY, delim: STRING (optional)`
-**Return type:** `ARRAY of STRING`
-### Example
+**Parameters**:
+
+- `mv_left` (Required): The first array to combine.
+- `mv_right` (Required): The second array to combine.
+- `delim` (Optional): The delimiter to use for joining pairs. Defaults to comma.
+
+**Return type**: `ARRAY`
+
+#### Example
+
+The following example combines host and port arrays with a colon delimiter:
 
 ```sql
 source=people
@@ -747,6 +916,8 @@ The query returns the following results:
 | --- |
 | [host1:80,host2:443] |
 
+The following example uses a pipe delimiter with equal-length arrays:
+
 ```sql
 source=people
 | eval arr1 = array('a', 'b', 'c'), arr2 = array('x', 'y', 'z'), result = mvzip(arr1, arr2, '|')
@@ -759,7 +930,9 @@ The query returns the following results:
 
 | result |
 | --- |
-| [a | x,b | y,c | z] |
+| [a|x,b|y,c|z] |
+
+The following example demonstrates behavior with arrays of different lengths:
 
 ```sql
 source=people
@@ -775,6 +948,8 @@ The query returns the following results:
 | --- |
 | [1-a,2-b] |
 
+The following example shows nested mvzip calls:
+
 ```sql
 source=people
 | eval arr1 = array('a', 'b', 'c'), arr2 = array('x', 'y', 'z'), arr3 = array('1', '2', '3'), result = mvzip(mvzip(arr1, arr2, '-'), arr3, ':')
@@ -788,6 +963,8 @@ The query returns the following results:
 | result |
 | --- |
 | [a-x:1,b-y:2,c-z:3] |
+
+The following example shows behavior with an empty array:
 
 ```sql
 source=people

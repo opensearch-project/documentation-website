@@ -1,29 +1,33 @@
 ---
 layout: default
-title: Condition Functions
+title: Conditional functions
 parent: Functions
 grand_parent: PPL
 nav_order: 3
 ---
-# Condition Functions  
-PPL functions use the search capabilities of the OpenSearch engine. However, these functions don't execute directly within the OpenSearch plugin's memory. Instead, they facilitate the global filtering of query results based on specific conditions, such as a `WHERE` or `HAVING` clause. 
 
-The following sections describe the condition PPL functions.
-## ISNULL  
+# Conditional functions
 
-### Description  
+PPL conditional functions enable global filtering of query results based on specific conditions, such as `WHERE` or `HAVING` clauses. These functions use the search capabilities of the OpenSearch engine but don't execute directly within the OpenSearch plugin's memory. 
 
-Usage: `isnull(field)` returns TRUE if field is NULL, FALSE otherwise.
+## ISNULL
+
+**Usage**: `isnull(field)`
+
+Returns `TRUE` if the field is `NULL`, `FALSE` otherwise.
 
 The `isnull()` function is commonly used:
-- In `eval` expressions to create conditional fields  
-- With the `if()` function to provide default values  
-- In `where` clauses to filter null records  
-  
-**Argument type:** All supported data types.
-**Return type:** `BOOLEAN`  
+- In `eval` expressions to create conditional fields.
+- With the `if()` function to provide default values.
+- In `where` clauses to filter null records.
 
-### Example
+**Parameters**:
+
+- `field` (Required): The field to check for null values.
+
+**Return type**: `BOOLEAN`
+
+#### Example
   
 ```sql
 source=accounts
@@ -40,9 +44,9 @@ The query returns the following results:
 | False | Netagy | Hattie |
 | False | Quility | Nanette |
 | True | null | Dale |
-  
-Using with if() to label records
-  
+
+The following example demonstrates using `isnull` with the `if` function to create conditional labels:
+
 ```sql
 source=accounts
 | eval status = if(isnull(employer), 'unemployed', 'employed')
@@ -59,8 +63,8 @@ The query returns the following results:
 | Nanette | Quility | employed |
 | Dale | null | unemployed |
   
-Filtering with where clause
-  
+The following example filters records using `isnull` in a `where` clause:
+
 ```sql
 source=accounts
 | where isnull(employer)
@@ -74,23 +78,27 @@ The query returns the following results:
 | --- | --- | --- |
 | 18 | Dale | null |
   
-## ISNOTNULL  
+## ISNOTNULL
 
-### Description  
+**Usage**: `isnotnull(field)`
 
-Usage: `isnotnull(field)` returns TRUE if field is NOT NULL, FALSE otherwise. The `isnotnull(field)` function is the opposite of `isnull(field)`. Instead of checking for null values, it checks a specific field and returns `true` if the field contains data, that is, it is not null.
+Returns `TRUE` if the field is NOT `NULL`, `FALSE` otherwise.
 
 The `isnotnull()` function is commonly used:
-- In `eval` expressions to create boolean flags  
-- In `where` clauses to filter out null values  
-- With the `if()` function for conditional logic  
-- To validate data presence  
-  
-**Argument type:** All supported data types.  
-**Return type:** `BOOLEAN`  
-**Synonyms:** [ISPRESENT](#ispresent)  
+- In `eval` expressions to create Boolean flags.
+- In `where` clauses to filter out null values.
+- With the `if()` function for conditional logic.
+- To validate data presence.
 
-### Example
+**Synonyms**: [ISPRESENT](#ispresent)
+
+**Parameters**:
+
+- `field` (Required): The field to check for non-null values.
+
+**Return type**: `BOOLEAN`
+
+#### Example
   
 ```sql
 source=accounts
@@ -107,9 +115,9 @@ The query returns the following results:
 | Hattie | Netagy | True |
 | Nanette | Quility | True |
 | Dale | null | False |
-  
-Filtering with where clause
-  
+
+The following example shows how to filter records using `isnotnull` in a `where` clause:
+
 ```sql
 source=accounts
 | where not isnotnull(employer)
@@ -122,9 +130,9 @@ The query returns the following results:
 | account_number | employer |
 | --- | --- |
 | 18 | null |
-  
-Using with if() for validation messages
-  
+
+The following example demonstrates using `isnotnull` with the `if` function to create validation messages:
+
 ```sql
 source=accounts
 | eval validation = if(isnotnull(employer), 'valid', 'missing employer')
@@ -141,10 +149,15 @@ The query returns the following results:
 | Nanette | Quility | valid |
 | Dale | null | missing employer |
   
-## EXISTS  
+## EXISTS
 
-[Since OpenSearch doesn't differentiate null and missing](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-exists-query.html), we can't provide functions like ismissing/isnotmissing to test if a field exists or not. But you can still use isnull/isnotnull for such purpose.
-Example, the account 13 doesn't have email field
+**Usage**: Use `isnull(field)` or `isnotnull(field)` to test field existence
+
+Since OpenSearch doesn't differentiate between null and missing values, functions like `ismissing`/`isnotmissing` are not available. Use `isnull`/`isnotnull` to test field existence instead.
+
+#### Example
+
+The following example shows account 13, which doesn't contain an `email` field:
   
 ```sql
 source=accounts
@@ -159,17 +172,21 @@ The query returns the following results:
 | --- | --- |
 | 13 | null |
   
-## IFNULL  
+## IFNULL
 
-### Description  
+**Usage**: `ifnull(field1, field2)`
 
-Usage: `ifnull(field1, field2)` returns field2 if field1 is null.
+Returns `field2` if `field1` is `NULL`.
 
-**Argument type:** All supported data types (NOTE: if two parameters have different types, you will fail semantic check).  
-**Return type:** `any`
+**Parameters**:
 
-### Example
-  
+- `field1` (Required): The field to check for `NULL` values.
+- `field2` (Required): The value to return if `field1` is `NULL`.
+
+**Return type**: Any (matches input types)
+
+#### Example
+
 ```sql
 source=accounts
 | eval result = ifnull(employer, 'default')
@@ -186,12 +203,13 @@ The query returns the following results:
 | Quility | Quility | Nanette |
 | default | null | Dale |
   
-### Nested IFNULL Pattern  
+#### Nested ifnull pattern
 
-For OpenSearch versions prior to 3.1, COALESCE-like functionality can be achieved using nested IFNULL statements. This pattern is particularly useful in observability use cases where field names may vary across different data sources.
+For OpenSearch versions prior to 3.1, `coalesce`-like functionality can be achieved using nested `ifnull` statements. This pattern is particularly useful in observability use cases where field names may vary across different data sources.
 Usage: `ifnull(field1, ifnull(field2, ifnull(field3, default_value)))`
-### Example
-  
+
+#### Example
+
 ```sql
 source=accounts
 | eval result = ifnull(employer, ifnull(firstname, ifnull(lastname, "unknown")))
@@ -208,17 +226,21 @@ The query returns the following results:
 | Quility | Quility | Nanette | Bates |
 | Dale | null | Dale | Adams |
   
-## NULLIF  
+## NULLIF
 
-### Description  
+**Usage**: `nullif(field1, field2)`
 
-Usage: `nullif(field1, field2)` returns null if two parameters are same, otherwise returns field1.
+Returns `NULL` if the two parameters are the same, otherwise returns `field1`.
 
-**Argument type:** All supported data types (NOTE: if two parameters have different types, you will fail semantic check).  
-**Return type:** `any`
+**Parameters**:
 
-### Example
-  
+- `field1` (Required): The field to return if different from `field2`.
+- `field2` (Required): The value to compare against `field1`.
+
+**Return type**: Any (matches `field1` type)
+
+#### Example
+
 ```sql
 source=accounts
 | eval result = nullif(employer, 'Pyrami')
@@ -235,17 +257,24 @@ The query returns the following results:
 | Quility | Quility | Nanette |
 | null | null | Dale |
   
-## IF  
+## IF
 
-### Description  
+**Usage**: `if(condition, expr1, expr2)`
 
-Usage: `if(condition, expr1, expr2)` returns expr1 if condition is true, otherwise returns expr2.
+Returns `expr1` if the condition is `true`, otherwise returns `expr2`.
 
-**Argument type:** All supported data types (NOTE: if expr1 and expr2 are different types, you will fail semantic check).  
-**Return type:** `any`
+**Parameters**:
 
-### Example
-  
+- `condition` (Required): The Boolean expression to evaluate.
+- `expr1` (Required): The value to return if the condition is `true`.
+- `expr2` (Required): The value to return if the condition is `false`.
+
+**Return type**: Least restrictive common type of `expr1` and `expr2`
+
+#### Example
+
+The following example returns the first name when the condition is `true`:
+
 ```sql
 source=accounts
 | eval result = if(true, firstname, lastname)
@@ -261,7 +290,9 @@ The query returns the following results:
 | Hattie | Hattie | Bond |
 | Nanette | Nanette | Bates |
 | Dale | Dale | Adams |
-  
+
+The following example returns the last name when the condition is `false`:
+
 ```sql
 source=accounts
 | eval result = if(false, firstname, lastname)
@@ -277,14 +308,16 @@ The query returns the following results:
 | Bond | Hattie | Bond |
 | Bates | Nanette | Bates |
 | Adams | Dale | Adams |
-  
+
+The following example uses a complex condition to determine VIP status:
+
 ```sql
 source=accounts
 | eval is_vip = if(age > 30 AND isnotnull(employer), true, false)
 | fields is_vip, firstname, lastname
 ```
 {% include copy.html %}
-  h
+
 The query returns the following results:
   
 | is_vip | firstname | lastname |
@@ -294,23 +327,30 @@ The query returns the following results:
 | False | Nanette | Bates |
 | False | Dale | Adams |
   
-## CASE  
+## CASE
 
-### Description  
+**Usage**: `case(condition1, expr1, condition2, expr2, ... conditionN, exprN else default)`
 
-Usage: `case(condition1, expr1, condition2, expr2, ... conditionN, exprN else default)` returns expr1 if condition1 is true, or returns expr2 if condition2 is true, ... if no condition is true, then returns the value of ELSE clause. If the ELSE clause is not defined, returns NULL.
+Returns `expr1` if `condition1` is `true`, `expr2` if `condition2` is `true`, and so on. If no condition is `true`, returns the value of the `else` clause. If the `else` clause is not defined, returns `NULL`.
 
-**Argument type:** All supported data types (NOTE: there is no comma before "else").  
-**Return type:** `any`
+**Parameters**:
 
-### Limitations  
+- `condition1, condition2, ..., conditionN` (Required): Boolean expressions to evaluate in sequence.
+- `expr1, expr2, ..., exprN` (Required): Values to return when the corresponding condition is `true`.
+- `default` (Optional): The value to return when no condition is `true`. If not specified, returns `NULL`.
 
-When each condition is a field comparison with a numeric literal and each result expression is a string literal, the query will be optimized as [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/range) if pushdown optimization is enabled. However, this optimization has the following limitations:
-- Null values will not be grouped into any bucket of a range aggregation and will be ignored  
-- The default ELSE clause will use the string literal `"null"` instead of actual NULL values  
+**Return type**: Least restrictive common type of all result expressions
+
+#### Limitations
+
+When each condition is a field comparison against a numeric literal and each result expression is a string literal, the query is optimized as [range aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/range) if pushdown optimization is enabled. However, this optimization has the following limitations:
+- `NULL` values are not grouped into any bucket of a range aggregation and are ignored.
+- The default `else` clauses use the string literal `"null"` instead of actual NULL values.
   
-### Example
-  
+#### Example
+
+The following example demonstrates a case statement with an else clause:
+
 ```sql
 source=accounts
 | eval result = case(age > 35, firstname, age < 30, lastname else employer)
@@ -326,7 +366,9 @@ The query returns the following results:
 | Hattie | Hattie | Bond | 36 | Netagy |
 | Bates | Nanette | Bates | 28 | Quility |
 | null | Dale | Adams | 33 | null |
-  
+
+The following example demonstrates a case statement without an else clause:
+
 ```sql
 source=accounts
 | eval result = case(age > 35, firstname, age < 30, lastname)
@@ -342,7 +384,9 @@ The query returns the following results:
 | Hattie | Hattie | Bond | 36 |
 | Bates | Nanette | Bates | 28 |
 | null | Dale | Adams | 33 |
-  
+
+The following example uses case in a where clause to filter records:
+
 ```sql
 source=accounts
 | where true = case(age > 35, false, age < 30, false else true)
@@ -357,33 +401,37 @@ The query returns the following results:
 | Amber | Duke | 32 |
 | Dale | Adams | 33 |
   
-## COALESCE  
+## COALESCE
 
-### Description  
+**Usage**: `coalesce(field1, field2, ...)`
 
-Usage: `coalesce(field1, field2, ...)` returns the first non-null, non-missing value in the argument list.
+Returns the first non-null, non-missing value in the parameter list.
 
-**Argument type:** All supported data types. Supports mixed data types with automatic type coercion.  
-**Return type:** Determined by the least restrictive common type among all arguments, with fallback to string if no common type can be determined.
-Behavior:
-- Returns the first value that is not null and not missing (missing includes non-existent fields)  
-- Empty strings ("") and whitespace strings (" ") are considered valid values  
-- If all arguments are null or missing, returns null  
-- Automatic type coercion is applied to match the determined return type  
-- If type conversion fails, the value is converted to string representation  
-- For best results, use arguments of the same data type to avoid unexpected type conversions  
-  
-Performance Considerations:
-- Optimized for multiple field evaluation, more efficient than nested IFNULL patterns  
-- Evaluates arguments sequentially, stopping at the first non-null value  
-- Consider field order based on likelihood of containing values to minimize evaluation overhead  
-  
-Limitations:
-- Type coercion may result in unexpected string conversions for incompatible types  
-- Performance may degrade with very large numbers of arguments  
-  
-### Example
-  
+**Parameters**:
+
+- `field1, field2, ...` (Required): Fields or expressions to evaluate for non-null values.
+
+**Return type**: Least restrictive common type of all input parameters
+
+**Behavior**:
+- Returns the first value that is not `NULL` and not missing (missing includes non-existent fields).
+- Empty strings (`""`) and whitespace strings (`" "`) are considered valid values.
+- If all parameters are `NULL` or missing, returns `NULL`.
+- Automatic type coercion is applied to match the determined return type.
+- If type conversion fails, the value is converted to string representation.
+- For best results, use parameters of the same data type to avoid unexpected type conversions.
+
+**Performance considerations**:
+- Optimized for multiple field evaluation, more efficient than nested `ifnull` patterns.
+- Evaluates parameters sequentially, stopping at the first non-null value.
+- Consider field order based on likelihood of containing values to minimize evaluation overhead.
+
+**Limitations**:
+- Type coercion may result in unexpected string conversions for incompatible types.
+- Performance may degrade when using large numbers of arguments.
+
+#### Example
+
 ```sql
 source=accounts
 | eval result = coalesce(employer, firstname, lastname)
@@ -400,7 +448,7 @@ The query returns the following results:
 | Quility | Nanette | Bates | Quility |
 | Dale | Dale | Adams | null |
   
-Empty String Handling Examples
+#### Empty String Handling Examples
   
 ```sql
 source=accounts
@@ -435,7 +483,7 @@ The query returns the following results:
 |  | Nanette |
 |  | Dale |
   
-Mixed Data Types with Auto Coercion
+#### Mixed Data Types with Auto Coercion
   
 ```sql
 source=accounts
@@ -453,7 +501,7 @@ The query returns the following results:
 | Quility | Quility | 32838 |
 | 4180 | null | 4180 |
   
-Non-existent Field Handling
+#### Non-existent Field Handling
   
 ```sql
 source=accounts
@@ -471,18 +519,22 @@ The query returns the following results:
 | Nanette | Nanette |
 | Dale | Dale |
   
-## ISPRESENT  
+## ISPRESENT
 
-### Description  
+**Usage**: `ispresent(field)`
 
-Usage: `ispresent(field)` returns true if the field exists.
+Returns `TRUE` if the field exists, `FALSE` otherwise.
 
-**Argument type:** All supported data types.  
-**Return type:** `BOOLEAN`  
-**Synonyms:** [ISNOTNULL](#isnotnull)
+**Parameters**:
 
-### Example
-  
+- `field` (Required): The field to check for existence.
+
+**Return type**: `BOOLEAN`
+
+**Synonyms**: [ISNOTNULL](#isnotnull)
+
+#### Example
+
 ```sql
 source=accounts
 | where ispresent(employer)
@@ -498,17 +550,20 @@ The query returns the following results:
 | Netagy | Hattie |
 | Quility | Nanette |
   
-## ISBLANK  
+## ISBLANK
 
-### Description  
+**Usage**: `isblank(field)`
 
-Usage: `isblank(field)` returns true if the field is null, an empty string, or contains only white space.
+Returns `TRUE` if the field is `NULL`, an empty string, or contains only white space.
 
-**Argument type:** All supported data types.  
-**Return type:** `BOOLEAN`
+**Parameters**:
 
-### Example
-  
+- `field` (Required): The field to check for blank values.
+
+**Return type**: `BOOLEAN`
+
+#### Example
+
 ```sql
 source=accounts
 | eval temp = ifnull(employer, '   ')
@@ -526,17 +581,20 @@ The query returns the following results:
 | False | Quility | False | Quility |
 | True |  | True | null |
   
-## ISEMPTY  
+## ISEMPTY
 
-### Description  
+**Usage**: `isempty(field)`
 
-Usage: `isempty(field)` returns true if the field is null or is an empty string.
+Returns `TRUE` if the field is `NULL` or is an empty string.
 
-**Argument type:** All supported data types.  
-**Return type:** `BOOLEAN`
+**Parameters**:
 
-### Example
-  
+- `field` (Required): The field to check for empty values.
+
+**Return type**: `BOOLEAN`
+
+#### Example
+
 ```sql
 source=accounts
 | eval temp = ifnull(employer, '   ')
@@ -554,38 +612,38 @@ The query returns the following results:
 | False | Quility | False | Quility |
 | False |  | True | null |
   
-## EARLIEST  
+## EARLIEST
 
-### Description  
+**Usage**: `earliest(relative_string, field)`
 
-Usage: `earliest(relative_string, field)` returns true if the value of field is after the timestamp derived from relative_string relative to the current time. Otherwise, returns false.
-relative_string: 
-The relative string can be one of the following formats:
-1. `"now"` or `"now()"`:  
-  
-   Uses the current system time.
-2. Absolute format (`MM/dd/yyyy:HH:mm:ss` or `yyyy-MM-dd HH:mm:ss`):  
-  
-   Converts the string to a timestamp and compares it with the data.
-3. Relative format: `(+|-)<time_integer><time_unit>[+<...>]@<snap_unit>`  
-  
-   Steps to specify a relative time:
-   - **a. Time offset:** Indicate the offset from the current time using `+` or `-`.  
-   - **b. Time amount:** Provide a numeric value followed by a time unit (`s`, `m`, `h`, `d`, `w`, `M`, `y`).  
-   - **c. Snap to unit:** Optionally specify a snap unit with `@<unit>` to round the result down to the nearest unit (e.g., hour, day, month).  
-  
-   **Examples** (assuming current time is `2025-05-28 14:28:34`):
-   - `-3d+2y` → `2027-05-25 14:28:34`  
-   - `+1d@m` → `2025-05-29 14:28:00`  
-   - `-3M+1y@M` → `2026-02-01 00:00:00`  
-  
-Read more details [here](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/ppl-lang/functions/ppl-datetime.md#relative_timestamp)
+Returns `TRUE` if the field value is after the timestamp derived from `relative_string` relative to the current time, `FALSE` otherwise.
 
-**Argument type:** `relative_string`: `STRING`, `field`: `TIMESTAMP`  
-**Return type:** `BOOLEAN`
+**Parameters**:
 
-### Example
-  
+- `relative_string` (Required): The reference time specification in one of the supported formats.
+- `field` (Required): The timestamp field to compare against the reference time.
+
+**Return type**: `BOOLEAN`
+
+**Relative string formats**:
+1. `"now"` or `"now()"`: Uses the current system time.
+2. Absolute format (`MM/dd/yyyy:HH:mm:ss` or `yyyy-MM-dd HH:mm:ss`): Converts the string to a timestamp and compares it against the field value.
+3. Relative format: `(+|-)<time_integer><time_unit>[+<...>]@<snap_unit>`
+
+**Steps to specify a relative time**:
+- **Time offset**: Indicate the offset from the current time using `+` or `-`.
+- **Time amount**: Provide a numeric value followed by a time unit (`s`, `m`, `h`, `d`, `w`, `M`, `y`).
+- **Snap to unit**: Optionally, specify a snap unit using `@<unit>` to round the result down to the nearest unit (for example, hour, day, month).
+
+**Examples** (assuming current time is `2025-05-28 14:28:34`):
+- `-3d+2y` → `2027-05-25 14:28:34`.
+- `+1d@m` → `2025-05-29 14:28:00`.
+- `-3M+1y@M` → `2026-02-01 00:00:00`.
+
+#### Example
+
+The following example compares timestamps against current time and relative time:
+
 ```sql
 source=accounts
 | eval now = utc_timestamp()
@@ -600,7 +658,9 @@ The query returns the following results:
 | a | b |
 | --- | --- |
 | False | True |
-  
+
+The following example filters records using an absolute time format:
+
 ```sql
 source=nyc_taxi
 | where earliest('07/01/2014:00:30:00', timestamp)
@@ -614,17 +674,23 @@ The query returns the following results:
 | --- |
 | 972 |
   
-## LATEST  
+## LATEST
 
-### Description  
+**Usage**: `latest(relative_string, field)`
 
-Usage: `latest(relative_string, field)` returns true if the value of field is before the timestamp derived from relative_string relative to the current time. Otherwise, returns false.
+Returns `TRUE` if the field value is before the timestamp derived from `relative_string` relative to the current time, `FALSE` otherwise.
 
-**Argument type:** `relative_string`: `STRING`, `field`: `TIMESTAMP`  
-**Return type:** `BOOLEAN`
+**Parameters**:
 
-### Example
-  
+- `relative_string` (Required): The reference time specification in one of the supported formats.
+- `field` (Required): The timestamp field to compare against the reference time.
+
+**Return type**: `BOOLEAN`
+
+#### Example
+
+The following example compares timestamps using the latest function:
+
 ```sql
 source=accounts
 | eval now = utc_timestamp()
@@ -639,7 +705,9 @@ The query returns the following results:
 | a | b |
 | --- | --- |
 | True | True |
-  
+
+The following example filters records using latest with an absolute time format:
+
 ```sql
 source=nyc_taxi
 | where latest('07/21/2014:04:00:00', timestamp)
@@ -653,39 +721,56 @@ The query returns the following results:
 | --- |
 | 969 |
   
-## REGEXP_MATCH  
+## REGEXP_MATCH
 
-### Description  
+**Usage**: `regexp_match(string, pattern)`
 
-Usage: `regexp_match(string, pattern)` returns true if the regular expression pattern finds a match against any substring of the string value, otherwise returns false.
-The function uses Java regular expression syntax for the pattern.
+Returns `TRUE` if the regular expression pattern finds a match against any substring of the string value, otherwise returns `FALSE`. The function uses Java regular expression syntax for the pattern.
 
-**Argument type:** `STRING`, `STRING`  
-**Return type:** `BOOLEAN`
+**Parameters**:
 
-### Example
-  
-``` ppl ignore
-source=logs | where regexp_match(message, 'ERROR|WARN|FATAL') | fields timestamp, message
+- `string` (Required): The string to search within.
+- `pattern` (Required): The regular expression pattern to match against.
+
+**Return type**: `BOOLEAN`
+
+#### Example
+
+The following example filters log messages using a regex pattern:
+
+```sql
+source=logs
+| where regexp_match(message, 'ERROR|WARN|FATAL')
+| fields timestamp, message
 ```
+{% include copy.html %}
   
 | timestamp | message |
 | --- | --- |
 | 2024-01-15 10:23:45 | ERROR: Connection timeout to database |
 | 2024-01-15 10:24:12 | WARN: High memory usage detected |
 | 2024-01-15 10:25:33 | FATAL: System crashed unexpectedly |
-  
-``` ppl ignore
-source=users | where regexp_match(email, '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}') | fields name, email
+
+The following example uses regex to validate email addresses:
+
+```sql
+source=users
+| where regexp_match(email, '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')
+| fields name, email
 ```
+{% include copy.html %}
   
 | name | email |
 | --- | --- |
 | John | john@example.com |
 | Alice | alice@company.org |
-  
+
+The following example filters for valid public IP addresses using regex:
+
 ```sql
-source=network | where regexp_match(ip_address, '^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$') AND NOT regexp_match(ip_address, '^(10\.|172\.(1[6-9]|2[0-9]|3[01])\.|192\.168\.)') | fields ip_address, status
+source=network
+| where regexp_match(ip_address, '^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$') AND NOT regexp_match(ip_address, '^(10\.|172\.(1[6-9]|2[0-9]|3[01])\.|192\.168\.)')
+| fields ip_address, status
 ```
 {% include copy.html %}
   
@@ -693,9 +778,13 @@ source=network | where regexp_match(ip_address, '^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{
 | --- | --- |
 | 8.8.8.8 | active |
 | 1.1.1.1 | active |
-  
+
+The following example uses regex for product categorization with case-insensitive matching:
+
 ```sql
-source=products | eval category = if(regexp_match(name, '(?i)(laptop|computer|desktop)'), 'Computing', if(regexp_match(name, '(?i)(phone|tablet|mobile)'), 'Mobile', 'Other')) | fields name, category
+source=products
+| eval category = if(regexp_match(name, '(?i)(laptop|computer|desktop)'), 'Computing', if(regexp_match(name, '(?i)(phone|tablet|mobile)'), 'Mobile', 'Other'))
+| fields name, category
 ```
 {% include copy.html %}
   
@@ -704,4 +793,3 @@ source=products | eval category = if(regexp_match(name, '(?i)(laptop|computer|de
 | Dell Laptop XPS | Computing |
 | iPhone 15 Pro | Mobile |
 | Wireless Mouse | Other |
-| Desktop Computer Tower | Computing |

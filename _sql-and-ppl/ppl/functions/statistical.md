@@ -1,22 +1,26 @@
 ---
 layout: default
-title: Statistical Functions
+title: Statistical functions
 parent: Functions
 grand_parent: PPL
 nav_order: 12
 ---
-# Statistical Functions  
 
-## MAX  
+# Statistical functions
 
-### Description  
+The following statistical functions are supported in PPL.
 
-Usage: `max(x, y, ...)` returns the maximum value from all provided arguments. Strings are treated as greater than numbers, so if provided both strings and numbers, it will return the maximum string value (lexicographically ordered).
+## MAX
 
-Note: This function is only available in the eval command context.
+**Usage**: `MAX(x, y, ...)`
 
-**Argument type:** Variable number of `INTEGER`/`LONG`/`FLOAT`/`DOUBLE`/`STRING` arguments  
-**Return type:** Type of the selected argument  
+Returns the largest value among the provided arguments. When both strings and numbers are supplied, strings are considered greater than numbers, and the function returns the lexicographically greatest string. This function is available only in the `eval` command.
+
+**Parameters**:
+
+- `x, y, ...` (Required): Variable number of arguments of type `INTEGER`, `LONG`, `FLOAT`, `DOUBLE`, or `STRING`.
+
+**Return type**: Type of the selected argument
 
 ### Example
   
@@ -68,16 +72,17 @@ The query returns the following results:
 | 28 | Nanette | Nanette |
 | 33 | Dale | John |
   
-## MIN  
+## MIN
 
-### Description  
+**Usage**: `MIN(x, y, ...)`
 
-Usage: `min(x, y, ...)` returns the minimum value from all provided arguments. Strings are treated as greater than numbers, so if provided both strings and numbers, it will return the minimum numeric value.
+Returns the smallest value among the provided arguments. When both strings and numbers are supplied, numbers are considered smaller than strings, and the function returns the minimum numeric value. This function is available only in the `eval` command.
 
-Note: This function is only available in the eval command context.
+**Parameters**:
 
-**Argument type:** Variable number of `INTEGER`/`LONG`/`FLOAT`/`DOUBLE`/`STRING` arguments  
-**Return type:** Type of the selected argument  
+- `x, y, ...` (Required): Variable number of arguments of type `INTEGER`, `LONG`, `FLOAT`, `DOUBLE`, or `STRING`.
+
+**Return type**: Type of the selected argument
 
 ### Example
   
@@ -128,4 +133,3 @@ The query returns the following results:
 | 36 | Hattie | 35 |
 | 28 | Nanette | 28 |
 | 33 | Dale | 33 |
-  
