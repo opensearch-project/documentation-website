@@ -24,7 +24,6 @@ search source=<index> [boolean-expression]
 source=<index> [boolean-expression]
 ```
 {% include copy.html %}
-  
 
 ## Parameters
 

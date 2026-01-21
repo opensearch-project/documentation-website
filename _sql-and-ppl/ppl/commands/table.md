@@ -3,7 +3,7 @@ layout: default
 title: table
 parent: Commands
 grand_parent: PPL
-nav_order: 43
+nav_order: 42
 ---
 
 # table

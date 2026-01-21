@@ -81,7 +81,7 @@ The `eventstats` command supports the following aggregation functions:
 * `EARLIEST` -- Earliest value by timestamp
 * `LATEST` -- Latest value by timestamp  
 
-For detailed documentation of each function, see [Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/functions/#aggregate).  
+For detailed documentation of each function, see [Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/).  
 
 ## Example 1: Calculate the average, sum, and count of a field by group  
 

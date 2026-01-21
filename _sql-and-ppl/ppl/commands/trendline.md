@@ -3,7 +3,7 @@ layout: default
 title: trendline
 parent: Commands
 grand_parent: PPL
-nav_order: 46
+nav_order: 45
 ---
 
 # trendline
