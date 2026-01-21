@@ -662,9 +662,9 @@ Collects all unique values from the specified expression into a sorted array. Va
 
 **Return type**: `ARRAY`
 
-The `plugins.ppl.values.max.limit` setting controls the maximum number of unique values returned:
-- The default value is 0, which returns an unlimited number of values.
-- Setting this to any positive integer limits the number of unique values.
+> The `plugins.ppl.values.max.limit` setting controls the maximum number of unique values returned:
+> - The default value is 0, which returns an unlimited number of values.
+> - Setting this to any positive integer limits the number of unique values.
 {: .note}
 
 <!-- temporarily commented out because the admin section is not ported
