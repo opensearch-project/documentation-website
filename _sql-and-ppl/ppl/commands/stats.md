@@ -58,11 +58,7 @@ The `stats` command supports the following aggregation functions:
 * `LIST` -- Collect all values into array
 * `VALUES` -- Collect unique values into sorted array  
   
-<!-- temporarily commented out because the functions section is not ported
-
-For detailed documentation of each function, see [Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/functions/#aggregate).
-
--->
+For detailed documentation of each function, see [Aggregation Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/).
 
 ## Example 1: Calculate the count of events  
 
@@ -92,7 +88,7 @@ source=accounts
 {% include copy.html %}
   
 The query returns the following results:
-  
+
 | avg(age) |
 | --- |
 | 32.25 |
@@ -454,8 +450,8 @@ source=hits
 | sort - c
 | head 10
 ```
-
 {% include copy.html %}
+
 
 This query is translated into a `terms` aggregation in OpenSearch with `"order": { "_count": "desc" }`. For fields with high cardinality, some buckets may be discarded, so the results may only be approximate.
 
@@ -471,7 +467,7 @@ source=hits
 | sort + c
 | head 10
 ```
-
 {% include copy.html %}
+
 
 A globally rare term might not appear as rare on every shard or could be entirely absent from some shard results. Conversely, a term that is infrequent on one shard might be common on another. In both cases, shard-level approximations can cause rare terms to be missed, leading to inaccurate overall results.

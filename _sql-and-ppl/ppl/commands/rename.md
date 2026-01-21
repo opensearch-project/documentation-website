@@ -17,7 +17,7 @@ The `rename` command handles non-existent fields as follows:
 * **Renaming an existing field to an existing field**: The existing target field is removed and the source field is renamed to the target.
 
 The `rename` command is not rewritten to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/). It is only executed on the coordinating node.
-{: .note} 
+{: .note}
 
 ## Syntax
 
