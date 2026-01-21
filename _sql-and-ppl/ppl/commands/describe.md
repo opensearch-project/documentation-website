@@ -76,7 +76,6 @@ The query returns the following results:
 | age |
   
 <!-- temporarily commented out because the admin section is not ported
-
 ## Example 3: Fetch table metadata for a Prometheus data source  
 
 See [Fetch metadata for table in Prometheus data source]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/datasources/).
