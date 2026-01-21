@@ -82,13 +82,9 @@ The `streamstats` command supports the following aggregation functions:
 * `STDDEV_POP` -- Population standard deviation  
 * `DISTINCT_COUNT`/`DC` -- Distinct count of values  
 * `EARLIEST` -- Earliest value by timestamp  
-* `LATEST` -- Latest value by timestamp  
-
-<!-- temporarily commented out because the functions section is not ported 
-
-For detailed documentation of each function, see [Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/functions/#aggregate).
-
--->  
+* `LATEST` -- Latest value by timestamp 
+  
+For detailed documentation of each function, see [Aggregation Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/).
 
 ## Example 1: Calculate the running average, sum, and count of a field by group  
 

@@ -3,7 +3,7 @@ layout: default
 title: where
 parent: Commands
 grand_parent: PPL
-nav_order: 47
+nav_order: 46
 ---
 
 # where
@@ -43,7 +43,6 @@ The query returns the following results:
 | --- | --- |
 | 1 | 39225 |
 | 13 | 32838 |
-
 
 ## Example 2: Filter using combined criteria
 
