@@ -89,7 +89,7 @@ APT, the primary package management tool for Debian–based operating systems, a
     ```bash
     sudo apt-get update
     ```
-1. (Optional) If you have previously created the APT repository before 2024/05/22, we have deployed a [change](https://github.com/opensearch-project/opensearch-build/issues/4485) to update `Origin` and `Label` values.
+1. (Optional) As of May 22, 2024, the `Origin` and `Label` values of the APT repository were updated as part of [this change](https://github.com/opensearch-project/opensearch-build/issues/4485). If you created the APT repository before this date, run the following command to accept the updated release information:
     ```bash
     sudo apt-get update --allow-releaseinfo-change
     ```
