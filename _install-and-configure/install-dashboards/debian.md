@@ -84,6 +84,10 @@ APT, the primary package management tool for Debian–based operating systems, a
     ```bash
     sudo apt-get update
     ```
+1. (Optional) As of May 22, 2024, the `Origin` and `Label` values of the APT repository were updated as part of [this change](https://github.com/opensearch-project/opensearch-build/issues/4485). If you created the APT repository before this date, run the following command to accept the updated release information:
+    ```bash
+    sudo apt-get update --allow-releaseinfo-change
+    ```
 1. With the repository information added, list all available versions of OpenSearch:
    ```bash
    sudo apt list -a opensearch-dashboards
