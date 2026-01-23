@@ -16,14 +16,6 @@ This quick start guide shows you how to create and use agents with the simplifie
 This is an experimental release supporting only Amazon Bedrock Converse Claude models.
 {: .important}
 
-## Prerequisites
-
-Before you begin, ensure you have:
-
-- An OpenSearch cluster running version 3.5 or later
-- Credentials for your model provider (for example, AWS credentials for Amazon Bedrock)
-- The ML Commons plugin enabled
-
 ## Step 1: Register an agent
 
 Create an agent with a single API call. The connector and model are created automatically:
