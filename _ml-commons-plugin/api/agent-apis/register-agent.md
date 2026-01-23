@@ -21,6 +21,9 @@ Agents may be of the following types:
 
 For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
+Starting with OpenSearch 3.5, you can use the [simplified agent interface]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/simplified-agents/) to register agents with automated connector and model creation. This experimental feature is currently limited to Amazon Bedrock Converse Claude models.
+{: .note}
+
 ## Endpoints
 
 ```json
@@ -51,6 +54,10 @@ Field | Data type | Required/Optional | Agent type | Description
 `parameters._llm_interface` | String | Required | `plan_execute_and_reflect`, `conversational` | Specifies how to parse the LLM output when using function calling. Valid values are: <br> - `bedrock/converse/claude`: Anthropic Claude conversational models hosted on Amazon Bedrock  <br> - `bedrock/converse/deepseek_r1`: DeepSeek-R1 models hosted on Amazon Bedrock <br> - `openai/v1/chat/completions`: OpenAI chat completion models hosted on OpenAI. Each interface defines a default response schema and function call parser.
 `inject_datetime` | Boolean | Optional | `conversational`, `plan_execute_and_reflect` | Whether to automatically inject the current date into the system prompt. Default is `false`.
 `datetime_format` | String | Optional | `conversational`, `plan_execute_and_reflect` | A format string for dates used when `inject_datetime` is enabled. Default is `"yyyy-MM-dd'T'HH:mm:ss'Z'"` (ISO format).
+`model` | Object | Optional | `conversational`, `plan_execute_and_reflect` | **Simplified interface only (3.5+)**: Model configuration that automatically creates a connector and model. See [Simplified agent interface]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/simplified-agents/).
+`model.model_id` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model identifier (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`).
+`model.model_provider` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model provider. Currently only `bedrock/converse` is supported.
+`model.credential` | Object | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | Credentials for accessing the model. Accepts any credential format supported by connectors. For details, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
@@ -232,6 +239,49 @@ POST /_plugins/_ml/agents/_register
 }
 ```
 {% include copy-curl.html %}
+
+## Example request: Simplified interface (Experimental)
+**Introduced 3.5**
+{: .label .label-purple }
+**Experimental release**
+{: .label .label-red }
+
+The simplified interface automates connector and model creation. Currently supports only Amazon Bedrock Converse Claude models.
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "Claude Agent with Simplified Interface",
+  "type": "conversational",
+  "description": "Agent using the simplified interface",
+  "model": {
+    "model_id": "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
+    "model_provider": "bedrock/converse",
+    "credential": {
+      "access_key": "YOUR_ACCESS_KEY",
+      "secret_key": "YOUR_SECRET_KEY",
+      "session_token": "YOUR_SESSION_TOKEN"
+    }
+  },
+  "tools": [
+    {
+      "type": "ListIndexTool"
+    },
+    {
+      "type": "SearchIndexTool"
+    },
+    {
+      "type": "IndexMappingTool"
+    }
+  ],
+  "memory": {
+    "type": "conversation_index"
+  }
+}
+```
+{% include copy-curl.html %}
+
+For more information, see [Simplified agent interface]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/simplified-agents/).
 
 ## Example response
 
