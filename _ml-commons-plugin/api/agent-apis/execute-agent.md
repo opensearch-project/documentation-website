@@ -12,6 +12,9 @@ nav_order: 20
 
 When an agent is executed, it runs the tools with which it is configured. Starting with OpenSearch version 3.0, you can execute an agent asynchronously by setting the `async` query parameter to `true`.
 
+Starting with OpenSearch 3.5, agents created using the [unified agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/unified-agents/) support a standardized `input` field that accepts plain text, multimodal content, or message-based conversations. This requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
+{: .note}
+
 ### Endpoints
 
 ```json
@@ -32,10 +35,14 @@ The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
-`parameters`| Object | Required | The parameters required by the agent. Any agent parameters configured during registration can be overridden using this field.
-`parameters.verbose`| Boolean | Optional | Provides verbose output. 
+`parameters`| Object | Optional | The parameters required by the agent. Any agent parameters configured during registration can be overridden using this field. Used with traditional agent workflow.
+`parameters.question`| String | Optional | The question to ask the agent. Used with traditional agent workflow.
+`parameters.verbose`| Boolean | Optional | Provides verbose output.
+`input` | String or Array | Optional | **Unified agent API (3.5+)**: Standardized input field supporting plain text, multimodal content blocks, or message-based conversations. See [Unified agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/unified-agents/).
 
-## Example request
+## Traditional agent execution
+
+For agents created using the traditional workflow, use the `parameters` field:
 
 ```json
 POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
@@ -71,3 +78,100 @@ Therefore, the population increase of Seattle from 2021 to 2023 is 58,000."""
   ]
 }
 ```
+
+## Unified agent API execution (Experimental)
+**Introduced 3.5**
+{: .label .label-purple }
+**Experimental release**
+{: .label .label-red }
+
+For agents created using the unified agent API, use the `input` field. The `input` field supports three formats:
+
+### Plain text input
+
+```json
+POST /_plugins/_ml/agents/<agent_id>/_execute
+{
+  "input": "What tools do you have access to?"
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "result": "I have access to the following tools:\n\n1. ListIndexTool - Lists all indices in the cluster\n2. SearchIndexTool - Searches within OpenSearch indices\n3. IndexMappingTool - Retrieves index mapping information"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Multimodal content blocks
+
+```json
+POST /_plugins/_ml/agents/<agent_id>/_execute
+{
+  "input": [
+    {
+      "type": "text",
+      "text": "What can you see in this image?"
+    },
+    {
+      "type": "image",
+      "source": {
+        "type": "base64",
+        "format": "png",
+        "data": "iVBORw0KGgoAAAANSUhEUgAA..."
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+### Message-based conversations
+
+```json
+POST /_plugins/_ml/agents/<agent_id>/_execute
+{
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "I like the color red"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Thanks for telling me that! I'll remember it."
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "What color do I like?"
+        }
+      ]
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+For more information about the unified agent API and input formats, see [Unified agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/unified-agents/).
