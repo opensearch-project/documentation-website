@@ -21,7 +21,7 @@ Agents may be of the following types:
 
 For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
-Starting with OpenSearch 3.5, you can use the [simplified agent interface]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/simplified-agents/) to register agents with automated connector and model creation. This experimental feature is currently limited to Amazon Bedrock Converse Claude models.
+Starting with OpenSearch 3.5, you can use the [simplified agent interface]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/simplified-agents/) to register agents with automated connector and model creation. This experimental feature is currently limited to Amazon Bedrock Converse Claude models and requires the `plugins.ml_commons.simplified_agent_registration_enabled` cluster setting to be enabled.
 {: .note}
 
 ## Endpoints

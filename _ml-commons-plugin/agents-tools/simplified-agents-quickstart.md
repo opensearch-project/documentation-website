@@ -16,7 +16,38 @@ This quick start guide shows you how to create and use agents with the simplifie
 This is an experimental release supporting only Amazon Bedrock Converse Claude models.
 {: .important}
 
-## Step 1: Register an agent
+
+## Step 1: Enable the simplified interface
+
+The simplified agent interface is disabled by default. Enable it with the following cluster setting:
+
+```json
+PUT /_cluster/settings
+{
+  "persistent": {
+    "plugins.ml_commons.simplified_agent_registration_enabled": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Response
+
+```json
+{
+  "acknowledged": true,
+  "persistent": {
+    "plugins": {
+      "ml_commons": {
+        "simplified_agent_registration_enabled": "true"
+      }
+    }
+  },
+  "transient": {}
+}
+```
+
+## Step 2: Register an agent
 
 Create an agent with a single API call. The connector and model are created automatically:
 
@@ -60,7 +91,7 @@ POST /_plugins/_ml/agents/_register
 
 Save the `agent_id` for the next steps.
 
-## Step 2: Execute the agent with text
+## Step 3: Execute the agent with text
 
 Send a simple text prompt to your agent:
 
@@ -88,7 +119,7 @@ POST /_plugins/_ml/agents/abc123xyz/_execute
 }
 ```
 
-## Step 3: Execute with multimodal input
+## Step 4: Execute with multimodal input
 
 Send an image along with your question:
 
@@ -113,7 +144,7 @@ POST /_plugins/_ml/agents/abc123xyz/_execute
 ```
 {% include copy-curl.html %}
 
-## Step 4: Have a conversation
+## Step 5: Have a conversation
 
 Maintain context across multiple turns:
 

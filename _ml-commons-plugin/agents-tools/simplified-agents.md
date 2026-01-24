@@ -16,6 +16,27 @@ The simplified agent interface streamlines agent creation and execution by autom
 This is an experimental release. Only Amazon Bedrock Converse Claude models are supported. The APIs and functionality may change in future releases.
 {: .important}
 
+## Enabling the simplified interface
+
+The simplified agent interface is disabled by default. To use it, you must enable the following cluster setting:
+
+```json
+PUT /_cluster/settings
+{
+  "persistent": {
+    "plugins.ml_commons.simplified_agent_registration_enabled": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+This setting must be enabled to:
+- Register agents with automatic model creation (using the `model` field)
+- Execute agents using the standardized `input` field
+
+Without this setting enabled, you can only use the traditional agent workflow.
+{: .note}
+
 ## Key improvements
 
 The simplified interface provides the following improvements over the traditional agent workflow:

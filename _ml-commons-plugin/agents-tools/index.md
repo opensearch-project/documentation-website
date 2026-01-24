@@ -26,4 +26,6 @@ You can modify and transform tool outputs using a [processor chain]({{site.url}}
 
 Starting with OpenSearch 3.5, you can use the [simplified agent interface]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/simplified-agents/) to create agents with automated connector and model setup. This experimental feature streamlines agent creation and supports flexible input formats including text, multimodal content, and message-based conversations.
 
+To use the simplified interface, you must enable the `plugins.ml_commons.simplified_agent_registration_enabled` cluster setting (disabled by default).
+
 For a hands-on introduction, see the [quick start guide]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/simplified-agents-quickstart/).
