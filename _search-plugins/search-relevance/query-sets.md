@@ -178,3 +178,71 @@ DELETE _plugins/_search_relevance/query_sets/bb45c4c4-48ce-461b-acbc-f154c0a17ec
   "_primary_term": 1
 }
 ```
+
+### Search for a query set
+
+You can search for available query sets using the query DSL.
+
+#### Endpoints
+
+```json
+GET _plugins/_search_relevance/query_sets
+POST _plugins/_search_relevance/query_sets
+```
+
+#### Example request: Searching for all query sets
+
+```json
+GET _plugins/_search_relevance/query_sets
+{
+  "query":
+  {
+    "match_all": {}
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "search-relevance-queryset",
+        "_id": "4622775e-9099-4375-af7f-f970dae25f09",
+        "_score": 1,
+        "_source": {
+          "id": "4622775e-9099-4375-af7f-f970dae25f09",
+          "name": "TVs",
+          "description": "Some TVs that people might want",
+          "sampling": "manual",
+          "timestamp": "2026-01-20T12:49:35.940Z",
+          "querySetQueries": [
+            {
+              "queryText": "tv"
+            },
+            {
+              "queryText": "led tv"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```

@@ -146,3 +146,33 @@ DELETE _plugins/_search_relevance/search_configurations/bb45c4c4-48ce-461b-acbc-
   "_primary_term": 1
 }
 ```
+
+### Search for a search configuration
+
+You can search for available search configurations using the query DSL.
+
+#### Endpoint
+
+```json
+GET _plugins/_search_relevance/search_configurations
+POST _plugins/_search_relevance/search_configurations
+```
+
+#### Example request: Searching for all search configurations
+
+```json
+GET _plugins/_search_relevance/search_configurations
+{
+  "query":
+  {
+    "match_all": {}
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+
+```
