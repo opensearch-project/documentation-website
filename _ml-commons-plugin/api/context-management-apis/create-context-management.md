@@ -118,7 +118,7 @@ POST /_plugins/_ml/context_management/basic-sliding-window
 
 ```json
 {
-  "template_name": "advanced-context-management",
+  "context_management_name": "basic-sliding-window",
   "status": "created"
 }
 ```

@@ -18,7 +18,7 @@ Deleting a template does not affect agents that are currently using it. However,
 ## Endpoints
 
 ```json
-DELETE /_plugins/_ml/context_management/<template_name>
+DELETE /_plugins/_ml/context_management/<context_management_name>
 ```
 
 ## Path parameters
@@ -27,7 +27,7 @@ The following table lists the available path parameters.
 
 Parameter | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`template_name` | String | Required | The name of the context management template to delete.
+`context_management_name` | String | Required | The name of the context management template to delete.
 
 ## Example request
 
