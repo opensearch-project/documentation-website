@@ -171,8 +171,92 @@ GET _plugins/_search_relevance/search_configurations
 ```
 {% include copy-curl.html %}
 
+#### Example request: Searching for a search configuration by name
+
+```json
+GET _plugins/_search_relevance/search_configurations/_search
+{
+  "query": {
+    "match": {
+      "name": "baseline"
+    }
+  }
+}
+```
+
+Note that the index storing the search configurations contains several fields of the type `keyword` that require exact matching.
+{: .note}
+
+#### Example request: Searching for a search configuration by a specific target index including a specific query pattern
+
+```json
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "index": "ecommerce"
+          }
+        },
+        {
+          "match": {
+            "query": "multi_match"
+          }
+        }
+      ]
+    }
+  },
+  "size": 10
+}
+```
+
 #### Example response
 
 ```json
-
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1.2086178,
+    "hits": [
+      {
+        "_index": "search-relevance-search-config",
+        "_id": "c86af6ed-a91e-450d-a630-aa2a3c525618",
+        "_score": 1.2086178,
+        "_source": {
+          "id": "c86af6ed-a91e-450d-a630-aa2a3c525618",
+          "name": "baseline",
+          "timestamp": "2026-01-26T12:11:47.657Z",
+          "index": "ecommerce",
+          "query": """{"query":{"multi_match":{"query":"%SearchText%","fields":["asin","title","category","bullet_points","description","brand","color"]}}}""",
+          "searchPipeline": ""
+        }
+      },
+      {
+        "_index": "search-relevance-search-config",
+        "_id": "a4697191-744e-404a-b869-bbefb7e753ed",
+        "_score": 1.2015147,
+        "_source": {
+          "id": "a4697191-744e-404a-b869-bbefb7e753ed",
+          "name": "baseline with title weight",
+          "timestamp": "2026-01-26T12:11:48.199Z",
+          "index": "ecommerce",
+          "query": """{"query":{"multi_match":{"query":"%SearchText%","fields":["asin","title^25","category","bullet_points","description","brand","color"]}}}""",
+          "searchPipeline": ""
+        }
+      }
+    ]
+  }
+}
 ```
