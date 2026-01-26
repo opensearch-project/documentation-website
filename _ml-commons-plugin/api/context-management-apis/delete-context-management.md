@@ -40,7 +40,7 @@ DELETE /_plugins/_ml/context_management/advanced-context-management
 
 ```json
 {
-  "template_id": "advanced-context-management",
+  "context_management_name": "advanced-context-management",
   "status": "deleted"
 }
 ```

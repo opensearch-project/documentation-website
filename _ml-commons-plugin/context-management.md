@@ -265,11 +265,11 @@ Build context management for agents with extensive tool interactions:
 
 Context management supports full CRUD operations:
 
-- **[Create context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/)**: `POST /_plugins/_ml/context_management/{context_name}`
-- **[Get context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/get-context-management/)**: `GET /_plugins/_ml/context_management/{context_name}`
-- **[Update context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/update-context-management/)**: `PUT /_plugins/_ml/context_management/{context_name}`
-- **[Delete context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/delete-context-management/)**: `DELETE /_plugins/_ml/context_management/{context_name}`
-- **[List context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/list-context-management/)**: `GET /_plugins/_ml/context_management/_list`
+- **[Create context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/)**: `POST /_plugins/_ml/context_management/{context_management_name}`
+- **[Get context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/get-context-management/)**: `GET /_plugins/_ml/context_management/{context_management_name}`
+- **[Update context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/update-context-management/)**: `PUT /_plugins/_ml/context_management/{context_management_name}`
+- **[Delete context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/delete-context-management/)**: `DELETE /_plugins/_ml/context_management/{context_management_name}`
+- **[List context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/list-context-management/)**: `GET /_plugins/_ml/context_management`
 
 ## Getting started
 

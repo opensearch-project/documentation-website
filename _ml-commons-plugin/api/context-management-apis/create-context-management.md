@@ -77,7 +77,7 @@ Field | Data type | Required/Optional | Description
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `max_output_length` | Integer | Optional | Maximum length of tool output to retain. Default is `40000`.
-`activation` | Object | Optional | Activation rules. See [Activation rules](#activation-rules).
+`activation` | Object | Optional | Activation rules. Default to always activate. See [Activation rules](#activation-rules).
 
 ### Activation rules
 
