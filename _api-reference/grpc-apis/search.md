@@ -158,16 +158,21 @@ Note that some query types are currently unsupported. See [Supported queries](#s
 | `match_all` | [`MatchAllQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2623) | Matches all documents in the index. Must be the only field set. |
 | `match_none` | [`MatchNoneQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2674) | Matches no documents. Must be the only field set. |
 | `nested` | [`NestedQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1573) | Wraps a query targeting nested fields. Must be the only field set. |
+| `geo_distance` | [`GeoDistanceQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1531) | Returns documents with geopoints within a specified distance from a provided geopoint. Must be the only field set. |
+| `geo_bounding_box` | [`GeoBoundingBoxQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1454) | Returns documents with geopoints within a specified bounding box. Must be the only field set. |
+| `script` | [`ScriptQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1442) | Filters documents based on a custom condition written in Painless scripting language. Must be the only field set. |
+| `hybrid` | [`HybridQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1424) | Combines relevance scores from multiple queries into one score. Must be the only field set. |
 
 ## Supported queries
 
 The gRPC Search API supports the following query types:
 * Term-level: `exists`, `fuzzy`, `ids`, `prefix`, `range`, `regexp`, `term`, `terms`, `terms_set`, `wildcard`
 * Full-text: `match`, `match_bool_prefix`, `match_phrase`, `match_phrase_prefix`, `multi_match`
-* Compound queries: `bool`, `constant_score`
+* Match all: `match_all`, `match_none`
+* Compound queries: `bool`, `constant_score`, `function_score`, `hybrid`
 * Geographic: `geo_bounding_box`, `geo_distance`
 * Joining queries: `nested`
-* Specialized queries: `script`
+* Specialized queries: `knn`, `script`
 
 For more information about these query types, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 
@@ -552,8 +557,6 @@ A geodistance query returns documents with geopoints that are within a specified
 
 The following sections describe the fields for each specialized query message.
 
-The following sections describe the fields for each specialized query message.
-
 #### ScriptQuery fields
 
 A script query filters documents based on a custom condition written in the Painless scripting language. The [`ScriptQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1442) message accepts the following fields.
@@ -563,6 +566,18 @@ A script query filters documents based on a custom condition written in the Pain
 | `script` | [`Script`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1147) | Required. The script to execute for filtering documents. |
 | `boost` | `optional float` | A floating-point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
 | `x_name` | `optional string` | A query name for query tagging. |
+
+#### HybridQuery fields
+
+A hybrid query combines relevance scores from multiple queries into one score for a given document. The [`HybridQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1424) message accepts the following fields.
+
+| Field | Protobuf type | Description |
+| :---- | :---- | :---- |
+| `boost` | `optional float` | A floating-point number used to decrease or increase the relevance scores of the query. Default is `1.0`. |
+| `x_name` | `optional string` | A query name for query tagging. |
+| `queries` | `repeated` [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1341) | An array of one or more query clauses that are used to match documents. A document must match at least one query clause in order to be returned in the results. The documents' relevance scores from all query clauses are combined into one score by applying a search pipeline. The maximum number of query clauses is 5. |
+| `pagination_depth` | `optional int32` | The pagination depth for the hybrid query. |
+| `filter` | `optional` [`QueryContainer`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1341) | A filter to apply to all subqueries of the hybrid query. |
 
 ### Common message values
 
