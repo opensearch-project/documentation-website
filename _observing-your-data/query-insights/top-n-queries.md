@@ -72,7 +72,7 @@ PUT _cluster/settings
 
 ## Configuring source truncation
 
-To manage memory usage and response size, you can configure the maximum length (in characters) of the query source stored in top N query records. The default `max_source_length` is `524288` characters (1 MB). For example, to limit the source length to 1000 characters, update the `search.insights.top_queries.max_source_length` setting:
+To optimize storage usage, you can configure the maximum length (in characters) of the query source stored in top N query records. The default `max_source_length` is `524288` characters (1 MB). For example, to limit the source length to 1000 characters, update the `search.insights.top_queries.max_source_length` setting:
 
 ```json
 PUT _cluster/settings
