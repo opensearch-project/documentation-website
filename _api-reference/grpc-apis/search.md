@@ -136,9 +136,9 @@ Note that some query types are currently unsupported. See [Supported queries](#s
 
 | Field | Protobuf type | Description |
 | :---- | :---- | :---- |
-| `bool` | [`BoolQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2104) | A Boolean query that combines multiple clauses using `AND`/`OR`/`NOT` logic. Must be the only field set. |
+| `bool` | [`BoolQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2104) | A Boolean query that combines multiple clauses using `AND`, `OR`, or `NOT` logic. Must be the only field set. |
 | `constant_score` | [`ConstantScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2142) | Wraps a filter and assigns a constant relevance score to all matching documents. Must be the only field set. |
-| `function_score` | [`FunctionScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2154) | Adjusts the scores of results using custom functions. Must be the only field set. |
+| `function_score` | [`FunctionScoreQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2154) | Adjusts the scores of the results using custom functions. Must be the only field set. |
 | `exists` | [`ExistsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1957) | Matches documents that contain a specific field. Must be the only field set. |
 | `fuzzy` | [`FuzzyQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2557) | Matches terms similar to the search term (fuzzy matching). Must be the only field set. |
 | `ids` | [`IdsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2612) | Matches documents by `_id` values. Must be the only field set. |
@@ -149,7 +149,7 @@ Note that some query types are currently unsupported. See [Supported queries](#s
 | `terms` | [`TermsQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1558) | Matches any document containing one or more specified terms in a field. Must be the only field set. |
 | `terms_set` | [`TermsSetQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2334) | Matches documents containing a minimum number of exact terms in a field. Must be the only field set. |
 | `wildcard` | [`WildcardQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1969) | Matches terms using a wildcard pattern. Must be the only field set. |
-| `match` | `map<string, `[`MatchQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2053)`>` | Full-text match on text or exact-value fields. Must be the only field set. |
+| `match` | `map<string, `[`MatchQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2053)`>` | Performs a full-text match on text or exact-value fields. Must be the only field set. |
 | `match_bool_prefix` | [`MatchBoolPrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2632) | Matches full words and prefixes in a Boolean-style query. Must be the only field set. |
 | `match_phrase` | [`MatchPhraseQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2710) | Matches an exact phrase in order. Must be the only field set. |
 | `match_phrase_prefix` | [`MatchPhrasePrefixQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2683)    | Matches a phrase in which the last term is treated as a prefix. Must be the only field set. |
@@ -158,8 +158,8 @@ Note that some query types are currently unsupported. See [Supported queries](#s
 | `match_all` | [`MatchAllQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2623) | Matches all documents in the index. Must be the only field set. |
 | `match_none` | [`MatchNoneQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L2674) | Matches no documents. Must be the only field set. |
 | `nested` | [`NestedQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1573) | Wraps a query targeting nested fields. Must be the only field set. |
-| `geo_distance` | [`GeoDistanceQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1531) | Returns documents with geopoints within a specified distance from a provided geopoint. Must be the only field set. |
-| `geo_bounding_box` | [`GeoBoundingBoxQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1454) | Returns documents with geopoints within a specified bounding box. Must be the only field set. |
+| `geo_distance` | [`GeoDistanceQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1531) | Returns documents containing geopoints within a specified distance from a provided geopoint. Must be the only field set. |
+| `geo_bounding_box` | [`GeoBoundingBoxQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1454) | Returns documents containing geopoints within a specified bounding box. Must be the only field set. |
 | `script` | [`ScriptQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1442) | Filters documents based on a custom condition written in Painless scripting language. Must be the only field set. |
 | `hybrid` | [`HybridQuery`](https://github.com/opensearch-project/opensearch-protobufs/blob/1.2.0/protos/schemas/common.proto#L1424) | Combines relevance scores from multiple queries into one score. Must be the only field set. |
 
