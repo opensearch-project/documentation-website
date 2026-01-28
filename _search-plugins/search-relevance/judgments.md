@@ -338,3 +338,80 @@ DELETE _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
   "_primary_term": 1
 }
 ```
+
+### Search for a judgment list
+
+You can search for available judgment lists using the query DSL.
+By default the `judgmentRatings.ratings` data is not returned to manage payload size.  You can include that data by specifying `_source` field in the query.
+
+#### Endpoints
+
+```json
+GET _plugins/_search_relevance/judgments/_search
+POST _plugins/_search_relevance/judgments/_search
+```
+
+#### Example request: Searching for judgments
+Searching for judgment lists that include the exact query _red dress_.
+
+```json
+GET _plugins/_search_relevance/judgments/_search
+{
+  "query": {
+    "nested": {
+      "path": "judgmentRatings",
+      "query": {
+        "match_phrase": {
+          "judgmentRatings.query": "red dress"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "took": 29,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 4.5558767,
+    "hits": [
+      {
+        "_index": "search-relevance-judgment",
+        "_id": "505d00cf-2fce-422b-bb97-2e3a95ce9446",
+        "_score": 4.5558767,
+        "_source": {
+          "metadata": {},
+          "name": "Imported Judgments",
+          "judgmentRatings": [
+            {
+              "query": "red dress"
+            },
+            {
+              "query": "blue jeans"
+            }
+          ],
+          "id": "505d00cf-2fce-422b-bb97-2e3a95ce9446",
+          "type": "IMPORT_JUDGMENT",
+          "timestamp": "2026-01-28T18:16:44.218Z",
+          "status": "COMPLETED"
+        }
+      }
+    ]
+  }
+}
+```

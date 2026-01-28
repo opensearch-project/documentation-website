@@ -154,14 +154,14 @@ You can search for available search configurations using the query DSL.
 #### Endpoint
 
 ```json
-GET _plugins/_search_relevance/search_configurations
-POST _plugins/_search_relevance/search_configurations
+GET _plugins/_search_relevance/search_configurations/_search
+POST _plugins/_search_relevance/search_configurations/_search
 ```
 
 #### Example request: Searching for all search configurations
 
 ```json
-GET _plugins/_search_relevance/search_configurations
+GET _plugins/_search_relevance/search_configurations/_search
 {
   "query":
   {

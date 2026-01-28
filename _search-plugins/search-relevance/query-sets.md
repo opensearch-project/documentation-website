@@ -191,7 +191,7 @@ POST _plugins/_search_relevance/query_sets/_search
 ```
 
 #### Example request: Searching for query sets
-Searching for query set that has the queryText _wall lamp without cord_ with partial query.
+Searching for query set that has the `queryText` _wall lamp without cord_ with a partial query match.
 
 
 ```json
