@@ -188,7 +188,9 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.append_only.enabled` (Boolean): Set to `true` to prevent any updates to documents in the index. Default is `false`.
 
-- `index.derived_source.enabled` (Boolean): Set to `true` to dynamically generate the source without explicitly storing the `_source` field, which can optimize storage. Default is `false`. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/#derived-source). 
+- `index.derived_source.enabled` (Boolean): Set to `true` to dynamically generate the source without explicitly storing the `_source` field, which can optimize storage. Default is `false`. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/#derived-source).
+
+- `index.bulk.adaptive_shard_selection.enabled` (Boolean): Set to `true` to specify if the bulk should use adaptive shard selection to select one shard for append-only index. Default is `false`.
 
 ### Updating a static index setting
 
