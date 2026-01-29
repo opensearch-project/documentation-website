@@ -176,6 +176,20 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.merge.policy` (String): This setting controls the merge policy for the Lucene segments. The available options are `tiered` and `log_byte_size`. The default is `tiered`, but for time-series data, such as log events, we recommend that you use the `log_byte_size` merge policy, which can improve query performance when conducting range queries on the `@timestamp` field. We recommend that you not change the merge policy of an existing index. Instead, configure this setting when creating a new index.
 
+- `index.merge.policy.max_merged_segment` (Byte size): The maximum size of a merged segment. OpenSearch performs background segment merges that produce segments no larger than this value. Default is `5gb`. For more information, see [Force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/).
+
+- `index.merge.policy.segments_per_tier` (Integer): The number of segments per tier used by the tiered merge policy. Smaller values use more segments per tier, which means more merging but fewer segments overall. Larger values use fewer segments per tier, which means less merging but more segments overall. Default is `10`. This setting only applies when `index.merge.policy` is set to `tiered`.
+
+- `index.merge.policy.max_merge_at_once` (Integer): The maximum number of segments to merge at one time during normal merging. Default is `10`. This setting only applies when `index.merge.policy` is set to `tiered`.
+
+- `index.merge.policy.max_merge_at_once_explicit` (Integer): The maximum number of segments to merge at one time during explicit force merges (for example, when using the [Force merge API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/)). Default is `30`. This setting only applies when `index.merge.policy` is set to `tiered`.
+
+- `index.merge.policy.expunge_deletes_allowed` (Float): The percentage of deleted documents in a segment that triggers automatic expunging of deleted documents. When a segment contains more than this percentage of deleted documents, OpenSearch automatically merges the segment to remove the deleted documents. Default is `10.0` (10%). For more information, see [Force merge]({{site.url}}{{site.baseurl}}/api-reference/index-apis/force-merge/).
+
+- `index.merge.scheduler.max_thread_count` (Integer): The maximum number of threads that may be merging at once. The default is `Math.max(1, Math.min(4, Runtime.getRuntime().availableProcessors() / 2))`, which means half of the available processors, with a minimum of 1 and a maximum of 4. This setting controls the number of merge threads per shard. Increasing this value can speed up merging but may also increase resource consumption.
+
+- `index.merge.scheduler.max_merge_count` (Integer): The maximum number of merges that can be running at once. Default is `Math.max(1, Math.min(4, Runtime.getRuntime().availableProcessors() / 2))`, which means half of the available processors, with a minimum of 1 and a maximum of 4. This setting controls the number of concurrent merges per shard.
+
 - `index.merge_on_flush.enabled` (Boolean): This setting controls Apache Lucene's merge-on-refresh feature that aims to reduce the number of segments by performing merges _on refresh_ (or in terms of OpenSearch, _on flush_). Default is `true`.
 
 - `index.merge_on_flush.max_full_flush_merge_wait_time` (Time unit): This setting sets the amount of time to wait for merges when `index.merge_on_flush.enabled` is enabled. Default is `10s`.
