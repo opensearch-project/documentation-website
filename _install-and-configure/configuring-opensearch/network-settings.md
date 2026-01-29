@@ -101,19 +101,23 @@ OpenSearch supports the following HTTP debugging settings for tracing HTTP commu
 
 - `http.tracer.exclude` (Dynamic, list): Specifies a comma-separated list of HTTP request paths or wildcard patterns to exclude from HTTP tracing. HTTP requests matching these patterns are not traced in the logs, even if HTTP tracing is enabled. This setting is useful for reducing noise from frequent or unimportant endpoints. Default is `[]` (empty list, no exclusions when HTTP tracing is enabled).
 
-## HTTP experimental settings
+## Experimental HTTP settings
 
-OpenSearch supports the following HTTP experimental settings:
+OpenSearch supports the following experimental HTTP settings:
 
-- `http.protocol.http3.enabled` (Static, Boolean): enables HTTP/3 protocol (if supported by the operating system and architecture).The HTTP/3 transport is still experimental and should be used with caution.  
+- `http.protocol.http3.enabled` (Static, Boolean): Enables the HTTP/3 protocol if it is supported by the operating system and architecture. Default is `false`.
 
-    Note, it is impossible to determine, in advance, whether a target server supports HTTP/3. It is also impossible to upgrade an existing HTTP/1.1 or HTTP/2 connection to an HTTP/3 connection, since HTTP/1.1 and HTTP/2 are built on top of TCP streams while HTTP/3's QUIC is built on top of UDP datagrams. By default, if enabled, HTTP/3 transport is available on the same port as HTTP/1.1 and HTTP/2 transports.
+    The HTTP/3 transport is currently experimental and should be used with caution. 
+    {: .warning} 
 
-    The implementation uses native libraries under the hood and has to rely on direct NIO buffers (which is not the case for HTTP/1.1 and HTTP/2 transports) - be aware of that while estimating the native memory consumption.
+    It is not possible to determine in advance whether a target server supports HTTP/3. Additionally, existing HTTP/1.1 or HTTP/2 connections cannot be upgraded to HTTP/3 because HTTP/1.1 and HTTP/2 are built on TCP streams, whereas HTTP/3 uses QUIC over UDP datagrams. When enabled, the HTTP/3 transport is available on the same port as the HTTP/1.1 and HTTP/2 transports by default.
+    {: .note}
+
+    The implementation relies on native libraries and uses direct NIO buffers, unlike the HTTP/1.1 and HTTP/2 transports. Take this into account when estimating native memory usage.
     
-    HTTP/3 is secure by default and is only available when SSL/TLS for HTTP transports is enabled. OpenSearch will advertise HTTP/3 availability using `Alt-Svc` header, for example:
+    HTTP/3 is secure by default and is available only when SSL/TLS is enabled for HTTP transports. OpenSearch advertises HTTP/3 availability using the `Alt-Svc` header, for example:
 
-    ```
+    ```yaml
     < HTTP/2 200
     < alt-svc: h3=":9200"; ma=3600
     < x-opensearch-version: OpenSearch/3.5.0 (opensearch)
@@ -122,13 +126,11 @@ OpenSearch supports the following HTTP experimental settings:
     ```
     
     The following platforms/architectures are currently supported:
-    - Linux / Aarch64
-    - Linux / x86_64
-    - OSX / Aarch64
-    - OSX / x86_64
-    - Windows / x86_64
-
-    Default is `false`.
+    - Linux/Aarch64
+    - Linux/x86_64
+    - OSX/Aarch64
+    - OSX/x86_64
+    - Windows/x86_64
 
 ## Advanced transport settings
 
