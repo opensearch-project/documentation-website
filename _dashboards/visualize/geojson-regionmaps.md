@@ -31,6 +31,24 @@ You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON 
 >   * OpenSearch [`geospatial`](https://github.com/opensearch-project/geospatial) backend plugin
 {: .note}
 
+As of 3.5, the complexity of the uploaded GeoJSON is limited based on the following factors:
+- Number of coordinates per geometry (default `10000`)
+- Number of holes per polygon (default `1000`)
+- Number of multi geometries (default `100`)
+- Nested Geometry collection depth (default `5`)
+
+These thresholds can be updated through cluster settings:
+```
+{
+  "persistent": {
+    "plugins.geospatial.geojson.max_coordinates_per_geometry": 10000,
+    "plugins.geospatial.geojson.max_holes_per_polygon": 1000,
+    "plugins.geospatial.geojson.max_multi_geometries": 100,
+    "plugins.geospatial.geojson.max_geometry_collection_nested_depth": 5
+  }
+}
+```
+
 ### Step 1: Creating a region map visualization
 
 To create your own custom vector map, upload a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
