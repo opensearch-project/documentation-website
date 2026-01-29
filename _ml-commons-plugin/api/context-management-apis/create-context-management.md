@@ -70,7 +70,7 @@ The `SummarizationManager` supports the following parameters in the `config` obj
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`summary_ratio` | Double | Optional | The ratio of messages to summarize (0.1-0.8). Default is `0.3`.
+`summary_ratio` | Double | Optional | The ratio of messages to summarize (0.1--0.8). Default is `0.3`.
 `preserve_recent_messages` | Integer | Optional | The number of recent messages to preserve. Default is `10`.
 `summarization_model_id` | String | Optional | A model ID for summarization. Uses the agent's model if not specified.
 `summarization_system_prompt` | String | Optional | A system prompt for summarization. If not specified, the default system prompt is used.
