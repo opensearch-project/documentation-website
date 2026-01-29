@@ -10,7 +10,7 @@ nav_order: 10
 **Introduced 3.5**
 {: .label .label-purple }
 
-You can provide the `explain` parameter to understand how scores are calculated in neural sparse ANN queries. When enabled, it provides detailed information about the scoring process for each search result, including query token pruning, quantized dot product calculations, quantization rescaling, and filter application. This comprehensive insight makes it easier to understand and optimize your neural sparse ANN query results. For more information about `explain`, see [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/).
+You can provide the `explain` parameter to understand how scores are calculated in neural sparse approximate nearest neighbor (ANN) queries. When enabled, it provides detailed information about the scoring process for each search result, including query token pruning, quantized dot product calculations, quantization rescaling, and filter application. This comprehensive insight makes it easier to understand and optimize your neural sparse ANN query results. For more information about `explain`, see [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/).
 
 `explain` is an expensive operation in terms of both resources and time. For production clusters, we recommend using it sparingly for the purpose of troubleshooting.
 {: .warning }
@@ -356,7 +356,7 @@ Field | Description
 
 ### Explanation components
 
-The `details` array in the explanation contains the following components based on the neural sparse ANN scoring process:
+The `details` array in the explanation contains the following components based on the neural sparse ANN scoring process.
 
 Component | Description
 :--- | :---
@@ -367,7 +367,7 @@ Filter explanation | (When filters are applied) Shows filter criteria and search
 
 ### Quantization parameters
 
-Neural sparse ANN search uses unsigned byte quantization to reduce memory usage and improve search performance. The quantization rescaling section includes the following parameters:
+Neural sparse ANN search uses unsigned byte quantization to reduce memory usage and improve search performance. The quantization rescaling section includes the following parameters.
 
 Parameter | Description
 :--- | :---
@@ -376,7 +376,7 @@ Parameter | Description
 `ceiling_search` | The quantization ceiling parameter used during search.
 `MAX_UNSIGNED_BYTE_VALUE` | The maximum value for unsigned byte quantization (255).
 
-During ingestion, float token weights are converted to unsigned bytes (0--255) by dividing each weight by `ceiling_ingest` and scaling to the byte range. Similarly, during search, query token weights are quantized using `ceiling_search`. The raw dot product is computed using these quantized byte values. To recover the approximate original score, the result is rescaled using the formula: `final_score = raw_quantized_score * boost * ceiling_ingest * ceiling_search / 255 / 255`. The ceiling parameters determine the maximum weight value that can be represented without clipping---weights exceeding the ceiling are capped at 255.
+During ingestion, float token weights are converted to unsigned bytes (0--255) by dividing each weight by `ceiling_ingest` and scaling to the byte range. Similarly, during search, query token weights are quantized using `ceiling_search`. The raw dot product is computed using these quantized byte values. To recover the approximate original score, the result is rescaled using the formula `final_score = raw_quantized_score * boost * ceiling_ingest * ceiling_search / 255 / 255`. The ceiling parameters determine the maximum weight value that can be represented without clipping---weights exceeding the ceiling are capped at 255.
 
 ## Next steps
 
