@@ -1,5 +1,6 @@
 .breaking-changes-selector {
-  background: #f5f7f7;
+  background: var(--sidebar-bg, #f5f7f7);
+  color: var(--body-text, #333);
   padding: 15px;
   border-radius: 4px;
   margin-bottom: 20px;
@@ -16,6 +17,8 @@
 .breaking-changes-selector select {
   margin-right: 15px;
   padding: 4px;
+  background: var(--body-bg, #fff);
+  color: var(--body-text, #333);
 }
 
 .breaking-changes-selector input[type="checkbox"] {
@@ -33,8 +36,9 @@
 .transformation-info {
   margin-left: 20px;
   padding: 5px 10px;
-  background-color: #e6f7ff;
-  border-left: 3px solid #1890ff;
+  background-color: var(--code-bg, #e6f7ff);
+  border-left: 3px solid var(--link-color, #1890ff);
+  color: var(--body-text, #333);
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 0.9em;
@@ -48,7 +52,8 @@
 .transformation-request {
   margin-top: 15px;
   padding: 10px;
-  background-color: #f0f0f0;
+  background-color: var(--sidebar-bg, #f0f0f0);
+  color: var(--body-text, #333);
   border-radius: 4px;
   font-size: 0.9em;
   font-style: italic;
