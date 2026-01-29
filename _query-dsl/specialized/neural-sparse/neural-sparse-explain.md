@@ -389,11 +389,7 @@ Parameter | Description
 `ceiling_search` | The quantization ceiling parameter used during search.
 `MAX_UNSIGNED_BYTE_VALUE` | The maximum value for unsigned byte quantization (255).
 
-## Performance considerations
-
-The `explain` feature has minimal latency impact on neural sparse ANN queries. Testing on 100K documents showed an additional latency of approximately 0.06 ms per query.
-
-However, because `explain` generates detailed scoring breakdowns for each result, it should be used primarily for debugging and troubleshooting rather than in production query paths.
+Neural sparse ANN search uses unsigned byte quantization to reduce memory usage and improve search performance. During ingestion, float token weights are converted to unsigned bytes (0--255) by dividing each weight by `ceiling_ingest` and scaling to the byte range. Similarly, during search, query token weights are quantized using `ceiling_search`. The raw dot product is computed using these quantized byte values. To recover the approximate original score, the result is rescaled using the formula: `final_score = raw_quantized_score * boost * ceiling_ingest * ceiling_search / 255 / 255`. The ceiling parameters determine the maximum weight value that can be represented without clipping---weights exceeding the ceiling are capped at 255.
 
 ## Next steps
 
