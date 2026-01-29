@@ -222,3 +222,79 @@ DELETE _plugins/_search_relevance/query_sets/bb45c4c4-48ce-461b-acbc-f154c0a17ec
   "_primary_term": 1
 }
 ```
+
+### Search for a query set
+
+You can search for available query sets using the query DSL.
+
+#### Endpoints
+
+```json
+GET _plugins/_search_relevance/query_sets/_search
+POST _plugins/_search_relevance/query_sets/_search
+```
+
+#### Example request: Searching for query sets
+Searching for query set that has the `queryText` _wall lamp without cord_ with a partial query match.
+
+
+```json
+GET _plugins/_search_relevance/query_sets/_search
+{
+  "query": {
+    "nested": {
+      "path": "querySetQueries",
+      "query": {
+        "match_phrase": {
+          "querySetQueries.queryText": "lamp without cord"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "search-relevance-queryset",
+        "_id": "4622775e-9099-4375-af7f-f970dae25f09",
+        "_score": 1,
+        "_source": {
+          "id": "4622775e-9099-4375-af7f-f970dae25f09",
+          "name": "ESCI Queries",
+          "description": "Queries from the ESCI ranking task",
+          "sampling": "manual",
+          "timestamp": "2026-01-20T12:49:35.940Z",
+          "querySetQueries": [
+            {
+              "queryText": "tv"
+            },
+            {
+              "queryText": "wall lamp without cord"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
