@@ -10,18 +10,17 @@ has_toc: false
 
 # Experiments
 
-A experiment is acontrolled test designed to assess the effectiveness, relevance, or performance of a search engine or its algorithms.  These experiments are typically conducted to evaluate how well a search system delivers useful results for specific queries.
+An experiment is a controlled test designed to assess the effectiveness, relevance, or performance of a search engine or its algorithms. These experiments are typically conducted to evaluate how well a search system delivers useful results for specific queries.
 
 Search Relevance Workbench offers multiple types of experiments, see {{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/#available-search-result-quality-experiments for more details on the types of experiments offered.
 
-
-## Managing expeirments
+## Managing experiments
 
 You can retrieve or delete experiments using the following APIs.
 
-### View a experiment
+### View an experiment
 
-You can retrieve a experiment using the experiment ID.
+You can retrieve an experiment using the experiment ID.
 
 #### Endpoint
 
@@ -203,9 +202,9 @@ GET _plugins/_search_relevance/experiment/b54f791a-3b02-49cb-a06c-46ab650b2ade
 
 </details>
 
-### Delete a experiment
+### Delete an experiment
 
-You can delete a experiment using the experiment ID.
+You can delete an experiment using the experiment ID.
 
 #### Endpoint
 
@@ -239,10 +238,10 @@ DELETE _plugins/_search_relevance/experiment/47cc3861-c37b-43cc-99c4
 }
 ```
 
-### Search for a experiment
+### Search for an experiment
 
-You can search for available experiment using the query DSL.
-By default the `results` data is not returned to manage payload size.  You can include that data by specifying `_source` field in the query.
+You can search for available experiments using the query DSL.
+By default the `results` data is not returned to manage payload size. You can include that data by specifying `_source` field in the query.
 
 #### Endpoints
 

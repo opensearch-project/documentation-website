@@ -26,7 +26,7 @@ Search Relevance Workbench relies on different components for the different kind
 * [Query set]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/): A _query set_ is a collection of queries. These queries are used in experiments for search relevance evaluation.
 * [Search configuration]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/): A _search configuration_ describes the pattern to use to run queries for experiments.
 * [Judgment list]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/): A _judgment_ is a rating that describes the relevance of one particular document for a given query. Multiple judgments are grouped together into judgment lists.
-* [Experiments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/experiments/): A _experiment_ is a controlled test designed to assesss the effectiveness of a algorithm.  There are multiple types of experiments offered.
+* [Experiments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/experiments/): An _experiment_ is a controlled test designed to assesss the effectiveness of a algorithm.  There are multiple types of experiments offered.
 
 ## Available search result quality experiments
 {: #available-search-result-quality-experiments }

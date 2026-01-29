@@ -342,7 +342,7 @@ DELETE _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 ### Search for a judgment list
 
 You can search for available judgment lists using the query DSL.
-By default the `judgmentRatings.ratings` data is not returned to manage payload size.  You can include that data by specifying `_source` field in the query.
+By default the `judgmentRatings.ratings` data is not returned to manage payload size. You can include that data by specifying `_source` field in the query.
 
 #### Endpoints
 
