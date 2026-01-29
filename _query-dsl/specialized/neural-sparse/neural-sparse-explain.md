@@ -74,18 +74,7 @@ GET my-sparse-index/_search
 ```
 {% include copy-curl.html %}
 
-## Explanation structure
-
-The explanation follows a hierarchical structure that mirrors the neural sparse ANN scoring process. The explanation includes the following components:
-
-1. **Query token pruning**: Shows how many tokens were kept after pruning.
-2. **Raw dot product score**: Breaks down the quantized dot product calculation with individual token contributions.
-3. **Quantization rescaling**: Explains how the raw score is converted back to float scale.
-4. **Filter explanation** (when applicable): Provides information about filter application and search mode.
-
 ## Example: Basic neural sparse ANN search
-
-The following example shows a basic neural sparse ANN search with explanation:
 
 ```json
 GET my-sparse-index/_search?explain=true
@@ -218,8 +207,6 @@ GET my-sparse-index/_search?explain=true
 </details>
 
 ## Example: Neural sparse ANN search with filter
-
-The following example shows a neural sparse ANN search with a filter and explanation:
 
 ```json
 GET hotels-index/_search?explain=true
@@ -367,29 +354,29 @@ Field | Description
 :--- | :---
 `explanation` | The `explanation` object contains the following fields: <br> - `value`: Contains the calculation result.<br> - `description`: Explains what type of calculation was performed. <br> - `details`: Shows any subcalculations performed.
 
-### Explanation details
+### Explanation components
 
-The `details` array in the explanation contains the following components:
+The `details` array in the explanation contains the following components based on the neural sparse ANN scoring process:
 
 Component | Description
 :--- | :---
-Query token pruning | Shows how many query tokens were retained after pruning. If no pruning occurred, indicates that all tokens were kept.
+Query token pruning | Shows the number of query tokens retained after pruning based on the `top_n` parameter. If no pruning occurs, indicates that all tokens were kept.
 Raw dot product score | The quantized dot product score before rescaling. Contains nested details showing each token's contribution as `query_weight * doc_weight`.
 Quantization rescaling | Explains how the raw quantized score is converted to the final float score using the formula: `boost * ceiling_ingest * ceiling_search / 255 / 255`. Contains details about each parameter used in the calculation.
-Filter explanation | (When filters are applied) Shows filter criteria and search mode. Indicates whether exact search mode was used when filtered documents are fewer than or equal to `k`.
+Filter explanation | (When filters are applied) Shows filter criteria and search mode. Indicates whether exact search mode was used when the number of filtered documents is fewer than or equal to `k`.
 
 ### Quantization parameters
 
-The quantization rescaling section includes the following parameters:
+Neural sparse ANN search uses unsigned byte quantization to reduce memory usage and improve search performance. The quantization rescaling section includes the following parameters:
 
 Parameter | Description
 :--- | :---
-`original boost` | The boost value applied to the query (default: 1.0).
+`original boost` | The boost value applied to the query. Default is 1.0.
 `ceiling_ingest` | The quantization ceiling parameter used during document ingestion.
 `ceiling_search` | The quantization ceiling parameter used during search.
 `MAX_UNSIGNED_BYTE_VALUE` | The maximum value for unsigned byte quantization (255).
 
-Neural sparse ANN search uses unsigned byte quantization to reduce memory usage and improve search performance. During ingestion, float token weights are converted to unsigned bytes (0--255) by dividing each weight by `ceiling_ingest` and scaling to the byte range. Similarly, during search, query token weights are quantized using `ceiling_search`. The raw dot product is computed using these quantized byte values. To recover the approximate original score, the result is rescaled using the formula: `final_score = raw_quantized_score * boost * ceiling_ingest * ceiling_search / 255 / 255`. The ceiling parameters determine the maximum weight value that can be represented without clipping---weights exceeding the ceiling are capped at 255.
+During ingestion, float token weights are converted to unsigned bytes (0--255) by dividing each weight by `ceiling_ingest` and scaling to the byte range. Similarly, during search, query token weights are quantized using `ceiling_search`. The raw dot product is computed using these quantized byte values. To recover the approximate original score, the result is rescaled using the formula: `final_score = raw_quantized_score * boost * ceiling_ingest * ceiling_search / 255 / 255`. The ceiling parameters determine the maximum weight value that can be represented without clipping---weights exceeding the ceiling are capped at 255.
 
 ## Next steps
 
