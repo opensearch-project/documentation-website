@@ -15,7 +15,7 @@ In search applications, tuning relevance is a constant, iterative exercise inten
 Search Relevance Workbench consists of a [frontend component](https://github.com/opensearch-project/dashboards-search-relevance) that simplifies the process of evaluating search quality.
 The frontend uses the [OpenSearch Search Relevance plugin](https://github.com/opensearch-project/search-relevance) as a backend to manage the resources for each tool provided. For example, most use cases involve creating and using search configurations, query sets, and judgment lists. All of these resources are created, updated, deleted, and maintained by the Search Relevance plugin. When you are satisfied with the relevance improvements, you can take the output of the experimentation and manually deploy the changes into your search application.
 
-You can quickly analyze a single query via the [Single query comparison]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/) UI before moving to more structured experiments.
+You can quickly analyze a single query using the [Single query comparison UI]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/) before moving to more structured experiments.
 
 ## Key relevance concepts
 
