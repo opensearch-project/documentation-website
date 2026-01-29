@@ -141,6 +141,9 @@ The **Query insights - Configuration** page is designed to gives you control ove
 
 On the configuration page, you can configure the settings described in the following sections.
 
+**For production deployments**: When the Dashboard application runs on separate nodes with network access restrictions, consider using the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) to enable secure configuration. The Settings API provides fine-grained access control, allowing you to safely allowlist Query Insights configuration without granting broad cluster settings permissions.
+{: .tip}
+
 ### Top N queries monitoring
 
 The **Top n queries monitoring configuration settings** allow you to track query performance metrics, such as **Latency**, **CPU Usage**, and **Memory**, to analyze and optimize query performance. The configuration interface provides a structured, menu-driven setup through which you can define specific metrics to be monitored, set thresholds for analysis, and customize monitoring durations.
