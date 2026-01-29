@@ -3,7 +3,7 @@ layout: default
 title: Agents and tools tutorial
 parent: Agents and tools
 grand_parent: ML Commons APIs
-nav_order: 10
+nav_order: 5
 ---
 
 # Agents and tools tutorial
