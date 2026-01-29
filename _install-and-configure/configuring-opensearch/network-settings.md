@@ -196,5 +196,5 @@ The default OpenSearch transport is provided by the `transport-netty4` module an
 
 Plugin | Description
 :---------- | :--------
-`transport-reactor-netty4`    | The OpenSearch HTTP transport based on [Project Reactor](https://github.com/reactor/reactor-netty) and Netty 4 (**experimental**) <br> Installation: `./bin/opensearch-plugin install transport-reactor-netty4` <br> Configuration (using `opensearch.yml`): <br> `http.type: reactor-netty4` <br> `http.type: reactor-netty4-secure`<br>Supported protocols: **HTTP/1.1**, **HTTP/2**, **HTTP/3** (experimental, see [HTTP experimental settings](#http-experimental-settings))
+`transport-reactor-netty4`    | The OpenSearch HTTP transport based on [Project Reactor](https://github.com/reactor/reactor-netty) and Netty 4 (**experimental**) <br> Installation: `./bin/opensearch-plugin install transport-reactor-netty4` <br> Configuration (using `opensearch.yml`): <br> `http.type: reactor-netty4` <br> `http.type: reactor-netty4-secure`<br>Supported protocols: **HTTP/1.1**, **HTTP/2**, **HTTP/3** (experimental, see [HTTP experimental settings](#experimental-http-settings))
 
