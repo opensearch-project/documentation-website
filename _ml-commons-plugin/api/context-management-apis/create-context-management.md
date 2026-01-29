@@ -41,7 +41,7 @@ The `hooks` object maps hook names to arrays of context manager configurations. 
 
 Hook | Description
 :--- | :---
-`pre_llm` | Executes before sending requests to the LLM.
+`pre_llm` | Executes before sending requests to the large language model (LLM).
 `post_tool` | Executes after tool execution completes.
 
 Each hook contains an array of context manager configurations with the following fields.
@@ -62,7 +62,7 @@ The `SlidingWindowManager` supports the following parameters in the `config` obj
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `max_messages` | Integer | Optional | The maximum number of messages to retain. Default is `20`.
-`activation` | Object | Optional | The activation rules. Defaults to always activate. See [Activation rules](#activation-rules).
+`activation` | Object | Optional | The activation rules. Defaults to always activated. See [Activation rules](#activation-rules).
 
 #### SummarizationManager
 
@@ -74,7 +74,7 @@ Field | Data type | Required/Optional | Description
 `preserve_recent_messages` | Integer | Optional | The number of recent messages to preserve. Default is `10`.
 `summarization_model_id` | String | Optional | A model ID for summarization. Uses the agent's model if not specified.
 `summarization_system_prompt` | String | Optional | A system prompt for summarization. If not specified, the default system prompt is used.
-`activation` | Object | Optional | The activation rules. Defaults to always activate. See [Activation rules](#activation-rules).
+`activation` | Object | Optional | The activation rules. Defaults to always activated. See [Activation rules](#activation-rules).
 
 #### ToolsOutputTruncateManager
 
@@ -83,7 +83,7 @@ The `ToolsOutputTruncateManager` supports the following parameters in the `confi
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `max_output_length` | Integer | Optional | The maximum length of tool output to retain. Default is `40000`.
-`activation` | Object | Optional | The activation rules. Defaults to always activate. See [Activation rules](#activation-rules).
+`activation` | Object | Optional | The activation rules. Defaults to always activated. See [Activation rules](#activation-rules).
 
 ### Activation rules
 
