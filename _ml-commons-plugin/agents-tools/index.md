@@ -3,7 +3,7 @@ layout: default
 title: Agents and tools
 has_children: true
 has_toc: false
-nav_order: 27
+nav_order: 20
 redirect_from:
   - /ml-commons-plugin/agents-tools/
 ---

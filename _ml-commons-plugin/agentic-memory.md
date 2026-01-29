@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Agentic memory
-nav_order: 60
+parent: Memory and context
+nav_order: 10
 ---
 
 # Agentic memory
