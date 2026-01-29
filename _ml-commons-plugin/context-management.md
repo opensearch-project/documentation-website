@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Context management
-nav_order: 65
+parent: Memory and context
+nav_order: 20
 ---
 
 # Context management
@@ -10,31 +11,31 @@ nav_order: 65
 
 Context management enables OpenSearch agents to dynamically optimize their context before sending requests to large language models (LLMs). This flexible feature helps prevent context window overflow, reduces token usage, and enables long-running agents by intelligently managing conversation history, tool interactions, and other contextual information.
 
-Using context management, you can build AI agents that can do the following:
+Using context management, you can build AI agents that can:
 
-- Automatically truncate a long tool output when approaching token limits
-- Summarize lengthy tool interactions to preserve essential information
-- Apply sliding window approaches to maintain recent context
-- Implement custom context optimization strategies based on specific use cases
-- Hook into different stages of agent execution for context transformation
+- Automatically truncate a long tool output when approaching token limits.
+- Summarize lengthy tool interactions to preserve essential information.
+- Apply sliding window approaches to maintain recent context.
+- Implement custom context optimization strategies based on specific use cases.
+- Hook into different stages of agent execution for context transformation.
 
-Context management works through a hook-based system that allows pluggable context managers to inspect and transform agent context at specific execution points. You can experiment with different configurations and combinations to find the optimal setup for your specific use case.
+Context management uses a hook-based system that allows pluggable context managers to inspect and transform agent context at specific execution points. You can experiment with different configurations and combinations to find the optimal setup for your specific use case.
 
-## Context management 
+## Configuring context management
 
 Context management organizes teams of _context managers_ that work together to optimize agent context at specific execution points during the agent lifecycle. The system is highly configurable, allowing you to tailor the behavior to your specific requirements.
 
 Each context management can be configured with the following components:
 
-- **Name**: Unique identifier for the context management 
-- **Description**: Human-readable description of the context management's purpose
-- **Hooks**: Different execution points where context managers operate
-- **Context managers**: Individual components that perform specific context transformations
-- **Activation rules**: Conditions that determine when context managers should execute
+- **Name**: Unique identifier for the context management. 
+- **Description**: Human-readable description of the context management's purpose.
+- **Hooks**: Different execution points where context managers operate.
+- **Context managers**: Individual components that perform specific context transformations.
+- **Activation rules**: Conditions that determine when context managers should execute.
 
 You can mix and match different context managers, adjust their parameters, and experiment with various activation thresholds to achieve optimal performance for your use case.
 
-For example, to create a context management named `token-aware-truncation` with a ToolsOutputTruncateManager and a SlidingWindowManager, send the following request:
+For example, to create a context management named `token-aware-truncation` with a `ToolsOutputTruncateManager` and a `SlidingWindowManager`, send the following request:
 
 ```json
 POST /_plugins/_ml/context_management/token-aware-truncation
@@ -65,27 +66,28 @@ POST /_plugins/_ml/context_management/token-aware-truncation
 ```
 {% include copy-curl.html %}
 
-## Hook system
+## The hook system
 
-Context management uses a hook-based architecture that allows teams of context managers to execute at specific points during agent execution. The current supported hooks are:
+Context management uses a hook-based architecture that allows teams of context managers to execute at specific points during agent execution. The supported hooks are:
 
-- `pre_llm` -- Executes before sending requests to the LLM
-- `post_tool` -- Executes after tool execution completes
+- `pre_llm` -- Runs before sending requests to the LLM.
+- `post_tool` -- Runs after tool execution completes.
 
-Context managers registered for each hook will be executed in the order they are defined in the context management configuration.
-These hooks are supported in OpenSearch conversational agents and plan-and-execute agents. 
+Context managers registered for each hook are executed in the order they are defined in the context management configuration.
+
+These hooks are supported in OpenSearch [conversational agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/) and [plan-and-execute agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/). 
 
 ## Activation rules
 
-Context managers can be configured with activation rules that determine when they should execute. If no activation rules are specified, the manager will always execute.
+Activation rules determine when context managers execute during agent interactions. These rules help you control resource usage and optimize performance by triggering context optimization only when needed. If no activation rules are specified, context managers execute on every interaction at their configured hooks.
 
-### message_count_exceed
+Context managers support several types of activation rules that can be used individually or combined together.
 
-### always
+### Always activate
 
-Always activate a context manager at the hook:
+Use the `always` rule type to activate a context manager on every execution at its configured hook, regardless of conversation state:
 
-```json 
+```json
 {
   "activation": {
     "rule_type": "always"
@@ -93,7 +95,11 @@ Always activate a context manager at the hook:
 }
 ```
 
-Activates when the number of messages exceeds a threshold:
+This is equivalent to not specifying any activation rules and is useful when you want explicit control over activation behavior.
+
+### Message count threshold
+
+Use `message_count_exceed` to activate a context manager when the conversation history exceeds a specified number of messages:
 
 ```json
 {
@@ -103,9 +109,11 @@ Activates when the number of messages exceeds a threshold:
 }
 ```
 
-### tokens_exceed
+This rule is useful for applying context optimization strategies like sliding windows or summarization when conversations become lengthy.
 
-Activates when the estimated token count of the entire context window exceeds a threshold. The context window includes system prompt, user prompt, chat history(memory) and tools interactions.
+### Token count threshold
+
+Use `tokens_exceed` to activate a context manager when the estimated token count of the entire context window exceeds a threshold. The context window includes the system prompt, user prompt, chat history (memory), and tool interactions:
 
 ```json
 {
@@ -115,9 +123,11 @@ Activates when the estimated token count of the entire context window exceeds a 
 }
 ```
 
-### Multiple rules
+This rule helps prevent context window overflow and manage LLM API costs by triggering optimization strategies before hitting model limits.
 
-You can combine multiple rules (AND logic):
+### Combining multiple rules
+
+You can combine multiple activation rules using AND logic. The context manager executes only when all specified conditions are met:
 
 ```json
 {
@@ -128,17 +138,15 @@ You can combine multiple rules (AND logic):
 }
 ```
 
+This example activates the context manager only when both the message count exceeds 15 AND the token count exceeds 200,000, providing fine-grained control over when optimization occurs.
+
 ## Context manager types
 
-OpenSearch provides several built-in context manager types:
+OpenSearch provides the following context manager types. For complete configuration parameter details, see [Context manager configurations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/#context-manager-configurations).
 
 ### SlidingWindowManager
 
-Implements a sliding window approach that keeps only the most recent N interactions to prevent context window overflow.
-
-Configuration options:
-- `max_messages` -- Maximum number of messages to retain (default: 20)
-- `activation` -- Rules that determine when the manager should execute
+Implements a sliding window approach that keeps only the most recent N interactions to prevent context window overflow. This example shows a sliding window manager that retains the 6 most recent messages and activates when the conversation exceeds 12 messages:
 
 ```json
 {
@@ -152,16 +160,11 @@ Configuration options:
 }
 ```
 
+For more information, see [SlidingWindowManager]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/#slidingwindowmanager).
+
 ### SummarizationManager
 
-Summarizes lengthy conversations or tool interactions when token limits are approached.
-
-Configuration options:
-- `summary_ratio` -- Ratio of messages to summarize (default: 0.3, range: 0.1-0.8)
-- `preserve_recent_messages` -- Number of recent messages to preserve (default: 10)
-- `summarization_model_id` -- Model ID for summarization (optional, uses agent's model if not specified)
-- `summarization_system_prompt` -- System prompt for summarization (default: predefined prompt)
-- `activation` -- Rules that determine when the manager should execute
+Summarizes lengthy conversations or tool interactions when token limits are approached. This example shows a summarization manager that summarizes 30% of the conversation history while preserving the 10 most recent messages, activating when the context exceeds 200,000 tokens:
 
 ```json
 {
@@ -177,13 +180,11 @@ Configuration options:
 }
 ```
 
+For more information, see [SummarizationManager]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/#summarizationmanager).
+
 ### ToolsOutputTruncateManager
 
-Truncates tool output when it exceeds specified limits to prevent context overflow.
-
-Configuration options:
-- `max_output_length` -- Maximum length of tool output to retain (default: 40000 characters)
-- `activation` -- Rules that determine when the manager should execute
+Truncates tool output when it exceeds specified limits to prevent context overflow. This example shows a truncation manager that limits tool output to 40,000 characters and activates when the context exceeds 150,000 tokens:
 
 ```json
 {
@@ -197,13 +198,15 @@ Configuration options:
 }
 ```
 
+For more information, see [ToolsOutputTruncateManager]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/#toolsoutputtruncatemanager).
+
 ## Agent integration
 
-Context management can be applied to agents in two ways:
+Context management can be applied to agents either during agent registration or during agent execution.
 
 ### During agent registration
 
-Include the context management name when registering an agent:
+To apply context management to agents during agent registration, include the context management name when registering an agent:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -220,7 +223,7 @@ POST /_plugins/_ml/agents/_register
 
 ### During agent execution
 
-Specify the context management name in the execution request. If you specify a different context management in the execution request than what was configured during agent registration, the execution request will override the registered setting. 
+To apply context management to agents during agent execution, specify the context management name in the execution request. If you specify a different context management in the execution request than the name that was configured during agent registration, the execution request overrides the registered setting: 
 
 ```json
 POST /_plugins/_ml/agents/agent-id/_execute
@@ -237,52 +240,41 @@ POST /_plugins/_ml/agents/agent-id/_execute
 
 The following examples demonstrate how you can use context management.
 
-### Long conversation optimization
+### Long conversation 
 
-Create a context management that maintains recent conversation flow while preventing context overflow:
+To support long conversations, configure context management that maintains recent conversation flow while preventing context overflow:
 
-- Use `SlidingWindowManager` to keep recent n number of messages
-- Hook into `pre_llm` to optimize before LLM calls
+- Use a `SlidingWindowManager` to keep the most recent N number of messages.
+- Hook into `pre_llm` to optimize before LLM calls.
 
-### Tool-heavy agent optimization
+### Tool-heavy agent 
 
-Build context management for agents that use many tools:
+Configure context management for agents that use many tools:
 
-- Use `ToolsOutputTruncateManager` to limit tool output size
-- Apply `SlidingWindowManager` for tool interaction history
-- Hook into `post_tool` to clean up after tool execution
+- Use a `ToolsOutputTruncateManager` to limit tool output size.
+- Apply a `SlidingWindowManager` for tool interaction history.
+- Hook into `post_tool` to clean up after tool execution.
 
-### Multi-tool used summarization approach
+### Tool-heavy agent with summarization
 
-Build context management for agents with extensive tool interactions:
+Configure context management for agents with extensive tool interactions:
 
 - Use `ToolsOutputTruncateManager` to limit tool output size
 - Apply `SlidingWindowManager` for tool interaction history
 - Use `SummarizationManager` to summarize earlier tool interactions
 - Hook into `pre_llm` to optimize before LLM calls
 
-## API operations
-
-Context management supports full CRUD operations:
-
-- **[Create context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/)**: `POST /_plugins/_ml/context_management/{context_management_name}`
-- **[Get context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/get-context-management/)**: `GET /_plugins/_ml/context_management/{context_management_name}`
-- **[Update context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/update-context-management/)**: `PUT /_plugins/_ml/context_management/{context_management_name}`
-- **[Delete context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/delete-context-management/)**: `DELETE /_plugins/_ml/context_management/{context_management_name}`
-- **[List context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/list-context-management/)**: `GET /_plugins/_ml/context_management`
-
 ## Getting started
 
 To implement context management in your agents:
 
-1. **[Create a context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/)** with appropriate managers and hooks.
+1. **[Create a context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/)** containing appropriate managers and hooks.
 2. **[Register an agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/)** with the context management or specify it during execution.
 3. **[Execute the agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/)** and observe context optimization in action.
 4. **[Monitor and adjust]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/update-context-management/)** context management configurations based on performance.
 
-**Tip**: Start with conservative settings and gradually adjust thresholds, manager combinations, and activation rules to find the optimal configuration for your specific workload and performance requirements.
-
-For detailed API documentation, see [Context Management APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/).
+Start with conservative settings and gradually adjust thresholds, manager combinations, and activation rules to find the optimal configuration for your specific workload and performance requirements.
+{: .tip}
 
 ## Next steps
 

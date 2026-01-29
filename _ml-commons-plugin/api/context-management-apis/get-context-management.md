@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Get context management template
+title: Get context management
 parent: Context management APIs
 grand_parent: ML Commons APIs
 nav_order: 20
 ---
 
 # Get Context Management API
-**Introduced 3.3**
+**Introduced 3.5**
 {: .label .label-purple }
 
-Use this API to retrieve a context management by its name.
+Use this API to retrieve a context management configuration by its name.
 
 ## Endpoints
 
@@ -64,3 +64,7 @@ GET /_plugins/_ml/context_management/token-aware-truncation
   "created_by": "admin"
 }
 ```
+
+## Related documentation
+
+For more information, see [Context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/context-management/).

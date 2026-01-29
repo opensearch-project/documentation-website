@@ -1,16 +1,16 @@
 ---
 layout: default
-title: List context management templates
+title: List context management
 parent: Context management APIs
 grand_parent: ML Commons APIs
 nav_order: 50
 ---
 
-# List Context Management Templates API
-**Introduced 3.3**
+# List Context Management API
+**Introduced 3.5**
 {: .label .label-purple }
 
-Use this API to retrieve a list of all context management templates in the cluster.
+Use this API to retrieve a list of all context management configurations in the cluster.
 
 ## Endpoints
 
@@ -24,7 +24,7 @@ The following table lists the available query parameters.
 
 Parameter | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`size` | Integer | Optional | The maximum number of templates to return. Default is `10`.
+`size` | Integer | Optional | The maximum number of results to return. Default is `10`.
 `from` | Integer | Optional | The starting index for pagination. Default is `0`.
 
 ## Example request
@@ -46,31 +46,30 @@ GET /_plugins/_ml/context_management?size=20&from=0
 ```json
 {
   "total": 1,
-  "templates": [
+  "context_management": [
     {
       "name": "sliding_window_max_40000_tokens_managers",
-      "description": "Template for truncating tool outputs to prevent input length issues",
+      "description": "Context management for truncating tool outputs to prevent input length issues",
       "hooks": {
-        "PRE_LLM": [
+        "pre_llm": [
           {
             "type": "SlidingWindowManager",
-            "activation": {
-              "rule_type": "always"
-            },
             "config": {
-              "max_messages": 8
+              "max_messages": 8,
+              "activation": {
+                "rule_type": "always"
+              }
             }
           }
         ],
-        "POST_TOOL": [
+        "post_tool": [
           {
             "type": "ToolsOutputTruncateManager",
-            "activation": {
-              "rule_type": "always"
-            },
             "config": {
               "max_output_length": 40000,
-              "truncation_strategy": "preserve_beginning"
+              "activation": {
+                "rule_type": "always"
+              }
             }
           }
         ]
@@ -81,3 +80,7 @@ GET /_plugins/_ml/context_management?size=20&from=0
   ]
 }
 ```
+
+## Related documentation
+
+For more information, see [Context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/context-management/).

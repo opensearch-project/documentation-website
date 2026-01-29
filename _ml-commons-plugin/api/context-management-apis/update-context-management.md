@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Update context management template
+title: Update context management
 parent: Context management APIs
 grand_parent: ML Commons APIs
 nav_order: 30
 ---
 
 # Update Context Management API
-**Introduced 3.3**
+**Introduced 3.5**
 {: .label .label-purple }
 
-Use this API to update an existing context management. You can modify the description, hooks configuration, and context manager settings.
+Use this API to update an existing context management configuration. You can modify the description, hooks configuration, and context manager settings.
 
 ## Endpoints
 
@@ -24,7 +24,7 @@ The following table lists the available path parameters.
 
 Parameter | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`context_management_name` | String | Required | The name of the context management template to update.
+`context_management_name` | String | Required | The name of the context management to update.
 
 ## Request body fields
 
@@ -32,10 +32,10 @@ The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`description` | String | Optional | A human-readable description of what this template does.
-`hooks` | Object | Optional | A map of hook names to lists of context manager configurations. See [The `hooks` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-template/#the-hooks-object).
+`description` | String | Optional | A human-readable description of what this context management does.
+`hooks` | Object | Optional | A map of hook names to lists of context manager configurations. See [The `hooks` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/#the-hooks-object).
 
-The request body follows the same structure as the [Create Context Management Template API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/).
+The request body follows the same structure as the [Create Context Management API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/context-management-apis/create-context-management/).
 
 ## Example request: Update description
 
@@ -52,28 +52,27 @@ PUT /_plugins/_ml/context_management/advanced-context-management
 ```json
 PUT /_plugins/_ml/context_management/sliding_window_max_40000_tokens_managers
 {
-  "description": "Template for truncating tool outputs to prevent input length issues",
+  "description": "Context management for truncating tool outputs to prevent input length issues",
   "hooks": {
-    "PRE_LLM": [
+    "pre_llm": [
       {
         "type": "SlidingWindowManager",
-        "activation": {
-          "rule_type": "always"
-        },
         "config": {
-          "max_messages": 8
+          "max_messages": 8,
+          "activation": {
+            "rule_type": "always"
+          }
         }
       }
     ],
-    "POST_TOOL": [
+    "post_tool": [
       {
         "type": "ToolsOutputTruncateManager",
-        "activation": {
-          "rule_type": "always"
-        },
         "config": {
           "max_output_length": 40000,
-          "truncation_strategy": "preserve_beginning"
+          "activation": {
+            "rule_type": "always"
+          }
         }
       }
     ]
@@ -100,3 +99,7 @@ PUT /_plugins/_ml/context_management/sliding_window_max_40000_tokens_managers
   "_primary_term": 1
 }
 ```
+
+## Related documentation
+
+For more information, see [Context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/context-management/).
