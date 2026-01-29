@@ -84,7 +84,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Setting this value to `0` will completely truncate the source, storing no query source information. When the source exceeds the maximum length, it is hard truncated at the character limit, and the `source_truncated` field in the response will be set to `true`.
+Setting this value to `0` completely truncates the source, storing no query source information. When the source exceeds the maximum length, it is truncated exactly at the character limit, and the `source_truncated` field in the response is set to `true`.
+{: .note}
+
 
 ## Monitoring current top N queries 
 

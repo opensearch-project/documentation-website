@@ -119,7 +119,8 @@ You can access detailed information about a single query by selecting the query 
 ![Individual Query Details]({{site.url}}{{site.baseurl}}/images/Query-Insights/IndividualQueryDetails.png)
 
 In the query details view, you can view information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
-If the query source has been truncated due to size limits, it will be displayed as a string instead of formatted JSON.
+
+If the query source has been truncated because of size limits, it is displayed as a string instead of formatted JSON.
 
 ### Viewing query group details
 
