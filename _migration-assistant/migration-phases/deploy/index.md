@@ -122,23 +122,34 @@ To use these steps, make sure you fulfill the following prerequisites:
 
 To deploy Migration Assistant with RFS, the following stacks must be deployed:
 
-These commands deploy the following stacks:
-
 * `Migration Assistant network` stack
 * `RFS` stack
 * `Migration console` stack
 
+### RFS parameters
+
+Before configuring the deployment, understand the RFS parameters. If you're creating a snapshot using migration tooling, these parameters are automatically configured. If you're using an existing snapshot, you need to modify the `reindexFromSnapshotExtraArgs` setting with the following values:
+
+```bash
+"reindexFromSnapshotExtraArgs": "--s3-repo-uri s3://<bucket-name>/<repo> --s3-region <region> --snapshot-name <name>"
+```
+{% include copy.html %}
+
+Additionally, you must assign the `migrationconsole` and `reindexFromSnapshot` task roles permissions to the S3 bucket.
+
+### Configuration and deployment steps
+
 Use the following steps to configure and deploy RFS, deploy Migration Assistant, and verify installation of the required stacks:
 
-1. Add the basic authentication information (username and password) for both the source and target clusters as separate secrets in [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html). Each secret must include two key-value pairs: one for the username and one for the password. The plaintext of each secret should resemble the following example:
+1. **Set up authentication secrets**: Add the basic authentication information (username and password) for both the source and target clusters as separate secrets in [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html). Each secret must include two key-value pairs: one for the username and one for the password. The plaintext of each secret should resemble the following example:
 
    ```json
    {"username":"admin","password":"myStrongPassword123!"}
    ```
-   
-   Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment. 
 
-2. From the same shell as the Bootstrap instance, modify the `cdk.context.json` file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory and configure the following settings:
+   Be sure to copy the secret Amazon Resource Name (ARN) for use during deployment.
+
+2. **Configure the deployment context**: From the same shell as the Bootstrap instance, modify the `cdk.context.json` file located in the `/opensearch-migrations/deployment/cdk/opensearch-service-migration` directory and configure the following settings:
 
     ```json
     {
@@ -160,100 +171,90 @@ Use the following steps to configure and deploy RFS, deploy Migration Assistant,
                 "userSecretArn": "<SECRET_WITH_USERNAME_AND_PASSWORD_KEYS>"
             }
         },
-        "reindexFromSnapshotExtraArgs": "<RFS PARAMETERS (see below)>",
+        "reindexFromSnapshotExtraArgs": "<RFS PARAMETERS (see above)>",
         "reindexFromSnapshotMaxShardSizeGiB": 80
     }
     }
     ```
     {% include copy.html %}
 
-    The source and target cluster authorization can be configured to have no authorization, `basic` with a username and password, or `sigv4`. 
+    The source and target cluster authorization can be configured to have no authorization, `basic` with a username and password, or `sigv4`.
 
-### Environment configuration examples
+    **Environment configuration examples**
 
     To avoid conflicts with existing deployments, consider using different context IDs and stage names:
 
     ```json
     {
     "test-deploy": {
-        "stage": "test",
-        "reindexFromSnapshotServiceEnabled": true,
-        "sourceCluster": {
-            "endpoint": "https://migration-source-es710.us-west-2.es.amazonaws.com",
-            "version": "ES_7.10",
-            "auth": {
-                "type": "basic",
-                "userSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-source-password"
-            }
-        },
-        "targetCluster": {
-            "endpoint": "https://migration-target-os219.us-west-2.es.amazonaws.com",
-            "auth": {
-                "type": "basic",
-                "userSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-target-password"
-            }
+    "stage": "test",
+    "reindexFromSnapshotServiceEnabled": true,
+    "sourceCluster": {
+        "endpoint": "https://migration-source-es710.us-west-2.es.amazonaws.com",
+        "version": "ES_7.10",
+        "auth": {
+            "type": "basic",
+            "userSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-source-password"
         }
     },
+    "targetCluster": {
+        "endpoint": "https://migration-target-os219.us-west-2.es.amazonaws.com",
+        "auth": {
+            "type": "basic",
+            "userSecretArn": "arn:aws:secretsmanager:us-west-2:123456789012:secret:migration-target-password"
+        }
+    }
+    },
     "prod-deploy": {
-        "stage": "prod",
-        "reindexFromSnapshotServiceEnabled": true,
-        "// ... additional production-specific configuration"
+    "stage": "prod",
+    "reindexFromSnapshotServiceEnabled": true,
+    "// ... additional production-specific configuration"
     }
     }
     ```
     {% include copy.html %}
 
-    **Important Notes**:
+    **Important configuration notes**:
     - Use unique `stage` values to prevent resource naming conflicts.
-    - Ensure secret ARNs are complete and accessible in your deployment Region.
+    - Ensure that secret ARNs are complete and accessible in your deployment AWS Region.
     - Domain endpoints can be simplified names or full AWS URLs.
     - Deploy using `./deploy.sh <contextId>` (for example, `./deploy.sh test-deploy`).
 
-3. After the `cdk.context.json` file is fully configured, bootstrap the account and deploy the required stacks using the following command:
+3. **Bootstrap the CDK**: After the `cdk.context.json` file is fully configured, bootstrap the account and deploy the required stacks using the following command:
 
     ```bash
-    cdk bootstrap --c contextId=default --require-approval never 
+    cdk bootstrap --c contextId=default --require-approval never
     ```
     {% include copy.html %}
 
-4. Deploy Migration Assistant using the following command:
+4. **Deploy Migration Assistant**: Deploy Migration Assistant using the following command:
 
     ```bash
     cdk deploy "*" --c contextId=default --require-approval never --concurrency 5
     ```
     {% include copy.html %}
-    
-5. From the same Bootstrap instance shell, verify that all CloudFormation stacks were installed successfully:
+
+5. **Verify the deployment**: From the same Bootstrap instance shell, verify that all CloudFormation stacks were installed successfully:
 
     ```bash
     aws cloudformation list-stacks --query "StackSummaries[?StackStatus!='DELETE_COMPLETE'].[StackName,StackStatus]" --output table
     ```
     {% include copy.html %}
-    
-You should receive a similar output for your Region:
 
-```bash
-------------------------------------------------------------------------
-|                              ListStacks                              |
-+--------------------------------------------------+-------------------+
-|  OSMigrations-dev-us-east-1-MigrationConsole     |  CREATE_COMPLETE  |
-|  OSMigrations-dev-us-east-1-ReindexFromSnapshot  |  CREATE_COMPLETE  |
-|  OSMigrations-dev-us-east-1-MigrationInfra       |  CREATE_COMPLETE  |
-|  OSMigrations-dev-us-east-1-default-NetworkInfra |  CREATE_COMPLETE  |
-|  MigrationBootstrap                              |  CREATE_COMPLETE  |
-|  CDKToolkit                                      |  CREATE_COMPLETE  |
-+--------------------------------------------------+-------------------+
-```
+    You should receive a similar output for your Region:
 
-### RFS parameters
-
-If you're creating a snapshot using migration tooling, these parameters are automatically configured. If you're using an existing snapshot, modify the `reindexFromSnapshotExtraArgs` setting with the following values:
-
-```bash
-    "reindexFromSnapshotExtraArgs": "--s3-repo-uri s3://<bucket-name>/<repo> --s3-region <region> --snapshot-name <name>"
-```
-
-You will also need to give the `migrationconsole` and `reindexFromSnapshot` TaskRoles permissions to the S3 bucket. 
+    ```bash
+    ------------------------------------------------------------------------
+    |                              ListStacks                              |
+    +--------------------------------------------------+-------------------+
+    |  OSMigrations-dev-us-east-1-MigrationConsole     |  CREATE_COMPLETE  |
+    |  OSMigrations-dev-us-east-1-ReindexFromSnapshot  |  CREATE_COMPLETE  |
+    |  OSMigrations-dev-us-east-1-MigrationInfra       |  CREATE_COMPLETE  |
+    |  OSMigrations-dev-us-east-1-default-NetworkInfra |  CREATE_COMPLETE  |
+    |  MigrationBootstrap                              |  CREATE_COMPLETE  |
+    |  CDKToolkit                                      |  CREATE_COMPLETE  |
+    +--------------------------------------------------+-------------------+
+    ``` 
 
 ---
 
