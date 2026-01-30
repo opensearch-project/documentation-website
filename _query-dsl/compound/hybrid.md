@@ -24,12 +24,9 @@ Parameter | Description
 `queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause in order to be returned in the results. The documents' relevance scores from all query clauses are combined into one score by applying a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/). The maximum number of query clauses is 5. Required.
 `filter` | A filter to apply to all the subqueries of the hybrid query. 
 
-### Behavior with min_score
+### `min_score` Support for hybrid queries
 
-when using hybrid query with [`min_score`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#request-body) parameter in search request body:  
-> * Before 3.5: **Any** sorting criteria is allowed. The `min_score` parameter is applied to individual sub-queries and before normalization and combination. You may get results with scores **below** the `min_score` value.
-> 
-> * After 3.5: **Only if** sorting criteria is `_score` or no sorting is specified. The `min_score` parameter is applied after normalization and combination. You can get results with scores **all above** `min_score` value.
+From version 3.5 onward, the [`min_score`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#request-body) parameter is applied after score normalization and combination. It can be used only when sorting by `_score` or when no sorting is specified; using it with any other sorting criteria will result in an exception.
 {: .note}
 
 ## Disabling hybrid queries

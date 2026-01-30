@@ -14,7 +14,7 @@ nav_order: 10
 By default, hybrid search returns results ordered by scores in descending order. You can apply sorting to hybrid query results by providing the `sort` criteria in the search request. For more information about sort criteria, see [Sort results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/).
 When sorting is applied to a hybrid search, results are fetched from the shards based on the specified sort criteria. As a result, the search results are sorted accordingly, and the document scores are `null`. Scores are only present in the hybrid search sorting results if documents are sorted by `_score`. 
 
-(**After 3.5**) You can use the [`min_score`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#request-body) parameter to filter hybrid search results only if documents are sorted by `_score` or if no sorting is applied. Using any other sorting criteria causes the search to fail. For more information, see [Behavior with min_score]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#behavior-with-min_score).
+From version 3.5 onward, the [`min_score`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#request-body) parameter is applied after score normalization and combination. It can be used only when sorting by `_score` or when no sorting is specified; using it with any other sorting criteria will result in an exception.
 {: .important}
 
 In the following example, sorting is applied by `doc_price` in the hybrid query search request:
