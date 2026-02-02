@@ -35,7 +35,8 @@ Other Chromium-based browsers might work, as well. Internet Explorer and Microso
 
 OpenSearch Dashboards requires the Node.js runtime binary to run. One is included in the distribution packages available from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
-OpenSearch Dashboards >=2.8 <=2.19 can use Node.js versions 14, 16, and 18. The distribution packages for OpenSearch Dashboards >=2.10 <=2.19 include Node.js 18 and 14 (for backward compatibility).
+OpenSearch Dashboards versions 2.8 through 2.19 support Node.js 14, 16, and 18. Distribution packages for versions 2.10 through 2.19 include Node.js 18 and Node.js 14 (for backward compatibility).
+
 OpenSearch Dashboards >=3.0 <=3.4 include Node.js 20, while OpenSearch Dashboards >=3.5 include Node.js 22.
 
 To use a Node.js runtime binary other than the ones included in the distribution packages, follow these steps:
