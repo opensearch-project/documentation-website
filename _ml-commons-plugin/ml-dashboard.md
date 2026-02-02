@@ -29,7 +29,7 @@ To enable the feature:
 
 ## Accessing ML functionality in Dashboards
 
-To access ML functionality in OpenSearch Dashboards,select **OpenSearch plugins** > **Machine Learning**. 
+To access ML functionality in OpenSearch Dashboards, select **OpenSearch plugins** > **Machine Learning**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/ml-dashboard.png" alt="Machine Learning section in OpenSearch dashboards">
 
@@ -46,8 +46,8 @@ The dashboard includes the following information about the model:
 - **Name**: The name of the model given upon upload.
 - **Status**: The number of nodes for which the model responds. 
    - When all nodes are responsive, the status is **Green**.
-   - When some nodes are responsive,the status is **Yellow**.
-   - When all nodes are unresponsive,the status is **Red**.
+   - When some nodes are responsive, the status is **Yellow**.
+   - When all nodes are unresponsive, the status is **Red**.
 - **Model ID**: The model ID.
 - **Action**: What actions you can take with the model.
 
