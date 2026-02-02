@@ -512,8 +512,8 @@ If security is enabled, in addition to [stop replication permissions]({{site.url
 When an index enters `search_only` mode, OpenSearch removes its primary and regular replica shards while retaining search replicas for query operations. All write operations to the index are blocked. This is useful for log lifecycle management where older indexes no longer need write capability but should remain searchable.
 
 > This action requires the following prerequisites: 
-> - Remote store must be enabled on the cluster
-> - Segment replication must be enabled on the index
+> - Remote store must be enabled on the cluster.
+> - Segment replication must be enabled on the index.
 > - Search replicas must be configured on the index. 
 >
 > For more information about search-only mode and reader/writer separation, see [Separate index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/).
