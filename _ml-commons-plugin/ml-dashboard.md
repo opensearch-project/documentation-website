@@ -23,7 +23,7 @@ To enable the feature:
 
 1. In your OpenSearch cluster, navigate to your Dashboards home directory; for example, in Docker, `/usr/share/opensearch-dashboards`.
 2. Open your local copy of the Dashboards configuration file `opensearch_dashboards.yml`. If you don't have a copy, get one from GitHub: [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml).
-3. Add the setting `ml_commons_dashboards.enabled:`  to `opensearch_dashboards.yml`. Then, set it to  `ml_commons_dashboards.enabled: true` and save the configuration file.
+3. Add the setting `ml_commons_dashboards.enabled:` to `opensearch_dashboards.yml`. Then, set it to `ml_commons_dashboards.enabled: true` and save the configuration file.
 4. Restart the Dashboards container.
 5. Verify that the feature configuration settings were created and configured properly by launching OpenSearch Dashboards. The Machine Learning section should appear under **OpenSearch plugins**.
 
@@ -47,7 +47,7 @@ The dashboard includes the following information about the model:
 - **Status**: The number of nodes for which the model responds. 
    - When all nodes are responsive, the status is **Green**.
    - When some nodes are responsive,the status is **Yellow**.
-   - When all nodes are unresponsive,the  status is **Red**.
+   - When all nodes are unresponsive,the status is **Red**.
 - **Model ID**: The model ID.
 - **Action**: What actions you can take with the model.
 
