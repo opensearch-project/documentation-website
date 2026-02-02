@@ -58,7 +58,7 @@ The following table lists the available query parameters. All query parameters a
 | `routing` | List or String | A custom value used to route operations to a specific shard. |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. _(Default: `false`)_ |
 | `version` | Integer | If `true`, returns the document version as part of a hit. |
-| `version_type` | String | The specific version type. <br> Valid values are: <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. <br> - `force`: The version number is forced to be the given value. <br> - `internal`: The version number is managed internally by OpenSearch. |
+| `version_type` | String | The specific version type. <br> Valid values are: <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. <br> - `internal`: The version number is managed internally by OpenSearch. |
 
 <!-- spec_insert_end -->
 

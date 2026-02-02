@@ -310,5 +310,5 @@ sudo sysctl -w vm.max_map_count=262144
 
 ## Next steps
 
-If you want to try a GPU-accelerated cluster using AWS Inferentia with a pretrained HuggingFace model, see [Compiling and Deploying HuggingFace Pretrained BERT](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/src/examples/pytorch/bert_tutorial/tutorial_pretrained_bert.html).
+If you want to try a GPU-accelerated cluster using AWS Inferentia with a pretrained HuggingFace model, see the [AWS Neuron PyTorch tutorials](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/tutorials/).
 
