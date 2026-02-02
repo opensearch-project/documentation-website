@@ -18,6 +18,7 @@ Agents may be of the following types:
 - _Conversational flow_ agent
 - _Conversational agent_
 - _Plan-execute-reflect_ agent
+- _AG-UI_ agent
 
 For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
@@ -34,7 +35,7 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Agent type | Description
 :---  | :--- | :--- | :--- | :---
 `name`| String | Required | All | The agent name. |
-`type` | String | Required | All | The agent type. Valid values are [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/), [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/), [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/), and [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/). For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). |
+`type` | String | Required | All | The agent type. Valid values are [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/), [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/), [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/), [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/), and [`ag_ui`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/). For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). |
 `description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
@@ -229,6 +230,34 @@ POST /_plugins/_ml/agents/_register
     }
   ],
   "app_type": "os_chat"
+}
+```
+{% include copy-curl.html %}
+
+## Example request: AG-UI agent
+**Introduced 3.5**
+{: .label .label-purple }
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "UI Assistant Agent",
+  "type": "ag_ui",
+  "description": "An agent designed for UI interactions with streaming support",
+  "llm": {
+    "model_id": "<llm_model_id>",
+    "parameters": {
+      "max_iteration": 5,
+      "response_filter": "$.completion"
+    }
+  },
+  "memory": {
+    "type": "conversation_index"
+  },
+  "app_type": "ui_assistant"
 }
 ```
 {% include copy-curl.html %}
