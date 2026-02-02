@@ -7,11 +7,11 @@ grand_parent: Search relevance
 has_children: false
 ---
 
-# Regularly scheduled experiments
+# Evaluating search over time
 Introduced 3.4
 {: .label .label-purple }
 
-Search quality is rarely static.  Even when you aren't changing your algorithms, the data you index is changing, the signals being collected such as popularity and recency are constantly fluctuating, and the types of questions your users are asking are changing.  To guard against unexpected changes you need to monitor search quality over time.  To do that you can schedule a Search Evaluation experiment to be run on a regular basis.
+Search quality is rarely static.  Even when you aren't changing your algorithms, the data you index is changing, the signals being collected such as popularity and recency are constantly fluctuating, and the types of questions your users are asking are evolving.  To guard against unexpected changes you need to monitor search quality over time.  To do that you can schedule a Search Evaluation experiment to be run on a regular basis.
 
 Scheduling is done using a cron pattern and leverages OpenSearch's [Job Scheduler]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/) plugin under the covers.
 
@@ -30,8 +30,6 @@ When you open up the scheduling modal you can set up the schedule that you want:
 ### Evaluating Results
 
 Once you schedule an Experiment to run you can start looking at the data over time.  You will see a new dashboard icon that is specific to looking at analytics over time. The dashboard is built around evaluating daily runs, so you will need to wait 24 hours for the data to populate so that the dashboard starts to display meaningful results.
-
-**I NEED TO WAIT A WEEK TO HAVE SOME MEANINGFUL DATA IN THE DASHBOARD OR FAKE IT**
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_dashboard.png" alt="Review search quality over time"/>{: .img-fluid }
 
