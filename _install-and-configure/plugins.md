@@ -356,6 +356,10 @@ Alternatively, you can specify a range of compatible OpenSearch versions by sett
 You can specify only one of the `opensearch.version` or `dependencies` properties.
 {: .note}
 
+## Plugin dependencies
+
+Some plugins extend functionality of other plugins. If a plugin has a dependency on another plugin, you must install the required dependency before installing the dependent plugin. For plugin dependencies, see the [manifest file](https://github.com/opensearch-project/opensearch-build/blob/main/manifests/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}.yml). In this file, each plugin's dependencies are listed in the `depends_on` parameter.
+
 ## Related links
 
 - [Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)

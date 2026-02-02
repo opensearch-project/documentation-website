@@ -1,12 +1,12 @@
 ---
 layout: default
-title: documentdb
+title: DocumentDB
 parent: Sources
 grand_parent: Pipelines
 nav_order: 10
 ---
 
-# documentdb
+# DocumentDB source
 
 The `documentdb` source reads documents from [Amazon DocumentDB](https://aws.amazon.com/documentdb/) collections.
 It can read historical data from an export and keep up to date on the data using Amazon DocumentDB [change streams](https://docs.aws.amazon.com/documentdb/latest/developerguide/change_streams.html).
@@ -37,7 +37,7 @@ documentdb-pipeline:
           stream: true
       acknowledgments: true
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Configuration
 

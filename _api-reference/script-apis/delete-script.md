@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Delete Script
+title: Delete stored script
 parent: Script APIs
-nav_order: 4
+nav_order: 40
 ---
 
-# Delete Script API
+# Delete Stored Script API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Deletes a stored script.
+Deletes a stored script from the cluster state.
 
 ## Endpoints
 
@@ -36,10 +36,27 @@ Path parameters are optional.
 
 The following request deletes the `my-first-script` script:
 
-````json
-DELETE _scripts/my-script
-````
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /_scripts/my-script
+-->
+{% capture step1_rest %}
+DELETE /_scripts/my-script
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.delete_script(
+  id = "my-script"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

@@ -19,7 +19,7 @@ Because the scoring script approach executes a brute force search, it doesn't sc
 
 Similarly to approximate nearest neighbor (ANN) search, in order to use the scoring script on a body of vectors, you must first create an index with one or more `knn_vector` fields.
 
-If you intend to only use the scoring script approach (and not the approximate approach), you can set `index.knn` to `false` and not set `index.knn.space_type`. You can choose the space type during search. For the spaces that the k-NN scoring script supports, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
+If you intend to only use the scoring script approach (and not the approximate approach), you can set `index.knn` to `false` and not set `index.knn.space_type`. You can choose the space type during search. For the spaces that the k-NN scoring script supports, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
 
 This example creates an index with two `knn_vector` fields:
 
@@ -105,7 +105,7 @@ All parameters are required.
 
 - `field` is the field that contains your vector data.
 - `query_value` is the point you want to find the nearest neighbors for. For the Euclidean and cosine similarity spaces, the value must be an array of floats that matches the dimension set in the field's mapping. For Hamming bit distance, this value can be either of type signed long or a base64-encoded string (for the long and binary field types, respectively).
-- `space_type` corresponds to the distance function. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
+- `space_type` corresponds to the distance function. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
 
 The [post filter example in the approximate approach]({{site.url}}{{site.baseurl}}/vector-search/filter-search-knn/) shows a search that returns fewer than `k` results. If you want to avoid this, the scoring script method lets you essentially invert the order of events. In other words, you can filter the set of documents on which to execute the k-NN search.
 

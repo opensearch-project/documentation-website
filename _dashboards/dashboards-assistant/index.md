@@ -4,6 +4,8 @@ title: OpenSearch Assistant for OpenSearch Dashboards
 nav_order: 3
 has_children: true
 has_toc: false
+redirect_from:
+  - /dashboards/dashboards-assistant/
 ---
 
 Note that machine learning models are probabilistic and that some may perform better than others, so the OpenSearch Assistant may occasionally produce inaccurate information. We recommend evaluating outputs for accuracy as appropriate to your use case, including reviewing the output or combining it with other verification factors.
@@ -140,7 +142,7 @@ For information about additional Dashboards Assistant capabilities, see the foll
 - [Generating anomaly detector suggestions]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/suggest-anomaly-detector/)
 - [Generating visualizations from text]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/text-to-visualization/)
 
-## Related articles
+## Related documentation
 
 - [Getting started guide for OpenSearch Assistant in OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-assistant/blob/main/GETTING_STARTED_GUIDE.md)
 - [OpenSearch Assistant configuration through the REST API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/opensearch-assistant/)

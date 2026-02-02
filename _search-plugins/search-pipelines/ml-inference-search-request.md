@@ -3,7 +3,7 @@ layout: default
 title: ML inference (request)
 nav_order: 30
 has_children: false
-parent: Search processors
+parent: User-defined search processors
 grand_parent: Search pipelines
 ---
 

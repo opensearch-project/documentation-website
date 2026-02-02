@@ -35,10 +35,28 @@ GET _snapshot/<repository>/<snapshot>/
 
 The following request retrieves information for the `my-first-snapshot` located in the `my-opensearch-repo` repository:
 
-````json
-GET _snapshot/my-opensearch-repo/my-first-snapshot
-````
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_snapshot/my-opensearch-repo/my-first-snapshot
+-->
+{% capture step1_rest %}
+GET /_snapshot/my-opensearch-repo/my-first-snapshot
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.get(
+  repository = "my-opensearch-repo",
+  snapshot = "my-first-snapshot"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

@@ -12,7 +12,7 @@ redirect_from:
 
 A `query_string` query parses the query string based on the [query string syntax](#query-string-syntax). It provides for creating powerful yet concise queries that can incorporate wildcards and search multiple fields.
 
-Searches with `query_string` queries do not return nested documents. To search nested fields, use the [`nested` query]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/).
+Searches with `query_string` queries do not return nested documents. To search nested fields, use the [`nested` query]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/).
 {: .note}
 
 Query string query has a strict syntax and returns an error in case of invalid syntax. Therefore, it does not work well for search box applications. For a less strict alternative, consider using [`simple_query_string` query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/simple-query-string/). If you don't need query syntax support, use the [`match` query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/).
@@ -40,8 +40,8 @@ You can use query string syntax in the following cases:
 1. In the OpenSearch Dashboards Discover or Dashboard apps, if you turn off DQL, as shown in the following image.
   ![Using query string syntax in OpenSearch Dashboards Discover]({{site.url}}{{site.baseurl}}/images/discover-lucene-syntax.png)
   
-  DQL and Query string query (Lucene) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
-  {: .tip}
+    DQL and Query string query (Lucene) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
+    {: .tip}
 
 1. If you search using the HTTP request query parameters, for example: 
   ```json

@@ -3,7 +3,7 @@ layout: default
 title:  Batch predict
 parent: Model APIs
 grand_parent: ML Commons APIs
-nav_order: 65
+nav_order: 70
 ---
 
 # Batch Predict API
@@ -124,7 +124,7 @@ The response contains the task ID for the register operation:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once the registration is complete, the task `state` changes to `COMPLETED`.
+To check the status of the operation, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once the registration is complete, the task `state` changes to `COMPLETED`.
 
 ## Example request
 
@@ -151,7 +151,7 @@ The response contains the task ID for the batch predict operation:
 }
 ```
 
-To check the status of the batch predict job, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). You can find the job details in the `remote_job` field in the task. Once the prediction is complete, the task `state` changes to `COMPLETED`.
+To check the status of the batch predict job, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). You can find the job details in the `remote_job` field in the task. Once the prediction is complete, the task `state` changes to `COMPLETED`.
 
 ## Example request
 

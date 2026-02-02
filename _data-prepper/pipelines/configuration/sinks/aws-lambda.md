@@ -1,17 +1,16 @@
 ---
 layout: default
-title: aws_lambda
+title: AWS Lambda
 parent: Sinks
 grand_parent: Pipelines
 nav_order: 10
 ---
 
-----------------------------------------------------------------------------------------
-# `aws_lambda` sink for OpenSearch Data Prepper
+# AWS Lambda sink
 
 This page explains how to configure and use [AWS Lambda](https://aws.amazon.com/lambda/) with OpenSearch Data Prepper, enabling Lambda functions to serve as both processors and sinks.
 
-## `aws_lambda` sink
+## Configuration
 
 Configure the Lambda sink using the following parameters.
 
@@ -28,7 +27,7 @@ Field             | Type    | Required | Description
 
 #### Example configuration
 
-```
+```yaml
 sink:
   - aws_lambda:
       function_name: "my-lambda-sink"
@@ -49,7 +48,7 @@ sink:
         sts_role_arn: "arn:aws:iam::123456789012:role/my-sqs-role"
         bucket: "<<your-dlq-bucket-name>>"
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Usage
 
@@ -67,7 +66,7 @@ Data Prepper components use an AWS Identity and Access Management (IAM) role ass
 
 Integration tests must be executed separately from the main Data Prepper build. Execute them with the following command:
 
-```
+```bash
 ./gradlew :data-prepper-plugins:aws-lambda:integrationTest -Dtests.sink.lambda.region="us-east-1" -Dtests.sink.lambda.functionName="lambda_test_function"  -Dtests.sink.lambda.sts_role_arn="arn:aws:iam::123456789012:role/dataprepper-role
 ```
-{% include copy-curl.html %}
+{% include copy.html %}

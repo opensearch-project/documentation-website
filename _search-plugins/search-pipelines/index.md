@@ -10,27 +10,22 @@ redirect_from:
 
 # Search pipelines
 
-You can use _search pipelines_ to build new or reuse existing result rerankers, query rewriters, and other components that operate on queries or results. Search pipelines make it easier for you to process search queries and search results within OpenSearch. Moving some of your application functionality into an OpenSearch search pipeline reduces the overall complexity of your application. As part of a search pipeline, you specify a list of processors that perform modular tasks. You can then easily add or reorder these processors to customize search results for your application. 
+You can use _search pipelines_ to build new or reuse existing result rerankers, query rewriters, and other components that operate on queries or results. Search pipelines make it easier for you to process search queries and search results within OpenSearch. Moving some of your application functionality into an OpenSearch search pipeline reduces the overall complexity of your application. As part of a search pipeline, you specify a list of search processors that perform modular tasks. You can then easily add or reorder these processors to customize search results for your application. 
 
-## Terminology
-
-The following is a list of search pipeline terminology:
-
-* [_Search request processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-request-processors): A component that intercepts a search request (the query and the metadata passed in the request), performs an operation with or on the search request, and returns the search request.
-* [_Search response processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-response-processors): A component that intercepts a search response and search request (the query, results, and metadata passed in the request), performs an operation with or on the search response, and returns the search response.
-* [_Search phase results processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-phase-results-processors): A component that runs between search phases at the coordinating node level. A search phase results processor intercepts the results retrieved from one search phase and transforms them before passing them to the next search phase.
-* [_Processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/): Either a search request processor or a search response processor.
-* _Search pipeline_: An ordered list of processors that is integrated into OpenSearch. The pipeline intercepts a query, performs processing on the query, sends it to OpenSearch, intercepts the results, performs processing on the results, and returns them to the calling application, as shown in the following diagram. 
+When defined, a search pipeline is an ordered list of search processors that is integrated into OpenSearch. The pipeline shown in the following diagram intercepts a query, performs processing on the query, sends it to OpenSearch, intercepts the results, performs processing on the results, and returns them to the calling application.
 
 ![Search processor diagram]({{site.url}}{{site.baseurl}}/images/search-pipelines.png)
 
 Both request and response processing for the pipeline are performed on the coordinator node, so there is no shard-level processing.
 {: .note}
 
-## Processors
+## Search processors
 
-To learn more about available search processors, see [Search processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/).
+Search processors can be classified by **execution phase** (when they run):
 
+- [Search request processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-request-processors): A _search request processor_ intercepts a search request (the query and the metadata passed in the request), performs an operation with or on the search request, and submits the search request to the index.
+- [Search response processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-response-processors): A _search response processor_ intercepts a search response and search request (the query, results, and metadata passed in the request), performs an operation with or on the search response, and returns the search response.
+- [Search phase results processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-phase-results-processors): A _search phase results processor_ runs between search phases at the coordinating node level. It intercepts the results retrieved from one search phase and transforms them before passing them to the next search phase.
 
 ## Example
 
@@ -77,6 +72,12 @@ Alternatively, you can use a temporary pipeline with a request or set a default 
 
 To learn about retrieving details for an existing search pipeline, see [Retrieving search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/retrieving-search-pipeline/).
 
+## Manual and automatic processor creation
+
+Search processors can be created manually or automatically:
+
+- [User-defined processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors): Processors configured manually in search pipelines, like in the preceding [example](#example).
+- [System-generated processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/system-generated-search-processors/): Processors automatically created by OpenSearch based on search request parameters.
 
 ## Search pipeline metrics
 

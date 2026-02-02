@@ -1,14 +1,18 @@
 ---
 layout: default
-title: otel_metrics_source
+title: OTel metrics source
 parent: Sources
 grand_parent: Pipelines
 nav_order: 70
 ---
 
-# otel_metrics_source
+# OTel metrics source
 
-`otel_metrics_source` is an OpenTelemetry Collector source that collects metric data. The following table describes options you can use to configure the `otel_metrics_source` source. 
+The `otel_metrics_source` is an OpenTelemetry Collector source that collects metric data. The following table describes options you can use to configure the `otel_metrics_source` source. 
+
+## Configuration
+
+You can configure the `otel_metrics_source` source with the following options. 
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

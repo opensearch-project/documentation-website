@@ -12,7 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
-        with: { ruby-version: 3.3.0 }
+        with: 
+          ruby-version: '3.4.5'
       - run: bundle install
       - working-directory: spec-insert
         run: |

@@ -6,7 +6,7 @@ has_children: true
 redirect_from:
   - /dashboards/install/index/
   - /dashboards/compatibility/
-  - /install-and-configure/install-dashboards/index/
+  - /install-and-configure/install-dashboards/
 ---
 
 # Installing OpenSearch Dashboards

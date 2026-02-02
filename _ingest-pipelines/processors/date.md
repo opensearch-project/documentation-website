@@ -35,13 +35,13 @@ The following table lists the required and optional parameters for the `date` pr
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field`  | Required  | The name of the field containing the data to be converted. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |
-`formats`  | Required | An array of the expected date formats. Can be a [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.  |
+`formats`  | Required | An array of the expected date formats. Can be a [date format]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#formats) or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.  |
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 `locale`  | Optional  | The locale to use when parsing the date. Default is `ENGLISH`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).  |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`output_format` | Optional | The [date format]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#formats) to use for the target field. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`. |
+`output_format` | Optional | The [date format]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#formats) to use for the target field. Default is `yyyy-MM-dd'T'HH:mm:ss.SSSZZ`. |
 `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
 `target_field`  | Optional  | The name of the field in which to store the parsed data. Default target field is `@timestamp`. | 
 `timezone`  | Optional  | The time zone to use when parsing the date. Default is `UTC`. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). |

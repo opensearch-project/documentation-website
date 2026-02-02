@@ -5,7 +5,7 @@ nav_order: 60
 has_children: true
 has_toc: false
 redirect_from:
-    - /analyzers/tokenizers/index/
+  - /analyzers/tokenizers/
 ---
 
 # Tokenizers

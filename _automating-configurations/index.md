@@ -4,7 +4,8 @@ title: Automating configurations
 nav_order: 1
 has_children: false
 nav_exclude: true
-redirect_from: /automating-configurations/
+redirect_from:
+  - /automating-configurations/
 ---
 
 # Automating configurations

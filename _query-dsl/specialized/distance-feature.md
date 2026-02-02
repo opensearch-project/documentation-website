@@ -16,9 +16,9 @@ You can apply this query to fields containing date or location data. It's common
 
 Before using the `distance_feature` query, ensure that your index contains at least one of the following field types:
 
-- [`date`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/)
-- [`date_nanos`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date-nanos/)
-- [`geo_point`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/)
+- [`date`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/)
+- [`date_nanos`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date-nanos/)
+- [`geo_point`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-point/)
 
 In this example, you'll configure the `opening_date` and `coordinates` fields that you can use to run distance feature queries:
 
@@ -206,7 +206,7 @@ The following table lists all top-level parameters supported by `distance_featur
 | Parameter | Required/Optional | Description |
 |-----------|-------------------|-------------|
 | `field`   | Required          | The name of the field used to calculate distances. Must be a `date`, `date_nanos`, or `geo_point` field with `index: true` (default) and `doc_values: true` (default). |
-| `origin`  | Required          | The point of origin used to calculate distances. Use a [date]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/) or [date math expression]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/#date-math) (for example, `now-1h`) for `date` fields or a [geopoint]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) for `geo_point` fields. |
+| `origin`  | Required          | The point of origin used to calculate distances. Use a [date]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/) or [date math expression]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#date-math) (for example, `now-1h`) for `date` fields or a [geopoint]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-point/) for `geo_point` fields. |
 | `pivot`   | Required          | The distance from the `origin` at which scores receive half of the `boost` value. Use a time unit (for example, `10d`) for date fields or a distance unit (for example, `1km`) for geographic fields. For more information, see [Units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#units).|
 | `boost`   | Optional          | A multiplier for the relevance score of matching documents. Must be a non-negative float. Default is `1.0`. |
 

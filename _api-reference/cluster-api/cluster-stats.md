@@ -79,19 +79,59 @@ The following index metrics are supported:
 
 For example, the following query requests statistics for `docs` and `search`:
 
-```json
-GET _cluster/stats/indices/docs,segments/nodes/_all
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/stats/indices/docs,segments/nodes/_all
+body: 
+-->
+{% capture step1_rest %}
+GET /_cluster/stats/indices/docs,segments/nodes/_all
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.stats(
+  index_metric = "docs,segments",
+  metric = "indices",
+  node_id = "_all"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example request
 
 The following example requests returns information about the cluster manager node:
 
-```json
-GET _cluster/stats/nodes/_cluster_manager
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/stats/nodes/_cluster_manager
+body: 
+-->
+{% capture step1_rest %}
+GET /_cluster/stats/nodes/_cluster_manager
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.stats(
+  node_id = "_cluster_manager"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
@@ -140,7 +180,8 @@ GET _cluster/stats/nodes/_cluster_manager
         },
         "fielddata": {
             "memory_size_in_bytes": 664,
-            "evictions": 0
+            "evictions": 0,
+            "item_count": 1
         },
         "query_cache": {
             "memory_size_in_bytes": 0,

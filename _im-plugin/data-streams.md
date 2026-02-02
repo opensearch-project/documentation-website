@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Data streams
-nav_order: 13
+nav_order: 10
 redirect_from:
   - /opensearch/data-streams/
 ---

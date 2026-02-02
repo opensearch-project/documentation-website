@@ -25,6 +25,9 @@ cards:
   - heading: "Generative AI applications"
     description: "Create AI-powered applications like RAG, chatbots, and advanced conversational systems" 
     link: "/tutorials/gen-ai/"
+  - heading: "Faceted search"
+    description: "Build filterable search experiences for applications like e-commerce or location search" 
+    link: "/tutorials/faceted-search/"
 ---
 
 # Tutorials

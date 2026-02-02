@@ -41,10 +41,28 @@ wait_for_active_shards | String | The number of active shards that must be avail
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /sample-index1/_doc/1
+-->
+{% capture step1_rest %}
 DELETE /sample-index1/_doc/1
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.delete(
+  id = "1",
+  index = "sample-index1"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

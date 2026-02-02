@@ -1,12 +1,12 @@
 ---
 layout: default
-title: opensearch 
+title: OpenSearch 
 parent: Sinks
 grand_parent: Pipelines
 nav_order: 50
 ---
 
-# opensearch
+# OpenSearch sink
 
 You can use the `opensearch` sink plugin to send data to an OpenSearch cluster, a legacy Elasticsearch cluster, or an Amazon OpenSearch Service domain.
 
@@ -134,6 +134,41 @@ You can include the `max_retries` option in your pipeline configuration to contr
 If you specify `max_retries` and a pipeline has a [dead-letter queue (DLQ)]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/dlq/) configured, the pipeline will keep trying to write to sinks until it reaches the maximum number of retries, at which point it starts to send failed data to the DLQ.
 
 If you don't specify `max_retries`, only data that is rejected by sinks is written to the DLQ. Pipelines continue to try to write all other data to the sinks.
+
+### Error handling with acknowledgments
+
+When pipelines have [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/#end-to-end-acknowledgments) enabled, error handling is controlled by two key configurations:
+* [Dead-letter queue (DLQ)]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/dlq/)
+* [`max_retries`](#configure-max_retries)
+
+#### DLQ configuration (strongly recommended)
+
+The OpenSearch sink acknowledges events only when:
+* Successfully sent to OpenSearch.
+* Successfully sent to DLQ.
+
+Without a DLQ configured:
+* Failed events remain unacknowledged.
+* Source must handle retries.
+* Risk of infinite reprocessing for non-retryable errors.
+
+#### Example: S3 source with acknowledgments
+
+Consider an [S3 source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/) with acknowledgments enabled:
+
+**Without DLQ**:
+* A single failed event prevents acknowledgment of an entire S3 object.
+* The entire S3 object requires reprocessing.
+* Non-retryable errors can cause infinite reprocessing ("poison pill").
+
+**With `max_retries` but no DLQ**:
+* Reaching `max_retries` still prevents acknowledgment.
+* Results in unnecessary reprocessing of entire S3 objects.
+
+**Best practice** -- Always configure a DLQ when using acknowledgments to:
+* Prevent infinite reprocessing.
+* Handle non-retryable errors gracefully.
+* Minimize unnecessary reprocessing.
 
 ## OpenSearch cluster security
 

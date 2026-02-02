@@ -1,11 +1,10 @@
 ---
 layout: default
 title: Comparing single queries
-nav_order: 11
+nav_order: 10
 parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
-has_toc: false
 ---
 
 # Comparing single queries
@@ -94,7 +93,7 @@ By default, OpenSearch returns the top 10 results. To change the number of retur
 Setting `size` to a high value (for example, larger than 250 documents) may degrade performance.
 {: .note}
 
-You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing.
+You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing.  Instead, review the [Search result comparison]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/comparing-search-results/) experiment.
 {: .note}
 
 ## Comparing OpenSearch search results using Search Relevance Workbench

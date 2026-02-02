@@ -61,17 +61,24 @@ module Jekyll::LinkChecker
   @ignored_domains = [
     'localhost',
     'playground.opensearch.org', # inifite redirect, https://github.com/opensearch-project/dashboards-anywhere/issues/172
+    'ml.playground.opensearch.org', # infinite redirect
     'crates.io', # 404s on bots
     'www.cloudflare.com', # 403s on bots
     'platform.openai.com', # 403s on bots
     'openai.com', # 403s on bots
     'mvnrepository.com', # 403s on bots
     'www.intel.com', # 403s on bots
-    'https://wordnet.princeton.edu/', # 403s on bots
-    'https://docs.search-guard.com/latest/offline-tls-tool', # 403s on bots
-    'https://www.deepseek.com/', # 403s on bots
-    'https://docs.opensearch.org/releases.html', # 403s on bots
-    'https://dl.acm.org/doi/abs/10.1145/1645953.1646033', # 403s on bots
+    'wordnet.princeton.edu', # 403s on bots
+    'docs.search-guard.com', # 403s on bots
+    'www.deepseek.com', # 403s on bots
+    'dl.acm.org', # 403s on bots
+    'www.npmjs.com', # 403s on bots
+    'www.base64decode.org', # 403s on bots
+    'docs.docker.com', # 403s on bots,
+    'docs-vizlib.insightsoftware.com', # 403s on bots,
+    'medium.com', # 403s on bots
+    'elastic.co', # 406s on bots
+    'www.elastic.co', # 406s on bots
     'example.issue.link' # a fake example link from the template
   ]
 

@@ -4,6 +4,8 @@ title: Authentication APIs
 parent: Security APIs
 has_children: true
 nav_order: 10
+redirect_from:
+  - /api-reference/security/authentication/
 ---
 
 # Authentication APIs

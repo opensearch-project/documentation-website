@@ -16,6 +16,10 @@ tutorial_cards:
   - heading: "Generate embeddings automatically"
     description: "Streamline your vector search using OpenSearch's built-in embedding generation"
     link: "/vector-search/getting-started/auto-generated-embeddings/"
+demo_cards:
+  - heading: "Explore AI search and RAG demos"
+    description: "Try interactive Hugging Face demos showcasing AI search, multimodal RAG, and agentic RAG"
+    link: "https://huggingface.co/spaces/opensearch-project/OpenSearch-AI"
 more_cards:
   - heading: "AI search"
     description: "Discover AI search, from <b>semantic</b>, <b>hybrid</b>, and <b>multimodal</b> search to <b>RAG</b>"
@@ -109,14 +113,14 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Registering a model is an asynchronous task. OpenSearch returns a task ID for this task. Check the status of the task by using the Tasks API:
+Registering a model is an asynchronous task. OpenSearch returns a task ID for this task. Check the status of the task by using the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```json
 GET /_plugins/_ml/tasks/<task_id>
 ```
 {% include copy-curl.html %}
 
-Once the task is complete, the task state will change to `COMPLETED` and the Tasks API response will contain a model ID for the registered model. Note the model ID; you'll use it in the following steps.
+Once the task is complete, the task state will change to `COMPLETED` and the ML Tasks API response will contain a model ID for the registered model. Note the model ID; you'll use it in the following steps.
 
 ### Step 2: Create an ingest pipeline 
 {:.no_toc} 
@@ -1130,6 +1134,10 @@ DELETE /neural_search_pqa
 {% include copy-curl.html %}
 
 </details>
+
+## Interactive demos
+
+{% include cards.html cards=page.demo_cards %}
 
 ## Getting started
 

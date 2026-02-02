@@ -195,29 +195,7 @@ The IAM role is now successfully configured in your OpenSearch cluster.
 
 Follow these steps to create a connector for the model. For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-### Step 1.4.1: Get temporary credentials
-
-Use the credentials of the IAM user specified in Step 3.1 to assume the role:
-
-```bash
-aws sts assume-role --role-arn your_iam_role_arn_created_in_step3.1 --role-session-name your_session_name
-```
-
-{% include copy.html %}
-
-Copy the temporary credentials from the response and configure them in `~/.aws/credentials`:
-
-```ini
-[default]
-AWS_ACCESS_KEY_ID=your_access_key_of_role_created_in_step3.1
-AWS_SECRET_ACCESS_KEY=your_secret_key_of_role_created_in_step3.1
-AWS_SESSION_TOKEN=your_session_token_of_role_created_in_step3.1
-```
-{% include copy.html %}
-
-### Step 1.4.2: Create a connector
-
-Run the following Python code with the temporary credentials configured in `~/.aws/credentials`:
+Run the following Python code with the temporary credentials fetched from AWS.
  
 ```python
 import boto3
@@ -228,8 +206,13 @@ host = 'your_amazon_opensearch_domain_endpoint_created_in_step0'
 region = 'your_amazon_opensearch_domain_region'
 service = 'es'
 
-credentials = boto3.Session().get_credentials()
-awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
+assume_role_response = boto3.Session().client('sts').assume_role(
+  RoleArn="your_iam_role_arn_created_in_step1.3.1",
+  RoleSessionName="your_session_name"
+)
+credentials = assume_role_response["Credentials"]
+
+awsauth = AWS4Auth(credentials["AccessKeyId"], credentials["SecretAccessKey"], region, service, session_token=credentials["SessionToken"])
 
 path = '/_plugins/_ml/connectors/_create'
 url = host + path
@@ -280,7 +263,7 @@ Note the connector ID; you'll use it in the next step.
 
 After successfully creating a connector using either the self-managed OpenSearch or Amazon OpenSearch Service method, you can register the Cohere Rerank model. 
 
-Use the connector ID from Step 1 to create a model:
+Use the connector ID from Step 1.4 to create a model:
 
 ```json
 POST /_plugins/_ml/models/_register?deploy=true

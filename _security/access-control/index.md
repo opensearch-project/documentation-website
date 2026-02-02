@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /security-plugin/access-control/index/
+  - /security/access-control/
 ---
 
 # Access control

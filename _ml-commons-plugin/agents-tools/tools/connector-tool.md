@@ -166,3 +166,7 @@ When running the agent, you can define any parameter needed for the API call in 
     }
   ]
 ```
+
+## Testing the tool
+
+You can run this tool either as part of an agent workflow or independently using the [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/). The Execute Tool API is useful for testing individual tools or performing standalone operations.

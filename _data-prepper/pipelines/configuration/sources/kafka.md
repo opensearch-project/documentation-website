@@ -1,12 +1,12 @@
 ---
 layout: default
-title: kafka
+title: Kafka
 parent: Sources
 grand_parent: Pipelines
 nav_order: 40
 ---
 
-# kafka
+# Kafka source
 
 You can use the Apache Kafka source (`kafka`) in OpenSearch Data Prepper to read records from one or more Kafka [topics](https://kafka.apache.org/intro#intro_concepts_and_terms). These records hold events that your Data Prepper pipeline can ingest. The `kafka` source uses Kafka's [Consumer API](https://kafka.apache.org/documentation/#consumerapi) to consume messages from the Kafka broker, which then creates Data Prepper events for further processing by the Data Prepper pipeline.
 

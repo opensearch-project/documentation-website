@@ -137,7 +137,7 @@ plugins.security.authcz.admin_dn:
 
 For security reasons, you cannot use wildcards or regular expressions as values for the `admin_dn` setting.
 
-For more information about admin and super admin user roles, see [Admin and super admin roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#admin-and-super-admin-roles). 
+For more information about admin and super admin user roles, see [Admin and super admin roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#admin-and-super-admin-roles).
 
 
 ## (Advanced) Hostname verification and DNS lookup
@@ -156,8 +156,10 @@ In addition, when `resolve_hostname` is enabled, the Security plugin resolves th
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is `true`.
-`plugins.security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is also enabled.
+`transport.ssl.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is `true`.
+`plugins.security.ssl.transport.enforce_hostname_verification` (Deprecated) | This setting has been deprecated. Use `transport.ssl.enforce_hostname_verification` instead.
+`transport.ssl.resolve_hostname` | Whether to resolve hostnames using DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is enabled.
+`plugins.security.ssl.transport.resolve_hostname` (Deprecated) | This setting has been deprecated. Use `transport.ssl.resolve_hostname` instead.
 
 
 ## (Advanced) Client authentication
@@ -264,7 +266,7 @@ plugins.security.ssl_cert_reload_enabled: true
 This setting is `false` by default.
 {: .note }
 
-After enabling reloading, use the Reload Certificates API to replace the expired certificates. The new certificates need to be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file. 
+After enabling reloading, use the Reload Certificates API to replace the expired certificates. The new certificates need to be stored in the same location as the previous certificates in order to prevent any changes to the `opensearch.yml` file.
 
 By default, the Reload Certificates API expects the old certificates to be replaced with valid certificates issued with the same `Issuer/Subject DN` and `SAN`. This behavior can be disabled by adding the following settings in `opensearch.yml`:
 
@@ -281,7 +283,7 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
 #### Reload TLS certificates on the transport layer
 
  The following command reloads TLS certificates on the transport layer using the Reload Certificates API:
-  
+
 ```json
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
 ```
@@ -308,6 +310,37 @@ You should receive the following response:
 { "message": "successfully updated http certs"}
 ```
 
+## Configuring TLS certificates for gRPC
 
+gRPC supports encryption in transit only. Trust stores and certificates configured as root CAs in PEM format are used only for the purpose of TLS client authorization. Role-based access is not available for gRPC endpoints.
+{: .warning}
 
+You can configure TLS on the optional gRPC transport in `opensearch.yml`. For more information about using the gRPC plugin, see [Enabling gRPC APIs]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/index/#grpc-settings).
 
+### PEM key settings (X.509 PEM certificates and PKCS #8 keys)
+
+The following table lists the available gRPC PEM key settings.
+
+Name | Description
+:--- | :---
+`plugins.security.ssl.aux.secure-transport-grpc.enabled` | Whether to enable TLS for gRPC. If enabled, only HTTPS is allowed. Optional. Default is `false`.
+`plugins.security.ssl.aux.secure-transport-grpc.pemkey_filepath` | The path to the certificate's key file (PKCS #8), specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
+`plugins.security.ssl.aux.secure-transport-grpc.pemkey_password` | The key password. Omit this setting if the key has no password. Optional.
+`plugins.security.ssl.aux.secure-transport-grpc.pemcert_filepath` | The path to the X.509 node certificate chain (in PEM format), specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
+`plugins.security.ssl.aux.secure-transport-grpc.pemtrustedcas_filepath` | The path to the root CAs (in PEM format), specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
+
+### Keystore and truststore
+
+The following table lists the available gRPC keystore and truststore settings.
+
+Name | Description
+:--- | :---
+`plugins.security.ssl.aux.secure-transport-grpc.enabled` | Whether to enable TLS for gRPC. If enabled, only HTTPS is allowed. Optional. Default is `false`.
+`plugins.security.ssl.aux.secure-transport-grpc.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
+`plugins.security.ssl.aux.secure-transport-grpc.keystore_filepath` | The path to the keystore file, specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
+`plugins.security.ssl.aux.secure-transport-grpc.keystore_alias` | The alias of the key pair to use from the provided keystore. Optional. Defaults to the first key pair added to the keystore.
+`plugins.security.ssl.aux.secure-transport-grpc.keystore_password` | The password for the keystore. Default is `changeit`.
+`plugins.security.ssl.aux.secure-transport-grpc.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
+`plugins.security.ssl.aux.secure-transport-grpc.truststore_filepath` | The path to the truststore file, specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
+`plugins.security.ssl.aux.secure-transport-grpc.truststore_alias` | The alias of the certificate to use from the provided truststore. Optional. Default is all certificates.
+`plugins.security.ssl.aux.secure-transport-grpc.truststore_password` | The password for the truststore. Default is `changeit`.

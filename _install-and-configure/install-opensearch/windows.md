@@ -31,6 +31,9 @@ Perform the following steps to install OpenSearch on Windows.
 1. Download the [`opensearch-{{site.opensearch_version}}-windows-x64.zip`](https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-windows-x64.zip){:target='\_blank'} archive.
 1. To extract the archive contents, right-click to select **Extract All**.
 
+Ensure there are no spaces in the extraction path, as this will prevent OpenSearch from starting.
+{: .warning}
+
 ## Step 2: (Optional) Test OpenSearch
 
 Before proceeding with any configuration, you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation. There are two quick methods for testing OpenSearch at this stage:
@@ -57,7 +60,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
          {% include copy.html %}
 
       1. Run the batch script.
-         For OpenSearch 2.12 or later, use the following command to specify a custom admin password:
+         For OpenSearch 2.12 or later, use the following command to specify a custom admin password, following the [password requirements]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#password-requirements):
          ```bat
          > set OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
          ```
@@ -248,6 +251,8 @@ Before modifying any configuration files, it's always a good idea to save a back
     1. In **Variable name**, enter `OPENSEARCH_JAVA_HOME`.
     1. In **Variable value**, enter `\path\to\opensearch-{{site.opensearch_version}}\jdk`.
     1. Select **OK** to close all dialogs.
+
+1. Start or restart OpenSearch using `\path\to\opensearch-{{site.opensearch_version}}\bin\opensearch.bat`.
 
 ## Plugin compatibility
 

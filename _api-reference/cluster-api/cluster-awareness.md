@@ -28,15 +28,53 @@ cluster.routing.allocation.awareness.attributes: zone,rack
 
 Alternatively, you can use the Cluster Settings API to configure the awareness attributes:
 
-```json
-PUT /_cluster/settings 
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_cluster/routing/awareness/zone/weights
+body: |
 {
-  "persistent" : {
-    "cluster.routing.allocation.awareness.attributes": ["zone", "rack"]
-  }
+  "weights":
+  {
+    "zone_1": "1",
+    "zone_2": "1",
+    "zone_3": "0"
+  },
+  "_version" : -1
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /_cluster/routing/awareness/zone/weights
+{
+  "weights": {
+    "zone_1": "1",
+    "zone_2": "1",
+    "zone_3": "0"
+  },
+  "_version": -1
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.put_weighted_routing(
+  attribute = "zone",
+  body =   {
+    "weights": {
+      "zone_1": "1",
+      "zone_2": "1",
+      "zone_3": "0"
+    },
+    "_version": -1
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 For more information about OpenSearch settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
 
@@ -79,19 +117,53 @@ The following table lists the available request body fields for the `PUT` and `D
 
 The following example request creates a round-robin shard allocation for search traffic between two zones while excluding a third zone from receiving any traffic:
 
-```json
-PUT /_cluster/routing/awareness/zone/weights
-{ 
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_cluster/routing/awareness/zone/weights
+body: |
+{
   "weights":
   {
-    "zone_1": "1", 
-    "zone_2": "1", 
+    "zone_1": "1",
+    "zone_2": "1",
     "zone_3": "0"
   },
   "_version" : -1
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /_cluster/routing/awareness/zone/weights
+{
+  "weights": {
+    "zone_1": "1",
+    "zone_2": "1",
+    "zone_3": "0"
+  },
+  "_version": -1
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.put_weighted_routing(
+  attribute = "zone",
+  body =   {
+    "weights": {
+      "zone_1": "1",
+      "zone_2": "1",
+      "zone_3": "0"
+    },
+    "_version": -1
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 After this request, the `_version` increments to `0`.
 
@@ -101,18 +173,50 @@ To create a shard allocation for multiple awareness attributes, send a separate 
 
 The `PUT` request fully replaces the existing weight configuration for the specified awareness attribute. Any values omitted in the request are removed from the configuration. For example, the following request updates the weights for zones 1 and 3 and removes zone 2:
 
-```json
-PUT /_cluster/routing/awareness/zone/weights
-{ 
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_cluster/routing/awareness/zone/weights
+body: |
+{
   "weights":
   {
-    "zone_1": "2", 
+    "zone_1": "2",
     "zone_3": "1"
   },
   "_version" : 0
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+PUT /_cluster/routing/awareness/zone/weights
+{
+  "weights": {
+    "zone_1": "2",
+    "zone_3": "1"
+  },
+  "_version": 0
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.put_weighted_routing(
+  attribute = "zone",
+  body =   {
+    "weights": {
+      "zone_1": "2",
+      "zone_3": "1"
+    },
+    "_version": 0
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 After this request, the `_version` increments to `1`.
 
@@ -120,10 +224,27 @@ After this request, the `_version` increments to `1`.
 
 To view the current weight configuration and its version, send the following request. Use the returned version number in subsequent update or delete requests:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/routing/awareness/zone/weights
+-->
+{% capture step1_rest %}
 GET /_cluster/routing/awareness/zone/weights
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.get_weighted_routing(
+  attribute = "zone"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

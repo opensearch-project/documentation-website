@@ -6,6 +6,7 @@ has_children: false
 redirect_from:
   - /dashboards/get-started/quickstart-dashboards/
   - /dashboards/quickstart-dashboards/
+  - /dashboards/browser-compatibility/
 ---
 
 # OpenSearch Dashboards quickstart guide

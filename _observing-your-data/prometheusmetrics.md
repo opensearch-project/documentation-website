@@ -71,8 +71,8 @@ After configuring the connection, you can view Prometheus metrics in OpenSearch 
 
 See the following developer resources for sample code, articles, tutorials, and API references:
 
-* [Datasource Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst), which contains information about authentication and authorization of data source APIs.
-* [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/prometheus_connector.rst), which contains configuration information.
+* [Datasource Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.md), which contains information about authentication and authorization of data source APIs.
+* [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/prometheus_connector.md), which contains configuration information.
 * [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which contains information about the OTel schema and ingest pipeline.
 * [OTel Metrics Source](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/otel-metrics-source), which contains information about the Data Prepper metrics pipeline and ingestion.
 

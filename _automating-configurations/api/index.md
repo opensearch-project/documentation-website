@@ -4,6 +4,8 @@ title: Workflow APIs
 nav_order: 40
 has_children: true
 has_toc: false
+redirect_from:
+  - /automating-configurations/api/
 ---
 
 # Workflow APIs

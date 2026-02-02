@@ -13,7 +13,7 @@ redirect_from:
 # Language analyzers
 
 OpenSearch supports the following language analyzers:
-`arabic`, `armenian`, `basque`, `bengali`, `brazilian`, `bulgarian`, `catalan`, `czech`, `danish`, `dutch`, `english`, `estonian`, `finnish`, `french`, `galician`, `german`, `greek`, `hindi`, `hungarian`, `indonesian`, `irish`, `italian`, `latvian`, `lithuanian`, `norwegian`, `persian`, `portuguese`, `romanian`, `russian`, `sorani`, `spanish`, `swedish`, `thai`, and `turkish`.
+`arabic`, `armenian`, `basque`, `bengali`, `brazilian`, `bulgarian`, `catalan`, `czech`, `danish`, `dutch`, `english`, `estonian`, `finnish`, `french`, `galician`, `german`, `greek`, `hindi`, `hungarian`, `indonesian`, `irish`, `italian`, `latvian`, `lithuanian`, `norwegian`, `persian`, [`polish`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/polish/) (requires plugin), `portuguese`, `romanian`, `russian`, `sorani`, `spanish`, `swedish`, `thai`, `turkish`, and [`ukrainian`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/ukrainian/) (requires plugin).
 
 To use an analyzer when you map an index, specify the value in your query. For example, to map your index with the French language analyzer, specify the `french` value in the analyzer field:
 

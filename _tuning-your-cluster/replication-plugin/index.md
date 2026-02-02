@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /replication-plugin/
   - /replication-plugin/index/
+  - /tuning-your-cluster/replication-plugin/
 ---
 
 # Cross-cluster replication

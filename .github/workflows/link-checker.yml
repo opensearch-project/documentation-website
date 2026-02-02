@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.2'
+        ruby-version: '3.4.5'
         bundler-cache: true
     - run: |
         JEKYLL_FATAL_LINK_CHECKER=all bundle exec jekyll build --future

@@ -55,28 +55,76 @@ The following table lists the available query parameters. All query parameters a
 
 
 
-## Example
+## Example Requests
 
 Retrieve the full cluster state:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/state
+-->
+{% capture step1_rest %}
 GET /_cluster/state
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.cluster.state()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Retrieve metadata and the routing table for a specific index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/state/metadata,routing_table/my-index
+-->
+{% capture step1_rest %}
 GET /_cluster/state/metadata,routing_table/my-index
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.state(
+  metric = "metadata,routing_table",
+  index = "my-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Retrieve only the currently elected cluster manager node:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/state/cluster_manager_node
+-->
+{% capture step1_rest %}
 GET /_cluster/state/cluster_manager_node
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.state(
+  metric = "cluster_manager_node"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Response fields
 

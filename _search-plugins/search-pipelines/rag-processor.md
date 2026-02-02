@@ -3,7 +3,7 @@ layout: default
 title: Retrieval-augmented generation
 nav_order: 115
 has_children: false
-parent: Search processors
+parent: User-defined search processors
 grand_parent: Search pipelines
 ---
 

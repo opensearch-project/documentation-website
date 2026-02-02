@@ -24,7 +24,7 @@ The following table lists the available query parameters.
 
 Parameter | Data type | Required/Optional | Description
 :---  | :--- | :--- 
-`async` | Boolean | Optional | If `true`, executes the agent asynchronously and returns a `task_id` to track execution. To check the status of the task, use the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Default is `false`.
+`async` | Boolean | Optional | If `true`, executes the agent asynchronously and returns a `task_id` to track execution. To check the status of the task, use the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Default is `false`.
 
 ## Request body fields
 
@@ -32,7 +32,7 @@ The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
-`parameters`| Object | Required | The parameters required by the agent. 
+`parameters`| Object | Required | The parameters required by the agent. Any agent parameters configured during registration can be overridden using this field.
 `parameters.verbose`| Boolean | Optional | Provides verbose output. 
 
 ## Example request

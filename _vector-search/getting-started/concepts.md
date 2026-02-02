@@ -23,9 +23,9 @@ This page defines key terms and techniques related to vector search in OpenSearc
 
 - A [**_space_**]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-basics/#calculating-similarity) defines how similarity or distance between two vectors is measured. Different spaces use different distance metrics, such as Euclidean distance or cosine similarity, to determine how closely vectors resemble each other.  
 
-- A [**_method_**]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) refers to the algorithm used to organize vector data during indexing and retrieve relevant results during search in approximate k-NN search. Different methods balance trade-offs between accuracy, speed, and memory usage.  
+- A [**_method_**]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/) refers to the algorithm used to organize vector data during indexing and retrieve relevant results during search in approximate k-NN search. Different methods balance trade-offs between accuracy, speed, and memory usage.  
 
-- An [**_engine_**]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/) is the underlying library that implements vector search methods. It determines how vectors are indexed, stored, and retrieved during similarity search operations.  
+- An [**_engine_**]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/) is the underlying library that implements vector search methods. It determines how vectors are indexed, stored, and retrieved during similarity search operations.  
 
 ## k-NN search  
 

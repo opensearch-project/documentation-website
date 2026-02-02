@@ -9,7 +9,7 @@ nav_order: 75
 
 Use the `rank_feature` query to boost document scores based on numeric values in a document, such as relevance scores, popularity, or freshness. This query is ideal if you want to fine-tune relevance ranking using numerical features. Unlike [full-text queries]({{site.url}}{{site.baseurl}}/query-dsl/full-text/index/), `rank_feature` focuses solely on a numeric signal; it is most effective when combined with other queries in a compound query like `bool`.
 
-The `rank_feature` query expects the target field to be mapped as a [`rank_feature` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/). This enables internally optimized scoring for fast and efficient boosting.
+The `rank_feature` query expects the target field to be mapped as a [`rank_feature` field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/rank/). This enables internally optimized scoring for fast and efficient boosting.
 
 The score impact depends on the field value and the optional `saturation`, `log`, or `sigmoid` function used. These functions are applied dynamically at query time to compute the final document score; they do not alter or store any values in the document itself.
 

@@ -3,7 +3,7 @@ layout: default
 title: Normalization
 nav_order: 70
 has_children: false
-parent: Search processors
+parent: User-defined search processors
 grand_parent: Search pipelines
 ---
 

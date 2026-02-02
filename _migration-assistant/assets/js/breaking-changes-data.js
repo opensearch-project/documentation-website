@@ -151,7 +151,6 @@ function initializeMigrationData() {
       
       // Determine version ordering based on migration paths
       VERSION_ORDER = determineVersionOrder(VERSIONS, MIGRATION_MAP);
-      console.log('Determined version order:', VERSION_ORDER);
     } catch (error) {
       console.error('Failed to parse migration data:', error);
       // Fallback to empty object if parsing fails
@@ -177,7 +176,6 @@ function initializeBreakingChangesData() {
   try {
     // Parse the JSON data from the data attribute
     breakingChanges = JSON.parse(migrationDataElement.dataset.breakingChanges);
-    console.log('Loaded breaking changes data:', breakingChanges.length);
   } catch (error) {
     console.error('Failed to parse breaking changes data:', error);
     // Fallback to empty array if parsing fails

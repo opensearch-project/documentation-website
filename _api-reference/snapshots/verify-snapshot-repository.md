@@ -41,9 +41,28 @@ Path parameters are optional.
 
 The following request verifies that the my-opensearch-repo is functional:
 
-````json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_snapshot/my-opensearch-repo/_verify?timeout=0s&cluster_manager_timeout=50s
+-->
+{% capture step1_rest %}
 POST /_snapshot/my-opensearch-repo/_verify?timeout=0s&cluster_manager_timeout=50s
-````
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.verify_repository(
+  repository = "my-opensearch-repo",
+  params = { "timeout": "0s", "cluster_manager_timeout": "50s" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

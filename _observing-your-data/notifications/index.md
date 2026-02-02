@@ -6,6 +6,7 @@ has_children: true
 redirect_from:
   - /notifications-plugin/
   - /notifications-plugin/index/
+  - /observing-your-data/notifications/
 ---
 
 # Notifications

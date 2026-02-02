@@ -3,7 +3,7 @@ layout: default
 title: Metric keys
 nav_order: 35
 parent: Metrics reference
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 redirect_from:
   - /benchmark/metrics/metric-keys/
 ---

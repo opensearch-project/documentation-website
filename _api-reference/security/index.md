@@ -5,6 +5,8 @@ nav_order: 77
 has_children: true
 redirect_from:
   - /api-reference/security-api/
+  - /api-reference/security/
+  - /security-plugin/access-control/api/
 ---
 
 # Security APIs

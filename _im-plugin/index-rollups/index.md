@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index rollups
-nav_order: 35
+nav_order: 60
 has_children: true
 redirect_from: 
   - /im-plugin/index-rollups/

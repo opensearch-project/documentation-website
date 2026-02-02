@@ -39,7 +39,48 @@ The request body is **required**. It is an **array of JSON objects** (NDJSON). E
 
 The following example adds a new authentication domain and modifies an existing setting:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PATCH /_plugins/_security/api/securityconfig
+body: |
+[
+  {
+    "op": "add",
+    "path": "/config/dynamic/authc/saml_auth_domain",
+    "value": {
+      "http_enabled": true,
+      "transport_enabled": false,
+      "order": 1,
+      "http_authenticator": {
+        "type": "saml",
+        "challenge": false,
+        "config": {
+          "idp": {
+            "metadata_url": "https://idp.example.com/saml/metadata"
+          },
+          "sp": {
+            "entity_id": "opensearch"
+          }
+        }
+      },
+      "authentication_backend": {
+        "type": "noop",
+        "config": {}
+      }
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/config/dynamic/multi_rolespan_enabled",
+    "value": true
+  },
+  {
+    "op": "remove",
+    "path": "/config/dynamic/authc/legacy_auth_domain"
+  }
+]
+-->
+{% capture step1_rest %}
 PATCH /_plugins/_security/api/securityconfig
 [
   {
@@ -77,8 +118,56 @@ PATCH /_plugins/_security/api/securityconfig
     "path": "/config/dynamic/authc/legacy_auth_domain"
   }
 ]
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.security.patch_configuration(
+  body =   [
+    {
+      "op": "add",
+      "path": "/config/dynamic/authc/saml_auth_domain",
+      "value": {
+        "http_enabled": true,
+        "transport_enabled": false,
+        "order": 1,
+        "http_authenticator": {
+          "type": "saml",
+          "challenge": false,
+          "config": {
+            "idp": {
+              "metadata_url": "https://idp.example.com/saml/metadata"
+            },
+            "sp": {
+              "entity_id": "opensearch"
+            }
+          }
+        },
+        "authentication_backend": {
+          "type": "noop",
+          "config": {}
+        }
+      }
+    },
+    {
+      "op": "replace",
+      "path": "/config/dynamic/multi_rolespan_enabled",
+      "value": true
+    },
+    {
+      "op": "remove",
+      "path": "/config/dynamic/authc/legacy_auth_domain"
+    }
+  ]
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
@@ -97,48 +186,3 @@ The response body is a JSON object with the following fields.
 | :--- | :--- | :--- |
 | `status` | String | The status of the request. A successful request returns "OK". |
 | `message` | String | A message describing the result of the operation. |
-
-## JSON patch operations
-
-The API supports the following JSON patch operations:
-
-- **add**: Adds a value to an object or inserts it into an array. For existing properties, the value is replaced.
-- **remove**: Removes a value from an object or array.
-- **replace**: Replaces a value. 
-- **move**: Moves a value from one location to another.
-- **copy**: Copies a value from one location to another.
-- **test**: Tests that a value at the target location is equal to the specified value.
-
-## Usage notes
-
-The Patch Configuration API provides more granular control over configuration updates than the Update Configuration API but still comes with potential risks:
-
-- **Path format**: Paths start with `/config` followed by the JSON pointer path to the specific configuration element you want to modify.
-
-- **Validation**: Limited validation is performed on the patched configuration, which may lead to security vulnerabilities if misconfigured.
-
-- **Backup configuration**: Always back up your current security configuration before making changes.
-
-- **Testing**: Test configuration changes in a development environment before deploying them to production.
-
-## Enabling this API
-
-By default, this API is disabled for security reasons. To enable it, perform the following steps:
-
-1. Update the `opensearch.yml` file with the following:
-
-   ```
-   plugins.security.unsupported.restapi.allow_securityconfig_modification: true
-   ```
-   {% include copy.html %}
-
-2. Update the Security plugin's `config.yml` file with the following:
-
-   ```
-   plugins.security.restapi.endpoints_disabled.securityconfig: "false"
-   ```
-   {% include copy.html %}
-
-3. Restart your OpenSearch cluster.
-
-Due to the potential security implications, enabling this API is generally not recommended for production environments.

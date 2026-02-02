@@ -15,6 +15,8 @@ items:
   - heading: "Common operations"
     description: "Familiarize yourself with common operations"
     link: "/benchmark/user-guide/understanding-workloads/common-operations/"
+redirect_from:
+  - /benchmark/user-guide/understanding-workloads/
 ---
 
 # Understanding workloads

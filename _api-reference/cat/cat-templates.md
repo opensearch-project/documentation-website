@@ -53,17 +53,51 @@ The following table lists the available query parameters. All query parameters a
 
 The following example request returns information about all templates:
 
-```json
-GET _cat/templates?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/templates?v
+-->
+{% capture step1_rest %}
+GET /_cat/templates?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.templates(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to get information for a specific template or pattern:
 
-```json
-GET _cat/templates/<template_name_or_pattern>
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/templates/<template_name_or_pattern>
+-->
+{% capture step1_rest %}
+GET /_cat/templates/<template_name_or_pattern>
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.templates(
+  name = "<template_name_or_pattern>"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

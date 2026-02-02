@@ -1,12 +1,12 @@
 ---
 layout: default
-title: service_map 
+title: Service map 
 parent: Processors
 grand_parent: Pipelines
-nav_order: 95
+nav_order: 330
 ---
 
-# service_map
+# Service map processor
 
 The `service_map` processor uses OpenTelemetry data to create a distributed service map for visualization in OpenSearch Dashboards. 
 

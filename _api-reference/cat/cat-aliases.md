@@ -54,33 +54,95 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example requests
 
-```json
-GET _cat/aliases?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases?v
+-->
+{% capture step1_rest %}
+GET /_cat/aliases?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To limit the information to a specific alias, add the alias name after your query:
 
-```json
-GET _cat/aliases/<alias>?v
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases/<alias>?v
+-->
+{% capture step1_rest %}
+GET /_cat/aliases/<alias>?v
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  name = "<alias>",
+  params = { "v": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 If you want to get information for more than one alias, separate the alias names with commas:
 
-```json
-GET _cat/aliases/alias1,alias2,alias3
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cat/aliases/alias1,alias2,alias3
+body: 
+-->
+{% capture step1_rest %}
+GET /_cat/aliases/alias1,alias2,alias3
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cat.aliases(
+  name = "alias1,alias2,alias3"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
-The following response shows that `alias1` refers to a `movies` index and has a configured filter:
+The following response shows different types of alias configurations:
 
 ```json
-alias   | index     | filter  | routing.index | routing.search  | is_write_index
-alias1  | movies    |   *     |      -        |       -         |      -
-.opensearch-dashboards | .opensearch-dashboards_1 |   -     |      -        |       -         |      -
+alias            | index          | filter | routing.index | routing.search | is_write_index
+current-logs     | app-logs-2024  | -      | -             | -              | -
+filtered-data    | customer-data  | *      | -             | -              | -
+regional-orders  | orders-2024    | -      | west          | west           | -
+multi-route      | products       | -      | 1             | 1,2            | -
 ```
 
-To learn more about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias).
+This response shows:
+- `current-logs`: A simple alias without filters or routing
+- `filtered-data`: An alias with a configured filter (indicated by `*`)
+- `regional-orders`: An alias with routing configured for both indexing and searching
+- `multi-route`: An alias with different routing for indexing (1) and searching (1,2)
+
+To learn more about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias). For alias management APIs, see [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/).

@@ -2,12 +2,12 @@
 layout: default
 title: Multi term vectors
 parent: Document APIs
-nav_order: 33
+nav_order: 80
 ---
 
 # Multi Term Vectors API
 
-The `_mtermvectors` API retrieves term vector information for multiple documents in one request. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations. For more information, see [Term vector parameter]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/#term-vector-parameter).
+The `_mtermvectors` API retrieves term vector information for multiple documents in one request. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations. For more information, see [Term vector parameter]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/#term-vector-parameter).
 
 <!-- spec_insert_start
 api: mtermvectors
@@ -53,12 +53,12 @@ The following table lists the available query parameters. All query parameters a
 | `offsets` | Boolean | If `true`, the response includes term offsets. _(Default: `true`)_ |
 | `payloads` | Boolean | If `true`, the response includes term payloads. _(Default: `true`)_ |
 | `positions` | Boolean | If `true`, the response includes term positions. _(Default: `true`)_ |
-| `preference` | String | Specifies the node or shard on which the operation should be performed.  See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for a list of available options.  By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
+| `preference` | String | Specifies the node or shard on which the operation should be performed. See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for a list of available options. By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
 | `realtime` | Boolean | If `true`, the request is real time as opposed to near real time. _(Default: `true`)_ |
 | `routing` | List or String | A custom value used to route operations to a specific shard. |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. _(Default: `false`)_ |
 | `version` | Integer | If `true`, returns the document version as part of a hit. |
-| `version_type` | String | The specific version type. <br> Valid values are: <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. <br> - `force`: The version number is forced to be the given value. <br> - `internal`: The version number is managed internally by OpenSearch. |
+| `version_type` | String | The specific version type. <br> Valid values are: <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. <br> - `internal`: The version number is managed internally by OpenSearch. |
 
 <!-- spec_insert_end -->
 
@@ -94,7 +94,8 @@ The `filter` object in the request body allows you to filter the tokens to inclu
 | `min_word_length` | Integer | The minimum length of the term to be included. |
 | `max_word_length` | Integer | The maximum length of the term to be included. |
 
-## Example
+## Example requests
+
 
 Create an index with term vectors enabled:
 
@@ -115,30 +116,82 @@ PUT /my-index
 
 Index the first document:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/_doc/1
+body: |
+{
+  "text": "OpenSearch is a search engine."
+}
+-->
+{% capture step1_rest %}
 POST /my-index/_doc/1
 {
   "text": "OpenSearch is a search engine."
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.index(
+  index = "my-index",
+  id = "1",
+  body =   {
+    "text": "OpenSearch is a search engine."
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Index the second document:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/_doc/2
+body: |
+{
+  "text": "OpenSearch provides powerful features."
+}
+-->
+{% capture step1_rest %}
 POST /my-index/_doc/2
 {
   "text": "OpenSearch provides powerful features."
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.index(
+  index = "my-index",
+  id = "2",
+  body =   {
+    "text": "OpenSearch provides powerful features."
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example request
 
 Get term vectors for multiple documents:
 
-```json
-POST /_mtermvectors
+<!-- spec_insert_start
+component: example_code
+rest: POST /_mtermvectors
+body: |
 {
   "docs": [
     {
@@ -153,27 +206,128 @@ POST /_mtermvectors
     }
   ]
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /_mtermvectors
+{
+  "docs": [
+    {
+      "_index": "my-index",
+      "_id": "1",
+      "fields": [
+        "text"
+      ]
+    },
+    {
+      "_index": "my-index",
+      "_id": "2",
+      "fields": [
+        "text"
+      ]
+    }
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.mtermvectors(
+  body =   {
+    "docs": [
+      {
+        "_index": "my-index",
+        "_id": "1",
+        "fields": [
+          "text"
+        ]
+      },
+      {
+        "_index": "my-index",
+        "_id": "2",
+        "fields": [
+          "text"
+        ]
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Alternatively, you can specify both `ids` and `fields` as query parameters:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /my-index/_mtermvectors?ids=1,2&fields=text
+-->
+{% capture step1_rest %}
 GET /my-index/_mtermvectors?ids=1,2&fields=text
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.mtermvectors(
+  index = "my-index",
+  params = { "ids": "1,2", "fields": "text" },
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 You can also provide document IDs in the `ids` array instead of specifying `docs`:
 
-```json
-GET /my-index/_mtermvectors?fields=text
-{ 
+<!-- spec_insert_start
+component: example_code
+rest: GET /my-index/_mtermvectors?fields=text
+body: |
+{
   "ids": [
      "1", "2"
   ]
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /my-index/_mtermvectors?fields=text
+{
+  "ids": [
+    "1",
+    "2"
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.mtermvectors(
+  index = "my-index",
+  params = { "fields": "text" },
+  body =   {
+    "ids": [
+      "1",
+      "2"
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

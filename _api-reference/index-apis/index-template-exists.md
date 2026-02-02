@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Index template exists
-parent: Index APIs
-nav_order: 98
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 40
 ---
 
 # Index template exists
@@ -34,10 +35,27 @@ All parameters are optional.
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: HEAD /_index_template/my-template
+-->
+{% capture step1_rest %}
 HEAD /_index_template/my-template
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.exists_index_template(
+  name = "my-template"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example responses
 

@@ -3,7 +3,7 @@ layout: default
 title: Train and predict 
 parent: Model APIs
 grand_parent: ML Commons APIs
-nav_order: 70
+nav_order: 75
 ---
 
 ## Train and predict

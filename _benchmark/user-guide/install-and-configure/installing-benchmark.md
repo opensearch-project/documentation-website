@@ -3,7 +3,7 @@ layout: default
 title: Installing
 nav_order: 5
 grand_parent: User guide
-parent: Install and configure
+parent: Install and configure OpenSearch Benchmark
 redirect_from:
   - /benchmark/installing-benchmark/
   - /benchmark/user-guide/installing-benchmark/
@@ -48,9 +48,9 @@ Your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage 
 If you want to run OpenSearch Benchmark in a Docker container, see [Installing with Docker](#installing-with-docker). The OpenSearch Benchmark Docker image includes all of the required software, so there are no additional steps required.
 {: .important}
 
-To install OpenSearch Benchmark directly on a UNIX host, such as Linux or macOS, make sure you have **Python 3.8 or later** installed. 
+To install OpenSearch Benchmark directly on a UNIX host, such as Linux or macOS, make sure you have **Python 3.8 or later** installed.
 
-If you need help installing Python, refer to the official [Python Setup and Usage](https://docs.python.org/3/using/index.html) documentation. 
+If you need help installing Python, refer to the official [Python Setup and Usage](https://docs.python.org/3/using/index.html) documentation.
 
 ### Checking software dependencies
 
@@ -73,7 +73,7 @@ Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Pytho
   ```
   {% include copy.html %}
 
-- _Optional_: Check that your installed version of `git` is **Git 1.9 or later** using the following command. `git` is not required for OpenSearch Benchmark installation, but it is required in order to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [Documentation](https://git-scm.com/doc) for help installing Git. 
+- _Optional_: Check that your installed version of `git` is **Git 1.9 or later** using the following command. `git` is not required for OpenSearch Benchmark installation, but it is required in order to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [documentation](https://git-scm.com/doc) for help installing Git.
 
   ```bash
   git --version
@@ -147,7 +147,7 @@ Use the `-v` option to specify a local directory to mount and a directory in the
 The following example mounts a volume from the user's home directory to the OpenSearch Benchmark container's default benchmark data path at `/opensearch-benchmark/.benchmark` and then runs a test benchmark using the `geonames` workload:
 
 ```bash
-docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark execute-test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
+docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark run --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
 {% include copy.html %}
 
@@ -159,7 +159,7 @@ By default, the OpenSearch Benchmark container runs as the `benchmark` user with
 If you run the container as the `root` user, then the effective home directory becomes `/root`, and the benchmark path becomes `/root/.benchmark`. In this case, specify the volume mount accordingly:
 
 ```bash
-docker run -v $HOME/benchmarks:/root/.benchmark opensearchproject/opensearch-benchmark execute-test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
+docker run -v $HOME/benchmarks:/root/.benchmark opensearchproject/opensearch-benchmark run --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
 {% include copy.html %}
 
@@ -170,7 +170,7 @@ To learn more about the files and subdirectories located in `/opensearch-benchma
 OpenSearch Benchmark is compatible with JDK versions 17, 16, 15, 14, 13, 12, 11, and 8.
 {: .note}
 
-If you installed OpenSearch with PyPi, you can also provision a new OpenSearch cluster by specifying a `distribution-version` in the `execute-test` command.
+If you installed OpenSearch with PyPi, you can also provision a new OpenSearch cluster by specifying a `distribution-version` in the `run` command.
 
 If you plan on having Benchmark provision a cluster, you'll need to inform Benchmark of the location of the `JAVA_HOME` path for the Benchmark cluster. To set the `JAVA_HOME` path and provision a cluster:
 
@@ -178,10 +178,10 @@ If you plan on having Benchmark provision a cluster, you'll need to inform Bench
 
 2. Set your corresponding JDK version environment variable by entering the path from the previous step. Enter `export JAVA17_HOME=<Java Path>`.
 
-3. Run the `execute-test` command and indicate the distribution version of OpenSearch you want to use: 
+3. Run the `run` command and indicate the distribution version of OpenSearch you want to use:
 
   ```bash
-  opensearch-benchmark execute-test --distribution-version=2.3.0 --workload=geonames --test-mode 
+  opensearch-benchmark run --distribution-version=2.3.0 --workload=geonames --test-mode
   ```
 
 ## Directory structure
@@ -198,7 +198,7 @@ After running OpenSearch Benchmark for the first time, you can search through al
 │   ├── distributions
 │   │   ├── opensearch-1.0.0-linux-x64.tar.gz
 │   │   └── opensearch-2.3.0-linux-x64.tar.gz
-│   ├── test_executions
+│   ├── test-runs
 │   │   ├── 0279b13b-1e54-49c7-b1a7-cde0b303a797
 │   │   └── 0279c542-a856-4e88-9cc8-04306378cd38
 │   └── workloads
@@ -212,7 +212,7 @@ After running OpenSearch Benchmark for the first time, you can search through al
 * `benchmark.ini`: Contains any adjustable configurations for tests. For information about how to configure OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
 * `data`: Contains all the data corpora and documents related to OpenSearch Benchmark's [official workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames).
 * `distributions`: Contains all the OpenSearch distributions downloaded from [OpenSearch.org](http://opensearch.org/) and used to provision clusters.
-* `test_executions`: Contains all the test `execution_id`s from previous runs of OpenSearch Benchmark.
+* `test-runs`: Contains every test `execution_id` from previous runs of OpenSearch Benchmark.
 * `workloads`: Contains all files related to workloads, except for the data corpora.
 * `logging.json`: Contains all of the configuration options related to how logging is performed within OpenSearch Benchmark.
 * `logs`: Contains all the logs from OpenSearch Benchmark runs. This can be helpful when you've encountered errors during runs.

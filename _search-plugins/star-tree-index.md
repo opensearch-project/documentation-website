@@ -100,7 +100,7 @@ Note the following limiations of star-tree indexes:
 - Star-tree indexes do not support updates or deletions. To use a star-tree index, data should be append-only. See [Enabling a star-tree index](#enabling-a-star-tree-index).
 - A star-tree index only works for aggregation queries that filter on dimension fields and aggregate metric fields defined in the index's star-tree configuration.
 - Any changes to a star-tree configuration require reindexing.
-- [Array values]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/#arrays) are not supported.
+- [Array values]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/index/#arrays) are not supported.
 - Only [specific queries and aggregations](#supported-queries-and-aggregations) are supported. 
 - Avoid using high-cardinality fields like `_id` as dimensions because they can significantly increase storage use and query latency.
 
@@ -132,7 +132,7 @@ PUT /logs
 ```
 {% include copy-curl.html %}
 
-Ensure that the `doc_values` parameter is enabled for the dimension and metric fields used in your star-tree mapping. This is enabled by default for most field types. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/).
+Ensure that the `doc_values` parameter is enabled for the dimension and metric fields used in your star-tree mapping. This is enabled by default for most field types. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/).
 
 ### Disabling star-tree usage
 
@@ -214,7 +214,7 @@ PUT /logs
 ```
 {% include copy.html %}
 
-For more information about star-tree index mappings and parameters, see [Star-tree field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/).
+For more information about star-tree index mappings and parameters, see [Star-tree field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/star-tree/).
 
 ## Supported queries and aggregations
 
@@ -496,6 +496,10 @@ POST /sales/_search
 
 You can combine multiple supported bucket aggregations (such as `terms` and `range`) in a nested structure, and the star-tree index will optimize these nested aggregations. For more information about nested aggregations, see [Nested aggregations]({{site.url}}{{site.baseurl}}/aggregations/#nested-aggregations).
 
+#### Multi-terms aggregations
+
+A star-tree index optimizes `multi_terms` aggregations when the aggregation fields are defined as dimensions in the star-tree configuration. For more information about multi-terms aggregations, see [Multi-terms aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/multi-terms/).
+
 ## Next steps
 
-- [Star-tree field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/star-tree/)
+- [Star-tree field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/star-tree/)

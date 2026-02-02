@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Roll over index
-parent: Index APIs
-nav_order: 125
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 70
 ---
 
 # Roll Over Index API
@@ -40,7 +41,7 @@ During the index alias rollover process, if you don't specify a custom name and 
 
 ## Using date math with index rollovers
 
-When using an index alias for time-series data, you can use [date math]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/date/) in the index name to track the rollover date. For example, you can create an alias pointing to `my-index-{now/d}-000001`. If you create an alias on June 11, 2029, then the index name would be `my-index-2029.06.11-000001`. For a rollover on June 12, 2029, the new index would be named `my-index-2029.06.12-000002`. See [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index) for a practical example.
+When using an index alias for time-series data, you can use [date math]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/) in the index name to track the rollover date. For example, you can create an alias pointing to `my-index-{now/d}-000001`. If you create an alias on June 11, 2029, then the index name would be `my-index-2029.06.11-000001`. For a rollover on June 12, 2029, the new index would be named `my-index-2029.06.12-000002`. See [Roll over an index alias with a write index](#rolling-over-an-index-alias-with-a-write-index) for a practical example.
 
 ## Path parameters
 
@@ -81,7 +82,7 @@ Parameter | Type | Description
 
 ### `mappings`
 
-The `mappings` parameter specifies the index field mappings. It is optional. See [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/) for more information.
+The `mappings` parameter specifies the index field mappings. It is optional. See [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/) for more information.
 
 ### `conditions`
 
@@ -111,8 +112,10 @@ The following examples illustrate using the Rollover Index API. A rollover occur
 
 The following request rolls over the data stream if the current write index meets any of the specified conditions:
 
-```json
-POST my-data-stream/_rollover
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-alias/_rollover
+body: |
 {
   "conditions": {
     "max_age": "5d",
@@ -120,8 +123,38 @@ POST my-data-stream/_rollover
     "max_size": "100gb"
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /my-alias/_rollover
+{
+  "conditions": {
+    "max_age": "5d",
+    "max_docs": 500,
+    "max_size": "100gb"
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.rollover(
+  alias = "my-alias",
+  body =   {
+    "conditions": {
+      "max_age": "5d",
+      "max_docs": 500,
+      "max_size": "100gb"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Rolling over an index alias with a write index
 
@@ -142,8 +175,10 @@ PUT %3Cmy-index-%7Bnow%2Fd%7D-000001%3E
 
 The next request performs a rollover using the alias:
 
-```json
-POST my-alias/_rollover
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-data-stream/_rollover
+body: |
 {
   "conditions": {
     "max_age": "5d",
@@ -151,22 +186,80 @@ POST my-alias/_rollover
     "max_size": "100gb"
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /my-data-stream/_rollover
+{
+  "conditions": {
+    "max_age": "5d",
+    "max_docs": 500,
+    "max_size": "100gb"
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.rollover(
+  alias = "my-data-stream",
+  body =   {
+    "conditions": {
+      "max_age": "5d",
+      "max_docs": 500,
+      "max_size": "100gb"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Specifying settings during a rollover
 
 In most cases, you can use an index template to automatically configure the indexes created during a rollover operation. However, when rolling over an index alias, you can use the Rollover Index API to introduce additional index settings or override the settings defined in the template by sending the following request:
 
-```json
-POST my-alias/_rollover
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-alias/_rollover
+body: |
 {
   "settings": {
     "index.number_of_shards": 4
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /my-alias/_rollover
+{
+  "settings": {
+    "index.number_of_shards": 4
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.rollover(
+  alias = "my-alias",
+  body =   {
+    "settings": {
+      "index.number_of_shards": 4
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

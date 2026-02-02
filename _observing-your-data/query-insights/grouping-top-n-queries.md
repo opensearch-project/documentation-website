@@ -222,13 +222,8 @@ The response contains the top N query groups:
   "top_queries": [
     {
       "timestamp": 1725495127359,
-      "source": {
-        "query": {
-          "match_all": {
-            "boost": 1.0
-          }
-        }
-      },
+      "wlm_group_id": "DEFAULT_WORKLOAD_GROUP",
+      "source": """{"query":{"match_all":{"boost":1.0}}}""",
       "phase_latency_map": {
         "expand": 0,
         "query": 55,
@@ -259,11 +254,16 @@ The response contains the top N query groups:
           }
         }
       ],
+      "username": "admin",
       "indices": [
         "my_index"
       ],
       "labels": {},
+      "user_roles": [
+        "all_access"
+      ],
       "search_type": "query_then_fetch",
+      "source_truncated": false,
       "measurements": {
         "latency": {
           "number": 160,
@@ -274,16 +274,8 @@ The response contains the top N query groups:
     },
     {
       "timestamp": 1725495135160,
-      "source": {
-        "query": {
-          "term": {
-            "content": {
-              "value": "first",
-              "boost": 1.0
-            }
-          }
-        }
-      },
+      "wlm_group_id": "DEFAULT_WORKLOAD_GROUP",
+      "source": """{"query":{"term":{"content":{"value":"first","boost":1.0}}}}""",
       "phase_latency_map": {
         "expand": 0,
         "query": 18,
@@ -314,11 +306,16 @@ The response contains the top N query groups:
           }
         }
       ],
+      "username": "admin",
       "indices": [
         "my_index"
       ],
       "labels": {},
+      "user_roles": [
+        "all_access"
+      ],
       "search_type": "query_then_fetch",
+      "source_truncated": false,
       "measurements": {
         "latency": {
           "number": 109,
@@ -329,23 +326,8 @@ The response contains the top N query groups:
     },
     {
       "timestamp": 1725495139766,
-      "source": {
-        "query": {
-          "match": {
-            "content": {
-              "query": "first",
-              "operator": "OR",
-              "prefix_length": 0,
-              "max_expansions": 50,
-              "fuzzy_transpositions": true,
-              "lenient": false,
-              "zero_terms_query": "NONE",
-              "auto_generate_synonyms_phrase_query": true,
-              "boost": 1.0
-            }
-          }
-        }
-      },
+      "wlm_group_id": "DEFAULT_WORKLOAD_GROUP",
+      "source": """{"query":{"match":{"content":{"query":"first","operator":"OR","prefix_length":0,"max_expansions":50,"fuzzy_transpositions":true,"lenient":false,"zero_terms_query":"NONE","auto_generate_synonyms_phrase_query":true,"boost":1.0}}}}""",
       "phase_latency_map": {
         "expand": 0,
         "query": 15,
@@ -376,11 +358,16 @@ The response contains the top N query groups:
           }
         }
       ],
+      "username": "admin",
       "indices": [
         "my_index"
       ],
       "labels": {},
+      "user_roles": [
+        "all_access"
+      ],
       "search_type": "query_then_fetch",
+      "source_truncated": false,
       "measurements": {
         "latency": {
           "number": 43,

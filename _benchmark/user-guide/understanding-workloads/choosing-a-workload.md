@@ -67,7 +67,7 @@ This workload tests the following queries and search functions:
 The [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload is designed to test the performance of the `percolator` query type. It contains the following:
 
 - **Data type**: A set of stored queries and documents to be matched against those queries.
-- **Cluster requirements**: Suitable for clusters that make heavy use of the [percolator]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/) feature.
+- **Cluster requirements**: Suitable for clusters that make heavy use of the [percolator]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/percolator/) feature.
 
 This workload tests the following queries and search functions:
 

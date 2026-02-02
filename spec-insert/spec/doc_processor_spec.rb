@@ -25,4 +25,8 @@ describe DocProcessor do
   it 'inserts the body param tables correctly' do
     test_file('body_params_tables')
   end
+
+  it 'inserts translations correctly' do
+    test_file('example_code')
+  end
 end

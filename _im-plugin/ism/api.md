@@ -363,6 +363,146 @@ GET _plugins/_ism/policies/policy_1
 
 ---
 
+## Get policies
+Introduced 1.0
+{: .label .label-purple }
+
+Gets a list of policies. This API accepts search parameters to filter and paginate the results.
+
+### Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `size` | Integer | The number of policies to return. |
+| `from` | Integer | The starting position for pagination. |
+| `sortField` | String | The field by which to sort the results. |
+| `sortOrder` | String | The sort order for the results. Valid values are `asc` (ascending) and `desc` (descending). |
+| `queryString` | String | A query string used to filter policies by name or other attributes. See [Query string query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/).|
+
+#### Example request
+
+```json
+GET _plugins/_ism/policies
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "policies": [
+    {
+      "_id": "policy_1",
+      "_version": 2,
+      "_seq_no": 10,
+      "_primary_term": 1,
+      "policy": {
+        "policy_id": "policy_1",
+        "description": "ingesting logs",
+        "last_updated_time": 1577990934044,
+        "schema_version": 1,
+        "error_notification": null,
+        "default_state": "ingest",
+        "states": [
+          {
+            "name": "ingest",
+            "actions": [
+              {
+                "rollover": {
+                  "min_doc_count": 5
+                }
+              }
+            ],
+            "transitions": [
+              {
+                "state_name": "search"
+              }
+            ]
+          },
+          {
+            "name": "search",
+            "actions": [],
+            "transitions": [
+              {
+                "state_name": "delete",
+                "conditions": {
+                  "min_index_age": "5m"
+                }
+              }
+            ]
+          },
+          {
+            "name": "delete",
+            "actions": [
+              {
+                "delete": {}
+              }
+            ],
+            "transitions": []
+          }
+        ]
+      }
+    },
+    {
+      "_id": "policy_2",
+      "_version": 3,
+      "_seq_no": 11,
+      "_primary_term": 1,
+      "policy": {
+        "policy_id": "policy_2",
+        "description": "ingesting logs",
+        "last_updated_time": 1577990934042,
+        "schema_version": 1,
+        "error_notification": null,
+        "default_state": "ingest",
+        "states": [
+          {
+            "name": "ingest",
+            "actions": [
+              {
+                "rollover": {
+                  "min_doc_count": 5
+                }
+              }
+            ],
+            "transitions": [
+              {
+                "state_name": "search"
+              }
+            ]
+          },
+          {
+            "name": "search",
+            "actions": [],
+            "transitions": [
+              {
+                "state_name": "delete",
+                "conditions": {
+                  "min_index_age": "5m"
+                }
+              }
+            ]
+          },
+          {
+            "name": "delete",
+            "actions": [
+              {
+                "delete": {}
+              }
+            ],
+            "transitions": []
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+---
+
 ## Remove policy from index
 Introduced 1.0
 {: .label .label-purple }
@@ -512,6 +652,192 @@ GET _plugins/_ism/explain/index_1?show_policy=true
 ```
 
 The `plugins.index_state_management.policy_id` setting is deprecated starting from ODFE version 1.13.0. We retain this field in the response API for consistency.
+
+## Explain index with filtering
+**Introduced 2.12**
+{: .label .label-purple }
+
+You can use the `POST` method with the Explain API to filter the results based on specific criteria. This allows you to query indexes based on their policy ID, current state, or action type.
+
+#### Endpoints
+
+```
+POST _plugins/_ism/explain/<index>
+```
+
+#### Request body
+
+The request body supports the following optional filters.
+
+| Parameter | Type | Description |
+|:----------|:-----|:------------|
+| `policy_id` | String | Filter results to show only indexes managed by the specified policy ID. |
+| `state` | String | Filter results to show only indexes currently in the specified state. |
+| `action_type` | String | Filter results to show only indexes currently executing the specified action type. |
+| `failed` | Boolean | Filter results to show only failed managed indexes. |
+All filters are optional. If a filter is not specified, indexes with any value for that parameter will be included in the results. The API returns only indexes that match all specified filters.
+
+#### Example request: Filter by policy ID
+
+```json
+POST _plugins/_ism/explain/log-*
+{
+  "filter": {
+    "policy_id": "hot-warm-delete-policy"
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example request: Filter by state and action type
+
+```json
+POST _plugins/_ism/explain/app-*
+{
+  "filter": {
+    "state": "warm",
+    "action_type": "allocation"
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example request: Filter by all criteria
+
+```json
+POST _plugins/_ism/explain/data-*
+{
+  "filter": {
+    "policy_id": "data-lifecycle-policy",
+    "state": "hot",
+    "action_type": "rollover"
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "test-logs-001": {
+    "index.plugins.index_state_management.policy_id": "test-lifecycle-policy",
+    "index": "test-logs-001",
+    "index_uuid": "LmJgKNatQZWHQu-qIHlcJw",
+    "policy_id": "test-lifecycle-policy",
+    "enabled": true,
+    "policy": {
+      "policy_id": "test-lifecycle-policy",
+      "description": "Lifecycle policy for log data: hot -> warm -> cold -> delete",
+      "last_updated_time": 1730308440926,
+      "schema_version": 18,
+      "error_notification": null,
+      "default_state": "hot",
+      "states": [
+        {
+          "name": "hot",
+          "actions": [
+            {
+              "rollover": {
+                "min_doc_count": 10000,
+                "min_size": "1gb",
+                "min_index_age": "1d"
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "warm",
+              "conditions": {
+                "min_index_age": "7d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "warm",
+          "actions": [
+            {
+              "replica_count": {
+                "number_of_replicas": 0
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "cold",
+              "conditions": {
+                "min_index_age": "30d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "cold",
+          "actions": [],
+          "transitions": [
+            {
+              "state_name": "delete",
+              "conditions": {
+                "min_index_age": "90d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "actions": [
+            {
+              "delete": {}
+            }
+          ],
+          "transitions": []
+        }
+      ],
+      "ism_template": null
+    },
+    "policy_seq_no": 0,
+    "policy_primary_term": 1,
+    "rolled_over": false,
+    "index_creation_date": 1730308447399,
+    "state": {
+      "name": "hot",
+      "start_time": 1730308447644
+    },
+    "action": {
+      "name": "rollover",
+      "start_time": 1730308447644,
+      "index": 0,
+      "failed": false,
+      "consumed_retries": 0,
+      "last_retry_time": 0
+    },
+    "step": {
+      "name": "attempt_rollover",
+      "start_time": 1730308447644,
+      "step_status": "starting"
+    },
+    "retry_info": {
+      "failed": false,
+      "consumed_retries": 0
+    },
+    "info": {
+      "message": "Currently checking rollover conditions"
+    },
+    "enabled": true,
+    "enabled_time": 1730308447644
+  },
+  "total_managed_indices": 1
+}
+```
+
+</details>
 
 ---
 

@@ -41,12 +41,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       };
 
+      // Get breadcrumb links to determine which navigation items should be expanded
+      const breadcrumbLinks = document.querySelectorAll('.breadcrumb-nav a');
+      const breadcrumbUrls = Array.from(breadcrumbLinks).map(link => {
+        // Normalize URLs by removing trailing slashes and getting pathname
+        const url = new URL(link.href);
+        return url.pathname.replace(/\/$/, '');
+      });
+
       const topLevelUls = Array.from(navParent.children).filter(element => element.tagName === 'UL');
       topLevelUls.forEach((element) => {
         const listItems = Array.from(element.children).filter(element => element.tagName === 'LI');
         listItems.forEach((element) => {
           const active = element.querySelector('a.active');
-          if (active) {
+          
+          // Check if any descendant links are in the breadcrumb trail
+          const hasDescendantInBreadcrumb = Array.from(element.querySelectorAll('a')).some(anchor => {
+            const anchorUrl = new URL(anchor.href);
+            const normalizedAnchorUrl = anchorUrl.pathname.replace(/\/$/, '');
+            return breadcrumbUrls.includes(normalizedAnchorUrl);
+          });
+
+          if (active || hasDescendantInBreadcrumb) {
             setSubTreeAriaExpanded(element, true);
           } else {
             setSubTreeAriaExpanded(element, false);
@@ -55,13 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Configure aria attributes for all navigation items based on active state and breadcrumbs
+    configureAriaAttributes();
+
     // Give keyboard focus to the active navigation item, and ensure
     // it is scrolled into view.
     const activeNavItem = navParent.querySelector('a.active');
     if (activeNavItem) {
-
-      configureAriaAttributes();
-
       // The active navigation item needs to have the tabindex="0" wheras all of the other items
       // are excluded from the TAB order according.
       activeNavItem.setAttribute('tabindex', '0');

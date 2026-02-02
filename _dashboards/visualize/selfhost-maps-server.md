@@ -104,7 +104,7 @@ Configure the manifest URL in `opensearch_dashboards.yml`:
 
 Tiles are generated per [Terms of Use for Natural Earth vector map data](https://www.naturalearthdata.com/about/terms-of-use/) and [Copyright and License for OpenStreetMap](https://www.openstreetmap.org/copyright).
 
-## Related articles
+## Related documentation
 
 * [Configuring a Web Map Service (WMS)]({{site.url}}{{site.baseurl}}/dashboards/visualize/maptiles/)
 * [Using coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/)

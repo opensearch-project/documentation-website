@@ -1,12 +1,12 @@
 ---
 layout: default
-title: map_to_list
+title: Map to list
 parent: Processors
 grand_parent: Pipelines
-nav_order: 63
+nav_order: 200
 ---
 
-# map_to_list
+# Map to list processor
 
 The `map_to_list` processor converts a map of key-value pairs to a list of objects. Each object contains the key and value in separate fields.
 

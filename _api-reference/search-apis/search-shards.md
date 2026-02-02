@@ -77,33 +77,103 @@ PUT /logs-demo
 
 Index the first document with `routing=user1`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /logs-demo/_doc?routing=user1
+body: |
+{
+  "@timestamp": "2025-05-23T10:00:00Z",
+  "user": "user1",
+  "message": "User login successful"
+}
+-->
+{% capture step1_rest %}
 POST /logs-demo/_doc?routing=user1
 {
   "@timestamp": "2025-05-23T10:00:00Z",
   "user": "user1",
   "message": "User login successful"
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.index(
+  index = "logs-demo",
+  params = { "routing": "user1" },
+  body =   {
+    "@timestamp": "2025-05-23T10:00:00Z",
+    "user": "user1",
+    "message": "User login successful"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 Index the second document with `routing=user2`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /logs-demo/_doc?routing=user2
+body: |
+{
+  "@timestamp": "2025-05-23T10:01:00Z",
+  "user": "user2",
+  "message": "User login failed"
+}
+-->
+{% capture step1_rest %}
 POST /logs-demo/_doc?routing=user2
 {
   "@timestamp": "2025-05-23T10:01:00Z",
   "user": "user2",
   "message": "User login failed"
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.index(
+  index = "logs-demo",
+  params = { "routing": "user2" },
+  body =   {
+    "@timestamp": "2025-05-23T10:01:00Z",
+    "user": "user2",
+    "message": "User login failed"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example request
 
 Simulate routing with `_search_shards`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /logs-demo/_search_shards?routing=user1
+body: |
+{
+  "query": {
+    "term": {
+      "user": "user1"
+    }
+  }
+}
+-->
+{% capture step1_rest %}
 POST /logs-demo/_search_shards?routing=user1
 {
   "query": {
@@ -112,8 +182,29 @@ POST /logs-demo/_search_shards?routing=user1
     }
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search_shards(
+  index = "logs-demo",
+  params = { "routing": "user1" },
+  body =   {
+    "query": {
+      "term": {
+        "user": "user1"
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ### Example response

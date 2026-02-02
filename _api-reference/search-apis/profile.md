@@ -47,29 +47,98 @@ In general, the max/min/avg slice time captures statistics across all slices for
 
 To use the Profile API, include the `profile` parameter set to `true` in the search request sent to the `_search` endpoint:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /testindex/_search
+body: |
+{
+  "profile": true,
+  "query" : {
+    "match" : { "title" : "wind" }
+  }
+}
+-->
+{% capture step1_rest %}
 GET /testindex/_search
 {
   "profile": true,
-  "query" : {
-    "match" : { "title" : "wind" }
+  "query": {
+    "match": {
+      "title": "wind"
+    }
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search(
+  index = "testindex",
+  body =   {
+    "profile": true,
+    "query": {
+      "match": {
+        "title": "wind"
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To turn on human-readable format, include the `?human=true` query parameter in the request:
 
-```json
-GET /testindex/_search?human=true
+<!-- spec_insert_start
+component: example_code
+rest: GET /testindex/_search?human=true
+body: |
 {
   "profile": true,
   "query" : {
     "match" : { "title" : "wind" }
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /testindex/_search?human=true
+{
+  "profile": true,
+  "query": {
+    "match": {
+      "title": "wind"
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search(
+  index = "testindex",
+  params = { "human": "true" },
+  body =   {
+    "profile": true,
+    "query": {
+      "match": {
+        "title": "wind"
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The response contains an additional `time` field with human-readable units, for example:
 
@@ -93,8 +162,10 @@ To profile aggregations, send an aggregation request and provide the `profile` p
 
 #### Global aggregation
 
-```json
-GET /opensearch_dashboards_sample_data_ecommerce/_search
+<!-- spec_insert_start
+component: example_code
+rest: GET /opensearch_dashboards_sample_data_ecommerce/_search
+body: |
 {
   "profile": "true",
   "size": 0,
@@ -103,20 +174,103 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
   },
   "aggs": {
     "all_products": {
-      "global": {}, 
-      "aggs": {     
+      "global": {},
+      "aggs": {
       "avg_price": { "avg": { "field": "taxful_total_price" } }
       }
     },
     "elitelligence_products": { "avg": { "field": "taxful_total_price" } }
   }
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /opensearch_dashboards_sample_data_ecommerce/_search
+{
+  "profile": "true",
+  "size": 0,
+  "query": {
+    "match": {
+      "manufacturer": "Elitelligence"
+    }
+  },
+  "aggs": {
+    "all_products": {
+      "global": {},
+      "aggs": {
+        "avg_price": {
+          "avg": {
+            "field": "taxful_total_price"
+          }
+        }
+      }
+    },
+    "elitelligence_products": {
+      "avg": {
+        "field": "taxful_total_price"
+      }
+    }
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search(
+  index = "opensearch_dashboards_sample_data_ecommerce",
+  body =   {
+    "profile": "true",
+    "size": 0,
+    "query": {
+      "match": {
+        "manufacturer": "Elitelligence"
+      }
+    },
+    "aggs": {
+      "all_products": {
+        "global": {},
+        "aggs": {
+          "avg_price": {
+            "avg": {
+              "field": "taxful_total_price"
+            }
+          }
+        }
+      },
+      "elitelligence_products": {
+        "avg": {
+          "field": "taxful_total_price"
+        }
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 #### Non-global aggregation
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /opensearch_dashboards_sample_data_ecommerce/_search
+body: |
+{
+  "size": 0,
+  "aggs": {
+    "avg_taxful_total_price": {
+      "avg": {
+        "field": "taxful_total_price"
+      }
+    }
+  }
+}
+-->
+{% capture step1_rest %}
 GET /opensearch_dashboards_sample_data_ecommerce/_search
 {
   "size": 0,
@@ -128,8 +282,31 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
     }
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search(
+  index = "opensearch_dashboards_sample_data_ecommerce",
+  body =   {
+    "size": 0,
+    "aggs": {
+      "avg_taxful_total_price": {
+        "avg": {
+          "field": "taxful_total_price"
+        }
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

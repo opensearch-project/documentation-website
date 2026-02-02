@@ -159,7 +159,7 @@ Because open search contexts consume a lot of memory, we suggest you don't use t
 
 The `search_after` parameter provides a live cursor that uses the previous page's results to obtain the next page's results. It is similar to the `scroll` operation in that it is meant to scroll many queries in parallel. You can use `search_after` only when sorting is applied.
 
-For example, the following query sorts all lines from the play "Hamlet" by the speech number and then the ID and retrieves the first three results:
+For example, the following query sorts all lines from the play "Hamlet" by the speech number and then the line ID and retrieves the first three results:
 
 ```json
 GET shakespeare/_search
@@ -172,7 +172,7 @@ GET shakespeare/_search
   },
   "sort": [
     { "speech_number": "asc" },
-    { "_id": "asc" } 
+    { "line_id": "asc" }
   ]
 }
 ```
@@ -211,7 +211,7 @@ The response contains the `sort` array of values for each document:
         },
         "sort" : [
           1,
-          "32435"
+          32436
         ]
       },
       {
@@ -229,7 +229,7 @@ The response contains the `sort` array of values for each document:
         },
         "sort" : [
           1,
-          "32634"
+          32635
         ]
       },
       {
@@ -247,7 +247,7 @@ The response contains the `sort` array of values for each document:
         },
         "sort" : [
           1,
-          "32635"
+          32636
         ]
       }
     ]
@@ -266,10 +266,10 @@ GET shakespeare/_search
       "play_name": "Hamlet"
     }
   },
-  "search_after": [ 1, "32635"],
+  "search_after": [ 1, 32636],
   "sort": [
     { "speech_number": "asc" },
-    { "_id": "asc" } 
+    { "line_id": "asc" }
   ]
 }
 ```

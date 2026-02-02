@@ -5,7 +5,8 @@ parent: ML Commons APIs
 has_children: true
 has_toc: false
 nav_order: 30
-redirect_from: /ml-commons-plugin/api/agent-apis/
+redirect_from:
+  - /ml-commons-plugin/api/agent-apis/
 ---
 
 # Agent APIs
@@ -19,6 +20,7 @@ ML Commons supports the following agent-level APIs:
 - [Register agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/)
 - [Update agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/update-agent/)
 - [Execute agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/)
+- [Execute stream agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-stream-agent/)
 - [Get agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/get-agent/)
 - [Search agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/search-agent/)
 - [Delete agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/delete-agent/)

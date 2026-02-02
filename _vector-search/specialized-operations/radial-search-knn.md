@@ -13,6 +13,8 @@ redirect_from:
 
 Radial search enhances the vector search capabilities beyond approximate top-k searches. With radial search, you can search all points within a vector space that reside within a specified maximum distance or minimum score threshold from a query point. This provides increased flexibility and utility in search operations.
 
+You can perform radial search using either the Lucene or Faiss engines. Both engines support radial search on nested fields.
+
 ## Parameters
 
 Radial search supports the following parameters:
@@ -23,18 +25,9 @@ Radial search supports the following parameters:
 
 Only one query variable, either `k`, `max_distance`, or `min_score`, is required to be specified during radial search. 
 
-## Supported cases
-
-You can perform radial search with either Lucene or Faiss engine. The following table summarizes radial search use cases by engine.
-
-| Engine supported  | Filter supported  | Nested field supported | Search type  |
-| :--- | :--- | :--- | :--- |
-| Lucene           | Yes             | No                  | Approximate    |
-| Faiss            | Yes             | Yes                   | Approximate    |
-
 ## Spaces
 
-For supported spaces, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
+For supported spaces, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
 
 ## Examples
 
@@ -418,6 +411,135 @@ All documents that have a score of 0.9 or higher and a price within the range of
             }
         ]
     }
+}
+```
+</details>
+
+### Example: Radial search on nested fields
+
+The following example shows how to perform radial search on nested vector fields. First, create an index containing nested `knn_vector` fields:
+
+```json
+PUT nested-knn-index
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1,
+    "index.knn": true
+  },
+  "mappings": {
+    "properties": {
+      "my_embeddings": {
+        "type": "nested",
+        "properties": {
+          "embedding": {
+            "type": "knn_vector",
+            "dimension": 3,
+            "method": {
+              "engine": "faiss",
+              "space_type": "innerproduct",
+              "name": "hnsw",
+              "parameters": {
+                "ef_construction": 100,
+                "m": 16
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Add sample data to the index:
+
+```json
+PUT _bulk?refresh=true
+{"index": {"_index": "nested-knn-index", "_id": "1"}}
+{"my_embeddings": [{"embedding": [0.1, 0.2, 0.3]}]}
+{"index": {"_index": "nested-knn-index", "_id": "2"}}
+{"my_embeddings": [{"embedding": [0.4, 0.5, 0.6]}]}
+{"index": {"_index": "nested-knn-index", "_id": "3"}}
+{"my_embeddings": [{"embedding": [0.7, 0.8, 0.9]}]}
+```
+{% include copy-curl.html %}
+
+Perform a radial search on the `my_embeddings.embedding` nested field to find all embeddings similar to the query vector that have a similarity score of at least 0.7:
+
+```json
+GET nested-knn-index/_search
+{
+  "query": {
+    "nested": {
+      "path": "my_embeddings",
+      "query": {
+        "knn": {
+          "my_embeddings.embedding": {
+            "vector": [0.2, 0.3, 0.4],
+            "min_score": 0.7
+          }
+        }
+      },
+      "score_mode": "max"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+This query works with both the Lucene and Faiss engines and returns documents in which the nested vector embeddings meet the minimum similarity score threshold, as shown in the following response:
+
+<details markdown="block">
+  <summary>
+    Results
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 43,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1.74,
+    "hits": [
+      {
+        "_index": "nested-knn-index",
+        "_id": "3",
+        "_score": 1.74,
+        "_source": {
+          "my_embeddings": [
+            {
+              "embedding": [0.7, 0.8, 0.9]
+            }
+          ]
+        }
+      },
+      {
+        "_index": "nested-knn-index",
+        "_id": "2",
+        "_score": 1.47,
+        "_source": {
+          "my_embeddings": [
+            {
+              "embedding": [0.4, 0.5, 0.6]
+            }
+          ]
+        }
+      }
+    ]
+  }
 }
 ```
 </details>

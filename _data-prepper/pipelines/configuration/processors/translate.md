@@ -1,12 +1,12 @@
 ---
 layout: default
-title: translate
+title: Translate
 parent: Processors
 grand_parent: Pipelines
-nav_order: 117
+nav_order: 390
 ---
 
-# translate
+# Translate processor
 
 The `translate` processor transforms values in events into preconfigured values.
 

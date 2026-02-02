@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Refresh index
-parent: Index APIs
-nav_order: 115
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 60
 ---
 
 # Refresh Index API
@@ -60,10 +61,27 @@ The following table lists the available query parameters. All query parameters a
 The following example request refreshes two indexes named `my-index-A` and `my-index-B`:
 
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index-A,my-index-B/_refresh
+-->
+{% capture step1_rest %}
 POST /my-index-A,my-index-B/_refresh
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.refresh(
+  index = "my-index-A,my-index-B"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Refresh all data streams and indexes in a cluster
 

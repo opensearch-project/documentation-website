@@ -53,8 +53,9 @@ class DocProcessor
 
     start_indices.zip(end_indices).map do |start, finish|
       args = InsertArguments.from_marker(lines[start..finish])
+      next nil if args.skip?
       [start, finish, SpecInsert.new(args)]
-    end
+    end.compact
   end
 
   # @param [Array<Integer>] start_indices

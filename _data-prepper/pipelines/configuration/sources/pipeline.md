@@ -1,16 +1,16 @@
 ---
 layout: default
-title: pipeline 
+title: Pipeline 
 parent: Sources
 grand_parent: Pipelines
 nav_order: 90
 ---
 
-# pipeline
+# Pipeline source
 
 Use the `pipeline` sink to read from another pipeline.
 
-## Configuration options
+## Configuration
 
 The `pipeline` source supports the following configuration options.
 

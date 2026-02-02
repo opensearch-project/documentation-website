@@ -73,14 +73,14 @@ Registering a model is an asynchronous task. OpenSearch returns a task ID for th
 }
 ```
 
-You can check the status of the task by using the Tasks API:
+You can check the status of the task by using the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```json
 GET /_plugins/_ml/tasks/aFeif4oB5Vm0Tdw8yoN7
 ```
 {% include copy-curl.html %}
 
-Once the task is complete, the task state will change to `COMPLETED` and the Tasks API response will contain a model ID for the registered model:
+Once the task is complete, the task state will change to `COMPLETED` and the ML Tasks API response will contain a model ID for the registered model:
 
 ```json
 {
@@ -101,7 +101,7 @@ You'll need the model ID in order to use this model for several of the following
 
 ### Step 2: Create an ingest pipeline
 
-First, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains one processor: a task that transforms document fields before documents are ingested into an index. You'll set up a `text_embedding` processor that creates vector embeddings from text. You'll need the `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field from which to take the text (`text`) and the name of the field in which to record embeddings (`passage_embedding`):
+First, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains one processor: a task that transforms document fields before documents are ingested into an index. You'll set up a `text_embedding` processor that creates vector embeddings from text. You'll need the `model_id` of the model you set up in the previous section and a `field_map`, which specifies the name of the field from which to take the text (`passage`) and the name of the field in which to record embeddings (`passage_embedding`):
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -112,7 +112,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
       "text_embedding": {
         "model_id": "aVeif4oB5Vm0Tdw8zYO2",
         "field_map": {
-          "text": "passage_embedding"
+          "passage": "passage_embedding"
         }
       }
     }
@@ -123,7 +123,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 
 ### Step 3: Create a vector index
 
-Now you'll create a vector index by setting `index.knn` to `true`. In the index, the field named `text` contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding` contains the vector embedding of the text. The vector field `dimension` must match the dimensionality of the model you configured in Step 2. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
+Now you'll create a vector index by setting `index.knn` to `true`. In the index, the field named `passage` contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/) field named `passage_embedding` contains the vector embedding of the text. The vector field `dimension` must match the dimensionality of the model you configured in Step 2. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
 
 
 ```json
@@ -140,7 +140,7 @@ PUT /my-nlp-index
         "dimension": 768,
         "space_type": "l2"
       },
-      "text": {
+      "passage": {
         "type": "text"
       }
     }
@@ -153,12 +153,12 @@ Setting up a vector index allows you to later perform a vector search on the `pa
 
 ### Step 4: Ingest documents into the index
 
-In this step, you'll ingest several sample documents into the index. The sample data is taken from the [Flickr image dataset](https://www.kaggle.com/datasets/hsankesara/flickr-image-dataset). Each document contains a `text` field corresponding to the image description and an `id` field corresponding to the image ID:
+In this step, you'll ingest several sample documents into the index. The sample data is taken from the [Flickr image dataset](https://www.kaggle.com/datasets/hsankesara/flickr-image-dataset). Each document contains a `passage` field corresponding to the image description and an `id` field corresponding to the image ID:
 
 ```json
 PUT /my-nlp-index/_doc/1
 {
-  "text": "A man who is riding a wild horse in the rodeo is very near to falling off ."
+  "passage": "A man who is riding a wild horse in the rodeo is very near to falling off ."
 }
 ```
 {% include copy-curl.html %}
@@ -166,7 +166,7 @@ PUT /my-nlp-index/_doc/1
 ```json
 PUT /my-nlp-index/_doc/2
 {
-  "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse ."
+  "passage": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse ."
 }
 ```
 {% include copy-curl.html %}
@@ -174,7 +174,7 @@ PUT /my-nlp-index/_doc/2
 ```json
 PUT /my-nlp-index/_doc/3
 {
-  "text": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco ."
+  "passage": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco ."
 }
 ```
 {% include copy-curl.html %}
@@ -228,7 +228,7 @@ The response contains the matching documents:
         "_id": "1",
         "_score": 0.015851952,
         "_source": {
-          "text": "A man who is riding a wild horse in the rodeo is very near to falling off ."
+          "passage": "A man who is riding a wild horse in the rodeo is very near to falling off ."
         }
       },
       {
@@ -236,7 +236,7 @@ The response contains the matching documents:
         "_id": "2",
         "_score": 0.015177963,
         "_source": {
-          "text": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse ."
+          "passage": "A rodeo cowboy , wearing a cowboy hat , is being thrown off of a wild white horse ."
         }
       },
       {
@@ -244,7 +244,7 @@ The response contains the matching documents:
         "_id": "3",
         "_score": 0.011347729,
         "_source": {
-          "text": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco ."
+          "passage": "People line the stands which advertise Freemont 's orthopedics , a cowboy rides a light brown bucking bronco ."
         }
       }
     ]
@@ -264,14 +264,14 @@ To register and deploy a model, select the built-in workflow template for the mo
 
 ### Step 2: Configure a workflow
 
-Create and provision a semantic search workflow. You must provide the model ID for the model deployed in the previous step. Review your selected workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/semantic-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. Change the workflow template default text field from `passage_text` to `text` in order to match the manual example:
+Create and provision a semantic search workflow. You must provide the model ID for the model deployed in the previous step. Review your selected workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/2.13/src/main/resources/defaults/semantic-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. Change the workflow template default text field from `passage_text` to `passage` in order to match the manual example:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=semantic_search&provision=true
 {
     "create_ingest_pipeline.model_id" : "aVeif4oB5Vm0Tdw8zYO2",
     "text_embedding.field_map.output.dimension": "768",
-    "text_embedding.field_map.input": "text"
+    "text_embedding.field_map.input": "passage"
 }
 ```
 {% include copy-curl.html %}

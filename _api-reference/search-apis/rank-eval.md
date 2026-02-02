@@ -50,16 +50,18 @@ params | Parameters used in the template.
 
 ## Example request
 
-````json
-GET shakespeare/_rank_eval
+<!-- spec_insert_start
+component: example_code
+rest: GET /shakespeare/_rank_eval
+body: |
 {
   "requests": [
     {
-      "id": "books_query",                        
-      "request": {                                              
+      "id": "books_query",
+      "request": {
           "query": { "match": { "text": "thou" } }
       },
-      "ratings": [                                              
+      "ratings": [
         { "_index": "shakespeare", "_id": "80", "rating": 0 },
         { "_index": "shakespeare", "_id": "115", "rating": 1 },
         { "_index": "shakespeare", "_id": "117", "rating": 2 }
@@ -76,8 +78,120 @@ GET shakespeare/_rank_eval
     }
   ]
 }
-````
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /shakespeare/_rank_eval
+{
+  "requests": [
+    {
+      "id": "books_query",
+      "request": {
+        "query": {
+          "match": {
+            "text": "thou"
+          }
+        }
+      },
+      "ratings": [
+        {
+          "_index": "shakespeare",
+          "_id": "80",
+          "rating": 0
+        },
+        {
+          "_index": "shakespeare",
+          "_id": "115",
+          "rating": 1
+        },
+        {
+          "_index": "shakespeare",
+          "_id": "117",
+          "rating": 2
+        }
+      ]
+    },
+    {
+      "id": "words_query",
+      "request": {
+        "query": {
+          "match": {
+            "text": "art"
+          }
+        }
+      },
+      "ratings": [
+        {
+          "_index": "shakespeare",
+          "_id": "115",
+          "rating": 2
+        }
+      ]
+    }
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.rank_eval(
+  index = "shakespeare",
+  body =   {
+    "requests": [
+      {
+        "id": "books_query",
+        "request": {
+          "query": {
+            "match": {
+              "text": "thou"
+            }
+          }
+        },
+        "ratings": [
+          {
+            "_index": "shakespeare",
+            "_id": "80",
+            "rating": 0
+          },
+          {
+            "_index": "shakespeare",
+            "_id": "115",
+            "rating": 1
+          },
+          {
+            "_index": "shakespeare",
+            "_id": "117",
+            "rating": 2
+          }
+        ]
+      },
+      {
+        "id": "words_query",
+        "request": {
+          "query": {
+            "match": {
+              "text": "art"
+            }
+          }
+        },
+        "ratings": [
+          {
+            "_index": "shakespeare",
+            "_id": "115",
+            "rating": 2
+          }
+        ]
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

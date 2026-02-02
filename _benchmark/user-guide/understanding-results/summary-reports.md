@@ -4,7 +4,7 @@ title: Summary reports
 nav_order: 22
 grand_parent: User guide
 parent: Understanding results
-redirect_from: 
+redirect_from:
   - /benchmark/user-guide/understanding-results/
 ---
 
@@ -110,17 +110,17 @@ While an OpenSearch Benchmark summary report provides metrics related to the per
 
 Metrics that are unique to the cluster begin at the `index` task line. The following are examples of metrics that might be relevant to you:
 
-- To assess how much load your cluster can handle, the `index` task metrics provide the number of documents ingested during the workload run as well as the ingestion error rate. 
+- To assess how much load your cluster can handle, the `index` task metrics provide the number of documents ingested during the workload run as well as the ingestion error rate.
 - To assess the measurable latency and service time of the queries in the workload, the `match_all` and `term` tasks provide the number of query operations performed per second, the measurable query latency, and the query operation error rate.
 
 
 ## Storing results
 
-OpenSearch Benchmark results are stored in-memory or in external storage. 
+OpenSearch Benchmark results are stored in-memory or in external storage.
 
-When stored in-memory, results can be found in the `/.benchmark/benchmarks/test_executions/<test_execution_id>` directory. Results are named in accordance with the `test_execution_id` of the most recent workload test. 
+When stored in-memory, results can be found in the `/.benchmark/benchmarks/test-runs/<test_run_id>` directory. Results are named in accordance with the `test_run_id` of the most recent workload test.
 
-While [running a test]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/execute-test/#general-settings), you can customize where the results are stored using any combination of the following command flags:
+While [running a test]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/run/#general-settings), you can customize where the results are stored using any combination of the following command flags:
 
 * `--results-file`: When provided a file path, writes the summary report to the file indicated in the path.
 * `--results-format`: Defines the output format for the summary report results, either `markdown` or `csv`. Default is `markdown`.

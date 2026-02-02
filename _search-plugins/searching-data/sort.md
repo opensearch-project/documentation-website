@@ -880,3 +880,6 @@ For each document, the sorting distance is calculated as the minimum, maximum, o
 ## Performance considerations
 
 Sorted field values are loaded into memory for sorting. Therefore, for minimum overhead we recommend mapping [numeric types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric) to the smallest acceptable types, like `short`, `integer`, and `float`. [String types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string) should not have the sorted field analyzed or tokenized.
+
+The `_id` field is restricted from use in sorting operations. If you need to sort by document ID, consider duplicating the ID value into another field with `doc_values` enabled. For more information about `_id` field limitations, see [ID field type]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/id/).
+{: .note}

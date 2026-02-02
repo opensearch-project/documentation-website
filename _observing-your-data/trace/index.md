@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /observability-plugin/trace/index/
   - /monitoring-plugins/trace/index/
+  - /observing-your-data/trace/
 ---
 
 # Trace Analytics

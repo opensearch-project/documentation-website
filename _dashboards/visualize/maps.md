@@ -130,7 +130,7 @@ For large datasets, you may want to avoid loading data for the full map. To load
 
 ### Drawing shapes to filter data
 
-You can filter your data globally by drawing [shapes]({{site.url}}{{site.baseurl}}/field-types/geo-shape) on the map. To draw a rectangle or polygon on the map, perform the following steps:
+You can filter your data globally by drawing [shapes]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-shape/) on the map. To draw a rectangle or polygon on the map, perform the following steps:
 
 1. Select the **Rectangle** or **Polygon** icon on the right side of the map. 
 1. In the **Filter label** field, enter a name for the filter. 

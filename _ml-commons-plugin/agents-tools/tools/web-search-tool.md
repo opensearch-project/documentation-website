@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Web search tool
+title: Web Search tool
 has_children: false
 has_toc: false
 nav_order: 130
@@ -9,7 +9,7 @@ grand_parent: Agents and tools
 ---
 
 <!-- vale off -->
-# Web search tool
+# Web Search tool
 **Introduced 3.0**
 {: .label .label-purple }
 <!-- vale on -->
@@ -320,3 +320,7 @@ The following table lists all tool parameters that are available when running th
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `question` | String | Required | The natural language question to send to the LLM. 
+
+## Testing the tool
+
+You can run this tool either as part of an agent workflow or independently using the [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/). The Execute Tool API is useful for testing individual tools or performing standalone operations.

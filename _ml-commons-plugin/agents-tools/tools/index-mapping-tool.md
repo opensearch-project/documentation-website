@@ -118,3 +118,7 @@ Parameter	| Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `question` | String | Required | The natural language question to send to the LLM. 
 `index` | Array | Optional | A comma-delimited list of one or more indexes for which to obtain mapping and setting information. Default is an empty list, which means all indexes.
+
+## Testing the tool
+
+You can run this tool either as part of an agent workflow or independently using the [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/). The Execute Tool API is useful for testing individual tools or performing standalone operations.

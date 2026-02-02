@@ -34,7 +34,7 @@ In this tutorial, you'll use the following OpenSearch components:
 
 - [Pretrained language models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/)
 - [Ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
-- [k-NN vector]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/)
+- [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/)
 - [Search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/)
 - [Normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/)
 - [Hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/)
@@ -125,7 +125,7 @@ Registering a model is an asynchronous task. OpenSearch sends back a task ID for
 }
 ```
 
-OpenSearch downloads the config file for the model and the model contents from the URL. Because the model is larger than 10 MB in size, OpenSearch splits it into chunks of up to 10 MB and saves those chunks in the model index. You can check the status of the task by using the Tasks API:
+OpenSearch downloads the config file for the model and the model contents from the URL. Because the model is larger than 10 MB in size, OpenSearch splits it into chunks of up to 10 MB and saves those chunks in the model index. You can check the status of the task by using the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```json
 GET /_plugins/_ml/tasks/aFeif4oB5Vm0Tdw8yoN7
@@ -134,7 +134,7 @@ GET /_plugins/_ml/tasks/aFeif4oB5Vm0Tdw8yoN7
 
 OpenSearch saves the registered model in the model index. Deploying a model creates a model instance and caches the model in memory. 
 
-Once the task is complete, the task state will be `COMPLETED` and the Tasks API response will contain a model ID for the deployed model:
+Once the task is complete, the task state changes to `COMPLETED` and the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) response contains the `model_id` for the deployed model (which is different from the initial `task_id`):
 
 ```json
 {
@@ -151,7 +151,10 @@ Once the task is complete, the task state will be `COMPLETED` and the Tasks API 
 }
 ```
 
-You'll need the model ID in order to use this model for several of the following steps.
+You'll need the `model_id` in order to use the deployed model for several of the following steps.
+
+For detailed information about all possible response formats during different deployment states, see [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/#example-responses).
+{: .tip}
 
 <details markdown="block">
   <summary>
@@ -319,7 +322,7 @@ The response contains the ingest pipeline:
 
 #### Step 3(b): Create a vector index
 
-Now you'll create a vector index with a field named `text`, which contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-vector/) field named `passage_embedding`, which contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
+Now you'll create a vector index with a field named `text`, which contains an image description, and a [`knn_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/) field named `passage_embedding`, which contains the vector embedding of the text. Additionally, set the default ingest pipeline to the `nlp-ingest-pipeline` you created in the previous step:
 
 
 ```json

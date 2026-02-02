@@ -5,6 +5,8 @@ parent: ML Commons APIs
 has_children: true
 has_toc: false
 nav_order: 20
+redirect_from:
+  - /ml-commons-plugin/api/model-group-apis/
 ---
 
 # Model group APIs
