@@ -135,7 +135,7 @@ Before configuring the deployment, understand the RFS parameters. If you're crea
 ```
 {% include copy.html %}
 
-Additionally, you must assign the `migrationconsole` and `reindexFromSnapshot` task roles permissions to the S3 bucket.
+Additionally, you must assign the `migrationconsole` and `reindexFromSnapshot` task role permissions to the S3 bucket.
 
 ### Configuration and deployment steps
 
