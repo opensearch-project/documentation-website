@@ -509,7 +509,17 @@ If security is enabled, in addition to [stop replication permissions]({{site.url
 
 ### search_only
 
-Set an index to search-only mode by calling the [Scale API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/scale/). When an index enters search-only mode, OpenSearch removes the primary and regular replica shards while retaining search replicas for query operations. OpenSearch blocks further writes to the index.
+When an index enters `search_only` mode, OpenSearch removes its primary and regular replica shards while retaining search replicas for query operations. All write operations to the index are blocked. This is useful for log lifecycle management where older indexes no longer need write capability but should remain searchable.
+
+> This action requires the following prerequisites: 
+> - Remote store must be enabled on the cluster
+> - Segment replication must be enabled on the index
+> - Search replicas must be configured on the index. 
+>
+> For more information about search-only mode and reader/writer separation, see [Separate index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/).
+{: .note}
+
+Set an index to search-only mode using the following action: 
 
 ```json
 {
@@ -517,14 +527,12 @@ Set an index to search-only mode by calling the [Scale API]({{site.url}}{{site.b
 }
 ```
 
-This is useful for log lifecycle management where older indexes no longer need write capability but should remain searchable.
-
-This action requires the following prerequisites: remote store must be enabled on the cluster, segment replication must be enabled on the index, and search replicas must be configured on the index. For more information about search-only mode and reader/writer separation, see [Separate index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/).
-{: .note}
-
 If the index is already in search-only mode, the action completes successfully without making any changes.
 
-The following example policy transitions an index to search-only mode after 7 days:
+You can manually enable or disable `search_only` mode outside of ISM policies by calling the [Scale API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/scale/).
+{: .tip}
+
+The following example policy transitions an index to `search_only` mode after 7 days:
 
 ```json
 {
@@ -557,6 +565,7 @@ The following example policy transitions an index to search-only mode after 7 da
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Endpoints
 
@@ -867,6 +876,7 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
      }
    }
    ```
+   {% include copy-curl.html %}
 
    You need to specify the `index_patterns` field. If you don't specify a value for `priority`, it defaults to 0.
 
@@ -883,6 +893,7 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
     }
    }
    ```
+   {% include copy-curl.html %}
 
 3. Create an index with the `log` alias:
 
@@ -896,6 +907,7 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
      }
    }
    ```
+   {% include copy-curl.html %}
 
 4. Index a document to trigger the rollover condition:
 
@@ -905,12 +917,14 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
      "message": "dummy"
    }
    ```
+   {% include copy-curl.html %}
 
 5. Verify if the policy is attached to the `log-000001` index:
 
    ```json
    GET _plugins/_ism/explain/log-000001?pretty
    ```
+   {% include copy-curl.html %}
 
 ## Example policy with ISM templates for the alias action
 
@@ -967,6 +981,7 @@ PUT /_plugins/_ism/policies/rollover_policy?pretty
   }
 }
 ```
+{% include copy-curl.html %}
 
 Next, create an index template on which to enable the policy:
 
