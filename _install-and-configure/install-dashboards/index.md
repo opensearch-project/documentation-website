@@ -37,7 +37,7 @@ OpenSearch Dashboards requires the Node.js runtime binary to run. One is include
 
 OpenSearch Dashboards versions 2.8 through 2.19 support Node.js 14, 16, and 18. Distribution packages for versions 2.10 through 2.19 include Node.js 18 and Node.js 14 (for backward compatibility).
 
-OpenSearch Dashboards >=3.0 <=3.4 include Node.js 20, while OpenSearch Dashboards >=3.5 include Node.js 22.
+OpenSearch Dashboards versions 3.0 through 3.4 include Node.js 20. Versions 3.5 and later include Node.js 22.
 
 To use a Node.js runtime binary other than the ones included in the distribution packages, follow these steps:
 
