@@ -2,7 +2,7 @@
 layout: default
 title: Experiments
 nav_order: 9
-parent: Using Search Relevance Workbench
+parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
 has_toc: false
@@ -10,9 +10,9 @@ has_toc: false
 
 # Experiments
 
-An experiment is a controlled test designed to assess the effectiveness, relevance, or performance of a search engine or its algorithms. These experiments are typically conducted to evaluate how well a search system delivers useful results for specific queries.
+An _experiment_ is a controlled test designed to assess the effectiveness, relevance, or performance of a search engine or its algorithms. These experiments are typically conducted in order to evaluate how well a search system delivers useful results for specific queries.
 
-Search Relevance Workbench offers multiple types of experiments, see {{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/#available-search-result-quality-experiments for more details on the types of experiments offered.
+Search Relevance Workbench offers multiple types of experiments. For more information, see [Available search result quality experiments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/#available-search-result-quality-experiments).
 
 ## Managing experiments
 
@@ -240,8 +240,7 @@ DELETE _plugins/_search_relevance/experiment/47cc3861-c37b-43cc-99c4
 
 ### Search for an experiment
 
-You can search for available experiments using the query DSL.
-By default the `results` data is not returned to manage payload size. You can include that data by specifying `_source` field in the query.
+You can search for available experiments using query DSL. By default, the `results` data is not returned in the response. To include the `results` data, specify the `_source` field in the query.
 
 #### Endpoints
 
@@ -250,8 +249,9 @@ GET _plugins/_search_relevance/experiment/_search
 POST _plugins/_search_relevance/experiment/_search
 ```
 
-#### Example request: Searching for experiments
-Searching for experiments that use a specific query set for evaluation.
+#### Example request
+
+Search for experiments that use a specific query set in order to measure search relevance performance:
 
 ```json
 GET _plugins/_search_relevance/experiments/_search

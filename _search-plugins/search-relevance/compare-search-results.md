@@ -2,7 +2,7 @@
 layout: default
 title: Comparing single queries
 nav_order: 11
-parent: Using Search Relevance Workbench
+parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
 has_toc: false

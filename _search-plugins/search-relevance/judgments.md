@@ -2,7 +2,7 @@
 layout: default
 title: Judgments
 nav_order: 8
-parent: Using Search Relevance Workbench
+parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
 has_toc: false
@@ -341,8 +341,7 @@ DELETE _plugins/_search_relevance/judgments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 
 ### Search for a judgment list
 
-You can search for available judgment lists using the query DSL.
-By default the `judgmentRatings.ratings` data is not returned to manage payload size. You can include that data by specifying `_source` field in the query.
+You can search for available judgment lists using query DSL. By default, the `judgmentRatings.ratings` data is not returned. To include the `judgmentRatings.ratings` data, specify the `_source` field in the query.
 
 #### Endpoints
 
@@ -351,8 +350,9 @@ GET _plugins/_search_relevance/judgments/_search
 POST _plugins/_search_relevance/judgments/_search
 ```
 
-#### Example request: Searching for judgments
-Searching for judgment lists that include the exact query _red dress_.
+#### Example request: 
+
+Search for judgment lists that include the exact query `red dress`:
 
 ```json
 GET _plugins/_search_relevance/judgments/_search

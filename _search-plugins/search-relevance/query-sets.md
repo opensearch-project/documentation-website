@@ -2,7 +2,7 @@
 layout: default
 title: Query sets
 nav_order: 3
-parent: Using Search Relevance Workbench
+parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
 has_toc: false
@@ -181,7 +181,7 @@ DELETE _plugins/_search_relevance/query_sets/bb45c4c4-48ce-461b-acbc-f154c0a17ec
 
 ### Search for a query set
 
-You can search for available query sets using the query DSL.
+You can search for available query sets using query DSL.
 
 #### Endpoints
 
@@ -190,9 +190,9 @@ GET _plugins/_search_relevance/query_sets/_search
 POST _plugins/_search_relevance/query_sets/_search
 ```
 
-#### Example request: Searching for query sets
-Searching for query set that has the `queryText` _wall lamp without cord_ with a partial query match.
+#### Example request
 
+Search for query sets containing queries that include the phrase `lamp without cord`:
 
 ```json
 GET _plugins/_search_relevance/query_sets/_search
@@ -212,6 +212,8 @@ GET _plugins/_search_relevance/query_sets/_search
 {% include copy-curl.html %}
 
 #### Example response
+
+The response contains the matching query set because `wall lamp without cord` contains the partial search term `lamp without cord`: 
 
 ```json
 {

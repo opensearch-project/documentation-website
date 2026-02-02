@@ -2,7 +2,7 @@
 layout: default
 title: Search configurations
 nav_order: 5
-parent: Using Search Relevance Workbench
+parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
 has_toc: false
@@ -149,7 +149,7 @@ DELETE _plugins/_search_relevance/search_configurations/bb45c4c4-48ce-461b-acbc-
 
 ### Search for a search configuration
 
-You can search for available search configurations using the query DSL.
+You can search for available search configurations using query DSL.
 
 #### Endpoint
 
@@ -183,13 +183,17 @@ GET _plugins/_search_relevance/search_configurations/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 Note that the index storing the search configurations contains several fields of the type `keyword` that require exact matching.
 {: .note}
 
-#### Example request: Searching for a search configuration by a specific target index including a specific query pattern
+#### Example request: Searching for a search configuration using multiple criteria
+
+Search for a search configuration by a specific target index and query pattern:  
 
 ```json
+GET _plugins/_search_relevance/search_configurations/_search
 {
   "query": {
     "bool": {
@@ -210,6 +214,7 @@ Note that the index storing the search configurations contains several fields of
   "size": 10
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
