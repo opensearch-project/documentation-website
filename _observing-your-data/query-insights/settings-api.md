@@ -9,7 +9,7 @@ nav_order: 25
 **Introduced 3.5**
 {: .label .label-purple }
 
-The Query Insights Settings API allows you to manage query insight configuration through dedicated endpoints. Use this API to configure top N query monitoring, grouping, and exporter settings with granular, setting-level access control.
+The Query Insights Settings API allows you to manage query insights configuration through dedicated endpoints. Use this API to configure top N query monitoring, grouping, and exporter settings with granular, setting-level access control.
 
 This API is functionally equivalent to the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) for query insights configuration. For production environments, you can use the dedicated permission `cluster:admin/opensearch/insights/settings/*` to grant performance engineers or monitoring teams access only to query insights settings, without exposing all cluster settings.
 {: .note}
@@ -21,7 +21,7 @@ The API provides the following endpoints:
 
 ## Retrieve query insights settings
 
-Retrieves all query insights settings including latency, CPU, memory, grouping, and exporter configurations.
+Retrieves all query insights settings, including latency, CPU, memory, grouping, and exporter configurations.
 
 ### Endpoints
 
@@ -99,7 +99,7 @@ The following table lists all response body fields.
 | `persistent.grouping.group_by` | String | The method for grouping similar queries. |
 | `persistent.exporter` | Object | Exporter configuration settings. |
 | `persistent.exporter.type` | String | The exporter type for top N query data. |
-| `persistent.exporter.delete_after_days` | Integer | The number of days to retain local index data when using `local_index` exporter. |
+| `persistent.exporter.delete_after_days` | Integer | The number of days to retain local index data when using the `local_index` exporter. |
 
 ## Update query insights settings
 
