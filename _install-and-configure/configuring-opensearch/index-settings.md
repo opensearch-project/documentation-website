@@ -190,7 +190,7 @@ For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the co
 
 - `index.derived_source.enabled` (Boolean): Set to `true` to dynamically generate the source without explicitly storing the `_source` field, which can optimize storage. Default is `false`. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/#derived-source).
 
-- `index.bulk.adaptive_shard_selection.enabled` (Boolean): Set to `true` to specify if the bulk should use adaptive shard selection to select one shard for append-only index. Default is `false`.
+- `index.bulk.adaptive_shard_selection.enabled` (Boolean): Set to `true` to enable adaptive shard selection for bulk operations, so that a single shard is chosen for append-only indexes. Default is `false`. For more information, see [Adaptive shard selection for bulk indexing]({{site.url}}{{site.baseurl}}/im-plugin/append-only-index/#adaptive-shard-selection-for-bulk-indexing).
 
 ### Updating a static index setting
 
