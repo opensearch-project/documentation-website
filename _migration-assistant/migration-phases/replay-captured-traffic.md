@@ -325,7 +325,7 @@ Metrics and dashboards pushed to CloudWatch may experience a visibility lag of a
 
 ## Troubleshooting
 
-The following sections may be helpful in diagnosing common issues that arise. If you encounter an issue not documented, incorporate that feedback into this section for future readers.
+The following sections may be helpful in diagnosing common issues that arise.
 
 ### Elasticsearch content type and accept header compatibility
 
@@ -336,7 +336,7 @@ Newer Elasticsearch clients (version 7.11 and later, including all 8.x versions)
 
 When migrating to OpenSearch or another service that does not support these Elasticsearch-specific media types, requests from these clients may fail or be rejected by the target cluster.
 
-**Important**: If you are using Elasticsearch clients with version 7.11 or later and migrating to OpenSearch or a service that does not recognize `application/vnd.elasticsearch+json` media types, you need to apply a transformation to convert both the `Content-Type` and `Accept` headers to the standard `application/json` format.
+**Important**: If you are using Elasticsearch clients with version 7.11 or later and migrating to OpenSearch or a service that does not recognize `application/vnd.elasticsearch+json` media types, you need to apply a transformation to convert both the `Content-Type` and `Accept` headers to the standard `application/json` format. Note that after migration, clients will also need to be updated to use standard media types.
 {: .note}
 
 To resolve this issue, configure Traffic Replayer with a transformation that converts the Elasticsearch-specific media types to the standard `application/json` format. 
