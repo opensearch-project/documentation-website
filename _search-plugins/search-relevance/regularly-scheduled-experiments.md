@@ -65,6 +65,7 @@ POST _plugins/_search_relevance/experiments/schedule
   "cronExpression": "0 1 * * *"
 }
 ```
+{% include copy-curl.html %}
 
 ## Managing scheduled experiments
 
