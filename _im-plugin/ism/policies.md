@@ -421,7 +421,7 @@ The `convert_index_to_remote` operation has the following parameters.
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
-`repository` | The repository name registered through the native snapshot API operations. Must be a remote repository type (for example, S3, Azure, or GCS).  | `string` | Yes | N/A
+`repository` | The repository name registered through the native snapshot API operations. Must be a remote repository type (for example, S3, Azure, or GCS).  | String | Yes | N/A
 `snapshot` | The name of the snapshot created by the snapshot action.  | String | Yes | N/A
 `include_aliases` | Whether to include index aliases during the restore operation. If `true`, all aliases associated with the original index are restored with the remote index. If your application accesses the index using aliases, set this parameter to `true`. | Boolean | No | `false`
 `ignore_index_settings` | A comma-separated list of index settings to ignore during the restore operation. For example, `index.refresh_interval,index.number_of_replicas`. This is useful when you want to apply different settings to the restored remote index than the ones configured in the original index. | String | No | Empty string
