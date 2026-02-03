@@ -415,17 +415,17 @@ Parameter | Description | Type | Required | Default
 
 ### convert_index_to_remote
 
-Converts an index to a searchable snapshot by restoring it from a remote snapshot repository. This action is useful for reducing storage costs by moving infrequently accessed data to remote storage while keeping it searchable. The action performs a restore operation from the specified snapshot and automatically deletes the original index once the restore is successfully accepted, ensuring only the remote index remains.
+Converts an existing index into a searchable snapshot by restoring it from a remote snapshot repository. This action reduces storage costs by moving infrequently accessed data to remote storage while keeping it searchable. After the restore request is accepted, the original index is automatically deleted, ensuring that only the remote snapshot-backed index remains.
 
 The `convert_index_to_remote` operation has the following parameters.
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
 `repository` | The repository name registered through the native snapshot API operations. Must be a remote repository type (for example, S3, Azure, or GCS).  | `string` | Yes | N/A
-`snapshot` | The snapshot name created through the snapshot action.  | `string` | Yes | N/A
-`include_aliases` | Whether to include index aliases during the restore operation. When set to `true`, all aliases associated with the original index are restored along with the remote index. Set to `true` if your application references the index through aliases. | `boolean` | No | `false`
-`ignore_index_settings` | A comma-separated list of index settings to ignore during the restore operation. For example, `"index.refresh_interval,index.number_of_replicas"`. This is useful when you want to apply different settings to the restored remote index than what was configured in the original index. | `string` | No | Empty string
-`number_of_replicas` | The number of replicas to configure for the restored remote index. This allows you to control replica allocation during the conversion process without requiring a separate update operation. Setting this during conversion helps prevent cluster yellow state or unnecessary load from replica allocation. | `integer` | No | `0`
+`snapshot` | The name of the snapshot created by the snapshot action.  | String | Yes | N/A
+`include_aliases` | Whether to include index aliases during the restore operation. If `true`, all aliases associated with the original index are restored with the remote index. If your application accesses the index using aliases, set this parameter to `true`. | Boolean | No | `false`
+`ignore_index_settings` | A comma-separated list of index settings to ignore during the restore operation. For example, `index.refresh_interval,index.number_of_replicas`. This is useful when you want to apply different settings to the restored remote index than the ones configured in the original index. | String | No | Empty string
+`number_of_replicas` | The number of replicas to configure for the restored remote index. This allows you to control replica allocation during the conversion process without requiring a separate update operation. Setting `number_of_replicas` during conversion helps prevent the cluster from entering a yellow state or creating unnecessary load during replica assignment. | Integer | No | `0`
 
 #### Prerequisites
 
@@ -437,10 +437,12 @@ Before using the `convert_index_to_remote` action, ensure the following:
 
 #### Usage notes
 
-- **Automatic deletion**: The original index is automatically deleted after the remote snapshot restore is successfully accepted. This ensures that only the searchable snapshot version remains, completing the conversion process.
-- **Repository matching**: The repository name used in the `convert_index_to_remote` operation must match the repository name specified during the snapshot action.
-- **Variable references**: You can reference the snapshot using Mustache variables like `{% raw %}{{ctx.index}}{% endraw %}` or `{% raw %}{{ctx.indexUuid}}{% endraw %}` for dynamic naming.
-- **Replica considerations**: Consider your cluster's capacity when setting `number_of_replicas`. If there aren't enough eligible nodes for replica restoration, the cluster may enter a yellow state.
+Note the following to ensure a smooth and predictable conversion when restoring an index as a searchable snapshot:
+
+- The original index is automatically deleted after the remote snapshot restore is successfully accepted. This ensures that only the searchable snapshot version remains, completing the conversion process.
+- The repository name used in the `convert_index_to_remote` operation must match the repository name specified during the snapshot action.
+- You can reference the snapshot using Mustache variables like `{% raw %}{{ctx.index}}{% endraw %}` or `{% raw %}{{ctx.indexUuid}}{% endraw %}` for dynamic naming.
+- Consider your cluster's capacity when setting `number_of_replicas`. If there aren't enough eligible nodes for replica restoration, the cluster may enter a yellow state.
 
 #### Basic example
 
