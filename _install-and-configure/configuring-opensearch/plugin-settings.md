@@ -33,6 +33,8 @@ For information about automatic workflow settings, see [Workflow settings]({{sit
 
 For information about the Geospatial plugin's IP2Geo processor settings, see [Cluster settings]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ip2geo/#cluster-settings).
 
+For information about the Geospatial plugin's GeoJSON complexity settings, see [Configuring GeoJSON complexity]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/#configuring-geojson-complexity).
+
 ## Index Management plugin settings
 
 For information about index state management (ISM) settings, see [ISM settings]({{site.url}}{{site.baseurl}}/im-plugin/ism/settings/).
