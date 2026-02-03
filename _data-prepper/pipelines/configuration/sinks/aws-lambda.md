@@ -20,13 +20,13 @@ Field             | Type    | Required | Description
 `invocation_type`   | String  | No       | Specifies the invocation type. Default is `event`.             
 `aws.region`        | String  | Yes      | The AWS Region in which the Lambda function is located.                         
 `aws.sts_role_arn`  | String  | No       | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function.               
-`max_retries`       | Integer | No       | The maximum number of retries if the invocation fails. Default is `3`.
-`client.max_retries` | Integer | No | The maximum number of retries for failed invocations. Default is `3`.             
-`client.api_call_timeout` | Duration | No | The API call timeout. Default is `60s`.
-`client.api_call_attempt_timeout` | Duration | No | The timeout for individual API call attempts. When not specified, uses AWS SDK defaults.
+`max_retries`       | Integer | No       | The maximum number of sink-level retries if the Lambda invocation fails. This controls Data Prepper's retry logic. Default is `3`.
+`client.max_retries` | Integer | No | The maximum number of AWS SDK client-level retries for individual API calls. This controls the underlying SDK retry mechanism for network or service errors. Default is `3`.             
+`client.api_call_timeout` | Duration | No | The total timeout for the entire API call including all retries. Default is `60s`.
+`client.api_call_attempt_timeout` | Duration | No | The timeout for each individual retry attempt. If not specified, AWS SDK defaults are used.
 `client.connection_timeout` | Duration | No | The SDK connection timeout. Default is `60s`.
-`client.read_timeout` | Duration | No | The time the SDK waits for data to be read from an established connection. When not specified, uses AWS SDK defaults.
-`client.max_concurrency` | Integer | No | The maximum number of concurrent threads on the client. Default is `200`.
+`client.read_timeout` | Duration | No | The amount of time the SDK waits for data to be read from an established connection. If not specified, AWS SDK defaults are used.
+`client.max_concurrency` | Integer | No | The maximum number of concurrent threads in the client. Default is `200`.
 `client.base_delay`  | Duration | No | The base delay for the exponential backoff. Default is `100ms`.
 `client.max_backoff` | Duration | No | The maximum backoff time for the exponential backoff. Default is `20s`.             
 `batch`             | Object  | No       | Optional batch settings for Lambda invocations. Default is `key_name = events`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.
@@ -67,15 +67,15 @@ sink:
 ```
 {% include copy.html %}
 
-## Timeout Configuration
+## Timeout configuration
 
 The AWS Lambda sink supports multiple timeout layers following AWS SDK best practices:
 
-- **`api_call_timeout`**: Total time for the entire API call including all retries (default: 60s)
-- **`api_call_attempt_timeout`**: Time limit for each individual attempt (optional, uses AWS SDK defaults when not specified)  
-- **`read_timeout`**: Time to wait for data from an established connection (optional, uses AWS SDK defaults when not specified)
+- `api_call_timeout`: The total amount of time for the entire API call including all retries.
+- `api_call_attempt_timeout`: The time limit for each individual attempt.
+- `read_timeout`: The amount of time to wait for data from an established connection.
 
-For Lambda functions that run longer than 60 seconds, configure both `api_call_timeout` and `read_timeout` to appropriate values.
+For Lambda functions that run longer than 60 seconds, configure both `api_call_timeout` and `read_timeout` to appropriate values. 
 
 ## Usage
 
