@@ -26,5 +26,3 @@ By default, the OSB log files are located in the your home directory, under `$HO
 ## I'm looking for the latest updates to OSB. Where can I find the latest incremental build of OSB?
 
 Incremental OSB builds are generated as Docker images when any new changes are merged to the codebase.  They are available on the [OpenSearch Benchmark Docker Hub page](https://hub.docker.com/r/opensearchstaging/opensearch-benchmark/tags).
-
-
