@@ -39,7 +39,8 @@ Field | Data type | Required/Optional | Agent type | Description
 `description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
-`memory.type` | String | Optional | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. Currently, the only supported type is `conversation_index` (store the memory in a conversational system index).
+`memory.type` | String | Optional | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. Supported values are `conversation_index` (store memory in conversation indices) and `agentic_memory` (store memory in a memory container).
+`memory.memory_container_id` | String | Optional | `conversational_flow`, `conversational` | The default memory container ID for `agentic_memory`. If omitted here, you must provide `parameters.memory_container_id` when executing the agent. If neither is provided, the request fails.
 `llm.model_id` | String | Required | `conversational` | The model ID of the LLM to which to send questions.
 `llm.parameters.response_filter` | String | Required | `conversational` | The pattern for parsing the LLM response. For each LLM, you need to provide the field where the response is located. For example, for the Anthropic Claude model, the response is located in the `completion` field, so the pattern is `$.completion`. For OpenAI models, the pattern is `$.choices[0].message.content`.
 `llm.parameters.max_iteration` | Integer | Optional | `conversational` | The maximum number of messages to send to the LLM. Default is `10`.
@@ -52,6 +53,15 @@ Field | Data type | Required/Optional | Agent type | Description
 `parameters._llm_interface` | String | Required | `plan_execute_and_reflect`, `conversational` | Specifies how to parse the LLM output when using function calling. Valid values are: <br> - `bedrock/converse/claude`: Anthropic Claude conversational models hosted on Amazon Bedrock  <br> - `bedrock/converse/deepseek_r1`: DeepSeek-R1 models hosted on Amazon Bedrock <br> - `openai/v1/chat/completions`: OpenAI chat completion models hosted on OpenAI. Each interface defines a default response schema and function call parser.
 `inject_datetime` | Boolean | Optional | `conversational`, `plan_execute_and_reflect` | Whether to automatically inject the current date into the system prompt. Default is `false`.
 `datetime_format` | String | Optional | `conversational`, `plan_execute_and_reflect` | A format string for dates used when `inject_datetime` is enabled. Default is `"yyyy-MM-dd'T'HH:mm:ss'Z'"` (ISO format).
+
+To use agentic memory, create a memory container using the [Create memory container API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/) and set the memory configuration like this:
+
+```json
+"memory": {
+  "type": "agentic_memory",
+  "memory_container_id": "<memory_container_id>"
+}
+```
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
