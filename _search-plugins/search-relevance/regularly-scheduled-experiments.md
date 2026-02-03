@@ -171,6 +171,7 @@ The following table lists the available path parameters.
 ```json
 DELETE _plugins/_search_relevance/experiments/schedule/6282afa6-fa14-49c8-a627-ac1d5204d357
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
