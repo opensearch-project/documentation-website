@@ -142,7 +142,6 @@ GET _plugins/_search_relevance/experiments/schedule/6282afa6-fa14-49c8-a627-ac1d
 }
 ```
 
-### Path parameters
 
 The following table lists the available path parameters.
 
