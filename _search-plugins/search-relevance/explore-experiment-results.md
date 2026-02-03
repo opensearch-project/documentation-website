@@ -39,7 +39,7 @@ Once you install the dashboards, in the **Actions** column, select the visualiza
 
 The search evaluation dashboard, shown in the following image, aggregates performance metrics across all queries in your selected experiment. Use the search evaluation dashboard to get a high-level view of overall experiment performance and identify the queries that need attention.
 
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/search_evaulation_dashboard.png" alt="Search evaluation dashboard with visualizations"/>{: .img-fluid }
+<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/search_evaluation_dashboard.png" alt="Search evaluation dashboard with visualizations"/>{: .img-fluid }
 
 The **Deep Dive Summary** panel shows the aggregate metrics for NDCG, MAP, precision, and coverage (see [Evaluating search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/)).
 
@@ -69,7 +69,3 @@ To learn how to customize the source files, see [Updating the default dashboards
 ### Resetting dashboards
 
 To reset the dashboards, select the **Install Dashboards** button in the upper-right corner of the experiment overview. This will reinstall the dashboards.
-
-
-
-
