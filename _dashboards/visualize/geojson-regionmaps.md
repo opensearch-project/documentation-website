@@ -31,24 +31,6 @@ You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON 
 >   * OpenSearch [`geospatial`](https://github.com/opensearch-project/geospatial) backend plugin
 {: .note}
 
-As of 3.5, the complexity of the uploaded GeoJSON is limited based on the following factors:
-- Number of coordinates per geometry (default `10000`)
-- Number of holes per polygon (default `1000`)
-- Number of multi geometries (default `100`)
-- Nested Geometry collection depth (default `5`)
-
-These thresholds can be updated through cluster settings:
-```
-{
-  "persistent": {
-    "plugins.geospatial.geojson.max_coordinates_per_geometry": 10000,
-    "plugins.geospatial.geojson.max_holes_per_polygon": 1000,
-    "plugins.geospatial.geojson.max_multi_geometries": 100,
-    "plugins.geospatial.geojson.max_geometry_collection_nested_depth": 5
-  }
-}
-```
-
 ### Step 1: Creating a region map visualization
 
 To create your own custom vector map, upload a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
@@ -95,3 +77,17 @@ The following example GeoJSON file provides coordinates for two US counties.
 
 ```
 
+## Configuring GeoJSON complexity
+
+The complexity of uploaded GeoJSON files can be configured using the following cluster settings:
+
+- `plugins.geospatial.geojson.max_coordinates_per_geometry` (Dynamic, integer): Sets the maximum number of coordinates allowed per geometry. Default is `10000`.
+
+- `plugins.geospatial.geojson.max_holes_per_polygon` (Dynamic, integer): Sets the maximum number of holes allowed per polygon. Default is `1000`.
+
+- `plugins.geospatial.geojson.max_multi_geometries` (Dynamic, integer): Sets the maximum number of geometries allowed in a multi-geometry object. Default is `100`.
+
+- `plugins.geospatial.geojson.max_geometry_collection_nested_depth` (Dynamic, integer): Sets the maximum nested depth for geometry collections. Default is `5`.
+
+
+For more information about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
