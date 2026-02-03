@@ -2,32 +2,46 @@
 layout: default
 title: Query Insights Settings API
 parent: Query insights
-nav_order: 15
+nav_order: 25
 ---
 
 # Query Insights Settings API
-**Introduced 2.19**
+**Introduced 3.5**
 {: .label .label-purple }
 
-The Query Insights Settings API allows you to manage Query Insights configuration through dedicated endpoints. Use this API to configure top N query monitoring, grouping, and exporter settings with granular, setting-level access control.
+The Query Insights Settings API allows you to manage query insight configuration through dedicated endpoints. Use this API to configure top N query monitoring, grouping, and exporter settings with granular, setting-level access control.
 
-This API is functionally equivalent to using the [cluster settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) for Query Insights configuration. However, in production environments where you need to grant access to performance engineers or monitoring teams without exposing all cluster settings, this API provides dedicated permissions (`cluster:admin/opensearch/insights/settings/*`) that restrict access to only Query Insights settings.
+This API is functionally equivalent to the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) for query insights configuration. For production environments, you can use the dedicated permission `cluster:admin/opensearch/insights/settings/*` to grant performance engineers or monitoring teams access only to query insights settings, without exposing all cluster settings.
 {: .note}
 
-## Endpoints
+The API provides the following endpoints: 
 
-The Query Insights Settings API provides the following endpoints:
+- [Retrieve settings](#retrieve-query-insights-settings)
+- [Update settings](#update-query-insights-settings)
 
-- `GET /_insights/settings` - Retrieve all Query Insights settings
-- `GET /_insights/settings/{metric_type}` - Retrieve settings for a specific metric type (latency, cpu, or memory)
-- `PUT /_insights/settings` - Update Query Insights settings
+## Retrieve query insights settings
 
-## Retrieving settings
+Retrieves all query insights settings including latency, CPU, memory, grouping, and exporter configurations.
 
-To retrieve all Query Insights settings, use the following request:
+### Endpoints
 
 ```json
 GET /_insights/settings
+GET /_insights/settings/{metric_type}
+```
+
+### Path parameters
+
+The following table lists the available path parameters. All path parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `metric_type` | String | The specific metric type to retrieve settings for. Valid values are `latency`, `cpu`, and `memory`. If omitted, settings for all metrics are returned. |
+
+### Example request
+
+```json
+GET /_insights/settings/
 ```
 {% include copy-curl.html %}
 
@@ -62,34 +76,72 @@ GET /_insights/settings
 }
 ```
 
-### Retrieving settings for a specific metric
+### Response body fields
 
-To retrieve settings for a specific metric type (latency, cpu, or memory), include the metric type in the path:
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `persistent` | Object | Contains the persistent cluster settings for query insights. |
+| `persistent.latency` | Object | Latency metric configuration settings. |
+| `persistent.latency.enabled` | Boolean | Whether top N query monitoring for latency is enabled. |
+| `persistent.latency.top_n_size` | Integer | The number of top queries being tracked for latency. |
+| `persistent.latency.window_size` | String | The time window for collecting top latency queries. |
+| `persistent.cpu` | Object | CPU metric configuration settings. |
+| `persistent.cpu.enabled` | Boolean | Whether top N query monitoring for CPU is enabled. |
+| `persistent.cpu.top_n_size` | Integer | The number of top queries being tracked for CPU. |
+| `persistent.cpu.window_size` | String | The time window for collecting top CPU queries. |
+| `persistent.memory` | Object | Memory metric configuration settings. |
+| `persistent.memory.enabled` | Boolean | Whether top N query monitoring for memory is enabled. |
+| `persistent.memory.top_n_size` | Integer | The number of top queries being tracked for memory. |
+| `persistent.memory.window_size` | String | The time window for collecting top memory queries. |
+| `persistent.grouping` | Object | Query grouping configuration settings. |
+| `persistent.grouping.group_by` | String | The method for grouping similar queries. |
+| `persistent.exporter` | Object | Exporter configuration settings. |
+| `persistent.exporter.type` | String | The exporter type for top N query data. |
+| `persistent.exporter.delete_after_days` | Integer | The number of days to retain local index data when using `local_index` exporter. |
+
+## Update query insights settings
+
+Updates query insights settings. You can update settings for one or more metrics in a single request.
+
+### Endpoint
 
 ```json
-GET /_insights/settings/latency
-```
-{% include copy-curl.html %}
-
-#### Example response
-
-```json
-{
-  "persistent": {
-    "latency": {
-      "enabled": true,
-      "top_n_size": 10,
-      "window_size": "5m"
-    }
-  }
-}
+PUT /_insights/settings
 ```
 
-## Updating settings
+### Request body fields
 
-To update Query Insights settings, send a PUT request with the settings you want to modify. You can update settings for one or more metrics in a single request.
+The following table lists the available request body fields.
 
-### Updating latency settings
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `latency` | Object | Latency metric configuration. Optional. |
+| `latency.enabled` | Boolean | Enable or disable top N query monitoring for latency. Optional. Default is `true`. |
+| `latency.top_n_size` | Integer | The number of top queries to track for latency. Valid values are 1–100. Optional. Default is `10`. |
+| `latency.window_size` | String | The time window for collecting top latency queries. Valid values: `1m`, `5m`, `10m`, `30m`, `1h`. Optional. Default is `5m`. |
+| `cpu` | Object | CPU metric configuration. Optional. |
+| `cpu.enabled` | Boolean | Enable or disable top N query monitoring for CPU. Optional. Default is `false`. |
+| `cpu.top_n_size` | Integer | The number of top queries to track for CPU. Valid values are 1–100. Optional. Default is `10`. |
+| `cpu.window_size` | String | The time window for collecting top CPU queries. Valid values: `1m`, `5m`, `10m`, `30m`, `1h`. Optional. Default is `5m`. |
+| `memory` | Object | Memory metric configuration. Optional. |
+| `memory.enabled` | Boolean | Enable or disable top N query monitoring for memory. Optional. Default is `false`. |
+| `memory.top_n_size` | Integer | The number of top queries to track for memory. Valid values are 1–100. Optional. Default is `10`. |
+| `memory.window_size` | String | The time window for collecting top memory queries. Valid values: `1m`, `5m`, `10m`, `30m`, `1h`. Optional. Default is `5m`. |
+| `grouping` | Object | Query grouping configuration. Optional. |
+| `grouping.group_by` | String | The method for grouping similar queries. Valid values are `similarity` and `none`. Optional. Default is `none`. |
+| `exporter` | Object | Exporter configuration. Optional. |
+| `exporter.type` | String | The exporter type for top N query data. Valid values are `local_index` and `debug`. Optional. Default is `local_index`. |
+| `exporter.delete_after_days` | Integer | The number of days to retain local index data (1–180). Applies only when `type` is `local_index`. Optional. Default is `7`. |
+
+For more information about metric settings, see [Top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
+
+For more information about query grouping, see [Grouping top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/grouping-top-n-queries/).
+
+For more information about exporters, see [Exporting top N query data]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#exporting-top-n-query-data).
+
+### Example request: Updating latency settings
 
 ```json
 PUT /_insights/settings
@@ -103,7 +155,7 @@ PUT /_insights/settings
 ```
 {% include copy-curl.html %}
 
-### Updating multiple metric settings
+### Example request: Updating multiple metric settings
 
 ```json
 PUT /_insights/settings
@@ -124,7 +176,7 @@ PUT /_insights/settings
 ```
 {% include copy-curl.html %}
 
-### Updating grouping settings
+### Example request: Updating grouping settings
 
 ```json
 PUT /_insights/settings
@@ -136,7 +188,7 @@ PUT /_insights/settings
 ```
 {% include copy-curl.html %}
 
-### Updating exporter settings
+### Example request: Updating exporter settings
 
 ```json
 PUT /_insights/settings
@@ -149,60 +201,19 @@ PUT /_insights/settings
 ```
 {% include copy-curl.html %}
 
-### Example response
+## Required permissions
 
-All update requests return an acknowledgment response:
+If you use the Security plugin, make sure you have the appropriate permissions:
 
-```json
-{
-  "acknowledged": true
-}
-```
+- `cluster:admin/opensearch/insights/settings/get` for GET requests
+- `cluster:admin/opensearch/insights/settings/update` for PUT requests
+- `cluster:admin/opensearch/insights/settings/*` for all query insights settings API operations
 
-## Available settings
+You can configure these permissions in your Security plugin or access control system.
 
-The Settings API supports all Query Insights configuration options. The following table lists the available settings and their corresponding cluster setting paths.
+For production deployments, consider creating a dedicated role with access only to these endpoints rather than granting full cluster settings permissions.
 
-### Metric settings (latency, cpu, memory)
-
-Each metric type (latency, cpu, memory) supports the following settings:
-
-Setting | Cluster setting path | Description | Default
-:--- |:--- | :--- | :---
-`enabled` | `search.insights.top_queries.<metric>.enabled` | Enable or disable top N query monitoring for the metric. | `true` for latency, `false` for cpu and memory
-`top_n_size` | `search.insights.top_queries.<metric>.top_n_size` | The number of top queries to track. Valid values are 1–100. | `10`
-`window_size` | `search.insights.top_queries.<metric>.window_size` | The time window for collecting top queries. Valid values: `1m`, `5m`, `10m`, `30m`, `1h`. | `5m`
-
-For more information about metric settings, see [Top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
-
-### Grouping settings
-
-Setting | Cluster setting path | Description | Default
-:--- |:--- | :--- | :---
-`group_by` | `search.insights.top_queries.grouping.group_by` | The method for grouping similar queries. Valid values are `similarity` and `none`. | `none`
-
-For more information about query grouping, see [Grouping top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/grouping-top-n-queries/).
-
-### Exporter settings
-
-Setting | Cluster setting path | Description | Default
-:--- |:--- | :--- | :---
-`type` | `search.insights.top_queries.exporter.type` | The exporter type for top N query data. Valid values are `local_index` and `debug`. | `local_index`
-`delete_after_days` | `search.insights.top_queries.exporter.delete_after_days` | The number of days to retain local index data (1–180). Applies only when `type` is `local_index`. | `7`
-
-For more information about exporters, see [Exporting top N query data]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#exporting-top-n-query-data).
-
-
-## Permissions and security
-
-To use the Query Insights Settings API, users need the following permissions:
-
-- `cluster:admin/opensearch/insights/settings/get` - For GET requests
-- `cluster:admin/opensearch/insights/settings/update` - For PUT requests
-
-These permissions can be configured through your security plugin or access control system. For production deployments, consider creating a dedicated role with access only to these endpoints rather than granting full cluster settings permissions.
-
-## Related topics
+## Related documentation
 
 - [Top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/)
 - [Grouping top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/grouping-top-n-queries/)

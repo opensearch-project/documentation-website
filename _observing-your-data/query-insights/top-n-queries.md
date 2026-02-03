@@ -25,7 +25,7 @@ Each metric has a set of corresponding settings:
 
 For example, to enable top N query monitoring by CPU usage, set `search.insights.top_queries.cpu.enabled` to `true`. For more information about ways to specify dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
 
-**Alternative configuration method**: For production deployments requiring fine-grained API access control (such as Dashboard nodes with network segmentation), use the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) instead of the cluster settings API shown on this page. The Settings API provides equivalent functionality with enhanced security and a simplified structure.
+For production deployments requiring fine-grained API access control (such as Dashboard nodes with network segmentation), use the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) instead of the Cluster Settings API shown on this page. The Query Insights Settings API provides equivalent functionality with enhanced security and a simplified structure.
 {: .tip}
 
 It's important to exercise caution when enabling this feature because it can consume system resources.

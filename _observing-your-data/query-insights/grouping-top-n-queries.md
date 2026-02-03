@@ -150,7 +150,7 @@ The response also includes one example query from the query group.
 
 To configure grouping for top N queries, use the following steps.
 
-The examples on this page use the cluster settings API. For production deployments requiring fine-grained API access control, you can use the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) instead, which provides equivalent functionality with enhanced security.
+The examples on this page use the Cluster Settings API. For production deployments requiring fine-grained API access control, you can use the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) instead, which provides equivalent functionality with enhanced security.
 {: .tip}
 
 ### Step 1: Enable top N query monitoring 
