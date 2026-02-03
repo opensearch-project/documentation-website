@@ -1,42 +1,44 @@
 ---
 layout: default
-title: Evaluating search over time
+title: Monitoring search quality
 nav_order: 70
 parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
 ---
 
-# Evaluating search over time
+# Monitoring search quality
 Introduced 3.4
 {: .label .label-purple }
 
-Search quality is rarely static.  Even when you aren't changing your algorithms, the data you index is changing, the signals being collected such as popularity and recency are constantly fluctuating, and the types of questions your users are asking are evolving.  To guard against unexpected changes you need to monitor search quality over time.  To do that you can schedule a Search Evaluation experiment to be run on a regular basis.
+Search quality is not static. Even if your ranking algorithms remain unchanged, the indexed data evolves, signals such as popularity and recency fluctuate, and user queries shift over time.
+
+To detect and prevent unintended changes in relevance, you should monitor search quality on an ongoing basis. You can configure a cron schedule to run a search evaluation experiment at regular intervals.
 
 Scheduling is done using a cron pattern and leverages OpenSearch's [Job Scheduler]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/) plugin under the covers.
 
-You can have a single schedule per job, so if you need to change it, the process is to remove the existing schedule and add a new one.  Be aware that removing the schedule also removes any existing historical data as well.
+Each job can have only one schedule. To modify the schedule, delete the existing schedule and create a new one. Deleting a schedule also removes its associated historical data.
 
-## Scheduling through SRW UI
+## Scheduling a search evaluation using Search Relevance Workbench
 
-After you run a Search Evaluation the first time successfully then you will see a clock icon that lets you schedule the experiment:
+After you successfully run a search evaluation for the first time, a clock icon appears that allows you to schedule the experiment, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_icon.png" alt="Schedule a Experiment to Run"/>{: .img-fluid }
 
-When you open up the scheduling modal you can set up the schedule that you want:
+In the scheduling page, configure how frequently you want the experiment to run, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_modal.png" alt="Setting the schedule of how often to run"/>{: .img-fluid }
 
-### Evaluating Results
+### Evaluating search quality
 
-Once you schedule an Experiment to run you can start looking at the data over time.  You will see a new dashboard icon that is specific to looking at analytics over time. The dashboard is built around evaluating daily runs, so you will need to wait 24 hours for the data to populate so that the dashboard starts to display meaningful results.
+Once an experiment is scheduled, a new dashboard icon lets you monitor the search results over time. Because the dashboard evaluates results daily, it may take up to 24 hours for the data to populate and display meaningful insights.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_dashboard.png" alt="Review search quality over time"/>{: .img-fluid }
 
 
-## Using the API
+## Scheduling a search evaluation using the API
 
-You can create regularly scheduled experiments.  The experiment you are scheduling must already exist.
+You can create regularly scheduled experiments using the API.  The experiment you are scheduling must already exist.
 
 ### Endpoint
 
@@ -50,10 +52,12 @@ The following table lists the available input parameters.
 
 Field | Data type |  Description
 :---  | :--- | :---
-`experimentId` | String | The id of the experiment which will be rerun.
-`cronExpression` | String | A cron expression representing the schedule for running the evaluation based on the UTC time.
+`experimentId` | String | The experiment ID to rerun.
+`cronExpression` | String | A cron schedule for running the evaluation in UTC.
 
-### Example request: Run experiment every night at 1 AM.
+### Example request
+
+The following request schedules the experiment to run every night at 1 AM:
 
 ```json
 POST _plugins/_search_relevance/experiments/schedule
@@ -69,7 +73,7 @@ You can retrieve or delete scheduled experiments using the following APIs.
 
 ### Retrieve scheduled experiments
 
-This API retrieves available scheduled experiments.
+This API retrieves the available scheduled experiments.
 
 #### Endpoints
 
@@ -77,7 +81,19 @@ This API retrieves available scheduled experiments.
 GET _plugins/_search_relevance/experiments/schedule
 GET _plugins/_search_relevance/experiments/schedule/<experiment_id>
 ```
-{% include copy-curl.html %}
+
+#### Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `experiment_id` | String | The ID of the scheduled experiment to retrieve. If not provided, retrieves all scheduled experiments. |
+
+#### Example request
+
+``json
+GET _plugins/_search_relevance/experiments/schedule/6282afa6-fa14-49c8-a627-ac1d5204d357
 
 #### Example response
 

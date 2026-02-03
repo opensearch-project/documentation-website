@@ -209,4 +209,4 @@ The results include the original request parameters along with the following met
 
 To review these results visually, see [Exploring search evaluation results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/explore-experiment-results/).
 
-To schedule evaluations to happen automatically, see [Running search evaluation periodically]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/regularly-scheduled-experiments/).
+To schedule automatic evaluations, see [Monitoring search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/regularly-scheduled-experiments/).
