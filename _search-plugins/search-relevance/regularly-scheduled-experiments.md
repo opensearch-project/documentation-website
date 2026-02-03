@@ -157,6 +157,15 @@ You can delete a scheduled experiment using the scheduled experiment ID.
 DELETE _plugins/_search_relevance/experiments/schedule/<experiment_id>
 ```
 
+### Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `experiment_id` | String | The ID of the scheduled experiment to delete.  |
+
+
 #### Example request
 
 ```json
