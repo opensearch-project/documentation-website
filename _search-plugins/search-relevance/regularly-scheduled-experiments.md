@@ -24,7 +24,7 @@ After you successfully run a search evaluation for the first time, a clock icon 
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_icon.png" alt="Schedule a Experiment to Run"/>{: .img-fluid }
 
-In the scheduling page, configure how frequently you want the experiment to run, as shown in the following image.
+On the scheduling page, configure how frequently you want the experiment to run, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/experiment_scheduled_modal.png" alt="Setting the schedule of how often to run"/>{: .img-fluid }
 
@@ -37,7 +37,7 @@ Once an experiment is scheduled, a new dashboard icon lets you monitor the searc
 
 ## Scheduling a search evaluation using the API
 
-You can create regularly scheduled experiments using the API.  The experiment you are scheduling must already exist.
+You can create regularly scheduled experiments using the API. The experiment you are scheduling must already exist.
 
 ### Endpoint
 
