@@ -322,4 +322,85 @@ The following metrics are also reported:
 
 Metrics and dashboards pushed to CloudWatch may experience a visibility lag of around 5 minutes. CloudWatch also retains higher-resolution data for a shorter period than lower-resolution data. For more information, see [Amazon CloudWatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
 
+## Troubleshooting
+
+The following sections may be helpful in diagnosing common issues that arise.
+
+### Elasticsearch content type and accept header compatibility
+
+Newer Elasticsearch clients (version 7.11 and later, including all 8.x versions) use Elasticsearch-specific media types in both `Content-Type` and `Accept` headers. These clients may send headers such as:
+
+- `Content-Type: application/vnd.elasticsearch+json;compatible-with=8`
+- `Accept: application/vnd.elasticsearch+json;compatible-with=8`
+
+When migrating to OpenSearch or another service that does not support these Elasticsearch-specific media types, requests from these clients may fail or be rejected by the target cluster.
+
+**Important**: If you are using Elasticsearch clients with version 7.11 or later and migrating to OpenSearch or a service that does not recognize `application/vnd.elasticsearch+json` media types, you must apply a transformation in order to convert the `Content-Type` and `Accept` headers to the standard `application/json` format. Note that after migration, clients must be updated to use standard media types.
+{: .important}
+
+To resolve this issue, configure Traffic Replayer with a transformation that converts the Elasticsearch-specific media types to the standard `application/json` format. 
+
+First, create a JavaScript transformation file at `/shared-logs-output/content-type-transformer.js`:
+
+```javascript
+const NEW_CONTENT_TYPE = "application/json";
+const ELASTIC_CONTENT_TYPE = "application/vnd.elasticsearch+json";
+
+function transform(request, context) {
+  let headers = request.get("headers");
+  if (headers) {
+    let contentType = headers.get("Content-Type");
+    if (Array.isArray(contentType)) {
+      headers.set("Content-Type", contentType.map(v => v.includes(ELASTIC_CONTENT_TYPE) ? NEW_CONTENT_TYPE : v));
+    } else if (typeof contentType === "string") {
+      if (contentType.includes(ELASTIC_CONTENT_TYPE)) {
+        headers.set("Content-Type", NEW_CONTENT_TYPE);
+      }
+    }
+    let accept = headers.get("Accept");
+    if (Array.isArray(accept)) {
+      headers.set("Accept", accept.map(v => v.includes(ELASTIC_CONTENT_TYPE) ? NEW_CONTENT_TYPE : v));
+    } else if (typeof accept === "string") {
+      if (accept.includes(ELASTIC_CONTENT_TYPE)) {
+        headers.set("Accept", NEW_CONTENT_TYPE);
+      }
+    }
+  }
+  return request;
+}
+
+function main(context) {
+  return (request) => {
+    if (Array.isArray(request)) {
+      return request.flat().map(item => transform(item, context));
+    }
+    return transform(request, context);
+  };
+}
+(() => main)();
+```
+{% include copy.html %}
+
+Next, create a transformation configuration file at `/shared-logs-output/replayer-transformation.json`:
+
+```json
+[
+  {
+    "JsonJSTransformerProvider": {
+      "initializationScriptFile": "/shared-logs-output/content-type-transformer.js",
+      "bindingsObject": "{}"
+    }
+  }
+]
+```
+{% include copy.html %}
+
+Finally, configure Traffic Replayer to use this transformation by adding the following argument to your `trafficReplayerExtraArgs`:
+
+```bash
+--transformer-config-file /shared-logs-output/replayer-transformation.json
+```
+
+This transformation script automatically detects Elasticsearch-specific media types in both `Content-Type` and `Accept` headers (including those with version parameters such as `compatible-with=8`) and replaces them with the standard `application/json` format, ensuring compatibility with OpenSearch and other services that do not support the Elasticsearch-specific media types.
+
 {% include migration-phase-navigation.html %}

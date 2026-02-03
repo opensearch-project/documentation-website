@@ -62,29 +62,50 @@ Note the records in the logging topic.
    
 After a short period, re-execute the same command again and compare the increased number of records against the expected HTTP requests.
 
-## Backfilling documents to the source cluster
+## Troubleshooting
 
-From your source cluster snapshot, you can begin backfilling documents into the target cluster. Once you have started this process, a fleet of workers will spin up to read the snapshot and reindex documents into the target cluster. This fleet of workers can be scaled to increase the speed at which documents are reindexed into the target cluster.
+The following sections may be helpful in diagnosing common issues.
 
-### Checking the starting state of the clusters
+### Host header routing configuration
 
-You can check the indexes and document counts of the source and target clusters by running the `cat-indices` command. This can be used to monitor the difference between the source and target for any migration scenario. Check the indexes of both clusters using the following command:
+Some systems, such as Elastic Cloud and other hosted Elasticsearch services, use the `Host` header for routing traffic to the appropriate cluster. When using the Capture Proxy with these systems, you must configure the proxy to override the `Host` header with your source cluster's domain name. If not configured correctly, clients might send a `Host` header that points to the proxy's address instead of the original domain, which can disrupt routing and authentication.
 
-```shell
-console clusters cat-indices
+**Important**: This configuration is required for Elastic Cloud deployments and any system that uses `Host` header routing. If this setting is improperly configured, requests will fail in the Elastic Cloud with an error response similar to `{"ok":false,"message":"Unknown resource."}` or will be incorrectly routed in other systems.
+{: .important}
+
+To configure the `Host` header, add the `captureProxyExtraArgs` parameter to your `cdk.context.json` file:
+
+```json
+{
+  "captureProxyExtraArgs": "--setHeader Host <domain-host-without-protocol>"
+}
 ```
 {% include copy.html %}
 
-You should receive the following response:
+For example, if your Elastic Cloud domain is `https://my-cluster.es.us-east-1.aws.example.com`, configure `captureProxyExtraArgs` as follows:
 
-```shell
-SOURCE CLUSTER
-health status index       uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-green  open   my-index WJPVdHNyQ1KMKol84Cy72Q   1   0          8            0     44.7kb         44.7kb
-
-TARGET CLUSTER
-health status index                        uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-green  open   .opendistro_security         N3uy88FGT9eAO7FTbLqqqA   1   0         10            0     78.3kb         78.3kb
+```json
+{
+  "captureProxyExtraArgs": "--setHeader Host my-cluster.es.us-east-1.aws.example.com"
+}
 ```
+{% include copy.html %}
+
+**Tip**: The `Host` header value should include only the domain name without the protocol (`https://`) or port number.
+{: .tip}
+
+#### Validating the configuration
+
+Before routing production traffic using the Capture Proxy, validate that the proxy is correctly configured by sending test requests directly to it. You can use cURL to verify the connection:
+
+```bash
+curl -k https://<capture-proxy-endpoint>:9200/
+```
+{% include copy.html %}
+
+If the `Host` header configuration is correct, you should receive a successful or authentication failure response from your source cluster. If you receive an error similar to `{"ok":false,"message":"Unknown resource."}`, verify that:
+- The `captureProxyExtraArgs` parameter is correctly set in your `cdk.context.json`.
+- The `Host` header value matches your source cluster's domain exactly.
+- You have redeployed the Capture Proxy service after making configuration changes.
 
 {% include migration-phase-navigation.html %}
