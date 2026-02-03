@@ -15,7 +15,6 @@ Search quality is not static. Even if your ranking algorithms remain unchanged, 
 
 To detect and prevent unintended changes in relevance, you should monitor search quality on an ongoing basis. You can configure a cron schedule to run a search evaluation experiment at regular intervals.
 
-Scheduling is done using a cron pattern and leverages OpenSearch's [Job Scheduler]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/) plugin under the covers.
 
 Each job can have only one schedule. To modify the schedule, delete the existing schedule and create a new one. Deleting a schedule also removes its associated historical data.
 
