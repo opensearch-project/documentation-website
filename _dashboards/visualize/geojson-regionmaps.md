@@ -77,3 +77,17 @@ The following example GeoJSON file provides coordinates for two US counties.
 
 ```
 
+## Configuring GeoJSON complexity
+
+The complexity of uploaded GeoJSON files can be configured using the following cluster settings:
+
+- `plugins.geospatial.geojson.max_coordinates_per_geometry` (Dynamic, integer): Sets the maximum number of coordinates allowed per geometry. Default is `10000`.
+
+- `plugins.geospatial.geojson.max_holes_per_polygon` (Dynamic, integer): Sets the maximum number of holes allowed per polygon. Default is `1000`.
+
+- `plugins.geospatial.geojson.max_multi_geometries` (Dynamic, integer): Sets the maximum number of geometries allowed in a multi-geometry object. Default is `100`.
+
+- `plugins.geospatial.geojson.max_geometry_collection_nested_depth` (Dynamic, integer): Sets the maximum nested depth for geometry collections. Default is `5`.
+
+
+For more information about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).

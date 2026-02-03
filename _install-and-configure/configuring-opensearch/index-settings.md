@@ -250,6 +250,8 @@ The following settings control the merge scheduler, which determines how merge o
 
 - `index.store.preload` (Static, list): Specifies which file extensions should be preloaded into the filesystem cache when the index is opened. This setting only works with the mmap directory implementation and provides best-effort caching. Preloading files can improve search performance by reducing disk I/O, but it consumes more memory. Common extensions include `nvd` (norms), `dvd` (doc values), and `tim` (terms index). Default is `[]` (empty list).
 
+- `index.bulk.adaptive_shard_selection.enabled` (Boolean): Set to `true` to enable adaptive shard selection for bulk operations so that a single shard is chosen for append-only indexes. Default is `false`. For more information, see [Adaptive shard selection for bulk indexing]({{site.url}}{{site.baseurl}}/im-plugin/append-only-index/#adaptive-shard-selection-for-bulk-indexing).
+
 ### Updating a static index setting
 
 You can update a static index setting only on a closed index. The following example demonstrates updating the index codec setting.
