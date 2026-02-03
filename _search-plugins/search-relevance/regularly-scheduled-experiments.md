@@ -145,7 +145,6 @@ GET _plugins/_search_relevance/experiments/schedule/6282afa6-fa14-49c8-a627-ac1d
 
 
 | Parameter | Data type | Description |
-| :--- | :--- | :--- |
 | `experiment_id` | String | The ID of the scheduled experiment to retrieve. Retrieves all scheduled experiments when empty. |
 
 ### Delete a scheduled experiment
