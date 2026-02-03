@@ -108,7 +108,7 @@ ISM supports the following operations:
 - [rollover](#rollover)
 - [notification](#notification)
 - [snapshot](#snapshot)
-- [convert-index-to-remote](#convert_index_to_remote)
+- [convert_index_to_remote](#convert_index_to_remote)
 - [index_priority](#index_priority)
 - [allocation](#allocation)
 - [rollup](#rollup)
@@ -416,16 +416,38 @@ Parameter | Description | Type | Required | Default
 
 ### convert_index_to_remote
 
-Converts an index from a local snapshot repository to a remote repository.
+Converts an existing index into a searchable snapshot by restoring it from a remote snapshot repository. This action reduces storage costs by moving infrequently accessed data to remote storage while keeping it searchable. After the restore request is accepted, the original index is automatically deleted, ensuring that only the remote snapshot-backed index remains.
 
 The `convert_index_to_remote` operation has the following parameters.
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
-`repository` | The repository name registered through the native snapshot API operations.  | String | Yes | N/A
-`snapshot` | The snapshot name created through the snapshot action.  | String | Yes | N/A
+`repository` | The repository name registered through the native snapshot API operations. Must be a remote repository (for example, S3, Azure, or GCS).  | String | Yes | N/A
+`snapshot` | The name of the snapshot created by the snapshot action.  | String | Yes | N/A
+`include_aliases` | Whether to include index aliases during the restore operation. If `true`, all aliases associated with the original index are restored with the remote index. If your application accesses the index using aliases, set this parameter to `true`. | Boolean | No | `false`
+`ignore_index_settings` | A comma-separated list of index settings to ignore during the restore operation. For example, `index.refresh_interval,index.number_of_replicas`. This is useful when you want to apply different settings to the restored remote index than the ones configured in the original index. | String | No | Empty string
+`number_of_replicas` | The number of replicas to configure for the restored remote index. This allows you to control replica allocation during the conversion process without requiring a separate update operation. Setting `number_of_replicas` during conversion helps prevent the cluster from entering a yellow state or creating unnecessary load during replica assignment. | Integer | No | `0`
 
-Make sure that the repository name used in the `convert_index_to_remote` operation matches the repository name specified during the snapshot action. Additionally, you can reference the snapshot using `{% raw %}{{ctx.index}}{% endraw %}`, as shown in the following example policy:
+#### Prerequisites
+
+Before using the `convert_index_to_remote` action, ensure the following:
+
+- A remote repository (S3, Azure, or GCS) is registered and accessible.
+- A snapshot of the index exists in the specified repository, typically created using the `snapshot` action.
+- The repository name matches the one used in the snapshot action.
+
+#### Usage notes
+
+Note the following to ensure a smooth and predictable conversion when restoring an index as a searchable snapshot:
+
+- The original index is automatically deleted after the remote snapshot restore is successfully accepted. This ensures that only the searchable snapshot version remains, completing the conversion process.
+- The repository name used in the `convert_index_to_remote` operation must match the repository name specified during the snapshot action.
+- You can reference the snapshot using Mustache variables like `{% raw %}{{ctx.index}}{% endraw %}` or `{% raw %}{{ctx.indexUuid}}{% endraw %}` for dynamic naming.
+- Consider your cluster's capacity when setting `number_of_replicas`. If there aren't enough eligible nodes for replica restoration, the cluster may enter a yellow state.
+
+#### Basic example
+
+The following example shows a basic conversion using the minimum required parameters:
 
 ```json
 {
@@ -437,6 +459,72 @@ Make sure that the repository name used in the `convert_index_to_remote` operati
       "repository": "my_backup",
       "snapshot": "{% raw %}{{ctx.index}}{% endraw %}"
    }
+}
+```
+{% include copy.html %}
+
+#### Advanced configuration example
+
+The following example demonstrates using all available configuration options. This configuration includes aliases, ignores certain index settings during restore, and configures two replicas for the searchable snapshot:
+
+```json
+{
+   "convert_index_to_remote": {
+      "repository": "my_backup",
+      "snapshot": "daily-snapshot",
+      "include_aliases": true,
+      "ignore_index_settings": "index.refresh_interval,index.number_of_replicas",
+      "number_of_replicas": 0
+   }
+}
+```
+{% include copy.html %}
+
+#### Complete policy example
+
+The following policy moves indexes older than 30 days to searchable snapshots with optimized settings for cost efficiency:
+
+```json
+{
+  "policy": {
+    "description": "Convert old indexes to searchable snapshots",
+    "default_state": "active",
+    "states": [
+      {
+        "name": "active",
+        "actions": [],
+        "transitions": [
+          {
+            "state_name": "archive",
+            "conditions": {
+              "min_index_age": "30d"
+            }
+          }
+        ]
+      },
+      {
+        "name": "archive",
+        "actions": [
+          {
+            "snapshot": {
+              "repository": "remote-repo",
+              "snapshot": "{% raw %}{{ctx.index}}{% endraw %}"
+            }
+          },
+          {
+            "convert_index_to_remote": {
+              "repository": "remote-repo",
+              "snapshot": "{% raw %}{{ctx.index}}{% endraw %}",
+              "include_aliases": true,
+              "ignore_index_settings": "index.refresh_interval,index.number_of_replicas",
+              "number_of_replicas": 0
+            }
+          }
+        ],
+        "transitions": []
+      }
+    ]
+  }
 }
 ```
 {% include copy.html %}
