@@ -135,6 +135,37 @@ OpenSearch supports the following HTTP debugging settings for tracing HTTP commu
 
 - `http.tcp.send_buffer_size` (Static, byte size): The TCP send buffer size for HTTP connections. Default is system default.
 
+## Experimental HTTP settings
+
+OpenSearch supports the following experimental HTTP settings:
+
+- `http.protocol.http3.enabled` (Static, Boolean): Enables the HTTP/3 protocol if it is supported by the operating system and architecture. Default is `false`.
+
+    The HTTP/3 transport is currently experimental and should be used with caution.
+    {: .warning}
+
+    It is not possible to determine in advance whether a target server supports HTTP/3. Additionally, existing HTTP/1.1 or HTTP/2 connections cannot be upgraded to HTTP/3 because HTTP/1.1 and HTTP/2 are built on TCP streams, whereas HTTP/3 uses QUIC over UDP datagrams. When enabled, the HTTP/3 transport is available on the same port as the HTTP/1.1 and HTTP/2 transports by default.
+    {: .note}
+
+    The implementation relies on native libraries and uses direct NIO buffers, unlike the HTTP/1.1 and HTTP/2 transports. Take this into account when estimating native memory usage.
+
+    HTTP/3 is secure by default and is available only when SSL/TLS is enabled for HTTP transports. OpenSearch advertises HTTP/3 availability using the `Alt-Svc` header, for example:
+
+    ```yaml
+    < HTTP/2 200
+    < alt-svc: h3=":9200"; ma=3600
+    < x-opensearch-version: OpenSearch/3.5.0 (opensearch)
+    < content-type: application/json; charset=UTF-8
+    < content-length: 572
+    ```
+
+    The following platforms/architectures are currently supported:
+    - Linux/Aarch64
+    - Linux/x86_64
+    - OSX/Aarch64
+    - OSX/x86_64
+    - Windows/x86_64
+
 ## Advanced transport settings
 
 OpenSearch supports the following advanced network settings for transport communication:
@@ -265,4 +296,5 @@ The default OpenSearch transport is provided by the `transport-netty4` module an
 
 Plugin | Description
 :---------- | :--------
-`transport-reactor-netty4`    | The OpenSearch HTTP transport based on [Project Reactor](https://github.com/reactor/reactor-netty) and Netty 4 (**experimental**) <br> Installation: `./bin/opensearch-plugin install transport-reactor-netty4` <br> Configuration (using `opensearch.yml`): <br> `http.type: reactor-netty4` <br> `http.type: reactor-netty4-secure`
+`transport-reactor-netty4`    | The OpenSearch HTTP transport based on [Project Reactor](https://github.com/reactor/reactor-netty) and Netty 4 (**experimental**) <br> Installation: `./bin/opensearch-plugin install transport-reactor-netty4` <br> Configuration (using `opensearch.yml`): <br> `http.type: reactor-netty4` <br> `http.type: reactor-netty4-secure`<br>Supported protocols: **HTTP/1.1**, **HTTP/2**, **HTTP/3** (experimental, see [HTTP experimental settings](#experimental-http-settings))
+

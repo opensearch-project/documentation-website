@@ -3,7 +3,7 @@ layout: default
 title: redline-test
 nav_order: 85
 parent: Command reference
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 ---
 
 # Redline testing

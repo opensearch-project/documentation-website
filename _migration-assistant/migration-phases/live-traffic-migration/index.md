@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Live traffic migration
+parent: Migration phases
 nav_order: 99
 nav_exclude: true
 permalink: /migration-assistant/live-traffic-migration/

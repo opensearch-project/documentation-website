@@ -19,6 +19,8 @@ OpenSearch supports the following search settings:
 
 - `search.query_rewriting.terms_threshold` (Dynamic, integer): Controls the threshold for the number of `term` queries on the same field that triggers the `terms` merging rewriter to combine them into a single `terms` query. For example, if set to `16` (default), when 16 or more term queries target the same field within a Boolean clause, they will be merged into a single `terms` query for better performance. Minimum is `2`. Default is `16`.
 
+- `search.query.max_query_string_length` (Dynamic, integer): The maximum allowed length for query string queries. This setting helps prevent performance issues by rejecting query strings longer than the specified limit. Default is `32000`.
+
 - `search.default_allow_partial_results` (Dynamic, Boolean):  A cluster-level setting that allows returning partial search results if a request times out or a shard fails. If a search request contains an `allow_partial_search_results` parameter, the parameter takes precedence over this setting. Default is `true`. 
 
 - `search.cancel_after_time_interval` (Dynamic, time unit): A cluster-level setting that sets the default timeout for all search requests at the coordinating node level. After the specified time has been reached, the request is stopped and all associated tasks are canceled. Default is `-1` (no timeout).

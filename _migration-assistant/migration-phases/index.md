@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Migration phases
-parent: Migration Assistant for OpenSearch
 nav_order: 40
 nav_exclude: false
 has_children: true

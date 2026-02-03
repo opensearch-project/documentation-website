@@ -383,7 +383,7 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.translog.retention.total_files` (Integer): The maximum number of translog files to retain. This setting controls the number of translog files kept on disk regardless of their age or size, which can be useful for controlling storage usage and recovery capabilities. Default is `100`.
 
-- `index.soft_deletes.retention.operations` (Long): The maximum number of soft-deleted operations to retain in the index. Soft deletes allow for efficient replication and point-in-time recovery by marking documents as deleted rather than immediately removing them. This setting controls how many soft-deleted operations are preserved before they are eligible for cleanup. Default is `0` (unlimited retention).
+- `index.soft_deletes.retention.operations` (Long): The maximum number of soft-deleted operations to retain in the index. Soft deletes allow for efficient replication and point-in-time recovery by marking documents as deleted rather than immediately removed. This setting controls how many soft-deleted operations are preserved before they are eligible for cleanup. Default is `0` (unlimited retention).
 
 - `index.remote_store.enabled` (Boolean): Enables remote store functionality for the index. When enabled, the index's segments and translog data are stored in a remote repository in addition to local storage. This provides data durability and enables features like point-in-time recovery from remote snapshots. This setting must be configured during index creation and cannot be changed afterward. Default is `false`.
 
@@ -403,6 +403,8 @@ OpenSearch supports the following dynamic index-level index settings:
   This setting must be configured during index creation and cannot be changed afterward. Default is `DOCUMENT`.
 
 - `index.routing.allocation.require.temp` (Dynamic, string): Requires shards for this index to be allocated only to nodes with the specified temperature attribute. This setting is used for hot-warm architectures where different node types handle different data temperatures. The value should match a node attribute like `hot`, `warm`, or `cold`. No default value - when not set, shards can be allocated to any eligible node.
+
+- `index.periodic_flush_interval` (Time unit): Triggers a flush periodically at the configured interval, storing all in-memory operations to segments on disk. OpenSearch automatically performs flush operations in the background based on conditions such as transaction log size. Default is `-1`, which disables periodic flush. You can configure this setting if your workload requires predictable, time-based flush intervals.
 
 ## Index slow log settings
 

@@ -58,28 +58,399 @@ The `date` processor includes the following custom metrics.
 * `dateProcessingMatchSuccessCounter`: Returns the number of records that match at least one pattern specified by the `match configuration` option.
 * `dateProcessingMatchFailureCounter`: Returns the number of records that did not match any of the patterns specified by the `patterns match` configuration option.
 
-## Example: Add the default timestamp to an event
-The following `date` processor configuration can be used to add a default timestamp in the `@timestamp` filed applied to all events:
+## Pattern reference
+
+The following table provides common `DateTime` patterns.
+
+| Pattern                        | Example                       | Description                   |
+| ------------------------------ | ----------------------------- | ----------------------------- |
+| `yyyy-MM-dd'T'HH:mm:ss.SSSXXX` | 2023-03-15T14:30:45.123-05:00 | ISO 8601 format with time zone |
+| `dd/MMM/yyyy:HH:mm:ss Z`       | 15/Mar/2023:14:30:45 -0500    | Apache Common Log Format      |
+| `MMM dd HH:mm:ss`              | Mar 15 14:30:45               | Syslog format                 |
+| `yyyy-MM-dd HH:mm:ss`          | 2023-03-15 14:30:45           | Standard SQL format           |
+| `MM/dd/yyyy HH:mm:ss`          | 03/15/2023 14:30:45           | US format                     |
+
+## Epoch patterns
+
+The following table provides supported epoch patterns.
+
+| Pattern        | Description                                        | Example value       |
+| -------------- | -------------------------------------------------- | ------------------- |
+| `epoch_second` | Seconds since Unix epoch (1970-01-01 00:00:00 UTC) | 1678902000          |
+| `epoch_milli`  | Milliseconds since Unix epoch                      | 1678902000123       |
+| `epoch_micro`  | Microseconds since Unix epoch                      | 1678902000123456    |
+| `epoch_nano`   | Nanoseconds since Unix epoch                       | 1678902000123456789 |
+
+Only one epoch pattern is allowed per pattern list. To support multiple epoch formats, use separate date processors.
+{: .note}
+
+## Examples
+
+The following are examples of different configurations.
+
+The examples don't use security and are for demonstration purposes only. We strongly recommend configuring SSL before using these examples in production.
+{: .warning}
+
+### Add the default timestamp to an event using ingestion time
+
+The following `date` processor configuration can be used to add a default timestamp in the `@timestamp` field applied to all events:
 
 ```yaml
-- date:
-    from_time_received: true
-    destination: "@timestamp"
+date-ingestion-pipeline:
+  source:
+    http:
+      path: /events
+      ssl: false
+
+  processor:
+    - date:
+        from_time_received: true
+        destination: "@timestamp"
+
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: admin_pass
+        index_type: custom
+        index: date-ingestion-%{yyyy.MM.dd}
 ```
 {% include copy.html %}
 
-## Example: Parse a timestamp to convert its format and time zone
-The following `date` processor configuration can be used to parse the value of the timestamp applied to `dd/MMM/yyyy:HH:mm:ss` and write it in `yyyy-MM-dd'T'HH:mm:ss.SSSXXX` format:
+You can test this pipeline using the following command:
 
-```yaml
-- date:
-    match:
-      - key: timestamp
-        patterns: ["dd/MMM/yyyy:HH:mm:ss"]
-    destination: "@timestamp"
-    output_format: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-    source_timezone: "America/Los_Angeles"
-    destination_timezone: "America/Chicago"
-    locale: "en_US"
+```bash
+curl -sS -X POST "http://localhost:2021/events" \
+  -H "Content-Type: application/json" \
+  -d '[
+        {"app":"web-server","env":"prod","message":"User login successful","level":"info","user_id":"12345"},
+        {"app":"database","env":"stage","message":"Connection timeout","level":"error","retry_count":3},
+        {"app":"api-gateway","env":"dev","message":"Request processed","level":"debug","response_time_ms":145}
+      ]'
 ```
 {% include copy.html %}
+
+The documents stored in OpenSearch contain the following information:
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 3,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "date-ingestion-2025.10.13",
+        "_id": "984A3ZkBoQvfnsgqa4od",
+        "_score": 1,
+        "_source": {
+          "app": "web-server",
+          "env": "prod",
+          "message": "User login successful",
+          "level": "info",
+          "user_id": "12345",
+          "@timestamp": "2025-10-13T09:56:23.090Z"
+        }
+      },
+      {
+        "_index": "date-ingestion-2025.10.13",
+        "_id": "-M4A3ZkBoQvfnsgqa4od",
+        "_score": 1,
+        "_source": {
+          "app": "database",
+          "env": "stage",
+          "message": "Connection timeout",
+          "level": "error",
+          "retry_count": 3,
+          "@timestamp": "2025-10-13T09:56:23.095Z"
+        }
+      },
+      {
+        "_index": "date-ingestion-2025.10.13",
+        "_id": "-c4A3ZkBoQvfnsgqa4od",
+        "_score": 1,
+        "_source": {
+          "app": "api-gateway",
+          "env": "dev",
+          "message": "Request processed",
+          "level": "debug",
+          "response_time_ms": 145,
+          "@timestamp": "2025-10-13T09:56:23.096Z"
+        }
+      }
+    ]
+  }
+}
+```
+
+### Parse a timestamp to convert its format and time zone
+
+The following example demonstrates how the `date` processor can sequentially parse different timestamp formats (such as epoch milliseconds, epoch seconds, ISO 8601, or Apache Common Log Format) using multiple processors, each handling one specific format:
+
+```yaml
+date-multi-format-pipeline:
+  source:
+    http:
+      path: /events
+      ssl: false
+
+  processor:
+    # Handle epoch formats (separate processors for different epoch types)
+    - date:
+        match:
+          - key: event_time
+            patterns: ["epoch_milli"]
+        destination: "@timestamp"
+        output_format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+        source_timezone: UTC
+        destination_timezone: America/New_York
+        locale: en_US
+        date_when: "/event_time != null"
+    
+    - date:
+        match:
+          - key: event_time
+            patterns: ["epoch_second"]
+        destination: "@timestamp"
+        output_format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+        source_timezone: UTC
+        destination_timezone: America/New_York
+        locale: en_US
+        date_when: "/event_time != null and /@timestamp == null"
+    
+    # Handle ISO format variations in a single processor
+    - date:
+        match:
+          - key: event_time
+            patterns: ["yyyy-MM-dd'T'HH:mm:ss.SSSXXX"]
+        destination: "@timestamp"
+        output_format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+        source_timezone: UTC
+        destination_timezone: America/New_York
+        locale: en_US
+        date_when: "/event_time != null and /@timestamp == null"
+    
+    # Handle Apache format variations in a single processor
+    - date:
+        match:
+          - key: event_time
+            patterns: ["dd/MMM/yyyy:HH:mm:ss Z"]
+        destination: "@timestamp"
+        output_format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+        source_timezone: UTC
+        destination_timezone: America/New_York
+        locale: en_US
+        date_when: "/event_time != null and /@timestamp == null"
+
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: admin_pass
+        index_type: custom
+        index: date-multi-format-%{yyyy.MM.dd}
+```
+{% include copy.html %}
+
+You can test this pipeline using the following command:
+
+```bash
+curl -sS -X POST "http://localhost:2021/events" \
+  -H "Content-Type: application/json" \
+  -d '[
+        {"app":"payment-service","event_time":"1678902000123","transaction_id":"txn_001","amount":99.99,"currency":"USD"},
+        {"app":"user-service","event_time":"1678902000","user_id":"user_123","action":"login","ip":"192.168.1.100"},
+        {"app":"analytics","event_time":"2023-03-15T14:30:45.123-05:00","event_type":"page_view","page":"/home","session_id":"sess_456"},
+        {"app":"web-server","event_time":"15/Mar/2023:14:30:45 -0500","client_ip":"10.0.0.1","method":"GET","url":"/api/users","status":200}
+      ]'
+```
+{% include copy.html %}
+
+The documents stored in OpenSearch contain the following information:
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 4,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "date-multi-format-2025.10.13",
+        "_id": "8M4A3ZkBoQvfnsgqaorB",
+        "_score": 1,
+        "_source": {
+          "app": "payment-service",
+          "event_time": "1678902000123",
+          "transaction_id": "txn_001",
+          "amount": 99.99,
+          "currency": "USD",
+          "@timestamp": "2023-03-15T13:40:00.123-04:00"
+        }
+      },
+      {
+        "_index": "date-multi-format-2025.10.13",
+        "_id": "8c4A3ZkBoQvfnsgqaorB",
+        "_score": 1,
+        "_source": {
+          "app": "user-service",
+          "event_time": "1678902000",
+          "user_id": "user_123",
+          "action": "login",
+          "ip": "192.168.1.100",
+          "@timestamp": "2023-03-15T13:40:00.000-04:00"
+        }
+      },
+      {
+        "_index": "date-multi-format-2025.10.13",
+        "_id": "8s4A3ZkBoQvfnsgqaorB",
+        "_score": 1,
+        "_source": {
+          "app": "analytics",
+          "event_time": "2023-03-15T14:30:45.123-05:00",
+          "event_type": "page_view",
+          "page": "/home",
+          "session_id": "sess_456",
+          "@timestamp": "2023-03-15T15:30:45.123-04:00"
+        }
+      },
+      {
+        "_index": "date-multi-format-2025.10.13",
+        "_id": "884A3ZkBoQvfnsgqaorB",
+        "_score": 1,
+        "_source": {
+          "app": "web-server",
+          "event_time": "15/Mar/2023:14:30:45 -0500",
+          "client_ip": "10.0.0.1",
+          "method": "GET",
+          "url": "/api/users",
+          "status": 200,
+          "@timestamp": "2023-03-15T15:30:45.000-04:00"
+        }
+      }
+    ]
+  }
+}
+```
+
+### Timestamp formats with different day spacing
+
+The following example demonstrates how the `date` processor handles variable syslog timestamp formats with different day spacing using pattern variations:
+
+```yaml
+date-syslog-pipeline:
+  source:
+    http:
+      path: /events
+      ssl: false
+
+  processor:
+    - date:
+        match:
+          - key: syslog_timestamp
+            patterns: ["MMM d HH:mm:ss", "MMM  d HH:mm:ss", "MMM dd HH:mm:ss"]
+        destination: "@timestamp"
+        output_format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+        source_timezone: America/Los_Angeles
+        destination_timezone: UTC
+        locale: en_US
+        date_when: /syslog_timestamp != null
+        origination_timestamp_to_metadata: true
+
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: admin_password
+        index_type: custom
+        index: date-syslog-%{yyyy.MM.dd}
+```
+{% include copy.html %}
+
+You can test the pipeline using the following command:
+
+```bash
+curl -sS -X POST "http://localhost:2021/events" \
+  -H "Content-Type: application/json" \
+  -d '[
+        {"host":"web-server-01","syslog_timestamp":"Mar 15 14:30:45","facility":"daemon","severity":"info","message":"sshd[1234]: Accepted publickey for user1"},
+        {"host":"database-02","syslog_timestamp":"Mar  5 09:15:30","facility":"auth","severity":"warning","message":"mysql[5678]: Access denied for user '\''root'\''@'\''localhost'\''"},
+        {"host":"app-server-03","syslog_timestamp":"Mar 25 23:45:12","facility":"local0","severity":"error","message":"nginx[9012]: upstream timed out (110: Connection timed out)"},
+        {"host":"cache-server-04","message":"redis[3456]: Background saving terminated with success"}
+      ]'
+```
+{% include copy.html %}
+
+The documents stored in OpenSearch contain the following information:
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 4,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "date-syslog-2025.10.13",
+        "_id": "5s4A3ZkBoQvfnsgqZIrV",
+        "_score": 1,
+        "_source": {
+          "host": "web-server-01",
+          "syslog_timestamp": "Mar 15 14:30:45",
+          "facility": "daemon",
+          "severity": "info",
+          "message": "sshd[1234]: Accepted publickey for user1",
+          "@timestamp": "2025-03-15T21:30:45.000Z"
+        }
+      },
+      {
+        "_index": "date-syslog-2025.10.13",
+        "_id": "584A3ZkBoQvfnsgqZIrV",
+        "_score": 1,
+        "_source": {
+          "host": "database-02",
+          "syslog_timestamp": "Mar  5 09:15:30",
+          "facility": "auth",
+          "severity": "warning",
+          "message": "mysql[5678]: Access denied for user 'root'@'localhost'",
+          "@timestamp": "2025-03-05T17:15:30.000Z"
+        }
+      },
+      {
+        "_index": "date-syslog-2025.10.13",
+        "_id": "6M4A3ZkBoQvfnsgqZIrV",
+        "_score": 1,
+        "_source": {
+          "host": "app-server-03",
+          "syslog_timestamp": "Mar 25 23:45:12",
+          "facility": "local0",
+          "severity": "error",
+          "message": "nginx[9012]: upstream timed out (110: Connection timed out)",
+          "@timestamp": "2025-03-26T06:45:12.000Z"
+        }
+      },
+      {
+        "_index": "date-syslog-2025.10.13",
+        "_id": "6c4A3ZkBoQvfnsgqZIrV",
+        "_score": 1,
+        "_source": {
+          "host": "cache-server-04",
+          "message": "redis[3456]: Background saving terminated with success"
+        }
+      }
+    ]
+  }
+}
+```

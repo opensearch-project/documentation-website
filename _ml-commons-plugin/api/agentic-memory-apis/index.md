@@ -4,7 +4,7 @@ title: Agentic memory APIs
 parent: ML Commons APIs
 has_children: true
 has_toc: false
-nav_order: 40
+nav_order: 35
 redirect_from: 
   - /ml-commons-plugin/api/agentic-memory-apis/
 ---
