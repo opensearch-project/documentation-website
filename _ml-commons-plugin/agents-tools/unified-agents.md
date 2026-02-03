@@ -13,7 +13,7 @@ nav_order: 15
 
 The unified agent API streamlines agent creation and execution by automating connector and model setup. This experimental feature significantly reduces the complexity of working with agents in OpenSearch.
 
-This is an experimental release. Only Amazon Bedrock Converse Claude models are supported. The APIs and functionality may change in future releases.
+This is an experimental release. Amazon Bedrock Converse Claude and Gemini models are supported. The APIs and functionality may change in future releases.
 {: .important}
 
 ## Enabling the unified agent API
@@ -51,6 +51,7 @@ The unified agent API provides the following improvements over the traditional a
 Currently, only the following models are supported:
 
 - Amazon Bedrock Converse API with Anthropic Claude models
+- Google Gemini models
 
 Support for additional model providers and models will be added in future releases.
 
@@ -110,9 +111,10 @@ Field | Data type | Required/Optional | Description
 `type` | String | Required | The agent type. Supported values: `conversational`, `plan_execute_and_reflect`.
 `description` | String | Optional | A description of the agent.
 `model` | Object | Required | Model configuration object.
-`model.model_id` | String | Required | The model identifier. For Bedrock, use the full model ID (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`).
-`model.model_provider` | String | Required | The model provider. Currently only `bedrock/converse` is supported.
+`model.model_id` | String | Required | The model identifier. For Bedrock, use the full model ID (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`). For Gemini, use the model name (for example, `gemini-2.5-pro`).
+`model.model_provider` | String | Required | The model provider. Supported values: `bedrock/converse`, `gemini/v1beta/generatecontent`.
 `model.credential` | Object | Required | Credentials for accessing the model. Accepts any credential format supported by connectors. For details, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
+`model.model_parameters` | Object | Optional | Model-specific parameters such as system prompts and other configuration options.
 `tools` | Array | Optional | A list of tools for the agent to use. See [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 `memory` | Object | Optional | Memory configuration for conversational context.
 `memory.type` | String | Optional | Memory type. Supported values: `conversation_index`, `agentic_memory`.
@@ -248,7 +250,7 @@ However, agents created with the unified agent API cannot be updated to use the 
 
 The following limitations apply to the experimental release:
 
-- **Model support**: Only Amazon Bedrock Converse Claude models are supported
+- **Model support**: Amazon Bedrock Converse Claude and Gemini models are supported
 - **Agent types**: Only `conversational` and `plan_execute_and_reflect` agents are supported
 - **Message format**: The `plan_execute_and_reflect` agent does not support message-based input due to its internal prompt structure
 

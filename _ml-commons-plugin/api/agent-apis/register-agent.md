@@ -21,7 +21,7 @@ Agents may be of the following types:
 
 For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
-Starting with OpenSearch 3.5, you can use the [unified agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/unified-agents/) to register agents with automated connector and model creation. This experimental feature is currently limited to Amazon Bedrock Converse Claude models and requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
+Starting with OpenSearch 3.5, you can use the [unified agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/unified-agents/) to register agents with automated connector and model creation. This experimental feature supports Amazon Bedrock Converse Claude and Gemini models and requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
 {: .note}
 
 ## Endpoints
@@ -55,9 +55,10 @@ Field | Data type | Required/Optional | Agent type | Description
 `inject_datetime` | Boolean | Optional | `conversational`, `plan_execute_and_reflect` | Whether to automatically inject the current date into the system prompt. Default is `false`.
 `datetime_format` | String | Optional | `conversational`, `plan_execute_and_reflect` | A format string for dates used when `inject_datetime` is enabled. Default is `"yyyy-MM-dd'T'HH:mm:ss'Z'"` (ISO format).
 `model` | Object | Optional | `conversational`, `plan_execute_and_reflect` | **Unified agent API only (3.5+)**: Model configuration that automatically creates a connector and model. See [Unified agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/unified-agents/).
-`model.model_id` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model identifier (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`).
-`model.model_provider` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model provider. Currently only `bedrock/converse` is supported.
+`model.model_id` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model identifier (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0` for Bedrock or `gemini-2.5-pro` for Gemini).
+`model.model_provider` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model provider. Supported values: `bedrock/converse`, `gemini/v1beta/generatecontent`.
 `model.credential` | Object | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | Credentials for accessing the model. Accepts any credential format supported by connectors. For details, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
+`model.model_parameters` | Object | Optional (if using `model`) | `conversational`, `plan_execute_and_reflect` | Model-specific parameters such as system prompts and other configuration options.
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
@@ -246,7 +247,7 @@ POST /_plugins/_ml/agents/_register
 **Experimental release**
 {: .label .label-red }
 
-The unified agent API automates connector and model creation. Currently supports only Amazon Bedrock Converse Claude models.
+The unified agent API automates connector and model creation. Supports Amazon Bedrock Converse Claude and Gemini models.
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -272,6 +273,42 @@ POST /_plugins/_ml/agents/_register
     },
     {
       "type": "IndexMappingTool"
+    }
+  ],
+  "memory": {
+    "type": "conversation_index"
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Example: Gemini agent registration
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "Gemini Multimodal Agent",
+  "type": "conversational",
+  "description": "Test agent for Gemini multimodal capabilities",
+  "model": {
+    "model_id": "gemini-2.5-pro",
+    "model_provider": "gemini/v1beta/generatecontent",
+    "credential": {
+      "gemini_api_key": "YOUR_API_KEY"
+    },
+    "model_parameters": {
+      "system_prompt": "You are a helpful assistant that can understand images and text."
+    }
+  },
+  "tools": [
+    {
+      "type": "ListIndexTool"
+    },
+    {
+      "type": "IndexMappingTool"
+    },
+    {
+      "type": "SearchIndexTool"
     }
   ],
   "memory": {
