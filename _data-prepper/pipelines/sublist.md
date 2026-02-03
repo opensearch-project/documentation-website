@@ -14,7 +14,7 @@ The `subList()` function extracts a sublist from a list field in an event. It ta
 - A start index (inclusive)
 - An end index (exclusive)
 
-The function returns the portion of the list between the specified start and end indices. If the end index is `-1`, the function extracts elements from the start index to the end of the list.
+The function returns the portion of the list between the specified start and end indexes. If the end index is `-1`, the function extracts elements from the start index to the end of the list.
 
 
 ## Examples
