@@ -50,7 +50,7 @@ In addition to tuning the preceding parameters, you can employ the following opt
 
 ### Building clusters
 
-Index building can benefit from using multiple threads. You can adjust the number of threads used for cluster building by specifying the `knn.algo_param.index_thread_qty` setting (by default, `1`). For information about updating this setting, see [Vector search settings]({{site.url}}{{site.baseurl}}/vector-search/settings/). Using a higher `knn.algo_param.index_thread_qty` can reduce force merge time when neural sparse ANN search is enabled, though it also consumes more system resources.
+Index building can benefit from using multiple threads. You can adjust the number of threads used for cluster building by specifying the `neural_search.sparse.algo_param.index_thread_qty` setting (by default, `1`). For information about updating this setting, see [Vector search settings]({{site.url}}{{site.baseurl}}/vector-search/settings/#cluster-settings-2). Using a higher `neural_search.sparse.algo_param.index_thread_qty` can reduce force merge time when neural sparse ANN search is enabled, though it also consumes more system resources.
 
 ### Querying after a cold start
 

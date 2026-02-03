@@ -1,3 +1,43 @@
+<!-- Inline theme detection to prevent dark mode flash -->
+<script>
+  (function() {
+    const THEME_KEY = 'opensearch-docs-theme';
+    const DARK_THEME = 'dark';
+
+    function getStoredTheme() {
+      try {
+        return localStorage.getItem(THEME_KEY);
+      } 
+      catch (e) {
+        return null;
+      }
+    }
+
+    function getSystemTheme() {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return DARK_THEME;
+      }
+      return 'light';
+    }
+
+    function getPreferredTheme() {
+      const stored = getStoredTheme();
+      if (stored) {
+        return stored;
+      }
+      return getSystemTheme();
+    }
+
+    const theme = getPreferredTheme();
+    if (theme === DARK_THEME) {
+      document.documentElement.setAttribute('data-skin', 'dark');
+    } 
+    else {
+      document.documentElement.removeAttribute('data-skin');
+    }
+  })();
+</script>
+
 {% if site.anchor_links != nil %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
 {% endif %}
@@ -11,5 +51,3 @@
 {% else %}
   <script src="{{ '/latest/assets/js/version-selector.js' }}"></script>
 {% endif %}
-
-<!-- Last-Modified: {% last_modified_at %} -->

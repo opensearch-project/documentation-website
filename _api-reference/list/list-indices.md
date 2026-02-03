@@ -1,7 +1,7 @@
 ---
 layout: default
 title: List indices 
-parent: List API
+parent: List APIs
 nav_order: 25
 has_children: false
 ---

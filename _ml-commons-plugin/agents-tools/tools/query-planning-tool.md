@@ -332,6 +332,24 @@ Parameter	| Type | Required/Optional | Description
 All parameters that were configured either in the connector or in the agent registration can be overridden during agent execution.
 {: .note}
 
+## Response filter configuration
+
+The `response_filter` parameter uses JSONPath expressions to extract the generated query from the LLM's response. Different model providers return responses in different formats, so you need to specify the appropriate filter for your model type.
+
+**OpenAI models**:
+
+```json
+"response_filter": "$.choices[0].message.content"
+```
+{% include copy.html %}
+
+**Anthropic Claude models (Amazon Bedrock Converse API)**:
+
+```json
+"response_filter": "$.output.message.content[0].text"
+```
+{% include copy.html %}
+
 ## Execute parameters
 
 The `QueryPlanningTool` accepts the following execution parameters.
@@ -371,6 +389,9 @@ POST /_plugins/_ml/agents/_register
 }
 ```
 {% include copy-curl.html %}
+
+Use the appropriate `response_filter` based on your model type. For more information and examples, see [Response filter configuration](#response-filter-configuration).
+{: .note}
 
 The following is the default system prompt:
 
@@ -521,6 +542,14 @@ Embedding Model ID for Neural Search: ${parameters.embedding_model_id:- not prov
 GIVE THE OUTPUT PART ONLY IN YOUR RESPONSE (a single JSON object)
 Output:
 ```
+
+## Fallback behavior
+
+The `QueryPlanningTool` includes a default fallback query: `{"size":10,"query":{"match_all":{}}}`. 
+
+The code automatically extracts the first valid JSON object from the LLM's response, even if the JSON is surrounded by additional text, Markdown code fences, explanations, or other content. However, if no valid JSON can be extracted from the response (for example, when the response is completely empty, contains only non-JSON text, or contains only malformed JSON), the tool returns the default fallback query.
+
+When the fallback is triggered, no error is thrown. Instead, a debug log is shown in the system logs. This ensures that query planning operations continue to work even when the LLM provides unexpected output.
 
 ## Testing the tool
 

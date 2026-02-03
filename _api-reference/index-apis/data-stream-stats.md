@@ -2,7 +2,7 @@
 layout: default
 title: Data stream stats
 parent: Index APIs
-nav_order: 50
+nav_order: 80
 ---
 
 # Data Stream Stats API

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: List shards
-parent: List API
+parent: List APIs
 nav_order: 20
 ---
 

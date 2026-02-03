@@ -3,7 +3,6 @@ layout: default
 title: Reroute traffic to the target
 nav_order: 8
 parent: Migration phases
-grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/
 ---
 

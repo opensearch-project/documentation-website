@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Get template (deprecated)
-parent: Index APIs
-nav_order: 96
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 90
 ---
 
 # Get template

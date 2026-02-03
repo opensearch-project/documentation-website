@@ -30,9 +30,13 @@ redirect_from:
   - /benchmark/installing-benchmark/
 ---
 
-# OpenSearch Benchmark User Guide
+# OpenSearch Benchmark user guide
 
+<<<<<<< HEAD
 The OpenSearch Benchmark User Guide includes core [concepts]({{site.url}}{{site.baseurl}}/benchmark/user-guide/concepts/), [installation instructions]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/), and [configuration options]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) to help you get the most out of OpenSearch Benchmark.
+=======
+The OpenSearch Benchmark user guide includes core [concepts]({{site.url}}{{site.baseurl}}/benchmark/user-guide/concepts/), [installation]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/) instructions, and [configuration options]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) to help you get the most out of OpenSearch Benchmark.
+>>>>>>> main
 
 
 {% include cards.html cards=page.more_cards %}

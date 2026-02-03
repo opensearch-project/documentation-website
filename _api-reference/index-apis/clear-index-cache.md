@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Clear cache
-parent: Index APIs
-nav_order: 15
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 10
 ---
 
 # Clear Cache API

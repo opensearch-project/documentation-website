@@ -3,7 +3,6 @@ layout: default
 title: Migrate metadata
 nav_order: 5
 parent: Migration phases
-grand_parent: Migration Assistant for OpenSearch
 has_children: true
 has_toc: true
 permalink: /migration-assistant/migration-phases/migrate-metadata/

@@ -87,14 +87,14 @@ Registering a model is an asynchronous task. OpenSearch returns a task ID for ev
 }
 ```
 
-You can check the status of the task by calling the Tasks API:
+You can check the status of the task by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```json
 GET /_plugins/_ml/tasks/aFeif4oB5Vm0Tdw8yoN7
 ```
 {% include copy-curl.html %}
 
-Once the task is complete, the task state will change to `COMPLETED` and the Tasks API response will contain the model ID of the registered model:
+Once the task is complete, the task state will change to `COMPLETED` and the ML Tasks API response will contain the model ID of the registered model:
 
 ```json
 {

@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Roll over index
-parent: Index APIs
-nav_order: 125
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 70
 ---
 
 # Roll Over Index API

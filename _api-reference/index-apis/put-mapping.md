@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Create or update mappings
-parent: Index APIs
-nav_order: 105
+parent: Index settings and mappings
+grand_parent: Index APIs
+nav_order: 30
 redirect_from:
   - /opensearch/rest-api/index-apis/put-mapping/
   - /opensearch/rest-api/index-apis/update-mapping/

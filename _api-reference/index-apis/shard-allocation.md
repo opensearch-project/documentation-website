@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Shard allocation
-parent: Index APIs
-nav_order: 137
+parent: Index blocks and allocation
+grand_parent: Index APIs
+nav_order: 20
 ---
 
 # Shard allocation filtering

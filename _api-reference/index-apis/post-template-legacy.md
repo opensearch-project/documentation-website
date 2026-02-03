@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Post template (deprecated)
-parent: Index APIs
-nav_order: 107
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 70
 ---
 
 # Post template

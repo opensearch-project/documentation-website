@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Shrink index
-parent: Index APIs
-nav_order: 140
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 100
 redirect_from:
   - /opensearch/rest-api/index-apis/shrink-index/
 ---
@@ -57,7 +58,7 @@ You can use the request body to configure some index settings for the target ind
 
 Field | Type | Description
 :--- | :--- | :---
-alias | Object | Sets an alias for the target index. Can have the fields `filter`, `index_routing`, `is_hidden`, `is_write_index`, `routing`, or `search_routing`. See [Index Aliases]({{site.url}}{{site.baseurl}}/api-reference/alias/#request-body-fields).
+alias | Object | Sets an alias for the target index. Can have the fields `filter`, `index_routing`, `is_hidden`, `is_write_index`, `routing`, or `search_routing`. See [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/).
 settings | Object | Index settings you can apply to your target index. See [Index Settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/).
 [max_shard_size](#the-max_shard_size-parameter) | Bytes | Specifies the maximum size of a primary shard in the target index. Because `max_shard_size` conflicts with the `index.number_of_shards` setting, you cannot set both of them at the same time. 
 

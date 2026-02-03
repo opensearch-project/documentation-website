@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Template exists (deprecated)
-parent: Index APIs
-nav_order: 157
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 100
 ---
 
 # Template exists

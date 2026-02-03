@@ -52,6 +52,7 @@ transport | Mostly static information about the transport layer.
 http | Mostly static information about the HTTP layer.
 plugins | Information about installed plugins and modules.
 ingest | Information about ingest pipelines and available ingest processors.
+search_pipelines | Information about search pipelines configured on the node.
 aggregations | Information about available [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations).
 indices | Static index settings configured at the node level.
 
@@ -189,6 +190,7 @@ http | Information about the HTTP address, including bound address, publish addr
 plugins | Information about the installed plugins, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. 
 modules | Information about the modules, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. Modules are different from plugins because modules are loaded into OpenSearch automatically, while plugins have to be installed manually.
 ingest | Information about ingest pipelines and processors.
+search_pipelines | Information about search pipelines configured on the node.
 aggregations | Information about the available aggregation types.
 
 

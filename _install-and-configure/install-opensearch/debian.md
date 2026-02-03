@@ -114,19 +114,27 @@ APT, the primary package management tool for Debian–based operating systems, a
 
 1. Import the public GPG key. This key is used to verify that the APT repository is signed.
     ```bash
-    curl -o- https://artifacts.opensearch.org/publickeys/opensearch-release.pgp | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-release-keyring
+    curl -fsSL https://artifacts.opensearch.org/publickeys/opensearch-release.pgp \
+    | sudo gpg --dearmor -o /etc/apt/keyrings/opensearch.gpg
     ```
     {% include copy.html %}
 
 1. Create an APT repository for OpenSearch:
    ```bash
-   echo "deb [signed-by=/usr/share/keyrings/opensearch-release-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch/{{major_version_mask}}/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-{{major_version_mask}}.list
+   echo "deb [signed-by=/etc/apt/keyrings/opensearch.gpg] https://artifacts.opensearch.org/releases/bundle/opensearch/3.x/apt stable main" \
+   | sudo tee /etc/apt/sources.list.d/opensearch-3.x.list
    ```
    {% include copy.html %}
 
 1. Verify that the repository was created successfully.
     ```bash
     sudo apt-get update
+    ```
+    {% include copy.html %}
+
+1. (Optional) As of May 22, 2024, the `Origin` and `Label` values of the APT repository were updated as part of [this change](https://github.com/opensearch-project/opensearch-build/issues/4485). If you created the APT repository before this date, run the following command to accept the updated release information:
+    ```bash
+    sudo apt-get update --allow-releaseinfo-change
     ```
     {% include copy.html %}
 

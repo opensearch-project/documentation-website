@@ -2,8 +2,9 @@
 
 layout: default
 title: Delete template (deprecated)
-parent: Index APIs
-nav_order: 65
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 110
 ---
 
 # Delete template

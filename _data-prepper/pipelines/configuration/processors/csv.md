@@ -48,9 +48,10 @@ csv-pipeline:
 
 When run, the processor will parse the message. Although only two column names are specified in processor settings, a third column name is automatically generated because the data contained in `ingest.csv` includes three columns, `1,2,3`:
 
-```
+```json
 {"message": "1,2,3", "col1": "1", "col2": "2", "column3": "3"}
 ```
+
 ### Automatically detect column names
 
 The following configuration automatically detects the header of a CSV file ingested through an [`s3 source`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/):
@@ -80,7 +81,7 @@ csv-s3-pipeline:
 
 For example, if the `ingest.csv` file in the Amazon Simple Storage Service (Amazon S3) bucket that the Amazon Simple Queue Service (SQS) queue is attached to contains the following data:
 
-```
+```text
 Should,skip,this,line
 a,b,c
 1,2,3

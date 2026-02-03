@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Index exists
-parent: Index APIs
-nav_order: 70
+parent: Core index APIs
+grand_parent: Index APIs
+nav_order: 40
 redirect_from:
   - /opensearch/rest-api/index-apis/exists/
 ---

@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Close index
-parent: Index APIs
-nav_order: 25
+parent: Core index APIs
+grand_parent: Index APIs
+nav_order: 60
 redirect_from:
   - /opensearch/rest-api/index-apis/close-index/
 ---

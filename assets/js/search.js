@@ -90,7 +90,7 @@
 
         const doSearch = async () => {
             const query = elInput.value.replace(/[^a-z0-9-_. ]+/ig, ' ');
-            if (query.length < 3) return hideResults(true);
+            if (query.length < 2) return hideResults(true);
             if (query === lastQuery) return;
 
             recordEvent('search', {

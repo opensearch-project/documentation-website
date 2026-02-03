@@ -3,7 +3,6 @@ layout: default
 title: Backfill
 nav_order: 6
 parent: Migration phases
-grand_parent: Migration Assistant for OpenSearch
 permalink: /migration-assistant/migration-phases/backfill/
 redirect_from:
   - /migration-phases/backfill/

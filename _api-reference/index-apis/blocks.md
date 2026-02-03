@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Blocks
-parent: Index APIs
+parent: Index blocks and allocation
+grand_parent: Index APIs
 nav_order: 10
 ---
 
