@@ -65,16 +65,16 @@ After a short period, re-execute the same command again and compare the increase
 
 ## Troubleshooting
 
-The following sections may be helpful in diagnosing common issues that arise.
+The following sections may be helpful in diagnosing common issues.
 
 ### Host header routing configuration
 
-Some systems, such as Elastic Cloud and other hosted Elasticsearch services, use the Host header for routing traffic to the appropriate cluster. When using the Capture Proxy with these systems, you need to configure the proxy to set the Host header to match your source cluster's domain, since clients may otherwise be setting the Host header to the proxy address.
+Some systems, such as Elastic Cloud and other hosted Elasticsearch services, use the `Host` header for routing traffic to the appropriate cluster. When using the Capture Proxy with these systems, you must configure the proxy to override the `Host` header with your source cluster's domain name. If not configured correctly, clients might send a `Host` header that points to the proxy's address instead of the original domain, which can disrupt routing and authentication.
 
-**Important**: This configuration is required for Elastic Cloud deployments and any system that uses Host header-based routing. Without this setting, requests will fail with an error response like `{"ok":false,"message":"Unknown resource."}` on Elastic Cloud or be incorrectly routed on other systems.
-{: .note}
+**Important**: This configuration is required for Elastic Cloud deployments and any system that uses `Host` header routing. If this setting is improperly configured, requests will fail in the Elastic Cloud with an error response similar to `{"ok":false,"message":"Unknown resource."}` or will be incorrectly routed in other systems.
+{: .important}
 
-To configure the Host header, add the `captureProxyExtraArgs` parameter to your `cdk.context.json` file:
+To configure the `Host` header, add the `captureProxyExtraArgs` parameter to your `cdk.context.json` file:
 
 ```json
 {
@@ -83,7 +83,7 @@ To configure the Host header, add the `captureProxyExtraArgs` parameter to your 
 ```
 {% include copy.html %}
 
-For example, if your Elastic Cloud domain is `https://my-cluster.es.us-east-1.aws.example.com`, you would configure:
+For example, if your Elastic Cloud domain is `https://my-cluster.es.us-east-1.aws.example.com`, configure `captureProxyExtraArgs` as follows:
 
 ```json
 {
@@ -92,21 +92,21 @@ For example, if your Elastic Cloud domain is `https://my-cluster.es.us-east-1.aw
 ```
 {% include copy.html %}
 
-**Tip**: The Host header value should include only the domain name without the protocol (https://) or port number.
+**Tip**: The `Host` header value should include only the domain name without the protocol (`https://`) or port number.
 {: .tip}
 
 #### Validating the configuration
 
-Before routing production traffic through the Capture Proxy, validate that the proxy is correctly configured by sending test requests directly to it. You can use `curl` to verify the connection:
+Before routing production traffic using the Capture Proxy, validate that the proxy is correctly configured by sending test requests directly to it. You can use cURL to verify the connection:
 
 ```bash
 curl -k https://<capture-proxy-endpoint>:9200/
 ```
 {% include copy.html %}
 
-If the Host header configuration is correct, you should receive a successful or authentication failure response from your source cluster. If you receive an error like `{"ok":false,"message":"Unknown resource."}`, verify that:
-- The `captureProxyExtraArgs` parameter is correctly set in your `cdk.context.json`
-- The Host header value matches your source cluster's domain exactly
-- You have redeployed the Capture Proxy service after making configuration changes
+If the `Host` header configuration is correct, you should receive a successful or authentication failure response from your source cluster. If you receive an error similar to `{"ok":false,"message":"Unknown resource."}`, verify that:
+- The `captureProxyExtraArgs` parameter is correctly set in your `cdk.context.json`.
+- The `Host` header value matches your source cluster's domain exactly.
+- You have redeployed the Capture Proxy service after making configuration changes.
 
 {% include migration-phase-navigation.html %}

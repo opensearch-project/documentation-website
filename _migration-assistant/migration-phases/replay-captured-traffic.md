@@ -336,8 +336,8 @@ Newer Elasticsearch clients (version 7.11 and later, including all 8.x versions)
 
 When migrating to OpenSearch or another service that does not support these Elasticsearch-specific media types, requests from these clients may fail or be rejected by the target cluster.
 
-**Important**: If you are using Elasticsearch clients with version 7.11 or later and migrating to OpenSearch or a service that does not recognize `application/vnd.elasticsearch+json` media types, you need to apply a transformation to convert both the `Content-Type` and `Accept` headers to the standard `application/json` format. Note that after migration, clients will also need to be updated to use standard media types.
-{: .note}
+**Important**: If you are using Elasticsearch clients with version 7.11 or later and migrating to OpenSearch or a service that does not recognize `application/vnd.elasticsearch+json` media types, you must apply a transformation in order to convert the `Content-Type` and `Accept` headers to the standard `application/json` format. Note that after migration, clients must be updated to use standard media types.
+{: .important}
 
 To resolve this issue, configure Traffic Replayer with a transformation that converts the Elasticsearch-specific media types to the standard `application/json` format. 
 
@@ -396,12 +396,12 @@ Next, create a transformation configuration file at `/shared-logs-output/replaye
 ```
 {% include copy.html %}
 
-Finally, configure Traffic Replayer to use this transformation by adding the following to your `trafficReplayerExtraArgs`:
+Finally, configure Traffic Replayer to use this transformation by adding the following argument to your `trafficReplayerExtraArgs`:
 
-```
+```bash
 --transformer-config-file /shared-logs-output/replayer-transformation.json
 ```
 
-This transformation script automatically detects Elasticsearch-specific media types in both `Content-Type` and `Accept` headers (including those with version parameters like `compatible-with=8`) and replaces them with the standard `application/json` format, ensuring compatibility with OpenSearch and other services that do not support the Elasticsearch-specific media types.
+This transformation script automatically detects Elasticsearch-specific media types in both `Content-Type` and `Accept` headers (including those with version parameters such as `compatible-with=8`) and replaces them with the standard `application/json` format, ensuring compatibility with OpenSearch and other services that do not support the Elasticsearch-specific media types.
 
 {% include migration-phase-navigation.html %}
