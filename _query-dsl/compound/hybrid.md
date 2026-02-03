@@ -26,7 +26,7 @@ Parameter | Description
 
 ### `min_score` Support for hybrid queries
 
-From version 3.5 onward, the [`min_score`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#request-body) parameter is applied after score normalization and combination. It can be used only when sorting by `_score` or when no sorting is specified; using it with any other sorting criteria will result in an exception.
+Starting with version 3.5, the [`min_score`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#request-body) parameter is applied after score normalization and combination. It can be used only when sorting by `_score` or when no explicit sort order is specified. If `min_score` is used with any other sorting criteria, the request results in an error.
 {: .note}
 
 ## Disabling hybrid queries
