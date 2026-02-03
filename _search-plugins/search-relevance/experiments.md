@@ -240,7 +240,7 @@ DELETE _plugins/_search_relevance/experiment/47cc3861-c37b-43cc-99c4
 
 ### Search for an experiment
 
-You can search for available experiments using query DSL. By default, the `results` data is not returned in the response. To include the `results` data, specify the `_source` field in the query.
+You can search for available experiments using query domain-specific language (DSL). By default, the `results` data is not returned in the response. To include the `results` data, specify the `_source` field in the query.
 
 #### Endpoints
 
