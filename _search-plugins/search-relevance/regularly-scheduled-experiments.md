@@ -145,7 +145,6 @@ GET _plugins/_search_relevance/experiments/schedule/6282afa6-fa14-49c8-a627-ac1d
 
 
 | Parameter | Data type | Description |
-
 ### Delete a scheduled experiment
 
 You can delete a scheduled experiment using the scheduled experiment ID.
