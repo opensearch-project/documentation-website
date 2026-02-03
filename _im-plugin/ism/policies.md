@@ -108,7 +108,7 @@ ISM supports the following operations:
 - [rollover](#rollover)
 - [notification](#notification)
 - [snapshot](#snapshot)
-- [convert-index-to-remote](#convert_index_to_remote)
+- [convert_index_to_remote](#convert_index_to_remote)
 - [index_priority](#index_priority)
 - [allocation](#allocation)
 - [rollup](#rollup)
