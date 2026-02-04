@@ -36,14 +36,14 @@ After you create an index rollup job, you can't change your index selections.
 
 ### Step 2: Define aggregations and metrics
 
-Select the attributes with the aggregations (terms and histograms) and metrics (avg, sum, max, min, value count, and cardinality (OpenSearch 3.5+)) that you want to roll up. Make sure you don’t add a lot of highly granular attributes, because you won’t save much space.
+Select the attributes with the aggregations (terms and histograms) and metrics (avg, sum, max, min, value count, and cardinality) that you want to roll up. Make sure you don’t add a lot of highly granular attributes, because you won’t save much space.
 
 For example, consider a dataset of cities and demographics within those cities. You can aggregate based on cities and specify demographics within a city as metrics.
 The order in which you select attributes is critical. A city followed by a demographic is different from a demographic followed by a city.
 
 1. In the **Time aggregation** section, select a timestamp field. Choose between a **Fixed** or **Calendar** interval type and specify the interval and timezone. The index rollup job uses this information to create a date histogram for the timestamp field.
 2. (Optional) Add additional aggregations for each field. You can choose terms aggregation for all field types and histogram aggregation only for numeric fields.
-3. (Optional) Add additional metrics for each field. You can choose between **All**, **Min**, **Max**, **Sum**, **Avg**, **Value Count**, or **Cardinality** (OpenSearch 3.5+).
+3. (Optional) Add additional metrics for each field. You can choose between **All**, **Min**, **Max**, **Sum**, **Avg**, **Value Count**, or **Cardinality**.
 4. Choose **Next**.
 
 ### Step 3: Specify schedule
