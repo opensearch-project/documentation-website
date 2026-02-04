@@ -8,7 +8,7 @@ nav_order: 50
 
 # Convert type processor
 
-The `convert_type` processor converts a value type associated with the specified key in a event to the specified type. It is a casting processor that changes the types of some fields in events. Some data must be converted to a different type, such as an integer to a double, or a string to an integer, so that it will pass the events through condition-based processors or perform conditional routing.
+The `convert_type` processor converts a value type associated with the specified key in an event to the specified type. It is a casting processor that changes the types of some fields in events. Some data must be converted to a different type, such as an integer to a double or a string to an integer, so that it will pass the events through condition-based processors or perform conditional routing.
 
 Starting with OpenSearch Data Prepper version 2.10.0, the `convert_entry_type` processor has been renamed to `convert_type`. Configurations using `convert_entry_type` generate a deprecation warning and should be updated.
 {: .important }
