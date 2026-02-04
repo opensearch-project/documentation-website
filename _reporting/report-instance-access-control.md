@@ -28,7 +28,7 @@ When resource-level authorization is enabled for report instances, each report i
 
 ## Enable report instance resource sharing
 
-To enable resource sharing for report instances, you must add the report-instance resource type to the protected types list and enable resource sharing cluster-wide.
+To enable resource sharing for report instances, you must add the report instance resource type to the protected types list and enable resource sharing cluster-wide.
 
 Admin-only: These settings can be configured only by cluster administrators with superadmin privileges.
 {: .important }
@@ -60,7 +60,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-When adding the report-instance resource type to an existing configuration, include all previously configured resource types in the `protected_types` array.
+When adding the report instance resource type to an existing configuration, include all previously configured resource types in the `protected_types` array.
 {: .note}
 
 ## Report instance access levels
@@ -104,7 +104,7 @@ These access levels are predefined and cannot be modified. To request additional
 
 ## Migrating from the legacy framework
 
-After enabling resource sharing and marking report instances as a protected resource type, cluster administrators must run the migration API to transfer existing report instance sharing information from the legacy framework to the new resource sharing system.
+After enabling resource sharing and marking report instances as a protected resource type, cluster administrators must run the Migrate API to transfer existing report instance sharing information from the legacy framework to the new resource sharing system.
 
 Admin-only: The Migrate API can only be executed by cluster administrators with superadmin or REST admin privileges.
 {: .important }
