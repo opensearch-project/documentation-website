@@ -29,7 +29,6 @@ Parameter | Description
 Starting with version 3.5, the [`min_score`]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#request-body) parameter is applied after score normalization and combination. It can be used only when sorting by `_score` or when no explicit sort order is specified. If `min_score` is used with any other sorting criteria, the request results in an error.
 {: .note}
 
-### Large shard count support
 
 Starting with OpenSearch 3.5, you can use hybrid queries on indexes with more than 512 shards. OpenSearch automatically disables batched reduction to ensure proper score normalization across all shards. No configuration is required. Note that memory usage on the coordinating node may be higher for indexes with a large number of shards. The `_msearch` endpoint does not support automatic handling of batched reduction. For multi-search requests with hybrid queries across many shards, use the `_search` endpoint with index patterns or aliases instead.
 {: .note}
