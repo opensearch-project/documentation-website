@@ -91,7 +91,7 @@ The AWS Lambda processor supports multiple timeout layers following AWS SDK best
 - `api_call_attempt_timeout`: The time limit for each individual attempt.
 - `read_timeout`: The amount of time to wait for data from an established connection.
 
-For Lambda functions that run longer than 60 seconds, configure both `api_call_timeout` and `read_timeout` to appropriate values. The `api_call_attempt_timeout` enforces a per-attempt timeout, enabling fast failure of slow requests while preserving overall retry behavior.
+For Lambda functions that run for longer than 60 seconds, configure both `api_call_timeout` and `read_timeout` to appropriate values. The `api_call_attempt_timeout` enforces a per-attempt timeout, enabling fast failure of slow requests while preserving overall retry behavior.
 
 ## Usage
 

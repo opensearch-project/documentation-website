@@ -75,7 +75,7 @@ The AWS Lambda sink supports multiple timeout layers following AWS SDK best prac
 - `api_call_attempt_timeout`: The time limit for each individual attempt.
 - `read_timeout`: The amount of time to wait for data from an established connection.
 
-For Lambda functions that run longer than 60 seconds, configure both `api_call_timeout` and `read_timeout` to appropriate values. 
+For Lambda functions that run for longer than 60 seconds, configure both `api_call_timeout` and `read_timeout` to appropriate values. 
 
 ## Usage
 
