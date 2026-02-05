@@ -566,7 +566,7 @@ Executes a query against an external data source using the data source's native 
 
 #### HTTP method and path
 
-```
+```http
 POST /_plugins/_directquery/_query/{dataSource}
 ```
 
@@ -582,15 +582,22 @@ Field | Data type | Description
 :--- | :--- | :---
 `query` | String | The query to execute in the data source's native query language (for example, PromQL for Prometheus). Required.
 `language` | String | The query language. For Prometheus data sources, use `PROMQL`. Required.
-`options` | Object | Data source-specific query options. Optional.
-`options.queryType` | String | The type of query. For Prometheus, valid values are `instant` or `range`. Default is `instant`. Optional.
-`options.time` | String | The evaluation timestamp for instant queries. ISO 8601 format or Unix timestamp. Optional.
-`options.start` | String | The start timestamp for range queries. ISO 8601 format or Unix timestamp. Required for range queries.
-`options.end` | String | The end timestamp for range queries. ISO 8601 format or Unix timestamp. Required for range queries.
-`options.step` | String | The query resolution step width for range queries. Duration format (for example, `15s`, `1m`, `1h`). Required for range queries.
-`maxResults` | Integer | The maximum number of results to return. Optional.
-`timeout` | Integer | The query timeout in seconds. Optional.
+`options` | Object | Data source-specific query options. See [Prometheus options](#prometheus-options). Optional.
+`maxResults` | Integer | The maximum number of results to return. Currently only used for Prometheus. Optional.
+`timeout` | Integer | The query timeout in seconds. Currently only used for Prometheus. Optional.
 `sessionId` | String | A session identifier for tracking queries. If not provided, a UUID is automatically generated. Optional.
+
+#### Prometheus options
+
+The following options are specific to Prometheus data sources and should be provided in the `options` object:
+
+Field | Data type | Description
+:--- | :--- | :---
+`options.queryType` | String | The type of query. Valid values are `instant` or `range`. Default is `instant`. Optional.
+`options.time` | String | The evaluation timestamp for instant queries. Unix timestamp. Required for instant queries.
+`options.start` | String | The start timestamp for range queries. Unix timestamp. Required for range queries.
+`options.end` | String | The end timestamp for range queries. Unix timestamp. Required for range queries.
+`options.step` | String | The query resolution step width for range queries. Duration format (for example, `15s`, `1m`, `1h`). Required for range queries.
 
 #### Example request: Instant query
 
@@ -670,7 +677,7 @@ Fetches metadata and resources from an external data source. This API provides a
 
 The Read Resources API supports several endpoints for different resource types:
 
-```
+```http
 GET /_plugins/_directquery/_resources/{dataSource}/api/v1/{resourceType}
 GET /_plugins/_directquery/_resources/{dataSource}/api/v1/{resourceType}/{resourceName}/values
 GET /_plugins/_directquery/_resources/{dataSource}/alertmanager/api/v2/{resourceType}
@@ -699,20 +706,22 @@ Resource Type | Endpoint | Description
 `silences` | `/alertmanager/api/v2/silences` | Fetches alert silences from Alertmanager.
 `receivers` | `/alertmanager/api/v2/receivers` | Fetches Alertmanager receivers.
 
-#### Query parameters
+#### Query parameters (Prometheus)
+
+The following query parameters are specific to Prometheus and Alertmanager data sources. These parameters are passed through to the underlying data source API.
 
 Parameter | Data type | Description
 :--- | :--- | :---
 `start` | String | The start timestamp for filtering results. ISO 8601 format. Optional.
 `end` | String | The end timestamp for filtering results. ISO 8601 format. Optional.
 `match[]` | String | A series selector for filtering (used with series endpoint). Optional.
-`active` | Boolean | Filters alerts by active status. Optional.
-`silenced` | Boolean | Filters alerts by silenced status. Optional.
-`filter` | String | A filter expression for silences. Optional.
+`active` | Boolean | Filters alerts by active status (Alertmanager). Optional.
+`silenced` | Boolean | Filters alerts by silenced status (Alertmanager). Optional.
+`filter` | String | A filter expression for silences (Alertmanager). Optional.
 
 #### Example request: Get all labels
 
-```json
+```http
 GET /_plugins/_directquery/_resources/my_prometheus/api/v1/labels
 ```
 {% include copy-curl.html %}
@@ -734,7 +743,7 @@ GET /_plugins/_directquery/_resources/my_prometheus/api/v1/labels
 
 #### Example request: Get values for a specific label
 
-```json
+```http
 GET /_plugins/_directquery/_resources/my_prometheus/api/v1/label/job/values
 ```
 {% include copy-curl.html %}
@@ -754,7 +763,7 @@ GET /_plugins/_directquery/_resources/my_prometheus/api/v1/label/job/values
 
 #### Example request: Get active alerts
 
-```json
+```http
 GET /_plugins/_directquery/_resources/my_prometheus/alertmanager/api/v2/alerts?active=true&silenced=false
 ```
 {% include copy-curl.html %}
@@ -782,7 +791,7 @@ GET /_plugins/_directquery/_resources/my_prometheus/alertmanager/api/v2/alerts?a
 
 #### Example request: Get alert silences
 
-```json
+```http
 GET /_plugins/_directquery/_resources/my_prometheus/alertmanager/api/v2/silences
 ```
 {% include copy-curl.html %}
@@ -795,7 +804,7 @@ Creates or modifies resources in an external data source. Currently supports cre
 
 #### HTTP method and path
 
-```
+```http
 POST /_plugins/_directquery/_resources/{dataSource}/alertmanager/api/v2/{resourceType}
 ```
 
@@ -806,9 +815,9 @@ Parameter | Data type | Description
 `dataSource` | String | The name of the configured data source. Required.
 `resourceType` | String | The type of resource to create. Currently only `silences` is supported. Required.
 
-#### Request body fields
+#### Request body fields (Alertmanager silences)
 
-The request body should contain the resource definition in the format expected by the external data source. For Alertmanager silences, use the following format:
+The request body is passed through to the external data source API. The following fields are specific to creating Alertmanager silences:
 
 Field | Data type | Description
 :--- | :--- | :---
