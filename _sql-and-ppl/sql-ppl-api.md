@@ -550,3 +550,315 @@ The response contains the Boolean query in OpenSearch DSL that corresponds to th
 }
 
 ```
+
+## Datasources
+
+OpenSearch supports querying external non-OpenSearch data sources like Prometheus through the SQL plugin. The Direct Query API enables querying these data sources directly using their native query languages (for example, PromQL for Prometheus).
+
+Before using these APIs, you must configure a data source. For information about configuring data sources, see [Data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/).
+{: .note}
+
+### Execute Direct Query API
+Experimental
+{: .label .label-yellow }
+
+Executes a query against an external data source using the data source's native query language.
+
+#### HTTP method and path
+
+```
+POST /_plugins/_directquery/_query/{dataSource}
+```
+
+#### Path parameters
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`dataSource` | String | The name of the configured data source to query. Required.
+
+#### Request body fields
+
+Field | Data type | Description
+:--- | :--- | :---
+`query` | String | The query to execute in the data source's native query language (for example, PromQL for Prometheus). Required.
+`language` | String | The query language. For Prometheus data sources, use `PROMQL`. Required.
+`options` | Object | Data source-specific query options. Optional.
+`options.queryType` | String | The type of query. For Prometheus, valid values are `instant` or `range`. Default is `instant`. Optional.
+`options.time` | String | The evaluation timestamp for instant queries. ISO 8601 format or Unix timestamp. Optional.
+`options.start` | String | The start timestamp for range queries. ISO 8601 format or Unix timestamp. Required for range queries.
+`options.end` | String | The end timestamp for range queries. ISO 8601 format or Unix timestamp. Required for range queries.
+`options.step` | String | The query resolution step width for range queries. Duration format (for example, `15s`, `1m`, `1h`). Required for range queries.
+`maxResults` | Integer | The maximum number of results to return. Optional.
+`timeout` | Integer | The query timeout in seconds. Optional.
+`sessionId` | String | A session identifier for tracking queries. If not provided, a UUID is automatically generated. Optional.
+
+#### Example request: Instant query
+
+The following request executes an instant PromQL query against a Prometheus data source:
+
+```json
+POST /_plugins/_directquery/_query/my_prometheus
+{
+  "query": "up",
+  "language": "PROMQL",
+  "options": {
+    "queryType": "instant"
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example request: Range query
+
+The following request executes a range query to get CPU usage over time:
+
+```json
+POST /_plugins/_directquery/_query/my_prometheus
+{
+  "query": "rate(node_cpu_seconds_total{mode=\"user\"}[5m])",
+  "language": "PROMQL",
+  "options": {
+    "queryType": "range",
+    "start": "2024-01-01T00:00:00Z",
+    "end": "2024-01-01T01:00:00Z",
+    "step": "60s"
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "queryId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "sessionId": "session-uuid-here",
+  "results": {
+    "status": "success",
+    "data": {
+      "resultType": "vector",
+      "result": [
+        {
+          "metric": {
+            "__name__": "up",
+            "instance": "localhost:9090",
+            "job": "prometheus"
+          },
+          "value": [1704067200, "1"]
+        }
+      ]
+    }
+  }
+}
+```
+
+#### Response body fields
+
+Field | Data type | Description
+:--- | :--- | :---
+`queryId` | String | A unique identifier for the executed query.
+`sessionId` | String | The session identifier for tracking related queries.
+`results` | Object | The query results from the data source in its native response format.
+
+### Read Resources API
+Experimental
+{: .label .label-yellow }
+
+Fetches metadata and resources from an external data source. This API provides access to labels, series, alerts, and other metadata from Prometheus and Alertmanager.
+
+#### HTTP method and path
+
+The Read Resources API supports several endpoints for different resource types:
+
+```
+GET /_plugins/_directquery/_resources/{dataSource}/api/v1/{resourceType}
+GET /_plugins/_directquery/_resources/{dataSource}/api/v1/{resourceType}/{resourceName}/values
+GET /_plugins/_directquery/_resources/{dataSource}/alertmanager/api/v2/{resourceType}
+GET /_plugins/_directquery/_resources/{dataSource}/alertmanager/api/v2/alerts/groups
+```
+
+#### Path parameters
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`dataSource` | String | The name of the configured data source. Required.
+`resourceType` | String | The type of resource to fetch. See [Supported resource types](#supported-resource-types). Required.
+`resourceName` | String | The name of a specific resource (for example, a label name when fetching label values). Required for label values endpoint.
+
+#### Supported resource types
+
+The following resource types are supported for Prometheus data sources:
+
+Resource Type | Endpoint | Description
+:--- | :--- | :---
+`labels` | `/api/v1/labels` | Fetches all label names.
+`label` | `/api/v1/label/{labelName}/values` | Fetches values for a specific label.
+`metadata` | `/api/v1/metadata` | Fetches metric metadata.
+`series` | `/api/v1/series` | Fetches time series matching a selector.
+`alerts` | `/alertmanager/api/v2/alerts` | Fetches active alerts from Alertmanager.
+`silences` | `/alertmanager/api/v2/silences` | Fetches alert silences from Alertmanager.
+`receivers` | `/alertmanager/api/v2/receivers` | Fetches Alertmanager receivers.
+
+#### Query parameters
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`start` | String | The start timestamp for filtering results. ISO 8601 format. Optional.
+`end` | String | The end timestamp for filtering results. ISO 8601 format. Optional.
+`match[]` | String | A series selector for filtering (used with series endpoint). Optional.
+`active` | Boolean | Filters alerts by active status. Optional.
+`silenced` | Boolean | Filters alerts by silenced status. Optional.
+`filter` | String | A filter expression for silences. Optional.
+
+#### Example request: Get all labels
+
+```json
+GET /_plugins/_directquery/_resources/my_prometheus/api/v1/labels
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status": "success",
+  "data": [
+    "__name__",
+    "instance",
+    "job",
+    "mode",
+    "cpu"
+  ]
+}
+```
+
+#### Example request: Get values for a specific label
+
+```json
+GET /_plugins/_directquery/_resources/my_prometheus/api/v1/label/job/values
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "status": "success",
+  "data": [
+    "prometheus",
+    "node_exporter",
+    "alertmanager"
+  ]
+}
+```
+
+#### Example request: Get active alerts
+
+```json
+GET /_plugins/_directquery/_resources/my_prometheus/alertmanager/api/v2/alerts?active=true&silenced=false
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+[
+  {
+    "labels": {
+      "alertname": "HighMemoryUsage",
+      "instance": "server1:9100",
+      "severity": "warning"
+    },
+    "annotations": {
+      "summary": "High memory usage detected"
+    },
+    "startsAt": "2024-01-01T10:00:00.000Z",
+    "status": {
+      "state": "active"
+    }
+  }
+]
+```
+
+#### Example request: Get alert silences
+
+```json
+GET /_plugins/_directquery/_resources/my_prometheus/alertmanager/api/v2/silences
+```
+{% include copy-curl.html %}
+
+### Write Resources API
+Experimental
+{: .label .label-yellow }
+
+Creates or modifies resources in an external data source. Currently supports creating alert silences in Prometheus Alertmanager.
+
+#### HTTP method and path
+
+```
+POST /_plugins/_directquery/_resources/{dataSource}/alertmanager/api/v2/{resourceType}
+```
+
+#### Path parameters
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`dataSource` | String | The name of the configured data source. Required.
+`resourceType` | String | The type of resource to create. Currently only `silences` is supported. Required.
+
+#### Request body fields
+
+The request body should contain the resource definition in the format expected by the external data source. For Alertmanager silences, use the following format:
+
+Field | Data type | Description
+:--- | :--- | :---
+`matchers` | Array | An array of label matchers that determine which alerts the silence applies to. Required.
+`matchers[].name` | String | The label name to match. Required.
+`matchers[].value` | String | The label value to match. Required.
+`matchers[].isRegex` | Boolean | Whether the value is a regular expression. Default is `false`. Optional.
+`matchers[].isEqual` | Boolean | Whether to match equal (`true`) or not equal (`false`). Default is `true`. Optional.
+`startsAt` | String | The start time for the silence. ISO 8601 format. Required.
+`endsAt` | String | The end time for the silence. ISO 8601 format. Required.
+`createdBy` | String | The author of the silence. Required.
+`comment` | String | A comment describing the reason for the silence. Required.
+
+#### Example request: Create an alert silence
+
+```json
+POST /_plugins/_directquery/_resources/my_prometheus/alertmanager/api/v2/silences
+{
+  "matchers": [
+    {
+      "name": "alertname",
+      "value": "HighMemoryUsage",
+      "isRegex": false,
+      "isEqual": true
+    },
+    {
+      "name": "instance",
+      "value": "server1:9100",
+      "isRegex": false,
+      "isEqual": true
+    }
+  ],
+  "startsAt": "2024-01-01T12:00:00.000Z",
+  "endsAt": "2024-01-01T14:00:00.000Z",
+  "createdBy": "admin",
+  "comment": "Scheduled maintenance window"
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "silenceID": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+}
+```
+
+#### Response body fields
+
+Field | Data type | Description
+:--- | :--- | :---
+`silenceID` | String | The unique identifier of the created silence.
