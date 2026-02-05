@@ -152,6 +152,11 @@ The following table shows the possible values for the `type` setting under `auth
 The default `config/opensearch-security/config.yml` file included in your OpenSearch distribution contains many configuration examples. Use these examples as a starting point and customize them to your needs. 
 
 
+## Authentication and authorization over gRPC
+
+When the Security plugin is enabled and not running in SSL-only mode, requests over gRPC are subject to authentication and authorization. The gRPC transport shares all authentication backends with the HTTP layer and respects the `http_enabled` setting in authentication domains. As of OpenSearch 3.5, only JWT authentication is supported over gRPC. For more information, see [Using JWT authentication with gRPC]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/#using-jwt-authentication-with-grpc).
+
+
 ## Next steps
 
 To learn about configuring the authentication backends, see the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation. Alternatively, you can view documentation for a specific backend by using the links in the following list of topics:
