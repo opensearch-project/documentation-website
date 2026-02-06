@@ -13,9 +13,24 @@ nav_order: 16
 
 This quick start guide shows you how to create and use agents with the unified agent API.
 
-This is an experimental release supporting Amazon Bedrock Converse Claude and Gemini models.
+This is an experimental release supporting Amazon Bedrock Converse Claude, Gemini, and OpenAI models.
 {: .important}
 
+## Comparison with traditional workflow
+
+### Traditional workflow (before 3.5)
+
+1. Register connector (manual configuration)
+2. Register model (using connector ID)
+3. Register agent (using model ID)
+4. Execute with `parameters.question`
+
+### Simplified workflow (3.5+)
+
+1. Register agent (automatic connector and model creation)
+2. Execute with `input` field
+
+The simplified workflow reduces register three steps to one and eliminates error-prone manual configuration.
 
 ## Step 1: Enable the unified agent API
 
@@ -47,22 +62,6 @@ PUT /_cluster/settings
 }
 ```
 
-## Comparison with traditional workflow
-
-### Traditional workflow (before 3.5)
-
-1. Register connector (manual configuration)
-2. Register model (using connector ID)
-3. Register agent (using model ID)
-4. Execute with `parameters.question`
-
-### Simplified workflow (3.5+)
-
-1. Register agent (automatic connector and model creation)
-2. Execute with `input` field
-
-The simplified workflow reduces three steps to one and eliminates error-prone manual configuration.
-
 ## Step 2: Register an agent
 
 The unified agent API currently supports:
@@ -70,7 +69,9 @@ The unified agent API currently supports:
 - `conversational`: Interactive agents with tool calling
 - `plan_execute_and_reflect`: Multi-step planning agents
 
-Create an agent with a single API call. Behind the scenes, the connector and model are created automatically and configured with the agent:
+Create an agent with a single API call. Behind the scenes, the connector and model are created automatically and configured with the agent.
+
+The following example shows registration for Amazon Bedrock Converse Claude models. For other model providers (Gemini, OpenAI), see the [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/) documentation. 
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -90,42 +91,6 @@ POST /_plugins/_ml/agents/_register
   "tools": [
     {
       "type": "ListIndexTool"
-    },
-    {
-      "type": "SearchIndexTool"
-    }
-  ],
-  "memory": {
-    "type": "conversation_index"
-  }
-}
-```
-{% include copy-curl.html %}
-
-### Example: Gemini agent registration
-
-```json
-POST /_plugins/_ml/agents/_register
-{
-  "name": "Gemini Multimodal Agent",
-  "type": "conversational",
-  "description": "Test agent for Gemini multimodal capabilities",
-  "model": {
-    "model_id": "gemini-2.5-pro",
-    "model_provider": "gemini/v1beta/generatecontent",
-    "credential": {
-      "gemini_api_key": "YOUR_API_KEY"
-    },
-    "model_parameters": {
-      "system_prompt": "You are a helpful assistant that can understand images and text."
-    }
-  },
-  "tools": [
-    {
-      "type": "ListIndexTool"
-    },
-    {
-      "type": "IndexMappingTool"
     },
     {
       "type": "SearchIndexTool"
