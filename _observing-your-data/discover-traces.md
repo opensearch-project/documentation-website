@@ -76,7 +76,7 @@ If your indexes use different naming conventions, you must manually create the d
 
 ## Exploring trace data
 
-The the **Traces** page provides comprehensive tools for analyzing span data and understanding trace performance, including:
+The **Traces** page provides comprehensive tools for analyzing span data and understanding trace performance, including:
 
 - **RED metrics**: View rate, error, and duration metrics at the top of the page to quickly assess trace performance and health.
 - **Faceted fields**: Use faceted field filters to filter and analyze specific aspects of your traces.
@@ -111,7 +111,7 @@ The **Traces** page provides seamless integration with log data, allowing you to
 
 ### Viewing related logs
 
-to view the related logs, follow these steps:
+To view the related logs, follow these steps:
 
 1. In the **Trace Details** flyout, locate the **Related logs** section. 
 1. Select the **View in Discover Logs** button to navigate to the correlated log entries for the selected trace, as shown in the following image.
