@@ -78,7 +78,7 @@ You can also view correlation associations from the logs dataset perspective:
 This view is read-only. To modify correlations, you must edit them from the trace dataset.
 {: .note}
 
-## Using correlations in Discover Traces
+## Using correlations in Discover traces
 
 After creating correlations, you can access related logs when analyzing traces.
 
@@ -112,6 +112,8 @@ For correlations to work correctly, your logs data must include fields that can 
 If your logs do not follow OpenTelemetry conventions, configure schema mappings in your logs dataset to map your custom field names to these standard fields.
 
 ## Managing correlations
+
+You can edit or remove correlations from the trace dataset details page.
 
 ### Editing correlations
 

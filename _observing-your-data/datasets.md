@@ -110,7 +110,7 @@ After creating datasets, you can view and manage them from the Datasets page:
 
 3. Select a dataset to view its details, including configuration settings and any correlations.
 
-## Using datasets in Discover
+## Using datasets in Discover pages
 
 Datasets integrate with the Discover interface for exploring your data:
 
@@ -131,4 +131,3 @@ Datasets integrate with the Discover interface for exploring your data:
 - [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) -- Compare datasets to traditional index patterns
 - [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) -- Ingest OpenTelemetry data into OpenSearch
 - [Correlations]({{site.url}}{{site.baseurl}}/observing-your-data/correlations/) -- Link traces and logs datasets
-- [Discover Traces]({{site.url}}{{site.baseurl}}/observing-your-data/discover-traces/) -- Explore traces and spans
