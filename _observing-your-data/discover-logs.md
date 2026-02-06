@@ -39,7 +39,7 @@ Before using Discover logs, ensure the following:
 
 3. **Logs dataset configured**: You must have at least one logs dataset configured. See [Datasets]({{site.url}}{{site.baseurl}}/observing-your-data/datasets/) for instructions on creating a logs dataset.
 
-## Accessing Discover logs
+## Accessing the Discover logs page
 
 To access Discover logs:
 
@@ -69,7 +69,7 @@ Discover logs uses PPL (Piped Processing Language) for querying log data. PPL al
 
 ### Basic queries
 
-To retrieve all logs from your dataset, simply run a query without any filters. The results appear in the **Logs** tab showing individual log entries.
+To retrieve all logs from your dataset, run a query without any filters. The results appear in the **Logs** tab showing individual log entries.
 
 ### Filtering with WHERE clause
 
@@ -94,7 +94,7 @@ You can combine multiple conditions:
 
 The PPL editor provides autocomplete suggestions as you type. This includes:
 
-- PPL commands (`WHERE`, `STATS`, `SORT`, etc.)
+- PPL commands (`WHERE`, `STATS`, `SORT`)
 - Field names from your dataset
 - Functions and operators
 
