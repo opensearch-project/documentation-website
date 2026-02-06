@@ -20,7 +20,7 @@ A _tool_ performs a set of specific tasks. Some examples of tools are the [`Vect
 
 You can modify and transform tool outputs using a [processor chain]({{site.url}}{{site.baseurl}}/ml-commons-plugin/processor-chain/).
 
-## Unified agent API (Experimental)
+## Unified agent API (experimental)
 **Introduced 3.5**
 {: .label .label-purple }
 

@@ -249,6 +249,7 @@ POST /_plugins/_ml/agents/_register
 
 The unified agent API automates connector and model creation. Supports Amazon Bedrock Converse Claude and Gemini models.
 
+### Example: Amazon Bedrock Converse Claudet
 ```json
 POST /_plugins/_ml/agents/_register
 {
@@ -298,6 +299,43 @@ POST /_plugins/_ml/agents/_register
     },
     "model_parameters": {
       "system_prompt": "You are a helpful assistant that can understand images and text."
+    }
+  },
+  "tools": [
+    {
+      "type": "ListIndexTool"
+    },
+    {
+      "type": "IndexMappingTool"
+    },
+    {
+      "type": "SearchIndexTool"
+    }
+  ],
+  "memory": {
+    "type": "conversation_index"
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Example: OpenAI agent registration
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "OpenAI Multimodal Agent",
+  "type": "conversational",
+  "description": "Test agent for OpenAI multimodal capabilities",
+  "model": {
+    "model_id": "gpt-5",
+    "model_provider": "openai/v1/chat/completions",
+    "credential": {
+      "openai_api_key": "YOUR_API_KEY"
+    },
+    "model_parameters": {
+      "system_prompt": "You are a helpful assistant that can understand images and text.",
+      "reasoning_effort": "low"
     }
   },
   "tools": [

@@ -5,7 +5,7 @@ parent: Agents and tools
 nav_order: 15
 ---
 
-# Unified agent API (Experimental)
+# Unified agent API (experimental)
 **Introduced 3.5**
 {: .label .label-purple }
 **Experimental release**
@@ -13,7 +13,7 @@ nav_order: 15
 
 The unified agent API streamlines agent creation and execution by automating connector and model setup. This experimental feature significantly reduces the complexity of working with agents in OpenSearch.
 
-This is an experimental release. Amazon Bedrock Converse Claude and Gemini models are supported. The APIs and functionality may change in future releases.
+This is an experimental release. Amazon Bedrock Converse Claude, OpenAI and Gemini models are supported. The APIs and functionality may change in future releases.
 {: .important}
 
 ## Enabling the unified agent API
@@ -52,8 +52,11 @@ Currently, only the following models are supported:
 
 - Amazon Bedrock Converse API with Anthropic Claude models
 - Google Gemini models
+- OpenAI models
 
 Support for additional model providers and models will be added in future releases.
+
+The unified agent API provides two main workflows for creating and using agents.
 
 ## Unified agent registration
 

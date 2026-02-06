@@ -79,7 +79,7 @@ Therefore, the population increase of Seattle from 2021 to 2023 is 58,000."""
 }
 ```
 
-## Unified agent API execution (Experimental)
+## Unified agent API execution (experimental)
 **Introduced 3.5**
 {: .label .label-purple }
 **Experimental release**
