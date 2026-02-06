@@ -2,8 +2,10 @@
 layout: default
 title: SQL and PPL API
 nav_order: 1
+has_children: true
 redirect_from:
   - /search-plugins/sql/sql-ppl-api/
+  - /sql-and-ppl/sql-ppl-api/
 ---
 
 # SQL and PPL API
