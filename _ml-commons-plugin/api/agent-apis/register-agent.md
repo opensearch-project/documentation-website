@@ -241,23 +241,38 @@ POST /_plugins/_ml/agents/_register
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
+The following example uses the unified agent interface. For more information, see [AG-UI agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/).
+
 ```json
 POST /_plugins/_ml/agents/_register
 {
-  "name": "UI Assistant Agent",
-  "type": "ag_ui",
-  "description": "An agent designed for UI interactions with streaming support",
-  "llm": {
-    "model_id": "<llm_model_id>",
-    "parameters": {
-      "max_iteration": 5,
-      "response_filter": "$.completion"
-    }
+  "name": "AG-UI Agent",
+  "type": "AG_UI",
+  "description": "An AI agent designed for UI interactions with streaming support",
+  "model": {
+    "model_id": "<MODEL ID>",
+    "model_provider": "bedrock/converse",
+        "credential": {
+          "access_key": "<AWS ACCESS KEY>",
+          "secret_key": "<AWS SECRET KEY>",
+          "session_token": "<AWS SESSION TOKEN>"
+        },
+        "model_parameters": {
+          "system_prompt": "You are a helpful assistant and an expert in OpenSearch."
+        }
   },
+  "parameters": {
+    "max_iteration": 5,
+    "mcp_connectors": [{
+        "mcp_connector_id": "<MCP CONNECTOR ID>" // optional
+    }]
+  },
+  "tools": [{
+    "type": "ListIndexTool"
+  }],
   "memory": {
-    "type": "conversation_index"
-  },
-  "app_type": "ui_assistant"
+    "type": "conversation_index"  // optional
+  }
 }
 ```
 {% include copy-curl.html %}
