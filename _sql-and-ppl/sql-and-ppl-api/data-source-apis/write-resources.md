@@ -29,7 +29,7 @@ The following table lists the available path parameters.
 Parameter | Data type | Description
 :--- | :--- | :---
 `dataSource` | String | The name of the configured data source. Required.
-`resourceType` | String | The type of resource to create. Currently only `silences` is supported. Required.
+`resourceType` | String | The type of resource to create. Currently, only `silences` is supported. Required.
 
 ## Alertmanager silence request body fields
 

@@ -123,4 +123,4 @@ Field | Data type | Description
 :--- | :--- | :---
 `queryId` | String | The unique identifier for the executed query.
 `sessionId` | String | The session identifier for tracking related queries.
-`results` | Object | The query results from the data source, returned in the data source’s native response format.
+`results` | Object | The query results from the data source, returned in the data source's native response format.

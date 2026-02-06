@@ -41,7 +41,7 @@ Parameter | Data type | Description
 
 The following resource types are supported for Prometheus data sources.
 
-Resource Type | Endpoint | Description
+Resource type | Endpoint | Description
 :--- | :--- | :---
 `labels` | `/api/v1/labels` | Fetches all label names.
 `label` | `/api/v1/label/{labelName}/values` | Fetches values for a specific label.
