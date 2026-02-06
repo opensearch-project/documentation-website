@@ -34,6 +34,8 @@ You can customize `--client-options` with the following settings.
 | :---- | :---- | :---- |
 | `timeout` | Integer | Sets the request timeout value in seconds. |
 | `verify_certs` | Boolean | Determines whether to verify SSL certificates when connecting to the OpenSearch cluster. |
+| `basic_auth_user` | String | User for authentication to your OpenSearch if enabled. |
+| `basic_auth_password` | String | User for authentication to your OpenSearch if enabled. |
 
 This example runs a benchmark with a 2-minute timeout and disabled certificate verification:
 
