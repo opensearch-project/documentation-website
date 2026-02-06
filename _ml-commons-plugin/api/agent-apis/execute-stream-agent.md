@@ -15,9 +15,13 @@ This is an experimental feature and is not recommended for use in a production e
 
 The Execute Stream Agent API provides the same functionality as the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/) but returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
 
-This API currently supports conversational agents with the following remote model types:
+This API currently supports the following agent types:
+
+**Conversational agents** with the following remote model types:
 - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
 - [Amazon Bedrock Converse Stream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html)
+
+**AG-UI agents** with AG-UI protocol request and response format. For more information, see [AG-UI agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/).
 
 ## Endpoint
 
