@@ -94,6 +94,7 @@ The `client_config` parameter supports the following options.
 | `max_retry_times`  | Integer   | The maximum number of times that a single remote inference request will be retried. This is useful when there is a spike in traffic causing throttling exceptions. When set to `0`, retrying is disabled. When set to `-1`, OpenSearch does not limit the number of `retry_times`. Setting this to a positive integer specifies the maximum number of retry attempts. Default is `0`.       |
 | `retry_backoff_millis` | Integer   | The base backoff time in milliseconds for retry policy. The suspend time during two retries is determined by this parameter and `retry_backoff_policy`.  Default is `200`. |
 | `retry_timeout_seconds` | Integer   | The timeout value, in seconds, for the retry. If the retry can not succeed within the specified amount of time, the connector will stop retrying and throw an exception. Default is `30`. |
+| `skip_ssl_verification` | Boolean   | If set to `true`, disables SSL certificate verification for the connector, allowing connections to endpoints with self-signed or otherwise invalid certificates. Use only in development or testing environments. If set to `false`, SSL certificate verification remains enabled (recommended for production). Default is `false`. |
 
 ## Built-in pre- and post-processing functions
 
