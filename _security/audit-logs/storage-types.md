@@ -108,6 +108,16 @@ Name | Data type | Description
 `plugins.security.audit.config.webhook.format` | String | The format in which the audit log message is logged, can be one of `URL_PARAMETER_GET`, `URL_PARAMETER_POST`, `TEXT`, `JSON`, `SLACK`. See [Formats](#formats).
 
 
+### Basic auth settings
+
+If the webhook endpoint requires HTTP basic authentication, use these settings to specify the username and password:
+
+```yml
+plugins.security.audit.config.username: <username>
+plugins.security.audit.config.password: <password>
+```
+
+
 ### Formats
 
 Format | Description
