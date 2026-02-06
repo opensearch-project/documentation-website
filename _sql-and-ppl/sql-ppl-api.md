@@ -603,7 +603,7 @@ Field | Data type | Description
 
 The following request executes an instant PromQL query against a Prometheus data source:
 
-```json
+```http
 POST /_plugins/_directquery/_query/my_prometheus
 {
   "query": "up",
@@ -619,7 +619,7 @@ POST /_plugins/_directquery/_query/my_prometheus
 
 The following request executes a range query to get CPU usage over time:
 
-```json
+```http
 POST /_plugins/_directquery/_query/my_prometheus
 {
   "query": "rate(node_cpu_seconds_total{mode=\"user\"}[5m])",
@@ -833,7 +833,7 @@ Field | Data type | Description
 
 #### Example request: Create an alert silence
 
-```json
+```http
 POST /_plugins/_directquery/_resources/my_prometheus/alertmanager/api/v2/silences
 {
   "matchers": [
