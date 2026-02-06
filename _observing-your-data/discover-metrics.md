@@ -1,11 +1,10 @@
 ---
 layout: default
-title: Metrics
-parent: Analyzing data with Discover
-nav_order: 30
+title: Discover Metrics
+nav_order: 50
 ---
 
-# Metrics
+# Discover Metrics
 Introduced 3.5
 {: .label .label-purple }
 
