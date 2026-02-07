@@ -190,7 +190,7 @@ Alternately, rather than admin credentials, you can specify the credentials of a
 - `indices:admin/template/get`
 - `indices:admin/template/put`
 
-In case the target is an OpenSearch Data Stream, this permission is needed from the Data Stream detector:
+In case the target is an OpenSearch data stream, this permission is needed from the data stream detector:
 
 - `indices:admin/data_stream/get`
 
