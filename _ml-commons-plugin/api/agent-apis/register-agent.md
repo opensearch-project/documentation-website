@@ -238,10 +238,10 @@ POST /_plugins/_ml/agents/_register
 **Introduced 3.5**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
 {: .warning}
 
-The following example uses the unified agent interface. For more information, see [AG-UI agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/).
+AG-UI agents use the unified registration method for integrating AI agents with frontend applications. The following example shows the basic structure:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -252,30 +252,29 @@ POST /_plugins/_ml/agents/_register
   "model": {
     "model_id": "<MODEL ID>",
     "model_provider": "bedrock/converse",
-        "credential": {
-          "access_key": "<AWS ACCESS KEY>",
-          "secret_key": "<AWS SECRET KEY>",
-          "session_token": "<AWS SESSION TOKEN>"
-        },
-        "model_parameters": {
-          "system_prompt": "You are a helpful assistant and an expert in OpenSearch."
-        }
+    "credential": {
+      "access_key": "<AWS ACCESS KEY>",
+      "secret_key": "<AWS SECRET KEY>",
+      "session_token": "<AWS SESSION TOKEN>"
+    },
+    "model_parameters": {
+      "system_prompt": "You are a helpful assistant and an expert in OpenSearch."
+    }
   },
   "parameters": {
-    "max_iteration": 5,
-    "mcp_connectors": [{
-        "mcp_connector_id": "<MCP CONNECTOR ID>" // optional
-    }]
+    "max_iteration": 5
   },
   "tools": [{
     "type": "ListIndexTool"
   }],
   "memory": {
-    "type": "conversation_index"  // optional
+    "type": "conversation_index"
   }
 }
 ```
 {% include copy-curl.html %}
+
+For complete AG-UI agent documentation including field definitions, prerequisites, execution examples, and the AG-UI protocol format, see [AG-UI agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/).
 
 ## Example response
 
