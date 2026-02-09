@@ -332,6 +332,130 @@ JWT authentication supports direct JWKS endpoint configuration starting with Ope
 - When both `jwks_uri` and `signing_key` are configured, `jwks_uri` takes precedence and `signing_key` is ignored.
 
 
+## Using JWT with Teleport
+
+Teleport has its own set of JWTs, that can be used with OpenSearch to authenticate users on the dashboard based on Teleport roles.
+
+### In Teleport
+
+In Teleport, you need to create a role that has the same name as a backend role from your OpenSearch instance. For example:
+
+```yaml
+apiVersion: resources.teleport.dev/v1
+kind: TeleportRoleV7
+metadata:
+  name: admin # Match Opensearch "Backend roles" names
+spec:
+  allow:
+    # App
+    app_labels_expression: |
+      regexp.match(labels["hostname"], "^(.*)opensearch(.*)$")
+```
+
+You now have to apply it to users you want to be able to use the role.
+
+### In the OpenSearch Dashboards machine
+
+#### Teleport
+
+In the agent configuration file, which is usually `/etc/teleport.yaml`, you have to adapt the app service to automatically write the jwt as a header:
+
+```yaml
+# [...]
+app_service:
+  enabled: "yes"
+  apps:
+  - name: opensearch-dashboard
+    uri: "https://127.0.0.1:5601"
+    insecure_skip_verify: true
+    rewrite:
+      headers:
+      - "Authorization: {% raw %}{{internal.jwt}}{% endraw %}"
+    labels:
+      # [...]
+```
+
+Apply the new configuration using
+
+```bash
+systemctl restart teleport
+```
+
+#### Dashboards configuration file
+
+In the OpenSearch Dashboards configuration file -- usually `/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml`, you have to enable the jwt authentication method, keeping the basic HTTP authentication as a fallback:
+
+```yaml
+opensearch_security.auth.multiple_auth_enabled: true
+opensearch_security.auth.type: ["basicauth", "jwt"]
+```
+
+You can now apply the new configuration with
+
+```bash
+systemctl restart dashboards
+```
+
+### In the security node
+
+In the node you use to run the `securityadmin.sh` script, modify the security plugin configuration file (e.g `/usr/share/opensearch/config/opensearch-security/config.yml`) to configure the two authentication methods:
+
+```yaml
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      basic_internal_auth_domain:
+        description: "Authenticate via HTTP Basic against internal users database"
+        http_enabled: true
+        transport_enabled: true
+        order: 1
+        http_authenticator:
+            type: basic
+            challenge: true
+        authentication_backend:
+            type: internal
+
+      jwt_auth_domain:
+        description: "Authenticate via Json Web Token provide by Teleport"
+        http_enabled: true
+        transport_enabled: true
+        order: 0
+        http_authenticator:
+            type: jwt
+            challenge: false
+            config:
+                signing_key: null
+                jwks_uri: "https://example.com/.well-known/jwks.json" # URL of the Teleport's leaf the machine is in, not the root
+                jwt_header: "Authorization"
+                jwt_url_parameter: null
+                jwt_clock_skew_tolerance_seconds: 30
+                subject_key: "sub"
+                roles_key: "roles"
+        authentication_backend:
+            type: noop
+```
+
+Make sure the basic authentication has `order: 1` and `challenge: true`, while the JWT auth has `order: 0` and `challenge: false`. Otherwise, the direct API calls will not work unless you give them the JWT header.
+
+Now, to apply this new configuration, run
+
+```bash
+{% raw %}
+export JAVA_HOME="[OPENSEARCH_INSTALL_DIR]/jdk"
+
+bash [OPENSEARCH_INSTALL_DIR]/plugins/opensearch-security/tools/securityadmin.sh \
+-cacert [PATH_TO_ROOT_CA] \
+-cert [PATH_TO_ADMIN_CERT_PEM] \
+-key [PATH_TO_ADMIN_CERT_KEY] \
+-cd [PATH_TO_OPENSEARCH_SECURITY_CONFIG_DIR] \
+-nhnv -icl \
+-h 127.0.0.1
+{% endraw %}
+```
 
 ## Troubleshooting common issues
 
