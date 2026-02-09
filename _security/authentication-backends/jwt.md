@@ -341,7 +341,7 @@ Starting with OpenSearch 3.5, JWT authentication is supported over the gRPC tran
 - Superuser authentication (client certificate authentication) is not supported over gRPC. Configuration changes requiring superuser privileges should use the REST API.
 - Anonymous authentication is not supported over gRPC. Requests with anonymous authentication headers are rejected as unauthorized.
 
-You should use HTTPS instead of HTTP when transmitting JWTs over gRPC. For information about configuring TLS for gRPC, see [Configuring TLS certificates for gRPC]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-tls-certificates-for-grpc).
+You should enable TLS when transmitting JWTs over gRPC. For information about configuring TLS for gRPC, see [Configuring TLS certificates for gRPC]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-tls-certificates-for-grpc).
 
 
 ## Troubleshooting common issues
