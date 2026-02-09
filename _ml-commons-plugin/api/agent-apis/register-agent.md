@@ -66,7 +66,7 @@ To use agentic memory, create a memory container using the [Create Memory Contai
 ```
 {% include copy.html %}
 
-For agents configured with `agentic_memory`, see [Inspecting memory data]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#inspecting-memory-data) for information about inspecting session and trace data after agent execution.
+For agents configured with `agentic_memory`, see [Inspecting memory data]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#inspecting-memory-data-opensearch-agents) for information about inspecting session and trace data after agent execution.
 
 ### Tool configuration
 
