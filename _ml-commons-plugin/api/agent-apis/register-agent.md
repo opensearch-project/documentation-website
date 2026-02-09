@@ -56,7 +56,7 @@ Field | Data type | Required/Optional | Agent type | Description
 
 ### Using agentic memory
 
-To use agentic memory, create a memory container using the [Create memory container API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/) and set the memory configuration as follows:
+To use agentic memory, create a memory container using the [Create Memory Container API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/) and set the memory configuration as follows:
 
 ```json
 "memory": {
@@ -305,4 +305,4 @@ OpenSearch responds with an agent ID that you can use to refer to the agent:
 
 ## Related documentation
 
-- For agents configured with `agentic_memory`, see [Inspecting memory data]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/)
+- For agents configured with `agentic_memory`, see [Inspecting memory data]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/).

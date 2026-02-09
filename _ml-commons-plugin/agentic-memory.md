@@ -224,7 +224,7 @@ For detailed API documentation, see [Agentic Memory APIs]({{site.url}}{{site.bas
 
 ## Inspecting memory data (OpenSearch agents)
 
-After executing OpenSearch agents configured with agentic memory, you can inspect session and trace data using [Get Memory API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/get-memory/) or [Search Memory API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/search-memory/):
+After executing OpenSearch agents configured with agentic memory, you can inspect session and trace data using the [Get Memory API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/get-memory/) or [Search Memory API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/search-memory/):
 
 1. Retrieve the session by `memory_id`:
 
