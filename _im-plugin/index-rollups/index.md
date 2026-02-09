@@ -36,14 +36,14 @@ After you create an index rollup job, you can't change your index selections.
 
 ### Step 2: Define aggregations and metrics
 
-Select the attributes with the aggregations (terms and histograms) and metrics (avg, sum, max, min, value count, and cardinality) that you want to roll up. Make sure you don’t add a lot of highly granular attributes, because you won’t save much space.
+Select the attributes with the aggregations (terms and histograms) and metrics (`avg`, `sum`, `max`, `min`, `value_count`, and `cardinality`) that you want to roll up. Make sure you don't add a lot of highly granular attributes, because you won't save much space.
 
 For example, consider a dataset of cities and demographics within those cities. You can aggregate based on cities and specify demographics within a city as metrics.
 The order in which you select attributes is critical. A city followed by a demographic is different from a demographic followed by a city.
 
 1. In the **Time aggregation** section, select a timestamp field. Choose between a **Fixed** or **Calendar** interval type and specify the interval and timezone. The index rollup job uses this information to create a date histogram for the timestamp field.
 2. (Optional) Add additional aggregations for each field. You can choose terms aggregation for all field types and histogram aggregation only for numeric fields.
-3. (Optional) Add additional metrics for each field. You can choose between **All**, **Min**, **Max**, **Sum**, **Avg**, **Value Count**, or **Cardinality**.
+3. (Optional) Add additional metrics for each field. You can choose **All**, **Min**, **Max**, **Sum**, **Avg**, **Value Count**, or **Cardinality**.
 4. Choose **Next**.
 
 ### Step 3: Specify schedule
@@ -87,7 +87,7 @@ GET target_index/_search
 
 Consider a scenario where you collect rolled up data from 1 PM to 9 PM in hourly intervals and live data from 7 PM to 11 PM in minutely intervals. If you execute an aggregation over these in the same query, for 7 PM to 9 PM, you see an overlap of both rolled up data and live data because they get counted twice in the aggregations.
 
-## Cardinality Metric
+## Cardinality metric
 **Introduced 3.5**
 {: .label .label-purple }
 
@@ -95,7 +95,13 @@ The cardinality metric enables memory-efficient tracking of unique counts in rol
 
 ### Configuration
 
-When defining a cardinality metric in a rollup job, you can specify the `precision_threshold` parameter:
+When defining a cardinality metric in a rollup job, you can specify the following parameter.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- | 
+| `precision_threshold` | Integer | Controls the trade-off between accuracy and memory usage. Higher values provide more accuracy but use more memory. Valid values are 100 to 40,000, inclusive. Default is 3,000.|
+
+You can specify the `precision_threshold` parameter in the `cardinality` object as follows:
 
 ```json
 {
@@ -114,16 +120,9 @@ When defining a cardinality metric in a rollup job, you can specify the `precisi
 }
 ```
 
-**Parameters**:
-- `precision_threshold` (optional): Controls the trade-off between accuracy and memory usage
-  - **Default**: 3000
-  - **Range**: 100 to 40,000
-  - **Higher values**: More accurate, more memory
-  - **Lower values**: Less accurate, less memory
+### Querying cardinality metrics
 
-### Querying Cardinality Metrics
-
-Query cardinality metrics on rollup indices the same way you would on source indices:
+You can query cardinality metrics on rollup indexes the same way you would on source indexes:
 
 ```json
 GET rollup_index/_search
@@ -138,12 +137,14 @@ GET rollup_index/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-**Important**: When querying rollup indices, any `precision_threshold` specified in the query is ignored. The system always uses the precision threshold configured when the rollup job was created. This ensures consistency with the stored HLL sketches.
+When querying rollup indexes, any `precision_threshold` specified in the query is ignored. The system always uses the precision threshold configured when the rollup job was created. This ensures consistency with the stored HLL sketches.
+{: .important }
 
-### Example: Tracking Unique Visitors
+### Example: Tracking unique visitors
 
-This example creates a rollup job that tracks unique visitors per hour:
+This example creates a rollup job that tracks the number of unique visitors per hour:
 
 ```json
 PUT _plugins/_rollup/jobs/visitor_rollup
@@ -190,6 +191,7 @@ PUT _plugins/_rollup/jobs/visitor_rollup
   }
 }
 ```
+{% include copy-curl.html %}
 
 Query the rollup index:
 
@@ -219,14 +221,13 @@ GET web_logs_hourly/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-## Multi-tier Rollups
+## Multi-tier rollups
 **Introduced 3.5**
 {: .label .label-purple }
 
 Multi-tier rollups allow you to create rollup-of-rollup jobs, enabling progressive data granularity reduction over time. This is useful for long-term data retention strategies where you want to keep fine-grained data for recent periods and increasingly coarse-grained data for older periods.
-
-### Concept
 
 With multi-tier rollups, you can create a hierarchy of rollup jobs:
 
@@ -242,18 +243,23 @@ Weekly Rollup (1-week intervals)
 
 Each tier uses the previous tier's rollup index as its source, progressively reducing storage requirements while maintaining queryability.
 
-### Requirements
+### Prerequisites
 
-For multi-tier rollups to work correctly:
+For multi-tier rollups to work correctly, you must fulfill the following prerequisites:
 
-1. **Matching dimensions**: All tiers must use the same dimension fields (field names and types must match)
-2. **Compatible time intervals**: Each tier's interval must be a multiple of the previous tier's interval (e.g., 5m → 1h → 1d)
-3. **Consistent cardinality precision**: If using cardinality metrics, all tiers must use the same `precision_threshold` value
-4. **Source index type**: The source index for tier 2+ must be a rollup index created by a previous tier
+1. **Matching dimensions**: All tiers must use the same dimension fields (field names and types must match).
+2. **Compatible time intervals**: Each tier's interval must be a multiple of the previous tier's interval (for example, `5m` → `1h` → `1d`).
+3. **Consistent cardinality precision**: If using [cardinality metrics](#cardinality-metric), all tiers must use the same `precision_threshold` value.
+4. **Source index type**: The source index for tier 2+ must be a rollup index created by a previous tier.
+5. **Source index data**: Ensure that the source tier has completed at least one rollup execution before creating the next tier. Creating a rollup job from an empty rollup index will succeed but may behave unexpectedly.
 
-### Example: Two-tier Rollup Strategy
+### Example: Two-tier rollup strategy
 
-This example demonstrates a two-tier rollup for IoT sensor data:
+This example demonstrates a two-tier rollup for IoT sensor data. It consists of Tier 1 and Tier 2:
+- Both tiers use identical dimension fields: `timestamp`, `sensor_id`, `location`.
+- Both tiers use identical metric fields: `temperature` (`avg`/`max`/`min`), `device_id` (`cardinality`).
+- The cardinality `precision_threshold` is the same in both tiers (`10000`).
+- Tier 2 uses `sensor_data_hourly` (the output of Tier 1) as its source.
 
 **Tier 1: Raw data → Hourly rollup**
 
@@ -312,7 +318,7 @@ PUT _plugins/_rollup/jobs/sensors_hourly
   }
 }
 ```
-
+{% include copy-curl.html %}
 
 **Tier 2: Hourly rollup → Daily rollup**
 
@@ -371,18 +377,14 @@ PUT _plugins/_rollup/jobs/sensors_daily
   }
 }
 ```
+{% include copy-curl.html %}
 
-**Key points**:
-- Both tiers use identical dimension fields: `timestamp`, `sensor_id`, `location`
-- Both tiers use identical metric fields: `temperature` (avg/max/min), `device_id` (cardinality)
-- The cardinality `precision_threshold` is the same in both tiers (10000)
-- Tier 2 uses `sensor_data_hourly` (the output of Tier 1) as its source
+### Querying multi-tier rollups
 
-### Querying Multi-tier Rollups
-
-You can query any tier independently or search across multiple tiers:
+You can query any tier independently or search across multiple tiers.
 
 **Query a specific tier**:
+
 ```json
 GET sensor_data_daily/_search
 {
@@ -409,8 +411,10 @@ GET sensor_data_daily/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 **Query across multiple tiers** (using index patterns):
+
 ```json
 GET sensor_data_hourly,sensor_data_daily/_search
 {
@@ -432,16 +436,9 @@ GET sensor_data_hourly,sensor_data_daily/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-### Common Pitfalls
-
-**Empty source indices**: If a rollup index has no data (empty), creating a subsequent tier rollup will succeed but may behave unexpectedly. Ensure the source tier has completed at least one rollup execution before creating the next tier.
-
-**Dimension mismatches**: If tier 2 uses different dimension fields than tier 1, the rollup job will fail validation. Always use identical dimensions across tiers.
-
-**Precision threshold mismatches**: Using different `precision_threshold` values for cardinality metrics across tiers will produce incorrect unique count estimates. Always use the same precision value.
-
-## Sample Walkthrough
+## Sample walkthrough
 
 This walkthrough uses the OpenSearch Dashboards sample e-commerce data. To add that sample data, log in to OpenSearch Dashboards, choose **Home** and **Try our sample data**. For **Sample eCommerce orders**, choose **Add data**.
 
