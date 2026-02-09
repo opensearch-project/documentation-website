@@ -17,16 +17,11 @@ This is an experimental feature and is not recommended for use in a production e
 
 An Agent-User Interaction (AG-UI) agent follows the [AG-UI protocol](https://docs.ag-ui.com/introduction) for integrating AI agents with frontend applications. This implementation brings real-time AI agent capabilities directly into user interfaces with standardized streaming interactions and sophisticated tool execution.
 
-
 Similar to a [conversational agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/), an AG-UI agent is configured with an LLM and optional tools. When processing user input, the agent uses the LLM to reason about the request, considering both the conversation history and available frontend context. The agent then determines the tools to use and executes them to provide an appropriate response.
 
 AG-UI agents can use two types of tools:
 - **Backend tools**: Registered with the agent (like `ListIndexTool` or `SearchIndexTool`) that query OpenSearch data and perform server-side operations.
 - **Frontend tools**: Provided in each request that allow the agent to interact with the UI, such as refreshing dashboards, applying filters, or navigating between pages.
-
-
-
-
 
 ## Prerequisites
 
