@@ -1,57 +1,45 @@
 ---
 layout: default
 title: Discover traces
-nav_order: 45
+nav_order: 40
+parent: Exploring observability data
 ---
 
 # Discover traces
 **Introduced 3.5**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
-
 The Discover **Traces** page in OpenSearch Dashboards provides an enhanced way to explore and analyze trace data within the Observability plugin. This page extends the traditional Discover experience by offering specialized capabilities for working with trace data.
 
 ## Prerequisites
 
-Before using the **Traces** page, ensure that you have the enabled the following:
+Before using the **Traces** page, ensure that you have fulfilled the following prerequisites:
 
-- [Multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/)
-- [Workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-the-workspace-feature)
+1. **Enable feature flags**: Add the following settings to your `opensearch_dashboards.yml` file:
 
-Note: Workspaces are not compatible with multi-tenancy. To enable workspaces, you must first disable multi-tenancy by setting `opensearch_security.multitenancy.enabled: false`.
-{: .note}
+   ```yaml
+   workspace.enabled: true
+   data_source.enabled: true
+   explore.enabled: true
+   explore.discoverTraces.enabled: true
+   ```
+   {% include copy.html %}
 
-## Enabling the Traces page
+   After updating the configuration file, restart OpenSearch Dashboards for the changes to take effect.
 
-To enable the **Traces** page, add the following configuration to your `opensearch_dashboards.yml` file:
+2. **Create an observability workspace**: You must be working within an observability workspace. The **Traces** page is only available in this workspace type.
 
-```yaml
-# The new OpenSearch Dashboards Experience
-# Enable the following three flags together for the new OpenSearch Dashboards discover features
-# ===========================================
+   Note: Workspaces are not compatible with multi-tenancy. To enable workspaces, you must first disable multi-tenancy by setting `opensearch_security.multitenancy.enabled: false`.
+   {: .note}
 
-# Set the value of this setting to true to enable multiple data source feature.
-data_source.enabled: true
-
-# Set the value to true to enable workspace feature
-# Please note, workspace will not work with multi-tenancy. To enable workspace feature,
-# you need to disable multi-tenancy first with `opensearch_security.multitenancy.enabled: false`
-workspace.enabled: true
-
-# Enable the explore feature
-explore.enabled: true
-
-# @experimental Set the value to true to enable discover traces
-explore.discoverTraces.enabled: true
-```
-
-After updating the configuration file, restart OpenSearch Dashboards in order for the changes to take effect.
+3. **Configure multiple data sources**: You must have multiple data sources configured. For instructions, see [Multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/).
 
 ## Accessing the Traces page
 
-To access the **Traces** page, navigate to an **Observability** workspace. In the left navigation, expand **Discover** and select **Traces**, as shown in the following image.
+To access the **Traces** page:
+
+1. Navigate to an **Observability** workspace in OpenSearch Dashboards.
+2. In the left navigation, expand **Discover** and select **Traces**, as shown in the following image.
 
 ![Discover Traces page in navigation]({{site.url}}{{site.baseurl}}/images/discover-traces/trace-page.png)
 
