@@ -11,7 +11,7 @@ redirect_from:
 **Introduced 3.5**
 {: .label .label-purple }
 
-A _dataset_ represents a collection of indexes that you want to analyze together. Datasets provide a user-friendly way to organize and access your observability data in OpenSearch Dashboards. Datasets allow you to assign types, names and descriptions to your data sources and indexes, making it easier to work with logs and traces.
+A _dataset_ represents a collection of indexes that you want to analyze together. Datasets provide a user-friendly way to organize and access your observability data in OpenSearch Dashboards. Datasets allow you to assign types, names, and descriptions to your data sources and indexes, making it easier to work with logs and traces.
 
 Datasets offer several advantages over traditional index patterns:
 
@@ -27,7 +27,7 @@ OpenSearch supports the following dataset types.
 | Type | Description | Use case |
 |:-----|:------------|:---------|
 | **Logs** | Generic log data for analytics and exploration | Application logs, system logs, access logs |
-| **Traces** | OpenTelemetry span data ingested through Data Prepper | Distributed tracing, performance monitoring |
+| **Traces** | OpenTelemetry span data ingested through OpenSearch Data Prepper | Distributed tracing, performance monitoring |
 
 ## Prerequisites
 
@@ -123,7 +123,7 @@ To analyze logs datasets, follow these steps:
 
 1. Navigate to **Discover** > **Logs**.
 2. From the dataset selector, select your logs dataset.
-3. Use PPL queries to explore and analyze your log data.
+3. Use Piped Processing Language (PPL) queries to explore and analyze your log data.
 
 ### Traces datasets
 
@@ -135,6 +135,6 @@ To analyze traces datasets, follow these steps:
 
 ## Related documentation
 
-- [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) -- Compare datasets to traditional index patterns
-- [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) -- Ingest OpenTelemetry data into OpenSearch
-- [Correlations]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/correlations/) -- Link traces and logs datasets
+- [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) -- Compare datasets to traditional index patterns.
+- [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) -- Ingest OpenTelemetry data into OpenSearch.
+- [Correlations]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/correlations/) -- Link traces and logs datasets.

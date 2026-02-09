@@ -38,7 +38,7 @@ Before using correlations, ensure that you have fulfilled the following prerequi
 
 1. **Create datasets**: You must have at least one trace dataset and one logs dataset configured. For detailed instructions, see [Datasets]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/datasets/).
 
-1. **Configure schema mappings**: Your logs datasets must have schema mappings configured. At the minimum, you need to map the **Trace ID** field so that logs can be matched to traces.
+1. **Configure schema mappings**: Your logs datasets must have schema mappings configured. At a minimum, you need to map the **Trace ID** field so that logs can be matched to traces.
 
 ## Correlation requirements
 
@@ -134,5 +134,5 @@ To remove a correlation:
 
 ## Related documentation
 
-- [Datasets]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/datasets/) -- Create and manage datasets
-- [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) -- Ingest OpenTelemetry data into OpenSearch
+- [Datasets]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/datasets/) -- Create and manage datasets.
+- [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) -- Ingest OpenTelemetry data into OpenSearch.

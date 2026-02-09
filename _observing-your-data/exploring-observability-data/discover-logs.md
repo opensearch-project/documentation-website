@@ -59,9 +59,9 @@ The **Logs** page is shown in the following image.
 It consists of the following components:
 
 - **PPL editor**: The query bar at the top where you write PPL queries. 
-- **Dataset selector**: Select the logs dataset to explore from the dropdown list on the top of the page.
-- **Recent queries**: Access previously run queries on the top of the page.
-- **Saved queries**: Access queries you have saved for reuse on the top of the page.
+- **Dataset selector**: Select the logs dataset to explore from the dropdown list at the top of the page.
+- **Recent queries**: Access previously run queries at the top of the page.
+- **Saved queries**: Access queries you have saved for reuse at the top of the page.
 - **Fields**: Located on the left side, the **Fields** panel displays available fields organized into **Selected** fields and **Query** fields sections.
 - **Log count**: The **Log count** histogram shows the distribution of log entries over time. Use the **Interval** selector to adjust the time bucket size.
 - **Results area**: Displays query results with two tabs:
@@ -130,11 +130,11 @@ The following visualization types are available.
 
 | Type | Description |
 |:-----|:------------|
-| **Line** | Displays data as connected points, ideal for showing trends over time. |
+| **Line** | Displays data as connected points; ideal for showing trends over time. |
 | **Area** | Similar to line charts but with the area below the line filled in. |
 | **Bar** | Displays data as vertical or horizontal bars for comparing categories. |
-| **Metric** | Shows a single aggregated value as a large number..|
-| **State timeline** | Displays state changes over time in a horizontal timeline. |
+| **Metric** | Shows a single aggregated value as a large number.|
+| **State timeline** | Displays state changes over time on a horizontal timeline. |
 | **Heatmap** | Uses color intensity to represent values in a matrix format. |
 | **Bar Gauge** | Displays values as horizontal bars with configurable thresholds. |
 | **Pie** | Shows proportions as slices of a circular chart. |
@@ -169,6 +169,6 @@ You can save your visualizations directly to dashboards for ongoing monitoring u
 
 ## Related documentation
 
-- [Datasets]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/datasets/) -- Create and manage logs datasets
-- [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) -- Learn PPL query syntax
-- [Correlations]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/correlations/) -- Link logs and traces datasets
+- [Datasets]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/datasets/) -- Create and manage logs datasets.
+- [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) -- Learn PPL query syntax.
+- [Correlations]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/correlations/) -- Link logs and traces datasets.

@@ -13,7 +13,7 @@ The **Metrics** page in OpenSearch Dashboards provides a dedicated interface for
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/prometheus.png" alt="Metrics page interface" width="700">
 
-The **Metrics** page is available in observability workspaces. To access the **Metrics** page, navigate to an **Observability** workspace, then in the left navigation, expand **Discover** and select **Metrics**.
+The **Metrics** page is available in observability workspaces. To access the **Metrics** page, navigate to an **Observability** workspace. Then, in the left navigation, expand **Discover** and select **Metrics**.
 
 ## Prerequisites
 
