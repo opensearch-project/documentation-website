@@ -39,8 +39,8 @@ Field | Data type | Required/Optional | Agent type | Description
 `description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
-`memory.type` | String | Optional | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. Supported values are `conversation_index` (store memory in conversation indices) and `agentic_memory` (store memory in a memory container).
-`memory.memory_container_id` | String | Optional | `conversational_flow`, `conversational` | The default memory container ID for `agentic_memory`. If omitted here, you must provide `parameters.memory_container_id` when executing the agent. If neither is provided, the request fails.
+`memory.type` | String | Optional | `conversational_flow`, `conversational`, `plan_execute_and_reflect` | Specifies where to store the conversational memory. Supported values are `conversation_index` (store memory in conversation indices) and `agentic_memory` (store memory in a memory container).
+`memory.memory_container_id` | String | Optional | `conversational_flow`, `conversational`, `plan_execute_and_reflect` | The default memory container ID for `agentic_memory`. If omitted here, you must provide `parameters.memory_container_id` when executing the agent. If neither is provided, the request fails.
 `llm.model_id` | String | Required | `conversational` | The model ID of the LLM to which to send questions.
 `llm.parameters.response_filter` | String | Required | `conversational` | The pattern for parsing the LLM response. For each LLM, you need to provide the field where the response is located. For example, for the Anthropic Claude model, the response is located in the `completion` field, so the pattern is `$.completion`. For OpenAI models, the pattern is `$.choices[0].message.content`.
 `llm.parameters.max_iteration` | Integer | Optional | `conversational` | The maximum number of messages to send to the LLM. Default is `10`.
@@ -62,6 +62,43 @@ To use agentic memory, create a memory container using the [Create memory contai
   "memory_container_id": "<memory_container_id>"
 }
 ```
+
+After executing an agent configured with `agentic_memory`, you can inspect session and trace data using [Get memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/get-memory/) and [Search memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/search-memory/):
+
+1. Get the session by `memory_id`:
+
+```json
+GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/sessions/<memory_id>
+```
+{% include copy-curl.html %}
+
+2. Get a message by interaction ID (`parent_interaction_id` from agent execution output):
+
+```json
+GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/working/<interaction_id>
+```
+{% include copy-curl.html %}
+
+3. Get full working-memory trace data for a session using `namespace.session_id = <memory_id>`:
+
+```json
+GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/working/_search
+{
+  "query": {
+    "match": {
+      "namespace.session_id": "<memory_id>"
+    }
+  },
+  "sort": [
+    {
+      "created_time": {
+        "order": "asc"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
