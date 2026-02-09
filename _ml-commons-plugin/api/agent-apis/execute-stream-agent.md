@@ -309,7 +309,7 @@ POST /_plugins/_ml/agents/<agent_id>/_execute/stream
 
 ## Example response: AG-UI agent
 
-AG-UI agents return Server-Sent Events (SSE) using the AG-UI protocol format:
+AG-UI agents return SSEs using the AG-UI protocol format:
 
 ```json
 data: {"type":"RUN_STARTED","timestamp":1734567890123,"threadId":"thread-xxxxx","runId":"run-xxxxx"}
@@ -323,7 +323,7 @@ data: {"type":"TEXT_MESSAGE_END","timestamp":1734567890140,"messageId":"msg-xxxx
 data: {"type":"RUN_FINISHED","timestamp":1734567890251,"threadId":"thread-xxxxx","runId":"run-xxxxx"}
 ```
 
-For complete AG-UI agent documentation including setup, prerequisites, field definitions, and implementation details, see [AG-UI agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/).
+For complete AG-UI agent documentation, including setup, prerequisites, field definitions, and implementation details, see [AG-UI agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/).
 
 ## Response body fields
 

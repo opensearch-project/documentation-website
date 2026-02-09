@@ -274,7 +274,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-For complete AG-UI agent documentation including field definitions, prerequisites, execution examples, and the AG-UI protocol format, see [AG-UI agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/).
+For complete AG-UI agent documentation, including field definitions, prerequisites, execution examples, and the AG-UI protocol format, see [AG-UI agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/).
 
 ## Example response
 
