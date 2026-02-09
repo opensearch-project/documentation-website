@@ -333,16 +333,17 @@ JWT authentication supports direct JWKS endpoint configuration starting with Ope
 
 
 ## Using JWT authentication with gRPC
+**Introduced 3.5**
+{: .label .label-purple }
 
-Starting with OpenSearch 3.5, JWT authentication is supported over the gRPC transport. The gRPC transport shares the same authentication domains as the HTTP layer, so JWT tokens are validated against the same authentication backend configuration. Users provide the same JWT headers over gRPC as they would on the REST API.
+JWT authentication is supported over the gRPC transport. The gRPC transport shares the same authentication domains as the HTTP layer, so JWT tokens are validated against the same authentication backend configuration. You can provide the same JWT headers over gRPC as you would when using the REST API.
 
-### Limitations
+When transmitting JWTs over gRPC, you must enable TLS. For information about configuring TLS for gRPC, see [Configuring TLS certificates for gRPC]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-tls-certificates-for-grpc).
 
-- Superuser authentication (client certificate authentication) is not supported over gRPC. Configuration changes requiring superuser privileges should use the REST API.
+Note the following limitations:
+
+- Superuser authentication (client certificate authentication) is not supported over gRPC. Configuration changes requiring superuser privileges must use the REST API.
 - Anonymous authentication is not supported over gRPC. Requests with anonymous authentication headers are rejected as unauthorized.
-
-You should enable TLS when transmitting JWTs over gRPC. For information about configuring TLS for gRPC, see [Configuring TLS certificates for gRPC]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-tls-certificates-for-grpc).
-
 
 ## Troubleshooting common issues
 
