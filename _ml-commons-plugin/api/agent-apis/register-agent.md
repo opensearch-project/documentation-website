@@ -18,6 +18,7 @@ Agents may be of the following types:
 - _Conversational flow_ agent
 - _Conversational agent_
 - _Plan-execute-reflect_ agent
+- _AG-UI_ agent
 
 For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
@@ -34,7 +35,7 @@ The following table lists the available request fields.
 Field | Data type | Required/Optional | Agent type | Description
 :---  | :--- | :--- | :--- | :---
 `name`| String | Required | All | The agent name. |
-`type` | String | Required | All | The agent type. Valid values are [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/), [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/), [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/), and [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/). For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). |
+`type` | String | Required | All | The agent type. Valid values are [`flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/flow/), [`conversational_flow`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/), [`conversational`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/), [`plan_execute_and_reflect`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/), and [`ag_ui`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/). For more information, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/). |
 `description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
@@ -232,6 +233,48 @@ POST /_plugins/_ml/agents/_register
 }
 ```
 {% include copy-curl.html %}
+
+## Example request: AG-UI agent
+**Introduced 3.5**
+{: .label .label-purple }
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
+{: .warning}
+
+AG-UI agents use the unified registration method for integrating AI agents with frontend applications. The following example shows the basic structure:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "AG-UI Agent",
+  "type": "AG_UI",
+  "description": "An AI agent designed for UI interactions with streaming support",
+  "model": {
+    "model_id": "<MODEL ID>",
+    "model_provider": "bedrock/converse",
+    "credential": {
+      "access_key": "<AWS ACCESS KEY>",
+      "secret_key": "<AWS SECRET KEY>",
+      "session_token": "<AWS SESSION TOKEN>"
+    },
+    "model_parameters": {
+      "system_prompt": "You are a helpful assistant and an expert in OpenSearch."
+    }
+  },
+  "parameters": {
+    "max_iteration": 5
+  },
+  "tools": [{
+    "type": "ListIndexTool"
+  }],
+  "memory": {
+    "type": "conversation_index"
+  }
+}
+```
+{% include copy-curl.html %}
+
+For complete AG-UI agent documentation, including field definitions, prerequisites, execution examples, and the AG-UI protocol format, see [AG-UI agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/).
 
 ## Example response
 
