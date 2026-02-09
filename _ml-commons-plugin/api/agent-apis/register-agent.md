@@ -54,6 +54,8 @@ Field | Data type | Required/Optional | Agent type | Description
 `inject_datetime` | Boolean | Optional | `conversational`, `plan_execute_and_reflect` | Whether to automatically inject the current date into the system prompt. Default is `false`.
 `datetime_format` | String | Optional | `conversational`, `plan_execute_and_reflect` | A format string for dates used when `inject_datetime` is enabled. Default is `"yyyy-MM-dd'T'HH:mm:ss'Z'"` (ISO format).
 
+### Using agentic memory
+
 To use agentic memory, create a memory container using the [Create memory container API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/) and set the memory configuration as follows:
 
 ```json
@@ -64,6 +66,9 @@ To use agentic memory, create a memory container using the [Create memory contai
 ```
 {% include copy.html %}
 
+For agents configured with `agentic_memory`, see [Inspecting memory data]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#inspecting-memory-data) for information about inspecting session and trace data after agent execution.
+
+### Tool configuration
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
@@ -300,4 +305,4 @@ OpenSearch responds with an agent ID that you can use to refer to the agent:
 
 ## Related documentation
 
-For agents configured with `agentic_memory`, see [Inspecting memory data]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#inspecting-memory-data) for guidance on inspecting session and trace data after agent execution.
+- For agents configured with `agentic_memory`, see [Inspecting memory data]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/)
