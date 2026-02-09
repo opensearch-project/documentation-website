@@ -34,10 +34,13 @@ Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
 `parameters`| Object | Required | The parameters required by the agent. Any agent parameters configured during registration can be overridden using this field.
 `parameters.verbose`| Boolean | Optional | Provides verbose output. 
-`parameters.memory_id` | String | Optional | The memory session ID to continue an existing conversation. This field is supported for conversational memory backends, including `conversation_index` and `agentic_memory`. Omit it to start a new session.
+`parameters.memory_id` | String | Optional | The memory session ID to continue an existing conversation. This field is supported for conversational memory backends, including `conversation_index` and `agentic_memory`. To start a new session, omit this parameter.
 `parameters.memory_container_id` | String | Optional | Overrides the configured memory container for this execution when the agent uses `agentic_memory`.
 
-When `conversation_index` or `agentic_memory` is configured, the response includes a `memory_id`. Reuse that value in subsequent requests to continue the same session, or omit it to start a new session. For `agentic_memory`, you must also provide a memory container ID either in the agent registration (`memory.memory_container_id`) or per request (`parameters.memory_container_id`); otherwise, execution fails.
+> When `conversation_index` or `agentic_memory` is configured, the response includes a `memory_id`. To continue the same session, include the `memory_id` in subsequent requests. Omit the `memory_id` to start a new session.
+>
+> When using `agentic_memory`, you must also provide a memory container ID. Specify it either during agent registration (`memory.memory_container_id`) or in each request (`parameters.memory_container_id`). If a memory container ID is not provided, the request fails.
+{: .note}
 
 ## Example request
 
