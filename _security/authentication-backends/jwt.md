@@ -332,6 +332,18 @@ JWT authentication supports direct JWKS endpoint configuration starting with Ope
 - When both `jwks_uri` and `signing_key` are configured, `jwks_uri` takes precedence and `signing_key` is ignored.
 
 
+## Using JWT authentication with gRPC
+**Introduced 3.5**
+{: .label .label-purple }
+
+JWT authentication is supported over the gRPC transport. The gRPC transport shares the same authentication domains as the HTTP layer, so JWT tokens are validated against the same authentication backend configuration. You can provide the same JWT headers over gRPC as you would when using the REST API.
+
+When transmitting JWTs over gRPC, you must enable TLS. For information about configuring TLS for gRPC, see [Configuring TLS certificates for gRPC]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-tls-certificates-for-grpc).
+
+Note the following limitations:
+
+- Superuser authentication (client certificate authentication) is not supported over gRPC. Configuration changes requiring superuser privileges must use the REST API.
+- Anonymous authentication is not supported over gRPC. Requests with anonymous authentication headers are rejected as unauthorized.
 
 ## Troubleshooting common issues
 
