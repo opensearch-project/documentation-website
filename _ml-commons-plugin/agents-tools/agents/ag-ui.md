@@ -24,35 +24,13 @@ AG-UI agents can use two types of tools:
 - **Backend tools**: Registered with the agent (like `ListIndexTool` or `SearchIndexTool`) that query OpenSearch data and perform server-side operations.
 - **Frontend tools**: Provided in each request that allow the agent to interact with the UI, such as refreshing dashboards, applying filters, or navigating between pages.
 
-## Agent registration methods
 
-In addition to the regular registration method, you can create AG-UI agents using the unified registration method.
 
-### Regular registration method
 
-The regular registration method uses the [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/) and requires multiple steps to create an agent:
-
-1. **Register a connector**: Create a connector with complex JSON configuration including a `request_body` and `url` parameters.
-2. **Register a model**: Create a model that manually references the `connector_id` from Step 1.
-3. **Register an agent**: Create the agent by providing the `model_id`, configuring the `_llm_interface` parameter, and mapping `question` to `prompt`.
-4. **Execute the agent**: Execute the agent with limited text-based `question` parameter only.
-
-### Unified registration method
-
-AG-UI agents use the unified registration method, which simplifies agent creation into a single API call. The unified method automatically handles model group creation, connector configuration, and model registration based on the `model` block configuration.
-
-The unified registration method differs from the regular registration method using the [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/) in several key ways.
-
-| Aspect | Regular registration method | Unified registration method |
-| :--- | :--- | :--- |
-| **Model setup** | Requires separate model registration before agent creation | Creates model resources automatically during agent registration |
-| **Model reference** | Uses `llm.model_id` to reference pre-registered models | Uses `model` block with provider credentials and configuration |
-| **LLM interface** | Manual `_llm_interface` parameter configuration | Automatic `_llm_interface` detection from `model_provider` |
-| **Input capabilities** | Limited to text-based `question` parameter | Supports multimodal inputs through enhanced execution API |
 
 ## Prerequisites
 
-Before using AG-UI agents, you must enable the feature by updating your cluster settings. The `ag_ui_enabled` and `stream_enabled` settings are required, while `mcp_connector_enabled` (to connect MCP servers) and `unified_agent_api_enabled` (for the unified registration method) are optional but recommended:
+Before using AG-UI agents, you must enable the feature by updating your cluster settings. The `ag_ui_enabled` and `stream_enabled` settings are required, while `mcp_connector_enabled` (to connect MCP servers) and `unified_agent_api_enabled` are optional but recommended:
 
 ```json
 PUT _cluster/settings
@@ -67,7 +45,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-## Creating an AG-UI agent using the unified registration method
+## Creating an AG-UI agent
 
 The following examples use the unified registration method---the recommended approach for creating AG-UI agents. This method streamlines agent creation into a single API call and supports multimodal inputs. While the regular registration method can also be used to create AG-UI agents, we recommend using the unified method for its enhanced capabilities.
 
@@ -79,43 +57,8 @@ To create an AG-UI agent, send a register request to the following endpoint:
 POST /_plugins/_ml/agents/_register
 ```
 
-### Request body fields
 
-The following table lists the available request fields for AG-UI agent registration using the unified registration method.
-
-| Field | Data type | Required/Optional | Description |
-| :--- | :--- | :--- | :--- |
-| `name` | String | Required | The agent name. |
-| `type` | String | Required | The agent type. Must be `AG_UI` for AG-UI agents. |
-| `description` | String | Optional | A description of the agent. |
-| `model` | Object | Required | Configuration for the LLM model using the unified registration method. Replaces the regular `llm` object. |
-| `model.model_id` | String | Required | The provider's model identifier (e.g., `gpt-4`, `us.anthropic.claude-3-5-sonnet-20241022-v2:0`). |
-| `model.model_provider` | String | Required | The model provider type. Valid values: `bedrock/converse`, `openai/v1/chat/completions`. |
-| `model.credential` | Object | Required | Credentials for the model provider. Structure depends on the provider. |
-| `model.credential.access_key` | String | Required (Bedrock) | AWS access key for Amazon Bedrock models. |
-| `model.credential.secret_key` | String | Required (Bedrock) | AWS secret key for Amazon Bedrock models. |
-| `model.credential.session_token` | String | Optional (Bedrock) | AWS session token for Amazon Bedrock models when using temporary credentials. |
-| `model.credential.openai_api_key` | String | Required (OpenAI) | API key for OpenAI models. |
-| `model.model_parameters` | Object | Optional | Model-specific parameters and configuration. |
-| `model.model_parameters.system_prompt` | String | Optional | The system prompt that defines the agent's role and behavior. |
-| `model.model_parameters.temperature` | Float | Optional | Controls randomness in model responses (0.0 to 1.0). Default varies by model. |
-| `model.model_parameters.max_tokens` | Integer | Optional | Maximum number of tokens in the model response. Default varies by model. |
-| `parameters` | Object | Optional | AG-UI specific parameters for controlling agent behavior. |
-| `parameters.max_iteration` | Integer | Optional | Maximum number of reasoning iterations the agent can perform. Default is 10. |
-| `parameters.mcp_connectors` | Array | Optional | Array of Model Context Protocol (MCP) connector configurations to extend agent capabilities. |
-| `parameters.mcp_connectors[].mcp_connector_id` | String | Required | The ID of a registered MCP connector. |
-| `tools` | Array | Optional | Array of backend tools available to the agent for OpenSearch operations. |
-| `memory` | Object | Optional | Configuration for conversation memory storage. |
-| `memory.type` | String | Optional | Memory storage type. Currently only `conversation_index` is supported (stores conversation history in OpenSearch). |
-
-Each tool in the `tools` array contains the following fields.
-
-| Field | Data type | Required/Optional | Description |
-| :--- | :--- | :--- | :--- |
-| `type` | String | Required | The tool type (e.g., `ListIndexTool`, `SearchIndexTool`). For supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). |
-| `name` | String | Optional | Custom name for the tool. Defaults to the `type` value. Required when using multiple tools of the same type. |
-| `description` | String | Optional | Tool description that helps the LLM understand when and how to use the tool. |
-| `parameters` | Object | Optional | Tool-specific parameters. Structure varies by tool type. |
+AG-UI agents use the same registration fields as other OpenSearch agents. For complete field definitions and configuration options, see [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
 
 ### Example request: Amazon Bedrock Claude
 
@@ -213,7 +156,7 @@ POST /_plugins/_ml/agents/{{agent_id}}/_execute/stream
 
 ### Input format
 
-The unified registration method enables enhanced execution through multimodal input support. The execution API supports three input modes:
+The AG-UI execution API supports three input modes:
 
 1. **Plain text**: Simple string input for basic text interactions.
 2. **Content blocks**: Text, images, video, and documents with base64 encoding or URL sources.
