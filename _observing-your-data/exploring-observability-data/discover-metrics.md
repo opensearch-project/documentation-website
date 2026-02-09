@@ -2,6 +2,7 @@
 layout: default
 title: Discover metrics
 nav_order: 50
+parent: Exploring observability data
 ---
 
 # Discover metrics
@@ -12,23 +13,27 @@ The **Metrics** page in OpenSearch Dashboards provides a dedicated interface for
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/prometheus.png" alt="Metrics page interface" width="700">
 
-The **Metrics** page is available in Observability workspaces. To access the **Metrics** page, in the left navigation, expand **Discover** and select **Metrics**.
+The **Metrics** page is available in observability workspaces. To access the **Metrics** page, navigate to an **Observability** workspace, then in the left navigation, expand **Discover** and select **Metrics**.
 
 ## Prerequisites
 
-Before using the **Metrics** page, ensure that you have:
+Before using the **Metrics** page, ensure that you have fulfilled the following prerequisites:
 
-- Enabled the following feature flags in your `opensearch_dashboards.yml` configuration:
+1. **Enable feature flags**: Add the following settings to your `opensearch_dashboards.yml` file:
 
-  ```yaml
-  explore.enabled: true
-  explore.discoverMetrics.enabled: true
-  workspace.enabled: true
-  data_source.enabled: true
-  ```
-  {% include copy.html %}
+   ```yaml
+   workspace.enabled: true
+   data_source.enabled: true
+   explore.enabled: true
+   explore.discoverMetrics.enabled: true
+   ```
+   {% include copy.html %}
 
-- [Configured a Prometheus data source](#configuring-a-prometheus-data-source)
+   After updating the configuration file, restart OpenSearch Dashboards for the changes to take effect.
+
+1. **Create an observability workspace**: You must be working within an observability workspace. The **Metrics** page is only available in this workspace type.
+
+1. **Configure a Prometheus data source**: You must configure a Prometheus data source. For instructions, see [Configuring a Prometheus data source](#configuring-a-prometheus-data-source).
 
 ## Configuring a Prometheus data source
 
@@ -38,15 +43,16 @@ Before you start, configure a Prometheus data source using one of the following 
 
 To configure a Prometheus data source in OpenSearch Dashboards, follow these steps:
 
-1. Go to **Data Administration** > **Data sources** > **Create data source**.
-2. Select **Prometheus**.
-3. Enter a **Data source name** and optional **Description**.
-4. Enter the **Prometheus URI** endpoint (for example, `http://prometheus-server:9090`).
-5. Configure the **Authentication method**:
+1. In the left navigation, go to **Data Administration** > **Data sources**.
+1. Select **Create data source**.
+1. Select **Prometheus**.
+1. Enter a **Data source name** and optional **Description**.
+1. Enter the **Prometheus URI** endpoint (for example, `http://prometheus-server:9090`).
+1. Configure the **Authentication method**:
    - **No authentication**: Use if your Prometheus server does not require authentication.
    - **Basic authentication**: Enter a username and password.
    - **AWS Signature Version 4**: Use for Amazon Managed Service for Prometheus.
-6. Select **Connect**.
+1. Select **Connect**.
 
 ### Configuring a Prometheus data source using the API
 

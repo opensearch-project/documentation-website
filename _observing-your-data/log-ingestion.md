@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Log ingestion
-nav_order: 30
+nav_order: 20
 redirect_from:
   - /observability-plugin/log-analytics/
 ---

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Query insights
-nav_order: 40
+nav_order: 90
 has_children: true
 has_toc: false
 redirect_from:
