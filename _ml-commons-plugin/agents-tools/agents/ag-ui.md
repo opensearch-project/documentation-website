@@ -232,8 +232,8 @@ AG-UI agents return SSEs with the following event types in the `type` field.
 
 ## Next steps
 
-- For AG-UI agent registration, see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method)
-- For unified agent execution, see [Unified agent execution]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#unified-agent-execution)
-- Learn about the [AG-UI protocol specification](https://docs.ag-ui.com/introduction)
-- Explore available backend [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/) for your agents
-- Review [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/) for additional functionality
+- For AG-UI agent registration, see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
+- For unified agent execution, see [Unified agent execution]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#unified-agent-execution).
+- Learn about the [AG-UI protocol specification](https://docs.ag-ui.com/introduction).
+- Explore available backend [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/) for your agents.
+- Review [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/) for additional functionality.

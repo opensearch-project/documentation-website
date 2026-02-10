@@ -22,7 +22,7 @@ Agents may be of the following types:
 
 For more information about agents, see [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/).
 
-Starting with OpenSearch 3.5, you can use the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) to register agents with automated connector and model creation. This experimental feature supports Amazon Bedrock Converse Claude, Gemini, and OpenAI models and requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
+Starting with OpenSearch 3.5, you can use the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) to register agents with automated connector and model creation. This experimental feature supports Amazon Bedrock Converse, Google Gemini, and OpenAI models and requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
 {: .note}
 
 ## Endpoints
@@ -57,7 +57,7 @@ Field | Data type | Required/Optional | Agent type | Description
 `inject_datetime` | Boolean | Optional | `conversational`, `plan_execute_and_reflect` | Whether to automatically inject the current date into the system prompt. Default is `false`.
 `datetime_format` | String | Optional | `conversational`, `plan_execute_and_reflect` | A format string for dates used when `inject_datetime` is enabled. Default is `"yyyy-MM-dd'T'HH:mm:ss'Z'"` (ISO format).
 `model` | Object | Optional | `conversational`, `plan_execute_and_reflect` | **Unified registration method only (3.5+)**: Model configuration that automatically creates a connector and model. See [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
-`model.model_id` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model identifier (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0` for Bedrock or `gemini-2.5-pro` for Gemini).
+`model.model_id` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model identifier (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0` for Amazon Bedrock or `gemini-2.5-pro` for Google Gemini).
 `model.model_provider` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model provider. Supported values: `bedrock/converse`, `gemini/v1beta/generatecontent`, `openai/v1/chat/completions`.
 `model.credential` | Object | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | Credentials for accessing the model. Accepts any credential format supported by connectors. For details, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
 `model.model_parameters` | Object | Optional (if using `model`) | `conversational`, `plan_execute_and_reflect` | Model-specific parameters such as system prompts and other configuration options.
@@ -318,7 +318,7 @@ OpenSearch responds with an agent ID that you can use to refer to the agent:
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
 {: .warning}
 
-The unified registration method streamlines agent creation by automatically handling connector and model setup in a single API call. This method supports Amazon Bedrock Converse API with Claude models, Google Gemini models, and OpenAI models.
+The unified registration method streamlines agent creation by automatically handling connector and model setup in a single API call. This method supports the Amazon Bedrock Converse API with Anthropic Claude models, Google Gemini models, and OpenAI models.
 
 Before using unified agents, see [Prerequisites]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#prerequisites) for required cluster settings. For more information and supported agent types, see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
 
@@ -332,32 +332,32 @@ The following table lists the available request fields for unified agent registr
 | `type` | String | Required | The agent type. Supported values: `conversational`, `plan_execute_and_reflect`, `AG_UI`. |
 | `description` | String | Optional | A description of the agent. |
 | `model` | Object | Required | Configuration for the LLM model using the unified registration method. Replaces the regular `llm` object and automatically creates model resources. |
-| `model.model_id` | String | Required | The provider's model identifier. For Bedrock, use the full model ID (e.g., `us.anthropic.claude-3-7-sonnet-20250219-v1:0`). For Gemini, use the model name (e.g., `gemini-2.5-pro`). For OpenAI, use model names like `gpt-4`. |
+| `model.model_id` | String | Required | The provider's model identifier. For Amazon Bedrock, use the full model ID (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0`). For Google Gemini, use the model name (for example, `gemini-2.5-pro`). For OpenAI, use model names like `gpt-4`. |
 | `model.model_provider` | String | Required | The model provider type. Valid values: `bedrock/converse`, `gemini/v1beta/generatecontent`, `openai/v1/chat/completions`. |
 | `model.credential` | Object | Required | Credentials for the model provider. Structure depends on the provider. |
-| `model.credential.access_key` | String | Required (Bedrock) | AWS access key for Amazon Bedrock models. |
-| `model.credential.secret_key` | String | Required (Bedrock) | AWS secret key for Amazon Bedrock models. |
-| `model.credential.session_token` | String | Optional (Bedrock) | AWS session token for Amazon Bedrock models when using temporary credentials. |
+| `model.credential.access_key` | String | Required (Amazon Bedrock) | AWS access key for Amazon Bedrock models. |
+| `model.credential.secret_key` | String | Required (Amazon Bedrock) | AWS secret key for Amazon Bedrock models. |
+| `model.credential.session_token` | String | Optional (Amazon Bedrock) | AWS session token for Amazon Bedrock models when using temporary credentials. |
 | `model.credential.openai_api_key` | String | Required (OpenAI) | API key for OpenAI models. |
-| `model.credential.api_key` | String | Required (Gemini) | API key for Google Gemini models. |
+| `model.credential.api_key` | String | Required (Google Gemini) | API key for Google Gemini models. |
 | `model.model_parameters` | Object | Optional | Model-specific parameters and configuration. |
 | `model.model_parameters.system_prompt` | String | Optional | The system prompt that defines the agent's role and behavior. |
 | `model.model_parameters.temperature` | Float | Optional | Controls randomness in model responses (0.0 to 1.0). Default varies by model. |
-| `model.model_parameters.max_tokens` | Integer | Optional | Maximum number of tokens in the model response. Default varies by model. |
+| `model.model_parameters.max_tokens` | Integer | Optional | The maximum number of tokens in the model response. Default varies by model. |
 | `parameters` | Object | Optional | Additional agent parameters for controlling behavior. |
-| `parameters.max_iteration` | Integer | Optional | Maximum number of reasoning iterations the agent can perform. Default is 10. |
-| `parameters.mcp_connectors` | Array | Optional | Array of Model Context Protocol (MCP) connector configurations to extend agent capabilities. |
+| `parameters.max_iteration` | Integer | Optional | The maximum number of reasoning iterations the agent can perform. Default is 10. |
+| `parameters.mcp_connectors` | Array | Optional | Array of Model Context Protocol (MCP) connector configurations that extend agent capabilities. |
 | `parameters.mcp_connectors[].mcp_connector_id` | String | Required | The ID of a registered MCP connector. |
 | `tools` | Array | Optional | Array of tools available to the agent. For supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). |
 | `memory` | Object | Optional | Configuration for conversation memory storage. |
-| `memory.type` | String | Optional | Memory storage type. Supported values: `conversation_index`, `agentic_memory`. |
+| `memory.type` | String | Optional | The memory storage type. Supported values: `conversation_index`, `agentic_memory`. |
 
 Each tool in the `tools` array contains the following fields.
 
 | Field | Data type | Required/Optional | Description |
 | :--- | :--- | :--- | :--- |
 | `type` | String | Required | The tool type (for example, `ListIndexTool`, `SearchIndexTool`). |
-| `name` | String | Optional | Custom name for the tool. Defaults to the `type` value. Required when using multiple tools of the same type. |
+| `name` | String | Optional | A custom name for the tool. Defaults to the `type` value. Required when using multiple tools of the same type. |
 | `description` | String | Optional | Tool description that helps the LLM understand when and how to use the tool. |
 | `parameters` | Object | Optional | Tool-specific parameters. Structure varies by tool type. |
 

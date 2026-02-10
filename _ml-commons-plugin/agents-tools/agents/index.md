@@ -29,10 +29,10 @@ You can create agents using two registration methods: the regular registration m
 
 The regular registration method uses the [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/) and requires multiple steps to create an agent:
 
-1. **Register a connector**: Create a connector with complex JSON configuration including a `request_body` and `url` parameters.
+1. **Register a connector**: Create a connector with a complex JSON configuration including a `request_body` and `url` parameters.
 2. **Register a model**: Create a model that manually references the `connector_id` from Step 1.
 3. **Register an agent**: Create the agent by providing the `model_id`, configuring the `_llm_interface` parameter, and mapping `question` to `prompt`.
-4. **Execute the agent**: Execute the agent with limited text-based `question` parameter only.
+4. **Execute the agent**: Execute the agent with a limited text-based `question` parameter only.
 
 ### Unified registration method
 **Introduced 3.5**
@@ -53,7 +53,7 @@ The unified registration method differs from the regular registration method in 
 | **Workflow steps** | 1. Register connector<br>2. Register model<br>3. Register agent<br>4. Execute with `question` parameter | 1. Register agent (automatic connector/model creation)<br>2. Execute with flexible `input` field |
 | **Configuration complexity** | Manual connector configuration with request bodies, URLs, and parameter mappings | Automatic configuration with built-in validation and defaults |
 | **Model setup** | Requires separate model registration before agent creation | Creates model resources automatically during agent registration |
-| **Model reference** | Uses `llm.model_id` to reference pre-registered models | Uses `model` block with provider credentials and configuration |
+| **Model reference** | Uses `llm.model_id` to reference preregistered models | Uses `model` block with provider credentials and configuration |
 | **LLM interface** | Manual `_llm_interface` parameter configuration | Automatic `_llm_interface` detection from `model_provider` |
 | **Input capabilities** | Limited to text-based `question` parameter | Supports multimodal inputs (text, images, messages) through enhanced execution API |
 

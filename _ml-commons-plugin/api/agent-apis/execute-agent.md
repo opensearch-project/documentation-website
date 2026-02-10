@@ -12,7 +12,7 @@ nav_order: 20
 
 When an agent is executed, it runs the tools with which it is configured. Starting with OpenSearch version 3.0, you can execute an agent asynchronously by setting the `async` query parameter to `true`.
 
-Starting with OpenSearch 3.5, agents created using the [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) support a standardized `input` field that accepts plain text, multimodal content, or message-based conversations. This requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
+Starting with OpenSearch 3.5, agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) support a standardized `input` field that accepts plain text, multimodal content, or message-based conversations. This requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
 {: .note}
 
 ### Endpoints
@@ -35,8 +35,8 @@ The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- | :---
-`parameters`| Object | Optional | The parameters required by the agent. Any agent parameters configured during registration can be overridden using this field. Use with [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
-`parameters.question`| String | Optional | The question to ask the agent. Use with [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
+`parameters`| Object | Optional | The parameters required by the agent. Any agent parameters configured during registration can be overridden using this field. Use with the [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
+`parameters.question`| String | Optional | The question to ask the agent. Use with the [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
 `parameters.verbose`| Boolean | Optional | Provides verbose output.
 `parameters.memory_id` | String | Optional | The memory session ID used to continue an existing conversation. This field is supported for conversational memory backends, including `conversation_index` and `agentic_memory`. To start a new session, omit this parameter.
 `parameters.memory_container_id` | String | Optional | Overrides the configured memory container for this execution when the agent uses `agentic_memory`.
@@ -159,7 +159,7 @@ The following table lists the supported content types.
 | Content type | Description | Fields |
 | :--- | :--- | :--- |
 | `text` | Plain text content | `text`: The text string |
-| `image` | Image data | `source.type`: `base64` or `url`<br>`source.format`: Image format (e.g., `png`, `jpeg`)<br>`source.data`: Base64-encoded image data or URL |
+| `image` | Image data | `source.type`: `base64` or `url`<br>`source.format`: Image format (for example, `png`, `jpeg`)<br>`source.data`: Base64-encoded image data or URL |
 
 ### Message-based conversations
 
