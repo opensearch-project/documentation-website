@@ -227,6 +227,8 @@ OpenSearch supports the following remote cluster settings:
 
 - `cluster.remote.<cluster_alias>.node_connections` (Dynamic, integer): Applicable to `sniff` mode only. Sets the number of gateway nodes to which to maintain active connections in the remote cluster. More connections provide better availability but consume more resources. Default is `3`.
 
+- `cluster.remote.<cluster_alias>.cluster_name` (Dynamic, string): Applicable only to `sniff` mode. Specifies the expected name of the remote cluster. When configured, the remote cluster name is validated when establishing the connection. This helps prevent accidental connections to an unintended cluster if seed nodes are misconfigured or outdated.
+
 - `cluster.remote.node.attr` (Static, string): Applicable to `sniff` mode only. Specifies a node attribute to filter nodes that are eligible as gateway nodes in remote clusters. When set, only remote cluster nodes with the specified attribute will be used for connections. For example, if remote cluster nodes have `node.attr.gateway: true` and this setting is set to `gateway`, only those nodes will be connected to for cross-cluster operations.
 
 - `cluster.remote.<cluster_alias>.proxy_address` (Dynamic, string): Applicable to `proxy` mode only. Specifies the proxy server address for connecting to the remote cluster. All remote connections are routed through this single proxy endpoint.
