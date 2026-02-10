@@ -83,12 +83,21 @@ Follow these steps to share resources in OpenSearch Dashboards:
 Follow these steps to view and manage access for a resource in OpenSearch Dashboards:
 
 1. Open the **Sharing** panel:
+   * In the left navigation menu, under the **Management** section, select **Resource Access Management**.
+     ![Resource Access Management navigation link]({{site.url}}{{site.baseurl}}/images/resource-sharing/1-nav-link.png)
 
-   * Navigate to the **Resource Access Management** app and select a resource from the **Resources** table. The panel displays:
+   * The landing page displays all available resource types.
+     ![Resource Access Management landing page]({{site.url}}{{site.baseurl}}/images/resource-sharing/2-landing.png)
+
+   * Select a resource from the **Resources** table.
+     ![Selecting a resource]({{site.url}}{{site.baseurl}}/images/resource-sharing/3-select-a-resource.png)
+
+   * The panel displays:
      * The resource owner.
      * All users, roles, and backend roles with access.
      * Their assigned access levels.
      * Whether you have permission to reshare the resource.
+     ![Resource details after selection]({{site.url}}{{site.baseurl}}/images/resource-sharing/4-after-selecting-resource.png)
 
 1. Determine sharing permissions. You can share a resource only if you meet one of the following conditions:
 
@@ -96,7 +105,13 @@ Follow these steps to view and manage access for a resource in OpenSearch Dashbo
    * The owner shared the resource with you and granted share permission.
    * You are a superadmin.
 
-1. Add or remove users, roles, or backend roles as needed. Removing access immediately hides the resource from the affected users.
+1. Add or remove users, roles, or backend roles as needed. Use the sharing dialog to configure access.
+
+   ![Sharing dialog]({{site.url}}{{site.baseurl}}/images/resource-sharing/5-share.png)
+
+1. Select **Save** to apply changes. Removing access immediately hides the resource from the affected users.
+
+   ![Post-sharing view]({{site.url}}{{site.baseurl}}/images/resource-sharing/6-post-sharing.png)
 
 ## Listing resources shared with you
 
