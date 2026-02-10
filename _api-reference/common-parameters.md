@@ -136,4 +136,20 @@ The following request adds an opaque ID to the request:
 ```json
 curl -H "X-Opaque-Id: my-curl-client-1" -XGET localhost:9200/_tasks
 ```
+
+## `X-Request-Id` header
+
+This header uniquely identifies a search request and can be used by users to track it, for example in logs such as slow logs. Format: 32-character hexadecimal
+
+#### Example request
+
+The following adds a request ID to a search request:
+
+```json
+curl -X GET "http://localhost:9200/_search" \
+  -H "Content-Type: application/json" \
+  -H "X-Request-Id: 19d538d7c42d09240be001d1e4ff6201" \
+  -d '{"query": {"match_all": {}}}'
+```
+
 {% include copy.html %}
