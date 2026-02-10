@@ -251,7 +251,7 @@ For multi-tier rollups to work correctly, you must fulfill the following prerequ
 2. **Compatible time intervals**: Each tier's interval must be a multiple of the previous tier's interval (for example, `5m` → `1h` → `1d`).
 3. **Consistent cardinality precision**: If using [cardinality metrics](#cardinality-metric), all tiers must use the same `precision_threshold` value.
 4. **Source index type**: The source index for tier 2+ must be a rollup index created by a previous tier.
-5. **Source index data**: Ensure that the source tier has completed at least one rollup execution before creating the next tier. Creating a rollup job from an empty rollup index will succeed but may behave unexpectedly.
+5. **Source index data**: Ensure that the source tier has completed at least one rollup execution before creating the next tier. Creating a rollup job from an empty rollup index will succeed, but it may behave unexpectedly.
 
 ### Example: Two-tier rollup strategy
 
