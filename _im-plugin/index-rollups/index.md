@@ -255,7 +255,7 @@ For multi-tier rollups to work correctly, you must fulfill the following prerequ
 
 ### Example: Two-tier rollup strategy
 
-This example demonstrates a two-tier rollup for IoT sensor data. It consists of Tier 1 and Tier 2:
+This example demonstrates a two-tier rollup for Internet of Things (IoT) sensor data. It consists of Tier 1 and Tier 2:
 - Both tiers use identical dimension fields: `timestamp`, `sensor_id`, `location`.
 - Both tiers use identical metric fields: `temperature` (`avg`/`max`/`min`), `device_id` (`cardinality`).
 - The cardinality `precision_threshold` is the same in both tiers (`10000`).
