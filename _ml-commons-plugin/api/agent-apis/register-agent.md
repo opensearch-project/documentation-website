@@ -42,7 +42,8 @@ Field | Data type | Required/Optional | Agent type | Description
 `description` | String | Optional| All | A description of the agent. |
 `tools` | Array | Optional | All | A list of tools for the agent to execute. 
 `app_type` | String | Optional | All | Specifies an optional agent category. You can then perform operations on all agents in the category. For example, you can delete all messages for RAG agents.
-`memory.type` | String | Optional | `conversational_flow`, `conversational` | Specifies where to store the conversational memory. Currently, the only supported type is `conversation_index` (store the memory in a conversational system index).
+`memory.type` | String | Optional | `conversational_flow`, `conversational`, `plan_execute_and_reflect` | Specifies where to store the conversational memory. Supported values are `conversation_index` (store memory in conversation indexes) and `agentic_memory` (store memory in a memory container).
+`memory.memory_container_id` | String | Optional | `conversational_flow`, `conversational`, `plan_execute_and_reflect` | The default memory container ID for `agentic_memory`. If omitted, you must provide a `parameters.memory_container_id` when executing the agent. If neither is provided, the request fails.
 `llm.model_id` | String | Required | `conversational` | The model ID of the LLM to which to send questions.
 `llm.parameters.response_filter` | String | Required | `conversational` | The pattern for parsing the LLM response. For each LLM, you need to provide the field where the response is located. For example, for the Anthropic Claude model, the response is located in the `completion` field, so the pattern is `$.completion`. For OpenAI models, the pattern is `$.choices[0].message.content`.
 `llm.parameters.max_iteration` | Integer | Optional | `conversational` | The maximum number of messages to send to the LLM. Default is `10`.
@@ -60,6 +61,22 @@ Field | Data type | Required/Optional | Agent type | Description
 `model.model_provider` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model provider. Supported values: `bedrock/converse`, `gemini/v1beta/generatecontent`, `openai/v1/chat/completions`.
 `model.credential` | Object | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | Credentials for accessing the model. Accepts any credential format supported by connectors. For details, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
 `model.model_parameters` | Object | Optional (if using `model`) | `conversational`, `plan_execute_and_reflect` | Model-specific parameters such as system prompts and other configuration options.
+
+### Using agentic memory
+
+To use agentic memory, create a memory container using the [Create Memory Container API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/) and set the memory configuration as follows:
+
+```json
+"memory": {
+  "type": "agentic_memory",
+  "memory_container_id": "<memory_container_id>"
+}
+```
+{% include copy.html %}
+
+For agents configured with `agentic_memory`, see [Inspecting memory data]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#inspecting-memory-data-opensearch-agents) for information about inspecting session and trace data after agent execution.
+
+### Tool configuration
 
 The `tools` array contains a list of tools for the agent. Each tool contains the following fields.
 
@@ -504,3 +521,7 @@ POST /_plugins/_ml/agents/_register
 }
 ```
 {% include copy-curl.html %}
+
+## Related documentation
+
+- For agents configured with `agentic_memory`, see [Inspecting memory data]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/).
