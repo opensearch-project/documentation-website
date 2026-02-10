@@ -56,7 +56,7 @@ Field | Data type | Required/Optional | Agent type | Description
 `parameters._llm_interface` | String | Required | `plan_execute_and_reflect`, `conversational` | Specifies how to parse the LLM output when using function calling. Valid values are: <br> - `bedrock/converse/claude`: Anthropic Claude conversational models hosted on Amazon Bedrock  <br> - `bedrock/converse/deepseek_r1`: DeepSeek-R1 models hosted on Amazon Bedrock <br> - `openai/v1/chat/completions`: OpenAI chat completion models hosted on OpenAI. Each interface defines a default response schema and function call parser.
 `inject_datetime` | Boolean | Optional | `conversational`, `plan_execute_and_reflect` | Whether to automatically inject the current date into the system prompt. Default is `false`.
 `datetime_format` | String | Optional | `conversational`, `plan_execute_and_reflect` | A format string for dates used when `inject_datetime` is enabled. Default is `"yyyy-MM-dd'T'HH:mm:ss'Z'"` (ISO format).
-`model` | Object | Optional | `conversational`, `plan_execute_and_reflect` | **Unified registration method only (3.5+)**: Model configuration that automatically creates a connector and model. See [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
+`model` | Object | Optional | `conversational`, `plan_execute_and_reflect` | **Unified registration method only (3.5+)**: Model configuration that automatically creates a connector and model. See [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
 `model.model_id` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model identifier (for example, `us.anthropic.claude-3-7-sonnet-20250219-v1:0` for Bedrock or `gemini-2.5-pro` for Gemini).
 `model.model_provider` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model provider. Supported values: `bedrock/converse`, `gemini/v1beta/generatecontent`, `openai/v1/chat/completions`.
 `model.credential` | Object | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | Credentials for accessing the model. Accepts any credential format supported by connectors. For details, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
@@ -320,7 +320,7 @@ This is an experimental feature and is not recommended for use in a production e
 
 The unified registration method streamlines agent creation by automatically handling connector and model setup in a single API call. This method supports Amazon Bedrock Converse API with Claude models, Google Gemini models, and OpenAI models.
 
-Before using unified agents, see [Prerequisites]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#prerequisites) for required cluster settings. For more information and supported agent types, see [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
+Before using unified agents, see [Prerequisites]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#prerequisites) for required cluster settings. For more information and supported agent types, see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
 
 ### Unified registration request fields
 

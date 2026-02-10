@@ -42,7 +42,7 @@ PUT _cluster/settings
 
 ## Creating an AG-UI agent
 
-AG-UI agents use the unified registration method to streamline agent creation into a single API call. To register an AG-UI agent, set the `type` field to `AG_UI` and configure your model using the unified agent API.
+AG-UI agents use the unified registration method to streamline agent creation into a single API call. To register an AG-UI agent, set the `type` field to `AG_UI` and configure your model using the Unified Agent API.
 
 For complete registration instructions, field definitions, and examples for all supported model providers (Amazon Bedrock, Google Gemini, OpenAI), see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#unified-agent-registration).
 

@@ -118,7 +118,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-For complete registration details, field definitions, and examples for all model providers, see [unified agent registration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#unified-agent-registration). 
+For complete registration details, field definitions, and examples for all model providers, see [Unified agent registration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#unified-agent-registration). 
 
 **Step 2: Execute the agent**
 
@@ -130,7 +130,7 @@ POST /_plugins/_ml/agents/{agent_id}/_execute
 ```
 {% include copy-curl.html %}
 
-For execution details and input format specifications, see [unified agent execution]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#unified-agent-execution).
+For execution details and input format specifications, see [Unified agent execution]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#unified-agent-execution).
 
 #### Limitations
 
@@ -139,7 +139,7 @@ The following limitations apply to the experimental release:
 - **Agent types**: Only `conversational`, `plan_execute_and_reflect`, and `AG_UI` agents are supported.
 - **Message format**: The `plan_execute_and_reflect` agent does not support message-based input because of its internal prompt structure.
 
-The unified agent API is fully backward compatible with existing agents. Agents created using the regular registration method continue to function normally. You can use both registration methods in the same cluster.
+The Unified Agent API is fully backward compatible with existing agents. Agents created using the regular registration method continue to function normally. You can use both registration methods in the same cluster.
 
 Agents created using the Unified Agent API cannot be updated to use the regular registration method parameters.
 {: .note}
