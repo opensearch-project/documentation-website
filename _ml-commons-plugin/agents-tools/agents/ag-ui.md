@@ -46,7 +46,77 @@ AG-UI agents use the unified registration method to streamline agent creation in
 
 For complete registration instructions, field definitions, and examples for all supported model providers (Amazon Bedrock, Google Gemini, OpenAI), see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#unified-agent-registration).
 
-## AG-UI execution protocol
+### Example request: Amazon Bedrock Converse
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "AG-UI Agent",
+  "type": "AG_UI",
+  "description": "An AI agent designed for UI interactions with streaming support",
+  "model": {
+    "model_id": "<MODEL ID>",
+    "model_provider": "bedrock/converse",
+        "credential": {
+          "access_key": "<AWS ACCESS KEY>",
+          "secret_key": "<AWS SECRET KEY>",
+          "session_token": "<AWS SESSION TOKEN>"
+        },
+        "model_parameters": {
+          "system_prompt": "You are a helpful assistant and an expert in OpenSearch."
+        }
+  },
+  "parameters": {
+    "max_iteration": 5,
+    "mcp_connectors": [{
+        "mcp_connector_id": "<MCP CONNECTOR ID>" 
+    }]
+  },
+  "tools": [{
+    "type": "ListIndexTool"
+  }],
+  "memory": {
+    "type": "conversation_index"  
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Example request: OpenAI Chat Completion
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "AG-UI Agent",
+  "type": "AG_UI",
+  "description": "An AI agent designed for UI interactions with streaming support",
+  "model": {
+    "model_id": "<MODEL ID>",
+    "model_provider": "openai/v1/chat/completions",
+    "credential": {
+      "openai_api_key": "<OPENAI API KEY>"
+    },
+    "model_parameters": {
+      "system_prompt": "You are a helpful assistant and an expert in OpenSearch."
+    }
+  },
+  "parameters": {
+    "max_iteration": 50,
+    "mcp_connectors": [{
+        "mcp_connector_id": "<MCP CONNECTOR ID>"  
+    }]
+  },
+  "tools": [{
+    "type": "ListIndexTool"
+  }],
+  "memory": {
+    "type": "conversation_index"  
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Execute stream agent
 
 AG-UI agents use a specialized execution protocol designed for frontend applications. Unlike regular agent execution (the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/)) that uses the `input` field, AG-UI agents use the AG-UI protocol format with frontend context, tools, and streaming responses.
 
@@ -70,7 +140,7 @@ The following table lists the request fields.
 | `context` | Array | Required | Array of context objects providing current application state to the agent. Includes information like active dashboard, applied filters, time ranges, or any relevant UI context that helps the agent understand the user's current situation. |
 | `forwardedProps` | Object | Required | Additional properties forwarded from the frontend application, such as user authentication details, permissions, application configuration, or other metadata needed for agent operations. |
 
-### Example request
+#### Example request
 
 The following example shows how to execute an AG-UI agent using the AG-UI protocol format with frontend tools, conversation context, and application state:
 
@@ -131,7 +201,7 @@ data: {"type":"RUN_FINISHED","timestamp":1234567890,"threadId":"thread-xxxxx","r
 
 ### Response fields
 
-Each SSE contains the following fields:
+Each SSE contains the following fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
@@ -145,7 +215,7 @@ Each SSE contains the following fields:
 | `toolCallId` | String | The unique identifier for the tool call (present in tool call events). |
 | `toolCallName` | String | The name of the tool being called (present in tool call start events). |
 
-### Output format
+### Event types
 
 AG-UI agents return SSEs with the following event types in the `type` field.
 
