@@ -84,7 +84,7 @@ Follow these steps to share resources in OpenSearch Dashboards:
 Follow these steps to view and manage access for a resource in OpenSearch Dashboards:
 
 
-1. In the left navigation menu, under the **Management** section, select **Resource Access Management**. The landing page displays all available resource types.
+1. In the left navigation menu, in the **Management** section, select **Resource Access Management**. The landing page displays all available resource types.
 
 1. In the **Resources** panel, in the upper-right corner, select a resource type from the dropdown menu.
       
@@ -104,7 +104,7 @@ Follow these steps to view and manage access for a resource in OpenSearch Dashbo
    * The owner shared the resource with you and granted share permission.
    * You are a superadmin.
 
-1. In the **Update Access** dialog, configure access to the resource by selecting the **Access level** and adding or removeing **Users**, **Roles**, or **Backend roles** as needed.
+1. In the **Update Access** dialog, configure access to the resource by selecting the **Access level** and adding or removing **Users**, **Roles**, or **Backend roles** as needed.
 
 1. Select **Save** to apply changes. Removing access immediately hides the resource from the affected users.
 
