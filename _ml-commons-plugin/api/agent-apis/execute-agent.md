@@ -12,7 +12,7 @@ nav_order: 20
 
 When an agent is executed, it runs the tools with which it is configured. Starting with OpenSearch version 3.0, you can execute an agent asynchronously by setting the `async` query parameter to `true`.
 
-Starting with OpenSearch 3.5, agents created using the [unified agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/unified-agents/) support a standardized `input` field that accepts plain text, multimodal content, or message-based conversations. This requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
+Starting with OpenSearch 3.5, agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) support a standardized `input` field that accepts plain text, multimodal content, or message-based conversations. This requires the `plugins.ml_commons.unified_agent_api_enabled` cluster setting to be enabled.
 {: .note}
 
 ### Endpoints
@@ -35,14 +35,14 @@ The following table lists the available request fields.
 
 Field | Data type | Required/Optional | Description
 :---  | :--- | :--- 
-`parameters`| Object | Optional | The parameters required by the agent. Any agent parameters configured during registration can be overridden using this field. Used with traditional agent workflow.
-`parameters.question`| String | Optional | The question to ask the agent. Used with traditional agent workflow.
+`parameters`| Object | Optional | The parameters required by the agent. Any agent parameters configured during registration can be overridden using this field. Use with [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
+`parameters.question`| String | Optional | The question to ask the agent. Use with [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
 `parameters.verbose`| Boolean | Optional | Provides verbose output.
-`input` | String or Array | Optional | **Unified agent API (3.5+)**: Standardized input field supporting plain text, multimodal content blocks, or message-based conversations. See [Unified agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/unified-agents/).
+`input` | String or Array | Optional | A standardized input field supporting plain text, multimodal content blocks, or message-based conversations. Use with the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
 
-## Traditional agent execution
+## Regular agent execution
 
-For agents created using the traditional workflow, use the `parameters` field:
+For agents created using the regular registration method (the [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/) multi-step process), use the `parameters` field:
 
 ```json
 POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
@@ -79,15 +79,22 @@ Therefore, the population increase of Seattle from 2021 to 2023 is 58,000."""
 }
 ```
 
-## Unified agent API execution (experimental)
+## Unified agent execution
 **Introduced 3.5**
 {: .label .label-purple }
-**Experimental release**
-{: .label .label-red }
 
-For agents created using the unified agent API, use the `input` field. The `input` field supports three formats:
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+For agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), use the `input` field. Unified agent execution introduces a flexible `input` field that supports three input formats:
+
+1. **Plain text**: Simple string input for basic text interactions.
+2. **Content blocks**: Text, images, video, and documents with Base64 encoding or URL sources.
+3. **Messages format**: Role-based conversation history with multimodal content blocks for complex interactions.
 
 ### Plain text input
+
+For simple text prompts, pass a string directly to the `input` field:
 
 ```json
 POST /_plugins/_ml/agents/<agent_id>/_execute
@@ -115,6 +122,8 @@ POST /_plugins/_ml/agents/<agent_id>/_execute
 
 ### Multimodal content blocks
 
+For multimodal inputs (text, images, documents), use an array of content blocks:
+
 ```json
 POST /_plugins/_ml/agents/<agent_id>/_execute
 {
@@ -136,7 +145,18 @@ POST /_plugins/_ml/agents/<agent_id>/_execute
 ```
 {% include copy-curl.html %}
 
+#### Supported content types
+
+The following table lists the supported content types.
+
+| Content type | Description | Fields |
+| :--- | :--- | :--- |
+| `text` | Plain text content | `text`: The text string |
+| `image` | Image data | `source.type`: `base64` or `url`<br>`source.format`: Image format (e.g., `png`, `jpeg`)<br>`source.data`: Base64-encoded image data or URL |
+
 ### Message-based conversations
+
+For multi-turn conversations, provide an array of messages with roles:
 
 ```json
 POST /_plugins/_ml/agents/<agent_id>/_execute
@@ -174,4 +194,42 @@ POST /_plugins/_ml/agents/<agent_id>/_execute
 ```
 {% include copy-curl.html %}
 
-For more information about the unified agent API and input formats, see [Unified agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/unified-agents/).
+Each message is stored in the agent's memory. The `content` field within each message supports multimodal content blocks.
+
+#### Message fields
+
+The following table lists the supported message fields.
+
+| Field | Data type | Required/Optional | Description |
+| :--- | :--- | :--- | :--- |
+| `role` | String | Required | The message role. Valid values: `user`, `assistant`. |
+| `content` | Array | Required | An array of content blocks (text, image, and so on). |
+
+#### Conversation example response
+
+The agent remembers context from previous messages:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "memory_id",
+          "result": "iEgpJZwBZx9B0F4spD5v"
+        },
+        {
+          "name": "parent_interaction_id",
+          "result": "ikgpJZwBZx9B0F4spT61"
+        },
+        {
+          "name": "response",
+          "result": "You like the color red, which you mentioned earlier in our conversation."
+        }
+      ]
+    }
+  ]
+}
+```
+
+For more information about the unified registration method and input formats, see [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
