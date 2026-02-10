@@ -46,7 +46,7 @@ The order in which you select attributes is critical. A city followed by a demog
 3. (Optional) Add additional metrics for each field. You can choose **All**, **Min**, **Max**, **Sum**, **Avg**, **Value Count**, or **Cardinality**.
 4. Choose **Next**.
 
-### Step 3: Specify schedule
+### Step 3: Specify a schedule
 
 Specify a schedule to roll up your indexes as it’s being ingested. The index rollup job is enabled by default.
 
