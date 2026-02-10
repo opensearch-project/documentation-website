@@ -122,7 +122,7 @@ You can specify the `precision_threshold` parameter in the `cardinality` object 
 
 ### Querying cardinality metrics
 
-You can query cardinality metrics on rollup indexes the same way you would on source indexes:
+You can query cardinality metrics on rollup indexes in the same way you would on source indexes:
 
 ```json
 GET rollup_index/_search
