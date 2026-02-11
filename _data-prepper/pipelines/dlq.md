@@ -57,7 +57,7 @@ Option | Required | Type | Description
 `sts_role_arn` | No | String | The STS role the DLQ assumes in order to write to an AWS S3 bucket. Default is `null`, which uses the standard SDK behavior for credentials. To use this option, the S3 bucket must have the `s3:PutObject` permission configured.
 `bucket_owner` | No | String | The AWS account ID of the S3 bucket owner. When set, Data Prepper passes this value to S3 as `expectedBucketOwner`, and S3 rejects writes if it does not match the actual bucket owner. Default is `null`, which performs no explicit bucket owner check.
 
-When using DLQ with an OpenSearch sink, you can configure the [`max_retries`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#configure-max_retries) option to send failed data to the DLQ when the sink reaches the maximum number of retries.
+When using DLQ with an OpenSearch sink, you can configure the [`max_retries`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#configure-max_retries) option to send failed records to the DLQ after the sink reaches the maximum number of retry attempts.
 
 ## Metrics
 
