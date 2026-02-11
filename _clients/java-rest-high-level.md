@@ -2,6 +2,7 @@
 layout: default
 title: Java high-level REST client
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/clients/java-rest-high-level/
 ---
 
 # Java high-level REST client

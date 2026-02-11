@@ -5,6 +5,7 @@ parent: Document APIs
 nav_order: 50
 redirect_from:
  - /opensearch/rest-api/document-apis/delete-by-query/
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/delete-by-query/
 ---
 
 # Delete by Query API

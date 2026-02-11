@@ -4,6 +4,7 @@ title: Managing forecasters
 nav_order: 8
 parent: Forecasting
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/forecast/managing-forecasters/
 ---
 
 # Managing forecasters

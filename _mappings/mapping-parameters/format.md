@@ -7,6 +7,7 @@ redirect_from:
 nav_order: 110
 has_children: false
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/format/
 ---
 
 # Format

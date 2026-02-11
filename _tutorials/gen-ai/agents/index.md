@@ -22,6 +22,7 @@ flows:
       - "<b>Platform:</b> OpenSearch"
       - "<b>Model:</b> Anthropic Claude 3.7 Sonnet"  
       - "<b>Deployment:</b> Amazon Bedrock"
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/agents/index/
 ---
 
 # Agentic AI tutorials

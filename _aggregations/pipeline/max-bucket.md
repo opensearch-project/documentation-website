@@ -3,6 +3,7 @@ layout: default
 title: Maximum bucket
 parent: Pipeline aggregations
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/max-bucket/
 ---
 
 # Maximum bucket aggregations

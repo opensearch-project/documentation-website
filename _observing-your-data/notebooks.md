@@ -6,6 +6,7 @@ redirect_from:
   - /dashboards/notebooks/
   - /observability-plugin/notebooks/
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/notebooks/
 ---
 
 # Notebooks

@@ -7,6 +7,7 @@ has_toc: false
 nav_order: 40
 redirect_from: 
   - /ml-commons-plugin/api/agentic-memory-apis/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agentic-memory-apis/index/
 ---
 
 # Agentic memory APIs

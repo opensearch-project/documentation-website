@@ -4,6 +4,7 @@ title: Dutch
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 110
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/dutch/
 ---
 
 # Dutch analyzer

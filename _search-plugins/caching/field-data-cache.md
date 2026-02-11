@@ -4,6 +4,7 @@ title: Field data cache
 parent: Caching
 grand_parent: Improving search performance
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/search-plugins/caching/field-data-cache/
 ---
 
 # Field data cache

@@ -3,6 +3,7 @@ layout: default
 title: Delete snapshot
 parent: Snapshot APIs
 nav_order: 7
+canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/delete-snapshot/
 ---
 
 ## Delete snapshot

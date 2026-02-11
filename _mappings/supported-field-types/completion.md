@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/supported-field-types/completion/
   - /opensearch/supported-field-types/completion/
   - /field-types/completion/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/completion/
 ---
 
 # Completion field type

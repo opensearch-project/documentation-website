@@ -8,6 +8,7 @@ nav_exclude: true
 permalink: /security-analytics/
 redirect_from:
   - /security-analytics/index/
+canonical_url: https://docs.opensearch.org/latest/security-analytics/
 ---
 
 

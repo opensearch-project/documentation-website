@@ -4,6 +4,7 @@ title: Search Relevance Workbench
 nav_order: 10
 parent: Search relevance
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/using-search-relevance-workbench/
 ---
 
 # Search Relevance Workbench

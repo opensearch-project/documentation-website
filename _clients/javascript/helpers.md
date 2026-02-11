@@ -3,6 +3,7 @@ layout: default
 title: Helper methods
 parent: JavaScript client
 nav_order: 2
+canonical_url: https://docs.opensearch.org/latest/clients/javascript/helpers/
 ---
 
 # Helper methods

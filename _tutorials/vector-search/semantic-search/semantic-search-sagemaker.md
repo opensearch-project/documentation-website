@@ -6,6 +6,7 @@ grand_parent: Vector search
 nav_order: 60
 redirect_from:
   - /vector-search/tutorials/semantic-search/semantic-search-sagemaker/
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/semantic-search/semantic-search-sagemaker/
 ---
 
 # Semantic search using a model in Amazon SageMaker 

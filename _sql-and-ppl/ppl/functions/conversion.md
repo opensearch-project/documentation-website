@@ -4,6 +4,7 @@ title: Type conversion functions
 parent: Functions
 grand_parent: PPL
 nav_order: 4
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/functions/conversion/
 ---
 
 # Type conversion functions

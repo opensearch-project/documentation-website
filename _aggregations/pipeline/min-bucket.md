@@ -3,6 +3,7 @@ layout: default
 title: Minimum bucket
 parent: Pipeline aggregations
 nav_order: 110
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/min-bucket/
 ---
 
 # Minimum bucket aggregations

@@ -5,6 +5,7 @@ parent: Metadata fields
 nav_order: 40
 redirect_from:
   - /field-types/metadata-fields/index-metadata/
+canonical_url: https://docs.opensearch.org/latest/mappings/metadata-fields/index-metadata/
 ---
 
 # Index

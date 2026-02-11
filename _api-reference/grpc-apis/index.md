@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 25
 redirect_from:
   - /api-reference/grpc-apis/
+canonical_url: https://docs.opensearch.org/latest/api-reference/grpc-apis/index/
 ---
 
 # gRPC APIs

@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/supported-field-types/xy-point/
   - /opensearch/supported-field-types/xy-point/
   - /field-types/xy-point/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/xy-point/
 ---
 
 # xy point field type

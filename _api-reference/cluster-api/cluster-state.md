@@ -3,6 +3,7 @@ layout: default
 title: Cluster state
 nav_order: 55
 parent: Cluster APIs
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-state/
 ---
 
 # Cluster State API

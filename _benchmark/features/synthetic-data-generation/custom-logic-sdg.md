@@ -4,6 +4,7 @@ title: Generating data using custom logic
 nav_order: 35
 parent: Synthetic data generation
 grand_parent: Additional features
+canonical_url: https://docs.opensearch.org/latest/benchmark/features/synthetic-data-generation/custom-logic-sdg/
 ---
 
 # Generating data using custom logic

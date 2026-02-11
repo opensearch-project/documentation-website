@@ -16,6 +16,7 @@ cards:
   - heading: "Vector search with MMR reranking"
     description: "Improve vector search results by automatically reranking for both relevance and diversity using maximal marginal relevance (MMR)"
     link: "/vector-search/specialized-operations/vector-search-mmr/"
+canonical_url: https://docs.opensearch.org/latest/vector-search/specialized-operations/index/
 ---
 
 # Specialized vector search

@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/supported-field-types/geographic/
   - /opensearch/supported-field-types/geographic/
   - /field-types/geographic/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/geographic/
 ---
 
 # Geographic field types

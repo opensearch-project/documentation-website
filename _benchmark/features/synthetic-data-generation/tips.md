@@ -4,6 +4,7 @@ title: Tips and best practices
 nav_order: 45
 parent: Synthetic data generation
 grand_parent: Additional features
+canonical_url: https://docs.opensearch.org/latest/benchmark/features/synthetic-data-generation/tips/
 ---
 
 # Tips and best practices

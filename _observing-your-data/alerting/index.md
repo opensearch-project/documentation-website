@@ -7,6 +7,7 @@ redirect_from:
   - /monitoring-plugins/alerting/
   - /monitoring-plugins/alerting/index/
   - /observing-your-data/alerting/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/index/
 ---
 
 # Alerting

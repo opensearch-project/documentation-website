@@ -3,6 +3,7 @@ layout: default
 title: Workspace access control lists
 parent: Workspace for OpenSearch Dashboards
 nav_order: 3
+canonical_url: https://docs.opensearch.org/latest/dashboards/workspace/workspace-acl/
 ---
 
 # Workspace access control lists

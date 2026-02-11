@@ -4,6 +4,7 @@ title: DocumentDB
 parent: Sources
 grand_parent: Pipelines
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sources/documentdb/
 ---
 
 # DocumentDB source

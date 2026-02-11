@@ -3,6 +3,7 @@ layout: default
 title: DL model analyzers
 parent: Analyzers
 nav_order: 130
+canonical_url: https://docs.opensearch.org/latest/analyzers/supported-analyzers/dl-model-analyzers/
 ---
 
 # DL model analyzers

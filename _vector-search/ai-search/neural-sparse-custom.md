@@ -7,6 +7,7 @@ nav_order: 20
 has_children: false
 redirect_from:
   - /search-plugins/neural-sparse-with-pipelines/
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/neural-sparse-custom/
 ---
 
 # Using custom configurations for neural sparse search

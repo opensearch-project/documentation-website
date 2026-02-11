@@ -5,6 +5,7 @@ parent: Metric aggregations
 nav_order: 60
 redirect_from:
   - /query-dsl/aggregations/metric/maximum/
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/maximum/
 ---
 
 # Maximum aggregations

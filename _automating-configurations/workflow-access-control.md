@@ -2,6 +2,7 @@
 layout: default
 title: Workflow access control
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/automating-configurations/workflow-access-control/
 ---
 
 # Workflow access control

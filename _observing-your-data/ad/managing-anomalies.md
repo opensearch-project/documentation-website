@@ -4,6 +4,7 @@ title: Configuring anomaly alerting
 nav_order: 60
 parent: Anomaly detection
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/managing-anomalies/
 ---
 
 # Configuring anomaly alerting

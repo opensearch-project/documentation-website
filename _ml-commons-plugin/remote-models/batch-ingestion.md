@@ -5,6 +5,7 @@ has_children: false
 nav_order: 80
 parent: Connecting to externally hosted models 
 grand_parent: Integrating ML models
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/remote-models/batch-ingestion/
 ---
 
 # Using externally hosted ML models for batch ingestion

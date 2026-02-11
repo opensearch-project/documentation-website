@@ -4,6 +4,7 @@ title: Triggers
 nav_order: 40
 grand_parent: Alerting
 parent: Monitors
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/triggers/
 ---
 
 # Triggers

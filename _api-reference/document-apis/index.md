@@ -7,6 +7,7 @@ nav_order: 25
 redirect_from:
   - /opensearch/rest-api/document-apis/index/
   - /api-reference/document-apis/
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/index/
 ---
 
 # Document APIs

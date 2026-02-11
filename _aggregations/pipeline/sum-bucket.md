@@ -3,6 +3,7 @@ layout: default
 title: Sum bucket
 parent: Pipeline aggregations
 nav_order: 190
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/sum-bucket/
 ---
 
 # Sum bucket aggregations

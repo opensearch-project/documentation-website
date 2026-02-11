@@ -4,6 +4,7 @@ title: Get agent
 parent: Agent APIs
 grand_parent: ML Commons APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/agent-apis/get-agent/
 ---
 
 # Get Agent API

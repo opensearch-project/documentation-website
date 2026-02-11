@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/supported-field-types/geo-shape/
   - /opensearch/supported-field-types/geo-shape/
   - /field-types/geo-shape/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/geo-shape/
 ---
 
 # Geoshape field type

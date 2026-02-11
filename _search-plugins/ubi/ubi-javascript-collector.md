@@ -4,6 +4,7 @@ title: UBI JavaScript Collector
 parent: User Behavior Insights
 has_children: false
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ubi/ubi-javascript-collector/
 ---
 
 # How to use UBI JavaScript collector

@@ -3,6 +3,7 @@ layout: default
 title: Neural
 parent: Specialized queries
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/neural/
 ---
 
 # Neural query

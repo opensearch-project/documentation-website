@@ -4,6 +4,7 @@ title: SQL and PPL CLI
 nav_order: 3
 redirect_from:
  - /search-plugins/sql/cli/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/cli/
 ---
 
 # SQL and PPL CLI

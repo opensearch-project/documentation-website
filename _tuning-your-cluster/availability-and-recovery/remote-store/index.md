@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/remote/
   - /tuning-your-cluster/availability-and-recovery/remote/
   - /tuning-your-cluster/availability-and-recovery/remote-store/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/remote-store/index/
 ---
 
 # Remote-backed storage

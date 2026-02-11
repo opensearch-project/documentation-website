@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/mapping-parameters/dynamic/
   - /opensearch/dynamic/
   - /field-types/dynamic/
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/dynamic/
 ---
 
 # Dynamic

@@ -3,6 +3,7 @@ layout: default
 title: Grok
 parent: Ingest processors
 nav_order: 140
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/grok/
 ---
 
 This documentation describes using the `grok` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `grok` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/grok/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.

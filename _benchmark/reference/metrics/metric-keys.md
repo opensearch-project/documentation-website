@@ -6,6 +6,7 @@ parent: Metrics reference
 grand_parent: Reference
 redirect_from:
   - /benchmark/metrics/metric-keys/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/metrics/metric-keys/
 ---
 
 # Metric keys

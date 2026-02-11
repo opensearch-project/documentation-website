@@ -5,6 +5,7 @@ parent: Search options
 nav_order: 30
 redirect_from:
   - /opensearch/search/sort/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/sort/
 ---
 
 # Sort results

@@ -5,6 +5,7 @@ parent: Building data visualizations
 nav_order: 100
 redirect_from:
   - /dashboards/drag-drop-wizard/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visbuilder/
 ---
 
 # VisBuilder

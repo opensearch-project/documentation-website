@@ -4,6 +4,7 @@ title: Delete index template
 parent: Index templates
 grand_parent: Index APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/delete-index-template/
 ---
 
 # Delete Index Template API

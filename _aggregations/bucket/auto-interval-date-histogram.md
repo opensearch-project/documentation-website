@@ -3,6 +3,7 @@ layout: default
 title: Auto-interval date histogram
 parent: Bucket aggregations
 nav_order: 12
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/auto-interval-date-histogram/
 ---
 
 # Auto-interval date histogram

@@ -5,6 +5,7 @@ parent: Search options
 nav_order: 40
 redirect_from:
   - /search-plugins/collapse-search/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/collapse-search/
 ---
 
 # Collapse search results

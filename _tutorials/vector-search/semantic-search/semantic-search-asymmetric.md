@@ -6,6 +6,7 @@ grand_parent: Vector search
 nav_order: 80
 redirect_from:
   - /vector-search/tutorials/semantic-search/semantic-search-asymmetric/
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/semantic-search/semantic-search-asymmetric/
 ---
 
 # Semantic search using an asymmetric embedding model
