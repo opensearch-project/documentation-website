@@ -3,6 +3,7 @@ layout: default
 title: Rare terms
 parent: Bucket aggregations
 nav_order: 155
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/rare-terms/
 ---
 
 # Rare terms aggregations

@@ -4,6 +4,7 @@ title: Cluster information
 nav_order: 65
 parent: Cluster APIs
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/info/
 ---
 
 # Cluster Information API

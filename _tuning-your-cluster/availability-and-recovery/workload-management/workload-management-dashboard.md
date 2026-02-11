@@ -4,6 +4,7 @@ layout: default
 parent: Workload management
 grand_parent: Availability and recovery
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/workload-management/workload-management-dashboard/
 ---
 
 # Managing workloads in OpenSearch Dashboards

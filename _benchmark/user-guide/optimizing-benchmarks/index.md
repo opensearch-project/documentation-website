@@ -23,6 +23,7 @@ more_cards:
     link: "/benchmark/user-guide/optimizing-benchmarks/randomizing-queries/"
 redirect_from:
   - /benchmark/user-guide/optimizing-benchmarks/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/optimizing-benchmarks/index/
 ---
 
 # Optimizing benchmarks

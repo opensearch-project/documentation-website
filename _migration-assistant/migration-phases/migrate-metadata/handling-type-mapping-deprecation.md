@@ -8,6 +8,7 @@ permalink: /migration-assistant/migration-phases/migrate-metadata/handling-type-
 redirect_from:
   - /migration-assistant/migration-phases/assessment/handling-type-mapping-deprecation/
   - /migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/
 ---
 
 # Transform type mappings

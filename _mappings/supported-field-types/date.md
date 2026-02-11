@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/supported-field-types/date/
   - /opensearch/supported-field-types/date/
   - /field-types/date/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/date/
 ---
 
 # Date field type

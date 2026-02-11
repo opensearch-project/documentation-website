@@ -4,6 +4,7 @@ title: MCP Streamable HTTP Server
 parent: MCP server APIs
 grand_parent: ML Commons APIs
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/mcp-server-apis/mcp-server/
 ---
 
 # MCP Streamable HTTP Server API

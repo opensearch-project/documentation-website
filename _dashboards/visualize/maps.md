@@ -8,6 +8,7 @@ redirect_from:
   - /dashboards/maps-plugin/
   - /dashboards/visualize/maps/
   - /dashboards/maps/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/maps/
 ---
 
 # Using maps 

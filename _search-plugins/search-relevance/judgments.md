@@ -5,6 +5,7 @@ nav_order: 8
 parent: Search Relevance Workbench
 grand_parent: Search relevance
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/judgments/
 ---
 
 # Judgments

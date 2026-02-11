@@ -3,6 +3,7 @@ layout: default
 title: k-NN (gRPC)
 parent: gRPC APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/api-reference/grpc-apis/knn/
 ---
 
 # k-NN (gRPC) API

@@ -3,6 +3,7 @@ layout: default
 title: Neural sparse
 parent: Specialized queries
 nav_order: 55
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/neural-sparse/
 ---
 
 # Neural sparse query

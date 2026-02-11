@@ -4,6 +4,7 @@ title: Functions
 parent: PPL
 nav_order: 1
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/functions/index/
 ---
 
 # Functions

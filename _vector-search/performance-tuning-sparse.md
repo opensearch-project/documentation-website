@@ -4,6 +4,7 @@ title: Sparse performance tuning
 nav_order: 30
 parent: Neural sparse ANN search performance tuning
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/vector-search/performance-tuning-sparse/
 ---
 
 # Neural sparse ANN search performance tuning

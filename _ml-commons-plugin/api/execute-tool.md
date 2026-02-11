@@ -3,6 +3,7 @@ layout: default
 title: Execute tool 
 parent: ML Commons APIs
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/execute-tool/
 ---
 
 # Execute Tool API

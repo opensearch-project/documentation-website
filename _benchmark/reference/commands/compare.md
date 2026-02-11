@@ -6,6 +6,7 @@ parent: Command reference
 grand_parent: Reference
 redirect_from:
   - /benchmark/commands/compare/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/compare/
 ---
 
 <!-- vale off -->

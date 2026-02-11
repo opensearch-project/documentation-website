@@ -3,6 +3,7 @@ layout: default
 title: Dictionary decompounder
 parent: Token filters
 nav_order: 110
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/dictionary-decompounder/
 ---
 
 # Dictionary decompounder token filter

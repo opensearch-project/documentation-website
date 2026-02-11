@@ -4,6 +4,7 @@ title: Index request cache
 parent: Caching
 grand_parent: Improving search performance
 nav_order: 5
+canonical_url: https://docs.opensearch.org/latest/search-plugins/caching/request-cache/
 ---
 
 # Index request cache

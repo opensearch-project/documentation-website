@@ -2,6 +2,7 @@
 layout: default
 title: Faceted search
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/tutorials/faceted-search/
 ---
 
 # Implementing faceted search in OpenSearch

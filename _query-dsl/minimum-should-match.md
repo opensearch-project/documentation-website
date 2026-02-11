@@ -4,6 +4,7 @@ title: Minimum should match
 nav_order: 70
 redirect_from:
 - /query-dsl/query-dsl/minimum-should-match/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/minimum-should-match/
 ---
 
 # Minimum should match 

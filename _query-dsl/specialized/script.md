@@ -3,6 +3,7 @@ layout: default
 title: Script query
 parent: Specialized queries
 nav_order: 58
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/script/
 ---
 
 # Script query

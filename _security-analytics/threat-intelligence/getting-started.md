@@ -3,6 +3,7 @@ layout: default
 title: Getting started
 parent: Threat intelligence
 nav_order: 41
+canonical_url: https://docs.opensearch.org/latest/security-analytics/threat-intelligence/getting-started/
 ---
 
 # Getting started

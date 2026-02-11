@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /automating-configurations/api/
+canonical_url: https://docs.opensearch.org/latest/automating-configurations/api/index/
 ---
 
 # Workflow APIs

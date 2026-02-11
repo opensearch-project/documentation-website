@@ -4,6 +4,7 @@ title: Relevance functions
 parent: Functions
 grand_parent: PPL
 nav_order: 11
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/functions/relevance/
 ---
 
 # Relevance functions

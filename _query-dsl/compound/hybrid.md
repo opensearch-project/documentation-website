@@ -3,6 +3,7 @@ layout: default
 title: Hybrid
 parent: Compound queries
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/hybrid/
 ---
 
 # Hybrid query

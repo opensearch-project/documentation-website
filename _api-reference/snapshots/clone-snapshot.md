@@ -3,6 +3,7 @@ layout: default
 title: Clone snapshot
 parent: Snapshot APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/clone-snapshot/
 ---
 
 # Clone Snapshot API

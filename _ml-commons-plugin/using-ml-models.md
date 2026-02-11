@@ -19,6 +19,7 @@ gpu:
   - heading: "GPU acceleration"
     link: "/ml-commons-plugin/gpu-acceleration/"
     description: "Take advantage of GPU acceleration on your ML node for better performance"
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/using-ml-models/
 ---
 
 # Using ML models within OpenSearch

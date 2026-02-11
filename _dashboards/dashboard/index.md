@@ -5,6 +5,7 @@ nav_order: 30
 has_children: false
 redirect_from:
   - /dashboards/dashboard/
+canonical_url: https://docs.opensearch.org/latest/dashboards/dashboard/index/
 ---
 
 # Creating dashboards

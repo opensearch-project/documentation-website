@@ -5,6 +5,7 @@ parent: Bucket aggregations
 nav_order: 10
 redirect_from:
   - /query-dsl/aggregations/bucket/adjacency-matrix/
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/adjacency-matrix/
 ---
 
 # Adjacency matrix aggregations

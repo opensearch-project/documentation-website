@@ -3,6 +3,7 @@ layout: default
 title: Moving function
 parent: Pipeline aggregations
 nav_order: 130
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/moving-function/
 ---
 
 # Moving function aggregations

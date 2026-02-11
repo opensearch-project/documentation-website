@@ -7,6 +7,7 @@ parent: Specialized search field types
 grand_parent: Supported field types
 redirect_from:
   - /field-types/supported-field-types/derived/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/derived/
 ---
 
 # Derived field type

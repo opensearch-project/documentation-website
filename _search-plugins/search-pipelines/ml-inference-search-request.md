@@ -5,6 +5,7 @@ nav_order: 30
 has_children: false
 parent: User-defined search processors
 grand_parent: Search pipelines
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/ml-inference-search-request/
 ---
 
 # ML inference search request processor

@@ -4,6 +4,7 @@ title: Monitoring
 nav_order: 95
 redirect_from:
   - /search-plugins/sql/monitoring/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/monitoring/
 ---
 
 # Monitoring

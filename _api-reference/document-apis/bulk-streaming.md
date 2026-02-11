@@ -5,6 +5,7 @@ parent: Document APIs
 nav_order: 25
 redirect_from:
  - /opensearch/rest-api/document-apis/bulk/streaming/
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/bulk-streaming/
 ---
 
 # Streaming Bulk API

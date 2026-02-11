@@ -3,6 +3,7 @@ layout: default
 title: Settings
 parent: Index rollups
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-rollups/settings/
 ---
 
 # Index rollup settings

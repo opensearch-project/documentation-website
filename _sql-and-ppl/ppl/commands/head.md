@@ -4,6 +4,7 @@ title: head
 parent: Commands
 grand_parent: PPL
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/head/
 ---
 
 # head

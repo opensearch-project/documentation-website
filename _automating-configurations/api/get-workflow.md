@@ -3,6 +3,7 @@ layout: default
 title: Get a workflow
 parent: Workflow APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/automating-configurations/api/get-workflow/
 ---
 
 # Get Workflow API

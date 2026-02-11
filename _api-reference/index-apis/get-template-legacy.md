@@ -4,6 +4,7 @@ title: Get template (deprecated)
 parent: Index templates
 grand_parent: Index APIs
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/get-template-legacy/
 ---
 
 # Get template

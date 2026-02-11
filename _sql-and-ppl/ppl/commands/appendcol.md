@@ -4,6 +4,7 @@ title: appendcol
 parent: Commands
 grand_parent: PPL
 nav_order: 6
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/appendcol/
 ---
 
 # appendcol

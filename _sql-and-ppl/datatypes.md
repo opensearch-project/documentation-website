@@ -4,6 +4,7 @@ title: Data types
 nav_order: 7
 redirect_from:
   - /search-plugins/sql/datatypes/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/datatypes/
 ---
 
 # Data types

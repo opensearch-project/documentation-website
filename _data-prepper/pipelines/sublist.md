@@ -4,6 +4,7 @@ title: subList()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 35
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/sublist/
 ---
 
 # subList(<key>, <start_index, inclusive>, <end_index, exclusive>)

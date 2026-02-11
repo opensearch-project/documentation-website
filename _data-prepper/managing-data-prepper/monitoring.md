@@ -3,6 +3,7 @@ layout: default
 title: Monitoring
 parent: Managing OpenSearch Data Prepper
 nav_order: 25
+canonical_url: https://docs.opensearch.org/latest/data-prepper/managing-data-prepper/monitoring/
 ---
  
 # Monitoring OpenSearch Data Prepper with metrics

@@ -3,6 +3,7 @@ layout: default
 title: Get snapshot
 parent: Snapshot APIs
 nav_order: 6
+canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/get-snapshot/
 ---
 
 # Get Snapshot API

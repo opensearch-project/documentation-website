@@ -4,6 +4,7 @@ title: show datasources
 parent: Commands
 grand_parent: PPL
 nav_order: 36
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/showdatasources/
 ---
 
 # show datasources

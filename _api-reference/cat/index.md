@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/catapis/
   - /opensearch/rest-api/cat/index/
   - /api-reference/cat/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/index/
 ---
 
 # CAT APIs

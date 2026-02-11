@@ -3,6 +3,7 @@ layout: default
 title: OpenSearch FIPS configuration
 parent: Configuration
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/security/configuration/fips/
 ---
 
 # OpenSearch FIPS configuration

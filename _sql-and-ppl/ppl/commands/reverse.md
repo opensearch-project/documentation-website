@@ -4,6 +4,7 @@ title: reverse
 parent: Commands
 grand_parent: PPL
 nav_order: 33
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/reverse/
 ---
 
 # reverse

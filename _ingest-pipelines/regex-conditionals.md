@@ -3,6 +3,7 @@ layout: default
 title: Regex conditionals
 parent: Conditional execution
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/regex-conditionals/
 ---
 
 # Regex conditionals

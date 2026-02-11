@@ -3,6 +3,7 @@ layout: default
 title: Bucket selector
 parent: Pipeline aggregations
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/bucket-selector/
 ---
 
 # Bucket selector aggregations

@@ -7,6 +7,7 @@ has_toc: false
 has_children: true
 redirect_from:
   - /benchmark/user-guide/working-with-workloads/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/working-with-workloads/index/
 ---
 
 # Working with workloads

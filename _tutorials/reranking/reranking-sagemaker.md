@@ -5,6 +5,7 @@ parent: Reranking search results
 nav_order: 115
 redirect_from:
   - /vector-search/tutorials/reranking/reranking-sagemaker/
+canonical_url: https://docs.opensearch.org/latest/tutorials/reranking/reranking-sagemaker/
 ---
 
 # Reranking search results using a reranker in Amazon SageMaker

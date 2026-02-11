@@ -5,6 +5,7 @@ nav_order: 81
 has_children: true
 redirect_from:
   - /observing-your-data/forecast/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/forecast/index/
 ---
 
 # Forecasting

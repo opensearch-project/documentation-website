@@ -7,6 +7,7 @@ redirect_from:
   - /field-types/supported-field-types/knn-spaces/
 nav_order: 10
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/knn-spaces/
 ---
 
 # Spaces

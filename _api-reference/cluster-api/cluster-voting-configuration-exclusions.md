@@ -3,6 +3,7 @@ layout: default
 title: Voting configuration exclusions
 parent: Cluster APIs
 nav_order: 75
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-voting-configuration-exclusions/
 ---
 
 # Voting Configuration Exclusions API

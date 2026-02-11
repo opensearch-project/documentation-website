@@ -2,6 +2,7 @@
 layout: default
 title: Regular expression syntax
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/query-dsl/regex-syntax/
 ---
 
 # Regular expression syntax

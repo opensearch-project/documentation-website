@@ -7,6 +7,7 @@ nav_order: 10
 has_toc: false
 redirect_from:
   - /ml-commons-plugin/api/model-apis/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-apis/index/
 ---
 
 # Model APIs

@@ -9,6 +9,7 @@ redirect_from:
   - /field-types/supported-field-types/nested/
   - /opensearch/supported-field-types/nested/
   - /field-types/nested/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/nested/
 ---
 
 # Nested field type

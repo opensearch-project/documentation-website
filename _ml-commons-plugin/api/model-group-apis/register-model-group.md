@@ -4,6 +4,7 @@ title: Register model group
 parent: Model group APIs
 grand_parent: ML Commons APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-group-apis/register-model-group/
 ---
 
 # Register Model Group API

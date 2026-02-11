@@ -4,6 +4,7 @@ title: Actions
 nav_order: 50
 grand_parent: Alerting
 parent: Monitors
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/actions/
 ---
 
 # Actions
