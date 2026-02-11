@@ -190,6 +190,10 @@ Alternately, rather than admin credentials, you can specify the credentials of a
 - `indices:admin/template/get`
 - `indices:admin/template/put`
 
+If the target is an OpenSearch data stream, the following permission is required by the data stream detector:
+
+- `indices:admin/data_stream/get`
+
 ### Index permissions
 
 - Index: `otel-v1*`; Index permission: `indices_all`
