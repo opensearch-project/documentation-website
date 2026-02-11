@@ -198,7 +198,7 @@ application-logs-pipeline:
   processor:
     - grok:
         match:
-          message: ['%{TIMESTAMP_ISO8601:timestamp} \[%{LOGLEVEL:level}\] %{DATA:component} - %{GREEDYDATA:details}']
+          message: ['%{TIMESTAMP_ISO8601:timestamp} \\[%{LOGLEVEL:level}\\] %{DATA:component} - %{GREEDYDATA:details}']
         pattern_definitions:
           LOGLEVEL: (?:INFO|WARN|ERROR|DEBUG|TRACE)
         break_on_match: true
@@ -332,7 +332,7 @@ network-device-logs-pipeline:
         match:
           message: [
             # syslog-like
-            '%{SYSLOGTIMESTAMP:timestamp} %{SYSLOGHOST:host} %{DATA:program}(?:\[%{POSINT:pid}\])?: %{GREEDYDATA:message}',
+            '%{SYSLOGTIMESTAMP:timestamp} %{SYSLOGHOST:host} %{DATA:program}(?:\\[%{POSINT:pid}\\])?: %{GREEDYDATA:message}',
             # ISO8601 + IP
             '%{TIMESTAMP_ISO8601:timestamp} %{IP:host} %{DATA:program}: %{GREEDYDATA:message}',
             # Cisco style
