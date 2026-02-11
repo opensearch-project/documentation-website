@@ -33,7 +33,7 @@ sink:
           bucket_owner: 123456789012
 ```
 
-The resulting DLQ file outputs as a JSON array of DLQ objects. Any file written to the S3 DLQ contains the following name pattern:
+The resulting DLQ file outputs as a JSON array of DLQ objects. Any file written to the `s3` DLQ contains the following name pattern:
 
 ```
 dlq-v${version}-${pipelineName}-${pluginId}-${timestampIso8601}-${uniqueId}
@@ -52,7 +52,7 @@ DLQ supports the following configuration options.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `bucket` | Yes | String | The name of the bucket into which the DLQ outputs failed records.
-`key_path_prefix` | No | String | The `key_prefix` used in the S3 bucket. Defaults to `""`. Supports time value pattern variables, such as `/%{yyyy}/%{MM}/%{dd}`, including any variables listed in the [Java DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html). For example, when using the `/%{yyyy}/%{MM}/%{dd}` pattern, you can set `key_prefix` as `/2023/01/24`.
+`key_path_prefix` | No | String | The `key_prefix` used in the Amazon Simple Storage Service (Amazon S3) bucket. Defaults to `""`. Supports time value pattern variables, such as `/%{yyyy}/%{MM}/%{dd}`, including any variables listed in the [Java DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html). For example, when using the `/%{yyyy}/%{MM}/%{dd}` pattern, you can set `key_prefix` as `/2023/01/24`.
 `region` | No | String | The AWS Region of the S3 bucket. Defaults to `us-east-1`.
 `sts_role_arn` | No | String | The STS role the DLQ assumes in order to write to an AWS S3 bucket. Default is `null`, which uses the standard SDK behavior for credentials. To use this option, the S3 bucket must have the `s3:PutObject` permission configured.
 `bucket_owner` | No | String | The AWS account ID of the S3 bucket owner. When set, Data Prepper passes this value to S3 as `expectedBucketOwner`, and S3 rejects writes if it does not match the actual bucket owner. Default is `null`, which performs no explicit bucket owner check.
@@ -86,4 +86,4 @@ DLQ supports the following DLQ objects:
 - `pluginName`: The name of the plugin.
 - `failedData`: An object that contains the failed object and its options. This object is unique to each plugin.
 - `pipelineName`: The name of the Data Prepper pipeline in which the event failed.
-- `timestamp`: The timestamp of the failure in an `ISO8601` format.
+- `timestamp`: The timestamp of the failure in `ISO8601` format.
