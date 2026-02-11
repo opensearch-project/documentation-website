@@ -151,5 +151,4 @@ curl -X GET "http://localhost:9200/_search" \
   -H "X-Request-Id: 19d538d7c42d09240be001d1e4ff6201" \
   -d '{"query": {"match_all": {}}}'
 ```
-
 {% include copy.html %}
