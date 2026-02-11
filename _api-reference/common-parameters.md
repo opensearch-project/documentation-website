@@ -139,13 +139,13 @@ curl -H "X-Opaque-Id: my-curl-client-1" -XGET localhost:9200/_tasks
 
 ## `X-Request-Id` header
 
-This header uniquely identifies a search request and can be used by users to track it, for example in logs such as slow logs. Format: 32-character hexadecimal
+You can specify a unique identifier for a search request using the `X-Request-Id` header. This identifier is used to track individual search requests and can be referenced in logs, such as slow logs, for troubleshooting and analysis. The value must be a 32-character hexadecimal string. 
 
 #### Example request
 
-The following adds a request ID to a search request:
+The following request adds a request ID to a search request:
 
-```json
+```bash
 curl -X GET "http://localhost:9200/_search" \
   -H "Content-Type: application/json" \
   -H "X-Request-Id: 19d538d7c42d09240be001d1e4ff6201" \
