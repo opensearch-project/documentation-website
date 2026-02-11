@@ -39,14 +39,14 @@ The [`newline` codec]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/config
 
 ## Parquet
 
-[Apache Parquet](https://parquet.apache.org/docs/overview/) is a columnar storage format built for Hadoop. Pipeline authors can use the parquet codec to read Parquet data directly from the S3 object. This will retrieve all data from Parquet. An alternative is to use [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source) instead of the codec. In this case, [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source) will parse the Parquet file directly. This can be more efficient if you are filtering or loading a subset of data.
+[Apache Parquet](https://parquet.apache.org/docs/overview/) is a columnar storage format built for Hadoop. When configuring a pipeline, you can use the parquet codec to read Parquet data directly from the S3 object. This will retrieve all data from Parquet. Alternatively, you can use [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source) instead of the codec. In this case, [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source) parses the Parquet file directly. This can be more efficient if you are filtering or loading a subset of data.
 
 Additional S3 charges apply when using [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source).
 {: .note}
 
 ## Avro
 
-[Apache Avro](https://avro.apache.org/docs) is a columnar storage format built for Hadoop. It is most efficient without the use of a codec, however, great results can be achieved when it is configured with [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source).
+[Apache Avro](https://avro.apache.org/docs) is a columnar storage format built for Hadoop. It is most efficient without the use of a codec. When used with [S3 Select]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3#using-s3_select-with-the-s3-source), Avro can deliver strong performance by enabling selective data retrieval.
 
 ## `event_json`
 
