@@ -30,6 +30,7 @@ For each entry, you can configure the following options.
 | `from_key` | Yes | String | The key for the entry to be copied. |
 | `to_key` | Yes | String | The key for the new entry to be added. |
 | `overwrite_if_to_key_exists` | No | Boolean | When set to `true`, the existing value is overwritten if the `key` already exists in the event. Default is `false`. |
+| `copy_when` | No | String | Specifies a condition for performing the `copy_values` operation using a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/). If specified, the `copy_values` operation will only run when the expression evaluates to `true`. |
 
 
 ## Usage
