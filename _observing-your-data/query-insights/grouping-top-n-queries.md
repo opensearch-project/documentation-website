@@ -310,7 +310,7 @@ Field | Data type        | Description
 `top_queries.user_roles` | Array            | The security roles associated with the user who sent the first query in the query group.
 `top_queries.node_id` | String           | The node ID of the node that coordinated the execution of the first query in the query group.
 `top_queries.labels` | Object           | Used to label the top query.
-`top_queries.search_type` | String           | The search request execution type (`query_then_fetch` or `dfs_query_then_fetch`). For more information, see the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters).
+`top_queries.search_type` | String           | The search request execution type. Valid values are `query_then_fetch` and `dfs_query_then_fetch`. See the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters).
 `top_queries.source_truncated` | Boolean          | Whether the source field was truncated for the first query in the query group. For more information, see [Configuring source truncation]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-source-truncation).
 `top_queries.phase_latency_map` | Object           | The coordinator phase latency map for the first query in the query group. The map includes the amount of time, in milliseconds, that the query spent in the `expand`, `query`, and `fetch` phases.
 `top_queries.source` | Object           | The source of the first query in the query group.
