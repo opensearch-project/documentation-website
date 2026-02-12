@@ -303,7 +303,7 @@ Field | Data type        | Description
 `top_queries.timestamp` | Integer          | The execution timestamp for the first query in the query group.
 `top_queries.id` | String           | The unique identifier for the query or query group.
 `top_queries.total_shards` | Integer          | The number of shards on which the first query was executed.
-`top_queries.wlm_group_id` | String           | The Workload Management group ID for the first query in the query group.
+`top_queries.wlm_group_id` | String           | The workload management group ID for the first query in the query group.
 `top_queries.query_group_hashcode` | String           | The hash code that uniquely identifies the query group and is generated from the [query structure](#grouping-queries-by-similarity).
 `top_queries.task_resource_usages` | Array of objects | The resource usage breakdown for the various tasks belonging to the first query in the query group.
 `top_queries.username` | String           | The username associated with the first query in the query group.
