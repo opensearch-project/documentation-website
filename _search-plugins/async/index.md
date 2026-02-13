@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Asynchronous search
-nav_order: 51
+nav_order: 40
 parent: Improving search performance
 has_children: true
 redirect_from:

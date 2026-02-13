@@ -1,27 +1,57 @@
 ---
 layout: default
-title: Search options
-nav_order: 5
+title: Customizing search results
+nav_order: 15
 has_children: true
 has_toc: false
 redirect_from:
   - /opensearch/ux/
   - /search-plugins/searching-data/
+  - /search-plugins/search-options/
 ---
 
-# Search options
+# Customizing search results
 
-What users expect from search engines has evolved over the years. Just returning relevant results quickly is no longer enough for most users. Now users seek methods that allow them to get even more relevant results, to sort and organize results, and to highlight their queries. OpenSearch includes many search options, described in the following table, that enhance the search experience.
+OpenSearch provides fundamental search capabilities and options that form the foundation of most search applications. These features work with all search types including keyword, vector, and AI search.
 
-Option | Description
-:--- | :---
-[Autocomplete functionality]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete/) | Suggest phrases as the user types.
-[Did-you-mean functionality]({{site.url}}{{site.baseurl}}/opensearch/search/did-you-mean/) | Check spelling of phrases as the user types.
-[Paginate results]({{site.url}}{{site.baseurl}}/opensearch/search/paginate/) | Rather than a single, long list, separate search results into pages.
-[Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time/) | Run different queries against a dataset that is fixed in time. 
-[Sort results]({{site.url}}{{site.baseurl}}/opensearch/search/sort/) | Allow sorting of results by different criteria.
-[Filter results]({{site.url}}{{site.baseurl}}/search-plugins/filter-search/) | Filter search results.
-[Collapse results]({{site.url}}{{site.baseurl}}/search-plugins/collapse-search/) | Collapse search results.
-[Highlight query matches]({{site.url}}{{site.baseurl}}/opensearch/search/highlight/) | Highlight the search term in the results.
-[Retrieve inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/) | Retrieve underlying hits in nested and parent-join objects.
-[Retrieve specific fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/) | Retrieve only the specific fields
+## Pagination
+
+Control how search results are accessed across large result sets:
+
+- [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/): Rather than a single, long list, separate search results into pages.
+- [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time/): Run different queries against a dataset that is fixed in time.
+
+## Sort and filter
+
+Apply the most common result refinements:
+
+- [Sort results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/): Allow sorting of results by different criteria.
+- [Filter results]({{site.url}}{{site.baseurl}}/search-plugins/filter-search/): Filter search results based on specific criteria.
+
+## Result processing
+
+Control what data is returned and how it's organized:
+
+- [Collapse results]({{site.url}}{{site.baseurl}}/search-plugins/collapse-search/): Collapse search results to show only unique values for a specified field.
+- [Retrieve specific fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/): Retrieve only the specific fields you need.
+- [Retrieve inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/): Retrieve underlying hits in nested and parent-join objects.
+
+## Result formatting
+
+Customize how search results are visually presented:
+
+- [Highlight query matches]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/): Highlight the search term in the results.
+
+## Query enhancement
+
+Enhance user queries in real-time to improve search accuracy and user experience:
+
+- [Autocomplete functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/): Suggest phrases as the user types.
+- [Did-you-mean functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/): Check spelling of phrases as the user types.
+
+## Query enhancement
+
+Enhance user queries in real-time to improve search accuracy and user experience:
+
+- [Autocomplete functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/): Suggest phrases as the user types.
+- [Did-you-mean functionality]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/): Check spelling of phrases as the user types.

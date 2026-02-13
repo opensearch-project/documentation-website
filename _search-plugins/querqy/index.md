@@ -2,11 +2,11 @@
 layout: default
 title: Querqy
 parent: Query rewriting
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 redirect_from:
   - /search-plugins/querqy/
-nav_order: 210
+nav_order: 60
 ---
 
 # Querqy

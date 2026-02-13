@@ -3,7 +3,7 @@ layout: default
 title: Comparing query sets
 nav_order: 12
 parent: Search Relevance Workbench
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 ---
 

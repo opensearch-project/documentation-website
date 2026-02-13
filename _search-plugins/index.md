@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Search features
+title: Search
 nav_order: 1
 has_children: false
 has_toc: false
@@ -8,91 +8,56 @@ nav_exclude: true
 permalink: /search-plugins/
 redirect_from:
   - /search-plugins/index/
-keyword:
+search_methods:
   - heading: "Keyword (BM25) search"
-    description: "Find exact and close matches using traditional text search"
+    description: "Lexical text search using the BM25 algorithm to match and rank documents based on term frequency and document length. Find exact and close matches using traditional text search."
     link: "/search-plugins/keyword-search/"
-vector:
   - heading: "Vector search"
-    description: "Search by similarity using dense or sparse vector embeddings"
+    description: "Similarity (k-nearest neighbor) search using dense and sparse vector embeddings to power semantic search, retrieval-augmented generation, and multimodal image search."
     link: "/vector-search/"
-ai:
   - heading: "AI search"
-    description: "Build intelligent search applications using AI models"
+    description: "AI-powered search capabilities beyond vector embeddings. Enrich search and ingestion flows with any AI service to power the full range of AI-enhanced search use cases."
     link: "/vector-search/ai-search/"
 ---
 
-# Search features
+# Search
 
 OpenSearch provides many features for customizing your search use cases and improving search relevance. 
 
 ## Search methods
 
-OpenSearch supports the following search methods.
+OpenSearch supports multiple search methods to meet different use cases and requirements.
 
-### Exact matching and keywords
-
-OpenSearch implements lexical (keyword) text search using the BM25 algorithm to match and rank documents based on term frequency and document length.
-
-{% include cards.html cards=page.keyword %}
-
-### Similarity and meaning
-
-OpenSearch supports similarity (k-nearest neighbor) search using dense and sparse vector embeddings to power use cases such as semantic search, retrieval-augmented generation, and multimodal image search. 
-
-{% include cards.html cards=page.vector %}
-
-### AI-powered search
-
-OpenSearch supports AI-powered search capabilities beyond vector embeddings. OpenSearch's AI search enables search and ingestion flows to be enriched by any AI service to power the full range of AI-enhanced search use cases.
-
-{% include cards.html cards=page.ai %}
+{% include cards.html cards=page.search_methods %}
 
 ## Query languages
 
-In OpenSearch, you can use the following query languages to search your data:
+In OpenSearch, you can use the following query languages to search your data.
 
-- [Query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/): The primary OpenSearch query language that supports creating complex, fully customizable queries.
+Language | Description
+:--- | :---
+[Query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) | The primary OpenSearch query language that supports creating complex, fully customizable queries.
+[Query string query language]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) | A scaled-down query language that you can use in a query parameter of a search request or in OpenSearch Dashboards.
+[SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) | A traditional query language that bridges the gap between traditional relational database concepts and the flexibility of OpenSearch's document-oriented data storage.
+[Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) | The primary language used with observability in OpenSearch. PPL uses a pipe syntax that chains commands into a query.
+[Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/) | A simple text-based query language for filtering data in OpenSearch Dashboards.
 
-- [Query string query language]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/): A scaled-down query language that you can use in a query parameter of a search request or in OpenSearch Dashboards.
+## Customizing search results
 
-- [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/): A traditional query language that bridges the gap between traditional relational database concepts and the flexibility of OpenSearch’s document-oriented data storage.
+OpenSearch provides fundamental result handling capabilities that work with all search types.  You can customize result navigation (pagination, sorting), result formatting (highlighting, field selection), query enhancement (autocomplete, did-you-mean), and result filtering. For more information, see [Customizing search results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/).
 
-- [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/): The primary language used with observability in OpenSearch. PPL uses a pipe syntax that chains commands into a query.
+## Optimizing search quality
 
-- [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/): A simple text-based query language for filtering data in OpenSearch Dashboards. 
-
-## Search performance
-
-OpenSearch offers several ways to improve search performance:
-
-- [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/): Runs resource-intensive queries asynchronously.
-
-- [Concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/): Searches segments concurrently.
-
-## Search relevance
-
-*Search relevance* is a measure of how well a document matches a search query. When you run a search query, OpenSearch compares the words in your query to the words in each document and assigns a relevance score based on factors such as how frequently the words appear and how closely they match. For more information, see [Relevance]({{site.url}}{{site.baseurl}}/getting-started/intro/#relevance).
-
-To help you fine-tune and improve search relevance, OpenSearch provides several specialized features:
-
-- [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/): A suite of tools that support search quality improvements through experimentation. 
-
-- [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/): Offers query rewriting capability.
-
-- [User Behavior Insights]({{site.url}}{{site.baseurl}}/search-plugins/ubi/): Links user behavior to user queries to improve search quality.
-  
-## Search results
-
-OpenSearch supports the following commonly used operations on search results:
-
-- [Paginate]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/)
-- [Paginate with Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/point-in-time/)
-- [Sort]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/)
-- [Highlight search terms]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/) 
-- [Autocomplete]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/)
-- [Did-you-mean]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/) 
+OpenSearch provides comprehensive tools and features to help you measure, analyze, and improve the quality of your search results. These integrated features work together to optimize search relevance based on user behavior and machine learning. For more information, see [Optimizing search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/).
 
 ## Search pipelines
 
-You can process search queries and search results with [search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/).
+Search pipelines are the foundational infrastructure that enables OpenSearch's AI and vector search capabilities. They provide modular processors that can transform queries (text-to-vector conversion, ML inference, query rewriting), enhance results (reranking, RAG, field manipulation), and orchestrate complex AI workflows. For more information, see [Search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/).
+
+## Improving search performance
+
+OpenSearch provides various features to optimize search performance from foundational caching techniques to specialized optimizations. For more information, see [Improving search performance]({{site.url}}{{site.baseurl}}/search-plugins/improving-search-performance/).
+
+## Cross-cluster search
+
+OpenSearch supports searching across multiple clusters to scale your search infrastructure for large deployments. For more information, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/).

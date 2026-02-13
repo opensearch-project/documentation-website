@@ -3,7 +3,7 @@ layout: default
 title: Optimizing hybrid search
 nav_order: 60
 parent: Search Relevance Workbench
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 ---
 
