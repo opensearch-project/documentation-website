@@ -18,7 +18,7 @@ OpenSearch can operate as a single-node or multi-node cluster. The steps to conf
 
 To create and deploy an OpenSearch cluster according to your requirements, it’s important to understand how node discovery and cluster formation work and what settings govern them.
 
-There are many ways to design a cluster. The following illustration shows a basic architecture that includes a seven-node cluster with three dedicated cluster manager nodes (two cluster-manager-eligible nodes and one elected leader), three data nodes that can also be used for ingesting data, and one dedicated coordinating node.
+There are many ways to design a cluster. The following illustration shows a basic architecture that includes a seven-node cluster with three dedicated cluster manager nodes (two cluster-manager-eligible nodes and one elected leader), three data nodes, and one dedicated coordinating node.
 
 ![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.png)
 
