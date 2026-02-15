@@ -68,7 +68,7 @@ POST /_reindex
 {% include copy-curl.html %}
 
 ## Adaptive shard selection for bulk indexing
-**Introduced 3.5**
+**Introduced 3.6**
 {: .label .label-purple }
 
 For append-only indexes, OpenSearch automatically generates a random `_id` for write routing when you don't explicitly specify one. In bulk writing, a single bulk entry may be split into dozens of sub-bulks and dispatched to different shards, which leads to significant long-tail latency and markedly degrades write performance.
