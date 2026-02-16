@@ -150,6 +150,9 @@ The response also includes one example query from the query group.
 
 To configure grouping for top N queries, use the following steps.
 
+The examples on this page use the Cluster Settings API. For production deployments requiring fine-grained API access control, you can use the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) instead, which provides equivalent functionality with enhanced security.
+{: .tip}
+
 ### Step 1: Enable top N query monitoring 
 
 Ensure that top N query monitoring is enabled for at least one of the metrics: latency, CPU, or memory. For more information, see [Configuring top N query monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-top-n-query-monitoring).
@@ -219,160 +222,68 @@ The response contains the top N query groups:
 
 ```json
 {
-  "top_queries": [
+  "top_queries" : [
     {
-      "timestamp": 1725495127359,
-      "wlm_group_id": "DEFAULT_WORKLOAD_GROUP",
-      "source": """{"query":{"match_all":{"boost":1.0}}}""",
-      "phase_latency_map": {
-        "expand": 0,
-        "query": 55,
-        "fetch": 3
-      },
-      "total_shards": 1,
-      "node_id": "ZbINz1KFS1OPeFmN-n5rdg",
-      "query_hashcode": "b4c4f69290df756021ca6276be5cbb75",
-      "task_resource_usages": [
+      "timestamp" : 1770931952020,
+      "id" : "51ac5963-d73c-4f6b-992a-5138b9047be0",
+      "total_shards" : 1,
+      "wlm_group_id" : "DEFAULT_WORKLOAD_GROUP",
+      "query_group_hashcode" : "de0332051d2bf67681386dd2985000dc",
+      "task_resource_usages" : [
         {
-          "action": "indices:data/read/search[phase/query]",
-          "taskId": 30,
-          "parentTaskId": 29,
-          "nodeId": "ZbINz1KFS1OPeFmN-n5rdg",
-          "taskResourceUsage": {
-            "cpu_time_in_nanos": 33249000,
-            "memory_in_bytes": 2896848
+          "action" : "indices:data/read/search[phase/query]",
+          "taskId" : 50,
+          "parentTaskId" : 61,
+          "nodeId" : "V1yz4VnKSCKEycWsrlyAbw",
+          "taskResourceUsage" : {
+            "cpu_time_in_nanos" : 14479000,
+            "memory_in_bytes" : 6284264
           }
         },
         {
-          "action": "indices:data/read/search",
-          "taskId": 29,
-          "parentTaskId": -1,
-          "nodeId": "ZbINz1KFS1OPeFmN-n5rdg",
-          "taskResourceUsage": {
-            "cpu_time_in_nanos": 3151000,
-            "memory_in_bytes": 133936
+          "action" : "indices:data/read/search",
+          "taskId" : 61,
+          "parentTaskId" : -1,
+          "nodeId" : "ADfsi3bpRweDLK1GMbNBWg",
+          "taskResourceUsage" : {
+            "cpu_time_in_nanos" : 1415000,
+            "memory_in_bytes" : 390848
           }
         }
       ],
       "username": "admin",
-      "indices": [
-        "my_index"
-      ],
-      "labels": {},
       "user_roles": [
         "all_access"
       ],
-      "search_type": "query_then_fetch",
-      "source_truncated": false,
-      "measurements": {
-        "latency": {
-          "number": 160,
-          "count": 10,
-          "aggregationType": "AVERAGE"
-        }
-      }
-    },
-    {
-      "timestamp": 1725495135160,
-      "wlm_group_id": "DEFAULT_WORKLOAD_GROUP",
-      "source": """{"query":{"term":{"content":{"value":"first","boost":1.0}}}}""",
-      "phase_latency_map": {
-        "expand": 0,
-        "query": 18,
-        "fetch": 0
+      "node_id" : "ADfsi3bpRweDLK1GMbNBWg",
+      "labels" : { },
+      "search_type" : "query_then_fetch",
+      "source_truncated" : false,
+      "phase_latency_map" : {
+        "expand" : 0,
+        "query" : 38,
+        "fetch" : 2
       },
-      "total_shards": 1,
-      "node_id": "ZbINz1KFS1OPeFmN-n5rdg",
-      "query_hashcode": "c3620cc3d4df30fb3f95aeb2167289a4",
-      "task_resource_usages": [
-        {
-          "action": "indices:data/read/search[phase/query]",
-          "taskId": 50,
-          "parentTaskId": 49,
-          "nodeId": "ZbINz1KFS1OPeFmN-n5rdg",
-          "taskResourceUsage": {
-            "cpu_time_in_nanos": 10188000,
-            "memory_in_bytes": 288136
-          }
+      "source" : "{\"query\":{\"match_all\":{\"boost\":1.0}}}",
+      "indices" : [
+        "my-index"
+      ],
+      "group_by" : "SIMILARITY",
+      "measurements" : {
+        "memory" : {
+          "number" : 6675112,
+          "count" : 1,
+          "aggregationType" : "AVERAGE"
         },
-        {
-          "action": "indices:data/read/search",
-          "taskId": 49,
-          "parentTaskId": -1,
-          "nodeId": "ZbINz1KFS1OPeFmN-n5rdg",
-          "taskResourceUsage": {
-            "cpu_time_in_nanos": 262000,
-            "memory_in_bytes": 3216
-          }
-        }
-      ],
-      "username": "admin",
-      "indices": [
-        "my_index"
-      ],
-      "labels": {},
-      "user_roles": [
-        "all_access"
-      ],
-      "search_type": "query_then_fetch",
-      "source_truncated": false,
-      "measurements": {
-        "latency": {
-          "number": 109,
-          "count": 7,
-          "aggregationType": "AVERAGE"
-        }
-      }
-    },
-    {
-      "timestamp": 1725495139766,
-      "wlm_group_id": "DEFAULT_WORKLOAD_GROUP",
-      "source": """{"query":{"match":{"content":{"query":"first","operator":"OR","prefix_length":0,"max_expansions":50,"fuzzy_transpositions":true,"lenient":false,"zero_terms_query":"NONE","auto_generate_synonyms_phrase_query":true,"boost":1.0}}}}""",
-      "phase_latency_map": {
-        "expand": 0,
-        "query": 15,
-        "fetch": 0
-      },
-      "total_shards": 1,
-      "node_id": "ZbINz1KFS1OPeFmN-n5rdg",
-      "query_hashcode": "484eaabecd13db65216b9e2ff5eee999",
-      "task_resource_usages": [
-        {
-          "action": "indices:data/read/search[phase/query]",
-          "taskId": 64,
-          "parentTaskId": 63,
-          "nodeId": "ZbINz1KFS1OPeFmN-n5rdg",
-          "taskResourceUsage": {
-            "cpu_time_in_nanos": 12161000,
-            "memory_in_bytes": 473456
-          }
+        "cpu" : {
+          "number" : 15894000,
+          "count" : 1,
+          "aggregationType" : "AVERAGE"
         },
-        {
-          "action": "indices:data/read/search",
-          "taskId": 63,
-          "parentTaskId": -1,
-          "nodeId": "ZbINz1KFS1OPeFmN-n5rdg",
-          "taskResourceUsage": {
-            "cpu_time_in_nanos": 293000,
-            "memory_in_bytes": 3216
-          }
-        }
-      ],
-      "username": "admin",
-      "indices": [
-        "my_index"
-      ],
-      "labels": {},
-      "user_roles": [
-        "all_access"
-      ],
-      "search_type": "query_then_fetch",
-      "source_truncated": false,
-      "measurements": {
-        "latency": {
-          "number": 43,
-          "count": 3,
-          "aggregationType": "AVERAGE"
+        "latency" : {
+          "number" : 52,
+          "count" : 1,
+          "aggregationType" : "AVERAGE"
         }
       }
     }
@@ -391,18 +302,22 @@ Field | Data type        | Description
 `top_queries` | Array            | The list of top query groups.
 `top_queries.timestamp` | Integer          | The execution timestamp for the first query in the query group.
 `top_queries.id` | String           | The unique identifier for the query or query group.
-`top_queries.phase_latency_map` | Object           | The phase latency map for the first query in the query group. The map includes the amount of time, in milliseconds, that the query spent in the `expand`, `query`, and `fetch` phases.
-`top_queries.source` | Object           | The first query in the query group.
-`top_queries.group_by` | String           | The `group_by` setting applied when the query was executed.
 `top_queries.total_shards` | Integer          | The number of shards on which the first query was executed.
-`top_queries.node_id` | String           | The node ID of the node that coordinated the execution of the first query in the query group.
-`top_queries.search_type` | String           | The search request execution type (`query_then_fetch` or `dfs_query_then_fetch`). For more information, see the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters).
-`top_queries.indices` | Array            | The indexes to which the first query in the query group is applied.
+`top_queries.wlm_group_id` | String           | The workload management group ID for the first query in the query group.
+`top_queries.query_group_hashcode` | String           | The hash code that uniquely identifies the query group and is generated from the [query structure](#grouping-queries-by-similarity).
 `top_queries.task_resource_usages` | Array of objects | The resource usage breakdown for the various tasks belonging to the first query in the query group.
-`top_queries.query_hashcode` | String           | The hash code that uniquely identifies the query group and is generated from the [query structure](#grouping-queries-by-similarity).
+`top_queries.username` | String           | The username associated with the first query in the query group.
+`top_queries.user_roles` | Array            | The security roles associated with the user who sent the first query in the query group.
+`top_queries.node_id` | String           | The node ID of the node that coordinated the execution of the first query in the query group.
 `top_queries.labels` | Object           | Used to label the top query.
+`top_queries.search_type` | String           | The search request execution type. Valid values are `query_then_fetch` and `dfs_query_then_fetch`. See the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters).
+`top_queries.source_truncated` | Boolean          | Whether the source field was truncated for the first query in the query group. For more information, see [Configuring source truncation]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/#configuring-source-truncation).
+`top_queries.phase_latency_map` | Object           | The coordinator phase latency map for the first query in the query group. The map includes the amount of time, in milliseconds, that the query spent in the `expand`, `query`, and `fetch` phases.
+`top_queries.source` | Object           | The source of the first query in the query group.
+`top_queries.indices` | Array            | The indexes specified in the first query in the query group.
+`top_queries.group_by` | String           | The `group_by` setting applied when the query was executed.
 `top_queries.measurements` | Object           | The aggregate measurements for the query group.
-`top_queries.measurements.latency` | Object           | The aggregate latency measurements for the query group.
-`top_queries.measurements.latency.number` | Integer          | The total latency for the query group.
-`top_queries.measurements.latency.count` | Integer          | The number of queries in the query group.
-`top_queries.measurements.latency.aggregationType` | String           | The aggregation type for the current entry. If grouping by similarity is enabled, then `aggregationType` is `AVERAGE`. If it is not enabled, then `aggregationType` is `NONE`. 
+`top_queries.measurements.<metric>` | Object           | The aggregate measurements for the metric.
+`top_queries.measurements.<metric>.number` | Integer          | The cumulative metric value for all queries in the query group.
+`top_queries.measurements.<metric>.count` | Integer          | The number of queries in the query group.
+`top_queries.measurements.<metric>.aggregationType` | String           | The aggregation type for the current entry. If grouping by similarity is enabled, then `aggregationType` is `AVERAGE`. If it is not enabled, then `aggregationType` is `NONE`. 

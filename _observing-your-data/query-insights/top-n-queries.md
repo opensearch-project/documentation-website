@@ -20,10 +20,13 @@ You can configure top N query monitoring by the following metric types:
 Each metric has a set of corresponding settings:
 
 - `search.insights.top_queries.<metric>.enabled`: Set to `true` to [enable top N query monitoring](#enabling-top-n-query-monitoring) by the metric.
-- `search.insights.top_queries.<metric>.window_size`: [Configure the window size of the top N queries](#configuring-the-window-size) by the metric. 
+- `search.insights.top_queries.<metric>.window_size`: [Configure the window size of the top N queries](#configuring-the-window-size) by the metric.
 - `search.insights.top_queries.<metric>.top_n_size`: [Specify the value of N for the top N queries by the metric](#configuring-the-value-of-n).
 
 For example, to enable top N query monitoring by CPU usage, set `search.insights.top_queries.cpu.enabled` to `true`. For more information about ways to specify dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+
+For production deployments requiring fine-grained API access control (such as dashboard nodes with network segmentation), use the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) instead of the Cluster Settings API shown on this page. The Query Insights Settings API provides equivalent functionality with enhanced security and a simplified structure.
+{: .tip}
 
 It's important to exercise caution when enabling this feature because it can consume system resources.
 {: .important}
@@ -104,14 +107,14 @@ The following table lists the available query parameters. All query parameters a
 Parameter | Data type     | Description
 :--- |:---------| :---
 `type`    | String   | The metric type for which to retrieve top N query data. Results will be sorted in descending order based on this metric. Valid values are `latency`, `cpu`, and `memory`. Default is `latency`.
-`from`    | String | The start of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
-`to`      | String | The end of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
+`from`    | String | The start of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-n-queries).
+`to`      | String | The end of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-n-queries).
 `id`      | String   | The ID of a specific top query record to retrieve.
 `verbose` | Boolean  | Indicates whether to return verbose output. Default is `true`.
 
 ### Example response
 
-<details markdown="block">
+<details open markdown="block">
   <summary>
     Response
   </summary>

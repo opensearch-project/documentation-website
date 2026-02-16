@@ -1,0 +1,239 @@
+---
+layout: default
+title: AG-UI agents
+has_children: false
+has_toc: false
+nav_order: 50
+parent: Agents
+grand_parent: Agents and tools
+---
+
+# AG-UI agents
+**Introduced 3.5**
+{: .label .label-purple }
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
+{: .warning}
+
+An Agent-User Interaction (AG-UI) agent follows the [AG-UI protocol](https://docs.ag-ui.com/introduction) for integrating AI agents with frontend applications. This implementation brings real-time AI agent capabilities directly into user interfaces with standardized streaming interactions and sophisticated tool execution.
+
+Similar to a [conversational agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/), an AG-UI agent is configured with a large language model (LLM) and optional tools. When processing user input, the agent uses the LLM to reason about the request, considering both the conversation history and available frontend context. The agent then determines the tools to use and executes them to provide an appropriate response.
+
+AG-UI agents can use two types of tools:
+- **Backend tools**: Registered with the agent (like `ListIndexTool` or `SearchIndexTool`) and query OpenSearch data and perform server-side operations.
+- **Frontend tools**: Provided in each request and allow the agent to interact with the UI, such as refreshing dashboards, applying filters, or navigating between pages.
+
+## Prerequisites
+
+Before using AG-UI agents, you must enable the feature by updating your cluster settings. The `ag_ui_enabled` and `stream_enabled` settings are required, while `mcp_connector_enabled` (to connect to Model Context Protocol [MCP] servers) and `unified_agent_api_enabled` are optional but recommended:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "plugins.ml_commons.ag_ui_enabled": true,
+    "plugins.ml_commons.stream_enabled": true,
+    "plugins.ml_commons.mcp_connector_enabled": true,
+    "plugins.ml_commons.unified_agent_api_enabled": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Creating an AG-UI agent
+
+AG-UI agents use the unified registration method to streamline agent creation into a single API call. To register an AG-UI agent, set the `type` field to `AG_UI` and configure your model using the Unified Agent API.
+
+For complete registration instructions, field definitions, and examples for all supported model providers (Amazon Bedrock, Google Gemini, OpenAI), see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#unified-agent-registration).
+
+### Example request: Amazon Bedrock Converse
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "AG-UI Agent",
+  "type": "AG_UI",
+  "description": "An AI agent designed for UI interactions with streaming support",
+  "model": {
+    "model_id": "<MODEL ID>",
+    "model_provider": "bedrock/converse",
+        "credential": {
+          "access_key": "<AWS ACCESS KEY>",
+          "secret_key": "<AWS SECRET KEY>",
+          "session_token": "<AWS SESSION TOKEN>"
+        },
+        "model_parameters": {
+          "system_prompt": "You are a helpful assistant and an expert in OpenSearch."
+        }
+  },
+  "parameters": {
+    "max_iteration": 5,
+    "mcp_connectors": [{
+        "mcp_connector_id": "<MCP CONNECTOR ID>" 
+    }]
+  },
+  "tools": [{
+    "type": "ListIndexTool"
+  }],
+  "memory": {
+    "type": "conversation_index"  
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Example request: OpenAI Chat Completion
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "AG-UI Agent",
+  "type": "AG_UI",
+  "description": "An AI agent designed for UI interactions with streaming support",
+  "model": {
+    "model_id": "<MODEL ID>",
+    "model_provider": "openai/v1/chat/completions",
+    "credential": {
+      "openai_api_key": "<OPENAI API KEY>"
+    },
+    "model_parameters": {
+      "system_prompt": "You are a helpful assistant and an expert in OpenSearch."
+    }
+  },
+  "parameters": {
+    "max_iteration": 50,
+    "mcp_connectors": [{
+        "mcp_connector_id": "<MCP CONNECTOR ID>"  
+    }]
+  },
+  "tools": [{
+    "type": "ListIndexTool"
+  }],
+  "memory": {
+    "type": "conversation_index"  
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Execute stream agent
+
+AG-UI agents use a specialized execution protocol designed for frontend applications. Unlike regular agent execution (the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/)) that uses the `input` field, AG-UI agents use the AG-UI protocol format with frontend context, tools, and streaming responses.
+
+### AG-UI protocol format
+
+AG-UI execution follows the [AG-UI protocol](https://docs.ag-ui.com/introduction) specification, providing structured communication between frontend applications and AI agents. The protocol includes conversation threading, frontend tool integration, and real-time streaming responses.
+
+For more information about the input format specification, see [RunAgentInput](https://docs.ag-ui.com/sdk/js/core/types#runagentinput) in the AG-UI documentation.
+
+### Request fields
+
+The following table lists the request fields.
+
+| Field | Data type | Required/Optional | Description |
+| :--- | :--- | :--- | :--- |
+| `threadId` | String | Required | Unique identifier for the conversation thread, generated by the frontend. Used to maintain conversation continuity across multiple requests and enable conversation memory. |
+| `runId` | String | Required | Unique identifier for this specific execution within the thread, generated by the frontend. Each new request should have a new `runId`. |
+| `state` | Object | Required | Current internal state of the agent session. Can store workflow state, user preferences, or session-specific data that persists across tool calls within the same run. |
+| `messages` | Array | Required | Array of conversation messages including both user input and previous assistant responses. Each message has an `id`, `role` (user/assistant), and `content`. |
+| `tools` | Array | Required | Array of frontend-specific tools the agent can call to interact with the UI. Each tool includes a `name`, `description`, and `parameters` schema defining how the agent can invoke UI actions. |
+| `context` | Array | Required | Array of context objects providing current application state to the agent. Includes information like active dashboard, applied filters, time ranges, or any relevant UI context that helps the agent understand the user's current situation. |
+| `forwardedProps` | Object | Required | Additional properties forwarded from the frontend application, such as user authentication details, permissions, application configuration, or other metadata needed for agent operations. |
+
+#### Example request
+
+The following example shows how to execute an AG-UI agent using the AG-UI protocol format with frontend tools, conversation context, and application state:
+
+```json
+POST /_plugins/_ml/agents/{{agent_id}}/_execute/stream
+{
+    "threadId": "thread-xxxxx",
+    "runId": "run-xxxxx",
+    "messages": [
+        {
+            "id": "msg-xxxxx",
+            "role": "user",
+            "content": "hello"
+        }
+    ],
+    "tools": [
+        {
+            "name": "frontend_tool_example",
+            "description": "This is a frontend tool",
+            "parameters": {
+                ...
+            }
+        }
+    ],
+    "context": [
+        {
+            "description": "Page context example",
+            "value": "{\"appId\":\"example\",\"timeRange\":{\"from\":\"now-15m\",\"to\":\"now\"},\"query\":{\"query\":\"example\",\"language\":\"PPL\"}}"
+        }
+    ],
+    "state": {},
+    "forwardedProps": {}
+}
+```
+{% include copy-curl.html %}
+
+### Example response
+
+AG-UI agents return Server-Sent Events (SSEs) that allow frontends to provide real-time feedback as the agent processes the request:
+
+```json
+data: {"type":"RUN_STARTED","timestamp":1234567890,"threadId":"thread-xxxxx","runId":"run-xxxxx"}
+
+data: {"type":"TEXT_MESSAGE_START","timestamp":1234567890,"messageId":"msg-xxxxx","role":"assistant"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","timestamp":1234567890,"messageId":"msg-xxxxx","delta":"Response text here"}
+
+data: {"type":"TEXT_MESSAGE_END","timestamp":1234567890,"messageId":"msg-xxxxx"}
+
+data: {"type":"TOOL_CALL_START","timestamp":1234567890,"toolCallId":"tool-xxxxx","toolCallName":"frontend_tool_example"}
+
+data: {"type":"TOOL_CALL_ARGS","timestamp":1234567890,"toolCallId":"tool-xxxxx","delta":"{\"param\":\"value\"}"}
+
+data: {"type":"TOOL_CALL_END","timestamp":1234567890,"toolCallId":"tool-xxxxx"}
+
+data: {"type":"RUN_FINISHED","timestamp":1234567890,"threadId":"thread-xxxxx","runId":"run-xxxxx"}
+```
+
+### Response fields
+
+Each SSE contains the following fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `type` | String | The event type. |
+| `timestamp` | Long | The Unix timestamp, in milliseconds, when the event was generated. |
+| `threadId` | String | The conversation thread ID from the request. |
+| `runId` | String | The run ID from the request. |
+| `messageId` | String | The unique identifier for the message (present in message events). |
+| `role` | String | The role of the message sender, typically "assistant" (present in message start events). |
+| `delta` | String | Incremental content for streaming text or tool arguments (present in content/args events). |
+| `toolCallId` | String | The unique identifier for the tool call (present in tool call events). |
+| `toolCallName` | String | The name of the tool being called (present in tool call start events). |
+
+### Event types
+
+AG-UI agents return SSEs with the following event types in the `type` field.
+
+| Event type | Description |
+| :--- | :--- |
+| `RUN_STARTED` | Indicates the beginning of a run |
+| `TEXT_MESSAGE_START` | Marks the start of an assistant message |
+| `TEXT_MESSAGE_CONTENT` | Contains incremental text content (streaming) |
+| `TEXT_MESSAGE_END` | Marks the end of an assistant message |
+| `TOOL_CALL_START` | Indicates the beginning of a tool call |
+| `TOOL_CALL_ARGS` | Contains incremental tool call arguments |
+| `TOOL_CALL_END` | Marks the end of a tool call |
+| `RUN_FINISHED` | Indicates the completion of a run |
+
+## Next steps
+
+- For AG-UI agent registration, see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
+- For unified agent execution, see [Unified agent execution]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#unified-agent-execution).
+- Learn about the [AG-UI protocol specification](https://docs.ag-ui.com/introduction).
+- Explore available backend [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/) for your agents.
+- Review [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/) for additional functionality.
