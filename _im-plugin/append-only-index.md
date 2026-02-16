@@ -66,26 +66,3 @@ POST /_reindex
 
 ```
 {% include copy-curl.html %}
-
-## Adaptive shard selection for bulk indexing
-**Introduced 3.5**
-{: .label .label-purple }
-
-For append-only indexes, OpenSearch automatically generates a random `_id` for write routing when you don't explicitly specify one. In bulk writing, a single bulk entry may be split into dozens of sub-bulks and dispatched to different shards, which leads to significant long-tail latency and markedly degrades write performance.
-
-Adaptive shard selection guarantees that all sub-bulks of a single bulk entry are routed to the same shard, thereby achieving a substantial boost in bulk write performance.
-
-To use adaptive shard selection, update the index settings as follows:
-
-```json
-PUT /my-append-only-index
-{
-    "settings": {
-        "index.append_only.enabled": "true",
-        "index.bulk.adaptive_shard_selection.enabled": "true"
-    }
-}
-```
-{% include copy-curl.html %}
-
-For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
