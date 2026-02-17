@@ -1,14 +1,28 @@
 <div class="card-container-wrapper">
     <div class="card-container">
       {% for card in include.cards %}
-        <div class="card">
+        <div class="card{% if card.image %} card-with-image{% endif %}">
           {% if card.link contains 'http://' or card.link contains 'https://' %}
             <a href="{{ card.link }}" class="card-link"></a>
           {% else %}
             <a href="{{ site.url }}{{ site.baseurl }}{{ card.link }}" class="card-link"></a>
           {% endif %}
-          
-          <p class="heading">{{ card.heading }}</p>        
+
+          {% if card.image %}
+            <div class="card-header">
+              <div class="card-image">
+                {% if card.image contains 'http://' or card.image contains 'https://' %}
+                  <img src="{{ card.image }}" alt="{{ card.image_alt | default: '' }}" />
+                {% else %}
+                  <img src="{{ site.url }}{{ site.baseurl }}{{ card.image }}" alt="{{ card.image_alt | default: '' }}" />
+                {% endif %}
+              </div>
+              <p class="heading">{{ card.heading }}</p>
+            </div>
+          {% else %}
+            <p class="heading">{{ card.heading }}</p>
+          {% endif %}
+
           {% if card.description %}
             <p class="description">{{ card.description }}</p>
           {% endif %}
@@ -16,9 +30,9 @@
             <ul>
               {% for item in card.list %}
                 <li class="description">{{ item }}</li>
-              {% endfor %}  
+              {% endfor %}
             </ul>
-          {% endif %}          
+          {% endif %}
           {% if include.documentation_link %}
             <p class="last-link">Documentation &#x2192;</p>
           {% endif %}
