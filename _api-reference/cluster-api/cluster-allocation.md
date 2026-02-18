@@ -12,7 +12,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The cluster allocation explain API provides detailed explanations for shard allocations in your cluster. Use this API to troubleshoot and diagnose shard allocation issues.
+The Cluster Allocation Explain API provides detailed explanations for shard allocations in your cluster. Use this API to troubleshoot and diagnose shard allocation issues.
 
 This API is particularly useful in the following scenarios:
 
@@ -596,7 +596,7 @@ Field | Description
 `node_id` | The unique identifier of the node.
 `node_name` | The name of the node.
 `transport_address` | The transport address of the node.
-`node_attributes` | Custom attributes assigned to the node, such as availability zone or instance type.
+`node_attributes` | Custom attributes assigned to the node, such as Availability Zone or instance type.
 `node_decision` | The allocation decision for this node: `yes`, `no`, `throttled`, `worse_balance`, or `awaiting_info`.
 `weight_ranking` | The relative weight ranking for this node in allocation decisions. Lower values indicate higher preference. Included only when nodes are ranked for allocation decisions.
 `deciders` | An array of allocators that made decisions about whether to allocate the shard to this node.
@@ -609,7 +609,7 @@ Each decider in the `deciders` array contains the following fields.
 Field | Description
 :--- | :---
 `decider` | The name of the allocator that made the decision.
-`decision` | The decision made by this allocator: `YES`, `NO`, or `THROTTLE`.
+`decision` | The decision made by the allocator: `YES`, `NO`, or `THROTTLE`.
 `explanation` | A detailed explanation of why the allocator made this decision, including any relevant settings or constraints.
 
 ## Common allocators
@@ -621,7 +621,7 @@ Allocator | Description
 `same_shard` | Prevents a primary shard and its replica from being allocated to the same node.
 `disk_threshold` | Checks whether the node has sufficient disk space for the shard based on low and high watermark thresholds.
 `filter` | Applies allocation filters based on index settings like `index.routing.allocation.include`, `exclude`, or `require`.
-`awareness` | Enforces shard allocation awareness based on node attributes, distributing shards across availability zones or racks.
+`awareness` | Enforces shard allocation awareness based on node attributes, distributing shards across Availability Zones or racks.
 `enable` | Checks whether shard allocation is enabled at the cluster, index, or shard level using the `cluster.routing.allocation.enable` setting.
 `throttling` | Limits the number of concurrent shard recoveries based on `cluster.routing.allocation.node_concurrent_recoveries`.
 `shards_limit` | Enforces the maximum number of shards per node (`cluster.routing.allocation.total_shards_per_node`) or per index.
