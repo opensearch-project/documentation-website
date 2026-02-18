@@ -9,7 +9,7 @@ redirect_from:
   - /clients/index/
 ---
 
-# OpenSearch language clients
+# ![Clients icon]({{site.url}}{{site.baseurl}}/images/icons/OpenSearch-Clients-Icon.avif){: .heading-icon} OpenSearch language clients
 
 OpenSearch provides clients in JavaScript, Python, Ruby, Java, PHP, .NET, Go, Hadoop, and Rust.
 
