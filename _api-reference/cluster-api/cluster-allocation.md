@@ -24,33 +24,50 @@ This API is particularly useful in the following scenarios:
 When called without a request body, the API finds the first unassigned shard and explains why it cannot be allocated. When called with specific shard information, it provides allocation details for that particular shard.
 
 
+<!-- spec_insert_start
+api: cluster.allocation_explain
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cluster/allocation/explain
-POST _cluster/allocation/explain
+GET  /_cluster/allocation/explain
+POST /_cluster/allocation/explain
 ```
+<!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: cluster.allocation_explain
+component: query_parameters
+-->
 ## Query parameters
 
-The following table lists the available query parameters. All parameters are optional.
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-`include_yes_decisions` | Boolean | OpenSearch makes a series of yes or no decisions when trying to allocate a shard to a node. If this parameter is `true`, OpenSearch includes the (generally more numerous) yes decisions in its response. Default is `false`.
-`include_disk_info` | Boolean | Whether to include information about disk usage in the response. Default is `false`.
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `include_disk_info` | Boolean | When `true`, returns information about disk usage and shard sizes. _(Default: `false`)_ |
+| `include_yes_decisions` | Boolean | When `true`, returns any `YES` decisions in the allocation explanation. `YES` decisions indicate when a particular shard allocation attempt was successful for the given node. _(Default: `false`)_ |
 
+<!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: cluster.allocation_explain
+component: request_body_parameters
+-->
 ## Request body fields
 
-The following table lists the available request body fields. All fields are optional.
+The index, shard, and primary flag for which to generate an explanation. Leave this empty to generate an explanation for the first unassigned shard.
 
-Field | Type | Description
-:--- | :--- | :---
-`current_node` | String | If you only want an explanation if the shard happens to be on a particular node, specify that node name here.
-`index` | String | The name of the shard's index.
-`primary` | Boolean | Whether to provide an explanation for the primary shard (`true`) or its first replica (`false`), which share the same shard ID.
-`shard` | Integer | The shard ID that you want an explanation for.
+The request body is optional. It is a JSON object with the following fields.
+
+| Property | Data type | Description |
+| :--- | :--- | :--- |
+| `current_node` | String | Specifies the node ID or the name of the node to only explain a shard that is currently located on the specified node. |
+| `index` | String | The name of the index that contains the shard for which to generate an explanation. |
+| `primary` | Boolean | When `true`, returns a routing explanation for the primary shard based on the node ID. |
+| `shard` | Integer | Specifies the ID of the shard that you would like an explanation for. |
+
+<!-- spec_insert_end -->
 
 ## Example request
 
