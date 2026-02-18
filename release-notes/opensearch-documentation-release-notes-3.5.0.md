@@ -19,7 +19,6 @@ The OpenSearch 3.5.0 documentation includes the following additions and updates.
 - Query Insights Setting Endpoint Documentation [#11818](https://github.com/opensearch-project/documentation-website/pull/11818)
 - Add geo complexity cluster setting documentation for GeoJSON [#11817](https://github.com/opensearch-project/documentation-website/pull/11817)
 - remove experimental tag and add some more links in Search Relevance Workbench [#11814](https://github.com/opensearch-project/documentation-website/pull/11814)
-- Adding documentation for adaptive shard selection [#11808](https://github.com/opensearch-project/documentation-website/pull/11808)
 - [GRPC] Documentation for 3.5 [#11802](https://github.com/opensearch-project/documentation-website/pull/11802)
 - [3.5] Introduce context management [#11801](https://github.com/opensearch-project/documentation-website/pull/11801)
 - Add `_search` API endpoints to SRW documentation [#11798](https://github.com/opensearch-project/documentation-website/pull/11798)
