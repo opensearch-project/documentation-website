@@ -376,6 +376,7 @@ app_service:
     labels:
       # [...]
 ```
+{% include copy.html %}
 
 Then apply the new configuration by running this command:
 
