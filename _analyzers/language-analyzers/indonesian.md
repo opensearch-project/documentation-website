@@ -63,33 +63,33 @@ The `indonesian` analyzer is built using the following components:
 You can create a custom Indonesian analyzer using the following command:
 
 ```json
-PUT /hungarian-index
+PUT /indonesian-index
 {
   "settings": {
     "analysis": {
       "filter": {
-        "hungarian_stop": {
+        "indonesian_stop": {
           "type": "stop",
-          "stopwords": "_hungarian_"
+          "stopwords": "_indonesian_"
         },
-        "hungarian_stemmer": {
+        "indonesian_stemmer": {
           "type": "stemmer",
-          "language": "hungarian"
+          "language": "indonesian"
         },
-        "hungarian_keywords": {
+        "indonesian_keywords": {
           "type": "keyword_marker",
           "keywords": []
         }
       },
       "analyzer": {
-        "hungarian_analyzer": {
+        "indonesian_analyzer": {
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
             "lowercase",
-            "hungarian_stop",
-            "hungarian_keywords",
-            "hungarian_stemmer"
+            "indonesian_stop",
+            "indonesian_keywords",
+            "indonesian_stemmer"
           ]
         }
       }
@@ -99,7 +99,7 @@ PUT /hungarian-index
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "hungarian_analyzer"
+        "analyzer": "indonesian_analyzer"
       }
     }
   }
