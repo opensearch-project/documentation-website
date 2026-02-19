@@ -335,7 +335,7 @@ JWT authentication supports direct JWKS endpoint configuration starting with Ope
 
 You can use JWT tokens issued by Teleport to authenticate users in OpenSearch Dashboards. This integration maps Teleport roles to OpenSearch backend roles for access control.
 
-### In Teleport
+### Teleport configuration
 
 In Teleport, you need to create a role that has the same name as a backend role from your OpenSearch instance. For example:
 
