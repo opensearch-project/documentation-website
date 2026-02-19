@@ -155,6 +155,7 @@ Parameter | Data type     | Description
         }
       ],
       "username" : "admin",
+      "failed": false,
       "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
       "phase_latency_map" : {
         "expand" : 0,
@@ -220,6 +221,7 @@ Parameter | Data type     | Description
         }
       ],
       "username" : "admin",
+      "failed": false,
       "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
       "phase_latency_map" : {
         "expand" : 0,
