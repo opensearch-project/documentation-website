@@ -383,6 +383,7 @@ Then apply the new configuration by running this command:
 ```bash
 systemctl restart teleport
 ```
+{% include copy.html %}
 
 #### OpenSearch Dashboards configuration
 
