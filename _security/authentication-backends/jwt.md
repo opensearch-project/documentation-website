@@ -352,7 +352,7 @@ spec:
 ```
 {% include copy.html %}
 
-You now have to apply it to users you want to be able to use the role.
+Then apply this role to users you want to use the role.
 
 ### In the OpenSearch Dashboards machine
 
