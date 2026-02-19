@@ -253,10 +253,6 @@ The response contains the top N query groups:
       ],
       "username": "admin",
       "failed": false,
-      "indices": [
-        "my_index"
-      ],
-      "labels": {},
       "user_roles": [
         "all_access"
       ],
@@ -308,10 +304,7 @@ Field | Data type        | Description
 `top_queries.timestamp` | Integer          | The execution timestamp for the first query in the query group.
 `top_queries.id` | String           | The unique identifier for the query or query group.
 `top_queries.total_shards` | Integer          | The number of shards on which the first query was executed.
-`top_queries.node_id` | String           | The node ID of the node that coordinated the execution of the first query in the query group.
-`top_queries.search_type` | String           | The search request execution type (`query_then_fetch` or `dfs_query_then_fetch`). For more information, see the `search_type` parameter in the [Search API documentation]({{site.url}}{{site.baseurl}}/api-reference/search/#query-parameters).
 `top_queries.failed` | Boolean           | Indicates whether the search request failed during execution.
-`top_queries.indices` | Array            | The indexes to which the first query in the query group is applied.
 `top_queries.wlm_group_id` | String           | The workload management group ID for the first query in the query group.
 `top_queries.query_group_hashcode` | String           | The hash code that uniquely identifies the query group and is generated from the [query structure](#grouping-queries-by-similarity).
 `top_queries.task_resource_usages` | Array of objects | The resource usage breakdown for the various tasks belonging to the first query in the query group.
