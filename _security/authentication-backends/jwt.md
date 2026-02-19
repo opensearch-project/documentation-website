@@ -337,7 +337,7 @@ You can use JWT tokens issued by Teleport to authenticate users in OpenSearch Da
 
 ### Teleport configuration
 
-In Teleport, you need to create a role that has the same name as a backend role from your OpenSearch instance. For example:
+In Teleport, you need to create a role that has the same name as a backend role from your OpenSearch instance:
 
 ```yaml
 apiVersion: resources.teleport.dev/v1
