@@ -354,11 +354,13 @@ spec:
 
 Then apply this role to users you want to use the role.
 
-### In the OpenSearch Dashboards machine
+### OpenSearch Dashboards configuration
 
-#### Teleport
+To configure OpenSearch for using Teleport, perform these actions.
 
-In the agent configuration file, which is usually `/etc/teleport.yaml`, you have to adapt the app service to automatically write the jwt as a header:
+#### Teleport configuration
+
+In the agent configuration file (typically located at /etc/teleport.yaml), configure the application service to automatically include the JWT in a request header:
 
 ```yaml
 # [...]
@@ -375,30 +377,30 @@ app_service:
       # [...]
 ```
 
-Apply the new configuration using
+Then apply the new configuration by running this command:
 
 ```bash
 systemctl restart teleport
 ```
 
-#### Dashboards configuration file
+#### OpenSearch Dashboards configuration
 
-In the OpenSearch Dashboards configuration file -- usually `/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml`, you have to enable the jwt authentication method, keeping the basic HTTP authentication as a fallback:
+In the OpenSearch Dashboards configuration file (typically located at `/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml`), enable JWT authentication and retain basic HTTP authentication as a fallback method:
 
 ```yaml
 opensearch_security.auth.multiple_auth_enabled: true
 opensearch_security.auth.type: ["basicauth", "jwt"]
 ```
 
-You can now apply the new configuration with
+Then apply the new configuration by running this command:
 
 ```bash
 systemctl restart dashboards
 ```
 
-### In the security node
+### Security node configuration
 
-In the node you use to run the `securityadmin.sh` script, modify the security plugin configuration file (e.g `/usr/share/opensearch/config/opensearch-security/config.yml`) to configure the two authentication methods:
+On the node where you run the `securityadmin.sh` script, update the security plugin configuration file (for example, `/usr/share/opensearch/config/opensearch-security/config.yml`) to configure both authentication methods:
 
 ```yaml
 _meta:
@@ -439,9 +441,9 @@ config:
             type: noop
 ```
 
-Make sure the basic authentication has `order: 1` and `challenge: true`, while the JWT auth has `order: 0` and `challenge: false`. Otherwise, the direct API calls will not work unless you give them the JWT header.
+Ensure that the basic authentication is configured using `order: 1` and `challenge: true`, and the JWT authentication is configured using `order: 0` and `challenge: false`. Otherwise, direct API calls will fail unless the JWT header is explicitly included.
 
-Now, to apply this new configuration, run
+To apply the new configuration, run the following command:
 
 ```bash
 {% raw %}
