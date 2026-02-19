@@ -444,6 +444,7 @@ config:
         authentication_backend:
             type: noop
 ```
+{% include copy.html %}
 
 Ensure that the basic authentication is configured using `order: 1` and `challenge: true` and that the JWT authentication is configured using `order: 0` and `challenge: false`. Otherwise, direct API calls will fail unless the JWT header is explicitly included.
 
