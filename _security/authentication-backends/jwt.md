@@ -463,6 +463,7 @@ bash [OPENSEARCH_INSTALL_DIR]/plugins/opensearch-security/tools/securityadmin.sh
 -h 127.0.0.1
 {% endraw %}
 ```
+{% include copy.html %}
 
 ## Using JWT authentication with gRPC
 **Introduced 3.5**
