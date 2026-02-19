@@ -35,7 +35,7 @@ items:
     link: "/benchmark/user-guide/understanding-results/summary-reports/"
 ---
 
-# OpenSearch Benchmark
+# ![Benchmark icon]({{site.url}}{{site.baseurl}}/images/icons/OpenSearch-PerformanceBenchmarks-Icon-1.png){: .heading-icon} OpenSearch Benchmark
 
 This page reflects the updated terminology in OpenSearch Benchmark `2.X`. `1.15` is the last supported version in the `1.X` series. For more information about what's changed, see the [version history page]({{site.url}}{{site.baseurl}}/benchmark/version-history/). For migration assistance, see the [migration assistance page]({{site.url}}{{site.baseurl}}/benchmark/migration-assistance/).
 {: .important }

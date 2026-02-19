@@ -15,9 +15,13 @@ This is an experimental feature and is not recommended for use in a production e
 
 The Execute Stream Agent API provides the same functionality as the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/) but returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
 
-This API currently supports conversational agents with the following remote model types:
-- [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
-- [Amazon Bedrock Converse Stream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html)
+This API currently supports the following agent types:
+
+- **Conversational agents** with the following externally hosted model types:
+    - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
+    - [Amazon Bedrock Converse Stream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html)
+
+- **AG-UI agents** using the AG-UI protocol request and response format. For more information, see [AG-UI agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/).
 
 ## Endpoint
 
@@ -228,7 +232,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-## Example request
+## Example request: Conversational agent
 
 ```json
 POST /_plugins/_ml/agents/<agent_id>/_execute/stream
@@ -240,7 +244,7 @@ POST /_plugins/_ml/agents/<agent_id>/_execute/stream
 ```
 {% include copy-curl.html %}
 
-## Example response
+## Example response: Conversational agent
 
 ```json
 data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzHrriq5hXbN"},{"name":"parent_interaction_id","result":"L_U1iJkBCzHrriq5hXbs"},{"name":"response","dataAsMap":{"content":"[{\"index\":0.0,\"id\":\"call_HjpbrbdQFHK0omPYa6m2DCot\",\"type\":\"function\",\"function\":{\"name\":\"RetrieveIndexMetaTool\",\"arguments\":\"\"}}]","is_last":false}}]}]}
@@ -273,6 +277,53 @@ data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzH
 
 data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzHrriq5hXbN"},{"name":"parent_interaction_id","result":"L_U1iJkBCzHrriq5hXbs"},{"name":"response","dataAsMap":{"content":"","is_last":true}}]}]}
 ```
+
+## Example request: AG-UI agent
+**Introduced 3.5**
+{: .label .label-purple }
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
+{: .warning}
+
+AG-UI agents use the AG-UI protocol format for frontend integration:
+
+```json
+POST /_plugins/_ml/agents/<agent_id>/_execute/stream
+{
+    "threadId": "thread-xxxxx",
+    "runId": "run-xxxxx",
+    "messages": [
+        {
+            "id": "msg-xxxxx",
+            "role": "user",
+            "content": "How many indices are in my cluster?"
+        }
+    ],
+    "tools": [],
+    "context": [],
+    "state": {},
+    "forwardedProps": {}
+}
+```
+{% include copy-curl.html %}
+
+## Example response: AG-UI agent
+
+AG-UI agents return SSEs using the AG-UI protocol format:
+
+```json
+data: {"type":"RUN_STARTED","timestamp":1734567890123,"threadId":"thread-xxxxx","runId":"run-xxxxx"}
+
+data: {"type":"TEXT_MESSAGE_START","timestamp":1734567890124,"messageId":"msg-xxxxx","role":"assistant"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","timestamp":1734567890125,"messageId":"msg-xxxxx","delta":"Your cluster has 9 indices."}
+
+data: {"type":"TEXT_MESSAGE_END","timestamp":1734567890140,"messageId":"msg-xxxxx"}
+
+data: {"type":"RUN_FINISHED","timestamp":1734567890251,"threadId":"thread-xxxxx","runId":"run-xxxxx"}
+```
+
+For complete AG-UI agent documentation, including setup, prerequisites, field definitions, and implementation details, see [AG-UI agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/ag-ui/).
 
 ## Response body fields
 
