@@ -63,44 +63,33 @@ The `latvian` analyzer is built using the following components:
 You can create a custom Latvian analyzer using the following command:
 
 ```json
-PUT /italian-index
+PUT /latvian-index
 {
   "settings": {
     "analysis": {
       "filter": {
-        "italian_stop": {
+        "latvian_stop": {
           "type": "stop",
-          "stopwords": "_italian_"
+          "stopwords": "_latvian_"
         },
-        "italian_elision": {
-          "type": "elision",
-          "articles": [
-                "c", "l", "all", "dall", "dell",
-                "nell", "sull", "coll", "pell",
-                "gl", "agl", "dagl", "degl", "negl",
-                "sugl", "un", "m", "t", "s", "v", "d"
-          ],
-          "articles_case": true
-        },
-        "italian_stemmer": {
+        "latvian_stemmer": {
           "type": "stemmer",
-          "language": "light_italian"
+          "language": "latvian"
         },
-        "italian_keywords": {
+        "latvian_keywords": {
           "type": "keyword_marker",
           "keywords": []
         }
       },
       "analyzer": {
-        "italian_analyzer": {
+        "latvian_analyzer": {
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
-            "italian_elision",
             "lowercase",
-            "italian_stop",
-            "italian_keywords",
-            "italian_stemmer"
+            "latvian_stop",
+            "latvian_keywords",
+            "latvian_stemmer"
           ]
         }
       }
@@ -110,7 +99,7 @@ PUT /italian-index
     "properties": {
       "content": {
         "type": "text",
-        "analyzer": "italian_analyzer"
+        "analyzer": "latvian_analyzer"
       }
     }
   }
@@ -136,13 +125,55 @@ The response contains the generated tokens:
 ```json
 {
   "tokens": [
-    {"token": "student","start_offset": 0,"end_offset": 8,"type": "<ALPHANUM>","position": 0},
-    {"token": "māc","start_offset": 9,"end_offset": 14,"type": "<ALPHANUM>","position": 1},
-    {"token": "latvij","start_offset": 15,"end_offset": 23,"type": "<ALPHANUM>","position": 2},
-    {"token": "universitāt","start_offset": 24,"end_offset": 37,"type": "<ALPHANUM>","position": 3},
-    {"token": "vin","start_offset": 39,"end_offset": 43,"type": "<ALPHANUM>","position": 4},
-    {"token": "numur","start_offset": 44,"end_offset": 50,"type": "<ALPHANUM>","position": 5},
-    {"token": "123456","start_offset": 54,"end_offset": 60,"type": "<NUM>","position": 7}
+    {
+      "token": "student",
+      "start_offset": 0,
+      "end_offset": 8,
+      "type": "<ALPHANUM>",
+      "position": 0
+    },
+    {
+      "token": "māc",
+      "start_offset": 9,
+      "end_offset": 14,
+      "type": "<ALPHANUM>",
+      "position": 1
+    },
+    {
+      "token": "latvij",
+      "start_offset": 15,
+      "end_offset": 23,
+      "type": "<ALPHANUM>",
+      "position": 2
+    },
+    {
+      "token": "universitāt",
+      "start_offset": 24,
+      "end_offset": 37,
+      "type": "<ALPHANUM>",
+      "position": 3
+    },
+    {
+      "token": "vin",
+      "start_offset": 39,
+      "end_offset": 43,
+      "type": "<ALPHANUM>",
+      "position": 4
+    },
+    {
+      "token": "numur",
+      "start_offset": 44,
+      "end_offset": 50,
+      "type": "<ALPHANUM>",
+      "position": 5
+    },
+    {
+      "token": "123456",
+      "start_offset": 54,
+      "end_offset": 60,
+      "type": "<NUM>",
+      "position": 7
+    }
   ]
 }
 ```

@@ -91,10 +91,10 @@ PUT /bengali-index
           "filter": [
             "lowercase",
             "decimal_digit",
+            "bengali_keywords",
             "indic_normalization",
             "bengali_normalization",
             "bengali_stop",
-            "bengali_keywords",
             "bengali_stemmer"
           ]
         }
