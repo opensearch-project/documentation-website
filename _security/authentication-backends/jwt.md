@@ -350,6 +350,7 @@ spec:
     app_labels_expression: |
       regexp.match(labels["hostname"], "^(.*)opensearch(.*)$")
 ```
+{% include copy.html %}
 
 You now have to apply it to users you want to be able to use the role.
 
