@@ -393,6 +393,7 @@ In the OpenSearch Dashboards configuration file (typically located at `/usr/shar
 opensearch_security.auth.multiple_auth_enabled: true
 opensearch_security.auth.type: ["basicauth", "jwt"]
 ```
+{% include copy.html %}
 
 Then apply the new configuration by running this command:
 
