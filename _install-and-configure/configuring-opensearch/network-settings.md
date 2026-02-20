@@ -224,11 +224,11 @@ Transport profiles allow you to bind to multiple ports on different interfaces f
 
 - `transport.profiles.<profile_name>.tcp.keep_alive` (Dynamic, Boolean): Controls the `SO_KEEPALIVE` option for connections on this transport profile. When enabled, the operating system sends periodic keep-alive packets to detect dead connections.
 
-- `transport.profiles.<profile_name>.tcp.keep_idle` (Dynamic, time unit): Sets the amount of time a connection must be idle before starting to send TCP keepalive probes. Only available on Linux and Mac with JDK 11 or later. Default is `-1` (uses system default).
+- `transport.profiles.<profile_name>.tcp.keep_idle` (Dynamic, time unit): Sets the amount of time a connection must be idle before starting to send TCP keep alive probes. Only available on Linux and Mac with JDK 11 or later. Default is `-1` (uses system default).
 
-- `transport.profiles.<profile_name>.tcp.keep_interval` (Dynamic, time unit): Sets the interval between TCP keepalive probes for connections on this transport profile. Only available on Linux and Mac with JDK 11 or later. Default is `-1` (uses system default).
+- `transport.profiles.<profile_name>.tcp.keep_interval` (Dynamic, time unit): Sets the interval between TCP keep alive probes for connections on this transport profile. Only available on Linux and Mac with JDK 11 or later. Default is `-1` (uses system default).
 
-- `transport.profiles.<profile_name>.tcp.keep_count` (Dynamic, integer): Sets the number of TCP keepalive probes that can be unacknowledged before the connection is dropped. Only available on Linux and Mac with JDK 11 or later. Default is `-1` (uses system default).
+- `transport.profiles.<profile_name>.tcp.keep_count` (Dynamic, integer): Sets the number of TCP keep alive probes that can be unacknowledged before the connection is dropped. Only available on Linux and Mac with JDK 11 or later. Default is `-1` (uses system default).
 
 - `transport.profiles.<profile_name>.tcp.reuse_address` (Dynamic, Boolean): Controls the `SO_REUSEADDR` option for sockets on this transport profile, allowing address reuse after socket closure.
 

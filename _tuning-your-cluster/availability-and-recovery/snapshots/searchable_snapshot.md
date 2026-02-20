@@ -66,7 +66,7 @@ services:
 
 A searchable snapshot index is created by specifying the `remote_snapshot` storage type using the [restore snapshots API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#restore-snapshots).
 
-Request Field | Description
+Request field | Description
 :--- | :---
 `storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the `warm` node role in order to restore a snapshot using the `remote_snapshot` type. <br /><br > Default is `local`.
 

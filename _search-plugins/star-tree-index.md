@@ -95,7 +95,7 @@ These examples show how OpenSearch selects the shortest path in the star-tree an
 
 ## Limitations
 
-Note the following limiations of star-tree indexes:
+Note the following limitations of star-tree indexes:
 
 - Star-tree indexes do not support updates or deletions. To use a star-tree index, data should be append-only. See [Enabling a star-tree index](#enabling-a-star-tree-index).
 - A star-tree index only works for aggregation queries that filter on dimension fields and aggregate metric fields defined in the index's star-tree configuration.
