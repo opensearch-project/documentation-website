@@ -174,6 +174,9 @@ microsoft_teams.url | The Microsoft Teams webhook URL.
 
 To create a notification channel configuration, send a POST request to the `configs` resource.
 
+**Note:** If you specify a `config_id` that already exists, the request will fail with a 409 Conflict error. In this case, either choose a different `config_id` or use the [Update channel configuration](#update-channel-configuration) API with a PUT request to modify the existing channel. If you omit the `config_id`, OpenSearch will generate one automatically.
+{: .note}
+
 #### Example request
 
 ```json
@@ -325,7 +328,10 @@ GET _plugins/_notifications/configs/<config_id>
 
 ## Update channel configuration
 
-To update a channel configuration, send a PUT request to the `configs` resource and specify the channel's `config_id` as a path parameter. Specify the new configuration details in the request body.
+To update an existing channel configuration, send a PUT request to the `configs` resource and specify the channel's `config_id` as a path parameter. Specify the new configuration details in the request body.
+
+**Note:** The PUT method only updates existing configurations. To create a new channel, use the [Create channel configuration](#create-channel-configuration) API with a POST request. If you try to use PUT with a non-existent `config_id`, the request will fail.
+{: .note}
 
 #### Example request
 
