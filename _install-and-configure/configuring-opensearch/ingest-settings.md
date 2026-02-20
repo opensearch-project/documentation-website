@@ -11,14 +11,6 @@ OpenSearch provides ingest settings that control which ingest processors are all
 
 To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
-## GeoIP processor settings
-
-GeoIP processor settings control which geographic IP processors are allowed in ingest pipelines.
-
-OpenSearch supports the following static GeoIP processor settings:
-
-- `ingest.geoip.processors.allowed` (Static, list): Specifies which GeoIP processors are allowed to be used in ingest pipelines. When this list is empty (default), no restriction is applied and all available GeoIP processors can be used. When configured with specific processor names, only those processors will be permitted in pipelines. This setting helps control which geographic IP enrichment processors can be used for security and compliance purposes. Default is `[]` (empty list - no restrictions).
-
 ## User Agent processor settings
 
 User Agent processor settings control which user agent parsing processors are allowed in ingest pipelines.
@@ -40,8 +32,6 @@ OpenSearch supports the following static common processor settings:
 Caching and performance settings control cache sizes and execution limits for various ingest processors.
 
 OpenSearch supports the following static caching and performance settings:
-
-- `ingest.geoip.cache_size` (Static, long): Sets the cache size for GeoIP database lookups. This cache stores the results of GeoIP lookups to improve performance for repeated queries to the same IP addresses. Higher values improve cache hit rates and reduce database lookup overhead, but consume more memory. The cache stores mappings between IP addresses and their geographic information. Default is `1000`. Minimum is `0`.
 
 - `ingest.user_agent.cache_size` (Static, long): Sets the cache size for User Agent string parsing results. This cache stores parsed user agent information to improve performance when processing documents with repeated user agent strings. Higher values reduce parsing overhead for common user agents but use more memory. The cache stores mappings between user agent strings and their parsed components (browser, OS, device information). Default is `1000`. Minimum is `0`.
 
