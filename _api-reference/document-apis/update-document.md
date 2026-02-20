@@ -527,3 +527,104 @@ successful | The number of shards OpenSearch successfully updated the document i
 failed | The number of shards OpenSearch failed to update the document in.
 _seq_no | The sequence number assigned when the document was indexed.
 _primary_term | The primary term assigned when the document was indexed.
+
+## Error responses
+
+The following examples show common error responses you may encounter when using the Update Document API.
+
+### Document not found
+
+If you try to update a document that doesn't exist in the index without using the upsert operation, OpenSearch returns a 404 error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "document_missing_exception",
+        "reason": "[1]: document missing",
+        "index": "sample-index1",
+        "shard": "0",
+        "index_uuid": "aAsFqTI0Tc2W0LCWgPNrOA"
+      }
+    ],
+    "type": "document_missing_exception",
+    "reason": "[1]: document missing",
+    "index": "sample-index1",
+    "shard": "0",
+    "index_uuid": "aAsFqTI0Tc2W0LCWgPNrOA"
+  },
+  "status": 404
+}
+```
+
+To avoid this error, use the [upsert operation](#using-the-upsert-operation) to create the document if it doesn't exist.
+
+### Version conflict
+
+If you're using optimistic concurrency control with `if_seq_no` and `if_primary_term` parameters and the document has been modified since you last read it, OpenSearch returns a 409 conflict error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "version_conflict_engine_exception",
+        "reason": "[1]: version conflict, required seqNo [3], primary term [1]. current document has seqNo [4] and primary term [1]",
+        "index": "sample-index1",
+        "shard": "0",
+        "index_uuid": "aAsFqTI0Tc2W0LCWgPNrOA"
+      }
+    ],
+    "type": "version_conflict_engine_exception",
+    "reason": "[1]: version conflict, required seqNo [3], primary term [1]. current document has seqNo [4] and primary term [1]",
+    "index": "sample-index1",
+    "shard": "0",
+    "index_uuid": "aAsFqTI0Tc2W0LCWgPNrOA"
+  },
+  "status": 409
+}
+```
+
+To handle this error, retrieve the latest version of the document and retry the update with the correct `if_seq_no` and `if_primary_term` values, or use the `retry_on_conflict` parameter to automatically retry the operation.
+
+### Script compilation error
+
+If there's an error in your Painless script, OpenSearch returns a 400 error with details about the compilation failure:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "illegal_argument_exception",
+        "reason": "failed to execute script"
+      }
+    ],
+    "type": "illegal_argument_exception",
+    "reason": "failed to execute script",
+    "caused_by": {
+      "type": "script_exception",
+      "reason": "compile error",
+      "script_stack": [
+        "ctx._source.value = params.newValue",
+        "                         ^---- HERE"
+      ],
+      "script": "ctx._source.value = params.newValue",
+      "lang": "painless",
+      "position": {
+        "offset": 25,
+        "start": 0,
+        "end": 34
+      },
+      "caused_by": {
+        "type": "illegal_argument_exception",
+        "reason": "cannot resolve symbol [params.newValue]"
+      }
+    }
+  },
+  "status": 400
+}
+```
+
+Review the `script_stack` and `caused_by` fields in the error response to identify and fix the script error.
