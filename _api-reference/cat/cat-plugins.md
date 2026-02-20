@@ -76,25 +76,41 @@ response = client.cat.plugins(
 ## Example response
 
 ```json
-name       component                       version
-odfe-node2 opendistro-alerting             1.13.1.0
-odfe-node2 opendistro-anomaly-detection    1.13.0.0
-odfe-node2 opendistro-asynchronous-search  1.13.0.1
-odfe-node2 opendistro-index-management     1.13.2.0
-odfe-node2 opendistro-job-scheduler        1.13.0.0
-odfe-node2 opendistro-knn                  1.13.0.0
-odfe-node2 opendistro-performance-analyzer 1.13.0.0
-odfe-node2 opendistro-reports-scheduler    1.13.0.0
-odfe-node2 opendistro-sql                  1.13.2.0
-odfe-node2 opendistro_security             1.13.1.0
-odfe-node1 opendistro-alerting             1.13.1.0
-odfe-node1 opendistro-anomaly-detection    1.13.0.0
-odfe-node1 opendistro-asynchronous-search  1.13.0.1
-odfe-node1 opendistro-index-management     1.13.2.0
-odfe-node1 opendistro-job-scheduler        1.13.0.0
-odfe-node1 opendistro-knn                  1.13.0.0
-odfe-node1 opendistro-performance-analyzer 1.13.0.0
-odfe-node1 opendistro-reports-scheduler    1.13.0.0
-odfe-node1 opendistro-sql                  1.13.2.0
-odfe-node1 opendistro_security             1.13.1.0
+name             component                            version
+opensearch-node1 analysis-icu                         3.3.2
+opensearch-node1 opensearch-alerting                  3.3.2.0
+opensearch-node1 opensearch-anomaly-detection         3.3.2.0
+opensearch-node1 opensearch-asynchronous-search       3.3.2.0
+opensearch-node1 opensearch-cross-cluster-replication 3.3.2.0
+opensearch-node1 opensearch-custom-codecs             3.3.2.0
+opensearch-node1 opensearch-flow-framework            3.3.2.0
+opensearch-node1 opensearch-geospatial                3.3.2.0
+opensearch-node1 opensearch-index-management          3.3.2.0
+opensearch-node1 opensearch-job-scheduler             3.3.2.0
+opensearch-node1 opensearch-knn                       3.3.2.0
+opensearch-node1 opensearch-ml                        3.3.2.0
+opensearch-node1 opensearch-neural-search             3.3.2.0
+opensearch-node1 opensearch-notifications             3.3.2.0
+opensearch-node1 opensearch-observability             3.3.2.0
+opensearch-node1 opensearch-security                  3.3.2.0
+opensearch-node1 opensearch-sql                       3.3.2.0
 ```
+
+## Response columns
+
+The following table lists all response columns.
+
+Column | Alias | Description
+:--- | :--- | :---
+`id` | - | The unique node identifier.
+`name` | `n` | The node name.
+`component` | `c` | The plugin component name.
+`version` | `v` | The plugin version.
+`description` | `d` | The plugin description and details.
+
+To display specific columns, use the `h` query parameter. For example, to show only the node name, component, and version:
+
+```bash
+GET /_cat/plugins?v&h=name,component,version
+```
+{% include copy-curl.html %}
