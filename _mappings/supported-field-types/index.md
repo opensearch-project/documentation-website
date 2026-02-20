@@ -26,11 +26,12 @@ You can specify data types for your fields when creating a mapping. The followin
 
 | Field type  | Description |
 | [`text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/)                       | Analyzed full-text string.                                 |
-| [`keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/keyword/)                 | A non-analyzed string, useful for exact matches.           |
 | [`match_only_text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/match-only-text/) | A lightweight version of `text` for search-only use cases. |
+| [`keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/keyword/)                 | A non-analyzed string, useful for exact matches.           |
+| [`constant_keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/constant-keyword/) | Uses the same value for all documents in the index.      |
+| [`icu_collation_keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/icu-collation-keyword/) | Language-specific keyword for sorting with collation rules. |
 | [`wildcard`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/wildcard/)               | Enables efficient substring and regex matching.            |
 | [`token_count`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/token-count/)         | Stores the number of tokens after analysis.                |
-| [`constant_keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/constant-keyword/) | Uses the same value for all documents in the index.      |
 | [`version`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/version/)                 | A semantic version string that follows a semantic versioning specification. |
 
 ## Numeric field types

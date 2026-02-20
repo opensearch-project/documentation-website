@@ -8,7 +8,12 @@ nav_order: 80
 
 # CJK analyzer
 
-The built-in `cjk` analyzer can be applied to a text field using the following command:
+The built-in `cjk` analyzer is designed for Chinese, Japanese, and Korean (CJK) text. It uses bigram tokenization to break down CJK text into overlapping two-character sequences, which is effective for languages that don't use spaces to separate words.
+
+You may find that the `icu_analyzer` in the ICU analysis plugin works better for CJK text than the `cjk` analyzer. Experiment with your text and queries.
+{: .note}
+
+The `cjk` analyzer can be applied to a text field using the following command:
 
 ```json
 PUT /cjk-index
@@ -140,3 +145,7 @@ The response contains the generated tokens:
   ]
 }
 ```
+
+## Related documentation
+
+- [ICU analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/icu/) -- Alternative for CJK text
