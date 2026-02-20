@@ -199,7 +199,7 @@ OpenSearch uses the following default password requirements:
 
 - Minimum password length: 8 characters.
 - Maximum password length: 100 characters.
-- No requirements for special characters, numbers, or uppercase letters.
+- Must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.
 - Passwords must be rated `strong` using the `zxcvbn` entropy-based calculation.
 
 You can customize the default password requirements by updating the [password cluster settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
