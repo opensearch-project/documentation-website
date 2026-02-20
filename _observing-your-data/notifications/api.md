@@ -330,7 +330,7 @@ GET _plugins/_notifications/configs/<config_id>
 
 To update an existing channel configuration, send a PUT request to the `configs` resource and specify the channel's `config_id` as a path parameter. Specify the new configuration details in the request body.
 
-**Note:** The PUT method only updates existing configurations. To create a new channel, use the [Create channel configuration](#create-channel-configuration) API with a POST request. If you try to use PUT with a non-existent `config_id`, the request will fail.
+**Note**: The PUT method only updates existing configurations. To create a new channel, use the [Create channel configuration](#create-channel-configuration) API with a POST request. If you try to use PUT with a nonexistent `config_id`, the request will fail.
 {: .note}
 
 #### Example request
