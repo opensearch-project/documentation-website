@@ -95,7 +95,7 @@ The following table lists the remote reindexing cluster settings.
 
 Setting | Description | Default value
 :--- | :---
-`reindex.remote.allowlist` | Specifies the allowlist of remote hosts from which data can be reindexed. This security setting prevents unauthorized remote reindexing by restricting which remote OpenSearch or Elasticsearch clusters can be used as sources. Each entry should be in the format `host:port`. When this list is empty (default), remote reindexing is disabled for security. | `[]` (empty list - remote reindexing disabled)
+`reindex.remote.allowlist` | Specifies the allow list of remote hosts from which data can be reindexed. This security setting prevents unauthorized remote reindexing by restricting which remote OpenSearch or Elasticsearch clusters can be used as sources. Each entry should be in the format `host:port`. When this list is empty (default), remote reindexing is disabled for security. | `[]` (empty list - remote reindexing disabled)
 `reindex.remote.retry.initial_backoff` | The initial backoff time for retries. Subsequent retries will follow exponential backoff based on the initial backoff time. | 500 ms
 `reindex.remote.retry.max_count` | The maximum number of retry attempts. | 15
 
