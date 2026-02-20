@@ -22,7 +22,7 @@ OpenSearch supports the following transport layer admission control settings:
 
 ## CPU-based admission control settings
 
-CPU-based admission control monitors CPU usage and applies limits to different types of operations. All CPU limits are specified as percentages (0-100).
+CPU-based admission control monitors CPU usage and applies limits to different types of operations. All CPU limits are specified as percentages (0--100).
 
 OpenSearch supports the following dynamic CPU-based admission control settings:
 
