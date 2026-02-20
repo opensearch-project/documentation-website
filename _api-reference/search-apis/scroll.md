@@ -220,7 +220,7 @@ You can have up to 10 IDs.
 
 ### Step 3: Close the scroll context
 
-Close the search context when you're done scrolling, because the `scroll` operation continues to consume computing resources until the timeout:
+Close the search context when you're done scrolling because the `scroll` operation continues to consume computing resources until the timeout:
 
 <!-- spec_insert_start
 component: example_code
