@@ -106,6 +106,7 @@ min_score | Integer | Specify a score threshold to return only documents above t
 query | Object | The [DSL query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) to use in the request.
 seq_no_primary_term | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.
 size | Integer | How many results to return. Default is 10.
+sort | Array of objects or strings | Specifies how to sort the results. Can be a field name, an object with field and sort options, or an array of these. See [Sorting results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/).
 _source | | Whether to include the `_source` field in the response.
 stats | String | Value to associate with the request for additional logging.
 suggest_field | String | The field used for suggestions. Use with `suggest_text` and, optionally, `suggest_mode` or `suggest_size`. |
