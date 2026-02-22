@@ -63,7 +63,7 @@ The request body is optional. It is a JSON object with the following fields.
 | Property | Data type | Description |
 | :--- | :--- | :--- |
 | `current_node` | String | Specifies the node ID or the name of the node to only explain a shard that is currently located on the specified node. |
-| `index` | String | The name of the index that contains the shard for which to generate an explanation. |
+| `index` | String |  |
 | `primary` | Boolean | When `true`, returns a routing explanation for the primary shard based on the node ID. |
 | `shard` | Integer | Specifies the ID of the shard that you would like an explanation for. |
 
