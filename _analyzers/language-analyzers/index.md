@@ -15,6 +15,8 @@ redirect_from:
 OpenSearch supports the following language analyzers:
 `arabic`, `armenian`, `basque`, `bengali`, `brazilian`, `bulgarian`, `catalan`, `czech`, `danish`, `dutch`, `english`, `estonian`, `finnish`, `french`, `galician`, `german`, `greek`, `hindi`, `hungarian`, `indonesian`, `irish`, `italian`, `latvian`, `lithuanian`, `norwegian`, `persian`, [`polish`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/polish/) (requires plugin), `portuguese`, `romanian`, `russian`, `sorani`, `spanish`, `swedish`, `thai`, `turkish`, and [`ukrainian`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/ukrainian/) (requires plugin).
 
+For multilingual text processing with advanced Unicode support, OpenSearch also provides the [`icu_analyzer`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/icu/), which offers superior text segmentation for languages with complex scripts such as Chinese, Japanese, Korean, Thai, and Arabic (requires the `analysis-icu` plugin).
+
 To use an analyzer when you map an index, specify the value in your query. For example, to map your index with the French language analyzer, specify the `french` value in the analyzer field:
 
 ```json

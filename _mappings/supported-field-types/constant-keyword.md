@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Constant keyword
-nav_order: 65
+nav_order: 30
 has_children: false
 parent: String field types
 grand_parent: Supported field types

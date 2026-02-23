@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Version
-parent: Supported field types
+parent: String field types
+grand_parent: Supported field types
 nav_order: 75
 redirect_from:
   - /opensearch/supported-field-types/version/
