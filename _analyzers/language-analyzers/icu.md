@@ -45,7 +45,7 @@ The `analysis-icu` plugin provides several components that can be used independe
 
 ### Field types
 
-- [`icu_collation_keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/icu-collation-keyword/): Provides language-specific collation for sorting and range queries.
+- [`icu_collation_keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/icu-collation-keyword/): Provides language-specific collation for sorting and range queries.
 
 
 ## How the ICU analyzer works
