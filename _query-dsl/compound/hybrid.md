@@ -24,7 +24,7 @@ Parameter | Description
 `queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause in order to be returned in the results. The documents' relevance scores from all query clauses are combined into one score by applying a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/). The maximum number of query clauses is 5. Required.
 `filter` | A filter to apply to all the subqueries of the hybrid query. 
 
-### Rescoring support for hybrid queries
+### Rescoring hybrid queries
 Introduced 2.18
 {: .label .label-purple }
 
