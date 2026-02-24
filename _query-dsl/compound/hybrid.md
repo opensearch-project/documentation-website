@@ -37,7 +37,7 @@ The processing order for hybrid queries with rescoring is as follows:
 1. Each subquery in the hybrid query executes on the shard, producing separate result sets.
 2. The rescore query is applied to each subquery's results independently.
 3. The rescored results are sent to the coordinating node.
-4. The search pipeline (normalization processor or score ranker processor) normalizes and combines the rescored sub-query scores.
+4. The search pipeline (normalization processor or score ranker processor) normalizes and combines the rescored subquery scores.
 
 When using rescoring with hybrid queries, note the following considerations:
 
