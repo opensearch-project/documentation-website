@@ -50,10 +50,6 @@ The following table lists the available query parameters. All query parameters a
 
 <!-- spec_insert_end -->
 
-<!-- spec_insert_start
-api: cluster.allocation_explain
-component: request_body_parameters
--->
 ## Request body fields
 
 The index, shard, and primary flag for which to generate an explanation. Leave this empty to generate an explanation for the first unassigned shard.
@@ -66,8 +62,6 @@ The request body is optional. It is a JSON object with the following fields.
 | `index` | String | The name of the index that contains the shard for which to generate an explanation. |
 | `primary` | Boolean | When `true`, returns a routing explanation for the primary shard based on the node ID. |
 | `shard` | Integer | Specifies the ID of the shard that you would like an explanation for. |
-
-<!-- spec_insert_end -->
 
 ## Example request
 
