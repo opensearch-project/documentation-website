@@ -34,13 +34,14 @@ OpenSearch supports multiple search methods to meet different use cases and requ
 
 In OpenSearch, you can use the following query languages to search your data.
 
-Language | Description
-:--- | :---
-[Query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) | The primary OpenSearch query language that supports creating complex, fully customizable queries.
-[Query string query language]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) | A scaled-down query language that you can use in a query parameter of a search request or in OpenSearch Dashboards.
-[SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) | A traditional query language that bridges the gap between traditional relational database concepts and the flexibility of OpenSearch's document-oriented data storage.
-[Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) | The primary language used with observability in OpenSearch. PPL uses a pipe syntax that chains commands into a query.
-[Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/) | A simple text-based query language for filtering data in OpenSearch Dashboards.
+Language | Where you can use it | Description
+:--- | :--- | :---
+[Query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) | Search API, Dev Tools | The primary OpenSearch query language that supports creating complex, fully customizable queries.
+[Query string query language]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) | Search API `q` parameter, Discover and Dashboard search bar | A scaled-down query language whose syntax is based on Apache Lucene.
+[SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) | SQL API, Query Workbench | A traditional query language that bridges the gap between relational database concepts and the flexibility of OpenSearch's document-oriented data storage.
+[Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) | PPL API, Query Workbench | The primary language used with observability in OpenSearch. PPL uses a pipe syntax that chains commands into a query.
+
+For information about querying data in OpenSearch Dashboards, including the Dashboards Query Language (DQL), see [OpenSearch Dashboards query languages]({{site.url}}{{site.baseurl}}/dashboards/#query-languages).
 
 ## Customizing search results
 
