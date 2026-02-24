@@ -42,7 +42,7 @@ The processing order for hybrid queries with rescoring is as follows:
 When using rescoring with hybrid queries, note the following considerations:
 
 - The `window_size` applies to each subquery's results individually, not to the combined result.
-- You cannot use explicit sorting with rescoring. OpenSearch returns an error if you attempt to combine sorting with a rescore query in a hybrid search.
+- You cannot use explicit sorting with rescoring. If you attempt to combine sorting with a rescore query in a hybrid search, OpenSearch returns an error.
 - Rescoring is compatible with all score-based and rank-based normalization and combination techniques supported by the [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) and [score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/).
 
 The following example uses a `match_phrase` rescore query to boost documents containing the exact phrase "search engine" within a hybrid search that combines keyword matches across two fields:
