@@ -136,7 +136,7 @@ The response contains documents whose scores reflect both the initial hybrid que
 }
 ```
 
-In this example, document 1 ranks highest because the rescore `match_phrase` query boosted its score --- its `title` field contains the exact phrase "search engine". Document 2 contains the phrase only in the `description` field, so it received a lower boost from the phrase match on `title`. Document 3 matched the individual terms "search" and "engine" across different fields but not as an exact phrase, so it received the smallest boost. Because the rescore query is applied independently to each sub-query's results at the shard level before normalization, the phrase boost influences the final combined scores.
+In this example, Document 1 ranks highest because the rescore `match_phrase` query boosts its score (its `title` field contains the exact phrase "search engine"). Document 2 contains the phrase only in the `description` field, so it receives a lower boost from the phrase match on `title`. Document 3 matches the individual terms "search" and "engine" across different fields but not as an exact phrase, so it receives the smallest boost. Because the rescore query is applied independently to each subquery's results at the shard level before normalization, the phrase boost influences the final combined scores.
 
 ### min_score support for hybrid queries
 
