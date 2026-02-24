@@ -30,7 +30,7 @@ Introduced 2.18
 
 You can use the [`rescore`]({{site.url}}{{site.baseurl}}/query-dsl/rescore/) parameter with hybrid queries. However, rescoring behaves differently with hybrid queries compared to standard queries.
 
-With standard queries, rescoring is applied at the **coordinating node** after results from all shards are merged. With hybrid queries, rescoring is applied at the **shard level** to each sub-query's results **independently**, before the normalization and combination pipeline runs.
+With standard queries, rescoring is applied on the **coordinating node** after results from all shards are merged. With hybrid queries, rescoring is applied at the **shard level** to each subquery's results **independently**, before the normalization and combination pipeline runs.
 
 The processing order for hybrid queries with rescoring is as follows:
 
