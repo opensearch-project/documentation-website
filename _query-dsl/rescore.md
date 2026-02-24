@@ -22,6 +22,8 @@ When using the `rescore` parameter, note the following important considerations:
 
 - When implementing pagination, maintain the same `window_size` across all pages. Changing the window size between pages can cause result inconsistencies as users navigate through search results.
 
+- When using rescoring with [hybrid queries]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#rescoring-support-for-hybrid-queries), the rescore query is applied independently to each sub-query's results at the shard level before normalization and combination, rather than to the final merged results at the coordinating node.
+
 ## Query rescoring
 
 Query rescoring applies a secondary query to refine the scores of top-ranked documents. You can control how many documents each shard examines using the `window_size` parameter (default is `10`).
