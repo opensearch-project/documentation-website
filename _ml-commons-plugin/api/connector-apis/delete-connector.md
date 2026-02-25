@@ -40,3 +40,23 @@ DELETE /_plugins/_ml/connectors/KsAo1YsB0jLkkocY6j4U
   "_primary_term" : 18
 }
 ```
+
+## Error responses
+
+If you attempt to delete a connector that doesn't exist, OpenSearch returns a 404 Not Found error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "status_exception",
+        "reason": "Failed to find connector"
+      }
+    ],
+    "type": "status_exception",
+    "reason": "Failed to find connector"
+  },
+  "status": 404
+}
+```

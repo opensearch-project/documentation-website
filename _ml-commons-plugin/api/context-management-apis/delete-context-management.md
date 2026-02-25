@@ -45,6 +45,10 @@ DELETE /_plugins/_ml/context_management/advanced-context-management
 }
 ```
 
+## Error responses
+
+If you attempt to delete a context management configuration that doesn't exist, the behavior depends on your OpenSearch version and configuration. The API may return an error indicating the resource was not found.
+
 ## Related documentation
 
 For more information, see [Context management]({{site.url}}{{site.baseurl}}/ml-commons-plugin/context-management/).

@@ -51,6 +51,34 @@ DELETE /_plugins/_ml/controllers/MzcIJX8BA7mbufL6DOwl
 }
 ```
 
+## Error responses
+
+If you attempt to delete a controller when the controller index doesn't exist, OpenSearch returns a 404 Not Found error:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "index_not_found_exception",
+        "reason": "no such index [.plugins-ml-controller]",
+        "index": ".plugins-ml-controller",
+        "resource.id": ".plugins-ml-controller",
+        "resource.type": "index_expression",
+        "index_uuid": "_na_"
+      }
+    ],
+    "type": "index_not_found_exception",
+    "reason": "no such index [.plugins-ml-controller]",
+    "index": ".plugins-ml-controller",
+    "resource.id": ".plugins-ml-controller",
+    "resource.type": "index_expression",
+    "index_uuid": "_na_"
+  },
+  "status": 404
+}
+```
+
 ## Required permissions
 
 If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/controllers/delete`.
