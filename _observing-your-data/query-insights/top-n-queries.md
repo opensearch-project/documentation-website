@@ -280,6 +280,7 @@ To view historical query data, the exporter type must be set to `local_index`. F
 You can configure your desired exporter to export top N query data to different sinks, allowing for better monitoring and analysis of your OpenSearch queries. Currently, the following exporters are supported:
 - [Debug exporter](#configuring-a-debug-exporter)
 - [Local index exporter](#configuring-a-local-index-exporter)
+- [Remote repository exporter](#configuring-a-remote-repository-exporter)
 
 ### Configuring a debug exporter
 
@@ -327,9 +328,9 @@ PUT _cluster/settings
 
 ### Configuring a remote repository exporter
 
-The remote repository exporter allows you to export top N query insights data to remote blob store repositories, operating independently alongside existing local index and debug exporters. Exported data is organized in JSON files by timestamp following the pattern: `{path}/top-queries/yyyy/MM/dd/HH/mm'UTC'/{node-id}-{metric-type}.json`.
+The remote repository exporter allows you to export top N query insights data to remote blob store repositories, operating independently alongside existing local index and debug exporters. Exported data is organized in JSON files by timestamp following the pattern: `{path}/top-queries/yyyy/MM/dd/HH/mm'UTC'/{node-id}-{metric-type}.json`. This option provides a cheaper, longer-term storage solution compared to local indexes. Query Insights does not read from or rely on remote repository data, so you can use the exported data to build custom dashboards or export it for other use cases. Data retention is managed by the bucket configuration, not OpenSearch.
 
-The remote repository exporter currently only supports Amazon S3 repositories because it requires async multi-stream blob upload capabilities. Support for additional repository types will be added as they implement async upload operations in their corresponding plugins.
+The remote repository exporter currently supports Amazon S3 repositories.
 {: .note}
 
 Before configuring the remote repository exporter, you must register the remote repository. To register a repository, see [Register repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#register-repository).
