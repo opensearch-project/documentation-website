@@ -219,7 +219,11 @@ response = client.search(
 
 ## The `ext` object
 
-Starting with OpenSearch 2.10, plugin authors can add an `ext` object to the search response. The `ext` object contains plugin-specific response fields. For example, in conversational search, the result of retrieval-augmented generation (RAG) is a single "hit" (answer). Plugin authors can include this answer in the search response as part of the `ext` object so that it is separate from the search hits. In the following example response, the RAG result is in the `ext.retrieval_augmented_generation.answer` field:
+Starting with OpenSearch 2.10, plugin authors can add an `ext` object to both search requests and search responses. The `ext` object contains plugin-specific fields that allow plugins to pass additional parameters in requests or return additional information in responses.
+
+### Using `ext` in search responses
+
+Plugins can add an `ext` object to the search response to include plugin-specific response fields. For example, in conversational search, the result of retrieval-augmented generation (RAG) is a single "hit" (answer). Plugin authors can include this answer in the search response as part of the `ext` object so that it is separate from the search hits. In the following example response, the RAG result is in the `ext.retrieval_augmented_generation.answer` field:
 
 ```json
 {
@@ -261,5 +265,27 @@ Starting with OpenSearch 2.10, plugin authors can add an `ext` object to the sea
       "answer": "RAG answer"
     }
   }
-} 
+}
+```
+
+### Using `ext` in search requests
+
+Plugins can also accept an `ext` object in search requests to provide plugin-specific parameters. The structure and content of the `ext` object in requests depends on the plugin implementation. Consult your plugin's documentation for the specific fields supported in the request `ext` object.
+
+The following example shows a search request that includes an `ext` object. The exact fields within `ext` depend on which plugins are installed and what parameters they accept:
+
+```json
+POST /my-index/_search
+{
+  "query": {
+    "match": {
+      "field": "value"
+    }
+  },
+  "ext": {
+    "my_plugin": {
+      "custom_parameter": "value"
+    }
+  }
+}
 ```
