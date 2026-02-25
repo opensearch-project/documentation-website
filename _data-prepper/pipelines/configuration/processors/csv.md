@@ -159,6 +159,7 @@ The documents stored in OpenSearch contain the following information:
   }
 }
 ```
+{% include copy.html %}
 
 If `delete_source` is set to `false`, the documents include the `message` field:
 
