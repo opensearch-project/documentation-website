@@ -349,28 +349,32 @@ POST /_plugins/_ml/mcp/tools/_register
 ```json
 POST /_plugins/_ml/mcp/tools/_register
 {
-  "type": "PPLTool",
-  "name": "TransferQuestionToPPLAndExecuteTool",
-  "description": "Use this tool to convert natural language into PPL queries and execute them. Use this tool after you know the index name; otherwise, call IndexRoutingTool first. The input parameters are: {index: IndexName, question: UserQuestion}",
-  "parameters": {
-    "model_id": "${your_model_id}",
-    "model_type": "FINETUNE"
-  },
-  "attributes": {
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "question": {
-          "type": "string",
-          "description": "The user's natural language question that needs to be converted to PPL."
-        },
-        "index": {
-          "type": "string",
-          "description": "The index on which the generated PPL query will be executed."
+  "tools": [
+    {
+      "type": "PPLTool",
+      "name": "TransferQuestionToPPLAndExecuteTool",
+      "description": "Use this tool to convert natural language into PPL queries and execute them. Use this tool after you know the index name; otherwise, call IndexRoutingTool first. The input parameters are: {index: IndexName, question: UserQuestion}",
+      "parameters": {
+        "model_id": "${your_model_id}",
+        "model_type": "FINETUNE"
+      },
+      "attributes": {
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "description": "The user's natural language question that needs to be converted to PPL."
+            },
+            "index": {
+              "type": "string",
+              "description": "The index on which the generated PPL query will be executed."
+            }
+          }
         }
       }
     }
-  }
+  ]
 }
 ```
 {% include copy-curl.html %}
