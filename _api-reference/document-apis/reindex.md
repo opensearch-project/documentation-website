@@ -28,7 +28,10 @@ Before using the Reindex API, note the following requirements and limitations:
 Reindexing large datasets can be resource intensive and may impact cluster performance. Monitor cluster health during reindex operations and consider using throttling parameters for production environments. For more information, see [Performance optimization](#performance-optimization).
 {: .warning }
 
-Unlike update operations that modify documents within the same index, reindex operations work on different sources and destinations. Thus, version conflicts are unlikely. The `version_type` parameter controls how OpenSearch handles document versions during reindexing. By default, version conflicts stop the reindex process. To continue reindexing when conflicts occur, set the `conflicts` parameter to `proceed`. The response will include a count of version conflicts encountered. Other error types are unaffected by the `conflicts` parameter. 
+For a practical, tutorial-style guide to reindexing with common use cases and examples, see [Reindex data]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/).
+{: .tip }
+
+Unlike update operations that modify documents within the same index, reindex operations work on different sources and destinations. Thus, version conflicts are unlikely. The `version_type` parameter controls how OpenSearch handles document versions during reindexing. By default, version conflicts stop the reindex process. To continue reindexing when conflicts occur, set the `conflicts` parameter to `proceed`. The response will include a count of version conflicts encountered. Other error types are unaffected by the `conflicts` parameter.
 
 By default, documents with the same ID are overwritten. The `op_type` parameter determines whether existing documents can be replaced or if only new documents are allowed, in which case attempting to index a document with an existing ID results in an error. For more information, see [Request body fields](#request-body-fields).
 
