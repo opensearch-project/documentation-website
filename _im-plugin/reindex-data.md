@@ -15,6 +15,9 @@ With the `reindex` operation, you can copy all or a subset of documents that you
 Reindexing can be an expensive operation depending on the size of your source index. We recommend you disable replicas in your destination index by setting `number_of_replicas` to `0` and re-enable them once the reindex process is complete.
 {: .note }
 
+For a complete API reference with all parameters and advanced options, see the [Reindex Documents API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/).
+{: .note}
+
 ## How reindex works
 
 The reindex operation performs the following steps:
