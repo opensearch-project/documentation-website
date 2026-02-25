@@ -29,7 +29,7 @@ Field             | Type    | Required | Description
 `client.max_concurrency` | Integer | No | The maximum number of concurrent threads in the client. Default is `200`.
 `client.base_delay`  | Duration | No | The base delay for the exponential backoff. Default is `100ms`.
 `client.max_backoff` | Duration | No | The maximum backoff time for the exponential backoff. Default is `20s`.             
-`batch`             | Object  | No       | Optional batch settings for Lambda invocations. Default is `key_name = events`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.
+`batch`             | Object  | No       | Optional batch settings for Lambda invocations. Contains `key_name` (default: `"events"`) and `threshold` object with `event_count` (default: `100`), `maximum_size` (default: `"5mb"`), and `event_collect_timeout` (default: `10s`).
 `lambda_when`       | String  | No       | A conditional expression that determines when to invoke the Lambda sink.          
 `dlq`               | Object  | No       | The dead-letter queue (DLQ) configuration for failed invocations.                
 
