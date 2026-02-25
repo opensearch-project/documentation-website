@@ -24,120 +24,169 @@ This guide assumes that you are comfortable working from the Linux command line 
 ## Installing OpenSearch Dashboards from a package
 
 1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
-1. From the CLI, install using `dpkg`.
+1. From the CLI, install using `dpkg`:
    ```bash
    # x64
    sudo dpkg -i opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.deb
    # arm64
    sudo dpkg -i opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.deb
    ```
-1. After the installation completes, reload the systemd manager configuration.
+   {% include copy.html %}
+
+1. After the installation completes, reload the systemd manager configuration:
     ```bash
     sudo systemctl daemon-reload
     ```
-1. Enable OpenSearch as a service.
+    {% include copy.html %}
+
+1. Enable OpenSearch as a service:
     ```bash
     sudo systemctl enable opensearch-dashboards
     ```
-1. Start the OpenSearch service.
+    {% include copy.html %}
+
+1. Start the OpenSearch service:
     ```bash
     sudo systemctl start opensearch-dashboards
     ```
-1. Verify that OpenSearch launched correctly.
+    {% include copy.html %}
+
+1. Verify that OpenSearch launched correctly:
     ```bash
     sudo systemctl status opensearch-dashboards
     ```
+    {% include copy.html %}
 
 ### Fingerprint verification
 
 The Debian package is not signed. If you would like to verify the fingerprint, the OpenSearch Project provides a `.sig` file as well as the `.deb` package for use with GNU Privacy Guard (GPG).
 
-1. Download the desired Debian package.
+1. Download the desired Debian package:
    ```bash
    curl -SLO https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.deb
    ```
-1. Download the corresponding signature file.
+   {% include copy.html %}
+
+1. Download the corresponding signature file:
    ```bash
    curl -SLO https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.deb.sig
    ```
-1. Download and import the GPG key.
+   {% include copy.html %}
+
+1. Download and import the GPG key:
    ```bash
    curl -o- https://artifacts.opensearch.org/publickeys/opensearch-release.pgp | gpg --import -
    ```
-1. Verify the signature.
+   {% include copy.html %}
+
+1. Verify the signature:
    ```bash
    gpg --verify opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.deb.sig opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.deb
    ```
+   {% include copy.html %}
 
 ## Installing OpenSearch Dashboards from an APT repository
 
 APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
 
-1. Install the necessary packages.
+1. Install the necessary packages:
    ```bash
    sudo apt-get update && sudo apt-get -y install lsb-release ca-certificates curl gnupg2
    ```
+   {% include copy.html %}
+
+1. Create the keyrings directory if it doesn't already exist:
+   ```bash
+   sudo mkdir -p /etc/apt/keyrings
+   ```
+   {% include copy.html %}
+
 1. Import the public GPG key. This key is used to verify that the APT repository is signed.
     ```bash
     curl -o- https://artifacts.opensearch.org/publickeys/opensearch-release.pgp | sudo gpg --dearmor --batch --yes -o /etc/apt/keyrings/opensearch-release-keyring
     ```
-1. Create an APT repository for OpenSearch.
+    {% include copy.html %}
+
+1. Create an APT repository for OpenSearch:
    ```bash
    echo "deb [signed-by=/etc/apt/keyrings/opensearch-release-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{major_version_mask}}/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-dashboards-{{major_version_mask}}.list
    ```
-1. Verify that the repository was created successfully.
+   {% include copy.html %}
+
+1. Verify that the repository was created successfully:
     ```bash
     sudo apt-get update
     ```
+    {% include copy.html %}
+
 1. (Optional) As of May 22, 2024, the `Origin` and `Label` values of the APT repository were updated as part of [this change](https://github.com/opensearch-project/opensearch-build/issues/4485). If you created the APT repository before this date, run the following command to accept the updated release information:
     ```bash
     sudo apt-get update --allow-releaseinfo-change
     ```
-1. With the repository information added, list all available versions of OpenSearch:
+    {% include copy.html %}
+
+1. With the repository information added, list all available versions of OpenSearch Dashboards:
    ```bash
    sudo apt list -a opensearch-dashboards
    ```
+   {% include copy.html %}
+
 1. Choose the version of OpenSearch you want to install: 
    - Unless otherwise indicated, the latest available version of OpenSearch is installed.
    ```bash
    sudo apt-get install opensearch-dashboards
    ```
+   {% include copy.html %}
+
    - To install a specific version of OpenSearch Dashboards, pass a version number after the package name.
    ```bash
    # Specify the version manually using opensearch=<version>
    sudo apt-get install opensearch-dashboards={{site.opensearch_dashboards_version}}
    ```
-1. Once complete, enable OpenSearch.
+   {% include copy.html %}
+
+1. Once complete, enable OpenSearch Dashboards:
     ```bash
     sudo systemctl enable opensearch-dashboards
     ```
-1. Start OpenSearch.
+    {% include copy.html %}
+
+1. Start OpenSearch Dashboards:
     ```bash
     sudo systemctl start opensearch-dashboards
     ```
-1. Verify that OpenSearch launched correctly.
+    {% include copy.html %}
+
+1. Verify that OpenSearch launched correctly:
     ```bash
     sudo systemctl status opensearch-dashboards
     ```
+    {% include copy.html %}
 
 ## Exploring OpenSearch Dashboards
 
 By default, OpenSearch Dashboards, like OpenSearch, binds to `localhost` when you initially install it. As a result, OpenSearch Dashboards is not reachable from a remote host unless the configuration is updated.
 
-1. Open `opensearch_dashboards.yml`.
+1. Open `opensearch_dashboards.yml`:
     ```bash
     sudo vi /etc/opensearch-dashboards/opensearch_dashboards.yml
     ```
-1. Specify a network interface that OpenSearch Dashboards should bind to.
+    {% include copy.html %}
+
+1. Specify a network interface that OpenSearch Dashboards should bind to:
     ```bash
     # Use 0.0.0.0 to bind to any available interface.
     server.host: 0.0.0.0
     ```
+    {% include copy.html %}
+
 1. Save and quit.
-1. Restart OpenSearch Dashboards to apply the configuration change.
+1. Restart OpenSearch Dashboards to apply the configuration change:
     ```bash
     sudo systemctl restart opensearch-dashboards
     ```
+    {% include copy.html %}
+
 1. From a web browser, navigate to OpenSearch Dashboards. The default port is 5601.
 1. Log in with the default username `admin` and the default password `admin`. (For OpenSearch 2.12 and later, the password should be the custom admin password)
 1. Visit [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/) to learn more.
