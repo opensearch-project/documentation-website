@@ -500,13 +500,30 @@ Use the same process to specify a [Backend configuration]({{site.url}}{{site.bas
 
 #### Complete Docker Compose example with custom configuration
 
+This example uses the `${OS_VER}` environment variable to specify the OpenSearch version. Before using this example, set the OpenSearch version by exporting the variable:
+
+```bash
+export OS_VER={{ site.opensearch_version }}
+```
+{% include copy.html %}
+
+Alternatively, create a `.env` file in the same directory as your `docker-compose.yml`:
+
+```bash
+OS_VER={{ site.opensearch_version }}
+```
+{% include copy.html %}
+
+Using environment variables or explicit version tags (such as  `{{ site.opensearch_version }}`) is recommended for production deployments to ensure consistent versions across your cluster and avoid unexpected updates.
+{: .tip}
+
 After creating your own certificates, `internal_users.yml`, `roles.yml`, `roles_mapping.yml`, and the rest of the security configuration files, your `docker-compose.yaml` file should appear similar to the following:
 
 ```yaml
-version: '3'
+version: '3'  # Docker Compose file format version - optional in Compose V2 and later
 services:
   opensearch-node1:
-    image: opensearchproject/opensearch:${OS_VER}
+    image: opensearchproject/opensearch:${OS_VER}  # The OpenSearch version is specified here, not in the version field above
     container_name: opensearch-node1_${OS_VER}
     environment:
       - cluster.name=opensearch-cluster
@@ -648,6 +665,9 @@ networks:
 
 ```
 {% include copy.html %}
+
+The `version: '3'` field in this example refers to the Docker Compose file format version, not the OpenSearch version. This field is optional in Docker Compose V2 and later. The sample file may be updated over time with improvements to configuration, comments, or settings while maintaining the same Compose format version. The actual OpenSearch version is controlled by the image tag (for example, `opensearchproject/opensearch:${OS_VER}`).
+{: .note}
 
 Use Docker Compose to start the cluster:
 ```bash
