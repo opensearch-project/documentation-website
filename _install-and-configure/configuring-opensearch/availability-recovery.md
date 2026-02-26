@@ -32,7 +32,9 @@ OpenSearch supports the following general recovery settings:
 
 OpenSearch supports the following snapshot settings:
 
-- `snapshot.max_concurrent_operations`(Dynamic, integer): The maximum number of concurrent snapshot operations. Default is `1000`. 
+- `snapshot.max_concurrent_operations` (Dynamic, integer): The maximum number of concurrent snapshot operations. Default is `1000`.
+
+- `snapshot.repository_data.cache.threshold` (Static, byte size value or percentage): The maximum size of repository metadata (repository data) that can be cached in memory. This setting improves snapshot operation performance by reducing the need to repeatedly download repository metadata during clone, restore, and status check operations. You can specify this value as an absolute size (for example, `2GB` or `500MB`) or as a percentage of heap memory (for example, `3%` or `1%`). Repository data that exceeds this threshold is not cached. Under heap memory pressure, cached data may be garbage collected automatically because it is stored using soft references. Default is `max(500KB, min(1% of heap memory, Integer.MAX_VALUE - 8))`. For low-memory environments where 1% of the heap is less than 1 MB, the default is 500 KB. Valid range is `500KB` to `min(1% of heap memory, Integer.MAX_VALUE - 8)`. Introduced 2.19. 
 
 ### Security-related snapshot settings
 
