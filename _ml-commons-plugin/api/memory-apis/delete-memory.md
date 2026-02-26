@@ -43,3 +43,15 @@ DELETE /_plugins/_ml/memory/MzcIJX8BA7mbufL6DOwl
   "success": true
 }
 ```
+
+## Response for non-existent memories
+
+The delete memory operation is idempotent. If you attempt to delete a memory that doesn't exist, the operation still returns success:
+
+```json
+{
+  "success": true
+}
+```
+
+This behavior allows delete operations to be safely retried without causing errors.
