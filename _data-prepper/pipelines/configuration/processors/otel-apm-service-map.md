@@ -77,7 +77,7 @@ The following table describes common [Abstract processor](https://github.com/ope
 | ------------- | ---- | -----------|
 | `recordsIn` | Counter | The ingress of records to a pipeline component. |
 | `recordsOut` | Counter | The egress of records from a pipeline component. |
-| `timeElapsed` | Timer | The time elapsed during execution of a pipeline component. |
+| `timeElapsed` | Timer | The time elapsed during execution of a pipeline component in milliseconds. |
 
 The `otel_apm_service_map` processor includes the following custom metrics.
 
