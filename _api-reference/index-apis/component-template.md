@@ -7,6 +7,8 @@ nav_order: 60
 ---
 
 # Component template APIs
+**Introduced 1.0**
+{: .label .label-purple }
 
 You can use the component template APIs to create, retrieve, update, and delete component templates. A component template is a reusable building block that defines settings, mappings, and aliases and can be shared across multiple index templates. 
 

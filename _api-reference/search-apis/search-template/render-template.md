@@ -10,6 +10,8 @@ redirect_from:
 ---
 
 # Render Template API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Render Template API previews the final query generated from a [search template]({{site.url}}{{site.baseurl}}/search-plugins/search-template/) by substituting parameters without executing the search.
 

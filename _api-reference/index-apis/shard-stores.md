@@ -9,6 +9,8 @@ redirect_from:
 ---
 
 # Index Shard Stores API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `_shard_stores` API provides information about the shard copies for one or more indexes. This API helps to diagnose issues with unallocated shards by indicating why shards are unassigned and providing their current states.
 
