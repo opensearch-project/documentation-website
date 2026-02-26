@@ -6,6 +6,8 @@ nav_order: 85
 ---
 
 # Search shards API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `_search_shards` API provides information about which shards OpenSearch would route a search request to if the request were executed. This helps you understand how OpenSearch plans to distribute the query across shards without actually running the search. This API does not execute the search but allows you to inspect routing decisions, shard distribution, and the nodes that would handle the request. 
 

@@ -7,7 +7,7 @@ nav_order: 90
 ---
 
 # Index Segments API
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The Segment API provides details about the Lucene segments within index shards as well as information about the backing indexes of data streams.

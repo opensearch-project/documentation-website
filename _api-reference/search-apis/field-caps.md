@@ -6,6 +6,8 @@ nav_order: 45
 ---
 
 # Field capabilities API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `_field_caps` API provides information about the capabilities of fields across one or more indexes. It is typically used by clients to determine how fields are mapped and whether they can be used for search, sorting, and aggregations across multiple indexes.
 

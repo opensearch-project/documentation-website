@@ -6,7 +6,7 @@ nav_order: 46
 ---
 
 # CAT Pit Segments API
-Introduced 2.4
+**Introduced 2.4**
 {: .label .label-purple }
 
 The CAT Point in Time (PIT) segments operation provides low-level information about the disk utilization of a PIT by describing its Lucene segments. The PIT Segments API supports listing segment information for a specific PIT by ID or for all PITs at once.

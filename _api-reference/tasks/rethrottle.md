@@ -6,6 +6,8 @@ nav_order: 40
 ---
 
 # Rethrottle API
+**Introduced 1.0**
+{: .label .label-purple }
 
 You can use the following APIs to dynamically change the `requests_per_second` for [`_reindex`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/), [`_update_by_query`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/), or [`_delete_by_query`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/) operations that are already running.
 

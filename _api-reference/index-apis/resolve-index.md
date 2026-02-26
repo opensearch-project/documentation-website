@@ -7,6 +7,8 @@ nav_order: 70
 ---
 
 # Resolve Index API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Resolve Index API helps you understand how OpenSearch resolves aliases, data streams, and concrete indexes that match a specified name or wildcard expression.
 
