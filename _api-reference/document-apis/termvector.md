@@ -6,6 +6,8 @@ nav_order: 70
 ---
 
 # Term Vectors API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `_termvectors` API retrieves term vector information for a single document. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations. For more information, see [Term vector parameter]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/#term-vector-parameter).
 

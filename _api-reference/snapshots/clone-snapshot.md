@@ -6,7 +6,7 @@ nav_order: 10
 ---
 
 # Clone Snapshot API
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 Creates a clone of all or part of a snapshot in the same repository as the original.

@@ -8,6 +8,8 @@ redirect_from:
 ---
 
 # Validate Query API
+**Introduced 1.0**
+{: .label .label-purple }
 
 You can use the Validate Query API to validate a query without running it. The query can be sent as a path parameter or included in the request body.
 
