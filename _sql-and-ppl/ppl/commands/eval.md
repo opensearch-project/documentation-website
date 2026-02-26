@@ -10,7 +10,7 @@ nav_order: 12
 
 The `eval` command evaluates the specified expression and appends the result of the evaluation to the search results.
 
-The `eval` command is not rewritten to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/). It is only executed on the coordinating node.
+The `eval` command processes data after documents are retrieved from the shards. This means that `eval` cannot be used to filter documents before they are returned. Use a `where` clause for filtering. Additionally, because `eval` computations are performed on the coordinating node rather than distributed across data nodes, performance may be slower for large result sets.
 {: .note}
 
 ## Syntax

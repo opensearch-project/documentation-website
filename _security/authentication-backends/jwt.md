@@ -331,6 +331,139 @@ JWT authentication supports direct JWKS endpoint configuration starting with Ope
 - You can switch between static keys and JWKS by updating the configuration.
 - When both `jwks_uri` and `signing_key` are configured, `jwks_uri` takes precedence and `signing_key` is ignored.
 
+## Using JWT with Teleport
+
+You can use JWT tokens issued by Teleport to authenticate users in OpenSearch Dashboards. This integration maps Teleport roles to OpenSearch backend roles for access control.
+
+### Teleport configuration
+
+In Teleport, you need to create a role that has the same name as a backend role from your OpenSearch instance:
+
+```yaml
+apiVersion: resources.teleport.dev/v1
+kind: TeleportRoleV7
+metadata:
+  name: admin # Match Opensearch "Backend roles" names
+spec:
+  allow:
+    # App
+    app_labels_expression: |
+      regexp.match(labels["hostname"], "^(.*)opensearch(.*)$")
+```
+{% include copy.html %}
+
+Then apply this role to users you want to use the role.
+
+### OpenSearch Dashboards configuration
+
+To configure OpenSearch for using Teleport, perform these actions.
+
+#### Teleport configuration
+
+In the agent configuration file (typically located at /etc/teleport.yaml), configure the application service to automatically include the JWT in a request header:
+
+```yaml
+# [...]
+app_service:
+  enabled: "yes"
+  apps:
+  - name: opensearch-dashboard
+    uri: "https://127.0.0.1:5601"
+    insecure_skip_verify: true
+    rewrite:
+      headers:
+      - "Authorization: {% raw %}{{internal.jwt}}{% endraw %}"
+    labels:
+      # [...]
+```
+{% include copy.html %}
+
+Then apply the new configuration by running this command:
+
+```bash
+systemctl restart teleport
+```
+{% include copy.html %}
+
+#### OpenSearch Dashboards configuration
+
+In the OpenSearch Dashboards configuration file (typically located at `/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml`), enable JWT authentication and retain basic HTTP authentication as a fallback method:
+
+```yaml
+opensearch_security.auth.multiple_auth_enabled: true
+opensearch_security.auth.type: ["basicauth", "jwt"]
+```
+{% include copy.html %}
+
+Then apply the new configuration by running this command:
+
+```bash
+systemctl restart dashboards
+```
+{% include copy.html %}
+
+### Security node configuration
+
+On the node where you run the `securityadmin.sh` script, update the security plugin configuration file (for example, `/usr/share/opensearch/config/opensearch-security/config.yml`) to configure both authentication methods:
+
+```yaml
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      basic_internal_auth_domain:
+        description: "Authenticate via HTTP Basic against internal users database"
+        http_enabled: true
+        transport_enabled: true
+        order: 1
+        http_authenticator:
+            type: basic
+            challenge: true
+        authentication_backend:
+            type: internal
+
+      jwt_auth_domain:
+        description: "Authenticate via Json Web Token provide by Teleport"
+        http_enabled: true
+        transport_enabled: true
+        order: 0
+        http_authenticator:
+            type: jwt
+            challenge: false
+            config:
+                signing_key: null
+                jwks_uri: "https://example.com/.well-known/jwks.json" # URL of the Teleport's leaf the machine is in, not the root
+                jwt_header: "Authorization"
+                jwt_url_parameter: null
+                jwt_clock_skew_tolerance_seconds: 30
+                subject_key: "sub"
+                roles_key: "roles"
+        authentication_backend:
+            type: noop
+```
+{% include copy.html %}
+
+Ensure that the basic authentication is configured using `order: 1` and `challenge: true` and that the JWT authentication is configured using `order: 0` and `challenge: false`. Otherwise, direct API calls will fail unless the JWT header is explicitly included.
+
+To apply the new configuration, run the following command:
+
+```bash
+{% raw %}
+export JAVA_HOME="[OPENSEARCH_INSTALL_DIR]/jdk"
+
+bash [OPENSEARCH_INSTALL_DIR]/plugins/opensearch-security/tools/securityadmin.sh \
+-cacert [PATH_TO_ROOT_CA] \
+-cert [PATH_TO_ADMIN_CERT_PEM] \
+-key [PATH_TO_ADMIN_CERT_KEY] \
+-cd [PATH_TO_OPENSEARCH_SECURITY_CONFIG_DIR] \
+-nhnv -icl \
+-h 127.0.0.1
+{% endraw %}
+```
+{% include copy.html %}
 
 ## Using JWT authentication with gRPC
 **Introduced 3.5**

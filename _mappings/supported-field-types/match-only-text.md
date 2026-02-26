@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Match-only text
-nav_order: 35
+nav_order: 20
 has_children: false
 parent: String field types
 grand_parent: Supported field types
