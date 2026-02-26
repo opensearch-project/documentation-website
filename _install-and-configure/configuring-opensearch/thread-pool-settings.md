@@ -31,6 +31,8 @@ OpenSearch supports the following fixed thread pools:
 - `analyze`: For Analyze API requests (fixed type)
 - `write`: For indexing, deletion, update, and bulk operations (fixed type)
 - `force_merge`: For force merge operations (fixed type)
+- `search`: For search operations (fixed type)
+- `search_throttled`: For throttled search operations (fixed type)
 
 Fixed thread pools support the following settings:
 
@@ -112,6 +114,20 @@ To set a custom processor count, update the configuration file as follows:
 node.processors: 8
 ```
 {% include copy.html %}
+
+## Thread pool timing settings
+
+OpenSearch supports the following thread pool timing settings:
+
+- `thread_pool.estimated_time_interval` (Static, time unit): Sets the time interval for updating cached time values used by thread pools and other time-sensitive operations. This setting controls how frequently OpenSearch updates its internal time cache to reduce the overhead of frequent system time calls. A smaller interval provides more accurate time measurements but increases CPU overhead from more frequent time updates. Setting this to `0` disables caching and calls system time directly on each request (typically used for testing). Default is `200ms`. Minimum is `0ms`.
+
+## Cluster-level thread pool settings
+
+OpenSearch supports cluster-level dynamic settings that allow you to override thread pool configurations across all nodes in the cluster:
+
+- `cluster.thread_pool.generic.max` (Dynamic, integer): Sets the maximum size of the generic thread pool across all nodes in the cluster. This overrides the default thread pool configuration specified in `opensearch.yml`. The generic thread pool handles lightweight operations and background tasks. Use this setting to dynamically adjust thread pool sizes without restarting nodes.
+
+- `cluster.thread_pool.snapshot.max` (Dynamic, integer): Sets the maximum size of the snapshot thread pool across all nodes in the cluster. This overrides the default thread pool configuration for snapshot operations. The snapshot thread pool handles snapshot creation and restoration operations. Use this setting to adjust snapshot concurrency during high-load periods.
 
 ## Best practices
 

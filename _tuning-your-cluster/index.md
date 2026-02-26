@@ -377,3 +377,6 @@ You can then use the [Index State Management (ISM)]({{site.url}}{{site.baseurl}}
 ## Next steps
 
 If you are using the Security plugin, the previous request to `_cat/nodes?v` might have failed with an initialization error. For full guidance around using the Security plugin, see [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/).
+
+For comprehensive documentation of all OpenSearch settings mentioned in this guide, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
+{: .note}

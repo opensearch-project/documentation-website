@@ -50,3 +50,11 @@ Setting | Default | Description
 `shard_indexing_pressure.secondary_parameter.throughput.degradation_factor` | 5x | The degradation factor per unit byte for a request. This parameter determines the threshold for any latency spikes. The default value is 5x, which implies that if the latency shoots up 5 times in the historic view, shard indexing backpressure marks it as a performance degradation.
 `shard_indexing_pressure.secondary_parameter.successful_request.elapsed_timeout` | 300000 ms | The amount of time a request is pending in a cluster. This parameter helps identify any stuck-request scenarios.
 `shard_indexing_pressure.secondary_parameter.successful_request.max_outstanding_requests` | 100 | The maximum number of pending requests in a cluster.
+
+## Cache settings
+
+The cache settings control the internal cache used by the shard indexing backpressure system.
+
+Setting | Default | Description
+:--- | :--- | :---
+`shard_indexing_pressure.cache_store.max_size` | 200 | The maximum size of the cold store cache in the shard indexing pressure system. Minimum enforced is `100`. Maximum allowed is `1000`.
