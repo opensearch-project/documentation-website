@@ -62,7 +62,7 @@ The minimum supported JDK version is JDK 21.
 
 ### Version compatibility setting
 
-The `compatibility.override_main_response_version` setting is no longer provided.
+The `compatibility.override_main_response_version` setting has been removed.
 This functionality has been deprecated since OpenSearch 1.x.
 For more information, see issue [#18228](https://github.com/opensearch-project/OpenSearch/issues/18228).
 You can consult [agents and ingestion tools]({{site.url}}{{site.baseurl}}/tools/#agents-and-ingestion-tools) for potential solutions.
