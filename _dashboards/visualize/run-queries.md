@@ -80,6 +80,9 @@ OpenSearch displays the response in the response pane on the right side of the c
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-response.png" alt="Response pane">{: .img-fluid }
 
+When submitting long-running operations (such as reindexing or snapshot creation) to OpenSearch, you can make the request asynchronous by providing the `wait_for_completion=false` query parameter. If this parameter is not specified, the request runs synchronously. In that case, if the operation exceeds the OpenSearch request timeout value, the client might send a new request, which can lead to unexpected behavior. If the API does not support asynchronous execution through query parameters, consider using cURL to run the request directly.
+{: .note}
+
 ## Working in the cURL and console formats
 
 The console uses an easier syntax to format REST requests than the `curl` command. 
