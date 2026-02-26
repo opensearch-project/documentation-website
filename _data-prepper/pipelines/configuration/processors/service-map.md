@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Service map 
+title: Service map
 parent: Processors
 grand_parent: Pipelines
 nav_order: 330
@@ -8,7 +8,9 @@ nav_order: 330
 
 # Service map processor
 
-The `service_map` processor uses OpenTelemetry data to create a distributed service map for visualization in OpenSearch Dashboards. 
+The `service_map` processor uses OpenTelemetry data to create a distributed service map for visualization in OpenSearch Dashboards.
+
+This service_map processor generates static service map and doesn't reflect the changes in the topology with time. The new `otel_apm_service_map` processor provides time based service map.
 
 ## Configuration
 
@@ -25,9 +27,40 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 window_duration | No | Integer | Represents the fixed time window, in seconds, during which service map relationships are evaluated. Default value is 180.
 
-<!---## Configuration
+## Configuration
 
-Content will be added to this section.--->
+```
+entry-pipeline:
+   source:
+     otel_trace_source:
+       path: "/test/path"
+   sink:
+     - pipeline:
+         name: "raw-pipeline"
+     - pipeline:
+         name: "service-map-pipeline"
+raw-pipeline:
+   source:
+     pipeline:
+       name: "entry-pipeline"
+   processor:
+     - otel_trace_raw:
+   sink:
+     - opensearch:
+         hosts: [<host>]
+         index_type: trace-analytics-raw
+ service-map-pipeline:
+   source:
+     pipeline:
+       name: "entry-pipeline"
+   processor:
+     - service_map_stateful:
+         window_duration: 60s
+   sink:
+     - opensearch:
+         hosts: [<host>]
+         index_type: trace-analytics-service-map
+```
 
 ## Metrics
 
