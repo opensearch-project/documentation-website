@@ -23,7 +23,10 @@ Running local models on the CentOS 7 operating system is not supported. Moreover
 
 Sentence transformer models map sentences and paragraphs across a dimensional dense vector space. The number of vectors depends on the type of model. You can use these models for use cases such as clustering or semantic search.
 
-The following table provides a list of sentence transformer models and artifact links you can use to download them. Note that you must prefix the model name with `huggingface/`, as shown in the **Model name** column. 
+The following table provides a list of sentence transformer models and artifact links you can use to download them. Note that you must prefix the model name with `huggingface/`, as shown in the **Model name** column.
+
+**Understanding auto-truncation**: All pretrained text embedding models have a maximum token limit (typically 512 tokens for BERT-based models). When a document exceeds this limit, the model automatically truncates the text, discarding content beyond the limit. This truncation can significantly impact search relevance because the truncated portions of your documents will not be represented in the embeddings. Documents may not be returned in search results if the relevant content was truncated. To avoid this issue, consider splitting long documents into smaller chunks before generating embeddings. For more information, see [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
+{: .warning}
 
 | Model name | Version | Vector dimensions | Auto-truncation | TorchScript artifact | ONNX artifact |
 |:---|:---|:---|:---|:---|:---|
