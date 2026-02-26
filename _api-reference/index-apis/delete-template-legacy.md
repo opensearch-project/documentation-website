@@ -8,6 +8,8 @@ nav_order: 110
 ---
 
 # Delete template
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Delete Template API has been deprecated. Use the new [Delete Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index-template/) API.
 {: .warning}

@@ -7,6 +7,8 @@ has_children: false
 ---
 
 # Cluster Reroute API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `/_cluster/reroute` API allows you to manually control the allocation of individual shards within the cluster. This includes moving, allocating, or canceling shard allocations. It's typically used for advanced scenarios, such as manual recovery or custom load balancing.
 
