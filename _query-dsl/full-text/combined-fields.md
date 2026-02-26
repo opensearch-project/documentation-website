@@ -328,6 +328,6 @@ Notice that the `combined_fields` query produces higher relevance scores (0.2000
 
 Note the following limitations for combined fields:
 
-- All fields must have the same text analyzer
-- Only works with text fields
-- Does not support per-field boosts in the same way as `multi_match`; instead, use field weights
+- All fields must have the same text analyzer.
+- Only works with text fields.
+- Does not support per-field boosts in the same way as `multi_match`; instead, use field weights.
