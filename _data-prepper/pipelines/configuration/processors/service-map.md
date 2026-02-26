@@ -41,5 +41,8 @@ The following table describes common [Abstract processor](https://github.com/ope
 
 The `service_map` processor includes following custom metrics:
 
-* `traceGroupCacheCount`: The number of trace groups in the trace group cache.
-* `spanSetCount`: The number of span sets in the span set collection.
+* `spansDbSize`:  Total size in bytes of both current and previous span database windows
+* `spansDbCount`: Total count of span entries across both current and previous span database windows
+* `traceGroupDbSize`: Total size in bytes of both current and previous trace group database windows
+* `traceGroupDbCount`: Total count of trace group entries across both current and previous trace group database windows
+* `relationshipCount`: Total number of unique service map relationships discovered and stored in the relationship state
