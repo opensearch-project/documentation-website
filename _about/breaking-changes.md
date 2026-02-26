@@ -62,14 +62,16 @@ The minimum supported JDK version is JDK 21.
 
 ### Version compatibility setting
 
-The `compatibility.override_main_response_version` setting has been removed.
-This functionality has been deprecated since OpenSearch 1.x.
+The `compatibility.override_main_response_version` setting has been removed. This functionality was deprecated in OpenSearch 1.x and is no longer supported.
+
 For more information, see issue [#18228](https://github.com/opensearch-project/OpenSearch/issues/18228).
-You can consult [agents and ingestion tools]({{site.url}}{{site.baseurl}}/tools/#agents-and-ingestion-tools) for potential solutions.
+
+For alternative approaches, see [Agents and ingestion tools]({{site.url}}{{site.baseurl}}/tools/#agents-and-ingestion-tools).
 
 ### Index version
 
-Indexes (including system ones) that are created in versions older than `2.x.x` are not supported and should be reindexed **before** the upgrade as per [documentation]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/).
+Indexes created in versions earlier than `2.x.x` (including system indexes) are not supported. These indexes must be reindexed **before upgrading**. For information about reindexing, see [Reindex data]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/).
+
 For more information, see issue [#18717](https://github.com/opensearch-project/OpenSearch/issues/18717).
 
 ### System index access
