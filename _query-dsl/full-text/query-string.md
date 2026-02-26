@@ -2,7 +2,7 @@
 layout: default
 title: Query string
 parent: Full-text queries
-nav_order: 60
+nav_order: 80
 redirect_from:
   - /opensearch/query-dsl/full-text/query-string/
   - /query-dsl/query-dsl/full-text/query-string/
