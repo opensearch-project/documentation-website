@@ -3,7 +3,7 @@ layout: default
 title: Caching
 parent: Improving search performance
 has_children: true
-nav_order: 100
+nav_order: 10
 redirect_from:
   - /search-plugins/caching/
 ---
@@ -18,9 +18,9 @@ Understanding how your data uses the cache can help improve your cluster's perfo
 
 OpenSearch supports the following on-heap cache types:
 
-- [**Index request cache**]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/): Caches the local results on each shard. This allows frequently used and potentially resource-heavy search requests to return results almost instantaneously. 
+- [**Index request cache**]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/): Caches the local results on each shard. This allows frequently used and potentially resource-heavy search requests to return results almost instantaneously.
 - **Query cache**: Caches common data from similar queries at the shard level. The query cache is more granular than the request cache and can cache data to be reused in different queries.
-- **Field data cache**: Caches field data and global ordinals, which are both used to support aggregations on certain field types.
+- [**Field data cache**]({{site.url}}{{site.baseurl}}/search-plugins/caching/field-data-cache/): Caches field data and global ordinals, which are both used to support aggregations on certain field types.
 
 ## Additional cache stores
 

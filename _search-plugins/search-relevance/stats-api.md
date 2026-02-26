@@ -3,7 +3,7 @@ layout: default
 title: Search Relevance Stats API
 nav_order: 65
 parent: Compare Search Results
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 ---
 

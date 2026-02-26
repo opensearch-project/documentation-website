@@ -3,6 +3,7 @@ layout: default
 title: ML ranking core concepts
 nav_order: 10
 parent: Learning to Rank
+grand_parent: Optimizing search quality
 has_children: false
 ---
 

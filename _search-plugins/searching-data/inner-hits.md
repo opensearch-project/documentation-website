@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Retrieve inner hits
-parent: Search options
+parent: Customizing search results
 has_children: false
-nav_order: 75
+nav_order: 60
 ---
 
 # Retrieve inner hits

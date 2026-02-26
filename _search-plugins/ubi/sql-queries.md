@@ -2,6 +2,7 @@
 layout: default
 title: Sample UBI SQL queries
 parent: User Behavior Insights
+grand_parent: Optimizing search quality
 has_children: false
 nav_order: 20
 ---

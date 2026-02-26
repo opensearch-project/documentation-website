@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Learning to Rank
-nav_order: 20
+parent: Optimizing search quality
+nav_order: 40
 has_children: true
 has_toc: false
 redirect_from:
@@ -22,3 +23,20 @@ The following resources can help you get started:
 - If you are new to LTR, start with the [ML ranking core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/) documentation.
 - For a quick introduction, see the demo in [hello-ltr](https://github.com/o19s/hello-ltr).
 - If you are familiar with LTR, start with the [Integrating the plugin]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/) documentation.
+
+## Documentation
+
+### Core concepts and setup
+- [Core concepts]({{site.url}}{{site.baseurl}}/search-plugins/ltr/core-concepts/): Understand the fundamental concepts behind Learning to Rank.
+- [Fits in]({{site.url}}{{site.baseurl}}/search-plugins/ltr/fits-in/): Learn how LTR integrates with your OpenSearch infrastructure.
+
+### Feature engineering and model development
+- [Feature engineering]({{site.url}}{{site.baseurl}}/search-plugins/ltr/feature-engineering/): Design effective features for your ranking models.
+- [Working with features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/working-with-features/): Create and manage feature sets.
+- [Logging features]({{site.url}}{{site.baseurl}}/search-plugins/ltr/logging-features/): Collect feature data for model training.
+- [Training models]({{site.url}}{{site.baseurl}}/search-plugins/ltr/training-models/): Build and train your ranking models.
+
+### Deployment and advanced topics
+- [Searching with your model]({{site.url}}{{site.baseurl}}/search-plugins/ltr/searching-with-your-model/): Deploy models in production search.
+- [Advanced functionality]({{site.url}}{{site.baseurl}}/search-plugins/ltr/advanced-functionality/): Explore advanced LTR features and techniques.
+- [FAQ]({{site.url}}{{site.baseurl}}/search-plugins/ltr/faq/): Common questions and troubleshooting.
