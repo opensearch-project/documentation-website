@@ -73,22 +73,22 @@ The following settings are stored in the `audit.yml` file.
 To exclude categories, list them in the following setting:
 
 ```yml
-plugins.security.audit.config.disabled_rest_categories: <disabled categories>
-plugins.security.audit.config.disabled_transport_categories: <disabled categories>
+config.audit.disabled_rest_categories: <disabled categories>
+config.audit.disabled_transport_categories: <disabled categories>
 ```
 
 For example:
 
 ```yml
-plugins.security.audit.config.disabled_rest_categories: AUTHENTICATED, opensearch_SECURITY_INDEX_ATTEMPT
-plugins.security.audit.config.disabled_transport_categories: GRANTED_PRIVILEGES
+config.audit.disabled_rest_categories: AUTHENTICATED, opensearch_SECURITY_INDEX_ATTEMPT
+config.audit.disabled_transport_categories: GRANTED_PRIVILEGES
 ```
 
 If you want to log events in all categories, use `NONE`:
 
 ```yml
-plugins.security.audit.config.disabled_rest_categories: NONE
-plugins.security.audit.config.disabled_transport_categories: NONE
+config.audit.disabled_rest_categories: NONE
+config.audit.disabled_transport_categories: NONE
 ```
 
 
@@ -97,8 +97,8 @@ plugins.security.audit.config.disabled_transport_categories: NONE
 By default, the Security plugin logs events on both REST and the transport layer. You can disable either type:
 
 ```yml
-plugins.security.audit.config.enable_rest: false
-plugins.security.audit.config.enable_transport: false
+config.audit.enable_rest: false
+config.audit.enable_transport: false
 ```
 
 
@@ -107,7 +107,7 @@ plugins.security.audit.config.enable_transport: false
 By default, the Security plugin includes the body of the request (if available) for both REST and the transport layer. If you do not want or need the request body, you can disable it:
 
 ```yml
-plugins.security.audit.config.log_request_body: false
+config.audit.log_request_body: false
 ```
 
 
@@ -129,10 +129,10 @@ audit_trace_resolved_indices: [
 You can disable this feature by setting:
 
 ```yml
-plugins.security.audit.config.resolve_indices: false
+config.audit.resolve_indices: false
 ```
 
-This feature is only disabled if `plugins.security.audit.config.log_request_body` is also set to `false`.
+This feature is only disabled if `config.audit.log_request_body` is also set to `false`.
 {: .note }
 
 
@@ -143,7 +143,7 @@ Bulk requests can contain many indexing operations. By default, the Security plu
 The Security plugin can be configured to log each indexing operation as a separate event:
 
 ```yml
-plugins.security.audit.config.resolve_bulk_requests: true
+config.audit.resolve_bulk_requests: true
 ```
 
 This change can create an extremely large number of events in the audit logs, so we don't recommend enabling this setting if you frequently use the `_bulk` API.
@@ -154,7 +154,7 @@ This change can create an extremely large number of events in the audit logs, so
 You can exclude certain requests from being logged by configuring actions for transport requests and/or HTTP request paths (REST):
 
 ```yml
-plugins.security.audit.config.ignore_requests: ["indices:data/read/*", "SearchRequest"]
+config.audit.ignore_requests: ["indices:data/read/*", "SearchRequest"]
 ```
 
 
@@ -163,7 +163,7 @@ plugins.security.audit.config.ignore_requests: ["indices:data/read/*", "SearchRe
 By default, the Security plugin logs events from all users but excludes the internal OpenSearch Dashboards server user `kibanaserver`. You can exclude other users:
 
 ```yml
-plugins.security.audit.config.ignore_users:
+config.audit.ignore_users:
   - kibanaserver
   - admin
 ```
@@ -171,7 +171,7 @@ plugins.security.audit.config.ignore_users:
 If requests from all users should be logged, use `NONE`:
 
 ```yml
-plugins.security.audit.config.ignore_users: NONE
+config.audit.ignore_users: NONE
 ```
 
 
@@ -180,7 +180,7 @@ plugins.security.audit.config.ignore_users: NONE
 You can exclude sensitive headers from being included in the logs---for example, the `Authorization:` header:
 
 ```yml
-plugins.security.audit.config.exclude_sensitive_headers: true
+config.audit.exclude_sensitive_headers: true
 ```
 
 
