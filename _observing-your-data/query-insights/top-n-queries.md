@@ -280,6 +280,7 @@ To view historical query data, the exporter type must be set to `local_index`. F
 You can configure your desired exporter to export top N query data to different sinks, allowing for better monitoring and analysis of your OpenSearch queries. Currently, the following exporters are supported:
 - [Debug exporter](#configuring-a-debug-exporter)
 - [Local index exporter](#configuring-a-local-index-exporter)
+- [Remote repository exporter](#configuring-a-remote-repository-exporter)
 
 ### Configuring a debug exporter
 
@@ -324,6 +325,37 @@ PUT _cluster/settings
 }
 ```
 {% include copy-curl.html %}
+
+### Configuring a remote repository exporter
+
+The remote repository exporter allows you to export top N query insights data to remote blob store repositories, operating independently alongside existing local index and debug exporters. Exported data is organized in JSON files by timestamp following the pattern: `{path}/top-queries/yyyy/MM/dd/HH/mm'UTC'/{node-id}-{metric-type}.json`. This option provides a cheaper, longer-term storage solution compared to local indexes. Query Insights does not read from or rely on remote repository data, so you can use the exported data to build custom dashboards or export it for other use cases. Data retention is managed by the bucket configuration, not OpenSearch.
+
+The remote repository exporter currently supports Amazon S3 repositories.
+{: .note}
+
+Before configuring the remote repository exporter, you must register the remote repository. To register a repository, see [Register repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#register-repository).
+
+After registering the repository, configure the remote exporter using the following cluster settings:
+
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "search.insights.top_queries.exporter.remote.repository" : "my-s3-repository",
+    "search.insights.top_queries.exporter.remote.path" : "query-insights",
+    "search.insights.top_queries.exporter.remote.enabled" : true
+  }
+}
+```
+{% include copy-curl.html %}
+
+The following table lists the available remote exporter settings.
+
+Setting | Data type | Default | Description
+:--- | :--- | :--- | :---
+`search.insights.top_queries.exporter.remote.enabled` | Boolean | `false` | Enables or disables the remote repository exporter.
+`search.insights.top_queries.exporter.remote.repository` | String | `null` | The name of the registered snapshot repository to use for exporting data. Required when remote export is enabled.
+`search.insights.top_queries.exporter.remote.path` | String | `query-insights` | The base path within the repository for organizing exported files.
 
 ## Excluding indexes from top N queries
 
