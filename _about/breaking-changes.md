@@ -60,6 +60,20 @@ The `text_embedding` processor no longer replaces nested values like `_ingest._v
 
 The minimum supported JDK version is JDK 21.
 
+### Version compatibility setting
+
+The `compatibility.override_main_response_version` setting has been removed. This functionality was deprecated in OpenSearch 1.x and is no longer supported.
+
+For more information, see issue [#18228](https://github.com/opensearch-project/OpenSearch/issues/18228).
+
+For alternative approaches, see [Agents and ingestion tools]({{site.url}}{{site.baseurl}}/tools/#agents-and-ingestion-tools).
+
+### Index version
+
+Indexes created in versions earlier than `2.x.x` (including system indexes) are not supported. These indexes must be reindexed **before upgrading**. For information about reindexing, see [Reindex data]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/).
+
+For more information, see issue [#18717](https://github.com/opensearch-project/OpenSearch/issues/18717).
+
 ### System index access
 
 Access to system indexes through the REST API is no longer provided. This functionality has been deprecated since OpenSearch 1.x. For more information, see issue [#7936](https://github.com/opensearch-project/OpenSearch/issues/7936).
