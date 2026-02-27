@@ -58,6 +58,33 @@ Once the index pattern has been created, you can view the mapping of the matchin
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-table.png" alt="Index pattern table UI " width="700"/>
 
+## Data view field metadata
+
+When OpenSearch Dashboards builds a _data view_ (formerly called _index pattern_), it stores per-field metadata. Depending on a field’s properties, you can perform different actions on the field in Discover and in visualization editors. The following table describes the field properties.
+
+| Property               | Type      | Description    |
+|------------|----------|-------------|
+| `name`                 | String    | The field's full name as it appears in mappings.   |
+| `displayName`          | String    | The UI label for the field. Defaults to `name` unless customized.     |
+| `type`                 | String    | The Dashboards' logical field type used for display and formatting, for example: `string`, `number`, `date`, `boolean`, `ip`, `geo_point`, `geo_shape`, `object`. The logical type is derived from the underlying OpenSearch mapping type.         |
+| `esTypes`              | String or list of Strings | The underlying OpenSearch mapping type detected for this field, for example: `text`, `keyword`, `long`, `date`.               |
+| `searchable`           | Boolean   | Whether the field is indexed for search and can be queried.    |
+| `filterable`           | Boolean   | Whether the field supports building exact-match filters in the UI. Typically `true` for keyword, numeric, date, Boolean, IP, and scripted fields. Plain `text` fields are usually not filterable.                                                                 |
+| `aggregatable`         | Boolean   | Whether the field can be used in aggregations, such as `terms`, `stats`, and others. Typically `true` when the field has [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) enabled and the field type supports them. A `text` field is not aggregatable unless it contains a `keyword` subfield or `fielddata` is enabled on the field.        |
+| `sortable`             | Boolean   | Whether the field can be used for sorting. Typically `true` for fields with [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) enabled. A `text` field is not sortable unless `fielddata` is enabled or you sort on its `keyword` subfield.                     |
+| `indexed`              | Boolean   | Whether the field is indexed and can be used in queries.       |
+| `readFromDocValues`    | Boolean   | Whether OpenSearch Dashboards should read values from [`doc_values`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/doc-values/) instead of `_source` for efficiency and correct formatting. This is common for `keyword`, `date`, `number`, and `boolean` fields. Not applicable to `text` fields.              |
+| `visualizable`         | Boolean   | Whether the field is eligible to appear as a dimension or metric in visualization editors.                                                                                                    |
+| `scripted`             | Boolean   | Whether the field value is computed at query time by a script rather than stored in the index.     |
+| `script`               | String    | The script body for a scripted field.             |
+| `lang`                 | String    | The script language for the scripted field.       |
+| `subType`              | Object    | Extra structural information: <br>• `subType.multi.parent`: For multi-fields, identifies the parent field (for example, for the `title.keyword` field the parent is `title`). <br>• `subType.nested.path`: For nested fields, specifies the nested path. |
+| `count`                | number    | The popularity counter used by OpenSearch Dashboards to rank the fields for the **Popular fields** list in **Discover**. Can be adjusted using the fields metadata API. Refreshing fields resets these counters.                                |
+| `conflictDescriptions` | Object    | Stores details for data views that span indiexes in which the same field name has different types. The map records the conflicting indexes and their types so the UI can label the field as conflicting and disable unsafe aggregations.                                |
+| `indexPattern`         | Object    | The reference to the parent data view object this field belongs to.     |
+| `$$spec`               | Object    | The internal copy of the raw field specification used by OpenSearch Dashboards. Not intended for external use or automation.   |
+
+
 ## Next steps
 
 - [Understand your data through visuals]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
