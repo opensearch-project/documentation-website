@@ -33,7 +33,7 @@ Field                | Type    | Required | Description
 `client.max_concurrency` | Integer | Optional | The maximum number of concurrent threads on the client. Default is `200`.
 `client.base_delay`  | Duration | Optional | The base delay for the exponential backoff. Default is `100ms`.
 `client.max_backoff` | Duration | Optional | The maximum backoff time for the exponential backoff. Default is `20s`.
-`batch`              | Object  | Optional | The batch settings for the Lambda invocations. Default is `key_name = "events"`. Default threshold is `event_count=100`, `maximum_size="5mb"`, and `event_collect_timeout = 10s`.                            
+`batch`              | Object  | Optional | The batch settings for the Lambda invocations. Contains `key_name` (default: `"events"`) and `threshold` object with `event_count` (default: `100`), `maximum_size` (default: `"5mb"`), and `event_collect_timeout` (default: `10s`). See [Batch processing](#batch-processing) for details.                            
 `lambda_when`        | String  | Optional | A conditional expression that determines when to invoke the Lambda processor.     
 `response_codec`     | Object  | Optional |  A codec configuration for parsing Lambda responses. Default is `json`.
 `tags_on_failure`    | List    | Optional |  A list of tags to add to events when the Lambda function fails or encounters an exception.
@@ -102,7 +102,15 @@ The processor supports the following invocation types:
 
 ### Batch processing
 
-When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. Batch thresholds control the event count, size limit, and timeout.
+When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. The `batch` configuration has the following structure:
+
+- `key_name`: The key under which events are grouped in the payload sent to Lambda (default: `"events"`).
+- `threshold`: An object containing batch threshold settings:
+  - `event_count`: Maximum number of events per batch (default: `100`).
+  - `maximum_size`: Maximum batch size (default: `"5mb"`).
+  - `event_collect_timeout`: Maximum time to wait for collecting events before sending the batch (default: `10s`). Must be between 1 second and 3600 seconds.
+
+**Important**: The `event_collect_timeout` parameter must be specified under `batch.threshold`, not directly under `batch`.
 
 ### Response handling
 
@@ -132,6 +140,123 @@ The `response_events_match` setting defines how Data Prepper handles the relatio
 
 - `true`: Lambda returns a JSON array with results for each batched event. Data Prepper maps this array back to its corresponding original event, ensuring that each event in the batch gets the corresponding part of the response from the array.
 - `false`: Lambda returns one or more events for the entire batch. Response events are not correlated with the original events. Original event metadata is not preserved in the response events. For example, when `response_events_match` is set to `true`, the Lambda function is expected to return the same number of response events as the number of original requests, maintaining the original order.
+
+## Lambda function implementation
+
+When Data Prepper invokes your Lambda function with batched events, the function receives a JSON object with events grouped under the configured `key_name` (default: `"events"`).
+
+### Input format
+
+Your Lambda function receives the following input structure:
+
+```json
+{
+  "events": [
+    {"field1": "value1", "field2": "value2"},
+    {"field1": "value3", "field2": "value4"}
+  ]
+}
+```
+
+The key name (`"events"` in this example) is configurable through the `batch.key_name` parameter.
+
+### Output format
+
+The expected output format depends on the `response_events_match` setting:
+
+#### When `response_events_match: false` (default)
+
+Lambda can return one or more new events. The returned events don't need to match the input count:
+
+```python
+def lambda_handler(event, context):
+    # Process all input events and return new events
+    return [
+        {"result": "processed_data_1"},
+        {"result": "processed_data_2"}
+    ]
+```
+
+#### When `response_events_match: true`
+
+Lambda must return an array with the same number of events in the same order as received:
+
+```python
+def lambda_handler(event, context):
+    input_events = event.get('events', [])
+    output = []
+
+    # Process each event and maintain order
+    for input_event in input_events:
+        processed_event = input_event.copy()
+        processed_event["status"] = "processed"
+        # Transform data as needed
+        for key, value in input_event.items():
+            if isinstance(value, str):
+                processed_event[key] = value.upper()
+        output.append(processed_event)
+
+    # Must return same count as input
+    return output
+```
+
+### Example Lambda function
+
+The following example demonstrates a complete Lambda function that transforms events:
+
+```python
+def lambda_handler(event, context):
+    # Get events from the configured key_name (default: "events")
+    input_events = event.get('events', [])
+    output_events = []
+
+    for input_event in input_events:
+        # Add transformation marker
+        input_event["_transformed_"] = True
+
+        # Transform string fields to uppercase
+        for key, value in input_event.items():
+            if isinstance(value, str):
+                input_event[key] = value.upper()
+
+        output_events.append(input_event)
+
+    return output_events
+```
+
+## Common configuration mistakes
+
+Avoid the following common configuration errors:
+
+- **Incorrect `event_collect_timeout` location**: The `event_collect_timeout` parameter must be under `batch.threshold`, not directly under `batch`.
+
+  ```yaml
+  # Incorrect
+  batch:
+    event_collect_timeout: PT10S  # Wrong location
+
+  # Correct
+  batch:
+    threshold:
+      event_collect_timeout: PT10S  # Correct location
+  ```
+
+- **Incorrect `max_retries` location**: The `max_retries` parameter must be under `client`, not at the top level.
+
+  ```yaml
+  # Incorrect
+  aws_lambda:
+    function_name: my-function
+    max_retries: 3  # Wrong location
+
+  # Correct
+  aws_lambda:
+    function_name: my-function
+    client:
+      max_retries: 3  # Correct location
+  ```
+
+- **Return format mismatch**: When `response_events_match: true`, ensure your Lambda function returns the same number of events as received, in the same order.
 
 ## Limitations
 
