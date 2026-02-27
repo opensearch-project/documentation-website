@@ -10,9 +10,6 @@ nav_order: 90
 **Introduced 3.0**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
-
 Pull-based ingestion enables OpenSearch to ingest data from streaming sources such as Apache Kafka or Amazon Kinesis. Unlike traditional ingestion methods where clients actively push data to OpenSearch through REST APIs, pull-based ingestion allows OpenSearch to control the data flow by retrieving data directly from streaming sources. This approach provides native backpressure handling, helping prevent server overload during traffic spikes. Pull-based ingestion guarantees at-least-once ingestion semantics and uses external versioning to ensure data consistency.
 
 ## Prerequisites
@@ -21,7 +18,7 @@ Before using pull-based ingestion, ensure that the following prerequisites are m
 
 * Install an ingestion plugin for your streaming source using the command `bin/opensearch-plugin install <plugin-name>`. For more information, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/). OpenSearch supports the following ingestion plugins: 
   - `ingestion-kafka`
-  - `ingestion-kinesis`
+  - `ingestion-kinesis` (experimental)
 * Configure pull-based ingestion during [index creation](#creating-an-index-for-pull-based-ingestion). You cannot convert an existing push-based index to a pull-based one.
 
 ## Creating an index for pull-based ingestion
@@ -190,6 +187,9 @@ Each data unit in the streaming source (Kafka message or Kinesis record) must in
 | `_version` | Long | No | A document version number, which must be maintained externally. If provided, OpenSearch drops messages with versions earlier than the current document version. If not provided, no version checking occurs. |
 | `_op_type` | String | No | The operation to perform. Valid values are:<br>- `index`: Creates a new document or updates an existing one.<br>- `create`: Creates a new document in append mode. Note that this will not update existing documents. <br>- `delete`: Soft deletes a document. |
 | `_source` | Object | Yes | The message payload containing the document data. |
+
+We recommend using the document `_id` field to prevent duplicates, since pull-based ingestion provides at-least-once ingestion semantics. If your producer cannot guarantee event ordering, also set `_version` field to ensure data consistency.
+{: .tip}
 
 Alternatively, pull-based ingestion supports indexing raw payloads in append-only mode without transformations. To enable this behavior, set `index.ingestion_source.mapper_type` to `raw_payload`. Note that in this mode, the index mappings must conform to the message structure because dynamic mapping is not supported. When using `raw_payload`, you must provide raw JSON objects exactly as they appear in the incoming data stream, as shown in the following example:
 
