@@ -188,6 +188,9 @@ Each data unit in the streaming source (Kafka message or Kinesis record) must in
 | `_op_type` | String | No | The operation to perform. Valid values are:<br>- `index`: Creates a new document or updates an existing one.<br>- `create`: Creates a new document in append mode. Note that this will not update existing documents. <br>- `delete`: Soft deletes a document. |
 | `_source` | Object | Yes | The message payload containing the document data. |
 
+We recommend using the document `_id` field to prevent duplicates, since pull-based ingestion provides at-least-once ingestion semantics. If your producer cannot guarantee event ordering, also set `_version` field to ensure data consistency.
+{: .tip}
+
 Alternatively, pull-based ingestion supports indexing raw payloads in append-only mode without transformations. To enable this behavior, set `index.ingestion_source.mapper_type` to `raw_payload`. Note that in this mode, the index mappings must conform to the message structure because dynamic mapping is not supported. When using `raw_payload`, you must provide raw JSON objects exactly as they appear in the incoming data stream, as shown in the following example:
 
 ```json
