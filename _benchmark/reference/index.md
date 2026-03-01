@@ -10,4 +10,5 @@ redirect_from:
 
 # Reference
 
-The following section contains reference materials for commands, metrics, and workloads for OpenSearch Benchmark.
+The following section contains reference materials for [commands]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/), [metrics]({{site.url}}{{site.baseurl}}/benchmark/reference/metrics/), and [workloads]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/) for OpenSearch Benchmark.
+

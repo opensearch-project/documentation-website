@@ -20,10 +20,13 @@ You can configure top N query monitoring by the following metric types:
 Each metric has a set of corresponding settings:
 
 - `search.insights.top_queries.<metric>.enabled`: Set to `true` to [enable top N query monitoring](#enabling-top-n-query-monitoring) by the metric.
-- `search.insights.top_queries.<metric>.window_size`: [Configure the window size of the top N queries](#configuring-the-window-size) by the metric. 
+- `search.insights.top_queries.<metric>.window_size`: [Configure the window size of the top N queries](#configuring-the-window-size) by the metric.
 - `search.insights.top_queries.<metric>.top_n_size`: [Specify the value of N for the top N queries by the metric](#configuring-the-value-of-n).
 
 For example, to enable top N query monitoring by CPU usage, set `search.insights.top_queries.cpu.enabled` to `true`. For more information about ways to specify dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+
+For production deployments requiring fine-grained API access control (such as dashboard nodes with network segmentation), use the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) instead of the Cluster Settings API shown on this page. The Query Insights Settings API provides equivalent functionality with enhanced security and a simplified structure.
+{: .tip}
 
 It's important to exercise caution when enabling this feature because it can consume system resources.
 {: .important}
@@ -70,6 +73,24 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
+## Configuring source truncation
+
+To optimize storage usage, you can configure the maximum length (in characters) of the query source stored in top N query records. The default `max_source_length` is `524288` characters (1 MB). For example, to limit the source length to 1000 characters, update the `search.insights.top_queries.max_source_length` setting:
+
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "search.insights.top_queries.max_source_length" : 1000
+  }
+}
+```
+{% include copy-curl.html %}
+
+Setting this value to `0` completely truncates the source, storing no query source information. When the source exceeds the maximum length, it is truncated exactly at the character limit, and the `source_truncated` field in the response is set to `true`.
+{: .note}
+
+
 ## Monitoring current top N queries 
 
 You can use the Insights API endpoint to retrieve the top N queries for the current time window. This API returns top N `latency` results by default.
@@ -86,14 +107,14 @@ The following table lists the available query parameters. All query parameters a
 Parameter | Data type     | Description
 :--- |:---------| :---
 `type`    | String   | The metric type for which to retrieve top N query data. Results will be sorted in descending order based on this metric. Valid values are `latency`, `cpu`, and `memory`. Default is `latency`.
-`from`    | String | The start of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
-`to`      | String | The end of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
+`from`    | String | The start of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-n-queries).
+`to`      | String | The end of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-n-queries).
 `id`      | String   | The ID of a specific top query record to retrieve.
 `verbose` | Boolean  | Indicates whether to return verbose output. Default is `true`.
 
 ### Example response
 
-<details markdown="block">
+<details open markdown="block">
   <summary>
     Response
   </summary>
@@ -110,42 +131,7 @@ Parameter | Data type     | Description
       "indices" : [
         "my-index-0"
       ],
-      "source" : {
-        "size" : 20,
-        "query" : {
-          "bool" : {
-            "must" : [
-              {
-                "match_phrase" : {
-                  "message" : {
-                    "query" : "document",
-                    "slop" : 0,
-                    "zero_terms_query" : "NONE",
-                    "boost" : 1.0
-                  }
-                }
-              },
-              {
-                "match" : {
-                  "user.id" : {
-                    "query" : "userId",
-                    "operator" : "OR",
-                    "prefix_length" : 0,
-                    "max_expansions" : 50,
-                    "fuzzy_transpositions" : true,
-                    "lenient" : false,
-                    "zero_terms_query" : "NONE",
-                    "auto_generate_synonyms_phrase_query" : true,
-                    "boost" : 1.0
-                  }
-                }
-              }
-            ],
-            "adjust_pure_negative" : true,
-            "boost" : 1.0
-          }
-        }
-      },
+      "source" : """{"size":20,"query":{"bool":{"must":[{"match_phrase":{"message":{"query":"document","slop":0,"zero_terms_query":"NONE","boost":1.0}}},{"match":{"user.id":{"query":"userId","operator":"OR","prefix_length":0,"max_expansions":50,"fuzzy_transpositions":true,"lenient":false,"zero_terms_query":"NONE","auto_generate_synonyms_phrase_query":true,"boost":1.0}}}],"adjust_pure_negative":true,"boost":1.0}}}""",
       "task_resource_usages" : [
         {
           "action" : "indices:data/read/search[phase/query]",
@@ -169,6 +155,7 @@ Parameter | Data type     | Description
         }
       ],
       "username" : "admin",
+      "failed": false,
       "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
       "phase_latency_map" : {
         "expand" : 0,
@@ -179,6 +166,7 @@ Parameter | Data type     | Description
         "X-Opaque-Id" : "query-label-1"
       },
       "search_type" : "query_then_fetch",
+      "source_truncated" : false,
       "total_shards" : 1,
       "user_roles" : [
         "all_access"
@@ -209,17 +197,7 @@ Parameter | Data type     | Description
       "indices" : [
         "my-index-*"
       ],
-      "source" : {
-        "size" : 20,
-        "query" : {
-          "term" : {
-            "user.id" : {
-              "value" : "userId",
-              "boost" : 1.0
-            }
-          }
-        }
-      },
+      "source" : """{"size":20,"query":{"term":{"user.id":{"value":"userId","boost":1.0}}}}""",
       "task_resource_usages" : [
         {
           "action" : "indices:data/read/search[phase/query]",
@@ -243,6 +221,7 @@ Parameter | Data type     | Description
         }
       ],
       "username" : "admin",
+      "failed": false,
       "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
       "phase_latency_map" : {
         "expand" : 0,
@@ -251,6 +230,7 @@ Parameter | Data type     | Description
       },
       "labels" : { },
       "search_type" : "query_then_fetch",
+      "source_truncated" : false,
       "total_shards" : 1,
       "user_roles" : [
         "all_access"

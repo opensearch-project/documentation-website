@@ -27,7 +27,9 @@ Field                | Type    | Required | Description
 `aws.sts_header_overrides` | Map | Optional | STS header overrides. Maximum of 5 headers supported.
 `client.max_retries` | Integer | Optional | The maximum number of retries for failed invocations. Default is `3`.             
 `client.api_call_timeout` | Duration | Optional | The API call timeout. Default is `60s`.
+`client.api_call_attempt_timeout` | Duration | Optional | The timeout for individual API call attempts. If not specified, AWS SDK defaults are used.
 `client.connection_timeout` | Duration | Optional | The SDK connection timeout. Default is `60s`.
+`client.read_timeout` | Duration | Optional | The amount of time the SDK waits for data to be read from an established connection. If not specified, AWS SDK defaults are used.
 `client.max_concurrency` | Integer | Optional | The maximum number of concurrent threads on the client. Default is `200`.
 `client.base_delay`  | Duration | Optional | The base delay for the exponential backoff. Default is `100ms`.
 `client.max_backoff` | Duration | Optional | The maximum backoff time for the exponential backoff. Default is `20s`.
@@ -58,7 +60,9 @@ processors:
       client:
         max_retries: 3
         api_call_timeout: PT60S
+        api_call_attempt_timeout: PT30S  # Optional: per-attempt timeout
         connection_timeout: PT60S
+        read_timeout: PT15M              # Optional: for long-running Lambda functions
         max_concurrency: 200
         base_delay: "PT0.1S"
         max_backoff: "PT20S"
@@ -78,6 +82,16 @@ processors:
       tags_on_failure: ["lambda_failed"]
 ```
 {% include copy.html %}
+
+## Timeout configuration
+
+The AWS Lambda processor supports multiple timeout layers following AWS SDK best practices:
+
+- `api_call_timeout`: The total amount of time for the entire API call including all retries.
+- `api_call_attempt_timeout`: The time limit for each individual attempt.
+- `read_timeout`: The amount of time to wait for data from an established connection.
+
+For Lambda functions that run for longer than 60 seconds, configure both `api_call_timeout` and `read_timeout` to appropriate values. The `api_call_attempt_timeout` enforces a per-attempt timeout, enabling fast failure of slow requests while preserving overall retry behavior.
 
 ## Usage
 

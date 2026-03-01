@@ -2,7 +2,10 @@
 layout: default
 title: Neural sparse
 parent: Specialized queries
+has_children: true
 nav_order: 55
+redirect_from:
+  - /query-dsl/specialized/neural-sparse/
 ---
 
 # Neural sparse query

@@ -15,6 +15,8 @@ In search applications, tuning relevance is a constant, iterative exercise inten
 Search Relevance Workbench consists of a [frontend component](https://github.com/opensearch-project/dashboards-search-relevance) that simplifies the process of evaluating search quality.
 The frontend uses the [OpenSearch Search Relevance plugin](https://github.com/opensearch-project/search-relevance) as a backend to manage the resources for each tool provided. For example, most use cases involve creating and using search configurations, query sets, and judgment lists. All of these resources are created, updated, deleted, and maintained by the Search Relevance plugin. When you are satisfied with the relevance improvements, you can take the output of the experimentation and manually deploy the changes into your search application.
 
+You can quickly analyze a single query using the [Single query comparison UI]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/compare-search-results/) before moving to more structured experiments.
+
 ## Key relevance concepts
 
 Search Relevance Workbench relies on different components for the different kinds of experiments that it offers:
@@ -22,6 +24,7 @@ Search Relevance Workbench relies on different components for the different kind
 * [Query set]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/): A _query set_ is a collection of queries. These queries are used in experiments for search relevance evaluation.
 * [Search configuration]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/): A _search configuration_ describes the pattern to use to run queries for experiments.
 * [Judgment list]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/): A _judgment_ is a rating that describes the relevance of one particular document for a given query. Multiple judgments are grouped together into judgment lists.
+* [Experiments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/experiments/): An _experiment_ is a controlled test designed to assesss the effectiveness of an algorithm. There are multiple types of experiments offered.
 
 ## Available search result quality experiments
 
@@ -30,30 +33,6 @@ Search Relevance Workbench offers three types of experiments:
 * [Search result comparison]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/comparing-search-results/): Compare results of two search configurations.
 * [Search quality evaluation]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/evaluate-search-quality/): Evaluate the retrieval quality for one particular search configuration by calculating search quality metrics based on retrieved results and a judgment list.
 * [Hybrid search optimization]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/): Identify the best parameter set for your hybrid search query.
-
-## Enabling Search Relevance Workbench
-
-To enable Search Relevance Workbench, you must first enable the frontend and backend plugins.
-
-### Enabling the Search Relevance Workbench frontend plugin
-
-To activate the frontend plugin, in OpenSearch Dashboards, go to **Management** > **Dashboards Management** > **Advanced Settings** and turn on the toggle, as shown in the following image.
-
-<img src="{{site.url}}{{site.baseurl}}/images/search-relevance-workbench/activate_frontend_plugin.png" alt="Activate frontend plugin in OpenSearch Dashboards settings"/>{: .img-fluid }
-
-### Enabling the Search Relevance Workbench backend plugin
-
-To enable the Search Relevance Workbench backend plugin, send the following request:
-
-```json
-PUT _cluster/settings
-{
-  "persistent" : {
-    "plugins.search_relevance.workbench_enabled" : true
-  }
-}
-```
-{% include copy-curl.html %}
 
 ## Creating a query set
 

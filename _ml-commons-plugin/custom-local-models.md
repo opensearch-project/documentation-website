@@ -3,7 +3,7 @@ layout: default
 title: Custom models
 parent: Using ML models within OpenSearch
 grand_parent: Integrating ML models
-nav_order: 120
+nav_order: 20
 ---
 
 # Custom local models
