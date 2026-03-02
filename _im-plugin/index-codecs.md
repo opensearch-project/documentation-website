@@ -39,7 +39,7 @@ The new hardware-accelerated codecs can be used by setting one of the following 
 * `qat_deflate` (OpenSearch 2.15 and later): Hardware-accelerated `DEFLATE`
 * `qat_zstd` (OpenSearch 2.19.3 and later): Hardware-accelerated `ZSTD`
 
-`qat_deflate` offers a much better compression ratio than `qat_lz4`, with a modest drop in compression and decompression speed. `qat_zstd` uses hardware acceleration for compression, but it still uses software decompression.
+`qat_deflate` offers a much better compression ratio than `qat_lz4`, with a modest drop in compression and decompression speed. `qat_zstd` uses hardware acceleration for compression but relies on software-based decompression.
 {: .note}
 
 The `index.codec.compression_level` setting can be used to specify the compression level for both `qat_lz4`, `qat_deflate`, and `qat_zstd`. 
