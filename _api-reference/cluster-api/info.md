@@ -7,6 +7,8 @@ has_children: false
 ---
 
 # Cluster Information API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Cluster Information API (`/`) retrieves information about the running OpenSearch cluster and node, including version, build details, and cluster name. This is the simplest way to verify that a cluster is reachable and to discover the OpenSearch version.
 

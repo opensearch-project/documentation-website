@@ -227,3 +227,15 @@ PUT _cluster/settings
     }
 }
 ```
+
+## Remote store is not enabled
+
+The `search_only` action requires remote store to be enabled on the cluster. Remote store must be enabled at cluster creation time and cannot be enabled on an existing cluster. For more information, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
+
+## Segment replication is not enabled
+
+The `search_only` action requires segment replication to be enabled for the index. Segment replication must be configured at index creation time. For more information, see [Segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/).
+
+## No search replicas configured
+
+The `search_only` action requires at least one search replica. For more information about configuring search replicas, see [Separate index and search workloads]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/).

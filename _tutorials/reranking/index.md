@@ -51,3 +51,7 @@ reranking:
 The following machine learning (ML) tutorials show you how to implement search result reranking. For more information about reranking, see [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/).
 
 {% include cards.html cards=page.reranking %}
+
+## Related documentation
+
+- Explore the broader [Search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/) toolkit, which includes User Behavior Insights, Learning to Rank, Search Relevance Workbench, and query rewriting features.

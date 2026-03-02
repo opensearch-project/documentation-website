@@ -24,7 +24,6 @@ gem 'just-the-docs', '~> 0.3.3'
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
-  gem 'jekyll-last-modified-at'
   gem 'jekyll-sitemap'
   gem 'jekyll-spec-insert', :path => './spec-insert'
 end

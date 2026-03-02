@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Application analytics
-nav_order: 10
+nav_order: 60
 redirect_from:
   - /observing-your-data/app-analytics/
 ---

@@ -43,6 +43,12 @@ A Lucene upgrade forced OpenSearch to drop support for JDK 8. As a consequence, 
 
 OpenSearch 2.5 contains a bug fix that corrects the behavior of the `case_insensitive` parameter for the `wildcard` query on text fields. As a result, a wildcard query on text fields that ignored case sensitivity and erroneously returned results prior to the bug fix will not return the same results. For more information, see issue [#8711](https://github.com/opensearch-project/OpenSearch/issues/8711).
 
+## 2.18.0
+
+### Default k-NN engine change
+
+The default k-NN engine changed from NMSLIB to Faiss. If you use `space_type: "cosinesimil"` without explicitly specifying an engine, your vectors are now automatically normalized to unit length during indexing. This happens because Faiss does not natively support cosine similarity and instead uses inner product on normalized vectors. As a result, stored vector values will differ from input values, which may affect code that retrieves and compares vectors. If your vectors are already normalized, consider setting `space_type` to `innerproduct` instead of `cosinesimil` to obtain mathematically equivalent results with explicit control over normalization. For more information, see pull request [#2221](https://github.com/opensearch-project/k-NN/pull/2221).
+
 ## 2.19.0
 
 ### Nested value support in the text embedding processor
@@ -53,6 +59,20 @@ The `text_embedding` processor no longer replaces nested values like `_ingest._v
 ### JDK requirement
 
 The minimum supported JDK version is JDK 21.
+
+### Version compatibility setting
+
+The `compatibility.override_main_response_version` setting has been removed. This functionality was deprecated in OpenSearch 1.x and is no longer supported.
+
+For more information, see issue [#18228](https://github.com/opensearch-project/OpenSearch/issues/18228).
+
+For alternative approaches, see [Agents and ingestion tools]({{site.url}}{{site.baseurl}}/tools/#agents-and-ingestion-tools).
+
+### Index version
+
+Indexes created in versions earlier than `2.x.x` (including system indexes) are not supported. These indexes must be reindexed **before upgrading**. For information about reindexing, see [Reindex data]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/).
+
+For more information, see issue [#18717](https://github.com/opensearch-project/OpenSearch/issues/18717).
 
 ### System index access
 

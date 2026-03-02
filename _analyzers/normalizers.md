@@ -91,7 +91,7 @@ This module does not require installation; it is available by default.
 
 Character filters: `pattern_replace`, `mapping`
 
-Token filters: `arabic_normalization`, `asciifolding`, `bengali_normalization`, `cjk_width`, `decimal_digit`, `elision`, `german_normalization`, `hindi_normalization`, `indic_normalization`, `lowercase`, `persian_normalization`, `scandinavian_folding`, `scandinavian_normalization`, `serbian_normalization`, `sorani_normalization`, `trim`, `uppercase`
+Token filters: `arabic_normalization`, `asciifolding`, `bengali_normalization`, `cjk_width`, `decimal_digit`, `elision`, `german_normalization`, `hindi_normalization`, `indic_normalization`, `lowercase`, `persian_normalization`, `scandinavian_folding`, `scandinavian_normalization`, `serbian_normalization`, `sorani_normalization`, `trim`, `truncate`, `uppercase`
 
 ### The `analysis-icu` plugin
 

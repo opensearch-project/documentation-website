@@ -3,7 +3,7 @@ layout: default
 title: Template queries
 nav_order: 70
 parent: Query rewriting
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 has_toc: false
 ---

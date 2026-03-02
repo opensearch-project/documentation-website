@@ -21,9 +21,89 @@ While [dynamic mappings](#dynamic-mapping) automatically add new data and fields
 
 For example, with explicit mappings, you can ensure that `year` is treated as text and `age` as an integer instead of both being interpreted as integers by dynamic mapping.
 
+## Mapping structure and concepts
+
+Before learning how to create mappings, it's important to understand how mappings are structured and the key terminology used throughout this documentation.
+
+### Mapping structure and example
+
+OpenSearch mappings follow a hierarchical JSON structure. The following example demonstrates using `text` and `date` fields with their mapping parameters. Additionally, it contains a nested `director` object with its own properties:
+
+```json
+PUT /movies
+{
+  "mappings": {                    // Overall mappings object
+    "properties": {                // Properties container
+      "title": {                   // Field name
+        "type": "text",            // Field type
+        "analyzer": "standard"     // Mapping parameter
+      },
+      "year": {                    // Field name
+        "type": "date",            // Field type
+        "format": "yyyy"           // Mapping parameter
+      },
+      "director": {                // Field name (object type)
+        "type": "object",          // Field type
+        "properties": {            // Properties container for nested fields
+          "name": {                // Field name (nested)
+            "type": "text"         // Field type
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Key terminology
+
+- **Mappings**: The overall schema definition for an index.
+- **Properties**: The container for all field definitions within mappings.
+- **Field**: An individual data element (like `title` or `year`).
+- **Field type**: Defines how the field data is stored and indexed (for example, `text`, `integer`, `date`). For more information, see [Supported field types]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/).
+- **Mapping parameters**: Configuration options that modify field behavior (for example, `analyzer`, `coerce`, `format`). For more information, see [Mapping parameters]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/).
+
+## Explicit mapping
+
+If you know exactly which field data types you need to use, then you can specify them in your request body when creating your index, as shown in the following example request:
+
+```json
+PUT sample-index1
+{
+  "mappings": {
+    "properties": {
+      "year":    { "type" : "text" },
+      "age":     { "type" : "integer" },
+      "director":{ "type" : "text" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+You cannot change the mapping of an existing field; you can only modify the field's mapping parameters.
+{: .note}
+
+To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method, as shown in the following example request:
+
+```json
+POST sample-index1/_mapping
+{
+  "properties": {
+    "year":    { "type" : "text" },
+    "age":     { "type" : "integer" },
+    "director":{ "type" : "text" }
+  }
+}
+```
+{% include copy-curl.html %}
+
+For more information about the Mapping API, see [Update mapping]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/).
+
 ## Dynamic mapping
 
-When you index a document, OpenSearch adds fields automatically with dynamic mapping. You can also explicitly add fields to an index mapping.
+When you index a document, OpenSearch can automatically detect and add new fields using dynamic mapping. This behavior differs from using explicit mappings, in which you define field types ahead of time.
 
 ### Dynamic mapping rules
 
@@ -165,43 +245,6 @@ PUT sample-index/_doc/1
 With numeric detection enabled:
 - The `price` field will be mapped as a `float` field
 - The `quantity` field will be mapped as a `long` field
-
-## Explicit mapping
-
-If you know exactly which field data types you need to use, then you can specify them in your request body when creating your index, as shown in the following example request:
-
-```json
-PUT sample-index1
-{
-  "mappings": {
-    "properties": {
-      "year":    { "type" : "text" },
-      "age":     { "type" : "integer" },
-      "director":{ "type" : "text" }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-You cannot change the mapping of an existing field, you can only modify the field's mapping parameters.
-{: .note}
-
-To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method, as shown in the following example request:
-
-```json
-POST sample-index1/_mapping
-{
-  "properties": {
-    "year":    { "type" : "text" },
-    "age":     { "type" : "integer" },
-    "director":{ "type" : "text" }
-  }
-}
-```
-{% include copy-curl.html %}
-
-For more information about the Mapping API, see [Update mapping]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/).
 
 ## Retrieving mappings
 
@@ -385,26 +428,7 @@ OpenSearch automatically manages several metadata fields for each document, such
 
 OpenSearch provides several settings to prevent mapping explosion and control mapping growth. These settings help maintain cluster performance and prevent memory issues caused by creating an excessive number of fields.
 
-These settings can be configured when creating an index or updated for existing indexes:
-
-```json
-PUT /my-index/_settings
-{
-  "index.mapping.total_fields.limit": 2000
-}
-```
-{% include copy-curl.html %}
-
-The following table lists all available mapping limit settings. All settings are dynamic. For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
-
-| Setting | Default | Valid values | Description |
-|:--- |:--- |:--- |:--- |:--- |
-| `index.mapping.total_fields.limit` | `1000` | [0, ∞) | Sets the maximum number of fields allowed in an index, including regular fields, object mappings, and field aliases. Increasing this limit requires careful consideration of cluster resources. When raising this setting, consider also adjusting the `indices.query.bool.max_clause_count` setting to accommodate larger queries. |
-| `index.mapping.depth.limit` | `20` | [1, 100] | Controls the maximum nesting depth for field mappings. Depth is calculated by counting the levels of nested objects, starting from the root level (depth 1 for root-level fields, depth 2 for fields within one level of object nesting, and so on). |
-| `index.mapping.nested_fields.limit` | `50` | [0, ∞) | Limits the number of distinct `nested` field types in an index. Since nested fields require special handling and additional memory, this setting helps prevent excessive resource consumption. |
-| `index.mapping.nested_objects.limit` | `10000` | [0, ∞) | Restricts the total number of nested JSON objects that a single document can contain across all nested field types. This prevents individual documents from consuming excessive memory during indexing. |
-| `index.mapping.field_name_length.limit` | `50000` | [1, 50000] | Sets the maximum allowed length for field names. This setting can help maintain reasonable mapping sizes by preventing extremely long field names. |
-| `index.mapper.dynamic` | `true` | `true`,`false` | Determines whether new fields should be dynamically added to a mapping. Setting this to `false` can prevent uncontrolled field growth. |
+For detailed information about all mapping limit settings, including their default values and valid ranges, see [Mapping limit settings]({{site.url}}{{site.baseurl}}/mappings/mapping-explosion/#mapping-limit-settings).
 
 
 ## Related documentation

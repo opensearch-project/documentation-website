@@ -123,7 +123,7 @@ The OpenSearch Kubernetes Operator is an open-source Kubernetes operator that he
 
 OpenSearch migration tools facilitate migrations to OpenSearch and upgrades to newer versions of OpenSearch. These can help you can set up a proof-of-concept environment locally using Docker containers or deploy to AWS using a one-click deployment script. This empowers you to fine-tune cluster configurations and manage workloads more effectively before migration. 
 
-For more information about OpenSearch migration tools, see the documentation in the [OpenSearch Migration GitHub repository](https://github.com/opensearch-project/opensearch-migrations/tree/capture-and-replay-v0.1.0).
+For more information about OpenSearch migration tools, see [OpenSearch Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/).
 
 ## Sycamore 
 

@@ -3,7 +3,7 @@ layout: default
 title: list
 nav_order: 80
 parent: Command reference
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 redirect_from:
   - /benchmark/commands/list/
 ---

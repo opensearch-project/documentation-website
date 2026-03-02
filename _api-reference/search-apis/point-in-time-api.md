@@ -24,7 +24,7 @@ Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-t
 ---
 
 ## Create a PIT
-Introduced 2.4
+**Introduced 2.4**
 {: .label .label-purple }
 
 Creates a PIT. The `keep_alive` query parameter is required; it specifies how long to keep a PIT.
@@ -128,7 +128,7 @@ The `keep_alive` parameter in a search request is optional. It specifies the amo
 {: .note}
 
 ## List all PITs
-Introduced 2.4
+**Introduced 2.4**
 {: .label .label-purple }
 
 Returns all PITs in the OpenSearch cluster.
@@ -191,7 +191,7 @@ Field | Data type | Description
 `keep_alive` | long |  The amount of time to keep the PIT, in milliseconds.
 
 ## Delete PITs
-Introduced 2.4
+**Introduced 2.4**
 {: .label .label-purple }
 
 Deletes one, several, or all PITs. PITs are automatically deleted when the `keep_alive` time period elapses. However, to deallocate resources, you can delete a PIT using the Delete PIT API. The Delete PIT API supports deleting a list of PITs by ID or deleting all PITs at once.

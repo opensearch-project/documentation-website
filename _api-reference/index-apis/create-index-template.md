@@ -7,6 +7,8 @@ nav_order: 10
 ---
 
 # Create Or Update Index Template API
+**Introduced 1.0**
+{: .label .label-purple }
 
 You can use the Create or Update Index Template API to create indexes with predefined mappings and settings as well as update existing index templates.
 
