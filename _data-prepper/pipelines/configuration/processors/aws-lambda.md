@@ -10,7 +10,7 @@ nav_order: 40
 
 The [AWS Lambda](https://aws.amazon.com/lambda/) integration allows you to use serverless computing capabilities within your OpenSearch Data Prepper pipelines for flexible event processing and data routing.
 
-## AWS Lambda processor configuration
+## Configuration
 
 The `aws_lambda` processor enables invocation of an AWS Lambda function within your Data Prepper pipeline in order to process events. It supports both synchronous and asynchronous invocations based on your use case.
 
@@ -85,7 +85,7 @@ processors:
 
 ## Timeout configuration
 
-The AWS Lambda processor supports multiple timeout layers following AWS SDK best practices:
+The `aws_lambda` processor supports multiple timeout layers following AWS SDK best practices:
 
 - `api_call_timeout`: The total amount of time for the entire API call including all retries.
 - `api_call_attempt_timeout`: The time limit for each individual attempt.
@@ -102,7 +102,9 @@ The processor supports the following invocation types:
 
 ### Batch processing
 
-When enabled, events are aggregated and sent in bulk to optimize Lambda invocations. The `batch` configuration has the following structure:
+The `aws_lambda` processor batches events when invoking Lambda functions. The `batch` configuration allows you to configure the thresholds for bulk invocations.
+
+The `batch` configuration has the following structure:
 
 - `key_name`: The key under which events are grouped in the payload sent to Lambda (default: `"events"`).
 - `threshold`: An object containing batch threshold settings:
@@ -132,7 +134,7 @@ Custom tags can be applied to events when Lambda processing fails or encounters 
 
 ## Behavior
 
-When configured for batching, the AWS Lambda processor groups multiple events into a single request. This grouping is governed by batch thresholds, which can be based on the event count, size limit, or timeout. The processor then sends the entire batch to the Lambda function as a single payload.
+When configured for batching, the `aws_lambda` processor groups multiple events into a single request. This grouping is governed by batch thresholds, which can be based on the event count, size limit, or timeout. The processor then sends the entire batch to the Lambda function as a single payload.
 
 ## Lambda response handling
 
@@ -157,6 +159,7 @@ Your Lambda function receives the following input structure:
   ]
 }
 ```
+{% include copy.html %}
 
 The key name (`"events"` in this example) is configurable through the `batch.key_name` parameter.
 
@@ -166,7 +169,7 @@ The expected output format depends on the `response_events_match` setting:
 
 #### When `response_events_match: false` (default)
 
-Lambda can return one or more new events. The returned events don't need to match the input count:
+Lambda can return one or more new events. The returned events don't need to match the input count. When `response_events_match: false`, the `aws_lambda` processor drops all input events and outputs only the events returned by the Lambda function, replacing the input data rather than combining it:
 
 ```python
 def lambda_handler(event, context):
@@ -176,10 +179,11 @@ def lambda_handler(event, context):
         {"result": "processed_data_2"}
     ]
 ```
+{% include copy.html %}
 
 #### When `response_events_match: true`
 
-Lambda must return an array with the same number of events in the same order as received:
+The following function sets a `status` key to the static value `processed` in each event:
 
 ```python
 def lambda_handler(event, context):
@@ -199,10 +203,11 @@ def lambda_handler(event, context):
     # Must return same count as input
     return output
 ```
+{% include copy.html %}
 
 ### Example Lambda function
 
-The following example demonstrates a complete Lambda function that transforms events:
+The following Lambda function transforms all string fields to uppercase:
 
 ```python
 def lambda_handler(event, context):
@@ -223,40 +228,7 @@ def lambda_handler(event, context):
 
     return output_events
 ```
-
-## Common configuration mistakes
-
-Avoid the following common configuration errors:
-
-- **Incorrect `event_collect_timeout` location**: The `event_collect_timeout` parameter must be under `batch.threshold`, not directly under `batch`.
-
-  ```yaml
-  # Incorrect
-  batch:
-    event_collect_timeout: PT10S  # Wrong location
-
-  # Correct
-  batch:
-    threshold:
-      event_collect_timeout: PT10S  # Correct location
-  ```
-
-- **Incorrect `max_retries` location**: The `max_retries` parameter must be under `client`, not at the top level.
-
-  ```yaml
-  # Incorrect
-  aws_lambda:
-    function_name: my-function
-    max_retries: 3  # Wrong location
-
-  # Correct
-  aws_lambda:
-    function_name: my-function
-    client:
-      max_retries: 3  # Correct location
-  ```
-
-- **Return format mismatch**: When `response_events_match: true`, ensure your Lambda function returns the same number of events as received, in the same order.
+{% include copy.html %}
 
 ## Limitations
 
