@@ -80,7 +80,7 @@ When OpenSearch Dashboards builds a _data view_ (formerly called _index pattern_
 | `lang`                 | String    | The script language for the scripted field.       |
 | `subType`              | Object    | Extra structural information: <br>• `subType.multi.parent`: For multi-fields, identifies the parent field (for example, for the `title.keyword` field the parent is `title`). <br>• `subType.nested.path`: For nested fields, specifies the nested path. |
 | `count`                | number    | The popularity counter used by OpenSearch Dashboards to rank the fields for the **Popular fields** list in **Discover**. Can be adjusted using the fields metadata API. Refreshing fields resets these counters.                                |
-| `conflictDescriptions` | Object    | Stores details for data views that span indiexes in which the same field name has different types. The map records the conflicting indexes and their types so the UI can label the field as conflicting and disable unsafe aggregations.                                |
+| `conflictDescriptions` | Object    | Stores details for data views that span indexes in which the same field name has different types. The map records the conflicting indexes and their types so the UI can label the field as conflicting and disable unsafe aggregations.                                |
 | `indexPattern`         | Object    | The reference to the parent data view object this field belongs to.     |
 | `$$spec`               | Object    | The internal copy of the raw field specification used by OpenSearch Dashboards. Not intended for external use or automation.   |
 
