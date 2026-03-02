@@ -37,6 +37,7 @@ To enable remote-backed storage for a given cluster, provide the remote store re
 # Repository name
 node.attr.remote_store.segment.repository: my-repo-1
 node.attr.remote_store.translog.repository: my-repo-2
+node.attr.remote_store.state.repository: my-repo-3
 
 # Segment repository settings
 node.attr.remote_store.repository.my-repo-1.type: s3
@@ -49,6 +50,12 @@ node.attr.remote_store.repository.my-repo-2.type: s3
 node.attr.remote_store.repository.my-repo-2.settings.bucket: <Bucket Name 2>
 node.attr.remote_store.repository.my-repo-2.settings.base_path: <Bucket Base Path 2>
 node.attr.remote_store.repository.my-repo-2.settings.region: us-east-1
+
+# Remote cluster state repository settings
+node.attr.remote_store.repository.my-repo-3.type: s3
+node.attr.remote_store.repository.my-repo-3.settings.bucket: <Bucket Name 3>
+node.attr.remote_store.repository.my-repo-3.settings.base_path: <Bucket Base Path 3>
+node.attr.remote_store.repository.my-repo-3.settings.region: us-east-1
 
 ```
 {% include copy-curl.html %}
