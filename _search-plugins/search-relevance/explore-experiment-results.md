@@ -3,7 +3,7 @@ layout: default
 title: Exploring search evaluation results
 nav_order: 65
 parent: Search Relevance Workbench
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 ---
 
