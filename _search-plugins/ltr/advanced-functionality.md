@@ -3,6 +3,7 @@ layout: default
 title: Advanced functionality
 nav_order: 80
 parent: Learning to Rank
+grand_parent: Optimizing search quality
 has_children: false
 ---
 

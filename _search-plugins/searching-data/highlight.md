@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Highlight query matches
-parent: Search options
-nav_order: 50
+parent: Customizing search results
+nav_order: 70
 redirect_from:
   - /opensearch/search/highlight/
 ---

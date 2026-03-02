@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Paginate results
-parent: Search options
+parent: Customizing search results
 nav_order: 10
 redirect_from:
   - /opensearch/search/paginate/

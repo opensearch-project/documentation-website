@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Reranking search results
-parent: Search relevance
+parent: Optimizing search quality
 has_children: true
-nav_order: 65
+nav_order: 50
 ---
 
 # Reranking search results

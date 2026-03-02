@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Sort results
-parent: Search options
+parent: Customizing search results
 nav_order: 30
 redirect_from:
   - /opensearch/search/sort/

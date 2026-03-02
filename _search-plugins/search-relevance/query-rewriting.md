@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Query rewriting
-parent: Search relevance
+parent: Optimizing search quality
 has_children: true
-nav_order: 70
+nav_order: 30
 has_toc: false
 ---
 
@@ -13,6 +13,6 @@ Query rewriting is the process of transforming or modifying a user query before 
 
 You can perform query rewriting in OpenSearch using the following features:
 
-- [Template queries]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/template-query/) 
+- [Template queries]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/template-query/): Create queries with dynamic placeholders that are resolved during query execution, useful for machine learning inference and runtime parameter generation.
 
-- [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/)
+- [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/): A community plugin for advanced query rewriting with rules for boosting, burying, filtering, and redirecting search results.

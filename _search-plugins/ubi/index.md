@@ -1,8 +1,9 @@
 ---
 layout: default
 title: User Behavior Insights
+parent: Optimizing search quality
 has_children: true
-nav_order: 90
+nav_order: 10
 redirect_from:
   - /search-plugins/ubi/
 ---

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Point in Time
-parent: Search options
+parent: Customizing search results
 nav_order: 20
 redirect_from:
   - /opensearch/point-in-time/

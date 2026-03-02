@@ -184,7 +184,7 @@ opensearch_collection:
       name: Aggregations
       nav_fold: true
     search-plugins:
-      name: Search features
+      name: Search
       nav_fold: true
     vector-search:
       name: Vector search 

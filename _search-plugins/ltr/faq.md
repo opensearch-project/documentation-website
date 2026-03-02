@@ -3,6 +3,7 @@ layout: default
 title: Common issues
 nav_order: 1000
 parent: Learning to Rank
+grand_parent: Optimizing search quality
 has_children: false
 ---
 
