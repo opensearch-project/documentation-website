@@ -32,7 +32,7 @@ OpenSearch supports multiple search methods to meet different use cases and requ
 
 ## Query languages
 
-In OpenSearch, you can use the following query languages to search your data.
+In OpenSearch, you can use the following query languages to retrieve your data.
 
 Language | Where you can use it | Description
 :--- | :--- | :---
