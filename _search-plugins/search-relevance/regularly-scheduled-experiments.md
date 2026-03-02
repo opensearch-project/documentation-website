@@ -3,7 +3,7 @@ layout: default
 title: Monitoring search quality
 nav_order: 70
 parent: Search Relevance Workbench
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 ---
 
