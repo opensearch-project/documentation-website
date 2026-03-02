@@ -107,7 +107,7 @@ When enabled, events are aggregated and sent in bulk to optimize Lambda invocati
 - `key_name`: The key under which events are grouped in the payload sent to Lambda (default: `"events"`).
 - `threshold`: An object containing batch threshold settings:
   - `event_count`: Maximum number of events per batch (default: `100`).
-  - `maximum_size`: Maximum batch size (default: `"5mb"`).
+  - `maximum_size`: Maximum batch size (default: `5mb`).
   - `event_collect_timeout`: Maximum time to wait for collecting events before sending the batch (default: `10s`). Must be between 1 second and 3600 seconds.
 
 **Important**: The `event_collect_timeout` parameter must be specified under `batch.threshold`, not directly under `batch`.
@@ -143,7 +143,7 @@ The `response_events_match` setting defines how Data Prepper handles the relatio
 
 ## Lambda function implementation
 
-When Data Prepper invokes your Lambda function with batched events, the function receives a JSON object with events grouped under the configured `key_name` (default: `"events"`).
+When Data Prepper invokes your Lambda function it sends a JSON object with events grouped under the configured `key_name` (default: `"events"`).
 
 ### Input format
 
