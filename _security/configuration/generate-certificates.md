@@ -41,16 +41,26 @@ You can optionally add the `-aes256` option to encrypt the key using the AES-256
 
 ## Generate a root certificate
 
-Next, use the private key to generate a self-signed certificate for the root CA:
+Next, use the private key to generate a self-signed certificate for the root CA. For proper CA functionality and to avoid potential Java SSL errors, you must include X.509 v3 extensions that define the certificate's role and capabilities:
 
 ```bash
-openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 730
+openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 730 \
+  -addext 'basicConstraints = critical, CA:TRUE, pathlen:0' \
+  -addext 'keyUsage = critical, keyCertSign, cRLSign' \
+  -addext 'authorityKeyIdentifier = keyid'
 ```
 
 The default `-days` value of 30 is only useful for testing purposes. This sample command specifies 730 (two years) for the certificate expiration date, but use whatever value makes sense for your organization.
 
 - The `-x509` option specifies that you want a self-signed certificate rather than a certificate request.
 - The `-sha256` option sets the hash algorithm to SHA-256. SHA-256 is the default in later versions of OpenSSL, but earlier versions might use SHA-1.
+- The `-addext` options add X.509 v3 extensions to the certificate:
+  - `basicConstraints = critical, CA:TRUE, pathlen:0` marks this as a CA certificate that can sign certificates but cannot sign subordinate CAs (only end-entity certificates).
+  - `keyUsage = critical, keyCertSign, cRLSign` allows the CA to sign certificates and certificate revocation lists.
+  - `authorityKeyIdentifier = keyid` helps identify the CA's public key, which is useful for certificate chain validation.
+
+These extensions ensure compliance with X.509 v3 standards and help prevent low-level SSL errors in Java applications. For more information about certificate extensions, see the [OpenSSL x509v3_config documentation](https://docs.openssl.org/master/man5/x509v3_config/).
+{: .note}
 
 Follow the prompts to specify details for your organization. Together, these details form the distinguished name (DN) of your CA.
 
@@ -144,7 +154,10 @@ If you already know the certificate details and don't want to specify them inter
 #!/bin/sh
 # Root CA
 openssl genrsa -out root-ca-key.pem 2048
-openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=root.dns.a-record" -out root-ca.pem -days 730
+openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=root.dns.a-record" -out root-ca.pem -days 730 \
+  -addext 'basicConstraints = critical, CA:TRUE, pathlen:0' \
+  -addext 'keyUsage = critical, keyCertSign, cRLSign' \
+  -addext 'authorityKeyIdentifier = keyid'
 # Admin cert
 openssl genrsa -out admin-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
