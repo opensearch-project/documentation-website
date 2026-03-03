@@ -55,7 +55,8 @@ All request body parameters are optional.
 | rename_replacement | String | The rename replacement string.|
 | rename_alias_pattern | String | The pattern to apply to the restored aliases. Aliases matching the rename pattern will be renamed according to the `rename_alias_replacement` setting. <br /><br /> The rename pattern is applied as defined by the regular expression that supports referencing the original text. <br /> <br /> If two or more aliases are renamed to the same name, these aliases will be merged into one.|
 | rename_alias_replacement | String | The rename replacement string for aliases.|
-| source_remote_store_repository | String | The name of the remote store repository of the source index being restored. If not provided, the Snapshot Restore API will use the repository that was registered when the snapshot was created.
+| source_remote_store_repository | String | The name of the remote segment repository of the source index being restored. Required only when both source and target clusters use remote-backed storage and have different remote store repositories. Remote-backed storage is a feature where OpenSearch automatically backs up segments to remote repositories. The specified repository must be registered as read-only on the target cluster before restoring. If not provided, the Snapshot Restore API will use the repository that was registered when the snapshot was created.
+| source_remote_translog_repository | String | The name of the remote translog repository of the source index being restored. Required only when both source and target clusters use remote-backed storage and have different remote store repositories. The specified repository must be registered as read-only on the target cluster before restoring.
 | wait_for_completion | Boolean | Whether to return a response after the restore operation has completed. If `false`, the request returns a response when the restore operation initializes. If `true`, the request returns a response when the restore operation completes. Default is `false`. |
 storage_type | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
 
@@ -66,7 +67,11 @@ storage_type | `local` indicates that all snapshot metadata and index data will 
 * Ingest pipelines
 * Index lifecycle policies
 
-## Example request
+## Example requests
+
+The following examples demonstrate different snapshot restore scenarios.
+
+### Basic restore
 
 The following request restores the `opendistro-reports-definitions` index from `my-first-snapshot`. The `rename_pattern` and `rename_replacement` combination causes the index to be renamed to `opendistro-reports-definitions_restored` because duplicate open index names in a cluster are not allowed.
 
@@ -117,6 +122,26 @@ response = client.snapshot.restore(
     rest=step1_rest
     python=step1_python %}
 <!-- spec_insert_end -->
+
+### Cross-cluster restore with remote-backed storage
+
+When restoring snapshots between clusters that **both use remote-backed storage** with different remote store repositories, use both the `source_remote_store_repository` and `source_remote_translog_repository` parameters. 
+
+The following example restores an index from a snapshot taken on a source cluster to a target cluster. In this example, `source-cluster-snapshots` is the snapshot repository containing the snapshot from the source cluster, `snapshot-1` is the snapshot name, `my-remote-index` is the index to restore, `source-remote-segment-repo` is the remote segment repository from the source cluster (must be registered as read-only on the target cluster), and `source-remote-translog-repo` is the remote translog repository from the source cluster (must be registered as read-only on the target cluster):
+
+```json
+POST /_snapshot/source-cluster-snapshots/snapshot-1/_restore
+{
+  "indices": "my-remote-index",
+  "source_remote_store_repository": "source-remote-segment-repo",
+  "source_remote_translog_repository": "source-remote-translog-repo"
+}
+```
+{% include copy-curl.html %}
+
+The target cluster will restore the index and configure it to read remote segments and translogs from the source cluster's remote store repositories.
+
+For the complete step-by-step procedure, see [Restoring snapshots across remote-backed clusters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#restoring-snapshots-across-remote-backed-clusters).
 
 ## Example response
 
