@@ -41,9 +41,12 @@ module Jekyll
       
       # Generate PDFs for configured collections
       prepare_collection_pdfs if @pdf_config["collections"]
-      
+
       # Generate PDFs for configured guides
       prepare_guide_pdfs if @pdf_config["guides"]
+
+      # Optional: single PDF containing all guides (full documentation)
+      prepare_full_documentation_pdf if full_documentation_enabled?
     end
 
     def self.pdf_jobs
@@ -116,6 +119,44 @@ module Jekyll
       return [start_doc] unless start_index
 
       [start_doc] + all_docs[(start_index + 1)..-1].to_a
+    end
+
+    def full_documentation_enabled?
+      fd = @pdf_config["full_documentation"]
+      fd && fd["enabled"] && (fd["guides_order"]&.any? || @pdf_config["guides"]&.any?)
+    end
+
+    def prepare_full_documentation_pdf
+      fd = @pdf_config["full_documentation"]
+      filename = fd["filename"] || "opensearch-documentation.pdf"
+      order = fd["guides_order"]
+
+      if order.nil? || order.empty?
+        order = @pdf_config["guides"]&.map { |g| g["collection"] }&.uniq || []
+      end
+
+      return if order.empty?
+
+      all_docs = []
+      order.each do |collection_name|
+        collection = @site.collections[collection_name]
+        next unless collection && collection.docs.any?
+
+        docs = collection.docs.select { |doc| doc.data["title"] && !doc.data["nav_exclude"] }
+        docs.sort_by! { |doc| [doc.data["nav_order"] || 9999, doc.path] }
+        all_docs.concat(docs)
+      end
+
+      return if all_docs.empty?
+
+      @@pdf_jobs << {
+        title: "OpenSearch Documentation",
+        documents: all_docs,
+        filename: filename,
+        site: @site,
+        pdf_config: @pdf_config,
+        destination: @destination
+      }
     end
 
     def generate_pdf_for_documents(title, docs, pdf_filename)

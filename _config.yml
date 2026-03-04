@@ -363,6 +363,14 @@ pdf_generator:
     - name: "API Reference"
       collection: api-reference
       filename: "api-reference.pdf"
+  # Optional: one PDF containing all guides (single "full documentation" file)
+  full_documentation:
+    enabled: true
+    filename: "opensearch-documentation.pdf"
+    guides_order:
+      - getting-started
+      - install-and-configure
+      - api-reference
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
