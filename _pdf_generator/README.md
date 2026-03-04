@@ -34,6 +34,14 @@ pdf_generator:
     - name: "Installation Guide"
       collection: install-and-configure
       filename: "installation-guide.pdf"
+  # Optional: one PDF containing all guides (single "full documentation" file)
+  full_documentation:
+    enabled: true
+    filename: "opensearch-documentation.pdf"
+    guides_order:
+      - getting-started
+      - install-and-configure
+      - api-reference
 ```
 
 ### Configuration Options
@@ -45,6 +53,10 @@ pdf_generator:
   - `collection`: Collection name to generate PDF from
   - `filename`: Output PDF filename (optional, defaults to `{name}.pdf`)
   - `start_page`: Optional URL or path to start from (for partial guides)
+- `full_documentation`: Optional. When enabled, generates one additional PDF containing all guides in a single file (addresses the "single documentation PDF" use case). Options:
+  - `enabled`: Set to `true` to generate the combined PDF
+  - `filename`: Output filename (default: `opensearch-documentation.pdf`)
+  - `guides_order`: Array of collection names defining the order of guides in the combined PDF. If omitted, order is taken from the `guides` list.
 
 ## How It Works
 
