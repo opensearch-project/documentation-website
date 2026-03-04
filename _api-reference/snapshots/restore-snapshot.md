@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Restore Snapshot
+title: Restore snapshot
 parent: Snapshot APIs
 
 nav_order: 9
@@ -29,14 +29,14 @@ POST _snapshot/<repository>/<snapshot>/_restore
 
 | Parameter | Data type | Description |
 :--- | :--- | :---
-| repository | String | Repository containing the snapshot to restore. |
-| snapshot | String | Snapshot to restore. |
+| `repository` | String | Repository containing the snapshot to restore. |
+| `snapshot` | String | Snapshot to restore. |
 
 ## Query parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
-wait_for_completion | Boolean |  Whether to wait for snapshot restoration to complete before continuing. |
+`wait_for_completion` | Boolean |  Whether to wait for snapshot restoration to complete before continuing. |
 
 ## Request body fields
 
@@ -44,20 +44,20 @@ All request body parameters are optional.
 
 | Parameter | Data type | Description |
 :--- | :--- | :--- 
-| ignore_unavailable | Boolean | How to handle data streams or indices that are missing or closed. If `false`, the request returns an error for any data stream or index that is missing or closed. If `true`, the request ignores data streams and indices in indices that are missing or closed. Defaults to `false`. |
-| ignore_index_settings | Boolean | A comma-delimited list of index settings that you don't want to restore from a snapshot. |
-| include_aliases | Boolean | How to handle index aliases from the original snapshot. If `true`, index aliases from the original snapshot are restored. If `false`, aliases along with associated indices are not restored. Defaults to `true`. |
-| include_global_state | Boolean | Whether to restore the current cluster state<sup>1</sup>. If `false`, the cluster state is not restored. If true, the current cluster state is restored. Defaults to `false`.|
-| index_settings | String | A comma-delimited list of settings to add or change in all restored indices. Use this parameter to override index settings during snapshot restoration. For data streams, these index settings are applied to the restored backing indices. |
-| indices | String | A comma-delimited list of data streams and indices to restore from the snapshot. Multi-index syntax is supported. By default, a restore operation includes all data streams and indices in the snapshot. If this argument is provided, the restore operation only includes the data streams and indices that you specify. |
-| partial | Boolean | How the restore operation will behave if indices in the snapshot do not have all primary shards available. If `false`, the entire restore operation fails if any indices in the snapshot do not have all primary shards available. <br /> <br />If `true`, allows the restoration of a partial snapshot of indices with unavailable shards. Only shards that were successfully included in the snapshot are restored. All missing shards are recreated as empty. By default, the entire restore operation fails if one or more indices included in the snapshot do not have all primary shards available. To change this behavior, set `partial` to `true`. Defaults to `false`. |
-| rename_pattern | String | The pattern to apply to the restored data streams and indexes. Data streams and indexes matching the rename pattern will be renamed according to the `rename_replacement` setting. <br /><br /> The rename pattern is applied as defined by the regular expression that supports referencing the original text. <br /> <br /> The request fails if two or more data streams or indexes are renamed to the same name. If you rename a restored data stream, its backing indexes are also renamed. For example, if you rename the logs data stream to `recovered-logs`, the backing index `.ds-logs-1` is renamed to `.ds-recovered-logs-1`. <br /> <br /> If you rename a restored stream, ensure an index template matches the new stream name. If there are no matching index template names, the stream cannot roll over, and new backing indexes are not created.|
-| rename_replacement | String | The rename replacement string.|
-| rename_alias_pattern | String | The pattern to apply to the restored aliases. Aliases matching the rename pattern will be renamed according to the `rename_alias_replacement` setting. <br /><br /> The rename pattern is applied as defined by the regular expression that supports referencing the original text. <br /> <br /> If two or more aliases are renamed to the same name, these aliases will be merged into one.|
-| rename_alias_replacement | String | The rename replacement string for aliases.|
-| source_remote_store_repository | String | The name of the remote segment repository of the source index being restored. Required only when both source and target clusters use remote-backed storage and have different remote store repositories. Remote-backed storage is a feature where OpenSearch automatically backs up segments to remote repositories. The specified repository must be registered as read-only on the target cluster before restoring. If not provided, the Snapshot Restore API will use the repository that was registered when the snapshot was created.
-| source_remote_translog_repository | String | The name of the remote translog repository of the source index being restored. Required only when both source and target clusters use remote-backed storage and have different remote store repositories. The specified repository must be registered as read-only on the target cluster before restoring.
-| wait_for_completion | Boolean | Whether to return a response after the restore operation has completed. If `false`, the request returns a response when the restore operation initializes. If `true`, the request returns a response when the restore operation completes. Default is `false`. |
+| `ignore_unavailable` | Boolean | How to handle data streams or indices that are missing or closed. If `false`, the request returns an error for any data stream or index that is missing or closed. If `true`, the request ignores data streams and indices in indices that are missing or closed. Defaults to `false`. |
+| `ignore_index_settings` | Boolean | A comma-delimited list of index settings that you don't want to restore from a snapshot. |
+| `include_aliases` | Boolean | How to handle index aliases from the original snapshot. If `true`, index aliases from the original snapshot are restored. If `false`, aliases along with associated indices are not restored. Defaults to `true`. |
+| `include_global_state` | Boolean | Whether to restore the current cluster state<sup>1</sup>. If `false`, the cluster state is not restored. If true, the current cluster state is restored. Defaults to `false`.|
+| `index_settings` | String | A comma-delimited list of settings to add or change in all restored indices. Use this parameter to override index settings during snapshot restoration. For data streams, these index settings are applied to the restored backing indices. |
+| `indices` | String | A comma-delimited list of data streams and indices to restore from the snapshot. Multi-index syntax is supported. By default, a restore operation includes all data streams and indices in the snapshot. If this argument is provided, the restore operation only includes the data streams and indices that you specify. |
+| `partial` | Boolean | How the restore operation will behave if indices in the snapshot do not have all primary shards available. If `false`, the entire restore operation fails if any indices in the snapshot do not have all primary shards available. <br /> <br />If `true`, allows the restoration of a partial snapshot of indices with unavailable shards. Only shards that were successfully included in the snapshot are restored. All missing shards are recreated as empty. By default, the entire restore operation fails if one or more indices included in the snapshot do not have all primary shards available. To change this behavior, set `partial` to `true`. Defaults to `false`. |
+| `rename_pattern` | String | The pattern to apply to the restored data streams and indexes. Data streams and indexes matching the rename pattern will be renamed according to the `rename_replacement` setting. <br /><br /> The rename pattern is applied as defined by the regular expression that supports referencing the original text. <br /> <br /> The request fails if two or more data streams or indexes are renamed to the same name. If you rename a restored data stream, its backing indexes are also renamed. For example, if you rename the logs data stream to `recovered-logs`, the backing index `.ds-logs-1` is renamed to `.ds-recovered-logs-1`. <br /> <br /> If you rename a restored stream, ensure an index template matches the new stream name. If there are no matching index template names, the stream cannot roll over, and new backing indexes are not created.|
+| `rename_replacement` | String | The rename replacement string.|
+| `rename_alias_pattern` | String | The pattern to apply to the restored aliases. Aliases matching the rename pattern will be renamed according to the `rename_alias_replacement` setting. <br /><br /> The rename pattern is applied as defined by the regular expression that supports referencing the original text. <br /> <br /> If two or more aliases are renamed to the same name, these aliases will be merged into one.|
+| `rename_alias_replacement` | String | The rename replacement string for aliases.|
+| `source_remote_store_repository` | String | The name of the remote segment repository of the source index being restored. Required only when both source and target clusters use remote-backed storage and have different remote store repositories. The specified repository must be registered as read-only on the target cluster before restoring. If not provided, the Snapshot Restore API will use the repositories that were registered when the snapshot was created.
+| `source_remote_translog_repository` | String | The name of the remote translog repository of the source index being restored. Required only when both source and target clusters use remote-backed storage and have different remote store repositories. The specified repository must be registered as read-only on the target cluster before restoring.
+| `wait_for_completion` | Boolean | Whether to return a response after the restore operation has completed. If `false`, the request returns a response when the restore operation initializes. If `true`, the request returns a response when the restore operation completes. Default is `false`. |
 storage_type | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
 
 <sup>1</sup>The cluster state includes:
@@ -125,19 +125,48 @@ response = client.snapshot.restore(
 
 ### Cross-cluster restore with remote-backed storage
 
-When restoring snapshots between clusters that **both use remote-backed storage** with different remote store repositories, use both the `source_remote_store_repository` and `source_remote_translog_repository` parameters. 
+Remote-backed storage is a feature where OpenSearch automatically backs up segments and translogs to remote repositories. When restoring snapshots between clusters that **both use remote-backed storage** with different remote store repositories, use both the `source_remote_store_repository` and `source_remote_translog_repository` parameters. 
 
 The following example restores an index from a snapshot taken on a source cluster to a target cluster. In this example, `source-cluster-snapshots` is the snapshot repository containing the snapshot from the source cluster, `snapshot-1` is the snapshot name, `my-remote-index` is the index to restore, `source-remote-segment-repo` is the remote segment repository from the source cluster (must be registered as read-only on the target cluster), and `source-remote-translog-repo` is the remote translog repository from the source cluster (must be registered as read-only on the target cluster):
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_snapshot/source-cluster-snapshots/snapshot-1/_restore
+body: |
+{
+  "indices": "my-remote-index",
+  "source_remote_store_repository": "source-remote-segment-repo",
+  "source_remote_translog_repository": "source-remote-translog-repo"
+}
+-->
+{% capture step1_rest %}
 POST /_snapshot/source-cluster-snapshots/snapshot-1/_restore
 {
   "indices": "my-remote-index",
   "source_remote_store_repository": "source-remote-segment-repo",
   "source_remote_translog_repository": "source-remote-translog-repo"
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.restore(
+  repository = "source-cluster-snapshots",
+  snapshot = "snapshot-1",
+  body =   {
+    "indices": "my-remote-index",
+    "source_remote_store_repository": "source-remote-segment-repo",
+    "source_remote_translog_repository": "source-remote-translog-repo"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The target cluster will restore the index and configure it to read remote segments and translogs from the source cluster's remote store repositories.
 
@@ -147,7 +176,7 @@ For the complete step-by-step procedure, see [Restoring snapshots across remote-
 
 Upon success, the response returns the following JSON object:
 
-````json
+```json
 {
   "snapshot" : {
     "snapshot" : "my-first-snapshot",
@@ -159,21 +188,23 @@ Upon success, the response returns the following JSON object:
     }
   }
 }
-````
+```
+
 Except for the snapshot name, all properties are empty or `0`. This is because any changes made to the volume after the snapshot was generated are lost. However, if you invoke the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API to examine the snapshot, a fully populated snapshot object is returned. 
 
 ## Response body fields
 
+The following table lists all available response body fields.
+
 | Field | Data type | Description |
 | :--- | :--- | :--- | 
-| snapshot | string | Snapshot name. |
-| indices | array | Indices in the snapshot. |
-| shards | object | Total number of shards created along with number of successful and failed shards. |
+| `snapshot` | string | Snapshot name. |
+| `indices` | array | Indices in the snapshot. |
+| `shards` | object | Total number of shards created along with number of successful and failed shards. |
 
-If open indices in a snapshot already exist in a cluster, and you don't delete, close, or rename them, the API returns an error like the following:
-{: .note}
+If open indexes in a snapshot already exist in a cluster, and you don't delete, close, or rename them, the API returns an error similar to the following:
 
-````json
+```json
 {
   "error" : {
     "root_cause" : [
@@ -187,4 +218,4 @@ If open indices in a snapshot already exist in a cluster, and you don't delete, 
   },
   "status" : 500
 }
-````
+```
