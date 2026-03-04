@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Autocomplete
-parent: Search options
-nav_order: 60
+parent: Customizing search results
+nav_order: 80
 redirect_from:
   - /opensearch/search/autocomplete/
 ---

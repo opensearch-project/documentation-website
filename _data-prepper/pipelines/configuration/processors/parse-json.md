@@ -115,3 +115,20 @@ Only the value at the pointer path `/outer_key/inner_key` is extracted and added
   "inner_key": "inner_value"
 }
 ```
+
+## Metrics
+
+The following table describes common [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics.
+
+| Metric name | Type | Description |
+| ------------- | ---- | -----------|
+| `recordsIn` | Counter | Metric representing the ingress of records to a pipeline component. |
+| `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
+| `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
+
+The `parse_json` processor includes the following custom metrics.
+
+### Counter
+
+* `parseErrors`: The number of parse errors resulting from invalid JSON in events. This indicates that the JSON format could not be parsed.
+* `processingFailures`: The number of processing failures that have occurred in the `parse_json` processor. This indicates unexpected errors not related to invalid JSON format.
