@@ -131,8 +131,8 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```
    {% include copy.html %}
 
-1. Choose the version of OpenSearch you want to install: 
-   - Unless otherwise indicated, the latest available version of OpenSearch is installed.
+1. Choose the version of OpenSearch Dashboards you want to install:
+   - Unless otherwise indicated, the latest available version of OpenSearch Dashboards is installed.
    ```bash
    sudo apt-get install opensearch-dashboards
    ```
