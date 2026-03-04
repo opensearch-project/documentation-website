@@ -15,6 +15,8 @@ OpenSearch supports the following search settings:
 
 - `search.allow_expensive_queries` (Dynamic, Boolean): Allows or disallows expensive queries. For more information, see [Expensive queries]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries).
 
+- `search.query.max_query_string_length` (Dynamic, integer): The maximum allowed length for query string queries. This setting helps prevent performance issues by rejecting query strings longer than the specified limit. Default is `32000`.
+
 - `search.default_allow_partial_results` (Dynamic, Boolean):  A cluster-level setting that allows returning partial search results if a request times out or a shard fails. If a search request contains an `allow_partial_search_results` parameter, the parameter takes precedence over this setting. Default is `true`. 
 
 - `search.cancel_after_time_interval` (Dynamic, time unit): A cluster-level setting that sets the default timeout for all search requests at the coordinating node level. After the specified time has been reached, the request is stopped and all associated tasks are canceled. Default is `-1` (no timeout).

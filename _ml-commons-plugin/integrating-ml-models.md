@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Integrating ML models
-nav_order: 15
+nav_order: 10
 has_children: true
 more_cards:
   - heading: "Get started with AI search"

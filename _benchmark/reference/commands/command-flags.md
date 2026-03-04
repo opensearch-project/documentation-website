@@ -5,7 +5,7 @@ nav_order: 150
 parent: Command reference
 redirect_from:
   - /benchmark/commands/command-flags/
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 ---
 
 # Command flags

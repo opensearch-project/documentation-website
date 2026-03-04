@@ -120,6 +120,8 @@ You can access detailed information about a single query by selecting the query 
 
 In the query details view, you can view information such as **Timestamp**, **CPU Time**, **Memory Usage**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
 
+If the query source has been truncated because of size limits, it is displayed as a string instead of formatted JSON.
+
 ### Viewing query group details
 
 The query group details view provides insights into aggregated metrics for a group of similar queries.
@@ -130,7 +132,6 @@ To view query group details, select a query ID marked as a "group" in the **Top 
 
 - The **Aggregate summary for queries** section provides a view of key query metrics for the entire group, including **Average latency**, **Average CPU time**, **Average memory usage**, and **Group by** criteria.
 - The **Sample query details** section provides information about a single representative query, including its **Timestamp**, **Indexes**, **Search Type**, **Coordinator Node ID**, and **Total Shards**.
-- The **Query** section displays the JSON structure of the query.
 - The **Latency** section presents a graphical representation of the run phases for the query.
 
 ## Configuration
@@ -140,6 +141,9 @@ The **Query insights - Configuration** page is designed to gives you control ove
 ![Configuration]({{site.url}}{{site.baseurl}}/images/Query-Insights/Configuration.png)
 
 On the configuration page, you can configure the settings described in the following sections.
+
+**For production deployments**: When the Dashboard application runs on separate nodes with network access restrictions, consider using the [Query Insights Settings API]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/settings-api/) to enable a secure configuration. The Query Insights Settings API provides fine-grained access control, allowing you to safely use an allowlist in a query insights configuration without granting broad cluster settings permissions.
+{: .tip}
 
 ### Top N queries monitoring
 

@@ -44,9 +44,13 @@ scroll | Time | Specifies the amount of time the search context is maintained.
 scroll_id | String | The scroll ID for the search.
 rest_total_hits_as_int | Boolean | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). Default is `false`.
 
-## Example requests
+## Example request
 
-To set the number of results that you want returned for each batch, use the `size` parameter:
+The following example demonstrates the scroll workflow from initiating a scroll operation to retrieving all results.
+
+### Step 1: Start the scroll operation
+
+To begin scrolling, send an initial search query with a `scroll` parameter that specifies how long to keep the search context alive (for example, `10m` for 10 minutes). Use the `size` parameter to set how many results to return in each batch:
 
 <!-- spec_insert_start
 component: example_code
@@ -87,6 +91,8 @@ OpenSearch caches the results and returns a scroll ID to access them in batches:
 "_scroll_id" : "DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAAUWdmpUZDhnRFBUcWFtV21nMmFwUGJEQQ=="
 ```
 
+### Step 2: Retrieve subsequent batches
+
 Pass this scroll ID to the `scroll` operation to get back the next batch of results:
 
 <!-- spec_insert_start
@@ -124,6 +130,36 @@ response = client.scroll(
 <!-- spec_insert_end -->
 
 Using this scroll ID, you get results in batches of 10,000 as long as the search context is still open. Typically, the scroll ID does not change between requests, but it *can* change, so make sure to always use the latest scroll ID. If you don't send the next scroll request within the set search context, the `scroll` operation does not return any results.
+
+### Detecting the end of results
+
+When you've scrolled through all results, the final batch contains an empty `hits` array:
+
+```json
+{
+  "_scroll_id": "DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAAUWdmpUZDhnRFBUcWFtV21nMmFwUGJEQQ==",
+  "took": 5,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 10000,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  }
+}
+```
+
+When `hits.hits` is an empty array, you've retrieved all available results and should stop scrolling. Make sure to close the scroll context to free up resources.
+
+### Using sliced scroll
 
 If you expect billions of results, use a sliced scroll. Slicing allows you to perform multiple scroll operations for the same request, but in parallel.
 Set the ID and the maximum number of slices for the scroll:
@@ -182,7 +218,9 @@ response = client.search(
 With a single scroll ID, you get back 10 results.
 You can have up to 10 IDs.
 
-Close the search context when you’re done scrolling, because the `scroll` operation continues to consume computing resources until the timeout:
+### Step 3: Close the scroll context
+
+Close the search context when you're done scrolling because the `scroll` operation continues to consume computing resources until the timeout:
 
 <!-- spec_insert_start
 component: example_code
@@ -242,3 +280,8 @@ The `scroll` operation corresponds to a specific timestamp. It doesn't consider 
   "num_freed": 1
 }
 ```
+
+## Related documentation
+
+- [Paginate results]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/)
+- [Point in Time API]({{site.url}}{{site.baseurl}}/search-plugins/point-in-time-api/)

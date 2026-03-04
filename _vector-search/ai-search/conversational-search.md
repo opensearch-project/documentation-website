@@ -170,7 +170,7 @@ OpenSearch returns a task ID for the register task and a model ID for the regist
 }
 ```
 
-To verify that the registration is complete, call the Tasks API:
+To verify that the registration is complete, call the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
 ```json
 GET /_plugins/_ml/tasks/gXDIbI0BfUsSoeNT_jAb

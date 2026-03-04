@@ -7,7 +7,7 @@ nav_order: 60
 ---
 
 # Refresh Index API
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The Refresh Index API refreshes one or more indexes in an OpenSearch cluster. In the case of data streams, the Refresh Index API refreshes a stream's backing indexes. 

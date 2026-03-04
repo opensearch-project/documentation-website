@@ -13,13 +13,15 @@ With cross-cluster replication, you index data to a leader index, and OpenSearch
 
 ## Prerequisites
 
-Cross-cluster replication has the following prerequisites:
+Before configuring cross-cluster replication, ensure that the following prerequisites are met:
+
 - Both the leader and follower cluster must have the replication plugin installed.
-- If you've overridden `node.roles` in `opensearch.yml` on the follower cluster, make sure it also includes the `remote_cluster_client` role:
+- If you've overridden `node.roles` in `opensearch.yml` for any node in the follower cluster, ensure that the `node.roles` setting includes the `remote_cluster_client` role:
 
    ```yaml
    node.roles: [<other_roles>, remote_cluster_client]
    ```
+   {% include copy.html %}
 
 ## Permissions
 

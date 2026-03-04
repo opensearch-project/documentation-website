@@ -4,7 +4,7 @@ title: Command reference
 nav_order: 50
 has_children: true
 has_toc: false
-parent: OpenSearch Benchmark Reference
+parent: Reference
 redirect_from:
   - /benchmark/commands/index/
   - /benchmark/reference/commands/

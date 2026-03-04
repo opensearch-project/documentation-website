@@ -2,7 +2,7 @@
 layout: default
 title: Processor chains
 has_children: false
-nav_order: 50
+nav_order: 30
 ---
 
 # Processor chains

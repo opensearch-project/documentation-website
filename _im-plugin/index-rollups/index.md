@@ -36,17 +36,17 @@ After you create an index rollup job, you can't change your index selections.
 
 ### Step 2: Define aggregations and metrics
 
-Select the attributes with the aggregations (terms and histograms) and metrics (avg, sum, max, min, and value count) that you want to roll up. Make sure you don’t add a lot of highly granular attributes, because you won’t save much space.
+Select the attributes with the aggregations (terms and histograms) and metrics (`avg`, `sum`, `max`, `min`, `value_count`, and `cardinality`) that you want to roll up. Make sure you don't add a lot of highly granular attributes, because you won't save much space.
 
 For example, consider a dataset of cities and demographics within those cities. You can aggregate based on cities and specify demographics within a city as metrics.
 The order in which you select attributes is critical. A city followed by a demographic is different from a demographic followed by a city.
 
 1. In the **Time aggregation** section, select a timestamp field. Choose between a **Fixed** or **Calendar** interval type and specify the interval and timezone. The index rollup job uses this information to create a date histogram for the timestamp field.
 2. (Optional) Add additional aggregations for each field. You can choose terms aggregation for all field types and histogram aggregation only for numeric fields.
-3. (Optional) Add additional metrics for each field. You can choose between **All**, **Min**, **Max**, **Sum**, **Avg**, or **Value Count**.
+3. (Optional) Add additional metrics for each field. You can choose **All**, **Min**, **Max**, **Sum**, **Avg**, **Value Count**, or **Cardinality**.
 4. Choose **Next**.
 
-### Step 3: Specify schedule
+### Step 3: Specify a schedule
 
 Specify a schedule to roll up your indexes as it’s being ingested. The index rollup job is enabled by default.
 
@@ -87,7 +87,358 @@ GET target_index/_search
 
 Consider a scenario where you collect rolled up data from 1 PM to 9 PM in hourly intervals and live data from 7 PM to 11 PM in minutely intervals. If you execute an aggregation over these in the same query, for 7 PM to 9 PM, you see an overlap of both rolled up data and live data because they get counted twice in the aggregations.
 
-## Sample Walkthrough
+## Cardinality metric
+**Introduced 3.5**
+{: .label .label-purple }
+
+The cardinality metric enables memory-efficient tracking of unique counts in rolled-up data using the HyperLogLog++ (HLL++) algorithm. This is ideal for high-cardinality fields like user IDs, IP addresses, or session IDs where storing all unique values would be prohibitively expensive.
+
+### Configuration
+
+When defining a cardinality metric in a rollup job, you can specify the following parameter.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- | 
+| `precision_threshold` | Integer | Controls the trade-off between accuracy and memory usage. Higher values provide more accuracy but use more memory. Valid values are 100 to 40,000, inclusive. Default is 3,000.|
+
+You can specify the `precision_threshold` parameter in the `cardinality` object as follows:
+
+```json
+{
+  "metrics": [
+    {
+      "source_field": "user_id",
+      "metrics": [
+        {
+          "cardinality": {
+            "precision_threshold": 10000
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Querying cardinality metrics
+
+You can query cardinality metrics on rollup indexes in the same way you would on source indexes:
+
+```json
+GET rollup_index/_search
+{
+  "size": 0,
+  "aggs": {
+    "unique_users": {
+      "cardinality": {
+        "field": "user_id"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+When querying rollup indexes, any `precision_threshold` specified in the query is ignored. The system always uses the precision threshold configured when the rollup job was created. This ensures consistency with the stored HLL sketches.
+{: .important }
+
+### Example: Tracking unique visitors
+
+This example creates a rollup job that tracks the number of unique visitors per hour:
+
+```json
+PUT _plugins/_rollup/jobs/visitor_rollup
+{
+  "rollup": {
+    "enabled": true,
+    "schedule": {
+      "interval": {
+        "period": 1,
+        "unit": "Hours"
+      }
+    },
+    "source_index": "web_logs",
+    "target_index": "web_logs_hourly",
+    "page_size": 1000,
+    "dimensions": [
+      {
+        "date_histogram": {
+          "source_field": "timestamp",
+          "fixed_interval": "1h"
+        }
+      }
+    ],
+    "metrics": [
+      {
+        "source_field": "visitor_id",
+        "metrics": [
+          {
+            "cardinality": {
+              "precision_threshold": 10000
+            }
+          }
+        ]
+      },
+      {
+        "source_field": "page_views",
+        "metrics": [
+          {
+            "sum": {}
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+Query the rollup index:
+
+```json
+GET web_logs_hourly/_search
+{
+  "size": 0,
+  "aggs": {
+    "hourly_stats": {
+      "date_histogram": {
+        "field": "timestamp",
+        "fixed_interval": "1h"
+      },
+      "aggs": {
+        "unique_visitors": {
+          "cardinality": {
+            "field": "visitor_id"
+          }
+        },
+        "total_page_views": {
+          "sum": {
+            "field": "page_views"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Multi-tier rollups
+**Introduced 3.5**
+{: .label .label-purple }
+
+Multi-tier rollups allow you to create rollup-of-rollup jobs, enabling progressive data granularity reduction over time. This is useful for long-term data retention strategies where you want to keep fine-grained data for recent periods and increasingly coarse-grained data for older periods.
+
+With multi-tier rollups, you can create a hierarchy of rollup jobs:
+
+```
+Raw Data (5-second intervals)
+    ↓ Tier 1 Rollup
+Hourly Rollup (1-hour intervals)
+    ↓ Tier 2 Rollup
+Daily Rollup (1-day intervals)
+    ↓ Tier 3 Rollup
+Weekly Rollup (1-week intervals)
+```
+
+Each tier uses the previous tier's rollup index as its source, progressively reducing storage requirements while maintaining queryability.
+
+### Prerequisites
+
+For multi-tier rollups to work correctly, you must fulfill the following prerequisites:
+
+1. **Matching dimensions**: All tiers must use the same dimension fields (field names and types must match).
+2. **Compatible time intervals**: Each tier's interval must be a multiple of the previous tier's interval (for example, `5m` → `1h` → `1d`).
+3. **Consistent cardinality precision**: If using [cardinality metrics](#cardinality-metric), all tiers must use the same `precision_threshold` value.
+4. **Source index type**: The source index for Tier 2+ must be a rollup index created by a previous tier.
+5. **Source index data**: Ensure that the source tier has completed at least one rollup execution before creating the next tier. Creating a rollup job from an empty rollup index will succeed, but it may behave unexpectedly.
+
+### Example: Two-tier rollup strategy
+
+This example demonstrates a two-tier rollup for Internet of Things (IoT) sensor data. It consists of Tier 1 and Tier 2:
+- Both tiers use identical dimension fields: `timestamp`, `sensor_id`, `location`.
+- Both tiers use identical metric fields: `temperature` (`avg`/`max`/`min`), `device_id` (`cardinality`).
+- The cardinality `precision_threshold` is the same in both tiers (`10000`).
+- Tier 2 uses `sensor_data_hourly` (the output of Tier 1) as its source.
+
+**Tier 1: Raw data → Hourly rollup**
+
+```json
+PUT _plugins/_rollup/jobs/sensors_hourly
+{
+  "rollup": {
+    "enabled": true,
+    "schedule": {
+      "interval": {
+        "period": 1,
+        "unit": "Hours"
+      }
+    },
+    "source_index": "sensor_data",
+    "target_index": "sensor_data_hourly",
+    "page_size": 1000,
+    "dimensions": [
+      {
+        "date_histogram": {
+          "source_field": "timestamp",
+          "fixed_interval": "1h"
+        }
+      },
+      {
+        "terms": {
+          "source_field": "sensor_id"
+        }
+      },
+      {
+        "terms": {
+          "source_field": "location"
+        }
+      }
+    ],
+    "metrics": [
+      {
+        "source_field": "temperature",
+        "metrics": [
+          {"avg": {}},
+          {"max": {}},
+          {"min": {}}
+        ]
+      },
+      {
+        "source_field": "device_id",
+        "metrics": [
+          {
+            "cardinality": {
+              "precision_threshold": 10000
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+**Tier 2: Hourly rollup → Daily rollup**
+
+```json
+PUT _plugins/_rollup/jobs/sensors_daily
+{
+  "rollup": {
+    "enabled": true,
+    "schedule": {
+      "interval": {
+        "period": 1,
+        "unit": "Days"
+      }
+    },
+    "source_index": "sensor_data_hourly",
+    "target_index": "sensor_data_daily",
+    "page_size": 1000,
+    "dimensions": [
+      {
+        "date_histogram": {
+          "source_field": "timestamp",
+          "fixed_interval": "1d"
+        }
+      },
+      {
+        "terms": {
+          "source_field": "sensor_id"
+        }
+      },
+      {
+        "terms": {
+          "source_field": "location"
+        }
+      }
+    ],
+    "metrics": [
+      {
+        "source_field": "temperature",
+        "metrics": [
+          {"avg": {}},
+          {"max": {}},
+          {"min": {}}
+        ]
+      },
+      {
+        "source_field": "device_id",
+        "metrics": [
+          {
+            "cardinality": {
+              "precision_threshold": 10000
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Querying multi-tier rollups
+
+You can query any tier independently or search across multiple tiers.
+
+**Query a specific tier**:
+
+```json
+GET sensor_data_daily/_search
+{
+  "size": 0,
+  "aggs": {
+    "daily_avg_temp": {
+      "date_histogram": {
+        "field": "timestamp",
+        "fixed_interval": "1d"
+      },
+      "aggs": {
+        "avg_temperature": {
+          "avg": {
+            "field": "temperature"
+          }
+        },
+        "unique_devices": {
+          "cardinality": {
+            "field": "device_id"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+**Query across multiple tiers** (using index patterns):
+
+```json
+GET sensor_data_hourly,sensor_data_daily/_search
+{
+  "size": 0,
+  "aggs": {
+    "temperature_stats": {
+      "date_histogram": {
+        "field": "timestamp",
+        "fixed_interval": "1d"
+      },
+      "aggs": {
+        "avg_temp": {
+          "avg": {
+            "field": "temperature"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Sample walkthrough
 
 This walkthrough uses the OpenSearch Dashboards sample e-commerce data. To add that sample data, log in to OpenSearch Dashboards, choose **Home** and **Try our sample data**. For **Sample eCommerce orders**, choose **Add data**.
 

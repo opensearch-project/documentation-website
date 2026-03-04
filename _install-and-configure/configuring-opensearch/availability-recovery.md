@@ -26,13 +26,15 @@ OpenSearch supports the following general recovery settings:
 
 - `indices.recovery.chunk_size` (Dynamic, byte unit): Controls the chunk size used when transferring data during index recovery operations. This setting affects the amount of data transferred in each network request during shard recovery. Larger chunk sizes can improve recovery speed but may increase memory usage. Default is `512kb`.
 
-- `indices.recovery.recovery_activity_timeout` (Dynamic, time unit): Sets the timeout for individual recovery activities during shard recovery operations. If a recovery activity (such as transferring a file chunk) takes longer than this timeout, the recovery operation is considered failed and will be retried. Default is `30s`.
+- `indices.recovery.recovery_activity_timeout` (Dynamic, time unit): Sets the timeout for individual recovery activities during shard recovery operations. If a recovery activity (such as transferring a file chunk) takes longer than this timeout, the recovery operation is considered failed and will be retried. Default is `30m`.
 
 ## Snapshot settings
 
 OpenSearch supports the following snapshot settings:
 
-- `snapshot.max_concurrent_operations`(Dynamic, integer): The maximum number of concurrent snapshot operations. Default is `1000`. 
+- `snapshot.max_concurrent_operations` (Dynamic, integer): The maximum number of concurrent snapshot operations. Default is `1000`.
+
+- `snapshot.repository_data.cache.threshold` (Static, byte size value or percentage): The maximum size of repository metadata that can be cached in memory. This setting improves snapshot operation performance by reducing the need to repeatedly download metadata during clone, restore, and status check operations. You can specify this value as an absolute size (for example, `2gb` or `500mb`) or as a percentage of heap memory (for example, `3%` or `1%`). Metadata that exceeds this threshold is not cached. Under heap memory pressure, cached data may be garbage collected automatically because it is stored using soft references. Default is 500 kb or 1% of heap memory, whichever is higher. 
 
 ### Security-related snapshot settings
 
@@ -59,6 +61,8 @@ OpenSearch supports the following cluster-level remote-backed storage settings:
 For more remote-backed storage settings, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/) and [Configuring remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#configuring-remote-backed-storage).
 
 For remote segment backpressure settings, see [Remote segment backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/#remote-segment-backpressure-settings).
+
+For remote segment warmer settings, see [Remote segment warmer settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-warmer/#remote-segment-warmer-settings).
 
 ## Search backpressure settings
 

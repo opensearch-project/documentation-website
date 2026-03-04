@@ -7,6 +7,8 @@ nav_order: 40
 ---
 
 # Index template exists
+**Introduced 1.0**
+{: .label .label-purple }
 
 The index template exists API operation is used to verify whether an index template exists.
 

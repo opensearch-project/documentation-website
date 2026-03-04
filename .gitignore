@@ -9,3 +9,8 @@ Gemfile.lock
 .jekyll-cache
 .project
 vendor/bundle
+node_modules
+.vscode
+.ruby-version
+cdk*
+.dev*

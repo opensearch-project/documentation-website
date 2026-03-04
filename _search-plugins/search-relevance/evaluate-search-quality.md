@@ -3,7 +3,7 @@ layout: default
 title: Evaluating search quality
 nav_order: 50
 parent: Search Relevance Workbench
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 ---
 
@@ -208,3 +208,5 @@ The results include the original request parameters along with the following met
 - `NDCG@k`: The Normalized Discounted Cumulative Gain, which compares the actual ranking of results against a perfect ranking, with higher weights given to top results. This measures the quality of result ordering.
 
 To review these results visually, see [Exploring search evaluation results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/explore-experiment-results/).
+
+To schedule automatic evaluations, see [Monitoring search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/regularly-scheduled-experiments/).

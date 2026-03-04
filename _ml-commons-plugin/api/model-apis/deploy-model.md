@@ -53,38 +53,26 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 
 ## Example response
 
+The Deploy Model API returns a `task_id` that you can use to monitor the deployment progress:
+
 ```json
 {
-  "task_id" : "hA8P44MBhyWuIwnfvTKP",
-  "status" : "DEPLOYING"
+  "task_id": "hA8P44MBhyWuIwnfvTKP",
+  "task_type": "DEPLOY_MODEL",
+  "status": "CREATED"
 }
 ```
 
-## Check the status of model deployment
+## Monitoring deployment status
 
-To see the status of your model deployment and retrieve the model ID created for the new model version, pass the `task_id` as a path parameter to the Tasks API:
+To check the status of your model deployment and retrieve the model ID when deployment completes, use the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) and provide the returned `task_id` as a path parameter:
 
 ```json
 GET /_plugins/_ml/tasks/hA8P44MBhyWuIwnfvTKP
 ```
 {% include copy-curl.html %}
 
-The response contains the model ID of the model version:
-
-```json
-{
-  "model_id": "Qr1YbogBYOqeeqR7sI9L",
-  "task_type": "DEPLOY_MODEL",
-  "function_name": "TEXT_EMBEDDING",
-  "state": "COMPLETED",
-  "worker_node": [
-    "N77RInqjTSq_UaLh1k0BUg"
-  ],
-  "create_time": 1685478486057,
-  "last_update_time": 1685478491090,
-  "is_async": true
-}
-```
+The Get ML Task API returns different response formats depending on whether the deployment is in progress or completed. For detailed information about all possible response formats, see [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/#example-responses).
 
 If a cluster or node is restarted, then you need to redeploy the model. To learn how to set up automatic redeployment, see [Enable auto redeploy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#enable-auto-redeploy).
 {: .tip} 

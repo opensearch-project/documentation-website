@@ -6,7 +6,7 @@ nav_order: 11
 ---
 
 # Cleanup Snapshot Repository API
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The Cleanup Snapshot Repository API clears a snapshot repository of data no longer referenced by any existing snapshot.
