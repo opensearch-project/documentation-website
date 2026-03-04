@@ -39,19 +39,19 @@ This guide assumes that you are comfortable working from the Linux command line 
     ```
     {% include copy.html %}
 
-1. Enable OpenSearch as a service:
+1. Enable OpenSearch Dashboards as a service:
     ```bash
     sudo systemctl enable opensearch-dashboards
     ```
     {% include copy.html %}
 
-1. Start the OpenSearch service:
+1. Start the OpenSearch Dashboards service:
     ```bash
     sudo systemctl start opensearch-dashboards
     ```
     {% include copy.html %}
 
-1. Verify that OpenSearch launched correctly:
+1. Verify that OpenSearch Dashboards launched correctly:
     ```bash
     sudo systemctl status opensearch-dashboards
     ```
@@ -107,7 +107,7 @@ APT, the primary package management tool for Debian–based operating systems, a
     ```
     {% include copy.html %}
 
-1. Create an APT repository for OpenSearch:
+1. Create an APT repository for OpenSearch Dashboards:
    ```bash
    echo "deb [signed-by=/etc/apt/keyrings/opensearch-release-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{major_version_mask}}/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-dashboards-{{major_version_mask}}.list
    ```
@@ -157,7 +157,7 @@ APT, the primary package management tool for Debian–based operating systems, a
     ```
     {% include copy.html %}
 
-1. Verify that OpenSearch launched correctly:
+1. Verify that OpenSearch Dashboards launched correctly:
     ```bash
     sudo systemctl status opensearch-dashboards
     ```
