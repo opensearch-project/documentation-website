@@ -190,3 +190,7 @@ For more information, see pull request [#9813](https://github.com/opensearch-pro
 
 - The `CatIndexTool` is removed in favor of the `ListIndexTool`.
 
+### Romanian analysis
+
+The `romanian` analyzer now supports Romanian in its modern Unicode form and normalizes cedilla characters to their comma-based equivalents. Because both forms are still in use, we recommend reindexing existing Romanian documents to ensure consistent analysis and search behavior.
+
