@@ -106,16 +106,8 @@ Name | Data type | Description
 `plugins.security.audit.config.webhook.ssl.pemtrustedcas_filepath` | String | The path to the trusted certificate against which the webhook's TLS certificate is validated.
 `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content` | String | Same as `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content`, but you can configure the base 64 encoded certificate content directly.
 `plugins.security.audit.config.webhook.format` | String | The format in which the audit log message is logged, can be one of `URL_PARAMETER_GET`, `URL_PARAMETER_POST`, `TEXT`, `JSON`, `SLACK`. See [Formats](#formats).
-
-
-### Basic auth settings
-
-If the webhook endpoint requires HTTP basic authentication, use these settings to specify the username and password:
-
-```yml
-plugins.security.audit.config.username: <username>
-plugins.security.audit.config.password: <password>
-```
+`plugins.security.audit.config.username` | String | The username for HTTP basic authentication (if the webhook endpoint requires it).
+`plugins.security.audit.config.password` | String | The password for HTTP basic authentication (if the webhook endpoint requires it).
 
 
 ### Formats
