@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Search Relevance Workbench
-nav_order: 10
-parent: Search relevance
+nav_order: 20
+parent: Optimizing search quality
 has_children: true
 ---
 

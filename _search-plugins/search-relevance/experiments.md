@@ -3,7 +3,7 @@ layout: default
 title: Experiments
 nav_order: 9
 parent: Search Relevance Workbench
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 has_toc: false
 ---

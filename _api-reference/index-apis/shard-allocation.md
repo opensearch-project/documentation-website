@@ -7,6 +7,8 @@ nav_order: 20
 ---
 
 # Shard allocation filtering
+**Introduced 1.0**
+{: .label .label-purple }
 
 Shard allocation filtering lets you constrain where shards for an index are placed by matching node attributes. You can use it to pin shards to certain nodes, avoid nodes, or require specific hardware or zones. Shards are only allocated to nodes that satisfy all active filters, including index-level shard allocation filtering and [cluster-level routing awareness]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-awareness/).
 
