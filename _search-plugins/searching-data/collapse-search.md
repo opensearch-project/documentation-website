@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Collapse search results
-parent: Search options
+parent: Customizing search results
 nav_order: 40
 redirect_from:
   - /search-plugins/collapse-search/

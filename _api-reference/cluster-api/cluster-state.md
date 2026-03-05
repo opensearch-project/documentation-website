@@ -6,6 +6,8 @@ parent: Cluster APIs
 ---
 
 # Cluster State API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `/_cluster/state` API retrieves the current state of the cluster, including metadata, routing tables, nodes, and other components. This API is primarily used for monitoring, debugging, and internal purposes. It provides a snapshot of various parts of the cluster's state as maintained by the cluster manager node.
 
