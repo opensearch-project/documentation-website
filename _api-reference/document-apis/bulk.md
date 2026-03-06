@@ -96,6 +96,9 @@ By default, this action updates existing documents and returns an error if the d
 { "doc" : { "title": "World War Z" } }
 ```
 
+User-defined ingest pipelines are not executed for update operations. If you need to process documents through an ingest pipeline, use an [upsert](#upsert) operation instead.
+{: .note}
+
 ### Upsert
 
 To upsert a document, use one of the following options:
@@ -114,6 +117,9 @@ To upsert a document, use one of the following options:
     ```
     
 Use this option when you want to only update specific fields when a document exists but insert a complete document when it doesn't exist.
+
+Upsert operations trigger ingest pipelines, allowing you to preprocess documents before they are indexed or updated.
+{: .note}
 
 ### Script
 
