@@ -46,7 +46,7 @@ In this example, you'll use the [DistilBERT](https://huggingface.co/docs/transfo
 Take note of the dimensionality of the model because you'll need it when you set up a vector index.
 {: .important}
 
-**Token limits**: Most embedding models have a maximum token limit (typically 512 tokens for BERT-based models like DistilBERT). When documents exceed this limit, the model automatically truncates the text, and the truncated content is not represented in the embeddings. This can cause poor search results or missing documents in your search results. If you have long documents, split them into smaller chunks before indexing to ensure all content is searchable.
+**Token limits and truncation**: Text embedding models have maximum token limits (typically 512 tokens for BERT-based models). When a document exceeds this limit, the model automatically truncates the text, and the truncated content is not represented in the embeddings. This can significantly impact search relevance because documents may not be returned in search results if the relevant content was truncated. To avoid this issue, split long documents into smaller chunks before generating embeddings. 
 {: .warning}
 
 ## Manual setup
