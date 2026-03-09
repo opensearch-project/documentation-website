@@ -6,7 +6,7 @@ has_children: true
 ---
 
 # Workspace for OpenSearch Dashboards
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 The Workspace feature in OpenSearch Dashboards enables you to tailor your environment with use-case-specific configurations. For example, you can create dedicated workspaces for observability scenarios, allowing you to focus on relevant functionalities. Additionally, the Workspace feature enables organization of visual assets, such as dashboards and visualizations, within a workspace with isolated storage.
@@ -25,7 +25,7 @@ interface Workspace {
   uiSettings: Record<string, unknown>;
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 The Workspace data model is composed of the following key attributes:
 
@@ -48,7 +48,7 @@ The following object shows a typical Workspace configuration:
   features: ["use-case-analytics"],
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 The configuration creates the `Analytics team` using the `use-case-observability` feature set. Use cases map to specific feature groups, limiting functionality to the defined set within each workspace. 
 
@@ -77,7 +77,7 @@ The following saved object shows a dashboard object associated with the workspac
   workspaces: ["M5NqCu"]
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 Saved objects support association with multiple workspaces, facilitating cross-team collaboration and resource sharing. This feature is useful when an object is relevant to multiple teams, projects, or use cases. 
 
@@ -90,7 +90,7 @@ The following example shows a data source object linked to multiple workspaces:
   workspaces: ["M5NqCu", "<TeamA-workspace-id>", "<Analytics-workspace-id>"]
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Non-workspace saved objects
 
@@ -108,11 +108,11 @@ uiSettings:
   overrides:
     "home:useNewHomePage": true
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 If your cluster has the Security plugin installed, then multi-tenancy must be disabled to avoid conflicts with similar workspaces:
 
 ```yaml
 opensearch_security.multitenancy.enabled: false
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
