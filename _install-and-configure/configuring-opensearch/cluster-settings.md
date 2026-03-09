@@ -110,6 +110,10 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.allocator.existing_shards_allocator.batch_enabled` (Static, Boolean): Enables batch allocation of unassigned shards that already exist on the disk, as opposed to allocating one shard at a time. This reduces memory and transport overhead by fetching any unassigned shard metadata in a batch call. Default is `false`.
 
+- `cluster.routing.allocation.shards_batch_gateway_allocator.primary_allocator_timeout` (Dynamic, time value): Sets the timeout for the primary shard batch allocator during reroute operations. When the timeout is reached, the reroute iteration is interrupted, allowing higher-priority tasks to execute and preventing the cluster from becoming unmanageable during large-scale shard allocations. This helps prevent API timeouts and ensures cluster responsiveness. Valid values are time values greater than or equal to `20s`, or `-1ms` to disable the timeout. Default is `20s`. 
+
+- `cluster.routing.allocation.shards_batch_gateway_allocator.replica_allocator_timeout` (Dynamic, time value): Sets the timeout for the replica shard batch allocator during reroute operations. When the timeout is reached, the reroute iteration is interrupted, allowing higher-priority tasks to execute and preventing the cluster from becoming unmanageable during large-scale shard allocations. This helps prevent API timeouts and ensures cluster responsiveness. Valid values are time values greater than or equal to `20s`, or `-1ms` to disable the timeout. Default is `20s`. 
+
 - `cluster.routing.allocation.total_shards_per_node` (Dynamic, integer): The maximum combined total number of primary and replica shards that can be allocated to a single node. Default is `-1` (unlimited). Helps distribute shards evenly across nodes by limiting the total number of shards per node. Use with caution because shards may remain unallocated if nodes reach their configured limits.
 
 - `cluster.routing.allocation.total_primary_shards_per_node` (Dynamic, integer): The maximum number of primary shards that can be allocated to a single node. This setting is applicable only for remote-backed clusters. Default is `-1`(unlimited). Helps distribute primary shards evenly across nodes by limiting the number of primary shards per node. Use with caution because primary shards may remain unallocated if nodes reach their configured limits.
@@ -226,6 +230,8 @@ OpenSearch supports the following remote cluster settings:
 - `cluster.remote.<cluster_alias>.seeds` (Dynamic, list): Applicable to `sniff` mode only. Specifies the list of seed nodes used to discover the remote cluster topology. These nodes are contacted initially to retrieve the cluster state and identify gateway nodes for ongoing connections.
 
 - `cluster.remote.<cluster_alias>.node_connections` (Dynamic, integer): Applicable to `sniff` mode only. Sets the number of gateway nodes to which to maintain active connections in the remote cluster. More connections provide better availability but consume more resources. Default is `3`.
+
+- `cluster.remote.<cluster_alias>.cluster_name` (Dynamic, string): Applicable only to `sniff` mode. Specifies the expected name of the remote cluster. When configured, the remote cluster name is validated when establishing the connection. This helps prevent accidental connections to an unintended cluster if seed nodes are misconfigured or outdated.
 
 - `cluster.remote.node.attr` (Static, string): Applicable to `sniff` mode only. Specifies a node attribute to filter nodes that are eligible as gateway nodes in remote clusters. When set, only remote cluster nodes with the specified attribute will be used for connections. For example, if remote cluster nodes have `node.attr.gateway: true` and this setting is set to `gateway`, only those nodes will be connected to for cross-cluster operations.
 

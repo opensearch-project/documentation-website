@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Event analytics
-nav_order: 20
+nav_order: 50
 redirect_from:
   - /observability-plugin/event-analytics/
 ---

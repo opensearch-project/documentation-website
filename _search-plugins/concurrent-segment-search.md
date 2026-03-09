@@ -2,7 +2,7 @@
 layout: default
 title: Concurrent segment search
 parent: Improving search performance
-nav_order: 53
+nav_order: 20
 ---
 
 # Concurrent segment search

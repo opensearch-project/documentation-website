@@ -16,12 +16,13 @@ The following table describes the options you can use to configure the `csv` pro
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-source | No | String | The field in the event that will be parsed. Default value is `message`.
-quote_character | No | String | The character used as a text qualifier for a single column of data. Default value is `"`.
-delimiter | No | String | The character separating each column. Default value is `,`.
-delete_header | No | Boolean | If specified, the event header (`column_names_source_key`) is deleted after the event is parsed. If there is no event header, no action is taken. Default value is true.
-column_names_source_key | No | String | The field in the event that specifies the CSV column names, which will be automatically detected. If there need to be extra column names, the column names are automatically generated according to their index. If `column_names` is also defined, the header in `column_names_source_key` can also be used to generate the event fields. If too few columns are specified in this field, the remaining column names are automatically generated. If too many column names are specified in this field, the CSV processor omits the extra column names.
-column_names | No | List | User-specified names for the CSV columns. Default value is `[column1, column2, ..., columnN]` if there are no columns of data in the CSV record and `column_names_source_key` is not defined. If `column_names_source_key` is defined, the header in `column_names_source_key` generates the event fields. If too few columns are specified in this field, the remaining column names are automatically generated. If too many column names are specified in this field, the CSV processor omits the extra column names.
+`source` | No | String | The field in the event that will be parsed. Default value is `message`.
+`quote_character` | No | String | The character used as a text qualifier for a single column of data. Default is `"`.
+`delimiter` | No | String | The character separating each column. Default is `,`.
+`delete_header` | No | Boolean | If specified, the event header (`column_names_source_key`) is deleted after the event is parsed. If there is no event header, no action is taken. Default is `true`.
+`column_names_source_key` | No | String | The field in the event that specifies the CSV column names, which will be automatically detected. If there need to be extra column names, the column names are automatically generated according to their index. If `column_names` is also defined, the header in `column_names_source_key` can also be used to generate the event fields. If too few columns are specified in this field, the remaining column names are automatically generated. If too many column names are specified in this field, the CSV processor omits the extra column names.
+`column_names` | No | List | User-specified names for the CSV columns. Default is `[column1, column2, ..., columnN]` if there are no columns of data in the CSV record and `column_names_source_key` is not defined. If `column_names_source_key` is defined, the header in `column_names_source_key` generates the event fields. If too few columns are specified in this field, the remaining column names are automatically generated. If too many column names are specified in this field, the CSV processor omits the extra column names.
+`delete_source` | No | Boolean | If `true`, deletes the configured `source` field (by default, `message`) after CSV parsing. This configuration option improves memory pressure if the `source` field is not going to be used because the processing is done in batches. Default is `false`.
 
 ## Usage
 
@@ -96,6 +97,108 @@ Then the `csv` processor will take the following event:
 Then, the processor parses the event into the following output. Because `delete_header` is `true` by default, the header `a,b,c` is deleted from the output:
 ```json
 {"message": "1,2,3", "a": "1", "b": "2", "c": "3"}
+```
+
+### Delete the source field after parsing
+
+If you want to remove the original `message` field once columns are extracted, enable `delete_source`:
+
+```yaml
+csv-pipeline-delete-source:
+  source:
+    file:
+      path: "/full/path/to/ingest.csv"
+      record_type: "event"
+  processor:
+    - csv:
+        column_names: ["col1", "col2"]
+        delete_source: true
+  sink:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: admin_pass
+        index_type: custom
+        index: csv-demo-%{yyyy.MM.dd}
+```
+{% include copy.html %}
+
+The documents stored in OpenSearch contain the following information:
+
+```json
+{
+  ...
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 1.0,
+    "hits" : [
+      {
+        "_index" : "csv-demo-2025.11.10",
+        "_id" : "vTgDb5oBcoMYUXV6ocPH",
+        "_score" : 1.0,
+        "_source" : {
+          "col1" : "1",
+          "col2" : "2",
+          "column3" : "3"
+        }
+      },
+      {
+        "_index" : "csv-demo-2025.11.10",
+        "_id" : "vjgDb5oBcoMYUXV6ocPI",
+        "_score" : 1.0,
+        "_source" : {
+          "col1" : "4",
+          "col2" : "5",
+          "column3" : "6"
+        }
+      }
+    ]
+  }
+}
+```
+{% include copy.html %}
+
+If `delete_source` is set to `false`, the documents include the `message` field:
+
+```json
+{
+  ...
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 1.0,
+    "hits" : [
+      {
+        "_index" : "csv-demo-2025.11.10",
+        "_id" : "fpAKb5oB85vgu48rA-rD",
+        "_score" : 1.0,
+        "_source" : {
+          "message" : "1,2,3",
+          "col1" : "1",
+          "col2" : "2",
+          "column3" : "3"
+        }
+      },
+      {
+        "_index" : "csv-demo-2025.11.10",
+        "_id" : "f5AKb5oB85vgu48rA-rD",
+        "_score" : 1.0,
+        "_source" : {
+          "message" : "4,5,6",
+          "col1" : "4",
+          "col2" : "5",
+          "column3" : "6"
+        }
+      }
+    ]
+  }
+}
 ```
 
 ## Metrics

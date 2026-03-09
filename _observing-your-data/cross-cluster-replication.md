@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cross-cluster search
-nav_order: 140
+nav_order: 160
 ---
 
 # Cross-cluster search

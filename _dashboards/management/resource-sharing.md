@@ -65,6 +65,7 @@ Follow these steps to share resources in OpenSearch Dashboards:
     * `ad_read_only`
     * `ml_read_write`
     * `flow_framework_full_access`
+
     Access levels are plugin-specific and vary by resource type.
     {: .note}
 
@@ -82,13 +83,20 @@ Follow these steps to share resources in OpenSearch Dashboards:
 
 Follow these steps to view and manage access for a resource in OpenSearch Dashboards:
 
-1. Open the **Sharing** panel:
 
-   * Navigate to the **Resource Access Management** app and select a resource from the **Resources** table. The panel displays:
-     * The resource owner.
-     * All users, roles, and backend roles with access.
-     * Their assigned access levels.
-     * Whether you have permission to reshare the resource.
+1. In the left navigation menu, in the **Management** section, select **Resource Access Management**. The landing page displays all available resource types.
+
+1. In the **Resources** panel, in the upper-right corner, select a resource type from the dropdown menu.
+      
+      The panel displays:
+      * The resource owner.
+      * All users, roles, and backend roles with access.
+      * Their assigned access levels.
+      * Whether you have permission to reshare the resource.
+
+      The Resources panel for the Anomaly Detector resource type is shown in the following image.
+     
+     ![Resource details after selection]({{site.url}}{{site.baseurl}}/images/resource-sharing/4-after-selecting-resource.png)
 
 1. Determine sharing permissions. You can share a resource only if you meet one of the following conditions:
 
@@ -96,7 +104,9 @@ Follow these steps to view and manage access for a resource in OpenSearch Dashbo
    * The owner shared the resource with you and granted share permission.
    * You are a superadmin.
 
-1. Add or remove users, roles, or backend roles as needed. Removing access immediately hides the resource from the affected users.
+1. In the **Update Access** dialog, configure access to the resource by selecting the **Access level** and adding or removing **Users**, **Roles**, or **Backend roles** as needed.
+
+1. Select **Save** to apply changes. Removing access immediately hides the resource from the affected users.
 
 ## Listing resources shared with you
 

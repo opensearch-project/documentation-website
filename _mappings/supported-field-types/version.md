@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Version
-parent: Supported field types
+parent: String field types
+grand_parent: Supported field types
 nav_order: 75
 redirect_from:
   - /opensearch/supported-field-types/version/
@@ -274,31 +275,6 @@ The version field follows semantic versioning comparison rules:
 2. Pre-release precedence: Pre-release versions have lower precedence than normal versions (`1.0.0-alpha` < `1.0.0`).
 3. Pre-release comparison: When both versions are pre-releases, they are compared lexically by each dot-separated identifier (`1.0.0-alpha` < `1.0.0-alpha.1` < `1.0.0-beta`).
 4. Build metadata ignored: Build metadata does not affect version precedence (`1.0.0+build.1` equals `1.0.0+build.2` for sorting purposes).
-
-## Parameters
-
-The version field type accepts the following optional parameters.
-
-Parameter | Description
-:--- | :---
-`null_value` | A value to be substituted for any explicit `null` values. Must be a valid version string. Defaults to `null`, which means `null` fields are treated as missing.
-
-### Example with null_value
-
-```json
-PUT software_with_nulls
-{
-  "mappings": {
-    "properties": {
-      "version": {
-        "type": "version",
-        "null_value": "0.0.0"
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
 
 ## Limitations
 

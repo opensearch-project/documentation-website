@@ -3,6 +3,7 @@ layout: default
 title: Logging feature scores
 nav_order: 50
 parent: Learning to Rank
+grand_parent: Optimizing search quality
 has_children: false
 ---
 

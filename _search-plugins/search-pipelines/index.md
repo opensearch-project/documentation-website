@@ -72,6 +72,10 @@ Alternatively, you can use a temporary pipeline with a request or set a default 
 
 To learn about retrieving details for an existing search pipeline, see [Retrieving search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/retrieving-search-pipeline/).
 
+For information about troubleshooting search pipelines, see [Debugging search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/debugging-search-pipeline/).
+
+To delete an existing search pipeline, see [Deleting search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/deleting-search-pipeline/).
+
 ## Manual and automatic processor creation
 
 Search processors can be created manually or automatically:

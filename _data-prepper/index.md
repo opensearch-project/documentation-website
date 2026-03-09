@@ -13,7 +13,7 @@ redirect_from:
   - /data-prepper/migrating-from-logstash-data-prepper/
 ---
 
-# OpenSearch Data Prepper
+# ![Data Prepper icon]({{site.url}}{{site.baseurl}}/images/icons/OpenSearch-DataPrepper-1.png){: .heading-icon} OpenSearch Data Prepper
 
 OpenSearch Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analysis and visualization. Data Prepper is the preferred data ingestion tool for OpenSearch. It is recommended for most data ingestion use cases in OpenSearch and for processing large, complex datasets.
 

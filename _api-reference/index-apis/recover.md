@@ -7,7 +7,7 @@ nav_order: 50
 ---
 
 # Index Recovery API
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The Recovery API provides information about any completed or ongoing shard recoveries for one or more indexes. If a data stream is listed, the API returns information about that data stream's backing indexes. 
