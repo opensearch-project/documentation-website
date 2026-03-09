@@ -6,7 +6,7 @@ nav_order: 1
 ---
 
 # Create a workspace
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 Before getting started with this tutorial, you must enable the workspace feature flag. See [Enabling the ACL feature]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace/#enabling-the-workspace-feature) for more information.
