@@ -560,6 +560,106 @@ POST /_snapshot/my-repository/2/_restore
 
 For more information, see [Restore Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/restore-snapshot/).
 
+### Restoring snapshots across remote-backed clusters
+
+When using remote-backed storage, OpenSearch automatically backs up index segments and translogs to remote repositories (typically, Amazon S3). If you're restoring snapshots between clusters that **both use remote-backed storage** with different remote store repositories, you must specify the source cluster's remote store repositories.
+
+This procedure applies only to clusters with remote-backed storage enabled. For standard OpenSearch clusters without remote-backed storage, use the standard snapshot restore process without these additional parameters.
+{: .note}
+
+The following procedure restores a snapshot from Cluster A to Cluster B, where both clusters use remote-backed storage with different Amazon S3 repositories.
+
+#### Prerequisites
+
+Before you start, ensure that you have fulfilled the following prerequisites:
+
+- Both clusters are running the same OpenSearch version.
+- You have obtained the Amazon S3 bucket names, base paths, AWS Key Management Service (KMS) key Amazon Resource Names (ARNs), and domain ARNs from the source cluster's remote store configuration.
+
+#### Steps
+
+To restore a snapshot from the source cluster to the target cluster, complete the following steps:
+
+1. Register the source cluster's snapshot repository on the target cluster as read-only:
+
+   ```json
+   PUT /_snapshot/source-cluster-snapshots
+   {
+     "type": "s3",
+     "settings": {
+       "bucket": "source-snapshot-bucket",
+       "base_path": "snapshots",
+       "region": "us-east-1",
+       "readonly": true
+     }
+   }
+   ```
+   {% include copy-curl.html %}
+
+2. Register the source cluster's remote segment repository on the target cluster as read-only:
+
+   ```json
+   PUT /_snapshot/source-remote-segment-repo
+   {
+     "type": "s3",
+     "settings": {
+       "bucket": "source-segment-bucket",
+       "base_path": "remote-store/segments",
+       "region": "us-east-1",
+       "amazon_es_kms_enc_ctx": "domainARN=arn:aws:es:us-east-1:123456789012:domain/source-cluster",
+       "amazon_es_kms_key_arn": "arn:aws:kms:us-east-1:123456789012:key/abcd1234-56ef-78gh-90ij-klmnopqrstuv",
+       "amazon_es_encryption": "true",
+       "remote_store_index_shallow_copy": "true",
+       "readonly": true
+     }
+   }
+   ```
+   {% include copy-curl.html %}
+
+3. Register the source cluster's remote translog repository on the target cluster as read-only:
+
+   ```json
+   PUT /_snapshot/source-remote-translog-repo
+   {
+     "type": "s3",
+     "settings": {
+       "bucket": "source-translog-bucket",
+       "base_path": "remote-store/translogs",
+       "region": "us-east-1",
+       "amazon_es_kms_enc_ctx": "domainARN=arn:aws:es:us-east-1:123456789012:domain/source-cluster",
+       "amazon_es_kms_key_arn": "arn:aws:kms:us-east-1:123456789012:key/abcd1234-56ef-78gh-90ij-klmnopqrstuv",
+       "amazon_es_encryption": "true",
+       "remote_store_index_shallow_copy": "true",
+       "readonly": true
+     }
+   }
+   ```
+   {% include copy-curl.html %}
+
+4. Verify that you can list snapshots in the source snapshot repository:
+
+   ```json
+   GET /_snapshot/source-cluster-snapshots/_all
+   ```
+   {% include copy-curl.html %}
+
+5. Restore the snapshot, specifying both the source segment and translog repositories:
+
+   ```json
+   POST /_snapshot/source-cluster-snapshots/snapshot-1/_restore
+   {
+     "indices": "my-index",
+     "source_remote_store_repository": "source-remote-segment-repo",
+     "source_remote_translog_repository": "source-remote-translog-repo"
+   }
+   ```
+   {% include copy-curl.html %}
+
+The target cluster will restore the index from the snapshot repository and configure the restored indexes to read their remote segments and translogs from the source cluster's remote store repositories.
+
+If you encounter index name collisions during restore, use the `rename_pattern` and `rename_replacement` parameters to rename the indexes, or delete the conflicting indexes before restoring.
+{: .tip}
+
 ### Conflicts and compatibility
 
 One way to avoid index naming conflicts when restoring indexes is to use the `rename_pattern` and `rename_replacement` options. You can then, if necessary, use the `_reindex` API to combine the two. However, it may be simpler to delete the indexes that caused the conflict prior to restoring them from a snapshot.
