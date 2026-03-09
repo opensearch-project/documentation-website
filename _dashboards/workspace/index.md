@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Getting started with workspaces
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 OpenSearch Dashboards 2.18 introduces an enhanced home page that provides a comprehensive view of all your workspaces.

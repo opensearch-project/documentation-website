@@ -6,7 +6,7 @@ nav_order: 10
 ---
 
 # Workspaces APIs
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 The Workspaces API provides a set of endpoints for managing workspaces in OpenSearch Dashboards.

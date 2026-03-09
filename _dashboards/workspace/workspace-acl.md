@@ -6,7 +6,7 @@ nav_order: 3
 ---
 
 # Workspace access control lists
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 Workspace access control lists (ACLs) manage authorization for saved objects `AuthZ(Authorization)` while enabling [Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/) for `AuthN(Authentication)`.
@@ -47,7 +47,7 @@ Set all users as admins with this wildcard setting:
 ```yaml
 opensearchDashboards.dashboardAdmin.users: ["*"]
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### Configuring admin access for a single user
 
@@ -56,7 +56,7 @@ Configure a user with the `admin-user-id` setting:
 ```yaml
 opensearchDashboards.dashboardAdmin.users: ["admin-user-id"]
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### Configuring admin access by backend role
 
@@ -65,7 +65,7 @@ Configure a user with the `admin-role` setting:
 ```yaml
 opensearchDashboards.dashboardAdmin.groups: ["admin-role"]
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### Admin-restricted operations
 
