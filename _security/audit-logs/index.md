@@ -33,6 +33,7 @@ Audit logging is disabled by default. To enable audit logging:
    ```yml
    plugins.security.audit.type: internal_opensearch
    ```
+   {% include copy.html %}
 
    This setting stores audit logs on the current cluster. For other storage options, see [Audit Log Storage Types]({{site.url}}{{site.baseurl}}/security/audit-logs/storage-types/).
 
@@ -73,23 +74,32 @@ The following settings are stored in the `audit.yml` file.
 To exclude categories, list them in the following setting:
 
 ```yml
-config.audit.disabled_rest_categories: <disabled categories>
-config.audit.disabled_transport_categories: <disabled categories>
+config:
+  audit:
+    disabled_rest_categories: <disabled categories>
+    disabled_transport_categories: <disabled categories>
 ```
+{% include copy.html %}
 
 For example:
 
 ```yml
-config.audit.disabled_rest_categories: AUTHENTICATED, opensearch_SECURITY_INDEX_ATTEMPT
-config.audit.disabled_transport_categories: GRANTED_PRIVILEGES
+config:
+  audit:
+    disabled_rest_categories: AUTHENTICATED, opensearch_SECURITY_INDEX_ATTEMPT
+    disabled_transport_categories: GRANTED_PRIVILEGES
 ```
+{% include copy.html %}
 
 If you want to log events in all categories, use `NONE`:
 
 ```yml
-config.audit.disabled_rest_categories: NONE
-config.audit.disabled_transport_categories: NONE
+config:
+  audit:
+    disabled_rest_categories: NONE
+    disabled_transport_categories: NONE
 ```
+{% include copy.html %}
 
 
 #### Disable REST or the transport layer
@@ -97,19 +107,23 @@ config.audit.disabled_transport_categories: NONE
 By default, the Security plugin logs events on both REST and the transport layer. You can disable either type:
 
 ```yml
-config.audit.enable_rest: false
-config.audit.enable_transport: false
+config:
+  audit:
+    enable_rest: false
+    enable_transport: false
 ```
-
+{% include copy.html %}
 
 #### Disable request body logging
 
 By default, the Security plugin includes the body of the request (if available) for both REST and the transport layer. If you do not want or need the request body, you can disable it:
 
 ```yml
-config.audit.log_request_body: false
+config:
+  audit:
+    log_request_body: false
 ```
-
+{% include copy.html %}
 
 #### Log index names
 
@@ -125,12 +139,16 @@ audit_trace_resolved_indices: [
   "humanresources"
 ]
 ```
+{% include copy.html %}
 
 You can disable this feature by setting:
 
 ```yml
-config.audit.resolve_indices: false
+config:
+  audit:
+    resolve_indices: false
 ```
+{% include copy.html %}
 
 This feature is only disabled if `config.audit.log_request_body` is also set to `false`.
 {: .note }
@@ -143,8 +161,11 @@ Bulk requests can contain many indexing operations. By default, the Security plu
 The Security plugin can be configured to log each indexing operation as a separate event:
 
 ```yml
-config.audit.resolve_bulk_requests: true
+config:
+  audit:
+    resolve_bulk_requests: true
 ```
+{% include copy.html %}
 
 This change can create an extremely large number of events in the audit logs, so we don't recommend enabling this setting if you frequently use the `_bulk` API.
 
@@ -154,25 +175,33 @@ This change can create an extremely large number of events in the audit logs, so
 You can exclude certain requests from being logged by configuring actions for transport requests and/or HTTP request paths (REST):
 
 ```yml
-config.audit.ignore_requests: ["indices:data/read/*", "SearchRequest"]
+config:
+  audit:
+    ignore_requests: ["indices:data/read/*", "SearchRequest"]
 ```
-
+{% include copy.html %}
 
 #### Exclude users
 
 By default, the Security plugin logs events from all users but excludes the internal OpenSearch Dashboards server user `kibanaserver`. You can exclude other users:
 
 ```yml
-config.audit.ignore_users:
-  - kibanaserver
-  - admin
+config:
+  audit:
+    ignore_users:
+      - kibanaserver
+      - admin
 ```
+{% include copy.html %}
 
 If requests from all users should be logged, use `NONE`:
 
 ```yml
-config.audit.ignore_users: NONE
+config:
+  audit:
+    ignore_users: NONE
 ```
+{% include copy.html %}
 
 
 #### Exclude headers
@@ -180,8 +209,11 @@ config.audit.ignore_users: NONE
 You can exclude sensitive headers from being included in the logs---for example, the `Authorization:` header:
 
 ```yml
-config.audit.exclude_sensitive_headers: true
+config:
+  audit:
+    exclude_sensitive_headers: true
 ```
+{% include copy.html %}
 
 
 ### Settings in opensearch.yml
@@ -196,12 +228,14 @@ By default, the Security plugin stores audit events in a daily rolling index nam
 ```yml
 plugins.security.audit.config.index: myauditlogindex
 ```
+{% include copy.html %}
 
 Use a date pattern in the index name to configure daily, weekly, or monthly rolling indexes:
 
 ```yml
 plugins.security.audit.config.index: "'auditlog-'YYYY.MM.dd"
 ```
+{% include copy.html %}
 
 For a reference on the date pattern format, see the [Joda DateTimeFormat documentation](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
 
@@ -213,12 +247,14 @@ The Search plugin logs events asynchronously, which minimizes the performance im
 ```yml
 plugins.security.audit.config.threadpool.size: <integer>
 ```
+{% include copy.html %}
 
 The default setting is `10`. Setting this value to `0` disables the thread pool, which means the plugin logs events synchronously. To set the maximum queue length per thread:
 
 ```yml
 plugins.security.audit.config.threadpool.max_queue_len: 100000
 ```
+{% include copy.html %}
 
 ## Disabling audit logs
 
@@ -228,7 +264,7 @@ To disable audit logs after they've been enabled, remove the `plugins.security.a
 
 To enable audit logging on changes to a security index, such as changes to roles mappings and role creation or deletion, use the following settings in the `compliance:` portion of the audit log configuration, as shown in the following example:
 
-```
+```yaml
 _meta:
   type: "audit"
   config_version: 2
@@ -257,3 +293,4 @@ config:
     # write_watched_indices: ["twitter", "logs-*"]
     write_watched_indices: [".opendistro_security"]
 ```
+{% include copy.html %}
