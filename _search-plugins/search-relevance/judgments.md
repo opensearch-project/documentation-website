@@ -24,8 +24,8 @@ Search Relevance Workbench supports all types of judgments:
 ## Explicit judgments
 
 Search Relevance Workbench offers two ways to integrate explicit judgments:
-* Importing judgments that were collected using a process outside of OpenSearch
-* AI-assisted judgments that use LLMs
+* Importing judgments that were collected using a process outside of OpenSearch.
+* Generating judgments using LLM-as-a-Judge.
 
 ### Importing judgments
 
@@ -105,12 +105,12 @@ Parameter | Data type | Description
 `type` | String | Set to `IMPORT_JUDGMENT`.
 `judgmentRatings` | Array | A list of JSON objects containing the judgments. Judgments are grouped by query, each containing a nested map in which document IDs (`docId`) serve as keys and their floating-point ratings serve as values.
 
-### Creating AI-assisted judgments
+### Using LLM-as-a-Judge 
 
-If you want to use judgments in your experimentation process but do not have a team of humans or the user behavior data to calculate judgments based on interactions, you can use an LLM in Search Relevance Workbench to generate judgments.
+If you want to use judgments in your experimentation process but do not have a team of humans or the user behavior data to calculate judgments based on interactions, you can use an LLM in Search Relevance Workbench to generate judgments, aka _LLM-as-a-Judge_.
 #### Prerequisites
 
-To use AI-assisted judgment generation, ensure that you have configured the following components:
+To use LLM-as-a-Judge, ensure that you have configured the following components:
 
 * A connector to an LLM to use for generating the judgments. For more information, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 * A query set: Together with the `size` parameter, the query set defines the scope for generating judgments. For each query, the top k documents are retrieved from the specified index, where k is defined in the `size` parameter.
@@ -120,7 +120,7 @@ The AI-assisted judgment process works as follows:
 - For each query, the top k documents are retrieved using the defined search configuration, which includes the index information. The query and each document from the result list create a query/document pair.
 - Each query and document pair forms a query/document pair.
 - The LLM is then called with a predefined prompt (stored as a static variable in the backend) to generate a judgment for each query/document pair.
-- All generated judgments are stored in the judgments index for reuse in future experiments.
+- All generated judgments are stored in the judgments cache index for reuse in future experiments.
 
 To create a judgment list, provide the model ID of the LLM, an available query set, and a created search configuration:
 
