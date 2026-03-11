@@ -44,28 +44,28 @@ GET /_cluster/health/{index}
 ```
 <!-- spec_insert_end -->
 
-## Path parameters
-
-The following table lists the available path parameters. All path parameters are optional.
-
 <!-- spec_insert_start
 api: cluster.health
 component: path_parameters
 -->
+## Path parameters
+
+The following table lists the available path parameters. All path parameters are optional.
+
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `index` | List or String | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. |
 
 <!-- spec_insert_end -->
 
-## Query parameters
-
-The following table lists the available query parameters. All query parameters are optional.
-
 <!-- spec_insert_start
 api: cluster.health
 component: query_parameters
 -->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `awareness_attribute` | String | The name of the awareness attribute for which to return the cluster health status (for example, `zone`). Applicable only if `level` is set to `awareness_attributes`. | N/A |
