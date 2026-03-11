@@ -223,12 +223,12 @@ The response contains the following fields.
 Field Name | Data type | Description
 :--- | :--- | :---
 search_backpressure | Object | Statistics about search backpressure.
-search_backpressure.search_task | Object | Statistics specific to the search task.
-search_backpressure.search_task.[resource_tracker_stats](#resource_tracker_stats) | Object | Statistics about the current search tasks.
-search_backpressure.search_task.[cancellation_stats](#cancellation_stats) | Object | Statistics about the search tasks canceled since the node last restarted.
-search_backpressure.search_shard_task | Object | Statistics specific to the search shard task.
-search_backpressure.search_shard_task.[resource_tracker_stats](#resource_tracker_stats) | Object | Statistics about the current search shard tasks.
-search_backpressure.search_shard_task.[cancellation_stats](#cancellation_stats) | Object |  Statistics about the search shard tasks canceled since the node last restarted.
+search_backpressure.search_task | Object | Statistics for search tasks. Contains resource tracker statistics for individual cancellation criteria (heap, CPU, elapsed time) and a summary of all cancellation activity across these trackers.
+search_backpressure.search_task.[resource_tracker_stats](#resource_tracker_stats) | Object | Per-tracker statistics showing cancellation counts for each resource type (heap usage, CPU usage, elapsed time) and current resource consumption metrics.
+search_backpressure.search_task.[cancellation_stats](#cancellation_stats) | Object | Aggregated cancellation statistics across all resource trackers. The sum of `cancellation_count` and `cancellation_limit_reached_count` equals the total of all resource tracker cancellation counts.
+search_backpressure.search_shard_task | Object | Statistics for search shard tasks. Contains resource tracker statistics for individual cancellation criteria (heap, CPU, elapsed time) and a summary of all cancellation activity across these trackers.
+search_backpressure.search_shard_task.[resource_tracker_stats](#resource_tracker_stats) | Object | Per-tracker statistics showing cancellation counts for each resource type (heap usage, CPU usage, elapsed time) and current resource consumption metrics.
+search_backpressure.search_shard_task.[cancellation_stats](#cancellation_stats) | Object | Aggregated cancellation statistics across all resource trackers. The sum of `cancellation_count` and `cancellation_limit_reached_count` equals the total of all resource tracker cancellation counts.
 search_backpressure.mode | String | The [mode](#search-backpressure-modes) for search backpressure. 
 
 ### `resource_tracker_stats`
@@ -274,3 +274,6 @@ Field Name | Data type | Description
 :--- | :--- | :---
 cancellation_count | Integer | The total number of tasks marked for cancellation since the node last restarted.
 cancellation_limit_reached_count | Integer | The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold.
+
+Each resource tracker (heap, CPU, elapsed time) independently identifies tasks that breach its thresholds and increments its own `cancellation_count`. Since a single task may breach multiple resource thresholds, the sum of resource tracker `cancellation_count` values may exceed the top-level `cancellation_count`, which represents the actual number of unique tasks that were cancelled. The `cancellation_limit_reached_count` increments when the cancellation rate limit is reached during an observer iteration, preventing additional cancellations in that iteration.
+{: .note}
