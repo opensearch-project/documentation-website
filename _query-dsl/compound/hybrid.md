@@ -148,12 +148,12 @@ Starting with OpenSearch 3.5, you can use hybrid queries on indexes with more th
 
 ## Limitations
 
-The hybrid query is designed to be the top-level query in a search request. It cannot be nested inside other compound or wrapper queries such as `function_score`, `constant_score`, `script_score`, or `boosting`. Attempting to do so returns an error. This restriction also applies to multi-level nesting, for example, `bool` containing `function_score` containing `hybrid`. Starting with version 3.6, validation coverage was extended to detect these unsupported nesting patterns and return a clear error message.
+The hybrid query is designed to be the top-level query in a search request. It cannot be nested inside other compound or wrapper queries such as `function_score`, `constant_score`, `script_score`, or `boosting`. This restriction also applies to multi-level nesting, for example, `bool` containing `function_score` containing `hybrid`. Starting with version 3.6, validation coverage was extended to detect these unsupported nesting patterns and return a clear error message. In earlier versions, nesting a hybrid query inside these wrapper queries may produce a runtime error or silently bypass the normalization pipeline.
 {: .important}
 
 The hybrid query uses a specialized scoring mechanism that is incompatible with wrapper queries. These wrapper queries use a different internal scorer that bypasses the hybrid query's per-subquery score collection, which is required for the normalization and combination pipeline to function correctly.
 
-If you need to apply score boosting functions to hybrid search results, replace the `hybrid` clause with a `bool` query using `should` clauses containing the same subqueries:
+If you need to apply score boosting functions to hybrid search results, replace the `hybrid` clause with a `bool` query using `should` clauses containing the same subqueries. This workaround works on all OpenSearch versions that support hybrid query:
 
 Instead of the following **unsupported** query:
 
@@ -198,7 +198,7 @@ GET /my-index/_search
 ```
 {% include copy-curl.html %}
 
-Note that when using `bool` with `should` instead of `hybrid`, the search pipeline's normalization and combination processors are not applied. Scores from the subqueries are combined using standard boolean scoring (sum of matching clauses), and then the `function_score` functions are applied on top.
+Note that when using `bool` with `should` instead of `hybrid`, the search pipeline's normalization and combination processors are not applied. Scores from the subqueries are combined using standard Boolean scoring (sum of matching clauses), and then the `function_score` functions are applied on top.
 {: .note}
 
 ## Disabling hybrid queries
