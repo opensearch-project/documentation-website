@@ -763,6 +763,17 @@ The `_geo_distance` parameter does not support `missing_values`. The distance is
 For example, index two documents with geopoints:
 
 ```json
+PUT testindex1
+{
+  "mappings": {
+    "properties": {
+      "point": {
+        "type": "geo_point"
+      }
+    }
+  }
+}
+
 PUT testindex1/_doc/1
 {
   "point": [74.00, 40.71] 
