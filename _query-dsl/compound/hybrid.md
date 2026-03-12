@@ -148,7 +148,7 @@ Starting with OpenSearch 3.5, you can use hybrid queries on indexes with more th
 
 ## Limitations
 
-The hybrid query is designed to be the top-level query in a search request. It cannot be nested inside other compound or wrapper queries such as `function_score`, `constant_score`, `script_score`, or `boosting`. This restriction also applies to multi-level nesting, for example, `bool` containing `function_score` containing `hybrid`. Starting with version 3.6, validation coverage was extended to detect these unsupported nesting patterns and return a clear error message. In earlier versions, nesting a hybrid query inside these wrapper queries may produce a runtime error or silently bypass the normalization pipeline.
+The hybrid query is designed to be the top-level query in a search request. It cannot be nested inside other compound or wrapper queries such as `function_score`, `constant_score`, `script_score`, or `boosting`. This restriction also applies to multi-level nesting, for example, `bool` containing `function_score` containing `hybrid`. Nesting a hybrid query inside these wrapper queries may produce a runtime error or silently bypass the normalization pipeline.
 {: .important}
 
 The hybrid query uses a specialized scoring mechanism that is incompatible with wrapper queries. These wrapper queries use a different internal scorer that bypasses the hybrid query's per-subquery score collection, which is required for the normalization and combination pipeline to function correctly.
