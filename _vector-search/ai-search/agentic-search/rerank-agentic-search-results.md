@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Rerank Agentic Search Results
+title: Reranking agentic search results
 parent: Agentic search
 grand_parent: AI search
-nav_order: 100
+nav_order: 105
 has_children: false
 ---
 
-# Rerank Agentic Search Results
+# Reranking agentic search results
 
-Agentic Search requests are processed by the `agentic_query_translator` search request processor, which intercepts the given query text and passes this data to the configured agent to generate and execute an OpenSearch DSL query. Search results can additionally be reranked using the [rerank search response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) to further adjust relevancy scores prior to returning the response to the user.
+Agentic search requests are processed by the [`agentic_query_translator` search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/), which intercepts the given query text and passes it to the configured agent in order to generate and execute an OpenSearch DSL query. To further adjust relevance scores, search results can also be reranked using the [`rerank` search response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/).
 
 ## Prerequisite
 
@@ -53,7 +53,7 @@ PUT /iris-index
 
 ## Step 2: Ingest documents into the index
 
-To ingest documents into the index created in the previous step, send the following requests:
+To ingest documents into the index created in the previous step, send the following request:
 
 ```json
 POST _bulk
@@ -82,13 +82,15 @@ POST _bulk
 
 ## Step 3: Register an agent with the QueryPlanningTool
 
-Next, register a model and agent with the `QueryPlanningTool`, following these [instructions]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-3-create-a-model-for-the-agent-and-queryplanningtool)
+Next, register a model and agent with the `QueryPlanningTool` by following [these instructions]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-3-create-a-model-for-the-agent-and-queryplanningtool).
 
 ## Step 4: Create a search pipeline
 
-Create a search pipeline that uses your agent with a rerank response processor. This example uses a `by_field` rerank processor which allows us to rerank documents based on a given field, `petal_length_in_cm`.
+Create a search pipeline that uses your agent and a `rerank` response processor. This example uses a `by_field` rerank processor that reranks documents based on the `petal_length_in_cm` field.
 
-### Step 4(a): Create an agentic search pipeline with a by_field rerank processor
+### Step 4(a): Configure a by_field rerank processor
+
+Create an agentic search pipeline containing a `by_field` rerank processor:
 
 ```json
 PUT _search/pipeline/agentic-pipeline
@@ -121,9 +123,10 @@ PUT _search/pipeline/agentic-pipeline
 
 You can also use an `ml_opensearch` rerank processor to apply OpenSearch-provided [cross-encoder models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#cross-encoder-models) to rerank results based on your use case.
 
-### Step 4(b): Create an agentic search pipeline with a ml_opensearch rerank processor
+### Step 4(b): Configure an ml_opensearch rerank processor
 
-For this example, we will register an `ms-marco-MiniLM-L-6-v2` cross-encoder model :
+Register an `ms-marco-MiniLM-L-6-v2` cross-encoder model:
+
 ```json
 POST _plugins/_ml/models/_register?deploy=true
 {
@@ -132,8 +135,10 @@ POST _plugins/_ml/models/_register?deploy=true
   "model_format": "TORCH_SCRIPT"
 }
 ```
+{% include copy-curl.html %}
 
-Then we can configure our `rerank` processor with the given model ID on any text fields in our index. The model will recieve both the query text and the document text and generate a new relevance score based on both: 
+Then configure a `rerank` processor by providing the model ID returned in the response. You can configure the `rerank` processor for any text field in your index. In this example, you'll use the `species` field: 
+
 ```json
 POST _search/pipeline/agentic-pipeline
 {
@@ -166,13 +171,15 @@ POST _search/pipeline/agentic-pipeline
     ]
 }
 ```
-
+{% include copy-curl.html %}
 
 ## Step 5: Test a question
 
-Test your reranking agentic search pipeline
+Test your reranking agentic search pipeline by asking a question.
 
-### Step 5(a): Testing a by_field rerank processor
+### Step 5(a): Test the by_field rerank processor
+
+To test the `by_field` rerank processor, send the following request:
 
 ```json
 POST /iris-index/_search?search_pipeline=agentic-pipeline
@@ -186,7 +193,7 @@ POST /iris-index/_search?search_pipeline=agentic-pipeline
 ```
 {% include copy-curl.html %}
 
-The generated DSL query shows us that the agent has opted to use a basic term query on the `species` field of the `iris-index`, which will return all documents which match the given term. Additionally we can see that the response also contains a `previous_score` field applied by the `rerank` search response processor along with an updated `_score` field. As a result of rescoring by the rerank processor, we see that the documents are now ranked by petal length in descending order : 
+The generated DSL query shows that the agent opted to use a basic `term` query on the `species` field of the `iris-index`. The query returns all documents matching the given term. In the response, each document includes two scores: `previous_score` (the original relevance score) and `_score` (the updated score after reranking). The documents are ranked by petal length in descending order: 
 
 ```json
 {
@@ -278,7 +285,10 @@ The generated DSL query shows us that the agent has opted to use a basic term qu
 }
 ```
 
-### Step 5(b): Testing an ml_opensearch rerank processor
+### Step 5(b): Test the ml_opensearch rerank processor
+
+To test the `ml_opensearch` rerank processor, send the following request:
+
 ```json
 POST /iris-index/_search?search_pipeline=agentic-pipeline
 {
@@ -297,6 +307,8 @@ POST /iris-index/_search?search_pipeline=agentic-pipeline
 }
 ```
 {% include copy-curl.html %}
+
+The model receives both the query text and the document text and generates a new relevance score based on both:
 
 ```json
 {
@@ -385,4 +397,5 @@ POST /iris-index/_search?search_pipeline=agentic-pipeline
 
 ## Related documentation
 
+- [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/)
 - [Rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/)
