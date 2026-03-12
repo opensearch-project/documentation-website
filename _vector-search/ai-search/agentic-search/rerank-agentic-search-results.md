@@ -80,9 +80,12 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-## Step 3: Register an agent with the QueryPlanningTool
+## Step 3: Register a model and an agent
 
-Next, register a model and agent with the `QueryPlanningTool` by following [these instructions]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-3-create-a-model-for-the-agent-and-queryplanningtool).
+Follow these steps to register a model and an agent:
+
+1. [Create a model for the agent and QueryPlanningTool]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-3-create-a-model-for-the-agent-and-queryplanningtool).
+2. [Create an agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/#step-4-create-an-agent).
 
 ## Step 4: Create a search pipeline
 
@@ -95,33 +98,33 @@ Create an agentic search pipeline containing a `by_field` rerank processor:
 ```json
 PUT _search/pipeline/agentic-pipeline
 {
-    "request_processors": [
-        {
-            "agentic_query_translator": {
-                "agent_id": "your-agent-id-from-step-3"
-            }
+  "request_processors": [
+    {
+      "agentic_query_translator": {
+        "agent_id": "your-agent-id-from-step-3"
+      }
+    }
+  ],
+  "response_processors": [
+    {
+      "rerank": {
+        "by_field": {
+          "target_field": "petal_length_in_cm",
+          "keep_previous_score": true
         }
-    ],
-    "response_processors": [
-        {
-            "rerank": {
-                "by_field": {
-                    "target_field": "petal_length_in_cm",
-                    "keep_previous_score": true
-                }
-            }
-        },
-        {
-            "agentic_context": {
-                "dsl_query": true
-            }
-        }
-    ]
+      }
+    },
+    {
+      "agentic_context": {
+        "dsl_query": true
+      }
+    }
+  ]
 }
 ```
 {% include copy-curl.html %}
 
-You can also use an `ml_opensearch` rerank processor to apply OpenSearch-provided [cross-encoder models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#cross-encoder-models) to rerank results based on your use case.
+Alternatively, you can use an `ml_opensearch` rerank processor to apply OpenSearch-provided [cross-encoder models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#cross-encoder-models) to rerank results.
 
 ### Step 4(b): Configure an ml_opensearch rerank processor
 
@@ -142,33 +145,33 @@ Then configure a `rerank` processor by providing the model ID returned in the re
 ```json
 POST _search/pipeline/agentic-pipeline
 {
-    "request_processors": [
-        {
-            "agentic_query_translator": {
-                "agent_id": "your-agent-id-from-step-3"
-            }
-        }
-    ],
-    "response_processors": [
-        {
-            "rerank": {
-                "ml_opensearch": {
-                    "model_id": "your-cross-encoder-model-id",
-                    "keep_previous_score": true
-                },
-                "context": {
-                    "document_fields": [
-                        "species"
-                    ]
-                }
-            }
+  "request_processors": [
+    {
+      "agentic_query_translator": {
+        "agent_id": "your-agent-id-from-step-3"
+      }
+    }
+  ],
+  "response_processors": [
+    {
+      "rerank": {
+        "ml_opensearch": {
+          "model_id": "your-cross-encoder-model-id",
+          "keep_previous_score": true
         },
-        {
-            "agentic_context": {
-                "dsl_query": true
-            }
+        "context": {
+          "document_fields": [
+            "species"
+          ]
         }
-    ]
+      }
+    },
+    {
+      "agentic_context": {
+        "dsl_query": true
+      }
+    }
+  ]
 }
 ```
 {% include copy-curl.html %}
@@ -184,11 +187,11 @@ To test the `by_field` rerank processor, send the following request:
 ```json
 POST /iris-index/_search?search_pipeline=agentic-pipeline
 {
-    "query": {
-        "agentic": {
-            "query_text": "Show me virginica flowers"
-        }
+  "query": {
+    "agentic": {
+      "query_text": "Show me virginica flowers"
     }
+  }
 }
 ```
 {% include copy-curl.html %}
@@ -197,91 +200,91 @@ The generated DSL query shows that the agent opted to use a basic `term` query o
 
 ```json
 {
-    "took": 3402,
-    "timed_out": false,
-    "_shards": {
-        "total": 5,
-        "successful": 5,
-        "skipped": 0,
-        "failed": 0
+  "took": 3402,
+  "timed_out": false,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
     },
-    "hits": {
-        "total": {
-            "value": 5,
-            "relation": "eq"
-        },
-        "max_score": 6.6,
-        "hits": [
-            {
-                "_index": "iris-index",
-                "_id": "6",
-                "_score": 6.6,
-                "_source": {
-                    "sepal_width_in_cm": 3.0,
-                    "species": "virginica",
-                    "previous_score": 1.0,
-                    "sepal_length_in_cm": 7.6,
-                    "petal_width_in_cm": 2.1,
-                    "petal_length_in_cm": 6.6
-                }
-            },
-            {
-                "_index": "iris-index",
-                "_id": "8",
-                "_score": 6.3,
-                "_source": {
-                    "sepal_width_in_cm": 2.9,
-                    "species": "virginica",
-                    "previous_score": 1.0,
-                    "sepal_length_in_cm": 7.3,
-                    "petal_width_in_cm": 1.8,
-                    "petal_length_in_cm": 6.3
-                }
-            },
-            {
-                "_index": "iris-index",
-                "_id": "10",
-                "_score": 6.1,
-                "_source": {
-                    "sepal_width_in_cm": 3.6,
-                    "species": "virginica",
-                    "previous_score": 1.0,
-                    "sepal_length_in_cm": 7.2,
-                    "petal_width_in_cm": 2.5,
-                    "petal_length_in_cm": 6.1
-                }
-            },
-            {
-                "_index": "iris-index",
-                "_id": "9",
-                "_score": 5.8,
-                "_source": {
-                    "sepal_width_in_cm": 2.5,
-                    "species": "virginica",
-                    "previous_score": 1.0,
-                    "sepal_length_in_cm": 6.7,
-                    "petal_width_in_cm": 1.8,
-                    "petal_length_in_cm": 5.8
-                }
-            },
-            {
-                "_index": "iris-index",
-                "_id": "7",
-                "_score": 4.5,
-                "_source": {
-                    "sepal_width_in_cm": 2.5,
-                    "species": "virginica",
-                    "previous_score": 1.0,
-                    "sepal_length_in_cm": 4.9,
-                    "petal_width_in_cm": 1.7,
-                    "petal_length_in_cm": 4.5
-                }
-            }
-        ]
-    },
-    "ext": {
-        "dsl_query": "{\"query\":{\"term\":{\"species.keyword\":\"virginica\"}}}"
-    }
+    "max_score": 6.6,
+    "hits": [
+      {
+        "_index": "iris-index",
+        "_id": "6",
+        "_score": 6.6,
+        "_source": {
+          "sepal_width_in_cm": 3.0,
+          "species": "virginica",
+          "previous_score": 1.0,
+          "sepal_length_in_cm": 7.6,
+          "petal_width_in_cm": 2.1,
+          "petal_length_in_cm": 6.6
+        }
+      },
+      {
+        "_index": "iris-index",
+        "_id": "8",
+        "_score": 6.3,
+        "_source": {
+          "sepal_width_in_cm": 2.9,
+          "species": "virginica",
+          "previous_score": 1.0,
+          "sepal_length_in_cm": 7.3,
+          "petal_width_in_cm": 1.8,
+          "petal_length_in_cm": 6.3
+        }
+      },
+      {
+        "_index": "iris-index",
+        "_id": "10",
+        "_score": 6.1,
+        "_source": {
+          "sepal_width_in_cm": 3.6,
+          "species": "virginica",
+          "previous_score": 1.0,
+          "sepal_length_in_cm": 7.2,
+          "petal_width_in_cm": 2.5,
+          "petal_length_in_cm": 6.1
+        }
+      },
+      {
+        "_index": "iris-index",
+        "_id": "9",
+        "_score": 5.8,
+        "_source": {
+          "sepal_width_in_cm": 2.5,
+          "species": "virginica",
+          "previous_score": 1.0,
+          "sepal_length_in_cm": 6.7,
+          "petal_width_in_cm": 1.8,
+          "petal_length_in_cm": 5.8
+        }
+      },
+      {
+        "_index": "iris-index",
+        "_id": "7",
+        "_score": 4.5,
+        "_source": {
+          "sepal_width_in_cm": 2.5,
+          "species": "virginica",
+          "previous_score": 1.0,
+          "sepal_length_in_cm": 4.9,
+          "petal_width_in_cm": 1.7,
+          "petal_length_in_cm": 4.5
+        }
+      }
+    ]
+  },
+  "ext": {
+    "dsl_query": "{\"query\":{\"term\":{\"species.keyword\":\"virginica\"}}}"
+  }
 }
 ```
 
@@ -292,18 +295,18 @@ To test the `ml_opensearch` rerank processor, send the following request:
 ```json
 POST /iris-index/_search?search_pipeline=agentic-pipeline
 {
-    "query": {
-        "agentic": {
-            "query_text": "Show me virginica flowers"
-        }
-    },
-    "ext": {
-        "rerank": {
-            "query_context": {
-                "query_text": "Show me virginica flowers"
-            }
-        }
+  "query": {
+    "agentic": {
+      "query_text": "Show me virginica flowers"
     }
+  },
+  "ext": {
+    "rerank": {
+      "query_context": {
+        "query_text": "Show me virginica flowers"
+      }
+    }
+  }
 }
 ```
 {% include copy-curl.html %}
@@ -312,86 +315,86 @@ The model receives both the query text and the document text and generates a new
 
 ```json
 {
-    "took": 2667,
-    "timed_out": false,
-    "_shards": {
-        "total": 5,
-        "successful": 5,
-        "skipped": 0,
-        "failed": 0
+  "took": 2667,
+  "timed_out": false,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
     },
-    "hits": {
-        "total": {
-            "value": 5,
-            "relation": "eq"
-        },
-        "max_score": 0.65176475,
-        "hits": [
-            {
-                "_index": "iris-index",
-                "_id": "9",
-                "_score": 0.65176475,
-                "_source": {
-                    "petal_length_in_cm": 5.8,
-                    "petal_width_in_cm": 1.8,
-                    "sepal_length_in_cm": 6.7,
-                    "sepal_width_in_cm": 2.5,
-                    "species": "virginica"
-                }
-            },
-            {
-                "_index": "iris-index",
-                "_id": "7",
-                "_score": 0.65176475,
-                "_source": {
-                    "petal_length_in_cm": 4.5,
-                    "petal_width_in_cm": 1.7,
-                    "sepal_length_in_cm": 4.9,
-                    "sepal_width_in_cm": 2.5,
-                    "species": "virginica"
-                }
-            },
-            {
-                "_index": "iris-index",
-                "_id": "8",
-                "_score": 0.65176475,
-                "_source": {
-                    "petal_length_in_cm": 6.3,
-                    "petal_width_in_cm": 1.8,
-                    "sepal_length_in_cm": 7.3,
-                    "sepal_width_in_cm": 2.9,
-                    "species": "virginica"
-                }
-            },
-            {
-                "_index": "iris-index",
-                "_id": "10",
-                "_score": 0.65176475,
-                "_source": {
-                    "petal_length_in_cm": 6.1,
-                    "petal_width_in_cm": 2.5,
-                    "sepal_length_in_cm": 7.2,
-                    "sepal_width_in_cm": 3.6,
-                    "species": "virginica"
-                }
-            },
-            {
-                "_index": "iris-index",
-                "_id": "6",
-                "_score": 0.65176475,
-                "_source": {
-                    "petal_length_in_cm": 6.6,
-                    "petal_width_in_cm": 2.1,
-                    "sepal_length_in_cm": 7.6,
-                    "sepal_width_in_cm": 3.0,
-                    "species": "virginica"
-                }
-            }
-        ]
-    },
-    "ext": {
-        "dsl_query": "{\"query\":{\"term\":{\"species.keyword\":\"virginica\"}}}"
-    }
+    "max_score": 0.65176475,
+    "hits": [
+      {
+        "_index": "iris-index",
+        "_id": "9",
+        "_score": 0.65176475,
+        "_source": {
+          "petal_length_in_cm": 5.8,
+          "petal_width_in_cm": 1.8,
+          "sepal_length_in_cm": 6.7,
+          "sepal_width_in_cm": 2.5,
+          "species": "virginica"
+        }
+      },
+      {
+        "_index": "iris-index",
+        "_id": "7",
+        "_score": 0.65176475,
+        "_source": {
+          "petal_length_in_cm": 4.5,
+          "petal_width_in_cm": 1.7,
+          "sepal_length_in_cm": 4.9,
+          "sepal_width_in_cm": 2.5,
+          "species": "virginica"
+        }
+      },
+      {
+        "_index": "iris-index",
+        "_id": "8",
+        "_score": 0.65176475,
+        "_source": {
+          "petal_length_in_cm": 6.3,
+          "petal_width_in_cm": 1.8,
+          "sepal_length_in_cm": 7.3,
+          "sepal_width_in_cm": 2.9,
+          "species": "virginica"
+        }
+      },
+      {
+        "_index": "iris-index",
+        "_id": "10",
+        "_score": 0.65176475,
+        "_source": {
+          "petal_length_in_cm": 6.1,
+          "petal_width_in_cm": 2.5,
+          "sepal_length_in_cm": 7.2,
+          "sepal_width_in_cm": 3.6,
+          "species": "virginica"
+        }
+      },
+      {
+        "_index": "iris-index",
+        "_id": "6",
+        "_score": 0.65176475,
+        "_source": {
+          "petal_length_in_cm": 6.6,
+          "petal_width_in_cm": 2.1,
+          "sepal_length_in_cm": 7.6,
+          "sepal_width_in_cm": 3.0,
+          "species": "virginica"
+        }
+      }
+    ]
+  },
+  "ext": {
+    "dsl_query": "{\"query\":{\"term\":{\"species.keyword\":\"virginica\"}}}"
+  }
 }
 ```
 
