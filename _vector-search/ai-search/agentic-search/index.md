@@ -253,6 +253,8 @@ After setting up basic agentic search, you can enhance your implementation with 
 
 - [Build agentic search flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/) -- Configure agents and execute agentic search using AI search flows in OpenSearch Dashboards. 
 
+- [Rerank agentic search results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/rerank-agentic-search-results/) -- Add a rerank search response processor to your agentic search pipeline to futher rerank search results.
+
 ## Next steps
 
 - [Inspecting agentic search and continuing conversations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/) -- Inspect agent behavior, view generated DSL, and continue conversations using a memory ID.
