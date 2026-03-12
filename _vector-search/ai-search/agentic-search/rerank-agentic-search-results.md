@@ -140,7 +140,7 @@ POST _plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Then configure a `rerank` processor by providing the model ID returned in the response. You can configure the `rerank` processor for any text field in your index. In this example, you'll use the `species` field: 
+Then configure an `ml_opensearch` rerank processor by providing the model ID returned in the response. You can configure the rerank processor for any text field in your index. In this example, you'll use the `species` field: 
 
 ```json
 POST _search/pipeline/agentic-pipeline
