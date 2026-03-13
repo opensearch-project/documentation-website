@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Intervals
-nav_order: 80
+nav_order: 90
 parent: Full-text queries
 ---
 
