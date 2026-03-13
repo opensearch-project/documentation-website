@@ -37,7 +37,7 @@ The metadata migration tool integrated into the Migration CLI can be used indepe
 
 ## RFS Work Coordinator
 
-By default, Migration Assistant deploys a dedicated single-node OpenSearch cluster to coordinate document backfill work across RFS workers. This coordinator manages shard assignments, lease tracking, and completion status, isolating coordination traffic from the target cluster. The coordinator is automatically deployed before backfill and torn down after completion.
+For EKS-based deployments, Migration Assistant deploys a dedicated single-node OpenSearch cluster to coordinate document backfill work across RFS workers. This coordinator manages shard assignments, lease tracking, and completion status, isolating coordination traffic from the target cluster. The coordinator is automatically deployed before backfill and torn down after completion.
 
 ## Target cluster
 
