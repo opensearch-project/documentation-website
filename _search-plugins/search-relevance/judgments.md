@@ -24,8 +24,8 @@ Search Relevance Workbench supports all types of judgments:
 ## Explicit judgments
 
 Search Relevance Workbench offers two ways to integrate explicit judgments:
-* Importing judgments that were collected using a process outside of OpenSearch
-* AI-assisted judgments that use LLMs
+* Importing judgments that were collected using a process outside of OpenSearch.
+* Generating judgments using LLM-as-a-Judge.
 
 ### Importing judgments
 
@@ -105,12 +105,12 @@ Parameter | Data type | Description
 `type` | String | Set to `IMPORT_JUDGMENT`.
 `judgmentRatings` | Array | A list of JSON objects containing the judgments. Judgments are grouped by query, each containing a nested map in which document IDs (`docId`) serve as keys and their floating-point ratings serve as values.
 
-### Creating AI-assisted judgments
+### Using LLM-as-a-Judge 
 
-If you want to use judgments in your experimentation process but do not have a team of humans or the user behavior data to calculate judgments based on interactions, you can use an LLM in Search Relevance Workbench to generate judgments.
+If you want to use judgments in your experimentation process but do not have a team of humans or the user behavior data to calculate judgments based on interactions, you can use an LLM in Search Relevance Workbench to generate judgments.  See the [LLM-as-a-Judge tutorial]({{site.url}}{{site.baseurl}}/tutorials/llm-as-a-judge-tutorial/) for a step by step guide.
 #### Prerequisites
 
-To use AI-assisted judgment generation, ensure that you have configured the following components:
+To use LLM-as-a-Judge, ensure that you have configured the following components:
 
 * A connector to an LLM to use for generating the judgments. For more information, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 * A query set: Together with the `size` parameter, the query set defines the scope for generating judgments. For each query, the top k documents are retrieved from the specified index, where k is defined in the `size` parameter.
@@ -120,24 +120,48 @@ The AI-assisted judgment process works as follows:
 - For each query, the top k documents are retrieved using the defined search configuration, which includes the index information. The query and each document from the result list create a query/document pair.
 - Each query and document pair forms a query/document pair.
 - The LLM is then called with a predefined prompt (stored as a static variable in the backend) to generate a judgment for each query/document pair.
-- All generated judgments are stored in the judgments index for reuse in future experiments.
+- All generated judgments are stored in the judgments cache index for reuse in future experiments.
 
-To create a judgment list, provide the model ID of the LLM, an available query set, and a created search configuration:
+To create a judgment list, provide the model ID of the LLM, an available query set, and a created search configuration.
 
+The below example uses a fairly generic prompt template with a scale of 0.0 to 1.0 for judgments.  To winnow down the volume of data to be evaluated by the LLM, and therefore reduce the cost, you can specify which fields from the results to be sent via the `contextFields`.
 
 ```json
 PUT _plugins/_search_relevance/judgments
 {
     "name":"AI-assisted judgment list",
+    "description": "Uses GPT-3.5-turbo to evaluate product search results",
     "type":"LLM_JUDGMENT",
+    "modelId":"N8AE1osB0jLkkocYjz7D",
     "querySetId":"5f0115ad-94b9-403a-912f-3e762870ccf6",
     "searchConfigurationList":["2f90d4fd-bd5e-450f-95bb-eabe4a740bd1"],
     "size":5,
-    "modelId":"N8AE1osB0jLkkocYjz7D",
-    "contextFields":[]
+    "contextFields": ["title", "description", "category"],
+    "llmJudgmentRatingType": "SCORE0_1",
+    "promptTemplate": "Rate the relevance of these search results {{hits}} for the query '{{queryText}}' on a scale of 0-1, where 0 is completely irrelevant and 1 is perfectly relevant. Consider the product title, description, and category."
 }
 ```
 {% include copy-curl.html %}
+
+#### Request body fields
+
+The process of creating LLM based judgments supports the following parameters.
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`name` | String | The name of the judgment list.
+`description` | String | Optional. A description of the judgment list.
+`type` | String | Set to `LLM_JUDGMENT`.
+`modelId` | String | The ID of the deployed ML model to use for generating judgments. Must be a remote model connected to an external LLM service.
+`querySetId` | String | The ID of the query set containing the queries to evaluate.
+`searchConfigurationList` | Array of strings | List of search configuration IDs to use for retrieving documents to evaluate.
+`size` | Integer | The number of top documents to retrieve and evaluate for each query. Default is 10.
+`tokenLimit` | Integer | The maximum number of tokens to send to the LLM in a single request. Used to batch documents when the total content exceeds this limit. Default is 4000.
+`contextFields` | Array of strings | Optional. Specifies which document fields to include when sending content to the LLM. If not specified, the entire document source is sent. Use this to reduce costs and focus the LLM on relevant fields.
+`ignoreFailure` | Boolean | Whether to continue processing other documents if the LLM fails to generate a judgment for some documents. Default is false.
+`llmJudgmentRatingType` | String | The type of rating scale to use. Options: `SCORE0_1` (numeric scale 0-1) or `RELEVANT_IRRELEVANT` (binary relevant/irrelevant).
+`promptTemplate` | String | Optional. Custom prompt template for the LLM. Supports placeholders: `{{queryText}}`, `{{hits}}`. If not provided, a default template is used.
+`overwriteCache` | Boolean | Whether to overwrite existing cached judgments for the same query-document pairs. Default is false (reuse cached judgments).
 
 ## Implicit judgments
 
