@@ -56,7 +56,11 @@ The following matrix shows which source versions can be directly migrated to whi
 **Source and target platforms**
 
 - Self-managed (on premises or hosted by a cloud provider)
-- Amazon OpenSearch Service (Amazon OpenSearch Serverless collections are not supported)
+- Amazon OpenSearch Service
+
+**Target-only platforms**
+
+- Amazon OpenSearch Serverless (document backfill only; metadata migration is not supported)
 
 **Supported AWS Regions**
 
