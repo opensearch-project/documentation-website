@@ -33,7 +33,11 @@ The metadata migration tool integrated into the Migration CLI can be used indepe
 
 ## Reindex-from-Snapshot
 
-`Reindex-from-Snapshot` (RFS) reindexes data from an existing snapshot. Amazon Elastic Container Service (Amazon ECS) workers coordinate the migration of documents from an existing snapshot, reindexing the documents in parallel to a target cluster.
+`Reindex-from-Snapshot` (RFS) reindexes data from an existing snapshot. Workers coordinate the migration of documents from an existing snapshot, reindexing the documents in parallel to a target cluster.
+
+## RFS Work Coordinator
+
+For EKS-based deployments, Migration Assistant deploys a dedicated single-node OpenSearch cluster to coordinate document backfill work across RFS workers. This coordinator manages shard assignments, lease tracking, and completion status, isolating coordination traffic from the target cluster. The coordinator is automatically deployed before backfill and torn down after completion.
 
 ## Target cluster
 
