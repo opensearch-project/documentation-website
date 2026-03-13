@@ -25,14 +25,40 @@ POST <index>/_search?search_pipeline=<search_pipeline>&explain=true
 
 To use the `explain` parameter, you must configure the `hybrid_score_explanation` response processor in your search pipeline. For more information, see [Hybrid score explanation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/explanation-processor/). 
 
-You can also use `explain` with the individual document ID:
+### Explain by document ID
+
+You can use the [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/) with a hybrid query to get scoring details for a single document:
 
 ```json
 GET <index>/_explain/<id>
 POST <index>/_explain/<id>
 ```
 
-In this case, the result will contain only low-level scoring information, for example, [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) scores for text-based queries such as `term` or `match`. For an example response, see [Explain API example response]({{site.url}}{{site.baseurl}}/api-reference/explain/#example-response).
+In this case, the result contains only raw Lucene-level scoring information, for example, [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) scores for text-based subqueries such as `term` or `match`. For an example response, see [Explain API example response]({{site.url}}{{site.baseurl}}/api-reference/explain/#example-response).
+
+The Explain API has the following limitations when used with hybrid queries:
+
+- **No search pipeline support**: The `_explain` endpoint does not support the `search_pipeline` parameter, either inline or as a URL parameter. Sending a request with `search_pipeline` results in a `parsing_exception` error. This limitation applies to all query types, not only hybrid queries.
+- **No normalization or combination details**: Score normalization techniques (such as `min_max`, `l2`, or `z_score`) and combination techniques (such as `arithmetic_mean`) require scores from all matching documents to compute statistics. Because the Explain API operates on a single document, it cannot provide normalization context. The `hybrid_score_explanation` response processor is not invoked.
+
+To get a full hybrid query explanation with normalization and combination details for a specific document, use the Search API with `explain=true` and filter to the target document:
+
+```json
+GET <index>/_search?search_pipeline=<search_pipeline>&explain=true
+{
+  "query": {
+    "hybrid": {
+      "filter": {
+        "term": {
+          "_id": "<doc-id>"
+        }
+      },
+      "queries": [...]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
 
 To see the `explain` output for all results, set the parameter to `true` either in the URL or in the request body:
 
