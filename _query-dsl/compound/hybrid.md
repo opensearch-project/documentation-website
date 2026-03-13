@@ -146,6 +146,60 @@ Starting with version 3.5, the [`min_score`]({{site.url}}{{site.baseurl}}/api-re
 Starting with OpenSearch 3.5, you can use hybrid queries on indexes with more than 512 shards. OpenSearch automatically disables batched reduction to ensure proper score normalization across all shards. No configuration is required. Note that memory usage on the coordinating node may be higher for indexes with a large number of shards. The `_msearch` endpoint does not support automatic handling of batched reduction. For multi-search requests with hybrid queries across many shards, use the `_search` endpoint with index patterns or aliases instead.
 {: .note}
 
+## Limitations
+
+Hybrid query is designed to be a top-level query in a search request. It cannot be nested inside other compound or wrapper queries such as `function_score`, `constant_score`, `script_score`, or `boosting`. This restriction also applies to multilevel nesting, for example, a `bool` query containing a `function_score` query that itself contains a `hybrid` query. Nesting a hybrid query inside these wrapper queries may produce a runtime error or silently bypass the normalization pipeline.
+
+Hybrid query uses a specialized scoring mechanism that is incompatible with wrapper queries. Wrapper queries use a different internal scorer that bypasses the hybrid query's per-subquery score collection, which is required for the normalization and combination pipeline to function correctly.
+
+To apply score-boosting functions to hybrid search results, replace the `hybrid` query with a `bool` query and move your subqueries into `should` clauses. This alternative works in all OpenSearch versions that support hybrid queries.
+
+For example, the following query is unsupported:
+
+```json
+GET /my-index/_search?search_pipeline=my-pipeline
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "hybrid": {
+          "queries": [
+            {"match": {"title": "search terms"}},
+            {"term": {"category": "books"}}
+          ]
+        }
+      },
+      "functions": [{"field_value_factor": {"field": "popularity"}}]
+    }
+  }
+}
+```
+
+Instead, use the following equivalent query:
+
+```json
+GET /my-index/_search
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "bool": {
+          "should": [
+            {"match": {"title": "search terms"}},
+            {"term": {"category": "books"}}
+          ]
+        }
+      },
+      "functions": [{"field_value_factor": {"field": "popularity"}}]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+When using a `bool` query containing `should` clauses instead of a `hybrid` query, the search pipeline's normalization and combination processors are not applied. Instead, scores from the subqueries are combined using standard Boolean scoring (sum of matching clauses). The `function_score` functions are then applied to the combined score.
+{: .note}
+
 ## Disabling hybrid queries
 
 By default, hybrid queries are enabled. To disable hybrid queries in your cluster, set the `plugins.neural_search.hybrid_search_disabled` setting to `true` in `opensearch.yml`.
