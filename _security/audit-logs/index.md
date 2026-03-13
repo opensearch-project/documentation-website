@@ -89,7 +89,7 @@ config:
     disabled_rest_categories:
       - AUTHENTICATED
       - GRANTED_PRIVILEGES
-    disabled_transport_categories: GRANTED_PRIVILEGES
+    disabled_transport_categories: [ GRANTED_PRIVILEGES ]
 ```
 {% include copy.html %}
 
