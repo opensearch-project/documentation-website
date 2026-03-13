@@ -17,6 +17,9 @@ OpenSearch Data Prepper offers a range of built-in functions that can be used wi
 - [`hasTags()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/has-tags/)
 - [`join()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/join/)
 - [`length()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/length/)
-- [`subList()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/sublist/)
 - [`startsWith()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/startswith/)
-
+- [`subList()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/sublist/)
+- [`substringAfter()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/substring-after/)
+- [`substringAfterLast()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/substring-after-last/)
+- [`substringBefore()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/substring-before/)
+- [`substringBeforeLast()`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/substring-before-last/)
