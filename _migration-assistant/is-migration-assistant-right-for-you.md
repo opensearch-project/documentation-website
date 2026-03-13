@@ -55,8 +55,10 @@ The following matrix shows which source versions can be directly migrated to whi
 
 **Source and target platforms**
 
-- Self-managed (on premises or hosted by a cloud provider)
+- Self-managed (on-premises)
 - Amazon OpenSearch Service
+- Elastic Cloud
+- AWS EC2
 
 **Target-only platforms**
 
