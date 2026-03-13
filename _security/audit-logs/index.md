@@ -86,7 +86,9 @@ For example:
 ```yml
 config:
   audit:
-    disabled_rest_categories: AUTHENTICATED, opensearch_SECURITY_INDEX_ATTEMPT
+    disabled_rest_categories:
+      - AUTHENTICATED
+      - GRANTED_PRIVILEGES
     disabled_transport_categories: GRANTED_PRIVILEGES
 ```
 {% include copy.html %}
