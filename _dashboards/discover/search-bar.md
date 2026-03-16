@@ -3,8 +3,8 @@ layout: default
 title: Search bar
 parent: Analyzing data with Discover
 nav_order: 10
-permalink: /dashboards/discover/search-bar
-redirect_from: /dashboards/search-bar
+redirect_from: 
+  - /dashboards/#discover-and-dashboard-search-bar
 ---
 
 ## Search bar
