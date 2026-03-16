@@ -3,27 +3,27 @@ layout: default
 title: substringBeforeLast()
 parent: Functions
 grand_parent: Pipelines
-nav_order: 60
+nav_order: 90
 ---
 
 # substringBeforeLast()
 
 The `substringBeforeLast()` function is used to extract the portion of a string that precedes the last occurrence of a specified delimiter. It takes two arguments:
 
-- The first argument is either a literal string or a JSON pointer that represents the source string.
+1. The first argument is either a literal string or a JSON pointer that represents the source string.
 
-- The second argument is the delimiter string to search for within the first argument.
+1. The second argument is the delimiter string to search for within the first argument.
 
-If the delimiter is found, the function returns everything before the last occurrence of the delimiter. If the delimiter is not found, the original string is returned. If the source resolves to `null`, the function returns `null`. If the delimiter is `null` or empty, the original string is returned.
+If the delimiter is found, the function returns the portion of the string before the last occurrence of the delimiter. If the delimiter is not found, the original string is returned. If the source resolves to `null`, the function returns `null`. If the delimiter is `null` or empty, the original string is returned.
 
-For example, if you want to strip the file extension from a filename field, you can use the `substringBeforeLast()` function as follows:
+For example, to remove the file extension from a filename field, use the `substringBeforeLast()` function as follows:
 
 ```
 'substringBeforeLast(/filename, ".")'
 ```
 {% include copy.html %}
 
-If `/filename` contains `archive.tar.gz`, this returns `archive.tar`.
+If the `/filename` field contains `archive.tar.gz`, the function returns `archive.tar`.
 
 Alternatively, you can use a literal string as the first argument:
 
@@ -32,14 +32,14 @@ Alternatively, you can use a literal string as the first argument:
 ```
 {% include copy.html %}
 
-This returns `one-two` because it extracts everything before the last `-`.
+The function returns `one-two` because it extracts the portion of the string before the last `-` character.
 
 The `substringBeforeLast()` function performs a case-sensitive search.
 {: .note}
 
 ## Example
 
-The following pipeline uses the `substringBeforeLast()` function to extract the directory path from a full file path and adds it as a new field called `directory`:
+The following pipeline uses the `substringBeforeLast()` function to extract the directory path from a full file path. It adds the extracted directory path as a new field called `directory`:
 
 ```yaml
 substring-before-last-demo:

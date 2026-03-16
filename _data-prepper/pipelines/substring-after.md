@@ -3,27 +3,27 @@ layout: default
 title: substringAfter()
 parent: Functions
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 60
 ---
 
 # substringAfter()
 
 The `substringAfter()` function is used to extract the portion of a string that follows the first occurrence of a specified delimiter. It takes two arguments:
 
-- The first argument is either a literal string or a JSON pointer that represents the source string.
+1. The first argument is either a literal string or a JSON pointer that represents the source string.
 
-- The second argument is the delimiter string to search for within the first argument.
+1. The second argument is the delimiter string to search for within the first argument.
 
-If the delimiter is found, the function returns everything after the first occurrence of the delimiter. If the delimiter is not found, the original string is returned. If the source resolves to `null`, the function returns `null`. If the delimiter is `null` or empty, the original string is returned.
+If the delimiter is found, the function returns the portion of the string after the first occurrence of the delimiter. If the delimiter is not found, the original string is returned. If the source resolves to `null`, the function returns `null`. If the delimiter is `null` or empty, the original string is returned.
 
-For example, if you want to extract the value after the first `=` in a field named `header`, you can use the `substringAfter()` function as follows:
+For example, to extract the value after the first occurrence of the `=` character in a field named `header`, use the `substringAfter()` function as follows:
 
 ```
 'substringAfter(/header, "=")'
 ```
 {% include copy.html %}
 
-If `/header` contains `Content-Type=application/json`, this returns `application/json`.
+If `/header` contains `Content-Type=application/json`, the function returns `application/json`.
 
 Alternatively, you can use a literal string as the first argument:
 
@@ -32,14 +32,14 @@ Alternatively, you can use a literal string as the first argument:
 ```
 {% include copy.html %}
 
-This returns `world-foo` because it extracts everything after the first `-`.
+The function returns `world-foo` because it extracts the portion of the string after the first `-` character.
 
 The `substringAfter()` function performs a case-sensitive search.
 {: .note}
 
 ## Example
 
-The following pipeline uses the `substringAfter()` function to extract the domain from an email address field and adds it as a new field called `domain`:
+The following pipeline uses the `substringAfter()` function to extract the domain name from an email address field. It adds the extracted domain name as a new field called `domain`:
 
 ```yaml
 substring-after-demo:

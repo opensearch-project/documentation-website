@@ -3,27 +3,27 @@ layout: default
 title: substringBefore()
 parent: Functions
 grand_parent: Pipelines
-nav_order: 50
+nav_order: 80
 ---
 
 # substringBefore()
 
 The `substringBefore()` function is used to extract the portion of a string that precedes the first occurrence of a specified delimiter. It takes two arguments:
 
-- The first argument is either a literal string or a JSON pointer that represents the source string.
+1. The first argument is either a literal string or a JSON pointer that represents the source string.
 
-- The second argument is the delimiter string to search for within the first argument.
+1. The second argument is the delimiter string to search for within the first argument.
 
-If the delimiter is found, the function returns everything before the first occurrence of the delimiter. If the delimiter is not found, the original string is returned. If the source resolves to `null`, the function returns `null`. If the delimiter is `null` or empty, the original string is returned.
+If the delimiter is found, the function returns the portion of the string before the first occurrence of the delimiter. If the delimiter is not found, the original string is returned. If the source resolves to `null`, the function returns `null`. If the delimiter is `null` or empty, the original string is returned.
 
-For example, if you want to extract the username from an email address field, you can use the `substringBefore()` function as follows:
+For example, to extract the username from an email address field, use the `substringBefore()` function as follows:
 
 ```
 'substringBefore(/email, "@")'
 ```
 {% include copy.html %}
 
-If `/email` contains `user@example.com`, this returns `user`.
+If the `/email` field contains `user@example.com`, the function returns `user`.
 
 Alternatively, you can use a literal string as the first argument:
 
@@ -32,14 +32,14 @@ Alternatively, you can use a literal string as the first argument:
 ```
 {% include copy.html %}
 
-This returns `hello` because it extracts everything before the first `-`.
+The function returns `hello` because it extracts the portion of the string before the first `-` character.
 
 The `substringBefore()` function performs a case-sensitive search.
 {: .note}
 
 ## Example
 
-The following pipeline uses the `substringBefore()` function to extract the protocol from a URL field and adds it as a new field called `protocol`:
+The following pipeline uses the `substringBefore()` function to extract the URL protocol from a URL field. It adds the extracted protocol as a new field called `protocol`:
 
 ```yaml
 substring-before-demo:

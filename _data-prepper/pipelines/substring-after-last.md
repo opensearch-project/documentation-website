@@ -3,27 +3,27 @@ layout: default
 title: substringAfterLast()
 parent: Functions
 grand_parent: Pipelines
-nav_order: 55
+nav_order: 70
 ---
 
 # substringAfterLast()
 
 The `substringAfterLast()` function is used to extract the portion of a string that follows the last occurrence of a specified delimiter. It takes two arguments:
 
-- The first argument is either a literal string or a JSON pointer that represents the source string.
+1. The first argument is either a literal string or a JSON pointer that represents the source string.
 
-- The second argument is the delimiter string to search for within the first argument.
+1. The second argument is the delimiter string to search for within the first argument.
 
-If the delimiter is found, the function returns everything after the last occurrence of the delimiter. If the delimiter is not found, the original string is returned. If the source resolves to `null`, the function returns `null`. If the delimiter is `null` or empty, the original string is returned.
+If the delimiter is found, the function returns the portion of the string after the last occurrence of the delimiter. If the delimiter is not found, the original string is returned. If the source resolves to `null`, the function returns `null`. If the delimiter is `null` or empty, the original string is returned.
 
-For example, if you want to extract the file extension from a path field, you can use the `substringAfterLast()` function as follows:
+For example, to extract the file extension from the `/filepath` field containing a file path, use the `substringAfterLast()` function as follows:
 
 ```
 'substringAfterLast(/filepath, ".")'
 ```
 {% include copy.html %}
 
-If `/filepath` contains `archive.tar.gz`, this returns `gz`.
+If the `/filepath` field contains `archive.tar.gz`, the function returns `gz`.
 
 Alternatively, you can use a literal string as the first argument:
 
@@ -32,14 +32,14 @@ Alternatively, you can use a literal string as the first argument:
 ```
 {% include copy.html %}
 
-This returns `three` because it extracts everything after the last `-`.
+The function returns `three` because it extracts the portion of the string after the last `-` character.
 
 The `substringAfterLast()` function performs a case-sensitive search.
 {: .note}
 
 ## Example
 
-The following pipeline uses the `substringAfterLast()` function to extract the file name from a full file path and adds it as a new field called `filename`:
+The following pipeline uses the `substringAfterLast()` function to extract the file name from a full file path. It adds the extracted file name as a new field called `filename`:
 
 ```yaml
 substring-after-last-demo:
