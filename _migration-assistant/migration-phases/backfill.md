@@ -14,9 +14,6 @@ After the [metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-
 
 ## Migrate documents with RFS
 
-For EKS-based deployments, RFS workers use a dedicated coordinator cluster for work coordination. This isolates coordination traffic from the target cluster.
-{: .note }
-
 You can now use RFS to migrate documents from your original cluster:
 
 ### Starting the backfill
