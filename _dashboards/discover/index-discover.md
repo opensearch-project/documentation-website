@@ -28,7 +28,7 @@ Before using the **Discover** tool:
 
 To use the **Discover** tool, it helps if you:
 
-- Know how to use the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar) and the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter).
+- Know how to use the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/) and the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
 
 - Understand [OpenSearch documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
 
@@ -87,7 +87,7 @@ You can use the **search toolbar** to enter a [DQL]({{site.url}}{{site.baseurl}}
 Use the search toolbar for basic queries. For full query and filter capability, use [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) in the [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/).
 {: .note}
 
-For more information, see [Search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar).
+For more information, see [Search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
 
 ## Filtering data
 
