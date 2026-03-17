@@ -74,7 +74,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-When registering a model using a URL, make sure that the model comes from a trusted source. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
+When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
 {: .warning}
 
 ## Step 1: Register a model group
