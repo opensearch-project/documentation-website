@@ -32,6 +32,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
+When registering a model using a URL, make sure that the model comes from a trusted source. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
+{: .warning}
+
 ## Step 2: Prepare the model for use in OpenSearch
 
 In this tutorial, you’ll use the Hugging Face `intfloat/multilingual-e5-small` model. Follow these steps to prepare and compress the model into a zip file for use in OpenSearch.
