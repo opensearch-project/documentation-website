@@ -20,8 +20,9 @@ To define a detector:
 
 1. On the **Security Analytics** home page or the **Detectors** page, choose **Create detector**.
 1. Give the detector a name and, optionally, a description. 
-1. In the **Data source** section, select one or more sources for the log data. Use an asterisk (*) to indicate a wildcard pattern. When selecting multiple data sources, their logs must be of the same type. It is good practice to create separate detectors for different log types. Security Analytics also supports the following:
+1. In the **Data source** section, select one or more sources for the log data. When selecting multiple data sources, their logs must be of the same type. It is good practice to create separate detectors for different log types. Security Analytics also supports the following:
 
+  - It is **not recommended** to use an asterisk (*) to indicate a wildcard pattern.
   - [Aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/): When configuring an alias as the data source, it must be attached to a **Write** index alias. When using an alias, ensure that your documents are ingested through the alias and **not** through the index for which the alias was created.
   - [Data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/): A set of time-series data stored across multiple indexes but called using a single named resource. 
    
