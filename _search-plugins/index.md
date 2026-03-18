@@ -41,7 +41,7 @@ Language | Where you can use it | Description
 [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) | SQL API, Query Workbench | A traditional query language that bridges the gap between relational database concepts and the flexibility of OpenSearch's document-oriented data storage.
 [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) | PPL API, Query Workbench | The primary language used with observability in OpenSearch. PPL uses a pipe syntax that chains commands into a query.
 
-For information about querying data in OpenSearch Dashboards, including the Dashboards Query Language (DQL), see [OpenSearch Dashboards query languages]({{site.url}}{{site.baseurl}}/dashboards/#query-languages).
+For information about querying data in OpenSearch Dashboards, including the Dashboards Query Language (DQL), see [Analyzing data with Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).
 
 ## Customizing search results
 

@@ -40,7 +40,7 @@ You can use query string syntax in the following cases:
 1. In the OpenSearch Dashboards Discover or Dashboard apps, if you turn off DQL, as shown in the following image.
   ![Using query string syntax in OpenSearch Dashboards Discover]({{site.url}}{{site.baseurl}}/images/discover-lucene-syntax.png)
   
-    DQL and Query string query (Lucene) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [Discover and Dashboard search bar]({{site.url}}{{site.baseurl}}/dashboards/index/#discover-and-dashboard-search-bar).
+    DQL and Query string query (Lucene) language are the two search bar language options in Discover and Dashboards. To compare these language options, see [DQL and query string query quick reference]({{site.url}}{{site.baseurl}}/dashboards/dql/#dql-and-query-string-query-quick-reference). 
     {: .tip}
 
 1. If you search using the HTTP request query parameters, for example: 
