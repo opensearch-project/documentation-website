@@ -7,42 +7,40 @@ has_children: true
 
 # Analyzing data with Discover
 
-To explore and visualize your data in OpenSearch, you can use the **Discover** application in **OpenSearch Dashboards**. The following image shows an example.
+To explore and visualize your data in OpenSearch, you can use the **Discover** application in **OpenSearch Dashboards**. The following image shows the **Discover** application.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover.png" alt="A Discover default page" width="700">
 
 This page describes how to use **Discover** to:
 
-- Add data
-- Interpret and visualize data
-- Share data findings
-- Set alerts
+- Add data.
+- Interpret and visualize data.
+- Share data findings.
+- Set alerts.
 
 ## Prerequisites
 
-Before using the **Discover** tool:
+Before using the **Discover** tool, ensure that you:
 
 - [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
 
-- Add sample data or import your own data into OpenSearch. Go to [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data) to learn about adding sample datasets. Go to [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/) to learn about importing your own data.
-
-To use the **Discover** tool, it helps if you:
+- Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
 
 - Know how to use the [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/) and the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
 
-- Understand [OpenSearch documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
+- Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
 
 ## Defining a search
 
-To define a search:
+To define a search, follow these steps:
 
-1. In the **navigation menu**, select **OpenSearch Dashboards** > **Discover**.
+1. In the left navigation, select **OpenSearch Dashboards** > **Discover**.
 
-1. Choose the data you want to work with from the upper-left dropdown menu. For the examples used here, choose `opensearch_dashboards_sample_data_flights`.
+1. Choose the data you want to work with from the upper-left dropdown menu. For the examples used in this guide, choose `opensearch_dashboards_sample_data_flights`.
 
-1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/clock-icon.png" class="inline-icon" alt="time-select icon"/>{:/} (calendar) icon to filter the time range of your search.
+1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="time-select icon"/>{:/} (calendar) icon to filter the time range of your search.
 
-1. Change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter) from **Last 15 minutes** to **Last 1 months**.
+1. Change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter) from **Last 15 minutes** to **Last 1 month**.
 
 1. Select **Refresh**.
 
@@ -54,9 +52,9 @@ To define a search:
 
 A **document table** displays unstructured data. Each row represents a single document, and each column contains document attributes.
 
-To examine document a **document table**:
+To examine a document in the document table, follow these steps:
 
-1. From a row in the data table's left column, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/arrow-right-icon.png" class="inline-icon" alt="expand icon"/>{:/} icon to open the **Document Details** window.
+1. From a row in the data table's left column, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/arrow-right-icon.png" class="inline-icon" alt="expand icon"/>{:/} (expand) icon to open the **Document Details** window.
 
 1. Choose between data formats by selecting the **Table** or **JSON** tab.
 
@@ -66,13 +64,13 @@ To examine document a **document table**:
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/doc-details.png" alt="Document attributes"  width="700">
 
-1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/arrow-down-icon.png" class="inline-icon" alt="collapse icon"/>{:/} icon to close the **Document Details** window.
+1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/arrow-down-icon.png" class="inline-icon" alt="collapse icon"/>{:/} (down arrow) icon to close the **Document Details** window.
 
 ## Adding and deleting fields in a document table
 
 To add and delete fields in a document table, follow these steps:
 
-1. View the data fields listed under **Available fields** and select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/} icon to add the desired fields to the document table. The field is automatically added to both **Selected fields** and the document table. For this example, choose the fields `Carrier`, `AvgTicketPrice`, and `Dest`.
+1. View the data fields listed under **Available fields** and select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/} (plus) icon to add the desired fields to the document table. The fields are automatically added to both **Selected fields** and the document table. For this example, choose the fields `Carrier`, `AvgTicketPrice`, and `Dest`.
 
 1. Select **Sort fields** > **Pick fields to sort by**. Drag and drop the chosen fields in the desired sort order. 
 
@@ -82,7 +80,7 @@ The resulting view is shown in the following image.
 
 ## Searching data
 
-You can use the **search toolbar** to enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) query. 
+You can use the search toolbar to enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) query. 
 
 Use the search toolbar for basic queries. For full query and filter capability, use [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) in the [Dev Tools console]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/).
 {: .note}
@@ -91,9 +89,9 @@ For more information, see [Search bar]({{site.url}}{{site.baseurl}}/dashboards/d
 
 ## Filtering data
 
-Filters allow you to narrow the results of a query by specifying a field, value, or range. The **Add filter** pop-up lists the available fields and operators.
+Filters allow you to narrow the results of a query by specifying a field, value, or range. The **Add filter** dialog lists the available fields and operators.
 
-To filter your data:
+To filter your data, follow these steps:
 
 1. Under the DQL search bar, choose **Add filter**.
 
@@ -107,9 +105,7 @@ To filter your data:
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-filter.png" alt="Visualize data findings interface" width="700"/>
 
-To remove a filter:
-
-1. Choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/} icon to the right of the filter name.
+To remove a filter, choose the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/} (cross) icon to the right of the filter name.
 
 
 ## Saving a search
@@ -126,7 +122,7 @@ To save your search, including the query text, filters, and current data view, f
 
 ## Selecting a search
 
-To select a saved search:
+To select a saved search, follow these steps:
 
 1. Select **Open** on the upper-right toolbar.
 
@@ -138,13 +134,13 @@ To select a saved search:
 
 To visualize your data findings, follow these steps:
 
-1. In the field list, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/} icon to the right of the field you want to visualize.
+1. In the field list, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/} (inspect) icon to the right of the field you want to visualize.
 
    The resulting view is shown in the following image.
    
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualize-discover.png" alt="Visualize data findings interface" width="700"/>
 
-1. From the **Top 5 values** pop-up, select the **Visualize** button. The display changes to the **Visualize** application, showing the selected visualization.
+1. From the **Top 5 values** dialog, select the **Visualize** button. The display changes to the **Visualize** application, showing the selected visualization.
 
    The resulting view is shown in the following image.
 
@@ -154,4 +150,4 @@ To visualize your data findings, follow these steps:
 
 You can set alerts to notify you when your data exceeds your specified thresholds.
 
-Go to [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/) to learn about creating and managing alerts.
+To learn about creating and managing alerts, see [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/).

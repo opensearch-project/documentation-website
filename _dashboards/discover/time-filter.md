@@ -21,9 +21,9 @@ You can select a moving or static window as the time range at the application le
 
 ### Selecting a moving time window
 
-To select a moving time window:
+To select a moving time window, follow these steps:
 
-1. From an OpenSearch Dashboards application (**Discover**, **Dashboards**, or **Visualize**), select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/} icon on the right of the search bar.
+1. From an OpenSearch Dashboards application (**Discover**, **Dashboards**, or **Visualize**), select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/} (calendar) icon on the right of the search bar.
 
 1. Select one of the time filter options, as shown in the following image:
 
@@ -37,7 +37,7 @@ To select a moving time window:
 
 ### Selecting a static time window
 
-To select a static time window:
+To select a static time window, follow these steps:
 
 1. Choose **Show dates**.
 
@@ -57,7 +57,7 @@ To select a static time window:
 
    1. Select **Absolute**, **Relative**, or **Now**.
 
-   1. Using the selected framing, choose a start date and time.
+   1. Using the selected framing, choose an end date and time.
 
 1. Choose **Update** to apply changes, as shown in the following image.
 
