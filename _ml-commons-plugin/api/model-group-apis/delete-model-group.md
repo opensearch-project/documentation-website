@@ -47,3 +47,26 @@ DELETE _plugins/_ml/model_groups/<model_group_id>
   "_primary_term": 23
 }
 ```
+
+## Response for non-existent model groups
+
+If you attempt to delete a model group that doesn't exist, the delete operation succeeds and returns `"result": "not_found"`:
+
+```json
+{
+  "_index": ".plugins-ml-model-group",
+  "_id": "l8nnQogByXnLJ-QNpEk2",
+  "_version": 1,
+  "result": "not_found",
+  "forced_refresh": true,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 5,
+  "_primary_term": 25
+}
+```
+
+This idempotent behavior ensures that delete operations can be safely retried without causing errors.
