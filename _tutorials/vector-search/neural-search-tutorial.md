@@ -65,6 +65,9 @@ For a [custom local model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom
 - To register a custom local model, you need to specify an additional `"allow_registering_model_via_url": "true"` cluster setting. 
 - In production, it's best practice to separate the workloads by having dedicated ML nodes. On clusters with dedicated ML nodes, specify `"only_run_on_ml_node": "true"` for improved performance. 
 
+When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
+{: .warning}
+
 For more information about ML-related cluster settings, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
 ## Tutorial
