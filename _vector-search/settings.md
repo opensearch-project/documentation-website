@@ -120,4 +120,4 @@ The following Neural Search plugin settings apply at the index level:
 
 <p id="hybrid-collapse-docs-per-group"></p>
 
-- `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` (Dynamic, integer, Deprecated): Introduced in OpenSearch 3.2. This setting is no longer needed and is being deprecated. Previously, the collapse collector selected the top groups and then collected all documents within each group, and this setting controlled how many documents were stored per group per subquery. The collector now collects the top documents directly along with their associated groups, avoiding the collection of non-competitive documents. The setting is still accepted for backward compatibility but has no effect. Valid values are 0--1000, inclusive. Default is 0.
+- `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` (Dynamic, integer, Deprecated):  This setting is deprecated and no longer has any impact. The number of documents returned is controlled entirely by the search size.
