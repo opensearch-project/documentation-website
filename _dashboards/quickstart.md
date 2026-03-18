@@ -35,7 +35,7 @@ Once the OpenSearch and OpenSearch Dashboards processes are running, view the Op
 
 - [https://playground.opensearch.org/app/home#/](https://playground.opensearch.org/app/home#/) for the OpenSearch Playground.
 
-- [http://localhost:5601/app/home#/](http://localhost:5601/app/home#/) (without the Security plugin) or [https://localhost:5601/app/home#/](https://localhost:5601/app/home#/) (with the Security plugin) for a local installation.
+- `http://localhost:5601/app/home#/` (without the Security plugin) or `https://localhost:5601/app/home#/` (with the Security plugin) for a local installation.
 
 The OpenSearch Dashboards default view is shown in the following image.
 
