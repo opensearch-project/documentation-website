@@ -24,7 +24,7 @@ An extension can use an OBO token to interact with an OpenSearch cluster, using 
 
 ### Configuration
 
-In the [security `config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/), the OBO configuration is located under the dynamic configuration section. It contains the signing key for the token signature and the encryption key for the token payload (role information) decryption:
+In the [security `config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/), the OBO configuration is located under the dynamic configuration section. It contains the signing key for the token signature and an optional encryption key for encrypting the roles claims in the token payload:
 
 ```
 config:
@@ -32,15 +32,17 @@ config:
     on_behalf_of:
       enabled: #'true'/non-specified will be consider as 'enabled'
       signing_key: #encoded signing key here
-      encryption_key: #encoded encryption key here
+      encryption_key: #(optional) encoded encryption key here
 ...
 ```
 
-The default encoding algorithm for signing the JWT is HMAC SHA512. Both keys are Base64-encoded strings in the [security `config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/). After the configuration is applied using the `securityadmin.sh -cd <configuration directory>` command, the values are stored in the security system index and used cluster-wide.
+The default encoding algorithm for signing the JWT is HMAC SHA512. Keys are Base64-encoded strings in the [security `config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/). After the configuration is applied using the `securityadmin.sh -cd <configuration directory>` command, the values are stored in the security system index and used cluster-wide.
+
+When `encryption_key` is omitted, roles and backend roles are stored as plain text in the token claims. When it is provided, the roles claim is encrypted. Cluster administrators can choose whether to encrypt role information based on their security requirements.
 
 ### Token structure
 
-The payload of an OBO token must include all standard configurations of a JWT, along with encrypted and decrypted roles. Depending on the Plugin Backward Compatibility Mode setting, backend roles should also be incorporated into role claims. The absence of any of these claims results in a malformed token and fails to meet the required standard for authentication.
+The payload of an OBO token must include all standard configurations of a JWT, along with role claims. The absence of any of these claims results in a malformed token and fails to meet the required standard for authentication.
 
 The OBO token contains the following claims:
 * Issuer (`iss`): OpenSearch cluster identifier
@@ -59,12 +61,11 @@ The OBO token contains the following claims:
 	* For the extension use case, the `aud` field is a reference to the specific extension that represents the target service.
 	* For the REST API use case, the API parameter service enables the specifying of the target service(s) using this token. The default value is set to `self-issued`.
 * Roles: Security privilege evaluation
-	* The Role Security Mode [[source code](https://github.com/opensearch-project/security/blob/main/src/main/java/org/opensearch/security/authtoken/jwt/JwtVendor.java#L151)]: The configuration determines the roles claim encryption.
-		* Role Security Mode On (default value): Roles claim will be encrypted.
-			* Encrypted mapped roles (`er`)
-		* Role Security Mode Off: Roles claims is in plain-text. Both the mapped roles and backend roles are included in the claim [[related discussion](https://github.com/opensearch-project/security/issues/2865)].
-			* Decrypted mapped roles in plain text (`dr`)
-			* Decrypted backend roles (`br`)
+	* When `encryption_key` is configured, the mapped roles are encrypted in the token payload:
+		* Encrypted mapped roles (`encrypted_roles`)
+	* When `encryption_key` is not configured, roles are stored as plain text:
+		* Mapped roles (`roles`)
+		* Backend roles (`backend_roles`)
 
 The OpenSearch Security plugin handles the encryption and decryption processes. This approach ensures the protection of user information, even when traversing the trust boundary between OpenSearch and any third-party services.
 
