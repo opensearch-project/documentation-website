@@ -120,4 +120,4 @@ The following Neural Search plugin settings apply at the index level:
 
 <p id="hybrid-collapse-docs-per-group"></p>
 
-- `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` (Dynamic, integer, Deprecated):  This setting is deprecated and no longer has any impact. The number of documents returned is controlled entirely by the search size.
+- `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` (_Deprecated_):  This setting is deprecated and no longer has any impact. The number of documents returned is controlled entirely by the `size` parameter.
