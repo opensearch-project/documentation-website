@@ -23,7 +23,7 @@ Using the Explain API is expensive in terms of both resources and time. For prod
 
 The Explain API does not support the `search_pipeline` parameter. Sending a request with an inline or named search pipeline results in a `parsing_exception` error. This applies to all query types.
 
-To use search pipeline processors with explain, use the [Search API]({{site.url}}{{site.baseurl}}/api-reference/search/) with `explain=true`. For more information about using explain with hybrid queries, see [Hybrid search explain]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/explain/).
+To use search pipeline processors with `explain`, provide the `explain=true` query parameter to the [Search API]({{site.url}}{{site.baseurl}}/api-reference/search/). For more information about using `explain` with hybrid queries, see [Hybrid search explain]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/explain/).
 
 
 ## Endpoints

@@ -38,10 +38,10 @@ In this case, the result contains only raw Lucene-level scoring information, for
 
 The Explain API has the following limitations when used with hybrid queries:
 
-- **No search pipeline support**: The `_explain` endpoint does not support the `search_pipeline` parameter, either inline or as a URL parameter. Sending a request with `search_pipeline` results in a `parsing_exception` error. This limitation applies to all query types, not only hybrid queries.
-- **No normalization or combination details**: Score normalization techniques (such as `min_max`, `l2`, or `z_score`) and combination techniques (such as `arithmetic_mean`) require scores from all matching documents to compute statistics. Because the Explain API operates on a single document, it cannot provide normalization context. The `hybrid_score_explanation` response processor is not invoked.
+- The `_explain` endpoint does not support the `search_pipeline` query parameter, either inline or as a query parameter. Providing a `search_pipeline` parameter results in a `parsing_exception` error. This limitation applies to all query types, not only hybrid queries.
+- Score normalization techniques (such as `min_max`, `l2`, or `z_score`) and combination techniques (such as `arithmetic_mean`) require scores from all matching documents to compute statistics. Because the Explain API operates on a single document, it cannot provide normalization context. The `hybrid_score_explanation` response processor is not invoked and no normalized scoring details are returned.
 
-To get a full hybrid query explanation with normalization and combination details for a specific document, use the Search API with `explain=true` and filter to the target document:
+To get a full hybrid query explanation with normalization and combination details for a specific document, use the Search API with `explain=true` and filter the query for the desired document ID:
 
 ```json
 GET <index>/_search?search_pipeline=<search_pipeline>&explain=true
