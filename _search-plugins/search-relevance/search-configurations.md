@@ -28,6 +28,7 @@ The following table lists the available input parameters.
 Field | Data type |  Description
 :---  | :--- | :---
 `name` | String |	The name of the search configuration.
+`description` | String |	Description of the search configuration.
 `query` | Object | Defines the query in OpenSearch query DSL. Use `%SearchText%` as a placeholder for the user query. Needs to be escaped.
 `index` | String | The target index queried by this search configuration.
 `searchPipeline` | String | Specifies an existing search pipeline. Optional.
@@ -39,6 +40,7 @@ PUT _plugins/_search_relevance/search_configurations
 {
   "name": "baseline",
   "query": "{\"query\":{\"multi_match\":{\"query\":\"%SearchText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\",\"attrs.Color\"]}}}",
+  "description": "Current production algorithm",
   "index": "ecommerce"
 }
 ```
@@ -85,6 +87,7 @@ GET _plugins/_search_relevance/search_configurations/<search_configuration_id>
         "_source": {
           "id": "92810080-9c5a-470f-a0ff-0eb85e7b818c",
           "name": "baseline",
+          "description": "Current production algorithm",
           "timestamp": "2025-06-12T08:23:03.305Z",
           "index": "ecommerce",
           "query": """{"query":{"multi_match":{"query":"%SearchText%","fields":["id","title","category","bullets","description","attrs.Brand","attrs.Color"]}}}""",
@@ -238,6 +241,7 @@ GET _plugins/_search_relevance/search_configurations/_search
         "_source": {
           "id": "c86af6ed-a91e-450d-a630-aa2a3c525618",
           "name": "baseline",
+          "description": "Current production algorithm",
           "timestamp": "2026-01-26T12:11:47.657Z",
           "index": "ecommerce",
           "query": """{"query":{"multi_match":{"query":"%SearchText%","fields":["asin","title","category","bullet_points","description","brand","color"]}}}""",
