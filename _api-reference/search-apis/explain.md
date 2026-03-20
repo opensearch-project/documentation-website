@@ -19,6 +19,12 @@ OpenSearch uses a probabilistic ranking framework called [Okapi BM25](https://en
 Using the Explain API is expensive in terms of both resources and time. For production clusters, we recommend using it sparingly for the purpose of troubleshooting.
 {: .warning }
 
+## Limitations
+
+The Explain API does not support the `search_pipeline` parameter. Sending a request with an inline or named search pipeline results in a `parsing_exception` error. This applies to all query types.
+
+To use search pipeline processors with `explain`, provide the `explain=true` query parameter to the [Search API]({{site.url}}{{site.baseurl}}/api-reference/search/). For more information about using `explain` with hybrid queries, see [Hybrid search explain]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/explain/).
+
 
 ## Endpoints
 
