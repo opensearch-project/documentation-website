@@ -24,7 +24,7 @@ An extension can use an OBO token to interact with an OpenSearch cluster, using 
 
 ### Configuration
 
-In the [security `config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/), the OBO configuration is located under the dynamic configuration section. It contains the signing key for the token signature and an optional encryption key for encrypting the roles claims in the token payload:
+In the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/), the OBO configuration is located in the `config.dynamic` section. It contains the `signing_key` for the token signature and an optional `encryption_key` for encrypting the `roles` claims in the token payload:
 
 ```
 config:
