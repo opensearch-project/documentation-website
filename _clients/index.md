@@ -39,7 +39,7 @@ OpenSearch provides clients for the following programming languages and platform
 * **Rust**
   * [OpenSearch Rust client]({{site.url}}{{site.baseurl}}/clients/rust/)
 * **Hadoop**
-  * [OpenSearch Hadoop client](https://github.com/opensearch-project/opensearch-hadoop) 
+  * [Hadoop connector (Spark, Hive, MapReduce)]({{site.url}}{{site.baseurl}}/clients/hadoop/)
 
 
 ## Legacy clients
