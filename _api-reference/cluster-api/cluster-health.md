@@ -27,6 +27,7 @@ When determining overall health, the worst status takes precedence: if you reque
 api: cluster.health
 component: endpoints
 -->
+## Endpoints
 ```json
 GET /_cluster/health
 GET /_cluster/health/{index}
