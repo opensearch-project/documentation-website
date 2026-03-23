@@ -5,6 +5,8 @@ nav_order: 90
 has_children: true
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/metadata-fields/index/
+redirect_from:
+  - /mappings/metadata-fields/index/
 ---
 
 # Metadata fields

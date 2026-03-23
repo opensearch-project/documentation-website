@@ -7,6 +7,8 @@ nav_order: 150
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/properties/
+redirect_from:
+  - /mappings/mapping-parameters/properties/
 ---
 
 # Properties

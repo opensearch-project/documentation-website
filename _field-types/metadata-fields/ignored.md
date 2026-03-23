@@ -4,6 +4,8 @@ title: Ignored
 nav_order: 25
 parent: Metadata fields
 canonical_url: https://docs.opensearch.org/latest/field-types/metadata-fields/ignored/
+redirect_from:
+  - /mappings/metadata-fields/ignored/
 ---
 
 # Ignored

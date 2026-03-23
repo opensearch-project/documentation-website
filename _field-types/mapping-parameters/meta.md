@@ -7,6 +7,8 @@ nav_order: 100
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/meta/
+redirect_from:
+  - /mappings/mapping-parameters/meta/
 ---
 
 # Meta

@@ -7,6 +7,8 @@ nav_order: 120
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/norms/
+redirect_from:
+  - /mappings/mapping-parameters/norms/
 ---
 
 # Norms

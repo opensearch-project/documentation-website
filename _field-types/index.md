@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/mappings/
   - /field-types/mappings/
   - /field-types/index/
+  - /mappings/index/
 canonical_url: https://docs.opensearch.org/latest/mappings/
 ---
 

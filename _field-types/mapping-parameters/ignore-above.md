@@ -7,6 +7,8 @@ nav_order: 45
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/ignore-above/
+redirect_from:
+  - /mappings/mapping-parameters/ignore-above/
 ---
 
 # Ignore above
