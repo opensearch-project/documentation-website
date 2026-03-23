@@ -21,12 +21,11 @@ The cluster health API provides a quick overview of your cluster's operational s
 
 When determining overall health, the worst status takes precedence: if you request health for multiple indexes, the overall status is determined by the worst index status. Similarly, an index's status is determined by its worst shard status.
 
-## Endpoints
-
 <!-- spec_insert_start
 api: cluster.health
 component: endpoints
 -->
+## Endpoints
 ```json
 GET /_cluster/health
 GET /_cluster/health/{index}
