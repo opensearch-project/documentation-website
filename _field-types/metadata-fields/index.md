@@ -7,6 +7,7 @@ has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/metadata-fields/index/
 redirect_from:
   - /mappings/metadata-fields/index/
+  - /mappings/metadata-fields/
 ---
 
 # Metadata fields
