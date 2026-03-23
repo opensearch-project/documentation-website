@@ -11,7 +11,12 @@ has_children: false
 
 When you have vector indexes with embeddings and want agentic search to automatically perform semantic searches based on user intent, you need to configure your agent with embedding model information. This allows the agent to generate `neural` queries that search for semantic similarity rather than exact text matches, providing more relevant results for conceptual questions.
 
-When you configure agents for semantic search, the agents choose between traditional keyword searches and semantic vector searches at query time. To enable semantic search in agentic search, you need to provide embedding model information. You can either add the `embedding_model_id` parameter to your agent's configuration or include the embedding model ID directly in your natural language query. 
+When you configure agents for semantic search, the agents choose between traditional keyword searches and semantic vector searches at query time. To enable semantic search in agentic search, you can provide embedding model information in one of three ways:
+1. Add the `embedding_model_id` parameter to the `agentic_query_translator` processor in your search pipeline (highest precedence).
+2. Add the `embedding_model_id` parameter to your agent's configuration during agent registration.
+
+Even when an embedding model ID is provided, the agent autonomously decides whether to use neural (semantic) search or lexical search based on the query intent and context. For example, date filters or exact-match queries will use lexical search, while conceptual queries will use neural search.
+{: .note} 
 
 ## Step 1: Configure a vector index
 
@@ -183,9 +188,67 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-### Step 2(b): Create an agent with an embedding model ID
+### Step 2(b): Create an agent
 
-Create an agent with the `embedding_model_id` specified in the agent registration. This allows the agent to automatically generate neural queries when semantic search is needed:
+Create an agent for agentic search:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "GPT 5 Agent for Agentic Search",
+  "type": "conversational",
+  "description": "Use this for Agentic Search",
+  "llm": {
+    "model_id": "your-agent-model-id",
+    "parameters": {
+      "max_iteration": 15
+    }
+  },
+  "memory": {
+    "type": "conversation_index"
+  },
+  "parameters": {
+    "_llm_interface": "openai/v1/chat/completions"
+  },
+  "tools": [
+    {
+      "type": "QueryPlanningTool",
+      "parameters": {
+        "model_id": "your-qpt-model-id"
+      }
+    }
+  ],
+  "app_type": "os_chat"
+}
+```
+{% include copy-curl.html %}
+
+### Step 2(c): Provide the embedding model ID
+
+To enable semantic search, you need to provide the embedding model ID. Choose one of the following options:
+
+**Option 1: Specify the embedding model ID in the search pipeline (recommended)**
+
+Create a search pipeline with the `embedding_model_id` in the `agentic_query_translator` processor. This approach provides more flexibility as you can easily change the embedding model without modifying the agent configuration:
+
+```json
+PUT _search/pipeline/my_pipeline
+{
+  "request_processors": [
+    {
+      "agentic_query_translator": {
+        "agent_id": "your-agent-id-from-step-2b",
+        "embedding_model_id": "your-embedding-model-id-from-step1"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+**Option 2: Specify the embedding model ID in the agent configuration**
+
+Alternatively, you can include the `embedding_model_id` in the agent's LLM parameters during agent registration (modify Step 2(b)):
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -219,9 +282,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-### Step 2(c): Create a search pipeline
-
-Create a search pipeline that uses your agent for agentic search:
+Then create a search pipeline without the `embedding_model_id`:
 
 ```json
 PUT _search/pipeline/my_pipeline
@@ -236,6 +297,9 @@ PUT _search/pipeline/my_pipeline
 }
 ```
 {% include copy-curl.html %}
+
+If you specify the `embedding_model_id` in both locations, the search pipeline configuration takes precedence.
+{: .note}
 
 ## Step 3: Run an agentic search
 

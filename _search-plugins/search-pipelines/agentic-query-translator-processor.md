@@ -28,9 +28,10 @@ Before using the `agentic_query_translator` processor, you must have either a co
 
 The following table lists all available request fields.
 
-Field | Data type | Description
-:--- | :--- | :---
-`agent_id` | String | The ID of the ML agent that will translate natural language queries into DSL queries. Required.
+Field | Data type | Required/Optional | Description
+:--- | :--- | :--- | :---
+`agent_id` | String | Required | The ID of the ML agent that will translate natural language queries into DSL queries.
+`embedding_model_id` | String | Optional | The ID of the embedding model to use for semantic search with neural queries. This parameter takes precedence over the embedding model ID specified in the agent configuration.
 
 
 ## Example
@@ -44,6 +45,23 @@ PUT /_search/pipeline/agentic_search_pipeline
     {
       "agentic_query_translator": {
         "agent_id": "your-agent-id-here"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+To enable semantic search capabilities, you can optionally specify an `embedding_model_id`:
+
+```json
+PUT /_search/pipeline/agentic_search_pipeline
+{
+  "request_processors": [
+    {
+      "agentic_query_translator": {
+        "agent_id": "your-agent-id-here",
+        "embedding_model_id": "your-embedding-model-id"
       }
     }
   ]
