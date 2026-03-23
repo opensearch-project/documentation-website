@@ -91,7 +91,7 @@ GET _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Three categories of setting exist in the cluster settings API: persistent, transient, and default. Persistent settings, well, persist after a cluster restart. After a restart, OpenSearch clears transient settings.
+Three categories of setting exist in the cluster settings API: persistent, transient, and default. Persistent settings are written to the cluster state and persist after a cluster restart. After a restart, OpenSearch clears transient settings.
 
 If you specify the same setting in multiple places, OpenSearch uses the following precedence:
 
@@ -99,6 +99,8 @@ If you specify the same setting in multiple places, OpenSearch uses the followin
 2. Persistent settings
 3. Settings from `opensearch.yml`
 4. Default settings
+
+It is recommended to use the Cluster Settings API for all cluster-wide configuration rather than relying on `opensearch.yml` files. This approach ensures consistency across all nodes and makes it easier to track configuration changes.
 
 To change a setting, use the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) and specify the new value as either persistent or transient. This example shows the flat settings form:
 
@@ -125,6 +127,32 @@ PUT _cluster/settings
 }
 ```
 {% include copy-curl.html %}
+
+To reset a setting to its default value, assign it `null`:
+
+```json
+PUT _cluster/settings
+{
+  "transient": {
+    "action.auto_create_index": null
+  }
+}
+```
+{% include copy-curl.html %}
+
+You can also use wildcards to reset multiple related settings at once:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "indices.recovery.*": null
+  }
+}
+```
+{% include copy-curl.html %}
+
+When you reset a transient setting, OpenSearch applies the first available value from the precedence order (persistent setting, configuration file, or default value).
 
 ---
 
@@ -158,3 +186,7 @@ http.cors.enabled: true
 http.cors.allow-headers: X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
 http.cors.allow-credentials: true
 ```
+
+## Related documentation
+
+- [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/)
