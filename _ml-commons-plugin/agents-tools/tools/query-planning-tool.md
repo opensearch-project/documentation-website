@@ -328,7 +328,7 @@ Parameter	| Type | Required/Optional | Description
 `query_planner_system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM.
 `query_planner_user_prompt` | String | Optional | A user prompt template that defines how the natural language question and context are presented to the LLM for query generation.
 `search_templates` | Array | Optional | Applicable only when `generation_type` is `user_templates`. A list of search templates that provide the LLM with predefined query patterns for generating query DSL. Each template must include a `template_id` (unique identifier) and `template_description` (explains the template's purpose and use case to help the LLM choose appropriately).
-`fallback_query` | String | Optional | An OpenSearch DSL query used in case the LLM fails to generate a valid DSL query for the given query text.
+`fallback_query` | String | Optional | An OpenSearch fallback DSL query used in case the LLM fails to generate a valid DSL query for the given query text.
 
 All parameters that were configured either in the connector or in the agent registration can be overridden during agent execution.
 {: .note}
