@@ -16,7 +16,7 @@ There are two types of OpenSearch settings: [dynamic](#dynamic-settings) and [st
 
 Dynamic index settings are settings that you can update at any time. You can configure dynamic OpenSearch settings through the Cluster Settings API. For details, see [Update cluster settings using the API](#updating-cluster-settings-using-the-api).
 
-Whenever possible, use the Cluster Settings API; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster. 
+It is recommended to use the Cluster Settings API for all cluster-wide dynamic setting configuration rather than relying on `opensearch.yml` files. This approach ensures consistency across all nodes and makes it easier to track configuration changes.
 {: .tip}
 
 ## Static settings
@@ -91,7 +91,7 @@ GET _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Three categories of setting exist in the cluster settings API: persistent, transient, and default. Persistent settings are written to the cluster state and persist after a cluster restart. After a restart, OpenSearch clears transient settings.
+Using the Cluster Settings API, you can update dynamic cluster settings as either persistent or transient. Persistent settings are written to the cluster state and persist after a cluster restart. After a restart, OpenSearch clears transient settings. 
 
 If you specify the same setting in multiple places, OpenSearch uses the following precedence:
 
@@ -99,8 +99,6 @@ If you specify the same setting in multiple places, OpenSearch uses the followin
 2. Persistent settings
 3. Settings from `opensearch.yml`
 4. Default settings
-
-It is recommended to use the Cluster Settings API for all cluster-wide configuration rather than relying on `opensearch.yml` files. This approach ensures consistency across all nodes and makes it easier to track configuration changes.
 
 To change a setting, use the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) and specify the new value as either persistent or transient. This example shows the flat settings form:
 
