@@ -13,31 +13,54 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The cluster stats API operation returns statistics about your cluster.
+The Cluster Stats API returns high-level statistics about your cluster, including key index metrics such as shard counts, storage size, and memory usage. Additionally, it provides detailed information about cluster nodes, including node counts, node roles, operating systems, JVM versions, resource utilization (memory and CPU), and installed plugins.
 
-
+<!-- spec_insert_start
+api: cluster.stats
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cluster/stats
-GET _cluster/stats/nodes/<node-filters>
-GET _cluster/stats/<metric>/nodes/<node-filters>
-GET _cluster/stats/<metric>/<index_metric>/nodes/<node-filters>
+GET /_cluster/stats
+GET /_cluster/stats/nodes/{node_id}
+GET /_cluster/stats/{metric}/nodes/{node_id}
+GET /_cluster/stats/{metric}/{index_metric}/nodes/{node_id}
 ```
+<!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: cluster.stats
+component: path_parameters
+-->
 ## Path parameters
 
-All parameters are optional.
+The following table lists the available path parameters. All path parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-&lt;node-filters&gt; | List | A comma-separated list of [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters) that OpenSearch uses to filter results.
-metric | String | A comma-separated list of [metric groups](#metric-groups), for example, `jvm,fs`. Default is all metric groups.
-index_metric | String | A comma-separated list of [index metric groups](#index-metric-groups), for example, `docs,store`. Default is all index metrics.
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `index_metric` | List | A comma-separated list of [index metric groups](#index-metric-groups), for example, `docs,store`. |
+| `metric` | List | Limit the information returned to the specified metrics. |
+| `node_id` | List or String | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). |
 
+<!-- spec_insert_end -->
 
 Although the term `master` was deprecated in favor of `cluster_manager` subsequent to OpenSearch 2.0, the `master` field was retained for backward compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. For an example node count increase, see the [example response](#example-response).
 {: .note }
+
+<!-- spec_insert_start
+api: cluster.stats
+component: query_parameters
+-->
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `flat_settings` | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`. _(Default: `false`)_ |
+| `timeout` | String | The amount of time to wait for each node to respond. If a node does not respond before its timeout expires, the response does not include its stats. However, timed out nodes are included in the response's `_nodes.failed` property. Defaults to no timeout. |
+
+<!-- spec_insert_end -->
 
 ### Metric groups
 
@@ -46,14 +69,14 @@ The following table lists all available metric groups.
 Metric | Description
 :--- |:----
 `indices` | Statistics about indexes in the cluster.
-`os` | Statistics about the host OS, including load and memory.
+`os` | Statistics about the operating system, including load and memory.
 `process` | Statistics about processes, including open file descriptors and CPU usage.
 `jvm` | Statistics about the JVM, including heap usage and threads.
 `fs` | Statistics about file system usage.
 `plugins` | Statistics about OpenSearch plugins integrated with the nodes.
-`network_types` | A list of the transport and HTTP networks connected to the nodes.
-`discovery_type` | The method used by the nodes to find other nodes in the cluster.
-`packaging_types` | Information about each node's OpenSearch distribution.
+`network_types` | Statistics about the transport and HTTP networks connected to the nodes.
+`discovery_type` | Statistics about the discovery methods used by the nodes to find other nodes in the cluster.
+`packaging_types` | Statistics about each node's OpenSearch distribution.
 `ingest` | Statistics about ingest pipelines.
 
 ### Index metric groups
@@ -61,8 +84,8 @@ Metric | Description
 To filter the information returned for the `indices` metric, you can use specific `index_metric` values. These values are only supported when using the following query types:
 
 ```json
-GET _cluster/stats/_all/<index_metric>/nodes/<node-filters>
-GET _cluster/stats/indices/<index_metric>/nodes/<node-filters>
+GET _cluster/stats/_all/{index_metric}/nodes/{node_filters}
+GET _cluster/stats/indices/{index_metric}/nodes/{node_filters}
 ```
 
 The following index metrics are supported:
@@ -77,7 +100,9 @@ The following index metrics are supported:
 - `mappings`
 - `analysis`
 
-For example, the following query requests statistics for `docs` and `search`:
+## Example request: Retrieving specific index metrics
+
+The following example request retrieves statistics for `docs` and `segments` index metrics for all nodes:
 
 <!-- spec_insert_start
 component: example_code
@@ -105,9 +130,9 @@ response = client.cluster.stats(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-## Example request
+## Example request: Retrieving stats for specific nodes
 
-The following example requests returns information about the cluster manager node:
+The following example request returns information about the cluster manager node:
 
 <!-- spec_insert_start
 component: example_code
@@ -133,7 +158,56 @@ response = client.cluster.stats(
     python=step1_python %}
 <!-- spec_insert_end -->
 
+## Example request: Using human-readable output
+
+The following example request includes the `human` query parameter to return byte and size values in human-readable format:
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/stats?human&pretty
+-->
+{% capture step1_rest %}
+GET /_cluster/stats?human&pretty
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.stats(
+  params = { "human": "true", "pretty": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+The `human` parameter adds human-readable fields to the response while preserving the original numeric values. For example, the `jvm.max_uptime_in_millis` field shows only the numeric value in the default response:
+
+```json
+"jvm": {
+    "max_uptime_in_millis": 21476787
+}
+```
+
+When you include the `human` parameter, the response includes both the human-readable `max_uptime` field and the original numeric field:
+
+```json
+"jvm": {
+    "max_uptime": "5.9h",
+    "max_uptime_in_millis": 21480995
+}
+```
+
 ## Example response
+
+<details open markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -576,37 +650,98 @@ response = client.cluster.stats(
     }
 }
 ```
+</details>
 
 ## Response body fields
 
-Field | Description
-:--- | :---
-`nodes` | The number of nodes returned in the response.
-`cluster_name` | The cluster's name.
-`cluster_uuid` | The cluster's UUID.
-`timestamp` | The Unix epoch time indicating when the cluster was last refreshed.
-`status` | The cluster's health status.
-`indices` | Statistics about the indexes in the cluster.
-`indices.count` | The number of indexes in the cluster.
-`indices.shards` | Information about the cluster's shards.
-`indices.docs` | The number of documents remaining in the cluster and the number of documents that were deleted.
-`indices.store` | Information about the cluster's storage.
-`indices.fielddata` | Information about the cluster's field data.
-`indices.query_cache` | Data about the cluster's query cache.
-`indices.completion` | The number of bytes in memory that were used to complete operations.
-`indices.segments` | Information about the cluster's segments, which are small Lucene indexes.
-`indices.mappings` | Information about mappings in the cluster.
-`indices.analysis` | Information about analyzers used in the cluster.
-`nodes` | Statistics about the nodes in the cluster.
-`nodes.count` | The number of nodes returned by the request.
-`nodes.versions` | The OpenSearch version number for each node.
-`nodes.os` | Information about the operating systems used by the nodes.
-`nodes.process` | A list of processes used by each node.
-`nodes.jvm` | Statistics about the JVMs in use.
-`nodes.fs` | Information about the node's file storage.
-`nodes.plugins` | A list of the OpenSearch plugins integrated with the nodes.
-`nodes.network_types` | A list of the transport and HTTP networks connected to the nodes.
-`nodes.discovery_type` | A list of methods used by the nodes to find other nodes in the cluster.
-`nodes.packaging_types` | Information about each node's OpenSearch distribution.
-`nodes.ingest` | Information about the node's ingest pipelines/nodes, if there are any.
-`total_time_spent` | The total amount of download and upload time spent across all shards in the cluster when downloading or uploading from the remote store.
+The following table lists the response fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`_nodes` | Object | Provides a summary of node-level request results.
+`_nodes.total` | Integer | The total number of nodes included in the request.
+`_nodes.successful` | Integer | The number of nodes that successfully processed the request.
+`_nodes.failed` | Integer | The number of nodes that failed to respond or rejected the request. If nonzero, failure details are included in the response.
+`cluster_name` | String | The name of the cluster.
+`cluster_uuid` | String | The unique identifier of the cluster.
+`timestamp` | Long | The time when the cluster statistics were last updated, in milliseconds since epoch.
+`status` | String | The cluster health status: `green`, `yellow`, or `red`.
+`indices` | Object | Aggregated statistics for indices with shards on the specified nodes.
+`indices.count` | Integer | The total number of indices with shards on the specified nodes.
+`indices.shards` | Object | Aggregated shard statistics for the specified nodes.
+`indices.shards.total` | Integer | The total number of shards on the specified nodes.
+`indices.shards.primaries` | Integer | The number of primary shards on the specified nodes.
+`indices.shards.replication` | Float | The ratio of replica shards to primary shards across the specified nodes.
+`indices.shards.index.shards.min` | Integer | The minimum number of shards per index (considering only shards on the specified nodes).
+`indices.shards.index.shards.max` | Integer | The maximum number of shards per index (considering only shards on the specified nodes).
+`indices.shards.index.shards.avg` | Float | The average number of shards per index (considering only shards on the specified nodes).
+`indices.shards.index.primaries.min` | Integer | The minimum number of primary shards per index (considering only shards on the specified nodes).
+`indices.shards.index.primaries.max` | Integer | The maximum number of primary shards per index (considering only shards on the specified nodes).
+`indices.shards.index.primaries.avg` | Float | The average number of primary shards per index (considering only shards on the specified nodes).
+`indices.shards.index.replication.min` | Float | The minimum replication factor per index (considering only shards on the specified nodes).
+`indices.shards.index.replication.max` | Float | The maximum replication factor per index (considering only shards on the specified nodes).
+`indices.shards.index.replication.avg` | Float | The average replication factor per index (considering only shards on the specified nodes).
+`indices.docs` | Object | Document statistics for the specified nodes.
+`indices.docs.count` | Integer | The total number of non-deleted documents across all primary shards on the specified nodes. Includes documents in Lucene segments and may count nested documents.
+`indices.docs.deleted` | Integer | The total number of deleted documents across all primary shards on the specified nodes. Disk space is reclaimed during segment merges.
+`indices.store.size_in_bytes` | Long | The total storage size of all shards on the specified nodes, in bytes.
+`indices.store.reserved_in_bytes` | Long | The amount of disk space reserved for ongoing operations such as segment merges, in bytes.
+`indices.fielddata.memory_size_in_bytes` | Long | The total amount of memory used by the field data cache across the specified nodes, in bytes.
+`indices.fielddata.evictions` | Long | The number of field data cache evictions across the specified nodes.
+`indices.query_cache.memory_size_in_bytes` | Long | The total amount of memory used by the query cache across the specified nodes, in bytes.
+`indices.query_cache.total_count` | Long | The total number of query cache accesses (hits and misses) across the specified nodes.
+`indices.query_cache.hit_count` | Long | The number of query cache hits across the specified nodes.
+`indices.query_cache.miss_count` | Long | The number of query cache misses across the specified nodes.
+`indices.query_cache.cache_size` | Integer | The current number of entries in the query cache across the specified nodes.
+`indices.query_cache.cache_count` | Long | The total number of entries added to the query cache, including evicted entries.
+`indices.query_cache.evictions` | Long | The number of query cache evictions across the specified nodes.
+`indices.completion.size_in_bytes` | Long | The total amount of memory used for completion suggesters across the specified nodes, in bytes.
+`indices.segments` | Object | Segment statistics for the specified nodes.
+`indices.segments.count` | Integer | The total number of segments across all shards on the specified nodes.
+`indices.segments.memory_in_bytes` | Long | The total amount of memory used by segments across the specified nodes, in bytes.
+`indices.segments.terms_memory_in_bytes` | Long | The amount of memory used for term dictionaries across the specified nodes, in bytes.
+`indices.segments.stored_fields_memory_in_bytes` | Long | The amount of memory used for stored fields across the specified nodes, in bytes.
+`indices.segments.term_vectors_memory_in_bytes` | Long | The amount of memory used for term vectors across the specified nodes, in bytes.
+`indices.segments.norms_memory_in_bytes` | Long | The amount of memory used for normalization factors across the specified nodes, in bytes.
+`indices.segments.points_memory_in_bytes` | Long | The amount of memory used for point values (numeric, geo, etc.) across the specified nodes, in bytes.
+`indices.segments.doc_values_memory_in_bytes` | Long | The amount of memory used for doc values across the specified nodes, in bytes.
+`indices.segments.index_writer_memory_in_bytes` | Long | The amount of memory used by index writers across the specified nodes, in bytes.
+`indices.segments.version_map_memory_in_bytes` | Long | The amount of memory used by version maps across the specified nodes, in bytes.
+`indices.segments.fixed_bit_set_memory_in_bytes` | Long | The amount of memory used by fixed bit sets (for nested and join fields) across the specified nodes, in bytes.
+`indices.segments.max_unsafe_auto_id_timestamp` | Long | The most recent timestamp of a retried indexing request, in milliseconds.
+`indices.segments.file_sizes` | Object | This object is not populated by the Cluster Stats API. To get information on segment files, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/).
+`indices.mappings.field_types` | Array | Statistics about field data types used on the specified nodes.
+`indices.mappings.field_types.name` | String | The field data type.
+`indices.mappings.field_types.count` | Integer | The number of fields mapped to this data type.
+`indices.mappings.field_types.index_count` | Integer | The number of indices that use this data type.
+`indices.analysis` | Object | Statistics about analyzers and analysis components used on the specified nodes.
+`nodes` | Object | Aggregated statistics for the specified nodes.
+`nodes.count.total` | Integer | The total number of nodes.
+`nodes.count.coordinating_only` | Integer | The number of nodes with no assigned roles (coordinating-only nodes).
+`nodes.count.<role>` | Integer | The number of nodes with a specific role (for example, `data`, `ingest`, `cluster_manager`).
+`nodes.versions` | Array | The OpenSearch versions running on the specified nodes.
+`nodes.os.available_processors` | Integer | The total number of processors available to the JVM across the specified nodes.
+`nodes.os.allocated_processors` | Integer | The number of processors used for thread pool sizing across the specified nodes (capped at 32).
+`nodes.os.mem.total_in_bytes` | Long | The total physical memory across the specified nodes, in bytes.
+`nodes.os.mem.free_in_bytes` | Long | The amount of free physical memory across the specified nodes, in bytes.
+`nodes.os.mem.used_in_bytes` | Long | The amount of used physical memory across the specified nodes, in bytes.
+`nodes.os.mem.free_percent` | Integer | The percentage of free physical memory across the specified nodes.
+`nodes.os.mem.used_percent` | Integer | The percentage of used physical memory across the specified nodes.
+`nodes.process.cpu.percent` | Integer | The CPU usage percentage across the specified nodes. Returns `-1` if not supported.
+`nodes.process.open_file_descriptors.min` | Integer | The minimum number of open file descriptors across the specified nodes. Returns `-1` if not supported.
+`nodes.process.open_file_descriptors.max` | Integer | The maximum number of open file descriptors across the specified nodes. Returns `-1` if not supported.
+`nodes.process.open_file_descriptors.avg` | Integer | The average number of open file descriptors across the specified nodes. Returns `-1` if not supported.
+`nodes.jvm.max_uptime_in_millis` | Long | The maximum JVM uptime, in milliseconds, across the specified nodes.
+`nodes.jvm.versions` | Array | Statistics about JVM versions running on the specified nodes.
+`nodes.jvm.mem.heap_used_in_bytes` | Long | The heap memory currently in use across the specified nodes, in bytes.
+`nodes.jvm.mem.heap_max_in_bytes` | Long | The maximum heap memory available across the specified nodes, in bytes.
+`nodes.jvm.threads` | Integer | The total number of active JVM threads across the specified nodes.
+`nodes.fs.total_in_bytes` | Long | The total filesystem capacity across the specified nodes, in bytes.
+`nodes.fs.free_in_bytes` | Long | The total unallocated disk space across the specified nodes, in bytes.
+`nodes.fs.available_in_bytes` | Long | The disk space available to the JVM across the specified nodes (may be less than free space due to OS restrictions), in bytes.
+`nodes.plugins` | Array | Information about installed plugins and modules on the specified nodes.
+`nodes.network_types` | Object | Statistics about transport and HTTP network types used by the specified nodes.
+`nodes.discovery_types` | Object | Statistics about discovery mechanisms used by the specified nodes.
+`nodes.packaging_types` | Array | Information about the distribution types installed on the specified nodes.
+`nodes.ingest.number_of_pipelines` | Integer | The total number of ingest pipelines across the specified nodes.
+`nodes.ingest.processor_stats` | Object | Statistics about ingest processors used on the specified nodes.
