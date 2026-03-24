@@ -445,14 +445,14 @@ You specify two pieces of information when you create a snapshot:
 The following snapshot includes all indexes and the cluster state:
 
 ```json
-PUT /_snapshot/my-repository/1
+PUT /_snapshot/my-repository/snapshot-1
 ```
 {% include copy-curl.html %}
 
 You can also add a request body to include or exclude certain indexes or specify other settings:
 
 ```json
-PUT /_snapshot/my-repository/2
+PUT /_snapshot/my-repository/snapshot-2
 {
   "indices": "opensearch-dashboards*,my-index*,-my-index-2016",
   "ignore_unavailable": true,
@@ -467,10 +467,10 @@ For more information, see [Create Snapshot API]({{site.url}}{{site.baseurl}}/api
 If you request the snapshot immediately after taking it, you might see something like this:
 
 ```json
-GET /_snapshot/my-repository/2
+GET /_snapshot/my-repository/snapshot-2
 {
   "snapshots": [{
-    "snapshot": "2",
+    "snapshot": "snapshot-2",
     "version": "6.5.4",
     "indices": [
       "opensearch_dashboards_sample_data_ecommerce",
@@ -491,7 +491,7 @@ For more information, see [Get Snapshot API]({{site.url}}{{site.baseurl}}/api-re
 Note that the snapshot is still in progress. If you want to wait for the snapshot to finish before continuing, add the `wait_for_completion` parameter to your request. Snapshots can take a while to complete, so consider whether or not this option fits your use case:
 
 ```
-PUT _snapshot/my-repository/3?wait_for_completion=true
+PUT _snapshot/my-repository/snapshot-3?wait_for_completion=true
 ```
 {% include copy-curl.html %}
 
@@ -532,14 +532,14 @@ GET /_snapshot/my-repository/_all
 Then restore a snapshot:
 
 ```
-POST /_snapshot/my-repository/2/_restore
+POST /_snapshot/my-repository/snapshot-2/_restore
 ```
 {% include copy-curl.html %}
 
 Just like when taking a snapshot, you can add a request body to include or exclude certain indexes or specify some other settings:
 
 ```json
-POST /_snapshot/my-repository/2/_restore
+POST /_snapshot/my-repository/snapshot-2/_restore
 {
   "indices": "opensearch-dashboards*,my-index*",
   "ignore_unavailable": true,
@@ -688,7 +688,7 @@ If you're using the Security plugin, snapshots have some additional restrictions
 If a snapshot contains a global state, you must exclude it when performing the restore. If your snapshot also contains the `.opendistro_security` index, either exclude it or list all the other indexes you want to include:
 
 ```json
-POST /_snapshot/my-repository/3/_restore
+POST /_snapshot/my-repository/snapshot-3/_restore
 {
   "indices": "-.opendistro_security",
   "include_global_state": false
@@ -699,7 +699,7 @@ POST /_snapshot/my-repository/3/_restore
 The `.opendistro_security` index contains sensitive data, so we recommend excluding it when you take a snapshot. If you do need to restore the index from a snapshot, you must include an admin certificate in the request:
 
 ```bash
-curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_snapshot/my-repository/3/_restore?pretty'
+curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_snapshot/my-repository/snapshot-3/_restore?pretty'
 ```
 {% include copy-curl.html %}
 
