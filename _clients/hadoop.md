@@ -8,7 +8,7 @@ nav_order: 90
 
 The OpenSearch Hadoop connector lets you read and write data between [Apache Spark](http://spark.apache.org), [Apache Hive](http://hive.apache.org), Hadoop MapReduce, and OpenSearch. It enables Spark jobs to directly index data into OpenSearch and run queries against it, with parallel reads and writes across Spark partitions and OpenSearch shards for efficient distributed processing.
 
-For the source code, see the [opensearch-hadoop](https://github.com/opensearch-project/opensearch-hadoop) repository.
+For the source code, see the [OpenSearch Hadoop](https://github.com/opensearch-project/opensearch-hadoop) repository.
 
 ## Setup
 
@@ -121,6 +121,8 @@ spark.sql("SELECT * FROM people WHERE age > 25").show()
 
 ## Common patterns
 
+The following sections describe common configuration patterns for reading and writing data.
+
 ### Specifying document ID
 
 Use `opensearch.mapping.id` to control the `_id` of each document:
@@ -204,7 +206,7 @@ df.write.format("opensearch") \
 
 ### Dynamic index routing
 
-Use placeholders in the index name to route documents to different indices based on field values. This feature requires the Scala `saveToOpenSearch` method:
+Use placeholders in the index name to route documents to different indexes based on field values. This feature requires the Scala `saveToOpenSearch` method:
 
 ```scala
 import org.opensearch.spark.sql._
@@ -220,7 +222,7 @@ df.saveToOpenSearch("logs-{timestamp|yyyy.MM.dd}")
 ```
 {% include copy.html %}
 
-## Spark RDD
+## Spark Resilient Distributed Dataset (RDD)
 
 For low-level access, the connector provides RDD-based read and write methods:
 
@@ -257,7 +259,7 @@ val query = streamingDF.writeStream
 
 ## Configuration properties
 
-All configuration properties start with the `opensearch` prefix. Properties can be set via Spark configuration (`--conf`), as options on the DataFrame reader/writer, or in the Hadoop configuration.
+All configuration properties start with the `opensearch` prefix. Properties can be set using Spark configuration (`--conf`), as options on the DataFrame reader/writer, or in the Hadoop configuration.
 
 Property | Default | Description
 :--- | :--- | :---
@@ -274,7 +276,7 @@ Property | Default | Description
 
 ## Amazon OpenSearch Service
 
-To connect to Amazon OpenSearch Service with IAM authentication, enable SigV4 signing and HTTPS:
+To connect to Amazon OpenSearch Service with IAM authentication, enable AWS Signature Version 4 signing and HTTPS:
 
 ```python
 df.write.format("opensearch") \
@@ -288,7 +290,7 @@ df.write.format("opensearch") \
 ```
 {% include copy.html %}
 
-The following AWS SDK v2 dependencies are required on the classpath:
+The following AWS SDK v2 dependencies are required on the `classpath`:
 - `software.amazon.awssdk:auth:2.31.59` (or later)
 - `software.amazon.awssdk:regions:2.31.59` (or later)
 - `software.amazon.awssdk:http-client-spi:2.31.59` (or later)
@@ -298,7 +300,7 @@ The following AWS SDK v2 dependencies are required on the classpath:
 
 ## Amazon OpenSearch Serverless
 
-To connect to Amazon OpenSearch Serverless, add `opensearch.serverless` and set the SigV4 service name to `aoss`:
+To connect to Amazon OpenSearch Serverless, add `opensearch.serverless` and set the Signature Version 4 service name to `aoss`:
 
 ```python
 df.write.format("opensearch") \
@@ -323,7 +325,7 @@ Client version | Minimum Java runtime | OpenSearch version | Spark version
 
 ## Map/Reduce
 
-For Hadoop Map/Reduce jobs, the connector provides `OpenSearchInputFormat` and `OpenSearchOutputFormat`. Add `opensearch-hadoop-mr-2.0.0.jar` to your job classpath.
+For Hadoop Map/Reduce jobs, the connector provides `OpenSearchInputFormat` and `OpenSearchOutputFormat`. Add `opensearch-hadoop-mr-2.0.0.jar` to your job `classpath`.
 
 ```java
 // Writing
