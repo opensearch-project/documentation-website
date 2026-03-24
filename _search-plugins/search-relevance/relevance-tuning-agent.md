@@ -7,7 +7,7 @@ has_children: true
 has_toc: false
 ---
 
-# Relevance Tuning Agent
+# Relevance tuning agent
 Introduced 3.6
 {: .label .label-purple }
 
@@ -26,15 +26,15 @@ When you submit a message through the chat interface, a **router** analyzes the 
 
 The Relevance Tuning Agent orchestrator coordinates three specialized sub-agents:
 
-### User Behavior Analysis Agent
+### User behavior analysis agent
 
 The User Behavior Analysis Agent examines engagement patterns and click-through rates from [User Behavior Insights (UBI)]({{site.url}}{{site.baseurl}}/search-plugins/ubi/) data. It identifies high-performing and poorly performing queries, correlates user behavior with search quality issues, and surfaces metrics-driven insights to inform tuning decisions.
 
-### Hypothesis Generation Agent
+### Hypothesis generation agent
 
 The Hypothesis Generation Agent analyzes search quality issues by examining query structure and DSL configurations. It leverages UBI data to identify patterns and generates testable hypotheses for potential improvements, such as field weight adjustments or query boosting strategies. It validates hypotheses using [pairwise comparison experiments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/comparing-search-results/) before recommending configuration changes.
 
-### Evaluation Agent
+### Evaluation agent
 
 The Evaluation Agent designs and executes offline relevance evaluation experiments. It creates [judgment lists]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/) from UBI click data (when sufficient event data is available) or from LLM-generated relevance ratings. It then runs experiments using your [search configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/) and computes search quality metrics including NDCG, MAP, and Precision@K to compare them.
 
