@@ -7,6 +7,8 @@ nav_order: 25
 has_children: false
 has_toc: false
 canonical_url: https://docs.opensearch.org/latest/field-types/mapping-parameters/doc-values/
+redirect_from:
+  - /mappings/mapping-parameters/doc-values/
 ---
 
 # doc_values

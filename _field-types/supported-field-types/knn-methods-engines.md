@@ -5,6 +5,8 @@ parent: k-NN vector
 grand_parent: Supported field types
 nav_order: 20
 canonical_url: https://docs.opensearch.org/latest/field-types/supported-field-types/knn-methods-engines/
+redirect_from:
+  - /mappings/supported-field-types/knn-methods-engines/
 ---
 
 # Methods and engines

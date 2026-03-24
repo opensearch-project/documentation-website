@@ -4,6 +4,8 @@ title: ID
 nav_order: 20
 parent: Metadata fields
 canonical_url: https://docs.opensearch.org/latest/field-types/metadata-fields/id/
+redirect_from:
+  - /mappings/metadata-fields/id/
 ---
 
 # ID

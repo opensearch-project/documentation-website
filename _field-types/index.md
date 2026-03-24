@@ -4,10 +4,12 @@ title: Mappings and field types
 nav_order: 1
 nav_exclude: true
 permalink: /field-types/
-redirect_from: 
+redirect_from:
   - /opensearch/mappings/
   - /field-types/mappings/
   - /field-types/index/
+  - /mappings/index/
+  - /mappings/
 canonical_url: https://docs.opensearch.org/latest/mappings/
 ---
 
