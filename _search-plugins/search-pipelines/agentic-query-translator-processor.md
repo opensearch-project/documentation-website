@@ -31,7 +31,7 @@ The following table lists all available request fields.
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `agent_id` | String | Required | The ID of the ML agent that will translate natural language queries into DSL queries.
-`embedding_model_id` | String | Optional | The ID of the embedding model to use for semantic search with neural queries. This parameter takes precedence over the embedding model ID specified in the agent configuration.
+`embedding_model_id` | String | Optional | The ID of the embedding model that generates vector embeddings for semantic search using `neural` queries. This parameter takes precedence over the `embedding_model_id` specified in the agent configuration. For more information, see [Configuring agents for semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/neural-search/).
 
 
 ## Example
@@ -52,7 +52,7 @@ PUT /_search/pipeline/agentic_search_pipeline
 ```
 {% include copy-curl.html %}
 
-To enable semantic search capabilities, you can optionally specify an `embedding_model_id`:
+To enable semantic search capabilities, you can optionally specify an `embedding_model_id` for the text embedding model that converts queries into vector embeddings:
 
 ```json
 PUT /_search/pipeline/agentic_search_pipeline
@@ -147,4 +147,5 @@ The response contains the matching documents:
 
 - [Agentic search queries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/)
 - [Agentic query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/agentic/)
+- [Configuring agents for semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/neural-search/)
 - [Agentic context processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-context-processor/)
