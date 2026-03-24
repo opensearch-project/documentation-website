@@ -67,17 +67,17 @@ Refer to [Supported AWS Regions](https://docs.aws.amazon.com/solutions/latest/mi
 Before starting an upgrade or migration, consider the cluster feature to be included. The following table lists what can be migrated using Migration Assistant, whether it is currently supported, and recommendations for how to handle each component.
 
 | Feature | Supported | Recommendations   |
-| :--- | :--- | :--- |
-| **Documents**  | Yes  | Migrate existing data with RFS and live traffic with Capture and Replay. |
-| **Index settings**  | Yes   | Migrate with the `Metadata-Migration-Tool`. |
-| **Index mappings**  | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
-| **Index templates**   | Yes   | Migrate with the `Metadata-Migration-Tool`. |
-| **Component templates**  | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
-| **Aliases**   | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
-| **Index State Management (ISM) policies**  | Expected in 2025    | Manually migrate using an API. For more information about ISM support, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944). |
-| **Elasticsearch Kibana dashboards** | Expected in 2025 | This tool is only needed when migrating from Elasticsearch Kibana dashboards to OpenSearch Dashboards. Start by exporting JSON files from Kibana and importing them into OpenSearch Dashboards. For Elasticsearch versions 7.10.2 to 7.17, use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool before importing X-Pack visualizations like Canvas and Lens into Kibana dashboards, as they may require recreation for compatibility with OpenSearch.|
-| **Security constructs**   | No   | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, use AWS Identity and Access Management (IAM) for enhanced security management. |
-| **Plugins**  | No  | Check plugin compatibility; some Elasticsearch plugins may not have direct OpenSearch equivalents. |
+| :--- |:----------| :--- |
+| **Documents**  | Yes       | Migrate existing data with RFS and live traffic with Capture and Replay. |
+| **Index settings**  | Yes       | Migrate with the `Metadata-Migration-Tool`. |
+| **Index mappings**  | Yes       | Migrate with the `Metadata-Migration-Tool`.  |
+| **Index templates**   | Yes       | Migrate with the `Metadata-Migration-Tool`. |
+| **Component templates**  | Yes       | Migrate with the `Metadata-Migration-Tool`.  |
+| **Aliases**   | Yes       | Migrate with the `Metadata-Migration-Tool`.  |
+| **Index State Management (ISM) policies**  | No        | Manually migrate using an API. For more information about ISM support, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944). |
+| **Elasticsearch Kibana dashboards** | No        | This tool is only needed when migrating from Elasticsearch Kibana dashboards to OpenSearch Dashboards. Start by exporting JSON files from Kibana and importing them into OpenSearch Dashboards. For Elasticsearch versions 7.10.2 to 7.17, use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool before importing X-Pack visualizations like Canvas and Lens into Kibana dashboards, as they may require recreation for compatibility with OpenSearch.|
+| **Security constructs**   | No        | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, use AWS Identity and Access Management (IAM) for enhanced security management. |
+| **Plugins**  | No        | Check plugin compatibility; some Elasticsearch plugins may not have direct OpenSearch equivalents. |
 
 ## Checklist
 
