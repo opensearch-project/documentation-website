@@ -190,8 +190,8 @@ POST /_plugins/_ml/models/_register
 
 Create an agent for agentic search. To enable the agent to perform semantic searches using `neural` queries, you need to configure an embedding model using one of the following methods:
 
-- [**Option 1**](#option-1-agent-without-embedding-model-id-recommended): Configure an embedding model in the search pipeline (recommended for easier updates).
-- [**Option 2**](#option-2-agent-with-embedding-model-id): Configure an embedding model in the agent configuration.
+- [**Option 1**](#option-1-create-an-agent-without-an-embedding-model-id-recommended): Configure an embedding model in the search pipeline (recommended for easier updates).
+- [**Option 2**](#option-2-create-an-agent-with-an-embedding-model-id): Configure an embedding model in the agent configuration.
 
 #### Option 1: Create an agent without an embedding model ID (recommended)
 
