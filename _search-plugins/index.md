@@ -51,18 +51,6 @@ OpenSearch provides fundamental result handling capabilities that work with all 
 
 OpenSearch provides comprehensive tools and features to help you measure, analyze, and improve the quality of your search results. These integrated features work together to optimize search relevance based on user behavior and machine learning. For more information, see [Optimizing search quality]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/).
 
-## Search relevance
-
-*Search relevance* is a measure of how well a document matches a search query. When you run a search query, OpenSearch compares the words in your query to the words in each document and assigns a relevance score based on factors such as how frequently the words appear and how closely they match. For more information, see [Relevance]({{site.url}}{{site.baseurl}}/getting-started/intro/#relevance).
-
-To help you fine-tune and improve search relevance, OpenSearch provides several specialized features:
-
-- [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/): A suite of tools that support search quality improvements through experimentation. 
-
-- [Relevance Tuning Agent]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/relevance-tuning-agent/): A specialized agent designed to continuously improve search relevance. 
-
-- [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/): Offers query rewriting capability.
-
 ## Search pipelines
 
 Search pipelines are the foundational infrastructure that enables OpenSearch's AI and vector search capabilities. They provide modular processors that can transform queries (text-to-vector conversion, ML inference, query rewriting), enhance results (reranking, RAG, field manipulation), and orchestrate complex AI workflows. For more information, see [Search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/).
