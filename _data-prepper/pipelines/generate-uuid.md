@@ -14,7 +14,7 @@ This function is useful when source records do not contain a natural unique iden
 
 ## Usage
 
-Use `generateUuid()` as a `value_expression` in the [`add_entries`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/add-entries/) processor:
+Use `generateUuid()` as a `value_expression` in the [`add_entries`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/add-entries/) processor. This example adds a `recordId` field containing a unique UUID to every event passing through the processor:
 
 ```yaml
 processor:
@@ -25,7 +25,6 @@ processor:
 ```
 {% include copy.html %}
 
-This adds a `recordId` field containing a unique UUID to every event passing through the processor.
 
 ## Example
 
