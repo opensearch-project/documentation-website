@@ -16,6 +16,10 @@ When you configure agents for semantic search, the agents choose between traditi
 Even when an embedding model ID is provided, the agent autonomously decides whether to use neural (semantic) search or lexical search based on the query intent and context. For example, date filters or exact-match queries will use lexical search, while conceptual queries will use neural search.
 {: .note} 
 
+**PREREQUISITE**<br>
+Before using semantic search, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
+{: .note}
+
 ## Step 1: Configure a vector index
 
 First, configure a vector index.
