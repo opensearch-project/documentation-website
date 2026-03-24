@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index templates
-nav_order: 6
+nav_order: 2
 redirect_from:
   - /opensearch/index-templates/
 ---

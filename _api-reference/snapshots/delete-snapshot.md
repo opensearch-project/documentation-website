@@ -36,10 +36,28 @@ snapshot | String | Snapshot to delete. |
 
 The following request deletes a snapshot called `my-first-snapshot` from the `my-opensearch-repo` repository:
 
-```json
-DELETE _snapshot/my-opensearch-repo/my-first-snapshot
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: DELETE /_snapshot/my-opensearch-repo/my-first-snapshot
+-->
+{% capture step1_rest %}
+DELETE /_snapshot/my-opensearch-repo/my-first-snapshot
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.snapshot.delete(
+  repository = "my-opensearch-repo",
+  snapshot = "my-first-snapshot"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

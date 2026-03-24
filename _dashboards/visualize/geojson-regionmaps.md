@@ -10,7 +10,7 @@ redirect_from:
 
 # Using coordinate and region maps
 
-OpenSearch has a standard set of GeoJSON files that provide a vector map with each region map. OpenSearch Dashboards also provides basic map tiles with a standard vector map to create region maps. You can configure the base map tiles using [Web Map Service (WMS)](https://www.ogc.org/standards/wms). For more information, see [Configuring WMS in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/maptiles/). 
+OpenSearch has a standard set of GeoJSON files that provide a vector map with each region map. OpenSearch Dashboards also provides basic map tiles with a standard vector map to create region maps. You can configure the base map tiles using [Web Map Service (WMS)](https://www.ogc.org/standards/wms/). For more information, see [Configuring WMS in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/maptiles/). 
 
 For air-gapped environments, OpenSearch Dashboards provides a self-host maps server. For more information, see [Using the self-host maps server]({{site.url}}{{site.baseurl}}/dashboards/selfhost-maps-server/).
 
@@ -77,3 +77,17 @@ The following example GeoJSON file provides coordinates for two US counties.
 
 ```
 
+## Configuring GeoJSON complexity
+
+The complexity of uploaded GeoJSON files can be configured using the following cluster settings:
+
+- `plugins.geospatial.geojson.max_coordinates_per_geo` (Dynamic, integer): Sets the maximum number of coordinates allowed per geometry. Default is `10000`.
+
+- `plugins.geospatial.geojson.max_holes_per_polygon` (Dynamic, integer): Sets the maximum number of holes allowed per polygon. Default is `1000`.
+
+- `plugins.geospatial.geojson.max_multi_geometries` (Dynamic, integer): Sets the maximum number of geometries allowed in a multi-geometry object. Default is `100`.
+
+- `plugins.geospatial.geojson.max_geometry_collection_nested_depth` (Dynamic, integer): Sets the maximum nested depth for geometry collections. Default is `5`.
+
+
+For more information about updating dynamic settings, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).

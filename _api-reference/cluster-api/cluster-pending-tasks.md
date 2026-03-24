@@ -1,12 +1,14 @@
 ---
 layout: default
 title: Cluster pending tasks
-nav_order: 45
+nav_order: 46
 parent: Cluster APIs
 has_children: false
 ---
 
 # Cluster Pending Tasks API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `/_cluster/pending_tasks` API returns a list of cluster-level changes that have not yet been executed. These pending tasks are typically queued operations such as index creation, template updates, shard allocation changes, and other cluster state updates.
 
@@ -31,11 +33,23 @@ The following table lists the available query parameters. All query parameters a
 
 The following request returns the list of currently pending cluster state update tasks:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/pending_tasks
+-->
+{% capture step1_rest %}
 GET /_cluster/pending_tasks
-```
+{% endcapture %}
 
-{% include copy-curl.html %}
+{% capture step1_python %}
+
+response = client.cluster.pending_tasks()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example response
 

@@ -38,6 +38,7 @@ cancel_after_time_interval | Time | The time after which the search request will
 css_minimize_roundtrips | Boolean | Whether OpenSearch should try to minimize the number of network round trips between the coordinating node and remote clusters (only applicable to cross-cluster search requests). Default is `true`. | No
 expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`. | Yes
 ignore_unavailable | Boolean | If an index or shard from the indexes list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`. | Yes
+include_named_queries_score | Boolean | Whether to return scores for named queries. Default is `false`. | No
 max_concurrent_searches | Integer | The maximum number of concurrent searches. The default depends on your node count and search thread pool size. Higher values can improve performance, but risk overloading the cluster. | No
 max_concurrent_shard_requests | Integer | Maximum number of concurrent shard requests that each search executes per node. Default is 5. Higher values can improve performance, but risk overloading the cluster. | No
 pre_filter_shard_size | Integer | Default is 128. | No
@@ -84,15 +85,41 @@ Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bu
 The following example `msearch` API request runs queries against multiple indexes:
 
 
-```json
-GET _msearch
+<!-- spec_insert_start
+component: example_code
+rest: GET /_msearch
+body: |
 { "index": "opensearch_dashboards_sample_data_logs"}
 { "query": { "match_all": {} }, "from": 0, "size": 10}
 { "index": "opensearch_dashboards_sample_data_ecommerce", "search_type": "dfs_query_then_fetch"}
 { "query": { "match_all": {} } }
+-->
+{% capture step1_rest %}
+GET /_msearch
+{ "index": "opensearch_dashboards_sample_data_logs"}
+{ "query": { "match_all": {} }, "from": 0, "size": 10}
+{ "index": "opensearch_dashboards_sample_data_ecommerce", "search_type": "dfs_query_then_fetch"}
+{ "query": { "match_all": {} } }
+{% endcapture %}
 
-```
-{% include copy-curl.html %}
+{% capture step1_python %}
+
+
+response = client.msearch(
+  body = '''
+{ "index": "opensearch_dashboards_sample_data_logs"}
+{ "query": { "match_all": {} }, "from": 0, "size": 10}
+{ "index": "opensearch_dashboards_sample_data_ecommerce", "search_type": "dfs_query_then_fetch"}
+{ "query": { "match_all": {} } }
+'''
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ## Example response

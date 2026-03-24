@@ -186,7 +186,6 @@ const BreakingChangesModule = (function() {
     if (migrationDataElement.dataset.breakingChanges) {
       try {
         breakingChangesData = JSON.parse(migrationDataElement.dataset.breakingChanges);
-        console.log('Loaded breaking changes data:', breakingChangesData.length);
       } catch (error) {
         console.error('Failed to parse breaking changes data:', error);
         breakingChangesData = [];
@@ -222,8 +221,6 @@ const BreakingChangesModule = (function() {
         targetToSources: {...migrationMap.targetToSources}
       };
       breakingChanges = [...breakingChangesData];
-      
-      console.log('Initialized version order:', versionOrder);
     } catch (error) {
       console.error('Failed to initialize migration data:', error);
       // Fallback to empty arrays if initialization fails

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Collapse search results
-parent: Search options
+parent: Customizing search results
 nav_order: 40
 redirect_from:
   - /search-plugins/collapse-search/
@@ -161,6 +161,33 @@ The collapsed search results will show only one "Chocolate Cake" entry, demonstr
 The `collapse` parameter affects only the top search results and does not change any aggregation results. The total number of hits shown in the response reflects all matching documents before the parameter is applied, including duplicates. However, the response doesn't indicate the exact number of unique groups formed by the operation.
 
 ---
+
+## Collapse with search_after
+
+You can paginate collapsed search results using the `search_after` parameter. The collapsed field and sort field must be the same, and only one sort field can be specified.
+
+The following example shows how to use `collapse` with `search_after`:
+
+```json
+GET /bakery-items/_search
+{
+  "query": {
+    "match": {
+      "category": "cakes"
+    }
+  },
+  "collapse": {
+    "field": "item"
+  },
+  "sort": [
+    {
+      "item": "asc"
+    }
+  ],
+  "search_after": ["Chocolate Cake"]
+}
+```
+{% include copy-curl.html %}
 
 ## Expanding collapsed results
 

@@ -2,7 +2,7 @@
 layout: default
 title: Reranking by a field
 parent: Reranking search results
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 nav_order: 20
 ---

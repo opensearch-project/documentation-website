@@ -6,6 +6,8 @@ nav_order: 40
 ---
 
 # Rethrottle API
+**Introduced 1.0**
+{: .label .label-purple }
 
 You can use the following APIs to dynamically change the `requests_per_second` for [`_reindex`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/), [`_update_by_query`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/), or [`_delete_by_query`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/) operations that are already running.
 
@@ -31,25 +33,79 @@ Parameter | Data type | Description
 
 ### Example request: Rethrottle a running delete by query task
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_delete_by_query/<YOUR_TASK_ID>/_rethrottle?requests_per_second=10
+-->
+{% capture step1_rest %}
 POST /_delete_by_query/<YOUR_TASK_ID>/_rethrottle?requests_per_second=10
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.delete_by_query_rethrottle(
+  task_id = "<YOUR_TASK_ID>",
+  params = { "requests_per_second": "10" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 
 ### Example request: Rethrottle a running reindex task
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_reindex/<YOUR_TASK_ID>/_rethrottle?requests_per_second=20
+-->
+{% capture step1_rest %}
 POST /_reindex/<YOUR_TASK_ID>/_rethrottle?requests_per_second=20
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.reindex_rethrottle(
+  task_id = "<YOUR_TASK_ID>",
+  params = { "requests_per_second": "20" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example request: Rethrottle a running update by query task
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_update_by_query/<YOUR_TASK_ID>/_rethrottle?requests_per_second=5
+-->
+{% capture step1_rest %}
 POST /_update_by_query/<YOUR_TASK_ID>/_rethrottle?requests_per_second=5
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.update_by_query_rethrottle(
+  task_id = "<YOUR_TASK_ID>",
+  params = { "requests_per_second": "5" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

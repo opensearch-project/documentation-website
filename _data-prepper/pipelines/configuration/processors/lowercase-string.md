@@ -1,24 +1,53 @@
 ---
 layout: default
-title: lowercase_string
+title: Lowercase string
 parent: Processors
 grand_parent: Pipelines
-nav_order: 60
+nav_order: 190
 ---
 
-# lowercase_string
+# Lowercase string processor
 
+The `lowercase string` processor converts a string to lowercase.
 
-The `lowercase_string` processor converts a string to its lowercase counterpart and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor. The following table describes options for configuring the `lowercase_string` processor to convert strings to a lowercase format.
+### Configuration
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-with_keys | Yes | List | A list of keys to convert to lowercase.
+You can configure the `lowercase string` processor with the following options.
 
-<!---## Configuration
+Option | Required | Description
+:--- | :--- | :---
+ `with_keys` | Yes | A list of keys to convert to lowercase. |
 
-Content will be added to this section.
+### Usage
 
-## Metrics
+To get started, create the following `pipeline.yaml` file:
 
-Content will be added to this section.--->
+```yaml
+pipeline:
+  source:
+    file:
+      path: "/full/path/to/logs_json.log"
+      record_type: "event"
+      format: "json"
+  processor:
+    - lowercase_string:
+        with_keys:
+          - "lowercaseField"
+  sink:
+    - stdout:
+```
+{% include copy.html %}
+
+Next, create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with the correct file path. For more detailed information, see [Configuring OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
+
+Before you run Data Prepper, the source appears in the following format:
+
+```json
+{"lowercaseField": "TESTmeSSage"}
+```
+
+After you run Data Prepper, the source is converted to the following format:
+
+```json
+{"lowercaseField": "testmessage"}
+```

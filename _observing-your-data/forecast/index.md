@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Forecasting
-nav_order: 81
+nav_order: 140
 has_children: true
+redirect_from:
+  - /observing-your-data/forecast/
 ---
 
 # Forecasting

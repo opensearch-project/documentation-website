@@ -57,7 +57,7 @@ If needed, you can combine tokenizers, token filters, and character filters to c
 
 OpenSearch performs text analysis on text fields when you index a document and when you send a search request. Depending on the time of text analysis, the analyzers used for it are classified as follows:
 
-- An _index analyzer_ performs analysis at indexing time: When you are indexing a [text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field, OpenSearch analyzes it before indexing it. For more information about ways to specify index analyzers, see [Index analyzers]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/).
+- An _index analyzer_ performs analysis at indexing time: When you are indexing a [text]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) field, OpenSearch analyzes it before indexing it. For more information about ways to specify index analyzers, see [Index analyzers]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/).
 
 - A _search analyzer_ performs analysis at query time: OpenSearch analyzes the query string when you run a full-text query on a text field. For more information about ways to specify search analyzers, see [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/).
 

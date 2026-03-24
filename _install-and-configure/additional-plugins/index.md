@@ -3,6 +3,8 @@ layout: default
 title: Additional plugins
 parent: Installing plugins
 nav_order: 10
+redirect_from:
+  - /install-and-configure/additional-plugins/
 ---
 
 # Additional plugins
@@ -17,8 +19,8 @@ There are many more plugins available in addition to those provided by the stand
 | [`analysis-phonenumber`]({{site.url}}{{site.baseurl}}/analyzers/supported-analyzers/phone-analyzers/)                  | 2.18.0                     |
 | `analysis-phonetic`                                                                                                      | 1.0.0                      |
 | `analysis-smartcn`                                                                                                       | 1.0.0                      |
-| `analysis-stempel`                                                                                                       | 1.0.0                      |
-| `analysis-ukrainian`                                                                                                     | 1.0.0                      |
+| [`analysis-stempel`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/polish/)                                                                                                       | 1.0.0                      |
+| [`analysis-ukrainian`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/ukrainian/)                                                                                                     | 1.0.0                      |
 | `discovery-azure-classic`                                                                                                | 1.0.0                      |
 | `discovery-ec2`                                                                                                          | 1.0.0                      |
 | `discovery-gce`                                                                                                          | 1.0.0                      |
@@ -35,8 +37,9 @@ There are many more plugins available in addition to those provided by the stand
 | `repository-s3`                                                                                                          | 1.0.0                      |
 | `store-smb`                                                                                                              | 1.0.0                      |
 | `transport-grpc`                                                                                                         | 3.0.0                      |
+| `workload-management` | 2.18.0 |
 
-## Related articles
+## Related documentation
 
 [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 [`ingest-attachment` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/ingest-attachment-plugin/)

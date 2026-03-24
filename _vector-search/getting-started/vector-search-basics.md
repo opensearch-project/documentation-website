@@ -37,7 +37,7 @@ Vector similarity measures how close two vectors are in a multi-dimensional spac
 - **Hamming distance:** Counts differing elements in binary vectors.  
 - **Hamming bit:** Applies the same principle as Hamming distance but is optimized for binary-encoded data.  
 
-To learn more about the distance metrics, see [Spaces]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-spaces/).
+To learn more about the distance metrics, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
 
 ## Next steps
 

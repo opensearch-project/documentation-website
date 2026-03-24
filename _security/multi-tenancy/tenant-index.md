@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /security/multi-tenancy/
   - /security-plugin/access-control/multi-tenancy/
+  - /security/access-control/multi-tenancy/
 ---
 
 # OpenSearch Dashboards multi-tenancy

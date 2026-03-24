@@ -52,6 +52,7 @@ transport | Mostly static information about the transport layer.
 http | Mostly static information about the HTTP layer.
 plugins | Information about installed plugins and modules.
 ingest | Information about ingest pipelines and available ingest processors.
+search_pipelines | Information about search pipelines configured on the node.
 aggregations | Information about available [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations).
 indices | Static index settings configured at the node level.
 
@@ -68,17 +69,53 @@ timeout | Time | Sets the time limit for node response. Default value is `30s`.
 
 The following query requests the `process` and `transport` metrics from the cluster manager node: 
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/cluster_manager:true/process,transport
+-->
+{% capture step1_rest %}
 GET /_nodes/cluster_manager:true/process,transport
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "process,transport",
+  node_id = "cluster_manager:true"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To get thread pool information about the cluster manager node only, use the following query:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_nodes/master:true/thread_pool
+-->
+{% capture step1_rest %}
 GET /_nodes/master:true/thread_pool
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.nodes.info(
+  metric = "thread_pool",
+  node_id = "master:true"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 
@@ -153,6 +190,7 @@ http | Information about the HTTP address, including bound address, publish addr
 plugins | Information about the installed plugins, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. 
 modules | Information about the modules, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. Modules are different from plugins because modules are loaded into OpenSearch automatically, while plugins have to be installed manually.
 ingest | Information about ingest pipelines and processors.
+search_pipelines | Information about search pipelines configured on the node.
 aggregations | Information about the available aggregation types.
 
 

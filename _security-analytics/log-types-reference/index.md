@@ -4,7 +4,8 @@ title: Supported log types
 has_children: yes
 nav_order: 16
 redirect_from:
-   - /security-analytics/sec-analytics-config/log-types/
+  - /security-analytics/sec-analytics-config/log-types/
+  - /security-analytics/log-types-reference/
 ---
 
 # Supported log types

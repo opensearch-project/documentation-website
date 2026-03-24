@@ -111,7 +111,7 @@ span-pipeline:
     pipeline:
       name: "entry-pipeline"
   processor:
-    - otel_trace_raw:
+    - otel_traces:
   sink:
     - opensearch:
         ...

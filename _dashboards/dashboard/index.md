@@ -3,6 +3,8 @@ layout: default
 title: Creating dashboards
 nav_order: 30
 has_children: false
+redirect_from:
+  - /dashboards/dashboard/
 ---
 
 # Creating dashboards
@@ -25,7 +27,7 @@ Before getting started, let's get familiar with the **Dashboard** UI. The UI com
 - The **filter** (C) lets you narrow a dashboard's results.
 - The **toolbar** (D) contains frequently used commands and shortcuts.
 - The **time filter** (E) lets you customize the time and date.
-- The **panel** (F) allows you to add existing visualizations to the dashboard or create new ones for the dashboard.
+- The panel (F) allows you to add existing visualizations to the dashboard or create new ones for the dashboard.
 
 ## Defining terminology
 

@@ -1,12 +1,14 @@
 ---
 layout: default
-title: OpenSearch Benchmark Reference
+title: Reference
 nav_order: 25
 has_children: true
 redirect_from:
   - /benchmark/commands/index/
+  - /benchmark/reference/
 ---
 
-# OpenSearch Benchmark Reference
+# Reference
 
-The following section contains reference materials for commands, metrics, and workloads for OpenSearch Benchmark.
+The following section contains reference materials for [commands]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/), [metrics]({{site.url}}{{site.baseurl}}/benchmark/reference/metrics/), and [workloads]({{site.url}}{{site.baseurl}}/benchmark/reference/workloads/) for OpenSearch Benchmark.
+

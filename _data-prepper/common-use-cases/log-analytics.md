@@ -67,7 +67,7 @@ log-pipeline:
         # Change to your credentials
         username: "admin"
         password: "admin"
-        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
+        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate
         #cert: /path/to/cert
         # If you are connecting to an Amazon OpenSearch Service domain without
         # Fine-Grained Access Control, enable these settings. Comment out the
@@ -78,6 +78,7 @@ log-pipeline:
         # You should change this to correspond with how your OpenSearch indexes are set up.
         index: apache_logs
 ```
+{% include copy.html %}
 
 This pipeline configuration is an example of Apache log ingestion. Don't forget that you can easily configure the Grok Processor for your own custom logs. You will need to modify the configuration for your OpenSearch cluster.
 
@@ -100,7 +101,7 @@ Note that you should adjust the file `path`, output `Host`, and `Port` according
 
 The following is an example `fluent-bit.conf` file without SSL and basic authentication enabled on the HTTP source:
 
-```
+```text
 [INPUT]
   name                  tail
   refresh_interval      5
@@ -115,6 +116,7 @@ The following is an example `fluent-bit.conf` file without SSL and basic authent
   URI /log/ingest
   Format json
 ```
+{% include copy.html %}
 
 If your HTTP source has SSL and basic authentication enabled, you will need to add the details of `http_User`, `http_Passwd`, `tls.crt_file`, and `tls.key_file` to the `fluent-bit.conf` file, as shown in the following example.
 
@@ -122,7 +124,7 @@ If your HTTP source has SSL and basic authentication enabled, you will need to a
 
 The following is an example `fluent-bit.conf` file with SSL and basic authentication enabled on the HTTP source:
 
-```
+```text
 [INPUT]
   name                  tail
   refresh_interval      5
@@ -142,6 +144,7 @@ The following is an example `fluent-bit.conf` file with SSL and basic authentica
   URI /log/ingest
   Format json
 ```
+{% include copy.html %}
 
 # Next steps
 

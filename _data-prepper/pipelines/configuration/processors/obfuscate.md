@@ -1,12 +1,12 @@
 ---
 layout: default
-title: obfuscate
+title: Obfuscate
 parent: Processors
 grand_parent: Pipelines
-nav_order: 71
+nav_order: 240
 ---
 
-# obfuscate
+# Obfuscate processor
 
 The `obfuscate` process enables obfuscation of fields inside your documents in order to protect sensitive data. 
 

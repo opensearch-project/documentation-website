@@ -8,10 +8,6 @@ nav_order: 10
 
 # Register MCP Tools API
 **Introduced 3.0**
-{: .label .label-purple }
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
 
 Use this API to register one or more Model Context Protocol (MCP)-based tools. For more information about supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
@@ -353,28 +349,32 @@ POST /_plugins/_ml/mcp/tools/_register
 ```json
 POST /_plugins/_ml/mcp/tools/_register
 {
-  "type": "PPLTool",
-  "name": "TransferQuestionToPPLAndExecuteTool",
-  "description": "Use this tool to convert natural language into PPL queries and execute them. Use this tool after you know the index name; otherwise, call IndexRoutingTool first. The input parameters are: {index: IndexName, question: UserQuestion}",
-  "parameters": {
-    "model_id": "${your_model_id}",
-    "model_type": "FINETUNE"
-  },
-  "attributes": {
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "question": {
-          "type": "string",
-          "description": "The user's natural language question that needs to be converted to PPL."
-        },
-        "index": {
-          "type": "string",
-          "description": "The index on which the generated PPL query will be executed."
+  "tools": [
+    {
+      "type": "PPLTool",
+      "name": "TransferQuestionToPPLAndExecuteTool",
+      "description": "Use this tool to convert natural language into PPL queries and execute them. Use this tool after you know the index name; otherwise, call IndexRoutingTool first. The input parameters are: {index: IndexName, question: UserQuestion}",
+      "parameters": {
+        "model_id": "${your_model_id}",
+        "model_type": "FINETUNE"
+      },
+      "attributes": {
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "description": "The user's natural language question that needs to be converted to PPL."
+            },
+            "index": {
+              "type": "string",
+              "description": "The index on which the generated PPL query will be executed."
+            }
+          }
         }
       }
     }
-  }
+  ]
 }
 ```
 {% include copy-curl.html %}

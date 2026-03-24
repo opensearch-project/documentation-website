@@ -11,7 +11,7 @@ class QueryParameters < BaseMustacheRenderer
     ParameterTableRenderer.new(params, @args).render
   end
 
-  def optional?
+  def optional
     params.none?(&:required)
   end
 

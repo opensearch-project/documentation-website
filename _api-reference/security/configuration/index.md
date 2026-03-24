@@ -4,6 +4,8 @@ title: Configuration APIs
 parent: Security APIs
 has_children: true
 nav_order: 20
+redirect_from:
+  - /api-reference/security/configuration/
 ---
 
 # Configuration APIs

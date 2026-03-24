@@ -4,8 +4,8 @@ title: Configuring OpenSearch
 nav_order: 10
 has_children: true
 redirect_from:
-  - /install-and-configure/configuring-opensearch/
   - /opensearch/configuration/
+  - /install-and-configure/configuring-opensearch/
 ---
 
 # Configuring OpenSearch
@@ -16,20 +16,20 @@ There are two types of OpenSearch settings: [dynamic](#dynamic-settings) and [st
 
 Dynamic index settings are settings that you can update at any time. You can configure dynamic OpenSearch settings through the Cluster Settings API. For details, see [Update cluster settings using the API](#updating-cluster-settings-using-the-api).
 
-Whenever possible, use the Cluster Settings API; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster. 
+It is recommended to use the Cluster Settings API for all cluster-wide dynamic setting configuration rather than relying on `opensearch.yml` files. This approach ensures consistency across all nodes and makes it easier to track configuration changes.
 {: .tip}
 
 ## Static settings
 
 Certain operations are static and require you to modify the `opensearch.yml` [configuration file](#configuration-file) and restart the cluster. In general, these settings relate to networking, cluster formation, and the local file system. To learn more, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
-## Specifying settings as environment variables
+## Specifying configuration settings at startup
 
-You can specify environment variables in the following ways.
+You can specify configuration settings in the following ways.
 
-### Arguments at startup
+### Flags at startup
 
-You can specify environment variables as arguments using `-E` when launching OpenSearch:
+You can pass the configuration directly to the JVM process at startup using the `-E` flag when launching OpenSearch:
 
 ```bash
 ./opensearch -Ecluster.name=opensearch-cluster -Enode.name=opensearch-node1 -Ehttp.host=0.0.0.0 -Ediscovery.type=single-node
@@ -91,7 +91,7 @@ GET _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Three categories of setting exist in the cluster settings API: persistent, transient, and default. Persistent settings, well, persist after a cluster restart. After a restart, OpenSearch clears transient settings.
+Using the Cluster Settings API, you can update dynamic cluster settings as either persistent or transient. Persistent settings are written to the cluster state and persist after a cluster restart. After a restart, OpenSearch clears transient settings. 
 
 If you specify the same setting in multiple places, OpenSearch uses the following precedence:
 
@@ -126,6 +126,32 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
+To reset a setting to its default value, assign it `null`:
+
+```json
+PUT _cluster/settings
+{
+  "transient": {
+    "action.auto_create_index": null
+  }
+}
+```
+{% include copy-curl.html %}
+
+You can also use wildcards to reset multiple related settings at once:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "indices.recovery.*": null
+  }
+}
+```
+{% include copy-curl.html %}
+
+When you reset a transient setting, OpenSearch applies the first available value from the precedence order (persistent setting, configuration file, or default value).
+
 ---
 
 ## Configuration file
@@ -148,12 +174,17 @@ The demo configuration includes a number of [settings for the Security plugin]({
 
 ### (Optional) CORS header configuration
 
-If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine. Use [Cross Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so that your application can make calls to the OpenSearch API running locally. Add the following lines in your `custom-opensearch.yml` file (note that the "-" must be the first character in each line).
+If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine. Use [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so that your application can make calls to the OpenSearch API running locally. Add the following lines in your `custom-opensearch.yml` file:
+
 ```yml
-- http.host:0.0.0.0
-- http.port:9200
-- http.cors.allow-origin:"http://localhost"
-- http.cors.enabled:true
-- http.cors.allow-headers:X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
-- http.cors.allow-credentials:true
+http.host: 0.0.0.0
+http.port: 9200
+http.cors.allow-origin: "http://localhost"
+http.cors.enabled: true
+http.cors.allow-headers: X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+http.cors.allow-credentials: true
 ```
+
+## Related documentation
+
+- [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/)

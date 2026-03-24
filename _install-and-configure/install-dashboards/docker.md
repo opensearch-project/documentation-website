@@ -8,16 +8,88 @@ redirect_from:
   - /opensearch/install/docker-security/
 ---
 
-# Run OpenSearch Dashboards using Docker
+# Run OpenSearch Dashboards using Docker and Docker Compose
 
-You *can* start OpenSearch Dashboards using `docker run` after [creating a Docker network](https://docs.docker.com/engine/reference/commandline/network_create/) and starting OpenSearch, but the process of connecting OpenSearch Dashboards to OpenSearch is significantly easier with a Docker Compose file.
+You can use either Docker or Docker Compose to run OpenSearch Dashboards. The Docker Compose method is easier because you can define the entire configuration in a single file.
 
-1. Run `docker pull opensearchproject/opensearch-dashboards:2`.
+## Run OpenSearch Dashboards using Docker
+
+If you have defined your network using `docker network create os-net` and started OpenSearch using the following command:
+
+```bash
+docker run -d --name opensearch-node -p 9200:9200 -p 9600:9600 --network os-net -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<admin_password>" opensearchproject/opensearch:latest
+```
+{% include copy.html %}
+
+Then you can start OpenSearch Dashboards using the following steps:
+
+1. Create an `opensearch_dashboards.yml` configuration file:
+
+    ```bash
+    server.name: opensearch_dashboards
+    server.host: "0.0.0.0"
+    server.customResponseHeaders : { "Access-Control-Allow-Credentials" : "true" }
+    
+    # Disabling HTTPS on OpenSearch Dashboards
+    server.ssl.enabled: false
+    
+    opensearch.hosts: ["https://opensearch-node:9200"] # Using the opensearch container name
+    
+    opensearch.ssl.verificationMode: none
+    opensearch.username: kibanaserver
+    opensearch.password: kibanaserver
+    opensearch.requestHeadersWhitelist: ["securitytenant","Authorization"]
+    
+    # Multitenancy
+    opensearch_security.multitenancy.enabled: true
+    opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
+    opensearch_security.readonly_mode.roles: ["kibana_read_only"]
+    ```
+    {% include copy.html %}
+
+2. Execute the following command to start OpenSearch Dashboards:
+
+    ```bash
+    docker run -d --name osd \
+      --network os-net \
+      -p 5601:5601 \
+      -v ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml \
+      opensearchproject/opensearch-dashboards:latest
+    ```
+    {% include copy.html %}
+
+## Run OpenSearch Dashboards using Docker Compose
+
+Use the following steps to run OpenSearch Dashboards using Docker Compose:
 
 1. Create a [`docker-compose.yml`](https://docs.docker.com/compose/compose-file/) file appropriate for your environment. A sample file that includes OpenSearch Dashboards is available on the OpenSearch [Docker installation page]({{site.url}}{{site.baseurl}}/opensearch/install/docker#sample-docker-composeyml).
 
-   Just like `opensearch.yml`, you can pass a custom `opensearch_dashboards.yml` to the container in the Docker Compose file.
+   You can pass a custom `opensearch_dashboards.yml` file to the container in the Docker Compose file. For more information, see [Complete Docker Compose example with custom configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#complete-docker-compose-example-with-custom-configuration).
    {: .tip }
+
+1. Create an `opensearch_dashboards.yml` file:
+  
+    ```yaml
+    server.name: opensearch_dashboards
+    server.host: "0.0.0.0"
+    server.customResponseHeaders : { "Access-Control-Allow-Credentials" : "true" }
+       
+    # Disabling HTTPS on OpenSearch Dashboards
+    server.ssl.enabled: false
+       
+    opensearch.ssl.verificationMode: none
+    opensearch.username: kibanaserver
+    opensearch.password: kibanaserver
+    opensearch.requestHeadersWhitelist: ["securitytenant","Authorization"]
+       
+    # Multitenancy
+    opensearch_security.multitenancy.enabled: true
+    opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
+    opensearch_security.readonly_mode.roles: ["kibana_read_only"]
+    ```
+
+    The `opensearch.hosts` setting must be configured if you are not passing it as an environment variable. For an example of how to configure this setting, see [Complete Docker Compose example with custom configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#complete-docker-compose-example-with-custom-configuration).
+    {: .note}
 
 1. Run `docker compose up`.
 

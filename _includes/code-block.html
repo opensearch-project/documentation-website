@@ -4,7 +4,7 @@
     {% for lang in languages %}
       {% assign lang_content = include[lang.id] %}
       {% if lang_content != nil %}
-        <button class="tab-button{% if forloop.first %} active{% endif %}" data-action="switch_tab"
+        <button class="tab-button code-tab-button{% if forloop.first %} active{% endif %}" data-action="switch_tab"
                 data-tab="{{ lang.id }}">{{ lang.name }}</button>
       {% endif %}
     {% endfor %}

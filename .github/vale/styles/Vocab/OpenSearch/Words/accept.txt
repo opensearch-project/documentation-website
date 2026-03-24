@@ -1,3 +1,4 @@
+[Aa]gentic
 [Aa]nonymization
 [Aa]utomapping
 [Aa]utopopulate
@@ -44,6 +45,7 @@ Gantt
 [Gg]eospatial
 [Gg]eotile
 gibibyte
+gRPC
 [Hh]ashmap
 [Hh]ostname
 [Hh]yperparameters

@@ -11,9 +11,6 @@ nav_order: 10
 **Introduced 3.0**
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).    
-{: .warning}
-
 OpenSearch provides the following APIs to manage pull-based ingestion.
 
 ## Pause ingestion
@@ -45,10 +42,27 @@ The following table lists the available query parameters. All query parameters a
 
 ### Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/ingestion/_pause
+-->
+{% capture step1_rest %}
 POST /my-index/ingestion/_pause
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.ingestion.pause(
+  index = "my-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Resume ingestion
 
@@ -94,14 +108,46 @@ The following table lists the available request body fields.
 
 To resume ingestion without specifying reset settings, send the following request:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/ingestion/_resume
+-->
+{% capture step1_rest %}
 POST /my-index/ingestion/_resume
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.ingestion.resume(
+  index = "my-index",
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To provide reset settings when resuming ingestion, send the following request:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /my-index/ingestion/_resume
+body: |
+{
+  "reset_settings": [
+    {
+      "shard": 0,
+      "mode": "offset",
+      "value": "1"
+    }
+  ]
+}
+-->
+{% capture step1_rest %}
 POST /my-index/ingestion/_resume
 {
   "reset_settings": [
@@ -112,8 +158,30 @@ POST /my-index/ingestion/_resume
     }
   ]
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.ingestion.resume(
+  index = "my-index",
+  body =   {
+    "reset_settings": [
+      {
+        "shard": 0,
+        "mode": "offset",
+        "value": "1"
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Get ingestion state
 
@@ -145,24 +213,77 @@ The following table lists the available query parameters. All query parameters a
 
 The following is a request with the default settings:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /my-index/ingestion/_state
+-->
+{% capture step1_rest %}
 GET /my-index/ingestion/_state
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.ingestion.get_state(
+  index = "my-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following example shows a request with a page size of 20:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /my-index/ingestion/_state?size=20
+-->
+{% capture step1_rest %}
 GET /my-index/ingestion/_state?size=20
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.ingestion.get_state(
+  index = "my-index",
+  params = { "size": "20" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following example shows a request with a next page token:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /my-index/ingestion/_state?size=20&next_token=<next_page_token>
+-->
+{% capture step1_rest %}
 GET /my-index/ingestion/_state?size=20&next_token=<next_page_token>
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.ingestion.get_state(
+  index = "my-index",
+  params = { "size": "20", "next_token": "<next_page_token>" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example response
 
@@ -191,7 +312,11 @@ GET /my-index/ingestion/_state?size=20&next_token=<next_page_token>
         "shard": 0,
         "poller_state": "POLLING",
         "error_policy": "DROP",
-        "poller_paused": false
+        "poller_paused": false,
+        "write_block_enabled" : false,
+        "batch_start_pointer" : "KafkaOffset{offset=2}",
+        "is_primary" : true,
+        "node" : "node_name"
       }
     ]
   }

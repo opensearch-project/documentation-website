@@ -78,14 +78,41 @@ Like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) 
 
 The following example `msearch/template` API request runs queries against a single index using multiple templates named `line_search_template` and `play_search_template`:
 
-```json
-GET _msearch/template
+<!-- spec_insert_start
+component: example_code
+rest: GET /_msearch/template
+body: |
 {"index":"shakespeare"}
 {"id":"line_search_template","params":{"text_entry":"All the world's a stage","limit":false,"size":2}}
 {"index":"shakespeare"}
 {"id":"play_search_template","params":{"play_name":"Henry IV"}}
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_msearch/template
+{"index":"shakespeare"}
+{"id":"line_search_template","params":{"text_entry":"All the world's a stage","limit":false,"size":2}}
+{"index":"shakespeare"}
+{"id":"play_search_template","params":{"play_name":"Henry IV"}}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.msearch_template(
+  body = '''
+{"index":"shakespeare"}
+{"id":"line_search_template","params":{"text_entry":"All the world's a stage","limit":false,"size":2}}
+{"index":"shakespeare"}
+{"id":"play_search_template","params":{"play_name":"Henry IV"}}
+'''
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

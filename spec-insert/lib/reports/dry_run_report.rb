@@ -17,7 +17,7 @@ class DryRunReport < Mustache
     generate_dry_runs
   end
 
-  def any_errors?
+  def any_errors
     @errors_report.keys.any?
   end
 

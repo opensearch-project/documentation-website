@@ -42,17 +42,47 @@ The following table lists the available query parameters. All query parameters a
 
 The following example request retrieves authentication information for the currently authenticated user:
 
-```bash
+<!-- spec_insert_start
+component: example_code
+rest: GET /_plugins/_security/authinfo
+-->
+{% capture step1_rest %}
 GET /_plugins/_security/authinfo
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.security.authinfo()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To get verbose information:
 
-```bash
+<!-- spec_insert_start
+component: example_code
+rest: GET /_plugins/_security/authinfo?verbose=true
+-->
+{% capture step1_rest %}
 GET /_plugins/_security/authinfo?verbose=true
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.security.authinfo(
+  params = { "verbose": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

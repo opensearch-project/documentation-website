@@ -3,6 +3,8 @@ layout: default
 title: Threat intelligence
 nav_order: 40
 has_children: true
+redirect_from:
+  - /security-analytics/threat-intelligence/
 ---
 
 # Threat intelligence

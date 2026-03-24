@@ -1,6 +1,6 @@
 services:
   doc_builder:
-    image: ruby:3.2.4
+    image: ruby:3.4.5
     volumes:
       - .:/app
     working_dir: /app

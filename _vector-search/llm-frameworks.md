@@ -13,7 +13,7 @@ Several popular large language model (LLM) frameworks integrate with OpenSearch 
     - [Vector store support](https://python.langchain.com/docs/integrations/vectorstores/opensearch/)
  
 - LlamaIndex
-    - [Vector store support](https://docs.llamaindex.ai/en/stable/examples/vector_stores/OpensearchDemo/)
+    - [Vector store support](https://developers.llamaindex.ai/python/framework-api-reference/storage/vector_store/opensearch/)
  
 - FlowiseAI: 
     - [Vector store support](https://docs.flowiseai.com/integrations/langchain/vector-stores/opensearch)

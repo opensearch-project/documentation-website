@@ -1,12 +1,12 @@
 ---
 layout: default
-title: rename_keys
+title: Rename keys
 parent: Processors
 grand_parent: Pipelines
-nav_order: 85
+nav_order: 310
 ---
 
-# rename_keys
+# Rename keys processor
 
 The `rename_keys` processor renames keys in an event.
 
@@ -26,53 +26,122 @@ You can configure the `rename_keys` processor with the following options.
 To get started, create the following `pipeline.yaml` file:
 
 ```yaml
-pipeline:
+rename-keys-nested-pipeline:
   source:
-    file:
-      path: "/full/path/to/logs_json.log"
-      record_type: "event"
-      format: "json"
+    http:
+      path: /logs
+      ssl: false
   processor:
     - rename_keys:
         entries:
-        - from_key: "message"
-          to_key: "newMessage"
-          overwrite_if_to_key_exists: true
+          # Top-level rename
+          - from_key: message
+            to_key: msg
+          # Level-2 (nested) renames — use slash paths
+          - from_key: user/name
+            to_key: user/username
+          - from_key: user/id
+            to_key: user/user_id
+          - from_key: http/response/code
+            to_key: http/status_code
+          # If a target exists already, overwrite it
+          - from_key: env
+            to_key: metadata/environment
+            overwrite_if_to_key_exists: true
   sink:
-    - stdout:
+    - opensearch:
+        hosts: ["https://opensearch:9200"]
+        insecure: true
+        username: admin
+        password: admin_password
+        index_type: custom
+        index: rename-%{yyyy.MM.dd}
 ```
 {% include copy.html %}
 
+You can test this pipeline using the following command:
 
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that filepath. For more information, see [Configuring OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
+```bash
+curl -sS -X POST "http://localhost:2021/logs" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "message": "hello world",
+      "user": { "name": "alice", "id": 123 },
+      "http": { "response": { "code": 200 } },
+      "env": "prod",
+      "metadata": { "environment": "staging" }
+    },
+    {
+      "message": "goodbye",
+      "user": { "name": "bob", "id": 456 },
+      "http": { "response": { "code": 503 } },
+      "env": "dev"
+    }
+  ]'
+```
+{% include copy.html %}
 
-For example, before you run the `rename_keys` processor, if the `logs_json.log` file contains the following event record:
+The documents stored in OpenSearch contain the following information:
 
 ```json
-{"message": "hello"}
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "rename-2025.11.04",
+        "_id": "kq3NTpoBNvg1WLcAJOak",
+        "_score": 1,
+        "_source": {
+          "user": {
+            "username": "alice",
+            "user_id": 123
+          },
+          "http": {
+            "response": {},
+            "status_code": 200
+          },
+          "metadata": {
+            "environment": "prod"
+          },
+          "msg": "hello world"
+        }
+      },
+      {
+        "_index": "rename-2025.11.04",
+        "_id": "k63NTpoBNvg1WLcAJOak",
+        "_score": 1,
+        "_source": {
+          "user": {
+            "username": "bob",
+            "user_id": 456
+          },
+          "http": {
+            "response": {},
+            "status_code": 503
+          },
+          "msg": "goodbye",
+          "metadata": {
+            "environment": "dev"
+          }
+        }
+      }
+    ]
+  }
+}
 ```
-
-When you run the `rename_keys` processor, it parses the message into the following "newMessage" output:
-
-```json
-{"newMessage": "hello"}
-```
-
-> If `newMessage` already exists, its existing value is overwritten with `value`.
-
-
 
 ## Special considerations
 
 Renaming operations occur in the order that the key-value pair entries are listed in the `pipeline.yaml` file. This means that chaining (where key-value pairs are renamed in sequence) is implicit in the `rename_keys` processor. See the following example `pipeline.yaml` file:
 
 ```yaml
-pipeline:
-  source:
-    file:
-      path: "/full/path/to/logs_json.log"
-      record_type: "event"
-      format: "json"
   processor:
     - rename_keys:
         entries:
@@ -80,18 +149,9 @@ pipeline:
           to_key: "message2"
         - from_key: "message2"
           to_key: "message3"
-  sink:
-    - stdout:
 ```
 
-Add the following contents to the `logs_json.log` file:
-
-```json
-{"message": "hello"}
-```
-{% include copy.html %}
-
-After the `rename_keys` processor runs, the following output appears:
+If the processor receives `{"message": "hello"}`, the resultng output is as follows:
 
 ```json
 {"message3": "hello"}

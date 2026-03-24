@@ -21,6 +21,8 @@ more_cards:
   - heading: "Randomizing queries"
     description: "Generate varied search patterns to simulate real-world queries"
     link: "/benchmark/user-guide/optimizing-benchmarks/randomizing-queries/"
+redirect_from:
+  - /benchmark/user-guide/optimizing-benchmarks/
 ---
 
 # Optimizing benchmarks

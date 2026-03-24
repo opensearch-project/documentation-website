@@ -1,14 +1,14 @@
 ---
 layout: default
 title: Retrieve inner hits
-parent: Search options
+parent: Customizing search results
 has_children: false
-nav_order: 75
+nav_order: 60
 ---
 
 # Retrieve inner hits
 
-In OpenSearch, when you perform a search using [nested objects]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [parent-join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/), the underlying hits (nested inner objects or child documents) are hidden by default. You can retrieve inner hits by using the `inner_hits` parameter in the search query.
+In OpenSearch, when you perform a search using [nested objects]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/) or [parent-join]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/join/), the underlying hits (nested inner objects or child documents) are hidden by default. You can retrieve inner hits by using the `inner_hits` parameter in the search query.
 
 You can also use `inner_hits` with the following features:
 
@@ -810,4 +810,4 @@ The following is the expected result:
 
 ## Next steps
 
-- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on [nested]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) or [join]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/join/) fields.
+- Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on [nested]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/) or [join]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/join/) fields.

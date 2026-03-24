@@ -4,8 +4,9 @@ title: Disabling and enabling the Security plugin
 parent: Configuration
 nav_order: 40
 has_toc: true
-redirect_from: 
+redirect_from:
  - /security-plugin/configuration/disable/
+ - /security/configuration/disable/
 ---
 
 # Disabling and enabling the Security plugin

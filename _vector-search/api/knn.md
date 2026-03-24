@@ -4,6 +4,8 @@ title: k-NN API
 parent: Vector search API
 nav_order: 10
 has_children: false
+redirect_from:
+  - /search-plugins/knn/jni-libraries/
 ---
 
 # k-NN API
@@ -421,7 +423,7 @@ Request field |  Description
 `max_training_vector_count` | The maximum number of vectors from the training index to be used for training. Defaults to all the vectors in the index. Optional.
 `search_size` | The training data is pulled from the training index using scroll queries. This parameter defines the number of results to return per scroll query. Default is `10000`. Optional.
 `description` | A user-provided description of the model. Optional.
-`method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [Methods and engines]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/). The method requires training in order to be valid.
+`method` | The configuration of the approximate k-NN method used for search operations. For more information about the available methods, see [Methods and engines]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/). The method requires training in order to be valid.
 `space_type` | The space type for which this model is trained, for example, Euclidean or cosine. Note: This value can also be set in the `method` parameter.
    
 #### Example request

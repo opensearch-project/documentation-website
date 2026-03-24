@@ -6,7 +6,6 @@ has_children: true
 has_toc: false
 redirect_from:
   - /im-plugin/ism/error-prevention/
-  - /im-plugin/ism/error-prevention/index/
 ---
 
 # ISM error prevention
@@ -87,6 +86,15 @@ ISM does not perform a `snapshot` action for an index under any of these conditi
 
 - The index does not exist.
 - The index name is invalid.
+
+## search_only
+
+ISM does not perform a `search_only` action for an index under any of these conditions:
+
+- The index does not exist.
+- [Remote store is not enabled]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#remote-store-is-not-enabled) on the cluster.
+- [Segment replication is not enabled]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#segment-replication-is-not-enabled) for the index.
+- [No search replicas are configured]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#no-search-replicas-configured) for the index.
 
 ## transition 
 

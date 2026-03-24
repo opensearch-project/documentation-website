@@ -16,6 +16,12 @@ Unsurprisingly, builders often use a search engine like OpenSearch as the backen
 
 An equally popular, but less obvious use case is log analytics, in which you take the logs from an application, feed them into OpenSearch, and use the rich search and visualization functionality to identify issues. For example, a malfunctioning web server might throw a 500 error 0.5% of the time, which can be hard to notice unless you have a real-time graph of all HTTP status codes that the server has thrown in the past four hours. You can use [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/) to build these sorts of visualizations from data in OpenSearch.
 
+## Overview
+
+Watch this video to explore key features of OpenSearch and see a demo of its core capabilities in action.
+
+{% include youtube-player.html id='u1zxUSWWGjs' %}
+
 ## Components
 
 OpenSearch is more than just the core engine. It also includes the following components:

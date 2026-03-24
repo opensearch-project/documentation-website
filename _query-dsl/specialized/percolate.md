@@ -25,7 +25,7 @@ When working with `percolate` queries, consider the following key points:
 
 ## How percolation works
 
-1. Saved queries are stored in a special [`percolator` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/).
+1. Saved queries are stored in a special [`percolator` field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/percolator/).
 2. Documents are compared against all saved queries.
 3. Each matching query is returned with its `_id`.
 4. If highlighting is enabled, matched text snippets are also returned.
@@ -37,7 +37,7 @@ The following examples demonstrate how to store `percolate` queries and test doc
 
 ### Create an index for storing saved queries
 
-First, create an index and configure its `mappings` with a [`percolator` field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/percolator/) to store the saved queries:
+First, create an index and configure its `mappings` with a [`percolator` field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/percolator/) to store the saved queries:
 
 ```json
 PUT /my_percolator_index

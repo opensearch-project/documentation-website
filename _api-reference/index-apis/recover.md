@@ -1,12 +1,13 @@
 ---
 layout: default
-title: Recovery
-parent: Index APIs
-nav_order: 110
+title: Index recovery
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 50
 ---
 
-# Recovery API
-Introduced 1.0
+# Index Recovery API
+**Introduced 1.0**
 {: .label .label-purple }
 
 The Recovery API provides information about any completed or ongoing shard recoveries for one or more indexes. If a data stream is listed, the API returns information about that data stream's backing indexes. 
@@ -57,26 +58,78 @@ The following examples demonstrate how to recover information using the Recovery
 
 The following example request returns recovery information about several indexes in a [human-readable format]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#human-readable-output):
 
-```json
-GET index1,index2/_recovery?human
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /index1,index2/_recovery?human
+-->
+{% capture step1_rest %}
+GET /index1,index2/_recovery?human
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.recovery(
+  index = "index1,index2",
+  params = { "human": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following example request returns recovery information about all indexes in a human-readable format:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /_recovery?human
+-->
+{% capture step1_rest %}
 GET /_recovery?human
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.recovery(
+  params = { "human": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Recover detailed information
 
 The following example request returns detailed recovery information:
 
-```json
-GET _recovery?human&detailed=true
-```
-{% include copy-curl.html %}
+<!-- spec_insert_start
+component: example_code
+rest: GET /_recovery?human&detailed=true
+-->
+{% capture step1_rest %}
+GET /_recovery?human&detailed=true
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.recovery(
+  params = { "human": "true", "detailed": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

@@ -6,6 +6,7 @@ parent: Performance Analyzer
 has_children: true
 redirect_from:
   - /monitoring-plugins/pa/rca/index/
+  - /monitoring-your-cluster/pa/rca/
 ---
 
 # Root cause analysis

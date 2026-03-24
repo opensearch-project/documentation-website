@@ -3,8 +3,15 @@ _site
 .jekyll-metadata
 .DS_Store
 Gemfile.lock
+.bundle
 .idea
 *.iml
 .jekyll-cache
 .project
 vendor/bundle
+node_modules
+.vscode
+.ruby-version
+cdk*
+.dev*
+CLAUDE.md

@@ -34,13 +34,42 @@ The request body is optional. It is a JSON object with the following fields.
 
 The following example request performs upgrades on only the `roles` and `config` components:
 
-```json
-POST /_plugins/_security/api/_upgrade_perform
+<!-- spec_insert_start
+component: example_code
+rest: POST /_plugins/_security/api/_upgrade_perform
+body: |
 {
   "config": ["roles", "config"]
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+POST /_plugins/_security/api/_upgrade_perform
+{
+  "config": [
+    "roles",
+    "config"
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.security.config_upgrade_perform(
+  body =   {
+    "config": [
+      "roles",
+      "config"
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 To upgrade all components requiring it, you can omit the request body.
 
@@ -74,21 +103,3 @@ If no components require upgrades, you'll receive a response similar to the foll
 ```
 
 ## Response body fields
-
-The response body is a JSON object with the following fields.
-
-| Property | Data type | Description |
-| :--- | :--- | :--- |
-| `status` | String | The status of the upgrade operation. A successful operation returns "OK". |
-| `upgrades` | Object | A detailed breakdown of the upgrades performed. Each key represents a configuration component that was upgraded, with an array of string descriptions detailing the specific changes made. |
-
-## Usage notes
-
-Consider the following important points when using this API:
-
-- Before performing upgrades, we recommend first running the Upgrade Check API to identify which components need to be upgraded.
-- Always back up your security configuration before performing upgrades.
-- You must have administrator privileges to use this API.
-- This API makes actual changes to your configuration, unlike the Upgrade Check API, which only identifies required changes.
-- For clusters in production environments, consider first testing the upgrade process in a staging environment.
-- After performing upgrades, verify that your security settings still work as expected.

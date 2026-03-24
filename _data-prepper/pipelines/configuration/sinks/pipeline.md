@@ -1,12 +1,12 @@
 ---
 layout: default
-title: pipeline 
+title: Pipeline 
 parent: Sinks
 grand_parent: Pipelines
 nav_order: 55
 ---
 
-# pipeline
+# Pipeline sink
 
 Use the `pipeline` sink to write to another pipeline.
 
@@ -22,7 +22,7 @@ name | Yes | String | Name of the pipeline to write to.
 
 The following example configures a `pipeline` sink that writes to a pipeline named `movies`:
 
-```
+```yaml
 sample-pipeline:
   sink:
     - pipeline:

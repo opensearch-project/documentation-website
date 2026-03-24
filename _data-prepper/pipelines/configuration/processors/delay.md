@@ -1,12 +1,12 @@
 ---
 layout: default
-title: delay
+title: Delay
 parent: Processors
 grand_parent: Pipelines
-nav_order: 41
+nav_order: 100
 ---
 
-# delay
+# Delay processor
 
 This processor will add a delay into the processor chain. Typically, you should use this only for testing, experimenting, and debugging.
 
@@ -25,3 +25,4 @@ processor:
   - delay:
       for: 2s
 ```
+{% include copy.html %}

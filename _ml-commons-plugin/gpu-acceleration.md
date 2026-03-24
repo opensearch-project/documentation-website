@@ -67,6 +67,18 @@ else
 fi
 ```
 
+If you run OpenSearch natively (without Docker) using the packaged version of OpenSearch, `systemd` may block OpenSearch from accessing your GPU. To accelerate models, you need a working [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) installation and access to the NVIDIA device under `/dev`.
+
+To allow OpenSearch to use the GPU, update the `systemd` service by adding the following configuration:
+
+```ini
+systemctl edit opensearch.service
+
+[Service]
+DevicePolicy=auto
+``` 
+
+
 After verifying that `nvidia-uvm` exists under `/dev`, you can start OpenSearch inside your cluster. 
 
 ### Preparing AWS Inferentia ML node
@@ -298,5 +310,5 @@ sudo sysctl -w vm.max_map_count=262144
 
 ## Next steps
 
-If you want to try a GPU-accelerated cluster using AWS Inferentia with a pretrained HuggingFace model, see [Compiling and Deploying HuggingFace Pretrained BERT](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/src/examples/pytorch/bert_tutorial/tutorial_pretrained_bert.html).
+If you want to try a GPU-accelerated cluster using AWS Inferentia with a pretrained HuggingFace model, see the [AWS Neuron PyTorch tutorials](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/tutorials/).
 

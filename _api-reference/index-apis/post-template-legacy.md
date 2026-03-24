@@ -1,11 +1,14 @@
 ---
 layout: default
 title: Post template (deprecated)
-parent: Index APIs
-nav_order: 107
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 70
 ---
 
 # Post template
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Post Template API has been deprecated. Use the new [Create or Update Index Template]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/) API.
 {: .warning}
@@ -50,8 +53,10 @@ The request body must define one or more of the following components.
 
 ## Example request
 
-```json
-POST /_template/logs_template
+<!-- spec_insert_start
+component: example_code
+rest: POST /_template/logs_template
+body: |
 {
   "index_patterns": ["logs-*"],
   "settings": {
@@ -67,9 +72,66 @@ POST /_template/logs_template
     "logs": {}
   }
 }
-```
+-->
+{% capture step1_rest %}
+POST /_template/logs_template
+{
+  "index_patterns": [
+    "logs-*"
+  ],
+  "settings": {
+    "number_of_shards": 1
+  },
+  "mappings": {
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "message": {
+        "type": "text"
+      }
+    }
+  },
+  "aliases": {
+    "logs": {}
+  }
+}
+{% endcapture %}
 
-{% include copy-curl.html %}
+{% capture step1_python %}
+
+
+response = client.indices.put_template(
+  name = "logs_template",
+  body =   {
+    "index_patterns": [
+      "logs-*"
+    ],
+    "settings": {
+      "number_of_shards": 1
+    },
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "message": {
+          "type": "text"
+        }
+      }
+    },
+    "aliases": {
+      "logs": {}
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

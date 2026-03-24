@@ -4,6 +4,8 @@ title: Search APIs
 nav_order: 75
 has_children: true
 has_toc: false
+redirect_from:
+  - /api-reference/search-apis/
 ---
 
 # Search APIs
@@ -27,7 +29,7 @@ These APIs form the foundation of OpenSearch's search capabilities:
 These APIs help you test, debug, and optimize your search operations:
 
 - **[Explain]({{site.url}}{{site.baseurl}}/api-reference/search-apis/explain/)**: Explain how a specific document matches (or doesn't match) a query.
-- **Field capabilities**: Get the capabilities of fields across multiple indexes.
+- **[Field capabilities]({{site.url}}{{site.baseurl}}/api-reference/search-apis/field-caps/)**: Get the capabilities of fields across multiple indexes.
 - **[Profile]({{site.url}}{{site.baseurl}}/api-reference/search-apis/profile/)**: Profile the execution of search requests.
 - **[Ranking evaluation]({{site.url}}{{site.baseurl}}/api-reference/search-apis/rank-eval/)**: Evaluate the quality of search results.
 - **[Search shards]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-shards/)**: Get information about the shards on which a search request would be executed.

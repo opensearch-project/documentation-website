@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Get index
-parent: Index APIs
-nav_order: 90
+parent: Core index APIs
+grand_parent: Index APIs
+nav_order: 30
 redirect_from:
   - /opensearch/rest-api/index-apis/get-index/
 ---
@@ -44,10 +45,27 @@ cluster_manager_timeout | Time | How long to wait for a connection to the cluste
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /sample-index
+-->
+{% capture step1_rest %}
 GET /sample-index
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.get(
+  index = "sample-index"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 ```json

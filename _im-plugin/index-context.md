@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index context
-nav_order: 14
+nav_order: 20
 redirect_from:
   - /opensearch/index-context/
 ---

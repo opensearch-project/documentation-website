@@ -7,11 +7,11 @@ nav_order: 30
 
 # Nested query
 
-The `nested` query acts as a wrapper for other queries to search [nested]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) fields. The nested field objects are searched as though they were indexed as separate documents. If an object matches the search, the `nested` query returns the parent document at the root level.
+The `nested` query acts as a wrapper for other queries to search [nested]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/) fields. The nested field objects are searched as though they were indexed as separate documents. If an object matches the search, the `nested` query returns the parent document at the root level.
 
 ## Example 
 
-Before you can run a `nested` query, your index must contain a [nested]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/) field. 
+Before you can run a `nested` query, your index must contain a [nested]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/) field. 
 
 To configure an example index containing nested fields, send the following request:
 
@@ -189,7 +189,7 @@ By default, the `_source` of the hit objects within `inner_hits` is returned rel
 }
 ```
 
-You can disable returning `_source` by configuring the `_source` field in the mappings. For more information, see [Source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/).
+You can disable returning `_source` by configuring the `_source` field in the mappings. For more information, see [Source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/).
 {: .tip}
 
 For more information about retrieving inner hits, see [Inner hits]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/inner-hits/).

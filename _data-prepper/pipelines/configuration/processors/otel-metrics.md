@@ -1,12 +1,12 @@
 ---
 layout: default
-title: otel_metrics
+title: OTel metrics
 parent: Processors
 grand_parent: Pipelines
-nav_order: 72
+nav_order: 250
 ---
 
-# otel_metrics 
+# OTel metrics processor
 
 The `otel_metrics` processor serializes a collection of `ExportMetricsServiceRequest` records sent from the [OTel metrics source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
 

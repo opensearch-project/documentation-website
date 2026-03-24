@@ -7,6 +7,7 @@ has_toc: true
 redirect_from:
   - /clients/logstash/
   - /clients/logstash/index/
+  - /tools/logstash/
 ---
 
 # Logstash
@@ -67,6 +68,7 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
      ```bash
      tar -zxvf logstash-8.8.2-linux-x86_64.tar.gz
      ```
+     {% include copy.html %}
 
 3. Navigate to the `logstash-8.8.2` directory.
 
@@ -75,6 +77,7 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
      ```bash
      bin/logstash-plugin install logstash-output-opensearch
      ```
+     {% include copy.html %}
   
    You should receive the following output:
 
@@ -91,23 +94,48 @@ You can add your pipeline configurations to the `config` directory. Logstash sav
 
 ### Docker
 
+You can either use a custom Dockerfile to build a Logstash image or use the standard Logstash image.
+
+#### Option 1: Using a custom Dockerfile (recommended)
+
+1. Create a custom Dockerfile to build a Logstash image with the required OpenSearch plugins:
+
+    ```
+    FROM logstash:<LATEST_VERSION>
+    RUN bin/logstash-plugin install logstash-output-opensearch
+    RUN bin/logstash-plugin install logstash-input-opensearch
+    ```
+    {% include copy.html %}
+
+1. Build the image:
+
+    ```
+    docker build -t logstash-with-opensearch-plugins .
+    ```
+    {% include copy.html %}
+
+#### Option 2: Using the standard Logstash image
+
 1. Pull the latest Logstash image as stated in the [Logstash downloads](https://www.elastic.co/downloads/logstash).
 
     ```
     docker pull docker.elastic.co/logstash/logstash:8.8.2
     ```
+    {% include copy.html %}
 
 1. Create a Docker network:
 
     ```
     docker network create test
     ```
+    {% include copy.html %}
 
 1. Start OpenSearch with this network:
 
     ```
     docker run -p 9200:9200 -p 9600:9600 --name opensearch --net test -e "discovery.type=single-node" opensearchproject/opensearch:1.2.0
     ```
+    {% include copy.html %}
 
 1. Start Logstash:
 
@@ -123,6 +151,7 @@ You can add your pipeline configurations to the `config` directory. Logstash sav
       }
     }'
     ```
+    {% include copy.html %}
 
 ## Process text from the terminal
 
@@ -135,6 +164,8 @@ To enter some text in the terminal and see the event data in the output:
     ```bash
     bin/logstash -e "input { stdin { } } output { stdout { } }"
     ```
+    {% include copy.html %}
+
     Add the `—debug` flag to see a more detailed output.
 
 2. Enter "hello world" in your terminal. Logstash processes the text and outputs it back to the terminal:
@@ -162,6 +193,7 @@ If you already have a Logstash process running, you’ll get an error. To fix th
     cd data
     rm -rf .lock
     ```
+    {% include copy.html %}
 
 2. Restart Logstash.
 
@@ -171,7 +203,7 @@ To define a pipeline that handles JSON requests:
 
 1. Open the `config/pipeline.conf` file in any text editor you like. You can create a pipeline configuration file with any extension, the `.conf` extension is a Logstash convention. Add the `json` codec to accept JSON as the input and the `file` plugin to output the processed events to a `.txt` file:
 
-    ```yml
+    ```json
     input {
       stdin {
         codec => json
@@ -183,22 +215,25 @@ To define a pipeline that handles JSON requests:
       }
     }
     ```
+    {% include copy.html %}
 
     To process inputs from a file, add an input file to the `events-data` directory and then pass its path to the `file` plugin at the input:
 
-    ```yml
+    ```json
     input {
       file {
         path => "events-data/input_data.log"
       }
     }
     ```
+    {% include copy.html %}
 
 2. Start Logstash:
 
     ```bash
-    $ bin/logstash -f config/pipeline.conf
+    bin/logstash -f config/pipeline.conf
     ```
+    {% include copy.html %}
 
     `config/pipeline.conf` is a relative path to the `pipeline.conf` file. You can use an absolute path as well.
 
@@ -207,14 +242,18 @@ To define a pipeline that handles JSON requests:
     ```json
     { "amount": 10, "quantity": 2}
     ```
+    {% include copy.html %}
 
     The pipeline only handles a single line of input. If you paste some JSON that spans multiple lines, you’ll get an error.
 
 4. Check that the fields from the JSON object are added to the `output.txt` file:
 
-    ```json
-    $ cat output.txt
+    ```bash
+    cat output.txt
+    ```
+    {% include copy.html %}
 
+    ```json
     {
       "@version": "1",
       "@timestamp": "2021-05-30T05:52:52.421Z",
@@ -230,7 +269,7 @@ To define a pipeline that handles HTTP requests:
 
 1. Use the `http` plugin to send events to Logstash through HTTP:
 
-    ```yml
+    ```json
     input {
       http {
         host => "127.0.0.1"
@@ -244,31 +283,34 @@ To define a pipeline that handles HTTP requests:
       }
     }
     ```
+    {% include copy.html %}
 
     If you don’t specify any options, the `http` plugin binds to `localhost` and listens on port 8080.
 
 2. Start Logstash:
 
     ```bash
-    $ bin/logstash -f config/pipeline.conf
+    bin/logstash -f config/pipeline.conf
     ```
+    {% include copy.html %}
 
 3. Use Postman to send an HTTP request. Set `Content-Type` to an HTTP header with a value of `application/json`:
 
     ```json
     PUT 127.0.0.1:8080
-
     {
       "amount": 10,
       "quantity": 2
     }
     ```
+    {% include copy.html %}
 
     Or, you can use the `curl` command:
 
     ```bash
     curl -XPUT -H "Content-Type: application/json" -d ' {"amount": 7, "quantity": 3 }' http://localhost:8080 (http://localhost:8080/)
     ```
+    {% include copy.html %}
 
     Even though we haven't added the `json` plugin to the input, the pipeline configuration still works because the HTTP plugin automatically applies the appropriate codec based on the `Content-Type` header.
     If you specify a value of `applications/json`, Logstash parses the request body as JSON.
@@ -309,7 +351,7 @@ The `stdin` plugin doesn’t supporting automatic reloading.
 
 1. Add an option named `start_position` with a value of `beginning` to the input plugin:
 
-    ```yml
+    ```json
     input {
       file {
         path => "/Users/<user>/Desktop/logstash7-12.1/events-data/input_file.log"
@@ -317,6 +359,7 @@ The `stdin` plugin doesn’t supporting automatic reloading.
       }
     }
     ```
+    {% include copy.html %}
 
     Logstash only processes any new events added to the input file and ignores the ones that it has already processed to avoid processing the same event more than once on restart.
 
@@ -334,26 +377,29 @@ The `stdin` plugin doesn’t supporting automatic reloading.
 
     51575938 1 4 7727
     ```
+    {% include copy.html %}
 
     The last number in the `sinceDB` file (7727) is the byte offset of the last known event processed.
 
 5. To process the input file from the beginning, delete the `sinceDB` file:
 
-    ```yml
+    ```bash
     rm .sincedb_*
     ```
+    {% include copy.html %}
 
 2. Start Logstash with a `—-config.reload.automatic` argument:
 
     ```bash
     bin/logstash -f config/pipeline.conf --config.reload.automatic
     ```
+    {% include copy.html %}
 
     The `reload` option only reloads if you add a new line at the end of the pipeline configuration file.
 
     Sample output:
 
-    ```yml
+    ```json
     {
        "message" => "216.243.171.38 - - [20/Sep/2017:19:11:52 +0200] \"GET /products/view/123 HTTP/1.1\" 200 12798 \"https://codingexplained.com/products\" \"Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)\"",
        "@version" => "1",

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: aggregate
+title: Aggregate
 parent: Processors
 grand_parent: Pipelines
-nav_order: 41
+nav_order: 20
 ---
 
-# aggregate
+# Aggregate processor
 
 The `aggregate` processor groups events based on the values of `identification_keys`. Then, the processor performs an action on each group, helping reduce unnecessary log volume and creating aggregated logs over time. You can use existing actions or create your own custom aggregations using Java code.
 
@@ -38,7 +38,7 @@ The `remove_duplicates` action processes the first event for a group immediately
 
 The `put_all` action combines events belonging to the same group by overwriting existing keys and adding new keys, similarly to the Java `Map.putAll`. The action drops all events that make up the combined event. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`, the `put_all` action processes the following three events:
 
-```
+```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 1000 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "http_verb": "GET" }
@@ -46,7 +46,7 @@ The `put_all` action combines events belonging to the same group by overwriting 
 
 Then the action combines the events into one. The pipeline then uses the following combined event:
 
-```
+```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200, "bytes": 1000, "http_verb": "GET" }
 ```
 
@@ -93,7 +93,7 @@ You can customize the processor with the following configuration options:
 
 For example, when using `identification_keys: ["sourceIp", "destination_ip", "request"]`, `key: latency`, and `buckets: [0.0, 0.25, 0.5]`, the `histogram` action processes the following events:
 
-```
+```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.2 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.55}
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.25 }
@@ -139,7 +139,7 @@ You can set the percentage of events using the `percent` configuration, which in
 
 For example, if percent is set to `50`, the action tries to process the following events in the one-second interval:
 
-```
+```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 2500 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 500 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 1000 }
@@ -148,7 +148,7 @@ For example, if percent is set to `50`, the action tries to process the followin
 
 The pipeline processes 50% of the events, drops the other events, and does not generate a new event:
 
-```
+```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 500 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 3100 }
 ```

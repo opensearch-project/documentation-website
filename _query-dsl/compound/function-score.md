@@ -202,7 +202,7 @@ GET blogs/_search
 
 For many applications, you need to sort the results based on proximity or recency. You can do this with decay functions. Decay functions calculate a document score using one of three decay curves: Gaussian, exponential, or linear. 
 
-Decay functions operate only on [numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/), [date]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/), and [geopoint]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) fields.
+Decay functions operate only on [numeric]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/numeric/), [date]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/dates/), and [geopoint]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-point/) fields.
 {: .important}
 
 Decay functions calculate scores based on the `origin`, `scale`, `offset`, and `decay`, as shown in the following figure.

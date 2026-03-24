@@ -40,14 +40,39 @@ The request body is __required__. It is a JSON object with the following fields.
 
 ## Example request
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: PUT /_plugins/_security/api/account
+body: |
+{
+  "current_password": "old-secure-password",
+  "password": "new-secure-password"
+}
+-->
+{% capture step1_rest %}
 PUT /_plugins/_security/api/account
 {
   "current_password": "old-secure-password",
   "password": "new-secure-password"
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.security.change_password(
+  body =   {
+    "current_password": "old-secure-password",
+    "password": "new-secure-password"
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

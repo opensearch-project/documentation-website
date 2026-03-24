@@ -345,7 +345,7 @@ The response contains both documents:
 
 ## Using a semantic field
 
-To manually configure semantic search using a `semantic` field, follow these steps. For more information, including about limitations when using `semantic` fields, see [Semantic field type]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/semantic/). 
+To manually configure semantic search using a `semantic` field, follow these steps. For more information, including about limitations when using `semantic` fields, see [Semantic field type]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/semantic/). 
 
 ### Step 1: Create an index with a semantic field
 

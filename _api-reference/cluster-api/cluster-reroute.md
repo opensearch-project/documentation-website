@@ -1,12 +1,14 @@
 ---
 layout: default
 title: Cluster reroute
-nav_order: 46
+nav_order: 47
 parent: Cluster APIs
 has_children: false
 ---
 
 # Cluster Reroute API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `/_cluster/reroute` API allows you to manually control the allocation of individual shards within the cluster. This includes moving, allocating, or canceling shard allocations. It's typically used for advanced scenarios, such as manual recovery or custom load balancing.
 
@@ -133,7 +135,24 @@ PUT /test-cluster-index
 
 Run the following reroute command to move shard `0` of the index `test-cluster-index` from node `node1` to node `node2`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_cluster/reroute
+body: |
+{
+  "commands": [
+    {
+      "move": {
+        "index": "test-cluster-index",
+        "shard": 0,
+        "from_node": "node1",
+        "to_node": "node2"
+      }
+    }
+  ]
+}
+-->
+{% capture step1_rest %}
 POST /_cluster/reroute
 {
   "commands": [
@@ -147,14 +166,55 @@ POST /_cluster/reroute
     }
   ]
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.reroute(
+  body =   {
+    "commands": [
+      {
+        "move": {
+          "index": "test-cluster-index",
+          "shard": 0,
+          "from_node": "node1",
+          "to_node": "node2"
+        }
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Simulating a reroute
 
 To simulate a reroute without executing it, set `dry_run=true`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_cluster/reroute?dry_run=true
+body: |
+{
+  "commands": [
+    {
+      "move": {
+        "index": "test-cluster-index",
+        "shard": 0,
+        "from_node": "node1",
+        "to_node": "node2"
+      }
+    }
+  ]
+}
+-->
+{% capture step1_rest %}
 POST /_cluster/reroute?dry_run=true
 {
   "commands": [
@@ -168,24 +228,83 @@ POST /_cluster/reroute?dry_run=true
     }
   ]
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.reroute(
+  params = { "dry_run": "true" },
+  body =   {
+    "commands": [
+      {
+        "move": {
+          "index": "test-cluster-index",
+          "shard": 0,
+          "from_node": "node1",
+          "to_node": "node2"
+        }
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Retrying failed allocations
 
 If some shards failed to allocate because of previous issues, you can reattempt allocation:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_cluster/reroute?retry_failed=true
+-->
+{% capture step1_rest %}
 POST /_cluster/reroute?retry_failed=true
-```
+{% endcapture %}
 
-{% include copy-curl.html %}
+{% capture step1_python %}
+
+
+response = client.cluster.reroute(
+  params = { "retry_failed": "true" },
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Explaining reroute decisions
 
 To understand why a reroute command is accepted or rejected, add `explain=true`:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_cluster/reroute?explain=true
+body: |
+{
+  "commands": [
+    {
+      "move": {
+        "index": "test-cluster-index",
+        "shard": 0,
+        "from_node": "node1",
+        "to_node": "node2"
+      }
+    }
+  ]
+}
+-->
+{% capture step1_rest %}
 POST /_cluster/reroute?explain=true
 {
   "commands": [
@@ -194,13 +313,38 @@ POST /_cluster/reroute?explain=true
         "index": "test-cluster-index",
         "shard": 0,
         "from_node": "node1",
-        "to_node": "node3"
+        "to_node": "node2"
       }
     }
   ]
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.reroute(
+  params = { "explain": "true" },
+  body =   {
+    "commands": [
+      {
+        "move": {
+          "index": "test-cluster-index",
+          "shard": 0,
+          "from_node": "node1",
+          "to_node": "node2"
+        }
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 This returns a `decisions` array explaining the outcome:
 

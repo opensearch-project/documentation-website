@@ -1,11 +1,14 @@
 ---
 layout: default
 title: Delete index template
-parent: Index APIs
-nav_order: 55
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 20
 ---
 
 # Delete Index Template API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Delete Index Template API deletes one or more index templates.
 

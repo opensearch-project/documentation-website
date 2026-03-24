@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Multi-get document
+title: Multi-get documents
 parent: Document APIs
 nav_order: 30
 redirect_from: 
@@ -49,10 +49,10 @@ If you don't specify an index in your request's URL, you must specify your targe
 
 Field | Type | Description | Required
 :--- | :--- | :--- | :---
-docs | Array | The documents you want to retrieve data from. Can contain the attributes: `_id`, `_index`, `_routing`, `_source`, and `_stored_fields`. If you specify an index in the URL, you can omit this field and add IDs of the documents to retrieve. | Yes if an index is not specified in the URL
+docs | Array | The documents you want to retrieve data from. Can contain the attributes: `_id`, `_index`, `routing`, `_source`, and `_stored_fields`. If you specify an index in the URL, you can omit this field and add IDs of the documents to retrieve. | Yes if an index is not specified in the URL
 _id | String | The ID of the document. | Yes if `docs` is specified in the request body
 _index | String | Name of the index. | Yes if an index is not specified in the URL
-_routing | String | The value of the shard that has the document. | Yes if a routing value was used when indexing the document
+routing | String | The value of the shard that contains the document. | Yes if a routing value was used when indexing the document
 _source | Object | Specifies whether to return the `_source` field from an index (boolean), whether to return specific fields (array), or whether to include or exclude certain fields. | No
 _source.includes | Array | Specifies which fields to include in the query response. For example, `"_source": { "include": ["Title"] }` retrieves `Title` from the index. | No
 _source.excludes | Array | Specifies which fields to exclude in the query response. For example, `"_source": { "exclude": ["Director"] }` excludes `Director` from the query response. | No
@@ -65,8 +65,10 @@ ids | Array | IDs of the documents to retrieve. Only allowed when an index is sp
 
 The following example requests does specifies an index in the request body:
 
-```json
-GET _mget
+<!-- spec_insert_start
+component: example_code
+rest: GET /_mget
+body: |
 {
   "docs": [
   {
@@ -82,15 +84,66 @@ GET _mget
   }
   ]
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /_mget
+{
+  "docs": [
+    {
+      "_index": "sample-index1",
+      "_id": "1"
+    },
+    {
+      "_index": "sample-index2",
+      "_id": "1",
+      "_source": {
+        "include": [
+          "Length"
+        ]
+      }
+    }
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.mget(
+  body =   {
+    "docs": [
+      {
+        "_index": "sample-index1",
+        "_id": "1"
+      },
+      {
+        "_index": "sample-index2",
+        "_id": "1",
+        "_source": {
+          "include": [
+            "Length"
+          ]
+        }
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Specify an index the URL
 
 The following example specifies an index in the URL:
 
-```json
-GET sample-index1/_mget
+<!-- spec_insert_start
+component: example_code
+rest: GET /sample-index1/_mget
+body: |
 {
   "docs": [
     {
@@ -103,8 +156,54 @@ GET sample-index1/_mget
     }
   ]
 }
-```
-{% include copy-curl.html %}
+-->
+{% capture step1_rest %}
+GET /sample-index1/_mget
+{
+  "docs": [
+    {
+      "_id": "1",
+      "_source": false
+    },
+    {
+      "_id": "2",
+      "_source": [
+        "Director",
+        "Title"
+      ]
+    }
+  ]
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.mget(
+  index = "sample-index1",
+  body =   {
+    "docs": [
+      {
+        "_id": "1",
+        "_source": false
+      },
+      {
+        "_id": "2",
+        "_source": [
+          "Director",
+          "Title"
+        ]
+      }
+    ]
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response 
 

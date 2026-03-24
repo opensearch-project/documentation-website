@@ -1,12 +1,12 @@
 ---
 layout: default
-title: kafka
+title: Kafka
 parent: Sources
 grand_parent: Pipelines
 nav_order: 40
 ---
 
-# kafka
+# Kafka source
 
 You can use the Apache Kafka source (`kafka`) in OpenSearch Data Prepper to read records from one or more Kafka [topics](https://kafka.apache.org/intro#intro_concepts_and_terms). These records hold events that your Data Prepper pipeline can ingest. The `kafka` source uses Kafka's [Consumer API](https://kafka.apache.org/documentation/#consumerapi) to consume messages from the Kafka broker, which then creates Data Prepper events for further processing by the Data Prepper pipeline.
 
@@ -113,13 +113,16 @@ Option | Type | Description
 `username` | String | The username for the PLAINTEXT auth.
 `password` | String | The password for the PLAINTEXT auth.
 
-#### Encryption 
+#### Encryption
 
 Use the following options when setting SSL encryption.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `type` | No | String | The encryption type. Use `none` to disable encryption. Default is `ssl`.
+`certificate` | No | String | The SSL certificate content. Use either this option or `trust_store_file_path`, not both.
+`trust_store_file_path` | No | String | The path to the truststore file containing the SSL certificate. Use either this option or `certificate`, not both.
+`trust_store_password` | No | String | The password for the truststore file.
 `insecure` | No | Boolean | A Boolean flag used to turn off SSL certificate verification. If set to `true`, certificate authority (CA) certificate verification is turned off and insecure HTTP requests are sent. Default is `false`.
 
 

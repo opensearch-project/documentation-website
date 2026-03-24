@@ -17,9 +17,11 @@ Memory-optimized search affects only search operations. Indexing behavior remain
 ## Limitations
 
 The following limitations apply to memory-optimized search in OpenSearch:
-- Supported only for the [Faiss engine]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#faiss-engine) with the [HNSW method]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#hnsw-parameters-1) 
-- Does not support [IVF]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-methods-engines/#ivf-parameters) or [product quantization (PQ)]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-product-quantization)
-- Requires an index restart to enable or disable
+
+- **For indexes created before OpenSearch 2.19, the engine loads data into memory regardless of whether memory-optimized mode is enabled**.
+- Memory-optimized search is supported only for the [Faiss engine]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#faiss-engine) with the [HNSW method]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#hnsw-parameters-1). 
+- Memory-optimized search does not support [IVF]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#ivf-parameters) or [product quantization (PQ)]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-product-quantization).
+- An index restart is required to enable or disable memory-optimized search.
 
 If you use IVF or PQ, the engine loads data into memory regardless of whether memory-optimized mode is enabled.
 {: .important }
@@ -73,7 +75,7 @@ POST /test_index/_open
 
 ## Integration with disk-based search
 
-When you configure a field with `on_disk` mode and `1x` compression, memory-optimized search is automatically enabled for that field, even if memory optimization isn't enabled at the index level. For more information, see [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/knn-memory-optimized/).
+When you configure a field with `on_disk` mode and `1x` compression, memory-optimized search is automatically enabled for that field, even if memory optimization isn't enabled at the index level. For more information, see [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/).
 
 
 Memory-optimized search differs from [disk-based search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/disk-based-vector-search/) because it doesn't use compression or quantization. It only changes how vector data is loaded and accessed during search.

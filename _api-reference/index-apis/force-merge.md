@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Force merge
-parent: Index APIs
-nav_order: 80
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 40
 ---
 
 # Force Merge API
@@ -74,8 +75,33 @@ The following table lists the available query parameters. All query parameters a
 | `max_num_segments` | Integer | The number of larger segments into which smaller segments are merged. Set this parameter to `1` to merge all segments into one segment. The default behavior is to perform the merge as necessary. |
 | `only_expunge_deletes` | Boolean | If `true`, the merge operation only expunges segments containing a certain percentage of deleted documents. The percentage is 10% by default and is configurable in the `index.merge.policy.expunge_deletes_allowed` setting. Prior to OpenSearch 2.12, `only_expunge_deletes` ignored the `index.merge.policy.max_merged_segment` setting. Starting with OpenSearch 2.12, using `only_expunge_deletes` does not produce segments larger than `index.merge.policy.max_merged_segment` (by default, 5 GB). For more information, see [Deleted documents](#deleted-documents). Default is `false`. |
 | `primary_only` | Boolean | If set to `true`, then the merge operation is performed only on the primary shards of an index. This can be useful when you want to take a snapshot of the index after the merge is complete. Snapshots only copy segments from the primary shards. Merging the primary shards can reduce resource consumption. Default is `false`. |
+| `wait_for_completion` | Boolean | If `false`, OpenSearch runs the force merge operation asynchronously without waiting for it to complete. The request returns immediately, and the task continues in the background. You can monitor its progress using the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/). Default is `true`, which means the operation runs synchronously. |
 
 ## Example requests
+<!-- spec_insert_start
+component: example_code
+rest: POST /.testindex-logs/_forcemerge?primary_only=true
+body: 
+-->
+{% capture step1_rest %}
+POST /.testindex-logs/_forcemerge?primary_only=true
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.forcemerge(
+  index = ".testindex-logs",
+  params = { "primary_only": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 The following examples show how to use the Force merge API.
 
@@ -83,46 +109,133 @@ The following examples show how to use the Force merge API.
 
 The following example force merges a specific index:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /testindex1/_forcemerge
+-->
+{% capture step1_rest %}
 POST /testindex1/_forcemerge
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.forcemerge(
+  index = "testindex1"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Force merge multiple indexes
 
 The following example force merges multiple indexes:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /testindex1,testindex2/_forcemerge
+body: 
+-->
+{% capture step1_rest %}
 POST /testindex1,testindex2/_forcemerge
-```
-{% include copy-curl.html %}
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.forcemerge(
+  index = "testindex1,testindex2"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Force merge all indexes
 
 The following example force merges all indexes:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_forcemerge
+body: 
+-->
+{% capture step1_rest %}
 POST /_forcemerge
-```
-{% include copy-curl.html %}
+
+{% endcapture %}
+
+{% capture step1_python %}
+
+response = client.indices.forcemerge()
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Force merge a data stream's backing indexes into one segment
 
 The following example force merges a data stream's backing indexes into one segment:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /.testindex-logs/_forcemerge?max_num_segments=1
+-->
+{% capture step1_rest %}
 POST /.testindex-logs/_forcemerge?max_num_segments=1
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.forcemerge(
+  index = ".testindex-logs",
+  params = { "max_num_segments": "1" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Force merge primary shards
 
 The following example force merges an index's primary shards:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /.testindex-logs/_forcemerge?primary_only=true
+-->
+{% capture step1_rest %}
 POST /.testindex-logs/_forcemerge?primary_only=true
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.forcemerge(
+  index = ".testindex-logs",
+  params = { "primary_only": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ## Example response
 

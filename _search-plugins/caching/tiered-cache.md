@@ -12,18 +12,24 @@ A tiered cache is a multi-level cache in which each tier has its own characteris
 
 ## Types of tiered caches
 
-OpenSearch provides an implementation of a `_tiered` spillover `cache_`. This implementation spills any items removed from the upper tiers to the lower tiers of cache. The upper tier, such as the on-heap tier, is smaller in size but offers better latency. The lower tier, such as the disk cache, is larger in size but slower in terms of latency. OpenSearch offers both on-heap and disk tiers. 
+OpenSearch provides one implementation of a tiered spillover cache. It is called `tiered_spillover`, and its implementation is stored in the `cache-common` module. It has two tiers: an upper tier and a lower tier. While any pluggable cache implementation can be used for each tier, typically the upper tier would be a smaller and faster on-heap tier, such as `opensearch_onheap`, and the lower tier would be a larger and slower disk tier, such as `ehcache_disk`. This lower tier can be dynamically enabled and disabled with the setting `indices.requests.cache.tiered_spillover.disk.store.enabled`. 
+
+Items entering the cache will first go into the upper, on-heap tier. Once the upper tier is full, it evicts items (typically in LRU order, although cache implementations can evict items in any order). Those evicted items enter the lower, disk tier. When the disk tier is full, the items it evicts are removed from the cache entirely. If the lower tier is disabled, items evicted from the upper tier will leave the cache. 
+
+Note that a given key can only be in one tier at a time; the upper tier does not contain a subset of the lower tier. When getting a key, each tier is checked in turn.
+
+You can use `tiered_spillover` to make the disk tier very large---larger than it could be if it was in memory. This allows you to cache many more items without using additional heap space.
 
 ## Installing required plugins
 
-To use tiered caching, install the `cache-ehcache` plugin. This plugin provides a disk cache implementation that can be used as a disk tier within a tiered cache. For more information about installing non-bundled plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#additional-plugins).
+To use tiered caching, install the `cache-ehcache` plugin. This plugin provides a disk cache implementation, `ehcache_disk`, that can be used as a disk tier within a tiered cache. For more information about installing non-bundled plugins, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#additional-plugins).
 
 A tiered cache will fail to initialize if the `cache-ehcache` plugin is not installed or if disk cache properties are not set. 
 {: .warning}
 
 ## Tiered cache settings
 
-In OpenSearch 2.14, a request cache can be used in a tiered cache. To begin, configure the following settings in the `opensearch.yml` file.
+In OpenSearch 2.14 and later, the request cache can use the `tiered_spillover` cache or any other pluggable cache implementation. To begin, configure the following settings in the `opensearch.yml` file.
 
 ### Cache store name
 
@@ -44,7 +50,7 @@ indices.requests.cache.tiered_spillover.disk.store.name: ehcache_disk
 ```
 The `opensearch_onheap` setting uses the built-in on-heap cache available in OpenSearch. 
 
-The `ehcache_disk` setting is the disk cache implementation from [Ehcache](https://www.ehcache.org/) and requires installing the `cache-ehcache` plugin.
+The `ehcache_disk` setting is the disk cache implementation based on [Ehcache](https://www.ehcache.org/) and requires installing the `cache-ehcache` plugin.
 
 {% include copy.html %}
 
@@ -79,8 +85,8 @@ Setting | Data type | Default | Description
 `indices.requests.cache.tiered_spillover.policies.took_time.threshold` | Time unit | `0ms` | A policy used to determine whether to cache a query into the cache based on its query phase execution time. This is a dynamic setting. Optional.
 `indices.requests.cache.tiered_spillover.disk.store.policies.took_time.threshold` | Time unit | `10ms` | A policy used to determine whether to cache a query into the disk tier of the cache based on its query phase execution time. This is a dynamic setting. Optional.
 `indices.requests.cache.tiered_spillover.disk.store.enabled` | Boolean | `True` | Enables or disables the disk cache dynamically within a tiered spillover cache. Note: After disabling a disk cache, entries are not removed automatically and requires the cache to be manually cleared. Optional.
-`indices.requests.cache.tiered_spillover.onheap.store.size` | Percentage | 1% of the heap size | Defines the size of the on-heap cache within tiered cache. Optional.
-`indices.requests.cache.tiered_spillover.disk.store.size` | Long | `1073741824` (1 GB) | Defines the size of the disk cache within tiered cache. Optional.
+`indices.requests.cache.tiered_spillover.onheap.store.size` | Percentage | 1% of the heap size | Defines the size of the on-heap cache within a tiered cache. This setting overrides any size setting for the on-heap cache implementation itself, such as `indices.requests.cache.opensearch_onheap.size`. Optional.
+`indices.requests.cache.tiered_spillover.disk.store.size` | Long | `1073741824` (1 GB) | Defines the size of the disk cache within a tiered cache. This setting overrides any size setting for the disk cache implementation itself, such as `indices.requests.cache.ehcache_disk.max_size_in_bytes`. Optional.
 `indices.requests.cache.tiered_spillover.segments` | Integer | `2 ^ (ceil(log2(CPU_CORES * 1.5)))` | This determines the number of segments in the tiered cache, with each segment secured by a re-entrant read/write lock. These locks enable multiple concurrent readers without contention, while the segmentation allows multiple writers to operate simultaneously, resulting in higher write throughput. Optional.
 
 ### Delete stale entries settings
@@ -99,4 +105,6 @@ To assess the impact of using the tiered spillover cache, use the [Node Stats AP
 ```json
 GET /_nodes/stats/caches/request_cache?level=tier
 ```
+
+The `tier` level is only valid if the `tiered_spillover` cache is in use, and it aggregates stats by upper and lower cache tier. 
 

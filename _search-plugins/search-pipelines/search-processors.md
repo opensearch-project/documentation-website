@@ -1,27 +1,26 @@
 ---
 layout: default
-title: Search processors
+title: User-defined search processors
 nav_order: 40
 has_children: true
 parent: Search pipelines
 ---
 
-# Search processors
+# User-defined search processors
 
-Search processors can be of the following types:
+**User-defined search processors** are processors that you manually configure in search pipelines to customize search behavior. You define these processors in your pipeline configuration and control their parameters, execution order, and conditions.
 
-- [Search request processors](#search-request-processors)
-- [Search response processors](#search-response-processors)
-- [Search phase results processors](#search-phase-results-processors)
+The following sections list all user-defined search processors available in OpenSearch. OpenSearch can also create processors automatically based on search request parameters. For more information, see [System-generated search processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/system-generated-search-processors/).
 
 ## Search request processors
 
-A search request processor intercepts a search request (the query and the metadata passed in the request), performs an operation with or on the search request, and submits the search request to the index.
+A _search request processor_ intercepts a search request (the query and the metadata passed in the request), performs an operation with or on the search request, and submits the search request to the index.
 
 The following table lists all supported search request processors.
 
 Processor | Description | Earliest available version
 :--- | :--- | :---
+[`agentic_query_translator`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/) | Translates `agentic` queries into OpenSearch query domain-specific language (DSL) and executes an agent to process the query. | 3.2
 [`filter_query`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/filter-query-processor/) | Adds a filtering query that is used to filter requests. | 2.8
 [`ml_inference`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/) | Invokes registered machine learning (ML) models in order to rewrite queries. | 2.16 
 [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) | Sets a default model for neural search and neural sparse search at the index or field level. | 2.11 (neural), 2.13 (neural sparse)
@@ -31,12 +30,13 @@ Processor | Description | Earliest available version
 
 ## Search response processors
 
-A search response processor intercepts a search response and search request (the query, results, and metadata passed in the request), performs an operation with or on the search response, and returns the search response.
+A _search response processor_ intercepts a search response and search request (the query, results, and metadata passed in the request), performs an operation with or on the search response, and returns the search response.
 
 The following table lists all supported search response processors.
 
 Processor | Description | Earliest available version
 :--- | :--- | :---
+[`agentic_context`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-context-processor/)| Returns the agent summary, generated query, and memory ID for an `agentic` query. | 3.3
 [`collapse`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/collapse-processor/)| Deduplicates search hits based on a field value, similarly to `collapse` in a search request. | 2.12
 [`hybrid_score_explanation`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/explanation-processor/)| Adds detailed scoring information to search results when the `explain` parameter is enabled, providing information about score normalization, combination techniques, and individual score calculations in hybrid queries.  | 2.19
 [`ml_inference`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-response/) | Invokes registered machine learning (ML) models in order to incorporate model output as additional search response fields. | 2.16 
@@ -48,10 +48,9 @@ Processor | Description | Earliest available version
 [`split`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/split-processor/)| Splits a string field into an array of substrings based on a specified delimiter. | 2.17
 [`truncate_hits`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/truncate-hits-processor/)| Discards search hits after a specified target count is reached. Can undo the effect of the `oversample` request processor.  | 2.12
 
-
 ## Search phase results processors
 
-A search phase results processor runs between search phases at the coordinating node level. It intercepts the results retrieved from one search phase and transforms them before passing them to the next search phase.
+A _search phase results processor_ runs between search phases at the coordinating node level. It intercepts the results retrieved from one search phase and transforms them before passing them to the next search phase.
 
 The following table lists all supported search phase results processors.
 

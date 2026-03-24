@@ -1,12 +1,12 @@
 ---
 layout: default
-title: geoip
+title: Geo IP
 parent: Processors
 grand_parent: Pipelines
-nav_order: 49
+nav_order: 150
 ---
 
-# geoip
+# Geo IP processor
 
 The `geoip` processor enriches events with geographic information extracted from IP addresses contained in the events.
 By default, OpenSearch Data Prepper uses the [MaxMind GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) geolocation database.
@@ -21,17 +21,18 @@ The minimal configuration requires at least one entry, and each entry at least o
 The following configuration extracts all available geolocation data from the IP address provided in the field named `clientip`.
 It will write the geolocation data to a new field named `geo`, the default source when none is configured:
 
-```
+```yaml
 my-pipeline:
   processor:
     - geoip:
         entries:
           - source: clientip
 ```
+{% include copy.html %}
 
 The following example excludes Autonomous System Number (ASN) fields and puts the geolocation data into a field named `clientlocation`:
 
-```
+```yaml
 my-pipeline:
   processor:
     - geoip:
@@ -40,6 +41,7 @@ my-pipeline:
             target: clientlocation
             include_fields: [asn, asn_organization, network]
 ```
+{% include copy.html %}
 
 
 ## Configuration

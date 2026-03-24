@@ -1,11 +1,11 @@
 ---
 layout: default
-title: stdout sink
+title: Standard output
 parent: Sinks
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 70
 ---
 
-# stdout sink
+# Standard output sink
 
 Use the `stdout` sink for console output and testing. It has no configurable options.

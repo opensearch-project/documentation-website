@@ -41,16 +41,26 @@ You can optionally add the `-aes256` option to encrypt the key using the AES-256
 
 ## Generate a root certificate
 
-Next, use the private key to generate a self-signed certificate for the root CA:
+Next, use the private key to generate a self-signed certificate for the root CA. For proper CA functionality and to avoid potential Java SSL errors, you must include X.509 v3 extensions that define the certificate's role and capabilities:
 
 ```bash
-openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 730
+openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 730 \
+  -addext 'basicConstraints = critical, CA:TRUE, pathlen:0' \
+  -addext 'keyUsage = critical, keyCertSign, cRLSign' \
+  -addext 'authorityKeyIdentifier = keyid'
 ```
 
 The default `-days` value of 30 is only useful for testing purposes. This sample command specifies 730 (two years) for the certificate expiration date, but use whatever value makes sense for your organization.
 
 - The `-x509` option specifies that you want a self-signed certificate rather than a certificate request.
 - The `-sha256` option sets the hash algorithm to SHA-256. SHA-256 is the default in later versions of OpenSSL, but earlier versions might use SHA-1.
+- The `-addext` options add X.509 v3 extensions to the certificate:
+  - `basicConstraints = critical, CA:TRUE, pathlen:0` marks this as a CA certificate that can sign certificates but cannot sign subordinate CAs (only end-entity certificates).
+  - `keyUsage = critical, keyCertSign, cRLSign` allows the CA to sign certificates and certificate revocation lists.
+  - `authorityKeyIdentifier = keyid` helps identify the CA's public key, which is useful for certificate chain validation.
+
+These extensions ensure compliance with X.509 v3 standards and help prevent low-level SSL errors in Java applications. For more information about certificate extensions, see the [OpenSSL x509v3_config documentation](https://docs.openssl.org/master/man5/x509v3_config/).
+{: .note}
 
 Follow the prompts to specify details for your organization. Together, these details form the distinguished name (DN) of your CA.
 
@@ -77,7 +87,7 @@ openssl req -new -key admin-key.pem -out admin.csr
 
 Follow the prompts to fill in the details. You don't need to specify a challenge password. As noted in the [OpenSSL Cookbook](https://www.feistyduck.com/books/openssl-cookbook/){:target='\_blank'}, "Having a challenge password does not increase the security of the CSR in any way."
 
-If you generate TLS certificates and have enabled hostname verification by setting `plugins.security.ssl.transport.enforce_hostname_verification` to `true` (default), be sure to specify a common name (CN) for each certificate signing request (CSR) that matches the corresponding DNS A record of the intended node.
+If you generate TLS certificates and have enabled hostname verification by setting `transport.ssl.enforce_hostname_verification` to `true` (default), be sure to specify a common name (CN) for each certificate signing request (CSR) that matches the corresponding DNS A record of the intended node.
 
 If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-hostname-verification-and-dns-lookup).
 
@@ -144,7 +154,10 @@ If you already know the certificate details and don't want to specify them inter
 #!/bin/sh
 # Root CA
 openssl genrsa -out root-ca-key.pem 2048
-openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=root.dns.a-record" -out root-ca.pem -days 730
+openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=root.dns.a-record" -out root-ca.pem -days 730 \
+  -addext 'basicConstraints = critical, CA:TRUE, pathlen:0' \
+  -addext 'keyUsage = critical, keyCertSign, cRLSign' \
+  -addext 'authorityKeyIdentifier = keyid'
 # Admin cert
 openssl genrsa -out admin-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem

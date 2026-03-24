@@ -6,6 +6,8 @@ nav_order: 45
 ---
 
 # Field capabilities API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `_field_caps` API provides information about the capabilities of fields across one or more indexes. It is typically used by clients to determine how fields are mapped and whether they can be used for search, sorting, and aggregations across multiple indexes.
 
@@ -48,7 +50,7 @@ The following table lists the available request body fields.
 | :------------- | :-------- | :---------------------------------------------------------------------- |
 | `index_filter` | Object    | A query DSL object used to filter indexes included in the request. See [Example: Using an index filter](#example-using-an-index-filter). _Optional_.|
 
-## Example
+## Example Requests
 
 Create two indexes with different mappings for the same field:
 
@@ -80,10 +82,29 @@ PUT /store-east
 
 Query field capabilities across both indexes:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: GET /store-west,store-east/_field_caps?fields=product,price
+-->
+{% capture step1_rest %}
 GET /store-west,store-east/_field_caps?fields=product,price
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.field_caps(
+  index = "store-west,store-east",
+  params = { "fields": "product,price" },
+  body = { "Insert body here" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example response
 
@@ -129,7 +150,19 @@ The response provides the capabilities of the available fields:
 
 You can restrict the indexes considered using an `index_filter`. The `index_filter` filters out indexes based on field-level metadata, not actual document content. The following request limits the index selection to those that contain mappings containing a `product` field, even if there are no documents indexed:
 
-```json
+<!-- spec_insert_start
+component: example_code
+rest: POST /_field_caps?fields=product,price
+body: |
+{
+  "index_filter": {
+    "term": {
+      "product": "notebook"
+    }
+  }
+}
+-->
+{% capture step1_rest %}
 POST /_field_caps?fields=product,price
 {
   "index_filter": {
@@ -138,8 +171,28 @@ POST /_field_caps?fields=product,price
     }
   }
 }
-```
-{% include copy-curl.html %}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.field_caps(
+  params = { "fields": "product,price" },
+  body =   {
+    "index_filter": {
+      "term": {
+        "product": "notebook"
+      }
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
 
 ### Example response
 

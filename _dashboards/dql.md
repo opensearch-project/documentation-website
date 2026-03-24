@@ -3,7 +3,6 @@ layout: default
 title: Dashboards Query Language (DQL)
 nav_order: 125
 redirect_from:
-  - /dashboards/dql/
   - /dashboards/discover/dql/
 ---
 
@@ -21,7 +20,7 @@ The syntax changes to **Lucene**. To switch back to DQL, select the **Lucene** b
 
 ## Queries on analyzed text
 
-When running queries, understanding whether your fields are analyzed ([`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) type) or non-analyzed ([`keyword`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/keyword/) type) is crucial because it significantly impacts search behavior. In analyzed fields, text undergoes tokenization and filtering, while non-analyzed fields store exact values. For simple field queries like `wind`, searches against analyzed fields match documents containing `wind` regardless of case, while the same query on keyword fields requires exact matching of the full string. For more information about analyzed fields, see [Text analysis]({{site.url}}{{site.baseurl}}/analyzers/).
+When running queries, understanding whether your fields are analyzed ([`text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/) type) or non-analyzed ([`keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/keyword/) type) is crucial because it significantly impacts search behavior. In analyzed fields, text undergoes tokenization and filtering, while non-analyzed fields store exact values. For simple field queries like `wind`, searches against analyzed fields match documents containing `wind` regardless of case, while the same query on keyword fields requires exact matching of the full string. For more information about analyzed fields, see [Text analysis]({{site.url}}{{site.baseurl}}/analyzers/).
 
 ## Setup
 
@@ -142,7 +141,7 @@ The following table provides a quick reference for both query language commands.
 | Numeric range | `page_views >= 100 and page_views <= 300` <br><br> `not page_views: 100` (results include documents that don't contain a `page_views` field) <br><br>   See [Ranges](#ranges)| `page_views:[100 TO 300]` <br><br>  `page_views:(>=100 AND <=300)` <br><br>  `page_views:(+>=100 +<=300)` <br><br>  `page_views:[100 TO *]` <br><br>  `page_views:>=100` <br><br>  `NOT page_views:100` (results include documents that don't contain a `page_views` field) <br><br> See [Ranges]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/#ranges)|
 | Date range | `date >= "1939-01-01" and date <= "2013-12-31"` <br><br> `not date: "1939-09-08"` | `date:[1939-01-01 TO 2013-12-31]` <br><br> `NOT date:1939-09-08` <br><br> Supports all numeric range syntax constructs|
 | Exclusive range | Not supported | `page_views: {100 TO 300}` (returns documents whose `page_views` are between `100` and `300`, excluding `100` and `300`) |
-| Boolean `AND` | `media_type:film AND page_views:100` <br><br> `media_type:film and page_views:100`| `media_type:film AND page_views:100` <br><br> `+media_type:film +page_views:100`|
+| Boolean `AND` | `media_type: film AND page_views: 100` <br><br> `media_type: film and page_views: 100`| `media_type:film AND page_views:100` <br><br> `+media_type:film +page_views:100`|
 | Boolean `NOT` | `NOT media_type: article` <br><br> `not media_type: article` | `NOT media_type:article` <br><br> `-media_type:article`  |
 | Boolean `OR` | `title: wind OR description: film` <br><br> `title: wind or description: film` | `title: wind OR description: film` |
 | Required/Prohibited operators | Not supported | Supports both `+` (required operator) and `-` (prohibited operator) <br><br> `+title:wind -media_type:article` (returns documents in which `title` contains `wind` but `media_type` does not contain `article`)  |
@@ -151,7 +150,7 @@ The following table provides a quick reference for both query language commands.
 | Fuzzy search | Not supported | `title:wind~2` |
 | Proximity search | Not supported | `"wind rises"~2` |
 | Boosting terms | Not supported | `title:wind^2` |
-| Reserved characters | `\ ( ) : < > " *` | `+ - = && \|\| > < ! ( ) { } [ ] ^ " ~ * ? : \ /` |
+| Reserved characters | `\ ( ) : < > " *` | `+ - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /` |
 
 ## Search for terms
 
@@ -314,7 +313,7 @@ title: ((wind or windy) and not rises)
 
 To refer to an object's inner field, list the dot path of the field. 
 
-To index a document containing an object, follow the steps in the [object field type example]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/object/#example). To search the `name` field of the `patient` object, use the following syntax:
+To index a document containing an object, follow the steps in the [object field type example]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/object/#example). To search the `name` field of the `patient` object, use the following syntax:
 
 ```python
 patient.name: john
@@ -325,7 +324,7 @@ patient.name: john
 
 To refer to a nested object, list the JSON path of the field. 
 
-To index a document containing an object, follow the steps in the [nested field type example]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/#nested-field-type-1).
+To index a document containing an object, follow the steps in the [nested field type example]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/#nested-field-type-1).
 
 To search the `name` field of the `patients` object, use the following syntax:
 

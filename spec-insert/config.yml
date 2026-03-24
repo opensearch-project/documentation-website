@@ -11,5 +11,7 @@ param_table:
 text_replacements:
   - replace: "https://docs.opensearch.org/latest"
     with: "{{site.url}}{{site.baseurl}}"
+  - replace: "https://opensearch.org/docs/latest"
+    with: "{{site.url}}{{site.baseurl}}"
   - replace: "\n"
     with: " "
