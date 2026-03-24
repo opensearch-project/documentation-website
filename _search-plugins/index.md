@@ -78,6 +78,8 @@ To help you fine-tune and improve search relevance, OpenSearch provides several 
 
 - [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/): A suite of tools that support search quality improvements through experimentation. 
 
+- [Relevance Tuning Agent]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/relevance-tuning-agent/): A specialized agent designed to continuously improve search relevance. 
+
 - [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy/): Offers query rewriting capability.
 
 - [User Behavior Insights]({{site.url}}{{site.baseurl}}/search-plugins/ubi/): Links user behavior to user queries to improve search quality.
