@@ -11,7 +11,14 @@ has_children: false
 
 When you have vector indexes with embeddings and want agentic search to automatically perform semantic searches based on user intent, you need to configure your agent with embedding model information. This allows the agent to generate `neural` queries that search for semantic similarity rather than exact text matches, providing more relevant results for conceptual questions.
 
-When you configure agents for semantic search, the agents choose between traditional keyword searches and semantic vector searches at query time. To enable semantic search in agentic search, you need to provide embedding model information. You can either add the `embedding_model_id` parameter to your agent's configuration or include the embedding model ID directly in your natural language query. 
+When you configure agents for semantic search, the agents choose between traditional keyword searches and semantic vector searches at query time.
+
+Even when an embedding model ID is provided, the agent autonomously decides whether to use neural (semantic) search or lexical search based on the query intent and context. For example, date filters or exact-match queries will use lexical search, while conceptual queries will use neural search.
+{: .note} 
+
+**PREREQUISITE**<br>
+Before using semantic search, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
+{: .note}
 
 ## Step 1: Configure a vector index
 
@@ -183,9 +190,51 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-### Step 2(b): Create an agent with an embedding model ID
+### Step 2(b): Create an agent
 
-Create an agent with the `embedding_model_id` specified in the agent registration. This allows the agent to automatically generate neural queries when semantic search is needed:
+Create an agent for agentic search. To enable the agent to perform semantic searches using `neural` queries, you need to configure an embedding model using one of the following methods:
+
+- [**Option 1**](#option-1-create-an-agent-without-an-embedding-model-id-recommended): Configure an embedding model in the search pipeline (recommended for easier updates).
+- [**Option 2**](#option-2-create-an-agent-with-an-embedding-model-id): Configure an embedding model in the agent configuration.
+
+#### Option 1: Create an agent without an embedding model ID (recommended)
+
+Use this option if you plan to specify the `embedding_model_id` in the search pipeline:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "GPT 5 Agent for Agentic Search",
+  "type": "conversational",
+  "description": "Use this for Agentic Search",
+  "llm": {
+    "model_id": "your-agent-model-id",
+    "parameters": {
+      "max_iteration": 15
+    }
+  },
+  "memory": {
+    "type": "conversation_index"
+  },
+  "parameters": {
+    "_llm_interface": "openai/v1/chat/completions"
+  },
+  "tools": [
+    {
+      "type": "QueryPlanningTool",
+      "parameters": {
+        "model_id": "your-qpt-model-id"
+      }
+    }
+  ],
+  "app_type": "os_chat"
+}
+```
+{% include copy-curl.html %}
+
+#### Option 2: Create an agent with an embedding model ID
+
+Alternatively, include the `embedding_model_id` in the agent's `llm.parameters`:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -221,7 +270,26 @@ POST /_plugins/_ml/agents/_register
 
 ### Step 2(c): Create a search pipeline
 
-Create a search pipeline that uses your agent for agentic search:
+Create a search pipeline with the `agentic_query_translator` processor. For more information, see [Agentic query translator processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/).
+
+**If you used Option 1 in Step 2(b) (recommended)**: Include the `embedding_model_id` in the search pipeline:
+
+```json
+PUT _search/pipeline/my_pipeline
+{
+  "request_processors": [
+    {
+      "agentic_query_translator": {
+        "agent_id": "your-agent-id-from-step-2b",
+        "embedding_model_id": "your-embedding-model-id-from-step1"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+**If you used Option 2 in Step 2(b)**: Create the search pipeline without the `embedding_model_id`:
 
 ```json
 PUT _search/pipeline/my_pipeline
@@ -236,6 +304,9 @@ PUT _search/pipeline/my_pipeline
 }
 ```
 {% include copy-curl.html %}
+
+If you specify the `embedding_model_id` in both the agent and the search pipeline, the search pipeline configuration takes precedence.
+{: .note}
 
 ## Step 3: Run an agentic search
 
@@ -380,41 +451,7 @@ The agent recognizes the query as a date-based filter query and generates a trad
 
 ### Specify embedding models in query text
 
-For maximum flexibility, you can register an agent without specifying an embedding model ID and then specify the embedding model ID in the `query_text` directly when sending a query.
-
-Create an agent without specifying the embedding model ID in the agent parameters:
-
-```json
-POST /_plugins/_ml/agents/_register
-{
-  "name": "GPT 5 Agent for Agentic Search",
-  "type": "conversational",
-  "description": "Use this for Agentic Search",
-  "llm": {
-    "model_id": "your-agent-model-id",
-    "parameters": {
-      "max_iteration": 15
-    }
-  },
-  "memory": {
-    "type": "conversation_index"
-  },
-  "parameters": {
-    "_llm_interface": "openai/v1/chat/completions"
-  },
-  "tools": [
-    {
-      "type": "QueryPlanningTool",
-      "parameters": {
-        "model_id": "your-qpt-model-id"
-      }
-    }
-  ],
-  "app_type": "os_chat"
-}
-```
-
-Send an agentic search request that includes the embedding model ID directly in the natural language `query_text`:
+To override the embedding model ID, you can include it directly in the natural language `query_text` when sending a query. This takes precedence over any `embedding_model_id` configured in the search pipeline or agent:
 
 ```json
 POST /research_papers/_search?search_pipeline=my_pipeline
@@ -485,3 +522,9 @@ The agent successfully extracts the embedding model ID directly from the query t
   }
 }
 ```
+
+## Related documentation
+
+- [Agentic query translator processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/)
+- [Agentic search overview]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/)
+- [Configuring agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/)
