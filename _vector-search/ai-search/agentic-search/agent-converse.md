@@ -65,7 +65,7 @@ POST _bulk
 
 Review the [model configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration) and choose a model to use.
 
-Here we register a GPT model that will be used by both the conversational agent and the `QueryPlanningTool`:
+The following example registers a GPT model that will be used by both the conversational agent and the `QueryPlanningTool`:
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -98,6 +98,7 @@ POST /_plugins/_ml/models/_register
     }
 }
 ```
+{% include copy-curl.html %}
 
 ## Step 4: Register an agent
 
