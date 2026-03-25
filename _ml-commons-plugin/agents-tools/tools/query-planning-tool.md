@@ -22,7 +22,7 @@ The `QueryPlanningTool` supports two approaches for generating DSL queries from 
 
 - **Using search templates**: The LLM uses predefined search templates as additional context when generating queries. You provide a collection of search templates with descriptions, and the LLM uses these as examples and guidance to create more accurate queries. If the LLM determines that none of the provided templates are suitable for the user's question, the LLM attempts to generate the query independently.
 
-The `user_templates` approach is particularly useful when you have established query patterns for your specific use case or domain: it helps the LLM to generate queries that follow your preferred structure and to use appropriate field names from your index mappings.
+Using search templates is particularly useful when you have established query patterns for your specific use case or domain: it helps the LLM to generate queries that follow your preferred structure and to use appropriate field names from your index mappings.
 
 ## Step 1: Create an index and ingest sample data
 
@@ -84,7 +84,7 @@ The following example registers and deploys the Anthropic Claude 4 model:
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "Claude 4 sonnet Query Planner tool Model",
+  "name": "Claude 4 Sonnet Query Planner Tool Model",
   "function_name": "remote",
   "description": "Claude 4 sonnet for Query Planning",
   "connector": {
@@ -189,8 +189,7 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-When registering the agent, you can override parameters that you specified during model registration, such as `system_prompt` and `user_prompt`. 
-
+When registering the agent, you can override parameters that you specified during model registration, such as `system_prompt` and `user_prompt`.
 
 ### Using search templates
 
@@ -295,7 +294,6 @@ POST /_plugins/_ml/agents/RNjQi5gBOh0h20Y9-RX1/_execute
     "index_name": "iris-index"
   }
 }
-
 ```
 {% include copy-curl.html %}
 
@@ -328,7 +326,7 @@ Parameter	| Type | Required/Optional | Description
 `query_planner_system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM.
 `query_planner_user_prompt` | String | Optional | A user prompt template that defines how the natural language question and context are presented to the LLM for query generation.
 `search_templates` | Array | Optional | Applicable only when `generation_type` is `user_templates`. A list of search templates that provide the LLM with predefined query patterns for generating query DSL. Each template must include a `template_id` (unique identifier) and `template_description` (explains the template's purpose and use case to help the LLM choose appropriately).
-`fallback_query` | String | Optional | An OpenSearch fallback DSL query used in case the LLM fails to generate a valid DSL query for the given query text.
+`fallback_query` | String | Optional | An OpenSearch query DSL query used if the LLM fails to generate a valid DSL query for the given query text. See [Fallback behavior](#fallback-behavior).
 
 All parameters that were configured either in the connector or in the agent registration can be overridden during agent execution.
 {: .note}
@@ -546,65 +544,78 @@ Output:
 
 ## Fallback behavior
 
-The `QueryPlanningTool` includes a default fallback query: `{"size":10,"query":{"match_all":{}}}` which can optionally be configured via the `fallback_query` field of the Query Planning Tool configuration. 
+The `QueryPlanningTool` uses a fallback query when the LLM fails to generate valid query DSL. By default, the fallback query is `{"size":10,"query":{"match_all":{}}}`. You can override this default by specifying a custom `fallback_query` parameter when registering the agent.
 
-The code automatically extracts the first valid JSON object from the LLM's response, even if the JSON is surrounded by additional text, Markdown code fences, explanations, or other content. However, if no valid JSON can be extracted from the response (for example, when the response is completely empty, contains only non-JSON text, or contains only malformed JSON), the tool returns the default or configured fallback query.
+The tool automatically extracts the first valid JSON object from the LLM's response, even if the JSON is surrounded by additional text, Markdown code fences, explanations, or other content. However, if no valid JSON can be extracted from the response (for example, when the response is completely empty, contains only non-JSON text, or contains only malformed JSON), the tool returns the fallback query (either the default or your custom query).
 
 When the fallback is triggered, no error is thrown. Instead, a debug log is shown in the system logs. This ensures that query planning operations continue to work even when the LLM provides unexpected output.
 
-The following example demonstrates how the fallback query operates. First create an index, ingest data and register a model as per this [example]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/#step-1-create-an-index-for-ingestion).
+### Overriding the default fallback query
 
-Next configure your agent with your model ID and the fallback query you want to test. 
+The following example demonstrates how the fallback query operates. 
+
+To follow this example, first complete Steps 1--3 from the [Agentic search tutorial]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/): create an index, ingest data, and register a model.
+
+Next, register an agent using the model ID from Step 3. Include a custom `fallback_query` parameter to demonstrate the fallback behavior: 
 
 ```json
 POST _plugins/_ml/agents/_register
 {
-    "name": "Iris Search Agent with Fallback",
-    "type": "flow", 
-    "tools": [                                                                       
-      {                                           
-        "type": "QueryPlanningTool",
-        "parameters": {
-          "model_id": "<your-model-id>",
-          "fallback_query": "{\"size\":10,\"query\":{\"bool\":{\"should\":[{\"match\":{\"species\":{\"query\":\"${parameters.question}\",\"fuzziness\":\"AUTO\"}}},{\"match_all\":{\"boost\":0.1}}],\"minimum_should_match\":1}}}"
-        }                       
-      }                          
-    ]        
-  }
+  "name": "Iris Search Agent with Fallback",
+  "type": "flow",
+  "tools": [
+    {
+      "type": "QueryPlanningTool",
+      "parameters": {
+        "model_id": "<your-model-id>",
+        "fallback_query": "{\"size\":10,\"query\":{\"bool\":{\"should\":[{\"match\":{\"species\":{\"query\":\"${parameters.question}\",\"fuzziness\":\"AUTO\"}}},{\"match_all\":{\"boost\":0.1}}],\"minimum_should_match\":1}}}"
+      }
+    }
+  ]
+}
 ```
+{% include copy-curl.html %}
 
-Then create a search pipeline with the configured agent. 
+Next, create a search pipeline using the agent ID from the previous step:
 
 ```json
 PUT _search/pipeline/agentic_search_pipeline
 {
-    "request_processors": [                   
-        {                     
-            "agentic_query_translator": {
-                "agent_id": "<your-agent-id>"
-            }                                
-        }                                                   
-    ],                                       
-    "response_processors": [        {                                                                
-            "agentic_context": {
-                "dsl_query": true                            
-            }
-        }              
-    ]                                                                                                                      
+  "request_processors": [
+    {
+      "agentic_query_translator": {
+        "agent_id": "<your-agent-id>"
+      }
+    }
+  ],
+  "response_processors": [
+    {
+      "agentic_context": {
+        "dsl_query": true
+      }
+    }
+  ]
 }
 ```
+{% include copy-curl.html %}
 
-Now we can test the fallback behavior by asking a question completely unrelated to the target index. We can confirm the generated fallback query is used via the `agentic_context` response processor `dsl_query` output of the search response.
+To test the fallback behavior, send a search request with a question unrelated to the `iris-index`:
 
 ```json
-POST iris-index/_search?search_pipeline=agentic_search_pipeline&pretty
+POST /iris-index/_search?search_pipeline=agentic_search_pipeline&pretty
 {
-    "query": {
-        "agentic": {
-            "query_text": "Find all employees hired in 2023 with salary above 100000"
-        }
+  "query": {
+    "agentic": {
+      "query_text": "Find all employees hired in 2023 with salary above 100000"
     }
-}'
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response includes the `dsl_query` field in the `ext` section containing the fallback query:
+
+```json
 {
   "took" : 5396,
   "timed_out" : false,
@@ -653,17 +664,23 @@ POST iris-index/_search?search_pipeline=agentic_search_pipeline&pretty
 }
 ```
 
-Asking a related question, however, does not use the fallback query. 
+Next, ask a question related to the `iris-index`:
 
 ```json
-POST iris-index/_search?search_pipeline=agentic_search_pipeline&pretty
+POST /iris-index/_search?search_pipeline=agentic_search_pipeline
 {
-    "query": {
-        "agentic": {
-            "query_text": "Find all setosa species"                                  
-        }
+  "query": {
+    "agentic": {
+      "query_text": "Find all setosa species"
     }
-}'
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the proper LLM-generated query instead of using the fallback query:
+
+```json
 {
   "took" : 4037,
   "timed_out" : false,

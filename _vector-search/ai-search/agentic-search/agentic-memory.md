@@ -9,13 +9,13 @@ has_children: false
 
 # Using agentic memory for agentic search
 
-[Agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/) provides a structured approach to managing conversation context in agentic search through dedicated memory containers. Unlike the default `conversation_index` memory type used by conversational agents, agentic memory uses separately created and configured memory containers that give you greater control over how conversation history is stored and managed. This is useful for scenarios where you want to manage memory lifecycle independently from the agent, configure memory behavior or share memory containers across different workflows.
+[Agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/) provides a structured approach to managing conversation context in agentic search through dedicated memory containers. Unlike the default `conversation_index` memory type used by conversational agents, agentic memory uses separately created and configured memory containers that give you greater control over how conversation history is stored and managed. This is useful for scenarios where you want to manage memory lifecycle independently from the agent, configure memory behavior, or share memory containers across different workflows.
 
-This guide demonstrates how to create a memory container, configure an agent with agentic memory, and use memory continuity across multiple search queries.
+The following example demonstrates how to create a memory container, configure an agent with agentic memory, and use memory continuity across multiple search queries.
 
 ## Step 1: Create a product index
 
-Create a sample index with product data that includes various attributes like name, price, color, and category:
+Create a sample index with product data that includes various product attributes such as a `product_name`, `price`, `color`, and `category`:
 
 ```json
 PUT /products-index
@@ -65,67 +65,69 @@ POST _bulk
 
 Review the [model configuration]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/#model-configuration) and choose a model to use.
 
-Here we register a GPT model that will be used by both the conversational agent and the `QueryPlanningTool`:
+The following example registers a GPT model that will be used by both the `conversational` agent and the `QueryPlanningTool`:
 
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "My OpenAI model: gpt-5",
-    "function_name": "remote",
-    "description": "test model",
-    "connector": {
-        "name": "My openai connector: gpt-5",
-        "description": "The connector to openai chat model",
-        "version": 1,
-        "protocol": "http",
-        "parameters": {
-            "model": "gpt-5"
+  "name": "My OpenAI model: gpt-5",
+  "function_name": "remote",
+  "description": "test model",
+  "connector": {
+    "name": "My openai connector: gpt-5",
+    "description": "The connector to openai chat model",
+    "version": 1,
+    "protocol": "http",
+    "parameters": {
+      "model": "gpt-5"
+    },
+    "credential": {
+      "openAI_key": "your-openai-api-key"
+    },
+    "actions": [
+      {
+        "action_type": "predict",
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "headers": {
+          "Authorization": "Bearer ${credential.openAI_key}"
         },
-        "credential": {
-            "openAI_key": "your-openai-api-key"
-        },
-        "actions": [
-            {
-                "action_type": "predict",
-                "method": "POST",
-                "url": "https://api.openai.com/v1/chat/completions",
-                "headers": {
-                    "Authorization": "Bearer ${credential.openAI_key}"
-                },
-                "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\":\"developer\",\"content\":\"${parameters.system_prompt}\"},${parameters._chat_history:-}{\"role\":\"user\",\"content\":\"${parameters.user_prompt}\"}${parameters._interactions:-}], \"reasoning_effort\":\"low\"${parameters.tool_configs:-}}"
-            }
-        ]
-    }
-}
-```
-
-## Step 4: Create a memory container
-
-Create a memory container to store conversation context for the agent. The memory container is created independently and can be configured with various options. For more details, see [configuration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/#the-configuration-object)
-
-```json
-POST /_plugins/_ml/memory_containers/_create
-{
-    "name": "agent-memory-container",
-    "configuration": {
-        "disable_history": true
-    }
+        "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\":\"developer\",\"content\":\"${parameters.system_prompt}\"},${parameters._chat_history:-}{\"role\":\"user\",\"content\":\"${parameters.user_prompt}\"}${parameters._interactions:-}], \"reasoning_effort\":\"low\"${parameters.tool_configs:-}}"
+      }
+    ]
+  }
 }
 ```
 {% include copy-curl.html %}
 
-The response returns a memory container ID:
+## Step 4: Create a memory container
+
+Create a memory container to store conversation context for the agent:
+
+```json
+POST /_plugins/_ml/memory_containers/_create
+{
+  "name": "agent-memory-container",
+  "configuration": {
+    "disable_history": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+The memory container is created independently and can be configured using various options. For more information, see [The configuration object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/#the-configuration-object).
+
+The response contains the memory container ID:
+
 ```json
 {
-    "memory_container_id": "your-memory-container-id"
+  "memory_container_id": "your-memory-container-id"
 }
 ```
 
-## Step 5: Register an agent with agentic memory
+## Step 5: Register an agent with an agentic memory
 
-Register a conversational agent that uses `agentic_memory` as the memory type. Reference the memory container created in the previous step using its `memory_container_id`. The agent includes the required `QueryPlanningTool` for generating OpenSearch DSL:
-
-See [Configuring agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) for basic configurations :
+Register a conversational agent that uses `agentic_memory` as the memory type. Specify the memory container created in the previous step in the `memory_container_id` field. The agent includes the required `QueryPlanningTool` for generating query domain-specific language (DSL):
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -156,9 +158,11 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
+For more configuration options, see [Configuring agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/).
+
 ## Step 6: Configure a search pipeline
 
-Create a search pipeline with both request and response processors. The [`agentic_query_translator` request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/) translates natural language queries into OpenSearch DSL, while the [`agentic_context` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-context-processor/) adds agent execution context information for monitoring and conversation continuity:
+Create a search pipeline containing both request and response processors. The [`agentic_query_translator` request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/) translates natural language queries into query DSL. The [`agentic_context` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-context-processor/) adds agent execution context information for monitoring and conversation continuity:
 
 ```json
 PUT _search/pipeline/agentic_search_pipeline
@@ -183,7 +187,7 @@ PUT _search/pipeline/agentic_search_pipeline
 
 ## Step 7: Run an agentic search
 
-To run a search, send a natural language search query. The agent analyzes the request, discovers appropriate indexes, and generates an optimized DSL query:
+To run an agentic search, send a natural language search query:
 
 ```json
 GET /_search?search_pipeline=agentic_search_pipeline
@@ -197,7 +201,7 @@ GET /_search?search_pipeline=agentic_search_pipeline
 ```
 {% include copy-curl.html %}
 
-The response includes matching products and the `ext` object containing the `memory_id` for conversation continuity and the generated `dsl_query`:
+The agent analyzes the request, discovers appropriate indexes, and generates an optimized DSL query. The response includes matching products in the `hits` array. The `ext` object contains the `memory_id` (for continuing the conversation) and the generated `dsl_query`:
 
 ```json
 {
@@ -271,9 +275,9 @@ The response includes matching products and the `ext` object containing the `mem
 }
 ```
 
-## Step 8: Run a follow up agentic search with a memory ID
+## Step 8: Run a follow-up agentic search
 
-Send a follow-up query using the memory_id from the previous response. The agent uses the agentic memory container to recall the previous conversation context:
+Send a follow-up query using the `memory_id` from the previous response:
 
 ```json
 GET /_search?search_pipeline=agentic_search_pipeline
@@ -288,7 +292,7 @@ GET /_search?search_pipeline=agentic_search_pipeline
 ```
 {% include copy-curl.html %}
 
-The agent remembers the context and applies it to the new request. It successfully interprets "black ones instead" and maintains the $150 budget from the previous context:
+Using the agentic memory container, the agent recalls the previous conversation and applies it to the new request. The agent successfully interprets "black ones instead" while maintaining the price constraint of 150 dollars or less. In the response, the `memory_id` remains the same, and the generated DSL query changes only the color filter from white to black while preserving all other constraints:
 
 ```json
 {
@@ -362,11 +366,9 @@ The agent remembers the context and applies it to the new request. It successful
 }
 ```
 
-Notice that the memory_id remains the same across both requests, indicating the agent is using the same memory container to maintain conversational context. The generated DSL query changed only the color filter from white to black while preserving all other constraints from the original query.
-
 ## Next steps
 
 - [Using conversational agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/) -- Learn about conversational agents with reasoning traces and conversation index memory.
-- [Agentic query translator processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/) -- Learn more about the request processor that translates natural language queries into OpenSearch DSL.
+- [Agentic query translator processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-query-translator-processor/) -- Learn more about the request processor that translates natural language queries into query DSL.
 - [Agentic context processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/agentic-context-processor/) -- Learn more about the response processor that adds agent execution context information for monitoring and conversation continuity.
 - [Configuring agentic search agents]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-customization/) -- Configure agent behaviors with different models, tools, and prompts.

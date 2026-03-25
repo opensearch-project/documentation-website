@@ -133,7 +133,11 @@ POST /_plugins/_ml/models/_register
 
 ## Step 4: Create an agent
 
-Create a conversational agent with the `QueryPlannerTool` (required), you can add other tools as needed. The following example creates a conversational agent with `conversation_index` memory. :
+Create a `conversational` agent with the `QueryPlannerTool` (required). You can add other tools as needed. 
+
+### Create an agent with a conversation index memory
+
+The following example creates a `conversational` agent that uses a `conversation_index` memory:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -162,10 +166,14 @@ POST /_plugins/_ml/agents/_register
   "app_type": "os_chat"
 }
 ```
+{% include copy-curl.html %}
 
-You can also configure your agent with [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/) and attach the `memory_container_id` to your agent to save memories and interactions. The following example creates a conversational agent with `agentic_memory`. See [Using agentic memory]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-memory/) for more details :
+### Create an agent with an agentic memory
+
+To save memories and interactions, you can configure your agent to use [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/). For more information, see [Using agentic memory]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-memory/). The following example creates a `conversational` agent that uses an `agentic_memory` memory: 
 
 ```json
+POST /_plugins/_ml/agents/_register
 {
   "name": "GPT 5 Agent for Agentic Search",
   "type": "conversational",
@@ -192,7 +200,6 @@ You can also configure your agent with [agentic memory]({{site.url}}{{site.baseu
   "app_type": "os_chat"
 }
 ```
-
 {% include copy-curl.html %}
 
 ## Step 5: Create a search pipeline
@@ -286,7 +293,7 @@ After setting up basic agentic search, you can enhance your implementation with 
 
 - [Rerank agentic search results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/rerank-agentic-search-results/) -- Add a rerank search response processor to your agentic search pipeline to futher rerank search results.
 
-- [Use agentic memory]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-memory/) -- Configure agentic search with memory contains
+- [Use agentic memory]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-memory/) -- Configure agentic search to save memories and interactions using memory containers, enabling persistent context across conversations.
 
 ## Next steps
 
