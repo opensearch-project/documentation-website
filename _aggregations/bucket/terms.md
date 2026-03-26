@@ -97,16 +97,16 @@ Separately, the `shard_min_doc_count` parameter is used to filter out the unique
 
 When using concurrent segment search, the `shard_min_doc_count` parameter is not applied to each segment slice. For more information, see the [related GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11847).
 
-## Filtering values with `include` and `exclude`
+## Filtering values to a subset
 
-You can use the `include` and `exclude` parameters to filter which term values appear in the aggregation buckets. When both are specified, `include` is evaluated first, and then `exclude` is applied to the result.
+You can use the `include` and `exclude` parameters to filter the term values that appear in the aggregation buckets. When both parameters are specified, `include` is evaluated first and then `exclude` is applied to the result.
 
 ### Regular expression filtering
 
-Both `include` and `exclude` accept a regular expression string. The regex uses Lucene's regular expression syntax:
+Both `include` and `exclude` parameters accept a regular expression string in Lucene's [regular expression syntax]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/):
 
 ```json
-GET opensearch_dashboards_sample_data_logs/_search
+GET /opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
   "aggs": {
@@ -122,14 +122,14 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-The maximum regex length is 1000 characters by default. You can change this limit using the `index.max_regex_length` index setting.
+By default, the maximum regex string length is 1000 characters. You can change this limit using the `index.max_regex_length` index setting. For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 
 ### Exact value filtering
 
-Both `include` and `exclude` also accept an array of exact values:
+Both `include` and `exclude` parameters accept arrays of exact values:
 
 ```json
-GET opensearch_dashboards_sample_data_logs/_search
+GET /opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
   "aggs": {
@@ -144,14 +144,16 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-You cannot mix a regex-based `include` with an array-based `exclude`, or vice versa. Both must use the same format.
+The `include` and `exclude` parameters must use the same format: either regex strings or arrays of exact values.
 
-### Partition-based filtering
+## Paginating through all terms
 
-When a field has too many unique terms to retrieve in a single request, you can use partition-based filtering to iterate over all terms across multiple requests. Specify `partition` and `num_partitions` inside the `include` parameter:
+When a field contains too many unique terms to retrieve in a single request, you can use partition-based filtering to retrieve all terms by sending multiple requests. Terms are assigned to partitions using a hash function, so the distribution is approximately even. 
+
+To retrieve all unique terms, send a number of requests equal to `num_partitions`. Specify `partition` and `num_partitions` in the `include` parameter. For each request, keep `num_partitions` the same and increment `partition` from `0` to `num_partitions - 1`:
 
 ```json
-GET opensearch_dashboards_sample_data_logs/_search
+GET /opensearch_dashboards_sample_data_logs/_search
 {
   "size": 0,
   "aggs": {
@@ -170,9 +172,9 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-Terms are assigned to partitions using a hash function, so the distribution is approximately even. To retrieve all unique terms, issue `num_partitions` requests, incrementing `partition` from `0` to `num_partitions - 1`.
+The `include` parameter can use only one format per request: a regex string, an array of values, or a `partition` object. Thus, you cannot combine filtering (regex- or array-based) with partition-based retrieval. When using partition-based retrieval, the `exclude` parameter is not supported.
+{: .note}
 
-The `partition` value must be a non-negative integer less than `num_partitions`. You cannot combine partition-based filtering with `exclude` or with regex/array-based `include`.
 
 ## Collect mode
 
