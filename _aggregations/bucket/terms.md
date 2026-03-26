@@ -97,6 +97,83 @@ Separately, the `shard_min_doc_count` parameter is used to filter out the unique
 
 When using concurrent segment search, the `shard_min_doc_count` parameter is not applied to each segment slice. For more information, see the [related GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/11847).
 
+## Filtering values with `include` and `exclude`
+
+You can use the `include` and `exclude` parameters to filter which term values appear in the aggregation buckets. When both are specified, `include` is evaluated first, and then `exclude` is applied to the result.
+
+### Regular expression filtering
+
+Both `include` and `exclude` accept a regular expression string. The regex uses Lucene's regular expression syntax:
+
+```json
+GET opensearch_dashboards_sample_data_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "success_codes": {
+      "terms": {
+        "field": "response.keyword",
+        "include": "2.*",
+        "exclude": "204"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The maximum regex length is 1000 characters by default. You can change this limit using the `index.max_regex_length` index setting.
+
+### Exact value filtering
+
+Both `include` and `exclude` also accept an array of exact values:
+
+```json
+GET opensearch_dashboards_sample_data_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "specific_codes": {
+      "terms": {
+        "field": "response.keyword",
+        "include": ["200", "404", "503"]
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+You cannot mix a regex-based `include` with an array-based `exclude`, or vice versa. Both must use the same format.
+
+### Partition-based filtering
+
+When a field has too many unique terms to retrieve in a single request, you can use partition-based filtering to iterate over all terms across multiple requests. Specify `partition` and `num_partitions` inside the `include` parameter:
+
+```json
+GET opensearch_dashboards_sample_data_logs/_search
+{
+  "size": 0,
+  "aggs": {
+    "partitioned_terms": {
+      "terms": {
+        "field": "response.keyword",
+        "size": 10000,
+        "include": {
+          "partition": 0,
+          "num_partitions": 5
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Terms are assigned to partitions using a hash function, so the distribution is approximately even. To retrieve all unique terms, issue `num_partitions` requests, incrementing `partition` from `0` to `num_partitions - 1`.
+
+The `partition` value must be a non-negative integer less than `num_partitions`. You cannot combine partition-based filtering with `exclude` or with regex/array-based `include`.
+
 ## Collect mode
 
 There are two collect modes available: `depth_first` and `breadth_first`. The `depth_first` collection mode expands all branches of the aggregation tree in a depth-first manner and only performs pruning after the expansion is complete. 
