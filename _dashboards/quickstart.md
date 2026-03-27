@@ -106,7 +106,7 @@ Follow these steps to use the **Discover** tool:
 
 1. Filter data by selecting {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/} (plus) **Add filter** from the DQL **search bar** and then selecting a **Field**, **Operator**, and **Value** from the dropdown lists in the **Edit Filter** pop-up window. For example, select `FlightDelayType`, **is**, and **Weather Delay**.
 
-2. Select **Save**.
+1. Select **Save**.
 
     The resulting view is shown in the following image.
 
