@@ -74,7 +74,7 @@ The following parameters are common to all method definitions.
 
 Mapping parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`name` | Yes | N/A | No | The nearest neighbor method. Valid values are `hnsw` and `ivf`. Not every engine combination supports each of the methods. For a list of supported methods, see the section for a specific engine.
+`name` | Yes | N/A | No | The nearest neighbor method. Valid values are `hnsw`, `ivf`, and `flat`. Not every engine combination supports each of the methods. For a list of supported methods, see the section for a specific engine.
 `space_type` | No | `l2` | No | The vector space used to calculate the distance between vectors. Valid values are `l1`, `l2`, `linf`, `cosinesimil`, `innerproduct`, `hamming`, and `hammingbit`. Not every method/engine combination supports each of the spaces. For a list of supported spaces, see the section for a specific engine. Note: This value can also be specified at the top level of the mapping. For more information, see [Spaces]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-spaces/).
 `engine` | No | `faiss`  | No | The approximate k-NN library to use for indexing and search. Valid values are `faiss`, `lucene`, and `nmslib` (deprecated).
 `parameters` | No | `null` | No | The parameters used for the nearest neighbor method. For more information, see the section for a specific engine.
@@ -90,6 +90,7 @@ The Lucene engine supports the following method.
 Method name | Requires training | Supported spaces 
 :--- | :--- |:---
 [`hnsw`](#hnsw-parameters) | No | `l2`, `cosinesimil`, `innerproduct` (supported in OpenSearch 2.13 and later) 
+[`flat`](#flat-parameters) | No | `l2`, `cosinesimil`, `innerproduct` (supported in OpenSearch 3.6 and later) 
 
 #### HNSW parameters
 
@@ -116,6 +117,18 @@ An index created in OpenSearch version 2.11 or earlier will still use the previo
         "m": 2048,
         "ef_construction": 245
     }
+}
+```
+
+#### Flat parameters
+
+The Flat method does not support any parameters.
+
+### Example configuration
+
+```json
+"method": {
+    "name": "flat"
 }
 ```
 
@@ -194,9 +207,10 @@ The `hnsw` method supports the `pq` encoder for OpenSearch version 2.10 and late
 The `sq` encoder supports the following parameters.
 
 Parameter name | Required | Default | Updatable | Description
-:--- | :--- | :-- | :--- | :---
-`type` | No | `fp16` | No |  The type of scalar quantization to be used to encode 32-bit float vectors into the corresponding type. As of OpenSearch 2.13, only the `fp16` encoder type is supported. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. 
-`clip` | No | `false` | No | If `true`, then any vector values outside of the supported range for the specified vector type are rounded so that they are within the range. If `false`, then the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
+:--- |:---------|:--------| :--- | :---
+`type` | No       | `fp16`  | No |  The type of scalar quantization to be used to encode 32-bit float vectors into the corresponding type. As of OpenSearch 2.13, only the `fp16` encoder type is supported. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. 
+`clip` | No       | `false` | No | If `true`, then any vector values outside of the supported range for the specified vector type are rounded so that they are within the range. If `false`, then the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
+`bits` | Yes      | `1`     | No | The number of bits used to quantize each 32-bit floating-point vector value. Required starting from OpenSearch 3.6.
 
 For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-16-bit-quantization/).
 
@@ -281,7 +295,7 @@ The following example uses the `hnsw` method without specifying an encoder (by d
 }
 ```
 
-The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
+The following example demonstrates configuring the `ivf` method with an `sq` encoder using 16-bit quantization and clipping disabled:
 
 ```json
 "method": {
@@ -291,7 +305,7 @@ The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
     "encoder": {
       "name": "sq",
       "parameters": {
-        "type": "fp16",
+        "bits": 16,
         "clip": false
       }
     },
@@ -300,7 +314,7 @@ The following example uses the `ivf` method with an `sq` encoder of type `fp16`:
 }
 ```
 
-The following example uses the `hnsw` method with an `sq` encoder of type `fp16` with `clip` enabled:
+The following example demonstrates configuring the `hnsw` method with an `sq` encoder using 16-bit quantization and clipping enabled:
 
 ```json
 "method": {
@@ -310,7 +324,7 @@ The following example uses the `hnsw` method with an `sq` encoder of type `fp16`
     "encoder": {
       "name": "sq",
       "parameters": {
-        "type": "fp16",
+        "bits": 16,
         "clip": true
       }  
     },    

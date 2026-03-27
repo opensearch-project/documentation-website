@@ -1,12 +1,15 @@
 ---
 layout: default
-title: Faiss 16-bit scalar quantization 
+title: Faiss scalar quantization 
 parent: Vector quantization
 grand_parent: Optimizing vector storage
 nav_order: 20
 has_children: false
 has_math: true
 ---
+
+# Faiss scalar quantization
+Starting with version 3.6, OpenSearch supports scalar quantization for the Faiss engine within OpenSearch for 1 bit and 16 bits.
 
 # Faiss 16-bit scalar quantization 
  
