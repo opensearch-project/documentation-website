@@ -103,7 +103,7 @@ PUT /my-raw-vector-index
 
 To automatically generate embeddings during ingestion, configure an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) with the model ID of the embedding model. For more information about configuring a model, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 
-Specify the `field_map` to define the source field for input text and the target field for storing embeddings. In this example, text from the `text` field is converted into embeddings and stored in `passage_embedding`:
+Specify the `field_map` to define the source field for input text and the target field for storing embeddings. In this example, text from the `input_text` field is converted into embeddings and stored in `output_embedding`:
 
 ```json
 PUT /_ingest/pipeline/auto-embed-pipeline

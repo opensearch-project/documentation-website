@@ -99,7 +99,7 @@ There does not have to be a query in the **Search** box. You can use this proced
 
 1. (Optional) In the **Description** box, enter a description of the query.
 
-1. (Optional) Activate the **Include filters** toggle to also save the filters in the [filter list]({{site.url}}{{site.baseurl}}/dashboards/discover/add-filter/).
+1. (Optional) Activate the **Include filters** toggle to also save the filters in the [filter list]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
 
 1. (Optional) Activate the **Include time filter** toggle to also save the currently active [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
 

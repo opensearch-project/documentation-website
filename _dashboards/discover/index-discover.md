@@ -27,7 +27,7 @@ The following components make up the **Discover** application UI.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-app-panel-callouts.png" alt="Discover app default page" width="700">
 
-- The _field select_ tool (A) determines which fields display in the **Discover** application panel. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-selector/).
+- The _field select_ tool (A) determines which fields display in the **Discover** application panel. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/).
 - The _search_ bar (B) enables selection of data using a query language search. See [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
 - The _time filter_ (C) provides a graphical interface for selecting data values and ranges. See [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
 - The _filter_ tool (D) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
@@ -39,7 +39,7 @@ The following components make up the **Discover** application UI.
   If there is no data selected, the application panel displays a **</> No Results** message. This often happens, especially with the OpenSearch Dashboards sample data, because all data falls outside the time filter interval.
   {: .note}
 
-  The time filter interval defaults to **Last 15 minutes**. To change the time filter interval, [Expand the time range]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/#selecting-a-time-range) to include data.
+  The time filter interval defaults to **Last 15 minutes**. To change the time filter interval, [Expand the time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/#selecting-a-time-range) to include data.
   {: .note}
 
 
@@ -112,7 +112,7 @@ You can save any combination of these filters and re-apply them later to the sam
 
 The **Discover** application displays only the documents that are included in the time filter's time interval. The time interval can be _relative_ (a fixed window of time relative to _now_), or _absolute_ (between two fixed times).
 
-Some tools for changing the time interval are demonstrated in the previous example. To learn about others, see [Using the time filter]({{site.url}}{{site.baseurl}}/images/dashboards/discover/time-filter/).
+Some tools for changing the time interval are demonstrated in the previous example. To learn about others, see [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
 
 
 ### Entering a query
