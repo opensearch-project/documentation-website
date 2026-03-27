@@ -34,7 +34,7 @@ The **Selected fields**, **Popular fields**, and **Available fields** lists are 
 
 Before exploring and visualizing data, you must select an index pattern.
 
-An index pattern is equivalent to a table view in a traditional relational database system. It defines the data set that you are interested in exploring and visualizing. For information about creating index patterns, see [Index patterns]({{site.url}}{{site.baseurl}}/latest/images/dashboards/field-select-collapsed-callouts.png).
+An index pattern is equivalent to a table view in a traditional relational database system. It defines the data set that you are interested in exploring and visualizing. For information about creating index patterns, see [Index patterns]({{site.url}}{{site.baseurl}}/images/dashboards/field-select-collapsed-callouts.png).
 
 To select an index pattern:
 
