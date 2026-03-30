@@ -9,9 +9,9 @@ nav_order: 160
 
 The `hunspell` token filter is used for stemming and morphological analysis of words in a specific language. This filter applies Hunspell dictionaries, which are widely used in spell checkers. It works by breaking down words into their root forms (stemming).
 
-The Hunspell dictionary files are automatically loaded at startup from the `<OS_PATH_CONF>/hunspell/<locale>` directory. For example, the `en_GB` locale must have at least one `.aff` file and one or more `.dic` files in the `<OS_PATH_CONF>/hunspell/en_GB/` directory.
+The Hunspell dictionary files are automatically loaded at startup from the `<OS_PATH_CONF>/hunspell/<locale>` directory. For example, the `en_GB` locale must have at least one `.aff` file and one or more `.dic` files in the `<OS_PATH_CONF>/hunspell/en_GB/` directory. 
 
-Alternatively, dictionaries can be loaded from a package-based directory using the `ref_path` parameter. When `ref_path` is specified, dictionaries are loaded from `<OS_PATH_CONF>/analyzers/<ref_path>/hunspell/<locale>/`. This enables multiple independent dictionary sets for the same locale, allowing different indexes to use different dictionaries without conflicts. When `ref_path` is not specified, the filter falls back to the traditional loading behavior from `<OS_PATH_CONF>/hunspell/<locale>/`.
+Alternatively, you can configure package-based dictionary loading using the `ref_path` parameter to maintain multiple independent dictionary sets for the same locale. For more information, see [Package-based dictionary loading](#package-based-dictionary-loading).
 
 You can download these files from [LibreOffice dictionaries](https://github.com/LibreOffice/dictionaries).
 
@@ -21,10 +21,10 @@ The `hunspell` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`language/lang/locale` | At least one of the three is required | String | Specifies the language for the Hunspell dictionary. Only alphanumeric characters, hyphens, and underscores are allowed (for example, `en_US`, `de_DE`).
-`ref_path` | Optional | String | Specifies a package identifier for loading dictionaries from `<OS_PATH_CONF>/analyzers/<ref_path>/hunspell/<locale>/` instead of the default `<OS_PATH_CONF>/hunspell/<locale>/` directory. When specified, the `locale` parameter is required. Both `ref_path` and `locale` only allow alphanumeric characters, hyphens, and underscores.
+`language/lang/locale` | At least one of the three is required | String | Specifies the language for the Hunspell dictionary. Can contain only alphanumeric characters, hyphens, and underscores (for example, `en_US`, `de_DE`).
+`ref_path` | Optional | String | Specifies a package name used to load dictionaries from the `<OS_PATH_CONF>/analyzers/<ref_path>/hunspell/<locale>/` directory instead of the default `<OS_PATH_CONF>/hunspell/<locale>/` directory. When specified, the `locale` parameter is required.  Both `ref_path` and `locale` parameters can contain only alphanumeric characters, hyphens, and underscores. See [Package-based dictionary loading](#package-based-dictionary-loading).
 `dedup` | Optional | Boolean | Determines whether to remove multiple duplicate stemming terms for the same token. Default is `true`.
-`dictionary` | Optional | Array of strings | Configures the dictionary files to be used for the Hunspell dictionary. Default is all files in the `<OS_PATH_CONF>/hunspell/<locale>` directory, or `<OS_PATH_CONF>/analyzers/<ref_path>/hunspell/<locale>/` when `ref_path` is specified.
+`dictionary` | Optional | Array of strings | Configures the dictionary files to be used for the Hunspell dictionary. Default is all files in the `<OS_PATH_CONF>/hunspell/<locale>` directory if `ref_path` is not specified or all files in the `<OS_PATH_CONF>/analyzers/<ref_path>/hunspell/<locale>/` directory when `ref_path` is specified. See [Package-based dictionary loading](#package-based-dictionary-loading).
 `longest_only` | Optional | Boolean | Specifies whether only the longest stemmed version of the token should be returned. Default is `false`.
 
 ## Example
@@ -62,18 +62,18 @@ PUT /my_index
 
 ## Package-based dictionary loading
 
-When using `ref_path`, dictionaries are loaded from a package-specific directory instead of the default hunspell directory. This is useful when you need multiple independent dictionary sets for the same locale, for example, when different indexes require different custom dictionaries.
+When you specify a `ref_path` parameter, dictionaries are loaded from a package-specific directory instead of the default directory. This is useful when you need multiple independent dictionary sets for the same locale, for example, when different indexes require different custom dictionaries.
 
 Place dictionary files in the following directory structure:
 
-```
+```xml
 <OS_PATH_CONF>/analyzers/<ref_path>/hunspell/<locale>/
 ├── <locale>.aff       (exactly one .aff file required)
 ├── <locale>.dic       (one or more .dic files)
 └── <locale>_custom.dic
 ```
 
-The following example loads a hunspell dictionary from the package directory `<OS_PATH_CONF>/analyzers/pkg-1234/hunspell/en_US/`:
+The following example loads a Hunspell dictionary from the package directory `<OS_PATH_CONF>/analyzers/pkg-1234/hunspell/en_US/`:
 
 ```json
 PUT /my_index
@@ -103,7 +103,7 @@ PUT /my_index
 ```
 {% include copy-curl.html %}
 
-Multiple indexes can use different packages with the same locale. Each package maintains its own independent dictionary cache:
+Multiple indexes can use different packages configured for the same locale. Each package maintains its own independent dictionary cache:
 
 ```json
 PUT /index_medical
@@ -121,6 +121,7 @@ PUT /index_medical
   }
 }
 ```
+{% include copy-curl.html %}
 
 ```json
 PUT /index_legal
@@ -138,6 +139,7 @@ PUT /index_legal
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Generated tokens
 
