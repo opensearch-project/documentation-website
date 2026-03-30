@@ -14,7 +14,7 @@ You can use the **Dashboards** application in OpenSearch Dashboards to build a p
 >This documentation uses the following terms:
 >- _OpenSearch Dashboards_: The web UI for OpenSearch.
 >- _Dashboards_: The The application within OpenSearch Dashboards for creating dashboards. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
->- **Dashboards** (bold): The Dashboards UI, as displayed below.
+>- **Dashboards** (bold): The Dashboards UI, as displayed in [Navigating the UI](#navigating-the-ui).
 >- _dashboard_ (lowercase): An individual collection of data visualizations created in the Dashboards application.
 {: .note}
 

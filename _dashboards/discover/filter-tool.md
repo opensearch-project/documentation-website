@@ -6,7 +6,7 @@ grand_parent: Exploring data
 nav_order: 30
 ---
 
-# Using the Filter tool
+# Using the filter tool
 
 The filter tool is at the top of the [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/) and [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) applications, directly below the **[Search]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/)** bar. Use it to add and remove discrete filters to the data displayed in those applications.
 

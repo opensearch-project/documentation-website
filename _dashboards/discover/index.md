@@ -7,7 +7,7 @@ has_children: true
 
 # Exploring data
 
-OpenSearch Dashboards provides several tools for exploring data, enabling everything from basic ad hoc queries to savable API-equivalent queries. You can do the following:
+OpenSearch Dashboards provides several tools for exploring data, enabling everything from basic one-time queries to savable API-equivalent queries. You can do the following:
 
 - Explore data in the in **Discover** or **Dashboards**  search bar using Dashboard Query Language (DQL), a Dashboards-specific language for basic queries, or Query String Query Language, based on Apache Lucene.
 - Use the **Query Workbench** tool to execute queries in SQL or Piped Processing Language (PPL).
