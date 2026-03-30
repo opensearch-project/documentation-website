@@ -67,17 +67,17 @@ Refer to [Supported AWS Regions](https://docs.aws.amazon.com/solutions/latest/mi
 Before starting an upgrade or migration, consider the cluster feature to be included. The following table lists what can be migrated using Migration Assistant, whether it is currently supported, and recommendations for how to handle each component.
 
 | Feature | Supported | Recommendations   |
-| :--- | :--- | :--- |
-| **Documents**  | Yes  | Migrate existing data with RFS and live traffic with Capture and Replay. |
-| **Index settings**  | Yes   | Migrate with the `Metadata-Migration-Tool`. |
-| **Index mappings**  | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
-| **Index templates**   | Yes   | Migrate with the `Metadata-Migration-Tool`. |
-| **Component templates**  | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
-| **Aliases**   | Yes   | Migrate with the `Metadata-Migration-Tool`.  |
-| **Index State Management (ISM) policies**  | Expected in 2025    | Manually migrate using an API. For more information about ISM support, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944). |
-| **Elasticsearch Kibana dashboards** | Expected in 2025 | This tool is only needed when migrating from Elasticsearch Kibana dashboards to OpenSearch Dashboards. Start by exporting JSON files from Kibana and importing them into OpenSearch Dashboards. For Elasticsearch versions 7.10.2 to 7.17, use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool before importing X-Pack visualizations like Canvas and Lens into Kibana dashboards, as they may require recreation for compatibility with OpenSearch.|
-| **Security constructs**   | No   | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, use AWS Identity and Access Management (IAM) for enhanced security management. |
-| **Plugins**  | No  | Check plugin compatibility; some Elasticsearch plugins may not have direct OpenSearch equivalents. |
+| :--- |:----------| :--- |
+| **Documents**  | Yes       | Migrate existing data using RFS; migrate live traffic using Capture and Replay. |
+| **Index settings**  | Yes       | Migrate using the `Metadata-Migration-Tool`. |
+| **Index mappings**  | Yes       | Migrate using the `Metadata-Migration-Tool`.  |
+| **Index templates**   | Yes       | Migrate using the `Metadata-Migration-Tool`. |
+| **Component templates**  | Yes       | Migrate using the `Metadata-Migration-Tool`.  |
+| **Aliases**   | Yes       | Migrate using the `Metadata-Migration-Tool`.  |
+| **Index State Management (ISM) policies**  | No        | Manually migrate using an API. For more information about ISM support, see [issue #944](https://github.com/opensearch-project/opensearch-migrations/issues/944). |
+| **Elasticsearch Kibana dashboards** | No        | To migrate dashboard visualizations from Elasticsearch Kibana to OpenSearch Dashboards, export JSON files from Kibana and import them into OpenSearch Dashboards. For Elasticsearch versions 7.10.2--7.17 with X-Pack visualizations (such as Canvas and Lens), use the [`dashboardsSanitizer`](https://github.com/opensearch-project/opensearch-migrations/tree/main/dashboardsSanitizer) tool to preprocess the exported JSON files before importing them, because these visualizations may require modification to ensure compatibility with OpenSearch.|
+| **Security constructs**   | No        | Configure roles and permissions based on cloud provider recommendations. For example, if using AWS, use AWS Identity and Access Management (IAM) for enhanced security management. |
+| **Plugins**  | No        | Check plugin compatibility: some Elasticsearch plugins may not have direct OpenSearch equivalents. |
 
 ## Checklist
 
@@ -171,4 +171,4 @@ Capture and Replay has the following requirements:
 - The Traffic Capture Proxy must be deployed to intercept client traffic.
 - Live capture is recommended only for workloads with **< 4 TB/day** of incoming traffic to the source cluster.
 - Automatically generated document IDs are **not preserved** during replay. Clients must explicitly provide document IDs for `index` and `update` operations.
-- Migration Assistant does not guarantee zero-downtime migration through live traffic Capture and Replay for migration paths starting from Elasticsearch 1.x and Elasticsearch 2.x.
+- Migration Assistant does not guarantee zero-downtime migration through live traffic Capture and Replay when migrating from Elasticsearch 1.x or Elasticsearch 2.x.
