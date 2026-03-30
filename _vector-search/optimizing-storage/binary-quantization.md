@@ -14,12 +14,18 @@ Starting with version 2.17, OpenSearch supports binary quantization (BQ) with bi
 
 ## Using BQ
 
-To configure BQ for the Faiss engine, define a `knn_vector` field and specify the `mode` as `on_disk`. This configuration defaults to 1-bit BQ and both `ef_search` and `ef_construction` set to `100`:
+To configure BQ for the Faiss engine, define a `knn_vector` field and specify the `binary` encoder in the method parameters. The `bits` parameter controls the number of bits used for quantization and can be set to `1`, `2`, or `4`:
+
+- `1`-bit quantization: 32x compression
+- `2`-bit quantization: 16x compression
+- `4`-bit quantization: 8x compression
+
+The following example creates an index with 1-bit binary quantization:
 
 ```json
 PUT my-vector-index
 {
-  "settings" : {
+  "settings": {
     "index": {
       "knn": true
     }
@@ -29,86 +35,20 @@ PUT my-vector-index
       "my_vector_field": {
         "type": "knn_vector",
         "dimension": 8,
-        "space_type": "l2",
-        "data_type": "float",
-        "mode": "on_disk"
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-To further optimize the configuration, you can specify additional parameters, such as the compression level, and fine-tune the search parameters. For example, you can override the `ef_construction` value or define the compression level, which corresponds to the number of bits used for quantization:
-
-- **32x compression** for 1-bit quantization
-- **16x compression** for 2-bit quantization
-- **8x compression** for 4-bit quantization
-
-This allows for greater control over memory usage and recall performance, providing flexibility to balance between precision and storage efficiency.
-
-To specify the compression level, set the `compression_level` parameter:
-
-```json
-PUT my-vector-index
-{
-  "settings" : {
-    "index": {
-      "knn": true
-    }
-  },
-  "mappings": {
-    "properties": {
-      "my_vector_field": {
-        "type": "knn_vector",
-        "dimension": 8,
-        "space_type": "l2",
-        "data_type": "float",
-        "mode": "on_disk",
-        "compression_level": "16x",
         "method": {
           "name": "hnsw",
           "engine": "faiss",
+          "space_type": "l2",
           "parameters": {
-              "ef_construction": 16
-          }
-        }
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The following example further fine-tunes the configuration by defining `ef_construction`, `encoder`, and the number of `bits` (which can be `1`, `2`, or `4`):
-
-```json
-PUT my-vector-index
-{
-  "settings" : {
-    "index": {
-      "knn": true
-    }
-  },
-  "mappings": {
-    "properties": {
-      "my_vector_field": {
-        "type": "knn_vector",
-        "dimension": 8,
-        "method": {
-            "name": "hnsw",
-            "engine": "faiss",
-            "space_type": "l2",
-            "parameters": {
-              "m": 16,
-              "ef_construction": 512,
-              "encoder": {
-                "name": "binary",
-                "parameters": {
-                  "bits": 1 
-                }
+            "m": 16,
+            "ef_construction": 512,
+            "encoder": {
+              "name": "binary",
+              "parameters": {
+                "bits": 1
               }
             }
+          }
         }
       }
     }
@@ -217,7 +157,7 @@ GET my-vector-index/_search
 
 ## HNSW memory estimation
 
-The memory required for the Hierarchical Navigable Small World (HNSW) graph can be estimated as `1.1 * (dimension + 8 * m)` bytes/vector, where `m` is the maximum number of bidirectional links created for each element during the construction of the graph.
+The memory required for the Hierarchical Navigable Small World (HNSW) graph can be estimated as `1.1 * (dimension * bits / 8 + 8 * m)` bytes/vector, where `m` is the maximum number of bidirectional links created for each element during the construction of the graph.
 
 As an example, assume that you have 1 million vectors with a dimension of 256 and an `m` of 16. The following sections provide memory requirement estimations for various compression values.
 
@@ -250,5 +190,6 @@ Memory = 1.1 * ((256 * 4 / 8) + 8 * 16) * 1,000,000
 
 ## Next steps
 
+- [Disk-based vector search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/disk-based-vector-search/)
 - [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)

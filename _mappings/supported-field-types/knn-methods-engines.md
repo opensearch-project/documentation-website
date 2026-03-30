@@ -124,6 +124,8 @@ An index created in OpenSearch version 2.11 or earlier will still use the previo
 
 The Flat method does not support any parameters.
 
+For more information, see [Lucene scalar quantization with flat]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/scalar-quantization-flat/).
+
 ### Example configuration
 
 ```json
@@ -188,7 +190,7 @@ Encoder name | Requires training | Description
 :--- | :--- | :---
 `flat` (Default) | No | Encode vectors as floating-point arrays. This encoding does not reduce memory footprint.
 [`pq`](#pq-parameters) | Yes | An abbreviation for _product quantization_, PQ is a lossy compression technique that uses clustering to encode a vector into a fixed byte size, with the goal of minimizing the drop in k-NN search accuracy. At a high level, vectors are separated into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more information about product quantization, see [this blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388).
-[`sq`](#sq-parameters) | No | An abbreviation for _scalar quantization_. Starting with OpenSearch version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM64 architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-16-bit-quantization/).
+[`sq`](#sq-parameters) | No | An abbreviation for _scalar quantization_. Starting with OpenSearch version 2.13, you can use the `sq` encoder to quantize 32-bit floating-point vectors into 16-bit floats. In version 2.13, the built-in `sq` encoder is the SQFP16 Faiss encoder. The encoder reduces memory footprint with a minimal loss of precision and improves performance by using SIMD optimization (using AVX2 on x86 architecture or Neon on ARM64 architecture). For more information, see [Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/).
 
 #### PQ parameters
 
@@ -212,7 +214,7 @@ Parameter name | Required | Default | Updatable | Description
 `clip` | No       | `false` | No | If `true`, then any vector values outside of the supported range for the specified vector type are rounded so that they are within the range. If `false`, then the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
 `bits` | Yes      | `1`     | No | The number of bits used to quantize each 32-bit floating-point vector value. Required starting from OpenSearch 3.6.
 
-For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-16-bit-quantization/).
+For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/).
 
 ### SIMD optimization 
 
@@ -385,7 +387,7 @@ If you want to use less memory and increase indexing speed as compared to HNSW w
 
 If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
-You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-16-bit-quantization/). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/). 
+You can reduce the memory footprint by a factor of 2, with a minimal loss in search quality, by using the [`fp_16` encoder]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/#16-bit-quantization). If your vector dimensions are within the [-128, 127] byte range, we recommend using the [byte quantizer]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors) to reduce the memory footprint by a factor of 4. To learn more about vector quantization options, see [k-NN vector quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/knn-vector-quantization/). 
 
 ## Engine recommendations
 
