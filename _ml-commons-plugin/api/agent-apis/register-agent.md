@@ -339,7 +339,7 @@ The following table lists the available request fields for unified agent registr
 | `model.credential.secret_key` | String | Required (Amazon Bedrock) | AWS secret key for Amazon Bedrock models. |
 | `model.credential.session_token` | String | Optional (Amazon Bedrock) | AWS session token for Amazon Bedrock models when using temporary credentials. |
 | `model.credential.openai_api_key` | String | Required (OpenAI) | API key for OpenAI models. |
-| `model.credential.gemini_api_key` | String | Required (Google Gemini) | API key for Google Gemini models. |
+| `model.credential.gemini_api_key` | String | Required (Google Gemini) | The API key for Google Gemini models. |
 | `model.model_parameters` | Object | Optional | Model-specific parameters and configuration. |
 | `model.model_parameters.system_prompt` | String | Optional | The system prompt that defines the agent's role and behavior. |
 | `model.model_parameters.temperature` | Float | Optional | Controls randomness in model responses (0.0 to 1.0). Default varies by model. |
