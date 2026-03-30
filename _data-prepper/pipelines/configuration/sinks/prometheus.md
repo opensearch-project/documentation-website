@@ -16,6 +16,8 @@ To ensure compatibility, the Prometheus sink sorts metrics by timestamp within e
 
 ## Usage
 
+The following sections describe how to configure the Prometheus sink for different deployment scenarios.
+
 ### Open-source Prometheus (no authentication)
 
 To use with an open-source Prometheus instance, provide an `http://` or `https://` URL. No `aws` block is needed. Prometheus must be started with the `--web.enable-remote-write-receiver` flag.
@@ -32,7 +34,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-### Open-source Prometheus with HTTP Basic authentication
+### Open-source Prometheus with HTTP basic authentication
 
 To authenticate with HTTP Basic credentials, for example, when Prometheus is behind a reverse proxy with basic authentication enabled, use the `authentication` block:
 
@@ -105,8 +107,8 @@ Option | Required | Type | Description
 `idle_timeout` | No | Duration | The maximum amount of time an idle HTTP connection remains open before being closed. Default is `60s`.
 `request_timeout` | No | Duration | The maximum amount of time allowed for a full end-to-end HTTP request to complete. Default is `60s`.
 `threshold` | No | [Threshold configuration](#threshold-configuration) | Configuration for batching and flushing time-series data.
-`max_retries` | No | Integer | The maximum number of attempts for failed ingestion requests. Uses exponential backoff with jitter on retryable status codes (`429`, `502`, `503`, `504`). Default is `5`.
-`aws` | No | [AWS configuration](#aws-configuration) | AWS configuration for SigV4 signing. When present, requests are signed with AWS credentials. Cannot be used with `authentication`.
+`max_retries` | No | Integer | The maximum number of attempts for failed ingestion requests. Uses exponential backoff with jitter on `retryable` status codes (`429`, `502`, `503`, `504`). Default is `5`.
+`aws` | No | [AWS configuration](#aws-configuration) | AWS configuration for AWS Signature Version 4 signing. When present, requests are signed with AWS credentials. Cannot be used with `authentication`.
 `authentication` | No | [Authentication configuration](#authentication-configuration) | HTTP Basic authentication credentials. Cannot be used with `aws`.
 
 ## Threshold configuration
@@ -121,7 +123,7 @@ Option | Required | Type | Description
 
 ## AWS configuration
 
-When the `aws` block is present, requests are automatically signed with AWS SigV4. An `https://` URL is required.
+When the `aws` block is present, requests are automatically signed with Signature Version 4. An `https://` URL is required.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -132,7 +134,7 @@ Option | Required | Type | Description
 
 ## Authentication configuration
 
-The `authentication` block supports HTTP Basic authentication. It cannot be used together with `aws` (SigV4 signing).
+The `authentication` block supports HTTP Basic authentication. It cannot be used together with `aws` (Signature Version 4 signing).
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
