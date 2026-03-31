@@ -19,7 +19,7 @@ The Count API returns the count of documents that match a query. You can use it 
 - Monitoring data growth over time by tracking document counts across different time periods.
 - Validating query results before running expensive search operations by first retrieving how many documents match.
 
-The Count API is more efficient than using the Search API with `size: 0` when you only need the document count, as it is optimized specifically for counting operations. To optimize performance, OpenSearch distributes the count query across all shards in parallel. Each shard processes the request using one of its available replicas, allowing horizontal scaling as the number of replicas increases.
+The Count API is more efficient than using the Search API with `size: 0` when you only need the document count because it is optimized specifically for counting operations. To improve performance, OpenSearch distributes the count query across all shards in parallel. Each shard processes the request using one of its available replicas, allowing horizontal scaling as the number of replicas increases.
 
 Alternatively, you can use the [CAT Indices API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) or the [CAT Count API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-count/) to retrieve the number of documents in each index or data stream.
 {: .note }
