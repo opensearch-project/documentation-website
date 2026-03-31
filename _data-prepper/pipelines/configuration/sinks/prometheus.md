@@ -18,9 +18,9 @@ To ensure compatibility, the Prometheus sink sorts metrics by timestamp within e
 
 The following sections describe how to configure the Prometheus sink for different deployment scenarios.
 
-### Open-source Prometheus (no authentication)
+### Open-source Prometheus with no authentication
 
-To use with an open-source Prometheus instance, provide an `http://` or `https://` URL. No `aws` block is needed. Prometheus must be started with the `--web.enable-remote-write-receiver` flag.
+To use with an open-source Prometheus instance, provide an `https://` URL. To use `http://`, set `insecure` to `true`. No `aws` block is needed. Prometheus must be started with the `--web.enable-remote-write-receiver` flag.
 
 ```yaml
 pipeline:
@@ -28,8 +28,9 @@ pipeline:
   sink:
     - prometheus:
         url: "http://localhost:9090/api/v1/write"
+        insecure: true
         threshold:
-          max_events: 500
+          max_events: 1000
           flush_interval: PT5S
 ```
 {% include copy.html %}
@@ -43,7 +44,7 @@ pipeline:
   ...
   sink:
     - prometheus:
-        url: "http://localhost:9090/api/v1/write"
+        url: "https://localhost:9090/api/v1/write"
         authentication:
           http_basic:
             username: "promuser"
@@ -51,7 +52,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-### Amazon Managed Service for Prometheus
+### Amazon Managed Service for Prometheus (AMP)
 
 To use with AMP, provide the `aws` configuration block. An `https://` URL is required when using AWS authentication.
 
@@ -65,7 +66,7 @@ pipeline:
           region: "us-east-2"
           sts_role_arn: "arn:aws:iam::123456789012:role/data-prepper-prometheus-role"
         threshold:
-          max_events: 500
+          max_events: 1000
           flush_interval: PT5S
 ```
 {% include copy.html %}
@@ -97,7 +98,8 @@ Use the following options when customizing the `prometheus` sink.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`url` | Yes | String | The Prometheus Remote Write endpoint URL. Supports `http://` and `https://` schemes. When `aws` is configured, `https://` is required.
+`url` | Yes | String | The Prometheus Remote Write endpoint URL. Supports `https://` by default. To use `http://`, set `insecure` to `true`. When `aws` is configured, `https://` is required.
+`insecure` | No | Boolean | When set to `true`, allows `http://` URLs. By default, only `https://` URLs are permitted. Default is `false`.
 `encoding` | No | String | The compression format used for requests. Only `snappy` is supported. Default is `snappy`.
 `remote_write_version` | No | String | The version of the Prometheus remote write protocol. Only `0.1.0` is supported.
 `content_type` | No | String | The MIME type of the body. Only `application/x-protobuf` is supported.
