@@ -61,6 +61,7 @@ Field | Data type | Required/Optional | Agent type | Description
 `model.model_provider` | String | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | The model provider. Supported values: `bedrock/converse`, `gemini/v1beta/generatecontent`, `openai/v1/chat/completions`.
 `model.credential` | Object | Required (if using `model`) | `conversational`, `plan_execute_and_reflect` | Credentials for accessing the model. Accepts any credential format supported by connectors. For details, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
 `model.model_parameters` | Object | Optional (if using `model`) | `conversational`, `plan_execute_and_reflect` | Model-specific parameters such as system prompts and other configuration options.
+`created_by` | String | Optional | All | An optional attribution tag identifying the plugin or client that registered the agent (for example, `"flow-framework"`). Included in ML stats metrics.
 
 ### Using agentic memory
 
