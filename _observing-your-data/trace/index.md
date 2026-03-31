@@ -12,6 +12,9 @@ redirect_from:
 
 # Trace analytics
 
+For a more integrated monitoring experience that combines service topology, RED metrics, and in-context correlations, see [Application Performance Monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/apm/index/).
+{: .note}
+
 Trace analytics provides a way to ingest and visualize [OpenTelemetry](https://opentelemetry.io/) data in OpenSearch. This data can help you find and fix performance problems in distributed applications.
 
 A single operation, such as a user choosing a button, can trigger an extended series of events. The frontend might call a backend service, which calls another service, which queries a database, processes the data, and sends it to the original service, which sends a confirmation to the frontend.
