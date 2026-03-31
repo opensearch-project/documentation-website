@@ -6,7 +6,7 @@ has_children: true
 has_toc: false
 ---
 
-# Application Performance Monitoring
+# Application performance monitoring
 **Introduced 3.5**
 {: .label .label-purple }
 
@@ -25,10 +25,10 @@ The following image shows the APM architecture.
 APM uses the following data pipeline to collect, process, and visualize application telemetry:
 
 1. **OpenTelemetry SDKs** instrument your application code to generate traces, logs, and metrics.
-2. **OpenTelemetry Collector** receives telemetry via OTLP (gRPC on port 4317 or HTTP on port 4318), processes it, and routes it to Data Prepper and Prometheus.
+2. **OpenTelemetry Collector** receives telemetry through OTLP (gRPC on port 4317 or HTTP on port 4318), processes it, and routes it to Data Prepper and Prometheus.
 3. **Data Prepper** processes traces and generates service maps and RED metrics using the `otel_apm_service_map` processor.
 4. **OpenSearch** stores trace data, logs, and service topology information.
-5. **Prometheus** stores time-series RED metrics via remote write.
+5. **Prometheus** stores time-series RED metrics through remote write.
 6. **OpenSearch Dashboards** provides the APM user interface for visualization and analysis.
 
 ## APM features

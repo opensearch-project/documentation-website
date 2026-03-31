@@ -11,7 +11,7 @@ parent: Application Performance Monitoring
 
 The Services page provides a centralized catalog of all instrumented services in your application, displaying RED metrics at a glance. Use this page to identify services with high error rates, latency issues, or throughput anomalies.
 
-## Accessing the Services page
+## Accessing the services page
 
 To access the Services page, navigate to your Observability workspace and select **APM** > **Services** from the left navigation menu.
 
@@ -106,7 +106,7 @@ Use the filter controls at the top of the Services page to narrow the list of di
 - **Environment**: Filter by deployment environment (for example, `production`, `staging`, `development`).
 - **Latency**: Filter services exceeding a latency threshold.
 - **Throughput**: Filter services by request volume.
-- **Failure ratio**: Filter services with failure ratios above a specified percentage.
+- **Failure ratio**: Filter services with failure ratios that exceed a specified percentage.
 
 You can combine multiple filters to quickly isolate services that match specific criteria, for example, production services with a failure ratio greater than 5%.
 {: .tip}

@@ -18,7 +18,7 @@ To use APM, you need to ingest application traces and logs into OpenSearch using
 
 ## Configuring the OpenTelemetry Collector
 
-The [OpenTelemetry (OTel) Collector](https://opentelemetry.io/docs/collector/) acts as the entry point for all application telemetry. It receives data via the OpenTelemetry Protocol (OTLP) and routes traces and logs to Data Prepper while sending metrics to Prometheus.
+The [OpenTelemetry (OTel) Collector](https://opentelemetry.io/docs/collector/) acts as the entry point for all application telemetry. It receives data through the OpenTelemetry Protocol (OTLP) and routes traces and logs to Data Prepper while sending metrics to Prometheus.
 
 The following example shows the key exporter and pipeline configuration for routing telemetry to Data Prepper and Prometheus:
 
@@ -132,7 +132,7 @@ service-map-pipeline:
       name: "otel-traces-pipeline"
   processor:
     - otel_apm_service_map:
-        group_by_attributes: [telemetry.sdk.language] # Add any resource attribute that we 
+        group_by_attributes: [telemetry.sdk.language] # Add any resource attribute to group by
   route:
     - otel_apm_service_map_route: 'getEventType() == "SERVICE_MAP"'
     - service_processed_metrics: 'getEventType() == "METRIC"'
@@ -154,11 +154,11 @@ service-map-pipeline:
 
 The Data Prepper pipeline processes telemetry data through the following stages:
 
-1. **Entry pipeline (`otlp-pipeline`)**: Receives all telemetry on port 21890 and routes logs and traces to their respective sub-pipelines.
+1. **Entry pipeline (`otlp-pipeline`)**: Receives all telemetry on port 21893 and routes logs and traces to their respective sub-pipelines.
 2. **Log pipeline (`otel-logs-pipeline`)**: Maps the `time` field to `@timestamp` and writes logs to OpenSearch using the `log-analytics-plain` index type.
 3. **Trace pipeline (`otel-traces-pipeline`)**: Distributes traces to both the raw storage pipeline and the service map pipeline.
 4. **Raw trace pipeline (`traces-raw-pipeline`)**: Processes individual trace spans using the `otel_traces` processor and stores them in OpenSearch using the `trace-analytics-plain-raw` index type.
-5. **Service map pipeline (`service-map-pipeline`)**: Uses the `otel_apm_service_map` processor to generate service dependency maps and RED metrics. Service map topology data is written to OpenSearch, and RED metrics are exported to Prometheus via remote write.
+5. **Service map pipeline (`service-map-pipeline`)**: Uses the `otel_apm_service_map` processor to generate service dependency maps and RED metrics. Service map topology data is written to OpenSearch, and RED metrics are exported to Prometheus through remote write.
 
 For more information about the `otel_apm_service_map` processor, see [APM service map processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-apm-service-map/).
 {: .note}

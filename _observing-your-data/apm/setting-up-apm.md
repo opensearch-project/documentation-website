@@ -57,14 +57,14 @@ For detailed instructions on configuring a Prometheus data source, see [Configur
 
 ## Step 5: Configure APM settings
 
-Use the **APM Settings** dialog to connect your datasets and data sources to APM. The **APM Settings** button is located in the top-right corner of the Services and Application Map pages.
+Use the **Application monitoring settings** dialog to connect your datasets and data sources to Application Performance Monitoring (APM). The **APM Settings** button is located in the upper-right corner of the Services and Application Map pages.
 
 ![APM settings modal]({{site.url}}{{site.baseurl}}/images/apm/apm-settings-modal.png)
 
 To configure APM settings:
 
 1. Navigate to **APM** > **Services** or **APM** > **Application Map**.
-2. Select the **APM Settings** button in the top-right corner.
+2. Select the **APM Settings** button in the upper-right corner.
 3. In the **Application monitoring settings** dialog, configure the following:
 
    | Setting | Description |
