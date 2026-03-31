@@ -39,7 +39,8 @@ Each label corresponds to the following components:
 - [C. Filters](#c-filters)
 - [D. Date range selector](#d-date-range-selector)
 - [E. Refresh button](#e-refresh-button)
-- [F. Metrics table](#f-metrics-table)
+- [F. Stats & Visualizations](#f-stats--visualizations)
+- [G. Metrics table](#g-metrics-table)
 
 ### A. Navigation tabs
 
@@ -59,6 +60,7 @@ The filters dropdown menus allow you to select the following query filters.
 | **Indexes**             | Filter queries based on specific OpenSearch indexes.                | `index1`, `index2` |
 | **Search Type**         | Filter by search execution method.                                  | `query then fetch` |
 | **Coordinator Node ID** | Focus on queries executed by a specific coordinator node.           | `node-1`, `node-2` |
+| **WLM Group**           | Filter queries by workload management group.                        | `default`          |
 | **Time Range**          | Adjust the time range for the queries displayed.                    | `last 1 day`       |
 
 ### D. Date range selector
@@ -69,7 +71,68 @@ The **data range selector** analyzes queries sent during a set time frame. You c
 
 The **Refresh** button reloads the query data based on the selected filters and time range.
 
-### F. Metrics table
+### F. Stats & Visualizations
+
+The **Stats & Visualizations** section is a collapsible panel on the **Top N queries** page that provides at-a-glance performance metrics and interactive visual breakdowns for your queries. You can toggle between **Query** and **Group** views using the buttons in the upper-right corner of the panel.
+
+Currently, all visualizations are available for individual queries only. Grouped query visualizations are not yet supported.
+{: .note}
+
+#### P90 and P99 metrics
+
+The top row of the panel displays P90 and P99 statistics for the following metrics across the selected time range:
+
+| Metric          | Description                                                        |
+|:----------------|:-------------------------------------------------------------------|
+| **P90 Latency** | The 90th percentile query latency.                                 |
+| **P90 CPU Time**| The 90th percentile CPU time consumed by queries.                  |
+| **P90 Memory**  | The 90th percentile memory usage across queries.                   |
+| **P99 Latency** | The 99th percentile query latency.                                 |
+| **P99 CPU Time**| The 99th percentile CPU time consumed by queries.                  |
+| **P99 Memory**  | The 99th percentile memory usage across queries.                   |
+
+#### Queries by breakdown
+
+Below the P90/P99 metrics, the **Queries by** section displays an interactive pie chart and a corresponding table that break down query distribution by a selected dimension. You can switch between the following dimensions using the dropdown menu:
+
+- **Node** -- Groups queries by the coordinator node.
+- **Index** -- Groups queries by the target index.
+- **Username** -- Groups queries by the user who submitted the query.
+- **WLM Group** -- Groups queries by workload management group.
+
+The pie chart is interactive---hovering over a slice displays the dimension value, query count, and percentage. To reduce visual clutter, smaller slices are consolidated into an **Other** portion. The accompanying table shows each dimension value along with its **Query Count** and **Percentage**, and supports sorting and pagination.
+
+The following image shows the P90/P99 metrics and the Queries by Index breakdown with the interactive pie chart and paginated table.
+
+![Stats, Visualizations, and Queries by Index]({{site.url}}{{site.baseurl}}/images/Query-Insights/StatsAndVisualizations.png)
+
+#### Performance analysis
+
+The **Performance Analysis** section provides deeper insight into how query metrics vary over time and across different components. You can switch between a **Line Chart** and a **Heatmap** view using the toggle buttons.
+
+##### Line chart
+
+The line chart displays three lines---**Max**, **Avg**, and **Min**---for a selected metric over the chosen time period, divided into 10 evenly spaced time buckets. Use the **Metric** dropdown to choose from **Latency**, **CPU Time**, or **Memory**.
+
+The following image shows the Performance Analysis line chart view.
+
+![Performance Analysis Line Chart]({{site.url}}{{site.baseurl}}/images/Query-Insights/PerformanceAnalysisLineChart.png)
+
+##### Heatmap
+
+The heatmap provides a grid-based view of metric values across time and component values, divided into 30 evenly spaced time buckets. Color intensity indicates the metric magnitude, ranging from low (light) to high (dark).
+
+Use the dropdown menus to select the following options:
+
+- **Dimension**: Choose from **Index**, **Node**, **Username**, **User Roles**, or **WLM Group**.
+- **Metric**: Choose from **Latency**, **CPU Time**, **Memory**, or **Count**.
+- **Aggregation**: Choose from **Max**, **Avg**, or **Min**.
+
+The following image shows the Performance Analysis heatmap view grouped by index.
+
+![Performance Analysis Heatmap]({{site.url}}{{site.baseurl}}/images/Query-Insights/PerformanceAnalysisHeatmap.png)
+
+### G. Metrics table
 
 The metrics table dynamically adapts based on your **Type** filter selection (**Query**, **Group**, or both). Dynamic columns improve clarity by showing only the relevant data for each query type.
 
@@ -99,6 +162,7 @@ The following table provides descriptions for each metric and the metric's relat
 | **Indexes**             | A list of indexes involved in the query or group. | `Indexes`  | Not shown            | `Indexes`    |
 | **Search Type**         | The search execution method used (such as `query` or `fetch`).  | `Search Type`      | Not shown            | `Search Type`  |
 | **Coordinator Node ID** | The node that coordinated the query.  | `Coordinator Node ID` | Not shown         | `Coordinator Node ID` |
+| **WLM Group**           | The workload management group associated with the query. | `WLM Group`        | Not shown            | `WLM Group`     |
 | **Total Shards**        | The number of shards involved in query processing.   | `Total Shards`     | Not shown            | `Total Shards`  |
 
 When you select **Query + Group**:
