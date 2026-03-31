@@ -289,7 +289,7 @@ When using the `terminate_after` parameter, the response includes a `terminated_
 }
 ```
 
-## Response fields
+## Response body fields
 
 The Count API response contains the following fields.
 
