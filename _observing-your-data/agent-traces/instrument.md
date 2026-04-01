@@ -6,7 +6,7 @@ nav_order: 10
 ---
 
 # Instrument your application
-Introduced 3.6
+**Introduced 3.6**
 {: .label .label-purple }
 
 The `opensearch-genai-observability-sdk-py` package instruments Python AI agents using [OpenTelemetry](https://opentelemetry.io/). The SDK provides decorators, enrichment functions, and auto-instrumentation for popular LLM providers and agent frameworks.
@@ -64,7 +64,7 @@ The following table describes the `register()` parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `endpoint` | String | The OTLP endpoint URL. Default is `http://localhost:4318` for Data Prepper. |
+| `endpoint` | String | The OTLP endpoint URL. Default is `http://localhost:4318` for the OpenTelemetry Collector. |
 | `service_name` | String | An identifier for your application in trace data. |
 | `protocol` | String | The transport protocol. Valid values are `http` and `grpc`. |
 | `auto_instrument` | Boolean | When `true`, automatically discovers and enables installed provider instrumentors. Default is `false`. |

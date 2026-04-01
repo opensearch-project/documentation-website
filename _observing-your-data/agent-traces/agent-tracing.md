@@ -6,7 +6,7 @@ nav_order: 20
 ---
 
 # Agent tracing
-Introduced 3.6
+**Introduced 3.6**
 {: .label .label-purple }
 
 The Agent Traces plugin for OpenSearch Dashboards lets you explore, debug, and monitor LLM agent execution traces. The plugin provides hierarchical views, detail flyouts, flow visualizations, and metrics for your agentic AI applications.
@@ -54,7 +54,7 @@ Spans must contain certain attributes for the Agent Traces plugin to display the
 | `durationInNanos` | Yes | Span duration in nanoseconds. |
 | `status.code` | Yes | Span status (`OK`, `ERROR`, or `UNSET`). |
 
-### GenAI attributes
+### Generative AI (GenAI) attributes
 
 | Attribute | Required | Description |
 | :--- | :--- | :--- |
@@ -82,14 +82,16 @@ The plugin classifies spans into categories based on the `gen_ai.operation.name`
 | Retrieval | Red | `retrieval` | Document or data retrieval operations. |
 | Other | Gray | Unmapped operations | Operations not matching a known category. |
 
-## Navigating to Agent Traces
+## Navigating to agent traces
 
-To access Agent Traces in OpenSearch Dashboards:
+To access agent traces in OpenSearch Dashboards:
 
 1. From the main menu, choose **Observability**.
 2. Choose **Agent Traces**.
 
 ## UI components
+
+The agent traces interface includes the following components.
 
 ### Metrics bar
 
@@ -122,17 +124,17 @@ The following image shows the Traces tab.
 
 ### Spans tab
 
-The Spans tab shows all GenAI spans, not just root traces. Use this tab to examine individual operations across multiple traces.
+The Spans tab shows all GenAI spans, not only root traces. Use this tab to examine individual operations across multiple traces.
 
 The following image shows the Spans tab.
 
-![Spans tab showing all GenAI spans]({{site.url}}{{site.baseurl}}/images/agent-traces/spans-table.png)
+![Spans tab showing all generative AI (GenAI) spans]({{site.url}}{{site.baseurl}}/images/agent-traces/spans-table.png)
 
 ## Trace details flyout
 
 Select a row in the Traces or Spans tab to open the trace details flyout. The flyout provides the following views:
 
-- **Trace tree** --- A hierarchical view of all spans in the trace. See [Agent Graph and Path]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/agent-graph/) for more information.
+- **Trace tree** --- A hierarchical view of all spans in the trace. See [Agent graph and path]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/agent-graph/) for more information.
 - **Flow (DAG)** --- A directed acyclic graph visualization of the agent execution path.
 - **Timeline** --- A Gantt-style chart showing span durations and concurrency.
 

@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Agent Graph and Path
+title: Agent graph and path
 parent: Agent traces
 nav_order: 30
 ---
 
-# Agent Graph and Path
-Introduced 3.6
+# Agent graph and path
+**Introduced 3.6**
 {: .label .label-purple }
 
 The Agent Traces plugin provides three synchronized visualization views for understanding agent execution paths: the Agent Graph, the Trace tree, and the Timeline. Selecting a span in any view highlights it across all three views.
 
-## Agent Graph (DAG view)
+## Agent graph (DAG view)
 
-The Agent Graph renders traces as a directed acyclic graph (DAG) using a Dagre layout algorithm. Parent spans flow downward to child spans, and sibling spans are arranged horizontally.
+The Agent Graph renders traces as a directed acyclic graph (DAG) using a `Dagre` layout algorithm. Parent spans flow downward to child spans, and sibling spans are arranged horizontally.
 
 The following image shows the Agent Graph view.
 
@@ -33,8 +33,7 @@ Each node in the graph includes the following elements:
 The Agent Graph provides the following controls:
 
 - **Zoom** --- Adjust zoom from 0.1x to 2x.
-- **Fit view** --- Reset the viewport to display all nodes.
-- **Minimap** --- Toggle an interactive minimap for navigating large graphs.
+- **Fit view** --- Reset the `viewport` to display all nodes.
 
 Click a node to select it and view its details in the right panel. Click the background to deselect.
 

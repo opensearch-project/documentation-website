@@ -7,7 +7,7 @@ has_toc: false
 ---
 
 # Agent traces
-Introduced 3.6
+**Introduced 3.6**
 {: .label .label-purple }
 
 Agent traces provides end-to-end observability for generative AI applications. You can trace agent invocations, LLM calls, tool executions, and retrieval operations across your AI stack using OpenTelemetry-based instrumentation.
@@ -39,4 +39,4 @@ To begin using agent traces, see the following topics:
 
 - [Instrument your application]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/instrument/) --- Install the SDK and add tracing to your AI agents.
 - [Agent tracing]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/agent-tracing/) --- Explore traces in OpenSearch Dashboards.
-- [Agent Graph and Path]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/agent-graph/) --- Visualize agent execution as graphs and timelines.
+- [Agent graph and path]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/agent-graph/) --- Visualize agent execution as graphs and timelines.
