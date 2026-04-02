@@ -100,9 +100,9 @@ To narrow the fields in the field select tool by data type:
 
 1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/funnel-icon.png" class="inline-icon" alt="funnel icon"/>{:/} **Filter by type**.
 
-1. In the **Filter by type** popover, select an **Aggregatable** option. For example, selecing **yes** filters out all non-aggregatable fields.
+1. In the **Filter by type** popover, select an **Aggregatable** option. For example, selecting **yes** filters out all non-aggregatable fields.
 
-1. In the **Filter by type** popover, select a **Searchable** option. For example, selecing **yes** filters out all non-searchable fields.
+1. In the **Filter by type** popover, select a **Searchable** option. For example, selecting **yes** filters out all non-searchable fields.
 
    Searchable fields are fields that are included in the inverted index and are available for search; for more information see [Index]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter).
 

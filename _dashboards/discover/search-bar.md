@@ -54,7 +54,7 @@ To switch between DQL and query string query language:
 
 To filter using the **Search** box:
 
-1. Enter a filter criterion in the **Search** box. For example, using DQL against the OpenSearch [Ecommerce] sample data, enter `sales_by_category is "Men's Clothing"`.
+1. Enter a filter criterion in the **Search** box. For example, using DQL against the OpenSearch [Ecommerce] sample data, enter `category is Men's Clothing`.
 
    For information about querying in DQL, see [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/).
 

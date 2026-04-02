@@ -92,7 +92,7 @@ To enable a disabled filter:
 
 ## Pinning a filter
 
-You can pin a filter so that it applies to all the applications in OpenSearch Dashboards (Discover, Dashboards, and Visibility). To pin a filter:
+You can pin a filter so that it applies to all the applications in OpenSearch Dashboards (Discover, Dashboards, and Visualize). To pin a filter:
 
 1. Select the filter in the filter list.
 
@@ -135,13 +135,13 @@ To exclude all included filters and include all excluded filters:
 
 ### Inverting the sense of inclusion for all filters
 
-To negate all filter expressions so that all included documents are excluded and vice versa:
+To negate all filter expressions so that all included documents are excluded and all excluded documents are included:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/funnel-icon.png" class="inline-icon" alt="filter menu icon"/>{:/} (funnel) icon.
 
 1. In the **Filters** pulldown, select **Invert inclusion**.
 
-   Exclusion filters have **NOT** appended to their title, as shown below. Inverting inclusion a second time removes the **NOT** modifier.
+   Exclusion filters have **NOT** appended to their title, as shown following. Inverting inclusion a second time removes the **NOT** modifier.
    
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/excluded-filter.png" alt="Exclusion filter"  width="200">
 
