@@ -12,7 +12,210 @@ grand_parent: Agents and tools
 **Introduced 2.13**
 {: .label .label-purple }
 
-Similarly to a [conversational flow agent]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational-flow/), a conversational agent stores a conversation in an index, in the following example, the `conversation_index`. A conversational agent can be configured with a large language model (LLM) and a set of supplementary tools that perform specific jobs. For example, you can set up an LLM and a `CATIndexTool` when configuring an agent. When you send a question to the model, the agent also includes the `CATIndexTool` as context. The LLM then decides whether it needs to use the `CATIndexTool` to answer questions like "How many indexes are in my cluster?" The context allows an LLM to answer specific questions that are outside of its knowledge base. For example, the following agent is configured with an LLM and a `CATIndexTool` that retrieves information about your OpenSearch indexes:
+A conversational agent uses a large language model (LLM) and a set of supplementary tools to reason iteratively and provide a response. The agent selects the best tool for each question using the Chain-of-Thought (CoT) process and stores conversation history so that users can ask follow-up questions. Starting with OpenSearch 3.0, conversational agents use [function calling]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#request-body-fields) to invoke tools, replacing the earlier ReAct prompt-based approach. OpenSearch provides two versions of the conversational agent:
+
+- **[Conversational agent V2](#conversational-agent-v2-with-full-multimodal-support)** (3.6, experimental): Full multimodal support with a standardized output format. Requires the unified registration method and Agentic Memory.
+- **[Conversational agent V1](#conversational-agent-v1)** (2.13): When registered using the unified registration method, accepts plain text input only. When registered using the regular registration method, input capabilities depend on the connector configuration. Supports both `conversation_index` and `agentic_memory` memory types.
+
+## Conversational agent V2 with full multimodal support
+**Introduced 3.6**
+{: .label .label-purple }
+**Experimental**
+{: .label .label-purple }
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the [RFC on GitHub](https://github.com/opensearch-project/ml-commons/issues/4552).
+{: .warning}
+
+A conversational agent V2 (`conversational_v2`) extends the conversational agent with built-in multimodal support through the unified registration method, without requiring custom connector configuration. When using the unified registration method, V1 agents accept only plain text input. V2 agents support all three input formats through the standardized interface:
+
+- **Plain text**: A simple string input.
+- **Content blocks**: Multimodal arrays containing text, images, and documents.
+- **Messages**: Full conversation history with roles and multimodal content blocks for multi-turn interactions.
+
+V2 agents return a standardized output format that includes the stop reason, the assistant's response, the memory session ID, and token usage metrics. V2 agents require the `agentic_memory` memory type.
+
+### Prerequisites
+
+Conversational agent V2 uses the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) and requires the unified agent API to be enabled. For setup instructions, see [Prerequisites]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#prerequisites).
+
+### Registering a conversational agent V2
+
+**Step 1: Create a memory container**
+
+Before registering a V2 agent, create a memory container using the [Create Memory Container API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/):
+
+```json
+POST /_plugins/_ml/memory_containers/_create
+{
+  "name": "my-agent-memory",
+  "configuration": {}
+}
+```
+{% include copy-curl.html %}
+
+The response returns a `memory_container_id` that you use when registering the agent:
+
+```json
+{
+  "memory_container_id": "SdjmmpgBOh0h20Y9kWuN",
+  "status": "created"
+}
+```
+
+**Step 2: Register the agent**
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "My Conversational Agent V2",
+  "type": "conversational_v2",
+  "description": "A multimodal conversational agent",
+  "model": {
+    "model_id": "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
+    "model_provider": "bedrock/converse",
+    "credential": {
+      "access_key": "<YOUR_AWS_ACCESS_KEY>",
+      "secret_key": "<YOUR_AWS_SECRET_KEY>",
+      "session_token": "<YOUR_SESSION_TOKEN>"
+    }
+  },
+  "memory": {
+    "type": "agentic_memory",
+    "memory_container_id": "<YOUR_MEMORY_CONTAINER_ID>"
+  },
+  "tools": [
+    {
+      "type": "ListIndexTool"
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+### Executing a conversational agent V2
+
+V2 agents use the `input` field and support three input formats.
+
+**Plain text input**:
+
+```json
+POST /_plugins/_ml/agents/<agent_id>/_execute
+{
+  "input": "What indexes are in my cluster?"
+}
+```
+{% include copy-curl.html %}
+
+**Multimodal content block input**:
+
+```json
+POST /_plugins/_ml/agents/<agent_id>/_execute
+{
+  "input": [
+    {
+      "type": "text",
+      "text": "What can you see in this image?"
+    },
+    {
+      "type": "image",
+      "source": {
+        "type": "base64",
+        "format": "png",
+        "data": "iVBORw0KGgoAAAANSUhEUgAA..."
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+**Messages input** (multi-turn conversation history):
+
+```json
+POST /_plugins/_ml/agents/<agent_id>/_execute
+{
+  "input": [
+    {
+      "role": "user",
+      "content": [{"type": "text", "text": "I like the color red"}]
+    },
+    {
+      "role": "assistant",
+      "content": [{"type": "text", "text": "Thanks for sharing that!"}]
+    },
+    {
+      "role": "user",
+      "content": [{"type": "text", "text": "What color do I like?"}]
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+### V2 response format
+
+Conversational agent V2 returns a standardized response format:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "dataAsMap": {
+            "stop_reason": "end_turn",
+            "message": {
+              "role": "assistant",
+              "content": [
+                {
+                  "text": "Based on your cluster, I found the following indexes..."
+                }
+              ]
+            },
+            "memory_id": "test_memory_id",
+            "metrics": {
+              "total_usage": {
+                "inputTokens": 1234,
+                "outputTokens": 567,
+                "totalTokens": 1801
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+The following table describes the V2 response fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `stop_reason` | String | The reason the agent stopped generating a response. Valid values: `end_turn` (normal completion), `max_iterations` (iteration limit reached), `tool_use` (stopped while invoking a tool). |
+| `message` | Object | The assistant's final response message. |
+| `message.role` | String | Always `assistant`. |
+| `message.content` | Array | An array of content blocks containing the response text or other content. |
+| `memory_id` | String | The memory session ID. Include this in subsequent requests using `parameters.memory_id` to continue the conversation. |
+| `metrics.total_usage.inputTokens` | Integer | The number of input tokens consumed. |
+| `metrics.total_usage.outputTokens` | Integer | The number of output tokens generated. |
+| `metrics.total_usage.totalTokens` | Integer | The total number of tokens used. |
+
+### Limitations
+
+The following limitations apply to conversational agent V2 in this experimental release:
+
+- **Memory type**: Only `agentic_memory` is supported. The `conversation_index` memory type is not compatible with V2 agents.
+- **Streaming**: Streaming responses are not supported.
+- **Hooks and context management**: Agent execution hooks and context management are not supported.
+
+## Conversational agent V1
+
+A conversational agent stores a conversation in an index, in the following example, the `conversation_index`. A conversational agent can be configured with a large language model (LLM) and a set of supplementary tools that perform specific jobs. For example, you can set up an LLM and a `ListIndexTool` when configuring an agent. When you send a question to the model, the agent also includes the `ListIndexTool` as context. The LLM then decides whether it needs to use the `ListIndexTool` to answer questions like "How many indexes are in my cluster?" The context allows an LLM to answer specific questions that are outside of its knowledge base. For example, the following agent is configured with an LLM and a `ListIndexTool` that retrieves information about your OpenSearch indexes:
+
+When using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), V1 agents accept only plain text input, regardless of whether `conversation_index` or `agentic_memory` is used as the memory type. For full multimodal support through the unified interface, use [conversational agent V2](#conversational-agent-v2-with-full-multimodal-support). When using the [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#regular-registration-method), multimodal support is possible if you configure the connector to pass multimodal content to the LLM — the input format is determined by your connector configuration rather than a standardized interface.
+{: .note}
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -45,8 +248,8 @@ POST /_plugins/_ml/agents/_register
       }
     },
     {
-      "type": "CatIndexTool",
-      "name": "RetrieveIndexMetaTool",
+      "type": "ListIndexTool",
+      "name": "ListIndexTool",
       "description": "Use this tool to get OpenSearch index information: (health, status, index, uuid, primary count, replica count, docs.count, docs.deleted, store.size, primary.store.size)."
     }
   ],
