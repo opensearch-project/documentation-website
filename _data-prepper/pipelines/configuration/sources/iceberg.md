@@ -105,13 +105,16 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `partitions` | No | Integer | The number of hash partitions. Must be between 1 and 10,000. Default is `64`.
 `target_partition_size` | No | String | The target size for coalesced shuffle read tasks. Small adjacent partitions are merged to reduce the number of tasks. Default is `64mb`.
-`server_port` | No | Integer | The port for the HTTP server used for node-to-node shuffle data transfer. Default is `4995`.
+`port` | No | Integer | The port for the HTTP server used for node-to-node shuffle data transfer. Default is `4995`.
 `ssl` | No | Boolean | When `true`, enables TLS for the shuffle HTTP server. Default is `true`.
-`ssl_certificate_file` | Conditionally | String | The path to the TLS certificate file in PEM format. Supports local file paths and Amazon S3 URIs (for example, `s3://my-bucket/certs/cert.pem`). Required when `ssl` is `true`.
-`ssl_key_file` | Conditionally | String | The path to the TLS private key file in PEM format. Supports local file paths and Amazon S3 URIs (for example, `s3://my-bucket/certs/key.pem`). Required when `ssl` is `true`.
+`ssl_certificate_file` | Conditionally | String | The path to the TLS certificate file in PEM format. Supports local file paths and Amazon S3 URIs (for example, `s3://my-bucket/certs/cert.pem`). Required when `ssl` is `true` and `use_acm_certificate_for_ssl` is `false`.
+`ssl_key_file` | Conditionally | String | The path to the TLS private key file in PEM format. Supports local file paths and Amazon S3 URIs (for example, `s3://my-bucket/certs/key.pem`). Required when `ssl` is `true` and `use_acm_certificate_for_ssl` is `false`.
+`use_acm_certificate_for_ssl` | No | Boolean | When `true`, uses AWS Certificate Manager (ACM) for TLS certificates instead of `ssl_certificate_file` and `ssl_key_file`. Default is `false`.
+`acm_certificate_arn` | Conditionally | String | The ACM certificate ARN. Required when `use_acm_certificate_for_ssl` is `true`.
+`aws_region` | Conditionally | String | The AWS Region for ACM or S3 certificate access. Required when `use_acm_certificate_for_ssl` is `true` or when certificate files are in Amazon S3.
 `ssl_insecure_disable_verification` | No | Boolean | When `true`, disables TLS certificate verification for node-to-node shuffle communication. Default is `false`.
 
-When running multiple Data Prepper nodes, each node must be able to reach the other nodes on the configured `server_port`.
+When running multiple Data Prepper nodes, each node must be able to reach the other nodes on the configured `port`.
 
 ## Exposed metadata attributes
 
