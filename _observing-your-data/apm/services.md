@@ -6,29 +6,26 @@ parent: Application Performance Monitoring
 ---
 
 # Services
-**Introduced 3.5**
+**Introduced 3.6**
 {: .label .label-purple }
 
-The Services page provides a centralized catalog of all instrumented services in your application, displaying RED metrics at a glance. Use this page to identify services with high error rates, latency issues, or throughput anomalies.
+The **Services** page provides a centralized catalog of all instrumented services in your application, displaying Rate, Errors, Duration (RED) at a glance. Use this page to identify services with high error rates, latency issues, or throughput anomalies.
 
-## Accessing the services page
+## Accessing the Services page
 
-To access the Services page, navigate to your Observability workspace and select **APM** > **Services** from the left navigation menu.
+To access the **Services** page, navigate to your Observability workspace and select **APM** > **Services** from the left navigation menu. The following image shows the **Services** page.
 
 ![Services home page]({{site.url}}{{site.baseurl}}/images/apm/services-home.png)
 
 The Services home page displays a table of all discovered services with the following information:
 
-| Column | Description |
-| :--- | :--- |
-| **Service name** | The name of the instrumented service as reported by the OpenTelemetry SDK. |
-| **P99/P90/P50 latency** | The percentile response times for the service. |
-| **Total requests** | The total number of requests handled by the service during the selected time range. |
-| **Failure ratio** | The percentage of requests resulting in errors (4xx and 5xx responses). |
-| **Environment** | The deployment environment (for example, `production`, `staging`). |
+- **Service name**: The name of the instrumented service as reported by the OpenTelemetry SDK.
+- **P99/P90/P50 latency**: The 99th, 90th, and 50th percentile response times for the service.
+- **Total requests**: The total number of requests handled by the service during the selected time range.
+- **Failure ratio**: The percentage of requests resulting in errors (`4xx` and `5xx` responses).
+- **Environment**: The deployment environment (for example, `production` or `staging`).
 
-The Services home page also highlights the **top services by fault rate** and **top dependency paths by fault rate**, helping you quickly identify critical issues and problematic service-to-service communication paths.
-{: .note}
+The Services home page also provides information about the **Top services by fault rate** and **Top dependency paths by fault rate**, helping you quickly identify critical issues and problematic service-to-service communication paths.
 
 ## Service overview
 
@@ -38,10 +35,10 @@ Select a service name to open the service detail view. The following image shows
 
 The **Overview** tab displays metric tiles summarizing the service's current health, along with the following time-series charts:
 
-- **Latency by service dependencies**: Shows P50, P90, and P99 latency broken down by downstream dependencies.
-- **Requests by operations**: Shows request volume per operation over time.
-- **Availability by operations**: Shows availability percentage per operation over time.
-- **Fault rate and error rate by operations**: Shows 5xx fault rate and 4xx error rate per operation over time.
+- **Latency by service dependencies**: P50, P90, and P99 latency broken down by downstream dependencies.
+- **Requests by operations**: Request volume per operation over time.
+- **Availability by operations**: Availability percentage per operation over time.
+- **Fault rate and error rate by operations**: `5xx` fault rate and `4xx` error rate per operation over time.
 
 ## Operations
 
@@ -51,15 +48,13 @@ The following image shows the Operations tab.
 
 The **Operations** tab provides a per-operation breakdown of service performance. Each row in the operations table represents a distinct API endpoint or method and displays the following metrics:
 
-| Metric | Description |
-| :--- | :--- |
-| **Operation name** | The name of the API endpoint or method (for example, `GET /api/products`). |
-| **P50 latency** | The median response time. |
-| **P90 latency** | The 90th percentile response time. |
-| **P99 latency** | The 99th percentile response time. |
-| **Total requests** | The total number of requests for this operation during the selected time range. |
-| **Error rate** | The percentage of requests resulting in errors. |
-| **Availability** | The availability percentage for this operation. |
+- **Operation name**: The name of the API endpoint or method (for example, `GET /api/products`).
+- **P50 latency**: The median response time.
+- **P90 latency**: The 90th percentile response time.
+- **P99 latency**: The 99th percentile response time.
+- **Total requests**: The total number of requests for this operation during the selected time range.
+- **Error rate**: The percentage of requests resulting in errors.
+- **Availability**: The availability percentage for this operation.
 
 Use the column headers to sort operations by any metric and identify the slowest or most error-prone endpoints.
 
@@ -71,17 +66,15 @@ The following image shows the Dependencies tab.
 
 The **Dependencies** tab shows the downstream services that the selected service calls. For each dependency, the following information is displayed:
 
-| Column | Description |
-| :--- | :--- |
-| **Dependency service** | The name of the downstream service being called. |
-| **Remote operation** | The specific operation invoked on the downstream service. |
-| **Service operations** | The operations on the current service that call this dependency. |
-| **P99 latency** | The 99th percentile response time for calls to this dependency. |
-| **P90 latency** | The 90th percentile response time for calls to this dependency. |
-| **P50 latency** | The median response time for calls to this dependency. |
-| **Total requests** | The total number of requests to this dependency during the selected time range. |
-| **Error rate** | The percentage of failed calls to this dependency. |
-| **Availability** | The availability percentage for this dependency path. |
+- **Dependency service**: The name of the downstream service being called.
+- **Remote operation**: The specific operation invoked on the downstream service.
+- **Service operations**: The operations on the current service that call this dependency.
+- **P99 latency**: The 99th percentile response time for calls to this dependency.
+- **P90 latency**: The 90th percentile response time for calls to this dependency.
+- **P50 latency**: The median response time for calls to this dependency.
+- **Total requests**: The total number of requests to this dependency during the selected time range.
+- **Error rate**: The percentage of failed calls to this dependency.
+- **Availability**: The availability percentage for this dependency path.
 
 Use this view to determine whether performance issues in a service are caused by its own logic or by a slow or failing downstream dependency.
 
@@ -101,7 +94,7 @@ For more information about configuring correlations between trace and log datase
 
 ## Filtering services
 
-Use the filter controls at the top of the Services page to narrow the list of displayed services:
+Use the filter controls at the top of the **Services** page to narrow the list of displayed services:
 
 - **Environment**: Filter by deployment environment (for example, `production`, `staging`, `development`).
 - **Latency**: Filter services exceeding a latency threshold.

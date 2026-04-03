@@ -1,20 +1,17 @@
 ---
 layout: default
-title: Ingesting application telemetry
+title: Configuring telemetry ingestion
 nav_order: 10
 parent: Application Performance Monitoring
 ---
 
-# Ingesting application telemetry
-**Introduced 3.5**
+# Configuring telemetry ingestion
+**Introduced 3.6**
 {: .label .label-purple }
 
-To use APM, you need to ingest application traces and logs into OpenSearch using the following pipeline:
+To use APM, you need to ingest application traces and logs into OpenSearch using the OpenTelemetry Collector and Data Prepper pipeline. For an overview of the complete APM architecture, see [Architecture]({{site.url}}{{site.baseurl}}/observing-your-data/apm/#architecture).
 
-1. **OpenTelemetry Collector**: Receives telemetry from your instrumented applications and routes it to Data Prepper and Prometheus.
-2. **Data Prepper**: Processes traces and logs, generates service maps and RED metrics, and writes data to OpenSearch and Prometheus.
-3. **OpenSearch**: Stores traces, logs, and service topology data for querying and visualization.
-4. **Prometheus**: Stores time-series RED metrics for service performance monitoring.
+This page covers configuring the OpenTelemetry Collector and Data Prepper to process and route telemetry data to OpenSearch and Prometheus.
 
 ## Configuring the OpenTelemetry Collector
 
@@ -59,7 +56,7 @@ The `otlp/opensearch` exporter sends traces and logs to Data Prepper. The `otlph
 
 ## Configuring Data Prepper pipelines
 
-Data Prepper receives telemetry from the OTel Collector and processes it into the formats required for APM. The pipeline architecture routes data through specialized sub-pipelines for logs, traces, and service map generation.
+Data Prepper receives telemetry data from the OTel Collector and processes it into the formats required for APM. The pipeline architecture routes data through specialized subpipelines for log, trace, and service map generation.
 
 The following example shows a complete Data Prepper pipeline configuration:
 
@@ -152,43 +149,33 @@ service-map-pipeline:
 
 ### Pipeline architecture
 
-The Data Prepper pipeline processes telemetry data through the following stages:
+The Data Prepper pipeline processes telemetry data using the following steps:
 
-1. **Entry pipeline (`otlp-pipeline`)**: Receives all telemetry on port 21893 and routes logs and traces to their respective sub-pipelines.
-2. **Log pipeline (`otel-logs-pipeline`)**: Maps the `time` field to `@timestamp` and writes logs to OpenSearch using the `log-analytics-plain` index type.
-3. **Trace pipeline (`otel-traces-pipeline`)**: Distributes traces to both the raw storage pipeline and the service map pipeline.
-4. **Raw trace pipeline (`traces-raw-pipeline`)**: Processes individual trace spans using the `otel_traces` processor and stores them in OpenSearch using the `trace-analytics-plain-raw` index type.
-5. **Service map pipeline (`service-map-pipeline`)**: Uses the `otel_apm_service_map` processor to generate service dependency maps and RED metrics. Service map topology data is written to OpenSearch, and RED metrics are exported to Prometheus through remote write.
+1. The entry pipeline (`otlp-pipeline`) receives all telemetry on port 21893 and routes logs and traces to their respective subpipelines.
+2. The log pipeline (`otel-logs-pipeline`) maps the `time` field to `@timestamp` and writes logs to OpenSearch using the `log-analytics-plain` index type.
+3. The trace pipeline (`otel-traces-pipeline`) distributes traces to both the raw storage pipeline and the service map pipeline.
+4. The raw trace pipeline (`traces-raw-pipeline`) processes individual trace spans using the `otel_traces` processor and stores them in OpenSearch using the `trace-analytics-plain-raw` index type.
+5. The service map pipeline (`service-map-pipeline`) uses the `otel_apm_service_map` processor to generate service dependency maps and RED metrics. Service map topology data is written to OpenSearch, and RED metrics are exported to Prometheus through remote write.
 
-For more information about the `otel_apm_service_map` processor, see [APM service map processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-apm-service-map/).
+Two key configuration options for the `otel_apm_service_map` processor are `group_by_attributes` (which determines how services can be grouped in the application map) and `window_duration` (which sets the time window for aggregating trace data). For complete configuration details, see [APM service map processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-apm-service-map/).
 {: .note}
-
-### Key configuration options
-
-The following table describes the key options for the `otel_apm_service_map` processor.
-
-| Option | Description |
-| :--- | :--- |
-| `group_by_attributes` | A list of resource attributes used to group services in the application map (for example, `telemetry.sdk.language`). |
-| `window_duration` | The time window for aggregating trace data into service map entries. Default is `60s`. |
 
 ## Verifying ingestion
 
 After configuring the OTel Collector and Data Prepper, verify that data is flowing correctly:
 
-1. **Check OpenSearch indexes**: Verify that the following indexes are created in your OpenSearch cluster:
+1. Verify that the following indexes are created in your OpenSearch cluster:
    - `otel-v1-apm-span-*`: Raw trace spans.
    - `otel-v2-apm-service-map`: Service topology data.
    - `logs-otel-v1-*`: Application logs.
 
-2. **Check Prometheus targets**: Verify that the Data Prepper remote write target is active in your Prometheus instance.
+2. Verify that the Data Prepper remote write target is active in your Prometheus instance.
 
-3. **View the APM dashboard**: Navigate to **Observability** > **APM** in OpenSearch Dashboards to confirm that services appear in the [Services]({{site.url}}{{site.baseurl}}/observing-your-data/apm/services/) catalog and the [Application map]({{site.url}}{{site.baseurl}}/observing-your-data/apm/application-map/).
+3. Navigate to **Observability** > **APM** in OpenSearch Dashboards to confirm that your services appear in the [Services]({{site.url}}{{site.baseurl}}/observing-your-data/apm/services/) catalog and the [Application map]({{site.url}}{{site.baseurl}}/observing-your-data/apm/application-map/).
 
 Ensure that all port mappings are correct between the OTel Collector, Data Prepper, OpenSearch, and Prometheus. Mismatched ports are a common cause of ingestion failures.
 {: .warning}
 
 ## Next steps
 
-- [Services]({{site.url}}{{site.baseurl}}/observing-your-data/apm/services/): View service performance metrics and dependencies.
-- [Application map]({{site.url}}{{site.baseurl}}/observing-your-data/apm/application-map/): Explore the service topology visualization.
+- [Configuring APM in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/observing-your-data/apm/configuring-apm/): Create datasets, index patterns, and configure APM settings to start using APM features.
