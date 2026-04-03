@@ -4,6 +4,8 @@ title: Using Discover for observability
 nav_order: 60
 has_children: true
 has_toc: false
+redirect_from:
+  - /exploring-observability-data/index/
 ---
 
 # Using Discover for observability

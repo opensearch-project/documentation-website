@@ -55,13 +55,13 @@ The following table lists the core OpenTelemetry attributes.
 
 | Attribute | Required | Description |
 | :--- | :--- | :--- |
-| `traceId` | Yes | Unique identifier for the trace. |
-| `spanId` | Yes | Unique identifier for the span. |
-| `parentSpanId` | No | Identifier of the parent span. Empty for root spans. |
-| `startTime` | Yes | Span start timestamp. |
-| `endTime` | Yes | Span end timestamp. |
-| `durationInNanos` | Yes | Span duration in nanoseconds. |
-| `status.code` | Yes | Span status (`OK`, `ERROR`, or `UNSET`). |
+| `traceId` | Yes | A unique identifier for the trace. |
+| `spanId` | Yes | A unique identifier for the span. |
+| `parentSpanId` | No | The identifier of the parent span. Empty for root spans. |
+| `startTime` | Yes | The span start timestamp. |
+| `endTime` | Yes | The span end timestamp. |
+| `durationInNanos` | Yes | The span duration, in nanoseconds. |
+| `status.code` | Yes | The span status code. Valid values are `OK` (success), `ERROR` (failure), or `UNSET` (default status when not explicitly set). |
 
 #### Generative AI attributes
 
@@ -69,16 +69,16 @@ The following table lists the generative AI semantic convention attributes.
 
 | Attribute | Required | Description |
 | :--- | :--- | :--- |
-| `gen_ai.operation.name` | Yes | The operation type (`chat`, `invoke_agent`, `execute_tool`, `create_agent`, `text_completion`, `embeddings`, `retrieval`). Used for span categorization, filtering, and tab queries. |
-| `gen_ai.provider.name` | Yes | The Generative AI provider name (e.g., `openai`, `anthropic`). |
-| `gen_ai.agent.name` | Optional | Human-readable name of the GenAI agent. |
-| `gen_ai.request.model` | Optional | The model name a request is being made to. |
-| `gen_ai.usage.input_tokens` | Optional | Number of input tokens consumed. |
-| `gen_ai.usage.output_tokens` | Optional | Number of output tokens generated. |
-| `gen_ai.input.messages` | Optional | Chat history or prompt provided as model input. |
-| `gen_ai.output.messages` | Optional | Messages or completion returned by the model. |
-| `gen_ai.tool.name` | Optional | Name of the tool utilized by the agent (execute_tool spans). |
-| `gen_ai.tool.call.id` | Optional | The tool call identifier (execute_tool spans). |
+| `gen_ai.operation.name` | Yes | The operation type. Valid values are `chat`, `invoke_agent`, `execute_tool`, `create_agent`, `text_completion`, `embeddings`, or `retrieval`. Used for span categorization, filtering, and tab queries. |
+| `gen_ai.provider.name` | Yes | The generative AI provider name (for example, `openai`, `anthropic`). |
+| `gen_ai.agent.name` | Optional | A human-readable name of the GenAI agent. |
+| `gen_ai.request.model` | Optional | The model name to which the request is sent. |
+| `gen_ai.usage.input_tokens` | Optional | The number of input tokens consumed. |
+| `gen_ai.usage.output_tokens` | Optional | The number of output tokens generated. |
+| `gen_ai.input.messages` | Optional | The chat history or prompt provided as model input. |
+| `gen_ai.output.messages` | Optional | The messages or completion returned by the model. |
+| `gen_ai.tool.name` | Optional | The name of the tool used by the agent. Only applicable to `execute_tool` operation spans. |
+| `gen_ai.tool.call.id` | Optional | The tool call identifier. Only applicable to `execute_tool` operation spans. |
 
 ## Data pipeline
 
