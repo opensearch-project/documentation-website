@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Trace analytics
-nav_order: 70
+nav_order: 40
 has_children: true
 has_toc: false
 redirect_from:

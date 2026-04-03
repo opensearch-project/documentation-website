@@ -2,7 +2,7 @@
 layout: default
 title: Correlations
 nav_order: 60
-parent: Exploring observability data
+parent: Using Discover for observability
 redirect_from:
   - /observability-plugin/correlations/
 ---

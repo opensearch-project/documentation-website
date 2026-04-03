@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Discover metrics
+title: Analyzing metrics in Discover
 nav_order: 50
-parent: Exploring observability data
+parent: Using Discover for observability
 ---
 
-# Discover metrics
+# Analyzing metrics in Discover
 **Introduced 3.5**
 {: .label .label-purple }
 
