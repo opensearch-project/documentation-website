@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Exploring observability data
-nav_order: 40
+title: Using Discover for observability
+nav_order: 60
 has_children: true
 has_toc: false
 ---
 
-# Exploring observability data
+# Using Discover for observability
 **Introduced 3.5**
 {: .label .label-purple }
 

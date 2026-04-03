@@ -1,26 +1,28 @@
 ---
 layout: default
-title: Instrument
+title: Instrumenting your application
 parent: Agent traces
 nav_order: 10
 ---
 
-# Instrument your application
+# Instrumenting your application
 **Introduced 3.6**
 {: .label .label-purple }
 
-The `opensearch-genai-observability-sdk-py` package instruments Python AI agents using [OpenTelemetry](https://opentelemetry.io/). The SDK provides decorators, enrichment functions, and auto-instrumentation for popular LLM providers and agent frameworks.
+The `opensearch-genai-observability-sdk-py` package instruments Python AI agents using [OpenTelemetry](https://opentelemetry.io/). The SDK provides two instrumentation approaches:
+
+- **Auto-instrumentation**: Automatically captures LLM calls from supported providers (OpenAI, Anthropic, Amazon Bedrock, LangChain, LlamaIndex) without code changes.
+- **Manual instrumentation**: Use the `@observe` decorator to trace custom agent logic, tool calls, and orchestration code.
+
+For most applications, combine both approaches: enable auto-instrumentation for LLM calls and use `@observe` for application-specific operations.
 
 ## Prerequisites
 
-Before you begin, ensure you have the following:
+Before you start, ensure that you have the following:
 
-- Python 3.10 or later
-- An OpenSearch cluster with [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/index/) configured for trace ingestion
-- An [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) (optional, for normalizing spans)
-
-TypeScript SDK support is forthcoming.
-{: .note}
+- Python 3.10 or later.
+- An OpenSearch cluster with [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/index/) configured for trace ingestion.
+- An [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) to normalize spans using generative AI semantic conventions.
 
 ## Installation
 
@@ -31,16 +33,23 @@ pip install opensearch-genai-observability-sdk-py
 ```
 {% include copy.html %}
 
-To enable auto-instrumentation for specific providers, install the corresponding extras:
+To enable auto-instrumentation for specific providers, install the corresponding optional dependencies. For example, to instrument OpenAI and LangChain:
 
 ```bash
-pip install opensearch-genai-observability-sdk-py[openai]
-pip install opensearch-genai-observability-sdk-py[anthropic]
-pip install opensearch-genai-observability-sdk-py[bedrock]
-pip install opensearch-genai-observability-sdk-py[langchain]
-pip install opensearch-genai-observability-sdk-py[llamaindex]
+pip install opensearch-genai-observability-sdk-py[openai,langchain]
 ```
 {% include copy.html %}
+
+The following providers support auto-instrumentation:
+
+| Provider | Package name |
+| :--- | :--- |
+| OpenAI | `openai` |
+| Anthropic | `anthropic` |
+| Amazon Bedrock | `bedrock` |
+| Google | `google` |
+| LangChain | `langchain` |
+| LlamaIndex | `llamaindex` |
 
 ## Core API
 
@@ -64,7 +73,7 @@ The following table describes the `register()` parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `endpoint` | String | The OTLP endpoint URL. Default is `http://localhost:4318` for the OpenTelemetry Collector. |
+| `endpoint` | String | The OpenTelemetry Protocol (OTLP) endpoint URL. Default is `http://localhost:4318` for the OpenTelemetry Collector. |
 | `service_name` | String | An identifier for your application in trace data. |
 | `protocol` | String | The transport protocol. Valid values are `http` and `grpc`. |
 | `auto_instrument` | Boolean | When `true`, automatically discovers and enables installed provider instrumentors. Default is `false`. |
@@ -125,7 +134,7 @@ score(
 
 ## Operation types
 
-The `Op` class provides standardized operation names that map to [GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/):
+The `Op` class provides standardized operation names that map to [GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/). These operation types determine how spans are categorized and displayed in the **Agent Traces** page.
 
 | Operation | Constant | Description |
 | :--- | :--- | :--- |
@@ -137,51 +146,32 @@ The `Op` class provides standardized operation names that map to [GenAI semantic
 | Embeddings | `Op.EMBEDDINGS` | Embedding generation request. |
 | Text completion | `Op.TEXT_COMPLETION` | Text completion request. |
 
-## Auto-instrumentation
-
-When you install provider-specific extras, the SDK can automatically instrument LLM calls without requiring code changes. Enable auto-instrumentation by setting `auto_instrument=True` in the `register()` call.
-
-The following providers support auto-instrumentation:
-
-| Provider | Install command |
-| :--- | :--- |
-| OpenAI | `pip install opensearch-genai-observability-sdk-py[openai]` |
-| Anthropic | `pip install opensearch-genai-observability-sdk-py[anthropic]` |
-| Amazon Bedrock | `pip install opensearch-genai-observability-sdk-py[bedrock]` |
-| Google | `pip install opensearch-genai-observability-sdk-py[google]` |
-| LangChain | `pip install opensearch-genai-observability-sdk-py[langchain]` |
-| LlamaIndex | `pip install opensearch-genai-observability-sdk-py[llamaindex]` |
-
 ## Framework integrations
 
-The SDK integrates with popular agent frameworks. For each framework, decorate your entry points with `@observe` and use auto-instrumentation to capture internal LLM calls.
+The SDK integrates with popular agent frameworks. The general pattern is to combine auto-instrumentation (for LLM calls) with manual `@observe` decorators (for agent-specific logic).
 
 ### Strands Agents
 
-Strands supports both manual decoration with `@observe` and native OpenTelemetry through `StrandsTelemetry`, which automatically emits spans for agent invocations, tool executions, and LLM interactions.
+Strands supports both approaches:
+- **Native OpenTelemetry**: Use `StrandsTelemetry` to automatically emit spans for agent invocations, tool executions, and LLM interactions.
+- **Manual decoration**: Use `@observe` on custom functions for additional instrumentation.
 
 ### LangGraph
 
-Wrap individual nodes (such as model calls and fact-checking steps) and the orchestration layer using the `@observe` decorator.
+Wrap LangGraph nodes and the orchestration layer with `@observe`. Enable auto-instrumentation to capture model calls within nodes automatically.
 
 ### CrewAI
 
-Use `@observe` at the crew execution level, with auto-instrumentation available through the extras package for internal LLM call capture.
+Use `@observe` to wrap crew execution functions. Install the appropriate provider package (for example, `[openai]`) to automatically capture LLM calls made by crew members.
 
 ### OpenAI Agents SDK
 
-Use the auto-instrumentor for comprehensive LLM coverage, supplemented by `@observe` for top-level coordination logic.
+Enable auto-instrumentation for comprehensive LLM coverage. Supplement with `@observe` for top-level coordination logic and custom operations.
 
 ### Amazon Bedrock
 
-For `converse` or `invoke_model` calls, the Bedrock auto-instrumentor captures interactions when installed.
+Install `[bedrock]` to automatically capture `converse` and `invoke_model` calls. Use `@observe` for agent orchestration and custom tool implementations.
 
-## Data pipeline
+## Next steps
 
-The following flow describes how trace data moves from your application to OpenSearch:
-
-1. Your instrumented application exports OTLP data over gRPC or HTTP.
-2. The OpenTelemetry Collector normalizes spans using GenAI semantic conventions.
-3. Data Prepper ingests the spans into OpenSearch using the `otel_trace_raw` processor.
-4. OpenSearch stores trace data in `otel-v1-apm-span-*` indexes.
-5. OpenSearch Dashboards renders the traces in the [Agent tracing]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/agent-tracing/) interface.
+After instrumenting your application, configure OpenSearch Dashboards to view your traces. See [Viewing agent traces]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/agent-tracing/) for configuration and visualization options.
