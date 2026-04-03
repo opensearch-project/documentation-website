@@ -70,15 +70,16 @@ The following table lists the generative AI semantic convention attributes.
 
 | Attribute | Required | Description |
 | :--- | :--- | :--- |
-| `gen_ai.operation.name` | Yes | The operation type (for example, `chat`, `invoke_agent`, or `execute_tool`). |
-| `gen_ai.request.model` | No | The model name used for the request. |
-| `gen_ai.system` | No | The AI provider name (for example, `openai` or `anthropic`). |
-| `gen_ai.usage.input_tokens` | No | Number of input tokens consumed. |
-| `gen_ai.usage.output_tokens` | No | Number of output tokens generated. |
-| `gen_ai.prompt` | No | The user input or prompt text. |
-| `gen_ai.completion` | No | The model response text. |
-| `gen_ai.agent.name` | No | The name of the agent. |
-| `gen_ai.tool.name` | No | The tool or function name. |
+| `gen_ai.operation.name` | Yes | The operation type (`chat`, `invoke_agent`, `execute_tool`, `create_agent`, `text_completion`, `embeddings`, `retrieval`). Used for span categorization, filtering, and tab queries. |
+| `gen_ai.provider.name` | Yes | The Generative AI provider name (e.g., `openai`, `anthropic`). |
+| `gen_ai.agent.name` | Optional | Human-readable name of the GenAI agent. |
+| `gen_ai.request.model` | Optional | The model name a request is being made to. |
+| `gen_ai.usage.input_tokens` | Optional | Number of input tokens consumed. |
+| `gen_ai.usage.output_tokens` | Optional | Number of output tokens generated. |
+| `gen_ai.input.messages` | Optional | Chat history or prompt provided as model input. |
+| `gen_ai.output.messages` | Optional | Messages or completion returned by the model. |
+| `gen_ai.tool.name` | Optional | Name of the tool utilized by the agent (execute_tool spans). |
+| `gen_ai.tool.call.id` | Optional | The tool call identifier (execute_tool spans). |
 
 ## Data pipeline
 
