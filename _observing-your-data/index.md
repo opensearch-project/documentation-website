@@ -41,9 +41,9 @@ OpenSearch provides the following tools for exploring and analyzing observabilit
 
 ## Monitoring applications
 
-For specialized application monitoring, OpenSearch provides two focused solutions: Application Performance Monitoring (APM) for traditional microservices and Agent Traces for AI/LLM applications.
+For specialized application monitoring, OpenSearch provides two focused solutions: Application Performance Monitoring (APM) for traditional microservices and agent traces for AI/LLM applications.
 
-|  | APM | Agent Traces |
+|  | APM | Agent traces |
 |---------|-----|--------------|
 | **Purpose** | Monitor microservices and web applications | Monitor AI agents and large language models (LLMs) |
 | **Metrics** | RED metrics (Rate, Errors, Duration) | Token usage, model calls, agent steps |
@@ -61,16 +61,16 @@ APM monitors distributed applications using service topology, RED metrics, and p
 - Prometheus for metrics storage.
 - Applications instrumented using OpenTelemetry.
 
-### Agent Traces
+### Agent traces
 
-[Agent Traces]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/) observe generative AI applications and LLM agents using specialized tracing for AI workloads. Agent Traces require the following components:
+[Agent traces]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/) observe generative AI applications and LLM agents using specialized tracing for AI workloads. Agent traces require the following components:
 
 - An OpenSearch cluster with [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/).
 - [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) for trace processing.
 - Applications instrumented with OpenTelemetry generative AI semantic conventions.
 
 <span class="centering-container">
-[Get started with Agent Traces]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/){: .btn-dark-blue}
+[Get started with agent traces]({{site.url}}{{site.baseurl}}/observing-your-data/agent-traces/){: .btn-dark-blue}
 </span>
 
 ---
@@ -109,7 +109,7 @@ OpenSearch provides tools for detecting issues and sending notifications:
 
 The OpenSearch Observability Stack provides a complete, preconfigured observability platform that you can run locally using Docker Compose. The Observability Stack includes:
 
-- All APM and Agent Traces capabilities.
+- All APM and agent trace capabilities.
 - A GenAI SDK for Python or TypeScript instrumentation.
 - An Agent Health tool for local debugging and evaluation.
 - A Docker Compose setup with example applications.
