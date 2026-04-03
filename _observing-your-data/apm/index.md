@@ -4,6 +4,8 @@ title: Application Performance Monitoring
 nav_order: 45
 has_children: true
 has_toc: false
+redirect_from:
+   - /observing-your-data/apm/
 ---
 
 # Application performance monitoring
