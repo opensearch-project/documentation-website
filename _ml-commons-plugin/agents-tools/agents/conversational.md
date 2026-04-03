@@ -50,13 +50,14 @@ Before registering a `conversational_v2` agent, create a memory container using 
 ```json
 POST /_plugins/_ml/memory_containers/_create
 {
-  "name": "my-agent-memory",
-  "configuration": {}
+  "name": "my-agent-memory"
 }
 ```
 {% include copy-curl.html %}
 
-The response returns a `memory_container_id` that you'll use when registering the agent:
+This creates a memory container with default settings. Depending on your use case, you may want to configure additional options such as `disable_session`, `embedding_model_id`, or memory strategies. For all available options, see [Create Memory Container API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/create-memory-container/).
+
+The response returns a `memory_container_id` that you use when registering the agent:
 
 ```json
 {
