@@ -11,7 +11,7 @@ has_toc: false
 Introduced 3.6
 {: .label .label-purple }
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/20602).
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/20602) discussing the OpenSearch Agent Server which is the home of the Relevance Agent.
 {: .warning}
 
 The OpenSearch Relevance Agent enables you to identify relevance issues interactively, receive step-by-step guidance on tuning strategies, and execute complex workflows using natural language through a chat-based interface embedded in OpenSearch Dashboards. It leverages the suite of tools the [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/) provides.
@@ -20,7 +20,7 @@ The agent is part of the [OpenSearch Agent Server](https://github.com/opensearch
 
 ## How it works
 
-When you submit a message through the chat interface, a **router** analyzes the context and directs the request to the Relevance Agent when relevant. The Relevance Agent is itself a multi-agent system: an internal orchestrator interprets your intent and delegates work to specialized sub-agents, each responsible for a specific part of the relevance tuning process. The orchestrator synthesizes the results and streams them back to you in real time.
+When you submit a message through the chat interface, a **router** analyzes the context and directs the request to the Relevance Agent when relevant. Contexts that direct requests to the Relevance Agent are Search Relevance Workbench pages as well as the search workspace homepage. The Relevance Agent is itself a multi-agent system: an internal orchestrator interprets your intent and delegates work to specialized sub-agents, each responsible for a specific part of the relevance tuning process. The orchestrator synthesizes the results and streams them back to you in real time.
 
 ## Specialized agents
 
@@ -47,11 +47,9 @@ Before using the Relevance Agent, ensure that the following components are set u
 - **LLM provider**: An LLM must be configured for the agent server. [AWS Bedrock](https://aws.amazon.com/bedrock/) is currently supported as the model provider.
 - **User Behavior Insights (optional)**: For behavior-driven analysis and judgment generation from click data, [UBI]({{site.url}}{{site.baseurl}}/search-plugins/ubi/) must be enabled and collecting events on your cluster.
 
-The agent server requires Python 3.12 or later.
-
 ## Accessing the agent
 
-Once the agent server is running and Dashboards is configured, you can access the Relevance Agent through the chat icon in the OpenSearch Dashboards header. The agent responds in real time using server-sent events (SSE) and may ask for your confirmation before executing experiment steps.
+Once the agent server is running and Dashboards is configured, you can access the Relevance Agent through the chat icon in the OpenSearch Dashboards header. The agent responds in real time and may ask for your confirmation before executing experiment steps.
 
 ## Next steps
 
