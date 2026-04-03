@@ -9,7 +9,7 @@ parent: Application Performance Monitoring
 **Introduced 3.6**
 {: .label .label-purple }
 
-To use APM, you need to ingest application traces and logs into OpenSearch using the OpenTelemetry Collector and Data Prepper pipeline. For an overview of the complete APM architecture, see [Architecture]({{site.url}}{{site.baseurl}}/observing-your-data/apm/#architecture).
+To use APM, you need to ingest application traces and logs into OpenSearch using the OpenTelemetry Collector and Data Prepper pipeline. For an overview of the complete APM architecture, see [APM architecture]({{site.url}}{{site.baseurl}}/observing-your-data/apm/#apm-architecture).
 
 This page covers configuring the OpenTelemetry Collector and Data Prepper to process and route telemetry data to OpenSearch and Prometheus.
 
