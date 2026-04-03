@@ -6,6 +6,8 @@ grand_parent: Optimizing vector storage
 nav_order: 20
 has_children: false
 has_math: true
+redirect_from:
+  - /vector-search/optimizing-storage/faiss-16-bit-quantization/
 ---
 
 # Faiss scalar quantization
@@ -70,7 +72,7 @@ Parameter name | Required | Default | Description
 `type` | No | `fp16` | The type of scalar quantization to be used. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. Supported for 16-bit quantization only.
 `clip` | No | `false` | If `true`, any vector values outside of the supported range are rounded so that they are within the range. If `false`, the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall. Supported for 16-bit quantization only.
 
-The `type` and `clip` parameters are not supported for 1-bit quantization. If you set `bits` to `1` and specify `type` or `clip`, the request is rejected.
+The `type` and `clip` parameters are supported only for 16-bit quantization. If you set `bits` to any other value and specify `type` or `clip`, the request is rejected.
 {: .warning}
 
 There are no changes to ingestion or query mapping and no range limitations for the input vectors.
@@ -84,7 +86,7 @@ Starting with version 3.6, you can use 1-bit scalar quantization to significantl
 Faiss 1-bit scalar quantization requires [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/), which is enabled by default and cannot be disabled.
 {: .important}
 
-The 1-bit quantizer does not support the `type` or `clip` parameters. Do not specify these parameters when using 1-bit quantization.
+The `type` and `clip` parameters are only supported for 16-bit quantization. If you set `bits` to any other value and specify `type` or `clip`, the request is rejected.
 {: .warning}
 
 The following example creates an index with 1-bit Faiss scalar quantization:
@@ -204,7 +206,7 @@ GET test-index/_search
 ```
 {% include copy-curl.html %}
 
-# Memory estimation
+## Memory estimation
 
 In the best-case scenario, 16-bit vectors produced by the Faiss SQfp16 quantizer require 50% of the memory that 32-bit vectors require.
 

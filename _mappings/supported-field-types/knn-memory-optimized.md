@@ -58,7 +58,7 @@ The `compression_level` mapping parameter selects a quantization encoder that re
 | `4x`              | `lucene`                                     |
 | `8x`              | `faiss`                                      |
 | `16x`             | `faiss`                                      |
-| `32x`             | `faiss`, and `lucene`                        |
+| `32x`             | `faiss` and `lucene`                         |
 
 For example, if a `compression_level` of `32x` is passed for a `float32` index of 768-dimensional vectors, the per-vector memory is reduced from `4 * 768 = 3072` bytes to `3072 / 32 = 846` bytes. Internally, binary quantization (which maps a `float` to a `bit`) may be used to achieve this compression.
 

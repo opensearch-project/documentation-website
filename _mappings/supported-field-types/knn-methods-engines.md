@@ -122,7 +122,7 @@ An index created in OpenSearch version 2.11 or earlier will still use the previo
 
 #### Flat parameters
 
-The Flat method does not support any parameters.
+The `flat` method does not support any parameters.
 
 For more information, see [Lucene scalar quantization with flat]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/scalar-quantization-flat/).
 
@@ -210,9 +210,9 @@ The `sq` encoder supports the following parameters.
 
 Parameter name | Required | Default | Updatable | Description
 :--- |:---------|:--------| :--- | :---
-`type` | No       | `fp16`  | No |  The type of scalar quantization to be used to encode 32-bit float vectors into the corresponding type. As of OpenSearch 2.13, only the `fp16` encoder type is supported. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. 
-`clip` | No       | `false` | No | If `true`, then any vector values outside of the supported range for the specified vector type are rounded so that they are within the range. If `false`, then the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
-`bits` | Yes      | `1`     | No | The number of bits used to quantize each 32-bit floating-point vector value. Required starting from OpenSearch 3.6.
+`type` | No       | `fp16`  | No |  The type of scalar quantization to be used to encode 32-bit float vectors into the corresponding type. Supported only for 16-bit quantization. Currently, only the `fp16` encoder type is supported. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. 
+`clip` | No       | `false` | No | Supported only for 16-bit quantization. If `true`, any vector values outside of the supported range for the specified vector type are rounded so that they are within the range. If `false`, the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall.
+`bits` | Yes      | `1`     | No | The number of bits used to quantize each 32-bit floating-point vector dimension. Valid values are `1` and `16`. Required starting from OpenSearch 3.6.
 
 For more information and examples, see [Using Faiss scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/).
 
@@ -312,6 +312,25 @@ The following example demonstrates configuring the `ivf` method with an `sq` enc
       }
     },
     "nprobes": 2
+  }
+}
+```
+
+The following example demonstrates configuring the `hnsw` method with an `sq` encoder using 1-bit quantization:
+
+```json
+"method": {
+  "name":"hnsw",
+  "engine":"faiss",
+  "parameters":{
+    "encoder": {
+      "name": "sq",
+      "parameters": {
+        "bits": 1
+      }
+    },
+    "ef_construction": 512,
+    "m": 16
   }
 }
 ```

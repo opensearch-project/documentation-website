@@ -66,7 +66,7 @@ Parameter name | Required | Default | Description
 `bits` | Yes (starting with version 3.6) | 1 | The number of bits used to quantize each vector dimension. Valid values are `1` (default, starting with version 3.6) and `7`.
 `confidence_interval` | No | Computed based on vector dimension | The quantile interval used to compute the minimum and maximum values for quantization. Supported for 7-bit quantization only. For more information, see [Confidence interval](#confidence-interval).
 
-The `confidence_interval` parameter is not supported for 1-bit quantization. If you set `bits` to `1` and specify a `confidence_interval`, the request is rejected.
+The `confidence_interval` parameter is only supported for 7-bit quantization. If you set `bits` to any other value and specify a `confidence_interval`, the request is rejected.
 {: .warning}
 
 There are no changes to ingestion or query mapping and no range limitations for the input vectors.
@@ -167,7 +167,7 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-# Memory estimation
+## Memory estimation
 
 In the ideal scenario, 7-bit vectors created by the Lucene scalar quantizer use only 25% of the memory required by 32-bit vectors. For 1-bit vectors, the memory footprint is approximately 3.125% of the original 32-bit vectors (a reduction factor of 32).
 
