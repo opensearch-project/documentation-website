@@ -18,7 +18,7 @@ OpenSearch provides two types of conversational agents:
 
 - **[The `conversational_v2` agent](#the-conversational_v2-agent-with-full-multimodal-support)** (OpenSearch 3.6 and later, experimental): An enhanced agent with built-in multimodal support through a standardized interface. Requires the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) and [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/).
 
-- **[The `conversational` agent](#the-conversational-agent)** (OpenSearch 2.13 and later): Supports both the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) (plain text input only) and the [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#regular-registration-method) (connector-dependent capabilities). Supports both `conversation_index` and `agentic_memory` memory types.
+- **[The `conversational` agent (v1)](#the-conversational-agent-v1)** (OpenSearch 2.13 and later): Supports both the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method) (plain text input only) and the [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#regular-registration-method) (connector-dependent capabilities). Supports both `conversation_index` and `agentic_memory` memory types.
 
 ## The `conversational_v2` agent with full multimodal support
 **Introduced 3.6**
@@ -194,18 +194,7 @@ The `conversational_v2` agent returns a standardized response format:
 }
 ```
 
-The following table describes the `conversational_v2` response fields.
-
-| Field | Data type | Description |
-| :--- | :--- | :--- |
-| `stop_reason` | String | The reason the agent stopped generating a response. Valid values are `end_turn` (normal completion), `max_iterations` (iteration limit reached), and `tool_use` (stopped while invoking a tool). |
-| `message` | Object | The assistant's final response message. |
-| `message.role` | String | Only `assistant` role is supported. |
-| `message.content` | Array | An array of content blocks containing the response text or other content. |
-| `memory_id` | String | The memory session ID. Include this ID in subsequent requests in the `parameters.memory_id` field to continue the conversation. |
-| `metrics.total_usage.inputTokens` | Integer | The number of input tokens consumed. |
-| `metrics.total_usage.outputTokens` | Integer | The number of output tokens generated. |
-| `metrics.total_usage.totalTokens` | Integer | The total number of tokens used. |
+For the `conversational_v2` agent response fields, see [The `conversational_v2` agent response format]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#the-conversational_v2-agent-response-format).
 
 ### Limitations
 
@@ -215,19 +204,59 @@ The following limitations apply to the `conversational_v2` agent:
 - **Streaming**: Streaming responses are not supported.
 - **Hooks and context management**: Agent execution hooks and context management are not supported.
 
-## The `conversational` agent
+## The `conversational` agent (v1)
 
-A `conversational` agent stores a conversation in an index, in the following example, the `conversation_index`. A `conversational` agent can be configured with a large language model (LLM) and a set of supplementary tools that perform specific jobs. For example, you can set up an LLM and a `ListIndexTool` when configuring an agent. When you send a question to the model, the agent also includes the `ListIndexTool` as context. The LLM then decides whether it needs to use the `ListIndexTool` to answer questions like "How many indexes are in my cluster?" The context allows an LLM to answer specific questions that are outside of its knowledge base. For example, the following agent is configured with an LLM and a `ListIndexTool` that retrieves information about your OpenSearch indexes:
+The `conversational` agent supports two registration methods, each with different capabilities:
 
-When using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), `conversational` agents accept only plain text input, regardless of whether `conversation_index` or `agentic_memory` is used as the memory type. For full multimodal support through the unified interface, use the [`conversational_v2` agent](#the-conversational_v2-agent-with-full-multimodal-support). When using the [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#regular-registration-method), multimodal support is possible if you configure the connector to pass multimodal content to the LLM — the input format is determined by your connector configuration rather than a standardized interface.
+- **[Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method)**: Accepts only plain text input. Uses the `model` field for LLM configuration.
+- **[Regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#regular-registration-method)**: Input capabilities depend on connector configuration. Uses the `llm` field for LLM configuration. Multimodal input is supported if you configure the connector to pass multimodal content to the LLM.
+
+For full multimodal support through a standardized interface, use the [`conversational_v2` agent](#the-conversational_v2-agent-with-full-multimodal-support).
 {: .note}
+
+A `conversational` agent can be configured with a large language model (LLM) and a set of supplementary tools that perform specific jobs. For example, you can set up an LLM and a `ListIndexTool`. When you send a question to the model, the agent includes the `ListIndexTool` as context. The LLM then decides whether it needs to use the tool to answer questions like "How many indexes are in my cluster?" This allows the LLM to answer questions outside of its knowledge base.
+
+### Using the unified registration method
+
+The following example registers a `conversational` agent using the unified registration method:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "My Conversational Agent",
+  "type": "conversational",
+  "description": "A conversational agent using unified registration",
+  "model": {
+    "model_id": "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
+    "model_provider": "bedrock/converse",
+    "credential": {
+      "access_key": "<YOUR_AWS_ACCESS_KEY>",
+      "secret_key": "<YOUR_AWS_SECRET_KEY>",
+      "session_token": "<YOUR_SESSION_TOKEN>"
+    }
+  },
+  "memory": {
+    "type": "conversation_index"
+  },
+  "tools": [
+    {
+      "type": "ListIndexTool"
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+### Using the regular registration method
+
+The following example registers a `conversational` agent using the regular registration method:
 
 ```json
 POST /_plugins/_ml/agents/_register
 {
   "name": "Test_Agent_For_ReAct_ClaudeV2",
   "type": "conversational",
-  "description": "this is a test agent",
+  "description": "This is a test agent",
   "llm": {
     "model_id": "YOUR_LLM_MODEL_ID",
     "parameters": {
@@ -243,7 +272,7 @@ POST /_plugins/_ml/agents/_register
     {
       "type": "VectorDBTool",
       "name": "VectorDBTool",
-      "description": "A tool to search opensearch index with natural language question. If you don't know answer for some question, you should always try to search data with this tool. Action Input: <natural language question>",
+      "description": "A tool to search OpenSearch index with natural language question. If you don't know answer for some question, you should always try to search data with this tool. Action Input: <natural language question>",
       "parameters": {
         "model_id": "YOUR_TEXT_EMBEDDING_MODEL_ID",
         "index": "my_test_data",
@@ -262,11 +291,6 @@ POST /_plugins/_ml/agents/_register
 }
 ```
 {% include copy-curl.html %}
-
-For more information about the Register Agent API request fields, see [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#request-body-fields).
-
-For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents-tools-tutorial/).
-
 
 ## Next steps
 

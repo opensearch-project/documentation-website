@@ -128,7 +128,7 @@ POST /_plugins/_ml/agents/<agent_id>/_execute
 
 ### Multimodal content blocks
 
-When using the unified registration method, multimodal content block and message-based inputs require a `conversational_v2` agent. All other unified agent types accept only plain text input. When using the [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#regular-registration-method), multimodal support is possible if the connector is configured to pass multimodal content to the LLM, with the input format determined by the connector configuration.
+When using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), multimodal content block and message-based inputs require a `conversational_v2` agent. All other unified agent types accept only plain text input. When using the [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#regular-registration-method), multimodal support is possible if the connector is configured to pass multimodal content to the LLM, with the input format determined by the connector configuration.
 {: .note}
 
 For multimodal inputs (text, images, documents), use an array of content blocks:
@@ -160,10 +160,10 @@ The following table lists the supported content types.
 
 | Content type | Description | Fields |
 | :--- | :--- | :--- |
-| `text` | Plain text content | `text`: The text string |
-| `image` | Image data | `image.type`: The source type. Valid values: `base64` <br>`image.format`: The image format (for example, `jpeg`, `png`, `gif`, `webp`)<br>`image.data`: Base64-encoded image data |
-| `video` | Video data | `video.type`: The source type. Valid values: `base64` <br>`video.format`: The video format (for example, `mp4`, `mov`, `avi`)<br>`video.data`: Base64-encoded video data |
-| `document` | Document data | `document.type`: The source type. Valid values: `base64` <br>`document.format`: The document format (for example, `pdf`, `docx`, `txt`)<br>`document.data`: Base64-encoded document data |
+| `text` | Plain text content | `text`: The text string.|
+| `image` | Image data | `image.type`: The source type. Valid value is `base64`. <br>`image.format`: The image format (for example, `jpeg`, `png`, `gif`, or `webp`).<br>`image.data`: Base64-encoded image data. |
+| `video` | Video data | `video.type`: The source type. Valid value is `base64`. <br>`video.format`: The video format (for example, `mp4`, `mov`, or `avi`).<br>`video.data`: Base64-encoded video data. |
+| `document` | Document data | `document.type`: The source type. Valid value is `base64`. <br>`document.format`: The document format (for example, `pdf`, `docx`, or `txt`).<br>`document.data`: Base64-encoded document data. |
 
 ### Message-based conversations
 
@@ -205,7 +205,7 @@ POST /_plugins/_ml/agents/<agent_id>/_execute
 ```
 {% include copy-curl.html %}
 
-These messages are stored into the agent's memory. 
+These messages are stored in the agent's memory. 
 
 #### Message fields
 
@@ -243,9 +243,9 @@ The agent remembers context from previous messages:
 }
 ```
 
-### Conversational agent V2 response format
+### The `conversational_v2` agent response format
 
-`conversational_v2` agents return a standardized response format that includes the stop reason, the assistant's response message, the memory session ID, and token usage metrics:
+The `conversational_v2` agents return the following standardized response format:
 
 ```json
 {
@@ -280,15 +280,15 @@ The agent remembers context from previous messages:
 }
 ```
 
-The following table describes the V2 response fields.
+The following table lists the `conversational_v2` agent response fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `stop_reason` | String | The reason the agent stopped. Valid values: `end_turn` (normal completion), `max_iterations` (iteration limit reached), `tool_use` (stopped while invoking a tool). |
+| `stop_reason` | String | The reason the agent stopped generating a response. Valid values are `end_turn` (normal completion), `max_iterations` (iteration limit reached), and `tool_use` (stopped while invoking a tool). |
 | `message` | Object | The assistant's final response message. |
 | `message.role` | String | Always `assistant`. |
 | `message.content` | Array | An array of content blocks containing the response text or other content. |
-| `memory_id` | String | The memory session ID. Include this in subsequent requests using `parameters.memory_id` to continue the conversation. |
+| `memory_id` | String | The memory session ID. Include this ID in subsequent requests in the `parameters.memory_id` field to continue the conversation. |
 | `metrics.total_usage.inputTokens` | Integer | The number of input tokens consumed. |
 | `metrics.total_usage.outputTokens` | Integer | The number of output tokens generated. |
 | `metrics.total_usage.totalTokens` | Integer | The total number of tokens used. |
