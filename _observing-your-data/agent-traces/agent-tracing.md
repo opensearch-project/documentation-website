@@ -36,15 +36,14 @@ In agent tracing, a **trace** represents a complete execution flow (such as a si
 
 Agent traces classifies spans into categories based on the `gen_ai.operation.name` attribute. Each category has a distinct color and icon in the **Agent Traces** page.
 
-| Category | Color | Operation names | Description |
-| :--- | :--- | :--- | :--- |
-| Agent | Blue | `invoke_agent`, `create_agent` | Agent invocations and initialization. |
-| LLM | Orange | `chat` | LLM chat completion requests. |
-| Content | Teal | `text_completion`, `generate_content` | Text and content generation. |
-| Tool | Purple | `execute_tool` | Tool and function calls. |
-| Embeddings | Green | `embeddings` | Embedding generation requests. |
-| Retrieval | Red | `retrieval` | Document or data retrieval operations. |
-| Other | Gray | Unmapped operations | Operations not matching a known category. |
+| Category | Operation names | Description |
+| :--- | :--- | :--- |
+| Agent | `invoke_agent`, `create_agent` | Agent invocations and initialization. |
+| LLM | `chat`, `text_completion`, `generate_content` | LLM chat completion, text completion, and content generation requests. |
+| Tool | `execute_tool` | Tool and function calls. |
+| Embeddings | `embeddings` | Embedding generation requests. |
+| Retrieval | `retrieval` | Document or data retrieval operations. |
+| Other | Unmapped operations | Operations not matching a known category. |
 
 ### Span attributes
 
@@ -97,30 +96,9 @@ To access agent traces in OpenSearch Dashboards, choose **Observability** from t
 
 The **Agent Traces** page includes the following components.
 
-### Metrics bar
-
-The metrics bar at the top of the page displays summary statistics for the current time range:
-
-- **Total Traces** -- The number of root-level traces.
-- **Total Spans** -- The total number of spans across all traces.
-- **Total Tokens** -- The combined input and output token count.
-- **Latency P50** -- The median trace duration.
-- **Latency P99** -- The 99th percentile trace duration.
-
 ### Traces tab
 
-The Traces tab displays root-level traces in a paginated table. The table includes the following columns:
-
-- **Time** -- The trace start timestamp.
-- **Kind** -- The span category badge.
-- **Name** -- The operation name.
-- **Status** -- The span status (`OK` or `ERROR`).
-- **Latency** -- The total trace duration.
-- **Tokens** -- The combined token count.
-- **Input** -- A truncated preview of the user prompt.
-- **Output** -- A truncated preview of the model response.
-
-You can expand a row to view child spans inline.
+The Traces tab displays root-level traces in a paginated table. You can expand a row to view child spans inline.
 
 The following image shows the Traces tab.
 
