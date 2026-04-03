@@ -5,7 +5,7 @@ nav_order: 70
 has_children: true
 has_toc: false
 redirect_from:
-  - /agent-traces/index/
+  - /agent-traces/
 ---
 
 # Agent traces
