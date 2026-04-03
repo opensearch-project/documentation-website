@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Discover traces
+title: Analyzing traces in Discover
 nav_order: 40
-parent: Exploring observability data
+parent: Using Discover for observability
 ---
 
-# Discover traces
+# Analyzing traces in Discover
 **Introduced 3.5**
 {: .label .label-purple }
 

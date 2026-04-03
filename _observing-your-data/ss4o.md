@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Simple Schema for Observability
-nav_order: 10
+nav_order: 150
 redirect_from:
-- /observing-your-data/ssfo/ 
+- /observing-your-data/ssfo/
 ---
 
 # Simple Schema for Observability
