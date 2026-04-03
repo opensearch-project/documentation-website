@@ -75,7 +75,7 @@ The **Refresh** button reloads the query data based on the selected filters and 
 
 The **Stats & Visualizations** section is a collapsible panel on the **Top N queries** page that provides at-a-glance performance metrics and interactive visual breakdowns for your queries. You can toggle between **Query** and **Group** views using the buttons in the upper-right corner of the panel.
 
-Currently, all visualizations are available for individual queries only. Grouped query visualizations are not yet supported.
+All visualizations are available for individual queries only; grouped query visualizations are not supported.
 {: .note}
 
 #### P90 and P99 metrics
@@ -91,16 +91,16 @@ The top row of the panel displays P90 and P99 statistics for the following metri
 | **P99 CPU Time**| The 99th percentile CPU time consumed by queries.                  |
 | **P99 Memory**  | The 99th percentile memory usage across queries.                   |
 
-#### Queries by breakdown
+#### Queries by
 
-Below the P90/P99 metrics, the **Queries by** section displays an interactive pie chart and a corresponding table that break down query distribution by a selected dimension. You can switch between the following dimensions using the dropdown menu:
+The **Queries by** section displays an interactive pie chart and a corresponding table that categorize query distribution by a selected dimension. You can switch between the following dimensions using the dropdown menu:
 
 - **Node** -- Groups queries by the coordinator node.
 - **Index** -- Groups queries by the target index.
 - **Username** -- Groups queries by the user who submitted the query.
 - **WLM Group** -- Groups queries by workload management group.
 
-The pie chart is interactive---hovering over a slice displays the dimension value, query count, and percentage. To reduce visual clutter, smaller slices are consolidated into an **Other** portion. The accompanying table shows each dimension value along with its **Query Count** and **Percentage**, and supports sorting and pagination.
+The pie chart is interactive: hovering over a slice displays the dimension value, query count, and percentage. To reduce visual clutter, smaller slices are consolidated into an **Other** portion. The accompanying table shows each dimension value along with its **Query Count** and **Percentage**, and supports sorting and pagination.
 
 The following image shows the P90/P99 metrics and the Queries by Index breakdown with the interactive pie chart and paginated table.
 
@@ -120,7 +120,7 @@ The following image shows the Performance Analysis line chart view.
 
 ##### Heatmap
 
-The heatmap provides a grid-based view of metric values across time and component values, divided into 30 evenly spaced time buckets. Color intensity indicates the metric magnitude, ranging from low (light) to high (dark).
+The heatmap provides a grid-based view of metric values across time and component values, divided into 30 evenly-spaced time buckets. The color intensity indicates the metric magnitude, ranging from low (light) to high (dark).
 
 Use the dropdown menus to select the following options:
 
@@ -174,7 +174,7 @@ When you select **Query + Group**:
 
 The **Query details** page provides insights into query behavior, performance, and structure. You can access the query details page by selecting the query ID, as shown in the following image:
 
-![Query Insights List]({{site.url}}{{site.baseurl}}/images/Query-Insights/Querieslist.png)
+![Query Insights List]({{site.url}}{{site.baseurl}}/images/Query-Insights/Querieslist.png){: width="400"}
 
 ### Viewing individual query details
 
