@@ -3,7 +3,7 @@ layout: default
 title: Pull-based ingestion management
 parent: Pull-based ingestion
 grand_parent: Document APIs
-has_children: true
+has_children: false
 nav_order: 10
 ---
 
