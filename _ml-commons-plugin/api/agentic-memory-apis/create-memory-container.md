@@ -144,7 +144,7 @@ Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `name` | String | Required | The name of the memory container.
 `description` | String | Optional | The description of the memory container.
-`configuration` | Object | Required | The memory container configuration. See [The `configuration` object](#the-configuration-object).
+`configuration` | Object | Optional | The memory container configuration. If not provided, default settings are used. See [The `configuration` object](#the-configuration-object).
 
 ### The configuration object
 
