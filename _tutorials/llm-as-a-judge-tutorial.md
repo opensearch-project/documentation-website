@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Getting started with LLM as a Judge for search relevance evaluation
+title: Getting started with LLM-as-a-Judge for search relevance evaluation
 has_children: false
 parent: Search Relevance Workbench
 nav_order: 4
@@ -19,9 +19,9 @@ steps:
     link: "/tutorials/search-relevance/llm-as-judge-tutorial/#step-6-run-experiments-with-llm-judgments"
 ---
 
-# Getting started with LLM as a Judge for search relevance evaluation
+# Getting started with LLM-as-a-Judge for search relevance evaluation
 
-LLM as a Judge is a technique that leverages large language models to automatically evaluate search result relevance, providing a scalable and consistent approach to search quality assessment.
+LLM-as-a-Judge is a technique that leverages large language models to automatically evaluate search result relevance, providing a scalable and consistent approach to search quality assessment.
 
 In this tutorial, you'll learn how to:
 
@@ -29,7 +29,7 @@ In this tutorial, you'll learn how to:
 - **Generate automated judgments**: Use LLMs to evaluate search result relevance without manual annotation.
 - **Compare search configurations**: Run experiments to determine which search approach performs better using LLM-generated judgments.
 
-## OpenSearch components for LLM as a Judge
+## OpenSearch components for LLM-as-a-Judge
 
 In this tutorial, you'll use the following OpenSearch components:
 
@@ -720,7 +720,7 @@ DELETE /_plugins/_ml/connectors/abc123def456
 ```
 {% include copy-curl.html %}
 
-## Benefits of LLM as a Judge
+## Benefits of LLM-as-a-Judge
 
 - **Scalability**: Generate judgments for thousands of query-document pairs without manual annotation
 - **Consistency**: LLMs provide consistent evaluation criteria across all judgments
