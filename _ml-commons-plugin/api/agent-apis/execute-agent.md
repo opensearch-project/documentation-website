@@ -93,15 +93,14 @@ Therefore, the population increase of Seattle from 2021 to 2023 is 58,000."""
 This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
 {: .warning}
 
-For agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), use the `input` field. Unified agent execution introduces a flexible `input` field that supports three input formats:
+For agents created using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), use the `input` field. The supported input formats depend on the agent type:
 
-1. **Plain text**: Simple string input for basic text interactions.
-2. **Content blocks**: Text, images, video, and documents with Base64 encoding or URL sources.
-3. **Messages format**: Role-based conversation history with multimodal content blocks for complex interactions.
+- **`conversational` and other V1 agent types**: Support plain text input only.
+- **`conversational_v2`** (Introduced 3.6): Supports all three input formats — plain text, multimodal content blocks, and message-based conversations.
 
 ### Plain text input
 
-For simple text prompts, pass a string directly to the `input` field:
+All unified agents support plain text input. For simple text prompts, pass a string directly to the `input` field:
 
 ```json
 POST /_plugins/_ml/agents/<agent_id>/_execute
@@ -128,6 +127,9 @@ POST /_plugins/_ml/agents/<agent_id>/_execute
 ```
 
 ### Multimodal content blocks
+
+When using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method), multimodal content block and message-based inputs require a `conversational_v2` agent. All other unified agent types accept only plain text input. When using the [regular registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#regular-registration-method), multimodal support is possible if the connector is configured to pass multimodal content to the LLM, with the input format determined by the connector configuration.
+{: .note}
 
 For multimodal inputs (text, images, documents), use an array of content blocks:
 
@@ -158,8 +160,10 @@ The following table lists the supported content types.
 
 | Content type | Description | Fields |
 | :--- | :--- | :--- |
-| `text` | Plain text content | `text`: The text string |
-| `image` | Image data | `source.type`: `base64` or `url`<br>`source.format`: Image format (for example, `png`, `jpeg`)<br>`source.data`: Base64-encoded image data or URL |
+| `text` | Plain text content | `text`: The text string.|
+| `image` | Image data | `image.type`: The source type. Valid value is `base64`. <br>`image.format`: The image format (for example, `jpeg`, `png`, `gif`, or `webp`).<br>`image.data`: Base64-encoded image data. |
+| `video` | Video data | `video.type`: The source type. Valid value is `base64`. <br>`video.format`: The video format (for example, `mp4`, `mov`, or `avi`).<br>`video.data`: Base64-encoded video data. |
+| `document` | Document data | `document.type`: The source type. Valid value is `base64`. <br>`document.format`: The document format (for example, `pdf`, `docx`, or `txt`).<br>`document.data`: Base64-encoded document data. |
 
 ### Message-based conversations
 
@@ -201,7 +205,7 @@ POST /_plugins/_ml/agents/<agent_id>/_execute
 ```
 {% include copy-curl.html %}
 
-Each message is stored in the agent's memory. The `content` field within each message supports multimodal content blocks.
+These messages are stored in the agent's memory. 
 
 #### Message fields
 
@@ -238,5 +242,55 @@ The agent remembers context from previous messages:
   ]
 }
 ```
+
+### The `conversational_v2` agent response format
+
+The `conversational_v2` agents return the following standardized response format:
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "dataAsMap": {
+            "stop_reason": "end_turn",
+            "message": {
+              "role": "assistant",
+              "content": [
+                {
+                  "text": "Here is what I found..."
+                }
+              ]
+            },
+            "memory_id": "abc123xyz",
+            "metrics": {
+              "total_usage": {
+                "inputTokens": 1234,
+                "outputTokens": 567,
+                "totalTokens": 1801
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+The following table lists the `conversational_v2` agent response fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `stop_reason` | String | The reason the agent stopped generating a response. Valid values are `end_turn` (normal completion), `max_iterations` (iteration limit reached), and `tool_use` (stopped while invoking a tool). |
+| `message` | Object | The assistant's final response message. |
+| `message.role` | String | Always `assistant`. |
+| `message.content` | Array | An array of content blocks containing the response text or other content. |
+| `memory_id` | String | The memory session ID. Include this ID in subsequent requests in the `parameters.memory_id` field to continue the conversation. |
+| `metrics.total_usage.inputTokens` | Integer | The number of input tokens consumed. |
+| `metrics.total_usage.outputTokens` | Integer | The number of output tokens generated. |
+| `metrics.total_usage.totalTokens` | Integer | The total number of tokens used. |
 
 For more information about the unified registration method and input formats, see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
