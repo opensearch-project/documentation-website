@@ -51,19 +51,19 @@ PUT sparse-vector-index
   "settings": {
     "index": {
       "sparse": true
-    },
-    "mappings": {
-      "properties": {
-        "sparse_embedding": {
-          "type": "sparse_vector",
-          "method": {
-            "name": "seismic",
-            "parameters": {
-              "n_postings": 300,
-              "cluster_ratio": 0.1,
-              "summary_prune_ratio": 0.4,
-              "approximate_threshold": 1000000
-            }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "sparse_embedding": {
+        "type": "sparse_vector",
+        "method": {
+          "name": "seismic",
+          "parameters": {
+            "n_postings": 300,
+            "cluster_ratio": 0.1,
+            "summary_prune_ratio": 0.4,
+            "approximate_threshold": 1000000
           }
         }
       }
