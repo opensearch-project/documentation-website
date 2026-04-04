@@ -28,6 +28,9 @@ cards:
   - heading: "Faceted search"
     description: "Build filterable search experiences for applications like e-commerce or location search" 
     link: "/tutorials/faceted-search/"
+  - heading: "LLM-as-a-Judge"
+    description: "Getting started with LLM-as-a-Judge for search relevance evaluation" 
+    link: "/tutorials/llm-as-a-judge-tutorial/"    
 ---
 
 # Tutorials
@@ -35,4 +38,3 @@ cards:
 Follow our step-by-step tutorials to learn how to use OpenSearch features.
 
 {% include cards.html cards=page.cards %}
-
