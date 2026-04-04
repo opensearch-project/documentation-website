@@ -107,7 +107,7 @@ Parameter | Data type | Description
 
 ### Using LLM-as-a-Judge 
 
-If you want to use judgments in your experimentation process but do not have a team of humans or the user behavior data to calculate judgments based on interactions, you can use an LLM in Search Relevance Workbench to generate judgments.  See the [LLM-as-a-Judge tutorial]({{site.url}}{{site.baseurl}}/tutorials/llm-as-a-judge-tutorial/) for a step by step guide.
+If you want to use judgments in your experimentation process but do not have a team of humans or the user behavior data to calculate judgments based on interactions, you can use an LLM in Search Relevance Workbench to generate judgments. See the [LLM-as-a-Judge tutorial]({{site.url}}{{site.baseurl}}/tutorials/llm-as-a-judge-tutorial/) for a step by step guide.
 #### Prerequisites
 
 To use LLM-as-a-Judge, ensure that you have configured the following components:
@@ -124,7 +124,7 @@ The AI-assisted judgment process works as follows:
 
 To create a judgment list, provide the model ID of the LLM, an available query set, and a created search configuration.
 
-The below example uses a fairly generic prompt template with a scale of 0.0 to 1.0 for judgments.  To winnow down the volume of data to be evaluated by the LLM, and therefore reduce the cost, you can specify which fields from the results to be sent via the `contextFields`.
+The following example uses a fairly generic prompt template with a scale of 0.0 to 1.0 for judgments. To winnow down the volume of data to be evaluated by the LLM, and therefore reduce the cost, you can specify which fields from the results to be sent using the `contextFields` parameter.
 
 ```json
 PUT _plugins/_search_relevance/judgments
@@ -159,7 +159,7 @@ Parameter | Data type | Description
 `tokenLimit` | Integer | The maximum number of tokens to send to the LLM in a single request. Used to batch documents when the total content exceeds this limit. Default is 4000.
 `contextFields` | Array of strings | Optional. Specifies which document fields to include when sending content to the LLM. If not specified, the entire document source is sent. Use this to reduce costs and focus the LLM on relevant fields.
 `ignoreFailure` | Boolean | Whether to continue processing other documents if the LLM fails to generate a judgment for some documents. Default is false.
-`llmJudgmentRatingType` | String | The type of rating scale to use. Options: `SCORE0_1` (numeric scale 0-1) or `RELEVANT_IRRELEVANT` (binary relevant/irrelevant).
+`llmJudgmentRatingType` | String | The type of rating scale to use. Options: `SCORE0_1` (numeric scale 0--1) or `RELEVANT_IRRELEVANT` (binary relevant/irrelevant).
 `promptTemplate` | String | Optional. Custom prompt template for the LLM. Supports placeholders: `{{queryText}}`, `{{hits}}`. If not provided, a default template is used.
 `overwriteCache` | Boolean | Whether to overwrite existing cached judgments for the same query-document pairs. Default is false (reuse cached judgments).
 
