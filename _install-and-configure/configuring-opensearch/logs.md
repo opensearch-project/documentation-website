@@ -160,7 +160,7 @@ PUT /_cluster/settings
 A line from `opensearch_index_search_slowlog.log` might look like this:
 
 ```plaintext
-[2023-10-30T15:47:42,630][TRACE][c.s.r.slowlog] [runTask-0] took[80.8ms], took_millis[80], phase_took_millis[{expand=0, query=39, fetch=22}], total_hits[4 hits], search_type[QUERY_THEN_FETCH], shards[{total: 10, successful: 10, skipped: 0, failed: 0}], source[{"query":{"match_all":{"boost":1.0}}}], id[]
+[2023-10-30T15:47:42,630][TRACE][c.s.r.slowlog] [runTask-0] took[80.8ms], took_millis[80], phase_took_millis[{expand=0, query=39, fetch=22}], total_hits[4 hits], search_type[QUERY_THEN_FETCH], shards[{total: 10, successful: 10, skipped: 0, failed: 0}], indices[index_1, index_2, my_index_*], source[{"query":{"match_all":{"boost":1.0}}}], id[]
 ```
 
 Search request slow logs can consume considerable disk space and affect performance if you set low threshold values. Consider enabling them temporarily for troubleshooting or performance tuning. To disable search request slow logs, return all thresholds to `-1`.

@@ -15,6 +15,9 @@ The `text_embedding` processor is used to generate vector embeddings from text f
 Before using the `text_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model).
 {: .note}
 
+**Token limits and truncation**: Text embedding models have maximum token limits (typically 512 tokens for BERT-based models). When a document exceeds this limit, the model automatically truncates the text, and the truncated content is not represented in the embeddings. This can significantly impact search relevance because documents may not be returned in search results if the relevant content was truncated. To avoid this issue, split long documents into smaller chunks before generating embeddings. 
+{: .warning}
+
 The following is the syntax for the `text_embedding` processor: 
 
 ```json

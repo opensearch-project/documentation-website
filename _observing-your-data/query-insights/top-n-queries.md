@@ -107,8 +107,8 @@ The following table lists the available query parameters. All query parameters a
 Parameter | Data type     | Description
 :--- |:---------| :---
 `type`    | String   | The metric type for which to retrieve top N query data. Results will be sorted in descending order based on this metric. Valid values are `latency`, `cpu`, and `memory`. Default is `latency`.
-`from`    | String | The start of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
-`to`      | String | The end of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-N-queries).
+`from`    | String | The start of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-n-queries).
+`to`      | String | The end of the time range for fetching historical top N queries. For more information, see [Monitoring historical top N queries](#monitoring-historical-top-n-queries).
 `id`      | String   | The ID of a specific top query record to retrieve.
 `verbose` | Boolean  | Indicates whether to return verbose output. Default is `true`.
 
@@ -155,6 +155,7 @@ Parameter | Data type     | Description
         }
       ],
       "username" : "admin",
+      "failed": false,
       "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
       "phase_latency_map" : {
         "expand" : 0,
@@ -220,6 +221,7 @@ Parameter | Data type     | Description
         }
       ],
       "username" : "admin",
+      "failed": false,
       "node_id" : "BBgWzu8QR0qDkR0G45aw8w",
       "phase_latency_map" : {
         "expand" : 0,
@@ -278,6 +280,7 @@ To view historical query data, the exporter type must be set to `local_index`. F
 You can configure your desired exporter to export top N query data to different sinks, allowing for better monitoring and analysis of your OpenSearch queries. Currently, the following exporters are supported:
 - [Debug exporter](#configuring-a-debug-exporter)
 - [Local index exporter](#configuring-a-local-index-exporter)
+- [Remote repository exporter](#configuring-a-remote-repository-exporter)
 
 ### Configuring a debug exporter
 
@@ -322,6 +325,37 @@ PUT _cluster/settings
 }
 ```
 {% include copy-curl.html %}
+
+### Configuring a remote repository exporter
+
+The remote repository exporter allows you to export top N query insights data to remote blob store repositories, operating independently alongside existing local index and debug exporters. Exported data is organized in JSON files by timestamp following the pattern `{path}/top-queries/yyyy/MM/dd/HH/mm'UTC'/{node-id}-{metric-type}.json`. This option provides a cheaper, longer-term storage solution compared to local indexes. Query Insights does not read from or rely on remote repository data, so you can use the exported data to build custom dashboards or export it for other use cases. Data retention is managed by the bucket configuration, not OpenSearch.
+
+The remote repository exporter supports only Amazon S3 repositories.
+{: .note}
+
+Before configuring the remote repository exporter, you must register the remote repository. For more information, see [Register repository]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#register-repository).
+
+After registering the repository, configure the remote exporter using the following cluster settings:
+
+```json
+PUT _cluster/settings
+{
+  "persistent" : {
+    "search.insights.top_queries.exporter.remote.repository" : "my-s3-repository",
+    "search.insights.top_queries.exporter.remote.path" : "query-insights",
+    "search.insights.top_queries.exporter.remote.enabled" : true
+  }
+}
+```
+{% include copy-curl.html %}
+
+The following table lists the available remote exporter settings.
+
+Setting | Data type | Default | Description
+:--- | :--- | :--- | :---
+`search.insights.top_queries.exporter.remote.enabled` | Boolean | `false` | Enables the remote repository exporter.
+`search.insights.top_queries.exporter.remote.repository` | String | `null` | The name of the registered snapshot repository to use for exporting data. Required when remote export is enabled.
+`search.insights.top_queries.exporter.remote.path` | String | `query-insights` | The base path within the repository for organizing exported files.
 
 ## Excluding indexes from top N queries
 
