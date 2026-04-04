@@ -14,6 +14,47 @@ An _experiment_ is a controlled test designed to assess the effectiveness, relev
 
 Search Relevance Workbench offers multiple types of experiments. For more information, see [Available search result quality experiments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/#available-search-result-quality-experiments).
 
+## Creating experiments
+
+You can create an experiment to test search configurations in various ways.
+
+### Endpoint
+
+```json
+POST _plugins/_search_relevance/experiment
+```
+
+### Request body fields
+
+The following table lists the available input parameters.
+
+Field | Data type | Description
+:--- | :--- | :---
+`name` | String |	The name of the experiment.
+`description` | String |	Freeform description of the experiment.
+`type` | String | The type of experiment: `PAIRWISE_COMPARISON`, `POINTWISE_EVALUATION`, or `HYBRID_OPTIMIZER`.
+`querySetId` | String | The ID of the query set to use for the experiment.
+`searchConfigurationList` | Array | A list of search configuration IDs to use in the experiment.
+`judgmentList` | Array | A list of judgment IDs to use for evaluation. Optional.
+`size` | Integer | The number of results to retrieve for each query. Default is `10`.
+`isScheduled` | Boolean | Whether the experiment is scheduled to run periodically. Default is `false`.
+
+### Example request
+
+```json
+POST _plugins/_search_relevance/experiment
+{
+  "type": "PAIRWISE_COMPARISON",
+  "querySetId": "f4c35381-407c-45c7-89ec-094b8a4cd5b1",
+  "searchConfigurationList": [
+    "85f31a87-2833-4d4a-89d2-cc83248f410e",
+    "050b8c98-ba63-4c75-89cb-75f379b0d66e"
+  ],
+  "size": 10
+}
+```
+{% include copy-curl.html %}
+
 ## Managing experiments
 
 You can retrieve or delete experiments using the following APIs.
