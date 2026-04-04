@@ -26,20 +26,20 @@ LLM-as-a-Judge is a technique that leverages large language models to automatica
 In this tutorial, you'll learn how to:
 
 - **Set up external LLM integration**: Connect OpenSearch to external LLM providers like OpenAI, AWS Bedrock, or others.
-- **Generate automated judgments**: Use LLMs to evaluate search result relevance without manual annotation.
-- **Compare search configurations**: Run experiments to determine which search approach performs better using LLM-generated judgments.
+- **Generate automated judgments**: Use an LLM to evaluate search result relevance without manual annotation.
+- **Evaluate a search configuration**: Run an experiment to evaluate search quality using LLM-generated judgments.
 
 ## OpenSearch components for LLM-as-a-Judge
 
 In this tutorial, you'll use the following OpenSearch components:
 
 - [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) for LLM integration
-- [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/index/) for evaluation workflows
+- [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/using-search-relevance-workbench/) for evaluation workflows
 - [Remote model connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/) for external LLM APIs
-- [Search configurations]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configuration/) for defining search strategies
-- [Query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-set/) for organizing test queries
-- [Judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgment/) for storing relevance assessments
-- [Experiments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/experiment/) for evaluating search quality
+- [Search configuration]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/) for defining search strategies
+- [Query set]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/) for organizing test queries
+- [Judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/) for storing relevance assessments
+- [Experiments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/experiments/) for evaluating search quality
 
 ## Prerequisites
 
