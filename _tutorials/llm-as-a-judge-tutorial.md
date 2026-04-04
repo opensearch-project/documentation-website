@@ -47,7 +47,7 @@ For this tutorial, you'll need:
 
 - OpenSearch 3.5 or newer with the Search Relevance Workbench plugin installed
 - ML Commons plugin installed and configured
-- An API key for an external LLM provider (OpenAI, AWS Bedrock, etc.)
+- An API key for an external LLM provider (OpenAI, AWS Bedrock)
 
 First, enable the Search Relevance Workbench and configure ML Commons:
 
