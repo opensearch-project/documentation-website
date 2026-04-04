@@ -40,6 +40,7 @@ Field | Data type | Required/Optional | Description
 `parameters.verbose`| Boolean | Optional | Provides verbose output.
 `parameters.memory_id` | String | Optional | The memory session ID used to continue an existing conversation. This field is supported for conversational memory backends, including `conversation_index` and `agentic_memory`. To start a new session, omit this parameter.
 `parameters.memory_container_id` | String | Optional | Overrides the configured memory container for this execution when the agent uses `agentic_memory`.
+`parameters.include_token_usage` | Boolean | Optional | When set to `true`, includes a `token_usage` tensor in the response containing detailed token consumption metrics for each LLM call. Supported for conversational, Plan-Execute-Reflect, and AG-UI agents. Default is `false`. **Introduced 3.6**
 `input` | String or Array | Optional | A standardized input field supporting plain text, multimodal content blocks, or message-based conversations. Use with the [unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
 
 > When `conversation_index` or `agentic_memory` is configured, the response includes a `memory_id`. To continue the same session, include the `memory_id` in subsequent requests. Omit the `memory_id` to start a new session.
@@ -79,6 +80,118 @@ To calculate the population increase from 2021 to 2023:
 Population in 2023 (3,519,000) - Population in 2021 (3,461,000) = 58,000
 
 Therefore, the population increase of Seattle from 2021 to 2023 is 58,000."""
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Token usage tracking
+**Introduced 3.6**
+{: .label .label-purple }
+
+When `include_token_usage` is set to `true`, the response includes detailed token consumption metrics that help you monitor costs, debug performance, and compare model efficiency. The response includes a `token_usage` output containing:
+
+- **`per_turn_usage`**: An array of token usage records for each LLM call during agent execution. Each record includes `turn` (the sequence number), `model_id`, `model_name`, `model_url`, `input_tokens`, `output_tokens`, `total_tokens`, and provider-specific fields such as cache tokens (Bedrock, OpenAI, Gemini) and reasoning tokens (OpenAI, Gemini).
+- **`per_model_usage`**: Aggregated token usage grouped by model. Each record includes `model_id`, `model_name`, `model_url`, `call_count` (number of LLM calls), `input_tokens`, `output_tokens`, `total_tokens`, and the same provider-specific fields as per-turn usage.
+
+### Token usage fields
+
+The following table lists the token usage fields.
+
+Field | Data type | Description
+:---  | :--- | :---
+`input_tokens` | Integer | The number of tokens in the input/prompt sent to the model.
+`output_tokens` | Integer | The number of tokens in the model's output/completion.
+`total_tokens` | Integer | The total number of tokens (input + output).
+`cache_read_input_tokens` | Integer | The number of input tokens served from the prompt cache. Supported by Anthropic (via Bedrock), OpenAI, and Gemini. Cached tokens are typically cheaper than regular input tokens.
+`cache_creation_input_tokens` | Integer | The number of tokens used to create new cache entries. Supported by Anthropic (via Bedrock).
+`reasoning_tokens` | Integer | The number of tokens used for reasoning/thinking. Only extracted for OpenAI models (from `completion_tokens_details.reasoning_tokens`) and Gemini models (from `thoughtsTokenCount`). Not extracted for Bedrock models.
+`turn` | Integer | The sequence number of this LLM call within the agent execution (present in `per_turn_usage`).
+`call_count` | Integer | The total number of LLM calls made using this model (present in `per_model_usage`).
+`model_id` | String | The internal OpenSearch model ID.
+`model_name` | String | The human-readable model name (for example, `Sonnet 4`, `GPT-4`).
+`model_url` | String | The endpoint URL for the model service.
+
+### Example request with token usage
+**Introduced 3.6**
+{: .label .label-purple }
+
+To receive detailed token usage metrics in the response, set `include_token_usage` to `true`:
+
+```json
+POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
+{
+  "parameters": {
+    "question": "what's the population increase of Seattle from 2021 to 2023",
+    "include_token_usage": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Example response with token usage
+
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": """ Based on the given context, the key information is:
+
+The metro area population of Seattle in 2021 was 3,461,000.
+The metro area population of Seattle in 2023 is 3,519,000.
+
+To calculate the population increase from 2021 to 2023:
+
+Population in 2023 (3,519,000) - Population in 2021 (3,461,000) = 58,000
+
+Therefore, the population increase of Seattle from 2021 to 2023 is 58,000."""
+        },
+        {
+          "name": "token_usage",
+          "dataAsMap": {
+            "per_turn_usage": [
+              {
+                "turn": 1,
+                "model_id": "rk6okJwB_kOxOUbO6853",
+                "model_name": "Sonnet 4",
+                "model_url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-20250514-v1:0/converse",
+                "input_tokens": 1042,
+                "output_tokens": 69,
+                "total_tokens": 1111,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0
+              },
+              {
+                "turn": 2,
+                "model_id": "rk6okJwB_kOxOUbO6853",
+                "model_name": "Sonnet 4",
+                "model_url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-20250514-v1:0/converse",
+                "input_tokens": 1541,
+                "output_tokens": 269,
+                "total_tokens": 1810,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0
+              }
+            ],
+            "per_model_usage": [
+              {
+                "model_id": "rk6okJwB_kOxOUbO6853",
+                "model_name": "Sonnet 4",
+                "model_url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-20250514-v1:0/converse",
+                "call_count": 2,
+                "input_tokens": 2583,
+                "output_tokens": 338,
+                "total_tokens": 2921,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0
+              }
+            ]
+          }
         }
       ]
     }

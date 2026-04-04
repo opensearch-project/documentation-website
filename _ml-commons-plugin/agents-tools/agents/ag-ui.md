@@ -230,6 +230,14 @@ AG-UI agents return SSEs with the following event types in the `type` field.
 | `TOOL_CALL_END` | Marks the end of a tool call |
 | `RUN_FINISHED` | Indicates the completion of a run |
 
+## Token usage tracking
+**Introduced 3.6**
+{: .label .label-purple }
+
+AG-UI agents support token usage tracking, which provides detailed metrics about token consumption for each LLM call during agent execution. Token usage is delivered as part of the streaming event sequence.
+
+To enable token usage tracking, set the `include_token_usage` parameter to `true` when executing the agent. The response will include token usage data in the streaming response. For more information, see [Execute Stream Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-stream-agent/#token-usage-in-streaming-responses).
+
 ## Next steps
 
 - For AG-UI agent registration, see [Unified registration method]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/#unified-registration-method).
