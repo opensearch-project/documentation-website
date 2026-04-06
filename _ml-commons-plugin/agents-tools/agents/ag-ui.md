@@ -230,7 +230,7 @@ AG-UI agents return SSEs with the following event types in the `type` field.
 | `TOOL_CALL_END` | Marks the end of a tool call |
 | `RUN_FINISHED` | Indicates the completion of a run |
 
-## Token usage tracking
+## Tracking token usage
 **Introduced 3.6**
 {: .label .label-purple }
 
