@@ -25,7 +25,18 @@ A `warm` node reserves storage for the cache to perform searchable snapshot quer
 
 Parameter | Type | Description
 :--- | :--- | :---
-`node.search.cache.size` | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/)..
+`node.search.cache.size` | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+
+## Searchable snapshot index settings
+
+The following index-level settings are automatically managed by OpenSearch for searchable snapshot indexes. These settings are internal and typically not set directly by users, but they can be viewed in index metadata:
+
+| Setting | Type | Description |
+|---------|------|-------------|
+| `index.searchable_snapshot.repository` | String | Specifies the repository where the searchable snapshot is stored. This is set automatically when creating a searchable snapshot index. |
+| `index.searchable_snapshot.snapshot_id.uuid` | String | The UUID of the snapshot from which the searchable snapshot index was created. |
+| `index.searchable_snapshot.snapshot_id.name` | String | The name of the snapshot from which the searchable snapshot index was created. |
+| `index.searchable_snapshot.index.id` | String | The original index ID from the snapshot that is used for the searchable snapshot index. |.
 
 
 ```yaml
@@ -55,7 +66,7 @@ services:
 
 A searchable snapshot index is created by specifying the `remote_snapshot` storage type using the [restore snapshots API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#restore-snapshots).
 
-Request Field | Description
+Request field | Description
 :--- | :---
 `storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the `warm` node role in order to restore a snapshot using the `remote_snapshot` type. <br /><br > Default is `local`.
 
