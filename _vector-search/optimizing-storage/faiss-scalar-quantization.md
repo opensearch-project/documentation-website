@@ -64,7 +64,7 @@ The Faiss `sq` encoder supports the following parameters.
 
 Parameter name | Required | Default | Description
 :--- | :--- | :--- | :---
-`bits` | Yes | 1 | The number of bits used to quantize each vector dimension. Valid values are `1` (default) and `16`.
+`bits` | Yes | 1 | The number of bits used to quantize each vector dimension. Valid values are `1` and `16`.
 `type` | No | `fp16` | The type of scalar quantization to be used. For the `fp16` encoder, vector values must be in the [-65504.0, 65504.0] range. Supported for 16-bit quantization only.
 `clip` | No | `false` | If `true`, any vector values outside of the supported range are rounded so that they are within the range. If `false`, the request is rejected if any vector values are outside of the supported range. Setting `clip` to `true` may decrease recall. Supported for 16-bit quantization only.
 
@@ -221,7 +221,7 @@ For 1-bit quantization, the memory requirement can be estimated as follows:
 
 ### IVF memory estimation
 
-The memory required for IVF is estimated to be `1.1 * (((bytes_per_dimension * dimension) * num_vectors) + (4 * nlist * dimension))` bytes per vector, where `nlist` is the number of buckets to partition vectors into.
+The memory required for IVF is estimated to be `1.1 * (((bytes_per_dimension * dimension) * num_vectors) + (4 * nlist * dimension))` bytes, where `nlist` is the number of buckets to partition vectors into.
 
 As an example, assume that you have 1 million vectors with a dimension of 256 and an `nlist` of 128.
 
