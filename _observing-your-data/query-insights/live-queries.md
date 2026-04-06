@@ -30,22 +30,22 @@ The following table lists the available query parameters. All query parameters a
 | `sort` | String | The metric to sort the results by. Valid values are `latency`, `cpu`, or `memory`. Default is `latency`. |
 | `size` | Integer | The number of query records to return. Must be a positive integer. Default is `100`. |
 | `wlmGroupId` | String | Filters results to only return queries belonging to the specified workload management group. If omitted, queries from all groups are returned. |
-| `use_finished_cache` | Boolean | When set to `true`, the response includes a `finished_queries` array containing recently completed queries from the finished queries cache. Default is `false`. |
+| `use_finished_cache` | Boolean | When set to `true`, the response includes a `finished_queries` array containing recently completed queries from the finished query cache. Default is `false`. |
 
-## Finished queries cache
+## Finished query cache
 
-When `use_finished_cache=true` is specified, the API also returns recently completed queries alongside the currently running ones. This is useful for correlating live queries with queries that have just finished, providing a more complete picture of recent query activity.
+When `use_finished_cache=true` is specified, the API also returns recently completed queries alongside the currently running ones. This is useful for correlating live queries with queries that have just completed, providing a more comprehensive view of recent query activity.
 
 ### Cache lifecycle
 
-The finished queries cache is lazy — it does not activate at node startup and incurs zero cost until you use it. The lifecycle works as follows:
+The finished query cache remains inactive when a node starts and consumes no resources until you enable it. The lifecycle works as follows:
 
-1. The cache activates on the first API call that includes `use_finished_cache=true`. Once active, the node begins capturing completed queries into the cache.
-2. While active, the cache stores up to 1,000 recently finished queries. Individual records are retained for 5 minutes before being automatically evicted. Each API call returns up to 50 of the most recent records.
-3. If no API call with `use_finished_cache=true` is made within the idle timeout period (default 5 minutes), the cache automatically deactivates and clears its data.
-4. The cache is self-healing: after an idle deactivation, the next API call with `use_finished_cache=true` reactivates it and begins capturing queries again.
+1. The cache activates on the first API call that includes `use_finished_cache=true`. Once the cache is active, the node begins capturing completed queries into the cache.
+2. While active, the cache stores up to 1,000 recently completed queries. Individual records are retained for 5 minutes before being automatically evicted. Each API call returns up to 50 of the most recent records.
+3. If no API call containing `use_finished_cache=true` is made within the idle timeout period (by default, 5 minutes), the cache automatically deactivates and clears its data.
+4. After an idle deactivation, the cache automatically reactivates on the next API call with `use_finished_cache=true` and begins capturing queries again.
 
-Because the cache only activates on demand, queries that complete before the first `use_finished_cache=true` call are not captured. To ensure complete coverage, make an initial API call with `use_finished_cache=true` before the queries you want to monitor.
+Because the cache only activates on demand, queries that complete before the first `use_finished_cache=true` call are not captured. To ensure complete coverage, make an initial API call containing `use_finished_cache=true` before running the queries you want to monitor.
 {: .note}
 
 ### Cache settings
@@ -62,7 +62,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-The `search.insights.live_queries.cache.idle_timeout` setting accepts a time value. Set to `0` to disable the cache entirely and stop it immediately. Non-zero values must be between `2m` and `10m`. The default is `5m`. Changing from `0` to a non-zero value re-activates the cache without requiring a node restart.
+The `search.insights.live_queries.cache.idle_timeout` setting accepts a time value. Set to `0` to disable the cache entirely and stop it immediately. Non-zero values must be between `2m` and `10m`. Default is `5m`. Changing from `0` to a non-zero value reactivates the cache without requiring a node restart.
+
+For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#dynamic-settings).
 
 ## Example requests
 
@@ -73,7 +75,7 @@ GET /_insights/live_queries?verbose=false&sort=cpu&size=10
 ```
 {% include copy-curl.html %}
 
-The following example request fetches live queries along with recently finished queries:
+The following example request fetches live queries along with recently completed queries:
 
 ```json
 GET /_insights/live_queries?use_finished_cache=true
@@ -128,11 +130,11 @@ GET /_insights/live_queries?wlmGroupId=DEFAULT_WORKLOAD_GROUP
 }
 ```
 
-The preceding response shows a single live query. The following sections explain the response structure:
+The preceding response shows a single live query:
 
 - The top-level fields (`id`, `status`, `start_time`, `total_latency_millis`, `total_cpu_nanos`, `total_memory_bytes`) provide a summary of the entire search request. The `total_*` metrics are aggregated across the coordinator task and all shard tasks, giving you a single view of the query's overall resource consumption.
-- The `coordinator_task` object describes the task on the coordinating node that received the search request and is orchestrating the query across shards. In this example, the coordinator (`troGHNGUShqDj3wK_K5ZIw`) has been running for approximately 13.9 seconds and has consumed 305,000 nanoseconds of CPU time and 2,048 bytes of memory. The `description` field includes the target indexes, search type, and the full query source.
-- The `shard_tasks` array lists the individual shard-level tasks spawned by the coordinator. Each shard task runs on a specific data node and executes a phase of the search (for example, `search[phase/query]`). In this example, one shard task is running on node `Y6eBnbdISPO6XaVfxCBRgg`, consuming 100,000 nanoseconds of CPU and 1,056 bytes of memory. A query that spans multiple shards or data nodes will have multiple entries in this array.
+- The `coordinator_task` object describes the task on the coordinator node that received the search request and is orchestrating the query across shards. In this example, the coordinator node (`troGHNGUShqDj3wK_K5ZIw`) has been running for approximately 13.9 seconds and has consumed 305,000 nanoseconds of CPU time and 2,048 bytes of memory. The `description` field includes the target indexes, search type, and the full query source.
+- The `shard_tasks` array lists the individual shard-level tasks spawned by the coordinator node. Each shard task runs on a specific data node and executes a phase of the search (for example, `search[phase/query]`). In this example, one shard task is running on node `Y6eBnbdISPO6XaVfxCBRgg`, consuming 100,000 nanoseconds of CPU and 1,056 bytes of memory. A query that spans multiple shards or data nodes will have multiple entries in this array.
 
 When `use_finished_cache=true` is specified, the response also includes a `finished_queries` array:
 
@@ -181,7 +183,7 @@ When `use_finished_cache=true` is specified, the response also includes a `finis
 }
 ```
 
-The `id` field in a finished query record uses the same `nodeId:taskId` format as the live query `id` (for example, `troGHNGUShqDj3wK_K5ZIw:512`). This lets you correlate a finished query with the live query it originated from. The `top_n_id` is a separate UUID that links the finished query to its corresponding record in the [top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/) store. If the query did not qualify as a top N query, `top_n_id` is `null`.
+The `id` field in a completed query record uses the same `nodeId:taskId` format as the live query `id` (for example, `troGHNGUShqDj3wK_K5ZIw:512`). This lets you correlate a completed query with the live query it originated from. The `top_n_id` is a separate UUID that links the completed query to its corresponding record in the [top N queries]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/top-n-queries/) store. If the query did not qualify as a top N query, `top_n_id` is `null`.
 
 ## Response fields
 
@@ -189,41 +191,41 @@ The following table lists the fields in each object in the `live_queries` array.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `id` | String | The unique identifier of the search request (the coordinator task ID in `nodeId:taskId` format). |
-| `status` | String | The current status of the query. Possible values are `running` or `cancelled`. |
+| `id` | String | The unique identifier of the search request (the coordinator node task ID in `nodeId:taskId` format). |
+| `status` | String | The current status of the query. Valid values are `running` or `cancelled`. |
 | `start_time` | Long | The time at which the query started, in milliseconds since the epoch. |
 | `wlm_group_id` | String | The workload management group ID associated with the query. Only present if the query belongs to a workload group. |
 | `total_latency_millis` | Long | The total elapsed time of the query in milliseconds, aggregated across coordinator and shard tasks. |
 | `total_cpu_nanos` | Long | The total CPU time consumed by the query in nanoseconds, aggregated across coordinator and shard tasks. |
 | `total_memory_bytes` | Long | The total heap memory used by the query in bytes, aggregated across coordinator and shard tasks. |
-| `coordinator_task` | Object | Details about the coordinator task for this query. See [Task details](#task-details). |
-| `shard_tasks` | Array | A list of shard-level task details for this query. Each element follows the same structure as [Task details](#task-details). |
+| `coordinator_task` | Object | Details about the coordinator task for this query. See [Task fields](#task-fields). |
+| `shard_tasks` | Array | A list of shard-level task details for this query. Each element follows the same structure as [Task fields](#task-fields). |
 
-### Task details
+### Task fields
 
-Each task object (coordinator or shard) contains the following fields.
+Each `coordinator_task` object and each member of the `shard_tasks` array contains the following fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `task_id` | String | The task identifier in `nodeId:taskId` format. |
 | `node_id` | String | The ID of the node on which the task is running. |
-| `action` | String | The action being performed by the task (for example, `indices:data/read/search` for coordinator tasks or `indices:data/read/search[phase/query]` for shard tasks). |
+| `action` | String | The action performed by the task (for example, `indices:data/read/search` for coordinator tasks or `indices:data/read/search[phase/query]` for shard tasks). |
 | `status` | String | The current status of the task. |
 | `description` | String | A description of the task, including the target indexes, search type, and query source. Only included if `verbose` is `true`. |
 | `start_time` | Long | The time at which the task started, in milliseconds since the epoch. |
-| `running_time_nanos` | Long | The elapsed time of the task in nanoseconds. |
-| `cpu_nanos` | Long | The CPU time consumed by the task in nanoseconds. |
-| `memory_bytes` | Long | The heap memory used by the task in bytes. |
+| `running_time_nanos` | Long | The elapsed time of the task, in nanoseconds. |
+| `cpu_nanos` | Long | The CPU time consumed by the task, in nanoseconds. |
+| `memory_bytes` | Long | The amount of heap memory used by the task, in bytes. |
 
-### Finished query fields
+### The finished_queries array fields
 
-When `use_finished_cache=true` is specified, the `finished_queries` array contains objects with the following fields.
+When `use_finished_cache=true` is specified, the `finished_queries` array contains query objects with the following fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `timestamp` | Long | The time at which the query completed, in milliseconds since the epoch. |
 | `id` | String | The live query identifier (in `nodeId:taskId` format) for correlation with live queries. |
-| `top_n_id` | String | The UUID linking this record to the corresponding top N queries record. May be `null` if the query did not qualify as a top N query. |
+| `top_n_id` | String | The UUID linking this record to the corresponding top N query record. May be `null` if the query did not qualify as a top N query. |
 | `status` | String | The completion status of the query (for example, `completed`). |
 | `node_id` | String | The coordinator node ID. |
 | `source` | Object | The query source body. |
