@@ -234,7 +234,7 @@ AG-UI agents return SSEs with the following event types in the `type` field.
 **Introduced 3.6**
 {: .label .label-purple }
 
-OpenSearch AG-UI agents support token usage tracking, which provides detailed metrics about token consumption for each LLM call during agent execution. Token usage is delivered as part of the streaming event sequence.
+AG-UI agents support token usage tracking, which provides detailed metrics about token consumption for each LLM call during agent execution. Token usage is delivered as part of the streaming event sequence.
 
 For AG-UI agents, token usage tracking is enabled during agent registration by setting `"include_token_usage": true` in the `parameters` field. This applies to both the unified registration method (new interface) and the regular registration method (old interface). Once the agent is registered, this setting cannot be changed during agent execution, it must be set at registration time.
 
