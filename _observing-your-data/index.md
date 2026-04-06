@@ -53,7 +53,7 @@ For specialized application monitoring, OpenSearch provides two focused solution
 
 ### APM
 
-APM monitors distributed applications using service topology, RED metrics, and performance tracking. APM requires the following components:
+[APM]({{site.url}}{{site.baseurl}}/observing-your-data/apm/) monitors distributed applications using service topology, RED metrics, and performance tracking. APM requires the following components:
 
 - An OpenSearch cluster and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/) with [workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/) enabled.
 - An OpenTelemetry Collector.
