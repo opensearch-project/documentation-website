@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Alerting
-nav_order: 120
+nav_order: 110
 has_children: true
 redirect_from:
   - /monitoring-plugins/alerting/

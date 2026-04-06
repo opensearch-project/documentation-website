@@ -67,7 +67,7 @@ To create a new data source connection:
         - When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
         - When **AWS SigV4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
 
-5. Delete the data source connection by selecting the check box to the left of the title and then choosing **Delete 1 connection**. Selecting multiple check boxes for multiple connections is supported. Alternatively, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/} icon.
+5. Delete the data source connection by selecting the check box to the left of the title and then choosing **Delete 1 connection**. Selecting multiple check boxes for multiple connections is supported. Alternatively, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/} (trash can) icon.
 
 A data source connection interface is shown in the following image.
 
@@ -167,7 +167,7 @@ The following plugins now support multiple data sources.
 When you set `data_source.enabled:true`, you can view and select data sources and their associated indexes directly from the interface: 
 
 1. Navigate to **Management** > **Index Management** under the main menu.
-2. Select **Indexes** from the sidebar menu and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon on the upper-right menu bar.
+2. Select **Indexes** from the sidebar menu and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} (database) icon on the upper-right menu bar.
 3. Choose the appropriate data source from the dropdown menu and then choose the appropriate index from the list. By default, the indexes from your default data source are displayed. You can choose any connected data source to view its corresponding indexes.
 
 The following GIF illustrates these steps.
@@ -192,7 +192,7 @@ The following GIF illustrates these steps.
 
 You can edit the data source's associated detectors on the **Detectors** tab under the left side bar. 
 
-1. Select **Detectors** and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon on the upper-right menu bar.
+1. Select **Detectors** and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} (database) icon on the upper-right menu bar.
 2. From the dropdown menu, select the appropriate data source. A list of associated detectors appears.
 3. Choose a detector from the list, select **Actions**, and then choose the appropriate edit option from the dropdown menu.
 4. Enter the applicable settings and configuration details.  
@@ -206,7 +206,7 @@ The following GIF illustrates these steps.
 When you set `data_source.enabled:true`, you can view and manage roles for each connected data source: 
 
 1. Navigate to **Management** > **Security** under the main menu. 
-2. Select **Roles** from the left sidebar menu and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} icon on the upper-right menu bar. 
+2. Select **Roles** from the left sidebar menu and then select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/database-icon.png" class="inline-icon" alt="database icon"/>{:/} (database) icon on the upper-right menu bar. 
 3. From the dropdown menu, select the appropriate data source and then select the **Create role** button to add a new role.
 4. Enter the required configuration information and select the **Create** button to save. 
 
@@ -315,7 +315,7 @@ To create a new monitor, select **Create monitor**. Fill out the form and select
 To manage data source monitors from within **Dashboards**: 
 
 1. Navigate to the **Dashboards** application under the main menu and then select a dashboard from the list.
-2. From the dashboard, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon to open the **Options** dropdown menu and then choose **Alerting**.
+2. From the dashboard, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} (ellipsis) icon to open the **Options** dropdown menu and then choose **Alerting**.
 4. From the **Alerting** dropdown menu, choose **Associated monitors** to open the configuration window.
 5. Select a monitor from the list to view or edit its details.
 
@@ -326,7 +326,7 @@ The following GIF illustrates these steps.
 To associate a monitor with a data source: 
 
 1. Navigate to the **Dashboards** application under the main menu and then select a dashboard from the list.
-2. From the dashboard, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon to open the **Options** dropdown menu and then choose **Alerting**.
+2. From the dashboard, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} (ellipsis) icon to open the **Options** dropdown menu and then choose **Alerting**.
 3. From the **Alerting** dropdown menu, choose **Add alerting monitor** to open the configuration window.
 4. Enter the configuration information and then select the **Create monitor** button. The monitor is now associated with the data source.  
 

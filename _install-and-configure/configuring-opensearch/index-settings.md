@@ -149,12 +149,13 @@ OpenSearch supports the following static index-level index settings:
     - `zstd_no_dict`(OpenSearch 2.9 and later)
     - `qat_lz4` (OpenSearch 2.14 and later, on supported systems)
     - `qat_deflate` (OpenSearch 2.14 and later, on supported systems)
+    - `qat_zstd` (OpenSearch 2.19.3 and later, on supported systems)
         
-For `zstd`, `zstd_no_dict`, `qat_lz4`, and `qat_deflate`, you can specify the compression level in the `index.codec.compression_level` setting. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `default`.
+For `zstd`, `zstd_no_dict`, `qat_lz4`, `qat_deflate`, and `qat_zstd`, you can specify the compression level in the `index.codec.compression_level` setting. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `default`.
 
-- `index.codec.compression_level` (Integer): The compression level setting provides a trade-off between compression ratio and speed. A higher compression level results in a higher compression ratio (smaller storage size), but slower compression and decompression speeds lead to higher indexing and search latencies. This setting can only be specified if `index.codec` is set to `zstd` and `zstd_no_dict` in OpenSearch 2.9 and later or `qat_lz4` and `qat_deflate` in OpenSearch 2.14 and later. Valid values are integers in the [1, 6] range. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is 3.
+- `index.codec.compression_level` (Integer): The compression level setting provides a trade-off between compression ratio and speed. A higher compression level results in a higher compression ratio (smaller storage size), but slower compression and decompression speeds lead to higher indexing and search latencies. This setting can only be specified if `index.codec` is set to `zstd` or `zstd_no_dict` in OpenSearch 2.9 and later; `qat_lz4` or `qat_deflate` in OpenSearch 2.14 and later; or `qat_zstd` in OpenSearch 2.19.3 and later. Valid values are integers in the `[1, 6]` range. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `3`.
 
-- `index.codec.qatmode` (String): The hardware acceleration mode used for the `qat_lz4` and `qat_deflate` compression codecs. Valid values are `auto` and `hardware`. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `auto`. 
+- `index.codec.qatmode` (String): The hardware acceleration mode used for the `qat_lz4`, `qat_deflate`, and `qat_zstd` compression codecs. Valid values are `auto` and `hardware`. For more information, see [Index codec settings]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/). Optional. Default is `auto` (the recommended setting). 
 
 - `index.routing_partition_size` (Integer): The number of shards a custom routing value can go to. Routing helps an imbalanced cluster by relocating values to a subset of shards rather than a single shard. To enable routing, set this value to greater than 1 but less than `index.number_of_shards`. Default is 1.
 
@@ -297,7 +298,9 @@ OpenSearch supports the following dynamic index-level index settings:
 
 - `index.derived_source.translog.enabled` (Boolean): Controls how documents are read from the translog for an index with derived source enabled. Defaults to the `index.derived_source.enabled` value. For more information, see [Derived source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/#derived-source).
 
-- `index.periodic_flush_interval` (Time unit): Triggers a flush periodically at the configured interval, storing all in-memory operations to segments on disk. OpenSearch automatically performs flush operations in the background based on conditions such as transaction log size. Default is `-1`, which disables periodic flush. You can configure this setting if your workload requires predictable, time-based flush intervals.
+ <p id="periodic-flush-interval"> </p>
+
+- `index.periodic_flush_interval` (Time unit): Triggers a flush periodically at the configured interval, storing all in-memory operations to segments on disk. OpenSearch automatically performs flush operations in the background based on conditions such as transaction log size. Default is `-1`, which disables periodic flush. For pull-based ingestion indexes, the default is `10m`. See [Pull-based ingestion]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/). You can configure this setting if your workload requires predictable, time-based flush intervals.
 
 ### Updating a dynamic index setting
 

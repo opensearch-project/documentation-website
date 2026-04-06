@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Metric analytics
-nav_order: 80
+nav_order: 50
 ---
 
 # Metric analytics

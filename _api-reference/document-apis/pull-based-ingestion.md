@@ -57,33 +57,38 @@ PUT /my-index
 ```
 {% include copy-curl.html %}
 
-### Ingestion source parameters
+### Ingestion source settings
 
-The `ingestion_source` parameters control how OpenSearch pulls data from the streaming source. A _poll_ is an operation in which OpenSearch actively requests a batch of data from the streaming source. The following table lists all parameters that `ingestion_source` supports.
+The `ingestion_source` settings control how OpenSearch pulls data from the streaming source. A _poll_ is an operation in which OpenSearch actively requests a batch of data from the streaming source. The following table lists all settings that `ingestion_source` supports.
 
-| Parameter | Description |
-| :--- | :--- |
-| `type` | The streaming source type. Required. Valid values are `kafka` or `kinesis`. |
-| `pointer.init.reset` | Determines the stream location from which to start reading. Optional. Valid values are `earliest`, `latest`, `reset_by_offset`, `reset_by_timestamp`, or `none`. See [Stream position](#stream-position). |
-| `pointer.init.reset.value` | Required only for `reset_by_offset` or `reset_by_timestamp`. Specifies the offset value or timestamp in milliseconds. See [Stream position](#stream-position). |
-| `error_strategy` | How to handle failed messages. Optional. Valid values are `DROP` (failed messages are skipped and ingestion continues) and `BLOCK` (when a message fails, ingestion stops). Default is `DROP`. |
-| `poll.max_batch_size` | The maximum number of records to retrieve in each poll operation. Optional. |
-| `poll.timeout` | The maximum time to wait for data in each poll operation. Optional. |
-| `num_processor_threads` | The number of threads for processing ingested data. Optional. Default is 1. |
-| `internal_queue_size` | The size of the internal blocking queue for advanced tuning. Valid values are from 1 to 100,000, inclusive. Optional. Default is 100. |
-| `all_active` | Whether to enable the all-active ingestion mode. Cannot be enabled for indexes that use segment replication mode. Default is `false`. See [Ingestion modes](#ingestion-modes). |
-| `pointer_based_lag_update_interval` | The interval at which pointer-based lag is calculated. Accepts time units. Default is `10s`. Setting this value to `0` disables pointer-based lag calculation. |
-| `mapper_type` | Defines the mapper for the input message format. Valid values are `default` and `raw_payload`. See [Message format](#message-format). |
-| `param` | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; The `ingest-kafka` plugin requires:<br>&ensp;&ensp;- `topic`: The Kafka topic to consume from<br>&ensp;&ensp;- `bootstrap_servers`: The Kafka server addresses<br>&ensp;&ensp;Optionally, you can provide additional standard Kafka consumer parameters (such as `fetch.min.bytes`). These parameters are passed directly to the Kafka consumer. <br>&ensp;&#x2022; The `ingest-kinesis` plugin requires:<br>&ensp;&ensp;- `stream`: The Kinesis stream name<br>&ensp;&ensp;- `region`: The AWS Region<br>&ensp;&ensp;- `access_key`: The AWS access key<br>&ensp;&ensp;- `secret_key`: The AWS secret key<br>&ensp;&ensp;Optionally, you can provide an `endpoint_override`. | 
+Dynamic settings can be updated using the [Update Settings API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/) without restarting the ingestion process. Static settings cannot be changed after index creation. For more information about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+{: .note}
+
+| Setting | Dynamic | Description |
+| :--- | :--- | :--- |
+| `type` | No | The streaming source type. Required. Valid values are `kafka` or `kinesis`. |
+| `pointer.init.reset` | No | Determines the stream location from which to start reading. Optional. Valid values are `earliest`, `latest`, `reset_by_offset`, `reset_by_timestamp`, or `none`. See [Stream position](#stream-position). |
+| `pointer.init.reset.value` | No | Required only for `reset_by_offset` or `reset_by_timestamp`. Specifies the offset value or timestamp in milliseconds. See [Stream position](#stream-position). |
+| `error_strategy` | Yes | How to handle failed messages. Optional. Valid values are `DROP` (failed messages are skipped and ingestion continues) and `BLOCK` (when a message fails, ingestion stops). Default is `DROP`. |
+| `poll.max_batch_size` | Yes | The maximum number of records to retrieve in each poll operation. Optional. |
+| `poll.timeout` | Yes | The maximum time to wait for data in each poll operation. Optional. |
+| `num_processor_threads` | No | The number of threads for processing ingested data. Optional. Default is 1. |
+| `internal_queue_size` | No | The size of the internal blocking queue for advanced tuning. Valid values are from 1 to 100,000, inclusive. Optional. Default is 100. |
+| `all_active` | No | Whether to enable the all-active ingestion mode. Cannot be enabled for indexes that use segment replication mode. Default is `false`. See [Ingestion modes](#ingestion-modes). |
+| `pointer_based_lag_update_interval` | No | The interval at which pointer-based lag is calculated. Accepts time units. Default is `10s`. Setting this value to `0` disables pointer-based lag calculation. |
+| `warmup.timeout` | Yes | The maximum amount of time to wait for the shard to catch up with the streaming source during the warmup phase after node restart or shard relocation. Shards will not serve queries until warmup completes or times out. Accepts time units. Optional. Default is `-1` (disabled). |
+| `warmup.lag_threshold` | Yes | The acceptable pointer-based lag threshold for warmup completion. Warmup completes when the lag is at or below this value. A value of `0` means that the shard is synchronized with the source. Optional. Default is `100`. |
+| `mapper_type` | No | Defines the mapper for the input message format. Valid values are `default` and `raw_payload`. See [Message format](#message-format). |
+| `param` | Yes | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; The `ingest-kafka` plugin requires:<br>&ensp;&ensp;- `topic`: The Kafka topic to consume from<br>&ensp;&ensp;- `bootstrap_servers`: The Kafka server addresses<br>&ensp;&ensp;Optionally, you can provide additional standard Kafka consumer parameters (such as `fetch.min.bytes`). These parameters are passed directly to the Kafka consumer. <br>&ensp;&#x2022; The `ingest-kinesis` plugin requires:<br>&ensp;&ensp;- `stream`: The Kinesis stream name<br>&ensp;&ensp;- `region`: The AWS Region<br>&ensp;&ensp;- `access_key`: The AWS access key<br>&ensp;&ensp;- `secret_key`: The AWS secret key<br>&ensp;&ensp;Optionally, you can provide an `endpoint_override`. | 
 
 
-### Other parameters
+### Other settings
 
-Pull-based ingestion supports the following OpenSearch parameters.
+Pull-based ingestion supports the following OpenSearch settings.
 
-| Parameter | Description |
-| :--- | :--- |
-| `index.periodic_flush_interval` | The interval at which OpenSearch will trigger a flush. Default for pull-based ingestion indexes is `10m`. See [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/). |
+| Setting | Dynamic | Description |
+| :--- | :--- | :--- |
+| `index.periodic_flush_interval` | Yes | The interval at which OpenSearch triggers a flush operation. Default for pull-based ingestion indexes is `10m`. See [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#periodic-flush-interval). |
 
 ### Ingestion modes
 
@@ -108,7 +113,7 @@ There is no replication or coordination between the shards, although replica sha
 
 ### Stream position
 
-When creating an index, you can specify where OpenSearch should start reading from the stream by configuring the `pointer.init.reset` and `pointer.init.reset.value` settings in the `ingestion_source` parameter. OpenSearch will resume reading from the last commited position for existing indexes.
+When creating an index, you can specify where OpenSearch should start reading from the stream by configuring the `pointer.init.reset` and `pointer.init.reset.value` settings in the `ingestion_source` parameter. OpenSearch will resume reading from the last committed position for existing indexes.
 
 The following table provides the valid `pointer.init.reset` values and their corresponding `pointer.init.reset.value` values.
 
@@ -219,7 +224,7 @@ The following table lists the available `polling_ingest_stats` metrics.
 | `consumer_stats.lag_in_millis` | Lag in milliseconds, computed as the time elapsed since the last processed message timestamp. |
 | `consumer_stats.pointer_based_lag` | The Apache Kafka offset-based lag, calculated as the difference between the latest available offset and the current message offset. This metric applies only when Apache Kafka is used as the streaming source. |
 
-To retrieve shard-level pull-based ingestion metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/):
+To retrieve shard-level pull-based ingestion metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/):
 
 <!-- spec_insert_start
 component: example_code

@@ -19,6 +19,10 @@ You can rerank results in the following ways:
 - [By a field using a cross-encoder]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/)
 - [By a field using a late interaction model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-late-interaction/)
 
+## Reranking in agentic search
+
+If you're using agentic search, see [Reranking agentic search results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/rerank-agentic-search-results/) for information about reranking search results within agentic search pipelines.
+
 ## Using rerank and normalization processors together
 
 When you use a rerank processor in conjunction with a [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) and a hybrid query, the rerank processor alters the final document scores. This is because the rerank processor operates after the normalization processor in the search pipeline.
