@@ -3,7 +3,7 @@ layout: default
 title: rename
 parent: Commands
 grand_parent: PPL
-nav_order: 31
+nav_order: 37
 ---
 
 # rename
@@ -24,7 +24,7 @@ The `rename` command is not rewritten to [query domain-specific language (DSL)](
 The `rename` command has the following syntax:
 
 ```sql
-rename <source-field> AS <target-field>["," <source-field> AS <target-field>]...
+rename <source-field> AS <target-field>[, <source-field> AS <target-field>]...
 ```
 
 ## Parameters
@@ -41,20 +41,22 @@ The `rename` command supports the following parameters.
 The following query renames one field:
   
 ```sql
-source=accounts
-| rename account_number as an
-| fields an
+source=otellogs
+| rename severityText as severity
+| fields severity
+| head 4
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| an |
+| severity |
 | --- |
-| 1 |
-| 6 |
-| 13 |
-| 18 |
+| INFO |
+| INFO |
+| WARN |
+| ERROR |
   
 
 ## Example 2: Rename multiple fields  
@@ -62,41 +64,45 @@ The query returns the following results:
 The following query renames multiple fields:
   
 ```sql
-source=accounts
-| rename account_number as an, employer as emp
-| fields an, emp
+source=otellogs
+| rename severityText as severity, `resource.attributes.service.name` as service
+| fields severity, service
+| head 4
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| an | emp |
+| severity | service |
 | --- | --- |
-| 1 | Pyrami |
-| 6 | Netagy |
-| 13 | Quility |
-| 18 | null |
+| INFO | frontend |
+| INFO | cart |
+| WARN | product-catalog |
+| ERROR | payment |
   
 
 ## Example 3: Rename fields using wildcards  
 
-The following query renames multiple fields using wildcard patterns:
+The following query renames multiple fields using a wildcard pattern. Both `severityText` and `severityNumber` match `severity*` and are renamed to `sev*`:
   
 ```sql
-source=accounts
-| rename *name as *_name
-| fields first_name, last_name
+source=otellogs
+| rename severity* as sev*
+| fields sevText, sevNumber
+| head 4
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| first_name | last_name |
+| sevText | sevNumber |
 | --- | --- |
-| Amber | Duke |
-| Hattie | Bond |
-| Nanette | Bates |
-| Dale | Adams |
+| INFO | 9 |
+| INFO | 9 |
+| WARN | 13 |
+| ERROR | 17 |
   
 
 ## Example 4: Rename fields using multiple wildcard patterns  
@@ -104,41 +110,45 @@ The query returns the following results:
 The following query renames multiple fields using multiple wildcard patterns:
   
 ```sql
-source=accounts
-| rename *name as *_name, *_number as *number
-| fields first_name, last_name, accountnumber
+source=otellogs
+| rename severity* as sev*, `@*` as otel_*
+| fields sevText, sevNumber, otel_timestamp
+| head 4
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| first_name | last_name | accountnumber |
+| sevText | sevNumber | otel_timestamp |
 | --- | --- | --- |
-| Amber | Duke | 1 |
-| Hattie | Bond | 6 |
-| Nanette | Bates | 13 |
-| Dale | Adams | 18 |
+| INFO | 9 | 2024-02-01 09:10:00 |
+| INFO | 9 | 2024-02-01 09:11:00 |
+| WARN | 13 | 2024-02-01 09:12:00 |
+| ERROR | 17 | 2024-02-01 09:13:00 |
   
 
 ## Example 5: Rename an existing field to another existing field  
 
-The following query renames an existing field to another existing field. The target field is removed and the source field is renamed to the target field:
+The following query renames an existing field to another existing field. The target field is removed and the source field is renamed to the target:
   
 ```sql
-source=accounts
-| rename firstname as age
-| fields age
+source=otellogs
+| rename severityText as body
+| fields body
+| head 4
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| age |
+| body |
 | --- |
-| Amber |
-| Hattie |
-| Nanette |
-| Dale |
+| INFO |
+| INFO |
+| WARN |
+| ERROR |
   
 
 ## Limitations

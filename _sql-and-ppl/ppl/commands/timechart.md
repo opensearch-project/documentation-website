@@ -3,7 +3,7 @@ layout: default
 title: timechart
 parent: Commands
 grand_parent: PPL
-nav_order: 43
+nav_order: 49
 ---
 
 # timechart
@@ -94,140 +94,138 @@ The `timechart` command provides specialized rate-based aggregation functions th
 
 **Return type**: DOUBLE
   
-## Example 1: Count events by hour  
+## Example 1: Log volume per 5 minutes
 
-The following query counts events in each hourly interval and groups the results by `host`:
-  
+The following query counts all log events in 5-minute windows to monitor overall system activity:
+
 ```sql
-source=events
-| timechart span=1h count() by host
+source=otellogs
+| timechart timefield=@timestamp span=5m count()
 ```
 {% include copy.html %}
-  
+{% include try-in-playground.html %}
+
 The query returns the following results:
-  
-| @timestamp | host | count() |
-| --- | --- | --- |
-| 2023-01-01 10:00:00 | server1 | 4 |
-| 2023-01-01 10:00:00 | server2 | 4 |
-  
 
-## Example 2: Count events by minute  
-
-The following query counts events in each 1-minute interval and groups the results by `host`:
-  
-```sql
-source=events
-| timechart span=1m count() by host
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| @timestamp | host | count() |
-| --- | --- | --- |
-| 2023-01-01 10:00:00 | server1 | 1 |
-| 2023-01-01 10:05:00 | server2 | 1 |
-| 2023-01-01 10:10:00 | server1 | 1 |
-| 2023-01-01 10:15:00 | server2 | 1 |
-| 2023-01-01 10:20:00 | server1 | 1 |
-| 2023-01-01 10:25:00 | server2 | 1 |
-| 2023-01-01 10:30:00 | server1 | 1 |
-| 2023-01-01 10:35:00 | server2 | 1 |
-  
-
-## Example 3: Calculate the average number of packets per minute  
-
-The following query calculates the average number of packets per minute without grouping by any additional field:
-  
-```sql
-source=events
-| timechart span=1m avg(packets)
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| @timestamp | avg(packets) |
+| @timestamp | count() |
 | --- | --- |
-| 2023-01-01 10:00:00 | 60.0 |
-| 2023-01-01 10:05:00 | 30.0 |
-| 2023-01-01 10:10:00 | 60.0 |
-| 2023-01-01 10:15:00 | 30.0 |
-| 2023-01-01 10:20:00 | 60.0 |
-| 2023-01-01 10:25:00 | 30.0 |
-| 2023-01-01 10:30:00 | 180.0 |
-| 2023-01-01 10:35:00 | 90.0 |
+| 2024-02-01 09:10:00 | 5 |
+| 2024-02-01 09:15:00 | 5 |
+| 2024-02-01 09:20:00 | 5 |
+| 2024-02-01 09:25:00 | 5 |
   
 
-## Example 4: Calculate the average number of packets per 20 minutes and status  
+## Example 2: Error rate over time by service
 
-The following query calculates the average number of packets in each 20-minute interval and groups the results by `status`:
-  
-```sql
-source=events
-| timechart span=20m avg(packets) by status
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| @timestamp | status | avg(packets) |
-| --- | --- | --- |
-| 2023-01-01 10:00:00 | active | 30.0 |
-| 2023-01-01 10:00:00 | inactive | 30.0 |
-| 2023-01-01 10:00:00 | pending | 60.0 |
-| 2023-01-01 10:00:00 | processing | 60.0 |
-| 2023-01-01 10:20:00 | cancelled | 180.0 |
-| 2023-01-01 10:20:00 | completed | 60.0 |
-| 2023-01-01 10:20:00 | inactive | 90.0 |
-| 2023-01-01 10:20:00 | pending | 30.0 |
-  
-
-## Example 5: Count events by hour and category  
-
-The following query counts events in each 1-second interval and groups the results by `category`:
-  
-```sql
-source=events
-| timechart span=1h count() by category
-```
-{% include copy.html %}
-  
-The query returns the following results:
-  
-| @timestamp | category | count() |
-| --- | --- | --- |
-| 2023-01-01 10:00:00 | orders | 4 |
-| 2023-01-01 10:00:00 | users | 4 |
-  
-## Example 6: Using the limit parameter with count()
-
-This example uses the `events` dataset with fewer hosts for simplicity.
-
-When there are many distinct values in the `by` field, the `timechart` command displays only the top values according to the `limit` parameter and groups the remaining values into an `OTHER` category.
-
-The following query displays the top `2` hosts with the highest event counts and groups all remaining hosts into an `OTHER` category:
+The following query counts only error logs per service in 10-minute windows to track service health:
 
 ```sql
-source=events
-| timechart span=1m limit=2 count() by host
+source=otellogs
+| where severityText = 'ERROR'
+| timechart timefield=@timestamp span=10m count() by `resource.attributes.service.name`
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
 
-  
 The query returns the following results:
-  
-| @timestamp | host | count() |
+
+| @timestamp | resource.attributes.service.name | count() |
 | --- | --- | --- |
-| 2023-01-01 10:00:00 | server1 | 1 |
-| 2023-01-01 10:05:00 | server2 | 1 |
-| 2023-01-01 10:10:00 | server1 | 1 |
-| 2023-01-01 10:15:00 | server2 | 1 |
-| 2023-01-01 10:20:00 | server1 | 1 |
-| 2023-01-01 10:25:00 | server2 | 1 |
-| 2023-01-01 10:30:00 | server1 | 1 |
-| 2023-01-01 10:35:00 | server2 | 1 |
+| 2024-02-01 09:10:00 | checkout | 1 |
+| 2024-02-01 09:10:00 | payment | 2 |
+| 2024-02-01 09:20:00 | checkout | 1 |
+| 2024-02-01 09:20:00 | frontend-proxy | 1 |
+| 2024-02-01 09:20:00 | product-catalog | 1 |
+| 2024-02-01 09:20:00 | recommendation | 1 |
+  
+
+## Example 3: Top 3 services with the rest grouped as OTHER
+
+The following query limits the breakdown to the top 3 services by log volume, grouping remaining services into an OTHER category:
+
+```sql
+source=otellogs
+| timechart timefield=@timestamp span=15m limit=3 count() by `resource.attributes.service.name`
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+
+The query returns the following results:
+
+| @timestamp | resource.attributes.service.name | count() |
+| --- | --- | --- |
+| 2024-02-01 09:00:00 | OTHER | 1 |
+| 2024-02-01 09:00:00 | cart | 2 |
+| 2024-02-01 09:00:00 | frontend | 1 |
+| 2024-02-01 09:00:00 | product-catalog | 1 |
+| 2024-02-01 09:15:00 | OTHER | 8 |
+| 2024-02-01 09:15:00 | cart | 1 |
+| 2024-02-01 09:15:00 | frontend | 3 |
+| 2024-02-01 09:15:00 | product-catalog | 3 |
+  
+
+## Example 4: Exclude the OTHER category
+
+The following query shows only the top 2 services without an OTHER bucket by setting useother=false:
+
+```sql
+source=otellogs
+| timechart timefield=@timestamp span=30m limit=2 useother=false count() by `resource.attributes.service.name`
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+
+The query returns the following results:
+
+| @timestamp | resource.attributes.service.name | count() |
+| --- | --- | --- |
+| 2024-02-01 09:00:00 | frontend | 4 |
+| 2024-02-01 09:00:00 | product-catalog | 4 |
+  
+
+## Example 5: Per-second error rate by severity
+
+The following query uses the per_second rate function to normalize error counts across different time windows, grouped by severity level:
+
+```sql
+source=otellogs
+| where severityNumber >= 13
+| timechart timefield=@timestamp span=2m per_second(severityNumber) by severityText
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+
+The query returns the following results:
+
+| @timestamp | severityText | per_second(severityNumber) |
+| --- | --- | --- |
+| 2024-02-01 09:12:00 | ERROR | 0.14166666666666666 |
+| 2024-02-01 09:12:00 | WARN | 0.10833333333333334 |
+| 2024-02-01 09:14:00 | ERROR | 0.14166666666666666 |
+| 2024-02-01 09:16:00 | ERROR | 0.14166666666666666 |
+| 2024-02-01 09:18:00 | WARN | 0.10833333333333334 |
+| 2024-02-01 09:20:00 | ERROR | 0.14166666666666666 |
+| 2024-02-01 09:22:00 | WARN | 0.10833333333333334 |
+| 2024-02-01 09:24:00 | ERROR | 0.2833333333333333 |
+| 2024-02-01 09:26:00 | WARN | 0.10833333333333334 |
+| 2024-02-01 09:28:00 | ERROR | 0.14166666666666666 |
+  
+## Example 6: Distinct service count over time
+
+The following query tracks how many unique services are actively logging per hour, useful for detecting service outages:
+
+```sql
+source=otellogs
+| timechart timefield=@timestamp span=1h distinct_count(`resource.attributes.service.name`)
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+
+The query returns the following results:
+
+| @timestamp | distinct_count(`resource.attributes.service.name`) |
+| --- | --- |
+| 2024-02-01 09:00:00 | 7 |
   
 
 ## Example 7: Use limit=0 with count() to show all values  

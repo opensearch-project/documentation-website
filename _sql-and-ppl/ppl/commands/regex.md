@@ -3,7 +3,7 @@ layout: default
 title: regex
 parent: Commands
 grand_parent: PPL
-nav_order: 30
+nav_order: 36
 ---
 
 # regex
@@ -40,112 +40,103 @@ The `regex` command supports the following parameters.
 | `<field>` | Required | The field name to match against. |
 | `<pattern>` | Required | The regular expression pattern to match. Supports [Java regular expression syntax](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). |
 
-## Example 1: Basic pattern matching  
+## Example 1: Find logs matching a pattern  
 
-The following query uses the `regex` command to return any document in which the `lastname` field starts with an uppercase letter:
+The following query finds error logs mentioning connection timeouts:
   
 ```sql
-source=accounts
-| regex lastname="^[A-Z][a-z]+$"
-| fields account_number, firstname, lastname
+source=otellogs
+| where severityText = 'ERROR'
+| regex body=".*timeout.*"
+| fields severityText, `resource.attributes.service.name`, body
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| account_number | firstname | lastname |
+| severityText | resource.attributes.service.name | body |
 | --- | --- | --- |
-| 1 | Amber | Duke |
-| 6 | Hattie | Bond |
-| 13 | Nanette | Bates |
-| 18 | Dale | Adams |
+| ERROR | payment | Payment failed: connection timeout to payment gateway after 30000ms |
   
 
-## Example 2: Negative matching
+## Example 2: Exclude logs matching a pattern  
 
-The following query excludes documents in which the `lastname` field ends with `ms`:
-
+The following query finds all errors except those related to timeouts:
+  
 ```sql
-source=accounts
-| regex lastname!=".*ms$"
-| fields account_number, lastname
+source=otellogs
+| where severityText = 'ERROR'
+| regex body!=".*timeout.*"
+| fields severityText, `resource.attributes.service.name`, body
+| head 3
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| account_number | lastname |
-| --- | --- |
-| 1 | Duke |
-| 6 | Bond |
-| 13 | Bates |
+| severityText | resource.attributes.service.name | body |
+| --- | --- | --- |
+| ERROR | checkout | NullPointerException in CheckoutService.placeOrder at line 142 |
+| ERROR | payment | Out of memory: Java heap space - shutting down pod payment-6f8d4b-ht7q3 |
+| ERROR | frontend-proxy | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
   
 
-## Example 3: Email domain matching  
+## Example 3: Filter by service name pattern  
 
-The following query filters documents by email domain patterns:
+The following query finds warning logs from services whose names end with "catalog":
   
 ```sql
-source=accounts
-| regex email="@pyrami\.com$"
-| fields account_number, email
+source=otellogs
+| where severityText = 'WARN'
+| regex `resource.attributes.service.name`=".*catalog$"
+| fields severityText, `resource.attributes.service.name`, body
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| account_number | email |
-| --- | --- |
-| 1 | amberduke@pyrami.com |
+| severityText | resource.attributes.service.name | body |
+| --- | --- | --- |
+| WARN | product-catalog | Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
+| WARN | product-catalog | Connection pool 80% utilized on database replica db-replica-02 |
   
 
-## Example 4: Complex patterns with character classes  
+## Example 4: Complex patterns with character classes
 
-The following query uses complex regex patterns with character classes and quantifiers:
-  
+The following query uses complex regex patterns with character classes and quantifiers to match log messages containing service method calls:
+
 ```sql
-source=accounts | regex address="\\d{3,4}\\s+[A-Z][a-z]+\\s+(Street|Lane|Court)" | fields account_number, address
+source=otellogs
+| where severityText = 'ERROR'
+| regex body="[A-Z][a-zA-Z]+\\.[a-zA-Z]+"
+| fields severityText, body
+| head 3
 ```
 {% include copy.html %}
-  
+{% include try-in-playground.html %}
+
 The query returns the following results:
-  
-| account_number | address |
+
+| severityText | body |
 | --- | --- |
-| 1 | 880 Holmes Lane |
-| 6 | 671 Bristol Street |
-| 13 | 789 Madison Street |
-| 18 | 467 Hutchinson Court |
-  
+| ERROR | NullPointerException in CheckoutService.placeOrder at line 142 |
 
-## Example 5: Case-sensitive matching  
+## Example 5: Case-sensitive matching
 
-By default, regex matching is case sensitive. The following query searches for the lowercase state name `va`:
-  
-```sql
-source=accounts
-| regex state="va"
-| fields account_number, state
-```
-{% include copy.html %}
-  
-The query returns no results because the regex pattern `va` (lowercase) does not match any state values in the data.
-  
-The following query searches for the uppercase state name `VA`:
+By default, regex matching is case sensitive. The following query searches for lowercase `error`:
 
 ```sql
-source=accounts
-| regex state="VA"
-| fields account_number, state
+source=otellogs
+| regex severityText="error"
+| fields severityText
 ```
 {% include copy.html %}
-  
-The query returns the following results:
-  
-| account_number | state |
-| --- | --- |
-| 13 | VA |
-  
+{% include try-in-playground.html %}
+
+The query returns no results because the regex pattern `error` (lowercase) does not match `ERROR` (uppercase):
 
 ## Limitations
 
