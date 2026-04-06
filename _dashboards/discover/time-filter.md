@@ -149,7 +149,7 @@ To select a time interval from common or previous interval values, follow these 
 
 ## Starting and stopping data refresh
 
-To start or stop the time interval refresh:
+To start or stop the time interval refresh, follow these steps:
 
 1. From an OpenSearch Dashboards application (**Discover**, **Dashboards**, or **Visualize**), select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/} (calendar) or {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/clock-icon.png" class="inline-icon" alt="clock icon"/>{:/} (clock) icon on the right of the search bar.
 
