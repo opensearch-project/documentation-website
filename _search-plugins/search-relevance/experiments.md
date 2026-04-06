@@ -30,8 +30,8 @@ The following table lists the available input parameters.
 
 Field | Data type | Description
 :--- | :--- | :---
-`name` | String |	The name of the experiment.
-`description` | String |	Freeform description of the experiment.
+`name` | String | The name of the experiment.
+`description` | String | Freeform description of the experiment.
 `type` | String | The type of experiment: `PAIRWISE_COMPARISON`, `POINTWISE_EVALUATION`, or `HYBRID_OPTIMIZER`.
 `querySetId` | String | The ID of the query set to use for the experiment.
 `searchConfigurationList` | Array | A list of search configuration IDs to use in the experiment.

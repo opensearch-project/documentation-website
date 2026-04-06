@@ -27,8 +27,8 @@ The following table lists the available input parameters.
 
 Field | Data type |  Description
 :---  | :--- | :---
-`name` | String |	The name of the search configuration.
-`description` | String |	Description of the search configuration.
+`name` | String | The name of the search configuration.
+`description` | String | Description of the search configuration.
 `query` | Object | Defines the query in OpenSearch query DSL. Use `%SearchText%` as a placeholder for the user query. Needs to be escaped.
 `index` | String | The target index queried by this search configuration.
 `searchPipeline` | String | Specifies an existing search pipeline. Optional.
