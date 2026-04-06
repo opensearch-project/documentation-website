@@ -21,7 +21,7 @@ To implement late interaction reranking, you'll configure both ingest and search
 
 ## Prerequisite: Deploy a ColPali model on Amazon SageMaker
 
-Because ColPali requires custom inference logic to handle both text queries and Base64-encoded images, you must deploy it using a custom inference script rather than the standard Hugging Face task interface. Run the following steps in a SageMaker notebook.
+The following is a sample deployment script for the [`vidore/colpali-v1.3-hf`](https://huggingface.co/vidore/colpali-v1.3-hf) model on Amazon SageMaker. You can use any late interaction model and deployment method of your choice. Because ColPali requires custom inference logic to handle both text queries and Base64-encoded images, this example uses a custom inference script rather than the standa
 
 ### Step 1: Create the custom inference script
 
@@ -32,6 +32,7 @@ import os
 os.makedirs('colpali_code', exist_ok=True)
 
 inference_code = r'''
+# Requires Python >= 3.12 and transformers >= 4.51.3
 import torch
 import base64
 from io import BytesIO
@@ -121,8 +122,11 @@ from datetime import datetime
 role = sagemaker.get_execution_role()
 
 # HuggingFace PyTorch Inference DLC - GPU, Python 3.12, Transformers 4.51.3
+# Replace 123456789012 with your AWS Deep Learning Containers account ID for your region.
+# See https://github.com/aws/deep-learning-containers/blob/master/available_images.md
+dlc_account_id = '123456789012'
 image_uri = (
-    f'763104351884.dkr.ecr.{region}.amazonaws.com/'
+    f'{dlc_account_id}.dkr.ecr.{region}.amazonaws.com/'
     'huggingface-pytorch-inference:2.6.0-transformers4.51.3-gpu-py312-cu124-ubuntu22.04'
 )
 
