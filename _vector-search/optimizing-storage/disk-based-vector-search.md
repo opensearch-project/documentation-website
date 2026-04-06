@@ -12,7 +12,7 @@ redirect_from:
 **Introduced 2.17**
 {: .label .label-purple}
 
-For low-memory environments, OpenSearch provides _disk-based vector search_, which significantly reduces the operational costs for vector workloads. Disk-based vector search uses [scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/) and [binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/), compressing vectors and thereby reducing the memory requirements. This memory optimization provides large memory savings at the cost of slightly increased search latency while still maintaining strong recall.
+For low-memory environments, OpenSearch provides _disk-based vector search_, which significantly reduces the operational costs for vector workloads. Disk-based vector search uses [scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/)(default from 3.6) and [binary quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/binary-quantization/), compressing vectors and thereby reducing the memory requirements. This memory optimization provides large memory savings at the cost of slightly increased search latency while still maintaining strong recall.
 
 To use disk-based vector search, set the [`mode`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#vector-workload-modes) parameter to `on_disk` for your vector field type. This parameter will configure your index to use secondary storage. For more information about disk-based search parameters, see [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/).
 

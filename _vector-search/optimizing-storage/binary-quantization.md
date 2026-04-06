@@ -35,10 +35,10 @@ PUT my-vector-index
       "my_vector_field": {
         "type": "knn_vector",
         "dimension": 8,
+        "space_type": "l2",
         "method": {
           "name": "hnsw",
           "engine": "faiss",
-          "space_type": "l2",
           "parameters": {
             "m": 16,
             "ef_construction": 512,
@@ -82,10 +82,10 @@ PUT vector-index
       "vector_field": {
         "type": "knn_vector",
         "dimension": 8,
+        "space_type": "l2",
         "method": {
             "name": "hnsw",
             "engine": "faiss",
-            "space_type": "l2",
             "parameters": {
               "encoder": {
                 "name": "binary",

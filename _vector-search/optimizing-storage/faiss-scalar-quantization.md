@@ -12,7 +12,7 @@ redirect_from:
 
 # Faiss scalar quantization
 
-OpenSearch supports built-in scalar quantization for the Faiss engine. The Faiss scalar quantizer converts 32-bit floating-point input vectors into lower-bit representations during ingestion and stores the quantized vectors in a vector index. OpenSearch supports 16-bit quantization and 1-bit quantization. Quantization can decrease the memory footprint in exchange for some loss in recall. When used with [SIMD optimization]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#simd-optimization), Faiss scalar quantization can also significantly reduce search latencies and improve indexing throughput.
+OpenSearch supports built-in scalar quantization for the Faiss engine. The Faiss scalar quantizer converts 32-bit floating-point input vectors into lower-bit representations during ingestion and stores the quantized vectors in a vector index. OpenSearch supports two types of scalar quantization with Faiss engine: 16-bit quantization and 1-bit quantization. Quantization can decrease the memory footprint in exchange for some loss in recall. When used with [SIMD optimization]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#simd-optimization), Faiss scalar quantization can also significantly reduce search latencies and improve indexing throughput.
 
 The `bits` parameter is required when configuring the `sq` encoder.
 {: .important}
@@ -75,10 +75,7 @@ The `type` and `clip` parameters are supported only for 16-bit quantization. If 
 **Introduced 3.6**
 {: .label .label-purple }
 
-You can use 1-bit scalar quantization to significantly reduce the memory footprint. With 1-bit quantization, each vector dimension is represented using a single bit, resulting in a much smaller index size compared to 16-bit quantization.
-
-Faiss 1-bit scalar quantization requires [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/), which is enabled by default and cannot be disabled.
-{: .important}
+You can use 1-bit scalar quantization to significantly reduce the memory footprint. 1-bit quantization uses [memory-optimized search]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/memory-optimized-search/), and each vector dimension is represented using a single bit, resulting in a much smaller index size compared to 16-bit quantization.
 
 The following example creates an index with 1-bit Faiss scalar quantization:
 
