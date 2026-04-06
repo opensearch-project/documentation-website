@@ -22,7 +22,7 @@ LLM connectors must support `system_prompt` and `user_prompt` parameters for age
 
 Once a memory container is created, provide its `memory_container_id` to other APIs.
 
-## What gets created
+## The created indexes
 
 The indexes created for a memory container depend on the `configuration` you provide. The following table summarizes the behavior.
 
@@ -264,7 +264,7 @@ POST /_plugins/_ml/memory_containers/_create
 ```
 {% include copy-curl.html %}
 
-This creates a container with a single working memory index. Messages can be stored and retrieved by ID, but semantic search and long-term memory features are not available.
+This request creates a container with a single working memory index. Messages can be stored and retrieved by ID, but semantic search and long-term memory features are not available.
 
 ## Example request: Basic memory container with a strategy
 
@@ -289,7 +289,7 @@ POST /_plugins/_ml/memory_containers/_create
 ```
 {% include copy-curl.html %}
 
-This creates a container with working memory, long-term memory, and history indexes. The `SEMANTIC` strategy uses the LLM to extract facts from messages and the embedding model to enable vector-based semantic search over those facts.
+This request creates a container with working memory, long-term memory, and history indexes. The `SEMANTIC` strategy uses the LLM to extract facts from messages and the embedding model to enable vector-based semantic search over those facts.
 
 ## Example request: Advanced memory container with multiple strategies
 
