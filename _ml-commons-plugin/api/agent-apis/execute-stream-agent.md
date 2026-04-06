@@ -278,6 +278,35 @@ data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzH
 data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzHrriq5hXbN"},{"name":"parent_interaction_id","result":"L_U1iJkBCzHrriq5hXbs"},{"name":"response","dataAsMap":{"content":"","is_last":true}}]}]}
 ```
 
+## Example request with token usage
+**Introduced 3.6**
+{: .label .label-purple }
+
+To receive detailed token usage metrics in the streaming response, set `include_token_usage` to `true`:
+
+```json
+POST /_plugins/_ml/agents/<agent_id>/_execute/stream
+{
+    "parameters": {
+        "question": "How many indices are in my cluster?",
+        "include_token_usage": true
+    }
+}
+```
+{% include copy-curl.html %}
+
+### Example response with token usage
+
+The streaming response includes a `token_usage` chunk sent after the content chunks and before the final completion chunk:
+
+```json
+... (content chunks as shown above) ...
+
+data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzHrriq5hXbN"},{"name":"parent_interaction_id","result":"L_U1iJkBCzHrriq5hXbs"},{"name":"token_usage","dataAsMap":{"per_turn_usage":[{"turn":1,"model_id":"rk6okJwB_kOxOUbO6853","model_name":"GPT-3.5 Turbo","model_url":"https://api.openai.com/v1/chat/completions","input_tokens":1042,"output_tokens":69,"total_tokens":1111,"cache_read_input_tokens":0}],"per_model_usage":[{"model_id":"rk6okJwB_kOxOUbO6853","model_name":"GPT-3.5 Turbo","model_url":"https://api.openai.com/v1/chat/completions","call_count":1,"input_tokens":1042,"output_tokens":69,"total_tokens":1111,"cache_read_input_tokens":0}]}}]}]}
+
+data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzHrriq5hXbN"},{"name":"parent_interaction_id","result":"L_U1iJkBCzHrriq5hXbs"},{"name":"response","dataAsMap":{"content":"","is_last":true}}]}]}
+```
+
 ## Example request: AG-UI agent
 **Introduced 3.5**
 {: .label .label-purple }
@@ -333,8 +362,26 @@ The following table lists all response body fields.
 | :--- | :--- |:------------------------------------------------------------------------------------------------------------|
 | `inference_results` | Array | Contains the streaming response data returned by the agent.                                                       |
 | `inference_results.output` | Array | Contains output objects for each inference result.                                                      |
-| `inference_results.output.name` | String | The name of the output field. Can be `memory_id`, `parent_interaction_id`, or `response`.                   |
+| `inference_results.output.name` | String | The name of the output field. Can be `memory_id`, `parent_interaction_id`, `response`, or `token_usage`.                   |
 | `inference_results.output.result` | String | The values of the `memory_id` and `parent_interaction_id` fields.                                        |
-| `inference_results.output.dataAsMap` | Object | Contains the response content and metadata (present only for a `response` output).                               |
+| `inference_results.output.dataAsMap` | Object | Contains the response content and metadata (present for `response` and `token_usage` outputs).                               |
 | `inference_results.output.dataAsMap.content` | String | The agent's response content, which can include tool calls, tool results, or final text output.  |
 | `inference_results.output.dataAsMap.is_last` | Boolean | Indicates whether this is the final chunk in the stream: `true` for the last chunk, `false` if there are more chunks. |
+| `inference_results.output.dataAsMap.token_usage` | Object | Token usage metrics for the agent execution. Delivered as a separate streaming chunk before the final completion chunk. Only present when `include_token_usage` is set to `true`. **Introduced 3.6** |
+
+### Token usage in streaming responses
+**Introduced 3.6**
+{: .label .label-purple }
+
+To enable token usage tracking in streaming responses, set the `parameters.include_token_usage` field to `true` in your request. When enabled, the streaming response sequence is as follows:
+
+1. Content chunks stream through (with `is_last: false`)
+2. A `token_usage` chunk is sent containing detailed metrics
+3. A final completion chunk is sent (with empty content and `is_last: true`)
+
+The token usage chunk contains the same structure as the non-streaming API response:
+
+- **`per_turn_usage`**: An array of token usage records for each LLM call during agent execution. Each record includes `turn` (the sequence number), `model_id`, `model_name`, `model_url`, `input_tokens`, `output_tokens`, `total_tokens`, and optional cache-related fields.
+- **`per_model_usage`**: Aggregated token usage grouped by model. Each record includes `model_id`, `model_name`, `model_url`, `call_count` (number of LLM calls), `input_tokens`, `output_tokens`, `total_tokens`, and optional cache-related fields.
+
+For a complete description of token usage fields and how tokens are calculated by different model providers, see [Tracking token usage]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#tracking-token-usage) in the Execute Agent API documentation.
