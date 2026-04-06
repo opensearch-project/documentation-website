@@ -15,10 +15,10 @@ outside_cards:
     description: "Quantize vectors into binary vector"
     link: "/mappings/supported-field-types/knn-memory-optimized/#binary-vectors"
 inside_cards:
-  - heading: "Lucene scalar quantization"
+  - heading: "Lucene HNSW scalar quantization"
     description: "Use built-in scalar quantization for the Lucene engine"
     link: "/vector-search/optimizing-storage/lucene-scalar-quantization/"
-  - heading: "Lucene scalar quantization with flat"
+  - heading: "Lucene flat scalar quantization"
     description: "Use scalar quantization with the flat method for exact search in the Lucene engine"
     link: "/vector-search/optimizing-storage/scalar-quantization-flat/"
   - heading: "Faiss scalar quantization"

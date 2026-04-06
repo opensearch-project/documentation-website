@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Lucene scalar quantization with flat
+title: Lucene flat scalar quantization
 parent: Vector quantization
 grand_parent: Optimizing vector storage
 nav_order: 15
@@ -8,19 +8,19 @@ has_children: false
 has_math: true
 ---
 
-# Lucene scalar quantization with flat
+# Lucene flat scalar quantization
 **Introduced 3.6**
 {: .label .label-purple }
 
-Starting with version 3.6, OpenSearch supports the `flat` method for the Lucene engine, which performs scalar quantization on 32-bit floating-point vectors. Unlike the [HNSW-based Lucene scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/), which builds a navigable graph for approximate nearest neighbor search, the `flat` method performs exact (brute-force) k-NN search on quantized vectors. This provides perfect recall at the cost of higher search latency for large datasets.
+OpenSearch supports the `flat` method for the Lucene engine, which performs scalar quantization on 32-bit floating-point vectors. Unlike [Lucene HNSW scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/), which builds a navigable graph for approximate nearest neighbor search, the `flat` method performs exact (brute-force) k-NN search on quantized vectors. This provides perfect recall at the cost of higher search latency for large datasets.
 
-As of version 3.6, the `flat` method quantizes vectors to 1 bit per dimension and does not support any encoder or method parameters.
+The `flat` method quantizes vectors to 1 bit per dimension and does not support any encoder or method parameters.
 {: .note}
 
-The `flat` method is best suited for smaller datasets or use cases with restrictive filters where exact search results are required. For larger datasets where approximate results are acceptable, consider using the [HNSW method with scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/).
+The `flat` method is best suited for smaller datasets or use cases with restrictive filters where exact search results are required. For larger datasets where approximate results are acceptable, consider using [Lucene HNSW scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/).
 {: .tip}
 
-## Using Lucene scalar quantization with flat
+## Using Lucene flat scalar quantization
 
 To use scalar quantization with the `flat` method, set the k-NN vector field's `method.name` to `flat` when creating a vector index:
 
@@ -50,8 +50,6 @@ PUT /test-index
 
 Lucene scalar quantization is applied only to `float` vectors. If you change the default value of the `data_type` parameter from `float` to `byte` or any other type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
 {: .warning}
-
-There are no changes to ingestion or query mapping and no range limitations for the input vectors.
 
 ## Search
 
@@ -98,6 +96,6 @@ For more information about rescoring, see [Rescoring quantized results to full p
 
 ## Next steps
 
-- [Lucene scalar quantization (HNSW)]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/)
+- [Lucene HNSW scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/)
 - [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/)
 - [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)
