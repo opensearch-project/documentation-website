@@ -122,8 +122,6 @@ Reduces the number of Lucene segments by merging the segments of individual shar
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `max_num_segments` | The number of segments to reduce the shard to. | Integer | Yes
-`wait_for_completion` | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
-`task_execution_timeout` | Time | The explicit task execution timeout. Only useful when `wait_for_completion` is set to `false`. Default is `1h`. | No
 
 ```json
 {
@@ -427,6 +425,7 @@ Parameter | Description | Type | Required | Default
 `include_aliases` | Whether to include index aliases during the restore operation. If `true`, all aliases associated with the original index are restored with the remote index. If your application accesses the index using aliases, set this parameter to `true`. | Boolean | No | `false`
 `ignore_index_settings` | A comma-separated list of index settings to ignore during the restore operation. For example, `index.refresh_interval,index.number_of_replicas`. This is useful when you want to apply different settings to the restored remote index than the ones configured in the original index. | String | No | Empty string
 `number_of_replicas` | The number of replicas to configure for the restored remote index. This allows you to control replica allocation during the conversion process without requiring a separate update operation. Setting `number_of_replicas` during conversion helps prevent the cluster from entering a yellow state or creating unnecessary load during replica assignment. | Integer | No | `0`
+`rename_pattern` | The naming pattern for the restored searchable snapshot index. Use `$1` as a placeholder for the original index name. For example, `remote_$1` renames `my-index` to `remote_my-index`. | String | No | `$1_remote`
 
 #### Prerequisites
 
@@ -474,7 +473,8 @@ The following example demonstrates using all available configuration options. Th
       "snapshot": "daily-snapshot",
       "include_aliases": true,
       "ignore_index_settings": "index.refresh_interval,index.number_of_replicas",
-      "number_of_replicas": 0
+      "number_of_replicas": 0,
+      "rename_pattern": "remote_$1"
    }
 }
 ```

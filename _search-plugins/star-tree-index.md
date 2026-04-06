@@ -2,7 +2,7 @@
 layout: default
 title: Star-tree index
 parent: Improving search performance
-nav_order: 54
+nav_order: 50
 ---
 
 # Star-tree index

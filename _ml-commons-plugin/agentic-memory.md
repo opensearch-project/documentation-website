@@ -20,8 +20,7 @@ Using agentic memory, you can build AI agents that can do the following:
 - Track agent execution traces for debugging and analysis
 - Organize information across different users, sessions, or agent instances
 
-Currently, agentic memory is designed for integration with external agent frameworks like LangChain and LangGraph. OpenSearch's internal [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/) cannot interact with agentic memory.
-{: .note}
+Agentic memory is designed for integration with both OpenSearch's internal [agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/) and external agent frameworks like LangChain and LangGraph.
 
 >   **Important**:
 >   
@@ -222,6 +221,45 @@ To implement agentic memory in your agents:
 4. **[Update memories]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/update-memory/)** as conversations evolve.
 
 For detailed API documentation, see [Agentic Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/).
+
+## Inspecting memory data (OpenSearch agents)
+
+After executing OpenSearch agents configured with agentic memory, you can inspect session and trace data using the [Get Memory API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/get-memory/) or [Search Memory API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-memory-apis/search-memory/):
+
+1. Retrieve the session by `memory_id`:
+
+```json
+GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/sessions/<memory_id>
+```
+{% include copy-curl.html %}
+
+2. Retrieve a message by interaction ID (`parent_interaction_id` from the agent execution output):
+
+```json
+GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/working/<interaction_id>
+```
+{% include copy-curl.html %}
+
+3. Get full working-memory trace data for a session using `namespace.session_id = <memory_id>`:
+
+```json
+GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/working/_search
+{
+  "query": {
+    "match": {
+      "namespace.session_id": "<memory_id>"
+    }
+  },
+  "sort": [
+    {
+      "created_time": {
+        "order": "asc"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
 
 ## Next steps
 

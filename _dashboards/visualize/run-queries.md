@@ -22,7 +22,7 @@ You can open the console from any other page by navigating to the main menu and 
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-left.png" width=200 alt="Dev Tools console from all pages">
 
-## Writing queries 
+## Writing queries
 
 Write your queries in the editor pane on the left side of the console:
 
@@ -31,7 +31,34 @@ Write your queries in the editor pane on the left side of the console:
 You can collapse and expand parts of your query by selecting the small triangles next to the line numbers.
 {: .tip}
 
-To learn more about writing queries in OpenSearch domain-specific language (DSL), see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
+The Dev Tools console supports all OpenSearch REST API operations, including search queries, index management, and cluster operations. You can use [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/) to build queries that:
+
+- **Search for documents**: Use `match`, `term`, `range`, and other query types to search your data.
+- **Get all results**: Use `match_all` queries to retrieve all documents from an index.
+- **Count results**: Use the `_count` endpoint to get the total number of matching documents without retrieving them.
+- **Aggregate data**: Use aggregations to compute metrics, statistics, and summaries of your data.
+- **Filter results**: Combine queries with filters to narrow down search results.
+
+For example, to count all documents in an index, send the following request:
+
+```json
+GET my-index/_count
+```
+{% include copy-curl.html %}
+
+To retrieve all documents, send the following request:
+
+```json
+GET my-index/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+```
+{% include copy-curl.html %}
+
+For a complete list of query types and capabilities, see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
 
 You can import or export queries by selecting **Import** or **Export** from the top menu. 
 
@@ -53,6 +80,9 @@ OpenSearch displays the response in the response pane on the right side of the c
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-response.png" alt="Response pane">{: .img-fluid }
 
+When submitting long-running operations (such as reindexing or snapshot creation) to OpenSearch, you can make the request asynchronous by providing the `wait_for_completion=false` query parameter. If this parameter is not specified, the request runs synchronously. In that case, if the operation exceeds the OpenSearch request timeout value, the client might send a new request, which can lead to unexpected behavior. If the API does not support asynchronous execution through query parameters, consider using cURL to run the request directly.
+{: .note}
+
 ## Working in the cURL and console formats
 
 The console uses an easier syntax to format REST requests than the `curl` command. 
@@ -69,6 +99,7 @@ curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: ap
   }
 }'
 ```
+{% include copy.html %}
 
 The same query has a simpler syntax in the console format:
 
@@ -82,6 +113,7 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 If you paste a `curl` command directly into the console, the command is automatically converted into the format the console uses. 
 
@@ -101,15 +133,17 @@ PUT /testindex/_doc/1
   "test_query": "{ \"query\": { \"query_string\": { \"query\": \"host:\\\"127.0.0.1\\\"\" } } }"
 }
 ```
+{% include copy-curl.html %}
 
 Alternatively, you can use triple quotation marks for a simpler format:
 
-```
+```json
 PUT /testindex/_doc/1
 {
   "test_query": """{ "query": { "query_string": { "query": "host:\"127.0.0.1\"" } } }"""
 }
 ```
+{% include copy-curl.html %}
 
 Triple quotation marks are only supported in the Dev Tools console---not in `curl` or other HTTP clients. To import a query with triple quotation marks in cURL format, use **Copy as cURL**.
 {: .tip}

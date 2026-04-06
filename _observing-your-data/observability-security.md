@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Observability security
-nav_order: 5
+nav_order: 160
 has_children: false
 redirect_from:
   - /observing-your-data/security/

@@ -3,7 +3,7 @@ layout: default
 title: Experiments
 nav_order: 9
 parent: Search Relevance Workbench
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 has_toc: false
 ---
@@ -25,7 +25,7 @@ You can retrieve an experiment using the experiment ID.
 #### Endpoint
 
 ```json
-GET _plugins/_search_relevance/experiment/<experiment_id>
+GET _plugins/_search_relevance/experiments/<experiment_id>
 ```
 
 ### Path parameters
@@ -39,7 +39,7 @@ The following table lists the available path parameters.
 #### Example request
 
 ```json
-GET _plugins/_search_relevance/experiment/b54f791a-3b02-49cb-a06c-46ab650b2ade
+GET _plugins/_search_relevance/experiments/b54f791a-3b02-49cb-a06c-46ab650b2ade
 ```
 {% include copy-curl.html %}
 
@@ -209,13 +209,13 @@ You can delete an experiment using the experiment ID.
 #### Endpoint
 
 ```json
-DELETE _plugins/_search_relevance/experiment/<experiment_id>
+DELETE _plugins/_search_relevance/experiments/<experiment_id>
 ```
 
 #### Example request
 
 ```json
-DELETE _plugins/_search_relevance/experiment/47cc3861-c37b-43cc-99c4
+DELETE _plugins/_search_relevance/experiments/47cc3861-c37b-43cc-99c4
 ```
 {% include copy-curl.html %}
 
@@ -245,8 +245,8 @@ You can search for available experiments using query domain-specific language (D
 #### Endpoints
 
 ```json
-GET _plugins/_search_relevance/experiment/_search
-POST _plugins/_search_relevance/experiment/_search
+GET _plugins/_search_relevance/experiments/_search
+POST _plugins/_search_relevance/experiments/_search
 ```
 
 #### Example request

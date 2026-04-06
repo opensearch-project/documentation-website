@@ -2,6 +2,7 @@
 layout: default
 title: Collecting UBI-formatted data in Amazon OpenSearch Service
 parent: User Behavior Insights
+grand_parent: Optimizing search quality
 has_children: false
 nav_order: 30
 ---

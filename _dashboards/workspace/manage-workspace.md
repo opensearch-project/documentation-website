@@ -6,7 +6,7 @@ nav_order: 2
 ---
 
 # Manage workspaces
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 You can access and modify the workspace details, including name, description, use case, and icon color, on the **Workspace details** page. 
@@ -99,8 +99,8 @@ Deleting a workspace permanently erases all its assets (except data sources) and
 
 To delete a workspace, follow these steps:
 
-1. From the **Workspace details** page, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/} icon in the upper-right corner to delete the current workspace.
-2. Alternatively, from the workspace list page, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon and select **Delete**. Optionally, select multiple workspaces for bulk deletion.
+1. From the **Workspace details** page, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/} (trash can) icon in the upper-right corner to delete the current workspace.
+2. Alternatively, from the workspace list page, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} (ellipsis) icon and select **Delete**. Optionally, select multiple workspaces for bulk deletion.
 
 ## Navigating the workspaces list
 

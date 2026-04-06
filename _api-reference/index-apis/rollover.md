@@ -7,7 +7,7 @@ nav_order: 70
 ---
 
 # Roll Over Index API
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 The roll over index API operation creates a new index for a data stream or index alias based on the `wait_for_active_shards` setting.
