@@ -424,6 +424,14 @@ POST _plugins/_ml/agents/your_agent_id/_execute?async=true
 ```
 {% include copy-curl.html %}
 
+## Tracking token usage
+**Introduced 3.6**
+{: .label .label-purple }
+
+Plan-execute-reflect agents support token usage tracking, which provides detailed metrics about token consumption for each LLM call during agent execution, including planning, execution (using a subagent), and reflection LLM calls. Subagent token data is automatically merged into the parent agent's token usage report.
+
+To enable token usage tracking, set the `include_token_usage` parameter to `true` when executing the agent. The response will include a `token_usage` output with per-turn and per-model aggregated metrics. For detailed information about token usage fields and how tokens are calculated by different model providers, see [Tracking token usage]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#tracking-token-usage) in the Execute Agent API documentation.
+
 ## Next steps
 
 - To learn more about registering agents, see [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
