@@ -2,7 +2,7 @@
 layout: default
 title: Datasets
 nav_order: 10
-parent: Exploring observability data
+parent: Using Discover for observability
 redirect_from:
   - /observability-plugin/datasets/
 ---

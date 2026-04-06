@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Discover logs
+title: Analyzing logs in Discover
 nav_order: 30
-parent: Exploring observability data
+parent: Using Discover for observability
 redirect_from:
   - /observability-plugin/discover-logs/
 ---
 
-# Discover logs
+# Analyzing logs in Discover
 **Introduced 3.5**
 {: .label .label-purple }
 
