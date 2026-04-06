@@ -22,6 +22,22 @@ LLM connectors must support `system_prompt` and `user_prompt` parameters for age
 
 Once a memory container is created, provide its `memory_container_id` to other APIs.
 
+## The created indexes
+
+The indexes created for a memory container depend on the `configuration` you provide. The following table summarizes the behavior.
+
+Configuration | Indexes created | Capabilities
+:--- | :--- | :---
+No `configuration` or no `strategies` | Working memory only (+ session if `disable_session` is `false`) | Raw message storage and retrieval. No semantic search, no long-term memory, no fact extraction.
+With `strategies` (requires `llm_id`, `embedding_model_id`, and `embedding_model_type`) | Working memory + long-term memory + history (+ session if `disable_session` is `false`) | Semantic search, fact extraction, memory consolidation (ADD/UPDATE/DELETE decisions), and an audit trail of all long-term memory changes.
+
+Each index type serves a specific purpose:
+
+- **Working memory**: Stores raw messages as they are received. Always created.
+- **Session**: Tracks conversation sessions and their metadata. Created only when `disable_session` is `false` (disabled by default).
+- **Long-term memory**: Stores extracted facts and persistent knowledge produced by strategies. Created only when strategies are configured.
+- **History**: An audit trail that records every ADD, UPDATE, and DELETE operation on long-term memory. Created only when strategies are configured. Can be opted out of by setting `disable_history` to `true`.
+
 ## Prerequisites
 
 If you want to use one of the model types to process memories, register the models in OpenSearch.
@@ -144,7 +160,8 @@ Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `name` | String | Required | The name of the memory container.
 `description` | String | Optional | The description of the memory container.
-`configuration` | Object | Required | The memory container configuration. See [The `configuration` object](#the-configuration-object).
+`configuration` | Object | Optional | The memory container configuration. When not provided, a default configuration is used that creates a working-memory-only container with no AI capabilities. For full functionality including semantic search and long-term memory, provide a configuration with model IDs and strategies. See [The `configuration` object](#the-configuration-object).
+`backend_roles` | Array | Optional | A list of backend roles for access control. Each role must be at most 128 characters and contain only alphanumeric characters and `:+=,.@-_/`.
 
 ### The configuration object
 
@@ -152,17 +169,17 @@ The `configuration` object supports the following fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
-`embedding_model_type` | String | Optional | The embedding model type. Supported types are `TEXT_EMBEDDING` and `SPARSE_ENCODING`.
-`embedding_model_id` | String | Optional | The embedding model ID.
-`embedding_dimension` | Integer | Optional | The dimension of the embedding model. Required if `embedding_model_type` is `TEXT_EMBEDDING`.
+`embedding_model_type` | String | Optional | The embedding model type. Supported types are `TEXT_EMBEDDING` and `SPARSE_ENCODING`. Required if `embedding_model_id` is provided.
+`embedding_model_id` | String | Optional | The embedding model ID. Required if `embedding_model_type` is provided.
+`embedding_dimension` | Integer | Optional | The dimension of the embedding model. Required if `embedding_model_type` is `TEXT_EMBEDDING`. Not allowed if `embedding_model_type` is `SPARSE_ENCODING`.
 `llm_id` | String | Optional | The LLM model ID for processing and inference.
 `index_prefix` | String | Optional | A custom prefix for memory indexes. If not specified, a default prefix is used: `default` when `use_system_index` is `true`, or an 8-character random UUID when `use_system_index` is `false`.
-`use_system_index` | Boolean | Optional | Whether to use system indexes. Default is `true`.
-`disable_history`  | Boolean | Optional | If disabled, no history will be persisted. Default is `false`, so history will be persisted by default.
-`disable_session`  | Boolean | Optional | If disabled, no session will be persisted. Default is `true`, so the session will not be persisted by default.
-`max_infer_size`   | int     | Optional | Controls the top k number of similar existing memories retrieved during memory consolidation to make ADD/UPDATE/DELETE decisions.
+`use_system_index` | Boolean | Optional | Whether to use system indexes (hidden indexes prefixed with `.plugins-ml-agentic-memory-`). Default is `true`.
+`disable_history`  | Boolean | Optional | Whether to disable the history audit trail index. Default is `false`. This setting only takes effect when strategies are configured, because the history index records changes to long-term memory. Without strategies, no long-term memory or history index is created regardless of this setting.
+`disable_session`  | Boolean | Optional | Whether to disable the session tracking index. Default is `true` (sessions are disabled by default). Set to `false` to enable session tracking for organizing conversations.
+`max_infer_size`   | Integer | Optional | The maximum number of similar existing memories retrieved during memory consolidation to make ADD/UPDATE/DELETE decisions. Default is `5`. Maximum is `10`.
 `index_settings`   | Object | Optional | Custom OpenSearch index settings for the memory storage indexes that will be created for this container. Each memory type (`sessions`, `working`, `long_term`, and `history`) uses its own index. See [Index settings](#index-settings).
-`strategies` | Array | Optional | An array of [memory processing strategies]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-processing-strategies). See [The `strategies` array](#the-strategies-array).
+`strategies` | Array | Optional | An array of [memory processing strategies]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/#memory-processing-strategies). When strategies are provided, both `llm_id` and embedding model fields (`embedding_model_id`, `embedding_model_type`) are required. See [The `strategies` array](#the-strategies-array).
 `parameters` | Object | Optional | Global parameters for the memory container. See [The `parameters` object](#the-parameters-object).
 
 ### Index settings
@@ -235,7 +252,21 @@ Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `llm_result_path` | String | Optional | A global JSONPath expression for extracting LLM results from responses. Default is the Amazon Bedrock Converse API response path (`"$.output.message.content[0].text"`).
 
-## Example request: Basic memory container
+## Example request: Minimal memory container
+
+The following request creates a minimal memory container with only working memory (raw message storage). No AI models or strategies are configured:
+
+```json
+POST /_plugins/_ml/memory_containers/_create
+{
+  "name": "simple-message-store"
+}
+```
+{% include copy-curl.html %}
+
+This request creates a container with a single working memory index. Messages can be stored and retrieved by ID, but semantic search and long-term memory features are not available.
+
+## Example request: Basic memory container with a strategy
 
 ```json
 POST /_plugins/_ml/memory_containers/_create
@@ -257,6 +288,8 @@ POST /_plugins/_ml/memory_containers/_create
 }
 ```
 {% include copy-curl.html %}
+
+This request creates a container with working memory, long-term memory, and history indexes. The `SEMANTIC` strategy uses the LLM to extract facts from messages and the embedding model to enable vector-based semantic search over those facts.
 
 ## Example request: Advanced memory container with multiple strategies
 
