@@ -384,4 +384,4 @@ The token usage chunk contains the same structure as the non-streaming API respo
 - **`per_turn_usage`**: An array of token usage records for each LLM call during agent execution. Each record includes `turn` (the sequence number), `model_id`, `model_name`, `model_url`, `input_tokens`, `output_tokens`, `total_tokens`, and optional cache-related fields.
 - **`per_model_usage`**: Aggregated token usage grouped by model. Each record includes `model_id`, `model_name`, `model_url`, `call_count` (number of LLM calls), `input_tokens`, `output_tokens`, `total_tokens`, and optional cache-related fields.
 
-For a complete description of token usage fields, see the [Execute Agent API token usage documentation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#token-usage-fields).
+For a complete description of token usage fields and how tokens are calculated by different model providers, see [Tracking token usage]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#tracking-token-usage) in the Execute Agent API documentation.

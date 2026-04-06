@@ -234,9 +234,109 @@ AG-UI agents return SSEs with the following event types in the `type` field.
 **Introduced 3.6**
 {: .label .label-purple }
 
-AG-UI agents support token usage tracking, which provides detailed metrics about token consumption for each LLM call during agent execution. Token usage is delivered as part of the streaming event sequence.
+OpenSearch AG-UI agents support token usage tracking, which provides detailed metrics about token consumption for each LLM call during agent execution. Token usage is delivered as part of the streaming event sequence.
 
-To enable token usage tracking, set the `include_token_usage` parameter to `true` when executing the agent. The response will include token usage data in the streaming response. For more information, see [Execute Stream Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-stream-agent/#token-usage-in-streaming-responses).
+For AG-UI agents, token usage tracking is enabled during agent registration by setting `"include_token_usage": true` in the `parameters` field. This applies to both the unified registration method (new interface) and the regular registration method (old interface). Once the agent is registered, this setting cannot be changed during agent execution, it must be set at registration time.
+
+### Enabling token usage tracking during registration (unified method)
+
+To enable token usage tracking for an AG-UI agent using the unified registration method, include the `include_token_usage` parameter in the `parameters` field during registration:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "AG-UI Agent",
+  "type": "AG_UI",
+  "description": "An AI agent designed for UI interactions with streaming support",
+  "model": {
+    "model_id": "<MODEL ID>",
+    "model_provider": "bedrock/converse",
+    "credential": {
+      "access_key": "<AWS ACCESS KEY>",
+      "secret_key": "<AWS SECRET KEY>",
+      "session_token": "<AWS SESSION TOKEN>"
+    },
+    "model_parameters": {
+      "system_prompt": "You are a helpful assistant and an expert in OpenSearch."
+    }
+  },
+  "parameters": {
+    "max_iteration": 5,
+    "include_token_usage": true
+  },
+  "tools": [{
+    "type": "ListIndexTool"
+  }],
+  "memory": {
+    "type": "conversation_index"  
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Enabling token usage tracking during registration (regular method)
+
+Alternatively, you can enable token usage tracking using the regular registration method by including `include_token_usage` in the agent's `parameters`:
+
+```json
+POST /_plugins/_ml/agents/_register
+{
+  "name": "AG-UI Agent",
+  "type": "AG_UI",
+  "llm": {
+    "model_id": "<MODEL_ID>",
+    "parameters": {
+      "max_iteration": 5
+    }
+  },
+  "tools": [{
+    "type": "ListIndexTool"
+  }],
+  "parameters": {
+    "include_token_usage": true
+  },
+  "memory": {
+    "type": "conversation_index"
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Token usage in streaming responses
+
+When token usage tracking is enabled, the streaming response includes a `Custom` event with token usage metrics after the `RUN_FINISHED` event. The metrics include per-turn and per-model token consumption:
+
+```json
+data: {"type":"RUN_STARTED","timestamp":1775501029508,"threadId":"thread-agui-new-agmem-postman","runId":"run-postman-agui-new-am"}
+
+data: {"type":"TOOL_CALL_START","timestamp":1775501031547,"toolCallId":"tooluse_Z8ov0YNqeAW8B2h1qNH49w","toolCallName":"ListIndexTool"}
+
+data: {"type":"TOOL_CALL_ARGS","timestamp":1775501031549,"toolCallId":"tooluse_Z8ov0YNqeAW8B2h1qNH49w","delta":""}
+
+data: {"type":"TOOL_CALL_ARGS","timestamp":1775501031814,"toolCallId":"tooluse_Z8ov0YNqeAW8B2h1qNH49w","delta":"{\"indi"}
+
+data: {"type":"TOOL_CALL_ARGS","timestamp":1775501031814,"toolCallId":"tooluse_Z8ov0YNqeAW8B2h1qNH49w","delta":"ces\": []}"}
+
+data: {"type":"TOOL_CALL_END","timestamp":1775501031893,"toolCallId":"tooluse_Z8ov0YNqeAW8B2h1qNH49w"}
+
+data: {"type":"TOOL_CALL_RESULT","timestamp":1775501031911,"messageId":"msg_66642762007875","toolCallId":"tooluse_Z8ov0YNqeAW8B2h1qNH49w","content":"..."}
+
+data: {"type":"TEXT_MESSAGE_START","timestamp":1775501033817,"messageId":"msg_66644668213500","role":"assistant"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","timestamp":1775501033818,"messageId":"msg_66644668213500","delta":"Here are all the indices..."}
+
+data: {"type":"TEXT_MESSAGE_END","timestamp":1775501041102,"messageId":"msg_66644668213500"}
+
+data: {"type":"Custom","timestamp":1775501041115,"name":"token_usage","value":{"per_turn_usage":[{"model_name":"Auto-generated model for us.anthropic.claude-sonnet-4-5-20250929-v1:0","model_url":"https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1:0/converse","total_tokens":4806.0,"output_tokens":54.0,"turn":1.0,"model_id":"9RIbZJ0B1Feno22Ak-7G","input_tokens":4752.0},{"model_name":"Auto-generated model for us.anthropic.claude-sonnet-4-5-20250929-v1:0","model_url":"https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1:0/converse","total_tokens":6262.0,"output_tokens":898.0,"turn":2.0,"model_id":"9RIbZJ0B1Feno22Ak-7G","input_tokens":5364.0}],"per_model_usage":[{"model_name":"Auto-generated model for us.anthropic.claude-sonnet-4-5-20250929-v1:0","model_url":"https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1:0/converse","call_count":2.0,"total_tokens":11068.0,"output_tokens":952.0,"model_id":"9RIbZJ0B1Feno22Ak-7G","input_tokens":10116.0}]}}
+
+data: {"type":"RUN_FINISHED","timestamp":1775501041116,"threadId":"thread-agui-new-agmem-postman","runId":"run-postman-agui-new-am"}
+```
+
+The `token_usage` event contains:
+- **`per_turn_usage`**: Token metrics for each individual turn during the agent execution, including `turn` number, `model_id`, `model_name`, `model_url`, `input_tokens`, `output_tokens`, and `total_tokens`.
+- **`per_model_usage`**: Aggregated token metrics grouped by model, including `model_id`, `model_name`, `model_url`, `call_count`, `input_tokens`, `output_tokens`, and `total_tokens`.
+
+For detailed information about token usage fields and how tokens are calculated by different model providers, see [Tracking token usage]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#tracking-token-usage) in the Execute Agent API documentation.
 
 ## Next steps
 

@@ -321,7 +321,11 @@ The `conversational_v2` agent automatically includes token usage in its response
 **Introduced 3.6**
 {: .label .label-purple }
 
-For agents created using regular registration, set `include_token_usage` to `true` in the `parameters` object:
+For agents created using regular registration, set `include_token_usage` to `true` in the `parameters` object.
+
+This example demonstrates a multi-turn agent execution where the agent is a conversational agent configured with the `WebSearchTool`. Multi-turn execution occurs because the agent:
+1. **Turn 1**: Receives the question, reasons about what information is needed, and decides to use the `WebSearchTool` to find population data.
+2. **Turn 2**: Receives the tool results and generates a final answer by analyzing and synthesizing the search results.
 
 ```json
 POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
@@ -425,7 +429,7 @@ The `token_usage` output contains the following fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `per_turn_usage` | Array | An array of token usage records for each LLM call during agent execution. See [Token usage response fields](#token-usage-response-fields). |
+| `per_turn_usage` | Array | An array of token usage records for each LLM call (turn) within a single agent execution. Multiple turns occur when an agent needs to reason, use tools, and then generate a final response—each LLM interaction counts as one turn. See [Token usage response fields](#token-usage-response-fields). |
 | `per_model_usage` | Array | Aggregated token usage grouped by model. See [Token usage response fields](#token-usage-response-fields). |
 
 ### Token usage response fields
@@ -445,3 +449,10 @@ Field | Data type | Present in | Description
 `model_id` | String | Both | The internal OpenSearch model ID.
 `model_name` | String | Both | The human-readable model name (for example, `Sonnet 4`, `GPT-4`).
 `model_url` | String | Both | The endpoint URL for the model service.
+
+### How tokens are calculated
+
+Token counts are calculated by the model provider and may vary based on tokenization methods. For more information about how tokens are calculated, refer to your model provider's documentation:
+- [Amazon Bedrock TokenUsage](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_TokenUsage.html)
+- [OpenAI tokenization](https://platform.openai.com/docs/guides/tokenization)
+- [Google Gemini token counting](https://ai.google.dev/gemini-api/docs/tokens)

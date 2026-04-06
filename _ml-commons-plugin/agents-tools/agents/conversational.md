@@ -299,7 +299,7 @@ POST /_plugins/_ml/agents/_register
 
 Conversational agents support token usage tracking, which provides detailed metrics about token consumption for each LLM call during agent execution. This helps you monitor costs, debug performance, and compare model efficiency.
 
-To enable token usage tracking, set the `include_token_usage` parameter to `true` when executing the agent. The response will include a `token_usage` output with per-turn and per-model aggregated metrics. For more information, see [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#token-usage-fields).
+To enable token usage tracking, set the `include_token_usage` parameter to `true` when executing the agent. The response will include a `token_usage` output with per-turn and per-model aggregated metrics. For detailed information about token usage fields and how tokens are calculated by different model providers, see [Tracking token usage]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/#tracking-token-usage) in the Execute Agent API documentation.
 
 ## Next steps
 
