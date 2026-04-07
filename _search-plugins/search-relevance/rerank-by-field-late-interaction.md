@@ -21,7 +21,7 @@ To implement late interaction reranking, you'll configure both ingest and search
 
 ## Prerequisite: Deploy a ColPali model on Amazon SageMaker
 
-The following is a sample deployment script for the [`vidore/colpali-v1.3-hf`](https://huggingface.co/vidore/colpali-v1.3-hf) model on Amazon SageMaker. You can use any late interaction model and deployment method of your choice. Because ColPali requires custom inference logic to handle both text queries and Base64-encoded images, this example uses a custom inference script rather than the standa
+The following is a sample deployment script for the [`vidore/colpali-v1.3-hf`](https://huggingface.co/vidore/colpali-v1.3-hf) model on Amazon SageMaker. You can use any late interaction model and deployment method of your choice. Because ColPali requires custom inference logic to handle both text queries and Base64-encoded images, this example uses a custom inference script rather than the standard Hugging Face task interface. Run the following steps in a SageMaker notebook.
 
 ### Step 1: Create the custom inference script
 
