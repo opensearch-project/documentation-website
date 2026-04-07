@@ -6,7 +6,7 @@ The OpenSearch 3.6.0 documentation includes the following additions and updates.
 
 - Add documentation for Agent Token Usage Tracking feature [#12196](https://github.com/opensearch-project/documentation-website/pull/12196)
 - [ML-Commons] Add agent-v2 documentation [#12192](https://github.com/opensearch-project/documentation-website/pull/12192)
--  Add Agent traces documentation for AI observability [#12188](https://github.com/opensearch-project/documentation-website/pull/12188)
+- Add Agent traces documentation for AI observability [#12188](https://github.com/opensearch-project/documentation-website/pull/12188)
 - Add warmup settings documentation for pull-based ingestion [#12187](https://github.com/opensearch-project/documentation-website/pull/12187)
 - docs: Update live queries documentation with new response format [#12186](https://github.com/opensearch-project/documentation-website/pull/12186)
 - Add Application Performance Monitoring (APM) documentation to Observability [#12184](https://github.com/opensearch-project/documentation-website/pull/12184)
