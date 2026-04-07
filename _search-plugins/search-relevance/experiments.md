@@ -16,7 +16,7 @@ Search Relevance Workbench offers multiple types of experiments. For more inform
 
 ## Creating experiments
 
-You can create an experiment to test search configurations in various ways.
+You can create an experiment to test search configurations using the following API.
 
 ### Endpoint
 
@@ -26,14 +26,14 @@ POST _plugins/_search_relevance/experiment
 
 ### Request body fields
 
-The following table lists the available input parameters.
+The following table lists the available request body fields.
 
 Field | Data type | Description
 :--- | :--- | :---
 `name` | String | The name of the experiment.
-`description` | String | Freeform description of the experiment.
-`type` | String | The type of experiment: `PAIRWISE_COMPARISON`, `POINTWISE_EVALUATION`, or `HYBRID_OPTIMIZER`.
-`querySetId` | String | The ID of the query set to use for the experiment.
+`description` | String | A description of the experiment.
+`type` | String | The experiment type. Valid values are `PAIRWISE_COMPARISON`, `POINTWISE_EVALUATION`, and `HYBRID_OPTIMIZER`.
+`querySetId` | String | The ID of the query set to use in the experiment.
 `searchConfigurationList` | Array | A list of search configuration IDs to use in the experiment.
 `judgmentList` | Array | A list of judgment IDs to use for evaluation. Optional.
 `size` | Integer | The number of results to retrieve for each query. Default is `10`.
