@@ -124,7 +124,7 @@ An index created in OpenSearch version 2.11 or earlier will still use the previo
 
 The `flat` method does not support any parameters.
 
-For more information, see [Exact search with scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/exact-search-scalar-quantization/).
+For more information, see [Exact search using scalar quantization]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/exact-search-scalar-quantization/).
 
 ### Example configuration
 

@@ -21,7 +21,7 @@ inside_cards:
   - heading: "Faiss scalar quantization"
     description: "Use built-in scalar quantization for the Faiss engine"
     link: "/vector-search/optimizing-storage/faiss-scalar-quantization/"
-  - heading: "Exact search with scalar quantization"
+  - heading: "Exact search using scalar quantization"
     description: "Use scalar quantization with the flat method for exact search"
     link: "/vector-search/optimizing-storage/exact-search-scalar-quantization/"
   - heading: "Faiss product quantization"

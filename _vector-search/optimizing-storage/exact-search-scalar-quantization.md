@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Exact search with scalar quantization
+title: Exact search using scalar quantization
 parent: Vector quantization
 grand_parent: Optimizing vector storage
 nav_order: 15
@@ -8,21 +8,21 @@ has_children: false
 has_math: true
 ---
 
-# Exact search with scalar quantization
+# Exact search using scalar quantization
 **Introduced 3.6**
 {: .label .label-purple }
 
-OpenSearch supports the `flat` method, which performs scalar quantization on 32-bit floating-point vectors. Unlike HNSW scalar quantization ([Faiss]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/), [Lucene]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/)), which builds a navigable graph for approximate nearest neighbor search, the `flat` method performs exact (brute-force) k-NN search on quantized vectors. This provides perfect recall at the cost of higher search latency for large datasets.
+OpenSearch supports the `flat` quantization method, which performs scalar quantization on 32-bit floating-point vectors. Unlike HNSW scalar quantization for the [Faiss]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/) and [Lucene]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/) engines, which builds a navigable graph for approximate nearest neighbor search, the `flat` method performs exact (brute-force) k-NN search on quantized vectors. This provides perfect recall at the cost of higher search latency for large datasets.
 
 The `flat` method quantizes vectors to 1 bit per dimension and does not support any encoder or method parameters.
 {: .note}
 
-The `flat` method is best suited for smaller datasets or use cases with restrictive filters where exact search results are required. For larger datasets where approximate results are acceptable, consider using HNSW scalar quantization ([Faiss]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/), [Lucene]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/)).
+The `flat` method is best suited for smaller datasets or use cases with restrictive filters where exact search results are required. For larger datasets where approximate results are acceptable, consider using HNSW scalar quantization for [Faiss]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/faiss-scalar-quantization/) or [Lucene]({{site.url}}{{site.baseurl}}/vector-search/optimizing-storage/lucene-scalar-quantization/) engines.
 {: .tip}
 
-## Using exact search with scalar quantization
+## Running an exact search using scalar quantization
 
-To use exact search with scalar quantization, set the k-NN vector field's `method.name` to `flat` when creating a vector index:
+To perform an exact search using scalar quantization, set the k-NN vector field's `method.name` to `flat` when creating a vector index:
 
 ```json
 PUT /test-index

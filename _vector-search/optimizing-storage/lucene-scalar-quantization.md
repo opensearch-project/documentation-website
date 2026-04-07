@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Lucene HNSW scalar quantization
+title: Lucene scalar quantization
 parent: Vector quantization
 grand_parent: Optimizing vector storage
 nav_order: 10
@@ -8,14 +8,14 @@ has_children: false
 has_math: true
 ---
 
-# Lucene HNSW scalar quantization
+# Lucene scalar quantization
 
 OpenSearch supports built-in scalar quantization for the Lucene engine. Unlike [byte vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors), which require you to quantize vectors before ingesting documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The quantizer converts 32-bit floating-point input vectors into lower-bit representations in each segment. OpenSearch supports 7-bit quantization and 1-bit quantization. When searching, the query vector is quantized in each segment in order to compute the distance between the query vector and the segment's quantized input vectors. Quantization can decrease the memory footprint in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
 
 The `bits` parameter is required when configuring the `sq` encoder.
 {: .important}
 
-## Using Lucene HNSW scalar quantization
+## Using Lucene scalar quantization
 
 To use the Lucene scalar quantizer, set the k-NN vector field's `method.parameters.encoder.name` to `sq` when creating a vector index. You must specify the `bits` parameter in the `method.parameters.encoder.parameters` object:
 
