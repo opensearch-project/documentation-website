@@ -113,7 +113,7 @@ print(f'Uploaded to {model_data_url}')
 
 ### Step 3: Deploy the SageMaker endpoint
 
-The following code deploys the model to a GPU instance (approximately 5–10 minutes):
+The following code deploys the model to a GPU instance (this process takes approximately 5--10 minutes):
 
 ```python
 import time
