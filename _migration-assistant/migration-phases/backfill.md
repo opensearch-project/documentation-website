@@ -124,6 +124,14 @@ Migration Assistant creates an Amazon CloudWatch dashboard, named `MigrationAssi
 
 You can find the backfill dashboard in the CloudWatch console based on the AWS Region in which you have deployed Migration Assistant. The metric graphs for your target cluster will be blank until you select the OpenSearch domain you're migrating to from the dropdown menu at the top of the dashboard.
 
+## Troubleshooting
+
+Use the following guidance to troubleshoot common backfill issues.
+
+### Shards appear stuck with no errors
+
+If `console backfill status --deep-check` shows shards that remain in progress indefinitely with no errors in the logs, the shard may exceed the default **80 GiB** size limit. Shards larger than this limit are skipped by RFS workers without surfacing an error in the backfill status output. To resolve this, increase the `--max-shard-size-bytes` value in your deployment configuration. For details, see [Configuring large shard support]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/#configuring-large-shard-support).
+
 ## Validating the backfill
 
 After the backfill is complete and the workers have stopped, examine the contents of your cluster using the [Refresh API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/) and the [Flush API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/flush/). The following example uses the console CLI with the Refresh API to check the backfill status:
