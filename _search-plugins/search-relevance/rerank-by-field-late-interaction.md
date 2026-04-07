@@ -88,7 +88,9 @@ print('Created colpali_code/inference.py')
 ```
 {% include copy.html %}
 
-### Step 2: Package and upload to Amazon S3
+### Step 2: Package the script and upload it to Amazon S3
+
+Package the `inference.py` script and upload it to Amazon S3 by using the following code:
 
 ```python
 import subprocess
