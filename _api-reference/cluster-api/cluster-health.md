@@ -13,77 +13,64 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The most basic cluster health request returns a simple status of the health of your cluster. OpenSearch expresses cluster health in three colors: green, yellow, and red. A green status means all primary shards and their replicas are allocated to nodes. A yellow status means all primary shards are allocated to nodes, but some replicas aren't. A red status means at least one primary shard is not allocated to any node.
+The cluster health API provides a quick overview of your cluster's operational status. OpenSearch expresses cluster health in three colors that represent the allocation state of shards:
 
-To get the status of a specific index, provide the index name.
+- **Green** (best): All primary shards and their replicas are allocated to nodes. The cluster is fully operational.
+- **Yellow**: All primary shards are allocated, but some replica shards are unassigned. The cluster is operational, but not fully redundant.
+- **Red** (worst): At least one primary shard is unassigned. Some data is unavailable, and search requests may return incomplete results.
 
+When determining overall health, the worst status takes precedence: if you request health for multiple indexes, the overall status is determined by the worst index status. Similarly, an index's status is determined by its worst shard status.
 
+<!-- spec_insert_start
+api: cluster.health
+component: endpoints
+-->
 ## Endpoints
-
 ```json
-GET _cluster/health
-GET _cluster/health/<index>
+GET /_cluster/health
+GET /_cluster/health/{index}
 ```
+<!-- spec_insert_end -->
 
+<!-- spec_insert_start
+api: cluster.health
+component: path_parameters
+-->
 ## Path parameters
 
 The following table lists the available path parameters. All path parameters are optional.
 
-Parameter | Data type | Description
-:--- | :--- | :---
-&lt;index-name&gt; | String | Limits health reporting to a specific index. Can be a single index or a comma-separated list of index names.
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `index` | List or String | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. |
+
+<!-- spec_insert_end -->
 
 ## Query parameters
 
 The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
-level | Enum | The level of detail for returned health information. Supported values are `cluster`, `indices`, `shards`, and `awareness_attributes`. Default is `cluster`.
-awareness_attribute | String | The name of the awareness attribute, for which to return cluster health (for example, `zone`). Applicable only if `level` is set to `awareness_attributes`.
-local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is `false`.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
-timeout | Time | The amount of time to wait for a response. If the timeout expires, the request fails. Default is 30 seconds.
-wait_for_active_shards | String | Wait until the specified number of shards is active before returning a response. `all` for all shards. Default is `0`.
-wait_for_nodes | String | Wait for N number of nodes. Use `12` for exact match, `>12` and `<12` for range.
-wait_for_events | Enum | Wait until all currently queued events with the given priority are processed. Supported values are `immediate`, `urgent`, `high`, `normal`, `low`, and `languid`.
-wait_for_no_relocating_shards | Boolean | Whether to wait until there are no relocating shards in the cluster. Default is `false`.
-wait_for_no_initializing_shards | Boolean | Whether to wait until there are no initializing shards in the cluster. Default is `false`.
-wait_for_status | Enum | Wait until the cluster health reaches the specified status or better. Supported values are `green`, `yellow`, and `red`.
-weights | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ration, for example, 2:3:5. In a 2:3:5 ratio with three zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. 
+| Parameter | Data type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `awareness_attribute` | String | The name of the awareness attribute for which to return the cluster health status (for example, `zone`). Applicable only if `level` is set to `awareness_attributes`. | N/A |
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | N/A |
+| `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with `open`, `closed`, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | `open` |
+| `level` | String | Controls the amount of detail included in the cluster health response. <br> Valid values are: `awareness_attributes`, `cluster`, `indices`, and `shards`. | `cluster` |
+| `local` | Boolean | Whether to return information from the local node only instead of from the cluster manager node. | `false` |
+| `timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | N/A |
+| `wait_for_active_shards` | Integer or String or NULL or String | Waits until the specified number of shards is active before returning a response. Use `all` for all shards. <br> Valid values are: <br> - `all`: Wait for all shards to be active. | `0` |
+| `wait_for_events` | String | Waits until all currently queued events with the given priority are processed. <br> Valid values are: <br> - `immediate`: Highest priority, processed as soon as possible. <br> - `urgent`: Very high priority, processed after immediate events. <br> - `high`: High priority, processed after urgent events. <br> - `normal`: Default priority, processed after high priority events. <br> - `low`: Low priority, processed after normal events. <br> - `languid`: Lowest priority, processed after all other events. | N/A |
+| `wait_for_no_initializing_shards` | Boolean | Whether to wait until there are no initializing shards in the cluster. | `false` |
+| `wait_for_no_relocating_shards` | Boolean | Whether to wait until there are no relocating shards in the cluster. | `false` |
+| `wait_for_nodes` | Integer or String | Waits until the specified number of nodes (`N`) is available. Accepts `>=N`, `<=N`, `>N`, and `<N`. You can also use `ge(N)`, `le(N)`, `gt(N)`, and `lt(N)` notation. | N/A |
+| `wait_for_status` | String | Waits until the cluster health reaches the specified status or better. <br> Valid values are: `green`, `GREEN`, `yellow`, `YELLOW`, `red`, and `RED`. | N/A |
+|`weights` | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ration, for example, 2:3:5. In a 2:3:5 ratio with three zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. | N/A |
 
-## Example requests
-
-The following examples show how to use the cluster health API.
-
-This request waits 50 seconds for the cluster to reach the yellow status or better:
-
-<!-- spec_insert_start
-component: example_code
-rest: GET /_cluster/health?wait_for_status=yellow&timeout=50s
--->
-{% capture step1_rest %}
-GET /_cluster/health?wait_for_status=yellow&timeout=50s
-{% endcapture %}
-
-{% capture step1_python %}
-
-
-response = client.cluster.health(
-  params = { "wait_for_status": "yellow", "timeout": "50s" }
-)
-
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
 <!-- spec_insert_end -->
 
-If the cluster health becomes yellow or green before 50 seconds elapse, it returns a response immediately. Otherwise it returns a response as soon as it exceeds the timeout.
+## Example request: Retrieving cluster health for all indexes
 
-The following example request retrieves cluster health for all indexes in the cluster:
+The following request retrieves cluster health for all indexes in the cluster:
 
 <!-- spec_insert_start
 component: example_code
@@ -110,48 +97,56 @@ The response contains cluster health information:
 ```json
 {
   "cluster_name" : "opensearch-cluster",
-  "status" : "green",
+  "status" : "yellow",
   "timed_out" : false,
-  "number_of_nodes" : 2,
-  "number_of_data_nodes" : 2,
+  "number_of_nodes" : 1,
+  "number_of_data_nodes" : 1,
   "discovered_master" : true,
-  "active_primary_shards" : 6,
-  "active_shards" : 12,
+  "discovered_cluster_manager" : true,
+  "active_primary_shards" : 138,
+  "active_shards" : 138,
   "relocating_shards" : 0,
   "initializing_shards" : 0,
-  "unassigned_shards" : 0,
+  "unassigned_shards" : 110,
   "delayed_unassigned_shards" : 0,
   "number_of_pending_tasks" : 0,
   "number_of_in_flight_fetch" : 0,
   "task_max_waiting_in_queue_millis" : 0,
-  "active_shards_percent_as_number" : 100.0
+  "active_shards_percent_as_number" : 55.64516129032258
 }
 ```
 
-## Response body fields
+The response shows a `yellow` status because this is a single-node cluster with replica shards that cannot be allocated. The `timed_out` field is `false`, indicating the response was returned within the default timeout period.
 
-The following table lists all response fields.
+## Example request: Waiting for a specific health status
 
-|Field |Data type |Description |
-|:---	|:---	|:---	|
-|cluster_name | String | The name of the cluster. |
-|status	| String | The cluster health status, which represents the state of shard allocation in the cluster. May be `green`, `yellow`, or `red`. |
-|number_of_nodes | Integer | The number of nodes in the cluster. |
-|number_of_data_nodes | Integer | The number of data nodes in the cluster. |
-|discovered_cluster_manager | Boolean | Specifies whether the cluster manager is discovered. |
-|active_primary_shards | Integer |  The number of active primary shards. |
-|active_shards | Integer | The total number of active shards, including primary and replica shards. |
-|relocating_shards | Integer | The number of relocating shards. |
-|initializing_shards | Integer | The number of initializing shards. |
-|unassigned_shards | Integer | The number of unassigned shards. |
-|delayed_unassigned_shards | Integer | The number of delayed unassigned shards. |
-|number_of_pending_tasks | Integer | The number of pending tasks in the cluster. |
-|number_of_in_flight_fetch | Integer | The number of unfinished fetches. |
-|task_max_waiting_in_queue_millis | Integer | The maximum wait time for all tasks waiting to be performed, in milliseconds. |
-|active_shards_percent_as_number | Double | The percentage of active shards in the cluster. |
-|awareness_attributes | Object | Contains cluster health information for each awareness attribute. |
+The following request waits 50 seconds for the cluster to reach the yellow status or better:
 
-## Returning cluster health by awareness attribute
+<!-- spec_insert_start
+component: example_code
+rest: GET /_cluster/health?wait_for_status=yellow&timeout=50s
+-->
+{% capture step1_rest %}
+GET /_cluster/health?wait_for_status=yellow&timeout=50s
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.cluster.health(
+  params = { "wait_for_status": "yellow", "timeout": "50s" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+If the cluster health becomes yellow or green before 50 seconds elapse, the request returns a response immediately. Otherwise it returns a response as soon as it exceeds the timeout.
+
+## Example request: Retrieving cluster health by awareness attribute
 
 To check cluster health by awareness attribute (for example, zone or rack), specify `awareness_attributes` in the `level` query parameter:
 
@@ -283,6 +278,33 @@ In response to the preceding request, OpenSearch returns cluster health informat
 
 The unassigned shard information will be accurate only if you [enable replica count enforcement]({{site.url}}{{site.baseurl}}/opensearch/cluster#replica-count-enforcement) and [configure forced awareness]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-awareness) for the awareness attribute either before cluster start or after cluster start but before any indexing requests. If you enable replica enforcement after the cluster receives indexing requests, the unassigned shard information may be inaccurate. If you don't configure replica count enforcement and forced awareness, the `unassigned_shards` field will contain -1.
 {: .warning}
+
+## Response body fields
+
+The following table lists all response fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `cluster_name` | String | The name of the cluster. |
+| `status` | String | The overall cluster health status based on the state of shard allocation. <br> - `green`: All primary and replica shards are allocated. <br> - `yellow`: All primary shards are allocated, but some replicas are not. <br> - `red`: At least one primary shard is unassigned. <br><br> The overall status is determined by the worst shard status across all indexes. |
+| `timed_out` | Boolean | Indicates whether the request exceeded the timeout period before the desired health status was reached. `false` means the response was returned within the timeout period. `true` means the timeout expired before the desired status was achieved. |
+| `number_of_nodes` | Integer | The total number of nodes in the cluster, including all node types (data, cluster manager, ingest, and so on). |
+| `number_of_data_nodes` | Integer | The number of nodes designated as data nodes in the cluster. Data nodes store shards and handle data-related operations. |
+| `discovered_cluster_manager` | Boolean | Indicates whether the cluster manager node has been discovered and is reachable. If `false`, the cluster may be in an unstable state. |
+| `discovered_master` | Boolean | Legacy field. Use `discovered_cluster_manager` instead. Retained for backward compatibility. |
+| `active_primary_shards` | Integer | The number of primary shards that are currently allocated and active in the cluster. Each document is stored in exactly one primary shard. |
+| `active_shards` | Integer | The total number of active shards, including both primary and replica shards. A higher number indicates better data redundancy. |
+| `relocating_shards` | Integer | The number of shards currently being moved from one node to another. Shard relocation occurs during rebalancing or when nodes join or leave the cluster. |
+| `initializing_shards` | Integer | The number of shards currently being initialized. This occurs when an index is first created or when a node rejoins the cluster and needs to recover shard data. |
+| `unassigned_shards` | Integer | The number of shards that exist in the cluster state but are not allocated to any node. Unassigned shards typically occur when replicas cannot be allocated (in a single-node cluster) or when a node fails and shards need to be reallocated. |
+| `delayed_unassigned_shards` | Integer | The number of unassigned shards whose allocation has been intentionally delayed. OpenSearch can delay allocation to avoid unnecessary shard movements when a node briefly disconnects and is expected to return. |
+| `number_of_pending_tasks` | Integer | The number of cluster-level changes (such as index creation, mapping updates, or shard allocation decisions) that are queued and awaiting execution by the cluster manager. |
+| `number_of_in_flight_fetch` | Integer | The number of ongoing shard-level fetch operations currently being executed across the cluster. |
+| `task_max_waiting_in_queue_millis` | Integer | The time in milliseconds that the longest-waiting task has been in the queue. High values may indicate that the cluster manager is overloaded. |
+| `active_shards_percent_as_number` | Double | The percentage of shards that are active out of the total number of shards (primary and replicas) that should exist. A value of 100.0 indicates all shards are allocated. |
+| `indices` | Object | Returned when `level=indices` or `level=shards`. Contains per-index health information with the same structure as the cluster-level fields. |
+| `shards` | Object | Returned when `level=shards`. Contains per-shard health information, nested within the `indices` object. |
+| `awareness_attributes` | Object | Returned when `level=awareness_attributes`. Contains cluster health information partitioned by awareness attributes (such as zone or rack). |
 
 ## Required permissions
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: OpenSearch Assistant for OpenSearch Dashboards
-nav_order: 3
+nav_order: 150
 has_children: true
 has_toc: false
 redirect_from:
@@ -58,7 +58,7 @@ For information about configuring OpenSearch Assistant through the REST API, see
 
 ## Using OpenSearch Assistant in OpenSearch Dashboards
 
-The following tutorials guide you through using OpenSearch Assistant in OpenSearch Dashboards. OpenSearch Assistant can be viewed in full frame or in the sidebar. The default view is in the right sidebar. To view the assistant in the left sidebar or in full frame, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/frame-icon.png" class="inline-icon" alt="frame icon"/>{:/} icon in the toolbar and choose the preferred option. 
+The following tutorials guide you through using OpenSearch Assistant in OpenSearch Dashboards. OpenSearch Assistant can be viewed in full frame or in the sidebar. The default view is in the right sidebar. To view the assistant in the left sidebar or in full frame, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/frame-icon.png" class="inline-icon" alt="frame icon"/>{:/} (frame) icon in the toolbar and choose the preferred option. 
 
 ### Start a conversation
 
