@@ -55,6 +55,15 @@ POST _plugins/_search_relevance/experiment
 ```
 {% include copy-curl.html %}
 
+#### Example response
+
+```json
+{
+  "experiment_id": "1777a6e8-1dcc-4e23-be4a-9ee27586c0fd",
+  "experiment_result": "CREATED"
+}
+```
+
 ## Managing experiments
 
 You can retrieve or delete experiments using the following APIs.
