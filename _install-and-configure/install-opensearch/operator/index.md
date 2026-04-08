@@ -116,19 +116,19 @@ Follow these steps to deploy the cluster, verify that it is running, access it, 
 
   1. To use the OpenSearch REST API, run the following command:
 
-    ```bash
-    kubectl port-forward svc/my-first-cluster 9200
-    ```
-    {% include copy.html %}
+      ```bash
+      kubectl port-forward svc/my-first-cluster 9200
+      ```
+      {% include copy.html %}
 
-  Then open a second terminal and run the following command. You can retrieve the admin credentials from the `my-first-cluster-admin-password` secret:
+      Then open a second terminal and run the following command. You can retrieve the admin credentials from the `my-first-cluster-admin-password` secret:
 
-    ```bash
-    curl -k -u admin:admin_password https://localhost:9200/_cat/nodes?v
-    ```
-    {% include copy.html %}
+      ```bash
+      curl -k -u admin:admin_password https://localhost:9200/_cat/nodes?v
+      ```
+      {% include copy.html %}
 
-  You should see the three deployed nodes listed.
+      You should see the three deployed nodes listed.
 
 1. To delete your cluster, run the following command:
 
