@@ -73,7 +73,9 @@ The query returns the following results:
 | balance |
 | age |
   
-
+<!-- temporarily commented out because the admin section is not ported
 ## Example 3: Fetch table metadata for a Prometheus data source
 
 See [Fetch metadata for table in Prometheus datasource]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/admin/datasources/) for more context.
+
+-->
