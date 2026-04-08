@@ -37,7 +37,7 @@ To install the operator using Helm, follow these steps:
 
 After you have successfully installed the operator, you can deploy your first OpenSearch cluster by creating a custom `OpenSearchCluster` object in Kubernetes.
 
-The following steps show you how to deploy a minimal cluster and are only intended for demonstration purposes. Review the next sections to learn how to configure and manage your cluster for production environments.
+The following steps show you how to deploy a minimal cluster and are only intended for demonstration purposes. To learn how to configure and manage your cluster for production environments, see [Configuration and management](#configuration-and-management).
 {: .important}
 
 Follow these steps to deploy the cluster, verify that it is running, access it, and clean up resources when finished:
