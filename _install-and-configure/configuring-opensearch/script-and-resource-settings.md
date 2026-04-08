@@ -3,6 +3,7 @@ layout: default
 title: Script and resource settings
 parent: Configuring OpenSearch
 nav_order: 125
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/script-and-resource-settings/
 ---
 
 # Script and resource settings

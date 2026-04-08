@@ -7,6 +7,7 @@ redirect_from:
   - /monitoring-plugins/pa/
   - /monitoring-plugins/pa/index/
   - /monitoring-your-cluster/pa/
+canonical_url: https://docs.opensearch.org/latest/monitoring-your-cluster/pa/index/
 ---
 
 # Performance Analyzer

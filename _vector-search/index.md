@@ -49,6 +49,7 @@ items:
   - heading: "Search data"
     description: "Use raw vector search or AI-powered methods like semantic, hybrid, multimodal, or neural sparse search. Add RAG to build conversational search."
     link: "/vector-search/searching-data/"
+canonical_url: https://docs.opensearch.org/latest/vector-search/
 ---
 
 # Vector search

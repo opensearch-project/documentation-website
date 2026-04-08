@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 40
 parent: Agents
 grand_parent: Agents and tools
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/
 ---
 
 # Plan-execute-reflect agents

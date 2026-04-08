@@ -6,6 +6,7 @@ parent: User guide
 has_toc: false
 redirect_from: 
   - /benchmark/user-guide/concepts/
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/concepts/
 ---
 
 # Concepts

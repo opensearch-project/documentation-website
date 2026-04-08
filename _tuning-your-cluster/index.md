@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/cluster/
   - /tuning-your-cluster/cluster/
   - /tuning-your-cluster/index/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/
 ---
 
 # Creating a cluster

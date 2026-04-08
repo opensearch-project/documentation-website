@@ -3,6 +3,7 @@ layout: default
 title: Children
 parent: Bucket aggregations
 nav_order: 15
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/children/
 ---
 
 # Children

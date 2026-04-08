@@ -5,6 +5,7 @@ parent: Reranking search results
 grand_parent: Optimizing search quality
 has_children: false
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/rerank-by-field-late-interaction/
 ---
 
 # Reranking by a field using an externally hosted late interaction model

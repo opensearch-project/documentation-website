@@ -11,6 +11,7 @@ redirect_from:
   - /field-types/
   - /field-types/index/
   - /field-types/mappings-use-cases/
+canonical_url: https://docs.opensearch.org/latest/mappings/
 ---
 
 # Mappings

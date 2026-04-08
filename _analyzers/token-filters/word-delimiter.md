@@ -3,6 +3,7 @@ layout: default
 title: Word delimiter 
 parent: Token filters
 nav_order: 470
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/word-delimiter/
 ---
 
 # Word delimiter token filter

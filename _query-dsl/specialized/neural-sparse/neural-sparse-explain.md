@@ -4,6 +4,7 @@ title: Neural sparse ANN explain
 parent: Neural sparse
 grand_parent: Specialized queries
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/neural-sparse/neural-sparse-explain/
 ---
 
 # Neural sparse ANN query explain

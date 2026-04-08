@@ -3,6 +3,7 @@ layout: default
 title: Application map
 nav_order: 30
 parent: Application Performance Monitoring
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/apm/application-map/
 ---
 
 # Application map

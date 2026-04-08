@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /observing-your-data/exploring-observability-data/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/index/
 ---
 
 # Using Discover for observability

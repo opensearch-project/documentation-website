@@ -3,6 +3,7 @@ layout: default
 title: Working with detectors
 parent: Using Security Analytics
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/security-analytics/usage/detectors/
 ---
 
 # Working with detectors

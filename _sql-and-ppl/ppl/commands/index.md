@@ -10,6 +10,7 @@ redirect_from:
   - /search-plugins/ppl/commands/
   - /search-plugins/ppl/functions/
   - /sql-and-ppl/ppl/functions/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/index/
 ---
 
 # Commands  

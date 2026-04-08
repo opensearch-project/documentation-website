@@ -6,6 +6,7 @@ has_children: false
 parent: Supported field types
 redirect_from:
   - /field-types/supported-field-types/sparse-vector/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/sparse-vector/
 ---
 
 # Sparse vector

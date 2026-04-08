@@ -4,6 +4,7 @@ title: substringBeforeLast()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/substring-before-last/
 ---
 
 # substringBeforeLast()

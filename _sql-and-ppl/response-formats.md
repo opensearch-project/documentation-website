@@ -4,6 +4,7 @@ title: Response formats
 nav_order: 2
 redirect_from:
   - /search-plugins/sql/response-formats/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/response-formats/
 ---
 
 # Response formats

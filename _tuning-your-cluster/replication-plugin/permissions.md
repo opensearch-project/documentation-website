@@ -5,6 +5,7 @@ nav_order: 30
 parent: Cross-cluster replication
 redirect_from:
   - /replication-plugin/permissions/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replication-plugin/permissions/
 ---
 
 # Cross-cluster replication security

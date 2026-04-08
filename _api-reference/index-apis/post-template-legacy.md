@@ -4,6 +4,7 @@ title: Post template (deprecated)
 parent: Index templates
 grand_parent: Index APIs
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/post-template-legacy/
 ---
 
 # Post template

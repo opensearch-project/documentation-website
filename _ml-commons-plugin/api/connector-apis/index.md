@@ -7,6 +7,7 @@ has_toc: false
 nav_order: 25
 redirect_from:
   - /ml-commons-plugin/api/connector-apis/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/connector-apis/index/
 ---
 
 # Connector APIs

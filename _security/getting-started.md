@@ -4,6 +4,7 @@ title: Getting started with OpenSearch security
 nav_order: 1
 redirect_from:
   - /getting-started/security/
+canonical_url: https://docs.opensearch.org/latest/security/getting-started/
 ---
 
 # Getting started with OpenSearch security

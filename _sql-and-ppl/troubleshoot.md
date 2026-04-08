@@ -4,6 +4,7 @@ title: Troubleshooting
 nav_order: 88
 redirect_from:
   - /search-plugins/sql/troubleshoot/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/troubleshoot/
 ---
 
 # Troubleshooting

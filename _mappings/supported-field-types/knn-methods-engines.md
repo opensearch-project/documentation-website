@@ -6,6 +6,7 @@ grand_parent: Supported field types
 redirect_from:
   - /field-types/supported-field-types/knn-methods-engines/
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/knn-methods-engines/
 ---
 
 # Methods and engines

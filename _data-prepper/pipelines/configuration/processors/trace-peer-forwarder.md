@@ -4,6 +4,7 @@ title: Trace peer forwarder
 parent: Processors
 grand_parent: Pipelines
 nav_order: 380
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/trace-peer-forwarder/
 ---
 
 # Trace peer forwarder processor

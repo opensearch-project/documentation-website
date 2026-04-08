@@ -6,6 +6,7 @@ nav_order: 10
 has_children: false
 redirect_from:
   - /search-plugins/knn/jni-libraries/
+canonical_url: https://docs.opensearch.org/latest/vector-search/api/knn/
 ---
 
 # k-NN API

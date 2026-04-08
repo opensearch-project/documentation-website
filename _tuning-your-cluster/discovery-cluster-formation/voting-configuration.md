@@ -3,6 +3,7 @@ layout: default
 title: Voting configuration management
 parent: Discovery and cluster formation
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/discovery-cluster-formation/voting-configuration/
 ---
 
 # Voting configuration management

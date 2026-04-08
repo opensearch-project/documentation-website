@@ -5,6 +5,7 @@ nav_order: 30
 parent: Learning to Rank
 grand_parent: Optimizing search quality
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ltr/working-with-features/
 ---
 
 # Working with features
