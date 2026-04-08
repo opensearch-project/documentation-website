@@ -2,7 +2,7 @@
 layout: default
 title: Match phrase prefix
 parent: Full-text queries
-nav_order: 40
+nav_order: 30
 ---
 
 # Match phrase prefix query
