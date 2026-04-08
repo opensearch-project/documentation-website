@@ -790,19 +790,21 @@ Field | Data type | Description
 
 When you run a delete by query operation asynchronously by setting `wait_for_completion=false`, OpenSearch returns a task ID that you can use to monitor, modify, or cancel the operation.
 
-### Getting the status of a delete by query operation
+### Retrieving the status of a delete by query operation
 
-To get the status of a delete by query operation, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/):
+To retrieve the status of a delete by query operation, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/):
 
 ```json
 GET _tasks?detailed=true&actions=*/delete/byquery
 ```
+{% include copy-curl.html %}
 
-The response includes the status of all running delete by query operations. To get the status of a specific task, use the task ID:
+The response includes the status of all running delete by query operations. To retrieve the status of a specific task, use the task ID:
 
 ```json
 GET _tasks/<task_id>
 ```
+{% include copy-curl.html %}
 
 The response contains detailed information about the operation's progress:
 
@@ -839,6 +841,7 @@ To change the throttling of a running delete by query operation, use the Rethrot
 ```json
 POST _delete_by_query/<task_id>/_rethrottle?requests_per_second=100
 ```
+{% include copy-curl.html %}
 
 Set `requests_per_second` to any positive decimal value or `-1` to disable throttling. Rethrottling that speeds up the operation takes effect immediately. Rethrottling that slows down the operation takes effect after completing the current batch to prevent scroll timeouts.
 
@@ -849,5 +852,6 @@ To cancel a running delete by query operation, use the task cancel API:
 ```json
 POST _tasks/<task_id>/_cancel
 ```
+{% include copy-curl.html %}
 
 Cancellation should happen quickly but might take a few seconds. The Tasks API continues to list the delete by query task until it checks that it has been canceled and terminates itself. When you cancel a delete by query operation with slices, OpenSearch cancels each sub-request.
