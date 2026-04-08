@@ -2,7 +2,7 @@
 layout: default
 title: Match phrase prefix
 parent: Full-text queries
-nav_order: 40
+nav_order: 30
 canonical_url: https://docs.opensearch.org/latest/query-dsl/full-text/match-phrase-prefix/
 ---
 
