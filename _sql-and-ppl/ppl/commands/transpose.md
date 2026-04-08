@@ -7,8 +7,6 @@ nav_order: 51
 ---
 # transpose
 
-## Description
-
 The `transpose` command outputs the requested number of rows as columns, effectively transposing each result row into a corresponding column of field values.
 
 ## Syntax

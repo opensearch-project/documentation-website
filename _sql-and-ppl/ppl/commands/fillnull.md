@@ -42,7 +42,7 @@ The `fillnull` command supports the following parameters.
 ## Example 1: Replace null values with different values per field
 
 The following query fills in missing instrumentation scope names with a default value:
-  
+
 ```sql
 source=otellogs
 | where severityText IN ('ERROR', 'WARN')
@@ -52,9 +52,9 @@ source=otellogs
 ```
 {% include copy.html %}
 {% include try-in-playground.html %}
-  
+
 The query returns the following results:
-  
+
 | severityText | resource.attributes.service.name | instrumentationScope.name |
 | --- | --- | --- |
 | ERROR | checkout | unknown |
@@ -68,12 +68,12 @@ The query returns the following results:
 | WARN | product-catalog | unknown |
 | ERROR | product-catalog | unknown |
 | ERROR | recommendation | unknown |
-  
+
 
 ## Example 2: Replace null values using value= syntax
 
 The following query uses the `value=` syntax to fill null instrumentation scope names, helping identify uninstrumented services:
-  
+
 ```sql
 source=otellogs
 | where severityText = 'ERROR'
@@ -83,9 +83,9 @@ source=otellogs
 ```
 {% include copy.html %}
 {% include try-in-playground.html %}
-  
+
 The query returns the following results:
-  
+
 | severityText | resource.attributes.service.name | instrumentationScope.name |
 | --- | --- | --- |
 | ERROR | checkout | unknown |
@@ -95,4 +95,17 @@ The query returns the following results:
 | ERROR | payment | unknown |
 | ERROR | product-catalog | unknown |
 | ERROR | recommendation | unknown |
-  
+
+
+## Limitations
+
+The `fillnull` command has the following limitations:
+
+* When applying the same value to all fields without specifying field names, all fields must be of the same type. For mixed types, use separate `fillnull` commands or explicitly specify fields.
+* The replacement value type must match all field types in the field list. When applying the same value to multiple fields, all fields must be of the same type (all strings or all numeric). The following query shows the error that occurs when this rule is violated:
+
+    ```sql
+      # This FAILS - same value for mixed-type fields
+      source=accounts | fillnull value=0 firstname, age
+      # ERROR: fillnull failed: replacement value type INTEGER is not compatible with field 'firstname' (type: VARCHAR). The replacement value type must match the field type.
+    ```

@@ -81,4 +81,10 @@ The query returns the following results:
 | ERROR | 17 | 14.333333333333334 |
 | DEBUG | 5 | 10.333333333333334 |
 | ERROR | 17 | 13.0 |
-  
+
+
+## Limitations
+
+The `trendline` command has the following limitations:
+
+* The `trendline` command requires all values in the specified `<field>` parameter to be non-null. Any rows with `null` values in this field are automatically excluded from the command's output.

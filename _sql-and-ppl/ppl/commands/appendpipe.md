@@ -79,4 +79,10 @@ The query returns the following results:
 | product-catalog | 1 | null |
 | recommendation | 1 | null |
 | null | null | 1.4 |
-  
+
+
+## Limitations
+
+The `appendpipe` command has the following limitations:
+
+* **Schema compatibility**: When fields with the same name exist in both the main search and the subpipeline but have incompatible types, the query fails with an error. To avoid type conflicts, ensure that fields with the same name share the same data type. Alternatively, use different field names. You can rename the conflicting fields using `eval` or select non-conflicting columns using `fields`.

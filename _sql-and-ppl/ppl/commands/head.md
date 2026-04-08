@@ -63,7 +63,7 @@ The query returns the following results:
 
 ## Example 2: Retrieve a specified number of results  
 
-The following query grabs just the top 3 most critical log entries for a quick severity check:
+The following query returns the top 3 most critical log entries for a quick severity check:
   
 ```sql
 source=otellogs

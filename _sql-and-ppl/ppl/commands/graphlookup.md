@@ -38,7 +38,7 @@ The `graphLookup` command supports the following parameters.
 |---|---|---|
 | `<lookupIndex>` | Required | The name of the index to perform the graph traversal on. Can be the same as the source index for self-referential graphs. |
 | `start=<startField>` | Required | The field in the source documents whose value is used to initiate the recursive search. The value of this field is matched against `toField` in the lookup index. Supports both single values and array values as starting points. |
-| `edge=<fromField><operator><toField>` | Required | Defines the traversal path between nodes, specifying the connection fields and the direction of traversal. See [Edge Sub-parameters](#edge-sub-parameters) below. |
+| `edge=<fromField><operator><toField>` | Required | Defines the traversal path between nodes, specifying the connection fields and the direction of traversal. See [Edge Sub-parameters](#edge-sub-parameters). |
 | `maxDepth=<maxDepth>` | Optional | The maximum recursion depth (number of hops). Default is `0`. A value of `0` returns only direct connections to the start values. A value of `1` returns the initial matches plus one additional recursive step, and so on. |
 | `depthField=<depthField>` | Optional | The name of the field added to each traversed document to indicate its recursion depth. If not specified, no depth field is added. Depth starts at `0` for the first level of matches. |
 | `supportArray=(true \| false)` | Optional | When `true`, disables early visited-node filter pushdown to OpenSearch. Default is `false`. Set to `true` when `fromField` or `toField` contains array values to ensure correct traversal behavior. See [Array Field Handling](#array-field-handling) for details. |
