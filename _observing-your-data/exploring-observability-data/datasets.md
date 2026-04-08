@@ -5,6 +5,7 @@ nav_order: 10
 parent: Exploring observability data
 redirect_from:
   - /observability-plugin/datasets/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/datasets/
 ---
 
 # Datasets

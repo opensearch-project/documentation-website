@@ -7,6 +7,7 @@ redirect_from:
   - /field-types/supported-field-types/unsigned-long/
 nav_order: 15
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/unsigned-long/
 ---
 
 # Unsigned long field type

@@ -9,6 +9,7 @@ permalink: /migration-assistant/migration-console/
 redirect_from: 
   - /migration-assistant/migration-console/index/
   - /migration-console/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-console/
 ---
 
 # Migration console

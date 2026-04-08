@@ -4,6 +4,7 @@ title: Building data visualizations
 nav_order: 40
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/viz-index/
 ---
 
 # Building data visualizations

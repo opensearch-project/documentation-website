@@ -4,6 +4,7 @@ title: Weighted average
 parent: Metric aggregations
 nav_order: 150
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/weighted-avg/
 ---
 
 # Weighted average aggregations

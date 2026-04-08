@@ -4,6 +4,7 @@ title: Arabic
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/arabic/
 ---
 
 # Arabic analyzer

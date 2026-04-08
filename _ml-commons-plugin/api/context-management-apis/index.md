@@ -7,6 +7,7 @@ has_toc: false
 nav_order: 45
 redirect_from: 
   - /ml-commons-plugin/api/context-management-apis/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/context-management-apis/index/
 ---
 
 # Context management APIs

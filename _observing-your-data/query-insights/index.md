@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /query-insights/
   - /observing-your-data/query-insights/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/query-insights/index/
 ---
 
 # Query insights

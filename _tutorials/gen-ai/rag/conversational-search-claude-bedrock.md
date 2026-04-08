@@ -7,6 +7,7 @@ nav_order: 160
 redirect_from:
   - /vector-search/tutorials/conversational-search/conversational-search-claude-bedrock/
   - /tutorials/vector-search/rag/conversational-search/conversational-search-claude-bedrock/
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/rag/conversational-search-claude-bedrock/
 ---
 
 # Conversational search using Anthropic Claude on Amazon Bedrock

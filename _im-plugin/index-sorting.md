@@ -2,6 +2,7 @@
 layout: default
 title: Index sorting
 nav_order: 25
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-sorting/
 ---
 
 # Index sorting

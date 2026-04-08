@@ -38,6 +38,7 @@ search_method_cards:
   - heading: "Conversational search with RAG"
     description: "Uses retrieval-augmented generation (RAG) and conversational memory to provide context-aware responses."
     link: "/vector-search/ai-search/conversational-search/"
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/index/
 ---
 
 # AI search

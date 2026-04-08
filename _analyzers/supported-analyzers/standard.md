@@ -3,6 +3,7 @@ layout: default
 title: Standard analyzer
 parent: Analyzers
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/analyzers/supported-analyzers/standard/
 ---
 
 # Standard analyzer

@@ -3,6 +3,7 @@ layout: default
 title: Node discovery and seed hosts
 parent: Discovery and cluster formation
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/discovery-cluster-formation/discovery/
 ---
 
 # Node discovery and seed hosts

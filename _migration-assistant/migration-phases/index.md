@@ -11,6 +11,7 @@ redirect_from:
   - /migration-phases/
   - /migration-assistant/migration-phases/planning-your-migration/index/
   - /migration-assistant/migration-phases/live-traffic-migration/index/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/
 ---
 
 # Migration phases

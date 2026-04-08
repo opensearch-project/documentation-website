@@ -4,6 +4,7 @@ title: Put template (deprecated)
 parent: Index templates
 grand_parent: Index APIs
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/put-template-legacy/
 ---
 
 # Put template

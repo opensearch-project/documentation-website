@@ -3,6 +3,7 @@ layout: default
 title: gsub
 parent: Ingest processors
 nav_order: 130
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/gsub/
 ---
 
 # Gsub processor

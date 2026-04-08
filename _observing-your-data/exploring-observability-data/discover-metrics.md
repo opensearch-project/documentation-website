@@ -3,6 +3,7 @@ layout: default
 title: Discover metrics
 nav_order: 50
 parent: Exploring observability data
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/discover-metrics/
 ---
 
 # Discover metrics

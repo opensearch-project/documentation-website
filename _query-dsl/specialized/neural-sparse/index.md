@@ -6,6 +6,7 @@ has_children: true
 nav_order: 55
 redirect_from:
   - /query-dsl/specialized/neural-sparse/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/neural-sparse/index/
 ---
 
 # Neural sparse query

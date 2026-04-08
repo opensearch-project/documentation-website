@@ -3,6 +3,7 @@ layout: default
 title: Average bucket
 parent: Pipeline aggregations
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/avg-bucket/
 ---
 
 # Average bucket aggregations

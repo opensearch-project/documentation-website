@@ -4,6 +4,7 @@ title: Get alias
 parent: Alias APIs
 grand_parent: Index APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/api-reference/alias/get-alias/
 ---
 
 # Get Index Alias API
