@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /observing-your-data/agent-traces/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/agent-traces/index/
 ---
 
 # Agent traces

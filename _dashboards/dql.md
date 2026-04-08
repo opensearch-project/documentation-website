@@ -4,6 +4,7 @@ title: Dashboards Query Language (DQL)
 nav_order: 125
 redirect_from:
   - /dashboards/discover/dql/
+canonical_url: https://docs.opensearch.org/latest/dashboards/dql/
 ---
 
 # Dashboards Query Language (DQL)

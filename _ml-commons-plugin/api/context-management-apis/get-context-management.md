@@ -4,6 +4,7 @@ title: Get context management
 parent: Context management APIs
 grand_parent: ML Commons APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/context-management-apis/get-context-management/
 ---
 
 # Get Context Management API

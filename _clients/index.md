@@ -7,6 +7,7 @@ nav_exclude: true
 permalink: /clients/
 redirect_from:
   - /clients/index/
+canonical_url: https://docs.opensearch.org/latest/clients/
 ---
 
 # ![Clients icon]({{site.url}}{{site.baseurl}}/images/icons/OpenSearch-Clients-Icon.avif){: .heading-icon} OpenSearch language clients

@@ -4,6 +4,7 @@ title: Prometheus
 parent: Sinks
 grand_parent: Pipelines
 nav_order: 59
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/sinks/prometheus/
 ---
 
 # Prometheus sink

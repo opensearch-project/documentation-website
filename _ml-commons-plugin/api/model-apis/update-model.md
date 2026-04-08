@@ -4,6 +4,7 @@ title: Update model
 parent: Model APIs
 grand_parent: ML Commons APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/model-apis/update-model/
 ---
 
 # Update Model API

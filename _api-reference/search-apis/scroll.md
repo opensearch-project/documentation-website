@@ -6,6 +6,7 @@ nav_order: 30
 redirect_from:
  - /opensearch/rest-api/scroll/
  - /api-reference/scroll/
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/scroll/
 ---
 
 # Scroll API

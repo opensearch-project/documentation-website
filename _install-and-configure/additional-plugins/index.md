@@ -5,6 +5,7 @@ parent: Installing plugins
 nav_order: 10
 redirect_from:
   - /install-and-configure/additional-plugins/
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/additional-plugins/index/
 ---
 
 # Additional plugins

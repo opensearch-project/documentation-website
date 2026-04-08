@@ -8,6 +8,7 @@ permalink: /migration-assistant/migration-phases/deploy/verifying-backfill-compo
 redirect_from:
   - /migration-assistant/migration-phases/verifying-migration-tools/verifying-backfill-components/
   - /migration-assistant/migration-phases/planning-your-migration/verifying-migration-tools/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/deploy/verifying-backfill-components/
 ---
 
 # Verifying backfill components

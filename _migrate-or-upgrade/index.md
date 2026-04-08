@@ -14,6 +14,7 @@ redirect_from:
   - /install-and-configure/upgrade-opensearch/index/
   - /upgrade-to/docker-upgrade-to/
 nav_exclude: true
+canonical_url: https://docs.opensearch.org/latest/upgrade-or-migrate/
 ---
 # Migrate or upgrade OpenSearch
 

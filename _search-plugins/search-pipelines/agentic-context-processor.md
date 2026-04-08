@@ -5,6 +5,7 @@ nav_order: 2
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/agentic-context-processor/
 ---
 
 # Agentic context processor

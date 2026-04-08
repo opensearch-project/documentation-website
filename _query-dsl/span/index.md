@@ -9,6 +9,7 @@ redirect_from:
   - /query-dsl/query-dsl/span-query/
   - /query-dsl/span-query/
   - /query-dsl/span/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/span/index/
 ---
 
 # Span queries

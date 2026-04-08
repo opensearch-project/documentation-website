@@ -6,6 +6,7 @@ redirect_from:
   - /search-plugins/sql/identifiers/
   - /observability-plugin/ppl/identifiers/
   - /search-plugins/ppl/identifiers/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/identifiers/
 ---
 
 

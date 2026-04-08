@@ -5,6 +5,7 @@ parent: User Behavior Insights
 grand_parent: Optimizing search quality
 has_children: false
 nav_order: 5
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ubi/schemas/
 ---
 
 # UBI index schemas

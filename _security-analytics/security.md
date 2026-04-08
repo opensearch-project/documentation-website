@@ -3,6 +3,7 @@ layout: default
 title: OpenSearch Security for Security Analytics
 nav_order: 2
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/security-analytics/security/
 ---
 
 # OpenSearch Security for Security Analytics

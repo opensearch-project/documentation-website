@@ -5,6 +5,7 @@ parent: Integrating ML models
 nav_order: 120
 redirect_from:
   - /ml-commons-plugin/ml-dashbaord/
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/ml-dashboard/
 ---
 
 # Managing ML models in OpenSearch Dashboards

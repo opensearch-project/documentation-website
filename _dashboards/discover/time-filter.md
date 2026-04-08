@@ -5,6 +5,7 @@ parent: Analyzing data with Discover
 nav_order: 20
 redirect_from:
   - /dashboards/get-started/time-filter/
+canonical_url: https://docs.opensearch.org/latest/dashboards/discover/time-filter/
 ---
 
 # Time filter

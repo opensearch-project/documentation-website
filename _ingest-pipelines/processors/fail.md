@@ -3,6 +3,7 @@ layout: default
 title: Fail
 parent: Ingest processors
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/fail/
 ---
 
 # Fail processor

@@ -3,6 +3,7 @@ layout: default
 title: Grouping top N queries
 parent: Query insights
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/query-insights/grouping-top-n-queries/
 ---
 
 # Grouping top N queries

@@ -3,6 +3,7 @@ layout: default
 title: Cache settings
 parent: Configuring OpenSearch
 nav_order: 65
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/cache-settings/
 ---
 
 # Cache settings

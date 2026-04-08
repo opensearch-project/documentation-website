@@ -3,6 +3,7 @@ layout: default
 title: Configuring APM in OpenSearch Dashboards
 nav_order: 15
 parent: Application Performance Monitoring
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/apm/configuring-apm/
 ---
 
 # Configuring APM in OpenSearch Dashboards

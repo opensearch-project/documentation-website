@@ -7,6 +7,7 @@ nav_order: 50
 redirect_from:
  - /opensearch/rest-api/alias/
  - /api-reference/index-apis/alias/
+canonical_url: https://docs.opensearch.org/latest/api-reference/alias/aliases-api/
 ---
 
 # Manage Aliases API

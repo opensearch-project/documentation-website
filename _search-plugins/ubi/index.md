@@ -6,6 +6,7 @@ has_children: true
 nav_order: 10
 redirect_from:
   - /search-plugins/ubi/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ubi/index/
 ---
 # User Behavior Insights
 

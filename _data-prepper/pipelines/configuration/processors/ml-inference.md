@@ -4,6 +4,7 @@ title: ML inference
 parent: Processors
 grand_parent: Pipelines
 nav_order: 210
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/ml-inference/
 ---
 
 # ML inference processor

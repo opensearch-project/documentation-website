@@ -9,6 +9,7 @@ redirect_from:
   - /opensearch/supported-field-types/text/
   - /field-types/supported-field-types/text/
   - /field-types/text/
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/text/
 ---
 
 # Text field type

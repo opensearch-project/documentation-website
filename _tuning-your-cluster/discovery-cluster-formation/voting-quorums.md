@@ -3,6 +3,7 @@ layout: default
 title: Voting and quorum
 parent: Discovery and cluster formation
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/discovery-cluster-formation/voting-quorums/
 ---
 
 # Voting and quorum

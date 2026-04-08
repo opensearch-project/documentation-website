@@ -3,6 +3,7 @@ layout: default
 title: Filter results
 parent: Customizing search results
 nav_order: 36
+canonical_url: https://docs.opensearch.org/latest/search-plugins/filter-search/
 ---
 
 # Filter search results

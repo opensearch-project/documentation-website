@@ -83,6 +83,7 @@ getting_started:
     link: "/security/getting-started/"
     image: "/images/icons/OpenSearch-Security.png"
     image_alt: "OpenSearch Security icon"
+canonical_url: https://docs.opensearch.org/latest/about/
 ---
 
 {%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
