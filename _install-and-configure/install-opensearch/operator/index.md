@@ -102,7 +102,7 @@ Follow these steps to deploy the cluster, verify that it is running, access it, 
     1. Three pods for the OpenSearch cluster (`my-first-cluster-masters-0`, `my-first-cluster-masters-1`, and `my-first-cluster-masters-2`).
     1. A pod for the OpenSearch Dashboards instance.
 
-    After all pods are ready, which takes about 1-2 minutes, you can connect to your cluster using port-forwarding.
+    After all pods are ready, which takes about 1--2 minutes, you can connect to your cluster using port-forwarding.
 
 1. Start port-forwarding:
     ```bash
