@@ -21,43 +21,164 @@ To implement late interaction reranking, you'll configure both ingest and search
 
 ## Prerequisite: Deploy a ColPali model on Amazon SageMaker
 
-To deploy the `vidore/colpali-v1.3-hf` model from Hugging Face to a SageMaker endpoint, run the following Python code in a SageMaker notebook:
+The following is a sample deployment script for the [`vidore/colpali-v1.3-hf`](https://huggingface.co/vidore/colpali-v1.3-hf) model on Amazon SageMaker. You can use any late interaction model and deployment method of your choice. Because ColPali requires custom inference logic to handle both text queries and Base64-encoded images, this example uses a custom inference script rather than the standard Hugging Face task interface. Run the following steps in a SageMaker notebook.
+
+### Step 1: Create a custom inference script
+
+The following script handles both query (text list) and image (Base64 list) inputs, returning multi-vector token-level embeddings. It downloads model weights from Hugging Face Hub at container startup:
 
 ```python
+import os
+os.makedirs('colpali_code', exist_ok=True)
+
+inference_code = r'''
+# Requires Python >= 3.12 and transformers >= 4.51.3
+import torch
+import base64
+from io import BytesIO
+from PIL import Image
+from transformers import ColPaliForRetrieval, ColPaliProcessor
+
+def model_fn(model_dir):
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model = ColPaliForRetrieval.from_pretrained(
+        "vidore/colpali-v1.3-hf", torch_dtype=torch.float32,
+    ).to(device).eval()
+    processor = ColPaliProcessor.from_pretrained("vidore/colpali-v1.3-hf")
+    return {"model": model, "processor": processor, "device": device}
+
+def predict_fn(data, model_dict):
+    model = model_dict["model"]
+    processor = model_dict["processor"]
+    device = model_dict["device"]
+    queries = data.get("queries", [])
+    images_b64 = data.get("images", [])
+    result = {}
+    if queries:
+        inputs = processor(text=queries, return_tensors="pt", padding=True)
+        inputs = {k: v.to(device) for k, v in inputs.items()}
+        with torch.no_grad():
+            outputs = model(**inputs)
+        result["query_embeddings"] = outputs.embeddings.cpu().tolist()
+    if images_b64:
+        pil_images = []
+        for b64 in images_b64:
+            pil_images.append(Image.open(BytesIO(base64.b64decode(b64))).convert("RGB"))
+        inputs = processor(images=pil_images, return_tensors="pt", padding=True)
+        inputs = {k: v.to(device) for k, v in inputs.items()}
+        with torch.no_grad():
+            outputs = model(**inputs)
+        result["image_embeddings"] = outputs.embeddings.cpu().tolist()
+    return result
+
+def input_fn(request_body, request_content_type):
+    import json
+    if request_content_type == "application/json":
+        return json.loads(request_body)
+    raise ValueError(f"Unsupported content type: {request_content_type}")
+
+def output_fn(prediction, accept):
+    import json
+    return json.dumps(prediction)
+'''.strip()
+
+with open('colpali_code/inference.py', 'w') as f:
+    f.write(inference_code)
+print('Created colpali_code/inference.py')
+```
+{% include copy.html %}
+
+### Step 2: Package the script and upload it to Amazon S3
+
+Package the `inference.py` script and upload it to Amazon S3 by using the following code:
+
+```python
+import subprocess
 import sagemaker
 import boto3
-from sagemaker.huggingface import HuggingFaceModel
 
-try:
-    role = sagemaker.get_execution_role()
-except ValueError:
-    iam = boto3.client('iam')
-    # Replace with your SageMaker execution role name if different
-    role = iam.get_role(RoleName='sagemaker_execution_role')['Role']['Arn']
+subprocess.run(['tar', '-czf', 'model.tar.gz', '-C', 'colpali_code', 'inference.py'], check=True)
+print('Created model.tar.gz')
 
-# Hub Model configuration
-hub = {
-    'HF_MODEL_ID':'vidore/colpali-v1.3-hf',
-    'HF_TASK':'visual-document-retrieval'
-}
+session = sagemaker.Session()
+region = session.boto_region_name
+account_id = boto3.client('sts').get_caller_identity()['Account']
+bucket = f'sagemaker-{region}-{account_id}'
+s3_key = 'colpali-custom/model.tar.gz'
 
-# Create Hugging Face Model Class
-huggingface_model = HuggingFaceModel(
-    transformers_version='4.49.0',
-    pytorch_version='2.6.0',
-    py_version='py312',
-    env=hub,
-    role=role, 
+s3 = boto3.client('s3', region_name=region)
+s3.upload_file('model.tar.gz', bucket, s3_key)
+model_data_url = f's3://{bucket}/{s3_key}'
+print(f'Uploaded to {model_data_url}')
+```
+{% include copy.html %}
+
+### Step 3: Deploy the SageMaker endpoint
+
+The following code deploys the model to a GPU instance (this process takes approximately 5--10 minutes):
+
+```python
+import time
+from datetime import datetime
+
+role = sagemaker.get_execution_role()
+
+# HuggingFace PyTorch Inference DLC - GPU, Python 3.12, Transformers 4.51.3
+# Replace 123456789012 with your AWS Deep Learning Containers account ID for your region.
+# See https://github.com/aws/deep-learning-containers/blob/master/available_images.md
+dlc_account_id = '123456789012'
+image_uri = (
+    f'{dlc_account_id}.dkr.ecr.{region}.amazonaws.com/'
+    'huggingface-pytorch-inference:2.6.0-transformers4.51.3-gpu-py312-cu124-ubuntu22.04'
 )
 
-# Deploy model to SageMaker Inference
-predictor = huggingface_model.deploy(
-    initial_instance_count=1, # number of instances
-    instance_type='ml.m5.xlarge' # ec2 instance type
-)
+sm = boto3.client('sagemaker', region_name=region)
+ts = datetime.now().strftime('%Y%m%d%H%M%S')
 
-# Save the endpoint name for OpenSearch configuration
-print(f"SageMaker Endpoint Name: {predictor.endpoint_name}")
+model_name = f'colpali-custom-{ts}'
+epc_name = f'colpali-custom-epc-{ts}'
+ep_name = f'colpali-custom-ep-{ts}'
+
+sm.create_model(
+    ModelName=model_name,
+    PrimaryContainer={
+        'Image': image_uri,
+        'ModelDataUrl': model_data_url,
+        'Environment': {
+            'SAGEMAKER_PROGRAM': 'inference.py',
+            'SAGEMAKER_SUBMIT_DIRECTORY': model_data_url,
+        },
+    },
+    ExecutionRoleArn=role,
+)
+print(f'Model created: {model_name}')
+
+sm.create_endpoint_config(
+    EndpointConfigName=epc_name,
+    ProductionVariants=[{
+        'VariantName': 'AllTraffic',
+        'ModelName': model_name,
+        'InstanceType': 'ml.g4dn.xlarge',
+        'InitialInstanceCount': 1,
+    }],
+)
+print(f'Endpoint config created: {epc_name}')
+
+sm.create_endpoint(EndpointName=ep_name, EndpointConfigName=epc_name)
+print(f'Creating endpoint: {ep_name} (takes 5-10 min)...')
+
+while True:
+    resp = sm.describe_endpoint(EndpointName=ep_name)
+    status = resp['EndpointStatus']
+    print(f'  Status: {status}')
+    if status == 'InService':
+        break
+    if status == 'Failed':
+        print(f'  FAILED: {resp.get("FailureReason")}')
+        break
+    time.sleep(30)
+
+print(f'\nEndpoint ready: {ep_name}')
 ```
 {% include copy.html %}
 
