@@ -2,7 +2,7 @@
 layout: default
 title: Match phrase
 parent: Full-text queries
-nav_order: 30
+nav_order: 20
 ---
 
 # Match phrase query

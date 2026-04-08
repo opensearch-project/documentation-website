@@ -2,7 +2,7 @@
 layout: default
 title: Match Boolean prefix
 parent: Full-text queries
-nav_order: 20
+nav_order: 40
 ---
 
 # Match Boolean prefix query
