@@ -4,6 +4,7 @@ title: Train
 parent: Model APIs
 grand_parent: ML Commons APIs
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/train-predict/train/
 ---
 
 # Train API

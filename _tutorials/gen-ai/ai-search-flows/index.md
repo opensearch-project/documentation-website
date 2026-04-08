@@ -12,6 +12,7 @@ flows:
   - heading: Creating and customizing AI search workflows
     link: /vector-search/ai-search/workflow-builder/
     description: "Learn how to build AI search flows in OpenSearch Dashboards"   
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/ai-search-flows/index/
 ---
 
 # AI search workflows tutorials

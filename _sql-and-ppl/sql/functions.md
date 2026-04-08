@@ -6,6 +6,7 @@ nav_order: 7
 redirect_from:
   - /search-plugins/sql/functions/
   - /search-plugins/sql/sql/functions/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/functions/
 ---
 
 # Functions

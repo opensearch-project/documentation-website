@@ -4,6 +4,7 @@ title: Full-text search
 nav_order: 11
 redirect_from:
   - /search-plugins/sql/full-text/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/full-text/
 ---
 
 # Full-text search

@@ -5,6 +5,7 @@ nav_order: 60
 parent: Exploring observability data
 redirect_from:
   - /observability-plugin/correlations/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/correlations/
 ---
 
 # Correlations

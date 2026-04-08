@@ -8,6 +8,7 @@ redirect_from:
   - /sql-and-ppl/sql/
   - /search-plugins/sql/sql/
   - /search-plugins/sql/sql/index/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/index/
 ---
 
 # SQL

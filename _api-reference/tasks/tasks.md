@@ -6,6 +6,7 @@ nav_order: 85
 redirect_from:
  - /opensearch/rest-api/tasks/
  - /api-reference/tasks/
+canonical_url: https://docs.opensearch.org/latest/api-reference/tasks/tasks/
 ---
 
 # Tasks APIs

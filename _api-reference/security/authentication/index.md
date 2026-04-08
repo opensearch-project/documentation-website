@@ -6,6 +6,7 @@ has_children: true
 nav_order: 10
 redirect_from:
   - /api-reference/security/authentication/
+canonical_url: https://docs.opensearch.org/latest/api-reference/security/authentication/index/
 ---
 
 # Authentication APIs

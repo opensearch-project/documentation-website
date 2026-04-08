@@ -2,6 +2,7 @@
 layout: default
 title: Workflow state access control
 nav_order: 35
+canonical_url: https://docs.opensearch.org/latest/automating-configurations/workflow-state-access-control/
 ---
 
 # Workflow state access control

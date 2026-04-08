@@ -2,6 +2,7 @@
 layout: default
 title: Extensions
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/developer-documentation/extensions/
 ---
 
 # Extensions

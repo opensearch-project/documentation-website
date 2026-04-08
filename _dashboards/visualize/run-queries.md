@@ -6,6 +6,7 @@ redirect_from:
   - /dashboards/run-queries/
   - /dashboards/dev-tools/run-queries/
   - /dashboards/dev-tools/index-dev/
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/run-queries/
 ---
 
 # Running queries in the Dev Tools console

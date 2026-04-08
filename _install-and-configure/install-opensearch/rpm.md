@@ -5,6 +5,7 @@ parent: Installing OpenSearch
 redirect_from:
 - /opensearch/install/rpm/
 nav_order: 51
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-opensearch/rpm/
 ---
 
 {% comment %}

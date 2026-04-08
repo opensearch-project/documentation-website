@@ -5,6 +5,7 @@ parent: Analyzing data with Discover
 nav_order: 10
 redirect_from: 
   - /dashboards/#discover-and-dashboard-search-bar
+canonical_url: https://docs.opensearch.org/latest/dashboards/discover/search-bar/
 ---
 
 ## Search bar

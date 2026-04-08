@@ -3,6 +3,7 @@ layout: default
 title: Agentic
 parent: Specialized queries
 nav_order: 2
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/agentic/
 ---
 
 # Agentic query

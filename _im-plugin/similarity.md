@@ -2,6 +2,7 @@
 layout: default
 title: Similarity
 nav_order: 37
+canonical_url: https://docs.opensearch.org/latest/im-plugin/similarity/
 ---
 
 # Similarity

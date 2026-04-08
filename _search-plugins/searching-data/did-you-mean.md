@@ -5,6 +5,7 @@ parent: Customizing search results
 nav_order: 90
 redirect_from:
   - /opensearch/search/did-you-mean/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/did-you-mean/
 ---
 
 # Did-you-mean

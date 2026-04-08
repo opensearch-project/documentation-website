@@ -4,6 +4,7 @@ title: Settings
 nav_order: 77
 redirect_from:
   - /search-plugins/sql/settings/
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/settings/
 ---
 
 # SQL settings

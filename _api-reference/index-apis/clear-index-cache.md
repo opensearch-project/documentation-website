@@ -4,6 +4,7 @@ title: Clear cache
 parent: Index operations
 grand_parent: Index APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/clear-index-cache/
 ---
 
 # Clear Cache API

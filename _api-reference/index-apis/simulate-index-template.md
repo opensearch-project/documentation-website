@@ -4,6 +4,7 @@ title: Simulate index templates
 parent: Index templates
 grand_parent: Index APIs
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/simulate-index-template/
 ---
 
 # Simulate Index Templates API

@@ -4,6 +4,7 @@ title: Data streams
 nav_order: 10
 redirect_from:
   - /opensearch/data-streams/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/data-streams/
 ---
 
 # Data streams

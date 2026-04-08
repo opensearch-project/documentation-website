@@ -4,6 +4,7 @@ title: Deleting search pipelines
 nav_order: 30
 has_children: false
 parent: Search pipelines
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/deleting-search-pipeline/
 ---
 
 # Deleting search pipelines

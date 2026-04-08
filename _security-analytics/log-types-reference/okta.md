@@ -3,6 +3,7 @@ layout: default
 title: Okta
 parent: Supported log types
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/security-analytics/log-types-reference/okta/
 ---
 
 # Okta

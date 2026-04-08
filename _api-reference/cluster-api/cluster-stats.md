@@ -7,6 +7,7 @@ has_children: false
 redirect_from:
   - /api-reference/cluster-stats/
   - /opensearch/rest-api/cluster-stats/
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-stats/
 ---
 
 # Cluster Stats API

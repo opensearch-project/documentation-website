@@ -2,6 +2,7 @@
 layout: default
 title: Workflow template security
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/automating-configurations/workflow-security/
 ---
 
 # Workflow template security

@@ -4,6 +4,7 @@ title: streamstats
 parent: Commands
 grand_parent: PPL
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/ppl/commands/streamstats/
 ---
 
 # streamstats

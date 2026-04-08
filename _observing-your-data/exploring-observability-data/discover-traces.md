@@ -3,6 +3,7 @@ layout: default
 title: Discover traces
 nav_order: 40
 parent: Exploring observability data
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/discover-traces/
 ---
 
 # Discover traces

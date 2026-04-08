@@ -3,6 +3,7 @@ layout: default
 title: Extended stats bucket
 parent: Pipeline aggregations
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/aggregations/pipeline/extended-stats/
 ---
 
 # Extended stats bucket aggregation

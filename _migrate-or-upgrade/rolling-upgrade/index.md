@@ -10,6 +10,7 @@ redirect_from:
  - /rolling-upgrade/index/
  - /migrate-or-upgrade/rolling-upgrade/appendix/
  - /install-and-configure/upgrade-opensearch/rolling-upgrade/
+canonical_url: https://docs.opensearch.org/latest/migrate-or-upgrade/rolling-upgrade/
 ---
 
 # Rolling upgrade

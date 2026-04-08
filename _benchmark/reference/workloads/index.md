@@ -7,6 +7,7 @@ has_children: true
 redirect_from:
   - /benchmark/workloads/index/
   - /benchmark/reference/workloads/
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/index/
 ---
 
 # OpenSearch Benchmark workload reference

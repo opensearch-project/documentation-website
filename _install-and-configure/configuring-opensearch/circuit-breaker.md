@@ -3,6 +3,7 @@ layout: default
 title: Circuit breaker settings
 parent: Configuring OpenSearch
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/configuring-opensearch/circuit-breaker/
 ---
 
 # Circuit breaker settings

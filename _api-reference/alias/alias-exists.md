@@ -4,6 +4,7 @@ title: Alias exists
 parent: Alias APIs
 grand_parent: Index APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/api-reference/alias/alias-exists/
 ---
 
 # Index Alias Exists API

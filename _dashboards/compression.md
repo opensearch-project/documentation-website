@@ -2,6 +2,7 @@
 layout: default
 title: Network compression
 nav_order: 135
+canonical_url: https://docs.opensearch.org/latest/dashboards/compression/
 ---
 
 # Network compression
