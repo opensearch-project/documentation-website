@@ -52,7 +52,7 @@ The following components make up the **<APP>** UI.
 
 Before using the **<APP>** tool, ensure that you:
 
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/).
+- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
 
 - Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
 
@@ -75,7 +75,7 @@ _<The next two steps show the correct way to refer to a graphical icon and a com
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="time-select icon"/>{:/} (calendar) icon to <filter the time range of your search>.
 
-1. Change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from **Last 15 minutes** to **Last 1 month**.
+1. Change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter) from **Last 15 minutes** to **Last 1 month**.
 
 1. Select **<WHATEVER IT SAYS ON THE BUTTON TO COMPLETE THE TASK>**.
 

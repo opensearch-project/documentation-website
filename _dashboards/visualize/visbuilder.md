@@ -1,8 +1,9 @@
 ---
 layout: default
 title: VisBuilder
-parent: Building data visualizations
-nav_order: 100
+parent: Building visualizations with other tools
+grand_parent: Building data visualizations
+nav_order: 30
 redirect_from:
   - /dashboards/drag-drop-wizard/
 ---
@@ -31,7 +32,7 @@ Follow these steps to create a new visualization using VisBuilder in your enviro
 
 1. From the top menu, select **Visualize > Create visualization > VisBuilder**.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-1.png" alt="Select the VisBuilder visualization type" width="550">  
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-1.png" alt="Select the VisBuilder visualization type" width="100%">  
 
 1. Drag and drop field names from the left column into the **Configuration** panel to generate a visualization.
 

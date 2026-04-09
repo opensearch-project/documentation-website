@@ -25,9 +25,9 @@ The following components make up the filter tool.
 
 ## Adding a filter
 
-To add a filter using the **Add filter** tool, follow these steps:
+To add a filter using the **Add filter** tool:
 
-1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/add-filter-icon.png" class="inline-icon" alt="add filter icon"/>{:/} (add) **Add filter**.
+1. Select {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/add-filter-icon.png" class="inline-icon" alt="add filter icon"/>{:/} (add filter) **Add filter**.
 
 1. In the **Edit filter** popover, choose a data field.
 
@@ -53,7 +53,7 @@ To add a filter using the **Add filter** tool, follow these steps:
 
 ## Editing a filter
 
-To change an existing filter, follow these steps:
+To change an existing filter:
 
 1. Select the filter in the filter list.
 
@@ -72,7 +72,7 @@ To remove a filter, choose the {::nomarkdown}<img src="{{site.url}}{{site.baseur
 
 ## Disabling a filter
 
-You can disable a filter temporarily without removing it from the filter list. To disable a filter, follow these steps:
+You can disable a filter temporarily without removing it from the filter list. To disable a filter:
 
 1. Select the filter in the filter list.
 
@@ -83,7 +83,7 @@ You can disable a filter temporarily without removing it from the filter list. T
 
 ## Re-enabling a filter
 
-To enable a disabled filter, follow these steps:
+To enable a disabled filter:
 
 1. Select a ~~disabled~~ filter in the filter list.
 
@@ -92,7 +92,7 @@ To enable a disabled filter, follow these steps:
 
 ## Pinning a filter
 
-You can pin a filter so that it applies to all the applications in OpenSearch Dashboards (Discover, Dashboards, and Visualize). To pin a filter, follow these steps:
+You can pin a filter so that it applies to all the applications in OpenSearch Dashboards (Discover, Dashboards, and Visibility). To pin a filter:
 
 1. Select the filter in the filter list.
 
@@ -101,7 +101,7 @@ You can pin a filter so that it applies to all the applications in OpenSearch Da
 
 ## Unpinning a filter
 
-To unpin a filter that has been pinned to all apps, follow these steps:
+To unpin a filter that has been pinned to all apps:
 
 1. Select the filter in the filter list.
 
@@ -115,9 +115,9 @@ You can use the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icon
 Modifications made with the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/funnel-icon.png" class="inline-icon" alt="filter menu icon"/>{:/} (funnel) **Filters** pulldown apply only to the filters in the filter list, not to the query in the **Search** bar or to the time filter.
 {: .note}
 
-### Enabling or disabling all the filters
+### Enabling or Disabling all the filters
 
-To enable or disable all filters, follow these steps:
+To enable or disable all filters:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/funnel-icon.png" class="inline-icon" alt="filter menu icon"/>{:/} (funnel) icon.
 
@@ -126,7 +126,7 @@ To enable or disable all filters, follow these steps:
 
 ### Inverting which filters are enabled
 
-To exclude all included filters and include all excluded filters, follow these steps:
+To exclude all included filters and include all excluded filters:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/funnel-icon.png" class="inline-icon" alt="filter menu icon"/>{:/} (funnel) icon.
 
@@ -135,13 +135,13 @@ To exclude all included filters and include all excluded filters, follow these s
 
 ### Inverting the sense of inclusion for all filters
 
-To negate all filter expressions so that all included documents are excluded and all excluded documents are included, follow these steps:
+To negate all filter expressions so that all included documents are excluded and vice versa:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/funnel-icon.png" class="inline-icon" alt="filter menu icon"/>{:/} (funnel) icon.
 
 1. In the **Filters** pulldown, select **Invert inclusion**.
 
-   Exclusion filters have **NOT** appended to their title, as shown following. Inverting inclusion a second time removes the **NOT** modifier.
+   Exclusion filters have **NOT** appended to their title, as shown below. Inverting inclusion a second time removes the **NOT** modifier.
    
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/excluded-filter.png" alt="Exclusion filter"  width="36%">
 
@@ -150,7 +150,7 @@ To negate all filter expressions so that all included documents are excluded and
 
 ### Pinning or unpinning all filters
 
-To pin or unpin all filters in all OpenSearch Dashboards applications (Discover, Dashboards, and Visualize), follow these steps:
+To pin or unpin all filters in all OpenSearch Dashboards applications (Discover, Dashboards, and Visualize):
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/funnel-icon.png" class="inline-icon" alt="filter menu icon"/>{:/} (funnel) icon.
 
@@ -159,7 +159,7 @@ To pin or unpin all filters in all OpenSearch Dashboards applications (Discover,
 
 ### Removing all filters
 
-To remove all filters from the filter list, follow these steps:
+To remove all filters from the filter list:
 
 1. Select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/funnel-icon.png" class="inline-icon" alt="filter menu icon"/>{:/} (funnel) icon.
 

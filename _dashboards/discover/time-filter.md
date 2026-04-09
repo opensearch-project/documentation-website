@@ -49,7 +49,7 @@ To select an absolute time interval, follow these steps:
 
 1. Select the displayed start time.
 
-1. In the time selection popover, choose the **Absolute** tab as shown in the following image.
+1. In In the time selection popover, choose the **Absolute** tab as shown in the following image.
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/absolute-time-filter.png" width="56%" alt="Absolute time filter"/>
 
@@ -74,7 +74,7 @@ To select a relative time interval, follow these steps:
 
 1. Select the displayed start time.
 
-1. In the time selection popover, choose the **Relative** tab as shown in the following image.
+1. In In the time selection popover, choose the **Relative** tab as shown in the following image.
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/relative-time-filter.png" width="56%" alt="Relative time filter"/>
 
@@ -99,7 +99,7 @@ To select a relative time interval, follow these steps:
 
    If your application requires a relative end time that is not **now**, do the following:
 
-   1. In the time selection popover, choose the **Relative** tab.
+   1. In In the time selection popover, choose the **Relative** tab.
 
    1. In the number combo box, select or enter the interval quantity.
 
@@ -149,7 +149,7 @@ To select a time interval from common or previous interval values, follow these 
 
 ## Starting and stopping data refresh
 
-To start or stop the time interval refresh, follow these steps:
+To start or stop the time interval refresh:
 
 1. From an OpenSearch Dashboards application (**Discover**, **Dashboards**, or **Visualize**), select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-icon.png" class="inline-icon" alt="calendar icon"/>{:/} (calendar) or {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/clock-icon.png" class="inline-icon" alt="clock icon"/>{:/} (clock) icon on the right of the search bar.
 
