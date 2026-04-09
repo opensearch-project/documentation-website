@@ -18,9 +18,9 @@ Use this API in the following scenarios:
 - Removing outdated data from time-series indexes based on date ranges or other criteria.
 - Cleaning up test data or invalid documents that match specific patterns.
 - Implementing data retention policies by deleting documents that exceed a certain age.
-- Removing sensitive information across multiple documents identified by a query.
+- Deleting documents containing sensitive information.
 
-When you submit a delete by query request, OpenSearch takes a snapshot of the index at the start of the operation and deletes matching documents using internal versioning. The operation performs multiple search requests sequentially to find all matching documents, then executes bulk delete requests for each batch. If a document changes between when the snapshot is taken and when the delete operation processes it, a version conflict occurs and the delete fails for that document unless you set the `conflicts` parameter to `proceed`. Successfully deleted documents are not rolled back even if later operations in the batch fail.
+When you submit a delete by query request, OpenSearch creates a scroll context of the index at the start of the operation and deletes matching documents using internal versioning (sequence numbers and primary terms). The operation performs multiple search requests sequentially to find all matching documents, then executes bulk delete requests for each batch. If a document changes between when the snapshot is taken and when the delete operation processes it, a version conflict occurs and the delete fails for that document unless you set the `conflicts` parameter to `proceed`. Successfully deleted documents are not rolled back even if later operations in the batch fail.
 
 OpenSearch retries rejected search or bulk requests up to 10 times with exponential backoff. If the maximum retry limit is reached, the operation halts and returns all failed requests in the response.
 
