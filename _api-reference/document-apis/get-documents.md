@@ -11,127 +11,71 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-After adding a JSON document to your index, you can use the get document API operation to retrieve the document's information and data.
-
+The Get Document API retrieves a JSON document and its metadata from an index by document ID. You can also use HEAD requests to verify that a document or its source exists without retrieving the full content.
 
 ## Endpoints
 
-Use the GET method to retrieve a document and its source or stored fields from a particular index. Use the HEAD method to verify that a document exists:
+To retrieve a document and its metadata from an index, use the `GET` method:
 
 ```json
-GET <index>/_doc/<_id>
-HEAD <index>/_doc/<_id>
+GET /{index}/_doc/{id}
 ```
 
-Use `_source` to retrieve the document source or to verify that it exists:
+To retrieve only the document source, use the following endpoint:
 
 ```json
-GET <index>/_source/<_id>
-HEAD <index>/_source/<_id>
+GET /{index}/_source/{id}
 ```
 
+To verify that a document exists, use the `HEAD` method:
+
+```json
+HEAD /{index}/_doc/{id}
+HEAD /{index}/_source/{id}
+```
+
+<!-- spec_insert_start
+api: get
+component: path_parameters
+-->
 ## Path parameters
 
-Parameter | Type | Description | Required
-:--- | :--- | :--- | :---
-&lt;index&gt; | String | The index to retrieve the document from. | Yes
-&lt;_id&gt; | String | The ID of the document to retrieve. | Yes
+The following table lists the available path parameters.
+
+| Parameter | Required | Data type | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | **Required** | String | The unique identifier of the document. |
+| `index` | **Required** | String | The name of the index containing the document. |
+
+<!-- spec_insert_end -->
 
 ## Query parameters
 
-All query parameters are optional.
+The following table lists the available query parameters. All query parameters are optional.
 
-Parameter | Type | Description
-:--- | :--- | :---
-preference | String | Specifies a preference of which shard to retrieve results from. Available options are `_local`, which tells the operation to retrieve results from a locally allocated shard replica, and a custom string value assigned to a specific shard replica. By default, OpenSearch executes get document operations on random shards.
-realtime | Boolean | Specifies whether the operation should run in realtime. If false, the operation waits for the index to refresh to analyze the source to retrieve data, which makes the operation near-realtime. Default is `true`.
-refresh | Boolean | If true, OpenSearch refreshes shards to make the get operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`.
-routing | String | A value used to route the operation to a specific shard.
-stored_fields | List | A comma-separated list of fields stored in the index that should be retrieved. Default is no stored fields will be returned.
-_source | String | Whether to include the `_source` field in the response body. Default is `true`.
-_source_excludes | String | A comma-separated list of source fields to exclude in the query response.
-_source_includes | String | A comma-separated list of source fields to include in the query response.
-version | Integer | The version of the document to return, which must match the current version of the document.
-version_type | Enum | Retrieves a specifically typed document. Available options are `external` (retrieve the document if the specified version number is greater than the document's current version) and `external_gte` (retrieve the document if the specified version number is greater than or equal to the document's current version). For example, to retrieve version 3 of a document, use `/_doc/1?version=3&version_type=external`.
-
-### Real time
-
-The OpenSearch Get Document API operates in real time by default, which means that it retrieves the latest version of the document regardless of the index's refresh rate or the rate at which new data becomes searchable. However, if you request stored fields (using the `stored_fields` parameter) for a document that has been updated but not yet refreshed, then the Get Document API parses and analyzes the document's source to extract those stored fields.
-
-To disable the real-time behavior and retrieve the document based on the last refreshed state of the index, set the `realtime` parameter to `false`.
-
-### Source filtering
-
-By default, the Get Document API returns the entire contents of the `_source` field for the requested document. However, you can choose to exclude the `_source` field from the response by using the `_source` URL parameter and setting it to `false`, as shown in the following example:
-
-```json
-GET test-index/_doc/0?_source=false
-```
-
-#### `source` includes and excludes
-
-If you only want to retrieve specific fields from the source, use the `_source_includes` or `_source_excludes` parameters to include or exclude particular fields, respectively. This can be beneficial for large documents because retrieving only the required fields can reduce network overhead.
-
-Both parameters accept a comma-separated list of fields and wildcard expressions, as shown in the following example, where any `_source` that contains `*.play` is included in the response but sources with the field `entities` are excluded:
-
-```json
-GET test-index/_doc/0?_source_includes=*.play&_source_excludes=entities
-```
-
-#### Shorter notation
-
-If you only want to include certain fields and don't need to exclude any, you can use a shorter notation by specifying the desired fields directly in the `_source` parameter:
-
-```json
-GET test-index/_doc/0?_source=*.id
-```
-
-### Routing
-
-When indexing documents in OpenSearch, you can specify a `routing` value to control the shard assignments for documents. If routing was used during indexing, you must provide the same routing value when retrieving the document using the Get Document API, as shown in the following example:
-
-```json
-GET test-index/_doc/1?routing=user1
-```
-
-This request retrieves the document with the ID `1`, but it uses the routing value "user1" to determine on which shard the document is stored. If the correct routing value is not specified, the Get Document API is not able to locate and fetch the requested document.
-
-### Preference
-
-The Get Document API allows you to control which shard replica handles the request. By default, the operation is randomly distributed across the available shard replicas.
-
-However, you can specify a preference to influence the replica selection. The preference can be set to one of the following values:
-
-- `_local`: The operation attempts to execute on a locally allocated shard replica, if possible. This can improve performance by reducing network overhead.
-- Custom (string) value: Specifying a custom string value ensures that requests with the same value are routed to the same set of shards. This consistency can be beneficial when managing shards in different refresh states because it prevents "jumping values" that may occur when hitting shards with varying data visibility. A common practice is to use a web session ID or a user name as the custom value.
-
-
-### Refresh
-
-Set the `refresh` parameter to `true` to force a refresh of the relevant shard before running the get document API operation. This ensures that the most recent data changes are made searchable and visible to the API. However, a refresh should be performed judiciously because it can potentially impose a heavy load on the system and slow down indexing performance. It's recommended to carefully evaluate the trade-off between data freshness and system load before enabling the `refresh` parameter.
-
-### Distributed
-
-When running the Get Document API, OpenSearch first calculates a hash value based on the document ID, which determines the specific ID of the shard on which the document resides. The operation is then redirected to one of the replicas (including the primary shard and its replica shards) in that shard ID group, and the result is returned from that replica.
-
-A higher number of shard replicas improves the scalability and performance of GET operations because the load can be distributed across multiple replica shards. This means that as the number of replicas increases, you can achieve better scaling and throughput for Get Document API requests.
-
-### Versioning support
-
-Use the `version` parameter to retrieve a document only if its current version matches the specified version number. This can be useful for ensuring data consistency and preventing conflicts when working with versioned documents.
-
-Internally, when a document is updated in OpenSearch, the original version is marked as deleted, and a new version of the document is added. However, the original version doesn't immediately disappear from the system. While you won't be able to access it through the Get Document API, OpenSearch manages the cleanup of deleted document versions in the background as you continue indexing new data.
+| Parameter | Methods | Data type | Description | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| `_source` | `GET` | Boolean or List or String | Whether to return the `_source` field. Set to `true` to include it, `false` to exclude it, or specify a comma-separated list of field names to return. See [Source filtering](#source-filtering).| N/A |
+| `_source_excludes` | `GET` | List or String | A comma-separated list of source fields to exclude from the response. See [Source filtering](#source-filtering). | N/A |
+| `_source_includes` | `GET` | List or String | A comma-separated list of source fields to include in the response. See [Source filtering](#source-filtering). | N/A |
+| `preference` | `GET`, `HEAD` | String | A preference for which node or shard should handle the operation. By default, OpenSearch selects a shard replica randomly. See [Preference](#preference). | `random` |
+| `realtime` | `GET`, `HEAD` | Boolean | Whether the request is real time. If `true`, the request retrieves the most recent version of the document. If `false`, the request is near-real-time and retrieves the document based on the last refresh. See [Real-time behavior](#real-time-behavior). | `true` |
+| `refresh` | `GET`, `HEAD` | Boolean or String | Whether to refresh the affected shards before the operation to make recent changes visible. <br> Valid values are: <br> - `false`: Do not refresh the affected shards. <br> - `true`: Refresh the affected shards immediately. <br> - `wait_for`: Wait for the changes to become visible before responding. See [Refresh](#refresh). | `false` |
+| `routing` | `GET`, `HEAD` | List or String | The routing value used to target a specific primary shard. See [Routing](#routing).| N/A |
+| `stored_fields` | `GET` | List or String | A comma-separated list of stored fields to return. If no fields are specified, no stored fields are included in the response. If this parameter is specified, the `_source` parameter defaults to `false`. | N/A |
+| `version` | `GET`, `HEAD` | Integer | The explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed. | N/A |
+| `version_type` | `GET`, `HEAD` | String | The version type for concurrency control. <br> Valid values are: <br> - `internal`: The version number is managed internally by OpenSearch. <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. | `internal` |
 
 ## Example request
 
-The following example request retrieves information about a document named `1`:
+The following example retrieves a document by its ID:
 
 <!-- spec_insert_start
 component: example_code
-rest: GET /sample-index1/_doc/1
+rest: GET /products/_doc/1
 -->
 {% capture step1_rest %}
-GET /sample-index1/_doc/1
+GET /products/_doc/1
 {% endcapture %}
 
 {% capture step1_python %}
@@ -139,7 +83,7 @@ GET /sample-index1/_doc/1
 
 response = client.get(
   id = "1",
-  index = "sample-index1"
+  index = "products"
 )
 
 {% endcapture %}
@@ -149,32 +93,476 @@ response = client.get(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-
 ## Example response
+
+The following example shows a response from a `GET` request:
+
 ```json
 {
-  "_index": "sample-index1",
+  "_index": "products",
   "_id": "1",
   "_version": 1,
   "_seq_no": 0,
-  "_primary_term": 9,
+  "_primary_term": 1,
   "found": true,
   "_source": {
-    "text": "This is just some sample text."
+    "name": "Wireless Mouse",
+    "description": "Ergonomic wireless mouse with optical sensor",
+    "price": 29.99,
+    "category": "Electronics",
+    "in_stock": true,
+    "manufacturer": "TechCorp",
+    "model": "WM-2000",
+    "tags": [
+      "wireless",
+      "ergonomic",
+      "optical"
+    ]
   }
 }
 ```
 
 ## Response body fields
 
-Field | Description
-:--- | :---
-_index | The name of the index.
-_id | The document's ID.
-_version | The document's version number. Updated whenever the document changes.
-_seq_no | The sequence number assigned when the document is indexed.
-primary_term | The primary term assigned when the document is indexed.
-found | Whether the document exists.
-_routing | The shard that the document is routed to. If the document is not routed to a particular shard, this field is omitted.
-_source | Contains the document's data if `found` is true. If `_source` is set to false or `stored_fields` is set to true in the parameters, this field is omitted.
-_fields | Contains the document's data that's stored in the index. Only returned if both `stored_fields` and `found` are true.
+The `GET` response contains the following fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`_index` | String | The name of the index containing the document.
+`_id` | String | The document's unique identifier.
+`_version` | Integer | The document's version number. Incremented each time the document is updated.
+`_seq_no` | Integer | The sequence number assigned to the document for the indexing operation. Used to ensure an older version doesn't overwrite a newer version.
+`_primary_term` | Integer | The primary term assigned to the document for the indexing operation. Used with `_seq_no` for optimistic concurrency control.
+`found` | Boolean | Indicates whether the document exists. `true` if the document was found, `false` otherwise.
+`_routing` | String | The routing value used to determine which shard stores the document. Only included if a routing value was specified when the document was indexed.
+`_source` | Object | The original JSON document that was indexed. Excluded if the `_source` parameter is set to `false` or if the `stored_fields` parameter is used.
+`_fields` | Object | Contains stored field values when the `stored_fields` parameter is specified. Only returned if `stored_fields` is set and `found` is `true`. Field values are always returned as arrays. See [Retrieving stored fields](#retrieving-stored-fields).
+
+## Source filtering
+
+By default, the Get Document API returns the entire contents of the `_source` field. You can control which parts of the source are returned or exclude it entirely.
+
+### Disabling source retrieval
+
+To exclude the `_source` field from the response, set the `_source` parameter to `false`. The following example retrieves document metadata without the source content:
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /products/_doc/1?_source=false
+-->
+{% capture step1_rest %}
+GET /products/_doc/1?_source=false
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get(
+  id = "1",
+  index = "products",
+  params = { "_source": "false" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+The response excludes the `_source` field:
+
+```json
+{
+  "_index": "products",
+  "_id": "1",
+  "_version": 1,
+  "_seq_no": 0,
+  "_primary_term": 1,
+  "found": true
+}
+```
+
+### Source includes and excludes
+
+To retrieve only specific fields from a large document, use the `_source_includes` parameter to include specific fields or the `_source_excludes` parameter to exclude fields. This reduces network overhead by transferring only the required data.
+
+The following example retrieves only the `name` and `price` fields:
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /products/_doc/1?_source_includes=name,price
+-->
+{% capture step1_rest %}
+GET /products/_doc/1?_source_includes=name,price
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get(
+  id = "1",
+  index = "products",
+  params = { "_source_includes": "name,price" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+The `_source` field of the response contains only the `price` and `name` fields:
+
+```json
+{
+  "_index": "products",
+  "_id": "1",
+  "_version": 1,
+  "_seq_no": 0,
+  "_primary_term": 1,
+  "found": true,
+  "_source": {
+    "price": 29.99,
+    "name": "Wireless Mouse"
+  }
+}
+```
+
+### Shorter notation
+
+If you only need to include certain fields without excluding any, use the shorter notation by specifying fields directly in the `_source` parameter. The following example retrieves only the `name` and `price` fields:
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /products/_doc/1?_source=name,price
+-->
+{% capture step1_rest %}
+GET /products/_doc/1?_source=name,price
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get(
+  id = "1",
+  index = "products",
+  params = { "_source": "name,price" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+## Retrieving the source field only
+
+Use the `_source` endpoint to retrieve only the document source without metadata. The following example retrieves only the source content:
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /products/_source/1
+-->
+{% capture step1_rest %}
+GET /products/_source/1
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get_source(
+  id = "1",
+  index = "products"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+The response contains the `_source` field only:
+
+```json
+{
+  "name": "Wireless Mouse",
+  "description": "Ergonomic wireless mouse with optical sensor",
+  "price": 29.99,
+  "category": "Electronics",
+  "in_stock": true,
+  "manufacturer": "TechCorp",
+  "model": "WM-2000",
+  "tags": [
+    "wireless",
+    "ergonomic",
+    "optical"
+  ]
+}
+```
+
+You can combine the `_source` endpoint with source filtering parameters. The following example retrieves only specific fields from the source:
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /products/_source/1?_source=name,price
+-->
+{% capture step1_rest %}
+GET /products/_source/1?_source=name,price
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get_source(
+  id = "1",
+  index = "products",
+  params = { "_source": "name,price" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+The response contains only the `price` and `name` fields:
+
+```json
+{
+  "price": 29.99,
+  "name": "Wireless Mouse"
+}
+```
+
+You can use HEAD with the `_source` endpoint to check whether the document source exists:
+
+<!-- spec_insert_start
+component: example_code
+rest: HEAD /products/_source/1
+-->
+{% capture step1_rest %}
+HEAD /products/_source/1
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.exists_source(
+  id = "1",
+  index = "products"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+The response contains only `200 - true`.
+
+## Routing
+
+When documents are indexed with a custom routing value, you must provide the same routing value when retrieving them. The routing value determines which shard stores the document.
+
+The following example retrieves a document that was indexed with routing value `user1`:
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /products/_doc/2?routing=user1
+-->
+{% capture step1_rest %}
+GET /products/_doc/2?routing=user1
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get(
+  id = "2",
+  index = "products",
+  params = { "routing": "user1" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+The response contains the document with the specified routing:
+
+```json
+{
+  "_index": "products",
+  "_id": "2",
+  "_version": 1,
+  "_seq_no": 1,
+  "_primary_term": 1,
+  "_routing": "user1",
+  "found": true,
+  "_source": {
+    "name": "Mechanical Keyboard",
+    "description": "RGB mechanical gaming keyboard",
+    "price": 149.99,
+    "category": "Electronics",
+    "in_stock": true,
+    "manufacturer": "GameGear",
+    "model": "MK-500",
+    "tags": [
+      "mechanical",
+      "rgb",
+      "gaming"
+    ]
+  }
+}
+```
+
+If you don't specify the correct routing value, OpenSearch cannot locate the document and returns a `found: false` response.
+
+## Retrieving stored fields
+
+Use the `stored_fields` parameter to retrieve specific fields that were stored in the index at indexing time. Only fields with `store: true` in the mapping are returned. Fields without this setting are ignored.
+
+The following example retrieves only the `category` and `manufacturer` stored fields from a document:
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /products/_doc/1?stored_fields=category,manufacturer
+-->
+{% capture step1_rest %}
+GET /products/_doc/1?stored_fields=category,manufacturer
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get(
+  id = "1",
+  index = "products",
+  params = { "stored_fields": "category,manufacturer" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+Note that field values retrieved from stored fields are always returned as arrays. Even though `category` and `manufacturer` are single-valued fields, they are returned in arrays:
+
+```json
+{
+  "_index": "products",
+  "_id": "1",
+  "_version": 1,
+  "_seq_no": 0,
+  "_primary_term": 1,
+  "found": true,
+  "fields": {
+    "category": [
+      "Electronics"
+    ],
+    "manufacturer": [
+      "TechCorp"
+    ]
+  }
+}
+```
+
+When retrieving stored fields from a document indexed with routing, you must provide the routing value. The following example retrieves stored fields from a document with routing:
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /products/_doc/2?routing=user1&stored_fields=category,manufacturer
+-->
+{% capture step1_rest %}
+GET /products/_doc/2?routing=user1&stored_fields=category,manufacturer
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.get(
+  id = "2",
+  index = "products",
+  params = { "routing": "user1", "stored_fields": "category,manufacturer" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+## Checking document existence
+
+You can use the HEAD method to verify whether a document exists without retrieving its content. OpenSearch returns HTTP status code `200` if the document exists or `404` if it doesn't.
+
+The following example checks whether a document exists:
+
+<!-- spec_insert_start
+component: example_code
+rest: HEAD /products/_doc/1
+-->
+{% capture step1_rest %}
+HEAD /products/_doc/1
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.exists(
+  id = "1",
+  index = "products"
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+The response contains only `200 - true`.
+
+## Preference
+
+The `preference` parameter controls which shard replica handles the request. By default, OpenSearch randomly distributes get operations across available shard replicas.
+
+You can set the `preference` parameter to one of the following values:
+
+- `_local`: Directs the operation to a locally allocated shard replica, reducing network overhead.
+- Custom string value: Routes requests with the same custom value to the same shard replicas. This ensures consistent results when shards are in different refresh states. Common custom values include session IDs or usernames.
+
+## Real-time behavior
+
+By default, the Get Document API operates in real time, retrieving the latest version of a document regardless of the index refresh rate. This means you can retrieve a document immediately after indexing it, even before the index has been refreshed to make it searchable.
+
+When you request stored fields (using the `stored_fields` parameter) and the document has been updated but not yet refreshed, OpenSearch parses and analyzes the document source to extract the requested stored fields.
+
+To disable real-time behavior and retrieve the document based on the last refreshed state of the index, set the `realtime` parameter to `false`.
+
+## Refresh
+
+The `refresh` parameter can be set to `true` to refresh the relevant shard before retrieving the document. Refreshing makes recent changes searchable but can impose significant system load and slow indexing. Carefully evaluate the trade-off between data freshness and performance before enabling this parameter.
+
+## Versioning
+
+You can use the `version` parameter to retrieve a document only if its current version matches the specified number. This ensures data consistency when working with versioned documents.
+
+Internally, OpenSearch marks the old document version as deleted when a document is updated and creates an entirely new document version. Although you cannot access old versions through the Get Document API, OpenSearch automatically cleans up deleted versions in the background during indexing.
+
+## Distributed model
+
+The Get Document API uses the document ID to compute a hash value that identifies the shard storing the document. OpenSearch then routes the request to one of the replicas in that shard group (including the primary shard and its replicas) and returns the result.
+
+Having more shard replicas improves GET operation scalability because the load is distributed across multiple replicas, increasing throughput for retrieval requests.
