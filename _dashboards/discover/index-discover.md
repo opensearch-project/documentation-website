@@ -12,13 +12,13 @@ You can use the **Discover** application in **OpenSearch Dashboards** to explore
 
 This page describes how to use **Discover** to:
 
-- [View data](#viewing-the-results-table).
-- [Filter data](#filtering-documents).
-- [Choose data fields to view](#choosing-data-fields).
-- [Examine details of a document](#examining-a-document).
-- [Visualize data fields](#visualizing-data-fields).
-- [Export data to a CSV file](#export-data).
-- [Set alerts](#setting-alerts).
+- [View data](#viewing-the-results-table)
+- [Filter data](#filtering-documents)
+- [Choose data fields to view](#choosing-data-fields)
+- [Examine details of a document](#examining-a-document)
+- [Visualize data fields](#visualizing-data-fields)
+- [Export data to a CSV file](#export-data)
+- [Set alerts](#setting-alerts)
 
 
 ## Navigating the Discover UI
@@ -66,7 +66,7 @@ The **Results** table displays the selected data. Each row represents a single d
 
 By default, the table shows all attributes for all selected documents.
 
-To display documents in the **Discover** application, follow these steps:
+To display documents in the **Discover** application, do the following:
 
 1. In the navigation panel, select **OpenSearch Dashboards** > **Discover**.
 
@@ -120,7 +120,7 @@ Some tools for changing the time interval are demonstrated in the previous examp
 
 You can filter documents by entering a query string in the search bar using one of two query languages.
 
-- [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) is the default query language in the search bar and is available only in **Dashboards**.
+- [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) is the default query lanaguage in the search bar and is available only in **Dashboards**.
 - [Query string query language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) is based on the [Apache Lucene](https://lucene.apache.org/core/2_9_4/queryparsersyntax.html) query language.
 
 To filter documents using the search bar, see [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
@@ -148,7 +148,7 @@ For example, using the _flights_ sample data, use the filter tool to enter the f
 
 By default, the **Discover** application displays all the fields in a document. You can choose to display one, more, or all fields in the **Results** table.
 
-To choose the fields to display in the **Results** table, see [Using the field select tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/).
+To choose the fields to display in the **Results** table, see [Using the field select tool.]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/).
 
 For example, select **Dest**, **FlightDelayMin**, and **FlightDelayType** in the field select tool. The **Results** table now displays only those fields (in addition to the **Time**).
 
@@ -174,7 +174,7 @@ To expand a single document and see a detailed view in the **Results** table, fo
 
    The expanded document is displayed in a new browser window.
 
-1. To close the **Expanded document** window, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-down-icon.png" class="inline-icon" alt="collapse icon"/>{:/} (down arrow) icon.
+1. to close the **Expanded document** window, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-down-icon.png" class="inline-icon" alt="collapse icon"/>{:/} (down arrow) icon.
 
 
 ## Visualizing data fields
@@ -217,9 +217,7 @@ To download a CSV-formatted file of data from the **Results** table:
    If the selected fields include objects or arrays, the CSV documents will download as JSON objects. To download as discrete CSV values, select only single-value fields.
    {: .tip}
 
-### Copying a JSON representation of a document
-
-To copy a JSON representation of a document, follow these steps:
+### To copy a JSON representation of a document
 
 1. Select the individual document in the **Results** table. See [Examining a document](#examining-a-document).
 

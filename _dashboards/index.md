@@ -15,8 +15,9 @@ OpenSearch Dashboards is the web UI for [OpenSearch]({{site.url}}{{site.baseurl}
 
 >This documentation uses the following terms:
 >- _OpenSearch Dashboards_: The web UI for OpenSearch.
->- **Dashboards** application: The application within OpenSearch Dashboards for creating dashboards. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
->- _dashboard_ (lowercase): An individual collection of data visualizations created in the **Dashboards** application.
+>- _Dashboards_: The application within OpenSearch Dashboards for creating dashboards. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
+>- **Dashboards** (bold): The Dashboards application UI.
+>- _dashboard_ (lowercase): An individual collection of data visualizations created in the Dashboards application.
 {: .note}
 
 ## Getting started
@@ -45,7 +46,7 @@ Querying data using the API |[Running queries in the Dev Tools Console]({{site.u
 The following table provides resources for creating data visualizations and dashboards.
 
 To learn more about   |  Go to
-:-------------------   | :-----
+:-------------------   | :-----                     | :-----
 Visualizing data | [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
 Creating a data dashboard | [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/)
 

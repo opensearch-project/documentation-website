@@ -1,133 +1,109 @@
 ---
 layout: default
 title: Building data visualizations
-nav_order: 40
+nav_order: 30
 has_children: true
 has_toc: false
 ---
 
 # Building data visualizations
 
-By visualizing your data, you translate complex, high-volume, or numerical data into a visual representation that is easier to process. OpenSearch Dashboards gives you data visualization tools to improve and automate the visual communication process. By using visual elements like charts, graphs, or maps to represent data, you can advance business intelligence and support data-driven decision-making and strategic planning.
+You can use the **Visualize** application in **OpenSearch Dashboards** to present data graphically.
 
-## Understanding the visualization types in OpenSearch Dashboards
+>This documentation uses the following terms:
+>- Visualize: the OpenSearch Dashboards application for creating vizualizations.
+>- **Visualize** (bold): The Visualize UI, as dislayed in [Navigating the Visualize UI](#navigating-the-visualize-ui).
+>- A _data visualization_ or _visualization_ is a single pane in the UI containing a graph, chart, or other visual representation of data. The term can also refer to the visual data representation itself.
+>- A _dashboard_ is a collection of data visualizations. See [Creating dashboards]({{site.url}}{{site.baseurl}}/_dashboards/dashboard/).
+{: .note}
 
-Dashboards has several visualization types to support your data analysis needs. The following sections provide an overview of the visualization types in Dashboards and their common use cases.
+A visualization shows one or more data fields or aggregations, summarizing their distribution, organization, or some other property that's easier to grasp visually than in the raw data. Multiple visualizations can be arranged into a dashboard.
 
-### Area charts
+This page describes how to use **Visualize** to create, modify, and save data visualizations.
 
-Area charts depict changes over time, and they are commonly used to show trends. Area charts more efficiently identify patterns in log data, such as sales data for a time range and trends over that time. See [Using area charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/area/) to learn more about how to create and use them in Dashboards.
+## Navigating the Visualize UI
 
- <img src="{{site.url}}{{site.baseurl}}/images/dashboards/area-chart-1.png" width="600" height="600" alt="Example area chart in OpenSearch Dashboards">
+The following components make up the **Visualize** UI.
 
-### Bar charts
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/viz-app-panel-callouts.png" alt="Visualize application" width="100%">
 
-Bar charts (vertical or horizontal) compare categorical data and depict changes of a variable over a period of time. 
+- The _search_ bar (A) enables selection of data using a query language search. See [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
+- The _time filter_ (B) provides a graphical interface for selecting data values and ranges. See [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
+- The _filter_ tool (C) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
+- The **Visualize** _application panel_ shows the following elements:
+  - (D) The visualization.
+  - The _visualization tools_ panel (E) contains all the controls to select and configure the visualization. Its contents depend on the type of the visualization. See the [visualization tool reference]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-tool-ref/).
 
-Vertical bar chart             |  Horizontal bar chart
-:-------------------------:|:-------------------------:
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/bar-chart-1.png" width="300" height="300" alt="Example vertical bar chart in OpenSearch Dashboards">  |  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/bar-horizontal-1.png" width="300" height="300" alt="Example horizontal bar chart in OpenSearch Dashboards">
 
-### Controls
+## Prerequisites
 
-Controls is a panel, instead of a visualization type, added to a dashboard to filter data. Controls gives users the capability to add interactive inputs to a dashboard. You can create two types of controls in Dashboards: **Options list** and **Range slider**. **Options list** is a dropdown options list that allows filtering of data by a terms aggregation, such as `machine.os.keyword`. **Range slider** allows filtering within specified value ranges, such as `hour_of_day`.  
+Before using the **Visualize** tool, ensure that you:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/controls-1.png" width="600" height="600" alt="Example visualization using controls to filter data in OpenSearch Dashboards">
+- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards).
 
-### Data tables
+- Add sample data or import your own data into OpenSearch. To learn about adding sample datasets, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/#adding-sample-data). To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
 
-Data tables, or tables, show your raw data in tabular form. 
+   The demonstrations on this page use the [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset. 
+   {: .tip}
 
-<img src="{{site.url}}{{site.baseurl}}/images/data-table-1.png" width="600" height="600" alt="Example data table in OpenSearch Dashboards">
+- Understand OpenSearch [documents]({{site.url}}{{site.baseurl}}/getting-started/intro/#document) and [indexes]({{site.url}}{{site.baseurl}}/getting-started/intro/#index).
 
-### Gauge charts
+- Some tasks, such as opening a new visualization and saving a visualization, are common to the process of building any visualization. Instructions for these tasks are linked from the tutorial where they are needed.
 
-Gauge charts look similar to an analog speedometer that reads left to right from zero. They display how much there is of the thing you are measuring, and this measurement can exist alone or in relation to another measurement, such as tracking performance against benchmarks or goals. 
+- Know how to use the **[Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/)** application to explore data, including the filter tools common to the **Dashboard**, **Discover**, and **Visualize** applications:
+  - [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/)
+  - [search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/)
+  - [filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/)
+  - [field-select tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/)
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/gauge-1.png" width="400" height="400" alt="Example gauge chart in OpenSearch Dashboards">
 
-### Heat maps
+## Building visualizations
 
-A heat map is a view of a histogram (a graphical representation of the distribution of numerical data) over time. Instead of using bar height as a representation of frequency, as with a histogram, heat maps display data in a tabular form using colors to differentiate where values fall in a range. 
+The procedure for building a visualization follows the same pattern in most cases, as follows:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/heat-map-1.png" width="600" height="600" alt="Example heat map in OpenSearch Dashboards">
+1. In the Visualize application, [create a new visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/new-viz/).
 
-### Line charts
+1. Build the visualization by iteratively executing the following steps:
 
-Line charts compare changes in measured values over a period of time, such as gross sales by month or gross sales and net sales by month. 
+   1. Select the data fields to display.
 
-<img src="{{site.url}}{{site.baseurl}}/images/line-1.png" width="600" height="600" alt="Example line graph in OpenSearch Dashboards">
+   1. Select aggregations to bucket and sort data.
 
-### Maps
+   1. Render the visualization.
 
-You can create two types of maps in Dashboards: Coordinate maps and Region maps. Coordinate maps show the difference between data values for each location by size. Region maps show the difference between data values for each location by varying shades of color. See [Using maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/) to learn more about maps capabilities in Dashboards.
+   1. Adjust display parameters such as grids, colors, legends, and so on.
 
-#### Coordinate maps
+1. [Save the visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/saving-a-viz).
 
-Coordinate maps show location-based data on a map. Use coordinate maps to visualize GPS data (latitude and longitude coordinates) on a map. For information about OpenSearch-supported coordinate field types, see [Geographic field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) and [Cartesian field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy/).
+To begin immediately with creating specific visualization types, choose a visualization type from the summary table in [Visualization types](#visualization-types) to go to a tutorial or procedure.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/coordinate-1.png" width="600" height="600" alt="Example coordinate map in OpenSearch Dashboards">
+Many of the visualization UI elements and tools are identical among the visualization types, so familiarity with one type will help you create others. To take a methodical tutorial approach, starting with basic visualization elements and building on previous learning, we recommend doing the following tutorials in order:
 
-#### Region maps
+1. [Markdown visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/utility-visualizations/#building-a-markdown-visualization)
 
-Region maps show patterns and trends across geographic locations. A region map is one of the basemaps in Dashboards. For information about creating custom vector maps in Dashboards, see [Using coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/) to learn how to create and use maps in Dashboards.
+1. [Metric visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/text-visualizations/#building-a-metric-visualization)
 
-<img src="{{site.url}}{{site.baseurl}}/images/map-1.png" width="600" height="600" alt="Example region map in OpenSearch Dashboards">
+1. [Table visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/text-visualizations/#building-a-data-table)
 
-### Markdown
+1. [Bar chart visualization]({{site.url}}{{site.baseurl}}/dashboards/visualize/multi-dimensional-data/#building-a-bar-chart)
 
-Markdown is the markup language used in Dashboards to provide context to your data visualizations. Using Markdown, you can display information and instructions along with the visualization. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/markdown.png" width="600" height="600" alt="Example coordinate map in OpenSearch Dashboards">
+## Visualization types
 
-### Metric values
+OpenSearch Dashboards provides a wide variety of data visualizations for all data types. The following table shows the visualization build tools organized by data type.
 
-Metric values, or number charts, compare values in different measures. For example, you can create a metrics visualization to compare two values, such as actual sales compared to sales goals. 
+Data types | Visualization types
+-- | --
+[**Text data**]({{site.url}}{{site.baseurl}}/dashboards/visualize/text-visualizations/): Display data as text in various formats. | <!-- Data tables -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-datatable-icon.png" width="90" height="90" alt="Data table icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/text-visualizations/#building-a-data-table) <!-- Metrics -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-metric-icon.png" width="90" height="90" alt=" icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/text-visualizations/#building-a-metric-visualization) <!-- Tag clouds -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-tagcloud-icon.png" width="90" height="90" alt=" icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/text-visualizations/#building-a-tag-cloud) 
+[**One-dimensional data**]({{site.url}}{{site.baseurl}}/dashboards/visualize/one-dimensional-data/): Display numerical data in isolation or compared across categories. | <!-- Gauges -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-gauge-icon.png" width="90" height="90" alt="Gauge icon"> <img src="{{site.url}}{{site.baseurl}}/images/icons/vis-goal-icon.png" width="90" height="90" alt="Goal icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/one-dimensional-data/#building-a-gauge-visualization) <!-- Pie charts -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-pie-icon.png" width="90" height="90" alt=" icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/one-dimensional-data/#building-a-pie-chart)
+[**Multi-dimensional data**]({{site.url}}{{site.baseurl}}/dashboards/visualize/multi-dimensional-data): Plot data over time, across categories, or against another numerical field. | <!-- Bar charts -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-vertbar-icon.png" width="90" height="90" alt="Vertical bar chart icon"> <img src="{{site.url}}{{site.baseurl}}/images/icons/vis-horizbar-icon.png" width="90" height="90" alt="Horizontal bar chart icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/multi-dimensional-data/#building-a-bar-chart) <!-- Area charts -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-area-icon.png" width="90" height="90" alt="Area chart icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/multi-dimensional-data/#building-an-area-chart)  <!-- Heatmaps -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-heatmap-icon.png" width="90" height="90" alt="Heat map icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/multi-dimensional-data/#building-a-heat-map) <!-- Line graphs -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-line-icon.png" width="90" height="90" alt="Line graph icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/multi-dimensional-data/#building-a-line-graph)   <!-- Timelines -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-timeline-icon.png" width="90" height="90" alt=" icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/multi-dimensional-data/#building-a-timeline)
+[**Maps and data**]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/): Plot data based on geographic region or by geographic coordinate. | <!-- maps -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-maps-icon.png" width="90" height="90" alt="Maps icon"> <img src="{{site.url}}{{site.baseurl}}/images/icons/vis-coordmap-icon.png" width="90" height="90" alt=" icon"> <img src="{{site.url}}{{site.baseurl}}/images/icons/vis-regionmap-icon.png" width="90" height="90" alt=" icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#using-maps)
+[**Utility**]({{site.url}}{{site.baseurl}}/dashboards/visualize/utility-visualizations/): Visualizations that don't display data, but support other visualizations. | <!-- Controls -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-controls-icon.png" width="90" height="90" alt="Controls icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/utility-visualizations#building-a-control-visualization) <!-- Markdown -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-markdown-icon.png" width="90" height="90" alt=" icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/utility-visualizations/#building-a-markdown-visualization)
+[**Other tools**]({{site.url}}{{site.baseurl}}/dashboards/visualize/other-tools/): Self-contained tools, each designed to build a particular class of visualizations. | <!-- PPL -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-ppl-icon.png" width="90" height="90" alt=" icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/other-tools/#building-a-pipeline-visualization)  <!-- TSVB -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-tsvb-icon.png" width="90" height="90" alt=" icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/other-tools/#building-a-time-series-visualization) <!-- Vega -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-vega-icon.png" width="90" height="90" alt=" icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/other-tools/#building-a-visualization-from-queries) <!-- VisBuilder -->[<img src="{{site.url}}{{site.baseurl}}/images/icons/vis-visbuilder-icon.png" width="90" height="90" alt=" icon">]({{site.url}}{{site.baseurl}}/dashboards/visualize/other-tools/#building-a-visualization-using-drag-and-drop)
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/metric-chart-1.png" width="400" height="400" alt="Example metric chart in OpenSearch Dashboards">
-
-### Pie charts
-
-Pie charts compare values for items in a dimension, such as a percentage of a total amount. 
-
-<img src="{{site.url}}{{site.baseurl}}/images/pie-1.png" width="600" height="600" alt="Example pie chart in OpenSearch Dashboards">
-
-### TSVB
-
-The time-series visual builder (TSVB) is a data visualization tool in Dashboards used to create detailed time-series visualizations. For example, you can use TSVB to build visualizations that show data over time, such as flights by status over time or flight delays by delay type over time. Currently, TSVB can be used to create the following Dashboards visualization types: Area, Line, Metric, Gauge, Markdown, and Data Table. 
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/TSVB-1.png" width="600" height="600" alt="Example TSVB in OpenSearch Dashboards">
-
-### Tag cloud
-
-Tag (or word) clouds are a way to display how often a word is used in relation to other words in a dataset. The best use for this type of visual is to show word or phrase frequency. 
-
-<img src="{{site.url}}{{site.baseurl}}/images/word-cloud-1.png" width="600" height="600" alt="Example Tag cloud in OpenSearch Dashboards">
-
-### Timeline
-
-Timeline is a data visualization tool in Dashboards that you can use to create time-series visualizations. Currently, Timeline can be used to create the following Dashboards visualization types: Area and Line. 
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/timeline-1.png" width="600" height="600" alt="Example Timeline in OpenSearch Dashboards">
-
-### VisBuilder
-
-VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the data source or visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. See [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-2.png" width="600" height="600" alt="Example VisBuilder in OpenSearch Dashboards">
-
-### Vega
-
-[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations. Vega visualizations give you the flexibility to visualize multidimensional data using a layered approach in order to build and manipulate visualizations in a structured manner. Vega can be used to create customized visualizations using any Dashboards visualization type.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/vega-1.png" width="600" height="600" alt="Example Vega visualization with JSON specification in OpenSearch Dashboards">
 
 ## Next steps
 
-To try building various visualizations, see the following articles:
+- Read more about different types of visualizations, their uses, and their technical details. See the [Visualization reference]({{site.url}}{{site.baseurl}}/visualize/viz-ref/).
 
-- [Area charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/area/)
-- [Coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/)
-- [Time-series visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/tsvb/)
-- [Vega visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega/)
-- [Drag-and-drop visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/)
+- Once you have some visualizations of your data, assemble them into a dashboard. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).

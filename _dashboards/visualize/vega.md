@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Vega
-parent: Building data visualizations
-nav_order: 50
+parent: Building visualizations with other tools
+grand_parent: Building data visualizations
+nav_order: 20
 ---
 
 # Vega
