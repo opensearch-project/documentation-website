@@ -38,39 +38,61 @@ The `convert` command supports the following parameters.
 | `memk(field)` | Converts memory size strings to kilobytes. Accepts numbers with optional k/m/g suffix (case-insensitive). Default unit is kilobytes. Returns `null` for invalid formats. |
 | `none(field)` | No-op function that preserves the original field value. Used for excluding specific fields from wildcard conversions. |
 
-## Example 1: Convert duration strings from log messages
+## Example 1: Basic auto() conversion
 
-The following query extracts and converts response time strings from log messages to numeric values for analysis:
+The following query converts the `balance` field to a number using the `auto()` function:
 
-```sql
-source=otellogs
-| rex field=body "response_time=(?<duration>\d+ms)"
-| convert auto(duration)
-| where NOT ISNULL(duration)
-| stats avg(duration) as avg_response_ms by `resource.attributes.service.name`
+```ppl
+source=accounts
+| convert auto(balance)
+| fields account_number, balance
+| head 3
 ```
 {% include copy.html %}
-{% include try-in-playground.html %}
 
 The query returns the following results:
 
-## Example 2: Parse request counts with commas from log messages
+| account_number | balance |
+| --- | --- |
+| 1 | 39225.0 |
+| 6 | 5686.0 |
+| 13 | 32838.0 |
 
-The following query extracts and converts request count strings that contain commas from performance logs:
+## Example 2: Convert with commas using num()
 
-```sql
-source=otellogs
-| rex field=body "processed (?<requests>[\d,]+) requests"
-| convert num(requests)
-| where NOT ISNULL(requests)
-| stats sum(requests) as total_requests by `resource.attributes.service.name`
+The following query converts a field containing comma-separated numbers:
+
+```ppl
+source=accounts
+| eval price='1,234'
+| convert num(price)
+| fields price
 ```
 {% include copy.html %}
-{% include try-in-playground.html %}
 
 The query returns the following results:
 
-## Example 3: Extract and convert memory sizes from error messages
+| price |
+| --- |
+| 1234.0 |
+
+## Example 3: Memory size conversion with memk()
+
+The following query converts memory size strings to kilobytes:
+
+```ppl
+source=system_metrics
+| eval memory='100m'
+| convert memk(memory)
+| fields memory
+```
+{% include copy.html %}
+
+The query returns the following results:
+
+| memory |
+| --- |
+| 102400.0 |
 
 ## Example 4: Multiple field conversions
 
