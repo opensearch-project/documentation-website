@@ -295,6 +295,13 @@ search severityText="ERROR" OR severityText="WARN" AND severityNumber>15 source=
 ```
 {% include copy.html %}
 
+The preceding expression is evaluated as `(severityText="ERROR" OR severityText="WARN") AND severityNumber>15`. The query returns the following results:
+  
+| severityText | severityNumber |
+| --- | --- |
+| ERROR | 17 |
+| ERROR | 17 |
+
 ## Example 4: NOT compared to != semantics
 
 Both `!=` and `NOT` operators find documents in which the field value is not equal to the specified value. However, the `!=` operator excludes documents containing null or missing fields, while the `NOT` operator includes them. The following queries show this difference using `instrumentationScope.name`, which is null for most records.
