@@ -282,26 +282,18 @@ The query returns the following results:
 The operators are evaluated using the following precedence:
 
 ```
-{% include copy.html %}
 Parentheses > NOT > OR > AND
 ```
 
-The following query demonstrates operator precedence. Because `AND` binds tighter than `OR`, this is evaluated as `severityText="ERROR" OR (resource.attributes.service.name="frontend" AND severityText="INFO")`:
+The following query demonstrates operator precedence:
 
 ```sql
-search severityText="ERROR" OR `resource.attributes.service.name`="frontend" AND severityText="INFO" source=otellogs
-| fields severityText, `resource.attributes.service.name`
-| head 5
+search severityText="ERROR" OR severityText="WARN" AND severityNumber>15 source=otellogs
+| sort @timestamp
+| fields severityText, severityNumber
+| head 2
 ```
 {% include copy.html %}
-{% include try-in-playground.html %}
-  
-| severityText | resource.attributes.service.name |
-| --- | --- |
-| INFO | frontend |
-| INFO | frontend |
-| INFO | frontend |
-| INFO | frontend |
 
 ## Example 4: NOT compared to != semantics
 
@@ -413,7 +405,7 @@ The query returns the following results:
 Use `?` to match exactly one character in specific positions:
 
 ```sql
-search severityText=ERR?R source=otellogs
+search severityText="ERR?R" source=otellogs
 | fields severityText, `resource.attributes.service.name`
 | head 3
 ```
@@ -421,6 +413,12 @@ search severityText=ERR?R source=otellogs
 {% include try-in-playground.html %}
 
 The query returns the following results:
+
+| severityText | resource.attributes.service.name |
+| --- | --- |
+| ERROR | payment |
+| ERROR | checkout |
+| ERROR | payment |
 
 
 ## Example 7: Wildcard patterns in service name searches
