@@ -176,8 +176,8 @@ The following table lists all response body fields.
 | `_shards.total` | Integer | The number of shard copies (primary and replicas) on which the operation should be executed. |
 | `_shards.successful` | Integer | The number of shard copies on which the operation succeeded. When the operation succeeds, this value is at least 1 (the primary shard). |
 | `_shards.failed` | Integer | The number of shard copies on which the operation failed. If the operation succeeds, this value is 0. |
-| `_seq_no` | Integer | The sequence number assigned to the document for this indexing operation. Sequence numbers are used to ensure that an older version of a document does not overwrite a newer version. See [Optimistic concurrency control]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/#optimistic-concurrency-control). |
-| `_primary_term` | Integer | The primary term assigned to the document for this indexing operation. See [Optimistic concurrency control]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/#optimistic-concurrency-control). |
+| `_seq_no` | Integer | The sequence number assigned to the document for this indexing operation. Sequence numbers are used to ensure that an older version of a document does not overwrite a newer version. See [Optimistic concurrency control](#optimistic-concurrency-control). |
+| `_primary_term` | Integer | The primary term assigned to the document for this indexing operation. See [Optimistic concurrency control](#optimistic-concurrency-control). |
 
 
 ## Automatic index creation
@@ -339,4 +339,3 @@ When you update a document using the Index Document API, OpenSearch always creat
 If you need to avoid creating unnecessary document versions, use the [Update Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-document/) with the `detect_noop` parameter set to `true`. The Update API fetches the existing document, compares it to the new content, and only creates a new version if the content has changed.
 
 The Index Document API does not support noop detection because it does not fetch the old source for comparison. Whether noop updates are problematic depends on several factors, including how frequently your data source sends updates that do not change the document and the query load on the shard receiving the updates.
-
