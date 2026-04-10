@@ -176,8 +176,8 @@ The following table lists all response body fields.
 | `_shards.total` | Integer | The number of shard copies (primary and replicas) on which the operation should be executed. |
 | `_shards.successful` | Integer | The number of shard copies on which the operation succeeded. When the operation succeeds, this value is at least 1 (the primary shard). |
 | `_shards.failed` | Integer | The number of shard copies on which the operation failed. If the operation succeeds, this value is 0. |
-| `_seq_no` | Integer | The sequence number assigned to the document for this indexing operation. Sequence numbers are used to ensure that an older version of a document does not overwrite a newer version. See [Optimistic concurrency control]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/#optimistic-concurrency-control). |
-| `_primary_term` | Integer | The primary term assigned to the document for this indexing operation. See [Optimistic concurrency control]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/#optimistic-concurrency-control). |
+| `_seq_no` | Integer | The sequence number assigned to the document for this indexing operation. Sequence numbers are used to ensure that an older version of a document does not overwrite a newer version. See [Optimistic concurrency control](#optimistic-concurrency-control). |
+| `_primary_term` | Integer | The primary term assigned to the document for this indexing operation. See [Optimistic concurrency control](#optimistic-concurrency-control). |
 
 
 ## Automatic index creation
@@ -200,7 +200,7 @@ PUT sample-index/_doc/1?if_seq_no=3&if_primary_term=1
 }
 ```
 
-If the sequence number or primary term does not match the current values, OpenSearch returns a version conflict error (HTTP 409), allowing you to retrieve the latest version and retry the operation. For more information, see [Optimistic concurrency control]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/#optimistic-concurrency-control).
+If the sequence number or primary term does not match the current values, OpenSearch returns a version conflict error (HTTP 409), allowing you to retrieve the latest version and retry the operation.
 
 ## Automatic ID generation
 
@@ -291,8 +291,6 @@ Valid options are:
 - `true`: Forces an immediate refresh after indexing, making the document immediately searchable. Use sparingly, as frequent refreshes can significantly impact performance.
 - `wait_for`: Waits for the next scheduled refresh before responding. More efficient than `true` for batch operations.
 
-For more information, see [Refresh behavior]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/#refresh-behavior).
-
 ## Timeout
 
 If the primary shard is unavailable when you submit an index request (for example, during recovery or relocation), the operation waits for up to 1 minute by default before failing. You can adjust this behavior using the `timeout` parameter:
@@ -339,4 +337,3 @@ When you update a document using the Index Document API, OpenSearch always creat
 If you need to avoid creating unnecessary document versions, use the [Update Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-document/) with the `detect_noop` parameter set to `true`. The Update API fetches the existing document, compares it to the new content, and only creates a new version if the content has changed.
 
 The Index Document API does not support noop detection because it does not fetch the old source for comparison. Whether noop updates are problematic depends on several factors, including how frequently your data source sends updates that do not change the document and the query load on the shard receiving the updates.
-
