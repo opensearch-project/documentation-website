@@ -99,8 +99,6 @@ Excessive use of `refresh=true` can significantly degrade cluster performance by
 
 OpenSearch uses optimistic concurrency control to ensure that document updates do not overwrite newer changes with older data. This mechanism is essential in distributed systems where multiple operations may occur concurrently.
 
-### How it works
-
 Every operation that changes a document is assigned a sequence number (`_seq_no`) and a primary term (`_primary_term`) by the coordinating primary shard:
 
 - **Sequence number**: A strictly increasing number assigned to each operation. Newer operations always have higher sequence numbers than older ones.
