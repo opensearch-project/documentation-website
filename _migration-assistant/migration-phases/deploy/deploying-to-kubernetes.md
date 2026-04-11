@@ -22,19 +22,16 @@ This guide covers deploying Migration Assistant to a generic Kubernetes cluster 
 
 ## Quick start with minikube
 
-For local testing and development, minikube provides the fastest path:
+For local testing and development, minikube provides the fastest path. The `localTesting.sh` script automates the full setup: starting minikube, building container images from source, and installing the Helm chart with test clusters.
 
-### Step 1: Install minikube
+### Prerequisites
 
-Follow the [minikube installation guide](https://minikube.sigs.k8s.io/docs/start/). Allocate sufficient resources:
+- [minikube](https://minikube.sigs.k8s.io/docs/start/) installed
+- [Docker](https://docs.docker.com/engine/install/) running
+- Java Development Kit (JDK) 11–17
+- At least 8 CPUs and 12 GB memory available for Docker
 
-```bash
-minikube config set cpus 8
-minikube config set memory 12000
-```
-{% include copy.html %}
-
-### Step 2: Clone the repository
+### Step 1: Clone the repository
 
 ```bash
 git clone https://github.com/opensearch-project/opensearch-migrations
@@ -42,18 +39,26 @@ cd opensearch-migrations/deployment/k8s
 ```
 {% include copy.html %}
 
-### Step 3: Start minikube and deploy
-
-The `localTesting.sh` script handles minikube startup, image builds, and Helm chart installation:
+### Step 2: Run the local testing script
 
 ```bash
 ./localTesting.sh
 ```
 {% include copy.html %}
 
-This builds images from source, installs the Migration Assistant Helm chart, and deploys test source and target clusters.
+This script:
+1. Starts minikube with adequate resources
+2. Sets up a local container registry inside minikube
+3. Builds all Migration Assistant container images from source using Gradle and BuildKit
+4. Installs the Migration Assistant Helm chart
+5. Deploys test source (Elasticsearch) and target (OpenSearch) clusters
 
-### Step 4: Access the Migration Console
+The initial build takes 10–20 minutes depending on your machine. Subsequent runs are faster due to caching.
+
+Building from source requires a JDK and may encounter Gradle configuration cache issues. If the build fails, try running with `--no-configuration-cache` or check the [Troubleshooting]({{site.url}}{{site.baseurl}}/migration-assistant/troubleshooting/) page.
+{: .note }
+
+### Step 3: Access the Migration Console
 
 ```bash
 kubectl -n ma exec --stdin --tty migration-console-0 -- /bin/bash
@@ -61,6 +66,15 @@ kubectl -n ma exec --stdin --tty migration-console-0 -- /bin/bash
 {% include copy.html %}
 
 ## Production Kubernetes deployment
+
+For production deployments on vanilla Kubernetes (not EKS), you need container images available in a registry accessible from your cluster. Options:
+
+- **Build from source** using the `localTesting.sh` approach and push to your registry
+- **Use the EKS bootstrap script** which handles image mirroring to ECR (see [Deploying to EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/))
+- **Pull from the GitHub release** artifacts (when available for your version)
+
+For most production deployments, the [EKS deployment path]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) is recommended as it handles image management, IAM, and monitoring automatically.
+{: .note }
 
 ### Step 1: Create the namespace
 
