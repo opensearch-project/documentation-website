@@ -4,11 +4,13 @@ title: IAM and security groups for existing clusters
 nav_order: 2
 grand_parent: Migration phases
 parent: Deploy
-permalink: /migration-assistant/migration-phases/deploy/iam-and-security-groups-for-existing-clusters/
+permalink: /classic/migration-assistant/migration-phases/deploy/iam-and-security-groups-for-existing-clusters/
 redirect_from:
   - /migration-assistant/deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
   - /deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
+nav_exclude: true
 ---
+<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # IAM and security groups for existing clusters
 

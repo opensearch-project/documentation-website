@@ -3,11 +3,13 @@ layout: default
 title: Command reference
 nav_order: 2
 parent: Migration console
-permalink: /migration-assistant/migration-console/migration-console-command-reference/
+permalink: /classic/migration-assistant/migration-console/migration-console-command-reference/
 redirect_from:
   - /migration-console/migration-console-commands-references/
   - /migration-assistant/migration-console/migration-console-commands-references/
+nav_exclude: true
 ---
+<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Migration console command reference
 

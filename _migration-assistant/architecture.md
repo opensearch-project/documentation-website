@@ -9,17 +9,103 @@ redirect_from:
 
 # Architecture
 
-The Migration Assistant architecture is based on the use of an AWS Cloud infrastructure, but most tools are designed to be cloud independent. A local containerized version of this solution is also available.
+Migration Assistant runs on Kubernetes and uses [Argo Workflows](https://argoproj.github.io/workflows/) for orchestration. The architecture works equivalently on any Kubernetes distribution, including minikube, kind, Amazon EKS, GKE, AKS, and self-managed clusters.
 
-The design deployed on AWS uses the following architecture.
+## Core components
 
-![Migration architecture overview]({{site.url}}{{site.baseurl}}/images/migrations/migrations-architecture-overview.png)
+| Component | Description |
+|:----------|:------------|
+| **Migration Console** | A Kubernetes pod providing the CLI interface for configuring, submitting, and monitoring migrations |
+| **Workflow CLI** | Command-line tool within the Migration Console for defining migrations in YAML and submitting them as workflows |
+| **Argo Workflows** | Kubernetes-native workflow engine that orchestrates migration tasks with parallel execution, retry logic, and approval gates |
+| **Reindex-from-Snapshot (RFS)** | High-performance document migration engine that reads directly from Lucene segment files in snapshots |
+| **Capture Proxy** | Records live traffic to Kafka for zero-downtime migrations |
+| **Traffic Replayer** | Replays captured traffic against the target cluster |
+| **Strimzi** | Kubernetes operator for managing Kafka clusters used by Capture and Replay |
+| **Prometheus and Grafana** | Monitoring and dashboards for migration progress |
 
-Each node in the diagram correlates to the following steps in the migration process:
+## Migration process overview
 
-1. Client traffic is directed to the existing cluster.
-2. An Application Load Balancer with capture proxies relays traffic to a source while replicating data to Amazon Managed Streaming for Apache Kafka (Amazon MSK).
-3. Using the migration console, a point-in-time snapshot is taken. Once the snapshot completes, the Metadata Migration Tool is used to establish indexes, templates, component templates, and aliases on the target cluster. With continuous traffic capture in place, `Reindex-from-Snapshot` migrates data from the source.
-4. Once `Reindex-from-Snapshot` is complete, captured traffic is replayed from Amazon Managed Streaming for Apache Kafka (Amazon MSK) to the target cluster by Traffic Replayer.
-5. Performance and behavior of traffic sent to the source and target clusters are compared by reviewing logs and metrics.
-6. After confirming that the target cluster's functionality meets expectations, clients are redirected to the new target.
+### Step 1: Prepare ingestion traffic
+
+Before starting a migration, decide how to handle ongoing writes to your source cluster:
+
+- **Downtime approach**: Temporarily disable ingestion to the source cluster during migration. This is the simplest approach and ensures data consistency.
+- **Queue-based approach**: Duplicate writes to a queue (such as Amazon SQS or Kafka) while migration proceeds, allowing zero-downtime migration.
+
+### Step 2: Configure and submit workflow
+
+Configure and submit a migration workflow from the Migration Console:
+
+```bash
+workflow configure edit    # Edit configuration
+workflow submit            # Submit to Argo Workflows
+```
+
+The workflow orchestrates:
+1. Point-in-time snapshot of the source cluster
+2. Metadata migration (indexes, templates, component templates, aliases)
+3. **Approval gate** — workflow pauses for user confirmation before document migration
+4. Resource provisioning for Reindex-from-Snapshot (RFS) backfill
+5. Resource scale-down when backfill completes
+
+### Step 3: Monitor migration progress
+
+Monitor progress using the Workflow CLI:
+
+```bash
+workflow status            # Workflow step completion
+workflow manage            # Interactive monitoring TUI
+workflow output            # View step logs and output
+```
+
+Additional monitoring options:
+- **Prometheus and Grafana**: Dashboards for pod metrics and migration progress
+- **Amazon CloudWatch**: Container Insights for pod metrics and logs (EKS deployments)
+- **Kubernetes**: `kubectl` commands for pod and resource status
+
+### Step 4: Redirect traffic and decommission
+
+Traffic switchover is outside Migration Assistant's scope. You are responsible for updating DNS records, load balancer configuration, or application connection strings to point to the target cluster.
+
+Recommended approach:
+1. Update routing to point to target cluster
+2. Keep source cluster available as fallback (24–72 hours recommended)
+3. Decommission source cluster once confident in target stability
+
+## Error recovery
+
+### Workflow failures
+
+If a workflow step fails:
+1. Check the error with `workflow status` and `workflow output`
+2. Fix the underlying issue (connectivity, permissions, configuration)
+3. Use `workflow retry` to retry the failed step
+
+### RFS backfill resumption
+
+RFS tracks progress automatically. If backfill is interrupted:
+- RFS automatically resumes from the last checkpoint when restarted
+- Already-migrated shards are skipped
+- No data is duplicated
+
+## Component details
+
+### Reindex-from-Snapshot (RFS)
+
+RFS takes a fundamentally different approach from traditional migration tools. Instead of reading documents through the source cluster's HTTP API, it:
+
+1. Takes a **one-time snapshot** of the source cluster (the only time the source is touched)
+2. Reads the **raw Lucene segment files** directly from the snapshot in storage (S3)
+3. Extracts documents, applies transformations, and **bulk-indexes them on the target**
+
+This means: **zero ongoing source load**, **no version compatibility limit** (works across any supported gap), **massive parallelism** (one worker per shard), and **full resumability** (failed shards are retried without restarting).
+
+### Argo Workflows
+
+Argo Workflows orchestrates the migration process:
+- **Workflow templates**: Pre-built templates for migration scenarios
+- **Parallel execution**: Run multiple migration tasks simultaneously
+- **Retry logic**: Automatic retry on transient failures
+- **Approval gates**: Human checkpoints before critical operations
+- **Progress tracking**: Visual workflow status and step completion

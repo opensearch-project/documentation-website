@@ -4,11 +4,13 @@ title: Verifying backfill components
 grand_parent: Migration phases
 nav_order: 3
 parent: Deploy
-permalink: /migration-assistant/migration-phases/deploy/verifying-backfill-components/
+permalink: /classic/migration-assistant/migration-phases/deploy/verifying-backfill-components/
 redirect_from:
   - /migration-assistant/migration-phases/verifying-migration-tools/verifying-backfill-components/
   - /migration-assistant/migration-phases/planning-your-migration/verifying-migration-tools/
+nav_exclude: true
 ---
+<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Verifying backfill components
 

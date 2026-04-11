@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Switching traffic from the source cluster
-parent: Live traffic migration
-grand_parent: Migration phases
-nav_order: 110
+title: Reroute traffic to the target
+nav_order: 8
+parent: Migration phases
+permalink: /classic/migration-assistant/migration-phases/reroute-traffic-from-capture-proxy-to-target/
 nav_exclude: true
-permalink: /migration-assistant/migration-phases/live-traffic-migration/switching-traffic-from-the-source-cluster/
-redirect_from:
-  - /migration-assistant/migration-phases/switching-traffic-from-the-source-cluster/
-  - /migration-phases/switching-traffic-from-the-source-cluster/
 ---
+<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Switching traffic from the source cluster
+
+**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration, you can skip this step.
+{: .note}
 
 After the source and target clusters are synchronized, traffic needs to be switched to the target cluster so that the source cluster can be taken offline.
 
@@ -19,7 +19,7 @@ After the source and target clusters are synchronized, traffic needs to be switc
 
 This page assumes that the following has occurred before making the switch:
 
-- All client traffic is being routed through a switchover listener in the [MigrationAssistant Application Load Balancer]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/).
+- All client traffic is being routed through a switchover listener in the [Migration Assistant Application Load Balancer]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/reroute-source-to-proxy/).
 - Client traffic has been verified as compatible with the target cluster.
 - The target cluster is in a good state to accept client traffic.
 - The target proxy service is deployed.
@@ -28,7 +28,7 @@ This page assumes that the following has occurred before making the switch:
 
 Use the following steps to switch traffic from the source cluster to the target cluster:
 
-1. In the AWS Management Console, navigate to **ECS** > **Migration Assistant Cluster**. Note the desired count of the capture proxy, which should be greater than 1.
+1. In the AWS Management Console, navigate to **ECS** > **Migration Assistant Cluster**. Note the desired count of the Capture Proxy, which should be greater than 1.
 
 2. Update the **ECS Service** of the target proxy to be at least as large as the Traffic Capture Proxy. Wait for tasks to start up, and verify that all targets are healthy in the target proxy service's **Load balancer health** section.
 
@@ -38,21 +38,23 @@ Use the following steps to switch traffic from the source cluster to the target 
 
 5. Navigate to **Capture Proxy Target Group** (`ALBSourceProxy-<STAGE>-TG`) > **Monitoring**.
 
-6. Examine the **Metrics Requests**, **Target (2XX, 3XX, 4XX, 5XX)**, and **Target Response Time** metrics. Verify that this appears as expected and includes all traffic expected to be included in the switchover. Note details that could help identify anomalies during the switchover, including the expected response time and response code rate.
+6. Examine the **Metrics Requests**, **Target (2XX, 3XX, 4XX, 5XX)**, and **Target Response Time** metrics. Verify that these appear as expected and include all traffic expected to be included in the switchover. Note details that could help identify anomalies during the switchover, including the expected response time and response code rate.
 
 7. Navigate back to **ALB Metrics** and choose **Target Proxy Target Group** (`ALBTargetProxy-<STAGE>-TG`). Verify that all expected targets are healthy and that none are in a draining state.
 
 8. Navigate back to **ALB Metrics** and to the **Listener** on port `9200`.
 
-9. Choose the **Default rule** and **Edit**.
+9. Choose **Default rule** and **Edit**.
 
 10. Modify the weights of the targets to switch the desired traffic to the target proxy. To perform a full switchover, modify the **Target Proxy** weight to `1` and the **Source Proxy** weight to `0`.
 
 11. Choose **Save Changes**.
 
-12. Navigate to both **SourceProxy** and **TargetProxy TG Monitoring** metrics and verify that traffic is switching over as expected. If connections are being reused by clients, perform any necessary actions to terminate them. Monitor these metrics until **SourceProxy TG** shows 0 requests when all clients have switched over.
+12. Navigate to both the **SourceProxy** and **TargetProxy TG Monitoring** metrics and verify that traffic is switching over as expected. If connections are being reused by clients, perform any necessary actions to terminate them. Monitor these metrics until **SourceProxy TG** shows 0 requests when all clients have switched over.
 
 
 ## Fallback
 
 If you need to fall back to the source cluster at any point during the switchover, revert the **Default rule** so that the Application Load Balancer routes to the **SourceProxy Target Group**.
+
+{% include migration-phase-navigation.html %}

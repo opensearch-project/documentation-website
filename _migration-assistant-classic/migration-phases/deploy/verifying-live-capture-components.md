@@ -4,8 +4,10 @@ title: Verifying live capture components
 grand_parent: Migration phases
 nav_order: 4
 parent: Deploy
-permalink: /migration-assistant/migration-phases/deploy/verifying-live-capture-components/
+permalink: /classic/migration-assistant/migration-phases/deploy/verifying-live-capture-components/
+nav_exclude: true
 ---
+<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Verifying live capture components
 
@@ -107,7 +109,7 @@ Look for failing tasks by navigating to **Traffic Capture Proxy ECS**. Change **
 
 After all verifications are complete, reset all resources before using Migration Assistant for an actual migration. 
 
-The following steps outline how to reset resources with Migration Assistant before executing the actual migration. At this point all verifications are expected to have been completed. These steps can be performed after [accessing the migration console]({{site.url}}{{site.baseurl}}/migration-assistant/migration-console/accessing-the-migration-console/).
+The following steps outline how to reset resources with Migration Assistant before executing the actual migration. At this point all verifications are expected to have been completed. These steps can be performed after [accessing the migration console]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-console/accessing-the-migration-console/).
 
 ### Traffic Replayer
 

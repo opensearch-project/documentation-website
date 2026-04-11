@@ -2,10 +2,12 @@
 layout: default
 title: Key components
 nav_order: 20
-permalink: /migration-assistant/key-components/
+permalink: /classic/migration-assistant/key-components/
 redirect_from:
   - /migration-assistant/overview/key-components/
+nav_exclude: true
 ---
+<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Key components 
 
@@ -25,7 +27,7 @@ This component is designed for HTTP RESTful traffic. It forwards traffic to the 
 
 ## Traffic Replayer
 
-Acting as a traffic simulation tool, [Traffic Replayer]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/) replays recorded request traffic to a target cluster, mirroring source traffic patterns. It links original requests and their responses to those directed at the target cluster, facilitating comparative analysis.
+Acting as a traffic simulation tool, [Traffic Replayer]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/replay-captured-traffic/) replays recorded request traffic to a target cluster, mirroring source traffic patterns. It links original requests and their responses to those directed at the target cluster, facilitating comparative analysis.
 
 ## Metadata Migration Tool
 

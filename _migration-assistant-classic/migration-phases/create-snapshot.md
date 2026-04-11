@@ -3,8 +3,10 @@ layout: default
 title: Creating a snapshot
 parent: Migration phases
 nav_order: 4
-permalink: /migration-assistant/migration-phases/create-snapshot/
+permalink: /classic/migration-assistant/migration-phases/create-snapshot/
+nav_exclude: true
 ---
+<p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Creating a snapshot
 
@@ -21,7 +23,7 @@ console snapshot create [...]
 
 **Note**: Migration Assistant will automatically generate a snapshot name and configure the necessary Amazon Simple Storage Service (Amazon S3) repository. Alternatively, you have the option to bring your own existing snapshot. 
 
-For more information about using an existing snapshot, see [Bring your own snapshot]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/#bring-your-own-snapshot) configuration.
+For more information about using an existing snapshot, see [Bring your own snapshot]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/deploy/configuration-options/#bring-your-own-snapshot) configuration.
 
 To check the snapshot creation status, run the following command:
 
