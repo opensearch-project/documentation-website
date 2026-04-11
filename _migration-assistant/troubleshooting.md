@@ -141,3 +141,48 @@ Pending pods often indicate insufficient CPU, memory, or node capacity.
 2. Collect diagnostics: `workflow status`, `workflow output`, `kubectl describe pods -n ma`
 3. Search [GitHub Issues](https://github.com/opensearch-project/opensearch-migrations/issues)
 4. Create a [new issue](https://github.com/opensearch-project/opensearch-migrations/issues/new/choose) with your Migration Assistant version (`console --version`), Kubernetes version, source/target versions, and error logs
+
+## Known issues
+
+### `console` and `workflow` commands not in PATH
+
+On some Migration Console versions, the `console` and `workflow` commands are installed in `/.venv/bin/` and may not be in the default `PATH`. If you get "command not found":
+
+```bash
+export PATH="/.venv/bin:$PATH"
+# Or run directly:
+/.venv/bin/console --version
+/.venv/bin/workflow configure sample
+```
+{% include copy.html %}
+
+### macOS: `tac` command not found in bootstrap script
+
+The `aws-bootstrap.sh` script uses `tac` (a Linux utility) which is not available on macOS. If you see `tac: command not found`, install GNU coreutils:
+
+```bash
+brew install coreutils
+```
+{% include copy.html %}
+
+Alternatively, run the bootstrap script from AWS CloudShell (Linux-based) or a Linux machine.
+
+### Minikube: Helm install fails with ImagePullBackOff
+
+Direct `helm install` on minikube fails because Migration Assistant container images are not published to a public registry. Use the `localTesting.sh` script instead, which builds images from source and pushes them to a local registry inside minikube.
+
+### Gradle build failures with configuration cache
+
+When building from source, the Gradle build may fail with configuration cache errors, particularly for the `trafficReplayer:jib` task. Workaround:
+
+```bash
+./gradlew :buildImages:buildImagesToRegistry --no-configuration-cache
+```
+{% include copy.html %}
+
+### EKS: CloudFormation stack already exists
+
+If you see `ResourceExistenceCheck` errors when deploying CloudFormation, a stack with the same name already exists. Either:
+- Use a different `--stack-name`
+- Delete the existing stack first: `aws cloudformation delete-stack --stack-name <NAME>`
+- Use `--skip-cfn-deploy` to bootstrap an existing cluster
