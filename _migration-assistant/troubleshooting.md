@@ -186,3 +186,54 @@ If you see `ResourceExistenceCheck` errors when deploying CloudFormation, a stac
 - Use a different `--stack-name`
 - Delete the existing stack first: `aws cloudformation delete-stack --stack-name <NAME>`
 - Use `--skip-cfn-deploy` to bootstrap an existing cluster
+
+### Snapshot creation fails with exit code 1
+
+If the `createSnapshot` workflow step fails immediately, the most common cause is that the source Elasticsearch cluster does not have the `repository-s3` plugin installed. Verify:
+
+```bash
+curl http://<SOURCE_HOST>:9200/_cat/plugins?v
+```
+{% include copy.html %}
+
+If the plugin is missing, install it on the source cluster:
+
+```bash
+/usr/share/elasticsearch/bin/elasticsearch-plugin install --batch repository-s3
+systemctl restart elasticsearch
+```
+{% include copy.html %}
+
+The source cluster also needs IAM permissions to write to the S3 snapshot bucket. For EC2-hosted Elasticsearch, attach an IAM role with `s3:PutObject`, `s3:GetObject`, and `s3:ListBucket` permissions.
+
+### Workflow already exists error
+
+If you see `workflows.argoproj.io "migration-workflow" already exists` when submitting, delete the old workflow first:
+
+```bash
+kubectl delete workflow migration-workflow -n ma
+workflow submit
+```
+{% include copy.html %}
+
+### Config validation errors
+
+The workflow configuration schema has required fields that are not obvious from the sample:
+
+- `createSnapshotConfig` is **required** even if empty (`{}`)
+- `migrations` array is **required** inside `snapshotExtractAndLoadConfigs`
+- `snapshotNameConfig` must contain either `snapshotNamePrefix` or `externallyManagedSnapshot`
+
+If you see `Error while safely parsing the transformed workflow`, check these fields. Run `workflow configure sample` to see the full schema with all required fields.
+
+### EC2 instances stop between sessions
+
+If your source or target EC2 instances stop (due to spot termination, session timeout, etc.), you'll need to restart them and update your workflow configuration with the new private IPs:
+
+```bash
+aws ec2 start-instances --instance-ids <INSTANCE_ID>
+aws ec2 describe-instances --instance-ids <INSTANCE_ID> --query "Reservations[0].Instances[0].PrivateIpAddress"
+```
+{% include copy.html %}
+
+Then update your workflow configuration with `workflow configure edit`.

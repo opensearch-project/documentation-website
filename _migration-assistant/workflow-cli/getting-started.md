@@ -185,3 +185,61 @@ workflow approve <STEP>           # Approve a blocked step
 workflow stop                     # Stop a running workflow
 workflow output                   # View workflow logs
 ```
+
+## Example configuration
+
+The following is a minimal working configuration for migrating from Elasticsearch 7.10 to OpenSearch, tested end-to-end:
+
+```json
+{
+  "skipApprovals": true,
+  "sourceClusters": {
+    "source": {
+      "endpoint": "http://<SOURCE_HOST>:9200",
+      "allowInsecure": true,
+      "version": "ES 7.10",
+      "snapshotRepos": {
+        "migration-repo": {
+          "awsRegion": "us-east-2",
+          "s3RepoPathUri": "s3://<BUCKET_NAME>/snapshots"
+        }
+      }
+    }
+  },
+  "targetClusters": {
+    "target": {
+      "endpoint": "http://<TARGET_HOST>:9200",
+      "allowInsecure": true
+    }
+  },
+  "migrationConfigs": [
+    {
+      "fromSource": "source",
+      "toTarget": "target",
+      "snapshotExtractAndLoadConfigs": [
+        {
+          "createSnapshotConfig": {},
+          "snapshotConfig": {
+            "snapshotNameConfig": {
+              "snapshotNamePrefix": "migration"
+            },
+            "repoName": "migration-repo"
+          },
+          "migrations": [
+            {
+              "metadataMigrationConfig": {},
+              "documentBackfillConfig": {
+                "podReplicas": 2
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+{% include copy.html %}
+
+`createSnapshotConfig` is required even if empty — omitting it causes a validation error. The `migrations` array is also required inside `snapshotExtractAndLoadConfigs`.
+{: .warning }
