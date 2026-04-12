@@ -25,16 +25,17 @@ This page describes how to use **Discover** to:
 
 The following components make up the **Discover** application UI.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-app-panel-callouts.png" alt="Discover app default page" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-app-panel-callouts.png" alt="Discover app default page">
 
-- The _field select_ tool (A) determines which fields display in the **Discover** application panel. See [Using the field select tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/).
-- The _search_ bar (B) enables selection of data using a query language search. See [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
+- The _application menu_ (A) provides options for creating and saving Discover filters settings.
+- The _field select_ tool (B) determines which fields display in the **Discover** application panel. See [Using the field select tool]({{site.url}}{{site.baseurl}}/dashboards/discover/field-select/).
 - The _time filter_ (C) provides a graphical interface for selecting data values and ranges. See [Using the time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/).
-- The _filter_ tool (D) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
+- The _search_ bar (D) enables selection of data using a query language search. See [Using the search bar]({{site.url}}{{site.baseurl}}/dashboards/discover/search-bar/).
+- The _filter_ tool (E) contains frequently used commands and shortcuts. See [Using the filter tool]({{site.url}}{{site.baseurl}}/dashboards/discover/filter-tool/).
 - The **Discover** _application panel_ displays the following elements:
-  - The _date range display_ (E) specifies and selects a date-time range and determines the scale of the timeline visualization.
-  - The _timestamp histogram_ (F) displays the count of documents per time interval.
-  - The **Results** table (G) displays summaries of the selected documents. You can expand each document and view it in tabular or JSON form.
+  - The _date range display_ (F) specifies and selects a date-time range and determines the scale of the timeline visualization.
+  - The _timestamp histogram_ (G) displays the count of documents per time interval.
+  - The **Results** table (H) displays summaries of the selected documents. You can expand each document and view it in tabular or JSON form.
 
   If there is no data selected, the application panel displays a **</> No Results** message. This often happens, especially with the OpenSearch Dashboards sample data, because all data falls outside the time filter interval.
   {: .note}
@@ -79,11 +80,11 @@ To display documents in the **Discover** application, follow these steps:
 
    The following image shows the resulting display in the Discover app.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-1-yr.png" alt="Discover interface showing search of flight sample data for last 12 months"  width="700">
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-3-mo.png" alt="Discover interface showing search of flight sample data for last 90 days"  width="95%">
 
 1. Drag-select the narrow band of data from the timestamp histogram as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-drag-select.png" alt="Discover interface showing drag-select"  width="700">
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-drag-select.png" alt="Discover interface showing drag-select"  width="95%">
 
    The data adjusts to span the width of the data display, and the scale adjusts automatically.
 
@@ -94,7 +95,7 @@ To display documents in the **Discover** application, follow these steps:
 
    The resulting view should look like the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-adjusted.png" alt="Discover interface showing flight sample data scaled to display width"  width="700">
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-display-flight-data-adjusted.png" alt="Discover interface showing flight sample data scaled to display width"  width="95%">
 
 
 ## Filtering documents
@@ -186,7 +187,7 @@ To visualize a data field, follow these steps:
 
    The **Top 5 views popover** displays as shown in the following image.
    
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/top-5-values.png" alt="top 5 values popover" width="200"/>
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/top-5-values.png" alt="top 5 values popover" width="51%"/>
 
 1. From the **Top 5 values** popover, select the **Visualize** button. The display changes to the **Visualize** application, showing a default visualization of the selected field.
 

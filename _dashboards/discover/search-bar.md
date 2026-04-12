@@ -26,7 +26,7 @@ Query string query language and DQL support different features. For example, DQL
 
 ## Navigating the search bar
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/search-bar-callouts.png" alt="Search bar interface"  width="400">
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/search-bar-callouts.png" alt="Search bar interface">
 
 The following components make up the search bar.
 
@@ -47,7 +47,7 @@ To switch between DQL and query string query language, follow these steps:
    If **OpenSearch Dashboard Query Language** (DQL) is turned **off**, the query language is set to OpenSearch Dashboards Query Language, and the query language selector displays **Lucene**.
    {: .note}
 
-   <img src="{{site.url}}{{site.baseurl}}/images/discover-lucene-syntax.png" alt="Using query string syntax in OpenSearch Dashboards Discover"  width="400">
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-lucene-syntax.png" alt="Using query string syntax in OpenSearch Dashboards Discover"  width="97%">
 
 
 ## Filtering based on a query

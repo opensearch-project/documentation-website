@@ -26,7 +26,7 @@ The default time range is a relative interval of **Last 15 minutes**. You can ch
 
 ## Navigating the time filter
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/time-filter-callouts.png" alt="Time filter interface"  width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/time-filter-callouts.png" alt="Time filter interface">
 
 The following components make up the time filter.
 
@@ -51,7 +51,7 @@ To select an absolute time interval, follow these steps:
 
 1. In the time selection popover, choose the **Absolute** tab as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/absolute-time-filter.png" alt="Absolute time filter" width="400"/>
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/absolute-time-filter.png" width="56%" alt="Absolute time filter"/>
 
 1. Use the calendar and time scroll tools to choose a start time, or edit the start time in the **Start date** text box.
 
@@ -76,7 +76,7 @@ To select a relative time interval, follow these steps:
 
 1. In the time selection popover, choose the **Relative** tab as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/relative-time-filter.png" alt="Relative time filter" width="400"/>
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/relative-time-filter.png" width="56%" alt="Relative time filter"/>
 
 1. In the number combo box, select or enter the interval quantity.
 
@@ -123,7 +123,7 @@ To select a time interval from common or previous interval values, follow these 
 
 1. From the shortcut popover, select one of the time filter options, as shown in the following image.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/time-range.png" alt="Time range interface" width="400"/>
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/time-range.png" alt="Time range interface" width="59%"/>
 
    - **Quick select**: Choose an interval spanning _now_ to a past (**Last**) or future (**Next**) time.
 

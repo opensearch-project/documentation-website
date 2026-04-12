@@ -15,7 +15,7 @@ The filter tool is at the top of the [Discover]({{site.url}}{{site.baseurl}}/das
 
 ## Navigating the filter tool
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-tool-callouts.png" alt="Filter tool"  width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-tool-callouts.png" width="75%" alt="Filter tool">
 
 The following components make up the filter tool.
 
@@ -31,7 +31,7 @@ To add a filter using the **Add filter** tool, follow these steps:
 
 1. In the **Edit filter** popover, choose a data field.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/edit-filter-popover-filled.png" alt="Edit filter popover"  width="400">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/edit-filter-popover-filled.png" alt="Edit filter popover"  width="79%">
 
 1. In the **Operator** field, choose an operator.
 
@@ -143,7 +143,7 @@ To negate all filter expressions so that all included documents are excluded and
 
    Exclusion filters have **NOT** appended to their title, as shown following. Inverting inclusion a second time removes the **NOT** modifier.
    
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/excluded-filter.png" alt="Exclusion filter"  width="200">
+   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/excluded-filter.png" alt="Exclusion filter"  width="36%">
 
    Disabled filters are inverted, but remain disabled.
    {: .note}

@@ -15,7 +15,7 @@ The field select tool is in the vertical panel to the immediate left of the [Dis
 
 ## Navigating the field select tool
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/field-select-collapsed-callouts.png" alt="Field select tool"  width="400">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/field-select-collapsed-callouts.png" alt="Field select tool"  width="44%">
 
 The following components make up the field select tool.
 
