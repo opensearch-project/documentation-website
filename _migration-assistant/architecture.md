@@ -9,7 +9,7 @@ redirect_from:
 
 # Architecture
 
-Migration Assistant runs on Kubernetes and uses [Argo Workflows](https://argoproj.github.io/workflows/) for orchestration. The architecture works equivalently on any Kubernetes distribution, including minikube, kind, Amazon EKS, GKE, AKS, and self-managed clusters.
+Migration Assistant runs on Kubernetes and uses the Workflow CLI to orchestrate migrations. Under the hood, workflows are executed by [Argo Workflows](https://argoproj.github.io/workflows/), but you interact exclusively through the Workflow CLI — not Argo directly. The architecture works equivalently on any Kubernetes distribution, including minikube, kind, Amazon EKS, GKE, AKS, and self-managed clusters.
 
 The following diagram illustrates a typical deployment on Amazon EKS (control plane, Migration Assistant workloads, and supporting services). Other Kubernetes distributions follow the same logical layout with different networking and IAM details.
 
@@ -21,7 +21,7 @@ The following diagram illustrates a typical deployment on Amazon EKS (control pl
 |:----------|:------------|
 | **Migration Console** | A Kubernetes pod providing the CLI interface for configuring, submitting, and monitoring migrations |
 | **Workflow CLI** | Command-line tool within the Migration Console for defining migrations in YAML and submitting them as workflows |
-| **Argo Workflows** | Kubernetes-native workflow engine that orchestrates migration tasks with parallel execution, retry logic, and approval gates |
+| **Workflow Engine** | Orchestrates migration tasks with parallel execution, retry logic, and approval gates (powered by Argo Workflows internally) |
 | **Reindex-from-Snapshot (RFS)** | High-performance document migration engine that reads directly from Lucene segment files in snapshots |
 | **Capture Proxy** | Records live traffic to Kafka for zero-downtime migrations |
 | **Traffic Replayer** | Replays captured traffic against the target cluster |
@@ -43,7 +43,7 @@ Configure and submit a migration workflow from the Migration Console:
 
 ```bash
 workflow configure edit    # Edit configuration
-workflow submit            # Submit to Argo Workflows
+workflow submit            # Submit the migration workflow
 ```
 
 The workflow orchestrates:
@@ -105,9 +105,9 @@ RFS takes a fundamentally different approach from traditional migration tools. I
 
 This means: **zero ongoing source load**, **no version compatibility limit** (works across any supported gap), **massive parallelism** (one worker per shard), and **full resumability** (failed shards are retried without restarting).
 
-### Argo Workflows
+### Workflow Engine
 
-Argo Workflows orchestrates the migration process:
+The workflow engine orchestrates the migration process:
 - **Workflow templates**: Pre-built templates for migration scenarios
 - **Parallel execution**: Run multiple migration tasks simultaneously
 - **Retry logic**: Automatic retry on transient failures

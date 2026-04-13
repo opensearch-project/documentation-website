@@ -9,7 +9,7 @@ permalink: /migration-assistant/workflow-cli/
 
 # Workflow CLI
 
-The Workflow CLI provides a declarative, workflow-driven approach to managing OpenSearch migrations on Kubernetes. Instead of running individual commands, you define your migration configuration in YAML and submit it as a workflow that Argo Workflows orchestrates.
+The Workflow CLI provides a declarative, workflow-driven approach to managing OpenSearch migrations on Kubernetes. Instead of running individual commands, you define your migration configuration in YAML and submit it as a workflow that the Workflow CLI orchestrates.
 
 ## Key concepts
 
@@ -24,9 +24,9 @@ workflow configure sample
 ```
 {% include copy.html %}
 
-### Argo Workflows orchestration
+### Workflow orchestration
 
-Argo Workflows provides parallel execution, retry logic, progress tracking, resource management, and approval gates. You don't interact with Argo Workflows directly — the Workflow CLI handles this for you.
+The Workflow CLI provides parallel execution, retry logic, progress tracking, resource management, and approval gates. The underlying orchestration is handled automatically — you interact only through the `workflow` commands.
 
 ### Approval gates
 

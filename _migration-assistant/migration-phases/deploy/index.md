@@ -27,7 +27,7 @@ The Migration Assistant Helm chart installs:
 | Component | Purpose |
 |:----------|:--------|
 | Migration Console | Pod with CLI tools for configuring and running migrations |
-| Argo Workflows | Workflow engine for orchestrating migration tasks |
+| Workflow Engine | Orchestrates migration tasks (Argo Workflows) |
 | Strimzi | Kafka operator for Capture and Replay |
 | Prometheus | Metrics collection |
 | Grafana | Monitoring dashboards |

@@ -29,7 +29,7 @@ items:
 
 # Migration Assistant for OpenSearch
 
-Migration Assistant is a Kubernetes-native tool for migrating data, metadata, and query traffic from Elasticsearch, OpenSearch, and Apache Solr clusters to OpenSearch. It uses a workflow-driven approach with declarative YAML configuration and Argo Workflows for orchestration.
+Migration Assistant is a Kubernetes-native tool for migrating data, metadata, and query traffic from Elasticsearch, OpenSearch, and Apache Solr clusters to OpenSearch. It uses a workflow-driven approach with declarative YAML configuration to orchestrate migrations.
 
 Migration Assistant runs on any Kubernetes distribution — including minikube, kind, Amazon EKS, GKE, AKS, and self-managed clusters. For production workloads at scale, Amazon EKS is the recommended deployment target.
 
@@ -45,7 +45,7 @@ Looking for the classic ECS-based documentation? See the [classic Migration Assi
 | **Capture and Replay** | Record live traffic and replay it on the target for zero-downtime migration |
 | **Version compatibility** | Migrate from Elasticsearch 1.x–8.x and OpenSearch 1.x–2.x to OpenSearch |
 | **Solr migration** | Migrate from Apache Solr 8.x with automatic schema translation and query proxying |
-| **Kubernetes-native** | Runs on any Kubernetes cluster with Helm charts and Argo Workflows |
+| **Kubernetes-native** | Runs on any Kubernetes cluster with Helm charts and the Workflow CLI |
 
 ## Getting started
 
