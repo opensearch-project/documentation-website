@@ -19,7 +19,7 @@ After the source and target clusters are synchronized, traffic needs to be switc
 
 This page assumes that the following has occurred before making the switch:
 
-- All client traffic is being routed through a switchover listener in the [Migration Assistant Application Load Balancer]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/reroute-source-to-proxy/).
+- All client traffic is being routed through a switchover listener in the [Migration Assistant Application Load Balancer]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/reroute-source-to-proxy/).
 - Client traffic has been verified as compatible with the target cluster.
 - The target cluster is in a good state to accept client traffic.
 - The target proxy service is deployed.

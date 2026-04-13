@@ -208,5 +208,5 @@ If you encounter issues with `dense_vector` conversion:
 
 ## Related documentation
 
-- [Transform field types documentation]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) -- Configure custom field type transformations.
+- [Transform field types documentation]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/) -- Configure custom field type transformations.
 - [k-NN documentation]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/approximate-knn/) -- Approximate k-NN search documentation.
