@@ -151,6 +151,9 @@ To use a workflow template, specify it in the `use_case` query parameter when cr
   - [Hybrid search using a local model](#hybrid-search-using-a-local-model)
 - Conversational search templates:
   - [Conversational search using an LLM](#conversational-search-using-an-llm)
+- Agentic search templates:
+  - [Agentic search with a flow agent](#agentic-search-with-a-flow-agent)
+  - [Agentic search with a conversational agent](#agentic-search-with-a-conversational-agent)
 
 </details>
 
@@ -423,3 +426,43 @@ This workflow deploys a large language model and configures a conversational sea
 - [Defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/conversational-search-defaults.json)
 
 **Note**: Requires an API key for the chosen language model.
+
+## Agentic search templates
+
+The following workflow templates configure [agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/).
+
+### Agentic search with a flow agent
+
+This workflow deploys an Amazon Bedrock chat model and configures an agentic search pipeline using a [flow agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/flow-agent/).
+
+- **Use case**: `agentic_search_with_flow_agent`
+- **Created components**:
+  - An Amazon Bedrock connector and a remote chat model (by default, Claude 4 Sonnet)
+  - A `QueryPlanningTool`
+  - A flow agent wired to the `QueryPlanningTool`
+  - A search pipeline with an `agentic_query_translator` request processor
+- **Required parameters**:
+  - `create_connector.credential.access_key`
+  - `create_connector.credential.secret_key`
+  - `create_connector.credential.session_token`
+- [Defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/agentic-search-with-flow-agent-defaults.json)
+
+**Note**: Requires AWS credentials and access to Amazon Bedrock.
+
+### Agentic search with a conversational agent
+
+This workflow deploys an Amazon Bedrock chat model and configures an agentic search pipeline using a [conversational agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/) with conversation memory and multiple tools.
+
+- **Use case**: `agentic_search_with_conversational_agent`
+- **Created components**:
+  - An Amazon Bedrock connector and a remote chat model (by default, Claude 4 Sonnet)
+  - A `QueryPlanningTool`, `ListIndexTool`, and `IndexMappingTool`
+  - A conversational agent with conversation memory and all three tools
+  - A search pipeline with an `agentic_query_translator` request processor and an `agentic_context` response processor
+- **Required parameters**:
+  - `create_connector.credential.access_key`
+  - `create_connector.credential.secret_key`
+  - `create_connector.credential.session_token`
+- [Defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/agentic-search-with-conversational-agent-defaults.json)
+
+**Note**: Requires AWS credentials and access to Amazon Bedrock.
