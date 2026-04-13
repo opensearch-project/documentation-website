@@ -198,6 +198,11 @@ The following is a minimal working configuration for migrating from Elasticsearc
       "endpoint": "http://<SOURCE_HOST>:9200",
       "allowInsecure": true,
       "version": "ES 7.10",
+      "authConfig": {
+        "basic": {
+          "secretName": "source-credentials"
+        }
+      },
       "snapshotRepos": {
         "migration-repo": {
           "awsRegion": "us-east-2",
@@ -209,7 +214,12 @@ The following is a minimal working configuration for migrating from Elasticsearc
   "targetClusters": {
     "target": {
       "endpoint": "http://<TARGET_HOST>:9200",
-      "allowInsecure": true
+      "allowInsecure": true,
+      "authConfig": {
+        "basic": {
+          "secretName": "target-credentials"
+        }
+      }
     }
   },
   "migrationConfigs": [
@@ -241,5 +251,5 @@ The following is a minimal working configuration for migrating from Elasticsearc
 ```
 {% include copy.html %}
 
-`createSnapshotConfig` is required even if empty — omitting it causes a validation error. The `migrations` array is also required inside `snapshotExtractAndLoadConfigs`.
+`createSnapshotConfig` is required even if empty — omitting it causes a validation error. The `migrations` array is also required inside `snapshotExtractAndLoadConfigs`. `authConfig.basic.secretName` must match the Kubernetes secret you created (`source-credentials` / `target-credentials` above, or the names from `workflow configure sample --load` on your cluster).
 {: .warning }

@@ -6,8 +6,6 @@ parent: Migration phases
 has_children: false
 has_toc: false
 permalink: /classic/migration-assistant/migration-phases/assessment/
-redirect_from:
-  - /migration-assistant/migration-phases/planning-your-migration/assessing-your-cluster-for-migration/
 nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
@@ -68,7 +66,7 @@ For complex migrations involving multiple transformations or breaking changes, w
 
 The following is a list of transformations that are included in Migration Assistant. They can be enabled, combined, and configured to customize a migration for your use case. Depending on your use case and the type of transformation, a transformation may have to be added to Capture-and-Replay, Metadata Migration Tool, or Reindex-from-Snapshot. To request additional Migration Assistant transformations, create a GitHub issue [in the OpenSearch migrations repository](https://github.com/opensearch-project/opensearch-migrations/issues).
 
-- [Managing type mapping deprecation]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/)
-- [Handling breaking changes in field types]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/)
+- [Managing type mapping deprecation]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/)
+- [Handling breaking changes in field types]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/)
 
 {% include migration-phase-navigation.html %}

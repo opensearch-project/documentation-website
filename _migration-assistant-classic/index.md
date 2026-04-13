@@ -6,9 +6,7 @@ has_children: true
 has_toc: false
 nav_exclude: true
 permalink: /classic/migration-assistant/
-redirect_from:
-  - /migration-assistant/index/
- 
+
 items:
   - heading: "Is Migration Assistant right for you?"
     description: "Evaluate whether Migration Assistant is right for your use case."

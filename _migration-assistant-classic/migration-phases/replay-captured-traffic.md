@@ -4,9 +4,6 @@ title: Using Traffic Replayer
 nav_order: 7
 parent: Migration phases
 permalink: /classic/migration-assistant/migration-phases/replay-captured-traffic/
-redirect_from: 
-  - /migration-assistant/migration-phases/using-traffic-replayer/
-  - /migration-phases/using-traffic-replayer/
 nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
@@ -26,7 +23,7 @@ For example, if a document was deleted after a snapshot was taken, starting Traf
 
 ## Configuration options
 
-[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/deploy/configuration-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster.
+[Traffic Replayer settings]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/deploy/configuration-options/) are configured during the deployment of Migration Assistant. Make sure to set the authentication mode for Traffic Replayer so that it can properly communicate with the target cluster.
 
 ## Using Traffic Replayer
 

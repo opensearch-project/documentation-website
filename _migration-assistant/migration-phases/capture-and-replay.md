@@ -4,6 +4,12 @@ title: Capture and Replay
 nav_order: 7
 parent: Migration phases
 permalink: /migration-assistant/migration-phases/capture-and-replay/
+redirect_from:
+  - /migration-assistant/migration-phases/using-traffic-replayer/
+  - /migration-phases/using-traffic-replayer/
+  - /migration-assistant/migration-phases/replay-captured-traffic/
+  - /migration-phases/replay-captured-traffic/
+
 ---
 
 # Capture and Replay

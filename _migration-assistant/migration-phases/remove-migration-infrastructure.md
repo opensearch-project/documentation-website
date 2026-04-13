@@ -4,6 +4,10 @@ title: Removing Migration Assistant
 nav_order: 9
 parent: Migration phases
 permalink: /migration-assistant/migration-phases/remove-migration-infrastructure/
+redirect_from:
+  - /migration-assistant/migration-phases/removing-migration-infrastructure/
+  - /migration-phases/removing-migration-infrastructure/
+
 ---
 
 # Removing migration infrastructure

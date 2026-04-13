@@ -4,15 +4,13 @@ title: Backfill
 nav_order: 6
 parent: Migration phases
 permalink: /classic/migration-assistant/migration-phases/backfill/
-redirect_from:
-  - /migration-phases/backfill/
 nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Using backfill
 
-After the [metadata]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/migrate-metadata/) for your cluster has been migrated, you can use Capture Proxy data replication and snapshots to backfill your data into the next cluster.
+After the [metadata]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/migrate-metadata/) for your cluster has been migrated, you can use Capture Proxy data replication and snapshots to backfill your data into the next cluster.
 
 ## Migrate documents with RFS
 

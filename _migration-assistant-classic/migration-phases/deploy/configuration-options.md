@@ -200,7 +200,7 @@ If your source cluster is on Amazon OpenSearch Service, you need to set up an ad
 
 ### Bring your own snapshot
 
-You can use an existing Amazon Simple Storage Service (Amazon S3) snapshot to perform [metadata]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/migrating-metadata/) and [backfill]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/backfill/) migrations instead of using Migration Assistant to create a snapshot:
+You can use an existing Amazon Simple Storage Service (Amazon S3) snapshot to perform [metadata]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/migrate-metadata/) and [backfill]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/backfill/) migrations instead of using Migration Assistant to create a snapshot:
 
 ```json
     "snapshot": {

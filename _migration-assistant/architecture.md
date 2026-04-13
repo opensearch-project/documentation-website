@@ -11,6 +11,10 @@ redirect_from:
 
 Migration Assistant runs on Kubernetes and uses [Argo Workflows](https://argoproj.github.io/workflows/) for orchestration. The architecture works equivalently on any Kubernetes distribution, including minikube, kind, Amazon EKS, GKE, AKS, and self-managed clusters.
 
+The following diagram illustrates a typical deployment on Amazon EKS (control plane, Migration Assistant workloads, and supporting services). Other Kubernetes distributions follow the same logical layout with different networking and IAM details.
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/migration-assistant/eks-architecture.svg" alt="Diagram of Migration Assistant on EKS showing users, migration console, Argo workflows, reindex-from-snapshot workers, capture proxy, traffic replayer, Kafka, and connections to source and target clusters" width="900" loading="lazy">
+
 ## Core components
 
 | Component | Description |

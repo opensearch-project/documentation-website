@@ -67,13 +67,13 @@ kubectl -n ma exec --stdin --tty migration-console-0 -- /bin/bash
 
 ## Production Kubernetes deployment
 
-For production deployments on vanilla Kubernetes (not EKS), you need container images available in a registry accessible from your cluster. Options:
+For production deployments on vanilla Kubernetes (not EKS), you need Migration Assistant images in a registry your cluster can reach. Typical options:
 
-- **Build from source** using the `localTesting.sh` approach and push to your registry
-- **Use the EKS bootstrap script** which handles image mirroring to ECR (see [Deploying to EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/))
-- **Pull from the GitHub release** artifacts (when available for your version)
+- **Amazon Public ECR** — use the same `public.ecr.aws/opensearchproject/...` repositories and release tag as in [Step 3](#step-3-install-the-helm-chart) (nodes need outbound access to pull from Public ECR)
+- **Build from source** with `localTesting.sh` (or `aws-bootstrap.sh --build-images`) and push to your private registry, then point `images.*.repository` / `tag` at that registry
+- **Amazon EKS bootstrap** — automates chart install, optional image mirroring to private ECR, IAM, and CloudWatch (see [Deploying to EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/))
 
-For most production deployments, the [EKS deployment path]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) is recommended as it handles image management, IAM, and monitoring automatically.
+For most AWS production deployments, the EKS path is the least error-prone because it aligns versions across the chart, images, and dashboards.
 {: .note }
 
 ### Step 1: Create the namespace
@@ -109,13 +109,30 @@ kubectl create secret generic source-mtls \
 
 ### Step 3: Install the Helm chart
 
+The chart’s default `values.yaml` uses short image repository names (`migrations/...`). Those names are **not** pullable on their own — published installs point Migration Assistant images at **Amazon Public ECR** under `public.ecr.aws/opensearchproject/`, matching what the [EKS bootstrap script](https://github.com/opensearch-project/opensearch-migrations/blob/main/deployment/k8s/aws/aws-bootstrap.sh) applies. Without overriding `images.*`, pods typically fail with `ImagePullBackOff`.
+
+Use a [GitHub release tag](https://github.com/opensearch-project/opensearch-migrations/releases) for `<VERSION>` (for example `2.1.0` or the tag you deploy). Your cluster must be able to reach `public.ecr.aws` (or mirror these images into your own registry).
+
 ```bash
 git clone https://github.com/opensearch-project/opensearch-migrations
 cd opensearch-migrations/deployment/k8s
 
-helm install ma -n ma charts/aggregates/migrationAssistantWithArgo --create-namespace
+helm install ma -n ma charts/aggregates/migrationAssistantWithArgo --create-namespace \
+  --set images.captureProxy.repository=public.ecr.aws/opensearchproject/opensearch-migrations-traffic-capture-proxy \
+  --set images.captureProxy.tag=<VERSION> \
+  --set images.trafficReplayer.repository=public.ecr.aws/opensearchproject/opensearch-migrations-traffic-replayer \
+  --set images.trafficReplayer.tag=<VERSION> \
+  --set images.reindexFromSnapshot.repository=public.ecr.aws/opensearchproject/opensearch-migrations-reindex-from-snapshot \
+  --set images.reindexFromSnapshot.tag=<VERSION> \
+  --set images.migrationConsole.repository=public.ecr.aws/opensearchproject/opensearch-migrations-console \
+  --set images.migrationConsole.tag=<VERSION> \
+  --set images.installer.repository=public.ecr.aws/opensearchproject/opensearch-migrations-console \
+  --set images.installer.tag=<VERSION>
 ```
 {% include copy.html %}
+
+For air-gapped clusters, mirror these images (and dependent charts) into a private registry; the EKS bootstrap script’s `--push-all-images-to-private-ecr` path automates that on AWS.
+{: .note }
 
 ### Step 4: Verify deployment
 

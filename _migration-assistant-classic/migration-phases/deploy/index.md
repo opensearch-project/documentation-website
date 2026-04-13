@@ -6,22 +6,19 @@ nav_order: 2
 has_children: true
 has_toc: true
 permalink: /classic/migration-assistant/migration-phases/deploy/
-redirect_from:
-  - /migration-assistant/getting-started-with-data-migration/
-  - /deploying-migration-assistant/
 nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 
 # Deploy
 
-This quickstart assumes that you have performed an [assessment]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/assessment/) to understand upgrade breaking changes and limitations before beginning.
+This quickstart assumes that you have performed an [assessment]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/assessment/) to understand upgrade breaking changes and limitations before beginning.
 
 This quickstart outlines how to deploy Migration Assistant for OpenSearch and execute an existing data migration using `Reindex-from-Snapshot` (RFS). It uses AWS for illustrative purposes. However, you can modify the steps for use with other cloud providers.
 
-**Note**: Although this page focuses on RFS-only deployment, you can add capture and replay functionality or replace RFS options with  Capture and Replay  as described in [Configuration options]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/deploy/configuration-options/#live-capture-migration-with-cr).
+**Note**: Although this page focuses on RFS-only deployment, you can add capture and replay functionality or replace RFS options with  Capture and Replay  as described in [Configuration options]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/deploy/configuration-options/#live-capture-migration-with-cr).
 
-Before using this quickstart, review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/is-migration-assistant-right-for-you/).
+Before using this quickstart, review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/classic/migration-assistant/is-migration-assistant-right-for-you/).
 
 Because this guide uses [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/), ensure that the `CDKToolkit` stack exists and is in the `CREATE_COMPLETE` state. For setup instructions, see the [CDK Toolkit documentation](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
@@ -270,7 +267,7 @@ Run the following command to access the migration console:
 {% include copy.html %}
 
 
-`accessContainer.sh` is located in `/opensearch-migrations/deployment/cdk/opensearch-service-migration/` on the Bootstrap instance. To learn more, see [Accessing the migration console]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/migrating-metadata/).
+`accessContainer.sh` is located in `/opensearch-migrations/deployment/cdk/opensearch-service-migration/` on the Bootstrap instance. To learn more, see [Accessing the migration console]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-console/accessing-the-migration-console/).
 {: .note}
 
 ---
@@ -293,7 +290,7 @@ TARGET CLUSTER
 ConnectionResult(connection_message='Successfully connected!', connection_established=True, cluster_version='')
 ```
 
-To learn more about migration console commands, see [Migration console command reference]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-console/migration-console-command-reference/).
+To learn more about migration console commands, see [Migration console command reference]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-console/migration-console-command-reference/).
 
 ---
 
@@ -361,10 +358,10 @@ If you need to remove a deployment:
 
 After completing the deployment, proceed with the migration phases:
 
-1. **[Create a snapshot]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/create-snapshot/)**: Create a snapshot of your source cluster.
-2. **[Migrate metadata]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/migrate-metadata/)**: Migrate cluster metadata to the target.
-3. **[Backfill]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/backfill/)**: Migrate documents and monitor the process.
+1. **[Create a snapshot]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/create-snapshot/)**: Create a snapshot of your source cluster.
+2. **[Migrate metadata]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/migrate-metadata/)**: Migrate cluster metadata to the target.
+3. **[Backfill]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/backfill/)**: Migrate documents and monitor the process.
 
-For more information about the complete migration process, see [Migration phases]({{site.url}}{{site.baseurl}}/classic/classic/migration-assistant/migration-phases/).
+For more information about the complete migration process, see [Migration phases]({{site.url}}{{site.baseurl}}/classic/migration-assistant/migration-phases/).
 
 {% include migration-phase-navigation.html %}

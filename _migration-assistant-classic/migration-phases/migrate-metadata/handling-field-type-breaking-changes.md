@@ -5,9 +5,6 @@ nav_order: 2
 parent: Migrate metadata
 grand_parent: Migration phases
 permalink: /classic/migration-assistant/migration-phases/migrate-metadata/handling-field-type-breaking-changes/
-redirect_from:
-  - /migration-assistant/migration-phases/assessment/handling-field-type-breaking-changes/
-  - /migration-assistant/migration-phases/planning-your-migration/handling-field-type-breaking-changes/
 nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>

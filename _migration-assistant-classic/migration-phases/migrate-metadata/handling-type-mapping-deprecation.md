@@ -5,9 +5,6 @@ nav_order: 1
 parent: Migrate metadata
 grand_parent: Migration phases
 permalink: /classic/migration-assistant/migration-phases/migrate-metadata/handling-type-mapping-deprecation/
-redirect_from:
-  - /migration-assistant/migration-phases/assessment/handling-type-mapping-deprecation/
-  - /migration-assistant/migration-phases/planning-your-migration/handling-type-mapping-deprecation/
 nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>

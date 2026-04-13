@@ -6,6 +6,8 @@ parent: Migration phases
 permalink: /migration-assistant/migration-phases/backfill/
 redirect_from:
   - /migration-phases/backfill/
+  - /migration-assistant/migration-phases/create-snapshot/
+  - /migration-phases/create-snapshot/
 ---
 
 # Backfill
