@@ -25,7 +25,7 @@ Snapshot source → Migrate metadata → Backfill documents → Verify → Switc
 
 ## Scenario 2: Capture and Replay only
 
-Best when the data is small enough that live replay alone can synchronize the target.
+Best when the data is small enough that live replay alone can synchronize the target, or when you want to replay traffic against multiple target clusters to compare results.
 
 ```
 Start capturing traffic → Migrate metadata → Replay traffic → Verify → Switch traffic
