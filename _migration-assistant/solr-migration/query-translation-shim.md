@@ -72,7 +72,13 @@ In dual-target mode, the shim runs validators on every request and reports resul
 
 ### Validation headers
 
+Example (dual-target; exact set can vary by release):
+
 ```
+X-Shim-Primary: solr
+X-Shim-Targets: solr,opensearch
+X-Target-solr-StatusCode: 200
+X-Target-opensearch-StatusCode: 200
 X-Validation-Status: PASS
 X-Validation-Details: field-equality(solr,opensearch):PASS, doc-count(solr,opensearch):PASS
 ```
@@ -89,3 +95,93 @@ X-Validation-Details: field-equality(solr,opensearch):PASS, doc-count(solr,opens
 ## Hot-reload
 
 The shim supports live transform reloading with `--watchTransforms`. Edit a TypeScript transform file, and the next request uses the updated transform — no restart needed.
+
+## Build, run, and test
+
+The shim and Solr transformation assets live in the **opensearch-migrations** repository on GitHub (not in the Migration Assistant Helm chart). If your local clone does not contain `TrafficCapture/SolrTransformations` or `TrafficCapture/transformationShim`, **update to a commit or release** that includes those paths.
+
+### 1. Clone and build
+
+From the repository root ([opensearch-migrations](https://github.com/opensearch-project/opensearch-migrations)):
+
+```bash
+# Shim image (Docker)
+./gradlew :TrafficCapture:transformationShim:jibDockerBuild
+
+# TypeScript transforms used by the shim
+cd TrafficCapture/SolrTransformations/transforms
+npm install
+npm run build
+```
+{% include copy.html %}
+
+### 2. Start with Docker Compose
+
+```bash
+cd TrafficCapture/SolrTransformations
+
+# Full validation stack (exercises multiple operating modes — see compose file for ports)
+docker compose -f docker/docker-compose.validation.yml up -d
+
+# Or a simpler single-mode stack
+docker compose -f docker/docker-compose.yml up -d
+```
+{% include copy.html %}
+
+Published port numbers and service names are defined in those compose files. After `up`, check which host port maps to the shim (often something like `localhost:<port>` in the compose output or `docker compose ps`).
+
+### 3. Send sample Solr-style queries
+
+The shim speaks the Solr HTTP API. Point `curl` at the shim listener (replace `<SHIM_HOST>`, `<PORT>`, and `<collection>` with values from your stack; `<collection>` should match an OpenSearch **index** name exposed through the shim):
+
+```bash
+# Match all (Solr query syntax → translated to OpenSearch _search)
+curl -sS "http://<SHIM_HOST>:<PORT>/solr/<collection>/select?q=*:*&rows=5"
+
+# Term-style query and field list
+curl -sS "http://<SHIM_HOST>:<PORT>/solr/<collection>/select?q=title:test&fl=id,title&rows=10"
+
+# Filter query + facet (if your index has the field)
+curl -sS "http://<SHIM_HOST>:<PORT>/solr/<collection>/select?q=*:*&facet=true&facet.field=<field_name>&rows=0"
+```
+{% include copy.html %}
+
+Use `curl -i` to inspect **validation and latency headers** (`X-Validation-*`, `X-Target-*`) in dual-target mode.
+
+Compare the same logical query against OpenSearch directly to sanity-check the target index (bypassing the shim):
+
+```bash
+curl -sS -u "user:pass" -X POST "https://<opensearch-host>:9200/<collection>/_search" \
+  -H 'Content-Type: application/json' \
+  -d '{"query":{"match_all":{}},"size":5}'
+```
+{% include copy.html %}
+
+### 4. Automated tests
+
+```bash
+# Java: proxy, validators, regression
+./gradlew :TrafficCapture:transformationShim:test
+
+# End-to-end (Docker / Testcontainers — Solr + OpenSearch)
+./gradlew :TrafficCapture:SolrTransformations:isolatedTest
+
+# TypeScript transforms
+cd TrafficCapture/SolrTransformations/transforms && npm test
+```
+{% include copy.html %}
+
+### 5. Teardown
+
+```bash
+cd TrafficCapture/SolrTransformations
+docker compose -f docker/docker-compose.validation.yml down -v
+```
+{% include copy.html %}
+
+### In-repo documentation (GitHub)
+
+- [DEMO.md](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/SolrTransformations/docs/DEMO.md) — hands-on walkthrough
+- [TRANSFORMS.md](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/SolrTransformations/docs/TRANSFORMS.md) — transform design
+- [LIMITATIONS.md](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/SolrTransformations/docs/LIMITATIONS.md) — limitations and workarounds
+- [ARCHITECTURE.md](https://github.com/opensearch-project/opensearch-migrations/blob/main/TrafficCapture/transformationShim/docs/ARCHITECTURE.md) — shim internals

@@ -108,3 +108,11 @@ This is the recommended way to monitor long-running migrations.
 | `○` | Pending |
 | `✗` | Failed |
 | `⟳` | Waiting for approval |
+
+## Related guides
+
+| Topic | Link |
+|:------|:-----|
+| Cross-version (ES 6.8 → OpenSearch 3.x on Kubernetes) | [Playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-kubernetes/) |
+| Managed domain → OpenSearch Serverless | [Playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/) |
+| Step-by-step configuration | [Getting started]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/) |

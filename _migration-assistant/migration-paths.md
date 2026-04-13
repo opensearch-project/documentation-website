@@ -20,7 +20,7 @@ This page describes the supported migration paths, version compatibility, and wh
 
 ### Version-specific notes
 
-**Elasticsearch 6.x**: Requires handling for multiple mapping types per index. Configure `multiTypeBehavior` in your migration config. Run `workflow configure edit` to see available options.
+**Elasticsearch 6.x**: Indexes may still use **multiple mapping types**. Metadata migration must remove type wrappers; you may need to set options shown in `workflow configure sample` / `workflow configure edit` for your release (see the [MetadataMigration README](https://github.com/opensearch-project/opensearch-migrations/blob/main/MetadataMigration/README.md#deprecation-of-mapping-types) in opensearch-migrations). Step-by-step: [Playbook: Elasticsearch 6.8 → OpenSearch 3.x (Kubernetes)]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-kubernetes/).
 
 **Elasticsearch 8.x**: Supported with compatibility handling for post-fork features. Some 8.x-specific features may not have OpenSearch equivalents. Test metadata migration first.
 
@@ -39,6 +39,13 @@ This page describes the supported migration paths, version compatibility, and wh
 
 Amazon OpenSearch Serverless is supported as a target for document backfill and index metadata migration.
 {: .note }
+
+## Playbooks (AWS and cross-version)
+
+| Guide | Use case |
+|:------|:---------|
+| [Elasticsearch 6.8 → OpenSearch 3.x on Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-kubernetes/) | Self-managed ES 6.8 source, OpenSearch 3.x target; clusters already exist |
+| [Amazon OpenSearch/Elasticsearch Service → Serverless]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/) | Managed domain (for example ES 7.10.2) → OpenSearch Serverless collection; SigV4 `es` / `aoss` |
 
 ## Component support
 

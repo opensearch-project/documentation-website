@@ -14,7 +14,7 @@ items:
     description: "Evaluate whether Migration Assistant fits your migration path and use case."
     link: "/migration-assistant/is-migration-assistant-right-for-you/"
   - heading: "Migration paths"
-    description: "Check supported source and target versions."
+    description: "Check supported source and target versions and playbooks."
     link: "/migration-assistant/migration-paths/"
   - heading: "Architecture"
     description: "Understand the Kubernetes-native architecture and components."

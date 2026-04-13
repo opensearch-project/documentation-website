@@ -66,6 +66,14 @@ kubectl exec -it migration-console-0 -n ma -- aws sts get-caller-identity
 Use `es` for Amazon OpenSearch Service, `aoss` for OpenSearch Serverless.
 {: .note }
 
+### OpenSearch Serverless 403 or empty permissions
+
+If the target is a **Serverless collection** and bulk or search fails with **403** or authorization errors:
+
+- Confirm the Migration Console pod’s IAM role is allowed in the collection **data access policy** (principal ARN).
+- Confirm the workflow target `endpoint` is the **collection** URL (`*.aoss.amazonaws.com`) and `authConfig.sigv4.service` is **`aoss`** (not `es`).
+- See [Amazon OpenSearch Service → Serverless playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/).
+
 ## Workflow failures
 
 ### Diagnosis
