@@ -33,7 +33,7 @@ If you can tolerate a brief write pause, [Backfill]({{site.url}}{{site.baseurl}}
 Capture and Replay deploys three components, all managed by Migration Assistant on Kubernetes:
 
 1. **Capture Proxy** — An isolated fleet of proxy instances deployed as a Kubernetes Deployment. The source cluster is never modified. The proxy forwards every request to the source while recording raw request/response streams to Kafka.
-2. **Kafka** — A durable message queue managed by Strimzi (the Kafka operator for Kubernetes) or an external Kafka cluster. Ensures no traffic is lost even if the replayer falls behind.
+2. **Kafka** — A durable distributed log managed by Strimzi (the Kafka operator for Kubernetes) or an external Kafka cluster. Ensures no traffic is lost even if the replayer falls behind.
 3. **Traffic Replayer** — Reads captured traffic from Kafka and replays it against the target cluster, transforming requests as needed (auth headers, index names, document content).
 
 ## The zero-downtime migration process

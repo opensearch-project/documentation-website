@@ -35,7 +35,7 @@ The following diagram illustrates a typical deployment on Amazon EKS (control pl
 Before starting a migration, decide how to handle ongoing writes to your source cluster:
 
 - **Downtime approach**: Temporarily disable ingestion to the source cluster during migration. This is the simplest approach and ensures data consistency.
-- **Queue-based approach**: Duplicate writes to a queue (such as Amazon SQS or Kafka) while migration proceeds, allowing zero-downtime migration.
+- **Live capture approach**: Use Migration Assistant's Capture and Replay to record ongoing writes while migration proceeds, allowing zero-downtime migration.
 
 ### Step 2: Configure and submit workflow
 
