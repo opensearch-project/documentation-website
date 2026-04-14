@@ -6,7 +6,6 @@ parent: Migration phases
 has_children: false
 has_toc: false
 permalink: /classic/migration-assistant/migration-phases/assessment/
-nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 

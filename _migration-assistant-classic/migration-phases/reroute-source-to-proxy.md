@@ -4,7 +4,6 @@ title: Reroute client traffic
 nav_order: 3
 parent: Migration phases
 permalink: /classic/migration-assistant/migration-phases/reroute-source-to-proxy/
-nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 

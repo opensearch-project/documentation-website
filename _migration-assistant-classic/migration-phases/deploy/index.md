@@ -6,7 +6,6 @@ nav_order: 2
 has_children: true
 has_toc: true
 permalink: /classic/migration-assistant/migration-phases/deploy/
-nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 

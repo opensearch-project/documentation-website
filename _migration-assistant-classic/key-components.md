@@ -5,7 +5,6 @@ nav_order: 20
 permalink: /classic/migration-assistant/key-components/
 redirect_from:
   - /migration-assistant/overview/key-components/
-nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 

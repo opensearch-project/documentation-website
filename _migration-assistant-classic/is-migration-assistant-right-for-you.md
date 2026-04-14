@@ -2,7 +2,9 @@
 layout: default
 title: Is Migration Assistant right for you?
 nav_order: 10
-nav_exclude: true
+permalink: /classic/migration-assistant/is-migration-assistant-right-for-you/
+redirect_from:
+  - /migration-assistant/overview/is-migration-assistant-right-for-you/
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 

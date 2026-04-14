@@ -9,7 +9,6 @@ redirect_from:
   - /migration-assistant/migration-phases/deploying-migration-assistant/configuration-options/
   - /deploying-migration-assistant/configuration-options/
   - /migration-assistant/deploying-migration-assistant/configuration-options/
-nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 

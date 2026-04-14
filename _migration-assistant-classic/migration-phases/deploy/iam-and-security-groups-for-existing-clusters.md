@@ -8,7 +8,6 @@ permalink: /classic/migration-assistant/migration-phases/deploy/iam-and-security
 redirect_from:
   - /migration-assistant/deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
   - /deploying-migration-assistant/iam-and-security-groups-for-existing-clusters/
-nav_exclude: true
 ---
 <p class="classic-version-warning">You're viewing the <strong>classic</strong> version of Migration Assistant documentation (ECS/CDK-based). For the latest Kubernetes-based version, see the <a href="/latest/migration-assistant/">current documentation</a>.</p>
 

@@ -3,7 +3,6 @@ layout: default
 title: Live traffic migration
 parent: Migration phases
 nav_order: 99
-nav_exclude: true
 permalink: /classic/migration-assistant/live-traffic-migration/
 has_toc: false
 has_children: true
