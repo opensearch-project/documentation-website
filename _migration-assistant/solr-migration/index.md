@@ -81,3 +81,6 @@ Once confident in OpenSearch, either:
 - **Multi-unit date range gaps**: Gaps like `+2MONTHS` are approximated using fixed intervals (30 days/month, 365 days/year).
 - **Cursor pagination uniqueKey**: The shim assumes `id` as the Solr `uniqueKey` field.
 - **Only `/select` endpoint**: Update, admin, and custom handler requests are not translated.
+
+A race condition in dual-target mode where both targets shared a mutable request map was fixed in version 2.9.0. If you experience intermittent failures in dual-target mode, ensure you are running 2.9.0 or later.
+{: .note }

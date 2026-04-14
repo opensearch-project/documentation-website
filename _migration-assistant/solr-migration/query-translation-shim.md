@@ -96,6 +96,15 @@ X-Validation-Details: field-equality(solr,opensearch):PASS, doc-count(solr,opens
 
 The shim supports live transform reloading with `--watchTransforms`. Edit a TypeScript transform file, and the next request uses the updated transform — no restart needed.
 
+## Solr configuration defaults
+
+The shim automatically discovers and applies `solrconfig.xml` request handler defaults and invariants. When a `solrconfig.xml` file is present at a well-known mount path, the shim:
+
+- Merges **defaults** into request parameters when the client doesn't provide them (for example, `df`, `rows`)
+- Always applies **invariants** regardless of what the client sends
+
+This means queries behave the same through the shim as they do against Solr, even when clients rely on server-side defaults rather than specifying all parameters explicitly. If no `solrconfig.xml` is present, the shim operates without defaults (no behavior change for existing deployments).
+
 ## Build, run, and test
 
 The shim and Solr transformation assets live in the **opensearch-migrations** repository on GitHub (not in the Migration Assistant Helm chart). If your local clone does not contain `TrafficCapture/SolrTransformations` or `TrafficCapture/transformationShim`, **update to a commit or release** that includes those paths.

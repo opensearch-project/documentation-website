@@ -65,6 +65,14 @@ The replayer supports transforming requests during replay:
 - **Replayer**: Scale by increasing `podReplicas` — Kafka partitions are distributed across replayer instances
 - **Kafka**: Scale by increasing partitions and broker count
 
+### Error handling
+
+The replayer supports configuring how document-level errors are handled during replay:
+
+- `nonRetryableDocExceptionTypes` — Errors that should not be retried because they are deterministic (for example, `mapper_parsing_exception`, `version_conflict_engine_exception`). These still count as failures but avoid wasting retries on errors that will never succeed.
+
+Run `workflow configure sample` to see the full list of available options.
+
 ## Configuration
 
 Capture and Replay is configured in the `traffic` section of your workflow configuration. Run `workflow configure sample` to see the full schema for your version.

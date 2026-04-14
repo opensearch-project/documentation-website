@@ -127,7 +127,7 @@ When migrating from Amazon OpenSearch Service or Amazon Elasticsearch Service, y
 
 ### Default S3 bucket
 
-The EKS deployment automatically creates an S3 bucket:
+The EKS deployment automatically creates an S3 bucket and mounts it read-only on the Migration Console at `/s3/artifacts`:
 
 ```
 s3://migrations-default-<ACCOUNT_ID>-<STAGE>-<REGION>
