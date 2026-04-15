@@ -75,19 +75,19 @@ The `schema` configuration has the following options.
 
 Option | Type | Required | Description
 :--- | :--- | :---
-`type` | String | Yes | Sets the type of schema based on your registry, either the AWS Glue schema registry, `aws_glue`, or the Confluent schema registry, `confluent`. When using the `aws_glue` registry, set any [AWS](#aws) configuration options.
+`type` | String | Yes | Sets the type of schema based on your registry. Valid values are `aws_glue` (AWS Glue schema registry) and `confluent` (Confluent schema registry) . When using the `aws_glue` registry, set any [AWS](#aws) configuration options.
 `basic_auth_credentials_source` | String | No | Where schema registry credentials come from. Use `USER_INFO` when providing `api_key/api_secret`. Other valid values are `URL` and `SASL_INHERIT`. Default typically aligns with the underlying client.
 
 The following configuration options are only required when using a `confluent` registry.
 
 Option | Type | Description
 :--- | :--- | :---
-`registry_url` | String | Base URL of the schema registry, for example, `http://schema-registry:8081` or `https://sr.example.com`.
-`version` | String | Schema version to use per subject. Use an integer or `"latest"`.
+`registry_url` | String | The base URL of the schema registry (for example, `http://schema-registry:8081` or `https://sr.example.com`).
+`version` | String | The schema version to use per subject. Use an integer or `latest`.
 `api_key` | String | The schema registry API key.
 `api_secret` | String | The schema registry API secret.
 
-See following example of configuring schema registry:
+The following example configures a schema registry:
 
 ```yaml
 schema:
@@ -99,9 +99,9 @@ schema:
 ```
 {% include copy.html %}
 
-#### schema registry over TLS
+#### Schema registry over TLS
 
-The Kafka source uses the JVM truststore when connecting to schema registry over `https`. If schema registry is signed by a custom CA, add that CA to the Data Prepper JVM truststore or provide a custom truststore using environment variables. 
+The Kafka source uses the JVM truststore when connecting to the schema registry over `https`. If the schema registry is signed by a custom CA, add that CA to the Data Prepper JVM truststore or provide a custom truststore using environment variables. 
 
 You can use the following command to build a truststore with your CA certificate:
 
@@ -129,7 +129,7 @@ volumes:
 
 ### Authentication
 
-The `authentication` section configures SASL.
+The `authentication` section configures SASL:
 
 ```yaml
 authentication:
@@ -150,7 +150,7 @@ Use one of the following options when configuring SASL authentication.
 
 Option | Type | Description
 :--- | :--- | :---
-`plain` | JSON object | The plaintext authentication configuration. See [SASL/PLAIN](#sasl-plaintext) fr further details.
+`plain` | JSON object | The plaintext authentication configuration. For more information, see [SASL plaintext](#sasl-plaintext).
 `aws_msk_iam` | String | The Amazon MSK AWS Identity and Access Management (IAM) configuration. If set to `role`, the `sts_role_arm` set in the `aws` configuration is used. Default is `default`.
 
 ##### SASL plaintext
@@ -159,8 +159,8 @@ The following options are required when using the [SASL.plain](https://kafka.apa
 
 | Option | Type | Description |
 |:---|:---|:---|
-| `username` | String | SASL/PLAIN username. |
-| `password` | String | SASL/PLAIN password. |
+| `username` | String | The SASL/PLAIN username. |
+| `password` | String | The SASL/PLAIN password. |
 
 #### Encryption
 
@@ -174,7 +174,8 @@ Option | Required | Type | Description
 `trust_store_password` | No | String | The password for the truststore file.
 `insecure` | No | Boolean | A Boolean flag used to turn off SSL certificate verification. If set to `true`, certificate authority (CA) certificate verification is turned off and insecure HTTP requests are sent. Default is `false`.
 
-```yaml
+Use the following configuration to enable SSL encryption:
+
 encryption:
   type: ssl
   # With public CA: no extra config needed.
@@ -199,7 +200,7 @@ Use the following options inside the `msk` object.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `arn` | Yes | String | The [MSK ARN](https://docs.aws.amazon.com/msk/1.0/apireference/configurations-arn.html) to use.
-`broker_connection_type` | No | String | The type of connector to use with the MSK broker, either `public`, `single_vpc`, or `multip_vpc`. Default is `single_vpc`.
+`broker_connection_type` | No | String | The type of connector to use with the MSK broker. Valid values are `public`, `single_vpc`, and `multip_vpc`. Default is `single_vpc`.
 
 ## Configuration examples
 
@@ -207,7 +208,7 @@ This section demonstrates different pipeline configuration options.
 
 ### Basic Kafka source
 
-The following example pipeline reads JSON messages from a single plaintext Kafka topic with multiple consumer workers, parses them, and indexes into OpenSearch:
+The following example pipeline reads JSON messages from a single plaintext Kafka topic with multiple consumer workers, parses them, and indexes them into OpenSearch:
 
 ```yaml
 kafka-pipeline:
@@ -232,7 +233,7 @@ kafka-pipeline:
 
 ### Kafka source with SSL encryption
 
-The following example pipeline connects to a Kafka broker over TLS, consumes from a secure topic and writes results to OpenSearch:
+The following example pipeline connects to a Kafka broker over TLS, consumes messages from a secure topic, and writes the results to OpenSearch:
 
 ```yaml
 kafka-pipeline:
@@ -256,7 +257,7 @@ kafka-pipeline:
 
 ### Kafka source with SASL PLAIN authentication
 
-The following example pipeline authenticates to Kafka using SASL/PLAIN over TLS, consumes from the topic, and indexes into OpenSearch.
+The following example pipeline authenticates to Kafka using the SASL/PLAIN protocol over TLS, consumes messages from the topic, and indexes them into OpenSearch:
 
 ```yaml
 kafka-pipeline:
@@ -285,7 +286,7 @@ kafka-pipeline:
 
 ### Amazon MSK with AWS Glue schema registry
 
-The following example configures Amazon MSK with AWS Glue schema registry, consumes from an MSK cluster using AWS settings, deserializes payload using AWS Glue schema registry, normalizes timestamps, and writes to an Amazon OpenSearch domain:
+The following example configures Amazon MSK with the AWS Glue schema registry, consumes messages from an MSK cluster using AWS settings, deserializes the payload using the AWS Glue schema registry, normalizes timestamps, and writes to an Amazon OpenSearch domain:
 
 ```yaml
 msk-pipeline:
@@ -323,7 +324,7 @@ msk-pipeline:
 
 ### Confluent Kafka with schema registry
 
-The following example configures Confluent Kafka with schema registry, connects to Confluent Cloud over TLS with SASL and Confluent schema registry credentials, decodes payloads, and indexes them into OpenSearch:
+The following example configures Confluent Kafka with the schema registry, connects to Confluent Cloud over TLS using SASL and Confluent schema registry credentials, decodes payloads, and indexes them into OpenSearch:
 
 ```yaml
 confluent-pipeline:
