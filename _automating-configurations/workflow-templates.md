@@ -440,7 +440,7 @@ This workflow deploys an Amazon Bedrock chat model and configures an agentic sea
   - An Amazon Bedrock connector and a remote chat model (by default, Claude 4 Sonnet)
   - A `QueryPlanningTool`
   - A flow agent wired to the `QueryPlanningTool`
-  - A search pipeline with an `agentic_query_translator` request processor
+  - A search pipeline with an `agentic_query_translator` request processor and an `agentic_context` response processor
 - **Required parameters**:
   - `create_connector.credential.access_key`
   - `create_connector.credential.secret_key`
