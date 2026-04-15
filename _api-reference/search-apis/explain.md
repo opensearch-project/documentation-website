@@ -252,12 +252,12 @@ The explanation details include the following BM25 scoring components.
 
 Field | Description
 :--- | :---
-`idf` | Inverse document frequency. Measures how rare or common a term is across all documents in the index. Calculated as `log(1 + (N - n + 0.5) / (n + 0.5))`, where `N` is the total number of documents with the field and `n` is the number of documents containing the term. Rarer terms have higher IDF values and contribute more to the relevance score.
-`tf` | Term frequency. Measures how often the term appears in the document field. Calculated as `freq / (freq + k1 * (1 - b + b * dl / avgdl))`, where `freq` is the number of times the term appears, `k1` is the term saturation parameter (default 1.2), `b` is the length normalization parameter (default 0.75), `dl` is the field length, and `avgdl` is the average field length across all documents. More frequent terms contribute more to the relevance score, but with diminishing returns.
-`k1` | Term saturation parameter. Controls how quickly the score increases as term frequency increases. The default value is 1.2. Lower values cause the score to saturate more quickly, while higher values allow term frequency to have a greater impact on the score.
-`b` | Length normalization parameter. Controls how much field length affects the score. The default value is 0.75. A value of 0 disables length normalization, while a value of 1 fully normalizes by field length. Shorter fields with matching terms typically receive higher scores.
-`dl` | Document field length. The number of tokens in the field for this specific document.
-`avgdl` | Average document field length. The average number of tokens in the field across all documents in the index.
-`boost` | Query boost value. A multiplier applied to the score. The default boost is 1.0 when not explicitly specified in the query.
+`idf` | The inverse document frequency. Measures how rare or common a term is across all documents in the index. Calculated as `log(1 + (N - n + 0.5) / (n + 0.5))`, where `N` is the total number of documents with the field and `n` is the number of documents containing the term. Rarer terms have higher IDF values and contribute more to the relevance score.
+`tf` | The term frequency. Measures how often the term appears in the document field. Calculated as `freq / (freq + k1 * (1 - b + b * dl / avgdl))`, where `freq` is the number of times the term appears, `k1` is the term saturation parameter (default 1.2), `b` is the length normalization parameter (default 0.75), `dl` is the field length, and `avgdl` is the average field length across all documents. More frequent terms contribute more to the relevance score, but with diminishing returns.
+`k1` | The term saturation parameter. Controls how quickly the score increases as term frequency increases. The default value is 1.2. Lower values cause the score to saturate more quickly, while higher values allow term frequency to have a greater impact on the score.
+`b` | The length normalization parameter. Controls how much field length affects the score. The default value is 0.75. A value of 0 disables length normalization, while a value of 1 fully normalizes by field length. Shorter fields with matching terms typically receive higher scores.
+`dl` | The document field length. The number of tokens in the field for this specific document.
+`avgdl` | The average document field length. The average number of tokens in the field across all documents in the index.
+`boost` | The query boost value. A multiplier applied to the score. The default boost is 1.0 when not explicitly specified in the query.
 
 The final relevance score is calculated by multiplying these components together: `score = boost * idf * tf`. The values are calculated and stored at index time when a document is added or updated and may have small inaccuracies based on shard-level statistics.
