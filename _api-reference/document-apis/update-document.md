@@ -25,7 +25,7 @@ the index [sample-index1] has a default ingest pipeline or a final ingest pipeli
 ## Endpoints
 
 ```json
-POST /<index>/_update/<_id>
+POST /{index}/_update/{_id}
 ```
 
 ## Path parameters
@@ -39,18 +39,18 @@ Parameter | Type | Description | Required
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
-if_seq_no | Integer | Only perform the update operation if the document has the specified sequence number. | No
-if_primary_term | Integer | Perform the update operation if the document has the specified primary term. | No
-lang | String | Language of the script. Default is `painless`. | No
-require_alias | Boolean | Specifies whether the destination must be an index alias. Default is `false`. | No
-refresh | Enum | If true, OpenSearch refreshes shards to make the operation visible to searching. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`. | No
-retry_on_conflict | Integer | The amount of times OpenSearch should retry the operation if there's a document conflict. Default is 0. | No
-routing | String | Value to route the update operation to a specific shard. | No
-_source | Boolean or List | Whether or not to include the `_source` field in the response body. Default is `false`. This parameter also supports a comma-separated list of source fields for including multiple source fields in the query response. | No
-_source_excludes | List | A comma-separated list of source fields to exclude in the query response. | No
-_source_includes | List | A comma-separated list of source fields to include in the query response. | No
-timeout | Time | How long to wait for a response from the cluster. | No
-wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the update request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
+`if_seq_no` | Integer | Only perform the update operation if the document has the specified sequence number. | No
+`if_primary_term` | Integer | Perform the update operation if the document has the specified primary term. | No
+`lang` | String | Language of the script. Default is `painless`. | No
+`require_alias` | Boolean | Specifies whether the destination must be an index alias. Default is `false`. | No
+`refresh` | Enum | If true, OpenSearch refreshes shards to make the operation visible to searching. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`. | No
+`retry_on_conflict` | Integer | The amount of times OpenSearch should retry the operation if there's a document conflict. Default is 0. | No
+`routing` | String | Value to route the update operation to a specific shard. | No
+`_source` | Boolean or List | Whether or not to include the `_source` field in the response body. Default is `false`. This parameter also supports a comma-separated list of source fields for including multiple source fields in the query response. | No
+`_source_excludes` | List | A comma-separated list of source fields to exclude in the query response. | No
+`_source_includes` | List | A comma-separated list of source fields to include in the query response. | No
+`timeout` | Time | How long to wait for a response from the cluster. | No
+`wait_for_active_shards` | String | The number of active shards that must be available before OpenSearch processes the update request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
 
 ## Request body fields
 
@@ -517,16 +517,16 @@ Using `scripted_upsert` gives you full control over document creation and update
 
 Field | Description
 :--- | :---
-_index | The name of the index.
-_id | The document's ID.
-_version | The document's version.
-result | The result of the update operation.
-_shards | Detailed information about the cluster's shards.
-total | The total number of shards.
-successful | The number of shards OpenSearch successfully updated the document in.
-failed | The number of shards OpenSearch failed to update the document in.
-_seq_no | The sequence number assigned when the document was indexed.
-_primary_term | The primary term assigned when the document was indexed.
+`_index` | The name of the index.
+`_id` | The document's ID.
+`_version` | The document's version.
+`result` | The result of the update operation.
+`_shards` | Detailed information about the cluster's shards.
+`total` | The total number of shards.
+`successful` | The number of shards OpenSearch successfully updated the document in.
+`failed` | The number of shards OpenSearch failed to update the document in.
+`_seq_no` | The sequence number assigned when the document was indexed.
+`_primary_term` | The primary term assigned when the document was indexed.
 
 ## Error responses
 

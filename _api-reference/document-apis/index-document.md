@@ -17,11 +17,11 @@ You can use the `Index document` operation to add a single document to your inde
 ## Endpoints
 
 ```json
-PUT <index>/_doc/<_id>
-POST <index>/_doc
+PUT {index}/_doc/{_id}
+POST {index}/_doc
 
-PUT <index>/_create/<_id>
-POST <index>/_create/<_id>
+PUT {index}/_create/{_id}
+POST {index}/_create/{_id}
 ```
 
 - PUT adds or updates documents in the index with a specified ID. Used for controlled document creation or updates.
@@ -54,17 +54,17 @@ In your request, you must specify the index you want to add your document to. If
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
-if_seq_no | Integer | Only perform the index operation if the document has the specified sequence number. | No
-if_primary_term | Integer | Only perform the index operation if the document has the specified primary term.| No
-op_type | Enum | Specifies the type of operation to complete with the document. Valid values are `create` (index a document only if it doesn't exist) and `index`. If a document ID is included in the request, then the default is `index`. Otherwise, the default is `create`. | No
-pipeline | String | Route the index operation to a certain pipeline. | No
-routing | String | value used to assign the index operation to a specific shard. | No
-refresh | Enum | If true, OpenSearch refreshes shards to make the operation visible to searching. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`. | No
-timeout | Time | How long to wait for a response from the cluster. Default is `1m`. | No
-version | Integer | The document's version number. | No
-version_type | Enum | Controls external version conflict handling for the index operation. Valid values are `external` (index the document only if the specified version number is greater than the document's current version) and `external_gte` (index the document only if the specified version number is greater than or equal to the document's current version). For example, to index version 3 of a document, use `/_doc/1?version=3&version_type=external`. | No
-wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
-require_alias | Boolean | Specifies whether the target index must be an index alias. Default is `false`. | No
+`if_seq_no` | Integer | Only perform the index operation if the document has the specified sequence number. | No
+`if_primary_term` | Integer | Only perform the index operation if the document has the specified primary term.| No
+`op_type` | Enum | Specifies the type of operation to complete with the document. Valid values are `create` (index a document only if it doesn't exist) and `index`. If a document ID is included in the request, then the default is `index`. Otherwise, the default is `create`. | No
+`pipeline` | String | Route the index operation to a certain pipeline. | No
+`routing` | String | value used to assign the index operation to a specific shard. | No
+`refresh` | Enum | If true, OpenSearch refreshes shards to make the operation visible to searching. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`. | No
+`timeout` | Time | How long to wait for a response from the cluster. Default is `1m`. | No
+`version` | Integer | The document's version number. | No
+`version_type` | Enum | Controls external version conflict handling for the index operation. Valid values are `external` (index the document only if the specified version number is greater than the document's current version) and `external_gte` (index the document only if the specified version number is greater than or equal to the document's current version). For example, to index version 3 of a document, use `/_doc/1?version=3&version_type=external`. | No
+`wait_for_active_shards` | String | The number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
+`require_alias` | Boolean | Specifies whether the target index must be an index alias. Default is `false`. | No
 
 ## Example requests
 
@@ -174,13 +174,13 @@ response = client.index(
 
 Field | Description
 :--- | :---
-_index | The name of the index.
-_id | The document's ID.
-_version | The document's version.
-result | The result of the index operation.
-_shards | Detailed information about the cluster's shards.
-total | The total number of shards.
-successful | The number of shards OpenSearch successfully added the document to.
-failed | The number of shards OpenSearch failed to add the document to.
-_seq_no | The sequence number assigned when the document was indexed.
-_primary_term | The primary term assigned when the document was indexed.
+`_index` | The name of the index.
+`_id` | The document's ID.
+`_version` | The document's version.
+`result` | The result of the index operation.
+`_shards` | Detailed information about the cluster's shards.
+`total` | The total number of shards.
+`successful` | The number of shards OpenSearch successfully added the document to.
+`failed` | The number of shards OpenSearch failed to add the document to.
+`_seq_no` | The sequence number assigned when the document was indexed.
+`_primary_term` | The primary term assigned when the document was indexed.

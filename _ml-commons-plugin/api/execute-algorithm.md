@@ -12,7 +12,7 @@ Some algorithms, such as [Localization]({{site.url}}{{site.baseurl}}/ml-commons-
 ## Endpoints
 
 ```json
-POST _plugins/_ml/_execute/<algorithm_name>
+POST _plugins/_ml/_execute/{algorithm_name}
 ```
 
 ## Example request: Execute localization 

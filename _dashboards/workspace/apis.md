@@ -16,7 +16,7 @@ The Workspaces API provides a set of endpoints for managing workspaces in OpenSe
 You can use the following endpoint to retrieve a list of workspaces:
 
 ```json
-POST <osd host>:<port>/api/workspaces/_list
+POST {osd_host}:{port}/api/workspaces/_list
 ```
 {% include copy.html %}
 
@@ -73,7 +73,7 @@ The following example response shows a successful API call:
 You can use the following endpoint to retrieve a single workspace:
 
 ```json
-GET <osd host>:<port>/api/workspaces/<id>
+GET {osd_host}:{port}/api/workspaces/{id}
 ```
 {% include copy.html %}
 
@@ -112,7 +112,7 @@ The following example response shows a successful API call:
 You can use the following endpoint to create a workspace:
 
 ```json
-POST <osd host>:<port>/api/workspaces
+POST {osd_host}:{port}/api/workspaces
 ```
 {% include copy.html %}
 
@@ -155,7 +155,7 @@ The following example response shows a successful API call:
 You can use the following endpoint to update the attributes and permissions for a workspace:
 
 ```json
-PUT <osd host>:<port>/api/workspaces/<id>
+PUT {osd_host}:{port}/api/workspaces/{id}
 ```
 {% include copy.html %}
 
@@ -224,7 +224,7 @@ The following example response shows a successful API call:
 You can use the following endpoint to delete a workspace:
 
 ```json
-DELETE <osd host>:<port>/api/workspaces/<id>
+DELETE {osd_host}:{port}/api/workspaces/{id}
 ```
 {% include copy.html %}
 
@@ -257,7 +257,7 @@ The following example response shows a successful API call:
 You can use the following endpoint to copy saved objects between workspaces:
 
 ```json
-POST <osd host>:<port>/api/workspaces/_duplicate_saved_objects
+POST {osd_host}:{port}/api/workspaces/_duplicate_saved_objects
 ```
 {% include copy.html %}
 
@@ -317,7 +317,7 @@ The following example response shows a successful API call:
 You can use the following endpoint to associate saved objects with a workspace:
 
 ```json
-POST <osd host>:<port>/api/workspaces/_associate
+POST {osd_host}:{port}/api/workspaces/_associate
 ```
 {% include copy.html %}
 
@@ -369,7 +369,7 @@ The following example response shows a successful API call:
 You can use the following endpoint to dissociate saved objects from a workspace:
 
 ```json
-POST <osd host>:<port>/api/workspaces/_dissociate
+POST {osd_host}:{port}/api/workspaces/_dissociate
 ```
 {% include copy.html %}
 

@@ -20,7 +20,7 @@ If you are using the Security plugin, you must have the `manage index` privilege
 ## Endpoints
 
 ```json
-POST /<index>/_scale
+POST /{index}/_scale
 ```
 
 ## Path parameters

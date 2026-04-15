@@ -31,8 +31,8 @@ Because refresh operations are resource intensive, we recommend relying on autom
 ```json
 POST /_refresh
 GET /_refresh
-POST /<index>/_refresh
-GET /<index>/_refresh
+POST /{index}/_refresh
+GET /{index}/_refresh
 ```
 
 ## Path parameters
