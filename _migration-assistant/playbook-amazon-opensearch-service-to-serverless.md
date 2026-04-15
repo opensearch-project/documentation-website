@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "Playbook: Amazon OpenSearch/Elasticsearch Service → Serverless"
-nav_order: 14
+title: "Playbook: Amazon OpenSearch Service → Serverless"
+nav_order: 81
 permalink: /migration-assistant/playbook-amazon-opensearch-service-to-serverless/
 ---
 
-# Playbook: Amazon OpenSearch Service or Elasticsearch Service → OpenSearch Serverless
+# Playbook: Amazon OpenSearch Service → OpenSearch Serverless
 
 This playbook assumes **Migration Assistant is already deployed** on Kubernetes or Amazon EKS and that **AWS has already provisioned**:
 

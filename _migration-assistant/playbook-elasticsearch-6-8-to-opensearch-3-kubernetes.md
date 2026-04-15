@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Playbook: Elasticsearch 6.8 → OpenSearch 3.x (Kubernetes)"
-nav_order: 13
+nav_order: 80
 permalink: /migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-kubernetes/
 ---
 
