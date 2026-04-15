@@ -12,6 +12,7 @@
 | Fanit Kolchina   | [kolchfa-aws](https://github.com/kolchfa-aws)   | Amazon      |
 | Peter Zhu   | [peterzhuamazon](https://github.com/peterzhuamazon)   | Amazon      |
 | Craig Perkins  | [cwperks](https://github.com/cwperks)   | Amazon      |
+| Mohit Godwani  | [mgodwan](https://github.com/mgodwan)   | Amazon      |
 | David Venable    | [dlvenable](https://github.com/dlvenable)       | Amazon      | 
 | Brian Presley    | [sumobrian](https://github.com/sumobrian/)      | Amazon      |
 | Eric Pugh        | [epugh](https://github.com/epugh)               | OpenSource Connections  | 
