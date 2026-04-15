@@ -30,52 +30,31 @@ The following diagram illustrates a typical deployment on Amazon EKS (control pl
 
 ## Migration process overview
 
-### Step 1: Prepare ingestion traffic
+Each numbered node in the architecture diagram corresponds to the following steps in the migration process:
 
-Before starting a migration, decide how to handle ongoing writes to your source cluster:
+### Step 1: Client traffic is directed to the existing cluster
 
-- **Downtime approach**: Temporarily disable ingestion to the source cluster during migration. This is the simplest approach and ensures data consistency.
-- **Live capture approach**: Use Migration Assistant's Capture and Replay to record ongoing writes while migration proceeds, allowing zero-downtime migration.
+Client traffic flows to the source cluster as normal. If you are performing a zero-downtime migration with Capture and Replay, a Kubernetes Service routes traffic through the capture proxy fleet, which forwards requests to the source while simultaneously recording them to Kafka.
 
-### Step 2: Configure and submit workflow
+### Step 2: Capture proxy replicates traffic to Kafka
 
-Configure and submit a migration workflow from the Migration Console:
+The capture proxy relays traffic to the source cluster and simultaneously replicates the raw request/response streams to Kafka (managed by Strimzi). This provides a durable record of all writes during the migration window. If you are performing a backfill-only migration, this step is skipped.
 
-```bash
-workflow configure edit    # Edit configuration
-workflow submit            # Submit the migration workflow
-```
+### Step 3: Snapshot and backfill via Reindex-from-Snapshot
 
-The workflow orchestrates:
-1. Point-in-time snapshot of the source cluster
-2. Metadata migration (indexes, templates, component templates, aliases)
-3. **Approval gate** — workflow pauses for user confirmation before document migration
-4. Resource provisioning for Reindex-from-Snapshot (RFS) backfill
-5. Resource scale-down when backfill completes
+With continuous traffic capture in place (or after pausing writes), the user submits a migration workflow from the Migration Console. The workflow creates a point-in-time snapshot of the source cluster, migrates metadata (indexes, templates, aliases), and then launches Reindex-from-Snapshot (RFS) workers that read directly from the snapshot in S3 and bulk-index documents into the target cluster.
 
-### Step 3: Monitor migration progress
+### Step 4: Traffic Replayer catches up the target
 
-Monitor progress using the Workflow CLI:
+After the backfill completes, the Traffic Replayer reads captured traffic from Kafka and replays it against the target cluster, transforming requests as needed (authentication, index names). The replayer catches the target up to real-time, closing the gap between the snapshot point-in-time and the current state.
 
-```bash
-workflow status            # Workflow step completion
-workflow manage            # Interactive monitoring TUI
-workflow output            # View step logs and output
-```
+### Step 5: Validate and compare
 
-Additional monitoring options:
-- **Prometheus and Grafana**: Dashboards for pod metrics and migration progress
-- **Amazon CloudWatch**: Container Insights for pod metrics and logs (EKS deployments)
-- **Kubernetes**: `kubectl` commands for pod and resource status
+The performance and behavior of traffic routed to the source and target clusters are analyzed by reviewing logs, metrics, and document counts. Use `console clusters curl` to run comparison queries against both clusters. Prometheus and Grafana dashboards (or Amazon CloudWatch on EKS) provide operational metrics.
 
-### Step 4: Redirect traffic and decommission
+### Step 6: Redirect traffic and decommission
 
-Traffic switchover is outside Migration Assistant's scope. You are responsible for updating DNS records, load balancer configuration, or application connection strings to point to the target cluster.
-
-Recommended approach:
-1. Update routing to point to target cluster
-2. Keep source cluster available as fallback (24–72 hours recommended)
-3. Decommission source cluster once confident in target stability
+After confirming the target cluster's functionality meets expectations, redirect clients to the new target by updating DNS records, load balancer configuration, or application connection strings. Keep the source cluster available as a fallback (24–72 hours recommended), then decommission the source and remove Migration Assistant infrastructure.
 
 ## Error recovery
 
