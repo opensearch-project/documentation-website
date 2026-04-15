@@ -109,6 +109,43 @@ This is the recommended way to monitor long-running migrations.
 | `✗` | Failed |
 | `⟳` | Waiting for approval |
 
+## Configuration schema (`workflowMigration.schema.json`)
+
+Every Migration Assistant release publishes a `workflowMigration.schema.json` file as a [GitHub release asset](https://github.com/opensearch-project/opensearch-migrations/releases). This is a JSON Schema (draft-07) that fully describes every field, type, default, and constraint in the workflow configuration.
+
+### What it provides
+
+- **Autocompletion and validation** in editors that support JSON Schema (VS Code, IntelliJ, etc.) — add `"$schema": "https://opensearch.org/schemas/workflowMigration.schema.json"` to the top of your config file
+- **Agentic development** — AI coding assistants and automation tools can consume the schema to generate valid workflow configurations, validate user input, and provide contextual help without needing to run `workflow configure sample`
+- **CI/CD validation** — validate workflow configs in pipelines before submitting to the cluster
+
+### Using the schema
+
+On the Migration Console, the schema is available at `/root/.workflowUser.schema.json`. The `workflow configure edit` command automatically uses it for validation.
+
+For local development or automation:
+
+```bash
+# Download the schema for your version
+curl -sL -o workflowMigration.schema.json \
+  "https://github.com/opensearch-project/opensearch-migrations/releases/latest/download/workflowMigration.schema.json"
+```
+{% include copy.html %}
+
+Add the schema reference to your workflow config for editor support:
+
+```json
+{
+  "$schema": "https://opensearch.org/schemas/workflowMigration.schema.json",
+  "sourceClusters": { ... },
+  "targetClusters": { ... },
+  "snapshotMigrationConfigs": [ ... ]
+}
+```
+{% include copy.html %}
+
+The schema includes Strimzi Kafka CRD definitions when built against a live cluster, enabling full validation of Kafka cluster configuration overrides.
+
 ## Related guides
 
 | Topic | Link |

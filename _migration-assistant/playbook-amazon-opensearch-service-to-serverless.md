@@ -60,13 +60,88 @@ Symptom of misconfiguration: **403** or authorization errors on bulk or search a
 
 The document migration path must sign requests with service **`aoss`** for Serverless. The [DocumentsFromSnapshotMigration README](https://github.com/opensearch-project/opensearch-migrations/blob/main/DocumentsFromSnapshotMigration/README.md) documents `--target-aws-service-signing-name` (`es` vs `aoss`). Workflow-driven migrations should apply the same distinction via the **target cluster** `authConfig` in your JSON (as generated or validated by your release’s schema).
 
-## 6. Example workflow shape (illustrative)
+## 6. Sample workflow configuration
 
-Always derive the final JSON from **`workflow configure sample --load`** on your cluster. Conceptually:
+Always derive the final JSON from `workflow configure sample --load` on your cluster. The following is a complete example for Amazon OpenSearch Service (ES 7.10) → OpenSearch Serverless with backfill and CDC:
 
-- **sourceClusters.\***.endpoint** → managed domain URL, **version** such as `ES 7.10`, **authConfig.sigv4** with `service: "es"`, **snapshotRepos** pointing at your S3 repo.
-- **targetClusters.\***.endpoint** → Serverless collection URL, **authConfig.sigv4** with `service: "aoss"`.
-- **migrationConfigs** → include `createSnapshotConfig`, `snapshotConfig`, and `migrations` with `metadataMigrationConfig` and `documentBackfillConfig` as required (see [Getting started]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/)).
+```json
+{
+  "sourceClusters": {
+    "source": {
+      "endpoint": "https://search-my-domain-abc123.us-east-2.es.amazonaws.com",
+      "version": "ES 7.10",
+      "authConfig": {
+        "sigv4": { "region": "us-east-2", "service": "es" }
+      },
+      "snapshotRepos": {
+        "migration-repo": {
+          "awsRegion": "us-east-2",
+          "s3RepoPathUri": "s3://migrations-default-123456789012-dev-us-east-2/snapshots",
+          "s3RoleArn": "arn:aws:iam::123456789012:role/migration-eks-cluster-dev-us-east-2-snapshot-role"
+        }
+      }
+    }
+  },
+  "targetClusters": {
+    "target": {
+      "endpoint": "https://abc123def456.us-east-2.aoss.amazonaws.com",
+      "authConfig": {
+        "sigv4": { "region": "us-east-2", "service": "aoss" }
+      }
+    }
+  },
+  "snapshotMigrationConfigs": [
+    {
+      "fromSource": "source",
+      "toTarget": "target",
+      "snapshotExtractAndLoadConfigs": [
+        {
+          "createSnapshotConfig": {},
+          "snapshotConfig": {
+            "snapshotNameConfig": { "snapshotNamePrefix": "migration" },
+            "repoName": "migration-repo"
+          },
+          "migrations": [
+            {
+              "metadataMigrationConfig": {},
+              "documentBackfillConfig": {
+                "podReplicas": 4
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "traffic": {
+    "proxies": {
+      "capture": {
+        "source": "source",
+        "proxyConfig": {
+          "listenPort": 9200,
+          "podReplicas": 2
+        }
+      }
+    },
+    "replayers": {
+      "replay": {
+        "fromProxy": "capture",
+        "toTarget": "target",
+        "dependsOnSnapshotMigrations": [
+          { "source": "source", "snapshot": "migration" }
+        ]
+      }
+    }
+  }
+}
+```
+{% include copy.html %}
+
+Key differences from self-managed migrations:
+- Source uses `sigv4` with `service: "es"` (not basic auth)
+- Target uses `sigv4` with `service: "aoss"` (OpenSearch Serverless)
+- `s3RoleArn` is required for managed service snapshot repositories
+- Serverless data access policies must grant the Migration Console's IAM role access to the target collection
 
 ## 7. Operational checklist
 

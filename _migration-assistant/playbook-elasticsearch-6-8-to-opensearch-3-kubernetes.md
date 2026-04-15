@@ -42,7 +42,159 @@ For your environment:
 2. Add or adjust `documentBackfillConfig` (and any transform fields) **only as your schema allows**.
 3. Run a **small index allowlist** first.
 
-## 6. End-to-end sequence
+## 6. Sample workflow configuration
+
+The following is a complete workflow configuration for an ES 6.8 → OpenSearch 3.x migration with both backfill and live traffic capture and replay (CDC). Always start from `workflow configure sample --load` on your Migration Console and adjust — do not copy this verbatim if your schema version differs.
+
+### Backfill only
+
+```json
+{
+  "sourceClusters": {
+    "source": {
+      "endpoint": "http://<SOURCE_HOST>:9200",
+      "allowInsecure": true,
+      "version": "ES 6.8",
+      "authConfig": {
+        "basic": { "secretName": "source-creds" }
+      },
+      "snapshotRepos": {
+        "migration-repo": {
+          "awsRegion": "us-east-2",
+          "s3RepoPathUri": "s3://<BUCKET>/snapshots"
+        }
+      }
+    }
+  },
+  "targetClusters": {
+    "target": {
+      "endpoint": "https://<TARGET_HOST>:9200",
+      "allowInsecure": true,
+      "authConfig": {
+        "basic": { "secretName": "target-creds" }
+      }
+    }
+  },
+  "snapshotMigrationConfigs": [
+    {
+      "fromSource": "source",
+      "toTarget": "target",
+      "snapshotExtractAndLoadConfigs": [
+        {
+          "createSnapshotConfig": {},
+          "snapshotConfig": {
+            "snapshotNameConfig": { "snapshotNamePrefix": "migration" },
+            "repoName": "migration-repo"
+          },
+          "migrations": [
+            {
+              "metadataMigrationConfig": {
+                "multiTypeBehavior": "UNION"
+              },
+              "documentBackfillConfig": {
+                "podReplicas": 4
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+{% include copy.html %}
+
+### Backfill + Capture and Replay (CDC)
+
+This configuration adds live traffic capture via a proxy and replays it to the target after backfill completes:
+
+```json
+{
+  "sourceClusters": {
+    "source": {
+      "endpoint": "http://<SOURCE_HOST>:9200",
+      "allowInsecure": true,
+      "version": "ES 6.8",
+      "authConfig": {
+        "basic": { "secretName": "source-creds" }
+      },
+      "snapshotRepos": {
+        "migration-repo": {
+          "awsRegion": "us-east-2",
+          "s3RepoPathUri": "s3://<BUCKET>/snapshots"
+        }
+      }
+    }
+  },
+  "targetClusters": {
+    "target": {
+      "endpoint": "https://<TARGET_HOST>:9200",
+      "allowInsecure": true,
+      "authConfig": {
+        "basic": { "secretName": "target-creds" }
+      }
+    }
+  },
+  "snapshotMigrationConfigs": [
+    {
+      "fromSource": "source",
+      "toTarget": "target",
+      "snapshotExtractAndLoadConfigs": [
+        {
+          "createSnapshotConfig": {},
+          "snapshotConfig": {
+            "snapshotNameConfig": { "snapshotNamePrefix": "migration" },
+            "repoName": "migration-repo"
+          },
+          "migrations": [
+            {
+              "metadataMigrationConfig": {
+                "multiTypeBehavior": "UNION"
+              },
+              "documentBackfillConfig": {
+                "podReplicas": 4
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "traffic": {
+    "proxies": {
+      "capture": {
+        "source": "source",
+        "proxyConfig": {
+          "listenPort": 9200,
+          "podReplicas": 2
+        }
+      }
+    },
+    "replayers": {
+      "replay": {
+        "fromProxy": "capture",
+        "toTarget": "target",
+        "dependsOnSnapshotMigrations": [
+          { "source": "source", "snapshot": "migration" }
+        ],
+        "replayerConfig": {
+          "podReplicas": 2,
+          "speedupFactor": 2.0
+        }
+      }
+    }
+  }
+}
+```
+{% include copy.html %}
+
+With CDC enabled, the workflow:
+1. Deploys the capture proxy — route client traffic to the proxy's Kubernetes Service
+2. Creates a snapshot and runs backfill in parallel with traffic capture
+3. After backfill completes (`dependsOnSnapshotMigrations`), starts the replayer to catch up
+4. The replayer reads from the Kafka topic and replays against the target
+
+## 7. End-to-end sequence
 
 1. [Deploy]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/) Migration Assistant.
 2. `kubectl exec` into the Migration Console; run `console clusters connection-check` for source and target.
@@ -51,7 +203,7 @@ For your environment:
 5. `workflow submit` → `workflow manage` or `workflow status` / `workflow approve` as needed.
 6. Verify with `console clusters curl` against source and target (for example `/_cat/indices?v`).
 
-## 7. If you get stuck
+## 8. If you get stuck
 
 - [Troubleshooting]({{site.url}}{{site.baseurl}}/migration-assistant/troubleshooting/) — snapshots, parsing, approvals, PATH inside the console pod.
 - Reduce scope (one index, `skipApprovals: true` only in non-production) to isolate metadata vs backfill failures.
