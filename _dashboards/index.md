@@ -15,9 +15,9 @@ canonical_url: https://docs.opensearch.org/latest/dashboards/
 OpenSearch Dashboards is the web UI for [OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/). You can use OpenSearch Dashboards to perform most tasks you can do with the OpenSearch APIs. You can also create visualizations and data dashboards with OpenSearch Dashboards.
 
 >This documentation uses the following terms:
->- _OpenSearch Dashboards_ (plural): The web UI for OpenSearch.
->- **Dashboard** (bold, singular): The application within OpenSearch Dashboards for creating dashboards. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
->- _dashboard_ (lowercase): An individual collection of data visualizations created in the **Dashboard** application.
+>- _OpenSearch Dashboards_: The web UI for OpenSearch.
+>- **Dashboards** application: The application within OpenSearch Dashboards for creating dashboards. See [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
+>- _dashboard_ (lowercase): An individual collection of data visualizations created in the **Dashboards** application.
 {: .note}
 
 ## Getting started
@@ -36,10 +36,20 @@ The following table provides resources for exploring and querying your data in O
 
 To learn more about   |  Go to | Query languages used
 :-------------------   | :-----                     | :-----
-Exploring data quickly | [Analyzing data with Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) | [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/)<br/>or<br/>[Query String Query Language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/)
-Querying data | [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) | [Structured Query Language (SQL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/sql/)<br/>or<br/>[Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/)
+Exploring data quickly | [Exploring data with Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) | [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/)<br/>or<br/>[Query String Query Language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/)
+Querying data | [Using Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) | [Structured Query Language (SQL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/sql/)<br/>or<br/>[Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/)
 Querying data using the API |[Running queries in the Dev Tools Console]({{site.url}}{{site.baseurl}}/dashboards/visualize/run-queries/) | [Query Domain-specific Language (Query DSL)]({{site.url}}{{site.baseurl}}/query-dsl/)
-Visualizing data graphically | [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) | None
+
+
+## Visualizing data
+
+The following table provides resources for creating data visualizations and dashboards.
+
+To learn more about   |  Go to
+:-------------------   | :-----
+Visualizing data | [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
+Creating a data dashboard | [Creating dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/)
+
 
 ## Observability
 

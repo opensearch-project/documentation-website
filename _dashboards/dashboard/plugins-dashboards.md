@@ -18,26 +18,26 @@ As of OpenSearch 2.7, you can manage your observability plugins with **Observabi
 - **Enhanced security:** With a list of plugins readily available from a dashboard, you can easily see if any outdated or vulnerable plugins are present and then quickly remove or update them, minimizing or avoiding security risks.
 - **Improved website performance:** Viewing a list of plugins from a dashboard can help you identify any plugins that may be slowing down your website or causing performance issues.
 
-Get familiar with the basics of managing plugins from the Dashboard app in less than 20 seconds in the following video.
+Get familiar with the basics of managing plugins from the Dashboards app in less than 20 seconds in the following video.
 
-![Demo of using Dashboard to view a list of observability plugins](https://user-images.githubusercontent.com/105296784/234345611-50beb9a6-6118-449a-b015-b9f9e90b525e.gif)
+![Demo of using Dashboards to view a list of observability plugins](https://user-images.githubusercontent.com/105296784/234345611-50beb9a6-6118-449a-b015-b9f9e90b525e.gif)
 
 ## Viewing a list of installed plugins
 
-To view a list of installed plugins from the Dashboard app, follow these steps:
+To view a list of installed plugins from the Dashboards app, follow these steps:
 
-1. From the OpenSearch Dashboards main menu, select **Dashboard**.
+1. From the OpenSearch Dashboards main menu, select **Dashboards**.
 2. View the list of items and select your plugin. Plugins are categorized automatically as the Observability Dashboard data type, which you can filter in order to concentrate on just what you want to see.
 
 ## Adding and removing plugins
 
-To add a plugin from the Dashboard app, follow these steps:
+To add a plugin from the Dashboards app, follow these steps:
 
-1. From the OpenSearch Dashboards main menu, select **Dashboard**.
+1. From the OpenSearch Dashboards main menu, select **Dashboards**.
 2. In the **Dashboards** window, select **Create** > **Dashboard**.
-3. In the **Create operational panel** window, enter a name in the **Name** field and then select **Create**. The plugin is added to both the Observability app and the Dashboard app.
+3. In the **Create operational panel** window, enter a name in the **Name** field and then select **Create**. The plugin is added to both the Observability app and the Dashboards app.
 
-You can remove a plugin from the Dashboard app by selecting the edit icon under the **Actions** column and then selecting **Delete**.
+You can remove a plugin from the Dashboards app by selecting the edit icon under the **Actions** column and then selecting **Delete**.
 
 ## Staying updated about OpenSearch Dashboards plugins
 

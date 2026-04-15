@@ -44,7 +44,7 @@ The SQL plugin is required to run PPL queries in OpenSearch. If you're running a
 
 You can run PPL queries interactively in OpenSearch Dashboards or programmatically using the ``_ppl`` endpoint. 
 
-In OpenSearch Dashboards, the [Query Workbench tool](https://playground.opensearch.org/app/opensearch-query-workbench#/) provides an interactive testing environment, documented in [Query Workbench documentation]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
+In OpenSearch Dashboards, the [Query Workbench tool](https://playground.opensearch.org/app/opensearch-query-workbench#/) provides an interactive testing environment, documented in [Using Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/).
 
 To run a PPL query using the API, see [SQL and PPL API]({{site.url}}{{site.baseurl}}/sql-and-ppl/sql-ppl-api/).
 
