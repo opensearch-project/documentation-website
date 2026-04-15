@@ -18,37 +18,19 @@ Migration Assistant addresses key limitations in traditional migration approache
 
 The following matrix shows which source versions can be directly migrated to which OpenSearch target versions:
 
-{% comment %}First, collect all unique target versions{% endcomment %}
-{% assign all_targets = "" | split: "" %}
-{% for path in site.data.migration-assistant.valid_migrations.migration_paths %}
-  {% for target in path.targets %}
-    {% assign all_targets = all_targets | push: target %}
-  {% endfor %}
-{% endfor %}
-{% assign unique_targets = all_targets | uniq | sort %}
+| Source version | OpenSearch 1.x | OpenSearch 2.x | OpenSearch 3.x |
+|:---------------|:--------------:|:--------------:|:--------------:|
+| Elasticsearch 1.x–2.x | ✓* | ✓* | ✓* |
+| Elasticsearch 5.x | ✓ | ✓ | ✓ |
+| Elasticsearch 6.x | ✓ | ✓ | ✓ |
+| Elasticsearch 7.x | ✓ | ✓ | ✓ |
+| Elasticsearch 8.x | | ✓ | ✓ |
+| OpenSearch 1.x | | ✓ | ✓ |
+| OpenSearch 2.x | | ✓ | ✓ |
+| Apache Solr 8.x | | | ✓* |
 
-<table class="migration-matrix" style="border-collapse: collapse; border: 1px solid #ddd;">
-  <thead>
-    <tr>
-      <th style="border: 1px solid #ddd; padding: 8px;">Source version</th>
-      {% for target in unique_targets %}
-      <th style="border: 1px solid #ddd; padding: 8px;">{{ target }}</th>
-      {% endfor %}
-    </tr>
-  </thead>
-  <tbody>
-    {% for path in site.data.migration-assistant.valid_migrations.migration_paths %}
-    <tr>
-      <th style="border: 1px solid #ddd; padding: 8px;">{{ path.source }}</th>
-      {% for target_version in unique_targets %}
-      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-        {% if path.targets contains target_version %}✓{% endif %}
-      </td>
-      {% endfor %}
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+\* Backfill only — Capture and Replay is not supported for these source versions.
+{: .note }
 
 ### Version-specific notes
 
