@@ -83,6 +83,7 @@ Levenshtein
 [Oo]ffline
 [Oo]nboarding
 [Oo]versamples?
+[Pp]arallelization
 pebibyte
 p\d{2}
 [Pp]erformant
@@ -111,6 +112,7 @@ p\d{2}
 [Rr]eindex
 [Rr]eingest
 [Rr]eprovision(ed|ing)?
+[Rr]ethrottl(e|ing)
 [Rr]erank(er|ed|ing)?
 [Rr]epo
 [Rr]escor(e|ed|ing)?
