@@ -45,8 +45,8 @@ Partial word tokenizers parse text into words and generate fragments of those wo
 
 Tokenizer | Description | Example
 :--- | :--- | :---
-[`ngram`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/ngram/)| - Parses strings into words on specified characters (for example, punctuation or white space characters) and generates n-grams of each word | `My repo` <br>becomes<br> [`M`, `My`, `y`, `y `, <code>&nbsp;</code>, <code>&nbsp;r</code>, `r`, `re`, `e`, `ep`, `p`, `po`, `o`] <br> because the default n-gram length is 1--2 characters 
-[`edge_ngram`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/edge-n-gram/) | - Parses strings into words on specified characters (for example, punctuation or white space characters) and generates edge n-grams of each word (n-grams that start at the beginning of the word) | `My repo` <br>becomes<br> [`M`, `My`] <br> because the default n-gram length is 1--2 characters 
+[`ngram`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/ngram/)| - Generates n-grams (overlapping character sequences) from the input <br> - By default, treats the entire input as a single token and generates n-grams from all characters (including spaces and punctuation) <br> - When configured with `token_chars`, first splits on specified characters, then generates n-grams from each resulting word | `My repo` <br>becomes<br> [`M`, `My`, `y`, `y `, <code>&nbsp;</code>, <code>&nbsp;r</code>, `r`, `re`, `e`, `ep`, `p`, `po`, `o`] <br> with default behavior (no `token_chars` configuration) and n-gram length of 1--2 characters. 
+[`edge_ngram`]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/edge-n-gram/) | - Generates edge n-grams (n-grams that start at the beginning of each token) <br> - By default, treats the entire input as a single token <br> - When configured with `token_chars`, first splits on specified characters (for example, punctuation or white space), then generates edge n-grams from each resulting word | `My repo` <br>becomes<br> [`M`, `My`, `r`, `re`] <br> when configured with `token_chars: ["letter"]` and default n-gram length of 1--2 characters. 
 
 ### Structured text tokenizers
 
