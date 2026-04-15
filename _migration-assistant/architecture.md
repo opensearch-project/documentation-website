@@ -11,9 +11,77 @@ redirect_from:
 
 Migration Assistant runs on Kubernetes and uses the Workflow CLI to orchestrate migrations. Under the hood, workflows are executed by [Argo Workflows](https://argoproj.github.io/workflows/), but you interact exclusively through the Workflow CLI — not Argo directly. The architecture works equivalently on any Kubernetes distribution, including minikube, kind, Amazon EKS, GKE, AKS, and self-managed clusters.
 
-The following diagram illustrates a typical deployment on Amazon EKS (control plane, Migration Assistant workloads, and supporting services). Other Kubernetes distributions follow the same logical layout with different networking and IAM details.
+The following diagram illustrates a typical deployment on Amazon EKS. Other Kubernetes distributions follow the same logical layout with different networking and IAM details.
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/migration-assistant/eks-architecture.svg" alt="Diagram of Migration Assistant on EKS showing users, migration console, Argo workflows, reindex-from-snapshot workers, capture proxy, traffic replayer, Kafka, and connections to source and target clusters" width="900" loading="lazy">
+```mermaid
+flowchart TB
+    subgraph AWS["AWS Cloud"]
+        subgraph Source["Source Cluster<br/>(Solr / Elasticsearch / OpenSearch)"]
+            SRC["☁️ Source"]
+        end
+
+        subgraph S3Snap["Migration Snapshot"]
+            S3["🪣 Amazon S3"]
+        end
+
+        subgraph EKS["Kubernetes: Namespace: Migration Assistant"]
+            subgraph Proxy["Capture Proxy"]
+                CP1["Capture Proxy 1"]
+                CP2["Capture Proxy 2"]
+                CPN["Capture Proxy N"]
+            end
+
+            subgraph Kafka["Event Streamer"]
+                KFK["Kafka"]
+            end
+
+            subgraph Console["Migration Console"]
+                MC["🖥️ Migration Console"]
+            end
+
+            subgraph RFS["Reindex-from-Snapshot (RFS)"]
+                W1["RFS Worker 1"]
+                W2["RFS Worker 2"]
+                WN["RFS Worker N"]
+            end
+
+            subgraph Replay["Replayer"]
+                R1["Replayer 1"]
+                R2["Replayer 2"]
+                RN["Replayer N"]
+            end
+        end
+
+        subgraph Target["Target Cluster<br/>(Amazon OpenSearch or self-managed)"]
+            TGT["☁️ Target"]
+        end
+
+        subgraph Monitoring["Monitoring and Analysis"]
+            CW["Amazon CloudWatch"]
+            S3M["Amazon S3"]
+        end
+    end
+
+    Client(["① Client Traffic"])
+    Client -->|"①"| NLB["Network Load Balancer"]
+    NLB -->|"②"| Proxy
+    Proxy -->|"②"| SRC
+    Proxy -->|"②"| Kafka
+    SRC -.->|"②"| S3Snap
+    MC -->|"③"| RFS
+    S3Snap -->|"③"| RFS
+    RFS -->|"③"| TGT
+    Kafka -->|"④"| Replay
+    Replay -->|"④"| TGT
+    EKS -.->|"⑤"| Monitoring
+    Client -.->|"⑥"| TGT
+
+    style AWS fill:#f9f9f9,stroke:#232f3e,stroke-width:2px
+    style EKS fill:#fff9e6,stroke:#d79b00,stroke-width:2px
+    style Source fill:#e6f3ff,stroke:#3333ff,stroke-width:2px
+    style Target fill:#e6f3ff,stroke:#3333ff,stroke-width:2px
+    style Monitoring fill:#f5f5f5,stroke:#999,stroke-dasharray:3
+```
 
 ## Core components
 
