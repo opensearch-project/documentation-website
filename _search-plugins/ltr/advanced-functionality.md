@@ -386,7 +386,7 @@ GET /_plugins/_ltr/stats/{stat}
 ```
 {% include copy-curl.html %}
 
-The following table lists the available `{stat}` values.
+The following table lists the available `stat` values.
 
 Stat | Description
 :--- | :---
