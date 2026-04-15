@@ -22,7 +22,7 @@ This page describes how to migrate from Apache Solr 8.x to OpenSearch 3.x using 
 Unlike Elasticsearch — which shares a common Lucene data format and similar REST API with OpenSearch — Solr uses its own HTTP API (`/solr/{collection}/select`), schema format (`schema.xml`), and query syntax. Solr migrations require two specialized components:
 
 1. **SolrReader** — Reads Solr backup data and translates Solr schemas to OpenSearch mappings
-2. **Transformation Shim** — A real-time HTTP proxy that translates Solr API requests to OpenSearch and back. To **build, run, and test** the shim locally (Docker Compose, sample Solr `select` queries, validation headers), see [Query Translation Shim — Build, run, and test]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/query-translation-shim/#build-run-and-test).
+2. **Transformation Shim** — A real-time HTTP proxy that translates Solr API requests to OpenSearch and back. See [Running the Transform Proxy]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/running-the-transform-proxy/) for supported features, operating modes, and validation.
 
 ## Migration phases
 
@@ -70,7 +70,7 @@ Once confident in OpenSearch, either:
 | Documents | ✓ | Extracted from Solr backup Lucene segment files |
 | Schema (field types) | ✓ | `schema.xml` → OpenSearch mappings |
 | Query traffic (`/select`) | ✓ | Via Transformation Shim |
-| Facets, highlighting, pagination | ✓ | See [Query Translation Shim]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/query-translation-shim/) |
+| Facets, highlighting, pagination | ✓ | See [Running the Transform Proxy]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/running-the-transform-proxy/) for coverage |
 | Solr plugins | ✗ | Must be reimplemented or removed |
 | ZooKeeper configuration | ✗ | Not applicable to OpenSearch |
 | Custom request handlers | ✗ | Only `/select` is translated |
