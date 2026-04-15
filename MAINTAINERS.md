@@ -9,6 +9,7 @@ This document lists the maintainers in this repo. See [opensearch-project/.githu
 | Fanit Kolchina   | [kolchfa-aws](https://github.com/kolchfa-aws)   | Amazon      |
 | Peter Zhu   | [peterzhuamazon](https://github.com/peterzhuamazon)   | Amazon      |
 | Craig Perkins  | [cwperks](https://github.com/cwperks)   | Amazon      |
+| Mohit Godwani  | [mgodwan](https://github.com/mgodwan)   | Amazon      |
 | David Venable    | [dlvenable](https://github.com/dlvenable)       | Amazon      | 
 | Eric Pugh        | [epugh](https://github.com/epugh)               | OpenSource Connections  | 
 
