@@ -115,7 +115,7 @@ RFS tracks progress at the shard level. If a backfill fails partway through:
 | Symptom | Likely cause | Resolution |
 |:--------|:-------------|:-----------|
 | Snapshot creation fails | S3 permissions, missing IAM role | Check `s3RoleArn` for AWS managed sources |
-| Metadata migration fails | Version incompatibility | Review [Migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/migration-paths/) |
+| Metadata migration fails | Version incompatibility | Review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/) |
 | RFS stalls | Target cluster overloaded | Reduce parallelism, check cluster health |
 | Authentication errors | Invalid credentials | Verify Kubernetes secrets exist and contain correct values |
 | Document-level errors (mapper_parsing, etc.) | Incompatible field types or mappings | Configure `allowedDocExceptionTypes` in `documentBackfillConfig` to skip known-safe errors. Unlike the replayer's `nonRetryableDocExceptionTypes` (which still counts errors as failures), RFS's `allowedDocExceptionTypes` treats matching errors as successes. |

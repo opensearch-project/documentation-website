@@ -11,7 +11,7 @@ This playbook assumes **Migration Assistant is already running** on a Kubernetes
 
 ## 1. Confirm the migration path
 
-Your combination must appear in the [migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/migration-paths/) matrix (Elasticsearch 6.x → OpenSearch 3.x is supported). Review [Assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) for breaking changes.
+Your combination must appear in the [migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/) matrix (Elasticsearch 6.x → OpenSearch 3.x is supported). Review [Assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) for breaking changes.
 
 ## 2. Elasticsearch 6.x and mapping types
 
@@ -58,6 +58,6 @@ For your environment:
 
 ## See also
 
-- [Migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/migration-paths/)
+- [Supported migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/)
 - [Workflow CLI getting started]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/)
 - [Amazon OpenSearch Service → Serverless playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-amazon-opensearch-service-to-serverless/) (managed AWS sources and targets)

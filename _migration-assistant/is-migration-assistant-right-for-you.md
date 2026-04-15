@@ -2,8 +2,10 @@
 layout: default
 title: Is Migration Assistant right for you?
 nav_order: 10
+permalink: /migration-assistant/is-migration-assistant-right-for-you/
 redirect_from:
   - /migration-assistant/overview/is-migration-assistant-right-for-you/
+  - /migration-assistant/migration-paths/
 ---
 
 # Is Migration Assistant right for you?
@@ -48,39 +50,48 @@ The following matrix shows which source versions can be directly migrated to whi
   </tbody>
 </table>
 
+### Version-specific notes
+
+**Elasticsearch 6.x**: Requires handling for multiple mapping types per index. Configure `multiTypeBehavior` in your migration config. Run `workflow configure edit` to see available options.
+
+**Elasticsearch 8.x**: Supported with compatibility handling for post-fork features. Some 8.x-specific features may not have OpenSearch equivalents. Test metadata migration first.
+
+**Apache Solr 8.x**: Uses a different migration architecture than Elasticsearch (backfill only). See [Solr migration]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/) for details.
+
 ## Supported platforms
 
-**Source and target platforms**
-
-- Self-managed (on-premises or hosted by a cloud provider)
-- Amazon OpenSearch Service
-- Amazon OpenSearch Serverless (target only)
-- Elastic Cloud
-- Apache Solr 8.x (source only — see [Solr migration]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/))
+| Platform | Source | Target |
+|:---------|:-------|:-------|
+| Self-managed (on-premises) | ✓ | ✓ |
+| Amazon OpenSearch Service | ✓ | ✓ |
+| Amazon OpenSearch Serverless | ✗ | ✓ |
+| Third-party cloud providers (Elastic Cloud, etc.) | ✓ | ✓ |
+| AWS EC2 | ✓ | ✓ |
+| Apache Solr (SolrCloud/Standalone) | ✓ | ✗ |
 
 ## Deployment options
 
 Migration Assistant runs on Kubernetes and can be deployed to:
 
-- **Any Kubernetes cluster** (minikube, kind, GKE, AKS, self-managed) using Helm charts
 - **Amazon EKS** (recommended for production) with CloudFormation and the bootstrap script
+- **Any Kubernetes cluster** (minikube, kind, GKE, AKS, self-managed) using Helm charts
 
-For production workloads at scale, Amazon EKS is the recommended deployment target. For development and testing, minikube or kind provide a quick local setup.
+## Component support
 
-## Supported features
-
-| Feature | Supported | Recommendations |
-|:--------|:----------|:----------------|
-| **Documents** | Yes | Migrate using RFS (backfill) or Capture and Replay |
-| **Index settings** | Yes | Migrated automatically by the metadata migration tool |
-| **Index mappings** | Yes | Migrated automatically |
-| **Index templates** | Yes | Migrated automatically |
-| **Component templates** | Yes | Migrated automatically |
-| **Aliases** | Yes | Migrated automatically |
-| **ISM/ILM policies** | No | Manually recreate on target |
-| **Kibana/Dashboards objects** | No | Export/import using Dashboards UI |
-| **Security configuration** | No | Configure separately on target |
-| **Plugins** | No | Check plugin compatibility |
+| Component | Supported | Recommendation |
+|:----------|:----------|:---------------|
+| Documents | ✓ | Migrate using RFS (backfill) or Capture and Replay |
+| Index settings | ✓ | Migrated automatically |
+| Index mappings | ✓ | Migrated automatically |
+| Index templates | ✓ | Migrated automatically |
+| Component templates | ✓ | Migrated automatically |
+| Aliases | ✓ | Migrated automatically |
+| Data streams | ✗ | Manually recreate on target |
+| ISM/ILM policies | ✗ | Manually recreate on target |
+| Security configuration | ✗ | Configure separately on target |
+| Kibana/Dashboards objects | ✗ | Export/import using Dashboards UI |
+| Ingest pipelines | ✗ | Manually recreate |
+| Cluster settings | ✗ | Configure separately |
 
 ## Checklist
 
@@ -91,7 +102,7 @@ Use this checklist to determine whether Migration Assistant is the right fit:
 - Do you need to validate a new OpenSearch cluster before switching over?
 - Are you looking for tooling to migrate index settings and other metadata?
 - Do you need a high-performance backfill solution with pause, resume, and checkpoint recovery?
-- Are you migrating from Apache Solr and need query translation?
+- Are you migrating from Apache Solr and need query compatibility validation?
 
 If you answered "yes" to most of these questions, Migration Assistant is likely the right solution.
 
@@ -113,3 +124,11 @@ If you answered "yes" to most of these questions, Migration Assistant is likely 
 
 - The Kubernetes cluster must have network connectivity to both source and target clusters
 - For EKS deployments, source and target cluster security groups must allow inbound traffic from the EKS cluster security group
+
+## Pre-migration checklist
+
+- [ ] Verify source and target versions are in the compatibility matrix above
+- [ ] Identify unsupported components and plan manual migration
+- [ ] Plan index scope using index allowlists
+- [ ] Test with a subset of 1–2 representative indexes first
+- [ ] Check for multi-type indexes (ES 6.x)

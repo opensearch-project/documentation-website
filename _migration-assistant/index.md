@@ -13,9 +13,9 @@ items:
   - heading: "Is Migration Assistant right for you?"
     description: "Evaluate whether Migration Assistant fits your migration path and use case."
     link: "/migration-assistant/is-migration-assistant-right-for-you/"
-  - heading: "Migration paths"
+  - heading: "Supported migration paths"
     description: "Check supported source and target versions and playbooks."
-    link: "/migration-assistant/migration-paths/"
+    link: "/migration-assistant/is-migration-assistant-right-for-you/"
   - heading: "Architecture"
     description: "Understand the Kubernetes-native architecture and components."
     link: "/migration-assistant/architecture/"
@@ -51,7 +51,7 @@ Looking for the classic ECS-based documentation? See the [classic Migration Assi
 
 ### 1. Check your migration path
 
-Review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/) and [Migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/migration-paths/) to verify your source and target versions are supported.
+Review [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/) to verify your source and target versions are supported.
 
 ### 2. Deploy Migration Assistant
 

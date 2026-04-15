@@ -82,6 +82,6 @@ To run this against a dedicated account (for example internal testing in **us-ea
 
 ## See also
 
-- [Migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/migration-paths/)
+- [Supported migration paths]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/)
 - [Workflow CLI getting started]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/)
 - [Elasticsearch 6.8 → OpenSearch 3.x (Kubernetes) playbook]({{site.url}}{{site.baseurl}}/migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-kubernetes/)
