@@ -74,7 +74,7 @@ Option | Required | Type | Description
 The `schema` configuration has the following options.
 
 Option | Type | Required | Description
-:--- | :--- | :---
+:--- | :--- | :--- | :---
 `type` | String | Yes | Sets the type of schema based on your registry. Valid values are `aws_glue` (AWS Glue schema registry) and `confluent` (Confluent schema registry) . When using the `aws_glue` registry, set any [AWS](#aws) configuration options.
 `basic_auth_credentials_source` | String | No | Where schema registry credentials come from. Use `USER_INFO` when providing `api_key/api_secret`. Other valid values are `URL` and `SASL_INHERIT`. Default typically aligns with the underlying client.
 
@@ -134,7 +134,7 @@ The `authentication` section configures SASL:
 ```yaml
 authentication:
   sasl:
-    plain:
+    plaintext:
       username: alice
       password: secret
 ```
@@ -150,7 +150,7 @@ Use one of the following options when configuring SASL authentication.
 
 Option | Type | Description
 :--- | :--- | :---
-`plain` | JSON object | The plaintext authentication configuration. For more information, see [SASL plaintext](#sasl-plaintext).
+`plaintext` | JSON object | The plaintext authentication configuration. The alias `plain` is also supported for backward compatibility. For more information, see [SASL plaintext](#sasl-plaintext).
 `aws_msk_iam` | String | The Amazon MSK AWS Identity and Access Management (IAM) configuration. If set to `role`, the `sts_role_arm` set in the `aws` configuration is used. Default is `default`.
 
 ##### SASL plaintext
@@ -162,7 +162,7 @@ The following options are required when using the [SASL.plain](https://kafka.apa
 | `username` | String | The SASL/PLAIN username. |
 | `password` | String | The SASL/PLAIN password. |
 
-#### Encryption
+### Encryption
 
 Use the following options when setting SSL encryption.
 
@@ -176,6 +176,7 @@ Option | Required | Type | Description
 
 Use the following configuration to enable SSL encryption:
 
+```yaml
 encryption:
   type: ssl
   # With public CA: no extra config needed.
@@ -183,7 +184,7 @@ encryption:
 ```
 {% include copy.html %}
 
-#### AWS
+### AWS
 
 Use the following options when setting up authentication for `aws` services.
 
@@ -340,7 +341,7 @@ confluent-pipeline:
         type: ssl
       authentication:
         sasl:
-          plain:
+          plaintext:
             username: confluent-api-key
             password: confluent-api-secret
       schema:
