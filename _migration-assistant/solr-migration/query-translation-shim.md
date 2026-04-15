@@ -8,7 +8,7 @@ permalink: /migration-assistant/solr-migration/query-translation-shim/
 
 # Solr Query Translation Shim
 
-The Transformation Shim is a Netty-based HTTP proxy that translates Apache Solr HTTP API requests into OpenSearch `_search` API requests and converts responses back to Solr format. It enables Solr clients to query OpenSearch without application code changes.
+The Transformation Shim is a Netty-based HTTP proxy that translates Apache Solr HTTP API requests into OpenSearch `_search` API requests and converts responses back to Solr format. It helps customers identify a viable migration path from Solr to OpenSearch by validating query compatibility before making application changes.
 
 ## Request translation
 
