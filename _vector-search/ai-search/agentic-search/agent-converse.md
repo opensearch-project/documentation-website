@@ -15,12 +15,12 @@ This guide demonstrates how to configure conversational agents with multiple too
 
 There are two ways to configure agentic search with a conversational agent:
 
-- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create all agentic search resources besides the index with a single API call.
+- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create all agentic search resources except the index using a single API call.
 - [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
 
 ## Automated workflow
 
-OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates#agentic-search-with-a-conversational-agent) that automatically creates a Bedrock connector, a remote chat model, a `QueryPlanningTool`, `ListIndexTool`, `IndexMappingTool`, a conversational agent with conversation memory, and a search pipeline. Review the workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/agentic-search-with-conversational-agent-defaults.json) to determine whether you need to update any of the parameters. To create the default agentic search workflow with a conversational agent, send the following request:
+OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates#agentic-search-with-a-conversational-agent) that automatically creates an Amazon Bedrock connector, a remote chat model, a `QueryPlanningTool`, `ListIndexTool`, `IndexMappingTool`, a conversational agent with conversation memory, and a search pipeline. Review the workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/agentic-search-with-conversational-agent-defaults.json) to determine whether you need to update any of the parameters. To create the default agentic search workflow with a conversational agent, send the following request:
 
 ```json
 POST /_plugins/_flow_framework/workflow?use_case=agentic_search_with_conversational_agent&provision=true
