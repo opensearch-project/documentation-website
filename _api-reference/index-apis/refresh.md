@@ -11,7 +11,11 @@ canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/refre
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Refresh Index API refreshes one or more indexes in an OpenSearch cluster. In the case of data streams, the Refresh Index API refreshes a stream's backing indexes. 
+The Refresh Index API refreshes one or more indexes, making all operations performed on those indexes since the last refresh available for search. When you index a document, it is first written to a translog and added to in-memory buffers. The document is not searchable until a refresh operation converts these in-memory structures into searchable segments on disk. In the case of data streams, the Refresh Index API refreshes a stream's backing indexes.
+
+For a conceptual overview of how refresh operations work in OpenSearch, see [Refresh]({{site.url}}{{site.baseurl}}/getting-started/concepts/#refresh).
+
+## Automatic refresh behavior
 
 OpenSearch's refresh behavior depends on whether or not `index.refresh_interval` is set:
 
@@ -25,7 +29,14 @@ To use the Refresh Index API, you must have write access to the indexes you want
 ## Refresh request behavior
 
 The Refresh Index API call is synchronous. The response is returned only after all targeted shards have been refreshed.
-Because refresh operations are resource intensive, we recommend relying on automatic periodic refreshes using `index.refresh_interval`.
+
+## Best practices
+
+Refresh operations are resource intensive and can impact cluster performance. To ensure optimal cluster performance, we recommend the following best practices:
+
+- **Rely on automatic refreshes**: Wait for OpenSearch's periodic refresh (controlled by `index.refresh_interval`) rather than performing explicit refreshes when possible.
+- **Use `refresh=wait_for` for indexing workflows**: If your application indexes documents and then immediately searches for them, use the `refresh=wait_for` query parameter on indexing operations instead of calling the Refresh API. This option ensures the indexing operation waits for a periodic refresh before returning, without forcing an immediate refresh. For more information, see [The `refresh` query parameter](#the-refresh-query-parameter).
+- **Avoid `refresh=true` in production**: Using `refresh=true` on index, update, or delete operations forces an immediate refresh and creates inefficient index structures (small segments) that must later be merged, impacting both indexing and search performance.
 
 ## Endpoints
 
@@ -92,4 +103,21 @@ The following request refreshes all data streams and indexes in a cluster:
 POST /_refresh
 ```
 {% include copy-curl.html %}
+
+### Refresh using the GET method
+
+You can also use the `GET` method to refresh indexes. The following example uses `GET` to refresh a specific index:
+
+```json
+GET /my-index/_refresh
+```
+{% include copy-curl.html %}
+
+The `GET` method works identically to the `POST` method and is useful in environments where `POST` requests may be restricted or when you prefer to use `GET` for read-like operations.
+
+## The refresh query parameter
+
+The document APIs such as Index, Update, Delete, and Bulk APIs support a `refresh` query parameter that controls when changes made by the request are made visible to search. This parameter provides an alternative to calling the Refresh Index API explicitly. 
+
+For more information about the `refresh` parameter, see the [Index Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/), [Update Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-document/), [Delete Document API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/), and [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) documentation.
 
