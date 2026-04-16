@@ -244,7 +244,7 @@ OpenSearch should now be running inside your GPU-accelerated cluster. However, i
 
 If the previous two scripts do not provision your GPU-accelerated node properly, you can install the drivers for AWS Inferentia manually:
 
-1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, see [Deploy on AWS accelerator instance](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/setup/pytorch-install.html#deploy-on-aws-ml-accelerator-instance).
+1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, see [PyTorch Neuron Setup](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-setup.html#pytorch-neuron-setup).
 
 2. Copy the Neuron library into OpenSearch. The following command uses a directory named `opensearch-2.5.0`:
 
@@ -262,7 +262,7 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
    export PYTORCH_EXTRA_LIBRARY_PATH=$OPENSEARCH_HOME/lib/torch_neuron/lib/libtorchneuron.so
   ```
 
-4. (Optional) To monitor the GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/index.html), which allows models to be used inside your instance:
+4. (Optional) To monitor the GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/neuron-sys-tools/index.html), which allows models to be used inside your instance:
 
    ```
    # Install Neuron Tools
@@ -311,5 +311,5 @@ sudo sysctl -w vm.max_map_count=262144
 
 ## Next steps
 
-If you want to try a GPU-accelerated cluster using AWS Inferentia with a pretrained HuggingFace model, see the [AWS Neuron PyTorch tutorials](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/tutorials/).
+If you want to try a GPU-accelerated cluster using AWS Inferentia with a pretrained HuggingFace model, see the [Pretrained BERT Tutorial](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/src/examples/pytorch/bert_tutorial/tutorial_pretrained_bert.html).
 
