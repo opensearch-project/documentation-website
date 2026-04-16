@@ -14,7 +14,7 @@ redirect_from:
 
 The Explain API returns detailed information about why a specific document matches or does not match a query. This API helps you understand how OpenSearch calculates the relevance score (`_score`) for each search result, making it an essential tool for debugging search relevance issues and optimizing queries.
 
-OpenSearch uses a probabilistic ranking framework called [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) to calculate relevance scores. Okapi BM25 is based on the original [TF/IDF](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/package-summary.html#scoring) framework used by Apache Lucene.
+OpenSearch uses a probabilistic ranking framework called [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) to calculate relevance scores. Okapi BM25 is based on the original [term frequency/inverse document frequency (TF/IDF)](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/package-summary.html#scoring) framework used by Apache Lucene.
 
 Using the Explain API is expensive in terms of both resources and time. For production clusters, we recommend using it sparingly for the purpose of troubleshooting.
 {: .warning }
@@ -59,7 +59,7 @@ Parameter | Type | Description | Required
 `preference` | String | Specifies a preference of which shard to retrieve results from. Available options are `_local`, which tells the operation to retrieve results from a locally allocated shard replica, and a custom string value assigned to a specific shard replica. By default, OpenSearch executes the explain operation on random shards. | No
 `q` | String | A query string in [Lucene syntax]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/#query-string-syntax). When used, you can configure query behavior using the `analyzer`, `analyze_wildcard`, `default_operator`, `df`, and `stored_fields` parameters. | No
 `stored_fields` | String | A comma-separated list of stored fields to return. If omitted, only `_source` is returned. | No
-`routing` | String | Value used to route the operation to a specific shard. | No
+`routing` | String | A value used to route the operation to a specific shard. | No
 `_source` | String | Whether to include the `_source` field in the response body. Default is `true`. | No
 `_source_excludes` | String | A comma-separated list of source fields to exclude in the query response. | No
 `_source_includes` | String | A comma-separated list of source fields to include in the query response. | No
@@ -241,9 +241,9 @@ Field | Data type | Description
 `matched` | Boolean | Whether the document matches the query. If `true`, the document is a match and has a relevance score. If `false`, the document does not match the query.
 `explanation` | Object | The explanation of the score calculation. Contains the following nested fields: `value` (the calculated score or score component), `description` (a human-readable description of the calculation), and `details` (an array of sub-explanations for nested calculations).
 `explanation.value` | Float | The numeric result of the score calculation. For the top-level explanation, this is the final relevance score. For nested explanations, this represents intermediate calculation values.
-`explanation.description` | String | A description of the calculation being performed. For BM25 scoring, this typically describes the scoring formula components, such as term frequency (tf), inverse document frequency (idf), and normalization factors.
+`explanation.description` | String | A description of the calculation being performed. For BM25 scoring, this typically describes the scoring formula components, such as term frequency (`tf`), inverse document frequency (`idf`), and normalization factors.
 `explanation.details` | Array of objects | An array of nested explanation objects that break down the score calculation into component parts. Each detail object has the same structure as the explanation object (with `value`, `description`, and `details` fields).
-`get` | Object | Document metadata and source data. Only included when the `_source` or `stored_fields` parameters are used. Contains fields such as `_seq_no`, `_primary_term`, `found`, and `_source`.
+`get` | Object | The document metadata and source data. Only included when the `_source` or `stored_fields` parameters are used. Contains fields such as `_seq_no`, `_primary_term`, `found`, and `_source`.
 `get._source` | Object | The document's original JSON content. Only included when the `_source` parameter is specified.
 
 ## BM25 scoring components
