@@ -37,3 +37,6 @@ migration_paths:
     targets:
       - "OpenSearch 2.x"
       - "OpenSearch 3.x"
+  - source: "Apache Solr 8.x"
+    targets:
+      - "OpenSearch 3.x"
