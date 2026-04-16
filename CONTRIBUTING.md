@@ -64,7 +64,7 @@ If you want to make minor changes to an existing file, you can use this approach
 
 1. In the upper-right corner, select the pencil icon and edit the file.
 
-1. In the upper-right corner, select **Commit changes...***. Enter the commit message and optional description and select **Create a new branch for this commit and start a pull request**.
+1. In the upper-right corner, select **Commit changes...**. Enter the commit message and optional description and select **Create a new branch for this commit and start a pull request**.
 
 ### Making major changes
 
