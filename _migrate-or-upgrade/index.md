@@ -179,7 +179,17 @@ td {
 </style>
 <table>
   <tr><th>Lucene version</th><th>OpenSearch version</th><th>Elasticsearch version</th></tr>
-  <tr><td>9.10.0</td><td>2.14.0<br>2.13.0</td><td>8.13</td></tr>
+  <tr><td>10.3.2</td><td>3.5.0<br>3.4.0</td><td>&#8212;</td></tr>
+  <tr><td>10.3.1</td><td>3.3.2<br>3.3.1<br>3.3.0</td><td>&#8212;</td></tr>
+  <tr><td>10.2.2</td><td>3.2.0</td><td>&#8212;</td></tr>
+  <tr><td>10.2.1</td><td>3.1.0</td><td>&#8212;</td></tr>
+  <tr><td>10.1.0</td><td>3.0.0</td><td>&#8212;</td></tr>
+  <tr><td>9.12.3</td><td>2.19.5<br>2.19.4</td><td>&#8212;</td></tr>
+  <tr><td>9.12.2</td><td>2.19.3</td><td>&#8212;</td></tr>
+  <tr><td>9.12.1</td><td>2.19.2<br>2.19.1<br>2.19.0</td><td>&#8212;</td></tr>
+  <tr><td>9.12.0</td><td>2.18.0</td><td>&#8212;</td></tr>
+  <tr><td>9.11.1</td><td>2.17.1<br>2.17.0<br>2.16.0</td><td>&#8212;</td></tr>
+  <tr><td>9.10.0</td><td>2.15.0<br>2.14.0<br>2.13.0</td><td>8.13</td></tr>
   <tr><td>9.9.2</td><td>2.12.0</td><td>&#8212;</td></tr>
   <tr><td>9.7.0</td><td>2.11.1<br>2.9.0</td><td>8.9.0</td></tr>
   <tr><td>9.6.0</td><td>2.8.0</td><td>8.8.0</td></tr>
