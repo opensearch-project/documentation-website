@@ -28,7 +28,7 @@ Snapshot source → Migrate metadata → Backfill documents → Verify → Switc
 Best when the data is small enough that live replay alone can synchronize the target, or when you want to replay traffic against multiple target clusters to compare results.
 
 ```
-Start capturing traffic → Migrate metadata → Replay traffic → Verify → Switch traffic
+Reroute traffic to capture proxy → Migrate metadata → Replay traffic → Verify → Switch traffic to target
 ```
 
 ## Scenario 3: Backfill + Capture and Replay (zero-downtime)
@@ -36,7 +36,7 @@ Start capturing traffic → Migrate metadata → Replay traffic → Verify → S
 The most comprehensive approach. Capture begins first so no writes are lost, then backfill brings over historical data, then replay catches the target up to real-time.
 
 ```
-Start capturing traffic → Snapshot source → Migrate metadata → Backfill documents → Replay captured traffic → Verify → Switch traffic
+Reroute traffic to capture proxy → Snapshot source → Migrate metadata → Backfill documents → Replay captured traffic → Verify → Switch traffic to target
 ```
 
 ## Phase overview
@@ -45,9 +45,11 @@ Start capturing traffic → Snapshot source → Migrate metadata → Backfill do
 |:------|:------------|:------|
 | [Assessment]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/) | Review breaking changes and plan your migration | Version-agnostic |
 | [Deploy]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/) | Deploy Migration Assistant on Kubernetes or EKS | [K8s]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) / [EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) |
+| [Reroute client traffic to capture proxy]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/reroute-source-to-proxy/) | Route traffic through the capture proxy to record writes | Capture and Replay only |
 | [Migrate metadata]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/migrate-metadata/) | Transfer index settings, mappings, templates, and aliases | Workflow CLI |
 | [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/) | Migrate documents using snapshot-based reindexing (RFS) | Workflow CLI |
-| [Capture and Replay]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/capture-and-replay/) | Record and replay live traffic for zero-downtime migration | Workflow CLI |
+| [Replay captured traffic]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/) | Replay recorded traffic to catch the target up to real-time | Capture and Replay only |
+| [Switch traffic to the target]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/switch-traffic-to-target/) | Redirect clients from capture proxy to the target cluster | Capture and Replay only |
 | [Remove infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/) | Clean up Migration Assistant resources | Helm/CloudFormation |
 
 {% include migration-phase-navigation.html %}
