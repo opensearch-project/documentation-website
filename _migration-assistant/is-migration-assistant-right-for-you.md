@@ -161,7 +161,7 @@ To use `Reindex-from-Snapshot` (RFS), ensure the following:
 - If you choose to bring your own snapshot (that is, one not created by Migration Assistant), the following settings must be applied when creating the snapshot:
   - `include_global_state: true` – Ensures that global cluster state is included.
   - `compress: false` – Disables metadata compression, which is required for compatibility with RFS.
-- Shards of up to **80 GiB** are supported by default. Larger shard sizes can be configured, **except in AWS GovCloud (US)**, where 80 GiB is the maximum.
+- Shards of up to **80 GiB** are supported by default. Larger shard sizes can be configured. For details, see [Configuring large shard support]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/configuration-options/#configuring-large-shard-support). **In AWS GovCloud (US) with the ECS deployment**, 80 GiB is the maximum supported shard size.
 - In OpenSearch 2.9 and later, snapshots of indexes that use the zstd or zstd_no_dict codecs are not supported. If you need to migrate these indexes using `Reindex-from-Snapshot`, you must first reindex them on the source cluster using either `default` or `best_compression` before creating a new snapshot for use with RFS.
 
 ### Capture and Replay

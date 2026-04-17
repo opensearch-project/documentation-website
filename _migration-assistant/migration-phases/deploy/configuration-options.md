@@ -80,6 +80,17 @@ The RFS configuration uses the following options. All options are optional.
 
 To view all available arguments for `reindexFromSnapshotExtraArgs`, see [Snapshot migrations README](https://github.com/opensearch-project/opensearch-migrations/blob/main/DocumentsFromSnapshotMigration/README.md#arguments). At a minimum, no extra arguments may be needed.
 
+### Configuring large shard support
+
+By default, RFS supports shards of up to **80 GiB**. To migrate larger shards, pass the `--max-shard-size-bytes` flag through `reindexFromSnapshotExtraArgs`. For example, to support shards up to 200 GiB:
+
+```json
+"reindexFromSnapshotExtraArgs": "--max-shard-size-bytes 214748364800"
+```
+{% include copy.html %}
+
+Ensure that your worker nodes have sufficient local disk space, because RFS requires approximately **2x the shard size** in local storage to unpack and process the Lucene index. For more information about available RFS arguments, see the [DocumentsFromSnapshotMigration README](https://github.com/opensearch-project/opensearch-migrations/blob/main/DocumentsFromSnapshotMigration/README.md#arguments).
+
 ## Live capture migration with C&R 
 
 The following sample CDK performs a live capture migration with C&R:
