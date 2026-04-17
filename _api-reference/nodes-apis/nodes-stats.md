@@ -15,11 +15,11 @@ The Nodes Stats API returns statistics about your cluster.
 
 ```json
 GET /_nodes/stats
-GET /_nodes/<node_id>/stats
-GET /_nodes/stats/<metric>
-GET /_nodes/<node_id>/stats/<metric>
-GET /_nodes/stats/<metric>/<index_metric>
-GET /_nodes/<node_id>/stats/<metric>/<index_metric>
+GET /_nodes/{node_id}/stats
+GET /_nodes/stats/{metric}
+GET /_nodes/{node_id}/stats/{metric}
+GET /_nodes/stats/{metric}/{index_metric}
+GET /_nodes/{node_id}/stats/{metric}/{index_metric}
 ```
 
 ## Path parameters

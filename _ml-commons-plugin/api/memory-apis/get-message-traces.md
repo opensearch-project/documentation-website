@@ -21,7 +21,7 @@ When the Security plugin is enabled, all memories exist in a `private` security 
 ## Endpoints
 
 ```json
-GET /_plugins/_ml/memory/message/<message_id>/traces
+GET /_plugins/_ml/memory/message/{message_id}/traces
 ```
 
 ## Path parameters

@@ -29,8 +29,8 @@ The following elements in OpenSearch Dashboards are customizable:
 
 Setting | Corresponding branding element
 :--- | :---
-logo | Header logo. See #1 in the image.
-mark | OpenSearch Dashboards mark. See #2 in the image.
+`logo` | Header logo. See #1 in the image.
+`mark` | OpenSearch Dashboards mark. See #2 in the image.
 loadingLogo | Loading logo used when OpenSearch Dashboards is starting. See #3 in the image.
 faviconUrl | Website icon. Loads next to the application title. See #4 in the image.
 applicationTitle | The application's title. See #5 in the image.

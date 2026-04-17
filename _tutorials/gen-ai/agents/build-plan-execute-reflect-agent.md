@@ -84,7 +84,7 @@ Note the model ID; you'll use it in the following steps.
 Because the agent is a long-running agent that executes multiple steps, we strongly recommend configuring a retry policy for your connector. For more information, see the `client_config` parameter in [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters). For example, to configure unlimited retries, set `max_retry_times` to `-1`:
 
 ```json
-PUT /_plugins/_ml/connectors/<connector_id>
+PUT /_plugins/_ml/connectors/{connector_id}
 {
   "client_config": {
     "max_retry_times": -1,

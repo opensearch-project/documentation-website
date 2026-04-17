@@ -16,7 +16,7 @@ ML Commons does not check the task status when running the delete request. There
 ### Endpoints
 
 ```json
-DELETE /_plugins/_ml/tasks/<task_id>
+DELETE /_plugins/_ml/tasks/{task_id}
 ```
 
 ## Example request

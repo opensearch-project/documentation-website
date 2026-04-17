@@ -15,7 +15,7 @@ Use this API to delete a memory container by its ID.
 ## Endpoints
 
 ```json
-DELETE /_plugins/_ml/memory_containers/<memory_container_id>
+DELETE /_plugins/_ml/memory_containers/{memory_container_id}
 ```
 
 ## Path parameters
