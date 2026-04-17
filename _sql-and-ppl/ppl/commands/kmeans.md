@@ -3,7 +3,7 @@ layout: default
 title: kmeans
 parent: Commands
 grand_parent: PPL
-nav_order: 23
+nav_order: 26
 ---
 
 # kmeans (Deprecated)

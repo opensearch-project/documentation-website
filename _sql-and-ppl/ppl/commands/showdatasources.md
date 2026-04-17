@@ -3,7 +3,7 @@ layout: default
 title: show datasources
 parent: Commands
 grand_parent: PPL
-nav_order: 36
+nav_order: 42
 ---
 
 # show datasources

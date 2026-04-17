@@ -44,134 +44,142 @@ The following considerations apply when using the `chart` command:
 
 ## Example 1: Basic aggregation without grouping  
 
-This example calculates the average balance across all accounts:
+This example counts the total number of log entries:
   
 ```sql
-source=accounts
-| chart avg(balance)
+source=otellogs
+| chart count() as total_logs
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| avg(balance) |
+| total_logs |
 | --- |
-| 20482.25 |
+| 20 |
   
 
 ## Example 2: Group by a single field  
 
-This example calculates the count of accounts grouped by gender:
+This example counts logs by severity level, useful for a severity distribution pie chart:
   
 ```sql
-source=accounts
-| chart count() by gender
+source=otellogs
+| chart count() by severityText
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| gender | count() |
+| severityText | count() |
 | --- | --- |
-| F | 1 |
-| M | 3 |
+| DEBUG | 3 |
+| ERROR | 7 |
+| INFO | 6 |
+| WARN | 4 |
   
 
 ## Example 3: Using over [] by [] to group by multiple fields  
 
-The following query calculates average balance grouped by both the `gender` and `age` fields:
+The following query creates a two-dimensional chart showing log counts by severity level and service, ideal for a heatmap visualization:
   
 ```sql
-source=accounts
-| chart avg(balance) over gender by age
+source=otellogs
+| chart limit=2 count() over severityText by `resource.attributes.service.name`
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
-The query returns the following results. The `age` column in the result is converted to the string type:
+The query returns the following results. Services beyond the top 2 are grouped into `OTHER`:
   
-| gender | age | avg(balance) |
+| severityText | `resource.attributes.service.name` | count() |
 | --- | --- | --- |
-| F | 28 | 32838.0 |
-| M | 32 | 39225.0 |
-| M | 33 | 4180.0 |
-| M | 36 | 5686.0 |
+| DEBUG | OTHER | 2 |
+| DEBUG | product-catalog | 1 |
+| ERROR | OTHER | 6 |
+| ERROR | product-catalog | 1 |
+| INFO | OTHER | 2 |
+| INFO | frontend | 4 |
+| WARN | OTHER | 2 |
+| WARN | product-catalog | 2 |
   
 
-## Example 4: Using basic limit functionality  
+## Example 4: Using limit with custom other label  
 
-This example limits the results to show only the single top age group: 
+The following query limits to the top 1 service per severity level and labels the rest as `other_services`:
   
 ```sql
-source=accounts
-| chart limit=1 count() over gender by age
+source=otellogs
+| chart limit=top1 useother=true otherstr='other_services' count() over severityText by `resource.attributes.service.name`
 ```
 {% include copy.html %}
-  
-The query returns the following results. The `age` column in the result is converted to the string type:
-  
-| gender | age | count() |
-| --- | --- | --- |
-| F | OTHER | 1 |
-| M | 33 | 1 |
-| M | OTHER | 2 |
-  
-
-## Example 5: Using limit with other parameters  
-
-The following query uses the `chart` command with the `limit`, `useother`, and custom `otherstr` parameters:
-  
-```sql
-source=accounts
-| chart limit=top1 useother=true otherstr='minor_gender' count() over state by gender
-```
-{% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| state | gender | count() |
+| severityText | `resource.attributes.service.name` | count() |
 | --- | --- | --- |
-| IL | M | 1 |
-| MD | M | 1 |
-| TN | M | 1 |
-| VA | minor_gender | 1 |
+| DEBUG | other_services | 3 |
+| ERROR | other_services | 7 |
+| INFO | frontend | 4 |
+| INFO | other_services | 2 |
+| WARN | other_services | 4 |
   
 
-## Example 6: Using null parameters  
+## Example 5: Using null parameters  
 
-The following query uses the `chart` command with the `limit`, `usenull`, and custom `nullstr` parameters:
+The following query shows log counts per service by namespace, labeling services without a namespace as `no namespace`:
   
 ```sql
-source=accounts
-| chart usenull=true nullstr='employer not specified' count() over firstname by employer
+source=otellogs
+| chart usenull=true nullstr='not instrumented' count() over `resource.attributes.service.name` by instrumentationScope.name
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| firstname | employer | count() |
+| `resource.attributes.service.name` | instrumentationScope.name | count() |
 | --- | --- | --- |
-| Amber | Pyrami | 1 |
-| Dale | employer not specified | 1 |
-| Hattie | Netagy | 1 |
-| Nanette | Quility | 1 |
+| cart | Microsoft.Extensions.Hosting | 1 |
+| cart | not instrumented | 2 |
+| checkout | not instrumented | 3 |
+| frontend | @opentelemetry/instrumentation-http | 1 |
+| frontend | not instrumented | 3 |
+| frontend-proxy | not instrumented | 3 |
+| payment | @opentelemetry/instrumentation-http | 1 |
+| payment | not instrumented | 1 |
+| product-catalog | go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc | 1 |
+| product-catalog | not instrumented | 3 |
+| recommendation | not instrumented | 1 |
   
 
-## Example 7: Using span  
+## Example 6: Using span  
 
-The following query uses the `chart` command with `span` for grouping age ranges:
+The following query charts the maximum severity per severity range and host, useful for identifying which hosts experience the most critical issues:
   
 ```sql
-source=accounts
-| chart max(balance) by age span=10, gender
+source=otellogs
+| chart max(severityNumber) by severityNumber span=10, `resource.attributes.host.name`
 ```
 {% include copy.html %}
+{% include try-in-playground.html %}
   
 The query returns the following results:
   
-| age | gender | max(balance) |
+| severityNumber | `resource.attributes.host.name` | max(severityNumber) |
 | --- | --- | --- |
-| 20 | F | 32838 |
-| 30 | M | 39225 |
+| 0 | cart-5d8f7b-mk29s | 9 |
+| 0 | checkout-8b4c2d-jp5r7 | 9 |
+| 0 | frontend-6b7b4c9f-x2kl9 | 9 |
+| 0 | productcatalog-7c9d-zn4p2 | 5 |
+| 10 | checkout-8b4c2d-jp5r7 | 17 |
+| 10 | frontendproxy-envoy-7d4b8c-xk2q9 | 17 |
+| 10 | payment-6f8d4b-ht7q3 | 17 |
+| 10 | productcatalog-7c9d-zn4p2 | 17 |
+| 10 | recommendation-5f7c-bn3k8 | 17 |
   
 
 ## Limitations
