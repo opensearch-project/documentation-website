@@ -17,8 +17,8 @@ Returns information about one or more aliases.
 
 ```json
 GET /_alias
-GET /_alias/<alias>
-GET /<index>/_alias/<alias>
+GET /_alias/{alias}
+GET /{index}/_alias/{alias}
 ```
 
 ## Path parameters

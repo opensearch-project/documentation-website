@@ -15,24 +15,24 @@ The `http` plugin accepts HTTP requests from clients. The following table descri
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-port | No | Integer | The port that the source is running on. Default value is `2021`. Valid options are between `0` and `65535`.
-path | No | String | The URI path for log ingestion should start with a forward slash (/), for example, `/${pipelineName}/logs`. The `${pipelineName}` placeholder will be replaced with the pipeline name. The default value is `/log/ingest`.
-health_check_service | No | Boolean | Enables the health check service on the `/health` endpoint on the defined port. Default value is `false`.
-unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. OpenSearch Data Prepper ignores this option if no authentication is defined. Default value is `false`.
-request_timeout | No | Integer | The request timeout, in milliseconds. Default value is `10000`.
-thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default value is `200`.
-max_connection_count | No | Integer | The maximum allowed number of open connections. Default value is `500`.
-max_pending_requests | No | Integer | The maximum allowed number of tasks in the `ScheduledThreadPool` work queue. Default value is `1024`.
-max_request_length | No | ByteCount | The maximum number of bytes allowed in the payload of a single HTTP request. Default value is `10mb`.
-authentication | No | Object | An authentication configuration. By default, this creates an unauthenticated server for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/1.2.0/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
-ssl | No | Boolean | Enables TLS/SSL. Default value is `false`.
-ssl_certificate_file | Conditionally | String | The SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true` and `use_acm_certificate_for_ssl` is set to `false`.
-ssl_key_file | Conditionally | String | The SSL key file path or Amazon S3 path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true` and `use_acm_certificate_for_ssl` is set to `false`.
-use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using the certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
-acm_certificate_arn | Conditionally | String | The ACM certificate Amazon Resource Name (ARN). The ACM certificate takes preference over Amazon S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
-acm_private_key_password | No | String | ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
-acm_certificate_timeout_millis | No | Integer | Timeout, in milliseconds, that ACM takes to get certificates. Default value is 120000.
-aws_region | Conditionally | String | AWS region used by ACM or Amazon S3. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is the Amazon S3 path.
+`port` | No | Integer | The port that the source is running on. Default value is `2021`. Valid options are between `0` and `65535`.
+`path` | No | String | The URI path for log ingestion should start with a forward slash (/), for example, `/${pipelineName}/logs`. The `${pipelineName}` placeholder will be replaced with the pipeline name. The default value is `/log/ingest`.
+`health_check_service` | No | Boolean | Enables the health check service on the `/health` endpoint on the defined port. Default value is `false`.
+`unauthenticated_health_check` | No | Boolean | Determines whether or not authentication is required on the health check endpoint. OpenSearch Data Prepper ignores this option if no authentication is defined. Default value is `false`.
+`request_timeout` | No | Integer | The request timeout, in milliseconds. Default value is `10000`.
+`thread_count` | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default value is `200`.
+`max_connection_count` | No | Integer | The maximum allowed number of open connections. Default value is `500`.
+`max_pending_requests` | No | Integer | The maximum allowed number of tasks in the `ScheduledThreadPool` work queue. Default value is `1024`.
+`max_request_length` | No | ByteCount | The maximum number of bytes allowed in the payload of a single HTTP request. Default value is `10mb`.
+`authentication` | No | Object | An authentication configuration. By default, this creates an unauthenticated server for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/1.2.0/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
+`ssl` | No | Boolean | Enables TLS/SSL. Default value is `false`.
+`ssl_certificate_file` | Conditionally | String | The SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true` and `use_acm_certificate_for_ssl` is set to `false`.
+`ssl_key_file` | Conditionally | String | The SSL key file path or Amazon S3 path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true` and `use_acm_certificate_for_ssl` is set to `false`.
+`use_acm_certificate_for_ssl` | No | Boolean | Enables TLS/SSL using the certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
+`acm_certificate_arn` | Conditionally | String | The ACM certificate Amazon Resource Name (ARN). The ACM certificate takes preference over Amazon S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
+`acm_private_key_password` | No | String | ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
+`acm_certificate_timeout_millis` | No | Integer | Timeout, in milliseconds, that ACM takes to get certificates. Default value is 120000.
+`aws_region` | Conditionally | String | AWS region used by ACM or Amazon S3. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is the Amazon S3 path.
 
 <!--- ## Configuration
 

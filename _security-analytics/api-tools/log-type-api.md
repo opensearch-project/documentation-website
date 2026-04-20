@@ -171,7 +171,7 @@ POST /_plugins/_security_analytics/logtype/_search
 This API allows you to update existing custom log types. Use the log type's ID in the route to specify the log type, as shown in the following example:
 
 ```json
-PUT /_plugins/_security_analytics/logtype/<log_type_id>
+PUT /_plugins/_security_analytics/logtype/{log_type_id}
 ```
 
 
@@ -211,7 +211,7 @@ PUT /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 This API is used to delete a custom log type. Specify the log type's ID in the route to run the operation:
 
 ```json
-DELETE /_plugins/_security_analytics/logtype/<log_type_id>
+DELETE /_plugins/_security_analytics/logtype/{log_type_id}
 ```
 
 

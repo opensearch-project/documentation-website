@@ -17,9 +17,9 @@ Gets statistics related to the number of tasks.
 
 ```json
 GET /_plugins/_ml/stats
-GET /_plugins/_ml/stats/<stat>
-GET /_plugins/_ml/<nodeId>/stats/
-GET /_plugins/_ml/<nodeId>/stats/<stat>
+GET /_plugins/_ml/stats/{stat}
+GET /_plugins/_ml/{nodeId}/stats/
+GET /_plugins/_ml/{nodeId}/stats/{stat}
 ```
 
 ## Example request: Get all stats for all nodes
@@ -60,21 +60,21 @@ GET /_plugins/_ml/stats
 ## Example request: Get all stats for a specific node
 
 ```json
-GET /_plugins/_ml/<nodeId>/stats/
+GET /_plugins/_ml/{nodeId}/stats/
 ```
 {% include copy-curl.html %}
 
 ## Example request: Get a specified stat for a specific node 
 
 ```json
-GET /_plugins/_ml/<nodeId>/stats/<stat>
+GET /_plugins/_ml/{nodeId}/stats/{stat}
 ```
 {% include copy-curl.html %}
 
 ## Example request: Get a specified stat for all nodes
 
 ```json
-GET /_plugins/_ml/stats/<stat>
+GET /_plugins/_ml/stats/{stat}
 ```
 {% include copy-curl.html %}
 

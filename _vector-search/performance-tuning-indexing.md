@@ -15,7 +15,7 @@ Take any of the following steps to improve indexing performance, especially when
 Either disable the refresh interval (default = 1 sec) or set a long duration for the refresh interval to avoid creating multiple small segments:
 
 ```json
-PUT /<index_name>/_settings
+PUT /{index_name}/_settings
 {
     "index" : {
         "refresh_interval" : "-1"

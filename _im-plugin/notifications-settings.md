@@ -96,7 +96,7 @@ The following examples retrieve the current configured notification settings.
 Use the following request to retrieve a notification setting with the specified [notification setting ID](#notification-setting-id):
 
 ```json
- GET /_plugins/_im/lron/<lronID>
+ GET /_plugins/_im/lron/{lronID}
 ```
 {% include copy-curl.html %}
 
@@ -174,7 +174,7 @@ The response contains all configured notification settings with their IDs:
 The following example modifies an existing notification setting with the specified [notification setting ID](#notification-setting-id):
 
 ```json
-PUT /_plugins/_im/lron/<lronID>
+PUT /_plugins/_im/lron/{lronID}
 {
   "lron_config": {
       "task_id":"dQlcQ0hQS2mwF-AQ7icCMw:12354",
@@ -221,7 +221,7 @@ The response contains the updated setting:
 The following example removes a notifications setting with the specified [notification setting ID](#notification-setting-id):
 
 ```json
-DELETE /_plugins/_im/lron/<lronID>
+DELETE /_plugins/_im/lron/{lronID}
 ```
 {% include copy-curl.html %}
 

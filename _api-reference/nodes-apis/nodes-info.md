@@ -24,11 +24,11 @@ The Nodes Info API represents mostly static information about your cluster's nod
 
 ```json
 GET /_nodes
-GET /_nodes/<nodeId>
-GET /_nodes/<metrics>
-GET /_nodes/<nodeId>/<metrics>
+GET /_nodes/{nodeId}
+GET /_nodes/{metrics}
+GET /_nodes/{nodeId}/{metrics}
 # or full path equivalent
-GET /_nodes/<nodeId>/info/<metrics>
+GET /_nodes/{nodeId}/info/{metrics}
 ```
 
 ## Path parameters
@@ -38,24 +38,24 @@ The following table lists the available path parameters. All path parameters are
 Parameter | Type | Description
 :--- |:-------| :---
 nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
-metrics | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,thread_pool`. Defaults to all metrics.
+`metrics` | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,thread_pool`. Defaults to all metrics.
 
 The following table lists all available metric groups.
 
 Metric | Description
 :--- |:----
-settings | A node's settings. This is a combination of the default settings, custom settings from the [configuration file]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#configuration-file), and dynamically [updated settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#updating-cluster-settings-using-the-api).
-os | Static information about the host OS, including version, processor architecture, and available/allocated processors.
-process | Contains the process ID.
-jvm | Detailed static information about the running JVM, including arguments.
-thread_pool | Configured options for all individual thread pools.
-transport | Mostly static information about the transport layer.
-http | Mostly static information about the HTTP layer.
-plugins | Information about installed plugins and modules.
-ingest | Information about ingest pipelines and available ingest processors.
-search_pipelines | Information about search pipelines configured on the node.
-aggregations | Information about available [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations).
-indices | Static index settings configured at the node level.
+`settings` | A node's settings. This is a combination of the default settings, custom settings from the [configuration file]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#configuration-file), and dynamically [updated settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#updating-cluster-settings-using-the-api).
+`os` | Static information about the host OS, including version, processor architecture, and available/allocated processors.
+`process` | Contains the process ID.
+`jvm` | Detailed static information about the running JVM, including arguments.
+`thread_pool` | Configured options for all individual thread pools.
+`transport` | Mostly static information about the transport layer.
+`http` | Mostly static information about the HTTP layer.
+`plugins` | Information about installed plugins and modules.
+`ingest` | Information about ingest pipelines and available ingest processors.
+`search_pipelines` | Information about search pipelines configured on the node.
+`aggregations` | Information about available [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations).
+`indices` | Static index settings configured at the node level.
 
 ## Query parameters
 
@@ -63,8 +63,8 @@ You can include the following query parameters in your request. All query parame
 
 Parameter | Type | Description
 :--- |:-------| :---
-flat_settings| Boolean | Specifies whether to return the `settings` object of the response in flat format. Default is `false`.
-timeout | Time | Sets the time limit for node response. Default value is `30s`.
+`flat_settings`| Boolean | Specifies whether to return the `settings` object of the response in flat format. Default is `false`.
+`timeout` | Time | Sets the time limit for node response. Default value is `30s`.
 
 ## Example request
 
@@ -173,26 +173,26 @@ The response contains the basic node identification and build info for every nod
 Field | Description
 :--- |:----
 name | The node's name.
-transport_address | The node's transport address.
-host | The node's host address.
-ip | The node's host IP address.
-version | The node's OpenSearch version.
-build_type | The node's build type, like `rpm`, `docker`, `tar`, etc.
-build_hash | The git commit hash of the build.
-total_indexing_buffer | The maximum heap size in bytes used to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
-roles | The list of the node's roles.
-attributes | The node's attributes.
-os | Information about the OS, including name, version, architecture, refresh interval, and the number of available and allocated processors.
-process | Information about the currently running process, including PID, refresh interval, and `mlockall`, which specifies whether the process address space has been successfully locked in memory. 
-jvm | Information about the JVM, including PID, version, memory information, garbage collector information, and arguments.
-thread_pool | Information about the thread pool.
-transport | Information about the transport address, including bound address, publish address, and profiles.
-http | Information about the HTTP address, including bound address, publish address, and maximum content length, in bytes.
-plugins | Information about the installed plugins, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. 
-modules | Information about the modules, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. Modules are different from plugins because modules are loaded into OpenSearch automatically, while plugins have to be installed manually.
-ingest | Information about ingest pipelines and processors.
-search_pipelines | Information about search pipelines configured on the node.
-aggregations | Information about the available aggregation types.
+`transport_address` | The node's transport address.
+`host` | The node's host address.
+`ip` | The node's host IP address.
+`version` | The node's OpenSearch version.
+`build_type` | The node's build type, like `rpm`, `docker`, `tar`, etc.
+`build_hash` | The git commit hash of the build.
+`total_indexing_buffer` | The maximum heap size in bytes used to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
+`roles` | The list of the node's roles.
+`attributes` | The node's attributes.
+`os` | Information about the OS, including name, version, architecture, refresh interval, and the number of available and allocated processors.
+`process` | Information about the currently running process, including PID, refresh interval, and `mlockall`, which specifies whether the process address space has been successfully locked in memory. 
+`jvm` | Information about the JVM, including PID, version, memory information, garbage collector information, and arguments.
+`thread_pool` | Information about the thread pool.
+`transport` | Information about the transport address, including bound address, publish address, and profiles.
+`http` | Information about the HTTP address, including bound address, publish address, and maximum content length, in bytes.
+`plugins` | Information about the installed plugins, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. 
+`modules` | Information about the modules, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. Modules are different from plugins because modules are loaded into OpenSearch automatically, while plugins have to be installed manually.
+`ingest` | Information about ingest pipelines and processors.
+`search_pipelines` | Information about search pipelines configured on the node.
+`aggregations` | Information about the available aggregation types.
 
 
 ## Required permissions

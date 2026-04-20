@@ -261,7 +261,7 @@ To update the data in your current index itself without copying it to a differen
 The `update_by_query` operation is `POST` operation that you can perform on a single index at a time.
 
 ```json
-POST <index_name>/_update_by_query
+POST {index_name}/_update_by_query
 ```
 
 If you run this command with no parameters, it increments the version number for all documents in the index.

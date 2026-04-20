@@ -19,8 +19,8 @@ Metrics returned from this API only relate to indexes stored on remote-backed no
 ## Endpoints
 
 ```json
-GET _remotestore/stats/<index_name>
-GET _remotestore/stats/<index_name>/<shard_id>
+GET _remotestore/stats/{index_name}
+GET _remotestore/stats/{index_name}/{shard_id}
 ```
 
 ## Path parameters
@@ -39,7 +39,7 @@ Use the following API to get remote store statistics for all index shards.
 #### Example request
 
 ```json
-GET _remotestore/stats/<index_name>
+GET _remotestore/stats/{index_name}
 ```
 {% include copy-curl.html %}
 
@@ -344,7 +344,7 @@ Use the following API to get remote store statistics for a single shard.
 #### Example request
 
 ```json
-GET _remotestore/stats/<index_name>/<shard_id>
+GET _remotestore/stats/{index_name}/{shard_id}
 ```
 {% include copy-curl.html %}
 
@@ -475,6 +475,6 @@ If you want to fetch only shards present on the node serving a Remote Store Stat
 
 
 ```json
-GET _remotestore/stats/<index_name>?local=true
+GET _remotestore/stats/{index_name}?local=true
 ```
 {% include copy-curl.html %}

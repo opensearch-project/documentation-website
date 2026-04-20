@@ -16,7 +16,7 @@ Use this API to update an existing context management configuration. You can mod
 ## Endpoints
 
 ```json
-PUT /_plugins/_ml/context_management/<context_management_name>
+PUT /_plugins/_ml/context_management/{context_management_name}
 ```
 
 ## Path parameters

@@ -26,8 +26,8 @@ For instructions on creating a repository, see [Register repository]({{site.url}
 ## Endpoints
 
 ```json
-POST /_snapshot/<repository>/ 
-PUT /_snapshot/<repository>/
+POST /_snapshot/{repository}/ 
+PUT /_snapshot/{repository}/
 ```
 
 ## Path parameters

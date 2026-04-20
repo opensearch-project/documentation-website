@@ -108,15 +108,15 @@ An inverted index for such an index maps the words to the documents in which the
 
 Word | Document
 :--- | :---
-beauty | 1, 2
-is | 1
-in | 1
-the | 1, 2
-eye | 1
-of | 1
-beholder | 1
-and | 2
-beast | 2 
+`beauty` | 1, 2
+`is` | 1
+`in` | 1
+`the` | 1, 2
+`eye` | 1
+`of` | 1
+`beholder` | 1
+`and` | 2
+`beast` | 2 
 
 In addition to the document ID, OpenSearch stores the position of the word within the document for running phrase queries, where words must appear next to each other.
 

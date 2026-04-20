@@ -188,7 +188,7 @@ You can retrieve a judgment list using the judgment list ID.
 #### Endpoint
 
 ```json
-GET _plugins/_search_relevance/judgments/<judgment_list_id>
+GET _plugins/_search_relevance/judgments/{judgment_list_id}
 ```
 
 ### Path parameters
@@ -309,7 +309,7 @@ You can delete a judgment list using the judgment list ID.
 #### Endpoint
 
 ```json
-DELETE _plugins/_search_relevance/judgments/<judgment_list_id>
+DELETE _plugins/_search_relevance/judgments/{judgment_list_id}
 ```
 
 #### Example request

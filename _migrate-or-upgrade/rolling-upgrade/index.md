@@ -153,7 +153,7 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
    ```
    In the example output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, as in the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/) to learn more.
    ```bash
-   GET "/_nodes/<nodeName>?pretty=true" | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
+   GET "/_nodes/{nodeName}?pretty=true" | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
    ```
    The response should look similar to the following example:
    ```bash

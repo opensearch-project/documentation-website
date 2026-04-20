@@ -76,7 +76,7 @@ You can retrieve an experiment using the experiment ID.
 #### Endpoint
 
 ```json
-GET _plugins/_search_relevance/experiments/<experiment_id>
+GET _plugins/_search_relevance/experiments/{experiment_id}
 ```
 
 ### Path parameters
@@ -260,7 +260,7 @@ You can delete an experiment using the experiment ID.
 #### Endpoint
 
 ```json
-DELETE _plugins/_search_relevance/experiments/<experiment_id>
+DELETE _plugins/_search_relevance/experiments/{experiment_id}
 ```
 
 #### Example request

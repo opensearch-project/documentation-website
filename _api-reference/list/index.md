@@ -79,7 +79,7 @@ next_token null
 To see all the available headers, use the `help` parameter with the following syntax:
 
 ```json
-GET _list/<operation_name>?help
+GET _list/{operation_name}?help
 ```
 {% include copy-curl.html %}
 
@@ -128,7 +128,7 @@ docs.count | dc,docsCount                   | available docs
 To limit the output to a subset of headers, use the `h` parameter with the following syntax:
 
 ```json
-GET _list/<operation_name>?h=<header_name_1>,<header_name_2>&v
+GET _list/{operation_name}?h={header_name_1},{header_name_2}&v
 ```
 {% include copy-curl.html %}
 
@@ -174,7 +174,7 @@ next_token null
 To sort the output on a single page by a header, use the `s` parameter with the following syntax:
 
 ```json
-GET _list/<operation_name>?s=<header_name_1>,<header_name_2>
+GET _list/{operation_name}?s={header_name_1},{header_name_2}
 ```
 {% include copy-curl.html %}
 
@@ -225,7 +225,7 @@ If you use the Security plugin, ensure you have the appropriate permissions.
 #### Request
 
 ```json
-GET _list/<operation_name>?help
+GET _list/{operation_name}?help
 ```
 {% include copy-curl.html %}
 

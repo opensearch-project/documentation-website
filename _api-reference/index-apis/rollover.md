@@ -16,8 +16,8 @@ The roll over index API operation creates a new index for a data stream or index
 ## Endpoints
 
 ```json
-POST /<rollover-target>/_rollover/
-POST /<rollover-target>/_rollover/<target-index>
+POST /{rollover-target}/_rollover/
+POST /{rollover-target}/_rollover/{target-index}
 ```
 
 ## Rollover types
@@ -50,8 +50,8 @@ The following table lists the available path parameters.
 
 Parameter | Data type | Description 
 :--- | :--- | :--- 
-`<rollover-target>` | String | The name of the data stream or index alias to roll over. Required. |
-`<target-index>` | String | The name of the index to create. Supports date math. Data streams do not support this parameter. If the name of the alias's current write index does not end with `-` and a number, such as `my-index-000001` or `my-index-2`, then the parameter is required. 
+`rollover-target` | String | The name of the data stream or index alias to roll over. Required. |
+`target-index` | String | The name of the index to create. Supports date math. Data streams do not support this parameter. If the name of the alias's current write index does not end with `-` and a number, such as `my-index-000001` or `my-index-2`, then the parameter is required. 
 
 ## Query parameters
 

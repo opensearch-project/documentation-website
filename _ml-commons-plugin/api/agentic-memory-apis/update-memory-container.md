@@ -16,7 +16,7 @@ Use this API to update an existing memory container's properties, such as name, 
 ## Endpoints
 
 ```json
-PUT /_plugins/_ml/memory_containers/<memory_container_id>
+PUT /_plugins/_ml/memory_containers/{memory_container_id}
 ```
 
 ## Path parameters

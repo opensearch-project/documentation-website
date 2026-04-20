@@ -224,7 +224,7 @@ Introduced 1.0
 Retrieves one action group.
 
 ```json
-GET _plugins/_security/api/actiongroups/<action-group>
+GET _plugins/_security/api/actiongroups/{action-group}
 ```
 {% include copy-curl.html %}
 
@@ -306,7 +306,7 @@ Introduced 1.0
 #### Request
 
 ```json
-DELETE _plugins/_security/api/actiongroups/<action-group>
+DELETE _plugins/_security/api/actiongroups/{action-group}
 ```
 {% include copy-curl.html %}
 
@@ -329,7 +329,7 @@ Creates or replaces the specified action group.
 #### Request
 
 ```json
-PUT _plugins/_security/api/actiongroups/<action-group>
+PUT _plugins/_security/api/actiongroups/{action-group}
 {
   "allowed_actions": [
     "indices:data/write/index*",
@@ -362,7 +362,7 @@ Updates individual attributes of an action group.
 #### Request
 
 ```json
-PATCH _plugins/_security/api/actiongroups/<action-group>
+PATCH _plugins/_security/api/actiongroups/{action-group}
 [
   {
     "op": "replace", "path": "/allowed_actions", "value": ["indices:admin/create", "indices:admin/mapping/put"]
@@ -426,7 +426,7 @@ Introduced 1.0
 #### Request
 
 ```json
-GET _plugins/_security/api/internalusers/<username>
+GET _plugins/_security/api/internalusers/{username}
 ```
 {% include copy-curl.html %}
 
@@ -481,7 +481,7 @@ Introduced 1.0
 #### Request
 
 ```json
-DELETE _plugins/_security/api/internalusers/<username>
+DELETE _plugins/_security/api/internalusers/{username}
 ```
 {% include copy-curl.html %}
 
@@ -506,7 +506,7 @@ Note that any role you supply in the `opendistro_security_roles` array must alre
 #### Request
 
 ```json
-PUT _plugins/_security/api/internalusers/<username>
+PUT _plugins/_security/api/internalusers/{username}
 {
   "password": "kirkpass",
   "opendistro_security_roles": ["maintenance_staff", "database_manager"],
@@ -538,7 +538,7 @@ Updates individual attributes of an internal user.
 #### Request
 
 ```json
-PATCH _plugins/_security/api/internalusers/<username>
+PATCH _plugins/_security/api/internalusers/{username}
 [
   {
     "op": "replace", "path": "/backend_roles", "value": ["klingons"]
@@ -610,7 +610,7 @@ Retrieves one role.
 #### Request
 
 ```json
-GET _plugins/_security/api/roles/<role>
+GET _plugins/_security/api/roles/{role}
 ```
 {% include copy-curl.html %}
 
@@ -700,7 +700,7 @@ Introduced 1.0
 #### Request
 
 ```json
-DELETE _plugins/_security/api/roles/<role>
+DELETE _plugins/_security/api/roles/{role}
 ```
 {% include copy-curl.html %}
 
@@ -723,7 +723,7 @@ Creates or replaces the specified role.
 #### Request
 
 ```json
-PUT _plugins/_security/api/roles/<role>
+PUT _plugins/_security/api/roles/{role}
 {
   "cluster_permissions": [
     "cluster_composite_ops",
@@ -780,7 +780,7 @@ Updates individual attributes of a role.
 #### Request
 
 ```json
-PATCH _plugins/_security/api/roles/<role>
+PATCH _plugins/_security/api/roles/{role}
 [
   {
     "op": "replace", "path": "/index_permissions/0/fls", "value": ["myfield1", "myfield2"]
@@ -855,7 +855,7 @@ Retrieves one role mapping.
 #### Request
 
 ```json
-GET _plugins/_security/api/rolesmapping/<role>
+GET _plugins/_security/api/rolesmapping/{role}
 ```
 {% include copy-curl.html %}
 
@@ -907,7 +907,7 @@ Deletes the specified role mapping.
 #### Request
 
 ```json
-DELETE _plugins/_security/api/rolesmapping/<role>
+DELETE _plugins/_security/api/rolesmapping/{role}
 ```
 {% include copy-curl.html %}
 
@@ -930,7 +930,7 @@ Creates or replaces the specified role mapping.
 #### Request
 
 ```json
-PUT _plugins/_security/api/rolesmapping/<role>
+PUT _plugins/_security/api/rolesmapping/{role}
 {
   "backend_roles" : [ "starfleet", "captains", "defectors", "cn=ldaprole,ou=groups,dc=example,dc=com" ],
   "hosts" : [ "*.starfleetintranet.com" ],
@@ -974,7 +974,7 @@ Updates individual attributes of a role mapping.
 #### Request
 
 ```json
-PATCH _plugins/_security/api/rolesmapping/<role>
+PATCH _plugins/_security/api/rolesmapping/{role}
 [
   {
     "op": "replace", "path": "/users", "value": ["myuser"]
@@ -1132,7 +1132,7 @@ Retrieves one tenant.
 #### Request
 
 ```json
-GET _plugins/_security/api/tenants/<tenant>
+GET _plugins/_security/api/tenants/{tenant}
 ```
 {% include copy-curl.html %}
 
@@ -1192,7 +1192,7 @@ Deletes the specified tenant.
 #### Request
 
 ```json
-DELETE _plugins/_security/api/tenants/<tenant>
+DELETE _plugins/_security/api/tenants/{tenant}
 ```
 {% include copy-curl.html %}
 
@@ -1215,7 +1215,7 @@ Creates or replaces the specified tenant.
 #### Request
 
 ```json
-PUT _plugins/_security/api/tenants/<tenant>
+PUT _plugins/_security/api/tenants/{tenant}
 {
   "description": "A tenant for the human resources team."
 }
@@ -1241,7 +1241,7 @@ Add, delete, or modify a single tenant.
 #### Request
 
 ```json
-PATCH _plugins/_security/api/tenants/<tenant>
+PATCH _plugins/_security/api/tenants/{tenant}
 [
   {
     "op": "replace", "path": "/description", "value": "An updated description"
@@ -1537,7 +1537,7 @@ To get the distinguished names from a specific cluster's or node's allow list, i
 #### Request
 
 ```json
-GET _plugins/_security/api/nodesdn/<cluster-name>
+GET _plugins/_security/api/nodesdn/{cluster-name}
 ```
 {% include copy-curl.html %}
 
@@ -1561,7 +1561,7 @@ Adds or updates the specified distinguished names in the cluster's or node's all
 #### Request
 
 ```json
-PUT _plugins/_security/api/nodesdn/<cluster-name>
+PUT _plugins/_security/api/nodesdn/{cluster-name}
 {
   "nodes_dn": [
     "CN=cluster3.example.com"
@@ -1637,7 +1637,7 @@ Deletes all distinguished names in the specified cluster's or node's allow list.
 #### Request
 
 ```json
-DELETE _plugins/_security/api/nodesdn/<cluster-name>
+DELETE _plugins/_security/api/nodesdn/{cluster-name}
 ```
 {% include copy-curl.html %}
 

@@ -20,7 +20,7 @@ You can also get details about a snapshot during and after snapshot creation. Se
 ## Endpoints
 
 ```json
-GET /_snapshot/<repository>
+GET /_snapshot/{repository}
 ```
 
 ## Path parameters

@@ -16,7 +16,7 @@ The Get Index Template API returns information about one or more index templates
 ## Endpoints
 
 ```json
-GET /_index_template/<template-name>
+GET /_index_template/{template-name}
 ```
 
 ## Query parameters

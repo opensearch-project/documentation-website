@@ -21,7 +21,7 @@ Pauses ingestion for one or more indexes. When paused, OpenSearch stops consumin
 ### Endpoint
 
 ```json
-POST /<index>/ingestion/_pause
+POST /{index}/ingestion/_pause
 ```
 
 ### Path parameters
@@ -74,7 +74,7 @@ As part of the resume operation, you can optionally reset the stream consumer to
 ### Endpoint
 
 ```json
-POST /<index>/ingestion/_resume
+POST /{index}/ingestion/_resume
 ```
 
 ### Path parameters
@@ -191,7 +191,7 @@ Returns the current ingestion state for one or more indexes. This API supports p
 ### Endpoint
 
 ```json
-GET /<index>/ingestion/_state
+GET /{index}/ingestion/_state
 ```
 
 ### Path parameters

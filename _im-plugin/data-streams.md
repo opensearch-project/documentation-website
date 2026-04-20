@@ -264,7 +264,7 @@ The delete operation first deletes the backing indexes of a data stream and then
 To delete a data stream and all of its hidden backing indexes:
 
 ```json
-DELETE _data_stream/<name_of_data_stream>
+DELETE _data_stream/{name_of_data_stream}
 ```
 
 You can use wildcards to delete more than one data stream.

@@ -26,7 +26,7 @@ Initiate replication of an index from the leader cluster to the follower cluster
 #### Request
 
 ```json
-PUT /_plugins/_replication/<follower-index>/_start
+PUT /_plugins/_replication/{follower-index}/_start
 {
    "leader_alias":"<connection-alias-name>",
    "leader_index":"<index-name>",
@@ -62,7 +62,7 @@ Terminates replication and converts the follower index to a standard index. Send
 #### Request
 
 ```json
-POST /_plugins/_replication/<follower-index>/_stop
+POST /_plugins/_replication/{follower-index}/_stop
 {}
 ```
 
@@ -83,7 +83,7 @@ Pauses replication of the leader index. Send this request to the follower cluste
 #### Request
 
 ```json
-POST /_plugins/_replication/<follower-index>/_pause 
+POST /_plugins/_replication/{follower-index}/_pause 
 {}
 ```
 
@@ -106,7 +106,7 @@ Resumes replication of the leader index. Send this request to the follower clust
 #### Request
 
 ```json
-POST /_plugins/_replication/<follower-index>/_resume
+POST /_plugins/_replication/{follower-index}/_resume
 {}
 ```
 
@@ -127,7 +127,7 @@ Gets the status of index replication. Possible statuses are `SYNCING`, `BOOTSTRA
 #### Request
 
 ```json
-GET /_plugins/_replication/<follower-index>/_status
+GET /_plugins/_replication/{follower-index}/_status
 ```
 
 #### Example response
@@ -301,7 +301,7 @@ Updates settings on the follower index.
 #### Request
 
 ```json
-PUT /_plugins/_replication/<follower-index>/_update
+PUT /_plugins/_replication/{follower-index}/_update
 {
    "settings":{
       "index.number_of_shards": 4,

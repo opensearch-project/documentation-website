@@ -19,7 +19,7 @@ For information about user access for this API, see [Model access control consid
 ## Endpoints
 
 ```json
-DELETE /_plugins/_ml/models/<model_id>
+DELETE /_plugins/_ml/models/{model_id}
 ```
 
 ## Example request

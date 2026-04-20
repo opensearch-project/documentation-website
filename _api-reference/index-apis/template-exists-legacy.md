@@ -19,7 +19,7 @@ The template exists API operation is used to verify whether one or more index te
 ## Endpoints
 
 ```json
-HEAD /_template/<template-name>
+HEAD /_template/{template-name}
 ```
 
 ## Path parameters

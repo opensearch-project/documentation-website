@@ -803,7 +803,7 @@ GET _tasks?detailed=true&actions=*/delete/byquery
 The response includes the status of all running delete by query operations. To retrieve the status of a specific task, use the task ID:
 
 ```json
-GET _tasks/<task_id>
+GET _tasks/{task_id}
 ```
 {% include copy-curl.html %}
 
@@ -840,7 +840,7 @@ The `total` field represents the total number of operations that the delete by q
 To change the throttling of a running delete by query operation, use the Rethrottle API with the task ID:
 
 ```json
-POST _delete_by_query/<task_id>/_rethrottle?requests_per_second=100
+POST _delete_by_query/{task_id}/_rethrottle?requests_per_second=100
 ```
 {% include copy-curl.html %}
 
@@ -851,7 +851,7 @@ Set `requests_per_second` to any positive decimal value or `-1` to disable throt
 To cancel a running delete by query operation, use the task cancel API:
 
 ```json
-POST _tasks/<task_id>/_cancel
+POST _tasks/{task_id}/_cancel
 ```
 {% include copy-curl.html %}
 

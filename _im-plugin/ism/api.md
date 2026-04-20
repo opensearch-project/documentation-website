@@ -663,7 +663,7 @@ You can use the `POST` method with the Explain API to filter the results based o
 #### Endpoints
 
 ```
-POST _plugins/_ism/explain/<index>
+POST _plugins/_ism/explain/{index}
 ```
 
 #### Request body

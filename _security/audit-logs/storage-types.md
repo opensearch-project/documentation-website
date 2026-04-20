@@ -15,12 +15,12 @@ Audit logs can take up quite a bit of space, so the Security plugin offers sever
 
 Setting | Description
 :--- | :---
-debug | Outputs to stdout. Useful for testing and debugging.
-internal_opensearch | Writes to an audit index on the current OpenSearch cluster.
-internal_opensearch_data_stream | Writes to an audit log data stream on the current OpenSearch cluster.
-external_opensearch | Writes to an audit index on a remote OpenSearch cluster.
-webhook | Sends events to an arbitrary HTTP endpoint.
-log4j | Writes the events to a Log4j logger. You can use any Log4j [appender](https://logging.apache.org/log4j/2.x/manual/appenders.html), such as SNMP, JDBC, Cassandra, and Kafka.
+`debug` | Outputs to stdout. Useful for testing and debugging.
+`internal_opensearch` | Writes to an audit index on the current OpenSearch cluster.
+`internal_opensearch_data_stream` | Writes to an audit log data stream on the current OpenSearch cluster.
+`external_opensearch` | Writes to an audit index on a remote OpenSearch cluster.
+`webhook` | Sends events to an arbitrary HTTP endpoint.
+`log4j` | Writes the events to a Log4j logger. You can use any Log4j [appender](https://logging.apache.org/log4j/2.x/manual/appenders.html), such as SNMP, JDBC, Cassandra, and Kafka.
 
 You configure the output location in `opensearch.yml`:
 

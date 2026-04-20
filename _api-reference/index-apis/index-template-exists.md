@@ -16,7 +16,7 @@ The index template exists API operation is used to verify whether an index templ
 ## Endpoints
 
 ```json
-HEAD /_index_template/<template-name>
+HEAD /_index_template/{template-name}
 ```
 
 ## Path parameters

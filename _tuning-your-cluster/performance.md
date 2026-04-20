@@ -33,7 +33,7 @@ An increased `index.translog.flush_threshold_size` can also increase the time th
 Before increasing `index.translog.flush_threshold_size`, call the following API operation to get current flush operation statistics:
 
 ```json
-GET /<index>/_stats/flush?pretty
+GET /{index}/_stats/flush?pretty
 ```
 {% include copy-curl.html %}
 
@@ -51,7 +51,7 @@ In the output, note the number of flushes and the total time. The following exam
 To increase the flush threshold size, call the following API operation:
 
 ```json
-PUT /<index>/_settings 
+PUT /{index}/_settings 
 {
   "index":
   {
@@ -69,7 +69,7 @@ Choose the appropriate threshold size for your cluster.
 Run the stats API operation again to see whether the flush activity changed:
 
 ```json
-GET /<index>/_stats/flush
+GET /{index}/_stats/flush
 ```
 {% include copy-curl.html %}
 

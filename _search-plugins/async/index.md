@@ -122,7 +122,7 @@ Introduced 1.0
 After you submit an asynchronous search request, you can request partial responses with the ID that you see in the asynchronous search response.
 
 ```json
-GET _plugins/_asynchronous_search/<ID>?pretty
+GET _plugins/_asynchronous_search/{ID}?pretty
 ```
 
 #### Example response
@@ -199,7 +199,7 @@ Introduced 1.0
 To delete an asynchronous search:
 
 ```
-DELETE _plugins/_asynchronous_search/<ID>?pretty
+DELETE _plugins/_asynchronous_search/{ID}?pretty
 ```
 
 - If the search is still running, OpenSearch cancels it.

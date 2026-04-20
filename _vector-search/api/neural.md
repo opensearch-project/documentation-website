@@ -33,9 +33,9 @@ To disable statistics collection, set the cluster setting to `false`. When disab
 
 ```json
 GET /_plugins/_neural/stats
-GET /_plugins/_neural/stats/<stats>
-GET /_plugins/_neural/<nodes>/stats
-GET /_plugins/_neural/<nodes>/stats/<stats>
+GET /_plugins/_neural/stats/{stats}
+GET /_plugins/_neural/{nodes}/stats
+GET /_plugins/_neural/{nodes}/stats/{stats}
 ```
 
 ### Path parameters
@@ -436,7 +436,7 @@ This API operation only works with sparse indexes (indexes created with `index.s
 ### Endpoints
 
 ```json
-POST /_plugins/_neural/warmup/<index>
+POST /_plugins/_neural/warmup/{index}
 ```
 
 ### Path parameters
@@ -522,7 +522,7 @@ This API operation only works with sparse indexes (indexes created with `index.s
 ### Endpoints
 
 ```json
-POST /_plugins/_neural/clear_cache/<index>
+POST /_plugins/_neural/clear_cache/{index}
 ```
 
 ### Path parameters

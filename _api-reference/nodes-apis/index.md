@@ -33,7 +33,7 @@ table th:nth-of-type(3) {
 
 Parameter | Type   | Description
 :--- |:-------| :---
-`<node-filters>` | String | A comma-separated list of resolution mechanisms that OpenSearch uses to identify cluster nodes.
+`node-filters` | String | A comma-separated list of resolution mechanisms that OpenSearch uses to identify cluster nodes.
 
 Node filters support several node resolution mechanisms:
 

@@ -216,7 +216,7 @@ The order of monitor IDs in the Painless script does not define the execution se
 This API retrieves information on the specified monitor.
 
 ```json
-GET _plugins/_alerting/workflows/<workflow_id>
+GET _plugins/_alerting/workflows/{workflow_id}
 ```
 {% include copy-curl.html %}
 
@@ -234,7 +234,7 @@ This API updates the composite monitor's details. See [Create Composite Monitor]
 #### Example request
 
 ```json
-PUT _plugins/_alerting/workflows/<workflow_id>
+PUT _plugins/_alerting/workflows/{workflow_id}
 {
     "owner": "security_analytics",
     "type": "workflow",
@@ -274,7 +274,7 @@ PUT _plugins/_alerting/workflows/<workflow_id>
 ### Delete Composite Monitor
 
 ```json
-DELETE _plugins/_alerting/workflows/<workflow_id>
+DELETE _plugins/_alerting/workflows/{workflow_id}
 ```
 {% include copy-curl.html %}
 
@@ -284,7 +284,7 @@ DELETE _plugins/_alerting/workflows/<workflow_id>
 This API begins the workflow execution for a composite monitor:
 
 ```json
-POST /_plugins/_alerting/workflows/<workflow_id>/_execute
+POST /_plugins/_alerting/workflows/{workflow_id}/_execute
 ```
 {% include copy-curl.html %}
 
@@ -390,7 +390,7 @@ POST /_plugins/_alerting/workflows/<workflow_id>/_execute
 This API returns an array of chained alerts generated in composite monitor workflows:
 
 ```json
-GET /_plugins/_alerting/workflows/alerts?workflowIds=<workflow_ids>&getAssociatedAlerts=true
+GET /_plugins/_alerting/workflows/alerts?workflowIds={workflow_ids}&getAssociatedAlerts=true
 ```
 
 #### Query parameters
@@ -540,7 +540,7 @@ GET /_plugins/_alerting/workflows/alerts?workflowIds=<workflow_ids>&getAssociate
 [After getting your alerts](#get-chained-alerts), you can acknowledge multiple active alerts in one call. If the alert is already in an ERROR, COMPLETED, or ACKNOWLEDGED state, it appears in the failed array.
 
 ```json
-POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
+POST _plugins/_alerting/workflows/{workflow_id}/_acknowledge/alerts
 {
     "alerts": ["eQURa3gBKo1jAh6qUo49"]
 }

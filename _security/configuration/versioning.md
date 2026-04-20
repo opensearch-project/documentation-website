@@ -47,9 +47,9 @@ After modifying `opensearch.yml`, restart your OpenSearch cluster for the change
 
 ```json
 GET /_plugins/_security/api/versions
-GET /_plugins/_security/api/version/<version_id>
+GET /_plugins/_security/api/version/{version_id}
 POST /_plugins/_security/api/version/rollback
-POST /_plugins/_security/api/version/rollback/<version_id>
+POST /_plugins/_security/api/version/rollback/{version_id}
 ```
 
 ## Path parameters
@@ -67,7 +67,7 @@ Use this endpoint to retrieve the complete security configuration for a specifie
 ### Endpoint
 
 ```json
-GET /_plugins/_security/api/version/<version_id>
+GET /_plugins/_security/api/version/{version_id}
 ```
 
 ### Example request
@@ -190,7 +190,7 @@ Use this endpoint to restore the security configuration to a specified version.
 ### Endpoint
 
 ```json
-POST /_plugins/_security/api/version/rollback/<version_id>
+POST /_plugins/_security/api/version/rollback/{version_id}
 ```
 
 ### Example request

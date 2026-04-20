@@ -20,7 +20,7 @@ The get template API operation is used to retrieve one or more index templates c
 
 ```json
 GET /_template
-GET /_template/<template-name>
+GET /_template/{template-name}
 ```
 
 ## Path parameters

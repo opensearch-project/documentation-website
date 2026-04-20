@@ -17,7 +17,7 @@ To prevent data loss, resources created using the `create_index`, `create_search
 ## Endpoints
 
 ```json
-POST /_plugins/_flow_framework/workflow/<workflow_id>/_deprovision
+POST /_plugins/_flow_framework/workflow/{workflow_id}/_deprovision
 ``` 
 
 ## Path parameters

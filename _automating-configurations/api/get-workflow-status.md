@@ -13,7 +13,7 @@ canonical_url: https://docs.opensearch.org/latest/automating-configurations/api/
 ## Endpoints
 
 ```json
-GET /_plugins/_flow_framework/workflow/<workflow_id>/_status
+GET /_plugins/_flow_framework/workflow/{workflow_id}/_status
 ``` 
 
 ## Path parameters

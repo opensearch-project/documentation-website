@@ -181,8 +181,8 @@ You can specify the following parameters for the filter context in the `context_
 
 Parameter | Description
 :--- | :---
-document | The document that is indexed in memory temporarily and available to the script.
-index | The name of the index that contains a mapping for the document.
+`document` | The document that is indexed in memory temporarily and available to the script.
+`index` | The name of the index that contains a mapping for the document.
 
 For example, first create an index with a mapping for a test document:
 
@@ -293,9 +293,9 @@ You can specify the following parameters for the score context in the `context_s
 
 Parameter | Description
 :--- | :---
-document | The document that is indexed in memory temporarily and available to the script.
-index | The name of the index that contains a mapping for the document.
-query | If the script uses the `_score` parameter, the query can specify to use the `_score` field to compute the score.
+`document` | The document that is indexed in memory temporarily and available to the script.
+`index` | The name of the index that contains a mapping for the document.
+`query` | If the script uses the `_score` parameter, the query can specify to use the `_score` field to compute the score.
 
 For example, first create an index with a mapping for a test document:
 
