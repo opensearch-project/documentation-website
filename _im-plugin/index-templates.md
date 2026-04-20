@@ -126,7 +126,7 @@ GET _index_template/daily*
 To check if a specific template exists:
 
 ```json
-HEAD _index_template/<name>
+HEAD _index_template/{name}
 ```
 
 ### Configure multiple templates

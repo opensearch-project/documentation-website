@@ -207,7 +207,7 @@ You can verify that the agents were created successfully by calling the agents w
 To test the alert summary agent, send the following request:
 
 ```json
-POST /_plugins/_ml/agents/<SUMMARY_AGENT_ID>/_execute
+POST /_plugins/_ml/agents/{SUMMARY_AGENT_ID}/_execute
 { 
   "parameters": {
     "question": "Please summarize this alert, do not use any tool.",
@@ -220,7 +220,7 @@ POST /_plugins/_ml/agents/<SUMMARY_AGENT_ID>/_execute
 To test the alert summary with log patterns agent, send the following request:
 
 ```json
-POST /_plugins/_ml/agents/<SUMMARY_WITH_LOG_PATTERNS_AGENT_ID>/_execute
+POST /_plugins/_ml/agents/{SUMMARY_WITH_LOG_PATTERNS_AGENT_ID}/_execute
 { 
   "parameters": {
     "question": "Please summarize this alert, do not use any tool.",
@@ -234,7 +234,7 @@ POST /_plugins/_ml/agents/<SUMMARY_WITH_LOG_PATTERNS_AGENT_ID>/_execute
 To test the alert insights agent, send the following request:
 
 ```json
-POST /_plugins/_ml/agents/<ALERT_INSIGHTS_AGENT_ID>/_execute
+POST /_plugins/_ml/agents/{ALERT_INSIGHTS_AGENT_ID}/_execute
 { 
   "parameters": {
     "question": "Please provide your insight on this alerts.",

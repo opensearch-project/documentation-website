@@ -231,7 +231,7 @@ The response contains the agent ID:
 Invoke the registered agent by calling the Execute Agent API and providing a user question:
 
 ```json
-POST /_plugins/_ml/agents/<Agent_ID>/_execute
+POST /_plugins/_ml/agents/{Agent_ID}/_execute
 {
   "parameters": {
     "question": "Any weather alerts in Washington",

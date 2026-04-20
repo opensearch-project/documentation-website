@@ -28,8 +28,8 @@ You must provide the `seq_no` and `primary_term` parameters.
 #### Request
 
 ```json
-PUT _plugins/_rollup/jobs/<rollup_id> // Create
-PUT _plugins/_rollup/jobs/<rollup_id>?if_seq_no=1&if_primary_term=1 // Update
+PUT _plugins/_rollup/jobs/{rollup_id} // Create
+PUT _plugins/_rollup/jobs/{rollup_id}?if_seq_no=1&if_primary_term=1 // Update
 {
   "rollup": {
     "source_index": "nyc-taxi-data",
@@ -201,7 +201,7 @@ Returns all information about an index rollup job based on the `rollup_id`.
 #### Request
 
 ```json
-GET _plugins/_rollup/jobs/<rollup_id>
+GET _plugins/_rollup/jobs/{rollup_id}
 ```
 
 
@@ -228,7 +228,7 @@ Deletes an index rollup job based on the `rollup_id`.
 #### Request
 
 ```json
-DELETE _plugins/_rollup/jobs/<rollup_id>
+DELETE _plugins/_rollup/jobs/{rollup_id}
 ```
 
 #### Example response
@@ -249,8 +249,8 @@ Start or stop an index rollup job.
 #### Request
 
 ```json
-POST _plugins/_rollup/jobs/<rollup_id>/_start
-POST _plugins/_rollup/jobs/<rollup_id>/_stop
+POST _plugins/_rollup/jobs/{rollup_id}/_start
+POST _plugins/_rollup/jobs/{rollup_id}/_stop
 ```
 
 
@@ -272,7 +272,7 @@ Returns metadata information about the index rollup job.
 #### Request
 
 ```json
-GET _plugins/_rollup/jobs/<rollup_id>/_explain
+GET _plugins/_rollup/jobs/{rollup_id}/_explain
 ```
 
 

@@ -19,7 +19,7 @@ Use this API to delete a memory by type and ID.
 ### Endpoints
 
 ```json
-DELETE /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id>
+DELETE /_plugins/_ml/memory_containers/{memory_container_id}/memories/{type}/{id}
 ```
 
 ### Path parameters
@@ -93,7 +93,7 @@ Use this API to delete multiple memories using a query to match specific criteri
 ### Endpoints
 
 ```json
-POST /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/_delete_by_query
+POST /_plugins/_ml/memory_containers/{memory_container_id}/memories/{type}/_delete_by_query
 ```
 
 ### Path parameters

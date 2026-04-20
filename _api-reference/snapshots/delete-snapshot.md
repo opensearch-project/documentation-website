@@ -22,15 +22,15 @@ Deleting a snapshot that is in progress stops the snapshot operation and deletes
 ## Path and HTTP method
 
 ```json
-DELETE _snapshot/<repository>/<snapshot>
+DELETE _snapshot/{repository}/{snapshot}
 ```
 
 ## Path parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
-repository | String | Repository that contains the snapshot. |
-snapshot | String | Snapshot to delete. |
+`repository` | String | Repository that contains the snapshot. |
+`snapshot` | String | Snapshot to delete. |
 
 ## Example request
 

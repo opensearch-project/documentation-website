@@ -22,7 +22,7 @@ For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml
 ## Path and HTTP method
 
 ```json
-GET /_plugins/_ml/model_groups/<model_group_id>
+GET /_plugins/_ml/model_groups/{model_group_id}
 ```
 
 ### Example request
@@ -30,7 +30,7 @@ GET /_plugins/_ml/model_groups/<model_group_id>
 The following example request gets a model group based on that group's ID:
 
 ```json
-GET /_plugins/_ml/model_groups/<model_group_id>
+GET /_plugins/_ml/model_groups/{model_group_id}
 ```
 {% include copy-curl.html %}
 
