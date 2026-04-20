@@ -18,14 +18,14 @@ To learn more about repositories, see [Register or update snapshot repository]({
 ## Endpoints
 
 ```json
-DELETE _snapshot/<repository>
+DELETE _snapshot/{repository}
 ```
 
 ## Path parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
-repository | String | Repository to delete. |
+`repository` | String | Repository to delete. |
 
 ## Example request
 

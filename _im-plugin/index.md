@@ -29,7 +29,7 @@ In OpenSearch, the basic unit of data is a JSON *document*. Within an index, Ope
 A request sent to the Index API appears as follows:
 
 ```json
-PUT <index>/_doc/<id>
+PUT {index}/_doc/{id}
 { "A JSON": "document" }
 ```
 
@@ -161,7 +161,7 @@ GET _mget
 To check if a document exists:
 
 ```json
-HEAD movies/_doc/<doc-id>
+HEAD movies/_doc/{doc-id}
 ```
 
 If the document exists, you get back a `200 OK` response, and if it doesn't, you get back a `404 - Not Found` error.

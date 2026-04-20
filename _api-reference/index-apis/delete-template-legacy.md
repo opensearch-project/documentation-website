@@ -20,7 +20,7 @@ The delete template API operation deletes an index template created using the le
 ## Endpoints
 
 ```json
-DELETE /_template/<template-name>
+DELETE /_template/{template-name}
 ```
 
 ## Path parameters

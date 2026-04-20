@@ -16,7 +16,7 @@ For example, adding a `write` block through the API ensures that all index shard
 ## Endpoints
 
 ```json
-PUT /<index>/_block/<block>
+PUT /{index}/_block/{block}
 ```
 
 ## Path parameters

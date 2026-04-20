@@ -170,14 +170,14 @@ POST /_plugins/_flow_framework/workflow
 Use the workflow ID returned in the response to provision the resources:
 
 ```json
-POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision
+POST /_plugins/_flow_framework/workflow/{workflow_id}/_provision
 ```
 {% include copy-curl.html %}
 
 To view the status of the workflow and all created resources, send the following request:
 
 ```json
-GET /_plugins/_flow_framework/workflow/<workflow_id>/_status
+GET /_plugins/_flow_framework/workflow/{workflow_id}/_status
 ```
 {% include copy-curl.html %}
 
@@ -217,7 +217,7 @@ This example demonstrates a system index. In security-enabled domains, only supe
 You can verify that the agent was created successfully by calling the agent with an example payload:
 
 ```json
-POST /_plugins/_ml/agents/<ROOT_AGENT_ID>/_execute
+POST /_plugins/_ml/agents/{ROOT_AGENT_ID}/_execute
 {
   "parameters": {
     "input_question": "find unique visitors and average bytes every 3 hours",

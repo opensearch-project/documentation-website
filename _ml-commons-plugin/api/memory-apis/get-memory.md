@@ -32,7 +32,7 @@ You can retrieve memory information by using the `memory_id`. The response inclu
 ### Endpoints
 
 ```json
-GET /_plugins/_ml/memory/<memory_id>
+GET /_plugins/_ml/memory/{memory_id}
 ```
 ### Path parameters
 

@@ -19,7 +19,7 @@ If you use the Security plugin, you must have the `manage index` privileges.
 ## Endpoints
 
 ```json
-POST /<target>/_cache/clear
+POST /{target}/_cache/clear
 ```
 
 ## Path parameters

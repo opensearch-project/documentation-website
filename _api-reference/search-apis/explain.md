@@ -29,16 +29,16 @@ To use search pipeline processors with `explain`, provide the `explain=true` que
 ## Endpoints
 
 ```json
-GET <index>/_explain/<id>
-POST <index>/_explain/<id>
+GET {index}/_explain/{id}
+POST {index}/_explain/{id}
 ```
 
 ## Path parameters
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
-`<index>` | String | Name of the index. You can only specify a single index. | Yes
-`<id>` | String | A unique identifier to attach to the document. | Yes
+`index` | String | Name of the index. You can only specify a single index. | Yes
+`id` | String | A unique identifier to attach to the document. | Yes
 
 ## Query parameters
 

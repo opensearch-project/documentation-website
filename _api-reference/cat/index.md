@@ -138,7 +138,7 @@ sample-alias1 sample-index-1 - - - -
 To see all the available headers, use the `help` parameter:
 
 ```
-GET _cat/<operation_name>?help
+GET _cat/{operation_name}?help
 ```
 
 For example, to see the available headers for the CAT aliases operation, send the following request:
@@ -181,7 +181,7 @@ is_write_index | w,isWriteIndex   | write index
 To limit the output to a subset of headers, use the `h` parameter:
 
 ```
-GET _cat/<operation_name>?h=<header_name_1>,<header_name_2>&v
+GET _cat/{operation_name}?h={header_name_1},{header_name_2}&v
 ```
 
 For example, to limit aliases to only the alias name and index, send the following request:
@@ -222,7 +222,7 @@ Typically, for any operation you can find out what headers are available using t
 To sort the output by a header, use the `s` parameter:
 
 ```json
-GET _cat/<operation_name>?s=<header_name_1>,<header_name_2>
+GET _cat/{operation_name}?s={header_name_1},{header_name_2}
 ```
 
 For example, to sort aliases by alias and then index, send the following request:
@@ -263,7 +263,7 @@ By default, CAT APIs return data in `text/plain` format.
 To retrieve data in JSON format, use the `format=json` parameter:
 
 ```json
-GET _cat/<operation_name>?format=json
+GET _cat/{operation_name}?format=json
 ```
 
 For example, to retrieve aliases in JSON format, send the following request:

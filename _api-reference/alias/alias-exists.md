@@ -15,8 +15,8 @@ Checks if an alias exists.
 ## Endpoints
 
 ```json
-HEAD /_alias/<alias>
-HEAD /<index>/_alias/<alias>
+HEAD /_alias/{alias}
+HEAD /{index}/_alias/{alias}
 ```
 
 ## Path parameters

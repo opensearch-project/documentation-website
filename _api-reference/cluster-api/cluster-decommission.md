@@ -30,8 +30,8 @@ DELETE /_cluster/decommission/awareness
 
 Parameter | Type | Description
 :--- | :--- | :---
-awareness_attribute_name | String | The name of awareness attribute, usually `zone`.
-awareness_attribute_value | String | The value of the awareness attribute. For example, if you have shards allocated in two different zones, you can give each zone a value of `zone-a` or `zoneb`. The cluster decommission operation decommissions the zone listed in the method.
+`awareness_attribute_name` | String | The name of awareness attribute, usually `zone`.
+`awareness_attribute_value` | String | The value of the awareness attribute. For example, if you have shards allocated in two different zones, you can give each zone a value of `zone-a` or `zoneb`. The cluster decommission operation decommissions the zone listed in the method.
 
 ## Example requests
 

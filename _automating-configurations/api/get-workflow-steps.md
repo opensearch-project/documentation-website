@@ -31,7 +31,7 @@ This API returns a list of workflow steps, including their required inputs, outp
 
 ```json
 GET /_plugins/_flow_framework/workflow/_steps
-GET /_plugins/_flow_framework/workflow/_steps?workflow_step=<step_name>
+GET /_plugins/_flow_framework/workflow/_steps?workflow_step={step_name}
 ``` 
 
 ## Query parameters

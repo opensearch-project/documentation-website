@@ -22,7 +22,7 @@ The following request requires response values to be in human-readable format:
 
 ```json
 
-GET <index_name>/_search?human=true
+GET {index_name}/_search?human=true
 ```
 
 ## Pretty result
@@ -35,7 +35,7 @@ The following request requires the response to be displayed in pretty JSON forma
 
 ```json
 
-GET <index_name>/_search?pretty=true
+GET {index_name}/_search?pretty=true
 ```
 
 ## Content type
@@ -75,7 +75,7 @@ The following request sets `error_trace` to `true` so that the response returns 
 
 ```json
 
-GET <index_name>/_search?error_trace=true
+GET {index_name}/_search?error_trace=true
 ```
 
 ## Filtered responses
@@ -88,7 +88,7 @@ The following request specifies filters to limit the fields returned in the resp
 
 ```json
 
-GET _search?filter_path=<field_name>.*,-<field_name>
+GET _search?filter_path={field_name}.*,-{field_name}
 ```
 
 ## Units

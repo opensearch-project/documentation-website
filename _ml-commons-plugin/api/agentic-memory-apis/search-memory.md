@@ -15,7 +15,7 @@ Use this API to search for memories of a specific type within a memory container
 ## Endpoints
 
 ```json
-GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/_search
+GET /_plugins/_ml/memory_containers/{memory_container_id}/memories/{type}/_search
 ```
 
 ## Path parameters

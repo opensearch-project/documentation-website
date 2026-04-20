@@ -18,7 +18,7 @@ You can use the Validate Query API to validate a query without running it. The q
 The Validate Query API contains the following path:
 
 ```json
-GET <index>/_validate/query
+GET {index}/_validate/query
 ```
 
 ## Path parameters
@@ -38,7 +38,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `all_shards` | Boolean | When `true`, validation is run against [all shards](#rewrite-and-all_shards) instead of against one shard per index. Default is `false`.
 `allow_no_indices` | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`.
-allow_partial_search_results | Boolean | Whether to return partial results if the request encounters an error or times out. Default is `true`.
+`allow_partial_search_results` | Boolean | Whether to return partial results if the request encounters an error or times out. Default is `true`.
 `analyzer` | String | The analyzer to use in the query string. This should only be used with the `q` option.
 `analyze_wildcard` | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is `false`. 
 `default_operator` | String | Indicates whether the default operator for a string query should be `AND` or `OR`. Default is `OR`.

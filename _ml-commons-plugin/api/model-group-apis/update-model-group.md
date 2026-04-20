@@ -21,7 +21,7 @@ For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml
 ## Path and HTTP method
 
 ```json
-PUT /_plugins/_ml/model_groups/<model_group_id>
+PUT /_plugins/_ml/model_groups/{model_group_id}
 ```
 
 ## Request body fields
@@ -31,7 +31,7 @@ Refer to [Request fields](#request-body-fields) for request field descriptions.
 ## Example request
 
 ```json
-PUT /_plugins/_ml/model_groups/<model_group_id>
+PUT /_plugins/_ml/model_groups/{model_group_id}
 {
     "name": "model_group_test",
     "description": "This is the updated description",

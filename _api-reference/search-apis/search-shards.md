@@ -15,9 +15,9 @@ The `_search_shards` API provides information about which shards OpenSearch woul
 
 ```json
 GET /_search_shards
-GET /<index>/_search_shards
+GET /{index}/_search_shards
 POST /_search_shards
-POST /<index>/_search_shards
+POST /{index}/_search_shards
 ```
 
 ## Path parameters

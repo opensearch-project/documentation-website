@@ -16,7 +16,7 @@ When a workflow is deleted, its corresponding status (returned by the [Workflow 
 ## Endpoints
 
 ```json
-DELETE /_plugins/_flow_framework/workflow/<workflow_id>
+DELETE /_plugins/_flow_framework/workflow/{workflow_id}
 ``` 
 
 ## Path parameters

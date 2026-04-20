@@ -17,7 +17,7 @@ You can only provision a workflow if it has not yet been provisioned. Deprovisio
 ## Endpoints
 
 ```json
-POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision
+POST /_plugins/_flow_framework/workflow/{workflow_id}/_provision
 ```
 
 ## Path parameters
@@ -33,7 +33,7 @@ The following table lists the available path parameters.
 If you have included a substitution expression in the template, you may pass it as a query parameter or as a string value of a request body field. For example, if you specified a credential field in a template as {% raw %}`openAI_key: '${{ openai_key }}'`{% endraw %}, then you can include the `openai_key` parameter as a query parameter or body field so it can be substituted during provisioning. For example, the following request provides a query parameter:
 
 ```json
-POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision?<parameter>=<value>
+POST /_plugins/_flow_framework/workflow/{workflow_id}/_provision?{parameter}={value}
 ```
 
 | Parameter | Data type | Description |
@@ -51,7 +51,7 @@ POST /_plugins/_flow_framework/workflow/8xL8bowB8y25Tqfenm50/_provision
 The following request performs a synchronous provisioning call, waiting for up to 2 seconds for completion:
 
 ```json
-POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision?wait_for_completion_timeout=2s
+POST /_plugins/_flow_framework/workflow/{workflow_id}/_provision?wait_for_completion_timeout=2s
 ```
 {% include copy-curl.html %}
 

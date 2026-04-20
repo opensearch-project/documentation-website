@@ -19,7 +19,7 @@ If you use the Security plugin, you must have the `manage cluster` privilege.
 ## Endpoints
 
 ```json
-GET _snapshot/<repository>/
+GET _snapshot/{repository}/
 ```
 
 ## Path parameters

@@ -57,7 +57,7 @@ You can retrieve or delete configurations using the following APIs.
 
 ```json
 GET _plugins/_search_relevance/search_configurations
-GET _plugins/_search_relevance/search_configurations/<search_configuration_id>
+GET _plugins/_search_relevance/search_configurations/{search_configuration_id}
 ```
 {% include copy-curl.html %}
 
@@ -117,7 +117,7 @@ You can delete a search configuration using the search configuration ID.
 #### Endpoint
 
 ```json
-DELETE _plugins/_search_relevance/search_configurations/<search_configuration_id>
+DELETE _plugins/_search_relevance/search_configurations/{search_configuration_id}
 ```
 
 #### Example request

@@ -93,7 +93,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 This API returns a `task_id` for the deployment operation. Use the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) to monitor the deployment status:
 
 ```json
-GET /_plugins/_ml/tasks/<your-task-id>
+GET /_plugins/_ml/tasks/{your-task-id}
 ```
 {% include copy-curl.html %}
 

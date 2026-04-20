@@ -13,7 +13,7 @@ This API retrieves a connector by its ID.
 ### Endpoints
 
 ```json
-GET /_plugins/_ml/connectors/<connector_id>
+GET /_plugins/_ml/connectors/{connector_id}
 ```
 
 ## Example request

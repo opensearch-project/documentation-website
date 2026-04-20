@@ -15,7 +15,7 @@ Use this API to delete a controller for a model based on the `model_id`.
 ## Endpoints
 
 ```json
-DELETE /_plugins/_ml/controllers/<model_id>
+DELETE /_plugins/_ml/controllers/{model_id}
 ```
 
 ## Path parameters

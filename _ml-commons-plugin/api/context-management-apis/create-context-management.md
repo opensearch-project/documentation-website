@@ -15,7 +15,7 @@ Use this API to configure [context management]({{site.url}}{{site.baseurl}}/ml-c
 ## Endpoints
 
 ```json
-POST /_plugins/_ml/context_management/<context_management_name>
+POST /_plugins/_ml/context_management/{context_management_name}
 ```
 
 ## Path parameters

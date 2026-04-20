@@ -105,13 +105,13 @@ PUT /plugins/security_analytics/threat_intel/alerts/status
 The following example updates the status of the specified alerts to `ACKNOWLEDGED`:
 
 ```json
-PUT /plugins/security_analytics/threat_intel/alerts/status?state=ACKNOWLEDGED&alert_ids=<alert-id>,<alert-id>
+PUT /plugins/security_analytics/threat_intel/alerts/status?state=ACKNOWLEDGED&alert_ids={alert-id},{alert-id}
 ```
 
 The following example updates the status of the specified alerts to `COMPLETED`:
 
 ```json
-PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert_ids=alert_ids=<alert-id>,<alert-id>
+PUT /plugins/security_analytics/threat_intel/alerts/status?state=COMPLETED&alert_ids=alert_ids={alert-id},{alert-id}
 ```
 
 ### Example response

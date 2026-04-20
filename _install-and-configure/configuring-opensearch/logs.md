@@ -175,7 +175,7 @@ These logs rely on thresholds to define what qualifies as a "slow" search or "sl
 Unlike search request slow logs, shard slow log thresholds are configured for individual shard took time.
 
 ```json
-GET <some-index>/_settings?include_defaults=true
+GET {some-index}/_settings?include_defaults=true
 {
   "indexing": {
     "slowlog": {
@@ -218,7 +218,7 @@ GET <some-index>/_settings?include_defaults=true
 To enable these logs, increase one or more thresholds:
 
 ```json
-PUT <some-index>/_settings
+PUT {some-index}/_settings
 {
   "indexing": {
     "slowlog": {
