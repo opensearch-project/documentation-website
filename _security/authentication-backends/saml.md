@@ -210,11 +210,11 @@ The Security plugin supports the following signature algorithms.
 
 Algorithm | Value
 :--- | :---
-DSA_SHA1 | http://www.w3.org/2000/09/xmldsig#dsa-sha1;
-RSA_SHA1 | http://www.w3.org/2000/09/xmldsig#rsa-sha1;
-RSA_SHA256 | http://www.w3.org/2001/04/xmldsig-more#rsa-sha256;
-RSA_SHA384 | http://www.w3.org/2001/04/xmldsig-more#rsa-sha384;
-RSA_SHA512 | http://www.w3.org/2001/04/xmldsig-more#rsa-sha512;
+`DSA_SHA1` | http://www.w3.org/2000/09/xmldsig#dsa-sha1;
+`RSA_SHA1` | http://www.w3.org/2000/09/xmldsig#rsa-sha1;
+`RSA_SHA256` | http://www.w3.org/2001/04/xmldsig-more#rsa-sha256;
+`RSA_SHA384` | http://www.w3.org/2001/04/xmldsig-more#rsa-sha384;
+`RSA_SHA512` | http://www.w3.org/2001/04/xmldsig-more#rsa-sha512;
 
 
 ## Logout

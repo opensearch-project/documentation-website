@@ -12,7 +12,7 @@ nav_order: 40
 ## Endpoints
 
 ```json
-GET /_plugins/_flow_framework/workflow/<workflow_id>/_status
+GET /_plugins/_flow_framework/workflow/{workflow_id}/_status
 ``` 
 
 ## Path parameters

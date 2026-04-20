@@ -21,8 +21,8 @@ To make the index read-only, set the [dynamic index-level index setting]({{site.
 ## Endpoints
 
 ```json
-POST /<index-name>/_shrink/<target-index>
-PUT /<index-name>/_shrink/<target-index>
+POST /{index-name}/_shrink/{target-index}
+PUT /{index-name}/_shrink/{target-index}
 ```
 
 When creating new indexes with this operation, remember that OpenSearch indexes have the following naming restrictions:
@@ -46,11 +46,11 @@ The shrink index API operation requires you to specify both the source index and
 
 Parameter | Type | description
 :--- | :--- | :---
-wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to all or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
-cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-timeout | Time | How long to wait for the request to return a response. Default is `30s`.
-wait_for_completion | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
-task_execution_timeout | Time | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`.
+`wait_for_active_shards` | String | Specifies the number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to all or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
+`cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
+`timeout` | Time | How long to wait for the request to return a response. Default is `30s`.
+`wait_for_completion` | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
+`task_execution_timeout` | Time | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`.
 
 ## Request body fields
 
@@ -58,8 +58,8 @@ You can use the request body to configure some index settings for the target ind
 
 Field | Type | Description
 :--- | :--- | :---
-alias | Object | Sets an alias for the target index. Can have the fields `filter`, `index_routing`, `is_hidden`, `is_write_index`, `routing`, or `search_routing`. See [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/).
-settings | Object | Index settings you can apply to your target index. See [Index Settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/).
+`alias` | Object | Sets an alias for the target index. Can have the fields `filter`, `index_routing`, `is_hidden`, `is_write_index`, `routing`, or `search_routing`. See [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/).
+`settings` | Object | Index settings you can apply to your target index. See [Index Settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/).
 [max_shard_size](#the-max_shard_size-parameter) | Bytes | Specifies the maximum size of a primary shard in the target index. Because `max_shard_size` conflicts with the `index.number_of_shards` setting, you cannot set both of them at the same time. 
 
 ### The `max_shard_size` parameter

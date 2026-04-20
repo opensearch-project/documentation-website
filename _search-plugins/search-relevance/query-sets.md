@@ -129,7 +129,7 @@ This API retrieves available query sets.
 
 ```json
 GET _plugins/_search_relevance/query_sets
-GET _plugins/_search_relevance/query_sets/<query_set_id>
+GET _plugins/_search_relevance/query_sets/{query_set_id}
 ```
 {% include copy-curl.html %}
 
@@ -195,7 +195,7 @@ You can delete a query set using the query set ID.
 #### Endpoint
 
 ```json
-DELETE _plugins/_search_relevance/query_sets/<query_set_id>
+DELETE _plugins/_search_relevance/query_sets/{query_set_id}
 ```
 
 #### Example request

@@ -15,7 +15,7 @@ Use this API to create a new session in a memory container. Sessions represent d
 ## Path and HTTP methods
 
 ```json
-POST /_plugins/_ml/memory_containers/<memory_container_id>/memories/sessions
+POST /_plugins/_ml/memory_containers/{memory_container_id}/memories/sessions
 ```
 
 ## Path parameters

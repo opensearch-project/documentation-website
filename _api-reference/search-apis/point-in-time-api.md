@@ -32,7 +32,7 @@ Creates a PIT. The `keep_alive` query parameter is required; it specifies how lo
 ### Endpoints
 
 ```json
-POST /<target_indexes>/_search/point_in_time?keep_alive=1h&routing=&expand_wildcards=&preference= 
+POST /{target_indexes}/_search/point_in_time?keep_alive=1h&routing=&expand_wildcards=&preference= 
 ```
 
 ### Path parameters
