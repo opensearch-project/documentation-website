@@ -60,7 +60,7 @@ Parameter | Type | Description | Required
 `q` | String | A query string in [Lucene syntax]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/#query-string-syntax). When used, you can configure query behavior using the `analyzer`, `analyze_wildcard`, `default_operator`, `df`, and `stored_fields` parameters. | No
 `stored_fields` | String | A comma-separated list of stored fields to return. If omitted, only `_source` is returned. | No
 `routing` | String | A value used to route the operation to a specific shard. | No
-`_source` | String | Whether to include the `_source` field in the response body. Default is `true`. | No
+`_source` | String | Whether to include the `_source` field in the response body. Valid values are `true` (include full `_source`), `false` (exclude `_source`), or a comma-separated list of source fields to include in the query response. By default, when not specified, the `_source` field is not returned in the Explain API response. | No
 `_source_excludes` | String | A comma-separated list of source fields to exclude in the query response. | No
 `_source_includes` | String | A comma-separated list of source fields to include in the query response. | No
 
