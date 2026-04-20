@@ -6,7 +6,7 @@ grand_parent: ML Commons APIs
 nav_order: 56
 ---
 
-# Hybrid Search Memory API
+# Hybrid search memory API
 **Introduced 3.6**
 {: .label .label-purple }
 
