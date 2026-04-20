@@ -85,17 +85,17 @@ The following table lists the response fields.
 
 Field | Type | Description
 :--- | :--- | :---
-rca_name | String | The name of the RCA. In this case, "HotShardClusterRca".
-timestamp | Integer | The timestamp of the RCA.
-state | Object | The state of the cluster determined by the RCA. The `state` can be `healthy`, `unhealthy`, or `unknown`.
-HotClusterSummary.HotNodeSummary.number_of_nodes | Integer | The number of nodes in the cluster.
-HotClusterSummary.HotNodeSummary.number_of_unhealthy_nodes | Integer | The number of nodes found to be in an `unhealthy` state.
-HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_type | Object | The type of resource causing the unhealthy state, either "cpu usage" or "heap".
-HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_metric | String | The definition of the resource_type. Either "cpu usage(num of cores)" or "heap alloc rate(heap alloc rate in bytes per second)".
-HotClusterSummary.HotNodeSummary.HotResourceSummary.threshold | Float | The value that determines whether a resource is contended.
-HotClusterSummary.HotNodeSummary.HotResourceSummary.value | Float | The current value of the resource.
-HotClusterSummary.HotNodeSummary.HotResourceSummary.time_period_seconds | Time | The amount of time that a shard was monitored before its state was declared to be healthy or unhealthy.
-HotClusterSummary.HotNodeSummary.HotResourceSummary.meta_data | String | The metadata associated with the resource_type.
+`rca_name` | String | The name of the RCA. In this case, "HotShardClusterRca".
+`timestamp` | Integer | The timestamp of the RCA.
+`state` | Object | The state of the cluster determined by the RCA. The `state` can be `healthy`, `unhealthy`, or `unknown`.
+`HotClusterSummary.HotNodeSummary.number_of_nodes` | Integer | The number of nodes in the cluster.
+`HotClusterSummary.HotNodeSummary.number_of_unhealthy_nodes` | Integer | The number of nodes found to be in an `unhealthy` state.
+`HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_type` | Object | The type of resource causing the unhealthy state, either "cpu usage" or "heap".
+`HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_metric` | String | The definition of the resource_type. Either "cpu usage(num of cores)" or "heap alloc rate(heap alloc rate in bytes per second)".
+`HotClusterSummary.HotNodeSummary.HotResourceSummary.threshold` | Float | The value that determines whether a resource is contended.
+`HotClusterSummary.HotNodeSummary.HotResourceSummary.value` | Float | The current value of the resource.
+`HotClusterSummary.HotNodeSummary.HotResourceSummary.time_period_seconds` | Time | The amount of time that a shard was monitored before its state was declared to be healthy or unhealthy.
+`HotClusterSummary.HotNodeSummary.HotResourceSummary.meta_data` | String | The metadata associated with the resource_type.
 
 In the preceding example response, `meta_data` is `QRF4rBM7SNCDr1g3KU6HyA index9 0`. The `meta_data` string consists of three fields:
 

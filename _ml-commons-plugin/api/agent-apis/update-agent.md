@@ -16,7 +16,7 @@ Use this API to update an existing agent's configuration.
 ## Endpoints
 
 ```json
-PUT /_plugins/_ml/agents/<agent_id>
+PUT /_plugins/_ml/agents/{agent_id}
 ```
 
 ## Path parameters

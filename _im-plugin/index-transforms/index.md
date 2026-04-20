@@ -67,7 +67,7 @@ After confirming your transform job’s details are correct, choose **Create Tra
 Once the transform job finishes, you can use the `_search` API operation to search the target index.
 
 ```json
-GET <target_index>/_search
+GET {target_index}/_search
 ```
 
 For example, after running a transform job that transforms the flight data based on a `DestAirportID` field, you can run the following request that returns all of the fields that have a value of `SFO`.

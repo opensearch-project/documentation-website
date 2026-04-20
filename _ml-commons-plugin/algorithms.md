@@ -674,7 +674,7 @@ To use the metrics correlation algorithm, include the following parameters.
 
 | Parameter | Type | Description | Default value |
 |---|---|---|---|
-metrics | Array | A list of metrics within the time series that can be correlated to anomalous behavior | N/A
+`metrics` | Array | A list of metrics within the time series that can be correlated to anomalous behavior | N/A
 
 ### Input
 

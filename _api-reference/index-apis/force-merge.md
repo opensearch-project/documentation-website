@@ -17,7 +17,7 @@ The force merge API operation forces a merge on the shards of one or more indexe
 
 ```json
 POST /_forcemerge
-POST /<index>/_forcemerge/
+POST /{index}/_forcemerge/
 ```
 
 ## The merge operation

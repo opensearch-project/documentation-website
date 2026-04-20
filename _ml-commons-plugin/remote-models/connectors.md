@@ -285,7 +285,7 @@ In some cases, you may need to update credentials, such as `access_key`, used to
 To update credentials for a connector linked to a specific model, provide the new credentials in the following request:
 
 ```json
-PUT /_plugins/_ml/models/<model_id>
+PUT /_plugins/_ml/models/{model_id}
 {
   "connectors": {
     "credential": {
@@ -301,7 +301,7 @@ PUT /_plugins/_ml/models/<model_id>
 To update credentials for a standalone connector, provide the new credentials in the following request:
 
 ```json
-PUT /_plugins/_ml/connectors/<connector_id>
+PUT /_plugins/_ml/connectors/{connector_id}
 {
   "credential": {
     "openAI_key": "YOUR NEW OPENAI KEY"

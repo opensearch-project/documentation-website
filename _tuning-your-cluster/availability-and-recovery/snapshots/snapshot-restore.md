@@ -515,7 +515,7 @@ Snapshots have the following states:
 State | Description
 :--- | :---
 SUCCESS | The snapshot successfully stored all shards.
-IN_PROGRESS | The snapshot is currently running.
+`IN_PROGRESS` | The snapshot is currently running.
 PARTIAL | At least one shard failed to store successfully. Can only occur if you set `partial` to `true` when taking the snapshot.
 FAILED | The snapshot encountered an error and stored no data.
 INCOMPATIBLE | The snapshot is incompatible with the version of OpenSearch running on this cluster. See [Conflicts and compatibility](#conflicts-and-compatibility).

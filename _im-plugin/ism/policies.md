@@ -659,12 +659,12 @@ The following example policy transitions an index to `search_only` mode after 7 
 #### Endpoints
 
 ````bash
-PUT _plugins/_rollup/jobs/<rollup_id>
-GET _plugins/_rollup/jobs/<rollup_id>
-DELETE _plugins/_rollup/jobs/<rollup_id>
-POST _plugins/_rollup/jobs/<rollup_id>/_start
-POST _plugins/_rollup/jobs/<rollup_id>/_stop
-GET _plugins/_rollup/jobs/<rollup_id>/_explain
+PUT _plugins/_rollup/jobs/{rollup_id}
+GET _plugins/_rollup/jobs/{rollup_id}
+DELETE _plugins/_rollup/jobs/{rollup_id}
+POST _plugins/_rollup/jobs/{rollup_id}/_start
+POST _plugins/_rollup/jobs/{rollup_id}/_stop
+GET _plugins/_rollup/jobs/{rollup_id}/_explain
 ````
 
 #### Sample ISM rollup policy

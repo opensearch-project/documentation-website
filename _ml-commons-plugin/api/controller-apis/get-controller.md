@@ -16,7 +16,7 @@ Use this API to retrieve information about a controller for a model by model ID.
 ### Endpoints
 
 ```json
-GET /_plugins/_ml/controllers/<model_id>
+GET /_plugins/_ml/controllers/{model_id}
 ```
 
 ## Path parameters

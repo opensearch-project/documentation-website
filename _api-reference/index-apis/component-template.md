@@ -22,10 +22,10 @@ Component templates are used solely during the process of index creation. For da
 ## Endpoints
 
 ```json
-PUT _component_template/<component-template-name>
-GET _component_template/<component-template-name>
-DELETE _component_template/<component-template-name>
-HEAD _component_template/<component-template-name>
+PUT _component_template/{component-template-name}
+GET _component_template/{component-template-name}
+DELETE _component_template/{component-template-name}
+HEAD _component_template/{component-template-name}
 ```
 
 - `PUT`: Creates or updates a component template. Accepts both query parameters and a request body.
@@ -57,7 +57,7 @@ Use the PUT operation to create a new component template or update an existing o
 ### Endpoints
 
 ```json
-PUT _component_template/<component-template-name>
+PUT _component_template/{component-template-name}
 ```
 
 ### Request body fields
@@ -310,7 +310,7 @@ Use the GET operation to retrieve one or more component templates and their info
 ### Endpoints
 
 ```
-GET /_component_template/<component-template-name>
+GET /_component_template/{component-template-name}
 GET /_component_template
 ```
 
@@ -402,7 +402,7 @@ Use the DELETE operation to remove a component template from the cluster.
 ### Endpoints
 
 ```
-DELETE _component_template/<component-template-name>
+DELETE _component_template/{component-template-name}
 ```
 
 ### Example request
@@ -436,7 +436,7 @@ Use the HEAD operation to check whether a component template exists without retr
 ### Endpoints
 
 ```
-HEAD _component_template/<component-template-name>
+HEAD _component_template/{component-template-name}
 ```
 
 ### Example request

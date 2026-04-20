@@ -27,8 +27,8 @@ POST _ingest/pipeline/_simulate
 The following requests **simulate a single pipeline based on the pipeline ID**:
 
 ```
-GET _ingest/pipeline/<pipeline-id>/_simulate
-POST _ingest/pipeline/<pipeline-id>/_simulate
+GET _ingest/pipeline/{pipeline-id}/_simulate
+POST _ingest/pipeline/{pipeline-id}/_simulate
 ```
 {% include copy-curl.html %}
 

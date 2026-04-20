@@ -21,16 +21,16 @@ The Create or Update Alias API is distinct from the [Manage aliases API]({{site.
 ## Endpoints
 
 ```json
-POST /<target>/_alias/<alias-name>
-PUT /<target>/_alias/<alias-name>
-POST /_alias/<alias-name>
-PUT /_alias/<alias-name>
-POST /<target>/_aliases/<alias-name>
-PUT /<target>/_aliases/<alias-name>
-POST /_aliases/<alias-name>
-PUT /_aliases/<alias-name>
-PUT /<target>/_alias
-PUT /<target>/_aliases
+POST /{target}/_alias/{alias-name}
+PUT /{target}/_alias/{alias-name}
+POST /_alias/{alias-name}
+PUT /_alias/{alias-name}
+POST /{target}/_aliases/{alias-name}
+PUT /{target}/_aliases/{alias-name}
+POST /_aliases/{alias-name}
+PUT /_aliases/{alias-name}
+PUT /{target}/_alias
+PUT /{target}/_aliases
 PUT /_alias
 ```
 

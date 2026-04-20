@@ -13,8 +13,8 @@ The `drop_events` processor drops all the events that are passed into it. The fo
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-drop_when | Yes | String | Accepts an OpenSearch Data Prepper expression string following the [expression syntax]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/). Configuring `drop_events` with `drop_when: true` drops all the events received.
-handle_failed_events | No | Enum | Specifies how exceptions are handled when an exception occurs while evaluating an event. Default is `drop`, which drops the event so that it is not sent to any sinks or further processors. Valid values are: <br> - `drop`: The event will be dropped and a warning will be logged.<br> - `drop_silently`: The event will be dropped without warning. <br> - `skip`: The event will not be dropped and a warning will be logged. <br> - `skip_silently`: The event will not be dropped and no warning will be logged.<br>For more information, see [handle_failed_events](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/drop-events-processor#handle_failed_events).
+`drop_when` | Yes | String | Accepts an OpenSearch Data Prepper expression string following the [expression syntax]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/). Configuring `drop_events` with `drop_when: true` drops all the events received.
+`handle_failed_events` | No | Enum | Specifies how exceptions are handled when an exception occurs while evaluating an event. Default is `drop`, which drops the event so that it is not sent to any sinks or further processors. Valid values are: <br> - `drop`: The event will be dropped and a warning will be logged.<br> - `drop_silently`: The event will be dropped without warning. <br> - `skip`: The event will not be dropped and a warning will be logged. <br> - `skip_silently`: The event will not be dropped and no warning will be logged.<br>For more information, see [handle_failed_events](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/drop-events-processor#handle_failed_events).
 
 ## Examples
 

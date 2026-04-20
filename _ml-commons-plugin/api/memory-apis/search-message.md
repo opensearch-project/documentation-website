@@ -19,8 +19,8 @@ When the Security plugin is enabled, all memories exist in a `private` security 
 ## Endpoints
 
 ```json
-POST /_plugins/_ml/memory/<memory_id>/_search
-GET /_plugins/_ml/memory/<memory_id>/_search
+POST /_plugins/_ml/memory/{memory_id}/_search
+GET /_plugins/_ml/memory/{memory_id}/_search
 ```
 
 ### Path parameters

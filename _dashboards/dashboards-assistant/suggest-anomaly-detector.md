@@ -64,7 +64,7 @@ This example demonstrates a system index. In security-enabled domains, only supe
 You can verify that the agent was created successfully by calling the agent with an example payload:
 
 ```json
-POST /_plugins/_ml/agents/<SUGGEST_ANOMALY_DETECTOR_AGENT_ID>/_execute
+POST /_plugins/_ml/agents/{SUGGEST_ANOMALY_DETECTOR_AGENT_ID}/_execute
 {
   "parameters": {
     "index":"sample_weblogs_test"

@@ -65,7 +65,7 @@ Use the following API to retrieve the result of a specific experiment.
 
 ```json
 GET _plugins/_search_relevance/experiments
-GET _plugins/_search_relevance/experiments/<experiment_id>
+GET _plugins/_search_relevance/experiments/{experiment_id}
 ```
 
 #### Path parameters

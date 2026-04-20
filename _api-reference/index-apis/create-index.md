@@ -21,7 +21,7 @@ When creating an index, you can specify its mappings, settings, and aliases.
 ## Endpoints
 
 ```json
-PUT <index>
+PUT {index}
 ```
 
 ## Index naming restrictions
@@ -38,7 +38,7 @@ OpenSearch indexes have the following naming restrictions:
 
 Parameter | Data type | Description
 :--- | :--- | :---
-index | String | The index name. Must conform to the [index naming restrictions](#index-naming-restrictions). Required. 
+`index` | String | The index name. Must conform to the [index naming restrictions](#index-naming-restrictions). Required. 
 
 ## Query parameters
 
@@ -46,9 +46,9 @@ You can include the following query parameters in your request. All parameters a
 
 Parameter | Type | Description
 :--- | :--- | :---
-wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
-cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-timeout | Time | How long to wait for the request to return. Default is `30s`.
+`wait_for_active_shards` | String | Specifies the number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
+`cluster_manager_timeout` | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
+`timeout` | Time | How long to wait for the request to return. Default is `30s`.
 
 ## Request body
 

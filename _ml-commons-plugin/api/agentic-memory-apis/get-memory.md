@@ -16,7 +16,7 @@ Use this API to retrieve a specific memory by its type and ID. This unified API 
 ## Endpoints
 
 ```json
-GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id>
+GET /_plugins/_ml/memory_containers/{memory_container_id}/memories/{type}/{id}
 ```
 
 ## Path parameters

@@ -28,7 +28,7 @@ You can retrieve message information by using the `message_id`.
 ### Endpoints
 
 ```json
-GET /_plugins/_ml/memory/message/<message_id>
+GET /_plugins/_ml/memory/message/{message_id}
 ```
 
 ### Path parameters
@@ -73,7 +73,7 @@ Use this command to get a list of messages for a certain memory.
 ### Endpoints
 
 ```json
-GET /_plugins/_ml/memory/<memory_id>/messages
+GET /_plugins/_ml/memory/{memory_id}/messages
 ```
 
 ### Path parameters

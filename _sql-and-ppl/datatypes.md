@@ -13,23 +13,23 @@ The following table shows the data types supported by the SQL plugin and how eac
 
 | OpenSearch SQL Type | OpenSearch Type | SQL Type
 :--- | :--- | :---
-boolean |	boolean |	BOOLEAN
-byte |	byte |	TINYINT
-short |	byte |	SMALLINT
-integer |	integer |	INTEGER
-long | long |	BIGINT
-float |	float |	REAL
-half_float | float | FLOAT
-scaled_float | float | DOUBLE
-double | double | DOUBLE
-keyword |	string | VARCHAR
-text | text | VARCHAR
-date | timestamp | TIMESTAMP
-date_nanos | timestamp | TIMESTAMP
-ip | ip | VARCHAR
-binary | binary | VARBINARY
-object | struct | STRUCT
-nested | array | STRUCT
+`boolean` |	boolean |	BOOLEAN
+`byte` |	byte |	TINYINT
+`short` |	byte |	SMALLINT
+`integer` |	integer |	INTEGER
+`long` | long |	BIGINT
+`float` |	float |	REAL
+`half_float` | float | FLOAT
+`scaled_float` | float | DOUBLE
+`double` | double | DOUBLE
+`keyword` |	string | VARCHAR
+`text` | text | VARCHAR
+`date` | timestamp | TIMESTAMP
+`date_nanos` | timestamp | TIMESTAMP
+`ip` | ip | VARCHAR
+`binary` | binary | VARBINARY
+`object` | struct | STRUCT
+`nested` | array | STRUCT
 
 In addition to this list, the SQL plugin also supports the `datetime` type, though it doesn't have a corresponding mapping with OpenSearch or SQL.
 To use a function without a corresponding mapping, you must explicitly convert the data type to one that does.
@@ -48,7 +48,7 @@ The `date` type represents the calendar date regardless of the time zone. A give
 
 | Type | Syntax | Range
 :--- | :--- | :---
-date | `yyyy-MM-dd` | `0001-01-01` to `9999-12-31`
+`date` | `yyyy-MM-dd` | `0001-01-01` to `9999-12-31`
 
 ### Time
 
@@ -56,7 +56,7 @@ The `time` type represents the time of a clock regardless of its timezone. The `
 
 | Type | Syntax | Range
 :--- | :--- | :---
-time | `hh:mm:ss[.fraction]` | `00:00:00.0000000000` to `23:59:59.9999999999`
+`time` | `hh:mm:ss[.fraction]` | `00:00:00.0000000000` to `23:59:59.9999999999`
 
 ### Datetime
 
@@ -64,7 +64,7 @@ The `datetime` type is a combination of date and time. It doesn't contain timezo
 
 | Type | Syntax | Range
 :--- | :--- | :---
-datetime | `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:00.0000000000` to `9999-12-31 23:59:59.9999999999`
+`datetime` | `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:00.0000000000` to `9999-12-31 23:59:59.9999999999`
 
 ### Timestamp
 
@@ -74,7 +74,7 @@ The `timestamp` type is stored differently from the other types. It's converted 
 
 | Type | Syntax | Range
 :--- | :--- | :---
-timestamp | `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:01.9999999999` UTC to `9999-12-31 23:59:59.9999999999`
+`timestamp` | `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:01.9999999999` UTC to `9999-12-31 23:59:59.9999999999`
 
 ### Interval
 
@@ -82,7 +82,7 @@ The `interval` type represents a temporal duration or a period.
 
 | Type | Syntax
 :--- | :---
-interval | `INTERVAL expr unit`
+`interval` | `INTERVAL expr unit`
 
 The `expr` unit is any expression that eventually iterates to a quantity value. It represents a unit for interpreting the quantity, including `MICROSECOND`, `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, and `YEAR`. The `INTERVAL` keyword and the unit specifier are not case sensitive.
 

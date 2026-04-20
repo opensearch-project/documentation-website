@@ -43,8 +43,8 @@ Refresh operations are resource intensive and can impact cluster performance. To
 ```json
 POST /_refresh
 GET /_refresh
-POST /<index>/_refresh
-GET /<index>/_refresh
+POST /{index}/_refresh
+GET /{index}/_refresh
 ```
 
 ## Path parameters

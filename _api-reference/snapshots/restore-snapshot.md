@@ -23,7 +23,7 @@ If open indexes with the same name that you want to restore already exist in the
 ## Endpoints
 
 ```json
-POST _snapshot/<repository>/<snapshot>/_restore
+POST _snapshot/{repository}/{snapshot}/_restore
 ```
 
 ## Path parameters
@@ -59,7 +59,7 @@ All request body parameters are optional.
 | `source_remote_store_repository` | String | The name of the remote segment repository of the source index being restored. Required only when both source and target clusters use remote-backed storage and have different remote store repositories. The specified repository must be registered as read-only on the target cluster before restoring. If not provided, the Snapshot Restore API will use the repositories that were registered when the snapshot was created.
 | `source_remote_translog_repository` | String | The name of the remote translog repository of the source index being restored. Required only when both source and target clusters use remote-backed storage and have different remote store repositories. The specified repository must be registered as read-only on the target cluster before restoring.
 | `wait_for_completion` | Boolean | Whether to return a response after the restore operation has completed. If `false`, the request returns a response when the restore operation initializes. If `true`, the request returns a response when the restore operation completes. Default is `false`. |
-storage_type | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
+`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
 
 <sup>1</sup>The cluster state includes:
 * Persistent cluster settings

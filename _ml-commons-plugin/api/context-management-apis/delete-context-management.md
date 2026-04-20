@@ -19,7 +19,7 @@ Deleting a context management configuration does not affect the agents currently
 ## Endpoints
 
 ```json
-DELETE /_plugins/_ml/context_management/<context_management_name>
+DELETE /_plugins/_ml/context_management/{context_management_name}
 ```
 
 ## Path parameters

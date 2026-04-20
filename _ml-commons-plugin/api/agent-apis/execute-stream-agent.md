@@ -27,7 +27,7 @@ This API currently supports the following agent types:
 ## Endpoint
 
 ```json
-POST /_plugins/_ml/agents/<agent_id>/_execute/stream
+POST /_plugins/_ml/agents/{agent_id}/_execute/stream
 ```
 
 ## Prerequisites
@@ -236,7 +236,7 @@ POST /_plugins/_ml/agents/_register
 ## Example request: Conversational agent
 
 ```json
-POST /_plugins/_ml/agents/<agent_id>/_execute/stream
+POST /_plugins/_ml/agents/{agent_id}/_execute/stream
 {
     "parameters": {
         "question": "How many indices are in my cluster?"
@@ -286,7 +286,7 @@ data: {"inference_results":[{"output":[{"name":"memory_id","result":"LvU1iJkBCzH
 To receive detailed token usage metrics in the streaming response, set `include_token_usage` to `true`:
 
 ```json
-POST /_plugins/_ml/agents/<agent_id>/_execute/stream
+POST /_plugins/_ml/agents/{agent_id}/_execute/stream
 {
     "parameters": {
         "question": "How many indices are in my cluster?",
@@ -318,7 +318,7 @@ This is an experimental feature and is not recommended for use in a production e
 AG-UI agents use the AG-UI protocol format for frontend integration:
 
 ```json
-POST /_plugins/_ml/agents/<agent_id>/_execute/stream
+POST /_plugins/_ml/agents/{agent_id}/_execute/stream
 {
     "threadId": "thread-xxxxx",
     "runId": "run-xxxxx",

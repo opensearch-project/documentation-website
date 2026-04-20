@@ -28,7 +28,7 @@ For information about user access for this API, see [Model access control consid
 ## Endpoints
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_deploy
+POST /_plugins/_ml/models/{model_id}/_deploy
 ```
 
 ## Example request: Deploying to all available ML nodes

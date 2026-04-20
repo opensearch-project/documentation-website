@@ -16,7 +16,7 @@ Use this API to update a specific memory by its type and ID. This unified API su
 ## Endpoints
 
 ```json
-PUT /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id>
+PUT /_plugins/_ml/memory_containers/{memory_container_id}/memories/{type}/{id}
 ```
 
 ## Path parameters

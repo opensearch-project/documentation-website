@@ -14,7 +14,7 @@ Deletes a standalone connector. For more information, see [Connectors]({{site.ur
 ## Endpoints
 
 ```json
-DELETE /_plugins/_ml/connectors/<connector_id>
+DELETE /_plugins/_ml/connectors/{connector_id}
 ```
 
 ## Example request

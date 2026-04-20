@@ -19,7 +19,7 @@ Starting with OpenSearch 3.5, agents created using the [unified registration met
 ## Endpoints
 
 ```json
-POST /_plugins/_ml/agents/<agent_id>/_execute
+POST /_plugins/_ml/agents/{agent_id}/_execute
 ```
 
 ## Query parameters
@@ -117,7 +117,7 @@ For agents created using the [unified registration method]({{site.url}}{{site.ba
 All unified agents support plain text input. For simple text prompts, pass a string directly to the `input` field:
 
 ```json
-POST /_plugins/_ml/agents/<agent_id>/_execute
+POST /_plugins/_ml/agents/{agent_id}/_execute
 {
   "input": "What tools do you have access to?"
 }
@@ -148,7 +148,7 @@ When using the [unified registration method]({{site.url}}{{site.baseurl}}/ml-com
 For multimodal inputs (text, images, documents), use an array of content blocks:
 
 ```json
-POST /_plugins/_ml/agents/<agent_id>/_execute
+POST /_plugins/_ml/agents/{agent_id}/_execute
 {
   "input": [
     {
@@ -184,7 +184,7 @@ The following table lists the supported content types.
 For multi-turn conversations, provide an array of messages with roles:
 
 ```json
-POST /_plugins/_ml/agents/<agent_id>/_execute
+POST /_plugins/_ml/agents/{agent_id}/_execute
 {
   "input": [
     {
@@ -346,7 +346,7 @@ POST /_plugins/_ml/agents/879v9YwBjWKCe6Kg12Tx/_execute
 For agents created using unified registration, pass both the `input` field and the `parameters` object with `include_token_usage` set to `true`:
 
 ```json
-POST /_plugins/_ml/agents/<agent_id>/_execute
+POST /_plugins/_ml/agents/{agent_id}/_execute
 {
   "input": "What tools do you have access to?",
   "parameters": {

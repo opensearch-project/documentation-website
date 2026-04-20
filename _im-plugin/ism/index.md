@@ -80,7 +80,7 @@ For an example ISM template policy, see [Sample policy with ISM template for aut
 Older versions of the plugin include the `policy_id` in an index template, so when an index is created that matches the index template pattern, the index will have the policy attached to it:
 
 ```json
-PUT _index_template/<template_name>
+PUT _index_template/{template_name}
 {
   "index_patterns": [
     "index_name-*"

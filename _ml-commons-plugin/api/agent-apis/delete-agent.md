@@ -16,7 +16,7 @@ You can use this API to delete an agent based on the `agent_id`.
 ## Endpoints
 
 ```json
-DELETE /_plugins/_ml/agents/<agent_id>
+DELETE /_plugins/_ml/agents/{agent_id}
 ```
 
 ## Example request

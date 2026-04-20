@@ -19,7 +19,7 @@ Once an agentic memory is created, provide its `memory_id` to other APIs.
 ## Endpoints
 
 ```json
-POST /_plugins/_ml/memory_containers/<memory_container_id>/memories
+POST /_plugins/_ml/memory_containers/{memory_container_id}/memories
 ```
 
 ## Path parameters

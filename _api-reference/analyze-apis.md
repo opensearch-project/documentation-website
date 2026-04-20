@@ -39,7 +39,7 @@ You can include the following optional path parameter in your request.
 
 Parameter | Data type | Description
 :--- | :--- | :---
-index | String | Index that is used to derive the analyzer.
+`index` | String | Index that is used to derive the analyzer.
 
 ## Request body fields
 
@@ -1026,27 +1026,27 @@ The text analysis endpoints return the following response fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-tokens | Array | Array of tokens derived from the `text`. See [token object](#token-object).
-detail | Object | Details about the analysis and each token. Included only when you request token details. See [detail object](#detail-object).
+`tokens` | Array | Array of tokens derived from the `text`. See [token object](#token-object).
+`detail` | Object | Details about the analysis and each token. Included only when you request token details. See [detail object](#detail-object).
 
 #### Token object
 
 Field | Data type | Description
 :--- | :--- | :---
-token  | String | The token's text.
-start_offset | Integer | The token's starting position within the original text string. Offsets are zero-based.
-end_offset | Integer | The token's ending position within the original text string.
+`token`  | String | The token's text.
+`start_offset` | Integer | The token's starting position within the original text string. Offsets are zero-based.
+`end_offset` | Integer | The token's ending position within the original text string.
 type | String | Classification of the token: `<ALPHANUM>`, `<NUM>`, and so on. The tokenizer usually sets the type, but some filters define their own types. For example, the synonym filter defines the `<SYNONYM>` type.
-position |  Integer | The token's position within the `tokens` array.
+`position` |  Integer | The token's position within the `tokens` array.
 
 #### Detail object
 
 Field | Data type | Description
 :--- | :--- | :---
-custom_analyzer | Boolean | Whether the analyzer applied to the text is custom or built in.
-charfilters | Array | List of character filters applied to the text.
-tokenizer | Object | Name of the tokenizer applied to the text and a list of tokens<sup>*</sup> with content before the token filters were applied.
-tokenfilters | Array | List of token filters applied to the text. Each token filter includes the filter's name and a list of tokens<sup>*</sup> with content after the filters were applied. Token filters are listed in the order they are specified in the request. 
+`custom_analyzer` | Boolean | Whether the analyzer applied to the text is custom or built in.
+`charfilters` | Array | List of character filters applied to the text.
+`tokenizer` | Object | Name of the tokenizer applied to the text and a list of tokens<sup>*</sup> with content before the token filters were applied.
+`tokenfilters` | Array | List of token filters applied to the text. Each token filter includes the filter's name and a list of tokens<sup>*</sup> with content after the filters were applied. Token filters are listed in the order they are specified in the request. 
 
 See [token object](#token-object) for token field descriptions.
 {: .note}

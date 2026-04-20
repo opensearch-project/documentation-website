@@ -16,8 +16,8 @@ You can use the Create or Update Index Template API to create indexes with prede
 ## Endpoints
 
 ```json
-PUT _index_template/<template-name>
-POST _index_template/<template-name>
+PUT _index_template/{template-name}
+POST _index_template/{template-name}
 ```
 
 ## Path parameters

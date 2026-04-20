@@ -19,22 +19,22 @@ Creates a snapshot within an existing repository.
 ## Endpoints
 
 ```json
-PUT /_snapshot/<repository>/<snapshot>
-POST /_snapshot/<repository>/<snapshot>
+PUT /_snapshot/{repository}/{snapshot}
+POST /_snapshot/{repository}/{snapshot}
 ```
 
 ## Path parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
-repository | String | Repository name to store the snapshot. |
-snapshot | String | Name of Snapshot to create. |
+`repository` | String | Repository name to store the snapshot. |
+`snapshot` | String | Name of Snapshot to create. |
 
 ## Query parameters
 
 Parameter | Data type | Description
 :--- | :--- | :---
-wait_for_completion | Boolean |  Whether to wait for snapshot creation to complete before continuing. If you include this parameter, the snapshot definition is returned after completion. |
+`wait_for_completion` | Boolean |  Whether to wait for snapshot creation to complete before continuing. If you include this parameter, the snapshot definition is returned after completion. |
 
 ## Request body fields
 

@@ -16,8 +16,8 @@ Shard allocation filtering lets you constrain where shards for an index are plac
 ## Endpoints
 
 ```json
-PUT /<index>/_settings
-GET /<index>/_settings
+PUT /{index}/_settings
+GET /{index}/_settings
 ```
 
 ## Path parameters
@@ -26,7 +26,7 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`<index>` | String | One or more comma-separated indexes from which to update or read settings. Use `_all` or `*` to target all indexes. |
+`index` | String | One or more comma-separated indexes from which to update or read settings. Use `_all` or `*` to target all indexes. |
 
 ## Built-in and custom attributes
 

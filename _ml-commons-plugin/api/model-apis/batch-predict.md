@@ -24,7 +24,7 @@ For instructions on how set up batch inference and connector blueprints, see the
 ## Endpoints
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_batch_predict
+POST /_plugins/_ml/models/{model_id}/_batch_predict
 ```
 
 ## Prerequisites

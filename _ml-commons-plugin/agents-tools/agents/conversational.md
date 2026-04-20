@@ -106,7 +106,7 @@ The `conversational_v2` agents use the `input` field and support the following i
 - **Plain text input**:
 
     ```json
-    POST /_plugins/_ml/agents/<agent_id>/_execute
+    POST /_plugins/_ml/agents/{agent_id}/_execute
     {
       "input": "What indexes are in my cluster?"
     }
@@ -116,7 +116,7 @@ The `conversational_v2` agents use the `input` field and support the following i
 - **Multimodal content block input**:
 
     ```json
-    POST /_plugins/_ml/agents/<agent_id>/_execute
+    POST /_plugins/_ml/agents/{agent_id}/_execute
     {
       "input": [
         {
@@ -139,7 +139,7 @@ The `conversational_v2` agents use the `input` field and support the following i
 - **Message input** (multi-turn conversation history):
 
     ```json
-    POST /_plugins/_ml/agents/<agent_id>/_execute
+    POST /_plugins/_ml/agents/{agent_id}/_execute
     {
       "input": [
         {

@@ -16,8 +16,8 @@ Deletes an existing alias.
 ## Endpoints
 
 ```json
-DELETE /<index>/_alias/<alias>
-DELETE /<index>/_aliases/<alias>
+DELETE /{index}/_alias/{alias}
+DELETE /{index}/_aliases/{alias}
 ```
 
 ## Path parameters

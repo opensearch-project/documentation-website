@@ -23,7 +23,7 @@ For information about user access for this API, see [Model access control consid
 ## Endpoints
 
 ```json
-PUT /_plugins/_ml/connectors/<connector_id>
+PUT /_plugins/_ml/connectors/{connector_id}
 ```
 
 ## Request body fields

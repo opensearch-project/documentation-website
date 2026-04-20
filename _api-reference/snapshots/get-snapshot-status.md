@@ -20,7 +20,7 @@ If you use the Security plugin, you must have the `monitor_snapshot`, `create_sn
 ## Endpoints
 
 ```json
-GET _snapshot/<repository>/<snapshot>/_status
+GET _snapshot/{repository}/{snapshot}/_status
 ```
 
 ## Path parameters

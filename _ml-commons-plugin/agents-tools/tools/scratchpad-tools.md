@@ -145,7 +145,7 @@ POST /_plugins/_ml/agents/_register
 Execute the agent with a research question:
 
 ```json
-POST /_plugins/_ml/agents/<your-agent-id>/_execute?async=true
+POST /_plugins/_ml/agents/{your-agent-id}/_execute?async=true
 {
     "parameters": {
         "question": "How many residents are in New York?"
@@ -327,7 +327,7 @@ The response contains the full scratchpad content:
 You can monitor how the agent uses the scratchpad by examining the execution traces:
 
 ```json
-GET /_plugins/_ml/memory/message/<parent_interaction_id>/traces?next_token=0
+GET /_plugins/_ml/memory/message/{parent_interaction_id}/traces?next_token=0
 ```
 {% include copy-curl.html %}
 

@@ -27,7 +27,7 @@ For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml
 ## Example request
 
 ```json
-DELETE _plugins/_ml/model_groups/<model_group_id>
+DELETE _plugins/_ml/model_groups/{model_group_id}
 ```
 {% include copy-curl.html %}
 

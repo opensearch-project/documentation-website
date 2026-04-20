@@ -17,7 +17,7 @@ This API is different from the [general Tasks API]({{site.url}}{{site.baseurl}}/
 ## Endpoints
 
 ```json
-GET /_plugins/_ml/tasks/<task_id>
+GET /_plugins/_ml/tasks/{task_id}
 ```
 
 ## Example request

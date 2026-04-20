@@ -20,8 +20,8 @@ You can provide the `explain` parameter to understand how scores are calculated,
 You can provide the `explain` parameter in a URL when running a complete hybrid query using the following syntax:
 
 ```json
-GET <index>/_search?search_pipeline=<search_pipeline>&explain=true
-POST <index>/_search?search_pipeline=<search_pipeline>&explain=true
+GET {index}/_search?search_pipeline={search_pipeline}&explain=true
+POST {index}/_search?search_pipeline={search_pipeline}&explain=true
 ```
 
 To use the `explain` parameter, you must configure the `hybrid_score_explanation` response processor in your search pipeline. For more information, see [Hybrid score explanation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/explanation-processor/). 
@@ -31,8 +31,8 @@ To use the `explain` parameter, you must configure the `hybrid_score_explanation
 You can use the [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/) with a hybrid query to get scoring details for a single document:
 
 ```json
-GET <index>/_explain/<id>
-POST <index>/_explain/<id>
+GET {index}/_explain/{id}
+POST {index}/_explain/{id}
 ```
 
 In this case, the result contains only raw Lucene-level scoring information, for example, [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) scores for text-based subqueries such as `term` or `match`. For an example response, see [Explain API example response]({{site.url}}{{site.baseurl}}/api-reference/explain/#example-response).
@@ -45,7 +45,7 @@ The Explain API has the following limitations when used with hybrid queries:
 To get a full hybrid query explanation with normalization and combination details for a specific document, use the Search API with `explain=true` and filter the query for the desired document ID:
 
 ```json
-GET <index>/_search?search_pipeline=<search_pipeline>&explain=true
+GET {index}/_search?search_pipeline={search_pipeline}&explain=true
 {
   "query": {
     "hybrid": {

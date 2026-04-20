@@ -252,7 +252,7 @@ With numeric detection enabled:
 To get all mappings for one or more indexes, use the following request:
 
 ```json
-GET <index>/_mapping
+GET {index}/_mapping
 ```
 {% include copy-curl.html %}
 
@@ -268,8 +268,8 @@ GET _mapping
 To get a mapping for a specific field, provide the index name and the field name:
 
 ```json
-GET _mapping/field/<fields>
-GET /<index>/_mapping/field/<fields>
+GET _mapping/field/{fields}
+GET /{index}/_mapping/field/{fields}
 ```
 {% include copy-curl.html %}
 

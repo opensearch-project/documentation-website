@@ -22,13 +22,13 @@ Sends an SQL/PPL query to the SQL plugin. You can pass the format for the respon
 Parameter | Data type | Description
 :--- | :--- | :---
 [format]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) | String | The format for the response. The `_sql` endpoint supports `jdbc`, `csv`, `raw`, and `json` formats. The `_ppl` endpoint supports `jdbc`, `csv`, and `raw` formats. Default is `jdbc`.
-sanitize | Boolean | Specifies whether to escape special characters in the results. See [Response formats]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) for more information. Default is `true`.
+`sanitize` | Boolean | Specifies whether to escape special characters in the results. See [Response formats]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) for more information. Default is `true`.
 
 ### Request body fields
 
 Field | Data type | Description  
 :--- | :--- | :---
-query | String | The query to be executed. Required.
+`query` | String | The query to be executed. Required.
 [filter](#filtering-results) | JSON object | The filter for the results. Optional.
 [fetch_size](#paginating-results) | integer | The number of results to return in one response. Used for paginating results. Default is 1,000. Optional. `fetch_size` is supported for SQL and requires using the `jdbc` response format.
 
@@ -158,11 +158,11 @@ The response contains the schema and the results:
 
 Field | Data type | Description  
 :--- | :--- | :---
-schema | Array | Specifies the field names and types for all fields. 
-data_rows | 2D array | An array of results. Each result represents one matching row (document).
-total | Integer | The total number of rows (documents) in the index.
-size | Integer | The number of results to return in one response.
-status | String | The HTTP response status OpenSearch returns after running the query.
+`schema` | Array | Specifies the field names and types for all fields. 
+`data_rows` | 2D array | An array of results. Each result represents one matching row (document).
+`total` | Integer | The total number of rows (documents) in the index.
+`size` | Integer | The number of results to return in one response.
+`status` | String | The HTTP response status OpenSearch returns after running the query.
 
 ## Explain API
 

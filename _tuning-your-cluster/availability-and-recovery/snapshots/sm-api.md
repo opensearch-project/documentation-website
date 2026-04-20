@@ -34,13 +34,13 @@ Creates or updates an SM policy.
 Create:
 
 ```json
-POST _plugins/_sm/policies/<policy_name> 
+POST _plugins/_sm/policies/{policy_name} 
 ```
 
 Update:
 
 ```json
-PUT _plugins/_sm/policies/<policy_name>?if_seq_no=0&if_primary_term=1
+PUT _plugins/_sm/policies/{policy_name}?if_seq_no=0&if_primary_term=1
 ```
 
 You must provide the `seq_no` and `primary_term` parameters for an update request.
@@ -233,7 +233,7 @@ GET _plugins/_sm/policies?from=0&size=20&sortField=sm_policy.name&sortOrder=desc
 Get a specific SM policy:
 
 ```
-GET _plugins/_sm/policies/<policy_name>
+GET _plugins/_sm/policies/{policy_name}
 ```
 
 ### Example
@@ -317,7 +317,7 @@ The creation workflow starts in the CREATION_START state and continuously checks
 #### Request
 
 ```json
-GET _plugins/_sm/policies/<policy_names>/_explain
+GET _plugins/_sm/policies/{policy_names}/_explain
 ```
 
 ### Example
@@ -387,7 +387,7 @@ Starts the policy by setting its `enabled` flag to `true`.
 #### Request
 
 ```json
-POST  _plugins/_sm/policies/<policy_name>/_start
+POST  _plugins/_sm/policies/{policy_name}/_start
 ```
 
 ### Example
@@ -413,7 +413,7 @@ Sets the `enabled` flag to `false` for an SM policy. The policy will not run unt
 #### Request
 
 ```json
-POST  _plugins/_sm/policies/<policy_name>/_stop
+POST  _plugins/_sm/policies/{policy_name}/_stop
 ```
 
 ### Example
@@ -439,7 +439,7 @@ Deletes the specified SM policy.
 #### Request
 
 ```json
-DELETE  _plugins/_sm/policies/<policy_name>
+DELETE  _plugins/_sm/policies/{policy_name}
 ```
 
 ### Example

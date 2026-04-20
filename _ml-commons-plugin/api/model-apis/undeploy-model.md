@@ -16,7 +16,7 @@ For information about user access for this API, see [Model access control consid
 ### Endpoints
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_undeploy
+POST /_plugins/_ml/models/{model_id}/_undeploy
 ```
 
 ## Example request: Undeploying a model from all ML nodes

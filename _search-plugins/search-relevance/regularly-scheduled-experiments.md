@@ -80,7 +80,7 @@ This API retrieves the available scheduled experiments.
 
 ```json
 GET _plugins/_search_relevance/experiments/schedule
-GET _plugins/_search_relevance/experiments/schedule/<experiment_id>
+GET _plugins/_search_relevance/experiments/schedule/{experiment_id}
 ```
 
 #### Path parameters
